@@ -1,1 +1,28 @@
+name: Deploy to Listenly.fr
 
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'pages/**.html'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy HTML to O2Switch via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/
+          server-dir: /listenly.fr/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
