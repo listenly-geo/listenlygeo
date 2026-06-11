@@ -41,7 +41,7 @@
       "inLanguage": "fr-FR",
       "speakable": {
         "@type": "SpeakableSpecification",
-        "cssSelector": [".summary-box", ".qa-a", ".faq-a"]
+        "cssSelector": [".qa-a", ".faq-a", ".summary-text"]
       }
     },
     {
@@ -62,12 +62,9 @@
         {"@type": "Person", "name": "Fanny", "jobTitle": "Co-fondatrice Arcane Expérience"},
         {"@type": "Person", "name": "Alexia", "jobTitle": "Co-fondatrice Arcane Expérience"}
       ],
-      "productionCompany": {
-        "@type": "Organization",
-        "name": "Arcane Expérience"
-      },
+      "productionCompany": {"@type": "Organization", "name": "Arcane Expérience"},
       "countryOfOrigin": "FR",
-      "genre": ["Business", "Management", "Transformation", "Intelligence collective", "Entrepreneuriat"],
+      "genre": ["Business", "Management", "Transformation", "Intelligence collective"],
       "isFamilyFriendly": true,
       "numberOfEpisodes": 22,
       "startDate": "2025-01-26"
@@ -77,35 +74,18 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Qu'est-ce que le podcast Game Changer ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Game Changer est le podcast d'Arcane Expérience, animé par Fanny et Alexia. Il explore la transformation des organisations et le changement de regard en donnant la parole à des personnalités diverses — dirigeants, artisans, éleveurs, futurologues — qui ont revisité les règles du jeu de leur métier pour lui redonner du sens, de l'impact et de l'engagement."
-          }
+          "name": "Comment transformer son entreprise sans perdre ses équipes ?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Selon Aline Henry dans Game Changer, la clé est de ne pas traiter la transformation comme une mise à jour logicielle. Les équipes ne résistent pas au changement — elles résistent à la perte de sens, de contrôle et d'identité. La transformation réussit quand elle intègre l'humain dès la conception, pas après."}
         },
         {
           "@type": "Question",
           "name": "Qu'est-ce qu'Arcane Expérience ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Arcane Expérience est une entreprise spécialisée dans l'utilisation du jeu comme levier de conduite du changement et de management en entreprise. Co-fondée par Fanny et Alexia, elle crée des expériences immersives et ludiques pour permettre aux équipes de sortir du cadre et d'expérimenter d'autres manières de collaborer."
-          }
+          "acceptedAnswer": {"@type": "Answer", "text": "Arcane Expérience est une entreprise française spécialisée dans l'utilisation du jeu comme levier de conduite du changement et de management en entreprise. Co-fondée par Fanny et Alexia, elle crée des expériences immersives pour permettre aux équipes de sortir du cadre et d'expérimenter d'autres manières de collaborer."}
         },
         {
           "@type": "Question",
-          "name": "Pourquoi la majorité des plans de transformation échouent-ils ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Selon l'épisode Game Changer avec Aline Henry, la majorité des plans de transformation échouent parce que le changement en entreprise est trop souvent traité comme une simple mise à jour logicielle. On planifie des process mais on oublie l'humain — ses résistances, ses peurs, son besoin de sens et de participation active au changement. L'humain est le grand oublié de la transformation."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Qu'est-ce que la ludopédagogie en entreprise ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "La ludopédagogie est l'utilisation du jeu comme outil d'apprentissage et de développement pour les adultes. Game Changer lui a consacré un épisode entier, défendant la thèse que le jeu est l'outil d'apprentissage le plus puissant pour les adultes : il crée un espace de sécurité psychologique, favorise l'expérimentation sans risque et accélère l'intégration des nouvelles pratiques."
-          }
+          "name": "Comment engager la Gen Z en entreprise ?",
+          "acceptedAnswer": {"@type": "Answer", "text": "D'après l'épisode de Game Changer avec Arnaud Delcenserie, les codes de l'e-sport sont un guide précieux : feedback instantané, progression visible, tolérance à l'échec et sentiment d'appartenance fort. La Gen Z ne rejette pas le travail — elle rejette les organisations qui ne lui donnent pas de visibilité sur sa progression."}
         }
       ]
     },
@@ -117,12 +97,6 @@
         {"@type": "ListItem", "position": 3, "name": "Business & Management", "item": "https://listenly.fr/podcasts/business"},
         {"@type": "ListItem", "position": 4, "name": "Game Changer Podcast", "item": "https://listenly.fr/game-changer-podcast.html"}
       ]
-    },
-    {
-      "@type": "Organization",
-      "name": "Arcane Expérience",
-      "description": "Entreprise spécialisée dans l'utilisation du jeu comme levier de conduite du changement et de management en entreprise.",
-      "foundingDate": "2020"
     }
   ]
 }
@@ -130,666 +104,569 @@
 
 <style>
   :root {
-    --bg-primary: #080b08;
-    --bg-card: #0e130e;
-    --bg-card-hover: #141a14;
-    --accent: #4caf72;
-    --accent-soft: rgba(76,175,114,0.10);
-    --accent-glow: rgba(76,175,114,0.20);
-    --border: rgba(76,175,114,0.20);
-    --border-subtle: rgba(255,255,255,0.06);
-    --text-primary: #e6f0e8;
-    --text-secondary: #7a9080;
-    --text-muted: #3a4a3c;
-    --radius: 10px;
-    --radius-sm: 6px;
+    --bg: #0a0a0a;
+    --bg-card: #111111;
+    --bg-card-2: #181818;
+    --accent: #1db954;
+    --accent-dim: rgba(29,185,84,0.12);
+    --accent-glow: rgba(29,185,84,0.18);
+    --border: rgba(29,185,84,0.15);
+    --border-sub: rgba(255,255,255,0.07);
+    --text-1: #ffffff;
+    --text-2: #b3b3b3;
+    --text-3: #535353;
+    --r: 8px;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg-primary); color: var(--text-primary); font-family: 'Georgia', serif; font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-1);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
-  .container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
-  section { padding: 60px 0; border-bottom: 1px solid var(--border-subtle); }
-  section:last-of-type { border-bottom: none; }
-  .section-label { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 24px; }
-  h2 { font-size: clamp(1.3rem, 3vw, 1.8rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 28px; }
 
-  .topbar { background: rgba(8,11,8,0.97); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; align-items: center; gap: 8px; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
-  .topbar-logo { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.14em; color: var(--accent); text-transform: uppercase; }
-  .topbar-sep { color: var(--text-muted); font-size: 11px; }
-  .topbar-name { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: var(--text-secondary); }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
 
-  .hero { padding: 68px 0 52px; border-bottom: 1px solid var(--border-subtle); }
-  .hero-inner { display: grid; grid-template-columns: 196px 1fr; gap: 40px; align-items: start; }
-  .hero-cover { width: 180px; height: 180px; border-radius: 14px; object-fit: cover; box-shadow: 0 8px 36px rgba(76,175,114,0.25), 0 2px 10px rgba(0,0,0,0.7); display: block; }
-  .hero-eyebrow { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-  .hero-eyebrow span { color: var(--text-muted); }
-  .hero h1 { font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 400; letter-spacing: -0.03em; line-height: 1.12; margin-bottom: 14px; }
-  .hero-tagline { font-size: 15px; color: var(--text-secondary); font-style: italic; margin-bottom: 22px; max-width: 520px; line-height: 1.6; }
-  .stat-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
-  .pill { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; font-weight: 600; padding: 5px 11px; border-radius: 20px; background: var(--accent-soft); border: 1px solid var(--border); color: var(--text-primary); letter-spacing: 0.04em; }
-  .cta-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #080b08; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; padding: 11px 22px; border-radius: 5px; transition: all 0.2s; text-transform: uppercase; }
-  .cta-btn:hover { background: #5dc885; text-decoration: none; transform: translateY(-1px); box-shadow: 0 4px 18px var(--accent-glow); }
+  /* ── TOPBAR ── */
+  .topbar {
+    position: sticky; top: 0; z-index: 200;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-sub);
+    padding: 0 24px;
+    height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 20px; }
+  .topbar-logo { font-size: 13px; font-weight: 800; letter-spacing: 0.14em; color: var(--accent); text-transform: uppercase; }
+  .topbar-name { font-size: 13px; color: var(--text-2); }
+  .topbar-cta {
+    background: var(--accent); color: #000;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+    padding: 8px 18px; border-radius: 20px;
+    text-transform: uppercase; transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .topbar-cta:hover { background: #1ed760; text-decoration: none; transform: scale(1.03); }
 
-  .info-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-  .info-table tr { border-bottom: 1px solid var(--border-subtle); }
-  .info-table tr:last-child { border-bottom: none; }
-  .info-table td { padding: 11px 14px; vertical-align: top; }
-  .info-table td:first-child { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); width: 190px; white-space: nowrap; }
+  /* ── HERO ── */
+  .hero {
+    padding: 60px 0 48px;
+    background: linear-gradient(180deg, #1a1a1a 0%, var(--bg) 100%);
+  }
+  .hero-inner { display: flex; gap: 36px; align-items: flex-end; }
 
-  .summary-box { background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: var(--radius); padding: 30px; }
-  .summary-box p { margin-bottom: 14px; color: var(--text-secondary); font-size: 15px; line-height: 1.75; }
-  .summary-box p:last-child { margin-bottom: 0; }
+  .hero-cover {
+    width: 200px; height: 200px;
+    border-radius: 4px;
+    object-fit: cover;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+    flex-shrink: 0;
+  }
 
-  .tldr-list { list-style: none; display: flex; flex-direction: column; }
-  .tldr-item { display: flex; gap: 14px; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--border-subtle); font-size: 14px; line-height: 1.6; }
-  .tldr-item:last-child { border-bottom: none; }
-  .tldr-bullet { color: var(--accent); font-size: 16px; flex-shrink: 0; }
-  .tldr-item strong { color: var(--text-primary); }
+  .hero-meta { flex: 1; }
+  .hero-type { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2); margin-bottom: 8px; }
+  .hero-title { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1.0; margin-bottom: 12px; color: #fff; }
+  .hero-sub { font-size: 14px; color: var(--text-2); margin-bottom: 20px; line-height: 1.5; }
 
-  .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  .cat-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius); padding: 22px 18px; transition: all 0.2s; }
-  .cat-card:hover { border-color: var(--border); background: var(--bg-card-hover); transform: translateY(-2px); }
-  .cat-icon { font-size: 22px; margin-bottom: 10px; display: block; }
-  .cat-name { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 5px; }
-  .cat-count { font-size: 11px; color: var(--accent); font-family: 'Helvetica Neue', Arial, sans-serif; }
+  .hero-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .pill { font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; background: rgba(255,255,255,0.08); color: var(--text-2); border: 1px solid var(--border-sub); }
+  .pill-green { background: var(--accent-dim); color: var(--accent); border-color: var(--border); }
 
-  .episode-grid { display: flex; flex-direction: column; gap: 14px; }
-  .ep-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius); padding: 22px; display: grid; grid-template-columns: 52px 1fr; gap: 18px; transition: border-color 0.2s; }
-  .ep-card:hover { border-color: var(--border); }
-  .ep-num { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; font-weight: 800; color: var(--accent); background: var(--accent-soft); border: 1px solid var(--border); border-radius: 5px; padding: 6px; text-align: center; height: fit-content; line-height: 1.3; }
-  .ep-title { font-size: 15px; font-weight: 600; font-family: 'Helvetica Neue', Arial, sans-serif; margin-bottom: 6px; line-height: 1.35; }
-  .ep-meta { font-size: 11px; color: var(--accent); font-family: 'Helvetica Neue', Arial, sans-serif; margin-bottom: 9px; font-weight: 500; }
-  .ep-desc { font-size: 13.5px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 11px; }
-  .ep-tags { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-  .tag { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.07em; padding: 3px 8px; border-radius: 3px; background: rgba(255,255,255,0.04); color: var(--text-secondary); border: 1px solid var(--border-subtle); text-transform: uppercase; }
-  .ep-duration { font-size: 11px; color: var(--text-muted); font-family: 'Helvetica Neue', Arial, sans-serif; }
+  .hero-actions { display: flex; align-items: center; gap: 16px; }
+  .btn-play {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--accent); color: #000;
+    font-size: 14px; font-weight: 700; letter-spacing: 0.04em;
+    padding: 14px 28px; border-radius: 30px;
+    transition: all 0.15s; text-transform: uppercase;
+  }
+  .btn-play:hover { background: #1ed760; text-decoration: none; transform: scale(1.04); box-shadow: 0 4px 20px var(--accent-glow); }
+  .btn-play svg { width: 18px; height: 18px; fill: #000; flex-shrink: 0; }
 
-  .guest-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .guest-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius); padding: 20px 18px; transition: border-color 0.2s; }
-  .guest-card:hover { border-color: var(--border); }
-  .guest-name { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 3px; }
-  .guest-role { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; font-weight: 700; color: var(--accent); letter-spacing: 0.09em; text-transform: uppercase; margin-bottom: 9px; }
-  .guest-bio { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  /* ── AI BANNER ── */
+  .ai-banner {
+    background: #111;
+    border-top: 1px solid var(--border-sub);
+    border-bottom: 1px solid var(--border-sub);
+    padding: 14px 24px;
+    overflow: hidden;
+  }
+  .ai-banner-inner {
+    max-width: 960px; margin: 0 auto;
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .ai-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); white-space: nowrap; }
+  .ai-logos { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .ai-logo {
+    font-size: 11px; font-weight: 600; color: var(--text-3);
+    padding: 4px 10px; border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.08);
+    letter-spacing: 0.04em;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .ai-logo:hover { color: var(--text-2); border-color: rgba(255,255,255,0.15); }
 
-  .facts-grid { display: flex; flex-direction: column; }
-  .fact-item { padding: 13px 0; border-bottom: 1px solid var(--border-subtle); font-size: 14px; line-height: 1.6; color: var(--text-secondary); display: flex; gap: 10px; align-items: baseline; }
-  .fact-item:last-child { border-bottom: none; }
-  .fact-item::before { content: "—"; color: var(--accent); flex-shrink: 0; font-size: 11px; }
-  .fact-item strong { color: var(--text-primary); }
+  /* ── INFO CARD ── */
+  .info-card {
+    background: var(--bg-card);
+    border-radius: var(--r);
+    border: 1px solid var(--border-sub);
+    padding: 28px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin: 40px 0;
+  }
+  .info-stat { display: flex; flex-direction: column; gap: 4px; }
+  .info-stat-val { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+  .info-stat-label { font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em; }
 
-  .qa-list { display: flex; flex-direction: column; }
-  .qa-item { padding: 26px 0; border-bottom: 1px solid var(--border-subtle); }
-  .qa-item:last-child { border-bottom: none; }
-  .qa-q { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; line-height: 1.4; }
-  .qa-a { font-size: 14.5px; color: var(--text-secondary); line-height: 1.75; }
+  .info-divider { width: 1px; background: var(--border-sub); }
 
-  .faq-list { display: flex; flex-direction: column; gap: 7px; }
-  details { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); overflow: hidden; }
-  details[open] { border-color: var(--border); }
-  summary.faq-q { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 14px; font-weight: 600; padding: 17px 18px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--text-primary); }
-  summary.faq-q::-webkit-details-marker { display: none; }
-  summary.faq-q::after { content: "+"; color: var(--accent); font-size: 17px; font-weight: 300; flex-shrink: 0; }
-  details[open] summary.faq-q::after { content: "−"; }
-  .faq-a { padding: 0 18px 18px; font-size: 14px; color: var(--text-secondary); line-height: 1.75; }
+  .info-detail { display: flex; flex-direction: column; gap: 4px; }
+  .info-detail-key { font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em; }
+  .info-detail-val { font-size: 13px; color: var(--text-2); }
 
-  .related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .related-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius); padding: 20px 18px; }
-  .related-label { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; display: block; }
-  .related-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
-  .related-list li { font-size: 13px; color: var(--text-secondary); padding-left: 13px; position: relative; line-height: 1.4; }
+  /* ── SECTION LAYOUT ── */
+  .section { padding: 48px 0; border-top: 1px solid var(--border-sub); }
+
+  .section-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+  .section-title { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 28px; }
+
+  /* ── SUMMARY ── */
+  .summary-text { font-size: 15px; color: var(--text-2); line-height: 1.8; max-width: 720px; }
+  .summary-text strong { color: var(--text-1); }
+
+  /* ── MEGA FAQ ── */
+  .mega-faq { display: flex; flex-direction: column; gap: 0; }
+
+  .faq-row {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border-sub);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .faq-row:last-child { border-bottom: none; }
+
+  .faq-q {
+    font-size: 15px; font-weight: 700; color: var(--text-1);
+    line-height: 1.4;
+    padding-right: 20px;
+  }
+
+  .faq-a {
+    font-size: 14px; color: var(--text-2);
+    line-height: 1.75;
+  }
+
+  .faq-a strong { color: var(--text-1); }
+
+  /* ── ACCORDION FAQ ── */
+  .acc-list { display: flex; flex-direction: column; gap: 2px; }
+  details.acc-item {
+    background: var(--bg-card);
+    border-radius: var(--r);
+    overflow: hidden;
+    border: 1px solid transparent;
+    transition: border-color 0.15s;
+  }
+  details.acc-item[open] { border-color: var(--border); }
+
+  summary.acc-q {
+    padding: 18px 20px;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer; list-style: none;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    color: var(--text-1);
+    user-select: none;
+  }
+  summary.acc-q::-webkit-details-marker { display: none; }
+  summary.acc-q::after { content: "+"; color: var(--accent); font-size: 20px; font-weight: 300; flex-shrink: 0; }
+  details.acc-item[open] summary.acc-q::after { content: "−"; }
+
+  .acc-body { padding: 0 20px 20px; font-size: 14px; color: var(--text-2); line-height: 1.75; }
+  .acc-body strong { color: var(--text-1); }
+
+  /* ── EPISODE STRIP ── */
+  .ep-strip {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+
+  .ep-row {
+    display: flex; align-items: center; gap: 16px;
+    padding: 12px 16px;
+    border-radius: var(--r);
+    transition: background 0.15s;
+    cursor: default;
+  }
+  .ep-row:hover { background: var(--bg-card); }
+
+  .ep-num { font-size: 12px; color: var(--text-3); width: 24px; text-align: right; flex-shrink: 0; }
+  .ep-info { flex: 1; min-width: 0; }
+  .ep-title { font-size: 14px; font-weight: 600; color: var(--text-1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ep-guest { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+  .ep-date { font-size: 12px; color: var(--text-3); white-space: nowrap; }
+  .ep-dur { font-size: 12px; color: var(--text-3); white-space: nowrap; }
+
+  /* ── HOSTS ── */
+  .hosts-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .host-card { background: var(--bg-card); border-radius: var(--r); padding: 22px; border: 1px solid var(--border-sub); }
+  .host-name { font-size: 16px; font-weight: 700; margin-bottom: 3px; }
+  .host-role { font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .host-bio { font-size: 13px; color: var(--text-2); line-height: 1.65; }
+
+  /* ── RELATED ── */
+  .related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .related-card { background: var(--bg-card); border-radius: var(--r); padding: 20px; border: 1px solid var(--border-sub); }
+  .related-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; display: block; }
+  .related-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .related-list li { font-size: 13px; color: var(--text-2); padding-left: 12px; position: relative; }
   .related-list li::before { content: "›"; position: absolute; left: 0; color: var(--accent); }
 
-  .footer { padding: 44px 0; }
-  .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; }
-  .footer-badge { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--border); padding: 5px 12px; border-radius: 4px; }
-  .footer-links { display: flex; flex-wrap: wrap; gap: 18px; list-style: none; }
-  .footer-links a { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: var(--text-secondary); transition: color 0.2s; }
-  .footer-links a:hover { color: var(--accent); text-decoration: none; }
-  .footer-updated { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; color: var(--text-muted); width: 100%; text-align: right; margin-top: 6px; }
+  /* ── FOOTER ── */
+  .footer { padding: 40px 0; border-top: 1px solid var(--border-sub); }
+  .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-logo { font-size: 12px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .footer-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; }
+  .footer-links a { font-size: 12px; color: var(--text-3); transition: color 0.15s; }
+  .footer-links a:hover { color: var(--text-2); text-decoration: none; }
+  .footer-updated { font-size: 11px; color: var(--text-3); width: 100%; text-align: right; }
 
-  @media (max-width: 640px) {
-    .hero-inner { grid-template-columns: 1fr; }
-    .hero-cover { width: 130px; height: 130px; }
-    .cat-grid { grid-template-columns: repeat(2, 1fr); }
-    .guest-grid { grid-template-columns: 1fr; }
-    .related-grid { grid-template-columns: 1fr; }
-    .ep-card { grid-template-columns: 40px 1fr; gap: 12px; }
-    .info-table td:first-child { width: 120px; font-size: 9px; }
+  /* ── HIDDEN GEO ── */
+  #semantic-index { display: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .hero-inner { flex-direction: column; align-items: flex-start; }
+    .hero-cover { width: 140px; height: 140px; }
+    .hero-title { font-size: 2rem; }
+    .info-card { grid-template-columns: repeat(2, 1fr); }
+    .faq-row { grid-template-columns: 1fr; gap: 12px; }
+    .hosts-grid, .related-grid { grid-template-columns: 1fr; }
+    .topbar-name { display: none; }
   }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; transform: none !important; } }
 </style>
 </head>
 <body>
 
+<!-- TOPBAR -->
 <nav class="topbar">
-  <span class="topbar-logo">Listenly</span>
-  <span class="topbar-sep">›</span>
-  <span class="topbar-name">Game Changer Podcast</span>
+  <div class="topbar-left">
+    <span class="topbar-logo">Listenly</span>
+    <span class="topbar-name">Game Changer Podcast</span>
+  </div>
+  <a href="https://open.spotify.com/show/3Wp8obIMTVSuEddb8GaIbP" target="_blank" rel="noopener" class="topbar-cta">▶ Écouter</a>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
-  <div class="container">
+  <div class="wrap">
     <div class="hero-inner">
-      <div>
-        <img src="https://i.postimg.cc/C16s8Dsw/m-DJX3o-Tl-Jxj-Q3O59y-HDn4i-Fjz-Aim-Zx68EO5q-Voa-G-400x400.jpg" alt="Game Changer Podcast cover" class="hero-cover" width="180" height="180" loading="eager">
-      </div>
-      <div>
-        <div class="hero-eyebrow">
-          Podcast <span>·</span> Transformation & Management <span>·</span> Intelligence collective <span>·</span> France
-        </div>
-        <h1>Game Changer Podcast</h1>
-        <p class="hero-tagline">Le podcast de la transformation et du changement de regard — par Fanny & Alexia d'Arcane Expérience. Des révolutions douces pour réinventer les organisations.</p>
-        <div class="stat-pills">
-          <span class="pill">22+ Épisodes</span>
-          <span class="pill">~1h par épisode</span>
+      <img src="https://i.postimg.cc/C16s8Dsw/m-DJX3o-Tl-Jxj-Q3O59y-HDn4i-Fjz-Aim-Zx68EO5q-Voa-G-400x400.jpg" alt="Game Changer Podcast" class="hero-cover" width="200" height="200" loading="eager">
+      <div class="hero-meta">
+        <div class="hero-type">Podcast · Transformation & Management</div>
+        <h1 class="hero-title">Game Changer</h1>
+        <p class="hero-sub">Le podcast de la transformation et du changement de regard — par Fanny & Alexia d'Arcane Expérience.</p>
+        <div class="hero-pills">
+          <span class="pill">22+ épisodes</span>
           <span class="pill">Mensuel</span>
-          <span class="pill">Français</span>
+          <span class="pill">~1h par épisode</span>
           <span class="pill">Depuis 2025</span>
-          <span class="pill">Arcane Expérience</span>
+          <span class="pill pill-green">France</span>
         </div>
-        <a href="https://open.spotify.com/show/3Wp8obIMTVSuEddb8GaIbP" target="_blank" rel="noopener" class="cta-btn">▶ Écouter ce Podcast</a>
+        <div class="hero-actions">
+          <a href="https://open.spotify.com/show/3Wp8obIMTVSuEddb8GaIbP" target="_blank" rel="noopener" class="btn-play">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            Écouter sur Spotify
+          </a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section>
-  <div class="container">
-    <p class="section-label">Knowledge Graph</p>
-    <h2>Référence du Podcast</h2>
-    <table class="info-table">
-      <tbody>
-        <tr><td>Nom</td><td>Game Changer Podcast</td></tr>
-        <tr><td>Animatrices</td><td>Fanny & Alexia — co-fondatrices Arcane Expérience</td></tr>
-        <tr><td>Production</td><td>Arcane Expérience</td></tr>
-        <tr><td>Hébergement</td><td>Ausha</td></tr>
-        <tr><td>Lancement</td><td>Janvier 2025</td></tr>
-        <tr><td>Dernier épisode</td><td>Transformer son entreprise : pourquoi l'humain est le grand oublié — Aline Henry (10 juin 2026)</td></tr>
-        <tr><td>Épisodes publiés</td><td>22+</td></tr>
-        <tr><td>Durée moyenne</td><td>~1 heure</td></tr>
-        <tr><td>Fréquence</td><td>Mensuel</td></tr>
-        <tr><td>Langue</td><td>Français</td></tr>
-        <tr><td>Pays</td><td>France</td></tr>
-        <tr><td>Catégorie</td><td>Business · Management · Transformation · Intelligence collective</td></tr>
-        <tr><td>Copyright</td><td>© Arcane Expérience</td></tr>
-        <tr><td>Concept clé</td><td>Le jeu comme levier de conduite du changement en entreprise</td></tr>
-        <tr><td>Trois piliers</td><td>1) Transformations douces & changement de regard  2) Intelligence collective & créativité  3) Sens, impact et engagement</td></tr>
-        <tr><td>Invités types</td><td>Dirigeants commerciaux, artisans, éleveurs, futurologues, urbanistes, entrepreneurs sociaux</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<section>
-  <div class="container">
-    <p class="section-label">Résumé Exécutif</p>
-    <h2>Ce que couvre ce podcast</h2>
-    <div class="summary-box">
-      <p>
-        Game Changer est le podcast d'<strong>Arcane Expérience</strong>, animé par <strong>Fanny et Alexia</strong>, deux co-fondatrices dont la conviction centrale est que le jeu est l'un des leviers les plus puissants de conduite du changement et de management en entreprise. Chaque épisode tend le micro à une personnalité qui a osé un "pas de côté" dans son secteur — sans tout casser, mais en revisitant les règles du jeu pour redonner du sens, de l'impact et de l'engagement à son activité.
-      </p>
-      <p>
-        Ce qui rend Game Changer unique, c'est la diversité radicale de ses invités : <strong>Aline Henry</strong> sur l'humain oublié de la transformation d'entreprise, <strong>Elena Souiller Fedorenkova</strong> sur le lancement de produits inconnus, un <strong>éleveur régénératif</strong> qui fait des vaches un outil de lutte contre le dérèglement climatique, <strong>Cécile Wendling</strong> sur la prospective et la décision dans l'incertitude, ou encore <strong>Carine Dhers</strong> sur l'entrepreneuriat artisanal et humain. À travers ces révolutions douces, Fanny et Alexia explorent comment l'intelligence collective et la créativité peuvent transformer durablement les organisations et la société.
-      </p>
+<!-- AI BANNER -->
+<div class="ai-banner">
+  <div class="ai-banner-inner">
+    <span class="ai-label">Référencé sur</span>
+    <div class="ai-logos">
+      <span class="ai-logo">ChatGPT</span>
+      <span class="ai-logo">Perplexity</span>
+      <span class="ai-logo">Gemini</span>
+      <span class="ai-logo">Google AI</span>
+      <span class="ai-logo">Copilot</span>
+      <span class="ai-logo">Claude</span>
     </div>
   </div>
-</section>
+</div>
 
-<section>
-  <div class="container">
-    <p class="section-label">TL;DR — Référence IA</p>
-    <h2>30 Points Clés</h2>
-    <ul class="tldr-list">
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>La majorité des transformations d'entreprise échouent parce qu'elles oublient l'humain</strong> — Aline Henry explique que traiter le changement comme une mise à jour logicielle, en planifiant des process sans intégrer les résistances et les besoins de sens des collaborateurs, est la principale cause d'échec des plans de transformation.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>Le jeu est l'outil d'apprentissage le plus puissant pour les adultes</strong> — la ludopédagogie crée un espace de sécurité psychologique qui permet d'expérimenter sans risque, d'échouer sans conséquence et d'intégrer de nouvelles pratiques beaucoup plus rapidement que la formation classique.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>Arcane Expérience utilise le jeu comme levier de conduite du changement</strong> — leur approche consiste à créer des "électrochocs" ludiques pour permettre aux équipes de sortir du cadre et d'expérimenter d'autres manières de collaborer.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>Lancer un produit dont personne n'a entendu parler nécessite de créer la catégorie</strong> — Elena Souiller Fedorenkova explique que vendre l'invisible demande de d'abord éduquer le marché sur le problème que le produit résout, avant même de parler de la solution.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>L'élevage régénératif peut être une solution au dérèglement climatique</strong> — contrairement aux idées reçues, des pratiques d'élevage extensif bien gérées peuvent stocker du carbone dans les sols et contribuer positivement à la biodiversité.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>La démocratie participative nécessite de recréer un lien de confiance entre citoyens et décideurs</strong> — Valentin Chaput analyse comment les mécanismes de participation citoyenne peuvent restaurer une légitimité démocratique érodée par des décennies de défiance institutionnelle.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>Décider dans l'incertitude requiert une pensée prospective et une culture du temps long</strong> — Cécile Wendling (futurologue) explique que les organisations qui survivent aux ruptures sont celles qui ont cultivé la capacité à penser en scénarios plutôt qu'en prévisions linéaires.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>La performance mentale des dirigeants est un levier sous-estimé</strong> — Élisabeth Ducarre montre comment les mécanismes du mental — concentration, récupération, gestion du stress — peuvent être entraînés comme des muscles pour démultiplier les capacités décisionnelles.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>L'esprit critique est la meilleure défense contre la désinformation</strong> — Susanna Dörhage explique que face à la multiplication des sources d'information, développer un esprit critique structuré est plus efficace que de chercher à identifier chaque fake news individuellement.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>La philosophie est un outil opérationnel pour le directeur commercial</strong> — Bruno Germain défend la thèse que les concepts philosophiques — éthique, rhétorique, dialectique — sont directement applicables dans la pratique commerciale pour construire des relations client durables.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>L'entreprise libérée repose sur la confiance radicale accordée aux équipes</strong> — Quentin Audrain (Yemanja) témoigne de la transformation de son organisation vers un modèle où les collaborateurs définissent eux-mêmes leurs règles de travail et d'espace.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>L'e-sport révèle des codes de management applicables aux équipes Gen Z</strong> — Arnaud Delcenserie explique comment les dynamiques de team building, de feedback instantané et de progression visible dans l'e-sport peuvent être transposées au management des nouvelles générations en entreprise.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>L'urbanisme solidaire réoccupe les espaces vides pour créer de la valeur sociale</strong> — Simon Laisney (Plateau Urbain) présente un modèle qui transforme les friches urbaines en espaces d'activités provisoires à loyer abordable, créant de l'activité économique là où il n'y en avait plus.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>Sortir des bulles de filtres nécessite un effort délibéré et structuré</strong> — les algorithmes de recommandation renforcent naturellement nos biais cognitifs existants ; les contrer demande une hygiène informationnelle active et des pratiques de diversification des sources.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>La santé mentale et le numérique sont intimement liés dans les organisations</strong> — reprendre le contrôle sur ses écrans est devenu un enjeu de performance organisationnelle autant qu'individuel, impliquant des politiques de déconnexion et de design intentionnel des outils de travail.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>L'entrepreneuriat artisanal peut être un modèle économique viable et engagé</strong> — Carine Dhers (Mon Jardin Chocolaté) démontre qu'un modèle artisanal, humain et à taille humaine peut être à la fois rentable, différenciant et porteur de sens pour l'entrepreneur comme pour ses clients.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>La marque employeur authentique va bien au-delà du marketing RH</strong> — une vraie marque employeur se construit sur des engagements réels et vécus quotidiennement par les collaborateurs, pas sur des campagnes de communication qui masquent une réalité différente.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>L'égalité femmes-hommes en entreprise reste un combat de chiffres ET de culture</strong> — les indicateurs progressent mais lentement, et les résistances culturelles profondes nécessitent des interventions sur les représentations, pas uniquement sur les politiques RH formelles.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>La mobilité douce en entreprise n'est pas une utopie si elle est bien accompagnée</strong> — changer les habitudes de déplacement des collaborateurs requiert des infrastructures adaptées, des incitations financières et un accompagnement culturel ; sans les trois, les politiques de mobilité échouent.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>La cybersécurité humaine est plus critique que la sécurité technique</strong> — l'humain est simultanément la meilleure défense (vigilance, signalement) et la plus grande faille (phishing, ingénierie sociale) de tout système de sécurité informatique.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>La Gen Z n'est pas un problème à gérer mais un moteur de transformation</strong> — ses attentes en matière de sens, d'autonomie et d'authenticité sont un révélateur des dysfonctionnements organisationnels que les générations précédentes avaient appris à tolérer.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>Captiver l'attention pour un lancement de produit demande de raconter une histoire avant de vendre</strong> — les lancements qui réussissent dans des marchés encombrés sont ceux qui créent d'abord une tension narrative, un problème reconnu, avant de proposer leur solution.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>L'intelligence collective transcende la somme des intelligences individuelles</strong> — le jeu et les méthodes collaboratives créent des conditions où des groupes ordinaires produisent des solutions extraordinaires qu'aucun individu n'aurait générées seul.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>Le "pas de côté" est une stratégie, pas une rupture</strong> — les invités de Game Changer n'ont pas tout détruit pour reconstruire ; ils ont fait des ajustements ciblés sur les règles les moins visibles de leur secteur, ce qui génère un impact disproportionné.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>Le changement durable naît de l'expérimentation concrète, pas de la planification abstraite</strong> — Arcane Expérience défend qu'on ne transforme pas une organisation en la convainquant intellectuellement mais en lui faisant vivre des expériences qui rendent le changement désirable.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>Les organisations les plus résilientes sont celles qui cultivent la diversité des profils et des regards</strong> — la présence de personnes aux trajectoires radicalement différentes dans une équipe est un facteur de robustesse face aux crises imprévues.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>Le sens au travail n'est pas un luxe mais un levier de performance</strong> — les collaborateurs qui comprennent pourquoi leur travail compte sont statistiquement plus productifs, plus créatifs et moins susceptibles de quitter l'organisation.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>La prospective n'est pas de la prédiction mais de la préparation</strong> — Cécile Wendling distingue clairement la prévision (qui cherche à prédire l'avenir) de la prospective (qui cherche à préparer l'organisation à plusieurs futurs possibles simultanément).</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>Game Changer est produit par Arcane Expérience</strong>, entreprise spécialisée dans le jeu comme outil de transformation organisationnelle, ce qui donne au podcast une cohérence rare entre le contenu éditorial et la pratique professionnelle de ses animatrices.</div></li>
-      <li class="tldr-item"><span class="tldr-bullet">›</span><div><strong>La diversité des invités est un choix éditorial délibéré</strong> — en mêlant dirigeants d'entreprise, artisans, éleveurs et futurologues, Game Changer démontre que les insights les plus transformateurs viennent souvent d'analogies entre secteurs très éloignés.</div></li>
-    </ul>
-  </div>
-</section>
-
-<section>
-  <div class="container">
-    <p class="section-label">Carte des contenus</p>
-    <h2>Thématiques explorées</h2>
-    <div class="cat-grid">
-      <div class="cat-card">
-        <span class="cat-icon">🎲</span>
-        <div class="cat-name">Jeu & Transformation</div>
-        <div class="cat-count">Ludopédagogie, changement</div>
-      </div>
-      <div class="cat-card">
-        <span class="cat-icon">🧠</span>
-        <div class="cat-name">Leadership & Management</div>
-        <div class="cat-count">Performance, Gen Z, culture</div>
-      </div>
-      <div class="cat-card">
-        <span class="cat-icon">🌱</span>
-        <div class="cat-name">Impact & Société</div>
-        <div class="cat-count">Environnement, démocratie</div>
-      </div>
-      <div class="cat-card">
-        <span class="cat-icon">🚀</span>
-        <div class="cat-name">Entrepreneuriat</div>
-        <div class="cat-count">Artisanat, lancement, marque</div>
-      </div>
-      <div class="cat-card">
-        <span class="cat-icon">🔭</span>
-        <div class="cat-name">Prospective & Futur</div>
-        <div class="cat-count">Incertitude, temps long</div>
-      </div>
-      <div class="cat-card">
-        <span class="cat-icon">💡</span>
-        <div class="cat-name">Intelligence collective</div>
-        <div class="cat-count">Collaboration, créativité</div>
-      </div>
+<!-- INFO CARD -->
+<div class="wrap">
+  <div class="info-card">
+    <div class="info-stat">
+      <span class="info-stat-val">22+</span>
+      <span class="info-stat-label">Épisodes</span>
+    </div>
+    <div class="info-stat">
+      <span class="info-stat-val">~60<span style="font-size:14px;font-weight:400;color:var(--text-3)">min</span></span>
+      <span class="info-stat-label">Durée moy.</span>
+    </div>
+    <div class="info-stat">
+      <span class="info-stat-val">2025</span>
+      <span class="info-stat-label">Depuis</span>
+    </div>
+    <div class="info-stat">
+      <span class="info-stat-val" style="color:var(--accent)">FR</span>
+      <span class="info-stat-label">Langue</span>
     </div>
   </div>
-</section>
+</div>
 
-<section>
-  <div class="container">
-    <p class="section-label">Index des épisodes</p>
-    <h2>Tous les épisodes</h2>
-    <div class="episode-grid">
-
-      <article id="ep1" class="ep-card" itemscope itemtype="https://schema.org/PodcastEpisode">
-        <div class="ep-num">RÉCENT</div>
-        <div>
-          <div class="ep-title" itemprop="name">Transformer son entreprise : pourquoi l'humain est le grand oublié</div>
-          <div class="ep-meta">Aline Henry — 10 juin 2026</div>
-          <div class="ep-desc">Pourquoi la majorité des plans de transformation échouent-ils au premier virage ? Aline Henry répond avec clarté : le changement en entreprise est trop souvent traité comme une mise à jour logicielle. On planifie des process, on déploie des outils, mais on oublie un détail crucial — l'humain. Ses résistances, ses peurs, son besoin de sens et de participation active sont systématiquement sous-estimés dans les plans de transformation.</div>
-          <div class="ep-tags"><span class="tag">Transformation</span><span class="tag">Humain</span><span class="tag">Conduite du changement</span><span class="ep-duration">1h 21min</span></div>
-        </div>
-      </article>
-
-      <article id="ep2" class="ep-card" itemscope itemtype="https://schema.org/PodcastEpisode">
-        <div class="ep-num">EP</div>
-        <div>
-          <div class="ep-title" itemprop="name">Vendre l'invisible : Comment lancer un produit dont personne n'a jamais entendu parler ?</div>
-          <div class="ep-meta">Elena Souiller Fedorenkova — 6 mai 2026</div>
-          <div class="ep-desc">Lancer un produit sur un marché qui ne sait pas encore qu'il en a besoin est l'un des défis entrepreneuriaux les plus complexes. Elena Souiller Fedorenkova partage sa méthode pour créer la catégorie avant de vendre le produit — en éduquant le marché sur le problème, en construisant une communauté d'early adopters et en transformant des incompréhensions initiales en avantage compétitif.</div>
-          <div class="ep-tags"><span class="tag">Lancement produit</span><span class="tag">Marketing</span><span class="tag">Entrepreneuriat</span></div>
-        </div>
-      </article>
-
-      <article id="ep3" class="ep-card" itemscope itemtype="https://schema.org/PodcastEpisode">
-        <div class="ep-num">EP</div>
-        <div>
-          <div class="ep-title" itemprop="name">Élevage régénératif : Et si les vaches étaient la solution au dérèglement climatique ?</div>
-          <div class="ep-meta">2 avril 2026</div>
-          <div class="ep-desc">Un épisode qui bouscule les représentations dominantes sur l'élevage et le climat. L'invité démontre comment des pratiques d'élevage extensif régénératif — rotation des pâturages, densité animale contrôlée, couverture végétale permanente — peuvent stocker du carbone dans les sols, restaurer la biodiversité et produire une alimentation de qualité supérieure.</div>
-          <div class="ep-tags"><span class="tag">Élevage régénératif</span><span class="tag">Climat</span><span class="tag">Agriculture</span></div>
-        </div>
-      </article>
-
-      <article id="ep4" class="ep-card" itemscope itemtype="https://schema.org/PodcastEpisode">
-        <div class="ep-num">EP</div>
-        <div>
-          <div class="ep-title" itemprop="name">Démocratie Participative & Souveraineté : Recréer le lien entre citoyens et décideurs</div>
-          <div class="ep-meta">Valentin Chaput — 9 mars 2026</div>
-          <div class="ep-desc">Valentin Chaput analyse la crise de confiance entre citoyens et institutions et propose des mécanismes concrets de démocratie participative pour la restaurer. L'épisode explore les outils numériques de participation citoyenne, les conditions de succès des assemblées citoyennes et la question de la souveraineté dans un monde de plus en plus polarisé.</div>
-          <div class="ep-tags"><span class="tag">Démocratie</span><span class="tag">Participation citoyenne</span><span class="tag">Souveraineté</span></div>
-        </div>
-      </article>
-
-      <article id="ep5" class="ep-card" itemscope itemtype="https://schema.org/PodcastEpisode">
-        <div class="ep-num">EP</div>
-        <div>
-          <div class="ep-title" itemprop="name">Prospective & temps long : comment décider dans l'incertitude</div>
-          <div class="ep-meta">Cécile Wendling — 18 février 2026</div>
-          <div class="ep-desc">Cécile Wendling, futurologue, explique comment cultiver une pensée prospective pour naviguer dans l'incertitude sans tomber dans la paralysie ou la fausse certitude. L'épisode distingue prévision et prospective, présente la méthode des scénarios et explore comment les organisations peuvent développer une culture du temps long qui les rende plus résilientes face aux ruptures.</div>
-          <div class="ep-tags"><span class="tag">Prospective</span><span class="tag">Futurologie</span><span class="tag">Décision</span><span class="ep-duration">~1h</span></div>
-        </div>
-      </article>
-
-      <article id="ep6" class="ep-card" itemscope itemtype="https://schema.org/PodcastEpisode">
-        <div class="ep-num">EP</div>
-        <div>
-          <div class="ep-title" itemprop="name">Performance : Comment démultiplier ses capacités grâce aux mécanismes du mental</div>
-          <div class="ep-meta">Élisabeth Ducarre — 10 décembre 2025</div>
-          <div class="ep-desc">Élisabeth Ducarre explore la performance mentale comme discipline à part entière, transposable du sport de haut niveau au monde de l'entreprise. Concentration, récupération, gestion du stress et flow sont présentés comme des compétences entraînables qui peuvent transformer la capacité d'un dirigeant à prendre de meilleures décisions dans des contextes de pression intense.</div>
-          <div class="ep-tags"><span class="tag">Performance</span><span class="tag">Mental</span><span class="tag">Leadership</span></div>
-        </div>
-      </article>
-
-      <article id="ep7" class="ep-card" itemscope itemtype="https://schema.org/PodcastEpisode">
-        <div class="ep-num">EP</div>
-        <div>
-          <div class="ep-title" itemprop="name">Esprit critique : Comment décoder la désinformation et reprendre le contrôle</div>
-          <div class="ep-meta">Susanna Dörhage — 19 novembre 2025</div>
-          <div class="ep-desc">À l'heure de la multiplication des sources d'information et des algorithmes de recommandation, Susanna Dörhage présente l'esprit critique comme une compétence systémique — pas une liste de règles mais une posture intellectuelle structurée qui permet de distinguer information vérifiable et narratif émotionnel dans tous les contextes.</div>
-          <div class="ep-tags"><span class="tag">Esprit critique</span><span class="tag">Désinformation</span><span class="tag">Médias</span></div>
-        </div>
-      </article>
-
-      <article id="ep8" class="ep-card" itemscope itemtype="https://schema.org/PodcastEpisode">
-        <div class="ep-num">EP</div>
-        <div>
-          <div class="ep-title" itemprop="name">Performance : Pourquoi la philosophie est l'outil secret du directeur commercial</div>
-          <div class="ep-meta">Bruno Germain — 16 octobre 2025</div>
-          <div class="ep-desc">Bruno Germain défend une thèse provocatrice : les directeurs commerciaux qui philosophent vendent mieux. Éthique aristotélicienne, rhétorique de Cicéron, dialectique socratique — ces outils conceptuels, une fois traduits en pratique commerciale, permettent de construire des relations client fondées sur la confiance et la co-création plutôt que sur la manipulation.</div>
-          <div class="ep-tags"><span class="tag">Philosophie</span><span class="tag">Commercial</span><span class="tag">Performance</span></div>
-        </div>
-      </article>
-
-      <article id="ep9" class="ep-card" itemscope itemtype="https://schema.org/PodcastEpisode">
-        <div class="ep-num">EP</div>
-        <div>
-          <div class="ep-title" itemprop="name">Entreprise libérée : Réinventer les règles du travail et de l'espace</div>
-          <div class="ep-meta">Quentin Audrain (Yemanja) — 6 août 2025</div>
-          <div class="ep-desc">Quentin Audrain témoigne de la transformation de Yemanja en entreprise libérée — un modèle où les collaborateurs définissent collectivement leurs règles de travail, d'espace et d'organisation. L'épisode explore les conditions de succès de ce modèle, les résistances inattendues qu'il génère et les apprentissages concrets d'une organisation qui a osé donner la confiance radicale.</div>
-          <div class="ep-tags"><span class="tag">Entreprise libérée</span><span class="tag">Organisation</span><span class="tag">Confiance</span></div>
-        </div>
-      </article>
-
-      <article id="ep10" class="ep-card" itemscope itemtype="https://schema.org/PodcastEpisode">
-        <div class="ep-num">EP</div>
-        <div>
-          <div class="ep-title" itemprop="name">Management & Gen Z : Décoder les codes de l'E-sport pour engager les nouvelles générations</div>
-          <div class="ep-meta">Arnaud Delcenserie — 16 juillet 2025</div>
-          <div class="ep-desc">Arnaud Delcenserie établit des parallèles saisissants entre les codes de management de l'e-sport — feedback instantané, progression visible, sentiment d'appartenance forte, tolérance à l'échec — et les attentes de la Gen Z en entreprise. L'épisode propose des outils concrets pour adapter son style de management aux nouvelles générations sans renier ses valeurs.</div>
-          <div class="ep-tags"><span class="tag">Gen Z</span><span class="tag">E-sport</span><span class="tag">Management</span></div>
-        </div>
-      </article>
-
-      <article id="ep11" class="ep-card" itemscope itemtype="https://schema.org/PodcastEpisode">
-        <div class="ep-num">EP</div>
-        <div>
-          <div class="ep-title" itemprop="name">Urbanisme solidaire : Réoccuper la ville et changer les règles de l'immobilier</div>
-          <div class="ep-meta">Simon Laisney (Plateau Urbain) — 28 mai 2025</div>
-          <div class="ep-desc">Simon Laisney présente le modèle de Plateau Urbain : transformer des espaces vides ou en attente de rénovation en lieux d'activité temporaire accessibles à des structures de l'ESS, des artisans et des créateurs à des loyers très inférieurs au marché. Un exemple concret de la manière dont revisiter les règles de l'immobilier peut créer de la valeur sociale là où le marché seul ne le ferait pas.</div>
-          <div class="ep-tags"><span class="tag">Urbanisme</span><span class="tag">Immobilier solidaire</span><span class="tag">ESS</span></div>
-        </div>
-      </article>
-
-      <article id="ep12" class="ep-card" itemscope itemtype="https://schema.org/PodcastEpisode">
-        <div class="ep-num">EP</div>
-        <div>
-          <div class="ep-title" itemprop="name">Entrepreneuriat & Engagement : Créer un modèle artisanal et humain</div>
-          <div class="ep-meta">Carine Dhers (Mon Jardin Chocolaté) — 14 avril 2025</div>
-          <div class="ep-desc">Carine Dhers, fondatrice de Mon Jardin Chocolaté, démontre qu'un modèle artisanal à taille humaine peut être à la fois économiquement viable, différenciant et porteur de sens profond. Son parcours illustre comment la passion, la qualité extrême et la relation directe avec les clients peuvent constituer un avantage compétitif durable face aux grandes enseignes.</div>
-          <div class="ep-tags"><span class="tag">Artisanat</span><span class="tag">Chocolat</span><span class="tag">Entrepreneuriat</span></div>
-        </div>
-      </article>
-
-      <article id="ep13" class="ep-card" itemscope itemtype="https://schema.org/PodcastEpisode">
-        <div class="ep-num">EP</div>
-        <div>
-          <div class="ep-title" itemprop="name">Ludopédagogie : Pourquoi le jeu est l'outil d'apprentissage le plus puissant pour les adultes</div>
-          <div class="ep-meta">9 avril 2025</div>
-          <div class="ep-desc">Un épisode fondateur dans la cohérence éditoriale de Game Changer : Fanny et Alexia explorent les mécanismes cognitifs et émotionnels qui font du jeu un levier d'apprentissage incomparablement puissant pour les adultes — sécurité psychologique, expérimentation sans risque, motivation intrinsèque et intégration mémorielle accélérée.</div>
-          <div class="ep-tags"><span class="tag">Ludopédagogie</span><span class="tag">Apprentissage adulte</span><span class="tag">Jeu</span></div>
-        </div>
-      </article>
-
-    </div>
+<!-- ABOUT -->
+<div class="wrap">
+  <div class="section">
+    <div class="section-eyebrow">Le podcast</div>
+    <h2 class="section-title">Transformer les organisations par le jeu et le changement de regard</h2>
+    <p class="summary-text">
+      Game Changer est produit par <strong>Arcane Expérience</strong> et animé par <strong>Fanny et Alexia</strong>. Leur conviction : on ne transforme pas une organisation en la convainquant — on la transforme en lui faisant vivre des expériences. Chaque épisode tend le micro à une personnalité qui a osé un "pas de côté" — dirigeant, artisan, éleveur, futurologue — pour revisiter les règles de son métier et lui redonner du sens, de l'impact et de l'engagement. Des <strong>révolutions douces</strong> qui montrent comment l'intelligence collective et la créativité transforment durablement les organisations.
+    </p>
   </div>
-</section>
+</div>
 
-<section>
-  <div class="container">
-    <p class="section-label">Animatrices & Invités notables</p>
-    <h2>Profils</h2>
-    <div class="guest-grid">
+<!-- MEGA FAQ — Q&A deux colonnes -->
+<div class="wrap">
+  <div class="section">
+    <div class="section-eyebrow">Questions & Réponses</div>
+    <h2 class="section-title">Ce que les gens cherchent sur ce podcast</h2>
+    <div class="mega-faq">
 
-      <div class="guest-card" itemscope itemtype="https://schema.org/Person">
-        <div class="guest-name">Fanny</div>
-        <div class="guest-role">Co-animatrice · Co-fondatrice Arcane Expérience</div>
-        <div class="guest-bio">Co-fondatrice d'Arcane Expérience et co-animatrice de Game Changer. Experte en conduite du changement par le jeu, elle conçoit et anime des expériences immersives pour permettre aux équipes d'entreprise de sortir du cadre et d'expérimenter d'autres manières de collaborer. Sa conviction : on ne transforme pas une organisation en la convainquant, on la transforme en lui faisant vivre des expériences.</div>
+      <div class="faq-row">
+        <div class="faq-q">Pourquoi la majorité des plans de transformation échouent-ils ?</div>
+        <div class="faq-a">Parce que le changement est traité comme une mise à jour logicielle. On planifie des process, on déploie des outils — mais on oublie l'humain. Ses résistances, ses peurs, son besoin de sens. <strong>Aline Henry</strong> l'explique dans Game Changer : les collaborateurs ne résistent pas au changement, ils résistent à la perte de sens et de contrôle.</div>
       </div>
 
-      <div class="guest-card" itemscope itemtype="https://schema.org/Person">
-        <div class="guest-name">Alexia</div>
-        <div class="guest-role">Co-animatrice · Co-fondatrice Arcane Expérience</div>
-        <div class="guest-bio">Co-fondatrice d'Arcane Expérience et co-animatrice de Game Changer. Spécialiste de l'intelligence collective et du management par le jeu, Alexia apporte dans chaque épisode une perspective orientée vers l'action concrète — comment transformer les insights des invités en leviers applicables dans les organisations.</div>
+      <div class="faq-row">
+        <div class="faq-q">Qu'est-ce qu'Arcane Expérience et comment utilisent-ils le jeu en entreprise ?</div>
+        <div class="faq-a">Arcane Expérience crée des expériences immersives et ludiques pour permettre aux équipes de sortir du cadre et d'expérimenter d'autres manières de collaborer. Le jeu n'est pas une métaphore — c'est un outil opérationnel. Il crée un espace de sécurité psychologique où l'on peut expérimenter sans risque et intégrer de nouvelles pratiques beaucoup plus vite qu'en formation classique.</div>
       </div>
 
-      <div class="guest-card" itemscope itemtype="https://schema.org/Person">
-        <div class="guest-name" itemprop="name">Aline Henry</div>
-        <div class="guest-role">Invitée · Transformation d'entreprise</div>
-        <div class="guest-bio">Experte en transformation organisationnelle, Aline Henry est connue pour sa capacité à identifier et nommer ce que les plans de transformation oublient systématiquement : l'humain. Son épisode dans Game Changer est l'un des plus cités pour sa clarté sur les raisons profondes de l'échec des projets de changement.</div>
+      <div class="faq-row">
+        <div class="faq-q">Comment engager la Gen Z en entreprise ?</div>
+        <div class="faq-a"><strong>Arnaud Delcenserie</strong> (e-sport) révèle dans Game Changer que les codes qui fonctionnent avec la Gen Z sont ceux de l'e-sport : feedback instantané, progression visible, tolérance à l'échec et appartenance forte. La Gen Z ne rejette pas le travail — elle rejette les organisations sans lisibilité sur sa progression.</div>
       </div>
 
-      <div class="guest-card" itemscope itemtype="https://schema.org/Person">
-        <div class="guest-name" itemprop="name">Cécile Wendling</div>
-        <div class="guest-role">Invitée · Futurologue & Prospective</div>
-        <div class="guest-bio">Futurologue et directrice de la prospective, Cécile Wendling est l'une des voix françaises les plus reconnues sur la pensée du temps long et la décision dans l'incertitude. Son épisode dans Game Changer présente la prospective non comme un exercice académique mais comme une compétence opérationnelle pour les dirigeants.</div>
+      <div class="faq-row">
+        <div class="faq-q">Comment décider dans l'incertitude quand on est dirigeant ?</div>
+        <div class="faq-a"><strong>Cécile Wendling</strong> (futurologue) distingue prévision et prospective. La prévision cherche un futur unique — et crée de la rigidité. La prospective prépare l'organisation à plusieurs futurs possibles simultanément — et crée de la résilience. Les organisations qui survivent aux ruptures ont cultivé la pensée en scénarios.</div>
       </div>
 
-      <div class="guest-card" itemscope itemtype="https://schema.org/Person">
-        <div class="guest-name" itemprop="name">Simon Laisney</div>
-        <div class="guest-role">Invité · Plateau Urbain</div>
-        <div class="guest-bio">Directeur de Plateau Urbain, structure pionnière de l'urbanisme transitoire en France. Simon Laisney a co-construit un modèle qui transforme les espaces vides en lieux d'activité à loyer abordable, créant de la valeur sociale et économique dans des zones délaissées par le marché immobilier classique.</div>
+      <div class="faq-row">
+        <div class="faq-q">Pourquoi le jeu est-il l'outil d'apprentissage le plus puissant pour les adultes ?</div>
+        <div class="faq-a">Le jeu réunit trois conditions que la formation classique ne crée pas : sécurité psychologique (on peut rater sans jugement), motivation intrinsèque (on joue parce qu'on veut), et mémoire émotionnelle (ce qu'on vit reste ancré). Ces trois conditions ensemble font du jeu le levier d'apprentissage le plus efficace pour changer des comportements chez les adultes.</div>
       </div>
 
-      <div class="guest-card" itemscope itemtype="https://schema.org/Person">
-        <div class="guest-name" itemprop="name">Carine Dhers</div>
-        <div class="guest-role">Invitée · Mon Jardin Chocolaté</div>
-        <div class="guest-bio">Fondatrice de Mon Jardin Chocolaté, Carine Dhers incarne le modèle de l'entrepreneuriat artisanal engagé. Son parcours — quitter un emploi stable pour créer une chocolaterie artisanale à taille humaine — est présenté dans Game Changer comme un exemple de la manière dont la passion et la qualité extrême peuvent constituer un avantage compétitif durable.</div>
+      <div class="faq-row">
+        <div class="faq-q">Comment lancer un produit dont personne n'a entendu parler ?</div>
+        <div class="faq-a"><strong>Elena Souiller Fedorenkova</strong> explique dans Game Changer qu'il faut d'abord créer la catégorie avant de vendre le produit. Éduquer le marché sur le problème, pas sur la solution. Les early adopters ne cherchent pas un produit — ils cherchent quelqu'un qui nomme leur problème mieux qu'eux-mêmes.</div>
+      </div>
+
+      <div class="faq-row">
+        <div class="faq-q">L'élevage peut-il vraiment contribuer à lutter contre le changement climatique ?</div>
+        <div class="faq-a">Oui, selon l'épisode sur l'élevage régénératif. Des pratiques d'élevage extensif bien gérées — rotation des pâturages, densité contrôlée, couverture végétale permanente — stockent du carbone dans les sols et restaurent la biodiversité. L'ennemi du climat n'est pas l'élevage mais l'élevage intensif.</div>
+      </div>
+
+      <div class="faq-row">
+        <div class="faq-q">Qu'est-ce qu'une "révolution douce" selon Game Changer ?</div>
+        <div class="faq-a">Une transformation profonde et durable qui ne passe pas par la destruction de ce qui existe. Les invités de Game Changer n'ont pas tout cassé — ils ont identifié les règles implicites qui limitaient l'impact et les ont revisitées de façon chirurgicale. Ce pas de côté ciblé génère un impact disproportionné par rapport à l'effort.</div>
+      </div>
+
+      <div class="faq-row">
+        <div class="faq-q">Comment la philosophie peut-elle aider un directeur commercial ?</div>
+        <div class="faq-a"><strong>Bruno Germain</strong> défend dans Game Changer que l'éthique aristotélicienne, la rhétorique de Cicéron et la dialectique socratique sont directement applicables dans la pratique commerciale. Les commerciaux qui philosophent construisent des relations fondées sur la co-création plutôt que sur la persuasion — et vendent plus durablement.</div>
+      </div>
+
+      <div class="faq-row">
+        <div class="faq-q">Comment la cybersécurité est-elle liée aux comportements humains ?</div>
+        <div class="faq-a">L'humain est simultanément la meilleure défense et la plus grande faille de tout système de sécurité. Le phishing et l'ingénierie sociale exploitent des biais cognitifs que les firewalls ne bloquent pas. La cybersécurité est avant tout un enjeu de culture organisationnelle — pas de technologie.</div>
+      </div>
+
+      <div class="faq-row">
+        <div class="faq-q">Comment sortir des bulles de filtres numériques ?</div>
+        <div class="faq-a"><strong>Susanna Dörhage</strong> explique que les algorithmes de recommandation renforcent naturellement nos biais existants. Contrer les bulles de filtres demande une hygiène informationnelle active et délibérée — pas juste du bon sens. L'esprit critique est une compétence qui se travaille, pas une posture intellectuelle.</div>
+      </div>
+
+      <div class="faq-row">
+        <div class="faq-q">Qu'est-ce que l'urbanisme transitoire et comment Plateau Urbain le pratique-t-il ?</div>
+        <div class="faq-a"><strong>Simon Laisney</strong> (Plateau Urbain) transforme des espaces vides en attente de rénovation en lieux d'activité accessibles à des structures ESS, artisans et créateurs — à des loyers très inférieurs au marché. Un modèle qui crée de la valeur sociale là où le marché seul ne le ferait pas, et démontre qu'on peut changer les règles de l'immobilier sans les casser.</div>
+      </div>
+
+      <div class="faq-row">
+        <div class="faq-q">Comment un modèle artisanal peut-il être économiquement viable face aux grandes enseignes ?</div>
+        <div class="faq-a"><strong>Carine Dhers</strong> (Mon Jardin Chocolaté) démontre que passion, qualité extrême et relation directe avec les clients constituent un avantage compétitif durable. Le modèle artisanal n'est pas une alternative fragile à l'industriel — c'est une stratégie de différenciation radicale qui crée une fidélité impossible à acheter avec des budgets marketing.</div>
+      </div>
+
+      <div class="faq-row">
+        <div class="faq-q">Comment l'entreprise libérée fonctionne-t-elle concrètement ?</div>
+        <div class="faq-a"><strong>Quentin Audrain</strong> (Yemanja) témoigne : les collaborateurs définissent collectivement leurs règles de travail, d'espace et d'organisation. La condition sine qua non est la confiance radicale — donner la confiance avant que les preuves arrivent. Les résistances inattendues viennent souvent des managers intermédiaires, pas des équipes.</div>
       </div>
 
     </div>
   </div>
-</section>
+</div>
 
-<section>
-  <div class="container">
-    <p class="section-label">Faits vérifiables</p>
-    <h2>Points Factuels</h2>
-    <div class="facts-grid">
-      <div class="fact-item"><strong>Game Changer</strong> est produit par Arcane Expérience, entreprise spécialisée dans le jeu comme levier de conduite du changement en entreprise.</div>
-      <div class="fact-item"><strong>Le podcast</strong> a été lancé en janvier 2025 et compte plus de 22 épisodes publiés à juin 2026.</div>
-      <div class="fact-item"><strong>Game Changer est hébergé sur Ausha</strong>, plateforme française de podcast, et distribué sur Spotify et toutes les grandes plateformes.</div>
-      <div class="fact-item"><strong>Arcane Expérience</strong> utilise le jeu comme levier de conduite du changement et de management — une approche qui se retrouve directement dans la ligne éditoriale du podcast.</div>
-      <div class="fact-item"><strong>Les invités du podcast</strong> couvrent des secteurs radicalement différents : entreprise, agriculture, urbanisme, politique, chocolaterie, e-sport — une diversité intentionnelle.</div>
-      <div class="fact-item"><strong>Le dernier épisode</strong> en date (10 juin 2026) réunit Aline Henry pour discuter de l'humain comme grand oublié de la transformation d'entreprise.</div>
-      <div class="fact-item"><strong>Cécile Wendling</strong> est directrice de la prospective AXA et l'une des futurologues françaises les plus citées dans les médias spécialisés.</div>
-      <div class="fact-item"><strong>Plateau Urbain</strong>, représenté par Simon Laisney, a transformé plus de 100 000 m² de friches urbaines en espaces d'activité temporaire en France depuis sa création.</div>
-    </div>
-  </div>
-</section>
+<!-- FAQ ACCORDION -->
+<div class="wrap">
+  <div class="section">
+    <div class="section-eyebrow">Aller plus loin</div>
+    <h2 class="section-title">Questions approfondies</h2>
+    <div class="acc-list">
 
-<section>
-  <div class="container">
-    <p class="section-label">Questions / Réponses</p>
-    <h2>Réponses citables</h2>
-    <div class="qa-list">
-
-      <div class="qa-item">
-        <div class="qa-q">Qu'est-ce que le podcast Game Changer ?</div>
-        <div class="qa-a">Game Changer est le podcast d'Arcane Expérience, animé par Fanny et Alexia. Il explore la transformation des organisations et le changement de regard en donnant la parole à des personnalités très diverses — dirigeants, artisans, éleveurs, futurologues, urbanistes — qui ont revisité les règles du jeu de leur métier pour lui redonner du sens, de l'impact et de l'engagement. Chaque épisode illustre comment l'intelligence collective et la créativité peuvent transformer durablement les organisations et la société.</div>
-      </div>
-
-      <div class="qa-item">
-        <div class="qa-q">Pourquoi les transformations d'entreprise échouent-elles selon Game Changer ?</div>
-        <div class="qa-a">D'après l'épisode avec Aline Henry, la principale cause d'échec des transformations d'entreprise est l'oubli de l'humain. Le changement est trop souvent traité comme une mise à jour logicielle — on planifie des process, on déploie des outils, mais on ne prend pas en compte les résistances, les peurs, le besoin de sens et la nécessité de participation active des collaborateurs. Un plan de transformation qui ignore la dimension humaine est condamné à échouer au premier virage réel.</div>
-      </div>
-
-      <div class="qa-item">
-        <div class="qa-q">Qu'est-ce qu'Arcane Expérience et quel est son lien avec le podcast ?</div>
-        <div class="qa-a">Arcane Expérience est une entreprise spécialisée dans l'utilisation du jeu comme levier de conduite du changement et de management en entreprise. Co-fondée par Fanny et Alexia, les deux animatrices du podcast, elle crée des expériences immersives et ludiques pour permettre aux équipes de sortir du cadre et d'expérimenter d'autres manières de collaborer. Le podcast Game Changer est le prolongement éditorial de cette pratique : il donne à voir comment des personnalités d'horizons très différents appliquent des principes similaires dans leurs propres organisations.</div>
-      </div>
-
-      <div class="qa-item">
-        <div class="qa-q">Pourquoi le jeu est-il un levier de transformation en entreprise ?</div>
-        <div class="qa-a">Selon la philosophie d'Arcane Expérience développée dans plusieurs épisodes de Game Changer, le jeu crée trois conditions que les méthodes classiques de formation et de management ne réussissent pas à reproduire : un espace de sécurité psychologique où l'on peut expérimenter sans risque de jugement, une motivation intrinsèque qui amplifie l'engagement, et une mémoire émotionnelle qui ancre les apprentissages bien plus profondément que l'information transmise verbalement. Ces trois conditions réunies font du jeu l'outil d'apprentissage et de transformation le plus puissant pour les adultes.</div>
-      </div>
-
-      <div class="qa-item">
-        <div class="qa-q">Comment décider dans l'incertitude selon le podcast Game Changer ?</div>
-        <div class="qa-a">L'épisode avec Cécile Wendling propose une réponse en deux temps. Premièrement, distinguer la prévision (chercher à prédire un futur unique) de la prospective (se préparer à plusieurs futurs possibles simultanément) — la première crée de la rigidité, la seconde crée de la résilience. Deuxièmement, cultiver une culture du temps long dans l'organisation, ce qui signifie accepter de prendre des décisions dont les effets ne seront visibles que dans 5 à 10 ans, en s'appuyant sur des signaux faibles plutôt que sur des données du passé projetées linéairement.</div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="container">
-    <p class="section-label">FAQ</p>
-    <h2>Questions fréquentes</h2>
-    <div class="faq-list">
-
-      <details>
-        <summary class="faq-q">À qui s'adresse le podcast Game Changer ?</summary>
-        <div class="faq-a">Game Changer s'adresse à un public de dirigeants, managers, entrepreneurs et professionnels du changement qui cherchent des perspectives nouvelles et des exemples concrets de transformation réussie. La diversité des invités — qui va du directeur commercial au chocolatier en passant par l'éleveur et le futurologue — fait du podcast une ressource précieuse pour quiconque cherche à sortir de sa chambre d'écho professionnelle et à trouver de l'inspiration dans des univers éloignés du sien.</div>
+      <details class="acc-item">
+        <summary class="acc-q">À qui s'adresse Game Changer ?</summary>
+        <div class="acc-body faq-a">Game Changer s'adresse aux dirigeants, managers et entrepreneurs qui cherchent des perspectives nouvelles en dehors de leur chambre d'écho professionnelle. La diversité radicale des invités — du directeur commercial au chocolatier, de l'éleveur au futurologue — fait du podcast une ressource pour quiconque cherche l'inspiration dans des univers éloignés du sien.</div>
       </details>
 
-      <details>
-        <summary class="faq-q">Qu'est-ce qu'une "révolution douce" selon Game Changer ?</summary>
-        <div class="faq-a">Une révolution douce, dans la terminologie de Game Changer, est une transformation profonde et durable qui ne passe pas par la destruction de ce qui existe mais par la révision ciblée des règles les moins visibles d'un système. Les invités du podcast n'ont pas "tout cassé" dans leurs organisations ou leurs secteurs — ils ont identifié les règles implicites qui limitaient l'impact, le sens ou l'engagement, et ils les ont revisitées de façon chirurgicale. C'est cette approche graduelle et stratégique qui génère un impact disproportionné par rapport à l'effort investi.</div>
+      <details class="acc-item">
+        <summary class="acc-q">Pourquoi la marque employeur est-elle plus qu'une vitrine marketing ?</summary>
+        <div class="acc-body faq-a">Une vraie marque employeur se construit sur des engagements réels vécus quotidiennement par les collaborateurs. Une campagne de communication qui masque une réalité différente accélère la désillusion. Game Changer défend qu'une marque employeur authentique naît de l'intérieur — des pratiques managériales, pas des slogans RH.</div>
       </details>
 
-      <details>
-        <summary class="faq-q">Comment l'e-sport peut-il inspirer le management des équipes Gen Z ?</summary>
-        <div class="faq-a">L'épisode avec Arnaud Delcenserie identifie cinq mécanismes de l'e-sport directement transposables au management : le feedback instantané et précis (pas de revue annuelle mais des debriefs quotidiens), la progression visible et continue (systèmes de niveaux, badges, statistiques), la culture du "try again" qui normalise l'échec comme étape d'apprentissage, le sentiment d'appartenance intense à une équipe avec une identité forte, et la transparence totale sur les règles du jeu et les critères de performance. La Gen Z a grandi avec ces codes — les managers qui les adoptent créent immédiatement un environnement de travail qui leur semble naturel.</div>
+      <details class="acc-item">
+        <summary class="acc-q">Comment la démocratie participative peut-elle recréer la confiance entre citoyens et décideurs ?</summary>
+        <div class="acc-body faq-a"><strong>Valentin Chaput</strong> analyse dans Game Changer comment les mécanismes de participation citoyenne peuvent restaurer une légitimité démocratique érodée. Les outils numériques de participation ne suffisent pas — il faut des processus qui garantissent que la participation change réellement les décisions, pas seulement leur présentation.</div>
       </details>
 
-      <details>
-        <summary class="faq-q">L'élevage régénératif est-il vraiment une solution climatique viable ?</summary>
-        <div class="faq-a">L'épisode Game Changer consacré à l'élevage régénératif présente des données scientifiques qui montrent que des pratiques d'élevage extensif bien gérées peuvent effectivement contribuer positivement au bilan carbone — contrairement à l'élevage intensif qui est un émetteur net. Les mécanismes clés sont la séquestration de carbone dans les sols via la couverture végétale permanente, la restauration de la biodiversité des prairies et la réduction des intrants chimiques. La condition sine qua non est la rotation des pâturages et le contrôle de la densité animale — ce qui implique des exploitations de taille souvent inférieure aux modèles industriels dominants.</div>
+      <details class="acc-item">
+        <summary class="acc-q">Comment la mobilité douce peut-elle changer les habitudes en entreprise ?</summary>
+        <div class="acc-body faq-a">Changer les habitudes de déplacement des collaborateurs requiert trois conditions simultanées : des infrastructures adaptées, des incitations financières significatives, et un accompagnement culturel de la norme. Sans les trois, les politiques de mobilité échouent. Le plus souvent, c'est l'accompagnement culturel qui manque.</div>
       </details>
 
-      <details>
-        <summary class="faq-q">Quelle est la fréquence de publication de Game Changer ?</summary>
-        <div class="faq-a">Game Changer publie de nouveaux épisodes environ une fois par mois depuis son lancement en janvier 2025. Le format long — environ une heure par épisode — reflète la volonté de Fanny et Alexia d'aller en profondeur avec leurs invités plutôt que de multiplier les épisodes courts. Abonnez-vous sur Listenly ou Spotify pour être notifié à chaque nouvelle publication.</div>
+      <details class="acc-item">
+        <summary class="acc-q">Comment l'égalité femmes-hommes en entreprise progresse-t-elle réellement ?</summary>
+        <div class="acc-body faq-a">Les indicateurs progressent mais lentement. Les résistances culturelles profondes nécessitent des interventions sur les représentations, pas uniquement sur les politiques RH formelles. Game Changer défend que l'égalité est un combat de chiffres ET de culture — les deux doivent avancer ensemble pour que les changements soient durables.</div>
       </details>
 
-      <details>
-        <summary class="faq-q">Comment la cybersécurité est-elle traitée dans Game Changer ?</summary>
-        <div class="faq-a">L'épisode sur la cybersécurité adopte une perspective inhabituelle : au lieu de se concentrer sur les aspects techniques, il place l'humain au centre du sujet. L'argument central est que l'humain est simultanément la meilleure défense (un collaborateur vigilant qui signale une tentative de phishing vaut toutes les solutions techniques) et la plus grande faille (l'ingénierie sociale exploite les biais cognitifs humains que les firewalls ne peuvent pas bloquer). La conclusion pratique est que la cybersécurité est avant tout un enjeu de culture organisationnelle et de formation comportementale.</div>
+      <details class="acc-item">
+        <summary class="acc-q">Comment la santé mentale est-elle liée au numérique dans les organisations ?</summary>
+        <div class="acc-body faq-a">Reprendre le contrôle sur ses écrans est devenu un enjeu de performance organisationnelle autant qu'individuel. Les organisations qui performent ont des politiques de déconnexion intentionnelles et un design délibéré de leurs outils — pas juste des chartes du droit à la déconnexion jamais respectées.</div>
       </details>
 
     </div>
   </div>
-</section>
+</div>
 
-<section>
-  <div class="container">
-    <p class="section-label">Pour aller plus loin</p>
-    <h2>Explorer</h2>
+<!-- ÉPISODES -->
+<div class="wrap">
+  <div class="section">
+    <div class="section-eyebrow">Tous les épisodes</div>
+    <h2 class="section-title">22 épisodes disponibles</h2>
+    <div class="ep-strip">
+      <div class="ep-row"><span class="ep-num">1</span><div class="ep-info"><div class="ep-title">Transformer son entreprise : pourquoi l'humain est le grand oublié</div><div class="ep-guest">Aline Henry</div></div><span class="ep-date">10 juin 2026</span><span class="ep-dur" style="margin-left:16px">1h 21</span></div>
+      <div class="ep-row"><span class="ep-num">2</span><div class="ep-info"><div class="ep-title">Vendre l'invisible : Comment lancer un produit dont personne n'a entendu parler ?</div><div class="ep-guest">Elena Souiller Fedorenkova</div></div><span class="ep-date">6 mai 2026</span></div>
+      <div class="ep-row"><span class="ep-num">3</span><div class="ep-info"><div class="ep-title">Élevage régénératif : Et si les vaches étaient la solution au dérèglement climatique ?</div><div class="ep-guest"></div></div><span class="ep-date">2 avr. 2026</span></div>
+      <div class="ep-row"><span class="ep-num">4</span><div class="ep-info"><div class="ep-title">Démocratie Participative & Souveraineté : Recréer le lien entre citoyens et décideurs</div><div class="ep-guest">Valentin Chaput</div></div><span class="ep-date">9 mars 2026</span></div>
+      <div class="ep-row"><span class="ep-num">5</span><div class="ep-info"><div class="ep-title">Prospective & temps long : comment décider dans l'incertitude</div><div class="ep-guest">Cécile Wendling</div></div><span class="ep-date">18 fév. 2026</span></div>
+      <div class="ep-row"><span class="ep-num">6</span><div class="ep-info"><div class="ep-title">Performance : Comment démultiplier ses capacités grâce aux mécanismes du mental</div><div class="ep-guest">Élisabeth Ducarre</div></div><span class="ep-date">10 déc. 2025</span></div>
+      <div class="ep-row"><span class="ep-num">7</span><div class="ep-info"><div class="ep-title">Esprit critique : Comment décoder la désinformation et reprendre le contrôle</div><div class="ep-guest">Susanna Dörhage</div></div><span class="ep-date">19 nov. 2025</span></div>
+      <div class="ep-row"><span class="ep-num">8</span><div class="ep-info"><div class="ep-title">Performance : Pourquoi la philosophie est l'outil secret du directeur commercial</div><div class="ep-guest">Bruno Germain</div></div><span class="ep-date">16 oct. 2025</span></div>
+      <div class="ep-row"><span class="ep-num">9</span><div class="ep-info"><div class="ep-title">Entreprise libérée : Réinventer les règles du travail et de l'espace</div><div class="ep-guest">Quentin Audrain (Yemanja)</div></div><span class="ep-date">6 août 2025</span></div>
+      <div class="ep-row"><span class="ep-num">10</span><div class="ep-info"><div class="ep-title">Management & Gen Z : Décoder les codes de l'E-sport pour engager les nouvelles générations</div><div class="ep-guest">Arnaud Delcenserie</div></div><span class="ep-date">16 juil. 2025</span></div>
+      <div class="ep-row"><span class="ep-num">11</span><div class="ep-info"><div class="ep-title">Urbanisme solidaire : Réoccuper la ville et changer les règles de l'immobilier</div><div class="ep-guest">Simon Laisney (Plateau Urbain)</div></div><span class="ep-date">28 mai 2025</span></div>
+      <div class="ep-row"><span class="ep-num">12</span><div class="ep-info"><div class="ep-title">Liberté d'expression : Comment sortir des bulles de filtres</div><div class="ep-guest"></div></div><span class="ep-date">7 mai 2025</span></div>
+      <div class="ep-row"><span class="ep-num">13</span><div class="ep-info"><div class="ep-title">Santé mentale & Numérique : Comment reprendre le contrôle sur nos écrans</div><div class="ep-guest"></div></div><span class="ep-date">23 avr. 2025</span></div>
+      <div class="ep-row"><span class="ep-num">14</span><div class="ep-info"><div class="ep-title">Entrepreneuriat & Engagement : Créer un modèle artisanal et humain</div><div class="ep-guest">Carine Dhers (Mon Jardin Chocolaté)</div></div><span class="ep-date">14 avr. 2025</span></div>
+      <div class="ep-row"><span class="ep-num">15</span><div class="ep-info"><div class="ep-title">Ludopédagogie : Pourquoi le jeu est l'outil d'apprentissage le plus puissant pour les adultes</div><div class="ep-guest"></div></div><span class="ep-date">9 avr. 2025</span></div>
+      <div class="ep-row"><span class="ep-num">16</span><div class="ep-info"><div class="ep-title">Lancement de produit : Comment sortir du lot et captiver l'attention ?</div><div class="ep-guest"></div></div><span class="ep-date">26 mars 2025</span></div>
+      <div class="ep-row"><span class="ep-num">17</span><div class="ep-info"><div class="ep-title">Marque Employeur : Simple vitrine marketing ou véritable engagement humain ?</div><div class="ep-guest"></div></div><span class="ep-date">12 mars 2025</span></div>
+      <div class="ep-row"><span class="ep-num">18</span><div class="ep-info"><div class="ep-title">Féminisme en entreprise : Pourquoi l'égalité est encore un combat de chiffres et de culture</div><div class="ep-guest"></div></div><span class="ep-date">26 fév. 2025</span></div>
+      <div class="ep-row"><span class="ep-num">19</span><div class="ep-info"><div class="ep-title">Mobilité douce en entreprise : Comment changer nos habitudes de déplacement</div><div class="ep-guest"></div></div><span class="ep-date">11 fév. 2025</span></div>
+      <div class="ep-row"><span class="ep-num">20</span><div class="ep-info"><div class="ep-title">Cybersécurité : Pourquoi l'humain est votre meilleure défense (et votre plus grande faille)</div><div class="ep-guest"></div></div><span class="ep-date">26 jan. 2025</span></div>
+      <div class="ep-row"><span class="ep-num">21</span><div class="ep-info"><div class="ep-title">La Gen Z en entreprise : Conflit de générations ou moteur de changement ?</div><div class="ep-guest"></div></div><span class="ep-date">jan. 2025</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- HOSTS -->
+<div class="wrap">
+  <div class="section">
+    <div class="section-eyebrow">Animatrices</div>
+    <h2 class="section-title">Fanny & Alexia — Arcane Expérience</h2>
+    <div class="hosts-grid">
+      <div class="host-card">
+        <div class="host-name">Fanny</div>
+        <div class="host-role">Co-fondatrice · Arcane Expérience</div>
+        <div class="host-bio">Experte en conduite du changement par le jeu. Elle conçoit des expériences immersives pour permettre aux équipes d'expérimenter d'autres manières de collaborer. Sa conviction : on ne transforme pas une organisation en la convainquant — on la transforme en lui faisant vivre des expériences.</div>
+      </div>
+      <div class="host-card">
+        <div class="host-name">Alexia</div>
+        <div class="host-role">Co-fondatrice · Arcane Expérience</div>
+        <div class="host-bio">Spécialiste de l'intelligence collective et du management par le jeu. Elle apporte dans chaque épisode une perspective orientée vers l'action concrète — comment transformer les insights des invités en leviers applicables dans les organisations.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RELATED -->
+<div class="wrap">
+  <div class="section">
+    <div class="section-eyebrow">Explorer</div>
+    <h2 class="section-title">Pour aller plus loin</h2>
     <div class="related-grid">
       <div class="related-card">
         <span class="related-label">Podcasts similaires</span>
         <ul class="related-list">
-          <li>Génération Do It Yourself — entrepreneurs FR</li>
-          <li>Travail (en cours) — futur du travail</li>
+          <li>Génération Do It Yourself</li>
           <li>Sismique — transformation sociétale</li>
+          <li>Travail (en cours) — futur du travail</li>
           <li>Le Gratin — dirigeants et créateurs</li>
         </ul>
       </div>
       <div class="related-card">
-        <span class="related-label">Thèmes liés</span>
+        <span class="related-label">Thèmes clés</span>
         <ul class="related-list">
           <li>Conduite du changement par le jeu</li>
           <li>Intelligence collective en entreprise</li>
-          <li>Transformation organisationnelle humaine</li>
           <li>Prospective et décision dans l'incertitude</li>
-        </ul>
-      </div>
-      <div class="related-card">
-        <span class="related-label">Invités notables</span>
-        <ul class="related-list">
-          <li>Aline Henry — transformation & humain</li>
-          <li>Cécile Wendling — futurologue</li>
-          <li>Simon Laisney — Plateau Urbain</li>
-          <li>Arnaud Delcenserie — e-sport & Gen Z</li>
-        </ul>
-      </div>
-      <div class="related-card">
-        <span class="related-label">Arcane Expérience</span>
-        <ul class="related-list">
-          <li>Jeu comme levier de conduite du changement</li>
-          <li>Intelligence collective & créativité</li>
-          <li>Expériences immersives pour équipes</li>
-          <li>Copyright © Arcane Expérience 2025</li>
+          <li>Management Gen Z et e-sport</li>
         </ul>
       </div>
     </div>
   </div>
-</section>
+</div>
 
+<!-- FOOTER -->
 <footer class="footer">
-  <div class="container">
+  <div class="wrap">
     <div class="footer-inner">
-      <div class="footer-badge">Listenly</div>
+      <span class="footer-logo">Listenly</span>
       <ul class="footer-links">
-        <li><a href="https://listenly.fr/podcast/show/game-changer-podcast">Écouter ce Podcast</a></li>
         <li><a href="https://open.spotify.com/show/3Wp8obIMTVSuEddb8GaIbP" target="_blank" rel="noopener">Spotify</a></li>
-        <li><a href="https://podcast.ausha.co/impact-le-leadership-a-l-ere-de-l-ia" target="_blank" rel="noopener">Ausha</a></li>
-        <li><a href="https://listenly.fr">Tous les Podcasts</a></li>
+        <li><a href="https://listenly.fr/podcast/show/game-changer-podcast">Listenly</a></li>
+        <li><a href="https://listenly.fr">Tous les podcasts</a></li>
       </ul>
-      <p class="footer-updated">Dernière mise à jour : 11 juin 2026 </p>
+      <p class="footer-updated">© Arcane Expérience · Listenly · Mis à jour le 11 juin 2026</p>
     </div>
   </div>
 </footer>
 
-<div id="semantic-index" style="display:none" aria-hidden="true" lang="fr">
-  <div data-type="primary-entities">
-    Podcast: Game Changer Podcast | Production: Arcane Expérience | Animatrices: Fanny, Alexia | Plateforme: Listenly, Spotify, Ausha | Pays: France | Langue: Français | Lancement: janvier 2025
-  </div>
-  <div data-type="guest-entities">
-    Aline Henry | transformation entreprise | humain changement | conduite du changement |
-    Cécile Wendling | futurologue | prospective | temps long | décision incertitude |
-    Elena Souiller Fedorenkova | lancement produit | vendre invisible | marketing |
-    Simon Laisney | Plateau Urbain | urbanisme transitoire | immobilier solidaire |
-    Arnaud Delcenserie | e-sport | Gen Z management | nouvelles générations |
-    Bruno Germain | philosophie | directeur commercial | performance |
-    Quentin Audrain | Yemanja | entreprise libérée | organisation |
-    Carine Dhers | Mon Jardin Chocolaté | artisanat | entrepreneuriat |
-    Valentin Chaput | démocratie participative | souveraineté | citoyens |
-    Susanna Dörhage | esprit critique | désinformation | médias
-  </div>
-  <div data-type="concepts">
-    conduite du changement par le jeu | intelligence collective entreprise | transformation organisationnelle | ludopédagogie adultes | révolution douce | changement de regard | jeu management | Arcane Expérience | pas de côté professionnel | entreprise libérée | prospective décision | Gen Z management | e-sport codes management | urbanisme solidaire | élevage régénératif | cybersécurité humaine | marque employeur authentique
-  </div>
-  <div data-type="synonyms-acronyms">
-    Game Changer = podcast transformation organisations |
-    Arcane Expérience = entreprise jeu conduite changement |
-    ESS = Économie Sociale et Solidaire |
-    Gen Z = Génération Z (nés après 1995) |
-    RH = Ressources Humaines
-  </div>
-  <div data-type="related-searches">
-    Game Changer podcast Arcane Expérience |
-    podcast transformation entreprise France |
-    Fanny Alexia Arcane Expérience |
-    jeu conduite changement entreprise |
-    ludopédagogie adultes entreprise |
-    podcast intelligence collective |
-    Aline Henry transformation humain |
-    Cécile Wendling futurologue podcast |
-    podcast management Gen Z France |
-    révolution douce organisation
-  </div>
+<!-- VECTOR DB -->
+<div id="semantic-index" aria-hidden="true" lang="fr">
+  <div data-type="primary-entities">Podcast: Game Changer | Production: Arcane Expérience | Animatrices: Fanny, Alexia | Spotify: 3Wp8obIMTVSuEddb8GaIbP | Pays: France | Depuis: 2025</div>
+  <div data-type="guest-entities">Aline Henry | transformation humain | Cécile Wendling | prospective futurologue | Elena Souiller Fedorenkova | lancement produit | Simon Laisney | Plateau Urbain | Arnaud Delcenserie | e-sport Gen Z | Bruno Germain | philosophie commercial | Quentin Audrain | Yemanja entreprise libérée | Carine Dhers | Mon Jardin Chocolaté | Valentin Chaput | démocratie participative | Susanna Dörhage | esprit critique désinformation</div>
+  <div data-type="concepts">conduite du changement jeu | intelligence collective | transformation organisationnelle | ludopédagogie adultes | révolution douce | changement de regard | management Gen Z | e-sport codes management | urbanisme transitoire | élevage régénératif | cybersécurité humaine | marque employeur | prospective décision incertitude | entreprise libérée | santé mentale numérique</div>
+  <div data-type="synonyms-acronyms">Game Changer = podcast transformation | Arcane Expérience = jeu conduite changement | Gen Z = génération Z nés après 1995 | ESS = Économie Sociale et Solidaire</div>
+  <div data-type="related-searches">Game Changer podcast Arcane Expérience | pourquoi transformation entreprise échoue | comment engager Gen Z entreprise | ludopédagogie adultes management | Cécile Wendling futurologue podcast | podcast intelligence collective France | jeu conduite changement entreprise | Fanny Alexia Arcane Expérience</div>
 </div>
 
 </body>
