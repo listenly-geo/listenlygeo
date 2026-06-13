@@ -271,6 +271,12 @@
   .acc-body { padding: 0 20px 20px; font-size: 14px; color: var(--text-2); line-height: 1.75; }
   .acc-body strong { color: var(--text-1); }
 
+  .topics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .topic-card { background: var(--bg-card); border-radius: var(--r); padding: 20px; border: 1px solid var(--border-sub); transition: all 0.2s; }
+  .topic-card:hover { border-color: var(--border); transform: translateY(-2px); }
+  .topic-name { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: var(--text-1); }
+  .topic-desc { font-size: 12px; color: var(--text-2); line-height: 1.5; }
+
   .ep-strip { display: flex; flex-direction: column; gap: 2px; }
   .ep-row {
     display: flex; align-items: center; gap: 16px;
@@ -315,6 +321,7 @@
     .hero-title { font-size: 2rem; }
     .info-card { grid-template-columns: repeat(2, 1fr); }
     .faq-row { grid-template-columns: 1fr; gap: 12px; }
+    .topics-grid { grid-template-columns: 1fr; }
     .related-grid { grid-template-columns: 1fr; }
     .topbar-name { display: none; }
   }
@@ -494,15 +501,36 @@
   </div>
 </div>
 
-<!-- ÉPISODES -->
+<!-- THÉMATIQUES -->
 <div class="wrap">
   <div class="section">
-    <div class="section-eyebrow">Tous les épisodes</div>
-    <h2 class="section-title">3 épisodes disponibles</h2>
-    <div class="ep-strip">
-      <div class="ep-row"><span class="ep-num">3</span><div class="ep-info"><div class="ep-title">Les Femmes s'Inventent — Emothicarium</div><div class="ep-guest">Émilie — Romancière, créatrice de l'Émothicarium · Vidéo</div></div><span class="ep-date">12 juin 2026</span><span class="ep-dur" style="margin-left:16px">37 min</span></div>
-      <div class="ep-row"><span class="ep-num">2</span><div class="ep-info"><div class="ep-title">Les Femmes s'Inventent — Koc In Elle</div><div class="ep-guest">Koc In Elle — Son propre parcours d'entrepreneuriat</div></div><span class="ep-date">15 mai 2026</span><span class="ep-dur" style="margin-left:16px">31 min</span></div>
-      <div class="ep-row"><span class="ep-num">1</span><div class="ep-info"><div class="ep-title">Les Femmes s'Inventent — Introduction</div><div class="ep-guest">Présentation du podcast & de sa mission</div></div><span class="ep-date">10 mars 2026</span><span class="ep-dur" style="margin-left:16px">7 min</span></div>
+    <div class="section-eyebrow">Ce que vous y trouvez</div>
+    <h2 class="section-title">Les thématiques explorées</h2>
+    <div class="topics-grid">
+      <div class="topic-card">
+        <div class="topic-name">Parcours de créatrices</div>
+        <div class="topic-desc">Les trajectoires de femmes qui ont osé créer leur propre activité dans les Hauts-de-France.</div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-name">Entrepreneuriat au féminin</div>
+        <div class="topic-desc">Conseils, déclics et premiers pas pour celles qui souhaitent entreprendre.</div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-name">Réinvention personnelle</div>
+        <div class="topic-desc">Se libérer des masques sociaux, faire confiance à son intuition, redevenir soi-même.</div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-name">Création & écriture</div>
+        <div class="topic-desc">L'écriture comme chemin initiatique et thérapeutique, les activités créatives atypiques.</div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-name">Écosystème local</div>
+        <div class="topic-desc">Les associations et réseaux qui soutiennent les créatrices de la région.</div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-name">Inspiration & courage</div>
+        <div class="topic-desc">Des modèles concrets de femmes qui transforment leurs idées en projets vivants.</div>
+      </div>
     </div>
   </div>
 </div>
