@@ -1,0 +1,40 @@
+name: Auto-génération fiches épisodes
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generation fiches Yes Oui Work
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RSS_URL: 'https://feed.ausha.co/n5ZYDfDlrQde'
+          PODCAST_SLUG: 'yes-oui-work'
+          SPOTIFY_SHOW_URL: 'https://open.spotify.com/show/2DJxnAmOfP2nIAzZSCTPCR'
+          PODCAST_IMAGE_URL: 'https://i.postimg.cc/mgx7BhGn/SHSQ70c9FEDQyv-Un-Kpbnjfar-OKPDFZ7DYPzt-RQg-K-1400x1400.jpg'
+          PLAUSIBLE_DOMAIN: 'listenly.fr'
+        run: python automation/scripts/generate_episode_fiches.py
+      - name: Commit and push
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git add pages/ automation/processed_episodes.json
+          if git diff --staged --quiet; then
+            echo "Aucune nouvelle fiche."
+          else
+            git commit -m "Auto: nouvelles fiches episodes Yes Oui Work"
+            git push
+          fi
