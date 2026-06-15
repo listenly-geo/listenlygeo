@@ -38,3 +38,15 @@ jobs:
             git commit -m "Auto: nouvelles fiches episodes Yes Oui Work"
             git push
           fi
+      - name: Deploy HTML to O2Switch via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/
+          server-dir: /listenly.fr/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
