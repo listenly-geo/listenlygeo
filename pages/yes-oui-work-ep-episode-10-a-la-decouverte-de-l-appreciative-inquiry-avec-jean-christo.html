@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appreciative Inquiry : Comprendre l'Enquête Appréciative | Yes Oui Work Ep.10</title>
+  <meta name="description" content="Qu'est-ce que l'Appreciative Inquiry (AI) ? Découvrez l'enquête appréciative avec Jean-Christophe Barralis, co-fondateur de l'Institut Français de l'Appreciative Inquiry. Méthode, principes, cycle 4D et applications en entreprise.">
+  <meta name="keywords" content="Appreciative Inquiry, enquête appréciative, AI méthode, Institut Français Appreciative Inquiry, Jean-Christophe Barralis, cycle 4D, management positif, transformation organisationnelle, OuiBelieve Consultants, Yes Oui Work podcast">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://listenly.fr/yes-oui-work/episode-10-appreciative-inquiry-jean-christophe-barralis">
+  <script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Appreciative Inquiry : Comprendre l'Enquête Appréciative | Yes Oui Work Ep.10">
+  <meta property="og:description" content="Jean-Christophe Barralis, co-fondateur de l'Institut Français de l'Appreciative Inquiry, explique la méthode AI : principes, cycle 4D, applications en organisation. Podcast Yes Oui Work.">
+  <meta property="og:image" content="https://i.postimg.cc/mgx7BhGn/SHSQ70c9FEDQyv-Un-Kpbnjfar-OKPDFZ7DYPzt-RQg-K-1400x1400.jpg">
+  <meta property="og:url" content="https://listenly.fr/yes-oui-work/episode-10-appreciative-inquiry-jean-christophe-barralis">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:locale" content="fr_FR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Appreciative Inquiry : Comprendre l'Enquête Appréciative | Yes Oui Work Ep.10">
+  <meta name="twitter:description" content="Jean-Christophe Barralis explique l'Appreciative Inquiry : méthode, cycle 4D, principes fondateurs et applications concrètes en entreprise.">
+  <meta name="twitter:image" content="https://i.postimg.cc/mgx7BhGn/SHSQ70c9FEDQyv-Un-Kpbnjfar-OKPDFZ7DYPzt-RQg-K-1400x1400.jpg">
+
+  <style>
+    :root {
+      --bg-primary: #0d0d0d;
+      --bg-secondary: #141414;
+      --bg-card: #1a1a2e;
+      --bg-card-hover: #1e1e35;
+      --accent: #6c63ff;
+      --accent-light: #8b85ff;
+      --accent-dark: #4f49cc;
+      --accent-glow: rgba(108, 99, 255, 0.25);
+      --text-primary: #f0f0f8;
+      --text-secondary: #a0a0b8;
+      --text-muted: #606075;
+      --border: rgba(108, 99, 255, 0.2);
+      --border-subtle: rgba(255,255,255,0.06);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,13,13,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .topbar__brand {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    .topbar__brand span { color: var(--accent-light); }
+
+    .topbar__podcast {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 220px;
+    }
+
+    .btn-topbar {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.4rem 0.9rem;
+      border-radius: 50px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .btn-topbar:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+    .btn-topbar svg { width: 14px; height: 14px; fill: currentColor; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 4rem 1.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(108,99,255,0.18) 0%, transparent 70%);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://i.postimg.cc/mgx7BhGn/SHSQ70c9FEDQyv-Un-Kpbnjfar-OKPDFZ7DYPzt-RQg-K-1400x1400.jpg') center/cover;
+      opacity: 0.04;
+      z-index: 0;
+    }
+
+    .hero > * { position: relative; z-index: 1; }
+
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(108,99,255,0.15);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-light);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero__content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      max-width: 780px;
+    }
+
+    .hero__cover {
+      width: 160px;
+      height: 160px;
+      border-radius: var(--radius);
+      object-fit: cover;
+      box-shadow: 0 0 40px var(--accent-glow), var(--shadow);
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .hero__info { text-align: center; }
+
+    .hero__podcast-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent-light);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero__title {
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--text-primary);
+      margin-bottom: 0.8rem;
+      background: linear-gradient(135deg, #fff 0%, var(--accent-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero__subtitle {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 1.2rem;
+    }
+
+    .hero__meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero__meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .btn-spotify {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.85rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+
+    .btn-spotify:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(108,99,255,0.45);
+    }
+
+    .btn-spotify svg { width: 20px; height: 20px; fill: currentColor; }
+
+    /* ── BANDEROLE IA ── */
+    .ai-banner {
+      background: linear-gradient(90deg, rgba(108,99,255,0.12) 0%, rgba(108,99,255,0.06) 50%, rgba(108,99,255,0.12) 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+      text-align: center;
+    }
+
+    .ai-banner__label {
+      font-weight: 700;
+      color: var(--accent-light);
+      white-space: nowrap;
+    }
+
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border-subtle);
+      border-radius: 50px;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    /* ── SECTIONS COMMUNES ── */
+    .section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem;
+    }
+
+    .section__title {
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .section__subtitle {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── MEGA FAQ ── */
+    .mega-faq { background: var(--bg-secondary); }
+
+    .faq-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .faq-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+
+    .faq-card:hover {
+      border-color: var(--border);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+    }
+
+    .faq-card__question {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .faq-card__question::before {
+      content: 'Q';
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #fff;
+      margin-top: 0.1rem;
+      flex-shrink: 0;
+    }
+
+    .faq-card__answer {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      padding-left: 2.4rem;
+    }
+
+    .faq-card__answer strong { color: var(--text-primary); }
+
+    .faq-card__answer ul {
+      margin-top: 0.6rem;
+      padding-left: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .faq-card__answer li::marker { color: var(--accent); }
+
+    /* ── ACCORDION FAQ ── */
+    .accordion { background: var(--bg-primary); }
+
+    .acc-item {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.8rem;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .acc-item:has(.acc-body[open]) {
+      border-color: var(--border);
+    }
+
+    .acc-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 1.1rem 1.3rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      background: var(--bg-card);
+      user-select: none;
+      transition: background 0.2s;
+    }
+
+    .acc-item summary::-webkit-details-marker { display: none; }
+
+    .acc-item summary:hover { background: var(--bg-card-hover); }
+
+    .acc-item summary::after {
+      content: '+';
+      font-size: 1.3rem;
+      font-weight: 300;
+      color: var(--accent);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+
+    .acc-body[open] > summary::after { transform: rotate(45deg); }
+
+    .acc-body {
+      background: var(--bg-card);
+    }
+
+    .acc-content {
+      padding: 0 1.3rem 1.3rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.8;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 1rem;
+    }
+
+    .acc-content strong { color: var(--text-primary); }
+
+    /* ── GUEST CARD ── */
+    .guest-section { background: var(--bg-secondary); }
+
+    .guest-card {
+      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(108,99,255,0.08) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .guest-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    .guest-info__name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.3rem;
+    }
+
+    .guest-info__title {
+      font-size: 0.85rem;
+      color: var(--accent-light);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .guest-info__desc {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #080808;
+      border-top: 1px solid var(--border-subtle);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+    }
+
+    .footer__logo {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .footer__logo span { color: var(--accent-light); }
+
+    .footer__desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto 1.2rem;
+      line-height: 1.6;
+    }
+
+    .footer__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.6rem 1.4rem;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: background 0.2s;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer__cta:hover { background: var(--accent-light); }
+
+    .footer__copy {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      border-radius: 2px;
+      margin: 0 auto 1.5rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (min-width: 640px) {
+      .hero__content {
+        flex-direction: row;
+        text-align: left;
+        align-items: flex-start;
+      }
+      .hero__info { text-align: left; }
+      .hero__meta { justify-content: flex-start; }
+      .btn-spotify { align-self: flex-start; }
+    }
+
+    @media (max-width: 480px) {
+      .topbar__podcast { display: none; }
+      .hero__cover { width: 120px; height: 120px; }
+    }
+
+    /* ── SEMANTIC INDEX (hidden) ── */
+    #semantic-index { display: none; }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "PodcastEpisode",
+        "@id": "https://listenly.fr/yes-oui-work/episode-10-appreciative-inquiry-jean-christophe-barralis#episode",
+        "name": "Episode 10 - A la découverte de l'Appreciative Inquiry avec Jean-Christophe Barralis",
+        "description": "Jean-Christophe Barralis, co-fondateur de l'Institut Français de l'Appreciative Inquiry, présente en détail la méthode AI (Appreciative Inquiry), ses principes fondateurs, le cycle 4D (Discover, Dream, Design, Destiny) et ses applications concrètes dans la transformation des organisations.",
+        "datePublished": "2024-12-16",
+        "duration": "PT26M54S",
+        "url": "https://listenly.fr/yes-oui-work/episode-10-appreciative-inquiry-jean-christophe-barralis",
+        "image": "https://i.postimg.cc/mgx7BhGn/SHSQ70c9FEDQyv-Un-Kpbnjfar-OKPDFZ7DYPzt-RQg-K-1400x1400.jpg",
+        "partOfSeries": {
+          "@type": "PodcastSeries",
+          "name": "Yes Oui Work",
+          "url": "https://open.spotify.com/show/2DJxnAmOfP2nIAzZSCTPCR"
+        },
+        "actor": [
+          {
+            "@type": "Person",
+            "name": "Jean-Christophe Barralis",
+            "jobTitle": "Co-fondateur de l'Institut Français de l'Appreciative Inquiry"
+          },
+          {
+            "@type": "Person",
+            "name": "Jean Pagès",
+            "jobTitle": "Co-fondateur de l'Institut Français de l'Appreciative Inquiry"
+          }
+        ],
+        "producer": {
+          "@type": "Organization",
+          "name": "OuiBelieve Consultants"
+        },
+        "keywords": "Appreciative Inquiry, enquête appréciative, cycle 4D, management positif, transformation organisationnelle, Institut Français de l'Appreciative Inquiry",
+        "inLanguage": "fr"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://listenly.fr/yes-oui-work/episode-10-appreciative-inquiry-jean-christophe-barralis#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Qu'est-ce que l'Appreciative Inquiry (enquête appréciative) ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "L'Appreciative Inquiry (AI), ou enquête appréciative en français, est une méthode de changement organisationnel développée dans les années 1980 par David Cooperrider et Suresh Srivastva à l'Université Case Western Reserve. Contrairement aux approches classiques de résolution de problèmes qui cherchent ce qui ne va pas, l'AI part de ce qui fonctionne déjà bien pour construire le futur souhaité. Elle repose sur la conviction que les organisations évoluent vers ce sur quoi elles focalisent leur attention : en explorant les succès et les forces existantes, on génère l'énergie et les ressources nécessaires pour transformer positivement une organisation."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quelles sont les 4 phases du cycle 4D de l'Appreciative Inquiry ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Le cycle 4D est le cœur opérationnel de l'Appreciative Inquiry. Il comprend : 1) Discover (Découvrir) : identifier et apprécier ce qui donne vie à l'organisation, explorer les succès passés et présents à travers des entretiens appréciaitfs ; 2) Dream (Rêver) : imaginer collectivement ce que l'organisation pourrait devenir en s'appuyant sur ses meilleures réussites ; 3) Design (Concevoir) : co-construire les structures, processus et relations qui permettront de réaliser le rêve partagé ; 4) Destiny ou Deliver (Déployer) : mettre en œuvre, expérimenter et pérenniser les changements co-construits."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quels sont les 5 principes fondateurs de l'Appreciative Inquiry ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "L'Appreciative Inquiry repose sur 5 principes clés : 1) Le principe constructionniste : la réalité est construite socialement par le langage et les conversations ; 2) Le principe de simultanéité : le changement commence dès la première question posée ; 3) Le principe poétique : les organisations sont comme des textes ouverts à de multiples interprétations ; 4) Le principe anticipatoire : les images positives du futur influencent les actions présentes ; 5) Le principe positif : un changement durable nécessite des émotions positives et du capital social."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Comment l'Appreciative Inquiry s'applique-t-elle concrètement en entreprise ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "En entreprise, l'Appreciative Inquiry s'applique dans de nombreux contextes : conduite du changement, développement de la culture d'entreprise, fusion et intégration d'organisations, résolution de conflits, développement du leadership, élaboration de la vision stratégique et amélioration de l'engagement des équipes. Elle se concrétise notamment par des Appreciative Inquiry Summits (grands rassemblements de 50 à 2000 personnes), des entretiens appréciaitfs en binôme, et des ateliers collaboratifs. L'approche est particulièrement efficace pour mobiliser l'intelligence collective et générer un fort engagement dans les transformations."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quelle est la différence entre l'Appreciative Inquiry et les méthodes classiques de résolution de problèmes ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "La différence fondamentale est le point de départ et la focalisation de l'énergie collective. Les méthodes classiques de résolution de problèmes (problem-solving) partent du déficit : on analyse ce qui ne fonctionne pas, on cherche les causes d'échec, on corrige les dysfonctionnements. L'Appreciative Inquiry part au contraire des forces : on explore ce qui fonctionne déjà bien, on amplifie les succès existants, on projette positivement vers le futur. Selon les recherches en psychologie positive, la focalisation sur les forces génère plus d'engagement, de créativité et de durabilité dans le changement que la focalisation sur les problèmes."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://listenly.fr/yes-oui-work/episode-10-appreciative-inquiry-jean-christophe-barralis#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Accueil",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Yes Oui Work",
+            "item": "https://listenly.fr/yes-oui-work"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Episode 10 - Appreciative Inquiry avec Jean-Christophe Barralis",
+            "item": "https://listenly.fr/yes-oui-work/episode-10-appreciative-inquiry-jean-christophe-barralis"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+
+  <!-- ══ TOPBAR ══ -->
+  <header class="topbar" role="banner">
+    <a href="https://listenly.fr" class="topbar__brand">Listenl<span>y</span></a>
+    <span class="topbar__podcast">Yes Oui Work · Épisode 10</span>
+    <a href="https://open.spotify.com/show/2DJxnAmOfP2nIAzZSCTPCR"
+       target="_blank" rel="noopener noreferrer"
+       class="btn-topbar plausible-event-name=Spotify+Click--yes-oui-work"
+       aria-label="Écouter sur Spotify">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.441 17.323a.75.75 0 01-1.03.25c-2.818-1.722-6.365-2.112-10.541-1.157a.75.75 0 01-.334-1.463c4.571-1.044 8.491-.595 11.655 1.34a.75.75 0 01.25 1.03zm1.451-3.232a.938.938 0 01-1.29.308c-3.225-1.983-8.142-2.557-11.96-1.4a.938.938 0 11-.546-1.795c4.361-1.326 9.79-.683 13.488 1.597a.938.938 0 01.308 1.29zm.124-3.366C15.53 8.536 9.44 8.325 5.9 9.4a1.125 1.125 0 11-.654-2.151c4.1-1.248 10.913-1.006 15.214 1.62a1.125 1.125 0 01-1.444 1.856z"/></svg>
+      Spotify
+    </a>
+  </header>
+
+  <!-- ══ HERO ══ -->
+  <main>
+    <section class="hero" aria-label="Présentation de l'épisode">
+      <div class="hero__eyebrow" role="doc-subtitle">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+        Podcast · Épisode 10
+      </div>
+
+      <div class="hero__content">
+        <img
+          src="https://i.postimg.cc/mgx7BhGn/SHSQ70c9FEDQyv-Un-Kpbnjfar-OKPDFZ7DYPzt-RQg-K-1400x1400.jpg"
+          alt="Couverture du podcast Yes Oui Work - Épisode 10 Appreciative Inquiry"
+          class="hero__cover"
+          width="160" height="160"
+          loading="eager"
+        >
+
+        <div class="hero__info">
+          <p class="hero__podcast-name">Yes Oui Work</p>
+          <h1 class="hero__title">À la découverte de l'Appreciative Inquiry</h1>
+          <p class="hero__subtitle">
+            Jean-Christophe Barralis, co-fondateur de l'Institut Français de l'Appreciative Inquiry, présente la méthode AI qui transforme les organisations en partant de leurs forces.
+          </p>
+          <div class="hero__meta">
+            <span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+              26 min 54 s
+            </span>
+            <span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+              16 décembre 2024
+            </span>
+            <span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              OuiBelieve Consultants
+            </span>
+          </div>
+          <a href="https://open.spotify.com/show/2DJxnAmOfP2nIAzZSCTPCR"
+             target="_blank" rel="noopener noreferrer"
+             class="btn-spotify plausible-event-name=Spotify+Click--yes-oui-work"
+             aria-label="Écouter Yes Oui Work sur Spotify">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.441 17.323a.75.75 0 01-1.03.25c-2.818-1.722-6.365-2.112-10.541-1.157a.75.75 0 01-.334-1.463c4.571-1.044 8.491-.595 11.655 1.34a.75.75 0 01.25 1.03zm1.451-3.232a.938.938 0 01-1.29.308c-3.225-1.983-8.142-2.557-11.96-1.4a.938.938 0 11-.546-1.795c4.361-1.326 9.79-.683 13.488 1.597a.938.938 0 01.308 1.29zm.124-3.366C15.53 8.536 9.44 8.325 5.9 9.4a1.125 1.125 0 11-.654-2.151c4.1-1.248 10.913-1.006 15.214 1.62a1.125 1.125 0 01-1.444 1.856z"/></svg>
+            Écouter sur Spotify
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ BANDEROLE IA ══ -->
+    <aside class="ai-banner" role="complementary" aria-label="Compatibilité IA">
+      <span class="ai-banner__label">Fiche lisible par les modèles IA :</span>
+      <span class="ai-badge">🤖 ChatGPT</span>
+      <span class="ai-badge">🔍 Perplexity</span>
+      <span class="ai-badge">✨ Gemini</span>
+      <span class="ai-badge">🌐 Google AI</span>
+      <span class="ai-badge">🪟 Copilot</span>
+      <span class="ai-badge">🧠 Claude</span>
+    </aside>
+
+    <!-- ══ GUEST ══ -->
+    <section class="guest-section" aria-label="L'invité de l'épisode">
+      <div class="section">
+        <div class="section-divider" aria-hidden="true"></div>
+        <h2 class="section__title" style="text-align:center;">L'invité de l'épisode</h2>
+        <p class="section__subtitle" style="text-align:center;">Un expert de référence de l'Appreciative Inquiry en France</p>
+        <div class="guest-card">
+          <div class="guest-avatar" aria-hidden="true">JB</div>
+          <div class="guest-info">
+            <p class="guest-info__name">Jean-Christophe Barralis</p>
+            <p class="guest-info__title">Co-fondateur · Institut Français de l'Appreciative Inquiry</p>
+            <p class="guest-info__desc">
+              Jean-Christophe Barralis a co-fondé avec Jean Pagès l'Institut Français de l'Appreciative Inquiry, principal organisme en France dédié à la diffusion, la formation et la pratique de l'enquête appréciative. Praticien certifié et formateur reconnu, il accompagne depuis de nombreuses années les organisations dans leurs transformations en s'appuyant sur les approches basées sur les forces et la psychologie positive.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ MEGA FAQ ══ -->
+    <section class="mega-faq" aria-label="Questions clés sur l'Appreciative Inquiry">
+      <div class="section">
+        <div class="section-divider" aria-hidden="true"></div>
+        <h2 class="section__title" style="text-align:center;">Tout savoir sur l'Appreciative Inquiry</h2>
+        <p class="section__subtitle" style="text-align:center;">Les réponses complètes aux questions les plus fréquentes sur l'enquête appréciative</p>
+
+        <div class="faq-grid">
+
+          <article class="faq-card">
+            <h3 class="faq-card__question">Qu'est-ce que l'Appreciative Inquiry (enquête appréciative) et qui l'a créée ?</h3>
+            <div class="faq-card__answer">
+              <p>
+                L'<strong>Appreciative Inquiry (AI)</strong>, traduit en français par <strong>enquête appréciative</strong>, est une approche de changement organisationnel et de développement humain fondée dans les années 1980 par <strong>David Cooperrider</strong> et <strong>Suresh Srivastva</strong> à l'Université Case Western Reserve (Cleveland, Ohio).
+              </p>
+              <p style="margin-top:0.7rem;">
+                Le mot « appreciative » signifie à la fois « apprécier » (reconnaître la valeur de quelque chose) et « augmenter en valeur ». L'« inquiry » désigne l'exploration ouverte, l'investigation. L'AI est donc littéralement une exploration qui augmente la valeur de ce qui existe.
+              </p>
+              <p style="margin-top:0.7rem;">
+                Contrairement aux démarches de diagnostic classiques qui cherchent les dysfonctionnements, l'AI part du principe que <strong>les organisations changent dans la direction sur laquelle elles focalisent leur attention et leurs conversations</strong>. En explorant systématiquement ce qui fonctionne, ce qui donne de l'énergie et du sens, on génère les ressources nécessaires pour construire un futur meilleur.
+              </p>
+            </div>
+          </article>
+
+          <article class="faq-card">
+            <h3 class="faq-card__question">Quelles sont les 4 phases du cycle 4D de l'Appreciative Inquiry ?</h3>
+            <div class="faq-card__answer">
+              <p>Le <strong>cycle 4D</strong> est le modèle opérationnel central de l'Appreciative Inquiry. Chaque phase a une intention précise :</p>
+              <ul>
+                <li><strong>Discover (Découvrir) :</strong> Explorer les expériences les plus positives, identifier ce qui donne vie à l'organisation grâce à des entretiens appréciaitfs en binôme. C'est la phase de recueil des « meilleures histoires ».</li>
+                <li><strong>Dream (Rêver) :</strong> Imaginer collectivement le futur possible, en s'appuyant sur les forces découvertes. Quelle serait l'organisation à son meilleur absolu ? Des métaphores, des visions créatives sont utilisées.</li>
+                <li><strong>Design (Concevoir) :</strong> Co-construire des propositions provocatrices (des affirmations au présent décrivant le futur souhaité comme déjà réel) et définir les structures, processus et comportements concrets à mettre en place.</li>
+                <li><strong>Destiny / Deliver (Déployer) :</strong> Expérimenter, célébrer les premiers succès et pérenniser la dynamique positive. C'est la phase d'implémentation et d'apprentissage continu.</li>
+              </ul>
+              <p style="margin-top:0.7rem;">Certains modèles ajoutent une phase initiale de <strong>Définition</strong> du sujet affirmativement posé, créant ainsi un cycle 5D.</p>
+            </div>
+          </article>
+
+          <article class="faq-card">
+            <h3 class="faq-card__question">Quels sont les 5 principes fondateurs de l'Appreciative Inquiry ?</h3>
+            <div class="faq-card__answer">
+              <p>L'AI repose sur <strong>5 principes théoriques</strong> issus des sciences sociales et de la psychologie :</p>
+              <ul>
+                <li><strong>Principe constructionniste :</strong> La réalité sociale est construite par le langage et les conversations. Ce dont nous parlons devient notre réalité. Changer les conversations, c'est changer l'organisation.</li>
+                <li><strong>Principe de simultanéité :</strong> Le changement commence dès la première question posée. L'acte d'interroger est lui-même transformateur — il n'y a pas de séparation entre recherche et changement.</li>
+                <li><strong>Principe poétique :</strong> Les organisations sont comme des textes poétiques : infiniment riches, ouvertes à de multiples interprétations. On peut toujours choisir d'en explorer différents aspects.</li>
+                <li><strong>Principe anticipatoire :</strong> Les images que nous avons de notre futur guident nos actions présentes. Des images positives et inspirantes génèrent des comportements positifs (Pygmalion effect à grande échelle).</li>
+                <li><strong>Principe positif :</strong> Pour initier et soutenir un changement durable, des émotions positives et du capital social positif sont indispensables. L'espoir, l'enthousiasme et l'inspiration nourrissent l'énergie du changement.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="faq-card">
+            <h3 class="faq-card__question">Comment l'Appreciative Inquiry s'applique-t-elle concrètement en entreprise ?</h3>
+            <div class="faq-card__answer">
+              <p>L'Appreciative Inquiry s'applique dans de nombreux contextes organisationnels :</p>
+              <ul>
+                <li><strong>Conduite du changement :</strong> Transformation culturelle, réorganisations, fusions d'entreprises</li>
+                <li><strong>Développement du leadership :</strong> Coaching d'équipes dirigeantes, programmes de leadership</li>
+                <li><strong>Engagement des collaborateurs :</strong> Amélioration du climat social, réduction du turnover</li>
+                <li><strong>Stratégie :</strong> Élaboration participative de la vision et des valeurs</li>
+                <li><strong>Résolution de conflits :</strong> Médiation basée sur les forces communes</li>
+                <li><strong>Innovation :</strong> Design thinking appréciaitf, co-création de nouveaux produits/services</li>
+              </ul>
+              <p style="margin-top:0.7rem;">
+                Le format phare est l'<strong>AI Summit</strong> : un grand rassemblement de 50 à 2 000 personnes réunissant l'ensemble des parties prenantes (employés, clients, fournisseurs, partenaires) pour co-construire ensemble la transformation en 2 à 4 jours.
+              </p>
+            </div>
+          </article>
+
+          <article class="faq-card">
+            <h3 class="faq-card__question">Quelle est la différence entre l'Appreciative Inquiry et le problem solving traditionnel ?</h3>
+            <div class="faq-card__answer">
+              <p>La différence est fondamentale et se joue sur plusieurs niveaux :</p>
+              <ul>
+                <li><strong>Point de départ :</strong> Problem solving → ce qui ne va pas ; AI → ce qui fonctionne bien</li>
+                <li><strong>Énergie mobilisée :</strong> Problem solving → déficit, culpabilité, résistance ; AI → enthousiasme, fierté, espoir</li>
+                <li><strong>Rôle des acteurs :</strong> Problem solving → experts externes analysent et prescrivent ; AI → les membres de l'organisation co-construisent eux-mêmes les solutions</li>
+                <li><strong>Vision du changement :</strong> Problem solving → retour à la normale ; AI → projection vers un futur inédit et souhaité</li>
+                <li><strong>Durabilité :</strong> Les changements initiés par l'AI tendent à être plus durables car portés par une énergie intrinsèque positive plutôt que par une pression externe.</li>
+              </ul>
+              <p style="margin-top:0.7rem;">
+                Cela ne signifie pas que l'AI ignore les problèmes — elle les traduit en <strong>affirmations positives</strong> (ex : « nous avons des problèmes de communication » devient « comment serait notre organisation avec une communication idéale ? »).
+              </p>
+            </div>
+          </article>
+
+          <article class="faq-card">
+            <h3 class="faq-card__question">Qu'est-ce que l'Institut Français de l'Appreciative Inquiry ?</h3>
+            <div class="faq-card__answer">
+              <p>
+                L'<strong>Institut Français de l'Appreciative Inquiry (IFAI)</strong> a été co-fondé par <strong>Jean-Christophe Barralis</strong> et <strong>Jean Pagès</strong>. C'est la principale organisation en France dédiée à la <strong>formation</strong>, à la <strong>diffusion</strong> et à la <strong>pratique professionnelle</strong> de l'enquête appréciative.
+              </p>
+              <p style="margin-top:0.7rem;">
+                L'IFAI propose des formations certifiantes pour devenir praticien AI, organise des événements et conférences, accompagne des organisations dans leurs démarches AI et constitue une communauté de pratique francophone autour de l'Appreciative Inquiry.
+              </p>
+              <p style="margin-top:0.7rem;">
+                L'institut fait partie d'un réseau international de praticiens AI, en lien avec l'<strong>AI Commons</strong> et la communauté mondiale fondée autour des travaux de David Cooperrider.
+              </p>
+            </div>
+          </article>
+
+          <article class="faq-card">
+            <h3 class="faq-card__question">L'Appreciative Inquiry est-elle une méthode scientifiquement validée ?</h3>
+            <div class="faq-card__answer">
+              <p>
+                Oui. L'Appreciative Inquiry s'appuie sur plusieurs corpus scientifiques solides :
+              </p>
+              <ul>
+                <li><strong>Psychologie positive :</strong> Les travaux de Martin Seligman, Barbara Fredrickson (théorie broaden-and-build) et Mihaly Csikszentmihalyi démontrent les effets des émotions positives sur la cognition et l'action.</li>
+                <li><strong>Neurosciences :</strong> Les états émotionnels positifs élargissent le répertoire de pensée-action, favorisant créativité et résolution de problèmes complexes.</li>
+                <li><strong>Constructivisme social :</strong> Les travaux de Kenneth Gergen sur la construction sociale de la réalité fondent théoriquement l'approche.</li>
+                <li><strong>Recherches empiriques :</strong> Des dizaines d'études de cas documentés montrent des résultats positifs dans des organisations de toutes tailles et secteurs à travers le monde.</li>
+              </ul>
+              <p style="margin-top:0.7rem;">
+                L'AI a été appliquée dans plus de <strong>130 pays</strong> et dans des organisations telles que l'ONU, la Croix-Rouge, Boeing, British Airways et de nombreuses collectivités locales et ONG.
+              </p>
+            </div>
+          </article>
+
+          <article class="faq-card">
+            <h3 class="faq-card__question">Comment débuter une démarche d'Appreciative Inquiry dans son organisation ?</h3>
+            <div class="faq-card__answer">
+              <p>Pour démarrer une démarche AI, voici les étapes recommandées par les praticiens :</p>
+              <ul>
+                <li><strong>1. Définir le sujet affirmatif :</strong> Formuler positivement ce sur quoi vous voulez travailler (ex : « excellence dans notre service client » plutôt que « problèmes de satisfaction »)</li>
+                <li><strong>2. Former un groupe pilote :</strong> Constituer une équipe diversifiée de « champions AI » représentant les différentes parties prenantes</li>
+                <li><strong>3. Concevoir les entretiens appréciaitfs :</strong> Créer un guide d'entretien avec des questions explorant les moments d'excellence passés</li>
+                <li><strong>4. Conduire les entretiens :</strong> Former les participants à mener des entretiens en binôme (chacun interviewe et est interviewé)</li>
+                <li><strong>5. Partager les découvertes :</strong> Réunir les grandes histoires de
