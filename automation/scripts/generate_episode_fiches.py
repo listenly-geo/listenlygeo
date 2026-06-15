@@ -150,7 +150,7 @@ IMPORTANT : Réponds UNIQUEMENT avec le code HTML complet, depuis <!DOCTYPE html
 def call_claude(prompt):
     payload = {
         "model": MODEL,
-        "max_tokens": 16000,
+        "max_tokens": 14000,
         "messages": [{"role": "user", "content": prompt}],
     }
     data = json.dumps(payload).encode("utf-8")
@@ -164,7 +164,7 @@ def call_claude(prompt):
         },
         method="POST",
     )
-    with urllib.request.urlopen(req, timeout=120) as resp:
+    with urllib.request.urlopen(req, timeout=300) as resp:
         result = json.loads(resp.read())
     # Concatène les blocs texte
     parts = [b.get("text", "") for b in result.get("content", []) if b.get("type") == "text"]
