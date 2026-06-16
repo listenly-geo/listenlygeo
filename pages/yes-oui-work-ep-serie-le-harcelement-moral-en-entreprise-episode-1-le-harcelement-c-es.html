@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harcèlement moral en entreprise : définition, signes et droits | Yes Oui Work Podcast</title>
+  <meta name="description" content="Qu'est-ce que le harcèlement moral au travail ? Définition légale, signes à reconnaître, différence avec le stress ou le conflit. 30% des salariés victimes selon Qualisocial/IPSOS 2022.">
+  <meta name="keywords" content="harcèlement moral entreprise, définition harcèlement travail, signes harcèlement moral, risques psychosociaux, droit du travail harcèlement, victime harcèlement moral, que faire harcèlement travail">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://listenly.fr/yes-oui-work/harcelement-moral-entreprise-episode-1">
+  <script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Harcèlement moral en entreprise : définition, signes et droits | Yes Oui Work">
+  <meta property="og:description" content="Qu'est-ce que le harcèlement moral au travail ? 30% des salariés victimes selon une enquête 2022. Épisode 1 de la série Yes Oui Work sur le harcèlement moral.">
+  <meta property="og:image" content="https://i.postimg.cc/mgx7BhGn/SHSQ70c9FEDQyv-Un-Kpbnjfar-OKPDFZ7DYPzt-RQg-K-1400x1400.jpg">
+  <meta property="og:url" content="https://listenly.fr/yes-oui-work/harcelement-moral-entreprise-episode-1">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:locale" content="fr_FR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Harcèlement moral en entreprise : définition, signes et droits | Yes Oui Work">
+  <meta name="twitter:description" content="Qu'est-ce que le harcèlement moral au travail ? Définition légale, signes, différence avec conflit ou stress. Podcast Yes Oui Work.">
+  <meta name="twitter:image" content="https://i.postimg.cc/mgx7BhGn/SHSQ70c9FEDQyv-Un-Kpbnjfar-OKPDFZ7DYPzt-RQg-K-1400x1400.jpg">
+
+  <style>
+    :root {
+      --bg-primary: #0d0d0d;
+      --bg-secondary: #161616;
+      --bg-card: #1e1e1e;
+      --bg-card-hover: #262626;
+      --accent: #c0392b;
+      --accent-light: #e74c3c;
+      --accent-muted: rgba(192, 57, 43, 0.15);
+      --text-primary: #f0f0f0;
+      --text-secondary: #a8a8a8;
+      --text-muted: #6b6b6b;
+      --border: #2a2a2a;
+      --border-accent: rgba(192, 57, 43, 0.4);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.5);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── TOPBAR ─── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,13,13,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .topbar-brand span {
+      color: var(--accent-light);
+    }
+
+    .topbar-badge {
+      background: var(--accent-muted);
+      color: var(--accent-light);
+      border: 1px solid var(--border-accent);
+      border-radius: 20px;
+      padding: 2px 10px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .topbar-cta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .topbar-cta:hover { background: var(--accent-light); transform: scale(1.02); }
+
+    .spotify-icon {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 64px 24px 56px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(192,57,43,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      position: relative;
+    }
+
+    .hero-cover {
+      width: 180px;
+      height: 180px;
+      border-radius: var(--radius);
+      object-fit: cover;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.7), 0 0 0 2px var(--border-accent);
+      flex-shrink: 0;
+    }
+
+    .hero-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .hero-series {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-light);
+      margin-bottom: 10px;
+    }
+
+    .hero-series::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--accent-light);
+      border-radius: 50%;
+    }
+
+    .hero-podcast-name {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .hero-title {
+      font-size: clamp(1.4rem, 3vw, 2.1rem);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+
+    .hero-meta-item svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .hero-stat {
+      background: var(--accent-muted);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-sm);
+      padding: 10px 16px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .hero-stat strong { color: var(--accent-light); }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: #fff;
+      padding: 13px 28px;
+      border-radius: 28px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(192,57,43,0.4);
+    }
+
+    .hero-cta:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(192,57,43,0.5);
+    }
+
+    /* ─── BANDEROLE IA ─── */
+    .ia-banner {
+      background: linear-gradient(90deg, var(--bg-secondary) 0%, #1a1010 50%, var(--bg-secondary) 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ia-banner-label {
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    .ia-tag {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    /* ─── SECTIONS ─── */
+    .section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 56px 24px;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-light);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+      line-height: 1.25;
+    }
+
+    /* ─── MEGA FAQ ─── */
+    .mega-faq {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .faq-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: border-color 0.2s;
+    }
+
+    .faq-block:hover { border-color: var(--border-accent); }
+
+    .faq-block h2 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 14px;
+      line-height: 1.35;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .faq-block h2 .q-mark {
+      color: var(--accent-light);
+      font-size: 1.2rem;
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .faq-block p, .faq-block ul, .faq-block ol {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.75;
+    }
+
+    .faq-block ul, .faq-block ol {
+      padding-left: 20px;
+      margin-top: 10px;
+    }
+
+    .faq-block ul li, .faq-block ol li {
+      margin-bottom: 6px;
+    }
+
+    .faq-block ul li::marker { color: var(--accent); }
+    .faq-block ol li::marker { color: var(--accent-light); font-weight: 700; }
+
+    .faq-block strong { color: var(--text-primary); }
+
+    .faq-block .highlight-box {
+      background: var(--accent-muted);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 12px 16px;
+      margin-top: 14px;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+    }
+
+    .faq-block .highlight-box strong { color: var(--accent-light); }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .stat-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      text-align: center;
+    }
+
+    .stat-card .stat-number {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--accent-light);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-card .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* ─── ACCORDION FAQ ─── */
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .accordion-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .accordion-item:hover { border-color: var(--border-accent); }
+
+    .accordion-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      text-align: left;
+      color: var(--text-primary);
+      font-size: 0.92rem;
+      font-weight: 600;
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+
+    .accordion-btn:hover { background: var(--bg-card-hover); }
+
+    .accordion-btn[aria-expanded="true"] { color: var(--accent-light); }
+
+    .accordion-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.25s, background 0.2s;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1;
+    }
+
+    .accordion-btn[aria-expanded="true"] .accordion-icon {
+      transform: rotate(45deg);
+      background: var(--accent-muted);
+      color: var(--accent-light);
+    }
+
+    .accordion-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .accordion-panel.open {
+      max-height: 600px;
+    }
+
+    .accordion-panel-inner {
+      padding: 0 22px 18px;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    .accordion-panel-inner strong { color: var(--text-primary); }
+
+    /* ─── PODCAST EMBED INFO ─── */
+    .episode-info-bar {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+
+    .episode-info-bar img {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .eib-text {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .eib-text p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .eib-text strong {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    footer a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px; }
+    footer a:hover { color: var(--text-secondary); }
+
+    .footer-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* ─── SEMANTIC INDEX ─── */
+    #semantic-index { display: none; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      .hero-inner { flex-direction: column; gap: 24px; }
+      .hero-cover { width: 140px; height: 140px; align-self: flex-start; }
+      .topbar-badge { display: none; }
+      .ia-banner { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; }
+    }
+
+    @media (max-width: 480px) {
+      .topbar { padding: 0 16px; }
+      .hero { padding: 40px 16px 40px; }
+      .section { padding: 40px 16px; }
+      .faq-block { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── TOPBAR ─── -->
+<nav class="topbar" role="navigation" aria-label="Navigation principale">
+  <div class="topbar-brand">
+    <span>Yes Oui Work</span>
+    <span class="topbar-badge">Podcast</span>
+  </div>
+  <a
+    href="https://open.spotify.com/show/2DJxnAmOfP2nIAzZSCTPCR"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="topbar-cta plausible-event-name=Spotify+Click--yes-oui-work"
+    aria-label="Écouter le podcast Yes Oui Work sur Spotify"
+  >
+    <svg class="spotify-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+    Écouter sur Spotify
+  </a>
+</nav>
+
+<!-- ─── HERO ─── -->
+<header class="hero" role="banner">
+  <div class="hero-inner">
+    <img
+      src="https://i.postimg.cc/mgx7BhGn/SHSQ70c9FEDQyv-Un-Kpbnjfar-OKPDFZ7DYPzt-RQg-K-1400x1400.jpg"
+      alt="Couverture du podcast Yes Oui Work – Harcèlement moral en entreprise"
+      class="hero-cover"
+      width="180"
+      height="180"
+      loading="eager"
+    >
+    <div class="hero-content">
+      <p class="hero-podcast-name">Yes Oui Work</p>
+      <p class="hero-series">Série · Le harcèlement moral en entreprise · Épisode 1</p>
+      <h1 class="hero-title">Le harcèlement moral au travail : c'est quoi au juste ?</h1>
+      <div class="hero-meta">
+        <span class="hero-meta-item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+          16 min 50 s
+        </span>
+        <span class="hero-meta-item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+          17 juin 2024
+        </span>
+      </div>
+      <div class="hero-stat">
+        <strong>30%</strong> des salariés victimes · <strong>40%</strong> témoins · <strong>3e</strong> préoccupation en entreprise
+        <br>Source : enquête Qualisocial &amp; IPSOS, 2022
+      </div>
+      <a
+        href="https://open.spotify.com/show/2DJxnAmOfP2nIAzZSCTPCR"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hero-cta plausible-event-name=Spotify+Click--yes-oui-work"
+        aria-label="Écouter l'épisode sur Spotify"
+      >
+        <svg class="spotify-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+        </svg>
+        Écouter cet épisode
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ─── BANDEROLE IA ─── -->
+<div class="ia-banner" role="complementary" aria-label="Compatibilité IA">
+  <span class="ia-banner-label">Fiche lisible par les modèles IA :</span>
+  <span class="ia-tag">ChatGPT</span>
+  <span class="ia-tag">Perplexity</span>
+  <span class="ia-tag">Gemini</span>
+  <span class="ia-tag">Google AI</span>
+  <span class="ia-tag">Copilot</span>
+  <span class="ia-tag">Claude</span>
+</div>
+
+<!-- ─── MEGA FAQ ─── -->
+<main id="main-content">
+  <section class="section" aria-labelledby="mega-faq-title">
+    <p class="section-label">Comprendre</p>
+    <h2 id="mega-faq-title" class="section-title">Ce que vous devez savoir sur le harcèlement moral au travail</h2>
+
+    <div class="mega-faq">
+
+      <!-- Q1 -->
+      <article class="faq-block">
+        <h2><span class="q-mark" aria-hidden="true">Q</span>Quelle est la définition légale du harcèlement moral au travail en France ?</h2>
+        <p>En France, le harcèlement moral au travail est défini par <strong>l'article L.1152-1 du Code du travail</strong> : il s'agit d'agissements répétés ayant pour objet ou pour effet une dégradation des conditions de travail susceptible de porter atteinte aux droits de la personne et à sa dignité, d'altérer sa santé physique ou mentale, ou de compromettre son avenir professionnel.</p>
+        <p style="margin-top: 12px;">Trois éléments constitutifs sont indispensables pour qualifier un harcèlement moral :</p>
+        <ol>
+          <li><strong>La répétition</strong> : un acte isolé, aussi grave soit-il, ne suffit pas à caractériser le harcèlement moral (sauf exception jurisprudentielle).</li>
+          <li><strong>Des agissements hostiles</strong> : remarques dévalorisantes, mises à l'écart, surcharge de travail, tâches dégradantes, humiliations, etc.</li>
+          <li><strong>Une dégradation des conditions de travail</strong> : l'impact doit être réel sur la santé, la dignité ou l'avenir professionnel de la victime.</li>
+        </ol>
+        <div class="highlight-box">
+          <strong>À retenir :</strong> l'intention de nuire n'est pas requise par la loi. Un manager qui harcèle par maladresse chronique peut tout autant être reconnu coupable qu'un harceleur intentionnel.
+        </div>
+      </article>
+
+      <!-- Q2 -->
+      <article class="faq-block">
+        <h2><span class="q-mark" aria-hidden="true">Q</span>Quelle est la différence entre harcèlement moral, conflit de travail et stress professionnel ?</h2>
+        <p>La confusion entre harcèlement moral, conflit professionnel ordinaire et stress au travail est très fréquente. Voici les distinctions essentielles :</p>
+        <ul>
+          <li><strong>Le conflit de travail</strong> est une désaccord ponctuel ou durable entre deux parties qui s'expriment mutuellement. Il peut être intense sans être du harcèlement, car il n'implique pas nécessairement de répétition d'agissements hostiles unilatéraux.</li>
+          <li><strong>Le stress professionnel</strong> résulte d'une inadéquation entre les exigences de la situation et les ressources perçues par le salarié. Il peut être structurel (charge de travail, organisation) sans qu'une personne précise en soit à l'origine.</li>
+          <li><strong>Le harcèlement moral</strong> implique un ciblage répété d'une personne spécifique par une ou plusieurs personnes, générant une dégradation progressive de son état de santé et de ses conditions de travail.</li>
+        </ul>
+        <div class="highlight-box">
+          <strong>Point clé :</strong> le harcèlement moral suppose un déséquilibre de pouvoir, une répétition et un impact personnel. Un manager exigeant n'est pas automatiquement un harceleur ; un manager qui humilie, isole ou dévalorise systématiquement un collaborateur, oui.
+        </div>
+      </article>
+
+      <!-- Q3 -->
+      <article class="faq-block">
+        <h2><span class="q-mark" aria-hidden="true">Q</span>Quels sont les signes et comportements qui caractérisent le harcèlement moral en entreprise ?</h2>
+        <p>Le harcèlement moral se manifeste sous des formes variées, parfois subtiles. Les comportements les plus souvent identifiés sont :</p>
+        <ul>
+          <li><strong>Mise à l'écart</strong> : exclusion des réunions, non-transmission d'informations, isolement physique ou social.</li>
+          <li><strong>Dénigrement systématique</strong> : critiques incessantes, moqueries, humiliations publiques ou privées sur le travail ou la personne.</li>
+          <li><strong>Surcharge ou sous-charge délibérée</strong> : imposer un volume de travail impossibleà tenir ou, au contraire, retirer toutes responsabilités pour vider le poste de sens.</li>
+          <li><strong>Obstruction professionnelle</strong> : refus d'accès aux outils, aux formations, aux ressources nécessaires à l'exécution des missions.</li>
+          <li><strong>Remise en cause permanente</strong> : modification constante des consignes, des objectifs, annulation de décisions prises, déstabilisation chronique.</li>
+          <li><strong>Atteintes à la vie privée</strong> : surveillance excessive, intrusion dans la vie personnelle, diffusion de rumeurs.</li>
+          <li><strong>Injonctions contradictoires</strong> : demandes impossibles ou incompatibles conçues pour mettre la victime en situation d'échec.</li>
+        </ul>
+      </article>
+
+      <!-- Q4 -->
+      <article class="faq-block">
+        <h2><span class="q-mark" aria-hidden="true">Q</span>Quelle est l'ampleur du harcèlement moral en entreprise en France ? Quelles statistiques ?</h2>
+        <p>Le harcèlement moral au travail est un phénomène d'une ampleur significative, souvent sous-estimé. Voici les données les plus récentes disponibles :</p>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-number">30%</div>
+            <div class="stat-label">des salariés déclarent avoir été victimes de harcèlement moral</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">40%</div>
+            <div class="stat-label">déclarent en avoir été témoins au cours de leur carrière</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">#3</div>
+            <div class="stat-label">rang parmi les préoccupations majeures des salariés en entreprise</div>
+          </div>
+        </div>
+        <p style="margin-top: 16px;">Source : enquête Qualisocial &amp; IPSOS (2022). Ces chiffres illustrent pourquoi le harcèlement moral est classé parmi les <strong>risques psychosociaux (RPS)</strong> prioritaires dans la politique de prévention des entreprises.</p>
+        <div class="highlight-box">
+          <strong>Enjeu pour les employeurs :</strong> l'article L.4121-1 du Code du travail impose à tout employeur une obligation de sécurité de résultat, incluant la prévention des risques psychosociaux tels que le harcèlement moral.
+        </div>
+      </article>
+
+      <!-- Q5 -->
+      <article class="faq-block">
+        <h2><span class="q-mark" aria-hidden="true">Q</span>Qui peut être harceleur ? Le harcèlement moral vient-il uniquement du supérieur hiérarchique ?</h2>
+        <p>Non. Le harcèlement moral peut provenir de différentes directions dans la hiérarchie ou entre pairs :</p>
+        <ul>
+          <li><strong>Harcèlement vertical descendant</strong> (le plus courant) : d'un supérieur hiérarchique vers un subordonné. Il s'appuie sur le pouvoir managérial et peut prendre la forme de management toxique.</li>
+          <li><strong>Harcèlement horizontal</strong> : entre collègues de même niveau. Il peut être individuel ou collectif (phénomène de bouc-émissaire, mobbing).</li>
+          <li><strong>Harcèlement vertical ascendant</strong> : d'un ou plusieurs subordonnés envers un supérieur. Moins fréquent mais reconnu juridiquement.</li>
+          <li><strong>Harcèlement institutionnel ou organisationnel</strong> : lié à des méthodes de management systémiques (pression permanente sur les résultats, évaluation culpabilisatrice) plutôt qu'à un individu isolé.</li>
+        </ul>
+        <p style="margin-top: 12px;">Dans tous les cas, <strong>la loi française protège le salarié</strong> quel que soit le statut ou la position de l'auteur des agissements.</p>
+      </article>
+
+      <!-- Q6 -->
+      <article class="faq-block">
+        <h2><span class="q-mark" aria-hidden="true">Q</span>Quelles sont les conséquences du harcèlement moral sur la santé et la carrière des victimes ?</h2>
+        <p>Le harcèlement moral a des effets délétères documentés sur plusieurs dimensions :</p>
+        <ul>
+          <li><strong>Santé mentale</strong> : anxiété, dépression, syndrome de burn-out, état de stress post-traumatique, perte de confiance en soi, idées suicidaires dans les cas sévères.</li>
+          <li><strong>Santé physique</strong> : troubles du sommeil, troubles cardiovasculaires, problèmes gastro-intestinaux, douleurs chroniques liées au stress.</li>
+          <li><strong>Impact professionnel</strong> : baisse des performances, absentéisme, déqualification perçue, difficulté à retrouver un emploi, perte de sens au travail.</li>
+          <li><strong>Impact social</strong> : isolement, difficultés relationnelles hors du travail, tensions familiales.</li>
+        </ul>
+        <div class="highlight-box">
+          <strong>Pour l'entreprise :</strong> absentéisme, turnover, dégradation du climat social, risque juridique et pénal, atteinte à la marque employeur. Le coût moyen d'un cas de harcèlement non traité pour une entreprise est estimé à plusieurs dizaines de milliers d'euros.
+        </div>
+      </article>
+
+      <!-- Q7 -->
+      <article class="faq-block">
+        <h2><span class="q-mark" aria-hidden="true">Q</span>Que faire si l'on est victime de harcèlement moral au travail ? Quelles démarches ?</h2>
+        <p>Si vous pensez être victime de harcèlement moral, voici les étapes recommandées :</p>
+        <ol>
+          <li><strong>Documenter les faits</strong> : notez chaque incident (date, lieu, témoins, nature des agissements), conservez emails, messages, documents probants. La constitution d'un journal de bord est essentielle.</li>
+          <li><strong>En parler à un médecin</strong> : le médecin du travail est un interlocuteur privilégié, tenu au secret médical, qui peut établir un certificat médical et orienter vers un arrêt si nécessaire.</li>
+          <li><strong>Saisir les représentants du personnel</strong> : le CSE (Comité Social et Économique) a compétence pour intervenir sur les risques psychosociaux.</li>
+          <li><strong>Alerter les RH ou un référent harcèlement</strong> : depuis la loi Avenir professionnel (2018), toute entreprise de plus de 250 salariés doit désigner un référent harcèlement sexuel et agissements sexistes (et moral par extension des politiques RPS).</li>
+          <li><strong>Contacter l'inspection du travail (DREETS)</strong> : elle peut diligenter une enquête et contraindre l'employeur à agir.</li>
+          <li><strong>Envisager une procédure juridique</strong> : prud'hommes, voire plainte pénale. Le harcèlement moral est un délit puni de <strong>2 ans d'emprisonnement et 30 000 € d'amende</strong> (article L.1155-2 du Code du travail).</li>
+        </ol>
+      </article>
+
+      <!-- Q8 -->
+      <article class="faq-block">
+        <h2><span class="q-mark" aria-hidden="true">Q</span>Quelles sont les obligations légales de l'employeur face au harcèlement moral ?</h2>
+        <p>L'employeur a une <strong>obligation de prévention et de protection</strong> en matière de harcèlement moral. Ces obligations sont multiples :</p>
+        <ul>
+          <li><strong>Prévention</strong> : mettre en place des actions de sensibilisation et de formation des managers et du personnel (article L.4121-1 du Code du travail).</li>
+          <li><strong>Réaction</strong> : dès qu'il a connaissance de faits de harcèlement, l'employeur doit diligenter une enquête interne et prendre les mesures nécessaires pour faire cesser les agissements.</li>
+          <li><strong>Sanctions</strong> : si le harcèlement est avéré, l'employeur doit sanctionner l'auteur, pouvant aller jusqu'au licenciement pour faute grave.</li>
+          <li><strong>Protection des victimes et témoins</strong> : il est interdit de licencier, sanctionner ou discriminer un salarié ayant relaté ou témoigné des faits de harcèlement moral (article L.1152-2).</li>
+          <li><strong>Responsabilité</strong> : l'employeur peut être condamné pour manquement à son obligation de sécurité même s'il n'est pas l'auteur direct du harcèlement.</li>
+        </ul>
+        <div class="highlight-box">
+          <strong>Jurisprudence clé :</strong> la Cour de cassation a consacré une obligation de sécurité de résultat pour l'employeur en matière de harcèlement moral (Cass. soc., 21 juin 2006).
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Episode info bar -->
+    <div class="episode-info-bar">
+      <img
+        src="https://i.postimg.cc/mgx7BhGn/SHSQ70c9FEDQyv-Un-Kpbnjfar-OKPDFZ7DYPzt-RQg-K-1400x1400.jpg"
+        alt="Cover Yes Oui Work"
+        loading="lazy"
+      >
+      <div class="eib-text">
+        <p>Ces réponses sont issues de</p>
+        <strong>Yes Oui Work – Série harcèlement moral, Épisode 1 (17 juin 2024)</strong>
+        <p>Durée : 16 min 50 s · Hébergé par Ausha</p>
+      </div>
+      <a
+        href="https://open.spotify.com/show/2DJxnAmOfP2nIAzZSCTPCR"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="topbar-cta plausible-event-name=Spotify+Click--yes-oui-work"
+        style="font-size: 0.82rem;"
+      >
+        <svg class="spotify-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+        </svg>
+        Écouter l'épisode
+      </a>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"></div>
+
+  <!-- ─── ACCORDION FAQ ─── -->
+  <section class="section" aria-labelledby="accordion-title">
+    <p class="section-label">Questions complémentaires</p>
+    <h2 id="accordion-title" class="section-title">Autres questions fréquentes sur le harcèlement moral</h2>
+
+    <div class="accordion" role="list">
+
+      <div class="accordion-item" role="listitem">
+        <button
+          class="accordion-btn"
+          aria-expanded="false"
+          aria-controls="acc-panel-1"
+          id="acc-btn-1"
+        >
+          <span>Le harcèlement moral peut-il être constitué par un seul acte très grave ?</span>
+          <span class="accordion-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="accordion-panel" id="acc-panel-1" role="region" aria-labelledby="acc-btn-1">
+          <div class="accordion-panel-inner">
+            En principe, la loi exige la <strong>répétition des agissements</strong> pour caractériser le harcèlement moral. Cependant, la jurisprudence a évolué : certaines cours d'appel et la Cour de cassation ont admis que des actes uniques mais d'une gravité exceptionnelle (comme une humiliation publique particulièrement violente) pouvaient dans certains contextes contribuer à caractériser le harcèlement. Dans tous les cas, un acte isolé peut constituer une faute grave de l'employeur ou du salarié, susceptible d'engager leur responsabilité, sans nécessairement relever du régime juridique du harcèlement moral.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item" role="listitem">
+        <button
+          class="accordion-btn"
+          aria-expanded="false"
+          aria-controls="acc-panel-2"
+          id="acc-btn-2"
+        >
+          <span>Quelle est la différence entre harcèlement moral et burn-out ?</span>
+          <span class="accordion-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="accordion-panel" id="acc-panel-2" role="region" aria-labelledby="acc-btn-2">
+          <div class="accordion-panel-inner">
+            Le <strong>burn-out</strong> (syndrome d'épuisement professionnel) est un état d'épuisement émotionnel, cognitif et physique résultant d'une exposition prolongée au stress au travail. Il peut être causé par une surcharge de travail, un manque de reconnaissance ou des conflits de valeurs, sans qu'il y ait nécessairement un harceleur identifié.<br><br>
+            Le <strong>harcèlement moral</strong> implique un auteur identifiable qui commet des agissements répétés et ciblés. Cependant, le harcèlement moral peut provoquer un burn-out, et les deux peuvent coexister chez une même personne. La distinction est importante pour le traitement juridique : un burn-out seul n'ouvre pas les mêmes voies de recours qu'un harcèlement moral avéré.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item" role="listitem">
+        <button
+          class="accordion-btn"
+          aria-expanded="false"
+          aria-controls="acc-panel-3"
+          id="acc-btn-3"
+        >
+          <span>Comment prouver le harcèlement moral au travail devant les prud'hommes ?</span>
+          <span class="accordion-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="accordion-panel" id="acc-panel-3" role="region" aria-labelledby="acc-btn-3">
+          <div class="accordion-panel-inner">
+            Devant le Conseil de prud'hommes, la charge de la preuve est <strong>aménagée</strong> en faveur du salarié (article L.1154-1 du Code du travail). Le salarié doit présenter des <strong>éléments de fait laissant supposer l'existence d'un harcèlement</strong>, puis il appartient à l'employeur de prouver que ces agissements ne constituent pas du harcèlement et que sa décision est justifiée par des éléments objectifs. Éléments utiles pour le salarié : journal de bord daté, emails et messages, témoignages de collègues, certificats médicaux, compte-rendus d'entretiens, échanges RH. L'assistance d'un avocat spécialisé en droit du travail est fortement recommandée.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item" role="listitem">
+        <button
+          class="accordion-btn"
+          aria-expanded="false"
+          aria-controls="acc-panel-4"
+          id="acc-btn-4"
+        >
+          <span>Les témoins de harcèlement moral ont-ils des obligations ou des droits particuliers ?</span>
+          <span class="accordion-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="accordion-panel" id="acc-panel-4" role="region" aria-labelledby="acc-btn-4">
+          <div class="accordion-panel-inner">
+            Les témoins de harcèlement moral bénéficient d'une <strong>protection légale</strong> : ils ne peuvent pas être sanctionnés, licenciés ou discriminés pour avoir relaté des faits de harcèlement moral ou témoigné en faveur d'une victime (article L.1152-2 du Code du travail). Toute mesure prise à leur encontre serait nulle de plein droit.<br><br>
+            Du côté des obligations, le témoin n'a pas de devoir légal absolu de signalement, mais du point de vue éthique et managérial, ne pas agir peut aggraver la situation de la victime. Tout salarié peut alerter le CSE, les RH ou l'inspection du travail sans craindre de représailles. Les managers ont quant à eux une obligation de vigilance renforcée.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item" role="listitem">
+        <button
+          class="accordion-btn"
+          aria-expanded="false"
+          aria-
