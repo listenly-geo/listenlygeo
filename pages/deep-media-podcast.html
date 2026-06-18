@@ -614,6 +614,7 @@
 <script>
 (function () {
   var ENDPOINT = 'https://listenly.fr/geo-stats.php';
+  var PAGE = window.location.pathname; // ex: /deep-media-podcast.html
   function animateCount(el, target) {
     var dur = 800, t0 = performance.now();
     function step(now) {
@@ -624,7 +625,7 @@
     requestAnimationFrame(step);
   }
   function loadGeoStats() {
-    fetch(ENDPOINT, { cache: 'no-store' })
+    fetch(ENDPOINT + '?page=' + encodeURIComponent(PAGE), { cache: 'no-store' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
         if (!d) return;
