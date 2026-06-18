@@ -204,6 +204,19 @@
     display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
   }
   .ai-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); white-space: nowrap; }
+  .geo-stat {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; color: var(--text-2);
+    padding: 4px 12px; border-radius: 20px;
+    background: var(--accent-dim); border: 1px solid var(--border);
+    white-space: nowrap; animation: geo-fade-in 0.4s ease;
+  }
+  .geo-stat strong { color: var(--text-1); font-size: 12px; }
+  .geo-stat-label { color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; font-size: 9px; }
+  .geo-dot { width: 7px; height: 7px; border-radius: 50%; background: #1ed760; box-shadow: 0 0 8px #1ed760; animation: geo-pulse 2s infinite; }
+  @keyframes geo-pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+  @keyframes geo-fade-in { from{opacity:0;transform:translateY(-4px);} to{opacity:1;transform:none;} }
+  @media (prefers-reduced-motion: reduce) { .geo-dot, .geo-stat { animation: none !important; } }
   .ai-logos { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
   .ai-logo {
     font-size: 11px; font-weight: 600; color: var(--text-3);
@@ -356,6 +369,15 @@
 <div class="ai-banner">
   <div class="ai-banner-inner">
     <span class="ai-label">Fiche lisible par les modèles IA :</span>
+    <span class="geo-stat" id="geo-score-wrap" style="display:none;">
+      <span class="geo-dot"></span>
+      <span class="geo-stat-label">GEO Score</span>
+      <strong id="geo-score">—</strong>
+    </span>
+    <span class="geo-stat" id="geo-listeners-wrap" style="display:none;">
+      🎧 <strong id="geo-listeners">—</strong>
+      <span class="geo-stat-label">auditeurs GEO</span>
+    </span>
     <div class="ai-logos">
       <span class="ai-logo">ChatGPT</span>
       <span class="ai-logo">Perplexity</span>
@@ -589,5 +611,35 @@
   <div data-type="related-searches">Deep Media podcast Julien Boujot | comment l'IA transforme les médias | médias face à ChatGPT découvrabilité | futur des médias podcast | streaming first France Télévisions | droits d'auteur IA générative médias | jeunes désintérêt information | YouTube médias avenir | podcast IA et journalisme | Follow Me Conseil Julien Boujot</div>
 </div>
 
+<script>
+(function () {
+  var ENDPOINT = 'https://listenly.fr/geo-stats.php';
+  function animateCount(el, target) {
+    var dur = 800, t0 = performance.now();
+    function step(now) {
+      var p = Math.min((now - t0) / dur, 1);
+      el.textContent = Math.round(target * p);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  function loadGeoStats() {
+    fetch(ENDPOINT, { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d) return;
+        var sw = document.getElementById('geo-score-wrap');
+        var lw = document.getElementById('geo-listeners-wrap');
+        var se = document.getElementById('geo-score');
+        var le = document.getElementById('geo-listeners');
+        if (typeof d.geo_score !== 'undefined' && se) { sw.style.display = 'inline-flex'; se.textContent = d.geo_score + '/100'; }
+        if (typeof d.ai_visitors !== 'undefined' && le) { lw.style.display = 'inline-flex'; animateCount(le, d.ai_visitors); }
+      })
+      .catch(function () {});
+  }
+  loadGeoStats();
+  setInterval(loadGeoStats, 60000);
+})();
+</script>
 </body>
 </html>
