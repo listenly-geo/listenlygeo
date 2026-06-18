@@ -634,7 +634,7 @@
         var se = document.getElementById('geo-score');
         var le = document.getElementById('geo-listeners');
         if (typeof d.geo_score !== 'undefined' && se) { sw.style.display = 'inline-flex'; se.textContent = d.geo_score + '/100'; }
-        if (typeof d.ai_visitors !== 'undefined' && le) { lw.style.display = 'inline-flex'; animateCount(le, d.ai_visitors); }
+        if (typeof d.visitors !== 'undefined' && le) { lw.style.display = 'inline-flex'; animateCount(le, d.visitors); }
       })
       .catch(function () {});
   }
