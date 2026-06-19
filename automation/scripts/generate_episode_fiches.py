@@ -29,6 +29,8 @@ API_KEY        = os.environ["ANTHROPIC_API_KEY"]
 RSS_URL        = os.environ["RSS_URL"]
 PODCAST_SLUG   = os.environ.get("PODCAST_SLUG", "podcast")
 SPOTIFY_URL    = os.environ.get("SPOTIFY_SHOW_URL", "")
+CTA_URL        = os.environ.get("CTA_URL", "") or SPOTIFY_URL  # lien des boutons (interne ou Spotify)
+CTA_LABEL      = os.environ.get("CTA_LABEL", "Écouter sur Spotify")  # texte du bouton
 IMAGE_URL      = os.environ.get("PODCAST_IMAGE_URL", "")
 PLAUSIBLE      = os.environ.get("PLAUSIBLE_DOMAIN", "listenly.fr")
 
@@ -131,14 +133,17 @@ DONNÉES DE L'ÉPISODE :
 - Description : {ep['description']}
 - Date : {ep['pubdate']}
 - Durée : {ep['duration']}
-- Lien Spotify de l'émission : {SPOTIFY_URL}
+- Lien Spotify de l'émission (référence) : {SPOTIFY_URL}
+- Lien des boutons CTA : {CTA_URL}
+- Texte des boutons CTA : {CTA_LABEL}
 - Image cover : {IMAGE_URL}
 
 CONTRAINTES TECHNIQUES (à respecter EXACTEMENT) :
 1. Inclure dans le <head>, juste après la balise canonical :
    <script defer data-domain="{PLAUSIBLE}" src="https://plausible.io/js/script.tagged-events.js"></script>
-2. Le bouton CTA principal (hero), le bouton topbar ET le lien Spotify du footer pointent vers {SPOTIFY_URL} et portent TOUS la classe :
+2. Le bouton CTA principal (hero), le bouton topbar ET le lien du footer pointent vers {CTA_URL} (PAS vers Spotify) et portent TOUS la classe :
    plausible-event-name=Spotify+Click--{slugify(show_title)}
+   Le texte du bouton hero est EXACTEMENT : "{CTA_LABEL}". Le bouton topbar : "▶ {CTA_LABEL}".
 3. Banderole sous le hero, libellé EXACT : "Fiche lisible par les modèles IA :" suivie des badges ChatGPT, Perplexity, Gemini, Google AI, Copilot, Claude.
 4. Structure obligatoire : topbar sticky (logo Listenly + nom podcast + CTA) / hero (cover {IMAGE_URL} en og + titre + sous-titre + pills + CTA Spotify) / banderole IA / info-card 4 stats / section "à propos" (résumé du sujet) / mega FAQ 6-8 questions sur le SUJET (2 colonnes question/réponse) / FAQ accordion 4-5 questions / hosts ou intervenants / related (2 cartes) / footer / vector DB caché.
 5. JSON-LD dans un <script type="application/ld+json"> avec @graph : WebPage (speakable) + PodcastEpisode (rattaché à la PodcastSeries {show_title}) + FAQPage (3 questions min reprises de la mega FAQ) + BreadcrumbList.
