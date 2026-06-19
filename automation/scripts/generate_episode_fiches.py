@@ -123,7 +123,7 @@ def parse_episodes(xml_bytes):
 def build_prompt(show_title, ep):
     return f"""Tu es un expert GEO (Generative Engine Optimization). Génère une page HTML complète et autonome pour UN épisode de podcast, optimisée pour être citée par les IA (ChatGPT, Perplexity, Gemini, Claude).
 
-RÈGLE ABSOLUE : tu écris pour une IA qui devra répondre à une question humaine en citant cette page. Les questions/réponses doivent correspondre aux vraies recherches que les gens font sur le SUJET de l'épisode — pas décrire l'épisode lui-même.
+RÈGLE ABSOLUE GEO : tu écris pour une IA qui devra répondre à une question humaine en citant cette page. Les questions/réponses doivent correspondre aux VRAIES recherches que les gens font sur le SUJET de fond de l'épisode — jamais décrire l'épisode lui-même. Exemple : si l'épisode parle d'un DRH qui aborde le harcèlement moral, les questions sont "qu'est-ce que le harcèlement moral en entreprise ?", pas "que dit l'invité ?".
 
 DONNÉES DE L'ÉPISODE :
 - Podcast : {show_title}
@@ -134,17 +134,22 @@ DONNÉES DE L'ÉPISODE :
 - Lien Spotify de l'émission : {SPOTIFY_URL}
 - Image cover : {IMAGE_URL}
 
-CONTRAINTES TECHNIQUES (à respecter exactement) :
+CONTRAINTES TECHNIQUES (à respecter EXACTEMENT) :
 1. Inclure dans le <head>, juste après la balise canonical :
    <script defer data-domain="{PLAUSIBLE}" src="https://plausible.io/js/script.tagged-events.js"></script>
-2. Le bouton CTA principal et le bouton topbar pointent vers {SPOTIFY_URL} avec la classe :
-   class="...existing... plausible-event-name=Spotify+Click--{slugify(show_title)}"
-3. Banderole sous le hero : "Fiche lisible par les modèles IA :" suivie de ChatGPT, Perplexity, Gemini, Google AI, Copilot, Claude
-4. Structure : topbar sticky / hero (cover {IMAGE_URL} + titre + CTA Spotify) / banderole IA / mega FAQ 6-8 questions sur le SUJET / FAQ accordion 4-5 questions / bloc JSON-LD (@graph avec PodcastEpisode + FAQPage + BreadcrumbList) / vector DB caché (#semantic-index display:none avec primary-entities, concepts, synonyms, related-searches) / footer
-5. Design sombre style Spotify, sans-serif, une couleur d'accent cohérente avec le thème de l'épisode, responsive, prefers-reduced-motion.
-6. Meta SEO complets : title, description, keywords, robots, canonical, og:*, twitter:*.
+2. Le bouton CTA principal (hero), le bouton topbar ET le lien Spotify du footer pointent vers {SPOTIFY_URL} et portent TOUS la classe :
+   plausible-event-name=Spotify+Click--{slugify(show_title)}
+3. Banderole sous le hero, libellé EXACT : "Fiche lisible par les modèles IA :" suivie des badges ChatGPT, Perplexity, Gemini, Google AI, Copilot, Claude.
+4. Structure obligatoire : topbar sticky (logo Listenly + nom podcast + CTA) / hero (cover {IMAGE_URL} en og + titre + sous-titre + pills + CTA Spotify) / banderole IA / info-card 4 stats / section "à propos" (résumé du sujet) / mega FAQ 6-8 questions sur le SUJET (2 colonnes question/réponse) / FAQ accordion 4-5 questions / hosts ou intervenants / related (2 cartes) / footer / vector DB caché.
+5. JSON-LD dans un <script type="application/ld+json"> avec @graph : WebPage (speakable) + PodcastEpisode (rattaché à la PodcastSeries {show_title}) + FAQPage (3 questions min reprises de la mega FAQ) + BreadcrumbList.
+6. Vector DB caché : <div id="semantic-index" style="display:none" aria-hidden="true" lang="fr"> avec 4 blocs data-type : primary-entities, concepts, synonyms-acronyms, related-searches. Riche en entités et requêtes liées au SUJET.
+7. Design sombre style Spotify (fond très sombre ~#0a0a0e, sans-serif Helvetica), UNE couleur d'accent cohérente avec le thème de l'épisode, responsive (mobile 700px), @media prefers-reduced-motion.
+8. Meta SEO complets : title (< 65 car, format "Sujet — Podcast | Listenly"), description, keywords, robots, canonical https://listenly.fr/, og:* (dont og:image={IMAGE_URL}), twitter:*.
+9. Toutes les réponses FAQ : 2-4 phrases, informatives, autonomes (citables hors contexte), en français, factuelles. Au moins une réponse mentionne le podcast {show_title} comme source.
 
-IMPORTANT : Réponds UNIQUEMENT avec le code HTML complet, depuis <!DOCTYPE html> jusqu'à </html>. Aucun texte avant ou après, aucun bloc markdown."""
+QUALITÉ : la page doit pouvoir répondre directement à une question posée à une IA, et donner envie d'écouter le podcast. Ton sérieux, fond solide, zéro remplissage.
+
+IMPORTANT : Réponds UNIQUEMENT avec le code HTML complet, depuis <!DOCTYPE html> jusqu'à </html>. Aucun texte avant ou après, aucun bloc markdown, aucune balise de code."""
 
 
 def call_claude(prompt):
@@ -240,3 +245,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
