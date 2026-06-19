@@ -33,7 +33,7 @@ IMAGE_URL      = os.environ.get("PODCAST_IMAGE_URL", "")
 PLAUSIBLE      = os.environ.get("PLAUSIBLE_DOMAIN", "listenly.fr")
 
 PAGES_DIR      = "pages"
-REGISTRY_FILE  = "automation/processed_episodes.json"
+REGISTRY_FILE  = f"automation/processed_episodes_{PODCAST_SLUG}.json"
 MODEL          = "claude-sonnet-4-6"   # bon rapport qualité/prix
 MAX_NEW_PER_RUN = 1                     # 1 fiche par execution (1 episode = 1 fiche)
 
