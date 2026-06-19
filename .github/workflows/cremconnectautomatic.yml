@@ -1,0 +1,27 @@
+name: Auto-fiches Creme Connect
+on:
+  schedule:
+    - cron: '0 6,14,22 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generation fiches Creme Connect
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RSS_URL: 'https://feeds.acast.com/public/shows/691b375967ed28baeccfef7d'        # ← j'attends ce lien
+          PODCAST_SLUG: 'creme-connect'
+          SPOTIFY_SHOW_URL: 'https://open.spotify.com/show/1p2YQ5yOf8g3KM6q4FagJh'
+          CTA_URL: 'https://listenly.fr/podcast/show/creme-connect-podcast'
+          CTA_LABEL: 'Écouter le podcast'
+          PODCAST_IMAGE_URL: 'https://i.postimg.cc/021s0ZDy/6a2aa59e4efb0.jpg'
+          PLAUSIBLE_DOMAIN: 'listenly.fr'
+        run: python automation/scripts/generate_episode_fiches.py
+      ... (commit + déploiement FTP)
