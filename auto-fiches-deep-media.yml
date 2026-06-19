@@ -1,0 +1,52 @@
+name: Auto-fiches Deep Media
+
+on:
+  schedule:
+    - cron: '0 6,14,22 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generation fiches Deep Media
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RSS_URL: 'https://feed.ausha.co/WxxaluVNLAnx'
+          PODCAST_SLUG: 'deep-media'
+          SPOTIFY_SHOW_URL: 'https://open.spotify.com/show/5lcyBzIrQMzXMEfBHvVBPt'
+          PODCAST_IMAGE_URL: 'https://i.goopics.net/4wltpq.jpg'
+          PLAUSIBLE_DOMAIN: 'listenly.fr'
+        run: python automation/scripts/generate_episode_fiches.py
+      - name: Commit and push
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git add pages/ automation/processed_episodes_deep-media.json
+          if git diff --staged --quiet; then
+            echo "Aucune nouvelle fiche."
+          else
+            git commit -m "Auto: nouvelles fiches episodes Deep Media"
+            git push
+          fi
+      - name: Deploy HTML to O2Switch via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/
+          server-dir: /listenly.fr/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
