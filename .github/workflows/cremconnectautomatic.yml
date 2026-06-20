@@ -1,10 +1,18 @@
 name: Auto-fiches Creme Connect
+
 on:
   schedule:
-    - cron: '0 6,14,22 * * *'
+    - cron: '0 7,15,23 * * *'
   workflow_dispatch:
+    inputs:
+      max_new:
+        description: 'Nombre de fiches a generer ce run'
+        required: false
+        default: '1'
+
 permissions:
   contents: write
+
 jobs:
   generate:
     runs-on: ubuntu-latest
@@ -16,12 +24,35 @@ jobs:
       - name: Generation fiches Creme Connect
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          RSS_URL: 'https://feeds.acast.com/public/shows/691b375967ed28baeccfef7d'        # ← j'attends ce lien
+          RSS_URL: 'https://feeds.acast.com/public/shows/691b375967ed28baeccfef7d'
           PODCAST_SLUG: 'creme-connect'
           SPOTIFY_SHOW_URL: 'https://open.spotify.com/show/1p2YQ5yOf8g3KM6q4FagJh'
           CTA_URL: 'https://listenly.fr/podcast/show/creme-connect-podcast'
           CTA_LABEL: 'Écouter le podcast'
           PODCAST_IMAGE_URL: 'https://i.postimg.cc/021s0ZDy/6a2aa59e4efb0.jpg'
           PLAUSIBLE_DOMAIN: 'listenly.fr'
+          MAX_NEW_PER_RUN: ${{ github.event.inputs.max_new || '1' }}
         run: python automation/scripts/generate_episode_fiches.py
-      ... (commit + déploiement FTP)
+      - name: Commit and push
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git add pages/ automation/processed_episodes_creme-connect.json
+          if git diff --staged --quiet; then
+            echo "Aucune nouvelle fiche."
+          else
+            git commit -m "Auto: nouvelles fiches episodes Creme Connect"
+            git push
+          fi
+      - name: Deploy HTML to O2Switch via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/
+          server-dir: /listenly.fr/fiche-geo-ia/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
