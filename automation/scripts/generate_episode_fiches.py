@@ -37,7 +37,7 @@ PLAUSIBLE      = os.environ.get("PLAUSIBLE_DOMAIN", "listenly.fr")
 PAGES_DIR      = "pages"
 REGISTRY_FILE  = f"automation/processed_episodes_{PODCAST_SLUG}.json"
 MODEL          = "claude-sonnet-4-6"   # bon rapport qualité/prix
-MAX_NEW_PER_RUN = 1                     # 1 fiche par execution (1 episode = 1 fiche)
+MAX_NEW_PER_RUN = int(os.environ.get("MAX_NEW_PER_RUN", "1"))  # configurable, defaut 1
 
 NS = {
     "itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd",
