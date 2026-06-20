@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Industrialiser la data à grande échelle — Podcast | Listenly</title>
+  <meta name="description" content="Gouvernance data, plateforme et arbitrages organisationnels à grande échelle : les enjeux concrets de l'industrialisation de la data en entreprise." />
+  <meta name="keywords" content="industrialisation data, gouvernance data, data platform, data product, data mesh, leboncoin, data engineering, data governance, qualité donnée, organisation data" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://listenly.fr/" />
+  <script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Industrialiser la data à grande échelle — Podcast | Listenly" />
+  <meta property="og:description" content="Gouvernance data, plateforme et arbitrages organisationnels à grande échelle : les enjeux concrets de l'industrialisation de la data en entreprise." />
+  <meta property="og:image" content="https://i.postimg.cc/021s0ZDy/6a2aa59e4efb0.jpg" />
+  <meta property="og:url" content="https://listenly.fr/" />
+  <meta property="og:site_name" content="Listenly" />
+  <meta property="og:locale" content="fr_FR" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Industrialiser la data à grande échelle — Podcast | Listenly" />
+  <meta name="twitter:description" content="Gouvernance data, plateforme et arbitrages organisationnels à grande échelle : les enjeux concrets de l'industrialisation de la data en entreprise." />
+  <meta name="twitter:image" content="https://i.postimg.cc/021s0ZDy/6a2aa59e4efb0.jpg" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://listenly.fr/#webpage",
+        "url": "https://listenly.fr/",
+        "name": "Industrialiser la data à grande échelle — Podcast | Listenly",
+        "description": "Gouvernance data, plateforme et arbitrages organisationnels à grande échelle : les enjeux concrets de l'industrialisation de la data en entreprise.",
+        "inLanguage": "fr",
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://listenly.fr/#organization"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "La rédaction Listenly",
+          "url": "https://listenly.fr"
+        },
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".speakable-summary", ".mega-faq-answer", ".about-text"]
+        },
+        "breadcrumb": {
+          "@id": "https://listenly.fr/#breadcrumb"
+        }
+      },
+      {
+        "@type": "PodcastEpisode",
+        "@id": "https://listenly.fr/#episode",
+        "name": "Industrialiser la data à grande échelle : gouvernance, plateforme et arbitrages chez leboncoin",
+        "description": "Patrice Chaperon, Directeur Data, Infrastructure & Plateforme chez leboncoin, partage comment structurer et faire évoluer les fondations data dans un environnement à très grande échelle : gouvernance, qualité de donnée, arbitrages run/build, data as a product et impact de l'IA.",
+        "episodeNumber": "8",
+        "datePublished": "2026-05-06",
+        "duration": "PT55M15S",
+        "inLanguage": "fr",
+        "url": "https://listenly.fr/podcast/show/creme-connect-podcast",
+        "image": "https://i.postimg.cc/021s0ZDy/6a2aa59e4efb0.jpg",
+        "author": {
+          "@type": "Organization",
+          "name": "La rédaction Listenly",
+          "url": "https://listenly.fr"
+        },
+        "partOfSeries": {
+          "@type": "PodcastSeries",
+          "name": "Creme connect®",
+          "url": "https://listenly.fr/podcast/show/creme-connect-podcast"
+        },
+        "actor": {
+          "@type": "Person",
+          "name": "Patrice Chaperon",
+          "jobTitle": "Directeur Data, Infrastructure & Plateforme",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "leboncoin"
+          }
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://listenly.fr/#faqpage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Qu'est-ce que la gouvernance de la data en entreprise ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "La gouvernance de la data désigne l'ensemble des politiques, processus et responsabilités qui encadrent la gestion des données au sein d'une organisation. Elle vise à garantir la qualité, la sécurité, la traçabilité et la cohérence des données utilisées pour prendre des décisions. Une bonne gouvernance data définit qui peut accéder à quelles données, comment elles sont documentées et comment leur fiabilité est assurée dans la durée."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Qu'est-ce que la data as a product (donnée comme produit) ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "La data as a product est une approche qui consiste à traiter les jeux de données internes comme des produits à part entière : avec des propriétaires identifiés, des critères de qualité définis, une documentation accessible et une orientation vers les usages. Cette approche améliore la découvrabilité, la réutilisabilité et la fiabilité des données au sein d'une organisation. Elle est au cœur des architectures data mesh popularisées ces dernières années."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Comment arbitrer entre run, build et discovery dans une organisation data ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "L'arbitrage run/build/discovery est un défi central pour les directeurs data. Le run désigne les activités de maintien en condition opérationnelle, le build la création de nouvelles capacités, et la discovery l'exploration de nouvelles opportunités. Dans un contexte à grande échelle comme celui de leboncoin — abordé dans le podcast Creme connect® — il s'agit d'allouer les ressources selon la maturité de l'organisation et les priorités stratégiques, en évitant de sur-investir dans la dette technique ou dans des explorations sans valeur prouvée."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://listenly.fr/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Accueil",
+            "item": "https://listenly.fr/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Podcasts",
+            "item": "https://listenly.fr/podcast/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Creme connect®",
+            "item": "https://listenly.fr/podcast/show/creme-connect-podcast"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Industrialiser la data à grande échelle",
+            "item": "https://listenly.fr/"
+          }
+        ]
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://listenly.fr/#organization",
+        "name": "Listenly",
+        "url": "https://listenly.fr",
+        "description": "Listenly, annuaire de podcasts francophones"
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary: #0a0a0e;
+      --bg-secondary: #111118;
+      --bg-card: #16161f;
+      --bg-card-hover: #1e1e2a;
+      --accent: #5b7ff7;
+      --accent-light: #7b96ff;
+      --accent-dim: rgba(91,127,247,0.15);
+      --text-primary: #f0f0f5;
+      --text-secondary: #9999b0;
+      --text-muted: #5a5a72;
+      --border: rgba(255,255,255,0.07);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --font: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,14,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: 56px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .topbar-logo {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      color: var(--accent-light);
+      text-decoration: none;
+    }
+
+    .topbar-sep {
+      width: 1px;
+      height: 18px;
+      background: var(--border);
+    }
+
+    .topbar-podcast {
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 260px;
+    }
+
+    .btn-topbar {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: 40px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn-topbar:hover { background: var(--accent-light); transform: scale(1.02); }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 64px 24px 48px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .hero-cover {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      box-shadow: 0 20px 60px rgba(91,127,247,0.25);
+      flex-shrink: 0;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .hero-title {
+      font-size: clamp(22px, 3.5vw, 34px);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      color: var(--text-primary);
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      background: var(--accent-dim);
+      color: var(--accent-light);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 40px;
+      border: 1px solid rgba(91,127,247,0.2);
+    }
+
+    .btn-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+      padding: 14px 28px;
+      border-radius: 40px;
+      text-decoration: none;
+      width: fit-content;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(91,127,247,0.35);
+    }
+
+    .btn-hero:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(91,127,247,0.45);
+    }
+
+    /* ── BANDEROLE IA ── */
+    .ia-banner {
+      background: linear-gradient(90deg, rgba(91,127,247,0.08) 0%, rgba(91,127,247,0.03) 100%);
+      border-top: 1px solid rgba(91,127,247,0.15);
+      border-bottom: 1px solid rgba(91,127,247,0.15);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      text-align: center;
+    }
+
+    .ia-banner-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+    }
+
+    .ia-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ia-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 40px;
+      border: 1px solid;
+      letter-spacing: 0.3px;
+    }
+
+    .badge-chatgpt   { color: #10a37f; border-color: rgba(16,163,127,0.35); background: rgba(16,163,127,0.08); }
+    .badge-perplexity{ color: #20b8cd; border-color: rgba(32,184,205,0.35); background: rgba(32,184,205,0.08); }
+    .badge-gemini    { color: #4285f4; border-color: rgba(66,133,244,0.35); background: rgba(66,133,244,0.08); }
+    .badge-googleai  { color: #ea4335; border-color: rgba(234,67,53,0.35);  background: rgba(234,67,53,0.08); }
+    .badge-copilot   { color: #7c6af7; border-color: rgba(124,106,247,0.35);background: rgba(124,106,247,0.08);}
+    .badge-claude    { color: #d4a96a; border-color: rgba(212,169,106,0.35);background: rgba(212,169,106,0.08);}
+
+    /* ── SECTION WRAPPER ── */
+    .section-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 56px 24px;
+    }
+
+    .section-wrap + .section-wrap {
+      padding-top: 0;
+    }
+
+    /* ── INFO CARDS ── */
+    .info-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .info-card-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .info-card-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+    }
+
+    .info-card-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* ── ABOUT ── */
+    .about-text {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      max-width: 800px;
+    }
+
+    .about-text p + p { margin-top: 16px; }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.3px;
+      margin-bottom: 28px;
+    }
+
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ── MEGA FAQ ── */
+    .mega-faq {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .mega-faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .mega-faq-item:hover {
+      border-color: rgba(91,127,247,0.3);
+      background: var(--bg-card-hover);
+    }
+
+    .mega-faq-q {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--accent-light);
+      margin-bottom: 12px;
+      line-height: 1.35;
+    }
+
+    .mega-faq-answer {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── ACCORDION FAQ ── */
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .accordion-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .accordion-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      gap: 12px;
+      list-style: none;
+      transition: background 0.15s;
+    }
+
+    .accordion-header:hover { background: var(--bg-card-hover); }
+
+    .accordion-header::after {
+      content: '+';
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--accent);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+
+    details[open] .accordion-header::after {
+      transform: rotate(45deg);
+    }
+
+    .accordion-body {
+      padding: 0 20px 18px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── GUEST ── */
+    .guest-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      max-width: 520px;
+    }
+
+    .guest-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      border: 2px solid rgba(91,127,247,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--accent-light);
+      flex-shrink: 0;
+    }
+
+    .guest-name {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .guest-title {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .guest-company {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    /* ── RELATED ── */
+    .related-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .related-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .related-card:hover {
+      border-color: rgba(91,127,247,0.3);
+      transform: translateY(-2px);
+    }
+
+    .related-tag {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .related-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .related-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-logo {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--accent-light);
+      text-decoration: none;
+    }
+
+    .footer-tagline {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .footer-author {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .footer-author strong {
+      color: var(--text-primary);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover { color: var(--text-secondary); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 36px 16px 32px;
+        gap: 24px;
+      }
+
+      .hero-cover {
+        width: 160px;
+        height: 160px;
+      }
+
+      .info-cards {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .mega-faq {
+        grid-template-columns: 1fr;
+      }
+
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar-podcast { display: none; }
+      .topbar-sep { display: none; }
+
+      .section-wrap { padding: 36px 16px; }
+
+      .guest-card { flex-direction: column; text-align: center; max-width: 100%; }
+    }
+
+    @media (max-width: 480px) {
+      .info-cards { grid-template-columns: 1fr 1fr; }
+      .btn-topbar { font-size: 12px; padding: 7px 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── TOPBAR ── -->
+  <nav class="topbar" role="navigation" aria-label="Navigation principale">
+    <div class="topbar-left">
+      <a href="https://listenly.fr" class="topbar-logo">Listenly</a>
+      <div class="topbar-sep"></div>
+      <span class="topbar-podcast">Creme connect®</span>
+    </div>
+    <a
+      href="https://listenly.fr/podcast/show/creme-connect-podcast"
+      class="btn-topbar plausible-event-name=Spotify+Click--creme-connect"
+      rel="noopener"
+    >▶ Écouter le podcast</a>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <main>
+    <section class="hero" aria-label="Présentation de l'épisode">
+      <img
+        src="https://i.postimg.cc/021s0ZDy/6a2aa59e4efb0.jpg"
+        alt="Cover du podcast Creme connect® — Industrialiser la data à grande échelle"
+        class="hero-cover"
+        width="220"
+        height="220"
+        loading="eager"
+      />
+      <div class="hero-meta">
+        <p class="hero-eyebrow">Creme connect® · Épisode 8</p>
+        <h1 class="hero-title">Industrialiser la data à grande échelle : gouvernance, plateforme et arbitrages</h1>
+        <p class="hero-subtitle">
+          Comment une organisation comme leboncoin structure-t-elle ses fondations data à très grande échelle ? Gouvernance, qualité, autonomie des équipes, run vs build, et impact de l'IA — avec Patrice Chaperon, Directeur Data, Infrastructure & Plateforme.
+        </p>
+        <div class="hero-pills" aria-label="Thèmes abordés">
+          <span class="pill">Gouvernance data</span>
+          <span class="pill">Data platform</span>
+          <span class="pill">Data product</span>
+          <span class="pill">Organisation data</span>
+          <span class="pill">IA & ingénierie</span>
+          <span class="pill">Scalabilité</span>
+        </div>
+        <a
+          href="https://listenly.fr/podcast/show/creme-connect-podcast"
+          class="btn-hero plausible-event-name=Spotify+Click--creme-connect"
+          rel="noopener"
+          aria-label="Écouter le podcast Creme connect sur Listenly"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          Écouter le podcast
+        </a>
+      </div>
+    </section>
+
+    <!-- ── BANDEROLE IA ── -->
+    <div class="ia-banner" role="complementary" aria-label="Compatibilité IA">
+      <span class="ia-banner-label">Fiche lisible par les modèles IA :</span>
+      <div class="ia-badges">
+        <span class="ia-badge badge-chatgpt">ChatGPT</span>
+        <span class="ia-badge badge-perplexity">Perplexity</span>
+        <span class="ia-badge badge-gemini">Gemini</span>
+        <span class="ia-badge badge-googleai">Google AI</span>
+        <span class="ia-badge badge-copilot">Copilot</span>
+        <span class="ia-badge badge-claude">Claude</span>
+      </div>
+    </div>
+
+    <!-- ── INFO CARDS ── -->
+    <div class="section-wrap" style="padding-bottom:32px;">
+      <div class="info-cards" role="list" aria-label="Informations clés de l'épisode">
+        <div class="info-card" role="listitem">
+          <span class="info-card-label">Durée</span>
+          <span class="info-card-value">55 min</span>
+          <span class="info-card-sub">Épisode 8</span>
+        </div>
+        <div class="info-card" role="listitem">
+          <span class="info-card-label">Podcast</span>
+          <span class="info-card-value">Creme connect®</span>
+          <span class="info-card-sub">Club C-level data & tech</span>
+        </div>
+        <div class="info-card" role="listitem">
+          <span class="info-card-label">Invité</span>
+          <span class="info-card-value">Patrice Chaperon</span>
+          <span class="info-card-sub">Dir. Data & Infra — leboncoin</span>
+        </div>
+        <div class="info-card" role="listitem">
+          <span class="info-card-label">Date</span>
+          <span class="info-card-value">Mai 2026</span>
+          <span class="info-card-sub">Épisode récent</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider" />
+
+    <!-- ── À PROPOS ── -->
+    <div class="section-wrap">
+      <h2 class="section-title">À propos de cet épisode</h2>
+      <div class="about-text speakable-summary">
+        <p>
+          Industrialiser la data à grande échelle ne se réduit pas à choisir les bons outils. C'est avant tout une question d'organisation, de standards partagés et de clarté dans les arbitrages. Cet épisode du podcast Creme connect® explore ce que cela signifie concrètement dans un environnement comme leboncoin, qui compte parmi les plateformes numériques les plus utilisées en France.
+        </p>
+        <p>
+          Patrice Chaperon, Directeur Data, Infrastructure & Plateforme chez leboncoin, décrit comment il structure les fondations data d'une organisation à très haute volumétrie : poser des standards durables, améliorer l'autonomie des équipes métiers autour de la donnée, arbitrer en permanence entre maintien en condition opérationnelle et construction de nouvelles capacités, et fiabiliser les usages à mesure que la complexité croît.
+        </p>
+        <p>
+          L'épisode aborde également la transformation que l'IA générative opère sur les métiers de la data et du développement, et pourquoi la vélocité d'une organisation data repose moins sur ses technologies que sur la clarté de ses choix d'organisation.
+        </p>
+      </div>
+    </div>
+
+    <hr class="section-divider" />
+
+    <!-- ── MEGA FAQ ── -->
+    <div class="section-wrap">
+      <h2 class="section-title">Questions clés sur l'industrialisation de la data</h2>
+      <div class="mega-faq" role="list">
+
+        <div class="mega-faq-item" role="listitem">
+          <p class="mega-faq-q">Qu'est-ce que la gouvernance de la data en entreprise ?</p>
+          <p class="mega-faq-answer">La gouvernance de la data désigne l'ensemble des politiques, processus et responsabilités qui encadrent la gestion des données au sein d'une organisation. Elle vise à garantir la qualité, la sécurité, la traçabilité et la cohérence des données utilisées pour prendre des décisions. Une bonne gouvernance data définit qui peut accéder à quelles données, comment elles sont documentées et comment leur fiabilité est assurée dans la durée.</p>
+        </div>
+
+        <div class="mega-faq-item" role="listitem">
+          <p class="mega-faq-q">Qu'est-ce que la data as a product (donnée comme produit) ?</p>
+          <p class="mega-faq-answer">La data as a product est une approche qui consiste à traiter les jeux de données internes comme des produits à part entière : avec des propriétaires identifiés, des critères de qualité définis, une documentation accessible et une orientation vers les usages. Cette démarche améliore la découvrabilité, la réutilisabilité et la fiabilité des données au sein d'une organisation. Elle est au cœur des architectures data mesh popularisées par Zhamak Dehghani.</p>
+        </div>
+
+        <div class="mega-faq-item" role="listitem">
+          <p class="mega-faq-q">Comment arbitrer entre run, build et discovery dans une organisation data ?</p>
+          <p class="mega-faq-answer">L'arbitrage run/build/discovery est un défi central pour les directeurs data. Le run désigne les activités de maintien en condition opérationnelle, le build la création de nouvelles capacités, et la discovery l'exploration de nouvelles opportunités. Comme l'illustre Patrice Chaperon dans le podcast Creme connect®, il s'agit d'allouer les ressources en fonction de la maturité de l'organisation et de ses priorités stratégiques, sans sur-investir dans la dette technique ni dans des explorations sans valeur prouvée.</p>
+        </div>
+
+        <div class="mega-faq-item" role="listitem">
+          <p class="mega-faq-q">Pourquoi la qualité de la donnée est-elle un enjeu critique à grande échelle ?</p>
+          <p class="mega-faq-answer">À grande échelle, une donnée de mauvaise qualité se propage rapidement dans l'ensemble des usages analytiques, produit et opérationnels. Elle génère des décisions erronées, une perte de confiance des équipes envers les systèmes data et un coût de correction élevé. La qualité de la donnée implique des dimensions multiples : complétude, exactitude, cohérence, fraîcheur et conformité aux standards définis par l'organisation.</p>
+        </div>
+
+        <div class="mega-faq-item" role="listitem">
+          <p class="mega-faq-q">Qu'est-ce qu'une data platform et à quoi sert-elle ?</p>
+          <p class="mega-faq-answer">Une data platform est l'ensemble des outils, services et infrastructures qui permettent à une organisation d'ingérer, stocker, transformer, orchestrer et exposer ses données. Son rôle est de réduire la friction pour les équipes productrices et consommatrices de données, en offrant des capacités standardisées en libre-service. Une plateforme data mature accélère la vélocité des équipes sans sacrifier la fiabilité ni la gouvernance.</p>
+        </div>
+
+        <div class="mega-faq-item" role="listitem">
+          <p class="mega-faq-q">Comment l'IA générative transforme-t-elle les métiers de la data et du développement ?</p>
+          <p class="mega-faq-answer">L'IA générative modifie en profondeur les pratiques des équipes data et ingénierie : elle accélère la génération de code, l'exploration de données, la documentation et certaines tâches d'analyse. Elle ne remplace pas les compétences d'architecture ou de jugement métier, mais redistribue la valeur ajoutée vers des activités à plus haute abstraction. Pour les organisations data, cela implique de repenser la formation des équipes et les flux de travail autour de la production de données.</p>
+        </div>
+
+        <div class="mega-faq-item" role="listitem">
+          <p class="mega-faq-q">Quelle différence entre data mesh et data warehouse centralisé ?</p>
+          <p class="mega-faq-answer">Un data warehouse centralisé agrège toutes les données dans un système unique géré par une équipe centrale, ce qui simplifie la cohérence mais crée des goulots d'étranglement à mesure que l'organisation grandit. Le data mesh, à l'inverse, distribue la propriété des données vers les domaines métiers, chaque équipe étant responsable de ses données comme d'un produit. Ce modèle favorise la scalabilité organisationnelle mais exige une gouvernance fédérée et une plateforme de données partagée robuste.</p>
+        </div>
+
+        <div class="mega-faq-item" role="listitem">
+          <p class="mega-faq-q">Comment mesurer la maturité data d'une organisation ?</p>
+          <p class="mega-faq-answer">La maturité data d'une organisation s'évalue selon plusieurs axes : la qualité et la gouvernance des données, le niveau d'autonomie des équipes dans leur accès et usage de la donnée, la sophistication de la plateforme technique, et la capacité à traduire les insights data en décisions business. Un niveau de maturité élevé se traduit par des équipes capables d'agir rapidement sur la donnée sans dépendre d'une équipe centrale pour chaque besoin, tout en respectant des standards partagés.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <hr class="section-divider" />
+
+    <!-- ── ACCORDION FAQ ── -->
+    <div class="section-wrap">
+      <h2 class="section-title">Questions fréquentes</h2>
+      <div class="accordion">
+
+        <details class="accordion-item">
+          <summary class="accordion-header">Qu'est-ce que leboncoin comme contexte data ?</summary>
+          <div class="accordion-body">
+            Leboncoin est l'une des plateformes de petites annonces les plus importantes en France, avec des dizaines de millions d'utilisateurs actifs et plusieurs centaines de milliers d'annonces publiées chaque jour. Ce volume génère une infrastructure data d'une complexité exceptionnelle, nécessitant des choix d'architecture rigoureux, une gouvernance forte et une plateforme interne capable d'absorber une croissance continue des usages analytiques et produit.
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">Qu'est-ce que Creme connect® ?</summary>
+          <div class="accordion-body">
+            Creme connect® est un club C-level dédié aux experts qui façonnent la transformation et l'innovation dans les domaines de l'IA, de la data, de la cybersécurité, de la tech et du digital. Il réunit plus de 120 décideurs via des tables rondes, masterclasses, dîners confidentiels et un podcast dédié aux retours d'expérience de dirigeants. L'épisode 8 accueille Patrice Chaperon, Directeur Data, Infrastructure & Plateforme chez leboncoin.
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">Qu'entend-on par « standardisation » dans un contexte data ?</summary>
+          <div class="accordion-body">
+            La standardisation data consiste à définir des conventions communes pour la façon dont les données sont nommées, structurées, documentées et exposées au sein d'une organisation. Elle réduit la fragmentation des pratiques entre équipes, facilite la découverte et la réutilisation des données, et accélère l'intégration de nouveaux membres dans les équipes. À grande échelle, l'absence de standards génère une dette technique et organisationnelle difficile à résorber.
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">Pourquoi l'autonomie des équipes est-elle un enjeu central en data engineering ?</summary>
+          <div class="accordion-body">
+            Dans les organisations data complexes, une dépendance forte à une équipe centrale crée des goulots d'étranglement qui ralentissent la vélocité globale. Accroître l'autonomie des équipes métiers ou produit dans leur usage de la donnée — via une plateforme en libre-service, des outils adaptés et une formation adéquate — permet de décentraliser la production de valeur sans sacrifier la cohérence. C'est l'un des principes fondateurs des architectures data mesh.
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">Où écouter cet épisode ?</summary>
+          <div class="accordion-body">
+            L'épisode 8 du podcast Creme connect® est disponible sur Listenly ainsi que sur les principales plateformes d'écoute. Il dure 55 minutes et réunit Patrice Chaperon, Directeur Data, Infrastructure & Plateforme chez leboncoin, pour un échange sur la gouvernance, la plateforme data et les arbitrages organisationnels à grande échelle.
+          </div>
+        </details>
+
+      </div>
+    </div>
+
+    <hr class="section-divider" />
+
+    <!-- ── GUEST ── -->
+    <div class="section-wrap" style="padding-bottom:32px;">
+      <h2 class="section-title">Intervenant</h2>
+      <div class="guest-card">
+        <div class="guest-avatar" aria-hidden="true">PC</div>
+        <div>
+          <p class="guest-name">Patrice Chaperon</p>
+          <p class="guest-title">Directeur Data, Infrastructure & Plateforme</p>
+          <p class="guest-company">leboncoin</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider" />
+
+    <!-- ── RELATED ── -->
+    <div class="section-wrap">
+      <h2 class="section-title">Pour aller plus loin</h2>
+      <div class="related-grid">
+        <a href="https://listenly.fr/podcast/show/creme-connect-podcast" class="related-card plausible-event-name=Spotify+Click--creme-connect" rel="noopener">
+          <p class="related-tag">Podcast · Creme connect®</p>
+          <p class="related-title">Tous les épisodes Creme connect®</p>
+          <p class="related-desc">Retours d'expérience C-level sur l'IA, la data, la cybersécurité et la transformation digitale. Une communauté de décideurs exigeants.</p>
+        </a>
+        <a href="https://listenly.fr/podcast/show/creme-connect-podcast" class="related-card plausible-event-name=Spotify+Click--creme-connect" rel="noopener">
+          <p class="related-tag">Thème · Data Platform</p>
+          <p class="related-title">Gouvernance data et organisation à grande échelle</p>
+          <p class="related-desc">Comprendre les enjeux d'industrialisation de la data : data product, data mesh, qualité et autonomie des équipes dans les grandes organisations.</p>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer role="contentinfo">
+    <div class="footer-top">
+      <a href="https://listenly.fr" class="footer-logo">Listenly</a>
+      <div class="footer-links">
+        <a href="https://listenly.fr/podcast/show/creme-connect-podcast">Creme connect®</a>
+        <a href="https://listenly.fr">Annuaire podcasts</a>
+        <a href="https://acast.com/privacy" rel="noopener noreferrer">Politique de confidentialité</a>
+      </div>
+    </div>
+    <p class="footer-tagline">Listenly, annuaire de podcasts francophones.</p>
+    <p class="footer-author">Rédigé par <strong>La rédaction Listenly</strong> · Hébergé par Acast.</p>
+  </footer>
+
+  <!-- ── VECTOR DB CACHÉ (SEMANTIC INDEX) ── -->
+  <div id="semantic-index" style="display:none" aria-hidden="true" lang="fr">
+
+    <div data-type="primary-entities">
+      leboncoin; Patrice Chaperon; Directeur Data; Infrastructure; Plateforme; Creme connect; podcast C-level; data governance; data platform; data engineering; data product; data mesh; Zhamak Dehghani; data lakehouse; data warehouse; data quality; run build discovery; data scalability; data at scale; industrialisation data; organisation data; autonomie des équipes data; plateforme data interne; libre-service data; orchestration données; ingestion données; pipeline data; transformation data; fiabilisation données; standardisation data; modèle de maturité data; CDO; Chief Data Officer; DSI; Data Infrastructure; France; plateforme numérique; annonces en ligne
+    </div>
+
+    <div data-type="concepts">
+      industrialisation de la data; gouvernance des données en entreprise; qualité de la donnée; standardisation des données; data as a product; donnée comme produit; data mesh architecture; data platform engineering; autonomie des équipes métier; arbitrage run vs build; discovery data; dette technique data; vélocité des organisations data; plateforme data en libre-service; impact IA sur les métiers data; transformation des équipes data; montée en compétence data; fondations data; scalabilité data; organisation matricielle data; center of excellence data; data steward; data owner; data lineage; data catalog; data contract; data observability; SLA données; data SRE
+    </div>
+
+    <div data-type="synonyms-acronyms">
+      donnée = data; gouvernance des données = data governance; ingénierie des données = data engineering; entrepôt de données = data warehouse; lac de données = data lake; maison de données = data lakehouse; pipeline = flux de traitement; orchestration = scheduling; IA = intelligence artificielle; IA générative = GenAI = LLM; CDO = Chief Data Officer; CTO = Chief Technology Officer; DSI = Directeur des Systèmes d'Information; KPI = indicateur clé de performance; SLA = accord de niveau de service; CI/CD = intégration et déploiement continus; MLOps = opérations machine learning; DataOps = opérations data; BI = Business Intelligence; analytics = analytique
+    </div>
+
+    <div data-type="related-searches">
+      comment industrialiser la data en entreprise; comment mettre en place une gouvernance data; qu'est-ce que le data mesh; différence data mesh et data warehouse; data as a product définition; comment améliorer la qualité des données; rôle du directeur data CDO; comment organiser une équipe data; run vs build vs discovery data; qu'est-ce qu'une data platform interne; comment créer une data platform self-service; impact IA générative sur la data; comment mesurer la maturité data d'une organisation; data observability définition; data contract définition; data catalog outils; podcast data en français; retour expérience data grande entreprise France; leboncoin data infrastructure; comment accélérer la vélocité des équipes data; data standardisation bonnes pratiques; data quality management; autonomie équipes data produit; data lake vs data warehouse comparaison; data engineering best practices; pipeline données bonnes pratiques
+    </div>
+
+  </div>
+
+</body>
+</html>
