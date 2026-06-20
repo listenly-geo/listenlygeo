@@ -1,5 +1,4 @@
 name: Auto-fiches Deep Media
-
 on:
   schedule:
     - cron: '0 6,14,22 * * *'
@@ -9,10 +8,8 @@ on:
         description: 'Nombre de fiches a generer ce run'
         required: false
         default: '1'
-
 permissions:
   contents: write
-
 jobs:
   generate:
     runs-on: ubuntu-latest
@@ -27,6 +24,8 @@ jobs:
           RSS_URL: 'https://feed.ausha.co/LAm8YH9k2jrZ'
           PODCAST_SLUG: 'deep-media'
           SPOTIFY_SHOW_URL: 'https://open.spotify.com/show/5lcyBzIrQMzXMEfBHvVBPt'
+          CTA_URL: 'https://listenly.fr/podcast/show/deep-media'
+          CTA_LABEL: 'Écouter le podcast'
           PODCAST_IMAGE_URL: 'https://i.goopics.net/4wltpq.jpg'
           PLAUSIBLE_DOMAIN: 'listenly.fr'
           MAX_NEW_PER_RUN: ${{ github.event.inputs.max_new || '1' }}
@@ -49,7 +48,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./pages/
-          server-dir: /listenly.fr/
+          server-dir: /listenly.fr/fiche-geo-ia/
           exclude: |
             **/.git*
             **/.git*/**
