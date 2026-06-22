@@ -543,6 +543,18 @@ def main():
 
             # Slug provisoire basé sur le titre de l'épisode (sert à l'URL canonique)
             slug = slugify(ep["title"])
+
+            # Sauvegarde de la transcription (pour relecture / debug)
+            transcript_dir = os.path.join(OUTPUT_DIR, "_transcriptions")
+            os.makedirs(transcript_dir, exist_ok=True)
+            with open(os.path.join(transcript_dir, f"{slug}.txt"), "w", encoding="utf-8") as tf:
+                tf.write(f"TITRE: {ep['title']}\n")
+                tf.write(f"DATE: {ep.get('pubdate','')}\n")
+                tf.write(f"AUDIO: {ep.get('audio_url','')}\n")
+                tf.write("=" * 60 + "\n\n")
+                tf.write(transcript)
+            log(f"Transcription sauvegardée : {transcript_dir}/{slug}.txt")
+
             html_out = generate_article_html(transcript, ep, slug)
 
             out_path = os.path.join(OUTPUT_DIR, f"{slug}.html")
