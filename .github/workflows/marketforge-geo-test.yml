@@ -1,26 +1,46 @@
 name: MarketForge GEO Test
-
 on:
   workflow_dispatch:
     inputs:
       max_new:
-        description: 'Nombre d articles a generer'
+        description: 'Nombre articles'
         required: false
         default: '1'
-
 permissions:
   contents: write
-
 jobs:
   generate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - name: Install ffmpeg
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - name: Install deps
         run: pip install -r requirements.txt
-      - name:
+      - name: Generate articles
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RSS_URL: 'https://feed.ausha.co/Aw31niq5xXDg'
+          BLOG_NAME: 'La Pause RH'
+          COMPANY_NAME: 'Test MarketForge'
+          ACCENT_COLOR: '#ff6a1a'
+          OUTPUT_DIR: 'articles'
+          MAX_NEW_PER_RUN: ${{ github.event.inputs.max_new || '1' }}
+        run: python automation/scripts/generate_articles.py
+      - name: Commit articles
+        run: |
+          git config user.name "marketforge-bot"
+          git config user.email "bot@marketforge.fr"
+          git add automation/ articles/
+          if git diff --staged --quiet; then
+            echo "Aucun article."
+          else
+            git commit -m "Test article GEO"
+            git push
+          fi
