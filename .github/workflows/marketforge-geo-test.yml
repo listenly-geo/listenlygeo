@@ -1,0 +1,26 @@
+name: MarketForge GEO Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_new:
+        description: 'Nombre d articles a generer'
+        required: false
+        default: '1'
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Install deps
+        run: pip install -r requirements.txt
+      - name:
