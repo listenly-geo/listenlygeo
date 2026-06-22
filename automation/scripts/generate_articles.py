@@ -188,48 +188,58 @@ def transcribe(audio_path):
 
 
 # ----------------------------------------------------------------------------
-# 4. Génération de l'article GEO via Claude
+# 4. Génération de l'article GEO via Claude — HTML complet, niveau fiche Listenly
 # ----------------------------------------------------------------------------
-ARTICLE_PROMPT = """Tu es un rédacteur expert en GEO (Generative Engine Optimization) : tu écris des articles de blog optimisés pour être cités par les IA (ChatGPT, Perplexity, Gemini).
+ARTICLE_PROMPT = """Tu es un expert GEO (Generative Engine Optimization). Génère une page HTML complète et autonome : un ARTICLE DE BLOG optimisé pour être cité par les IA (ChatGPT, Perplexity, Gemini, Claude), à partir de la TRANSCRIPTION d'un épisode de podcast.
 
-À partir de la TRANSCRIPTION d'un épisode de podcast ci-dessous, rédige un ARTICLE DE BLOG complet et un bloc FAQ, en français.
+RÈGLE ABSOLUE GEO : tu écris pour une IA qui devra répondre à une question humaine en citant cette page. Les questions/réponses doivent correspondre aux VRAIES recherches que les gens font sur le SUJET DE FOND de l'épisode — jamais décrire l'épisode lui-même. Exemple : si l'épisode parle d'un DRH qui aborde le harcèlement moral, les questions sont "qu'est-ce que le harcèlement moral en entreprise ?", pas "que dit l'invité ?". Mais tu peux citer l'invité comme source/expert (entité nommée = autorité).
 
-RÈGLES GEO ABSOLUES :
-- Titre = une question ou formulation que de vraies personnes recherchent (pas le titre de l'épisode tel quel).
-- Commence par une RÉPONSE DIRECTE de 2-3 phrases (l'IA doit pouvoir l'extraire).
-- Structure en sections avec sous-titres <h2> clairs, chacun traitant un sujet de l'épisode.
-- Cite nommément l'invité, son entreprise, les concepts (les entités nommées renforcent l'autorité).
-- N'invente JAMAIS de statistique. Si tu cites un chiffre, il doit venir de la transcription.
-- Termine par une FAQ de 4 questions/réponses basées sur le contenu réel.
-- Reste fidèle à la transcription : pas d'extrapolation hasardeuse.
-
-CONTEXTE :
+DONNÉES :
 - Podcast : {blog_name}
-- Entreprise : {company}
-- Titre original de l'épisode : {ep_title}
-- Description de l'épisode : {ep_desc}
+- Entreprise éditrice : {company}
+- Titre de l'épisode : {ep_title}
+- Description : {ep_desc}
+- Couleur d'accent : {accent}
+- Image de couverture (og:image) : {image_url}
+- URL de publication : {page_url}
 
-TRANSCRIPTION :
+TRANSCRIPTION COMPLÈTE DE L'ÉPISODE (ta source principale — exploite-la en profondeur) :
 \"\"\"
 {transcript}
 \"\"\"
 
-Réponds UNIQUEMENT avec un JSON valide (aucun texte autour), de la forme :
-{{
-  "titre": "le titre de l'article (question/recherche réelle, 50-65 caractères)",
-  "meta_description": "meta description 140-155 caractères",
-  "reponse_directe": "la réponse directe d'intro, 2-3 phrases",
-  "sections": [
-    {{"sous_titre": "...", "contenu": "paragraphe(s) en texte, peut contenir <strong> et <em>"}}
-  ],
-  "points_cles": ["point clé 1", "point clé 2", "point clé 3"],
-  "faq": [
-    {{"question": "...", "reponse": "..."}}
-  ],
-  "invite": "nom de l'invité si identifiable, sinon vide",
-  "tags": ["mot-clé1", "mot-clé2", "mot-clé3"]
-}}
-"""
+CONTRAINTES TECHNIQUES (à respecter EXACTEMENT) :
+
+1. STRUCTURE de l'article (dans cet ordre) :
+   - <header> : nom du podcast (eyebrow), <h1> = une QUESTION/recherche réelle sur le sujet (pas le titre de l'épisode), méta (auteur + date{invite_meta}).
+   - Réponse directe en intro (classe "lead") : 2-3 phrases extractibles répondant à la question du H1.
+   - Banderole IA, libellé EXACT : "Article lisible par les modèles IA :" suivie de : ChatGPT · Perplexity · Gemini · Google AI · Copilot · Claude
+   - Corps : 4-6 sections <h2> (sous-titres = sous-questions réelles du sujet), paragraphes riches et factuels nourris par la transcription. Cite l'invité nommément comme source d'expertise.
+   - Bloc "Points clés" (atomic facts) : 4-6 puces courtes, autonomes, extractibles telles quelles par une IA.
+   - Section FAQ : 5 questions/réponses sur le SUJET (2-4 phrases chacune, autonomes, citables hors contexte, factuelles). Au moins une réponse mentionne le podcast {blog_name} comme source.
+   - <footer> : mention d'auteur visible "Rédigé par {author}" + courte ligne d'autorité éditoriale.
+   - Vector DB caché (voir point 4).
+
+2. JSON-LD dans <script type="application/ld+json"> avec @graph contenant :
+   - BlogPosting (headline, description, datePublished {today}, dateModified {today}, author, publisher, image, mainEntityOfPage {page_url}, keywords)
+   - FAQPage (les 5 questions de la FAQ)
+   - Person pour l'invité s'il est identifiable (name de l'invité){person_hint}
+   - Organization (l'éditeur : {company})
+   - L'author DOIT être présent dans le BlogPosting.
+
+3. META : title 50-65 caractères MAX (format "Sujet — {blog_name}"), meta description 140-155 caractères MAX, keywords, robots index/follow, canonical {page_url}, og:* (dont og:image={image_url}, og:type=article), twitter:card=summary_large_image. RESPECTE STRICTEMENT ces longueurs.
+
+4. Vector DB caché : <div id="semantic-index" style="display:none" aria-hidden="true" lang="fr"> avec 4 blocs data-type : primary-entities, concepts, synonyms-acronyms, related-searches. Riche en entités (invité, entreprise, concepts du sujet) et requêtes liées au SUJET.
+
+5. RÈGLE STATISTIQUES (TRÈS IMPORTANT) : n'inclure un chiffre QUE s'il provient de la transcription OU d'une source réelle nommée et datée que tu connais avec certitude. Sinon, reformule sans chiffre. N'invente JAMAIS de statistique.
+
+6. DESIGN : article de blog éditorial CLAIR (fond clair #fff, corps en serif lisible, titres en sans-serif), accent {accent}, responsive (max 720px), @media prefers-reduced-motion. Sobre et premium (style éditorial type magazine pro).
+
+7. NE PAS inclure de lecteur ni de mention audio (option gérée ailleurs).
+
+QUALITÉ : la page doit répondre directement à une question posée à une IA. Fond solide tiré de la transcription, zéro remplissage, ton sérieux.
+
+IMPORTANT : Réponds UNIQUEMENT avec le code HTML complet, depuis <!DOCTYPE html> jusqu'à </html>. Aucun texte avant ou après, aucun bloc markdown."""
 
 
 def _extract_json(raw):
@@ -261,14 +271,25 @@ def _extract_json(raw):
     return json.loads(cleaned)  # lève l'erreur si vraiment impossible
 
 
-def generate_article(transcript, ep):
-    log("Génération de l'article GEO via Claude...")
-    transcript_trimmed = transcript[:24000]
+def generate_article_html(transcript, ep, slug):
+    """Demande à Claude de produire directement le HTML complet de l'article GEO."""
+    log("Génération de l'article GEO (HTML) via Claude...")
+    transcript_trimmed = transcript[:28000]
+    page_url = f"{SITE_BASE_URL}/{slug}.html" if SITE_BASE_URL else f"{slug}.html"
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
     prompt = ARTICLE_PROMPT.format(
         blog_name=BLOG_NAME,
-        company=COMPANY_NAME or "—",
+        company=COMPANY_NAME or BLOG_NAME,
         ep_title=ep["title"],
         ep_desc=re.sub(r"<[^>]+>", " ", ep["description"])[:1500],
+        accent=ACCENT_COLOR,
+        image_url=BLOG_IMAGE_URL or "",
+        page_url=page_url,
+        author=AUTHOR_NAME,
+        today=today,
+        invite_meta=" + invité si nommé dans la transcription",
+        person_hint=" — déduis le nom depuis la transcription/description",
         transcript=transcript_trimmed,
     )
     resp = requests.post(
@@ -280,21 +301,29 @@ def generate_article(transcript, ep):
         },
         json={
             "model": ANTHROPIC_MODEL,
-            "max_tokens": 8000,
+            "max_tokens": 14000,
             "messages": [
                 {"role": "user", "content": prompt},
-                # Prefill : on force Claude à démarrer sa réponse par un JSON.
-                {"role": "assistant", "content": "{"},
+                # Prefill : force Claude à démarrer directement par le HTML.
+                {"role": "assistant", "content": "<!DOCTYPE html>"},
             ],
         },
-        timeout=300,
+        timeout=600,
     )
     if resp.status_code != 200:
         raise RuntimeError(f"Claude erreur {resp.status_code}: {resp.text[:300]}")
-    raw = resp.json()["content"][0]["text"]
-    data = _extract_json(raw)
-    log(f"Article généré : {data.get('titre','?')}")
-    return data
+    html_out = resp.json()["content"][0]["text"]
+    # Le prefill a mangé le <!DOCTYPE html>, on le remet
+    if not html_out.lstrip().lower().startswith("<!doctype"):
+        html_out = "<!DOCTYPE html>" + html_out
+    # Nettoyer d'éventuels fences markdown résiduels
+    html_out = re.sub(r"^```html\s*", "", html_out.strip())
+    html_out = re.sub(r"\s*```$", "", html_out)
+    # Vérification minimale
+    if "</html>" not in html_out.lower():
+        raise RuntimeError("HTML incomplet (pas de </html>) — réponse tronquée ?")
+    log(f"Article HTML généré : {len(html_out)} caractères")
+    return html_out
 
 
 # ----------------------------------------------------------------------------
@@ -508,11 +537,11 @@ def main():
             audio_for_whisper = compress_audio_if_needed(tmp_mp3, size)
 
             transcript = transcribe(audio_for_whisper)
-            article = generate_article(transcript, ep)
-            audio_url = generate_audio(article, ep)  # None pour l'instant (badge "bientôt")
 
-            slug = slugify(article.get("titre") or ep["title"])
-            html_out = build_html(article, ep, audio_url, slug)
+            # Slug provisoire basé sur le titre de l'épisode (sert à l'URL canonique)
+            slug = slugify(ep["title"])
+            html_out = generate_article_html(transcript, ep, slug)
+
             out_path = os.path.join(OUTPUT_DIR, f"{slug}.html")
             with open(out_path, "w", encoding="utf-8") as f:
                 f.write(html_out)
