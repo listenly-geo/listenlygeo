@@ -304,8 +304,6 @@ def generate_article_html(transcript, ep, slug):
             "max_tokens": 14000,
             "messages": [
                 {"role": "user", "content": prompt},
-                # Prefill : force Claude à démarrer directement par le HTML.
-                {"role": "assistant", "content": "<!DOCTYPE html>"},
             ],
         },
         timeout=600,
@@ -313,12 +311,17 @@ def generate_article_html(transcript, ep, slug):
     if resp.status_code != 200:
         raise RuntimeError(f"Claude erreur {resp.status_code}: {resp.text[:300]}")
     html_out = resp.json()["content"][0]["text"]
-    # Le prefill a mangé le <!DOCTYPE html>, on le remet
-    if not html_out.lstrip().lower().startswith("<!doctype"):
-        html_out = "<!DOCTYPE html>" + html_out
-    # Nettoyer d'éventuels fences markdown résiduels
+    # Nettoyer d'éventuels fences markdown ou texte avant le <!DOCTYPE>
     html_out = re.sub(r"^```html\s*", "", html_out.strip())
     html_out = re.sub(r"\s*```$", "", html_out)
+    # Isoler à partir de <!DOCTYPE si du texte précède
+    idx = html_out.lower().find("<!doctype")
+    if idx > 0:
+        html_out = html_out[idx:]
+    elif idx == -1 and "<html" in html_out.lower():
+        # pas de doctype mais un <html> → on en ajoute un
+        hidx = html_out.lower().find("<html")
+        html_out = "<!DOCTYPE html>\n" + html_out[hidx:]
     # Vérification minimale
     if "</html>" not in html_out.lower():
         raise RuntimeError("HTML incomplet (pas de </html>) — réponse tronquée ?")
