@@ -232,9 +232,37 @@ Réponds UNIQUEMENT avec un JSON valide (aucun texte autour), de la forme :
 """
 
 
+def _extract_json(raw):
+    """Parsing JSON robuste : gère fences, préfixes, et erreurs mineures."""
+    raw = raw.strip()
+    # Retirer d'éventuels fences markdown
+    raw = re.sub(r"^```(?:json)?\s*", "", raw)
+    raw = re.sub(r"\s*```$", "", raw)
+    raw = raw.strip()
+    # Si on a prérempli avec '{', la réponse commence après → on remet le '{'
+    if not raw.startswith("{"):
+        raw = "{" + raw
+    # Tentative directe
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError:
+        pass
+    # Tentative : isoler du premier { au dernier }
+    start = raw.find("{")
+    end = raw.rfind("}")
+    if start != -1 and end != -1 and end > start:
+        candidate = raw[start:end+1]
+        try:
+            return json.loads(candidate)
+        except json.JSONDecodeError:
+            pass
+    # Dernière tentative : retirer les virgules traînantes avant } ou ]
+    cleaned = re.sub(r",(\s*[}\]])", r"\1", raw)
+    return json.loads(cleaned)  # lève l'erreur si vraiment impossible
+
+
 def generate_article(transcript, ep):
     log("Génération de l'article GEO via Claude...")
-    # On borne la transcription pour rester raisonnable en tokens
     transcript_trimmed = transcript[:24000]
     prompt = ARTICLE_PROMPT.format(
         blog_name=BLOG_NAME,
@@ -252,24 +280,19 @@ def generate_article(transcript, ep):
         },
         json={
             "model": ANTHROPIC_MODEL,
-            "max_tokens": 4000,
-            "messages": [{"role": "user", "content": prompt}],
+            "max_tokens": 8000,
+            "messages": [
+                {"role": "user", "content": prompt},
+                # Prefill : on force Claude à démarrer sa réponse par un JSON.
+                {"role": "assistant", "content": "{"},
+            ],
         },
         timeout=300,
     )
     if resp.status_code != 200:
         raise RuntimeError(f"Claude erreur {resp.status_code}: {resp.text[:300]}")
-    raw = resp.json()["content"][0]["text"].strip()
-    # Nettoyage d'éventuels fences
-    raw = re.sub(r"^```(json)?|```$", "", raw, flags=re.MULTILINE).strip()
-    try:
-        data = json.loads(raw)
-    except json.JSONDecodeError:
-        # tentative d'extraction du premier objet JSON
-        m = re.search(r"\{.*\}", raw, re.DOTALL)
-        if not m:
-            raise RuntimeError("Réponse Claude non parseable en JSON")
-        data = json.loads(m.group())
+    raw = resp.json()["content"][0]["text"]
+    data = _extract_json(raw)
     log(f"Article généré : {data.get('titre','?')}")
     return data
 
