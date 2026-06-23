@@ -24,10 +24,11 @@ jobs:
           RSS_URL: 'https://feed.ausha.co/y05XUJ38Gw'
           PODCAST_SLUG: 'immobilier-espagne'
           SPOTIFY_SHOW_URL: 'https://open.spotify.com/show/1ZikgxOidUnqRjGzGY5eIB'
-          CTA_URL: 'https://open.spotify.com/show/1ZikgxOidUnqRjGzGY5eIB'
-          CTA_LABEL: 'Écouter sur Spotify'
+          CTA_URL: 'https://listenly.fr/podcast/show/immobilier-en-espagne'
+          CTA_LABEL: 'Écouter le podcast'
           PODCAST_IMAGE_URL: 'https://i.postimg.cc/bNg03Bsg/ab67656300005f1f0bc217eeca2518ca72d794a6.jpg'
           PLAUSIBLE_DOMAIN: 'listenly.fr'
+          SEED_ONLY: 'true'
           MAX_NEW_PER_RUN: ${{ github.event.inputs.max_new || '1' }}
         run: python automation/scripts/generate_episode_fiches.py
       - name: Commit and push
@@ -39,18 +40,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "Aucune nouvelle fiche."
           else
-            git commit -m "Auto: nouvelles fiches episodes Immobilier Espagne"
+            git commit -m "Seed: marquage episodes existants Immobilier Espagne"
             git push
           fi
-      - name: Deploy HTML to O2Switch via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./pages/
-          server-dir: /listenly.fr/fiche-geo-ia/
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/.gitkeep
