@@ -21,7 +21,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./pages/
-          server-dir: /listenly.fr/
+          server-dir: /listenly.fr/fiche-geo-ia/
           exclude: |
             **/.git*
             **/.git*/**
