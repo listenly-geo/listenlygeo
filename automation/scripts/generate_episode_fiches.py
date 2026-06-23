@@ -38,6 +38,10 @@ PAGES_DIR      = "pages"
 REGISTRY_FILE  = f"automation/processed_episodes_{PODCAST_SLUG}.json"
 MODEL          = "claude-sonnet-4-6"   # bon rapport qualité/prix
 MAX_NEW_PER_RUN = int(os.environ.get("MAX_NEW_PER_RUN", "1"))  # configurable, defaut 1
+# Mode amorçage : si SEED_ONLY=true, marque tous les épisodes existants comme
+# traités SANS générer de fiche (sert à ne traiter QUE les futurs épisodes).
+# Non défini = comportement normal inchangé (sécurité pour les autres moteurs).
+SEED_ONLY = os.environ.get("SEED_ONLY", "").strip().lower() == "true"
 
 NS = {
     "itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd",
@@ -208,6 +212,21 @@ def main():
 
     new_eps = [ep for ep in episodes if ep["id"] not in processed]
     log(f"{len(new_eps)} nouveaux épisodes détectés")
+
+    # --- Mode amorçage (SEED_ONLY) : marque tout comme traité sans rien générer ---
+    if SEED_ONLY:
+        for ep in new_eps:
+            processed[ep["id"]] = {
+                "title": ep["title"],
+                "file": None,
+                "seeded": True,
+                "date": datetime.datetime.utcnow().isoformat() + "Z",
+            }
+        save_registry(registry)
+        log(f"SEED_ONLY actif : {len(new_eps)} épisode(s) marqué(s) comme traités SANS génération.")
+        log("Le moteur ne traitera désormais que les NOUVEAUX épisodes à venir.")
+        return
+    # --- fin mode amorçage ---
 
     if not new_eps:
         log("Rien à faire.")
