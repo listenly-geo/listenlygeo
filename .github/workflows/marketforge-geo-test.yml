@@ -1,11 +1,11 @@
-name: MarketForge GEO Test
+name: MarketForge GEO — FAQ Articles
 on:
   workflow_dispatch:
     inputs:
       max_new:
-        description: 'Nombre articles'
+        description: "Nombre d'épisodes à traiter"
         required: false
-        default: '1'
+        default: "1"
 permissions:
   contents: write
 jobs:
@@ -17,31 +17,39 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
       - name: Install ffmpeg
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - name: Install deps
         run: pip install -r requirements.txt
-      - name: Generate articles
+      - name: Generate FAQ articles
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          RSS_URL: 'https://feed.ausha.co/Aw31niq5xXDg'
-          BLOG_NAME: 'La Pause RH'
-          COMPANY_NAME: 'Test MarketForge'
-          ACCENT_COLOR: '#ff6a1a'
-          OUTPUT_DIR: 'articles'
+          RSS_URL: "https://feed.ausha.co/Aw31niq5xXDg"
+          BLOG_NAME: "La Pause RH"
+          COMPANY_NAME: "Test MarketForge"
+          ACCENT_COLOR: "#ff6a1a"
+          SITE_BASE_URL: "https://listenly.fr/article-faq"
+          OUTPUT_DIR: "articles"
           MAX_NEW_PER_RUN: ${{ github.event.inputs.max_new || '1' }}
         run: python automation/scripts/generate_articles.py
-      - name: Commit articles
+      - name: Deploy to pages/article-faq/
         run: |
           git config user.name "marketforge-bot"
           git config user.email "bot@marketforge.fr"
           git pull --rebase --autostash origin main
-          git add automation/ articles/
+          mkdir -p pages/article-faq
+          for d in articles/*/; do
+            ep=$(basename "$d")
+            if [ "$ep" != "_transcriptions" ]; then
+              cp -r "$d" "pages/article-faq/$ep"
+            fi
+          done
+          git add automation/ articles/ pages/article-faq/
           if git diff --staged --quiet; then
-            echo "Aucun article."
+            echo "Aucun article généré."
           else
-            git commit -m "Test article GEO"
+            git commit -m "FAQ GEO articles — $(date +%Y-%m-%d)"
             git push
           fi
