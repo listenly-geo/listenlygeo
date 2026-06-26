@@ -64,6 +64,18 @@ jobs:
             git commit -m "Auto: fiche N1 sens-figure-podcast"
             git push
           fi
+      - name: Deploy N1 FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/
+          server-dir: /listenly.fr/fiche-geo-ia/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
 
   fiches-n2:
     runs-on: ubuntu-latest
@@ -98,7 +110,7 @@ jobs:
             git commit -m "Auto: fiches episodes sens-figure-podcast"
             git push
           fi
-      - name: Deploy FTP
+      - name: Deploy N2 FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
