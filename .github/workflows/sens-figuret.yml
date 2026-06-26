@@ -6,11 +6,11 @@ on:
   workflow_dispatch:
     inputs:
       max_new:
-        description: 'Nb fiches épisode à générer'
+        description: 'Nb fiches episode a generer'
         required: false
         default: '1'
       seed_only:
-        description: 'true = amorçage sans génération'
+        description: 'true = amorcage sans generation'
         required: false
         default: 'false'
 
@@ -26,24 +26,40 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Génération fiche N1 (si absente)
+      - name: Generation fiche N1 si absente
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          PODCAST_SLUG:      'sens-figure-podcast'
-          PODCAST_RAW_INFO:  'Sens figuré. : Portraits de passionnés de parfums & gastronomie  Présent à chaque souffle, il nous guide, nous transporte, nous procure une émotion instantanée, nous bouleverse, nous traverse, nous submerge, nous apaise... Qui est-il ? Derrière cette énigmatique description se cache l\'odorat. Propre à chaque être, l\'odorat par son puissant pouvoir nous rappelle un être cher, un souvenir unique. Je suis Anne-Laure Joalland, hôte de ce podcast Sens figuré. Depuis l\'enfance et de manière indescriptible, j\'ai ressenti intensément les émotions et les odeurs. Mon histoire personnelle est mêlée d\'images mais aussi d\'odeurs me rappelant mes origines des galettes de ma grand-mère le mercredi midi à l\'odeur rassurante du figuier les soirs d\'été. Passionné par le pouvoir aux multiples facettes de l\'olfaction et des fragrances, avec ce podcast je pars à la découverte, avec vous, de cet univers fascinant qui recèle, à mes yeux, de nombreux mystères. Avec Sens figuré. je vous emmène à la rencontre de ceux qui, enfants ressentaient les odeurs avec une sensibilité exacerbée pour poser un doux regard sur le monde, qui ont osé un jour à la faveur d\'une rencontre, d\'un élan du cœur, d\'un saut dans l\'inconnu dans l\'irrationnel, dans l\'imperceptible, tracer un sillage différent de celui qu\'ils avaient imaginé jusqu\'alors. Ils ont osé faire vibrer et réveiller ce qui était présent au plus profond de leur âme. Ils ont osé rêver, s\'autoriser, sentir, convaincus que les senteurs pouvaient transformer leurs vies et celles des autres. Avec Sens figuré, je vous emmène avant tout, à la rencontre de passionnés de parfums, de senteurs, qui vous transporteront pour un voyage olfactif au cœur de vos émotions. Inspirez, sentez, ressentez et découvrez.... Bonne écoute ! Podcast dédié à ceux qui souhaitent découvrir l\'univers du parfum, de la parfumerie, de l\'odorat et de l\'olfaction en général. Hébergé par Ausha. Visitez ausha.co/fr/politique-de-confidentialite pour plus d\'informations.  (Copyright : Anne-Laure Joalland)      49*A la découverte de l\'univers des poivres : Nathalie Brosset : Fondatrice de Lippée :      Download      Sat, 13 Jun 2026     48* Une exploration des cafés & des huiles : Philippe Juglar : Président de l\'AVPA      Download      Sat, 30 May 2026     47* La cuisine dans tous ses états : Virginie Legrand : Créatrice d\'expériences culinaires & relationnelles      Download      Sat, 16 May 2026     46* La créativité à la petite cuillère : Faten Boudhina : Fondatrice de Crème des Crèmes      Download      Sat, 02 May 2026     45* La flamme & l\'art : Carine Pechavy : Fondatrice de Maison Pechavy      Download      Sat, 18 Apr 2026     44* De la fève à la tablette : Laure Mannessier : Fondatrice de Carrés Sauvages      Download      Mon, 06 Apr 2026     43* Des parfums de voyage : Ludovic Bonneton : Fondateur de Bon Parfumeur      Download      Fri, 03 Apr 2026     42* Des restaurants & du lien : Flore Lelièvre : Les Extraordinaires & les restaurants "le Reflet" [Edition Spéciale Podcasthon]      Download      Tue, 17 Mar 2026     41* Tracer sa voie dans le sillage : Céline Mouchel : Dirigeante 2ème génération de Divine      Download      Sat, 07 Mar 2026     40*Des eaux florales tels des millésimes : Stéphanie Cohen : Fondatrice de Ô de Fleurs      Download      Sat, 21 Feb 2026     39* Des inspirations au cœur de l\'Auvergne : Léa Chonier : Fondatrice de Poécile      Download      Sat, 07 Feb 2026     38* Des mots & des parfums : Elfa [Elle au parfum] : Rédactrice olfaction et parfumerie      Download      Fri, 23 Jan 2026     37*L\'art, le parfum au cœur de Sancerre : Clara Muller : Chercheuse en histoire de l\'art      Download      Sat, 10 Jan 2026     36* In Vino Femina : Alessandra Fottorino : Sommelière      Download      Sat, 20 Dec 2025     35*La biche au pop-corn et autres inspirations : Marlène Staiger : Master Blender      Download      Sat, 13 Dec 2025     34* De la peinture, des parfums de l\'art sous toutes ses formes : Manuel Mathieu : Artiste      Download      Sat, 29 Nov 2025     33* Des parfums pour l\'éternité : Anne-Cécile Pouant : Directrice de l\'Osmothèque      Download      Sat, 15 Nov 2025     32* Isabelle Ferrand : Présidente de Cinquième Sens      Download      Fri, 31 Oct 2025     31* Stéphanie Primet : Fleuriste Maison Lachaume Paris      Download      Sat, 18 Oct 2025     30* Coralie Spicher : Parfumeur chez DSM-Firmenich      Download      Sat, 04 Oct 2025     29* Clément Marx : Parfumeur chez Robertet      Download      Sat, 20 Sep 2025     28* Anne-Laure Joalland : Créatrice du podcast Sens figuré.      Download      Sat, 06 Sep 2025     27* Chantal Dufag : Fondatrice de Parfum d\'âme      Download      Sat, 23 Aug 2025     26* Antonio De Figueiredo : Parfumerie Marie Antoinette      Download      Sat, 09 Aug 2025     25* Pascal Chevallier : Médecin : L\'olfaction et la musique au service des patients      Download      Sat, 26 Jul 2025     24* Sophie Dufay : Co-fondatrice de la Petite Madeleine      Download      Sat, 12 Jul 2025     23* Claire Jamgotchian : Fondatrice de Conscience Parfums      Download      Sat, 28 Jun 2025     22* Sarah Bouasse : Journaliste & Auteure      Download      Sat, 14 Jun 2025     21* Camille Leguay : Fondatrice de Camille Leguay Parfums      Download      Sat, 31 May 2025     20* Tess Wakely : Fondatrice de Anthemis      Download      Sat, 17 May 2025     19* Christian Vautier : Fondateur de "Les Chocolatiers"      Download      Sat, 03 May 2025     18* François Ledoux : Fondateur de Via François      Download      Fri, 18 Apr 2025     17* Iris Bertrand : Fondatrice de Aïtal      Download      Sat, 05 Apr 2025     16* Valérie Pasmanian : Co-Fondatrice du P\'tit Sniff      Download      Sat, 22 Mar 2025     15* Camille Comet : Fondatrice de l\'Atelier Aroma et Associée de Boèmia      Download      Sat, 08 Mar 2025     14* 2/2 Un monde sans odeur : Katia Crabé, sa vision d\'un monde sans odeur      Download      Sat, 22 Feb 2025     13* 1/2 Un monde sans odeur : Jean-Michel Maillard, Président de Anosmie.org avec l\'éclairage médical de Véronique Marché      Download      Sat, 08 Feb 2025     12* Amandine Vépierre : Fondatrice de Sensible      Download      Sat, 25 Jan 2025     11* Michèle Gay : Parfumeure culinaire      Download      Sat, 11 Jan 2025     10* Narrations olfactives de fin d\'année      Download      Sat, 21 Dec 2024     9* Stéphane Pitré : Chef étoilé du Restaurant le Louis      Download      Sat, 14 Dec 2024     8* Jean-Pascal Pronzola : Fondateur de Maison Itany      Download      Sat, 07 Dec 2024     7* Marion Gourves : Fondatrice de Suzanne La Naturelle      Download      Sat, 30 Nov 2024     6* Véronique Marché : Médecin et olfactothérapeute      Download      Sat, 16 Nov 2024     5* Valérie Paint : Olfactothérapeute à la Pitié Salpétrière      Download      Sat, 02 Nov 2024     4* Véronique Remblière : Fondatrice de Isotta Parfums      Download      Sat, 19 Oct 2024     3* Pauline Dumail : Artiste      Download      Sat, 05 Oct 2024     2* Aline Laroche : Olfactothérapeute et magnétiseur      Download      Sat, 21 Sep 2024     1* Luana Vento : Fondatrice de Il vento e la luna      Download      Sat, 07 Sep 2024     Sens figuré. : un podcast au cœur de l\'olfaction      Download      Mon, 15 Jul 2024Pour ce 1er épisode de la saison 2, je suis passée de l\'autre côté du micro, interviewée par Iris fondatrice de Aïtal et invitée de l\'épisode 17 de Sens figuré.   Au fil de cette conversation, je vous emmène dans mon enfance bercée d\'odeurs de la nature au cœur de la Bretagne.  Je déroule pour vous le fil de mon histoire, de mes études de droit à l\'écoute de ma fibre créative, je vous confie les mots de cette voix intérieure qui m\'a soufflé jusqu\'à me crier d\'écouter pleinement mes émotions pour me guider vers ma destinée.   Au terme de cet épisode, vous en saurez plus sur celle qui sonde les âmes pour les révéler depuis un an via ce podcast.  Je vous souhaite vous aussi de vous reconnecter à vos émotions parfois enfouies par les affres de la vie, d\'écouter votre silence intérieur qui pourrait se révéler bavard, de vous faire pleinement confiance pour vous laisser guider par plus grand que vous !   Vous seul savez ce qui résonne pleinement avec l\'être singulier que vous êtes !   Merci Iris pour cette interview et pour nos échanges inspirants.   Bonne écoute !   Vous souhaitez en savoir plus sur Sens figuré. & Anne-Laure Joalland ?   Retrouvez l\'actualité de Sens figuré. :  Retrouvez mon univers : lyzee.fr  Suivez ma page Instagram dédiée à l\'écriture :   Musique du podcast : Fragments, Auteur: Nomyn Licence:  Hébergé par Ausha. Visitez pour plus d\'informations.'
-          SPOTIFY_SHOW_URL:  'https://open.spotify.com/show/0eITX96t1QiQqWYGQoCJjl'
-          PODCAST_IMAGE_URL: 'https://i.postimg.cc/Nf4nwmBT/ab67656300005f1f37d514e948244cc7086c04dc.jpg'
-          LISTENLY_SHOW_URL: 'https://listenly.fr/podcast/show/sens-figur'
-          PLAUSIBLE_DOMAIN:  'listenly.fr'
+          PODCAST_SLUG: sens-figure-podcast
+          SPOTIFY_SHOW_URL: https://open.spotify.com/show/0eITX96t1QiQqWYGQoCJjl
+          PODCAST_IMAGE_URL: https://i.postimg.cc/Nf4nwmBT/ab67656300005f1f37d514e948244cc7086c04dc.jpg
+          LISTENLY_SHOW_URL: https://listenly.fr/podcast/show/sens-figur
+          PLAUSIBLE_DOMAIN: listenly.fr
+          PODCAST_RAW_INFO: |
+            Nom : Sens figure.
+            Hote : Anne-Laure Joalland
+            Tagline : Portraits de passionnes de parfums et gastronomie
+            Description : Podcast dedie a l univers du parfum, de la parfumerie,
+            de l odorat et de l olfaction. Anne-Laure Joalland part a la rencontre
+            de passionnes qui ont ose tracer un sillage different et transformer
+            leur vie grace aux odeurs et aux emotions olfactives. Interviews de
+            parfumeurs, fondateurs de maisons de parfum, olfactotherapeutes, chefs
+            etoiles, artistes, sommeliers.
+            Themes : parfum, olfaction, odorat, gastronomie, emotions, parfumerie
+            independante, olfactotherapie, memoire olfactive, fragrances.
+            Exemples invites : Coralie Spicher parfumeur DSM-Firmenich, Clement Marx
+            parfumeur Robertet, Anne-Cecile Pouant directrice Osmotheque, Isabelle
+            Ferrand presidente Cinquieme Sens, Stephane Pitre chef etoile, Veronique
+            Marche medecin olfactotherapeute, Laure Mannessier fondatrice Carres
+            Sauvages, Ludovic Bonneton fondateur Bon Parfumeur.
         run: python automation/scripts/generate_n1.py
       - name: Commit fiche N1
         run: |
-          git config user.name  "listenly-bot"
+          git config user.name "listenly-bot"
           git config user.email "bot@listenly.fr"
           git pull --rebase --autostash origin main
           git add pages/
           if git diff --staged --quiet; then
-            echo "N1 déjà présente."
+            echo "N1 deja presente."
           else
             git commit -m "Auto: fiche N1 sens-figure-podcast"
             git push
@@ -57,37 +73,37 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Génération fiches épisodes N2
+      - name: Generation fiches episodes N2
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          RSS_URL:           'https://feed.ausha.co/oZR3vdUg5V2G'
-          PODCAST_SLUG:      'sens-figure-podcast'
-          SPOTIFY_SHOW_URL:  'https://open.spotify.com/show/0eITX96t1QiQqWYGQoCJjl'
-          CTA_URL:           'https://listenly.fr/podcast/show/sens-figur'
-          CTA_LABEL:         'Écouter le podcast'
-          PODCAST_IMAGE_URL: 'https://i.postimg.cc/Nf4nwmBT/ab67656300005f1f37d514e948244cc7086c04dc.jpg'
-          PLAUSIBLE_DOMAIN:  'listenly.fr'
-          MAX_NEW_PER_RUN:   ${{ github.event.inputs.max_new || '1' }}
-          SEED_ONLY:         ${{ github.event.inputs.seed_only || 'false' }}
+          RSS_URL: https://feed.ausha.co/oZR3vdUg5V2G
+          PODCAST_SLUG: sens-figure-podcast
+          SPOTIFY_SHOW_URL: https://open.spotify.com/show/0eITX96t1QiQqWYGQoCJjl
+          CTA_URL: https://listenly.fr/podcast/show/sens-figur
+          CTA_LABEL: Ecouter le podcast
+          PODCAST_IMAGE_URL: https://i.postimg.cc/Nf4nwmBT/ab67656300005f1f37d514e948244cc7086c04dc.jpg
+          PLAUSIBLE_DOMAIN: listenly.fr
+          MAX_NEW_PER_RUN: ${{ github.event.inputs.max_new || '1' }}
+          SEED_ONLY: ${{ github.event.inputs.seed_only || 'false' }}
         run: python automation/scripts/generate_episode_fiches.py
       - name: Commit fiches N2
         run: |
-          git config user.name  "listenly-bot"
+          git config user.name "listenly-bot"
           git config user.email "bot@listenly.fr"
           git pull --rebase --autostash origin main
           git add pages/ automation/processed_episodes_sens-figure-podcast.json
           if git diff --staged --quiet; then
             echo "Aucune nouvelle fiche."
           else
-            git commit -m "Auto: fiches épisodes sens-figure-podcast"
+            git commit -m "Auto: fiches episodes sens-figure-podcast"
             git push
           fi
       - name: Deploy FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server:    ${{ secrets.FTP_SERVER }}
-          username:  ${{ secrets.FTP_USERNAME }}
-          password:  ${{ secrets.FTP_PASSWORD }}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./pages/
           server-dir: /listenly.fr/fiche-geo-ia/
           exclude: |
