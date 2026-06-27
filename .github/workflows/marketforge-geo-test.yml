@@ -30,7 +30,10 @@ jobs:
           BLOG_NAME: "La Pause RH"
           COMPANY_NAME: "Test MarketForge"
           ACCENT_COLOR: "#ff6a1a"
-          SITE_BASE_URL: "https://listenly.fr/article-faq"
+          SITE_BASE_URL: "https://listenly.fr"
+          PODCAST_URL: "https://podcast.ausha.co/la-pause-rh"
+          CONTACT_URL: "https://listenly.fr/contact"
+          LISTENLY_PODCAST_URL: "https://listenly.fr/podcast/la-pause-rh"
           OUTPUT_DIR: "articles"
           MAX_NEW_PER_RUN: ${{ github.event.inputs.max_new || '1' }}
         run: python automation/scripts/generate_articles.py
@@ -40,16 +43,13 @@ jobs:
           git config user.email "bot@marketforge.fr"
           git pull --rebase --autostash origin main
           mkdir -p pages/article-faq
-          for d in articles/*/; do
-            ep=$(basename "$d")
-            if [ "$ep" != "_transcriptions" ]; then
-              cp -r "$d" "pages/article-faq/$ep"
-            fi
+          for f in articles/*.html; do
+            [ -f "$f" ] && cp "$f" "pages/article-faq/"
           done
           git add automation/ articles/ pages/article-faq/
           if git diff --staged --quiet; then
             echo "Aucun article généré."
           else
-            git commit -m "FAQ GEO articles — $(date +%Y-%m-%d)"
+            git commit -m "FAQ GEO article V3 -- $(date +%Y-%m-%d)"
             git push
           fi
