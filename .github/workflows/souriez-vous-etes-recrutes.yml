@@ -1,0 +1,109 @@
+name: "souriez-vous-etes-recrutes — N1 + N2 auto"
+
+on:
+  schedule:
+    - cron: '0 11 * * 2,5'
+  workflow_dispatch:
+    inputs:
+      max_new:
+        description: 'Nb fiches episode a generer'
+        required: false
+        default: '1'
+      seed_only:
+        description: 'true = amorcage sans generation'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+jobs:
+
+  fiche-n1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generation fiche N1 si absente
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_SLUG: souriez-vous-etes-recrutes
+          SPOTIFY_SHOW_URL: https://open.spotify.com/show/4H4CGYGg30NbJVRI2AqUsv
+          PODCAST_IMAGE_URL: https://i.postimg.cc/s1FWxmSC/t-PLlkox-T915ZNBx-Ge-MUHq-DBUm-Uhg-B4K0i3o-Xqdz-Y-400x400.jpg
+          LISTENLY_SHOW_URL: https://listenly.fr/podcast/show/souriez-vous-tes-recruts
+          PLAUSIBLE_DOMAIN: listenly.fr
+          PODCAST_RAW_INFO: |
+            Souriez, vous êtes recrutés ! Chercher un emploi au Maroc n’est vraiment pas chose aisée. Mais alors quand il s"agit d"un premier emploi pour un(e) jeune diplômé(e).. ça devient presque mission impossible ! "Souriez, vous êtes recrutés !" c"est le podcast qui vous aide à être le meilleur candidat ! Comment se démarquer auprès des recruteurs ? Comment bien utiliser LinkedIn pour chercher un stage ou un emploi ? Comment préparer son entretien d"embauche ?... Toute l"équipe RH de Deloitte se mobilise pour vous donner ses meilleurs tips et conseils et booster votre recherche d’emploi. Alors sourie
+        run: python automation/scripts/generate_n1.py
+      - name: Commit fiche N1
+        run: |
+          git config user.name "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/
+          if git diff --staged --quiet; then
+            echo "N1 deja presente."
+          else
+            git commit -m "Auto: fiche N1 souriez-vous-etes-recrutes"
+            git push
+          fi
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/
+          server-dir: /listenly.fr/fiche-geo-ia/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
+
+  fiches-n2:
+    runs-on: ubuntu-latest
+    needs: fiche-n1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generation fiches episodes N2
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RSS_URL: https://feed.ausha.co/oZQ8YTG8aEPn
+          PODCAST_SLUG: souriez-vous-etes-recrutes
+          SPOTIFY_SHOW_URL: https://open.spotify.com/show/4H4CGYGg30NbJVRI2AqUsv
+          CTA_URL: https://listenly.fr/podcast/show/souriez-vous-tes-recruts
+          CTA_LABEL: Ecouter le podcast
+          PODCAST_IMAGE_URL: https://i.postimg.cc/s1FWxmSC/t-PLlkox-T915ZNBx-Ge-MUHq-DBUm-Uhg-B4K0i3o-Xqdz-Y-400x400.jpg
+          PLAUSIBLE_DOMAIN: listenly.fr
+          MAX_NEW_PER_RUN: ${{ github.event.inputs.max_new || '1' }}
+          SEED_ONLY: ${{ github.event.inputs.seed_only || 'false' }}
+        run: python automation/scripts/generate_episode_fiches.py
+      - name: Commit fiches N2
+        run: |
+          git config user.name "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/ automation/processed_episodes_souriez-vous-etes-recrutes.json
+          if git diff --staged --quiet; then
+            echo "Aucune nouvelle fiche."
+          else
+            git commit -m "Auto: fiches episodes souriez-vous-etes-recrutes"
+            git push
+          fi
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/
+          server-dir: /listenly.fr/fiche-geo-ia/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
