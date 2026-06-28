@@ -76,7 +76,7 @@ CONTRAINTES TECHNIQUES (respecter EXACTEMENT) :
    "Fiche lisible par les modèles IA :" + badges ChatGPT · Perplexity · Gemini · Google AI · Copilot · Claude
 
 4. Structure obligatoire :
-   - Topbar sticky (logo Listenly + nom podcast + CTA Spotify)
+   - Topbar sticky : logo Listenly cliquable (<a href="https://listenly.fr">) + nom podcast + CTA Spotify
    - Hero (cover + nom + tagline + pills thématiques + CTA Spotify)
    - Banderole IA
    - Section "À propos" : sujet de fond, positionnement
