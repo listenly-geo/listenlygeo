@@ -63,10 +63,14 @@ CONTRAINTES TECHNIQUES (respecter EXACTEMENT) :
 1. Script Plausible dans <head> juste après canonical :
    <script defer data-domain="{PLAUSIBLE}" src="https://plausible.io/js/script.tagged-events.js"></script>
 
-2. CTA NIVEAU 1 = SPOTIFY (OBLIGATOIRE).
-   3 boutons (topbar, hero, footer) pointent TOUS vers {SPOTIFY_URL} target="_blank" rel="noopener"
-   Classe : plausible-event-name=Spotify+Click--{SLUG}
-   Texte hero EXACT : "▶ Écouter sur Spotify"
+2. CTA NIVEAU 1 = SPOTIFY — RÈGLE ABSOLUE SANS EXCEPTION.
+   Les 3 boutons principaux (topbar, hero, footer) pointent OBLIGATOIREMENT vers {SPOTIFY_URL}
+   href="{SPOTIFY_URL}" target="_blank" rel="noopener"
+   Classe Plausible : plausible-event-name=Spotify+Click--{SLUG}
+   Texte bouton hero EXACT : "▶ Écouter sur Spotify"
+   Texte bouton topbar EXACT : "▶ Écouter sur Spotify"
+   JAMAIS de lien Listenly dans un bouton CTA de cette page.
+   Le lien Listenly ({LISTENLY_URL}) n'apparaît QUE dans : canonical, JSON-LD url, BreadcrumbList.
 
 3. Banderole sous le hero, libellé EXACT :
    "Fiche lisible par les modèles IA :" + badges ChatGPT · Perplexity · Gemini · Google AI · Copilot · Claude
@@ -183,3 +187,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
