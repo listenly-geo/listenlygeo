@@ -108,7 +108,9 @@ CONTRAINTES TECHNIQUES (respecter EXACTEMENT) :
    - title : 50-65 caractères MAXIMUM
    - meta description : 140-155 caractères MAXIMUM
    - canonical : {LISTENLY_URL}
+   - og:url : {LISTENLY_URL} (OBLIGATOIRE — doit pointer vers la fiche, pas vers listenly.fr)
    - og:image = {IMAGE_URL}
+   - twitter:url : {LISTENLY_URL}
 
 9. STATISTIQUES : uniquement si source réelle nommée ET datée. Sinon zéro chiffre.
 
@@ -187,4 +189,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
