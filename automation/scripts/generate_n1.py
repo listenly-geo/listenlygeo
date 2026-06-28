@@ -107,10 +107,10 @@ CONTRAINTES TECHNIQUES (respecter EXACTEMENT) :
 8. Meta SEO :
    - title : 50-65 caractères MAXIMUM
    - meta description : 140-155 caractères MAXIMUM
-   - canonical : {LISTENLY_URL}
-   - og:url : {LISTENLY_URL} (OBLIGATOIRE — doit pointer vers la fiche, pas vers listenly.fr)
+   - canonical : https://listenly.fr/fiche-geo-ia/{SLUG}-podcast.html
+   - og:url : https://listenly.fr/fiche-geo-ia/{SLUG}-podcast.html (OBLIGATOIRE — URL de la fiche elle-même)
    - og:image = {IMAGE_URL}
-   - twitter:url : {LISTENLY_URL}
+   - twitter:url : https://listenly.fr/fiche-geo-ia/{SLUG}-podcast.html
 
 9. STATISTIQUES : uniquement si source réelle nommée ET datée. Sinon zéro chiffre.
 
