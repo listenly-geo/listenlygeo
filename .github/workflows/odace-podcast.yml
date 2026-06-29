@@ -1,0 +1,109 @@
+name: "odace-podcast — N1 + N2 auto"
+
+on:
+  schedule:
+    - cron: '30 15 * * 1,4'
+  workflow_dispatch:
+    inputs:
+      max_new:
+        description: 'Nb fiches episode a generer'
+        required: false
+        default: '1'
+      seed_only:
+        description: 'true = amorcage sans generation'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+jobs:
+
+  fiche-n1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generation fiche N1 si absente
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_SLUG: odace-podcast
+          SPOTIFY_SHOW_URL: https://open.spotify.com/show/26OlGS516gLUb8ESFh1xdO
+          PODCAST_IMAGE_URL: https://i.postimg.cc/HLVnVFpz/ab67656300005f1f938d27526799d8c556801283.jpg
+          LISTENLY_SHOW_URL: https://listenly.fr/podcast/show/dace-podcast
+          PLAUSIBLE_DOMAIN: listenly.fr
+          PODCAST_RAW_INFO: |
+            Podcast Addict logo Podcast Addict App Podcast promotion Ōdace Jun 28 2026 157 ep. 37 mins 11 Ōdace Podcast artwork Ōdace, c’est le 1er podcast belge francophone dédié au wellness et à la santé. Chaque semaine, Chloé Genicot (https://www.instagram.com/chloegenicot/?__d=1) reçoit des expert·es (médecins, psychologues, nutritionnistes…), des entrepreneur·es et des invité·es aux parcours forts pour parler sans filtre de : santé mentale, hormones, sexualité, alimentation, sommeil, parentalité, équilibre pro/perso, reconversion… Ōdace, ce sont des conversations longues, intimes et concrètes, pour t
+        run: python automation/scripts/generate_n1.py
+      - name: Commit fiche N1
+        run: |
+          git config user.name "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/
+          if git diff --staged --quiet; then
+            echo "N1 deja presente."
+          else
+            git commit -m "Auto: fiche N1 odace-podcast"
+            git push
+          fi
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/
+          server-dir: /listenly.fr/fiche-geo-ia/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
+
+  fiches-n2:
+    runs-on: ubuntu-latest
+    needs: fiche-n1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generation fiches episodes N2
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RSS_URL: https://feed.ausha.co/40Vz8InawpYL
+          PODCAST_SLUG: odace-podcast
+          SPOTIFY_SHOW_URL: https://open.spotify.com/show/26OlGS516gLUb8ESFh1xdO
+          CTA_URL: https://listenly.fr/podcast/show/dace-podcast
+          CTA_LABEL: Ecouter le podcast
+          PODCAST_IMAGE_URL: https://i.postimg.cc/HLVnVFpz/ab67656300005f1f938d27526799d8c556801283.jpg
+          PLAUSIBLE_DOMAIN: listenly.fr
+          MAX_NEW_PER_RUN: ${{ github.event.inputs.max_new || '1' }}
+          SEED_ONLY: ${{ github.event.inputs.seed_only || 'false' }}
+        run: python automation/scripts/generate_episode_fiches.py
+      - name: Commit fiches N2
+        run: |
+          git config user.name "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/ automation/processed_episodes_odace-podcast.json
+          if git diff --staged --quiet; then
+            echo "Aucune nouvelle fiche."
+          else
+            git commit -m "Auto: fiches episodes odace-podcast"
+            git push
+          fi
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/
+          server-dir: /listenly.fr/fiche-geo-ia/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
