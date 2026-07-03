@@ -1,0 +1,109 @@
+name: "into-the-mind — N1 + N2 auto"
+
+on:
+  schedule:
+    - cron: '0 17 * * 1,3'
+  workflow_dispatch:
+    inputs:
+      max_new:
+        description: 'Nb fiches episode a generer'
+        required: false
+        default: '1'
+      seed_only:
+        description: 'true = amorcage sans generation'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+jobs:
+
+  fiche-n1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generation fiche N1 si absente
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_SLUG: into-the-mind
+          SPOTIFY_SHOW_URL: https://open.spotify.com/show/2VjxZwQiWPNqyjpDBGIV1H
+          PODCAST_IMAGE_URL: https://i.postimg.cc/FzckbMTL/v-M3IFMv3fdgj-Bage-NF9i99ZWVw-Kfa0DUb-JEmji-J0-1400x1400.jpg
+          LISTENLY_SHOW_URL: https://listenly.fr/podcast/show/into-the-mind
+          PLAUSIBLE_DOMAIN: listenly.fr
+          PODCAST_RAW_INFO: |
+            INTO THE MIND, préparation mentale et santé mentale Et si je vous parlais de cette voix — vous savez, celle qui chuchote quand votre corps brûle, celle qui s’invite la veille d’un grand départ, celle qui vous apprend à tenir quand tout voudrait s’arrêter.   Into the mind est le podcast dédié à la préparation mentale et à la santé mentale des athlètes. À travers des épisodes courts et des interviews de sportifs, aventuriers et leaders engagés, nous explorons ce qui se joue réellement dans la tête quand la pression monte. Peur, doute, engagement, lucidité, résilience : ici, on parle du mental sa
+        run: python automation/scripts/generate_n1.py
+      - name: Commit fiche N1
+        run: |
+          git config user.name "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/
+          if git diff --staged --quiet; then
+            echo "N1 deja presente."
+          else
+            git commit -m "Auto: fiche N1 into-the-mind"
+            git push
+          fi
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/
+          server-dir: /listenly.fr/fiche-geo-ia/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
+
+  fiches-n2:
+    runs-on: ubuntu-latest
+    needs: fiche-n1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generation fiches episodes N2
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RSS_URL: https://feed.ausha.co/B62r0eiZOp0j
+          PODCAST_SLUG: into-the-mind
+          SPOTIFY_SHOW_URL: https://open.spotify.com/show/2VjxZwQiWPNqyjpDBGIV1H
+          CTA_URL: https://listenly.fr/podcast/show/into-the-mind
+          CTA_LABEL: Ecouter le podcast
+          PODCAST_IMAGE_URL: https://i.postimg.cc/FzckbMTL/v-M3IFMv3fdgj-Bage-NF9i99ZWVw-Kfa0DUb-JEmji-J0-1400x1400.jpg
+          PLAUSIBLE_DOMAIN: listenly.fr
+          MAX_NEW_PER_RUN: ${{ github.event.inputs.max_new || '1' }}
+          SEED_ONLY: ${{ github.event.inputs.seed_only || 'false' }}
+        run: python automation/scripts/generate_episode_fiches.py
+      - name: Commit fiches N2
+        run: |
+          git config user.name "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/ automation/processed_episodes_into-the-mind.json
+          if git diff --staged --quiet; then
+            echo "Aucune nouvelle fiche."
+          else
+            git commit -m "Auto: fiches episodes into-the-mind"
+            git push
+          fi
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/
+          server-dir: /listenly.fr/fiche-geo-ia/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
