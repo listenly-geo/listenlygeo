@@ -1,0 +1,109 @@
+name: "Les podcasts Fidal — N1 + N2 auto"
+
+on:
+  schedule:
+    - cron: '30 12 * * 3,6'
+  workflow_dispatch:
+    inputs:
+      max_new:
+        description: 'Nb fiches episode a generer'
+        required: false
+        default: '1'
+      seed_only:
+        description: 'true = amorcage sans generation'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+jobs:
+
+  fiche-n1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generation fiche N1 si absente
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_SLUG: Les podcasts Fidal
+          SPOTIFY_SHOW_URL: https://open.spotify.com/show/5REy8110qRLbnsLmUHHScu
+          PODCAST_IMAGE_URL: https://i.postimg.cc/RFy79Q3Q/j-Y375MEAq-Vk-Me25iu5Cp-NUBD9Bm-Gjm6VKWEO1a-Cs-1400x1400.jpg
+          LISTENLY_SHOW_URL: https://listenly.fr/podcast/show/les-podcasts-fidal
+          PLAUSIBLE_DOMAIN: listenly.fr
+          PODCAST_RAW_INFO: |
+            Droit à l"essentiel - Les podcasts Fidal "Droit à l’essentiel" – par Fidal : Anticiper, agir, transmettre – les clés juridiques pour diriger avec sérénité. Parce que les décisions stratégiques méritent des éclairages clairs et concrets, parce que le droit se situe au cœur de ces processus, nos avocats, juristes et notaires partagent leur expertise et leur expérience pour décrypter les enjeux juridiques sans détour. Dans un environnement économique en constante évolution, Fidal décrypte les enjeux majeurs qu"un dirigeant rencontre aujourd"hui, du restructuring à la transmission d’entreprise fam
+        run: python automation/scripts/generate_n1.py
+      - name: Commit fiche N1
+        run: |
+          git config user.name "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/
+          if git diff --staged --quiet; then
+            echo "N1 deja presente."
+          else
+            git commit -m "Auto: fiche N1 Les podcasts Fidal"
+            git push
+          fi
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/
+          server-dir: /listenly.fr/fiche-geo-ia/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
+
+  fiches-n2:
+    runs-on: ubuntu-latest
+    needs: fiche-n1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generation fiches episodes N2
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RSS_URL: https://feed.ausha.co/o9920F0R3z8X
+          PODCAST_SLUG: Les podcasts Fidal
+          SPOTIFY_SHOW_URL: https://open.spotify.com/show/5REy8110qRLbnsLmUHHScu
+          CTA_URL: https://listenly.fr/podcast/show/les-podcasts-fidal
+          CTA_LABEL: Ecouter le podcast
+          PODCAST_IMAGE_URL: https://i.postimg.cc/RFy79Q3Q/j-Y375MEAq-Vk-Me25iu5Cp-NUBD9Bm-Gjm6VKWEO1a-Cs-1400x1400.jpg
+          PLAUSIBLE_DOMAIN: listenly.fr
+          MAX_NEW_PER_RUN: ${{ github.event.inputs.max_new || '1' }}
+          SEED_ONLY: ${{ github.event.inputs.seed_only || 'false' }}
+        run: python automation/scripts/generate_episode_fiches.py
+      - name: Commit fiches N2
+        run: |
+          git config user.name "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/ automation/processed_episodes_Les podcasts Fidal.json
+          if git diff --staged --quiet; then
+            echo "Aucune nouvelle fiche."
+          else
+            git commit -m "Auto: fiches episodes Les podcasts Fidal"
+            git push
+          fi
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/
+          server-dir: /listenly.fr/fiche-geo-ia/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
