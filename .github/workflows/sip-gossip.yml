@@ -1,0 +1,109 @@
+name: "sip-gossip — N1 + N2 auto"
+
+on:
+  schedule:
+    - cron: '0 15 * * 2'
+  workflow_dispatch:
+    inputs:
+      max_new:
+        description: 'Nb fiches episode a generer'
+        required: false
+        default: '1'
+      seed_only:
+        description: 'true = amorcage sans generation'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+jobs:
+
+  fiche-n1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generation fiche N1 si absente
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_SLUG: sip-gossip
+          SPOTIFY_SHOW_URL: https://open.spotify.com/show/6RFCzxDoEIgZctlP4CAt9m
+          PODCAST_IMAGE_URL: https://i.postimg.cc/4NcnkFF9/1772192901307-b3cf21be-6084-4894-abea-0f642681a696.jpg
+          LISTENLY_SHOW_URL: https://listenly.fr/podcast/show/sip-gossip
+          PLAUSIBLE_DOMAIN: listenly.fr
+          PODCAST_RAW_INFO: |
+            Sip & Gossip Sip & Gossip Bienvenue dans Sip &amp; Gossip, le podcast présenté par Maghla où on lit tous vos petits secrets inavoués 🫖<hr><p style="color:grey; font-size:0.75em;"> Hébergé par Acast. Visitez <a style="color:grey;" target="_blank" rel="noopener noreferrer" href="https://acast.com/privacy">acast.com/privacy</a> pour plus d"informations.</p> All Episodes Sip & Gossip #30 avec McFly Jun 29, 2026 <p>Maghla revient avec un trentième épisode accompagnée de McFly, pour lire toutes vos anecdotes et vous aviez encore des histoires honteuses à nous partager ! Un épisode bien rempli avec 
+        run: python automation/scripts/generate_n1.py
+      - name: Commit fiche N1
+        run: |
+          git config user.name "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/
+          if git diff --staged --quiet; then
+            echo "N1 deja presente."
+          else
+            git commit -m "Auto: fiche N1 sip-gossip"
+            git push
+          fi
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/
+          server-dir: /listenly.fr/fiche-geo-ia/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
+
+  fiches-n2:
+    runs-on: ubuntu-latest
+    needs: fiche-n1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generation fiches episodes N2
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RSS_URL: https://feeds.acast.com/public/shows/67d1639af397b75dff3f53fb
+          PODCAST_SLUG: sip-gossip
+          SPOTIFY_SHOW_URL: https://open.spotify.com/show/6RFCzxDoEIgZctlP4CAt9m
+          CTA_URL: https://listenly.fr/podcast/show/sip-gossip
+          CTA_LABEL: Ecouter le podcast
+          PODCAST_IMAGE_URL: https://i.postimg.cc/4NcnkFF9/1772192901307-b3cf21be-6084-4894-abea-0f642681a696.jpg
+          PLAUSIBLE_DOMAIN: listenly.fr
+          MAX_NEW_PER_RUN: ${{ github.event.inputs.max_new || '1' }}
+          SEED_ONLY: ${{ github.event.inputs.seed_only || 'false' }}
+        run: python automation/scripts/generate_episode_fiches.py
+      - name: Commit fiches N2
+        run: |
+          git config user.name "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/ automation/processed_episodes_sip-gossip.json
+          if git diff --staged --quiet; then
+            echo "Aucune nouvelle fiche."
+          else
+            git commit -m "Auto: fiches episodes sip-gossip"
+            git push
+          fi
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/
+          server-dir: /listenly.fr/fiche-geo-ia/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
