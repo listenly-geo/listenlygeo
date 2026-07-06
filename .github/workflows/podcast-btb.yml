@@ -3,39 +3,22 @@ name: Fiche Podcast-BTB
 on:
   workflow_dispatch:
     inputs:
-      podcast_slug:
-        description: 'Slug (ex: nom-podcast)'
-        required: true
-      podcast_name:
-        description: 'Nom du podcast'
-        required: true
-      host_name:
-        description: 'Prénom + nom hôte'
-        required: true
-      host_title:
-        description: 'Titre professionnel hôte'
-        required: true
-      host_company:
-        description: 'Entreprise hôte'
-        required: true
-      description:
-        description: 'Description officielle'
-        required: true
-      episode_titles:
-        description: 'Titres épisodes (un par ligne)'
+      podcast_raw_info:
+        description: 'Contenu brut (RSS collé, description, titres épisodes...)'
         required: true
       podcast_url:
-        description: 'URL podcast (Spotify/plateforme)'
+        description: 'Lien Spotify/plateforme (CTA 1)'
         required: true
       contact_url:
-        description: 'URL contact (LinkedIn hôte)'
-        required: true
-      categorie:
-        description: 'Catégorie'
+        description: 'Lien LinkedIn hôte (CTA 2)'
         required: true
       listenly_url:
-        description: 'URL Listenly (canonical)'
+        description: 'Lien Listenly (backlink canonical)'
         required: true
+      podcast_slug:
+        description: 'Slug (optionnel, sinon auto-déduit)'
+        required: false
+        default: ''
       accent_color:
         description: 'Couleur accent (hex)'
         required: false
@@ -58,16 +41,37 @@ jobs:
       - name: Génération fiche podcast-btb
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          PODCAST_SLUG:      ${{ github.event.inputs.podcast_slug }}
-          PODCAST_NAME:      ${{ github.event.inputs.podcast_name }}
-          HOST_NAME:         ${{ github.event.inputs.host_name }}
-          HOST_TITLE:        ${{ github.event.inputs.host_title }}
-          HOST_COMPANY:      ${{ github.event.inputs.host_company }}
-          DESCRIPTION:       ${{ github.event.inputs.description }}
-          EPISODE_TITLES:    ${{ github.event.inputs.episode_titles }}
-          PODCAST_URL:       ${{ github.event.inputs.podcast_url }}
-          CONTACT_URL:       ${{ github.event.inputs.contact_url }}
-          CATEGORIE:         ${{ github.event.inputs.categorie }}
-          LISTENLY_URL:      ${{ github.event.inputs.listenly_url }}
-          ACCENT_COLOR:      ${{ github.event.inputs.accent_color }}
-          COVER_IMAGE:       ${{
+          PODCAST_RAW_INFO: ${{ github.event.inputs.podcast_raw_info }}
+          PODCAST_URL:      ${{ github.event.inputs.podcast_url }}
+          CONTACT_URL:      ${{ github.event.inputs.contact_url }}
+          LISTENLY_URL:     ${{ github.event.inputs.listenly_url }}
+          PODCAST_SLUG:     ${{ github.event.inputs.podcast_slug }}
+          ACCENT_COLOR:     ${{ github.event.inputs.accent_color }}
+          COVER_IMAGE:      ${{ github.event.inputs.cover_image }}
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Commit fiche
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Aucune nouvelle fiche."
+          else
+            git commit -m "Auto: fiche podcast-btb"
+            git push
+          fi
+
+      - name: Deploy FTP → /podcast-btb/
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
