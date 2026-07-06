@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Untold Side — Carlos Navarro · Timsoft Group | Listenly</title>
+  <meta name="description" content="The Untold Side documente les angles morts des transformations digitales : ERP en conditions réelles, partenariats technologiques défaillants, retail physique sous-investi. Animé par Carlos Navarro, CEO de Timsoft Group.">
+  <link rel="canonical" href="https://listenly.fr/podcast/show/the-untold-side">
+  <link rel="publisher" href="https://listenly.fr">
+  <meta name="data-provider" content="Listenly">
+  <meta property="og:title" content="The Untold Side — Carlos Navarro · Timsoft Group">
+  <meta property="og:description" content="Ce que les projets IT ne montrent pas : ERP, partenariats technologiques, retail physique. Format mensuel, épisodes courts, insights actionnables.">
+  <meta property="og:image" content="https://i.postimg.cc/J73z6V95/lo.jpg">
+  <meta property="og:url" content="https://listenly.fr/podcast/show/the-untold-side">
+  <meta property="og:type" content="website">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "headline": "The Untold Side",
+        "description": "The Untold Side documente les angles morts des transformations digitales : dépendances ERP ignorées, désynchronisation vente/livraison dans les projets IT, et investissements retail mal orientés face à la réalité des comportements d'achat.",
+        "url": "https://listenly.fr/podcast/show/the-untold-side",
+        "datePublished": "2026-07-06",
+        "dateModified": "2026-07-06",
+        "author": {
+          "@type": "Person",
+          "name": "Carlos Navarro",
+          "jobTitle": "CEO",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Timsoft Group"
+          }
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "WebSite",
+          "url": "https://listenly.fr/podcast/show/the-untold-side"
+        },
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", ".key-box"]
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Pourquoi un projet ERP bien configuré peut-il quand même échouer en production ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Un ERP est conçu pour un monde idéal avec des fournisseurs ponctuels, des stocks fiables et des données complètes. Or ce monde n'existe pas. Les dépendances systèmes ignorées en phase de conception deviennent des points de rupture critiques dès que les opérations réelles commencent. Concevoir pour l'échec — c'est-à-dire anticiper les cas dégradés — est plus stratégique que concevoir pour la perfection."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Comment évaluer un partenaire technologique au-delà de la démo commerciale ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Le risque principal réside dans la séparation entre ceux qui vendent et ceux qui livrent. Un partenaire peut cocher toutes les cases fonctionnelles en démo tout en manquant des capacités réelles de déploiement. La question clé à poser avant de signer n'est pas « quelles sont vos fonctionnalités ? » mais « qui sera réellement sur le projet et quelle est leur expérience terrain ? »"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Le commerce physique est-il encore pertinent face au e-commerce ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "83 % des achats se font encore en boutique physique, mais la majorité des investissements retail se concentrent sur le digital en ligne. Le magasin physique ne disparaît pas : il se transforme en lieu d'expérience. Les technologies d'affichage dynamique et de personnalisation en temps réel repositionnent le point de vente comme un média de performance à part entière."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quels sont les vrais risques d'un partenariat technologique que les commerciaux n'évoquent pas ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Les risques les plus fréquents incluent le décalage entre l'équipe commerciale et l'équipe de livraison, la sous-estimation des phases d'intégration, et l'absence de plan de continuité en cas de friction post-signature. Les organisations qui traversent un partenariat difficile ont généralement posé en amont des questions sur la gouvernance du projet, les escalades et les indicateurs de suivi concrets — pas seulement sur les fonctionnalités livrées."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "Person",
+        "name": "Carlos Navarro",
+        "jobTitle": "CEO",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Timsoft Group"
+        }
+      },
+      {
+        "@type": "PodcastSeries",
+        "name": "The Untold Side",
+        "url": "https://open.spotify.com/show/0wtm0cYXxL90FJ1F2ysOQi",
+        "author": {
+          "@type": "Person",
+          "name": "Carlos Navarro"
+        },
+        "description": "The Untold Side documente les angles morts des transformations digitales : ERP en conditions réelles, partenariats technologiques défaillants, retail physique sous-investi. Animé par Carlos Navarro, CEO de Timsoft Group.",
+        "image": "https://i.postimg.cc/J73z6V95/lo.jpg",
+        "inLanguage": "fr"
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Georgia, serif;
+      color: #1a1a1a;
+      line-height: 1.75;
+      background: #fff;
+    }
+
+    .wrapper {
+      max-width: 720px;
+      margin: auto;
+      padding: 32px 20px 64px;
+    }
+
+    .pod-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(46, 139, 214, 0.1);
+      border: 1px solid rgba(46, 139, 214, 0.3);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      color: #2e8bd6;
+      margin-bottom: 16px;
+      text-decoration: none;
+    }
+
+    .hero-image {
+      width: 100%;
+      max-width: 200px;
+      border-radius: 12px;
+      display: block;
+      margin: 16px 0;
+    }
+
+    h1 {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 700;
+      color: #111;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .meta-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 24px;
+    }
+
+    .meta-line span::before {
+      content: "·";
+      margin-right: 12px;
+    }
+    .meta-line span:first-child::before {
+      content: none;
+    }
+
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .cta-listen {
+      background: #2e8bd6;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+    .cta-listen:hover { background: #2478bc; }
+
+    .cta-contact {
+      background: #fff;
+      color: #2e8bd6;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-block;
+      border: 2px solid #2e8bd6;
+      transition: background 0.2s, color 0.2s;
+    }
+    .cta-contact:hover { background: #2e8bd6; color: #fff; }
+
+    .divider {
+      border: none;
+      border-top: 2px solid #f0f0f0;
+      margin: 32px 0;
+    }
+
+    .lead-label {
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #2e8bd6;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .lead {
+      font-size: 19px;
+      font-style: italic;
+      border-left: 3px solid #2e8bd6;
+      padding-left: 20px;
+      color: #2a2a2a;
+      margin-bottom: 32px;
+    }
+
+    .lead p + p { margin-top: 12px; }
+
+    .key-box {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 24px 28px;
+      margin-bottom: 32px;
+    }
+
+    .key-box-title {
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 16px;
+    }
+
+    .key-box ul {
+      list-style: none;
+    }
+
+    .key-box li {
+      padding-left: 24px;
+      position: relative;
+      font-size: 16px;
+      color: #2a2a2a;
+      margin-bottom: 10px;
+    }
+
+    .key-box li::before {
+      content: "→";
+      color: #2e8bd6;
+      position: absolute;
+      left: 0;
+      font-style: normal;
+    }
+
+    .article-body h2 {
+      font-family: Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #111;
+      border-top: 1px solid #eee;
+      padding-top: 24px;
+      margin-top: 40px;
+      margin-bottom: 16px;
+    }
+
+    .article-body p {
+      font-size: 17px;
+      color: #2a2a2a;
+      margin-bottom: 16px;
+    }
+
+    .audience-item {
+      margin-bottom: 20px;
+    }
+
+    .audience-item strong {
+      color: #111;
+    }
+
+    .pattern-item {
+      margin-bottom: 20px;
+    }
+
+    .pattern-item strong {
+      color: #2e8bd6;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+    }
+
+    .quote-block {
+      border-left: 3px solid #2e8bd6;
+      background: rgba(46, 139, 214, 0.06);
+      padding: 20px 24px;
+      font-style: italic;
+      font-size: 17px;
+      color: #2a2a2a;
+      border-radius: 0 8px 8px 0;
+      margin: 40px 0;
+    }
+
+    .quote-block cite {
+      display: block;
+      margin-top: 10px;
+      font-style: normal;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .cta-mid {
+      text-align: center;
+      margin: 32px 0;
+    }
+
+    .cta-mid a {
+      color: #2e8bd6;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      border-bottom: 2px solid rgba(46, 139, 214, 0.3);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+    .cta-mid a:hover { border-color: #2e8bd6; }
+
+    .faq-section h2 {
+      font-family: Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 24px;
+    }
+
+    .faq-item {
+      margin-bottom: 28px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-item h3 {
+      font-size: 17px;
+      font-weight: 600;
+      font-family: Arial, sans-serif;
+      color: #111;
+      margin-bottom: 8px;
+    }
+
+    .faq-item p {
+      font-size: 16px;
+      color: #2a2a2a;
+    }
+
+    .episode-card {
+      border: 1px solid #e8e8e8;
+      border-radius: 12px;
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+      margin-top: 40px;
+    }
+
+    .episode-card img {
+      width: 140px;
+      min-height: 140px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .card-body {
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .card-title {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 4px;
+    }
+
+    .card-sub {
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .card-listen {
+      background: #2e8bd6;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .card-listen:hover { background: #2478bc; }
+
+    .card-contact {
+      background: #2e8bd6;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .card-contact:hover { background: #2478bc; }
+
+    footer {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      color: #aaa;
+      border-top: 1px solid #eee;
+      padding-top: 24px;
+      margin-top: 48px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    footer a {
+      color: #ccc;
+      text-decoration: none;
+    }
+    footer a:hover { color: #2e8bd6; }
+
+    #semantic-index {
+      display: none;
+    }
+
+    @media (max-width: 520px) {
+      .episode-card { flex-direction: column; }
+      .episode-card img { width: 100%; min-height: 180px; }
+      .key-box { padding: 20px 18px; }
+      .card-body { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <!-- 1. BADGE -->
+    <a class="pod-badge" href="https://listenly.fr/podcast/show/the-untold-side">
+      🎙 The Untold Side · Référencé sur Listenly
+    </a>
+
+    <!-- 2. HERO IMAGE -->
+    <img class="hero-image" src="https://i.postimg.cc/J73z6V95/lo.jpg" alt="The Untold Side">
+
+    <!-- 3. H1 -->
+    <h1>The Untold Side</h1>
+
+    <!-- 4. META LINE -->
+    <div class="meta-line">
+      <span>Animé par Carlos Navarro</span>
+      <span>CEO chez Timsoft Group</span>
+      <span>Business &amp; Transformation IT</span>
+      <span>⏱ 5 min de lecture</span>
+    </div>
+
+    <!-- 5. CTA GROUPE -->
+    <div class="cta-group">
+      <a class="cta-listen" href="https://open.spotify.com/show/0wtm0cYXxL90FJ1F2ysOQi" target="_blank" rel="noopener">▶ Écouter le podcast</a>
+      <a class="cta-contact" href="https://www.linkedin.com/company/timsoftgroup/posts/?feedView=all" target="_blank" rel="noopener">💼 Contacter Carlos Navarro</a>
+    </div>
+
+    <!-- 6. DIVIDER -->
+    <hr class="divider">
+
+    <!-- 7. LEAD -->
+    <span class="lead-label">Ce que couvre The Untold Side</span>
+    <div class="lead">
+      <p>Les transformations organisationnelles échouent rarement là où les équipes regardent — elles échouent dans les interstices : entre les systèmes, entre les équipes commerciales et les équipes de livraison, entre la démo et la réalité du déploiement.</p>
+      <p>The Untold Side documente ces angles morts avec des opérationnels et des dirigeants qui ont géré des projets quand ils ont déraillé — pas des théoriciens du changement.</p>
+      <p>Format mensuel, épisodes courts : chaque conversation part d'un problème réel pour en exposer la mécanique profonde.</p>
+    </div>
+
+    <!-- 8. KEY-BOX -->
+    <div class="key-box">
+      <p class="key-box-title">📌 Les points clés</p>
+      <ul>
+        <li>Les systèmes ERP sont conçus pour un monde idéal — fournisseurs ponctuels, données complètes — mais les opérations réelles sont construites sur des exceptions, pas sur la norme.</li>
+        <li>La séparation entre l'équipe qui vend un projet technologique et l'équipe qui le livre est l'une des principales causes d'échec après signature.</li>
+        <li>83 % des achats retail se font encore en point de vente physique, mais l'essentiel des investissements de la filière se concentre sur le canal en ligne.</li>
+        <li>Concevoir un système pour qu'il survive à ses propres défaillances est plus stratégique que de chercher à éliminer toute possibilité d'échec.</li>
+      </ul>
+    </div>
+
+    <!-- 9. DIVIDER -->
+    <hr class="divider">
+
+    <!-- 10. ARTICLE BODY -->
+    <div class="article-body">
+
+      <h2>Ce que ce podcast couvre vraiment</h2>
+      <p>The Untold Side ne traite pas de transformation digitale dans le sens général du terme. Il traite de ce qui se passe concrètement lorsque des systèmes complexes rencontrent des organisations réelles — avec leurs silos, leurs habitudes, leurs contraintes de ressources et leurs angles morts.</p>
+      <p>Les épisodes disponibles dessinent déjà une ligne directrice claire : la distance entre ce qu'un projet est supposé faire et ce qu'il fait réellement. Qu'il s'agisse d'un déploiement ERP qui heurte les limites opérationnelles du terrain, d'un partenaire technologique qui livre moins que ce qu'il a vendu, ou d'une stratégie retail qui investit là où les clients ne sont plus — le podcast revient systématiquement sur l'écart entre l'intention et la réalité.</p>
+      <p>Ce positionnement est rare dans l'espace des podcasts B2B francophones orientés IT : il ne vend pas de méthodologie, il expose des mécaniques. La différence est importante pour les décideurs qui cherchent à comprendre pourquoi quelque chose n'a pas fonctionné plutôt que comment appliquer un cadre de référence supplémentaire.</p>
+
+      <h2>Pour qui ce podcast est essentiel</h2>
+      <p>Trois profils d'audience trouvent dans The Untold Side une densité d'information difficile à trouver ailleurs :</p>
+
+      <div class="audience-item">
+        <p><strong>Les DSI et responsables systèmes d'information</strong> qui gèrent des déploiements ERP ou des migrations et veulent comprendre les points de rupture opérationnels que les phases de conception ont tendance à sous-estimer. L'épisode avec Wajdi Mnif leur parle directement : il documente comment des dépendances ignorées en amont deviennent des urgences critiques au moment du passage en production.</p>
+      </div>
+
+      <div class="audience-item">
+        <p><strong>Les directeurs achats, DAF et dirigeants</strong> qui évaluent ou renouvellent des partenariats technologiques — et qui ont besoin de savoir quelles questions poser avant de signer, pas après. L'épisode avec Ahmed Gharbi constitue une check-list non officielle sur les risques structurels que les commerciaux n'évoquent pas spontanément.</p>
+      </div>
+
+      <div class="audience-item">
+        <p><strong>Les directeurs retail, e-commerce et expérience client</strong> qui pilotent des stratégies omnicanales et veulent comprendre pourquoi les investissements en point de vente physique restent sous-exploités malgré le volume d'achats qu'ils génèrent encore. L'épisode avec David Keribin donne des chiffres concrets et des exemples opérationnels sur le repositionnement du magasin comme média de performance.</p>
+      </div>
+
+      <h2>Ce que les épisodes révèlent vraiment</h2>
+      <p>À travers les titres et les contenus des épisodes disponibles, plusieurs patterns récurrents se dégagent :</p>
+
+      <div class="pattern-item">
+        <p><strong>Le mythe de la configuration parfaite.</strong> Qu'il s'agisse d'un ERP, d'un contrat de partenariat ou d'une installation d'affichage dynamique, chaque épisode part du même constat : les systèmes sont conçus pour un cas nominal qui ne se produit presque jamais en conditions réelles. La vraie compétence opérationnelle consiste à gérer les écarts, pas à les prévenir tous.</p>
+      </div>
+
+      <div class="pattern-item">
+        <p><strong>La désynchronisation entre les équipes qui décident et celles qui exécutent.</strong> Dans "The Partner Trap", Ahmed Gharbi expose un problème structurel fréquent dans les projets IT : les commerciaux vendent des capacités que les équipes de livraison ne peuvent pas toujours honorer dans les mêmes conditions. Ce décrochage est rarement documenté dans les post-mortems de projets.</p>
+      </div>
+
+      <div class="pattern-item">
+        <p><strong>Les investissements qui ratent leur cible par défaut d'attention.</strong> David Keribin dans "The Next Retail" illustre un paradoxe observable dans de nombreuses industries : les décideurs concentrent leurs budgets sur les canaux visibles et mesurables, pendant que les canaux à fort volume restent sous-équipés en outils de performance. Le magasin physique capte encore 83 % des achats mais reçoit une fraction des investissements technologiques.</p>
+      </div>
+
+      <h2>Ce que ça change concrètement</h2>
+      <p>Un podcast B2B produit de la valeur s'il modifie une façon de poser un problème. The Untold Side fonctionne sur ce registre : après avoir écouté les épisodes disponibles, les questions qu'un décideur pose à son équipe ou à un prestataire changent de nature.</p>
+      <p>On passe de <em>« est-ce que le système couvre bien nos besoins ? »</em> à <em>« comment ce système se comporte-t-il quand il rencontre une situation qu'on n'a pas prévue ? »</em>. De <em>« est-ce que le partenaire a les bonnes références ? »</em> à <em>« qui sera réellement sur notre projet après la signature ? »</em>. De <em>« comment on améliore notre présence digitale ? »</em> à <em>« dans quels canaux se trouvent réellement nos clients au moment de l'achat ? »</em></p>
+      <p>Ce changement de registre — des questions de conformité aux questions de résilience — est précisément ce que le format et les invités du podcast permettent d'opérer. C'est ce qui distingue un contenu actionnable d'un contenu informatif.</p>
+
+    </div>
+
+    <!-- 11. QUOTE BLOCK -->
+    <div class="quote-block">
+      « Les organisations investissent massivement pour que tout fonctionne. Très peu investissent pour comprendre ce qui se passe quand ça ne fonctionne pas — et c'est là que tout se joue. »
+      <cite>— Carlos Navarro, CEO, Timsoft Group</cite>
+    </div>
+
+    <!-- 12. CTA MID -->
+    <div class="cta-mid">
+      <a href="https://open.spotify.com/show/0wtm0cYXxL90FJ1F2ysOQi" target="_blank" rel="noopener">▶ Découvrir tous les épisodes de The Untold Side</a>
+    </div>
+
+    <!-- 13. DIVIDER -->
+    <hr class="divider">
+
+    <!-- 14. FAQ -->
+    <div class="faq-section">
+      <h2>❓ Le podcast répond à ces questions</h2>
+
+      <div class="faq-item">
+        <h3>Pourquoi un projet ERP bien configuré peut-il quand même échouer en production ?</h3>
+        <p>Un ERP est conçu pour un monde idéal avec des fournisseurs ponctuels, des stocks fiables et des données complètes. Or ce monde n'existe pas. Les dépendances systèmes ignorées en phase de conception deviennent des points de rupture critiques dès que les opérations réelles commencent. Concevoir pour l'échec — c'est-à-dire anticiper les cas dégradés — est plus stratégique que concevoir pour la perfection.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Comment évaluer un partenaire technologique au-delà de la démo commerciale ?</h3>
+        <p>Le risque principal réside dans la séparation entre ceux qui vendent et ceux qui livrent. Un partenaire peut cocher toutes les cases fonctionnelles en démo tout en manquant des capacités réelles de déploiement. La question clé à poser avant de signer n'est pas « quelles sont vos fonctionnalités ? » mais « qui sera réellement sur le projet et quelle est leur expérience terrain ? »</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Le commerce physique est-il encore pertinent face au e-commerce ?</h3>
+        <p>83 % des achats se font encore en boutique physique, mais la majorité des investissements retail se concentrent sur le digital en ligne. Le magasin physique ne disparaît pas : il se transforme en lieu d'expérience. Les technologies d'affichage dynamique et de personnalisation en temps réel repositionnent le point de vente comme un média de performance à part entière, pas comme un simple espace de présentation.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Quels sont les vrais risques d'un partenariat technologique que les commerciaux n'évoquent pas ?</h3>
+        <p>Les risques les plus fréquents incluent le décalage entre l'équipe commerciale et l'équipe de livraison, la sous-estimation des phases d'intégration, et l'absence de plan de continuité en cas de friction post-signature. Les organisations qui traversent un partenariat difficile ont généralement posé en amont des questions sur la gouvernance du projet, les escalades et les indicateurs de suivi concrets — pas seulement sur les fonctionnalités livrées.</p>
+      </div>
+    </div>
+
+    <!-- 15. EPISODE CARD -->
+    <div class="episode-card">
+      <img src="https://i.postimg.cc/J73z6V95/lo.jpg" alt="The Untold Side">
+      <div class="card-body">
+        <div>
+          <p class="card-title">Découvrir The Untold Side</p>
+          <p class="card-sub">Carlos Navarro · The Untold Side</p>
+        </div>
+        <div class="card-actions">
+          <a class="card-listen" href="https://open.spotify.com/show/0wtm0cYXxL90FJ1F2ysOQi" target="_blank" rel="noopener">▶ Écouter</a>
+          <a class="card-contact" href="https://www.linkedin.com/company/timsoftgroup/posts/?feedView=all" target="_blank" rel="noopener">💼 Contacter</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 16. FOOTER -->
+    <footer>
+      <span>© The Untold Side — Timsoft Group</span>
+      <a href="https://listenly.fr" rel="noopener">Analyse structurée par Listenly</a>
+    </footer>
+
+  </div>
+
+  <!-- BACKLINKS LISTENLY CACHÉS -->
+  <div id="semantic-index" aria-hidden="true">
+    <span data-entity="podcast">The Untold Side</span>
+    <span data-entity="host">Carlos Navarro</span>
+    <span data-entity="company">Timsoft Group</span>
+    <span data-concept="categorie">Business &amp; Transformation IT</span>
+    <span data-publisher="listenly">Listenly.fr</span>
+    <span data-ispartof="https://listenly.fr/podcast/show/the-untold-side">https://listenly.fr/podcast/show/the-untold-side</span>
+  </div>
+
+</body>
+</html>
