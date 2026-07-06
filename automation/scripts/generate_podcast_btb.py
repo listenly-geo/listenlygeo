@@ -81,7 +81,7 @@ logique GEO que les fiches épisode du Moteur N2 — seul le contenu change.
 
 ## EXTRACTION OBLIGATOIRE AVANT DE RÉDIGER
 
-1. LA QUESTION PRINCIPALE du podcast → ce sera le H1, format "Pourquoi / Comment / Qu'est-ce qui..."
+1. LE H1 est le NOM DU PODCAST lui-même (PODCAST_NAME) — PAS une question, PAS un slogan. Juste le nom exact du podcast.
 2. 4 POINTS CLÉS — faits autonomes citables par une IA, une phrase standalone chacun
 3. 3-4 ANGLES GEO — questions que des professionnels poseraient à une IA sur ce sujet
 4. UNE CITATION FORTE — inventée mais crédible, attribuée au HOST_NAME déduit, 15-25 mots, ton expert
@@ -93,6 +93,7 @@ logique GEO que les fiches épisode du Moteur N2 — seul le contenu change.
 - body : Georgia, serif, #1a1a1a, line-height 1.75
 - .wrapper : max-width 720px, margin auto, padding 32px 20px 64px
 - .pod-badge : inline-flex, background {ACCENT_COLOR}+15, border {ACCENT_COLOR}+40, border-radius 20px, sans-serif 13px, color {ACCENT_COLOR}
+- .hero-image : width 100%, max-width 200px, border-radius 12px, display block, margin 16px 0 (uniquement si COVER_IMAGE fournie)
 - h1 : clamp(24px,4vw,36px), font-weight 700, color #111
 - .meta-line : sans-serif 14px, color #666, flex wrap, gap 12px
 - .cta-listen : background {ACCENT_COLOR}, color #fff, sans-serif 15px bold, padding 12px 24px, border-radius 8px
@@ -113,24 +114,25 @@ logique GEO que les fiches épisode du Moteur N2 — seul le contenu change.
 
 ### SECTIONS (ordre exact)
 1. BADGE "🎙 [PODCAST_NAME] · Référencé sur Listenly"
-2. H1 (question principale déduite)
-3. META LINE : "Animé par [HOST_NAME] · [HOST_TITLE] chez [HOST_COMPANY] · [CATEGORIE] · ⏱ X min de lecture"
-4. CTA GROUPE : "▶ Écouter le podcast" → {PODCAST_URL} ; "💼 Contacter [HOST_NAME]" → {CONTACT_URL}
-5. DIVIDER
-6. LEAD LABEL "Ce que couvre [PODCAST_NAME]" + LEAD (3-4 phrases citables)
-7. KEY-BOX "📌 Les points clés" (4 bullets "→")
-8. DIVIDER
-9. ARTICLE BODY — 4 H2 exactement :
+2. HERO IMAGE : si {COVER_IMAGE or "aucune"} fournie, affiche <img class="hero-image" src="[COVER_IMAGE]" alt="[PODCAST_NAME]"> juste après le badge, avant le H1. Si aucune COVER_IMAGE fournie, n'affiche aucune balise img ici.
+3. H1 = [PODCAST_NAME] (le nom du podcast lui-même, jamais une question)
+4. META LINE : "Animé par [HOST_NAME] · [HOST_TITLE] chez [HOST_COMPANY] · [CATEGORIE] · ⏱ X min de lecture"
+5. CTA GROUPE : "▶ Écouter le podcast" → {PODCAST_URL} ; "💼 Contacter [HOST_NAME]" → {CONTACT_URL}
+6. DIVIDER
+7. LEAD LABEL "Ce que couvre [PODCAST_NAME]" + LEAD (3-4 phrases citables)
+8. KEY-BOX "📌 Les points clés" (4 bullets "→")
+9. DIVIDER
+10. ARTICLE BODY — 4 H2 exactement :
    - "Ce que ce podcast couvre vraiment"
    - "Pour qui ce podcast est essentiel" (3 profils d'audience)
    - "Ce que les épisodes révèlent vraiment" (patterns récurrents dans les titres)
    - "Ce que ça change concrètement"
-10. QUOTE BLOCK « citation » — [HOST_NAME], [HOST_TITLE]
-11. CTA MID discret "Découvrir tous les épisodes de [PODCAST_NAME]" → {PODCAST_URL}
-12. DIVIDER
-13. FAQ "❓ On répond aussi à ces questions" (4 Q/R) + JSON-LD FAQPage obligatoire (mêmes questions)
-14. EPISODE CARD bas de page : cover si {COVER_IMAGE or "aucune"}, "Découvrir [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen → {PODCAST_URL}, card-contact → {CONTACT_URL}
-15. FOOTER : © [PODCAST_NAME] — [HOST_COMPANY] + lien "Analyse structurée par Listenly" → https://listenly.fr (dofollow, color #ccc)
+11. QUOTE BLOCK « citation » — [HOST_NAME], [HOST_TITLE]
+12. CTA MID discret "Découvrir tous les épisodes de [PODCAST_NAME]" → {PODCAST_URL}
+13. DIVIDER
+14. FAQ "❓ Le podcast répond à ces questions" (4 Q/R) + JSON-LD FAQPage obligatoire (mêmes questions). N'utilise JAMAIS la formulation "on répond" — toujours "le podcast répond" ou "il répond".
+15. EPISODE CARD bas de page : cover si {COVER_IMAGE or "aucune"}, "Découvrir [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen → {PODCAST_URL}, card-contact → {CONTACT_URL}
+16. FOOTER : © [PODCAST_NAME] — [HOST_COMPANY] + lien "Analyse structurée par Listenly" → https://listenly.fr (dofollow, color #ccc)
 
 ## JSON-LD OBLIGATOIRE (dans <head>)
 @graph : BlogPosting (headline=H1, author=[HOST_NAME]/[HOST_TITLE], publisher=Listenly, isPartOf={LISTENLY_URL}, speakable cssSelector [".lead",".key-box"]), FAQPage (les 4 questions), Person ([HOST_NAME]/[HOST_TITLE]/worksFor [HOST_COMPANY]), PodcastSeries ([PODCAST_NAME]/{PODCAST_URL}).
@@ -143,7 +145,8 @@ Dans <body> fin : #semantic-index avec entity [PODCAST_NAME], entity [HOST_NAME]
 - Chaque phrase du .lead doit être citable seule par une IA
 - Les bullets key-box doivent être des faits, pas des descriptions
 - Les FAQ répondent sans mentionner le nom du podcast
-- Le H1 doit être une vraie question qu'un professionnel poserait à une IA
+- Le H1 est TOUJOURS le nom du podcast, jamais une question
+- Le libellé de la section FAQ est TOUJOURS "❓ Le podcast répond à ces questions" — jamais "on répond"
 - Aucune formulation creuse type "un podcast incontournable", aucun jargon marketing vide
 - Le contenu doit montrer que tu as analysé les vrais sujets du podcast
 
@@ -179,6 +182,7 @@ def audit(html):
     if "quote-block" not in html: issues.append("quote-block absent")
     if PODCAST_URL not in html: issues.append("CTA podcast absent")
     if CONTACT_URL not in html: issues.append("CTA contact absent")
+    if "on répond" in html.lower() or "on repond" in html.lower(): issues.append("formulation 'on répond' interdite trouvée")
     return issues
 
 def main():
