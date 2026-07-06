@@ -1,0 +1,102 @@
+name: Fiche Podcast-BTB — the-untold-side-description-du-podcast
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fiche-podcast-btb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generation fiche podcast-btb
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_URL: |-
+            https://open.spotify.com/show/0wtm0cYXxL90FJ1F2ysOQi
+          CONTACT_URL: |-
+            https://www.linkedin.com/company/timsoftgroup/posts/?feedView=all
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/the-untold-side
+          COVER_IMAGE: |-
+            https://i.postimg.cc/J73z6V95/lo.jpg
+          PODCAST_SLUG: |-
+            the-untold-side-description-du-podcast
+          ACCENT_COLOR: |-
+            #2e8bd6
+          PODCAST_RAW_INFO: |-
+            THE UNTOLD SIDE — DESCRIPTION DU PODCAST
+            
+            The Untold Side explore ce que les organisations ne montrent jamais : leurs systèmes, leurs workflows, leurs contraintes réelles et les décisions qui font ou défont une transformation.
+            
+            Loin des discours génériques sur le digital, chaque épisode offre des insights concrets, tirés du terrain.
+            
+            Animé par Carlos Navarro, CEO de Timsoft Group, un rendez-vous mensuel pour les décideurs qui veulent comprendre ce qui se passe vraiment derrière les systèmes.
+            
+            ÉPISODE 1 — When Operations Hit the Wall
+            Texte de description
+            
+            On conçoit les systèmes pour un monde idéal : fournisseurs ponctuels, stocks fiables, données complètes. Mais ce monde n’existe pas.
+            
+            Dans ce premier épisode, Carlos Navarro (CEO, Timsoft Group) reçoit Wajdi Mnif, manager expert en déploiement ERP et systèmes d’information, pour parler de ce qu’on ne dit jamais assez : ce qui se passe vraiment quand les opérations frappent un mur.
+            
+            Au programme : l’écart entre le mythe de la perfection et la réalité du terrain, les dépendances systèmes qu’on ignore jusqu’au jour J, et pourquoi concevoir pour l’échec est plus stratégique que concevoir pour la perfection.
+            
+            Un épisode ancré dans l’expérience, sans jargon inutile — pour ceux qui font tourner les entreprises.
+            
+            The Untold Side, le côté qu’on n’explore pas assez souvent.
+            
+            ÉPISODE 2 — The Partner Trap
+            Texte de description
+            
+            Vous avez vu la démo. Les fonctionnalités cochent toutes les cases. Le prix est négocié. Vous signez. Et six mois plus tard… rien ne se passe comme prévu. Pourquoi ?
+            
+            Parce que personne n’a posé LA question qui compte : avec qui on vient de s’engager ?
+            
+            Dans ce premier épisode de The Untold Side, Carlos Navarro, CEO de Timsoft Group, et Ahmed Gharbi, Managing Director au Middle East, ouvrent le jeu sur un sujet que tout le monde vit mais dont personne ne parle : les vrais risques d’un partenariat technologique.
+            
+            Ce qui se cache derrière les belles présentations.
+            Ce que les commerciaux évitent de dire.
+            Et pourquoi la séparation entre ceux qui vendent et ceux qui livrent peut faire exploser un projet.
+            
+            ÉPISODE 3 — The Next Retail
+            Texte de description
+            
+            « On a longtemps dit que le retail allait mourir. Il ne meurt pas : il mute. »
+            
+            30 000 écrans pilotés dans le monde, des magasins qui deviennent des temples d’expérience, du contenu qui s’allume quand il se met à pleuvoir… David Keribin partage ce que les retailers n’ont toujours pas compris sur l’affichage en magasin.
+            
+            Pourquoi l’écran n’est pas de la déco mais une arme de performance.
+            Pourquoi 83 % des achats se font en boutique mais presque personne n’y investit.
+            Et à quoi ressemblera vraiment la boutique de 2030.
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Commit fiche
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Aucune nouvelle fiche."
+          else
+            git commit -m "Auto: fiche podcast-btb the-untold-side-description-du-podcast"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
