@@ -74,17 +74,17 @@ logique GEO que les fiches épisode du Moteur N2 — seul le contenu change.
 - PODCAST_URL (CTA écoute, bouton "▶ Écouter le podcast") : {PODCAST_URL}
 - CONTACT_URL (CTA contact, bouton "💼 Contacter [HOST_NAME]", LinkedIn hôte) : {CONTACT_URL}
 - LISTENLY_URL (backlink vers la page Listenly du podcast, utilisé UNIQUEMENT dans le JSON-LD isPartOf, le rel="publisher" caché et le vector DB) : {LISTENLY_URL}
-- FICHE_URL (URL PUBLIQUE DE CETTE FICHE ELLE-MÊME — à utiliser pour og:url, twitter:url ET canonical) : {FICHE_URL}
+- FICHE_URL (URL PUBLIQUE DE CETTE FICHE ELLE-MÊME — à utiliser pour og:url, twitter:url ET canonical) : {fiche_url}
 - ACCENT_COLOR : {ACCENT_COLOR}
 - COVER_IMAGE : {COVER_IMAGE or "(aucune fournie — omets l'image dans l'episode-card, ne mets pas de balise img cassée)"}
 - Slug : {slug}
 - Date de génération : {today}
 
 ## RÈGLE CRITIQUE — NE JAMAIS CONFONDRE FICHE_URL ET LISTENLY_URL
-- <link rel="canonical" href="..."> → {FICHE_URL} (JAMAIS {LISTENLY_URL})
-- <meta property="og:url" content="..."> → {FICHE_URL} (JAMAIS {LISTENLY_URL})
-- <meta name="twitter:url" content="..."> → {FICHE_URL} (JAMAIS {LISTENLY_URL})
-- Le JSON-LD BlogPosting "url" ou "mainEntityOfPage" → {FICHE_URL}
+- <link rel="canonical" href="..."> → {fiche_url} (JAMAIS {LISTENLY_URL})
+- <meta property="og:url" content="..."> → {fiche_url} (JAMAIS {LISTENLY_URL})
+- <meta name="twitter:url" content="..."> → {fiche_url} (JAMAIS {LISTENLY_URL})
+- Le JSON-LD BlogPosting "url" ou "mainEntityOfPage" → {fiche_url}
 - {LISTENLY_URL} n'apparaît QUE dans : isPartOf du JSON-LD, le <link rel="publisher"> cache, et le bloc #semantic-index. Il ne doit JAMAIS remplacer FICHE_URL dans og:url/canonical/twitter:url.
 
 ## EXTRACTION OBLIGATOIRE AVANT DE RÉDIGER
