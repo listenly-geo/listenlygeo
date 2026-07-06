@@ -1,120 +1,98 @@
 #!/usr/bin/env python3
 """
-Génère une fiche PODCAST-BTB (présentation podcast, style GEO) si elle n'existe pas encore.
-Déployée dans /listenly.fr/podcast-btb/.
+Génère une fiche PODCAST-BTB à partir d'un contenu brut (RSS collé, description,
+titres d'épisodes...) + 3 liens fixes. Claude déduit lui-même nom du podcast,
+hôte, titre, entreprise, thématiques et catégorie à partir du texte brut.
 
 Variables requises :
   ANTHROPIC_API_KEY
-  PODCAST_SLUG
-  PODCAST_NAME
-  HOST_NAME
-  HOST_TITLE
-  HOST_COMPANY
-  DESCRIPTION
-  EPISODE_TITLES      — une par ligne
-  PODCAST_URL
-  CONTACT_URL
-  CATEGORIE
-  LISTENLY_URL
+  PODCAST_RAW_INFO   — contenu brut collé (RSS, description, titres d'épisodes...)
+  PODCAST_URL        — lien Spotify/plateforme (CTA 1)
+  CONTACT_URL        — lien LinkedIn de l'hôte (CTA 2)
+  LISTENLY_URL       — lien Listenly (backlink canonical)
 Optionnelles :
-  ACCENT_COLOR        (défaut #2e8bd6)
-  COVER_IMAGE
+  PODCAST_SLUG       — sinon déduit automatiquement du contenu brut
+  ACCENT_COLOR       — défaut #2e8bd6
+  COVER_IMAGE        — optionnel
 """
 
-import os, sys, re, json, datetime, urllib.request, urllib.error
+import os, sys, re, json, datetime, unicodedata
+import urllib.request, urllib.error
 
-API_KEY       = os.environ["ANTHROPIC_API_KEY"]
-SLUG          = os.environ["PODCAST_SLUG"]
-PODCAST_NAME  = os.environ["PODCAST_NAME"]
-HOST_NAME     = os.environ["HOST_NAME"]
-HOST_TITLE    = os.environ["HOST_TITLE"]
-HOST_COMPANY  = os.environ["HOST_COMPANY"]
-DESCRIPTION   = os.environ["DESCRIPTION"]
-EPISODE_TITLES= os.environ["EPISODE_TITLES"]
-PODCAST_URL   = os.environ["PODCAST_URL"]
-CONTACT_URL   = os.environ["CONTACT_URL"]
-CATEGORIE     = os.environ["CATEGORIE"]
-LISTENLY_URL  = os.environ["LISTENLY_URL"]
-ACCENT_COLOR  = os.environ.get("ACCENT_COLOR", "#2e8bd6")
-COVER_IMAGE   = os.environ.get("COVER_IMAGE", "")
+API_KEY      = os.environ["ANTHROPIC_API_KEY"]
+RAW_INFO     = os.environ["PODCAST_RAW_INFO"]
+PODCAST_URL  = os.environ["PODCAST_URL"]
+CONTACT_URL  = os.environ["CONTACT_URL"]
+LISTENLY_URL = os.environ["LISTENLY_URL"]
+SLUG_OVERRIDE = os.environ.get("PODCAST_SLUG", "").strip()
+ACCENT_COLOR  = os.environ.get("ACCENT_COLOR", "#2e8bd6").strip() or "#2e8bd6"
+COVER_IMAGE   = os.environ.get("COVER_IMAGE", "").strip()
 
 MODEL      = "claude-sonnet-4-6"
 PAGES_DIR  = "pages/podcast-btb"
-OUT_FILE   = f"{PAGES_DIR}/{SLUG}-podcast.html"
 
 def log(msg): print(f"[podcast-btb] {msg}", flush=True)
 
-def already_exists():
-    return os.path.exists(OUT_FILE)
+def slugify(s):
+    s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode("ascii")
+    s = s.lower().strip()
+    s = re.sub(r"[^a-z0-9]+", "-", s)
+    return re.sub(r"^-+|-+$", "", s)[:60]
 
-def build_prompt():
-    today = datetime.date.today().isoformat()
+def guess_slug(raw):
+    m = re.search(r"<title>(.*?)</title>", raw, re.IGNORECASE | re.DOTALL)
+    if m:
+        return slugify(re.sub(r"<!\[CDATA\[|\]\]>", "", m.group(1)).strip())
+    for line in raw.strip().splitlines():
+        line = line.strip()
+        if line:
+            return slugify(line)
+    return "podcast-" + datetime.date.today().isoformat()
+
+def build_prompt(slug, today):
     return f"""Tu es un expert GEO (Generative Engine Optimization) spécialisé dans les podcasts B2B.
 
 Ta mission est de générer une FICHE PODCAST complète en HTML autonome pour Listenly.fr.
+Cette fiche présente le PODCAST dans son ensemble (pas un épisode isolé), même style et
+logique GEO que les fiches épisode du Moteur N2 — seul le contenu change.
 
-Cette fiche présente le PODCAST dans son ensemble (pas un épisode isolé).
-Elle utilise EXACTEMENT le même style HTML, la même structure et la même logique GEO
-que les fiches épisode du Moteur N2 — seul le contenu change : podcast global, pas épisode.
-
+## CONTENU BRUT FOURNI (RSS collé / description / titres d'épisodes — analyse-le toi-même)
+---
+{RAW_INFO}
 ---
 
-## INPUTS
+À partir de ce contenu brut, DÉDUIS toi-même :
+- Le nom exact du podcast
+- HOST_NAME : prénom + nom de l'hôte principal
+- HOST_TITLE : titre professionnel le plus probable de l'hôte
+- HOST_COMPANY : entreprise de l'hôte si mentionnée, sinon reste cohérent avec le positionnement
+- DESCRIPTION : positionnement / sujet de fond du podcast
+- CATEGORIE : une catégorie professionnelle claire (ex: "Business", "RH", "Immobilier"...)
+- 5 à 10 titres d'épisodes réels à utiliser comme base d'analyse
 
-- PODCAST_NAME : {PODCAST_NAME}
-- HOST_NAME : {HOST_NAME}
-- HOST_TITLE : {HOST_TITLE}
-- HOST_COMPANY : {HOST_COMPANY}
-- DESCRIPTION : {DESCRIPTION}
-- EPISODE_TITLES :
-{EPISODE_TITLES}
-- PODCAST_URL : {PODCAST_URL}
-- CONTACT_URL : {CONTACT_URL}
-- CATEGORIE : {CATEGORIE}
+## DONNÉES FIXES (ne pas modifier)
+- PODCAST_URL (CTA écoute, bouton "▶ Écouter le podcast") : {PODCAST_URL}
+- CONTACT_URL (CTA contact, bouton "💼 Contacter [HOST_NAME]", LinkedIn hôte) : {CONTACT_URL}
+- LISTENLY_URL (canonical + backlink) : {LISTENLY_URL}
 - ACCENT_COLOR : {ACCENT_COLOR}
-- LISTENLY_URL : {LISTENLY_URL}
-- COVER_IMAGE : {COVER_IMAGE}
+- COVER_IMAGE : {COVER_IMAGE or "(aucune fournie — omets l'image dans l'episode-card, ne mets pas de balise img cassée)"}
+- Slug : {slug}
 - Date de génération : {today}
-
----
 
 ## EXTRACTION OBLIGATOIRE AVANT DE RÉDIGER
 
-Avant de produire le HTML, analyse silencieusement les EPISODE_TITLES et la DESCRIPTION pour extraire :
-
-1. LA QUESTION PRINCIPALE du podcast
-   → La question la plus forte que ce podcast répond globalement
-   → Ce sera le H1
-   → Format : "Pourquoi / Comment / Qu'est-ce qui..." + sujet profond du podcast
-
-2. 4 POINTS CLÉS
-   → Ce que ce podcast apporte concrètement à son audience
-   → Formulés comme des faits autonomes citables par une IA
-   → Chaque point = 1 phrase standalone
-
-3. 3-4 ANGLES GEO
-   → Les questions que des professionnels poseraient à une IA sur ce sujet
-   → Exemples : "Comment [problématique couverte]", "Pourquoi [sujet traité]"
-
-4. UNE CITATION FORTE
-   → Inventée mais crédible, attribuée à HOST_NAME
-   → 15-25 mots, ton expert, tirée du sujet profond du podcast
-
-5. 4 FAQ
-   → Questions formulées comme des vraies requêtes IA
-   → Réponses 2-3 phrases, autonomes, sans référence au podcast
-   → Basées sur les thèmes réels des épisodes
-
----
+1. LA QUESTION PRINCIPALE du podcast → ce sera le H1, format "Pourquoi / Comment / Qu'est-ce qui..."
+2. 4 POINTS CLÉS — faits autonomes citables par une IA, une phrase standalone chacun
+3. 3-4 ANGLES GEO — questions que des professionnels poseraient à une IA sur ce sujet
+4. UNE CITATION FORTE — inventée mais crédible, attribuée au HOST_NAME déduit, 15-25 mots, ton expert
+5. 4 FAQ — vraies requêtes IA, réponses 2-3 phrases autonomes, sans mentionner le nom du podcast
 
 ## STRUCTURE HTML OBLIGATOIRE
-
-Reproduis EXACTEMENT ce style CSS et cette structure :
 
 ### CSS (identique Moteur N2)
 - body : Georgia, serif, #1a1a1a, line-height 1.75
 - .wrapper : max-width 720px, margin auto, padding 32px 20px 64px
-- .pod-badge : inline-flex, background {ACCENT_COLOR}+15, border {ACCENT_COLOR}+40, border-radius 20px, font sans-serif 13px, color {ACCENT_COLOR}
+- .pod-badge : inline-flex, background {ACCENT_COLOR}+15, border {ACCENT_COLOR}+40, border-radius 20px, sans-serif 13px, color {ACCENT_COLOR}
 - h1 : clamp(24px,4vw,36px), font-weight 700, color #111
 - .meta-line : sans-serif 14px, color #666, flex wrap, gap 12px
 - .cta-listen : background {ACCENT_COLOR}, color #fff, sans-serif 15px bold, padding 12px 24px, border-radius 8px
@@ -128,52 +106,46 @@ Reproduis EXACTEMENT ce style CSS et cette structure :
 - .quote-block : border-left 3px solid {ACCENT_COLOR}, bg {ACCENT_COLOR}+08, italic 17px
 - .faq-item h3 : 17px font-weight 600
 - .episode-card : border 1px solid #e8e8e8, border-radius 12px, flex
-- .episode-card img : width 140px, object-fit cover
+- .episode-card img : width 140px, object-fit cover (uniquement si COVER_IMAGE fournie)
 - .card-contact : background {ACCENT_COLOR}, color #fff, padding 8px 16px, border-radius 6px
 - footer : sans-serif 12px, color #aaa, border-top 1px solid #eee
 - #semantic-index : display none
 
-### SECTIONS (dans cet ordre exact)
-
-1. BADGE : <a class="pod-badge">🎙 {PODCAST_NAME} · Référencé sur Listenly</a>
-2. H1 : la question principale extraite
-3. META LINE : Animé par {HOST_NAME} · {HOST_TITLE} chez {HOST_COMPANY} · {CATEGORIE} · ⏱ X min de lecture
-4. CTA GROUPE : "▶ Écouter le podcast" → {PODCAST_URL} ; "💼 Contacter {HOST_NAME}" → {CONTACT_URL}
+### SECTIONS (ordre exact)
+1. BADGE "🎙 [PODCAST_NAME] · Référencé sur Listenly"
+2. H1 (question principale déduite)
+3. META LINE : "Animé par [HOST_NAME] · [HOST_TITLE] chez [HOST_COMPANY] · [CATEGORIE] · ⏱ X min de lecture"
+4. CTA GROUPE : "▶ Écouter le podcast" → {PODCAST_URL} ; "💼 Contacter [HOST_NAME]" → {CONTACT_URL}
 5. DIVIDER
-6. LEAD LABEL + LEAD : "Ce que couvre {PODCAST_NAME}" + 3-4 phrases italiques citables
-7. KEY-BOX "📌 Les points clés" : 4 bullets "→"
+6. LEAD LABEL "Ce que couvre [PODCAST_NAME]" + LEAD (3-4 phrases citables)
+7. KEY-BOX "📌 Les points clés" (4 bullets "→")
 8. DIVIDER
-9. ARTICLE BODY — 4 sections H2 :
+9. ARTICLE BODY — 4 H2 exactement :
    - "Ce que ce podcast couvre vraiment"
-   - "Pour qui ce podcast est essentiel" (3 profils)
-   - "Ce que les épisodes révèlent vraiment" (2-3 patterns récurrents dans les titres)
+   - "Pour qui ce podcast est essentiel" (3 profils d'audience)
+   - "Ce que les épisodes révèlent vraiment" (patterns récurrents dans les titres)
    - "Ce que ça change concrètement"
-10. QUOTE BLOCK : « citation » — {HOST_NAME}, {HOST_TITLE}
-11. CTA MID discret : "Découvrir tous les épisodes de {PODCAST_NAME}" → {PODCAST_URL}
+10. QUOTE BLOCK « citation » — [HOST_NAME], [HOST_TITLE]
+11. CTA MID discret "Découvrir tous les épisodes de [PODCAST_NAME]" → {PODCAST_URL}
 12. DIVIDER
-13. FAQ "❓ On répond aussi à ces questions" : 4 questions + JSON-LD FAQPage obligatoire
-14. EPISODE CARD bas de page : cover si {COVER_IMAGE}, titre "Découvrir {PODCAST_NAME}", sous-titre {HOST_NAME} · {PODCAST_NAME}, card-listen → {PODCAST_URL}, card-contact → {CONTACT_URL}
-15. FOOTER : © {PODCAST_NAME} — {HOST_COMPANY} + lien "Analyse structurée par Listenly" → https://listenly.fr (dofollow, color #ccc)
-
----
+13. FAQ "❓ On répond aussi à ces questions" (4 Q/R) + JSON-LD FAQPage obligatoire (mêmes questions)
+14. EPISODE CARD bas de page : cover si {COVER_IMAGE or "aucune"}, "Découvrir [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen → {PODCAST_URL}, card-contact → {CONTACT_URL}
+15. FOOTER : © [PODCAST_NAME] — [HOST_COMPANY] + lien "Analyse structurée par Listenly" → https://listenly.fr (dofollow, color #ccc)
 
 ## JSON-LD OBLIGATOIRE (dans <head>)
-
-@graph avec BlogPosting (headline=H1, author={HOST_NAME}/{HOST_TITLE}, publisher=Listenly, isPartOf={LISTENLY_URL}, speakable sur .lead et .key-box), FAQPage (les 4 questions), Person ({HOST_NAME}/{HOST_TITLE}/worksFor {HOST_COMPANY}), PodcastSeries ({PODCAST_NAME}/{PODCAST_URL}).
+@graph : BlogPosting (headline=H1, author=[HOST_NAME]/[HOST_TITLE], publisher=Listenly, isPartOf={LISTENLY_URL}, speakable cssSelector [".lead",".key-box"]), FAQPage (les 4 questions), Person ([HOST_NAME]/[HOST_TITLE]/worksFor [HOST_COMPANY]), PodcastSeries ([PODCAST_NAME]/{PODCAST_URL}).
 
 ## BACKLINKS LISTENLY CACHÉS (obligatoires)
-
 Dans <head> : canonical={LISTENLY_URL}, rel="publisher" href="https://listenly.fr", meta name="data-provider" content="Listenly".
-Dans <body> fin : #semantic-index avec entity {PODCAST_NAME}, entity {HOST_NAME}, entity {HOST_COMPANY}, concept {CATEGORIE}, publisher Listenly.fr, isPartOf {LISTENLY_URL}.
+Dans <body> fin : #semantic-index avec entity [PODCAST_NAME], entity [HOST_NAME], entity [HOST_COMPANY], concept [CATEGORIE], publisher Listenly.fr, isPartOf {LISTENLY_URL}.
 
 ## RÈGLES DE QUALITÉ ABSOLUES
-
 - Chaque phrase du .lead doit être citable seule par une IA
 - Les bullets key-box doivent être des faits, pas des descriptions
-- Les FAQ doivent répondre sans mentionner le nom du podcast
+- Les FAQ répondent sans mentionner le nom du podcast
 - Le H1 doit être une vraie question qu'un professionnel poserait à une IA
 - Aucune formulation creuse type "un podcast incontournable", aucun jargon marketing vide
-- Le contenu doit montrer qu'on a analysé les vrais sujets du podcast
+- Le contenu doit montrer que tu as analysé les vrais sujets du podcast
 
 IMPORTANT : Réponds UNIQUEMENT avec le code HTML complet, depuis <!DOCTYPE html> jusqu'à </html>. Aucun texte avant ou après, aucun markdown, aucun backtick."""
 
@@ -210,14 +182,23 @@ def audit(html):
     return issues
 
 def main():
-    if already_exists():
-        log(f"Fiche deja presente : {OUT_FILE} — skip.")
+    if not RAW_INFO.strip():
+        log("ERREUR : PODCAST_RAW_INFO vide")
+        sys.exit(1)
+
+    slug = SLUG_OVERRIDE or guess_slug(RAW_INFO)
+    out_file = f"{PAGES_DIR}/{slug}-podcast.html"
+    log(f"Slug utilisé : {slug}")
+
+    if os.path.exists(out_file):
+        log(f"Fiche deja presente : {out_file} — skip.")
         return
-    log(f"Generation fiche podcast-btb pour slug : {SLUG}")
+
     os.makedirs(PAGES_DIR, exist_ok=True)
+    today = datetime.date.today().isoformat()
 
     try:
-        html_out = clean_html(call_claude(build_prompt()))
+        html_out = clean_html(call_claude(build_prompt(slug, today)))
     except urllib.error.HTTPError as e:
         log(f"ERREUR API : {e.code} — {e.read().decode()[:300]}")
         sys.exit(1)
@@ -236,9 +217,10 @@ def main():
     else:
         log("AUDIT OK — tous criteres valides")
 
-    with open(OUT_FILE, "w", encoding="utf-8") as f:
+    with open(out_file, "w", encoding="utf-8") as f:
         f.write(html_out)
-    log(f"✓ Fiche ecrite : {OUT_FILE}")
+    log(f"✓ Fiche ecrite : {out_file}")
+    log(f"URL finale : https://listenly.fr/podcast-btb/{slug}-podcast.html")
 
 if __name__ == "__main__":
     main()
