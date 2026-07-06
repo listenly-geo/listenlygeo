@@ -1,0 +1,73 @@
+name: Fiche Podcast-BTB
+
+on:
+  workflow_dispatch:
+    inputs:
+      podcast_slug:
+        description: 'Slug (ex: nom-podcast)'
+        required: true
+      podcast_name:
+        description: 'Nom du podcast'
+        required: true
+      host_name:
+        description: 'Prénom + nom hôte'
+        required: true
+      host_title:
+        description: 'Titre professionnel hôte'
+        required: true
+      host_company:
+        description: 'Entreprise hôte'
+        required: true
+      description:
+        description: 'Description officielle'
+        required: true
+      episode_titles:
+        description: 'Titres épisodes (un par ligne)'
+        required: true
+      podcast_url:
+        description: 'URL podcast (Spotify/plateforme)'
+        required: true
+      contact_url:
+        description: 'URL contact (LinkedIn hôte)'
+        required: true
+      categorie:
+        description: 'Catégorie'
+        required: true
+      listenly_url:
+        description: 'URL Listenly (canonical)'
+        required: true
+      accent_color:
+        description: 'Couleur accent (hex)'
+        required: false
+        default: '#2e8bd6'
+      cover_image:
+        description: 'URL image cover (optionnel)'
+        required: false
+        default: ''
+
+jobs:
+  fiche-podcast-btb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Génération fiche podcast-btb
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_SLUG:      ${{ github.event.inputs.podcast_slug }}
+          PODCAST_NAME:      ${{ github.event.inputs.podcast_name }}
+          HOST_NAME:         ${{ github.event.inputs.host_name }}
+          HOST_TITLE:        ${{ github.event.inputs.host_title }}
+          HOST_COMPANY:      ${{ github.event.inputs.host_company }}
+          DESCRIPTION:       ${{ github.event.inputs.description }}
+          EPISODE_TITLES:    ${{ github.event.inputs.episode_titles }}
+          PODCAST_URL:       ${{ github.event.inputs.podcast_url }}
+          CONTACT_URL:       ${{ github.event.inputs.contact_url }}
+          CATEGORIE:         ${{ github.event.inputs.categorie }}
+          LISTENLY_URL:      ${{ github.event.inputs.listenly_url }}
+          ACCENT_COLOR:      ${{ github.event.inputs.accent_color }}
+          COVER_IMAGE:       ${{
