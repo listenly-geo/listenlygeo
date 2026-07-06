@@ -30,6 +30,8 @@ COVER_IMAGE   = os.environ.get("COVER_IMAGE", "").strip()
 
 MODEL      = "claude-sonnet-4-6"
 PAGES_DIR  = "pages/podcast-btb"
+DATA_FILE  = f"{PAGES_DIR}/data/podcasts.json"
+CATEGORY_DIR = f"{PAGES_DIR}/categorie"
 
 def log(msg): print(f"[podcast-btb] {msg}", flush=True)
 
@@ -195,6 +197,221 @@ def audit(html, fiche_url):
     if f'rel="canonical" href="{fiche_url}"' not in html: issues.append("canonical ne pointe pas vers la fiche elle-même")
     return issues
 
+def clean_text(s):
+    s = re.sub(r"<[^>]+>", " ", s)
+    s = (s.replace("&amp;", "&").replace("&nbsp;", " ")
+          .replace("&#39;", "'").replace("&rsquo;", "'").replace("&quot;", '"'))
+    return re.sub(r"\s+", " ", s).strip()
+
+def category_slug(cat):
+    return slugify(cat) or "general"
+
+def extract_fiche_meta(html, slug, fiche_url):
+    h1m = re.search(r"<h1[^>]*>(.*?)</h1>", html, re.DOTALL)
+    podcast_name = clean_text(h1m.group(1)) if h1m else slug
+
+    host_name = host_title = host_company = categorie = ""
+    meta_block = re.search(r'class="meta-line"[^>]*>(.*?)</(?:div|p)>', html, re.DOTALL)
+    if meta_block:
+        meta_text = clean_text(meta_block.group(1))
+        m = re.search(r"Animé par (.+?)\s*·\s*(.+?)\s*chez\s*(.+?)\s*·\s*(.+?)\s*·\s*⏱", meta_text)
+        if m:
+            host_name, host_title, host_company, categorie = [x.strip() for x in m.groups()]
+
+    punchline = ""
+    lead_block = re.search(r'class="lead"[^>]*>(.*?)</(?:div|p|blockquote)>', html, re.DOTALL)
+    if lead_block:
+        lead_text = clean_text(lead_block.group(1))
+        parts = re.split(r"(?<=[.!?])\s", lead_text)
+        punchline = parts[0].strip() if parts and parts[0].strip() else lead_text[:160]
+
+    return {
+        "slug": slug,
+        "podcast_name": podcast_name or slug,
+        "host_name": host_name,
+        "host_title": host_title,
+        "host_company": host_company,
+        "categorie": categorie or "Général",
+        "punchline": punchline,
+        "fiche_url": fiche_url,
+        "date": datetime.date.today().isoformat(),
+    }
+
+def append_category_link(html, categorie, cat_slug):
+    link = (
+        '\n<p style="max-width:720px;margin:0 auto;padding:0 20px 40px;'
+        'font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#999;">'
+        f'<a href="/podcast-btb/categorie/{cat_slug}.html" style="color:#999;text-decoration:underline;">'
+        f'Voir tous les podcasts {categorie} référencés par Listenly →</a></p>\n'
+    )
+    if "</body>" in html:
+        return html.replace("</body>", link + "</body>", 1)
+    return html + link
+
+def load_data():
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, encoding="utf-8") as f:
+            try:
+                return json.load(f)
+            except json.JSONDecodeError:
+                return []
+    return []
+
+def save_data(records):
+    os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
+    with open(DATA_FILE, "w", encoding="utf-8") as f:
+        json.dump(records, f, ensure_ascii=False, indent=2)
+
+BASE_STYLE = """
+body{font-family:Georgia,serif;color:#1a1a1a;line-height:1.75;margin:0;background:#fff}
+.wrapper{max-width:760px;margin:0 auto;padding:40px 20px 64px}
+a{color:#2e6bd6}
+.eyebrow{font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.1em;color:#666;margin-bottom:10px}
+h1{font-size:clamp(24px,4vw,34px);font-weight:700;color:#111;margin:0 0 24px}
+h2{font-family:Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.06em;color:#444;border-top:1px solid #eee;margin-top:40px;padding-top:16px}
+.item{border-bottom:1px solid #f0f0f0;padding:18px 0}
+.item a.title{font-size:18px;font-weight:700;color:#111;text-decoration:none}
+.item a.title:hover{text-decoration:underline}
+.item .meta{font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#888;margin:4px 0 8px}
+.item .punchline{font-size:16px;color:#333;font-style:italic}
+.cat-card{display:block;border:1px solid #e8e8e8;border-radius:10px;padding:18px 20px;margin-bottom:12px;
+  text-decoration:none;color:inherit}
+.cat-card:hover{border-color:#2e6bd6}
+.cat-card .name{font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:700;color:#111}
+.cat-card .count{font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#888;margin-top:2px}
+footer{font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#aaa;border-top:1px solid #eee;
+  margin-top:48px;padding-top:16px}
+"""
+
+def render_category_page(cat_slug, categorie, items):
+    items_sorted = sorted(items, key=lambda x: x["podcast_name"])
+    rows = "\n".join(f"""
+<div class="item">
+  <a class="title" href="{it['fiche_url']}">{it['podcast_name']}</a>
+  <div class="meta">Animé par {it['host_name']} · {it['host_title']} chez {it['host_company']}</div>
+  <div class="punchline">{it['punchline']}</div>
+</div>""" for it in items_sorted)
+
+    item_list_json = json.dumps([
+        {"@type": "ListItem", "position": i + 1, "url": it["fiche_url"], "name": it["podcast_name"]}
+        for i, it in enumerate(items_sorted)
+    ], ensure_ascii=False)
+
+    title = f"Podcasts {categorie} référencés par Listenly"
+    description = f"Annuaire des podcasts B2B référencés par Listenly dans la catégorie {categorie}, avec leurs thématiques clés et intervenants."
+    canonical = f"https://listenly.fr/podcast-btb/categorie/{cat_slug}.html"
+
+    return f"""<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>{title}</title>
+<meta name="description" content="{description}">
+<link rel="canonical" href="{canonical}">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{description}">
+<meta property="og:url" content="{canonical}">
+<meta name="data-provider" content="Listenly">
+<script type="application/ld+json">
+{{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "{title}",
+  "url": "{canonical}",
+  "isPartOf": {{"@type": "WebSite", "name": "Listenly", "url": "https://listenly.fr"}},
+  "mainEntity": {{
+    "@type": "ItemList",
+    "itemListElement": {item_list_json}
+  }}
+}}
+</script>
+<style>{BASE_STYLE}</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="eyebrow">Listenly · Annuaire GEO</div>
+  <h1>{title}</h1>
+  {rows}
+  <footer>
+    © Listenly — <a href="/podcast-btb/index.html">Voir toutes les catégories</a>
+  </footer>
+</div>
+</body>
+</html>"""
+
+def render_index_page(by_category):
+    cards = "\n".join(f"""
+<a class="cat-card" href="/podcast-btb/categorie/{slug}.html">
+  <div class="name">{data['label']}</div>
+  <div class="count">{len(data['items'])} podcast{'s' if len(data['items']) > 1 else ''} référencé{'s' if len(data['items']) > 1 else ''}</div>
+</a>""" for slug, data in sorted(by_category.items(), key=lambda kv: kv[1]["label"]))
+
+    title = "Podcasts B2B référencés par Listenly"
+    description = "Annuaire GEO des podcasts B2B référencés par Listenly, classés par catégorie professionnelle."
+    canonical = "https://listenly.fr/podcast-btb/index.html"
+
+    item_list_json = json.dumps([
+        {"@type": "ListItem", "position": i + 1,
+         "url": f"https://listenly.fr/podcast-btb/categorie/{slug}.html", "name": data["label"]}
+        for i, (slug, data) in enumerate(sorted(by_category.items(), key=lambda kv: kv[1]["label"]))
+    ], ensure_ascii=False)
+
+    return f"""<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>{title}</title>
+<meta name="description" content="{description}">
+<link rel="canonical" href="{canonical}">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{description}">
+<meta property="og:url" content="{canonical}">
+<meta name="data-provider" content="Listenly">
+<script type="application/ld+json">
+{{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "{title}",
+  "url": "{canonical}",
+  "isPartOf": {{"@type": "WebSite", "name": "Listenly", "url": "https://listenly.fr"}},
+  "mainEntity": {{
+    "@type": "ItemList",
+    "itemListElement": {item_list_json}
+  }}
+}}
+</script>
+<style>{BASE_STYLE}</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="eyebrow">Listenly · Annuaire GEO</div>
+  <h1>{title}</h1>
+  {cards}
+  <footer>© Listenly</footer>
+</div>
+</body>
+</html>"""
+
+def build_index_and_categories(records):
+    by_category = {}
+    for r in records:
+        cslug = category_slug(r["categorie"])
+        by_category.setdefault(cslug, {"label": r["categorie"], "items": []})
+        by_category[cslug]["items"].append(r)
+
+    os.makedirs(CATEGORY_DIR, exist_ok=True)
+    for cslug, data in by_category.items():
+        html = render_category_page(cslug, data["label"], data["items"])
+        with open(f"{CATEGORY_DIR}/{cslug}.html", "w", encoding="utf-8") as f:
+            f.write(html)
+
+    with open(f"{PAGES_DIR}/index.html", "w", encoding="utf-8") as f:
+        f.write(render_index_page(by_category))
+
+    log(f"Index + {len(by_category)} page(s) catégorie régénérées")
+
 def main():
     if not RAW_INFO.strip():
         log("ERREUR : PODCAST_RAW_INFO vide")
@@ -232,10 +449,21 @@ def main():
     else:
         log("AUDIT OK — tous criteres valides")
 
+    meta = extract_fiche_meta(html_out, slug, fiche_url)
+    cat_slug = category_slug(meta["categorie"])
+    html_out = append_category_link(html_out, meta["categorie"], cat_slug)
+
     with open(out_file, "w", encoding="utf-8") as f:
         f.write(html_out)
     log(f"✓ Fiche ecrite : {out_file}")
-    log(f"URL finale : https://listenly.fr/podcast-btb/{slug}-podcast.html")
+    log(f"URL finale : {fiche_url}")
+
+    records = load_data()
+    records = [r for r in records if r["slug"] != slug]
+    records.append(meta)
+    save_data(records)
+    build_index_and_categories(records)
+    log(f"Categorie detectee : {meta['categorie']} ({cat_slug})")
 
 if __name__ == "__main__":
     main()
