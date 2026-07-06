@@ -49,7 +49,7 @@ def guess_slug(raw):
             return slugify(line)
     return "podcast-" + datetime.date.today().isoformat()
 
-def build_prompt(slug, today):
+def build_prompt(slug, fiche_url, today):
     return f"""Tu es un expert GEO (Generative Engine Optimization) spécialisé dans les podcasts B2B.
 
 Ta mission est de générer une FICHE PODCAST complète en HTML autonome pour Listenly.fr.
@@ -73,11 +73,19 @@ logique GEO que les fiches épisode du Moteur N2 — seul le contenu change.
 ## DONNÉES FIXES (ne pas modifier)
 - PODCAST_URL (CTA écoute, bouton "▶ Écouter le podcast") : {PODCAST_URL}
 - CONTACT_URL (CTA contact, bouton "💼 Contacter [HOST_NAME]", LinkedIn hôte) : {CONTACT_URL}
-- LISTENLY_URL (canonical + backlink) : {LISTENLY_URL}
+- LISTENLY_URL (backlink vers la page Listenly du podcast, utilisé UNIQUEMENT dans le JSON-LD isPartOf, le rel="publisher" caché et le vector DB) : {LISTENLY_URL}
+- FICHE_URL (URL PUBLIQUE DE CETTE FICHE ELLE-MÊME — à utiliser pour og:url, twitter:url ET canonical) : {FICHE_URL}
 - ACCENT_COLOR : {ACCENT_COLOR}
 - COVER_IMAGE : {COVER_IMAGE or "(aucune fournie — omets l'image dans l'episode-card, ne mets pas de balise img cassée)"}
 - Slug : {slug}
 - Date de génération : {today}
+
+## RÈGLE CRITIQUE — NE JAMAIS CONFONDRE FICHE_URL ET LISTENLY_URL
+- <link rel="canonical" href="..."> → {FICHE_URL} (JAMAIS {LISTENLY_URL})
+- <meta property="og:url" content="..."> → {FICHE_URL} (JAMAIS {LISTENLY_URL})
+- <meta name="twitter:url" content="..."> → {FICHE_URL} (JAMAIS {LISTENLY_URL})
+- Le JSON-LD BlogPosting "url" ou "mainEntityOfPage" → {FICHE_URL}
+- {LISTENLY_URL} n'apparaît QUE dans : isPartOf du JSON-LD, le <link rel="publisher"> cache, et le bloc #semantic-index. Il ne doit JAMAIS remplacer FICHE_URL dans og:url/canonical/twitter:url.
 
 ## EXTRACTION OBLIGATOIRE AVANT DE RÉDIGER
 
@@ -171,7 +179,7 @@ def clean_html(text):
     text = re.sub(r"\s*```$", "", text)
     return text.strip()
 
-def audit(html):
+def audit(html, fiche_url):
     issues = []
     if html.count("<h1") != 1: issues.append("H1 absent ou multiple")
     if "semantic-index" not in html: issues.append("vector DB absente")
@@ -183,6 +191,8 @@ def audit(html):
     if PODCAST_URL not in html: issues.append("CTA podcast absent")
     if CONTACT_URL not in html: issues.append("CTA contact absent")
     if "on répond" in html.lower() or "on repond" in html.lower(): issues.append("formulation 'on répond' interdite trouvée")
+    if f'og:url" content="{fiche_url}"' not in html: issues.append("og:url ne pointe pas vers la fiche elle-même")
+    if f'rel="canonical" href="{fiche_url}"' not in html: issues.append("canonical ne pointe pas vers la fiche elle-même")
     return issues
 
 def main():
@@ -192,6 +202,7 @@ def main():
 
     slug = SLUG_OVERRIDE or guess_slug(RAW_INFO)
     out_file = f"{PAGES_DIR}/{slug}-podcast.html"
+    fiche_url = f"https://listenly.fr/podcast-btb/{slug}-podcast.html"
     log(f"Slug utilisé : {slug}")
 
     if os.path.exists(out_file):
@@ -202,7 +213,7 @@ def main():
     today = datetime.date.today().isoformat()
 
     try:
-        html_out = clean_html(call_claude(build_prompt(slug, today)))
+        html_out = clean_html(call_claude(build_prompt(slug, fiche_url, today)))
     except urllib.error.HTTPError as e:
         log(f"ERREUR API : {e.code} — {e.read().decode()[:300]}")
         sys.exit(1)
@@ -215,7 +226,7 @@ def main():
         log(html_out[:200])
         sys.exit(1)
 
-    issues = audit(html_out)
+    issues = audit(html_out, fiche_url)
     if issues:
         log(f"AUDIT — {len(issues)} point(s) : {' | '.join(issues)}")
     else:
