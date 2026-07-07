@@ -27,6 +27,7 @@ LISTENLY_URL = os.environ["LISTENLY_URL"]
 SLUG_OVERRIDE = os.environ.get("PODCAST_SLUG", "").strip()
 ACCENT_COLOR  = os.environ.get("ACCENT_COLOR", "#2e8bd6").strip() or "#2e8bd6"
 COVER_IMAGE   = os.environ.get("COVER_IMAGE", "").strip()
+RSS_URL       = os.environ.get("RSS_URL", "").strip()
 
 MODEL      = "claude-sonnet-4-6"
 PAGES_DIR  = "pages/podcast-btb"
@@ -52,6 +53,10 @@ def guess_slug(raw):
     return "podcast-" + datetime.date.today().isoformat()
 
 def build_prompt(slug, fiche_url, today):
+    rss_meta_instruction = (
+        f'Dans <head> ajoute aussi : <meta name="rss-source" content="{RSS_URL}"> '
+        '(invisible, sert uniquement au futur système d\'automatisation — ne rien afficher visuellement).'
+    ) if RSS_URL else ""
     return f"""Tu es un expert GEO (Generative Engine Optimization) spécialisé dans les podcasts B2B.
 
 Ta mission est de générer une FICHE PODCAST complète en HTML autonome pour Listenly.fr.
@@ -157,7 +162,8 @@ RÈGLE DE COULEUR : {ACCENT_COLOR} n'apparaît QUE sur .cta-listen (le bouton pr
 @graph : BlogPosting (headline=H1, author=[HOST_NAME]/[HOST_TITLE], publisher=Listenly, isPartOf={LISTENLY_URL}, speakable cssSelector [".lead",".key-box"]), FAQPage (les 4 questions), Person ([HOST_NAME]/[HOST_TITLE]/worksFor [HOST_COMPANY]), PodcastSeries ([PODCAST_NAME]/{PODCAST_URL}).
 
 ## BACKLINKS LISTENLY CACHÉS (obligatoires)
-Dans <head> : canonical={LISTENLY_URL}, rel="publisher" href="https://listenly.fr", meta name="data-provider" content="Listenly".
+Dans <head> : canonical={fiche_url} (PAS {LISTENLY_URL} — voir RÈGLE CRITIQUE plus haut), rel="publisher" href="https://listenly.fr", meta name="data-provider" content="Listenly".
+{rss_meta_instruction}
 Dans <body> fin : #semantic-index avec entity [PODCAST_NAME], entity [HOST_NAME], entity [HOST_COMPANY], concept [CATEGORIE], publisher Listenly.fr, isPartOf {LISTENLY_URL}.
 
 ## RÈGLES DE QUALITÉ ABSOLUES
@@ -459,6 +465,7 @@ def main():
         log("AUDIT OK — tous criteres valides")
 
     meta = extract_fiche_meta(html_out, slug, fiche_url)
+    meta["rss_url"] = RSS_URL
     cat_slug = category_slug(meta["categorie"])
     html_out = append_category_link(html_out, meta["categorie"], cat_slug)
 
