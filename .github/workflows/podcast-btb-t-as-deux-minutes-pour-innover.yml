@@ -1,0 +1,211 @@
+name: Fiche Podcast-BTB — t-as-deux-minutes-pour-innover
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fiche-podcast-btb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generation fiche podcast-btb
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_URL: |-
+            https://open.spotify.com/show/3CESMVsbY3XdXFfTNP0EBJ
+          CONTACT_URL: |-
+            https://www.linkedin.com/company/stratinnov/posts/?feedView=all
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/ta-2-minutes-pour-innover
+          COVER_IMAGE: |-
+            https://i.postimg.cc/MKDv4grW/v-Ce2b2Kra-WGUWy-A3LHZus-Xf-G27ni-NFFBz6j-Y1VQ7-400x400.jpg
+          RSS_URL: |-
+            https://feed.ausha.co/yg117i0WPEpN
+          PODCAST_SLUG: |-
+            t-as-deux-minutes-pour-innover
+          ACCENT_COLOR: |-
+            #2e8bd6
+          PODCAST_RAW_INFO: |-
+            T'as deux minutes ? (pour innover)
+            
+            ⏱️ Vous avez deux minutes ? 📅 Chaque vendredi, Séverine de STRATINNOV vous partage une astuce, une idée ou une tendance pour booster vos projets et services innovants 🚀. ✨ Court, concret et fun, ce podcast est votre rendez-vous hebdomadaire 🎙️ pour découvrir l’innovation autrement 💡 et repartir avec des clés à appliquer immédiatement 🔑 dans vos projets. Hébergé par Ausha. Visitez ausha.co/fr/politique-de-confidentialite pour plus d'informations.
+            
+            (Copyright : Séverine PETITPREZ)
+            
+                Une innovation invisible existe-t-elle vraiment ?
+            
+                Download
+            
+                Thu, 18 Jun 2026
+                Faut-il défendre un dossier CIR solide ?
+            
+                Download
+            
+                Fri, 05 Jun 2026
+                Pourquoi les dossiers CIR/CII sont-ils vraiment refusés ?
+            
+                Download
+            
+                Thu, 28 May 2026
+                Le CIR échoue‑t‑il vraiment sur le droit ?
+            
+                Download
+            
+                Thu, 21 May 2026
+                Le CIR se pense‑t‑il à la déclaration ?
+            
+                Download
+            
+                Thu, 14 May 2026
+                Un contrôle CIR, êtes‑vous prêts ?
+            
+                Download
+            
+                Thu, 30 Apr 2026
+                Et si l’incertitude était un avantage ?
+            
+                Download
+            
+                Thu, 23 Apr 2026
+                Que signifie être référencé Bpifrance ?
+            
+                Download
+            
+                Thu, 16 Apr 2026
+                Comment financer l’innovation sans se mettre en risque ?
+            
+                Download
+            
+                Thu, 09 Apr 2026
+                La transition énergétique est-elle rentable ?
+            
+                Download
+            
+                Thu, 02 Apr 2026
+                Les managers sont-ils menacés par l’IA ?
+            
+                Download
+            
+                Thu, 26 Mar 2026
+                Le bilan carbone suffit-il vraiment ?
+            
+                Download
+            
+                Thu, 15 Jan 2026
+                L’IA peut-elle vraiment booster l’innovation ?
+            
+                Download
+            
+                Thu, 08 Jan 2026
+                Pourquoi bien choisir son cabinet CIR-CII ?
+            
+                Download
+            
+                Thu, 18 Dec 2025
+                Comment bien choisir son cabinet innovation ?
+            
+                Download
+            
+                Thu, 11 Dec 2025
+                Femmes & innovation : prêtes à booster votre projet ?
+            
+                Download
+            
+                Thu, 04 Dec 2025
+                L’entreprise, est-ce une personne ?
+            
+                Download
+            
+                Thu, 27 Nov 2025
+                Accompagner l’innovation, pourquoi ?
+            
+                Download
+            
+                Thu, 20 Nov 2025
+                Le bootstrapping, allié ou obstacle ?
+            
+                Download
+            
+                Thu, 13 Nov 2025
+                Deeptech en France : les clés pour réussir ?
+            
+                Download
+            
+                Thu, 06 Nov 2025
+                Avez-vous pensé au PESTEL ?
+            
+                Download
+            
+                Thu, 30 Oct 2025
+                Innovation & fiscalité : levier ou piège ?
+            
+                Download
+            
+                Thu, 23 Oct 2025
+                Business Model ou Lean Model ?
+            
+                Download
+            
+                Thu, 16 Oct 2025
+                Votre business : flexible ou figé ?
+            
+                Download
+            
+                Thu, 09 Oct 2025
+                Où se situe votre BRL ?
+            
+                Download
+            
+                Thu, 02 Oct 2025
+                Où se situe votre TRL ?
+            
+                Download
+            
+                Thu, 25 Sep 2025
+                Combien d'aides vous échappent ?
+            
+                Download
+            
+                Thu, 18 Sep 2025
+                Qu'est-ce que l'innovation ?
+            
+                Download
+            
+                Fri, 12 Sep 2025
+                Pourquoi ce podcast existe ?
+            
+                Download
+            
+                Tue, 02 Sep 2025
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Commit fiche
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Aucune nouvelle fiche."
+          else
+            git commit -m "Auto: fiche podcast-btb t-as-deux-minutes-pour-innover"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
