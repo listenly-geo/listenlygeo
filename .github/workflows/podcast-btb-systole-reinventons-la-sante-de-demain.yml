@@ -1,0 +1,94 @@
+name: Fiche Podcast-BTB — systole-reinventons-la-sante-de-demain
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fiche-podcast-btb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generation fiche podcast-btb
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_URL: |-
+            https://open.spotify.com/show/4HUkgm69NoaV9wdeV1Mi0d
+          CONTACT_URL: |-
+            https://www.linkedin.com/company/cardioparc/posts/?feedView=all
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/systole
+          COVER_IMAGE: |-
+            https://i.postimg.cc/MpcjZpnx/r-AP9Ajei-Bg59i0CK65i-EI9eydczo0LGM8GT2s-R0Y-1400x1400.jpg
+          PODCAST_SLUG: |-
+            systole-reinventons-la-sante-de-demain
+          ACCENT_COLOR: |-
+            #2e8bd6
+          PODCAST_RAW_INFO: |-
+            Systole - Réinventons la santé de demain
+            
+            Face aux déserts médicaux et à un système de santé à bout de souffle, il ne suffit plus de constater : il faut inventer.  Systole, proposé par Cardioparc, est l'espace de dialogue dédié à ceux qui font bouger les lignes. Nous partons à la rencontre de cardiologues, de professionnels de santé et d’acteurs qui transforment l'accès aux soins.  Rejoignez-nous pour découvrir comment, concrètement, des initiatives permettent de faire évoluer les pratiques afin d’améliorer la vie des patients et le quotidien des soignants.  Vous souhaitez partager votre expérience ou une innovation en santé au micro de Systole ? Envoyez-nous un mail à podcast@cardioparc.fr (mailto:podcast@cardioparc.fr)  Un podcast imaginé et produit par Cardioparc, le réseau novateur de cabinets de cardiologie en France.  Episodes en ligne le premier mercredi du mois ! Hébergé par Ausha. Visitez ausha.co/fr/politique-de-confidentialite pour plus d'informations.
+            
+            (Copyright : Clara Ribeyron)
+            
+                Réinventer la cardiologie de ville : déléguer pour mieux soigner - Dr Fadi Jamal
+            
+                Download
+            
+                Fri, 03 Jul 2026
+                Comment structurer et financer l'innovation en santé et l'offre de soins en France ? Le rôle de la Banque des Territoires - Marion Eymar
+            
+                Download
+            
+                Wed, 03 Jun 2026
+                Échographie cardiaque en désert médical : quand la double compétence IPA-échographiste rapproche les patients du soin - Arnaud Chambrette
+            
+                Download
+            
+                Wed, 06 May 2026
+                Échographie cardiaque par l’infirmier : délégation, formation et défi en France - Pierre-André Zebrowski
+            
+                Download
+            
+                Wed, 01 Apr 2026
+                L'évolution de la cardiologie : accès aux soins, formation, féminisation de la profession - Dr Anne Clément
+            
+                Download
+            
+                Wed, 04 Mar 2026
+                Bande-annonce de Systole - Réinventons la santé de demain
+            
+                Download
+            
+                Mon, 02 Mar 2026
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Commit fiche
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Aucune nouvelle fiche."
+          else
+            git commit -m "Auto: fiche podcast-btb systole-reinventons-la-sante-de-demain"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
