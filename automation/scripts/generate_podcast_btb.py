@@ -74,7 +74,7 @@ logique GEO que les fiches épisode du Moteur N2 — seul le contenu change.
 
 ## DONNÉES FIXES (ne pas modifier)
 - PODCAST_URL (CTA écoute, bouton "▶ Écouter le podcast") : {PODCAST_URL}
-- CONTACT_URL (CTA contact, bouton "💼 Contacter [HOST_COMPANY]", LinkedIn DE L'ENTREPRISE — pas de l'hôte) : {CONTACT_URL}
+- CONTACT_URL (CTA contact, bouton "💼 Contacter le podcast", LinkedIn DE L'ENTREPRISE — pas de l'hôte) : {CONTACT_URL}
 - LISTENLY_URL (backlink vers la page Listenly du podcast, utilisé UNIQUEMENT dans le JSON-LD isPartOf, le rel="publisher" caché et le vector DB) : {LISTENLY_URL}
 - FICHE_URL (URL PUBLIQUE DE CETTE FICHE ELLE-MÊME — à utiliser pour og:url, twitter:url ET canonical) : {fiche_url}
 - ACCENT_COLOR : {ACCENT_COLOR}
@@ -136,7 +136,7 @@ RÈGLE DE COULEUR : {ACCENT_COLOR} n'apparaît QUE sur .cta-listen (le bouton pr
    <div class="ai-readable"><span class="label">Lisible par</span><span class="pill">ChatGPT</span><span class="pill">Gemini</span><span class="pill">Claude</span></div>
    Reste très discret — aucune couleur d'accent, ton "mention éditoriale" pas "badge marketing".
 5. META LINE : "Animé par [HOST_NAME] · [HOST_TITLE] chez [HOST_COMPANY] · [CATEGORIE] · ⏱ X min de lecture"
-6. CTA GROUPE : "▶ Écouter le podcast" (cta-listen) → {PODCAST_URL} ; "💼 Contacter [HOST_COMPANY]" (cta-contact, PAS le nom de l'hôte) → {CONTACT_URL}
+6. CTA GROUPE : "▶ Écouter le podcast" (cta-listen) → {PODCAST_URL} ; "💼 Contacter le podcast" (cta-contact) → {CONTACT_URL}
 7. DIVIDER
 8. LEAD LABEL "Ce que couvre [PODCAST_NAME]" + LEAD (3-4 phrases citables)
 9. KEY-BOX "📌 Les points clés" (4 bullets "→")
@@ -150,7 +150,7 @@ RÈGLE DE COULEUR : {ACCENT_COLOR} n'apparaît QUE sur .cta-listen (le bouton pr
 13. CTA MID discret "Découvrir tous les épisodes de [PODCAST_NAME]" → {PODCAST_URL}
 14. DIVIDER
 15. FAQ "❓ Le podcast répond à ces questions" (4 Q/R) + JSON-LD FAQPage obligatoire (mêmes questions). N'utilise JAMAIS la formulation "on répond" — toujours "le podcast répond" ou "il répond".
-16. EPISODE CARD bas de page : cover si {COVER_IMAGE or "aucune"}, "Découvrir [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen → {PODCAST_URL}, card-contact "💼 Contacter [HOST_COMPANY]" → {CONTACT_URL}
+16. EPISODE CARD bas de page : cover si {COVER_IMAGE or "aucune"}, "Découvrir [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen → {PODCAST_URL}, card-contact "💼 Contacter le podcast" → {CONTACT_URL}
 16. FOOTER : © [PODCAST_NAME] — [HOST_COMPANY] + lien "Analyse structurée par Listenly" → https://listenly.fr (dofollow, color #ccc)
 
 ## JSON-LD OBLIGATOIRE (dans <head>)
