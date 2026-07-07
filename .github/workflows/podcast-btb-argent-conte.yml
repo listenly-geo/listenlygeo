@@ -1,0 +1,319 @@
+name: Fiche Podcast-BTB — argent-conte
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fiche-podcast-btb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generation fiche podcast-btb
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_URL: |-
+            https://podcasts.apple.com/fr/podcast/argent-cont%C3%A9/id1541643695
+          CONTACT_URL: |-
+            https://www.linkedin.com/company/anaxago/
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/argent-cont
+          COVER_IMAGE: |-
+            https://i.postimg.cc/PqKWPrW8/1KVMsl-Sf-UEazk3c-GQWx-ADx2SV1siel-SKUNFy6zs-Y-1400x1400.jpg
+          PODCAST_SLUG: |-
+            argent-conte
+          ACCENT_COLOR: |-
+            #2e8bd6
+          PODCAST_RAW_INFO: |-
+            Argent conté
+            
+            Bonjour, je suis Caroline Lamaud et je vous présente Argent Conté, un podcast qui vise à vous raconter toutes les facettes du patrimoine, de l’investissement et de l’épargne avec une approche décomplexée pour enfin s’intéresser à son argent sans peur et sans tabous.  L’investissement ça vous parait moyennement excitant ? Je vous comprends. Pourtant c’est quand on connait sur le bout des doigts les bonnes pratiques et les bonnes idées qu’on commence à faire travailler son argent pour satisfaire ses objectifs de vie.  Pourquoi je vous parle de ça ? Parce que j’ai créé il y a 8 ans, une plateforme d’investissement d’un nouveau genre : Anaxago. L’idée était de donner accès à l’investissement dans des opportunités uniques et performantes pour tout le monde. 8 ans plus tard nous avons plus de 100 000 membres investisseurs et presque autant de conseils donnés et d’interrogations racontées.  Le point commun ? La peur de se tromper, de perdre son argent, ou encore de rater des occasions en or. C’est pour ça que je lance Argent Conté, parce qu’il est temps de changer et de lever tabous et angoisses, pour vous livrer à la fois les conseils des meilleurs experts, leurs meilleures pratiques et leurs bonnes idées, mais aussi explorer les biais cognitifs et les craintes liés de tout temps à l’argent.  Merci d'écouter Argent Conté ! Vous pouvez me joindre à l'adresse caroline@argentconte.com pour toute question ou idée, ou sur Anaxago.com si vous avez besoin de conseils ! Hébergé par Ausha. Visitez ausha.co/fr/politique-de-confidentialite pour plus d'informations.
+            
+            (Copyright : Caroline Lamaud)
+            
+                Épisode #50 - Hériter d’un inconnu : les coulisses de la généalogie successorale
+            
+                Download
+            
+                Sun, 28 Jun 2026
+                Épisode #49 - Médiation : en entreprise comme en famille, quand le conflit devient capital
+            
+                Download
+            
+                Sun, 14 Jun 2026
+                Épisode #48 - Succession : l'erreur qui coûte le plus cher aux familles françaises
+            
+                Download
+            
+                Sun, 31 May 2026
+                Épisode #47 - Le bijou vintage : objet de désir ou actif financier ?
+            
+                Download
+            
+                Sun, 24 May 2026
+                Épisode #46 – Quand la confiance disparaît, l'or revient avec Laurent Schwartz - Fondateur du Comptoir National de l’Or
+            
+                Download
+            
+                Sun, 17 May 2026
+                Épisode #45 – Sous le capot des structurés avec Pierre Guys - Président & Co-fondateur de Zénith Capital
+            
+                Download
+            
+                Sun, 29 Mar 2026
+                Épisode #44 – Le leadership financier avec Christelle Maussac, Formatrice et conférencière en intelligence financière
+            
+                Download
+            
+                Sun, 22 Mar 2026
+                Épisode #43 – Méga tendances US avec Élodie Arnouk, Directrice de la Stratégie et Transformation chez 2050NOW La Maison des Entreprises
+            
+                Download
+            
+                Sun, 15 Mar 2026
+                Épisode #42 – Cycles - Coûts des Matières Premières - Géopolitique - Avec Arnaud Berger, Enseignant en économie et RSE – ENPC, ENSAM
+            
+                Download
+            
+                Sun, 08 Mar 2026
+                Épisode #41 – Entreprendre dans la finance et s'engager pour le climat - Avec Yannick Servant, Co-fondateur de la CEC & Marie Chkaiban
+            
+                Download
+            
+                Sun, 01 Mar 2026
+                Épisode #40 – Peut-on être entreprise à mission et investisseur ? Avec Arnaud Giraudon et Marie Chkaiban d’Anaxago
+            
+                Download
+            
+                Sun, 19 Oct 2025
+                Épisode #39 - Ma banquière privée bien aimée, avec Alix de Renty, Oddo BHF
+            
+                Download
+            
+                Sun, 02 Mar 2025
+                Épisode #38 - Lydia, le coup de génie de la fintech avec Cyril Chiche, Co-fondateur de Lydia
+            
+                Download
+            
+                Sun, 27 Oct 2024
+                Épisode #37 - Investir sur le marché des quotas carbone européens pour la première fois avec Valentin Lautier, Fondateur d'Homaio
+            
+                Download
+            
+                Sun, 13 Oct 2024
+                Épisode #36 - Gagner la grande bataille pour le climat, avec Bertrand Badré, Fondateur de Blue like an Orange Sustainable Capital
+            
+                Download
+            
+                Sun, 15 Sep 2024
+                Épisode #35 - La reprise d'entreprise, avec Candice Cohen Louyot, Co-fondatrice de MesAcquisitions
+            
+                Download
+            
+                Sun, 16 Jun 2024
+                Épisode #34 - Investir dans le cinéma, avec Clément Miserez, Producteur
+            
+                Download
+            
+                Sun, 26 May 2024
+                Épisode #33 - La finance peut-elle sauver la forêt ? Avec Georgine de Saporta, Fondatrice et CEO de Treemium
+            
+                Download
+            
+                Sun, 28 Apr 2024
+                Épisode #32 - L’investissement à impact sous toutes les coutures avec Christophe Pieri, Gérant du fonds AxClimat I chez Anaxago Capital
+            
+                Download
+            
+                Sun, 14 Apr 2024
+                Épisode #31 - L’operating partner, avec Jessica Ifker Delpirou, Operating Partner chez Serena Capital
+            
+                Download
+            
+                Sun, 10 Mar 2024
+                Épisode #30 - Le salaire à la demande, avec Arbia Smiti, Fondatrice de Rosaly
+            
+                Download
+            
+                Sun, 10 Dec 2023
+                Épisode #29 - L'argent et le boulot, avec Caroline Pailloux, CEO de Ignition Program
+            
+                Download
+            
+                Sun, 05 Nov 2023
+                Épisode #28 - La tokenization de l’immobilier : arnaque ou vraie opportunité ? avec Florian Freyssenet, Fondateur de Tokenland
+            
+                Download
+            
+                Sun, 23 Jul 2023
+                Épisode #27 - Business Angel au Grand Coeur, avec Henri de Lorgeril, Co-fondateur & CEO d'Avizio
+            
+                Download
+            
+                Sun, 25 Jun 2023
+                Épisode #26 - Le non coté a la cote, avec Antoine Baschiera, Co-fondateur d'Early Metrics
+            
+                Download
+            
+                Sun, 21 May 2023
+                Épisode #25 - La philanthropie c'est pour qui ? Avec Edilia Gänz, Directrice de Fedora
+            
+                Download
+            
+                Sun, 19 Mar 2023
+                Épisode #24 - La fintech, Avec Hugues Le Bret, Co-fondateur de Nickel
+            
+                Download
+            
+                Sun, 05 Mar 2023
+                Épisode #23 - Je suis ton PER. La retraite, Avec Benjamin Pedrini, Co-fondateur & Directeur Général chez Epsor
+            
+                Download
+            
+                Sun, 11 Dec 2022
+                Épisode #22 - Les NFT sont ils toujours cools ? Avec Jean-Michel Pailhon, Chief Of Staff chez Ledger
+            
+                Download
+            
+                Sun, 27 Nov 2022
+                Épisode #21 - L'argent et la foi, Avec Michel Ruimy, économiste
+            
+                Download
+            
+                Sun, 13 Nov 2022
+                Épisode #20 - Marchés financiers, faut il paniquer ? Avec Marc Tempelman, fondateur de Cashbe
+            
+                Download
+            
+                Sun, 26 Jun 2022
+                Épisode #19 - Investir le bâtiment durable avec Cédric Nicard, directeur du développement durable de CBRE
+            
+                Download
+            
+                Sun, 15 May 2022
+                Épisode #18 - Thierry Vignal - Locatif : dans quelle ville ne faut-il surtout pas investir ?
+            
+                Download
+            
+                Sun, 01 May 2022
+                Épisode #17 - Thierry Vignal - Les secrets d'un investissement locatif réussi
+            
+                Download
+            
+                Sun, 24 Apr 2022
+                ÉPISODE #16 - Robin Rivaton - faire changer le logement pour inverser les tendances patrimoniales
+            
+                Download
+            
+                Sun, 10 Apr 2022
+                ÉPISODE #15 - Investir dans la tôle, pardon la logistique, avec Pauline Collet d'Alderan.
+            
+                Download
+            
+                Sun, 19 Sep 2021
+                ÉPISODE #14 - Lutter contre les biais cognitifs avec Tiphaine Saltini, CEO de Neuroprofiler
+            
+                Download
+            
+                Sun, 05 Sep 2021
+                ÉPISODE #13 : Startups, faut il encore investir ? avec Guillaume Dupont, CEO CapHorn Invest
+            
+                Download
+            
+                Sun, 04 Jul 2021
+                ÉPISODE #12 - Investissement : le commerce dans le radar, avec Maxime Forgeot (F&A Asset Management)
+            
+                Download
+            
+                Sun, 20 Jun 2021
+                ÉPISODE #11 - Le nouveau marché de l'art : investissement digitalisé avec Émilie Villette, Directrice du Développement Christie's
+            
+                Download
+            
+                Sun, 06 Jun 2021
+                ÉPISODE #10 - Comment investir dans l'art pour la première fois ? Avec Émilie Villette, directrice du développement de Christie's
+            
+                Download
+            
+                Sun, 30 May 2021
+                ÉPISODE #9 - L'argent fait-il le bonheur ? avec Mickaël Mangot, économiste
+            
+                Download
+            
+                Sun, 28 Feb 2021
+                ÉPISODE #8 - Gestion de fortune, pour qui, pourquoi et quand ? avec Solenne Niedercorn.
+            
+                Download
+            
+                Sat, 13 Feb 2021
+                Épisode #7 - Les cryptomonnaies, ou la nouvelle valeur refuge. Charlie Meraud, CEO Woorton
+            
+                Download
+            
+                Sat, 23 Jan 2021
+                Épisode #6 - 2ème partie : le Frugalisme ou l'épargne de l'extrême, avec Victor Lora.
+            
+                Download
+            
+                Sat, 16 Jan 2021
+                Épisode #5 - 1ère partie : le Frugalisme ou l'épargne de l'extrême, avec Victor Lora.
+            
+                Download
+            
+                Sat, 09 Jan 2021
+                Épisode #4 - Comment établir efficacement un budget, sans se fatiguer ? Joan Burkovic, CEO de Bankin et Bridge.io
+            
+                Download
+            
+                Sat, 02 Jan 2021
+                Épisode #3 : L'éthique dans les affaires et surtout en finance. Patrice Hutin, Directeur Général de Sofiouest
+            
+                Download
+            
+                Sat, 19 Dec 2020
+                Introduction - Caroline Lamaud - Pourquoi Argent Conté
+            
+                Download
+            
+                Thu, 10 Dec 2020
+                Épisode #2 : Qu'est ça veut dire, être investisseur à impact ? Jérémie Rouzaud, Président Kyaneos Asset Management
+            
+                Download
+            
+                Tue, 01 Dec 2020
+                Épisode #1 : Le mythe de la résidence principale avec Keyvan Nilforoushan, fondateur de Virgil
+            
+                Download
+            
+                Mon, 23 Nov 2020 entreprise : anaxago
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Commit fiche
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Aucune nouvelle fiche."
+          else
+            git commit -m "Auto: fiche podcast-btb argent-conte"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
