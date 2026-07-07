@@ -1,0 +1,1346 @@
+name: Fiche Podcast-BTB — sans-detour-temoignages-d-entrepreneurs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fiche-podcast-btb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generation fiche podcast-btb
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_URL: |-
+            https://open.spotify.com/show/69e9Hmd35zgYLyT46AqRZU
+          CONTACT_URL: |-
+            https://www.linkedin.com/company/genilem/
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/sans-dtour
+          COVER_IMAGE: |-
+            https://i.postimg.cc/RZtRgBch/avatars-Jcfb-YGx-Ta54xl5yq-6g-Wz-GQ-t1080x1080.jpg
+          PODCAST_SLUG: |-
+            sans-detour-temoignages-d-entrepreneurs
+          ACCENT_COLOR: |-
+            #2e8bd6
+          PODCAST_RAW_INFO: |-
+            <?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:anchor="https://anchor.fm/xmlns" xmlns:podcast="https://podcastindex.org/namespace/1.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:psc="http://podlove.org/simple-chapters">
+            	<channel>
+            		<title><![CDATA[Sans détour : témoignages d'entrepreneurs]]></title>
+            		<description><![CDATA[Chaque mois, nous partons à la rencontre d'entrepreneuses et entrepreneurs de Suisse romande qui à un moment clé de leur parcours ont décidé de faire les choses autrement. Animé par les coachs en création d'entreprise de GENILEM, le podcast est un rendez-vous pour les personnes passionnées et curieuses d'entrepreneuriat.
+            
+            Podcast créé par GENILEM, avec le soutien de la Fondation pour l'innovation et la technologie (FIT)]]></description>
+            		<link>http://www.genilem.ch</link>
+            		<generator>Anchor Podcasts</generator>
+            		<lastBuildDate>Mon, 06 Jul 2026 07:56:07 GMT</lastBuildDate>
+            		<atom:link href="https://anchor.fm/s/f327f558/podcast/rss" rel="self" type="application/rss+xml"/>
+            		<author><![CDATA[GENILEM]]></author>
+            		<copyright><![CDATA[GENILEM]]></copyright>
+            		<language><![CDATA[fr-fr]]></language>
+            		<atom:link rel="hub" href="https://pubsubhubbub.appspot.com/"/>
+            		<itunes:author>GENILEM</itunes:author>
+            		<itunes:summary>Chaque mois, nous partons à la rencontre d&apos;entrepreneuses et entrepreneurs de Suisse romande qui à un moment clé de leur parcours ont décidé de faire les choses autrement. Animé par les coachs en création d&apos;entreprise de GENILEM, le podcast est un rendez-vous pour les personnes passionnées et curieuses d&apos;entrepreneuriat.
+            
+            Podcast créé par GENILEM, avec le soutien de la Fondation pour l&apos;innovation et la technologie (FIT)</itunes:summary>
+            		<itunes:type>episodic</itunes:type>
+            		<itunes:owner>
+            			<itunes:name>GENILEM</itunes:name>
+            			<itunes:email>communication@genilem.ch</itunes:email>
+            		</itunes:owner>
+            		<itunes:explicit>false</itunes:explicit>
+            		<itunes:category text="Business">
+            			<itunes:category text="Entrepreneurship"/>
+            		</itunes:category>
+            		<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            		<item>
+            			<title><![CDATA[# 62 - L'IA va transformer toutes les entreprises, êtes-vous prêt ? | Avec Elliot Vaucher (OGRAM)]]></title>
+            			<description><![CDATA[<p>L&#39;intelligence artificielle n&#39;est plus une technologie du futur : elle transforme déjà la manière de travailler des entreprises.</p><p>Dans cet épisode de Sans Détour, le podcast de GENILEM avec le soutien de la FIT, Cyril Déléaval reçoit Elliot Vaucher, cofondateur d&#39;OGRAM, pour une conversation sans filtre sur les opportunités, les limites et les bouleversements que l&#39;IA apporte aux entrepreneur·euses.</p><p>Au programme :</p><p>• Pourquoi un test de ChatGPT réalisé il y a six mois n&#39;est déjà plus pertinent.<br>• Comment l&#39;IA révolutionne le droit, la finance et de nombreux autres métiers.<br>• Les erreurs que commettent encore la majorité des PME.<br>• Ce qui différenciera les entreprises qui réussiront de celles qui prendront du retard.<br>• Les outils qu&#39;Elliot recommande aujourd&#39;hui et comment faire ses premiers pas.</p><p>Un épisode concret, accessible et rempli d&#39;exemples pour tous les dirigeant·es, entrepreneur·euses et curieux·euses qui veulent comprendre les véritables enjeux de l&#39;intelligence artificielle.</p><p>🎧 Bonne écoute !</p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/62---LIA-va-transformer-toutes-les-entreprises--tes-vous-prt----Avec-Elliot-Vaucher-OGRAM-e3la441</link>
+            			<guid isPermaLink="false">c19bca0b-19c2-459a-b1ce-7ce400b40c7a</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Fri, 26 Jun 2026 07:40:14 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/122015297/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-5-26%2F426861122-44100-2-6d9bd04088bb5.mp3" length="61284936" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;L&amp;#39;intelligence artificielle n&amp;#39;est plus une technologie du futur : elle transforme déjà la manière de travailler des entreprises.&lt;/p&gt;&lt;p&gt;Dans cet épisode de Sans Détour, le podcast de GENILEM avec le soutien de la FIT, Cyril Déléaval reçoit Elliot Vaucher, cofondateur d&amp;#39;OGRAM, pour une conversation sans filtre sur les opportunités, les limites et les bouleversements que l&amp;#39;IA apporte aux entrepreneur·euses.&lt;/p&gt;&lt;p&gt;Au programme :&lt;/p&gt;&lt;p&gt;• Pourquoi un test de ChatGPT réalisé il y a six mois n&amp;#39;est déjà plus pertinent.&lt;br&gt;• Comment l&amp;#39;IA révolutionne le droit, la finance et de nombreux autres métiers.&lt;br&gt;• Les erreurs que commettent encore la majorité des PME.&lt;br&gt;• Ce qui différenciera les entreprises qui réussiront de celles qui prendront du retard.&lt;br&gt;• Les outils qu&amp;#39;Elliot recommande aujourd&amp;#39;hui et comment faire ses premiers pas.&lt;/p&gt;&lt;p&gt;Un épisode concret, accessible et rempli d&amp;#39;exemples pour tous les dirigeant·es, entrepreneur·euses et curieux·euses qui veulent comprendre les véritables enjeux de l&amp;#39;intelligence artificielle.&lt;/p&gt;&lt;p&gt;🎧 Bonne écoute !&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>01:03:50</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#61 - Entreprendre autrement, sans sacrifier ses valeurs : Grégory Chollet, cofondateur de Loyco]]></title>
+            			<description><![CDATA[<p>Dans cet épisode de SANS DÉTOUR, le podcast de GENILEM avec le soutien de la FIT (Fondation pour l’Innovation et la Technologie), nous avons le plaisir d’accueillir Grégory Chollet. </p><p>Entrepreneur en série, cofondateur de Loyco, Guru et Natives, Grégory partage sans détour son parcours : ses débuts entrepreneuriaux, son passage chez Deloitte, la création de Loyco après une rupture avec son ancien employeur, mais aussi sa vision d’une entreprise capable de concilier performance économique, gouvernance innovante et impact sociétal. </p><p>Au fil de la discussion, nous parlons notamment de : </p><ul><li>Entrepreneuriat et prise de risque</li><li>Gouvernance partagée et &quot;Loycocratie&quot; </li><li>Culture d’entreprise et confiance • Innovation, échecs et apprentissages </li><li>Impact sociétal et modèle B Corp </li><li>Leadership et responsabilisation des équipes </li><li>Croissance d’une PME suisse romande</li></ul><p>Parmi les moments forts de l’épisode : </p><ul><li>La création de Loyco après une tentative de rachat avortée </li><li>Un commandement de payer plusieurs millions, reçu en pleine journée de ski </li><li>Pourquoi &quot;pour savoir faire, il faut faire&quot; </li><li>Les erreurs commises dans le développement de nouveaux projets </li><li>Les limites des bonus individuels et l’importance du collectif </li><li>La conviction que l’entreprise peut être un puissant levier de transformation de la société</li></ul><p>Un épisode qui questionne notre rapport au travail, à la gouvernance et à la création de valeur. </p><p>Bonne écoute !</p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/61---Entreprendre-autrement--sans-sacrifier-ses-valeurs--Grgory-Chollet--cofondateur-de-Loyco-e3k26pl</link>
+            			<guid isPermaLink="false">56f4f326-6888-48c4-84b1-226ef11eef68</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Fri, 29 May 2026 08:48:40 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/120707317/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-4-29%2F425113419-44100-2-d1362e437e884.mp3" length="72240482" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Dans cet épisode de SANS DÉTOUR, le podcast de GENILEM avec le soutien de la FIT (Fondation pour l’Innovation et la Technologie), nous avons le plaisir d’accueillir Grégory Chollet. &lt;/p&gt;&lt;p&gt;Entrepreneur en série, cofondateur de Loyco, Guru et Natives, Grégory partage sans détour son parcours : ses débuts entrepreneuriaux, son passage chez Deloitte, la création de Loyco après une rupture avec son ancien employeur, mais aussi sa vision d’une entreprise capable de concilier performance économique, gouvernance innovante et impact sociétal. &lt;/p&gt;&lt;p&gt;Au fil de la discussion, nous parlons notamment de : &lt;/p&gt;&lt;ul&gt;&lt;li&gt;Entrepreneuriat et prise de risque&lt;/li&gt;&lt;li&gt;Gouvernance partagée et &amp;quot;Loycocratie&amp;quot; &lt;/li&gt;&lt;li&gt;Culture d’entreprise et confiance • Innovation, échecs et apprentissages &lt;/li&gt;&lt;li&gt;Impact sociétal et modèle B Corp &lt;/li&gt;&lt;li&gt;Leadership et responsabilisation des équipes &lt;/li&gt;&lt;li&gt;Croissance d’une PME suisse romande&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Parmi les moments forts de l’épisode : &lt;/p&gt;&lt;ul&gt;&lt;li&gt;La création de Loyco après une tentative de rachat avortée &lt;/li&gt;&lt;li&gt;Un commandement de payer plusieurs millions, reçu en pleine journée de ski &lt;/li&gt;&lt;li&gt;Pourquoi &amp;quot;pour savoir faire, il faut faire&amp;quot; &lt;/li&gt;&lt;li&gt;Les erreurs commises dans le développement de nouveaux projets &lt;/li&gt;&lt;li&gt;Les limites des bonus individuels et l’importance du collectif &lt;/li&gt;&lt;li&gt;La conviction que l’entreprise peut être un puissant levier de transformation de la société&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Un épisode qui questionne notre rapport au travail, à la gouvernance et à la création de valeur. &lt;/p&gt;&lt;p&gt;Bonne écoute !&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>01:15:15</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>6</itunes:season>
+            			<itunes:episode>61</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#60 - De 0 à 12 dark kitchens… puis la crise : l’histoire de Vincent Ledoux, co-fondateur de CRRSP]]></title>
+            			<description><![CDATA[<p>Dans cet épisode de SANS DÉTOUR, nous recevons Vincent Ledoux, cofondateur de CRRSP.</p><p>On y parle de dark kitchens, de création de marque… et surtout de la réalité derrière une croissance rapide.</p><p>En quelques mois, la jeune entreprise lance un concept ultra rentable, rembourse son premier crédit en un temps record et ouvre jusqu’à 12 dark kitchens. </p><p>Puis tout bascule : marges sous pression, dépendance aux plateformes, changement de marché.</p><p>Vincent partage sans filtre :<br />– les coulisses du lancement<br />– les erreurs et les prises de conscience<br />– le pivot vers des restaurants physiques<br />– et ce que cela implique vraiment de scaler dans la food</p><p>Un échange concret et utile pour toutes celles et ceux qui entreprennent.</p><p>Excellente écoute !</p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/60---De-0--12-dark-kitchens-puis-la-crise--lhistoire-de-Vincent-Ledoux--co-fondateur-de-CRRSP-e3ijd4p</link>
+            			<guid isPermaLink="false">0bcaac2e-3a57-4880-bb29-61305a2dbcb6</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Thu, 30 Apr 2026 08:00:00 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/119173721/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-3-28%2F423043124-44100-2-f844e6055ddb.mp3" length="65453243" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Dans cet épisode de SANS DÉTOUR, nous recevons Vincent Ledoux, cofondateur de CRRSP.&lt;/p&gt;&lt;p&gt;On y parle de dark kitchens, de création de marque… et surtout de la réalité derrière une croissance rapide.&lt;/p&gt;&lt;p&gt;En quelques mois, la jeune entreprise lance un concept ultra rentable, rembourse son premier crédit en un temps record et ouvre jusqu’à 12 dark kitchens. &lt;/p&gt;&lt;p&gt;Puis tout bascule : marges sous pression, dépendance aux plateformes, changement de marché.&lt;/p&gt;&lt;p&gt;Vincent partage sans filtre :&lt;br /&gt;– les coulisses du lancement&lt;br /&gt;– les erreurs et les prises de conscience&lt;br /&gt;– le pivot vers des restaurants physiques&lt;br /&gt;– et ce que cela implique vraiment de scaler dans la food&lt;/p&gt;&lt;p&gt;Un échange concret et utile pour toutes celles et ceux qui entreprennent.&lt;/p&gt;&lt;p&gt;Excellente écoute !&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>true</itunes:explicit>
+            			<itunes:duration>01:08:10</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>5</itunes:season>
+            			<itunes:episode>60</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#59 - Créer une entreprise deeptech à impact, avec Nicolas Weber (VOLTIRIS)]]></title>
+            			<description><![CDATA[<p>“Votre truc ne marchera jamais.” C’est le premier retour que reçoit Nicolas Weber en présentant son idée à des maraîchers.</p><p>8 raisons. 0 filtre. Et pourtant… il continue.</p><p>Dans cet épisode de <em>Sans Détour</em>, nous recevons Nicolas Weber, cofondateur et CEO de Voltiris. Son objectif : produire de l’énergie solaire dans les serres sans impacter la croissance des plantes. Une idée simple sur le papier. Beaucoup moins dans la réalité.</p><p>Avant Voltiris, Nicolas passe par HEC Lausanne, puis par le Boston Consulting Group. Mais rapidement, il ressent une frustration : travailler sur des slides d’impact… sans impact concret. Il décide alors de basculer dans l’entrepreneuriat, avec une conviction : construire quelque chose de tangible, visible, mesurable.</p><p>Dans cet échange, on parle de :</p><ul><li>Transition de carrière : quitter le conseil pour entreprendre</li><li>Deeptech pragmatique : partir du besoin terrain, pas de la techno</li><li>Itération : transformer des feedbacks “violents” en avantage</li><li>Agrivoltaïsme : produire de l’énergie dans des serres high-tech</li><li>Business model : impact et rentabilité doivent aller ensemble</li></ul><p>Un point clé de l’épisode : Voltiris n’a pas développé une technologie pendant 4 ans en labo. Ils ont :</p><ul><li>parlé à leurs clients dès le début</li><li>testé rapidement un prototype</li><li>itéré en continu avec les maraîchers</li><li>construit une solution adaptée à leur réalité</li></ul><p>Aujourd’hui, Voltiris développe une solution unique : capter une partie de la lumière non utilisée par les plantes, la transformer en énergie tout en maintenant le rendement agricole. Une approche qui répond à un enjeu clé du secteur : réduire les coûts énergétiques et gagner en indépendance, sans compromettre la production.</p><p>Un épisode sans filtre, sur ce que veut vraiment dire : construire une startup deeptech, créer un impact réel et affronter le terrain. Il permet aussi de comprendre :</p><ul><li>comment transformer une idée en produit</li><li>comment travailler avec des clients exigeants</li><li>et pourquoi l’exécution bat toujours l’idée</li></ul><p>Bonne écoute !</p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/59---Crer-une-entreprise-deeptech--impact--avec-Nicolas-Weber-VOLTIRIS-e3hhtlu</link>
+            			<guid isPermaLink="false">42f7a125-804a-4c60-b681-151c7b84bc6f</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 07 Apr 2026 09:01:02 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/118076542/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-3-7%2F421566751-44100-2-3778240b53b89.mp3" length="56731270" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;“Votre truc ne marchera jamais.” C’est le premier retour que reçoit Nicolas Weber en présentant son idée à des maraîchers.&lt;/p&gt;&lt;p&gt;8 raisons. 0 filtre. Et pourtant… il continue.&lt;/p&gt;&lt;p&gt;Dans cet épisode de &lt;em&gt;Sans Détour&lt;/em&gt;, nous recevons Nicolas Weber, cofondateur et CEO de Voltiris. Son objectif : produire de l’énergie solaire dans les serres sans impacter la croissance des plantes. Une idée simple sur le papier. Beaucoup moins dans la réalité.&lt;/p&gt;&lt;p&gt;Avant Voltiris, Nicolas passe par HEC Lausanne, puis par le Boston Consulting Group. Mais rapidement, il ressent une frustration : travailler sur des slides d’impact… sans impact concret. Il décide alors de basculer dans l’entrepreneuriat, avec une conviction : construire quelque chose de tangible, visible, mesurable.&lt;/p&gt;&lt;p&gt;Dans cet échange, on parle de :&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Transition de carrière : quitter le conseil pour entreprendre&lt;/li&gt;&lt;li&gt;Deeptech pragmatique : partir du besoin terrain, pas de la techno&lt;/li&gt;&lt;li&gt;Itération : transformer des feedbacks “violents” en avantage&lt;/li&gt;&lt;li&gt;Agrivoltaïsme : produire de l’énergie dans des serres high-tech&lt;/li&gt;&lt;li&gt;Business model : impact et rentabilité doivent aller ensemble&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Un point clé de l’épisode : Voltiris n’a pas développé une technologie pendant 4 ans en labo. Ils ont :&lt;/p&gt;&lt;ul&gt;&lt;li&gt;parlé à leurs clients dès le début&lt;/li&gt;&lt;li&gt;testé rapidement un prototype&lt;/li&gt;&lt;li&gt;itéré en continu avec les maraîchers&lt;/li&gt;&lt;li&gt;construit une solution adaptée à leur réalité&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Aujourd’hui, Voltiris développe une solution unique : capter une partie de la lumière non utilisée par les plantes, la transformer en énergie tout en maintenant le rendement agricole. Une approche qui répond à un enjeu clé du secteur : réduire les coûts énergétiques et gagner en indépendance, sans compromettre la production.&lt;/p&gt;&lt;p&gt;Un épisode sans filtre, sur ce que veut vraiment dire : construire une startup deeptech, créer un impact réel et affronter le terrain. Il permet aussi de comprendre :&lt;/p&gt;&lt;ul&gt;&lt;li&gt;comment transformer une idée en produit&lt;/li&gt;&lt;li&gt;comment travailler avec des clients exigeants&lt;/li&gt;&lt;li&gt;et pourquoi l’exécution bat toujours l’idée&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Bonne écoute !&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:59:05</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:episode>59</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#58 - Des sommets de l’Himalaya à l’entrepreneuriat : le parcours hors normes de Christine Vogondy]]></title>
+            			<description><![CDATA[<p>Après une carrière dans l’immobilier, Christine Vogondy décidede changer radicalement de trajectoire. En 2021, elle gravit l’Everest. Une expérience qui agit comme un déclic.</p><p>Depuis, elle enchaîne les expéditions en très haute altitudeet réalise une performance exceptionnelle : 11 sommets de plus de 8000 mètres gravis en seulement quelques années, avec plusieurs records féminins.</p><p>En parallèle, elle se lance dans l’entrepreneuriat et fonde KEEPUSHING, un concept innovant de fitness et d’entraînement en hypoxie, inspiré de l’entraînement en altitude.</p><p>Dans cet épisode de Sans détour, il est question :</p><ul><li>de changement de vie</li><li>de gestion du risque en haute montagne</li><li>de préparation mentale</li><li>d’entrepreneuriat et de dépassement de soi</li></ul><p>Au moment de l’enregistrement, Christine se prépare àrepartir pour tenter les trois derniers sommets de plus de 8000 mètres qui manquent encore à son palmarès.</p><p>Un épisode inspirant sur la capacité à repousser ses limites— en montagne comme dans l’entrepreneuriat.</p><p>Bonne écoute ! </p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/58---Des-sommets-de-lHimalaya--lentrepreneuriat--le-parcours-hors-normes-de-Christine-Vogondy-e3g9cl0</link>
+            			<guid isPermaLink="false">a46b0476-2016-4f06-b96e-6a4771fe1552</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Wed, 11 Mar 2026 12:45:34 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/116748384/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-2-11%2F3f449800-215a-0575-4d98-2857bf7dd4a9.mp3" length="59537449" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Après une carrière dans l’immobilier, Christine Vogondy décidede changer radicalement de trajectoire. En 2021, elle gravit l’Everest. Une expérience qui agit comme un déclic.&lt;/p&gt;&lt;p&gt;Depuis, elle enchaîne les expéditions en très haute altitudeet réalise une performance exceptionnelle : 11 sommets de plus de 8000 mètres gravis en seulement quelques années, avec plusieurs records féminins.&lt;/p&gt;&lt;p&gt;En parallèle, elle se lance dans l’entrepreneuriat et fonde KEEPUSHING, un concept innovant de fitness et d’entraînement en hypoxie, inspiré de l’entraînement en altitude.&lt;/p&gt;&lt;p&gt;Dans cet épisode de Sans détour, il est question :&lt;/p&gt;&lt;ul&gt;&lt;li&gt;de changement de vie&lt;/li&gt;&lt;li&gt;de gestion du risque en haute montagne&lt;/li&gt;&lt;li&gt;de préparation mentale&lt;/li&gt;&lt;li&gt;d’entrepreneuriat et de dépassement de soi&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Au moment de l’enregistrement, Christine se prépare àrepartir pour tenter les trois derniers sommets de plus de 8000 mètres qui manquent encore à son palmarès.&lt;/p&gt;&lt;p&gt;Un épisode inspirant sur la capacité à repousser ses limites— en montagne comme dans l’entrepreneuriat.&lt;/p&gt;&lt;p&gt;Bonne écoute ! &lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>01:02:01</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1773233571418-cc0a0277090e3.jpg"/>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#57 - Numérique responsable et gouvernance transparente : le pari d’Amael Parreaux-Ey (Resilio)]]></title>
+            			<description><![CDATA[<p>Dans cet épisode de <em>Sans Détour</em>, Amael Parreaux-Ey, cofondateur de Resilio — spin-off de l’EPFL spécialisée dans l’évaluation environnementale du numérique — revient sur la construction d’une entreprise engagée et exigeante.</p><p>Parti d’une association étudiante qui recensait les ordinateurs de l’EPFL, Resilio compte aujourd’hui 25 collaborateurꞏrices, réalise 2 millions de chiffre d’affaires et accompagne des groupes tels que Swisscom, LVMH ou L’Occitane.</p><p>Au-delà de cette trajectoire, l’échange explore les choix structurants qui façonnent une entreprise durable :</p><ul><li>un modèle salarial intégralement transparent</li><li>une grille de rémunération construite collectivement</li><li>une logique de redistribution assumée</li><li>des cycles de vente longs face à de grands groupes</li><li>la remise en question de la croissance à tout prix</li><li>la signification concrète d’un positionnement “business first”</li></ul><p>L’épisode aborde également :</p><ul><li>la création à 11 cofondateurꞏrices et ses implications</li><li>les tensions liées à une gouvernance fondée sur la transparence</li><li>les différences d’approche entre convaincre un DSI et une responsable RSE</li><li>les limites de la performance individuelle comme modèle dominant</li><li>la posture d’un jeune dirigeant (21 ans) face à des décideurs expérimentés</li></ul><p>Un échange dense, transparent et opérationnel, pour celles et ceux qui souhaitent bâtir une entreprise robuste et cohérente, loin des effets d’image et des dynamiques de croissance artificielle.</p><p>🎧 À découvrir dans ce nouvel épisode de <em>Sans Détour</em>.</p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/57---Numrique-responsable-et-gouvernance-transparente--le-pari-dAmael-Parreaux-Ey-Resilio-e3f5ht2</link>
+            			<guid isPermaLink="false">12a92776-5cb3-42ee-8ff3-505499156073</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Mon, 16 Feb 2026 12:36:13 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/115574114/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-1-16%2F418199254-44100-2-b2136abbdb902.mp3" length="58757119" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Dans cet épisode de &lt;em&gt;Sans Détour&lt;/em&gt;, Amael Parreaux-Ey, cofondateur de Resilio — spin-off de l’EPFL spécialisée dans l’évaluation environnementale du numérique — revient sur la construction d’une entreprise engagée et exigeante.&lt;/p&gt;&lt;p&gt;Parti d’une association étudiante qui recensait les ordinateurs de l’EPFL, Resilio compte aujourd’hui 25 collaborateurꞏrices, réalise 2 millions de chiffre d’affaires et accompagne des groupes tels que Swisscom, LVMH ou L’Occitane.&lt;/p&gt;&lt;p&gt;Au-delà de cette trajectoire, l’échange explore les choix structurants qui façonnent une entreprise durable :&lt;/p&gt;&lt;ul&gt;&lt;li&gt;un modèle salarial intégralement transparent&lt;/li&gt;&lt;li&gt;une grille de rémunération construite collectivement&lt;/li&gt;&lt;li&gt;une logique de redistribution assumée&lt;/li&gt;&lt;li&gt;des cycles de vente longs face à de grands groupes&lt;/li&gt;&lt;li&gt;la remise en question de la croissance à tout prix&lt;/li&gt;&lt;li&gt;la signification concrète d’un positionnement “business first”&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;L’épisode aborde également :&lt;/p&gt;&lt;ul&gt;&lt;li&gt;la création à 11 cofondateurꞏrices et ses implications&lt;/li&gt;&lt;li&gt;les tensions liées à une gouvernance fondée sur la transparence&lt;/li&gt;&lt;li&gt;les différences d’approche entre convaincre un DSI et une responsable RSE&lt;/li&gt;&lt;li&gt;les limites de la performance individuelle comme modèle dominant&lt;/li&gt;&lt;li&gt;la posture d’un jeune dirigeant (21 ans) face à des décideurs expérimentés&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Un échange dense, transparent et opérationnel, pour celles et ceux qui souhaitent bâtir une entreprise robuste et cohérente, loin des effets d’image et des dynamiques de croissance artificielle.&lt;/p&gt;&lt;p&gt;🎧 À découvrir dans ce nouvel épisode de &lt;em&gt;Sans Détour&lt;/em&gt;.&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>01:01:12</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1771511631021-4b5f8a46918cf.jpg"/>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#56 - Scaler un e-commerce rentable : le parcours de Camille Lacroix (MakeMyMask)]]></title>
+            			<description><![CDATA[<p>Ancienne cadre en finance chez Revlon, <strong>Camille Lacroix</strong>, cofondatrice de <strong>MakeMyMask </strong>revient sans filtre sur son passage du corporate à l’entrepreneuriat, la rencontre avec son associée, et la construction méthodique d’un business <strong>en forte croissance… et rentable</strong>.</p><p>Dans cet épisode, on parle notamment de :</p><ul><li><p><strong>choix d’association</strong> et de fit professionnel</p></li><li><p><strong>finance, marges et rentabilité</strong> comme piliers de décision</p></li><li><p><strong>levée de fonds</strong> (friends, family &amp; business angels)</p></li><li><p><strong>scaling e-commerce</strong>, CAC, marketing paid et ROI</p></li><li><p>la tension permanente entre <strong>croissance et stabilité</strong></p></li><li><p>ce qu&#39;implique, concrètement, d’entreprendre avec exigence et lucidité</p></li></ul><p>Un échange dense, honnête et très opérationnel, pour celles et ceux qui veulent construire une entreprise <strong>solide, durable et ambitieuse</strong>, sans artifice. </p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/56---Scaler-un-e-commerce-rentable--le-parcours-de-Camille-Lacroix-MakeMyMask-e3e018j</link>
+            			<guid isPermaLink="false">36e632d4-c912-448f-9843-9a7c04bced2d</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Wed, 21 Jan 2026 16:28:19 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/114344659/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-0-21%2F416564367-44100-2-1b6c34640523f.mp3" length="65944345" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Ancienne cadre en finance chez Revlon, &lt;strong&gt;Camille Lacroix&lt;/strong&gt;, cofondatrice de &lt;strong&gt;MakeMyMask &lt;/strong&gt;revient sans filtre sur son passage du corporate à l’entrepreneuriat, la rencontre avec son associée, et la construction méthodique d’un business &lt;strong&gt;en forte croissance… et rentable&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;Dans cet épisode, on parle notamment de :&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;&lt;strong&gt;choix d’association&lt;/strong&gt; et de fit professionnel&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;strong&gt;finance, marges et rentabilité&lt;/strong&gt; comme piliers de décision&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;strong&gt;levée de fonds&lt;/strong&gt; (friends, family &amp;amp; business angels)&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;strong&gt;scaling e-commerce&lt;/strong&gt;, CAC, marketing paid et ROI&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;la tension permanente entre &lt;strong&gt;croissance et stabilité&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;ce qu&amp;#39;implique, concrètement, d’entreprendre avec exigence et lucidité&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Un échange dense, honnête et très opérationnel, pour celles et ceux qui veulent construire une entreprise &lt;strong&gt;solide, durable et ambitieuse&lt;/strong&gt;, sans artifice. &lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>01:08:41</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:episode>56</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#55 - Construire sa liberté, une étape après l'autre avec Janice Kerschbaumer]]></title>
+            			<description><![CDATA[<p>Partie de zéro – sans réseau, sans capital, ni modèle entrepreneurial dans sa famille – Janice Kerschbaumer a bâti en quelques années une entreprise florissante d’éducation financière et d’accompagnement à l’entrepreneuriat.</p><p><br /></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/55---Construire-sa-libert--une-tape-aprs-lautre-avec-Janice-Kerschbaumer-e3ce404</link>
+            			<guid isPermaLink="false">aeccfbcd-fae3-4421-b0b6-ab0cd607dd6d</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Wed, 17 Dec 2025 05:12:07 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/112709060/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-11-16%2F414485897-44100-2-afaf1227c2ea6.mp3" length="60782131" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Partie de zéro – sans réseau, sans capital, ni modèle entrepreneurial dans sa famille – Janice Kerschbaumer a bâti en quelques années une entreprise florissante d’éducation financière et d’accompagnement à l’entrepreneuriat.&lt;/p&gt;&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>01:03:18</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>5</itunes:season>
+            			<itunes:episode>55</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#54 - Mieux financer l'innovation avec Nelson Dumas]]></title>
+            			<description><![CDATA[<p>Il se définit comme investisseur-entrepreneur et le monde du financement des startups n&#39;a plus de secret pour lui. </p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/54---Mieux-financer-linnovation-avec-Nelson-Dumas-e3bej59</link>
+            			<guid isPermaLink="false">9ff887b3-5a29-4832-871b-957f8ee578a7</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 25 Nov 2025 09:28:04 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/111676009/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-10-25%2F413125451-44100-2-cf508c4d4dc6.mp3" length="62444772" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Il se définit comme investisseur-entrepreneur et le monde du financement des startups n&amp;#39;a plus de secret pour lui. &lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>01:05:02</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>5</itunes:season>
+            			<itunes:episode>54</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#53 - Raconter une histoire forte avec sa marque avec Lucia Rochat]]></title>
+            			<description><![CDATA[<p>Lucia Rochat ne s’attendait pas à créer une marque de savons bio. Et pourtant, c’est souhaitant contribuer à la préservation des océans qu’elle emprunte le chemin de l’entrepreneuriat et fonde The Soap and the Sea. </p><p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/53---Raconter-une-histoire-forte-avec-sa-marque-avec-Lucia-Rochat-e3a8gml</link>
+            			<guid isPermaLink="false">6a9138d4-f91f-4b8f-9a18-e67dbb3cbff5</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Thu, 30 Oct 2025 09:00:14 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/110428309/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-9-30%2F410254523-44100-2-6d14cbcf7df79.mp3" length="56070895" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Lucia Rochat ne s’attendait pas à créer une marque de savons bio. Et pourtant, c’est souhaitant contribuer à la préservation des océans qu’elle emprunte le chemin de l’entrepreneuriat et fonde The Soap and the Sea. &lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:58:24</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>5</itunes:season>
+            			<itunes:episode>53</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#52 - Construire une entreprise suisse solide et utile avec Arthur Germain]]></title>
+            			<description><![CDATA[<p>Créer une solution utile et pensée pour durer. C’est ce qui guide Arthur Germain depuis le lancement de OneDoc, la plateforme suisse pour la prise de rendez-vous médicaux en ligne.</p><p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/52---Construire-une-entreprise-suisse-solide-et-utile-avec-Arthur-Germain-e38cpvb</link>
+            			<guid isPermaLink="false">4be97bb1-4e8b-43b0-b9fa-66a2a5347a1a</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Thu, 18 Sep 2025 07:49:00 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/108471723/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-8-18%2Fc094e36b-c611-4aab-d237-92543126207b.mp3" length="56077165" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Créer une solution utile et pensée pour durer. C’est ce qui guide Arthur Germain depuis le lancement de OneDoc, la plateforme suisse pour la prise de rendez-vous médicaux en ligne.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:58:24</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>5</itunes:season>
+            			<itunes:episode>52</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#51 - Rebondir, pivoter, réussir, avec Guillaume Granelli]]></title>
+            			<description><![CDATA[<p>Au départ, Guillaume Granelli lance un projet de vidéos d’initiativessociales en Amérique du Sud, avec quatre associés. Il ne s’imaginait pas, àl’époque, créer une startup B2B, lever des fonds, fusionner… puis se faireracheter par un géant nord-américain. Et pourtant !</p><p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/51---Rebondir--pivoter--russir--avec-Guillaume-Granelli-e37bqi5</link>
+            			<guid isPermaLink="false">37537c7e-064b-4541-9747-5a7e99a9b700</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 26 Aug 2025 18:37:49 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/107390981/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-7-26%2F406337287-44100-2-dbb89a6ff5a62.m4a" length="82531405" type="audio/x-m4a"/>
+            			<itunes:summary>&lt;p&gt;Au départ, Guillaume Granelli lance un projet de vidéos d’initiativessociales en Amérique du Sud, avec quatre associés. Il ne s’imaginait pas, àl’époque, créer une startup B2B, lever des fonds, fusionner… puis se faireracheter par un géant nord-américain. Et pourtant !&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>01:25:03</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>5</itunes:season>
+            			<itunes:episode>51</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#50 - Écouter pour innover juste, avec Yannick Bloem]]></title>
+            			<description><![CDATA[<p>Créer un produit vraiment utile, qui améliore le quotidien de milliers de personnes : voilà ce qui guide Yannick Bloem. </p><p>Sa méthode : écouter chaque semaine ses utilisateur·rices, ajuster la roadmap produit en fonction de leurs besoins, rester agile tout en posant les bases d’une croissance internationale solide.</p><p>Dans cet épisode de Sans détour, le cofondateur de CoVet, une startup en pleine croissance, partage son parcours de passionné de code, devenu entrepreneur à San Francisco.</p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/50---couter-pour-innover-juste--avec-Yannick-Bloem-e35s1ju</link>
+            			<guid isPermaLink="false">1c57123b-4283-49f8-aac7-9f0774532388</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 22 Jul 2025 06:59:02 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/105825342/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-6-22%2F404327501-44100-2-e4b578c07146e.m4a" length="58088277" type="audio/x-m4a"/>
+            			<itunes:summary>&lt;p&gt;Créer un produit vraiment utile, qui améliore le quotidien de milliers de personnes : voilà ce qui guide Yannick Bloem. &lt;/p&gt;&lt;p&gt;Sa méthode : écouter chaque semaine ses utilisateur·rices, ajuster la roadmap produit en fonction de leurs besoins, rester agile tout en posant les bases d’une croissance internationale solide.&lt;/p&gt;&lt;p&gt;Dans cet épisode de Sans détour, le cofondateur de CoVet, une startup en pleine croissance, partage son parcours de passionné de code, devenu entrepreneur à San Francisco.&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:59:51</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>5</itunes:season>
+            			<itunes:episode>50</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#49 - De la recherche à une entreprise à impact]]></title>
+            			<description><![CDATA[<p>Quitter la recherche pour résoudre un vrai problème de société : c’est le défi relevé par Samantha Anderson. Chimiste de formation, passionnée de science depuis l’enfance, elle cofonde DePoly avec Christopher Ireland et Bardiya Valizadeh. Leur ambition ? Repenser le recyclage du plastique PET grâce à la chimie.Dans cet épisode de Sans détour, Samantha revient sur les débuts du projet, le passage du laboratoire à l’industrie, et les défis liés à une croissance rapide. </p><p><br></p><p>Cet épisode est en anglais</p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/49---De-la-recherche--une-entreprise--impact-e34c074</link>
+            			<guid isPermaLink="false">c8d1f393-ad26-420b-a269-0fd38443cfc8</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 17 Jun 2025 08:38:22 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/104251044/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-5-17%2F402313069-44100-2-e890d1c125718.m4a" length="44223285" type="audio/x-m4a"/>
+            			<itunes:summary>&lt;p&gt;Quitter la recherche pour résoudre un vrai problème de société : c’est le défi relevé par Samantha Anderson. Chimiste de formation, passionnée de science depuis l’enfance, elle cofonde DePoly avec Christopher Ireland et Bardiya Valizadeh. Leur ambition ? Repenser le recyclage du plastique PET grâce à la chimie.Dans cet épisode de Sans détour, Samantha revient sur les débuts du projet, le passage du laboratoire à l’industrie, et les défis liés à une croissance rapide. &lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Cet épisode est en anglais&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:45:34</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#48 - Être artiste et entrepreneur, avec Saype]]></title>
+            			<description><![CDATA[<p>L'artiste Saype s’est fait connaître dans le monde entier avec ses fresques géantes réalisées avec une peinture éco-responsable. Mais derrière ces œuvres spectaculaires se cache une démarche bien plus profonde, entre engagement écologique, exigence technique et vision entrepreneuriale affirmée. </p><p>Un échange sincère et stimulant avec un artiste qui prouvequ’on peut conjuguer création, impact et business. À écouter sans hésiter !</p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/48---tre-artiste-et-entrepreneur--avec-Saype-e331g69</link>
+            			<guid isPermaLink="false">b26818cf-96cc-4ae8-b866-cd0d8f8b20d5</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Mon, 19 May 2025 10:00:00 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/102858377/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-4-19%2F400547442-44100-2-5b7dcf833a8fd.m4a" length="69656531" type="audio/x-m4a"/>
+            			<itunes:summary>&lt;p&gt;L&apos;artiste Saype s’est fait connaître dans le monde entier avec ses fresques géantes réalisées avec une peinture éco-responsable. Mais derrière ces œuvres spectaculaires se cache une démarche bien plus profonde, entre engagement écologique, exigence technique et vision entrepreneuriale affirmée. &lt;/p&gt;&lt;p&gt;Un échange sincère et stimulant avec un artiste qui prouvequ’on peut conjuguer création, impact et business. À écouter sans hésiter !&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>01:11:47</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>5</itunes:season>
+            			<itunes:episode>48</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#47 - Suivre sa propre voie, avec Lara Gervaise]]></title>
+            			<description><![CDATA[<p>Curieuse, passionnée de neurosciences et anciennesportive de haut niveau, Lara Gervaise a toujours su suivre son propre rythme.Dans cet épisode de Sans détour, elle revient sur son parcours riche d'enseignements. De ses premiers projets à l’EPFL à Virtuosis, la startup qu’elle a créée avec Edoardo Giudice, qui analyse les biomarqueurs vocaux dans le but de détecter les maladies et améliorer le bien-être au travail.</p><p>Bonne écoute !</p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/47---Suivre-sa-propre-voie--avec-Lara-Gervaise-e31r7mg</link>
+            			<guid isPermaLink="false">53d2d5a2-8b0e-4891-bdf8-3d5ac1624677</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 22 Apr 2025 07:01:39 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/101604496/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-3-22%2F398798115-44100-2-74427e3cc77f7.mp3" length="61348048" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Curieuse, passionnée de neurosciences et anciennesportive de haut niveau, Lara Gervaise a toujours su suivre son propre rythme.Dans cet épisode de Sans détour, elle revient sur son parcours riche d&apos;enseignements. De ses premiers projets à l’EPFL à Virtuosis, la startup qu’elle a créée avec Edoardo Giudice, qui analyse les biomarqueurs vocaux dans le but de détecter les maladies et améliorer le bien-être au travail.&lt;/p&gt;&lt;p&gt;Bonne écoute !&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>01:03:54</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>5</itunes:season>
+            			<itunes:episode>47</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#46 - Du test à la vision, avec Valentin Gönczy]]></title>
+            			<description><![CDATA[<p>Apprendre en faisant, expérimenter sans attendre laperfection, s&#39;entourer des bonnes personnes, avoir une vision d’entreprise forte. Voilà les clés du succès selon Valentin Gönczy. </p><p>Il raconte son parcours, de sa première startup lancée depuis les bancs de l&#39;université à la création de Cloover, une entreprise qui révolutionne l&#39;accès aux énergies renouvelables. </p><p>Un épisode inspirant qui souligne que le succès repose souvent sur le courage d’agir, de bonnes rencontres et une vision forte. </p><p></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/46---Du-test--la-vision--avec-Valentin-Gnczy-e30kn51</link>
+            			<guid isPermaLink="false">a2266eb1-c6e4-4473-8c60-ad07a900a57d</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 25 Mar 2025 09:13:08 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/100342369/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-25%2F397191285-44100-2-d0c91bd802c9.m4a" length="50781188" type="audio/x-m4a"/>
+            			<itunes:summary>&lt;p&gt;Apprendre en faisant, expérimenter sans attendre laperfection, s&amp;#39;entourer des bonnes personnes, avoir une vision d’entreprise forte. Voilà les clés du succès selon Valentin Gönczy. &lt;/p&gt;&lt;p&gt;Il raconte son parcours, de sa première startup lancée depuis les bancs de l&amp;#39;université à la création de Cloover, une entreprise qui révolutionne l&amp;#39;accès aux énergies renouvelables. &lt;/p&gt;&lt;p&gt;Un épisode inspirant qui souligne que le succès repose souvent sur le courage d’agir, de bonnes rencontres et une vision forte. &lt;/p&gt;&lt;p&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:52:19</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>5</itunes:season>
+            			<itunes:episode>46</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#45 - Réinventer son entreprise 20 ans après, avec Mélanie et Soizic Romero]]></title>
+            			<description><![CDATA[<p>Mélanie et Soizic Romero, fondatrices du Royaume MELAZIC, reviennent sur leur parcours atypique, des premiers sacs cousus dans la cave familiale aux concepts stores ouverts à Lausanne et à Genève, jusqu’à leur décision de fermer ces derniers.</p><p>Les deux entrepreneuses racontent sans filtre leur apprentissage de la résilience, l’adaptation de leur modèle économique, l’importance de rester proches de leur communauté, et leur volonté inébranlable d'être créatives avant tout.</p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/45---Rinventer-son-entreprise-20-ans-aprs--avec-Mlanie-et-Soizic-Romero-e2v4jsl</link>
+            			<guid isPermaLink="false">4ae70e2d-c9d2-40bd-aa83-8eb2ea4389e5</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Thu, 20 Feb 2025 09:31:29 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/98766165/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-1-20%2F395212039-44100-2-710ad8a75c0c8.m4a" length="71689550" type="audio/x-m4a"/>
+            			<itunes:summary>&lt;p&gt;Mélanie et Soizic Romero, fondatrices du Royaume MELAZIC, reviennent sur leur parcours atypique, des premiers sacs cousus dans la cave familiale aux concepts stores ouverts à Lausanne et à Genève, jusqu’à leur décision de fermer ces derniers.&lt;/p&gt;&lt;p&gt;Les deux entrepreneuses racontent sans filtre leur apprentissage de la résilience, l’adaptation de leur modèle économique, l’importance de rester proches de leur communauté, et leur volonté inébranlable d&apos;être créatives avant tout.&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>01:13:52</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>5</itunes:season>
+            			<itunes:episode>45</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#44 - L'application suisse qui a transformé la pratique instrumentale avec Alexis Steinmann ]]></title>
+            			<description><![CDATA[<p>Alexis Steinmann, cofondateur de Tomplay, nous invite dans les coulisses de son aventure entrepreneuriale alliant technologie, amour de la musique et vision globale.</p>
+            <p>
+            
+            
+            
+            
+            </p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/44---Lapplication-suisse-qui-a-transform-la-pratique-instrumentale-avec-Alexis-Steinmann-e2tp83a</link>
+            			<guid isPermaLink="false">c286dea5-8655-4a7a-bb3b-1fb4eda0b4bc</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 21 Jan 2025 08:16:40 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/97345066/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-0-21%2F393440153-44100-2-62b5851b25b0a.m4a" length="53706799" type="audio/x-m4a"/>
+            			<itunes:summary>&lt;p&gt;Alexis Steinmann, cofondateur de Tomplay, nous invite dans les coulisses de son aventure entrepreneuriale alliant technologie, amour de la musique et vision globale.&lt;/p&gt;
+            &lt;p&gt;
+            
+            
+            
+            
+            &lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:55:20</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>5</itunes:season>
+            			<itunes:episode>44</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#43 - Réinventer le luxe suisse avec Nicolas Freudiger]]></title>
+            			<description><![CDATA[<p>Nicolas Freudiger est co-fondateur de ID Genève, la première marque horlogère suisse de luxe et circulaire</p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/43---Rinventer-le-luxe-suisse-avec-Nicolas-Freudiger-e2ssnpo</link>
+            			<guid isPermaLink="false">4ab48ba7-fae2-4523-a423-b38f0b6aa3d8</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Mon, 30 Dec 2024 14:34:00 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/96410872/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-11-30%2F392281842-44100-2-890721a2fc323.m4a" length="62244237" type="audio/x-m4a"/>
+            			<itunes:summary>&lt;p&gt;Nicolas Freudiger est co-fondateur de ID Genève, la première marque horlogère suisse de luxe et circulaire&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>01:04:08</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>4</itunes:season>
+            			<itunes:episode>43</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#42 - L'intrapreneuriat au service de l'innovation médiatique avec Loïs Siggen-Lopez]]></title>
+            			<description><![CDATA[<p>Créateur et présentateur de l’émission économique BasiK, Loïs raconte son parcours intrapreneurial au sein de la RTS.
+            
+            </p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/42---Lintrapreneuriat-au-service-de-linnovation-mdiatique-avec-Los-Siggen-Lopez-e2se5ge</link>
+            			<guid isPermaLink="false">276fbfb6-fe4d-44b9-ac38-466c8dc83166</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 17 Dec 2024 09:27:50 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/95933390/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-11-17%2F391685413-44100-2-3d947021e0368.m4a" length="41029947" type="audio/x-m4a"/>
+            			<itunes:summary>&lt;p&gt;Créateur et présentateur de l’émission économique BasiK, Loïs raconte son parcours intrapreneurial au sein de la RTS.
+            
+            &lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:42:16</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>4</itunes:season>
+            			<itunes:episode>42</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#41 - Démocratiser l'accès au Private Equity avec Frédéric Stolar]]></title>
+            			<description><![CDATA[<p>Frédéric Stolar, fondateur d’Altaroc, nous partage sa vision du Private Equity accessible à tous.
+            
+            </p>
+            <p><br /></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/41---Dmocratiser-laccs-au-Private-Equity-avec-Frdric-Stolar-e2r8k8t</link>
+            			<guid isPermaLink="false">2d51a4f0-500f-4217-bf60-2ae68214d553</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Wed, 20 Nov 2024 15:10:49 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/94703325/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-10-20%2F390160319-44100-2-7d4b709b3bce1.m4a" length="48227940" type="audio/x-m4a"/>
+            			<itunes:summary>&lt;p&gt;Frédéric Stolar, fondateur d’Altaroc, nous partage sa vision du Private Equity accessible à tous.
+            
+            &lt;/p&gt;
+            &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:49:42</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>4</itunes:season>
+            			<itunes:episode>41</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#40 - Comprendre les attentes des investisseurs avec Adam Said]]></title>
+            			<description><![CDATA[<p>Adam Said, co-fondateur de ACE&amp;Company, nous partage ses meilleurs conseils pour tous les entrepreneurs qui cherchent à lever des fonds.
+            
+            
+            
+            
+            
+            </p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/40---Comprendre-les-attentes-des-investisseurs-avec-Adam-Said-e2q1e70</link>
+            			<guid isPermaLink="false">c03746f3-8c22-466a-8440-2f916bd716b0</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Wed, 23 Oct 2024 08:31:12 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/93419168/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-9-23%2F388569211-44100-2-d0d033afc797e.m4a" length="50822399" type="audio/x-m4a"/>
+            			<itunes:summary>&lt;p&gt;Adam Said, co-fondateur de ACE&amp;amp;Company, nous partage ses meilleurs conseils pour tous les entrepreneurs qui cherchent à lever des fonds.
+            
+            
+            
+            
+            
+            &lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:52:22</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>4</itunes:season>
+            			<itunes:episode>40</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#39 - La révolution de la vente à domicile avec Élise Hernaez]]></title>
+            			<description><![CDATA[<p>Issue d&#39;une famille d&#39;apiculteurs, Élise a transformé sa passion pour les abeilles en une entreprise florissante
+            
+            </p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/39---La-rvolution-de-la-vente--domicile-avec-lise-Hernaez-e2ord0b</link>
+            			<guid isPermaLink="false">c5338c3a-bd48-4ae6-8048-934ec7cbc1e0</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Wed, 25 Sep 2024 07:22:39 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/92172747/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-8-25%2F387021328-44100-2-4d051158dd362.m4a" length="37151536" type="audio/x-m4a"/>
+            			<itunes:summary>&lt;p&gt;Issue d&amp;#39;une famille d&amp;#39;apiculteurs, Élise a transformé sa passion pour les abeilles en une entreprise florissante
+            
+            &lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:38:17</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>4</itunes:season>
+            			<itunes:episode>39</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#38 - Levée de fonds et acquisition avec Dorian de Vinck]]></title>
+            			<description><![CDATA[<p>Co-fondateur et CEO de Backbone, une solution pour produire et créer des visuels immobiliers, Dorian de Vinck nous parle de levée de fonds et de croissance par acquisitions. 
+            
+            </p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/38---Leve-de-fonds-et-acquisition-avec-Dorian-de-Vinck-e2nn1md</link>
+            			<guid isPermaLink="false">21899d70-29dc-4e81-877b-348b8d927132</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Wed, 28 Aug 2024 09:19:49 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/90981517/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-7-28%2F385441949-44100-2-a5909d2f62483.m4a" length="44573375" type="audio/x-m4a"/>
+            			<itunes:summary>&lt;p&gt;Co-fondateur et CEO de Backbone, une solution pour produire et créer des visuels immobiliers, Dorian de Vinck nous parle de levée de fonds et de croissance par acquisitions. 
+            
+            &lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:45:56</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>4</itunes:season>
+            			<itunes:episode>38</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#37 - Créer sa startup tech et à impact en sortant de l'EHL avec Anastasia Hofmann]]></title>
+            			<description><![CDATA[<p>La co-fondatrice de Kitro, la startup suisse qui aide les acteurs de la restauration à diminuer leurs déchets alimentaires, raconte l&#39;histoire de son entreprise.</p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/37---Crer-sa-startup-tech-et--impact-en-sortant-de-lEHL-avec-Anastasia-Hofmann-e2mag0m</link>
+            			<guid isPermaLink="false">25049e3d-0da3-4ea3-80b8-3923b399952f</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Mon, 22 Jul 2024 14:13:45 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/89521622/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-6-22%2F383635408-44100-2-69e9340e24be5.m4a" length="27567497" type="audio/x-m4a"/>
+            			<itunes:summary>&lt;p&gt;La co-fondatrice de Kitro, la startup suisse qui aide les acteurs de la restauration à diminuer leurs déchets alimentaires, raconte l&amp;#39;histoire de son entreprise.&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:28:24</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>4</itunes:season>
+            			<itunes:episode>37</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#36 - En quête de liberté avec Joël Dicker]]></title>
+            			<description><![CDATA[<p>L&#39;écrivain genevois mondialement connu a ouvert sa propre maison d&#39;édition, Rosie &amp; Wolfe, et apprend un tout nouveau métier, celui de directeur d&#39;une jeune entreprise.
+            
+            </p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/36---En-qute-de-libert-avec-Jol-Dicker-e2l8gki</link>
+            			<guid isPermaLink="false">86dd2c8b-e903-48a6-88ca-69072c09fe00</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 25 Jun 2024 05:30:00 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/88408146/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-5-24%2F381537765-44100-2-d06e24b689c8b.m4a" length="67270583" type="audio/x-m4a"/>
+            			<itunes:summary>&lt;p&gt;L&amp;#39;écrivain genevois mondialement connu a ouvert sa propre maison d&amp;#39;édition, Rosie &amp;amp; Wolfe, et apprend un tout nouveau métier, celui de directeur d&amp;#39;une jeune entreprise.
+            
+            &lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>01:09:19</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>4</itunes:season>
+            			<itunes:episode>36</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#35 - D'un projet académique à une entreprise florissante avec Aude Ambrosini et Tim Coutherez]]></title>
+            			<description><![CDATA[<p>
+            Lancer sa boîte tout en étant employé à côté c’est possible. Tim, Aude et Luca, les co-fondateurs de klode° en sont la preuve.
+            
+            </p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/35---Dun-projet-acadmique--une-entreprise-florissante-avec-Aude-Ambrosini-et-Tim-Coutherez-e2jvbk2</link>
+            			<guid isPermaLink="false">6d33a581-7381-48d8-8409-8addae061feb</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Wed, 22 May 2024 06:35:29 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/87059522/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-4-22%2F378390908-44100-2-1b4e19185cb09.m4a" length="37150956" type="audio/x-m4a"/>
+            			<itunes:summary>&lt;p&gt;
+            Lancer sa boîte tout en étant employé à côté c’est possible. Tim, Aude et Luca, les co-fondateurs de klode° en sont la preuve.
+            
+            &lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:38:17</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>4</itunes:season>
+            			<itunes:episode>35</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#34 - Il a fait de l'IA son métier avec Matthieu Corthésy]]></title>
+            			<description><![CDATA[<p>Ses vidéos son virales sur TikTok, Matthieu aide les entreprises à comprendre et intégrer l&#39;IA dans leur quotidien.</p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/34---Il-a-fait-de-lIA-son-mtier-avec-Matthieu-Corthsy-e2iolfg</link>
+            			<guid isPermaLink="false">0048b887-25ad-4c80-930d-8d950e2d4190</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 23 Apr 2024 09:25:05 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/85791664/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-3-23%2F375275464-44100-2-7c731bd5ed03c.m4a" length="40124279" type="audio/x-m4a"/>
+            			<itunes:summary>&lt;p&gt;Ses vidéos son virales sur TikTok, Matthieu aide les entreprises à comprendre et intégrer l&amp;#39;IA dans leur quotidien.&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:41:20</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>4</itunes:season>
+            			<itunes:episode>37</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#33 - Parcours iconique d'un startupper avec Guillaume Catry]]></title>
+            			<description><![CDATA[<p>Il ne se destinait certainement pas à diriger l&#39;une des startups les plus innovantes au monde dans le domaine du drone lorsqu&#39;il démarre son apprentissage en mécanicien automobiles. Rencontre avec Guillaume Catry, CEO de <a href="https://windshape.com/" target="_blank" rel="noreferrer noopener">Windshape</a>. On parle scolarité, levée de fonds, leadership et ingénierie.
+            
+            </p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/33---Parcours-iconique-dun-startupper-avec-Guillaume-Catry-e2halpi</link>
+            			<guid isPermaLink="false">03e2e77c-f88e-44b7-ba91-e5a383a7c8d2</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Wed, 20 Mar 2024 08:34:04 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/84284658/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-20%2F371556412-44100-2-298074177ad1f.m4a" length="48668101" type="audio/x-m4a"/>
+            			<itunes:summary>&lt;p&gt;Il ne se destinait certainement pas à diriger l&amp;#39;une des startups les plus innovantes au monde dans le domaine du drone lorsqu&amp;#39;il démarre son apprentissage en mécanicien automobiles. Rencontre avec Guillaume Catry, CEO de &lt;a href=&quot;https://windshape.com/&quot; target=&quot;_blank&quot; rel=&quot;noreferrer noopener&quot;&gt;Windshape&lt;/a&gt;. On parle scolarité, levée de fonds, leadership et ingénierie.
+            
+            &lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:50:09</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/40694822/40694822-1737381048669-8f49da40802e4.jpg"/>
+            			<itunes:season>4</itunes:season>
+            			<itunes:episode>33</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[# 32 -De citoyen activiste à entrepreneur digital avec Paul-Olivier Dehaye]]></title>
+            			<description><![CDATA[<p>Le fondateur de l’entreprise hestia.ai développe Argo, une solution d’intelligence artificielle souveraine et collaborative offrant la maîtrise de ses données personnelles.
+            </p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/32--De-citoyen-activiste--entrepreneur-digital-avec-Paul-Olivier-Dehaye-e2glp79</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1753663236</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Wed, 21 Feb 2024 09:11:28 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600041/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369804974-44100-2-9d6d1c633a4555c6.mp3" length="41427277" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Le fondateur de l’entreprise hestia.ai développe Argo, une solution d’intelligence artificielle souveraine et collaborative offrant la maîtrise de ses données personnelles.
+            &lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:43:09</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710408230969-7ac836fc604a8.jpg"/>
+            			<itunes:season>4</itunes:season>
+            			<itunes:episode>32</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#31 - À la recherche de l'exceptionnel avec Stanislas Gruau]]></title>
+            			<description><![CDATA[<p>Le co-fondateur d&#39;Explora Project, la première agence de voyage bas carbone, nous parle de changement de vie, de levée de fonds, d&#39;impact et de dépassement de soi.
+            
+            </p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/31----la-recherche-de-lexceptionnel-avec-Stanislas-Gruau-e2glp92</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1693350078</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Mon, 18 Dec 2023 14:10:37 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600098/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805039-44100-2-0d333b38cac7f1f8.mp3" length="70105128" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Le co-fondateur d&amp;#39;Explora Project, la première agence de voyage bas carbone, nous parle de changement de vie, de levée de fonds, d&amp;#39;impact et de dépassement de soi.
+            
+            &lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>01:13:01</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710408264351-5ed4fb44e8bd5.jpg"/>
+            			<itunes:season>3</itunes:season>
+            			<itunes:episode>31</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#30 - Se confronter à ses peurs avec Alisée de Tonnac]]></title>
+            			<description><![CDATA[<p>La co-fondatrice de Seedstars, la compétition internationale pour les projets à impact, nous parle de mission, d&#39;incubateur, d&#39;investissement et de maternité.<br>
+            
+            </p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/30---Se-confronter--ses-peurs-avec-Alise-de-Tonnac-e2glp8f</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1676608128</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 28 Nov 2023 13:46:25 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600079/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805037-44100-2-403f54c710a4c109.mp3" length="33488142" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;La co-fondatrice de Seedstars, la compétition internationale pour les projets à impact, nous parle de mission, d&amp;#39;incubateur, d&amp;#39;investissement et de maternité.&lt;br&gt;
+            
+            &lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:34:52</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710408286644-c661be84b102d.jpg"/>
+            			<itunes:season>3</itunes:season>
+            			<itunes:episode>31</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[ #29 - Créer une marque pour avoir de l'impact avec Anna Bory]]></title>
+            			<description><![CDATA[<p>La fondatrice de Miloo, la marque de vélos électriques genevoise, nous parle de construction de marque, de positionnement de prix, de réseau de distribution et d&#39;innovation.
+            
+            </p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/29---Crer-une-marque-pour-avoir-de-limpact-avec-Anna-Bory-e2glp7g</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1652408298</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Mon, 30 Oct 2023 09:08:06 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600048/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369804980-44100-2-4445c015a8c82683.mp3" length="38741471" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;La fondatrice de Miloo, la marque de vélos électriques genevoise, nous parle de construction de marque, de positionnement de prix, de réseau de distribution et d&amp;#39;innovation.
+            
+            &lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:40:21</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710408368863-cb3cc34ba8899.jpg"/>
+            			<itunes:season>3</itunes:season>
+            			<itunes:episode>29</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#28 - De l'importance d'écouter son marché avec Dr Margaux Duchamp]]></title>
+            			<description><![CDATA[<p>La co-fondatrice d&#39;Arcroscreen et de sa technologie intéresse des grandes entreprises médicales nous parle de politique de prix, de financement, d&#39;industrialisation et de traction de marché.
+            
+            </p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/28---De-limportance-dcouter-son-march-avec-Dr-Margaux-Duchamp-e2glp77</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1620013011</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 19 Sep 2023 12:39:57 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600039/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369804972-44100-2-313852af3abc402a.mp3" length="33147923" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;La co-fondatrice d&amp;#39;Arcroscreen et de sa technologie intéresse des grandes entreprises médicales nous parle de politique de prix, de financement, d&amp;#39;industrialisation et de traction de marché.
+            
+            &lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:34:31</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710408451990-2ec879a96eab7.jpg"/>
+            			<itunes:season>3</itunes:season>
+            			<itunes:episode>29</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#27 - De l'EPFL au Nasdaq, 16 ans à entreprendre avec Mark Kornfilt]]></title>
+            			<description><![CDATA[<p>Le co-fondateur de Livestream et ancien président de Vimeo nous parle de levée de fonds, d&#39;investisseurs, d&#39;intuition et de confiance en soi.
+            
+            </p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/27---De-lEPFL-au-Nasdaq--16-ans--entreprendre-avec-Mark-Kornfilt-e2glp88</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1603518282</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 29 Aug 2023 12:13:47 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600072/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369804999-44100-2-35a04c61f54bc729.mp3" length="45426310" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Le co-fondateur de Livestream et ancien président de Vimeo nous parle de levée de fonds, d&amp;#39;investisseurs, d&amp;#39;intuition et de confiance en soi.
+            
+            &lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:47:19</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710408474403-c6574d9a153a7.jpg"/>
+            			<itunes:season>3</itunes:season>
+            			<itunes:episode>27</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#26 - Maximiser le potentiel des jeunes pour créer de l'impact avec Taha Bawa]]></title>
+            			<description><![CDATA[<p>Le co-fondateur de Goodwall, une application mobile dont la mission est d&#39;aider les jeunes à maximiser leur potentiel, nous parle de talents, chance, opportunités, role model et confiance en soi.
+            
+            </p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/26---Maximiser-le-potentiel-des-jeunes-pour-crer-de-limpact-avec-Taha-Bawa-e2glp8g</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1544279530</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Mon, 19 Jun 2023 10:53:57 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600080/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805031-44100-2-85c5364f3c7881b2.mp3" length="37802317" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Le co-fondateur de Goodwall, une application mobile dont la mission est d&amp;#39;aider les jeunes à maximiser leur potentiel, nous parle de talents, chance, opportunités, role model et confiance en soi.
+            
+            &lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:39:22</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710408490815-92343590df315.jpg"/>
+            			<itunes:season>3</itunes:season>
+            			<itunes:episode>29</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#25 - Comment lancer sa startup dans l'espace avec Luc Piguet]]></title>
+            			<description><![CDATA[<p>Le co-fondateur de Clearspace, la startup qui nettoie l&#39;espace, nous parle de risques, d&#39;exécution d&#39;idées et de nouveaux marchés.
+            </p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/25---Comment-lancer-sa-startup-dans-lespace-avec-Luc-Piguet-e2glp8j</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1520337922</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 23 May 2023 06:36:34 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600083/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805032-44100-2-1dce93491e44676f.mp3" length="39079600" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Le co-fondateur de Clearspace, la startup qui nettoie l&amp;#39;espace, nous parle de risques, d&amp;#39;exécution d&amp;#39;idées et de nouveaux marchés.
+            &lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:40:42</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710408757392-d594c80bcebd6.jpg"/>
+            			<itunes:season>3</itunes:season>
+            			<itunes:episode>25</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#24 - 9 questions pour modéliser son modèle d'affaires avec Yves Pigneur]]></title>
+            			<description><![CDATA[<p>Le professeur à la HEC Lausanne qui a élaborer le Business Model Canva avec 9 questions fondamentales pour appréhender un projet nous parle de proposition de valeur, désirabilité, test et impact.
+            
+            </p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/24---9-questions-pour-modliser-son-modle-daffaires-avec-Yves-Pigneur-e2glp8q</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1495195216</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 18 Apr 2023 07:48:01 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600090/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805048-44100-2-ac01fa029448c3a2.mp3" length="29160175" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Le professeur à la HEC Lausanne qui a élaborer le Business Model Canva avec 9 questions fondamentales pour appréhender un projet nous parle de proposition de valeur, désirabilité, test et impact.
+            
+            &lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:30:22</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710408779962-7a227bbf6bcb3.jpg"/>
+            			<itunes:season>3</itunes:season>
+            			<itunes:episode>24</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#23 - Du commerce de détail à l'immobilier digital avec David El-Eini]]></title>
+            			<description><![CDATA[<p>Le co-fondateur de Foxstone, la plateforme de crowdfunding immobilier qui démocratise et digitalise l&#39;investissement dans la pierre nous parle de compétences, d&#39;équipe, de passion et de technologie.</p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/23---Du-commerce-de-dtail--limmobilier-digital-avec-David-El-Eini-e2glp7h</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1474752703</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Wed, 22 Mar 2023 08:02:17 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600049/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369804996-44100-2-d64e6c4f3b447595.mp3" length="32673958" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Le co-fondateur de Foxstone, la plateforme de crowdfunding immobilier qui démocratise et digitalise l&amp;#39;investissement dans la pierre nous parle de compétences, d&amp;#39;équipe, de passion et de technologie.&lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:34:02</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710408804476-25b144597b418.jpg"/>
+            			<itunes:season>3</itunes:season>
+            			<itunes:episode>24</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#22 - Importer en Suisse une idée vue à l'étranger avec Marc Aeschlimann]]></title>
+            			<description><![CDATA[<p>Le fondateur de Smood, la plateforme suisse de livraison de repas nous parle des spécificités du marché suisse, de tech et d&#39;ubérisation.</p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/22---Importer-en-Suisse-une-ide-vue--ltranger-avec-Marc-Aeschlimann-e2glp8d</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1451852305</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 21 Feb 2023 07:31:35 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600077/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805024-44100-2-65cdd86fee76a89f.mp3" length="35264051" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Le fondateur de Smood, la plateforme suisse de livraison de repas nous parle des spécificités du marché suisse, de tech et d&amp;#39;ubérisation.&lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:36:43</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710408828790-9d276bfc59eac.jpg"/>
+            			<itunes:season>3</itunes:season>
+            			<itunes:episode>24</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#21 - Être accéléré par Y Combinator avec Govinda Upadhyay]]></title>
+            			<description><![CDATA[<p>Le fondateur de SmartHelio qui a rejoint Y Combinator, l&#39;un des accélérateurs de startups les plus prestigieux au monde, nous parle de son expérience et des étapes qu&#39;il a suivies pour intégrer le géant américain.
+            
+            </p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/21---tre-acclr-par-Y-Combinator-avec-Govinda-Upadhyay-e2glp7t</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1431184261</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 24 Jan 2023 08:07:21 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600061/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805012-44100-2-53619baef1908967.mp3" length="27614144" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Le fondateur de SmartHelio qui a rejoint Y Combinator, l&amp;#39;un des accélérateurs de startups les plus prestigieux au monde, nous parle de son expérience et des étapes qu&amp;#39;il a suivies pour intégrer le géant américain.
+            
+            &lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:28:45</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710408856161-870bdc4f7a03a.jpg"/>
+            			<itunes:season>3</itunes:season>
+            			<itunes:episode>21</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#20 - Recruter des profils rares en hypercroissance avec Nicolas Rémond]]></title>
+            			<description><![CDATA[<p>Depuis sa levée de fonds en 2017, l&#39;entreprise vaudoise SwissBorg connaît une croissance exponentielle et a dû trouver des solutions rapides pour combler ses besoins en personnel qualifié. </p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/20---Recruter-des-profils-rares-en-hypercroissance-avec-Nicolas-Rmond-e2glp8e</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1407234817</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Wed, 21 Dec 2022 08:11:29 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600078/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805035-44100-2-539c1288059f9f0a.mp3" length="32676048" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Depuis sa levée de fonds en 2017, l&amp;#39;entreprise vaudoise SwissBorg connaît une croissance exponentielle et a dû trouver des solutions rapides pour combler ses besoins en personnel qualifié. &lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:34:02</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710408879364-c0f9979a74819.jpg"/>
+            			<itunes:season>2</itunes:season>
+            			<itunes:episode>22</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#19 - Tokeniser les actions de son entreprise avec Paul Charmillot]]></title>
+            			<description><![CDATA[<p>Le fondateur et CEO et MagicTomato a décidé d&#39;ouvrir 10% de son capital d&#39;entreprise en utilisant la blockchain. Comment et pourquoi a-t-il utilisé cette technologie pour sa levée de fonds ? Rencontre</p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/19---Tokeniser-les-actions-de-son-entreprise-avec-Paul-Charmillot-e2glp82</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1380035422</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Thu, 10 Nov 2022 10:37:01 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600066/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805001-44100-2-f534c733e75310a3.mp3" length="32117236" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Le fondateur et CEO et MagicTomato a décidé d&amp;#39;ouvrir 10% de son capital d&amp;#39;entreprise en utilisant la blockchain. Comment et pourquoi a-t-il utilisé cette technologie pour sa levée de fonds ? Rencontre&lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:33:27</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710412956245-b6eacbe256407.jpg"/>
+            			<itunes:season>2</itunes:season>
+            			<itunes:episode>20</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#18 - D'une frustration naît une idée de business avec Ellen Berg et Petra Posselius]]></title>
+            			<description><![CDATA[<p>Les deux co-fondatrices de la chaîne de fitness Non-Stop Gym, chaîne de fitness ouverts 7/7 et 24/24 et qui compte aujourd&#39;hui plusieurs dizaines de salles en Suisse, reviennent sur leur success story. </p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/18---Dune-frustration-nat-une-ide-de-business-avec-Ellen-Berg-et-Petra-Posselius-e2glp7l</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1364464441</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Mon, 17 Oct 2022 08:40:03 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600053/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805003-44100-2-095b2b9e4f402eaa.mp3" length="26235297" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Les deux co-fondatrices de la chaîne de fitness Non-Stop Gym, chaîne de fitness ouverts 7/7 et 24/24 et qui compte aujourd&amp;#39;hui plusieurs dizaines de salles en Suisse, reviennent sur leur success story. &lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:27:19</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710412382127-5af966d52c536.jpg"/>
+            			<itunes:season>2</itunes:season>
+            			<itunes:episode>20</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#17 - « Bootstrapper » ou l’art de se développer en toute indépendance avec Maxime Droux]]></title>
+            			<description><![CDATA[<p>Co-fondateur du moteur de recherche d’emplois Talent.com, l&#39;entreprise s&#39;est développée en mode « bootstrap » – c’est-à-dire en s’appuyant sur les flux de capital générés par l’activité et sur une bonne dose de débrouillardise – pour croître de manière indépendante sans avoir recours à des financements externes. </p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/17----Bootstrapper--ou-lart-de-se-dvelopper-en-toute-indpendance-avec-Maxime-Droux-e2glp7a</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1342414420</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 13 Sep 2022 09:00:10 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600042/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369804979-44100-2-62bcb2b3c09e80f0.mp3" length="28713794" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Co-fondateur du moteur de recherche d’emplois Talent.com, l&amp;#39;entreprise s&amp;#39;est développée en mode « bootstrap » – c’est-à-dire en s’appuyant sur les flux de capital générés par l’activité et sur une bonne dose de débrouillardise – pour croître de manière indépendante sans avoir recours à des financements externes. &lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:29:54</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710412132989-2f86ccdfe988e.jpg"/>
+            			<itunes:season>2</itunes:season>
+            			<itunes:episode>17</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#16 - Bien s’entourer pour construire une communauté forte avec Pascal Meyer]]></title>
+            			<description><![CDATA[<p>Le fondateur de la plateforme QoQa, l’entreprise de vente en ligne communautaire bien connue, revient sur ses débuts et l&#39;aventure du site le plus connu de Suisse.
+            </p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/16---Bien-sentourer-pour-construire-une-communaut-forte-avec-Pascal-Meyer-e2glp7r</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1325050513</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 16 Aug 2022 09:34:56 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600059/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805013-44100-2-3fd459c95df199fa.mp3" length="27405164" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Le fondateur de la plateforme QoQa, l’entreprise de vente en ligne communautaire bien connue, revient sur ses débuts et l&amp;#39;aventure du site le plus connu de Suisse.
+            &lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:28:32</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710411761868-815e5dc85c10b.jpg"/>
+            			<itunes:season>2</itunes:season>
+            			<itunes:episode>16</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#15 - Faciliter la transition des entreprises vers plus de durabilité avec Marie Chassot]]></title>
+            			<description><![CDATA[<p>Rencontre avec Marie Chassot, spécialiste en branding et fondatrice de La Mèche – une communauté, un média et une agence de conseil qui accompagne les entreprises dans leur transformation vers des pratiques et des comportements plus responsables.
+            </p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/15---Faciliter-la-transition-des-entreprises-vers-plus-de-durabilit-avec-Marie-Chassot-e2glp7v</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1303215880</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 12 Jul 2022 08:57:03 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600063/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805010-44100-2-2489716f3304ec29.mp3" length="28200959" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Rencontre avec Marie Chassot, spécialiste en branding et fondatrice de La Mèche – une communauté, un média et une agence de conseil qui accompagne les entreprises dans leur transformation vers des pratiques et des comportements plus responsables.
+            &lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:29:22</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710766522614-89a46aaf3c28f.jpg"/>
+            			<itunes:season>2</itunes:season>
+            			<itunes:episode>15</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#14 - Essayer, échouer, recommencer avec Christophe Wagnière]]></title>
+            			<description><![CDATA[<p>Capitaine’ de l&#39;Ecole 42 à Lausanne dont le principe est fondé sur la pratique et l&#39;autonomie. Christophe raconte les caractéristiques de ce système d&#39;apprentissage novateur.</p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/14---Essayer--chouer--recommencer-avec-Christophe-Wagnire-e2glp83</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1288564915</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Thu, 16 Jun 2022 15:33:45 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600067/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805028-44100-2-36cc2295bc6e6062.mp3" length="27230039" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Capitaine’ de l&amp;#39;Ecole 42 à Lausanne dont le principe est fondé sur la pratique et l&amp;#39;autonomie. Christophe raconte les caractéristiques de ce système d&amp;#39;apprentissage novateur.&lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:28:21</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710410286029-06babb1650446.jpg"/>
+            			<itunes:season>2</itunes:season>
+            			<itunes:episode>14</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#13 - Transformer sa passion en entreprise avec Jessica et Annika Horn]]></title>
+            			<description><![CDATA[<p>Les jeunes femmes sont les filles de Mike Horn, connu pour ses nombreuses expéditions extrêmes à travers le monde. Elles racontent la gestion de l’entreprise familiale, entre discipline et spontanéité, mais aussi l’énergie et la détermination communicatives de leur Paps</p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/13---Transformer-sa-passion-en-entreprise-avec-Jessica-et-Annika-Horn-e2glp8a</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1265507266</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 10 May 2022 09:50:00 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600074/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805030-44100-2-dadc3d5ebfc033a4.mp3" length="33427120" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Les jeunes femmes sont les filles de Mike Horn, connu pour ses nombreuses expéditions extrêmes à travers le monde. Elles racontent la gestion de l’entreprise familiale, entre discipline et spontanéité, mais aussi l’énergie et la détermination communicatives de leur Paps&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:34:49</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710409772357-208c134701aa6.jpg"/>
+            			<itunes:season>2</itunes:season>
+            			<itunes:episode>13</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#12 - Que se passe-t-il dans la tête d'un investisseur ? avec Julien Pache]]></title>
+            			<description><![CDATA[<p>Venture partner chez verve ventures – un réseau et une plateforme de capital-risque qui soutient des entreprises technologiques en Europe, Julien nous raconte 
+            l’envers du décor du capital-risque et des levées de fonds.
+            
+             </p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/12---Que-se-passe-t-il-dans-la-tte-dun-investisseur---avec-Julien-Pache-e2glp7p</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1245336277</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 12 Apr 2022 07:07:30 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600057/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805011-44100-2-9007b66160ad305b.mp3" length="24660008" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Venture partner chez verve ventures – un réseau et une plateforme de capital-risque qui soutient des entreprises technologiques en Europe, Julien nous raconte 
+            l’envers du décor du capital-risque et des levées de fonds.
+            
+             &lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:25:41</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710409486785-e8baa205d29af.jpg"/>
+            			<itunes:season>2</itunes:season>
+            			<itunes:episode>12</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#11 - Gérer le facteur humain lors d’une croissance d’entreprise rapide avec Vincent Privet]]></title>
+            			<description><![CDATA[<p>Responsable des opérations chez Neho, l’un des leaders de la transaction immobilière sur le marché suisse, Vincent revient sur la croissance soutenue de l&#39;entreprise depuis son lancement en 2017.</p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/11---Grer-le-facteur-humain-lors-dune-croissance-dentreprise-rapide-avec-Vincent-Privet-e2glp89</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1232583895</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 15 Mar 2022 10:54:36 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600073/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805025-44100-2-de5e0ce2c2d0b1ac.mp3" length="32256834" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Responsable des opérations chez Neho, l’un des leaders de la transaction immobilière sur le marché suisse, Vincent revient sur la croissance soutenue de l&amp;#39;entreprise depuis son lancement en 2017.&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:33:36</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710409310627-010cdf4cc77d5.jpg"/>
+            			<itunes:season>2</itunes:season>
+            			<itunes:episode>11</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#10 - Des valeurs fortes au cœur de l'esprit entrepreneurial avec Leila Delarive]]></title>
+            			<description><![CDATA[<p>Avocate et serial entrepreneur Leila est notamment la créatrice d’Amplify, une plateforme qui simplifie la publicité digitale et la rend accessible aux TPE. Audace, diversité et leadership sont au cœur de cette discussion riche en réflexions.</p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/10---Des-valeurs-fortes-au-cur-de-lesprit-entrepreneurial-avec-Leila-Delarive-e2glp8c</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1213971685</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 15 Feb 2022 09:00:07 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600076/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805038-44100-2-4a150291614baa7c.mp3" length="29446895" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Avocate et serial entrepreneur Leila est notamment la créatrice d’Amplify, une plateforme qui simplifie la publicité digitale et la rend accessible aux TPE. Audace, diversité et leadership sont au cœur de cette discussion riche en réflexions.&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:30:40</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710409214059-68536100ceeba.jpg"/>
+            			<itunes:season>2</itunes:season>
+            			<itunes:episode>10</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#9 - Parcours et enjeux d'un pionnier de la digitalisation avec Etienne Friedli]]></title>
+            			<description><![CDATA[<p>Co-fondateur de Tayo, Etienne s’est mis au défi de digitaliser un secteur dit &quot;traditionnel&quot; : l&#39;immobilier. Pari réussi pour l’entreprise, qui traite aujourd’hui plus de 175&#39;000 objets locatifs et a levé des fonds à quatre reprises. </p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/9---Parcours-et-enjeux-dun-pionnier-de-la-digitalisation-avec-Etienne-Friedli-e2glp7k</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1195520527</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 18 Jan 2022 08:00:08 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600052/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369804997-44100-2-dd412962e6da9d19.mp3" length="36281781" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Co-fondateur de Tayo, Etienne s’est mis au défi de digitaliser un secteur dit &amp;quot;traditionnel&amp;quot; : l&amp;#39;immobilier. Pari réussi pour l’entreprise, qui traite aujourd’hui plus de 175&amp;#39;000 objets locatifs et a levé des fonds à quatre reprises. &lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:37:47</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710409187848-6ddc4681168b5.jpg"/>
+            			<itunes:season>2</itunes:season>
+            			<itunes:episode>9</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#8 - Comment évaluer et gérer les risques avec Géraldine Fassnacht]]></title>
+            			<description><![CDATA[<p>Sportive suisse, &quot;passionnée de montagne et maman&quot;, selon ses propres mots, elle pratique le snowboard freeride, le base-jump et le vol en wingsuit à un niveau professionnel. On parle avec elle de risques, d&#39;ambition et d&#39;apprentissage de vie.</p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/8---Comment-valuer-et-grer-les-risques-avec-Graldine-Fassnacht-e2glp81</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1181619799</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 21 Dec 2021 08:15:32 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600065/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805019-44100-2-5c9e0d675bbbc11f.mp3" length="27948093" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Sportive suisse, &amp;quot;passionnée de montagne et maman&amp;quot;, selon ses propres mots, elle pratique le snowboard freeride, le base-jump et le vol en wingsuit à un niveau professionnel. On parle avec elle de risques, d&amp;#39;ambition et d&amp;#39;apprentissage de vie.&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:29:06</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710409150305-bb0652eb42a34.jpg"/>
+            			<itunes:season>1</itunes:season>
+            			<itunes:episode>8</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#7 - Youtubeur, est-ce une bonne situation avec Le Grand JD]]></title>
+            			<description><![CDATA[<p>Youtubeur Suisse romand qui dépasse les 3 mio d’abonné·es. Derrière ses vidéos d&#39;aventures immersives et humoristiques, il y a une petite entreprise de deux personnes passionnées de création de contenu. </p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/7---Youtubeur--est-ce-une-bonne-situation-avec-Le-Grand-JD-e2glp84</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1166433373</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Thu, 25 Nov 2021 08:34:23 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600068/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805027-44100-2-4c95463be0fbafb1.mp3" length="27788015" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Youtubeur Suisse romand qui dépasse les 3 mio d’abonné·es. Derrière ses vidéos d&amp;#39;aventures immersives et humoristiques, il y a une petite entreprise de deux personnes passionnées de création de contenu. &lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:28:56</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710409127407-562d6e97ab232.jpg"/>
+            			<itunes:season>1</itunes:season>
+            			<itunes:episode>7</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#6 - Quelles sont les qualités pour mener à bien un projet entrepreneurial avec Barbara Lax]]></title>
+            			<description><![CDATA[<p>Barbara Lax a fondé les crèches Little Green House, dont l&#39;innovation est de proposer des solutions de garde de haute qualité basées sur les neurosciences et le multilinguisme, donnant une place clé à la nature. Son entreprise compte plusieurs centaines d&#39;employés à travers la Suisse.
+            </p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/6---Quelles-sont-les-qualits-pour-mener--bien-un-projet-entrepreneurial-avec-Barbara-Lax-e2glp7m</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1141569670</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Thu, 14 Oct 2021 10:25:38 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600054/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805005-44100-2-8871623de24026da.mp3" length="26619401" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Barbara Lax a fondé les crèches Little Green House, dont l&amp;#39;innovation est de proposer des solutions de garde de haute qualité basées sur les neurosciences et le multilinguisme, donnant une place clé à la nature. Son entreprise compte plusieurs centaines d&amp;#39;employés à travers la Suisse.
+            &lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:27:43</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710409101083-fb44d29b10f13.jpg"/>
+            			<itunes:season>1</itunes:season>
+            			<itunes:episode>6</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#5 - Comment fonctionne un conseil d'administration avec Aline Isoz]]></title>
+            			<description><![CDATA[<p>Spécialiste de la transformation numérique des entreprises et membre de plusieurs conseils d&#39;administration (CA), Aline nous raconte comment fonctionne un CA, à quoi il sert, combien cela coûte à une entreprise, et qu&#39;est-ce que ça cela implique pour les membres du CA et pour l&#39;entreprise elle-même. 
+            </p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/5---Comment-fonctionne-un-conseil-dadministration-avec-Aline-Isoz-e2glp7f</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1111128382</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Mon, 23 Aug 2021 10:28:56 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600047/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369804993-44100-2-73283cc34b8efd08.mp3" length="25284021" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Spécialiste de la transformation numérique des entreprises et membre de plusieurs conseils d&amp;#39;administration (CA), Aline nous raconte comment fonctionne un CA, à quoi il sert, combien cela coûte à une entreprise, et qu&amp;#39;est-ce que ça cela implique pour les membres du CA et pour l&amp;#39;entreprise elle-même. 
+            &lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:26:20</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710409073977-a1588017ce9cf.jpg"/>
+            			<itunes:season>1</itunes:season>
+            			<itunes:episode>5</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#4 - Planifier ses objectifs avec Sofia Meakin]]></title>
+            			<description><![CDATA[<p>Membre de l&#39;équipe suisse d&#39;aviron, double médaillée à la Coupe du Monde 2021, médaillée aux championnats d&#39;Europe 2020, championne suisse junior et détentrice de 7 records du monde, Sofia nous dit comment elle se fixe ses objectifs à court, moyen et long terme.</p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/4---Planifier-ses-objectifs-avec-Sofia-Meakin-e2glp7u</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1091354464</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Wed, 21 Jul 2021 09:30:09 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600062/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805017-44100-2-0d4edf1d347a9871.mp3" length="24646634" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Membre de l&amp;#39;équipe suisse d&amp;#39;aviron, double médaillée à la Coupe du Monde 2021, médaillée aux championnats d&amp;#39;Europe 2020, championne suisse junior et détentrice de 7 records du monde, Sofia nous dit comment elle se fixe ses objectifs à court, moyen et long terme.&lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:25:40</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710408994885-d2c757cb767c2.jpg"/>
+            			<itunes:season>1</itunes:season>
+            			<itunes:episode>4</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#3 - Quand et comment fermer sa startup avec Alessandro Soldati]]></title>
+            			<description><![CDATA[<p>Alessandro nous raconte la vie de Chronodeal, plateforme d’enchère inversée, qu’il a fondée après avoir remporté un concours d’étudiants, jusqu’au jour où son co-fondateur lui annonce qu’il ne partage plus la même vision amorçant ainsi la mort de l&#39;entreprise. </p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/3---Quand-et-comment-fermer-sa-startup-avec-Alessandro-Soldati-e2glp8o</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1064121883</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 08 Jun 2021 07:29:52 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600088/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805045-44100-2-8175bdf1188f93f9.mp3" length="30482598" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Alessandro nous raconte la vie de Chronodeal, plateforme d’enchère inversée, qu’il a fondée après avoir remporté un concours d’étudiants, jusqu’au jour où son co-fondateur lui annonce qu’il ne partage plus la même vision amorçant ainsi la mort de l&amp;#39;entreprise. &lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:31:45</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710408971972-9c419e7ec63e6.jpg"/>
+            			<itunes:season>1</itunes:season>
+            			<itunes:episode>3</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#2 - Optimiser le coût d'acquisition client avec Steve Savioz]]></title>
+            			<description><![CDATA[<p>Serial entrepreneur, investisseur et marketer. Depuis ses débuts, Steve Savioz a toujours eu la volonté de &quot;faire mieux&quot;. Nous abordons avec lui les notions de coût d&#39;acquisition client, de canaux d&#39;attribution, de lifetime value, de traitement des data et de culture d&#39;entreprise.
+            </p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/2---Optimiser-le-cot-dacquisition-client-avec-Steve-Savioz-e2glp8s</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/1050946003</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Tue, 18 May 2021 15:19:55 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600092/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805052-44100-2-56dac8bcae8e5573.mp3" length="37500132" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Serial entrepreneur, investisseur et marketer. Depuis ses débuts, Steve Savioz a toujours eu la volonté de &amp;quot;faire mieux&amp;quot;. Nous abordons avec lui les notions de coût d&amp;#39;acquisition client, de canaux d&amp;#39;attribution, de lifetime value, de traitement des data et de culture d&amp;#39;entreprise.
+            &lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:39:03</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710408949286-7c982bfcc44e3.jpg"/>
+            			<itunes:season>1</itunes:season>
+            			<itunes:episode>2</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            		<item>
+            			<title><![CDATA[#1 - Valider son projet auprès du marché avec Michael Ingram]]></title>
+            			<description><![CDATA[<p>Le fondateur de la marque Revario. Michael nous raconte comment sa passion pour le trail l&#39;a poussé à développer une marque d&#39;équipements de trail running écoresponsables et Swiss made.
+            </p>
+            <p><br></p>
+            ]]></description>
+            			<link>https://podcasters.spotify.com/pod/show/genilem/episodes/1---Valider-son-projet-auprs-du-march-avec-Michael-Ingram-e2glp7o</link>
+            			<guid isPermaLink="false">tag:soundcloud,2010:tracks/998310667</guid>
+            			<dc:creator><![CDATA[GENILEM]]></dc:creator>
+            			<pubDate>Thu, 04 Mar 2021 07:17:05 GMT</pubDate>
+            			<enclosure url="https://anchor.fm/s/f327f558/podcast/play/83600056/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-5%2F369805008-44100-2-a0ac11a5bb9fe45a.mp3" length="25578265" type="audio/mpeg"/>
+            			<itunes:summary>&lt;p&gt;Le fondateur de la marque Revario. Michael nous raconte comment sa passion pour le trail l&amp;#39;a poussé à développer une marque d&amp;#39;équipements de trail running écoresponsables et Swiss made.
+            &lt;/p&gt;
+            &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+            </itunes:summary>
+            			<itunes:explicit>false</itunes:explicit>
+            			<itunes:duration>00:26:38</itunes:duration>
+            			<itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/40694822/40694822-1710408922714-72c055ec0c9fa.jpg"/>
+            			<itunes:season>1</itunes:season>
+            			<itunes:episode>1</itunes:episode>
+            			<itunes:episodeType>full</itunes:episodeType>
+            		</item>
+            	</channel>
+            </rss>
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Commit fiche
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Aucune nouvelle fiche."
+          else
+            git commit -m "Auto: fiche podcast-btb sans-detour-temoignages-d-entrepreneurs"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
