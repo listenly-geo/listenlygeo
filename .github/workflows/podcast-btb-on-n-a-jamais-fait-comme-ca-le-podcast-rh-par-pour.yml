@@ -1,0 +1,889 @@
+name: Fiche Podcast-BTB — on-n-a-jamais-fait-comme-ca-le-podcast-rh-par-pour
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fiche-podcast-btb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generation fiche podcast-btb
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_URL: |-
+            https://open.spotify.com/show/2p1Qz42ipkNCaq38aGhJPM
+          CONTACT_URL: |-
+            https://www.linkedin.com/company/on-n-a-jamais-fait-comme-ca/posts/
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/on-na-jamais-fait-comme
+          COVER_IMAGE: |-
+            https://i.postimg.cc/bwfY2xLy/Kn5qib-Pd-Xdmver8j-Hk1J9Yfj7wqs6zin7Fv0GFOx-1400x1400.jpg
+          PODCAST_SLUG: |-
+            on-n-a-jamais-fait-comme-ca-le-podcast-rh-par-pour
+          ACCENT_COLOR: |-
+            #2e8bd6
+          PODCAST_RAW_INFO: |-
+            On n'a jamais fait comme ça - Le podcast RH par & pour les DRH : Ressources humaines recrutement marque employeur et veille RH
+            
+            Podcast recrutement, RH, marque employeur, IA et transformation du travail. On n'a jamais fait comme ça est LE podcast des DRH, RRH et professionnels des Ressources Humaines qui veulent faire autrement. Vous entendez souvent "On n'a jamais fait comme ça" dans votre entreprise ? Moi aussi. Et c'est justement pour ça que j'ai créé ce podcast Ressources Humaines Chaque épisode, une conversation sans langue de bois entre DRH, dirigeant·es et expert·es RH pour : ✅ Découvrir des approches RH innovantes ✅ Comprendre les enjeux Ressources Humaines actuels (IA, recrutement, marque employeur, engagement) ✅ S'inspirer de solutions concrètes et faire sa veille RH ✅ Repenser son métier de DRH, RRH ou recruteur Je suis Florent Letourneur (https://florentletourneur.fr/), ex DRH, fondateur de We Feel Good (http://www.wefeelgoodrh.com) (agence conseil marque employeur et communication RH) et cofondateur d'Orenda (https://www.orenda-rh.fr/) (cabinet de recrutement spécialisé dans les métiers RH). Je reçois des DRH, dirigeant·es et spécialistes RH comme Thomas Chardin, Alexis Eve, Laurent Brouat, Charlène Hemery, Maud Grenier, Léo Bernard ou Nicolas Pasetti. Au programme : ➡️ Recrutement, sourcing, formation, intégration, onboarding ➡️ Marque employeur, communication RH et communication interne ➡️ Culture d'entreprise, engagement, fidélisation, QVCT ➡️ Diversité, inclusion, RSE, IA et RH ➡️ Leadership, management, carrière, droit du travail, transformation RH Ce podcast RH est pour vous si vous êtes : DRH, RRH, HRBP ou professionnel·le des ressources humaines Dirigeant·e, manager ou fondateur·ice intéressé·e par les sujets humains Recruteur, consultant ou freelance RH Étudiant·e en RH ou passionné·e par l'avenir du travail Maintenant prenez place, et bonne écoute ! Le podcast vous a plu ? 📌 Abonnez-vous sur Apple Podcasts, Spotify ou votre plateforme préférée 📩 Rejoignez le site officiel du podcast (https://onnajamaisfaitcommeca.fr/) &amp; la newsletter dédiée (https://onnajamaisfaitcommeca.substack.com/) ⭐ Notez 5 étoiles et partagez le podcast autour de vous ▬▬ WE FEEL GOOD ▬▬ We Feel Good est l'agence qui aide les entreprises à activer leur marque employeur et renforcer leur communication RH, avec des solutions sur mesure. → Audit RH, Conseil et Stratégie RH, Branding et Plateforme Marque Employeur, Création de contenu RH, Achats Médias RH, Programme Ambassadeurs, Campagnes d'activation, Formations, Expérience candidats et Expérience collaborateurs → www.wefeelgoodrh.com (http://www.wefeelgoodrh.com) ▬▬ ORENDA ▬▬ Orenda est le cabinet de recrutement spécialisé dans les métiers des Ressources Humaines : DRH, RRH, HRBP, Talent Acquisition, Formation, Paie, Compensation &amp; Benefits. → Recrutement off market confidentiel + communauté gratuite et confidentielle de pairs RH → https://www.orenda-rh.fr/ Hébergé par Ausha. Visitez ausha.co/fr/politique-de-confidentialite pour plus d'informations.
+            
+            (Copyright : Florent LETOURNEUR)
+            
+                Transparence salariale : comment 360Learning a supprimé la négociation de salaire - Sidonie Viala - 360Learning
+            
+                Download
+            
+                Fri, 03 Jul 2026
+                Assessment RH : arrête de recruter à l'intuition (ça te coûte cher) ! - Chloe Touati - Authentic Talent
+            
+                Download
+            
+                Fri, 26 Jun 2026
+                Évaluation des compétences : fiabiliser ses recrutements avec E-testing - Maud Sarfati
+            
+                Download
+            
+                Fri, 19 Jun 2026
+                Marque employeur : la méthode d'une DRH B Corp pour fidéliser - Alexandra Jolivet - Laboratoires Expanscience.
+            
+                Download
+            
+                Fri, 12 Jun 2026
+                Cette DRH réussit quand ses salariés la quittent - Le monde de l'insertion professionnelle - Morgane Trehard
+            
+                Download
+            
+                Fri, 05 Jun 2026
+                6 500 recrutements par an : la méthode RH de Tasha Teguia, DRH de O2
+            
+                Download
+            
+                Fri, 29 May 2026
+                Parentalité au travail : les leviers RH qui changent tout ! - Marie Pellerin - Parents on board
+            
+                Download
+            
+                Fri, 22 May 2026
+                Le télétravail ne rate jamais. C'est le management qui rate - Swanhilde Marc - Directskills
+            
+                Download
+            
+                Fri, 15 May 2026
+                Emploi des seniors : "Jamais trop tard" pour passer du discours à l'action sur l'âgisme - Maxime Bontemps
+            
+                Download
+            
+                Fri, 08 May 2026
+                Com interne : pourquoi vos outils ne suffisent plus pour toucher tous vos salariés - Geoffrey Chapuis - Wobee
+            
+                Download
+            
+                Fri, 01 May 2026
+                LinkedIn 2026 : -60% reach ! La méthode pour recruter sans chasser - Charlène Hemery - Talent Catcher
+            
+                Download
+            
+                Fri, 24 Apr 2026
+                Data RH : 160 000 offres d'emploi analysées, 7 piliers pour passer à l'action - Arnaud Coulon - My People Analytics
+            
+                Download
+            
+                Fri, 17 Apr 2026
+                Quand un stand-uppeur du Jamel Comedy Club forme vos équipes au lâcher-prise - PV - Team building
+            
+                Download
+            
+                Fri, 10 Apr 2026
+                RH et DSI : le binôme stratégique qui change tout dans le recrutement tech - Laetitia Aubert et Emeline Marcoux - Harmonie Mutuelle
+            
+                Download
+            
+                Fri, 03 Apr 2026
+                Titre-restaurant : Supprimez enfin le prélèvement sur salaire de vos équipes ! - Catherine Coupet - Openeat
+            
+                Download
+            
+                Fri, 27 Mar 2026
+                69 % des salariés sacrifieraient votre entreprise pour leur équipe : l'alerte du Baromètre RH United Heroes - Paul-Emile SAAB
+            
+                Download
+            
+                Fri, 20 Mar 2026
+                IA et RH : Comment mesurer gratuitement l’énergie collective de ses équipes ? - Luz d'Ans - COR.AI
+            
+                Download
+            
+                Fri, 13 Mar 2026
+                Gagnez 2 heures par semaine : la méthode pour automatiser vos processus RH - Thomas Rodrigues - Le Temple RH
+            
+                Download
+            
+                Fri, 06 Mar 2026
+                98 % de CV jetés : passez au recrutement circulaire avec Huggy - Juliette Jarry
+            
+                Download
+            
+                Fri, 27 Feb 2026
+                70% des recrutements via la mobilité interne : les secrets de Pierre-Henri Havrin (BNP Paribas) pour fidéliser ses talents
+            
+                Download
+            
+                Fri, 20 Feb 2026
+                Rebel RH : comment Céline Lappas bouscule les codes de la fonction Ressources Humaines ?
+            
+                Download
+            
+                Fri, 13 Feb 2026
+                Directive européenne transparence des salaires : ce que les RH doivent préparer maintenant - Sandrine DORBES - How Much
+            
+                Download
+            
+                Fri, 06 Feb 2026
+                Recruter moins pour recruter mieux : le process de recrutement Weglot - Meryl Csibra
+            
+                Download
+            
+                Fri, 30 Jan 2026
+                Recrutement terrain : automatiser avec l'IA la préqualification sans déshumaniser - Paul Lagrange - Omogen
+            
+                Download
+            
+                Fri, 23 Jan 2026
+                Les 3 tendances RH qui vont changer 2026 (L'IA mais pas que !) - Stéphanie Fraise - OpenClassrooms
+            
+                Download
+            
+                Fri, 16 Jan 2026
+                Recrutement 2026 : IA, managers recruteurs et nouveaux usages ATS - Valentin Konrad - Flatchr
+            
+                Download
+            
+                Fri, 09 Jan 2026
+                BEST OF - Le droit du travail a changé... et beaucoup de RH ne le savent pas - Héloise Ayrault - Eseïs Avocats
+            
+                Download
+            
+                Fri, 02 Jan 2026
+                Recruter et fidéliser la génération sens : pourquoi vos méthodes RH ne suffisent plus - Yoann Darquest
+            
+                Download
+            
+                Fri, 26 Dec 2025
+                RH, formation et engagement : pourquoi l’humour et le jeu changent tout - Clément Lemainque - The HR Nerd
+            
+                Download
+            
+                Fri, 19 Dec 2025
+                RH & travail hybride : ce qui marche vraiment dans une PME - Yoann Le Bras - MBA Mutuelle
+            
+                Download
+            
+                Fri, 12 Dec 2025
+                IA et RH : comment Alan améliore performance, management et détection des signaux faibles - Paul Sauveplane
+            
+                Download
+            
+                Fri, 05 Dec 2025
+                Culture d’entreprise : comment tenir le cap après des croissances externes ? - Anissa Moumou - Freelance.com
+            
+                Download
+            
+                Fri, 28 Nov 2025
+                Marque employeur, outils, IA : les vraies priorités des recruteurs aujourd’hui - Alexandra Gannat - Groupe Casino
+            
+                Download
+            
+                Fri, 21 Nov 2025
+                Recruter comme IKEA : transformer son expérience candidat en expérience client - Benoit Thièbe
+            
+                Download
+            
+                Fri, 14 Nov 2025
+                La réalité de la marque employeur et du recrutement en ESN - Fabian Caldarella - Artemys
+            
+                Download
+            
+                Fri, 07 Nov 2025
+                Réinventer le lien social au travail : et si la clé, c’était vos collaborateurs - Quentin Guilluy - Teamstarter
+            
+                Download
+            
+                Fri, 31 Oct 2025
+                Absentéisme au travail : comprendre et agir pour le réguler - JC Villette - Ekilibre Conseil
+            
+                Download
+            
+                Fri, 24 Oct 2025
+                Le futur du recrutement – La méthode T-Shaped expliquée - Elise Moron & Léo Bernard - Blendy
+            
+                Download
+            
+                Fri, 17 Oct 2025
+                5 décisions récentes du droit du travail que tout RH doit connaître - Héloise Ayrault - Eseïs Avocats
+            
+                Download
+            
+                Fri, 10 Oct 2025
+                People Review, IA et génération Z : les nouveaux défis RH du groupe Karavel - Isabella Messina
+            
+                Download
+            
+                Fri, 03 Oct 2025
+                Expérience collaborateur et IA : la vision RH de Thibault Langé, DRH de ServiceNow
+            
+                Download
+            
+                Fri, 26 Sep 2025
+                IA et recrutement : pourquoi les RH qui refusent d’évoluer vont disparaître - Gauthier Bailleul - Hippolyte.ai
+            
+                Download
+            
+                Fri, 19 Sep 2025
+                Comment Daunat a repensé sa marque employeur, créé son Campus et boosté sa formation - Xavier Bellon
+            
+                Download
+            
+                Fri, 12 Sep 2025
+                Du site carrières à TikTok : la marque employeur Saint-Gobain Distribution Bâtiment France - Laetitia Sylvestre
+            
+                Download
+            
+                Fri, 05 Sep 2025
+                Les questions que vous m’avez posées (et mes réponses cash) - Lancement de la saison 4 de ce podcast RH
+            
+                Download
+            
+                Tue, 02 Sep 2025
+                BEST OF - Culture d’entreprise, QVCT et prud’hommes : ce que les DRH doivent savoir - Ségolène Lepvrier Hannart
+            
+                Download
+            
+                Fri, 29 Aug 2025
+                BEST OF - Les secrets que les DRH ne te diront jamais sur les départs négociés - Valérie Duez-Ruff
+            
+                Download
+            
+                Tue, 26 Aug 2025
+                BEST OF - 100 jours pour révéler ton leadership et engager tes équipes - Delphine Zanelli
+            
+                Download
+            
+                Fri, 22 Aug 2025
+                BEST OF - Les coulisses RH d’une PME devenue leader dans un secteur qui fait peur ! - Alina Grasland
+            
+                Download
+            
+                Tue, 19 Aug 2025
+                BEST OF - Jeunes talents : pourquoi ils partent… et comment les fidéliser quand on est RH - Marlène Legay - Vague de sens
+            
+                Download
+            
+                Fri, 15 Aug 2025
+                BEST OF - Management interculturel : 5 clés pour transformer la diversité en performance - Charlotte Courtois
+            
+                Download
+            
+                Tue, 12 Aug 2025
+                BEST OF - Audrey Lolicart : une RH rebelle pour une culture d'entreprise solide !
+            
+                Download
+            
+                Fri, 08 Aug 2025
+                BEST OF - Parentalité au travail : des actions RH concrètes pour concilier vie pro & perso - Alexandra Amda
+            
+                Download
+            
+                Tue, 05 Aug 2025
+                BEST OF - De 20 à 120 salariés : Les coulisses d'une DRH de PME en pleine croissance - Catherine Vaudaine
+            
+                Download
+            
+                Fri, 01 Aug 2025
+                Réussir sa transformation RH : conseils d’un ex-DRH devenu consultant - Jean-François Lossois
+            
+                Download
+            
+                Fri, 25 Jul 2025
+                RH et préparation mentale : transformer la pression en puissance - Leïla Elabdi
+            
+                Download
+            
+                Fri, 18 Jul 2025
+                RH & Management : comment engager durablement ses équipes ? - Paul-Emile Saab - United Heroes
+            
+                Download
+            
+                Fri, 11 Jul 2025
+                IA et formation : les stratégies RH gagnantes - Antoine Amiel - Learn Assembly
+            
+                Download
+            
+                Fri, 04 Jul 2025
+                Le droit à l'erreur : de la Légion étrangère à DRH - Geoffrey Fournier - Snow Group
+            
+                Download
+            
+                Fri, 27 Jun 2025
+                La semaine de 4 jours est votre prochain avantage concurrentiel - Philippe Du Payrat - 4jours.work
+            
+                Download
+            
+                Fri, 20 Jun 2025
+                Cette DRH siège aux prud'hommes et va tout vous révéler - Ségolène Lepvrier Hannart - Qualisocial
+            
+                Download
+            
+                Fri, 13 Jun 2025
+                85% des RH sous pression : les solutions concrètes de LinkedIn pour reprendre le contrôle - Florent Balaye
+            
+                Download
+            
+                Fri, 06 Jun 2025
+                Salarié ou indépendant ? La vraie vie d’un DRH qui a franchi le cap - Nicolas Tourneur - NTO Conseil
+            
+                Download
+            
+                Fri, 30 May 2025
+                Management, RH et RSE : l’équation gagnante pour attirer et fidéliser les talents - Alina Grasland - Seiven
+            
+                Download
+            
+                Fri, 23 May 2025
+                Recruter 3 000 talents par an : une masterclass sur l’internalisation RH - Geoffroy Saint-Antoine - Emeria
+            
+                Download
+            
+                Fri, 16 May 2025
+                Réenchanter le travail : idées concrètes et solutions pour les RH - Alexandre Jost - Fabrique Spinoza
+            
+                Download
+            
+                Fri, 09 May 2025
+                Marque employeur : fini les paillettes, place à la transparence - Dorian Lebreton - Karens
+            
+                Download
+            
+                Fri, 02 May 2025
+                Quand l’IA anticipe les démissions avant qu’elles n’arrivent ! - Maxime Cariou - TOP
+            
+                Download
+            
+                Fri, 25 Apr 2025
+                Révéler son leadership en 100 jours : un voyage avec Delphine Zanelli - L'entreprise de demain
+            
+                Download
+            
+                Fri, 18 Apr 2025
+                Construire un futur durable : Le rôle des RH et managers - Jérémy Lamri - Tomorrow Theory
+            
+                Download
+            
+                Fri, 11 Apr 2025
+                Recrutement programmatique : comment l'IA change la donne - Jean Eudes Yahouedeou - Seeqle
+            
+                Download
+            
+                Fri, 04 Apr 2025
+                RH Rebelle avec une cause : les secrets des recrutements chez Leocare - Audrey Lolicart
+            
+                Download
+            
+                Fri, 28 Mar 2025
+                Aider chaque personne à reprendre son destin en main - Pierre Kerbellec - Génération France
+            
+                Download
+            
+                Fri, 21 Mar 2025
+                Des entretiens annuels à la gestion des compétences : comment Zola simplifie la vie des RH - Raphaël Werlé
+            
+                Download
+            
+                Fri, 14 Mar 2025
+                Quitter son job et négocier son départ - Valérie Duez-Ruff - Avocate en droit du travail
+            
+                Download
+            
+                Fri, 07 Mar 2025
+                La guerre des talents : Les secrets d’une DRH en première ligne - Jessica Djeziri - Bloomays
+            
+                Download
+            
+                Fri, 28 Feb 2025
+                Apprendre en 2025 : entre IA, émotions et capsules vidéo - Béatrice Gherara - Kokoroe
+            
+                Download
+            
+                Fri, 21 Feb 2025
+                De 20 à 120 salariés : Les coulisses d'une DRH en pleine croissance - Catherine Vaudaine - Mailinblack
+            
+                Download
+            
+                Fri, 14 Feb 2025
+                Parentalité au travail : des actions concrètes pour concilier vie pro & perso - Alexandra Amda - Adveris
+            
+                Download
+            
+                Fri, 07 Feb 2025
+                1 salarié sur 4 sera aidant en 2030 : êtes-vous prêts ? - Caroline Mac Naughton - Myteamily
+            
+                Download
+            
+                Fri, 31 Jan 2025
+                Le bilan de compétences : un second souffle pour les RH - Gaëlle Brouat - L'Escale
+            
+                Download
+            
+                Fri, 24 Jan 2025
+                L'intergénérationnel, l'axe majeur RH de 2025 ? - Marlène Legay - Vague de sens
+            
+                Download
+            
+                Fri, 17 Jan 2025
+                Les tendances Ressources Humaines 2025 - Catherine Solary - Efedin
+            
+                Download
+            
+                Fri, 10 Jan 2025
+                HR Technologies France 2025 - L'évènement innovation RH de la rentrée - Thomas Chardin
+            
+                Download
+            
+                Fri, 03 Jan 2025
+                BEST OF - Les tendances recrutement 2025 - Aurore Baudry
+            
+                Download
+            
+                Tue, 31 Dec 2024
+                BEST OF - Ses 7 erreurs de DRH et les leçons qu'elle en a tirées - Christelle Vaugelade-Kalipé
+            
+                Download
+            
+                Sun, 29 Dec 2024
+                BEST OF - Sexisme au travail : comment lutter et y remédier ? - Laurence Merger
+            
+                Download
+            
+                Fri, 27 Dec 2024
+                2000 participants à La coupe de France du recrutement - Marion Cosar - L'école du recrutement
+            
+                Download
+            
+                Fri, 20 Dec 2024
+                Ses tendances Management pour 2025 - Yannick Bigot - L48 Conseils
+            
+                Download
+            
+                Fri, 13 Dec 2024
+                Maintenir sa culture d'entreprise en grandissant à l'international - Audrey Dufrenne - LeHibou
+            
+                Download
+            
+                Fri, 06 Dec 2024
+                Les tendances recrutement 2025 - Aurore Baudry - Foodles
+            
+                Download
+            
+                Fri, 29 Nov 2024
+                La puissance des réseaux au service du recrutement - Josselin Martin - Proppl
+            
+                Download
+            
+                Fri, 22 Nov 2024
+                Ouvrir les portes de son entreprise et ses métiers ! - Emilie Korchia - My Job Glasses
+            
+                Download
+            
+                Fri, 15 Nov 2024
+                Permis de recruter, le guide recrutement ultime - Elise Moron et Léo Bernard - Blendy
+            
+                Download
+            
+                Fri, 08 Nov 2024
+                Une CEO engagée et sa lutte réussie pour l'égalité de genre dans la tech - Laury Maurice - Shodo
+            
+                Download
+            
+                Fri, 01 Nov 2024
+                Le bilan du 1er Festival RH et les perspectives 2025 - Maud Grenier
+            
+                Download
+            
+                Mon, 28 Oct 2024
+                Sexisme au travail : comment lutter et y remédier ? - Laurence Merger - Up to Date Learning
+            
+                Download
+            
+                Fri, 25 Oct 2024
+                De la France au Canada : le manifeste d'équipe en recrutement - Sandrine Théard - Les sources humaines
+            
+                Download
+            
+                Fri, 18 Oct 2024
+                Ses 7 erreurs en tant que DRH et les leçons qu'elle en a tirées - Christelle Vaugelade-Kalipé - Bene Bono
+            
+                Download
+            
+                Fri, 11 Oct 2024
+                Des experts RH pour accompagner votre croissance - Calixte Bonnet Saint-Georges - In Residence
+            
+                Download
+            
+                Fri, 04 Oct 2024
+                Une formation en soft skills fondée sur les neurosciences - Evelyn Tinajero - Zenmon Drops
+            
+                Download
+            
+                Fri, 27 Sep 2024
+                Un monde de cultures : l’art du management interculturel pour les DRH - Charlotte Courtois
+            
+                Download
+            
+                Fri, 20 Sep 2024
+                Expérience collaborateur et droit à l'erreur - Séverine Loureiro - Le Lab RH
+            
+                Download
+            
+                Fri, 13 Sep 2024
+                La Qualité de Vie au Travail pour des équipes en pleine forme - Elena Mañeru Izcue - M180 Formation
+            
+                Download
+            
+                Fri, 06 Sep 2024
+                L'innovation sociale : accompagnez vos salariés quand leur vie se complique - Florence Marty - SocialDirect
+            
+                Download
+            
+                Fri, 30 Aug 2024
+                BEST OF - Le premier ATS + CRM connecté pour les recruteurs, et conçu avec les recruteurs - Quentin Decré
+            
+                Download
+            
+                Fri, 23 Aug 2024
+                BEST OF - Etre DRH et accompagner l'hypercroissance de son entreprise - Jules Briatta
+            
+                Download
+            
+                Fri, 16 Aug 2024
+                BEST OF - Améliorer la vie au travail et l'expérience collaborateur via la communication interne - JB de Bel Air
+            
+                Download
+            
+                Fri, 09 Aug 2024
+                BEST OF - Les tendances Ressources Humaines 2024 - Stéphanie Villejoubert
+            
+                Download
+            
+                Fri, 02 Aug 2024
+                J'ai été interviewé par Laurent Brouat pour le bilan de la saison 2 de On n'a jamais fait comme ça !
+            
+                Download
+            
+                Fri, 26 Jul 2024
+                Développez vos relations écoles et réinventez votre expérience de recrutement des jeunes diplômés - Paul Foutrel - Grimp
+            
+                Download
+            
+                Fri, 19 Jul 2024
+                Le premier ATS + CRM connecté pour les recruteurs, et conçu avec les recruteurs - Quentin Decré - Jarvi
+            
+                Download
+            
+                Fri, 12 Jul 2024
+                BEST OF - Une culture d'entreprise particulière avec 100 salariés actionnaires ! - Gilles Satgé
+            
+                Download
+            
+                Fri, 05 Jul 2024
+                Donnez des supers-pouvoirs aux salaires de vos employés ! - Arbia Smiti - Rosaly
+            
+                Download
+            
+                Fri, 28 Jun 2024
+                Comment aider les managers à s’organiser, à mieux communiquer et à atteindre leurs objectifs ? - Baptiste Benezet
+            
+                Download
+            
+                Fri, 21 Jun 2024
+                Toutes vos datas RH en un seul endroit ! - Léopold Adam - Reflect
+            
+                Download
+            
+                Fri, 14 Jun 2024
+                Le recrutement ne s’improvise pas - Nicolas Galita - L'école du recrutement
+            
+                Download
+            
+                Fri, 07 Jun 2024
+                Le management de transition : une solution à l'emploi des seniors - Yann-Etienne Le Gall - Valtus
+            
+                Download
+            
+                Fri, 31 May 2024
+                La formation des professionnels Ressources Humaines - Ludovic Taphanel - IGS RH
+            
+                Download
+            
+                Fri, 24 May 2024
+                Engager pour transformer : managers et DRH, coproducteurs d’une nouvelle fonction ressources humaines - Bernard Coulaty - IESEG
+            
+                Download
+            
+                Fri, 17 May 2024
+                Réenchanter le recrutement et la marque employeur dans la tech - Damien Cavaillès - WeLoveDevs.com
+            
+                Download
+            
+                Fri, 10 May 2024
+                Des concours de pronostics internes entre collaborateurs - David Bellaïche - Corpogames
+            
+                Download
+            
+                Fri, 03 May 2024
+                Générer du contenu pour recruter sans chasser : inbound ou outbound ? - Charlène Hemery - Talent Catcher
+            
+                Download
+            
+                Fri, 26 Apr 2024
+                Etre DRH et accompagner l'hypercroissance de son entreprise - Jules Briatta - Exotec
+            
+                Download
+            
+                Fri, 19 Apr 2024
+                29 millions de membres en France - Florent Balaye - LinkedIn Talent Solutions
+            
+                Download
+            
+                Fri, 12 Apr 2024
+                Moodwork, la solution digitale pour la santé mentale de vos collaborateurs - Benjamin Brion
+            
+                Download
+            
+                Fri, 05 Apr 2024
+                Podcasthon - Gaël Le Bohec - Entreprendre pour Apprendre
+            
+                Download
+            
+                Fri, 29 Mar 2024
+                L'engagement au coeur de l'expérience collaborateurs - Léna Basile - Meta4Human
+            
+                Download
+            
+                Fri, 22 Mar 2024
+                E-réputation employeur : le miroir impitoyable de votre entreprise - Guillaume de Neuvier - Aviz
+            
+                Download
+            
+                Fri, 15 Mar 2024
+                Sécuriser ses recrutements, tout en augmentant sa productivité - Aurélien Guillon - Trimoji
+            
+                Download
+            
+                Fri, 08 Mar 2024
+                Réintégrer les seniors au coeur des politiques RH jusqu'à la retraite. - Aymeric de Trogoff - Jubiliz
+            
+                Download
+            
+                Fri, 01 Mar 2024
+                Rapprocher ses bureaux du domicile de ses équipes. - Sébastien Renaud - Whome
+            
+                Download
+            
+                Fri, 23 Feb 2024
+                Professionnels RH, prenons la parole sur les réseaux sociaux ! - Maud Grenier - Le Temple RH
+            
+                Download
+            
+                Fri, 16 Feb 2024
+                La gestion des talents et des compétences simplifiée par l’IA - Nicolas Pasetti - Oak
+            
+                Download
+            
+                Fri, 09 Feb 2024
+                Etre recruteur aujourd'hui : s'adapter et se former ! - Léo Bernard - Blendy
+            
+                Download
+            
+                Fri, 02 Feb 2024
+                Libérer la parole en entreprise pour améliorer le bien-être de ses salariés - David Guillocheau - Zest
+            
+                Download
+            
+                Fri, 26 Jan 2024
+                Son équipe de pirates organise votre séminaire au vert en 1 minute ! - Maxime Eduardo - Naboo
+            
+                Download
+            
+                Fri, 19 Jan 2024
+                HR Technologies France - L'évènement innovation RH de la rentrée 2024 - Vianney Thomas
+            
+                Download
+            
+                Fri, 12 Jan 2024
+                Les tendances Ressources Humaines 2024 - Stéphanie Villejoubert - ANDRH et Siradel
+            
+                Download
+            
+                Fri, 05 Jan 2024
+                Améliorer la santé mentale des salariés via l'assistanat social et les datas sociales - Joël Riou - Responsage
+            
+                Download
+            
+                Fri, 15 Dec 2023
+                Tout ce que vous avez voulu savoir sur le coaching professionnel en entreprise ! - Dalila Guillot - ETF Coaching
+            
+                Download
+            
+                Fri, 08 Dec 2023
+                Des salariés en forme font une entreprise en forme : de prof à dirigeant de 80 coachs sportifs - Steve Dallavalle - Lion Coach
+            
+                Download
+            
+                Fri, 01 Dec 2023
+                La communication pour les pro du recrutement - Laurent Brouat - Les talents Narratifs
+            
+                Download
+            
+                Fri, 24 Nov 2023
+                L'IA conversationnelle aux bénéfices de la formation et des Ressources Humaines - Homéric de Sarthe - Pitchboy
+            
+                Download
+            
+                Fri, 17 Nov 2023
+                Quand les startup scale-up licornes réinventent les RH - Pierre Monclos - Unow
+            
+                Download
+            
+                Fri, 10 Nov 2023
+                Ses astuces pour sourcer et recruter plus vite et mieux ! - Alexis Bouvet - Growth Hiring
+            
+                Download
+            
+                Fri, 03 Nov 2023
+                La flexibilité et la transparence dans les rémunérations - Virgile Raingeard - Figures
+            
+                Download
+            
+                Fri, 27 Oct 2023
+                Tous ses tips pour une expérience collaborateur de dingue. - Geoffrey Chapuis - Wobee
+            
+                Download
+            
+                Fri, 13 Oct 2023
+                Améliorer la vie au travail et l'expérience collaborateur via la communication interne - JB de Bel Air - Steeple
+            
+                Download
+            
+                Fri, 06 Oct 2023
+                La RSE au coeur de la fonction Ressources Humaines - Aurélien Ollivry - Agence Déclic
+            
+                Download
+            
+                Fri, 29 Sep 2023
+                RH puis entrepreneur puis de nouveau RH : un parcours atypique - Erick Thomas - Silae
+            
+                Download
+            
+                Fri, 22 Sep 2023
+                Télétravail : le monde est votre nouveau bureau ! - Gaël Brisson - Holiworking
+            
+                Download
+            
+                Fri, 15 Sep 2023
+                Expérience Candidat : Mirage ou Réalité ? - Matthieu Penet - Yaggo
+            
+                Download
+            
+                Fri, 08 Sep 2023
+                Un collaborateur acteur en vaut deux ! - Ségolène Mouterde - Teamstarter
+            
+                Download
+            
+                Fri, 01 Sep 2023
+                Faites de vos collaborateurs des ambassadeurs : l'employee advocacy - Bertrand Barbet - Limber
+            
+                Download
+            
+                Fri, 25 Aug 2023
+                [HORS-SERIE] C'est parti pour la saison 2 avec deux nouveautés
+            
+                Download
+            
+                Fri, 18 Aug 2023
+                [HORS-SERIE] Youpi c'est l'été : bilan de la saison 1 de On n'a jamais fait comme ça
+            
+                Download
+            
+                Fri, 04 Aug 2023
+                Des vidéos recrutement au service des sites carrières - Arnaud Ploquin - Kudeo
+            
+                Download
+            
+                Fri, 21 Jul 2023
+                Les datas RH au service de la diversité et l'inclusion - Sandrine Charpentier - Mixity
+            
+                Download
+            
+                Thu, 13 Jul 2023
+                Une culture d'entreprise particulière avec 100 salariés actionnaires ! - Gilles Satgé - Lucca
+            
+                Download
+            
+                Fri, 30 Jun 2023
+                Le management est un muscle qui se développe par la pratique - Ghalia Alami - Mooji
+            
+                Download
+            
+                Fri, 16 Jun 2023
+                4 fois plus de candidatures après avoir été labellisé Great Place to Work - Jullien Brezun
+            
+                Download
+            
+                Fri, 02 Jun 2023
+                Séduire et garder les jeunes talents en un clin d'œil ! - Marlène Legay - Vague de sens
+            
+                Download
+            
+                Wed, 17 May 2023
+                La fonction Ressources Humaines doit s'adapter au monde ! - Thomas Chardin - Parlons RH
+            
+                Download
+            
+                Fri, 05 May 2023
+                Pourquoi j'ai créé "On n'a jamais fait comme ça"
+            
+                Download
+            
+                Fri, 28 Apr 2023
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Commit fiche
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Aucune nouvelle fiche."
+          else
+            git commit -m "Auto: fiche podcast-btb on-n-a-jamais-fait-comme-ca-le-podcast-rh-par-pour"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
