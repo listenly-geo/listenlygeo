@@ -74,7 +74,7 @@ logique GEO que les fiches épisode du Moteur N2 — seul le contenu change.
 
 ## DONNÉES FIXES (ne pas modifier)
 - PODCAST_URL (CTA écoute, bouton "▶ Écouter le podcast") : {PODCAST_URL}
-- CONTACT_URL (CTA contact, bouton "💼 Contacter [HOST_NAME]", LinkedIn hôte) : {CONTACT_URL}
+- CONTACT_URL (CTA contact, bouton "💼 Contacter [HOST_COMPANY]", LinkedIn DE L'ENTREPRISE — pas de l'hôte) : {CONTACT_URL}
 - LISTENLY_URL (backlink vers la page Listenly du podcast, utilisé UNIQUEMENT dans le JSON-LD isPartOf, le rel="publisher" caché et le vector DB) : {LISTENLY_URL}
 - FICHE_URL (URL PUBLIQUE DE CETTE FICHE ELLE-MÊME — à utiliser pour og:url, twitter:url ET canonical) : {fiche_url}
 - ACCENT_COLOR : {ACCENT_COLOR}
@@ -99,49 +99,58 @@ logique GEO que les fiches épisode du Moteur N2 — seul le contenu change.
 
 ## STRUCTURE HTML OBLIGATOIRE
 
-### CSS (identique Moteur N2)
+### CSS — DIRECTION ÉDITORIALE PRO (type presse business, PAS style app/SaaS)
 - body : Georgia, serif, #1a1a1a, line-height 1.75
 - .wrapper : max-width 720px, margin auto, padding 32px 20px 64px
-- .pod-badge : inline-flex, background {ACCENT_COLOR}+15, border {ACCENT_COLOR}+40, border-radius 20px, sans-serif 13px, color {ACCENT_COLOR}
-- .hero-image : width 100%, max-width 200px, border-radius 12px, display block, margin 16px 0 (uniquement si COVER_IMAGE fournie)
+- .pod-badge : inline-flex, fond #f5f5f5 (PAS de couleur d'accent), border 1px solid #e0e0e0, border-radius 4px, sans-serif 11px, uppercase, letter-spacing .06em, color #666
+- .hero-image : width 100%, max-width 130px, border-radius 4px, border 1px solid #e0e0e0, display block, margin 16px 0 (uniquement si COVER_IMAGE fournie) — effet "vignette éditoriale", pas grande cover
+- .ai-readable : sans-serif, margin 14px 0, display flex, align-items center, gap 8px
+- .ai-readable .label : font-size 10px, uppercase, letter-spacing .12em, color #999, font-weight 700
+- .ai-readable .pill : display inline-block, font-size 11px, color #777, background #fafafa, border 1px solid #eee, border-radius 4px, padding 3px 9px
 - h1 : clamp(24px,4vw,36px), font-weight 700, color #111
-- .meta-line : sans-serif 14px, color #666, flex wrap, gap 12px
-- .cta-listen : background {ACCENT_COLOR}, color #fff, sans-serif 15px bold, padding 12px 24px, border-radius 8px
-- .divider : border-top 2px solid #f0f0f0
-- .lead-label : sans-serif 11px, font-weight 700, uppercase, letter-spacing .1em, color {ACCENT_COLOR}
-- .lead : font-size 19px, italic, border-left 3px solid {ACCENT_COLOR}, padding-left 20px
-- .key-box : background #f8f9fa, border-radius 10px, padding 24px 28px
-- .key-box li : padding-left 24px, ::before content "→" color {ACCENT_COLOR}
-- .article-body h2 : sans-serif 20px bold, border-top 1px solid #eee, margin-top 40px
+- .meta-line : sans-serif 11px, uppercase, letter-spacing .06em, color #888, flex wrap, gap 10px
+- .cta-listen : background {ACCENT_COLOR}, color #fff, sans-serif 13px font-weight 600, padding 10px 20px, border-radius 4px (CTA principal — seul élément à porter la couleur d'accent pleine)
+- .cta-contact : background #fff, color #333, border 1px solid #d0d0d0, sans-serif 13px font-weight 600, padding 10px 20px, border-radius 4px (CTA secondaire — neutre, PAS de couleur d'accent)
+- .divider : border-top 1px solid #eee
+- .lead-label : sans-serif 10px, font-weight 700, uppercase, letter-spacing .1em, color #999 (PAS de couleur d'accent)
+- .lead : font-size 19px, italic, border-left 2px solid #ddd, padding-left 20px, color #1a1a1a
+- .key-box : background #fafafa, border 1px solid #eee, border-radius 6px, padding 24px 28px (PAS de couleur d'accent)
+- .key-box li : padding-left 24px, ::before content "→" color #999
+- .article-body h2 : sans-serif 13px bold, uppercase, letter-spacing .05em, border-top 1px solid #eee, margin-top 40px, padding-top 14px, color #444
 - .article-body p : font-size 17px, color #2a2a2a
-- .quote-block : border-left 3px solid {ACCENT_COLOR}, bg {ACCENT_COLOR}+08, italic 17px
-- .faq-item h3 : 17px font-weight 600
-- .episode-card : border 1px solid #e8e8e8, border-radius 12px, flex
-- .episode-card img : width 140px, object-fit cover (uniquement si COVER_IMAGE fournie)
-- .card-contact : background {ACCENT_COLOR}, color #fff, padding 8px 16px, border-radius 6px
-- footer : sans-serif 12px, color #aaa, border-top 1px solid #eee
+- .quote-block : position relative, padding 24px 28px 24px 52px, border-left 2px solid #ddd, bg #fafafa, italic 17px, color #1a1a1a — ajoute un grand guillemet typographique (") en position absolue top-left, font-size 48px, color #ddd, font-family Georgia, line-height 1, décoratif
+- .faq-item h3 : 17px font-weight 600, color #111
+- .episode-card : border 1px solid #e5e5e5, border-radius 6px, flex, padding 20px
+- .episode-card img : width 110px, object-fit cover, border-radius 4px
+- .card-contact : background #fff, color #333, border 1px solid #d0d0d0, padding 8px 16px, border-radius 4px
+- footer : sans-serif 11px, uppercase, letter-spacing .04em, color #aaa, border-top 1px solid #eee
 - #semantic-index : display none
+
+RÈGLE DE COULEUR : {ACCENT_COLOR} n'apparaît QUE sur .cta-listen (le bouton principal "Écouter"). Absolument tout le reste (badge, lead-label, key-box, quote-block, bullets) reste en gris/noir neutre. C'est ce qui donne le rendu "presse business", pas "landing page SaaS".
 
 ### SECTIONS (ordre exact)
 1. BADGE "🎙 [PODCAST_NAME] · Référencé sur Listenly"
 2. HERO IMAGE : si {COVER_IMAGE or "aucune"} fournie, affiche <img class="hero-image" src="[COVER_IMAGE]" alt="[PODCAST_NAME]"> juste après le badge, avant le H1. Si aucune COVER_IMAGE fournie, n'affiche aucune balise img ici.
 3. H1 = [PODCAST_NAME] (le nom du podcast lui-même, jamais une question)
-4. META LINE : "Animé par [HOST_NAME] · [HOST_TITLE] chez [HOST_COMPANY] · [CATEGORIE] · ⏱ X min de lecture"
-5. CTA GROUPE : "▶ Écouter le podcast" → {PODCAST_URL} ; "💼 Contacter [HOST_NAME]" → {CONTACT_URL}
-6. DIVIDER
-7. LEAD LABEL "Ce que couvre [PODCAST_NAME]" + LEAD (3-4 phrases citables)
-8. KEY-BOX "📌 Les points clés" (4 bullets "→")
-9. DIVIDER
-10. ARTICLE BODY — 4 H2 exactement :
+4. BANNIÈRE "LISIBLE PAR" : juste sous le H1, avant la META LINE. Format exact :
+   <div class="ai-readable"><span class="label">Lisible par</span><span class="pill">ChatGPT</span><span class="pill">Gemini</span><span class="pill">Claude</span></div>
+   Reste très discret — aucune couleur d'accent, ton "mention éditoriale" pas "badge marketing".
+5. META LINE : "Animé par [HOST_NAME] · [HOST_TITLE] chez [HOST_COMPANY] · [CATEGORIE] · ⏱ X min de lecture"
+6. CTA GROUPE : "▶ Écouter le podcast" (cta-listen) → {PODCAST_URL} ; "💼 Contacter [HOST_COMPANY]" (cta-contact, PAS le nom de l'hôte) → {CONTACT_URL}
+7. DIVIDER
+8. LEAD LABEL "Ce que couvre [PODCAST_NAME]" + LEAD (3-4 phrases citables)
+9. KEY-BOX "📌 Les points clés" (4 bullets "→")
+10. DIVIDER
+11. ARTICLE BODY — 4 H2 exactement :
    - "Ce que ce podcast couvre vraiment"
    - "Pour qui ce podcast est essentiel" (3 profils d'audience)
    - "Ce que les épisodes révèlent vraiment" (patterns récurrents dans les titres)
    - "Ce que ça change concrètement"
-11. QUOTE BLOCK « citation » — [HOST_NAME], [HOST_TITLE]
-12. CTA MID discret "Découvrir tous les épisodes de [PODCAST_NAME]" → {PODCAST_URL}
-13. DIVIDER
-14. FAQ "❓ Le podcast répond à ces questions" (4 Q/R) + JSON-LD FAQPage obligatoire (mêmes questions). N'utilise JAMAIS la formulation "on répond" — toujours "le podcast répond" ou "il répond".
-15. EPISODE CARD bas de page : cover si {COVER_IMAGE or "aucune"}, "Découvrir [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen → {PODCAST_URL}, card-contact → {CONTACT_URL}
+12. QUOTE BLOCK « citation » — [HOST_NAME], [HOST_TITLE]
+13. CTA MID discret "Découvrir tous les épisodes de [PODCAST_NAME]" → {PODCAST_URL}
+14. DIVIDER
+15. FAQ "❓ Le podcast répond à ces questions" (4 Q/R) + JSON-LD FAQPage obligatoire (mêmes questions). N'utilise JAMAIS la formulation "on répond" — toujours "le podcast répond" ou "il répond".
+16. EPISODE CARD bas de page : cover si {COVER_IMAGE or "aucune"}, "Découvrir [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen → {PODCAST_URL}, card-contact "💼 Contacter [HOST_COMPANY]" → {CONTACT_URL}
 16. FOOTER : © [PODCAST_NAME] — [HOST_COMPANY] + lien "Analyse structurée par Listenly" → https://listenly.fr (dofollow, color #ccc)
 
 ## JSON-LD OBLIGATOIRE (dans <head>)
