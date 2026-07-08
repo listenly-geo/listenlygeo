@@ -1,0 +1,117 @@
+name: Podcast BTB — a-bon-entendeur
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * 2'
+
+jobs:
+  podcast-btb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generation fiche podcast (1ere fois seulement, jamais via cron)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_URL: |-
+            https://open.spotify.com/show/1ONg9WPMST2AwKJqWaDOQ4
+          CONTACT_URL: |-
+            https://www.linkedin.com/in/florent-delvart/
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/a-bon-entendeur
+          COVER_IMAGE: |-
+            https://i.postimg.cc/DyV7z3RC/qc-Pgk-Isdc49OKw-L6k2j-NVv8mi5K2Gm-GDJSw-VYe9k-400x400.jpg
+          RSS_URL: |-
+            https://feed.ausha.co/5w2AKhq4zLNX
+          PODCAST_SLUG: |-
+            a-bon-entendeur
+          ACCENT_COLOR: |-
+            #2e8bd6
+          PODCAST_RAW_INFO: |-
+            À Bon Entendeur
+            
+            Le podcast des décideurs engagés ! À bon entendeur est né d’un constat simple : on entend et on voit aujourd’hui beaucoup de contenus sur la RSE. Des contenus souvent techniques, parfois normés, et majoritairement commerciaux. J’ai eu envie de proposer autre chose. Un contenu différent, plus incarné, plus proche du réel. Un contenu qui me ressemble. J’ai évolué pendant près de quinze ans dans le commerce, sur le terrain, à la rencontre de décideurs, de dirigeantes et de dirigeants. Et ce sont leurs parcours, leurs vécus, leurs choix et leurs arbitrages qui m’ont toujours le plus inspiré. C’est pour cela que j’ai souhaité mettre un micro devant celles et ceux que je rencontre depuis quinze ans sur le terrain, pour que leurs expériences puissent inspirer autant qu’elles m’inspirent. Dans À bon entendeur, on parle de RSE, bien sûr, mais pas uniquement. On parle d’engagement, de vision, de terrain, de concret, de stratégie, de transformation des entreprises, de leadership, de management et de bon sens. Parce que la RSE ne se pense jamais seule, ni hors-sol. Elle s’inscrit dans un ensemble de réalités : le marché, les clients, les collaborateurs, le modèle économique, les contraintes du quotidien. Et ce sont ces équilibres, ces choix et ces contextes qui façonnent les engagements des entreprises. Animé par Florent Delvart, fondateur de SENS, ce podcast s’appuie sur plus de quinze années passées sur le terrain, à rencontrer des dirigeants, des cadres et des équipes, à écouter leurs histoires, comprendre leurs enjeux et capter leurs visions. Chaque épisode donne la parole à celles et ceux qui font : dirigeants, cadres, parfois experts ou porteurs de solutions, mais toujours des personnes engagées dans leur métier, leur entreprise et leur territoire. Ici, pas de posture dogmatique, pas de discours militant, pas de jugement. Le podcast vise à prendre du recul, à apporter de la perspective et à inspirer, toujours à partir du vécu, du bon sens et du terrain. À bon entendeur s’adresse à celles et ceux qui veulent avancer, réfléchir autrement et s’inspirer de parcours réels. Un podcast sincère, utile et profondément ancré dans le réel. Hébergé par Ausha. Visitez ausha.co/fr/politique-de-confidentialite pour plus d'informations.
+            
+            (Copyright : Florent DELVART)
+            
+                LA RESTAURATION FACE AU DEFI DU BIEN MANGER
+            
+                Download
+            
+                Tue, 07 Jul 2026
+                RECRUTER, FINANCER, TRANSMETTRE : POURQUOI LA RSE CHANGE LES REGLES DU JEU
+            
+                Download
+            
+                Tue, 23 Jun 2026
+                #05 COMMENT L'ENTREPRISE PEUT AGIR SUR DES SUJETS DE SOCIÉTÉ ? | AMÉLIE FLAMENT ROUGEGORGE LINGERIE
+            
+                Download
+            
+                Tue, 02 Jun 2026
+                IA : AMIE OU ENNEMIE DE LA RSE ? | AVEC JULIA FERHAT (CITIZENDEV NATION)
+            
+                Download
+            
+                Wed, 20 May 2026
+                #04 - REUSSIR SANS SE CRAMER : UTOPIE OU NOUVELLES REGLES DU JEU ?
+            
+                Download
+            
+                Tue, 28 Apr 2026
+                #03 - S'ENGAGER SANS POUR AUTANT ÊTRE EXEMPLAIRE
+            
+                Download
+            
+                Tue, 07 Apr 2026
+                #02 - ACHATS RESPONSABLES : QUAND LE LABEL VIENT STRUCTURER L’EXISTANT
+            
+                Download
+            
+                Tue, 03 Mar 2026
+                #01 - DONNER DU SENS SANS FAIRE LA LEÇON : LA PAROLE DU TERRAIN
+            
+                Download
+            
+                Tue, 03 Feb 2026
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Generation 1 fiche episode max (hebdomadaire, RSS)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_SLUG: |-
+            a-bon-entendeur
+          MAX_EPISODES: '1'
+        run: python automation/scripts/generate_episode_fiches_btb.py
+
+      - name: Commit fiches
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: podcast-btb a-bon-entendeur"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
