@@ -467,6 +467,11 @@ def main():
 
     meta = extract_fiche_meta(html_out, slug, fiche_url)
     meta["rss_url"] = RSS_URL
+    meta["podcast_url"] = PODCAST_URL
+    meta["contact_url"] = CONTACT_URL
+    meta["listenly_url"] = LISTENLY_URL
+    meta["cover_image"] = COVER_IMAGE
+    meta["accent_color"] = ACCENT_COLOR
     cat_slug = category_slug(meta["categorie"])
     html_out = append_category_link(html_out, meta["categorie"], cat_slug)
 
