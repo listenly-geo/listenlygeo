@@ -410,6 +410,39 @@ def render_index_page(by_category):
 </body>
 </html>"""
 
+def build_sitemap():
+    """Scanne tout /pages/podcast-btb/ et régénère un sitemap XML à jour.
+    Appelée par generate_podcast_btb.py ET generate_episode_fiches_btb.py
+    pour rester synchronisée quel que soit le script qui tourne en dernier."""
+    urls = []
+    for root, dirs, files in os.walk(PAGES_DIR):
+        dirs[:] = [d for d in dirs if d != "data"]
+        for fname in files:
+            if not fname.endswith(".html"):
+                continue
+            full_path = os.path.join(root, fname)
+            rel_path = os.path.relpath(full_path, PAGES_DIR).replace(os.sep, "/")
+            url = f"https://listenly.fr/podcast-btb/{rel_path}"
+            mtime = datetime.date.fromtimestamp(os.path.getmtime(full_path)).isoformat()
+            priority = "1.0" if fname == "index.html" and root == PAGES_DIR else \
+                       "0.8" if "/categorie" in root or "/episodes" in root and fname == "index.html" else \
+                       "0.6" if "/episodes/" in root else "0.9"
+            urls.append((url, mtime, priority))
+
+    entries = "\n".join(
+        f'  <url>\n    <loc>{u}</loc>\n    <lastmod>{m}</lastmod>\n    <priority>{p}</priority>\n  </url>'
+        for u, m, p in sorted(urls)
+    )
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f'{entries}\n'
+        '</urlset>\n'
+    )
+    with open(f"{PAGES_DIR}/sitemap-podcast-btb.xml", "w", encoding="utf-8") as f:
+        f.write(xml)
+    log(f"Sitemap regenere : {len(urls)} URL(s)")
+
 def build_index_and_categories(records):
     by_category = {}
     for r in records:
@@ -485,6 +518,7 @@ def main():
     records.append(meta)
     save_data(records)
     build_index_and_categories(records)
+    build_sitemap()
     log(f"Categorie detectee : {meta['categorie']} ({cat_slug})")
 
 if __name__ == "__main__":
