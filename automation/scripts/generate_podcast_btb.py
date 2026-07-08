@@ -472,7 +472,10 @@ def main():
     log(f"Slug utilisé : {slug}")
 
     if os.path.exists(out_file):
-        log(f"Fiche deja presente : {out_file} — skip.")
+        log(f"Fiche deja presente : {out_file} — skip generation, mais on resynchronise index/sitemap.")
+        records = load_data()
+        build_index_and_categories(records)
+        build_sitemap()
         return
 
     os.makedirs(PAGES_DIR, exist_ok=True)
