@@ -1,0 +1,126 @@
+name: Fiche Podcast-BTB — time-to-secure
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fiche-podcast-btb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generation fiche podcast-btb
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_URL: |-
+            https://open.spotify.com/show/7epYtz3GuOJc7vCNjzHnkm
+          CONTACT_URL: |-
+            https://www.linkedin.com/company/infolegale/posts/?feedView=all
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/time-to-secure
+          COVER_IMAGE: |-
+            https://i.postimg.cc/ZqmpLD7f/E1NZl7kc-Fr-NRd-F86zi-Vkml-YOFf-Lia-Ea-H8UIRy-Prj-1400x1400.jpg
+          RSS_URL: |-
+            https://feed.ausha.co/PP9AgsX1Y4k0
+          PODCAST_SLUG: |-
+            time-to-secure
+          ACCENT_COLOR: |-
+            #2e8bd6
+          PODCAST_RAW_INFO: |-
+            Time to Secure
+            
+            Le podcast by Infolegale Group : l'heure est au Risk Management ! Nous interviewons des experts autour de questions cruciales de la sécurisation des risques B2B : solvabilité, fraude, cybersécurité, conformité Sapin II, ... Bénéficiez des meilleurs conseils et bonnes pratiques pour aborder sereinement vos relations commerciales et prendre les meilleures décisions stratégiques. Hébergé par Ausha. Visitez ausha.co/fr/politique-de-confidentialite pour plus d'informations.
+            
+            (Copyright : Caroline Ehald)
+            
+                Time to Secure - Risque cyber des fournisseurs, clients et partenaires, avec SecurityScorecard
+            
+                Download
+            
+                Tue, 07 Jul 2026
+                Secure your business internationally - Meet Fred., Infolegale's AI agent
+            
+                Download
+            
+                Thu, 26 Feb 2026
+                Time to Secure - Cash is King : le poste clients, votre meilleur levier de trésorerie - Avec Recouvéo
+            
+                Download
+            
+                Wed, 14 Jan 2026
+                Hors-série - Les Rencontres Infolegale 2025 - Conférence Compliance
+            
+                Download
+            
+                Wed, 07 Jan 2026
+                Time to Secure - Contrôles Internes & Évaluation des Tiers : le duo gagnant, avec Eye2Scan
+            
+                Download
+            
+                Fri, 05 Dec 2025
+                Hors-série - Les Rencontres Infolegale 2025 - Conférence Risk Management
+            
+                Download
+            
+                Mon, 01 Dec 2025
+                Secure your business internationally - Let's talk about Risk Management with Credit Managers
+            
+                Download
+            
+                Thu, 20 Nov 2025
+                Time to Secure - Piloter le risque fournisseur, un véritable défi pour les Directions Achats, avec Corcentric
+            
+                Download
+            
+                Tue, 02 Sep 2025
+                Hors Série - Table Ronde RSE - Initier une politique RSE pour créer un cercle vertueux au sein de la chaîne de valeur
+            
+                Download
+            
+                Wed, 02 Jul 2025
+                Hors Série - Table Ronde Conformité - Les écueils à éviter dans votre programme de conformité Sapin 2
+            
+                Download
+            
+                Wed, 11 Jun 2025
+                Hors série - Table Ronde Solvabilité - Risques et résilience : nouvelles approches de la solvabilité
+            
+                Download
+            
+                Mon, 05 May 2025
+                Hors série - Table Ronde Fraude : quels sont les impacts et comment réagir ?
+            
+                Download
+            
+                Wed, 02 Apr 2025
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Commit fiche
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Aucune nouvelle fiche."
+          else
+            git commit -m "Auto: fiche podcast-btb time-to-secure"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
