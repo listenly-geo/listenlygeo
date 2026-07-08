@@ -17,6 +17,20 @@ Optionnelles (sinon lues depuis pages/podcast-btb/data/podcasts.json) :
 import os, sys, re, json, datetime, unicodedata
 import urllib.request, urllib.error
 import xml.etree.ElementTree as ET
+import importlib.util
+
+def _load_sitemap_builder():
+    spec = importlib.util.spec_from_file_location(
+        "gen_podcast_btb", os.path.join(os.path.dirname(__file__), "generate_podcast_btb.py")
+    )
+    mod = importlib.util.module_from_spec(spec)
+    os.environ.setdefault("ANTHROPIC_API_KEY", "unused")
+    os.environ.setdefault("PODCAST_RAW_INFO", "unused")
+    os.environ.setdefault("PODCAST_URL", "unused")
+    os.environ.setdefault("CONTACT_URL", "unused")
+    os.environ.setdefault("LISTENLY_URL", "unused")
+    spec.loader.exec_module(mod)
+    return mod.build_sitemap
 
 API_KEY = os.environ["ANTHROPIC_API_KEY"]
 SLUG    = os.environ["PODCAST_SLUG"].strip()
@@ -351,6 +365,12 @@ def main():
             r.update(podcast)
     with open(DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(all_records, f, ensure_ascii=False, indent=2)
+
+    try:
+        build_sitemap = _load_sitemap_builder()
+        build_sitemap()
+    except Exception as e:
+        log(f"AVERTISSEMENT : sitemap non regenere ({e})")
 
 if __name__ == "__main__":
     main()
