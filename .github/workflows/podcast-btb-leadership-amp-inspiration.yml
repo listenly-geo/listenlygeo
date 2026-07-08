@@ -1,0 +1,228 @@
+name: Podcast BTB — leadership-amp-inspiration
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * 1'
+
+jobs:
+  podcast-btb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generation fiche podcast (1ere fois seulement, jamais via cron)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_URL: |-
+            https://open.spotify.com/show/033ISxYbawHMvCNRjt1OhJ
+          CONTACT_URL: |-
+            https://www.linkedin.com/company/crew-m/posts/
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/leadership-inspiration
+          COVER_IMAGE: |-
+            https://i.postimg.cc/Hsk7BHvS/ab67656300005f1f9a76f82914a2e114c76afaab.jpg
+          RSS_URL: |-
+            https://feed.podbean.com/crewmontreal/feed.xml
+          PODCAST_SLUG: |-
+            leadership-amp-inspiration
+          ACCENT_COLOR: |-
+            #2e8bd6
+          PODCAST_RAW_INFO: |-
+            <?xml version="1.0" encoding="UTF-8"?><!-- generator="podbean/5.5" -->
+            <rss version="2.0"
+                 xmlns:content="http://purl.org/rss/1.0/modules/content/"
+                 xmlns:atom="http://www.w3.org/2005/Atom"
+                 xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+                 xmlns:spotify="http://www.spotify.com/ns/rss"
+                 xmlns:podcast="https://podcastindex.org/namespace/1.0"
+                xmlns:media="http://search.yahoo.com/mrss/">
+            
+            <channel>
+                <title>Leadership &amp; Inspiration</title>
+                <atom:link href="https://feed.podbean.com/crewmontreal/feed.xml" rel="self" type="application/rss+xml"/>
+                <link>https://crewmontreal.podbean.com</link>
+                <description><![CDATA[<p><strong>Chez CREW M, nous croyons au pouvoir des échanges, du partage d’expériences et de la visibilité des modèles féminins pour faire progresser notre industrie.</strong></p>
+            <p>C’est dans cet esprit que nous avons créé Leadership &amp; Inspiration, un balado qui met en lumière des femmes qui façonnent l’immobilier commercial d’aujourd’hui et de demain. À travers des conversations authentiques et inspirantes avec des femmes d’exception — membres CREW M ou invitées —, nous rencontrons des leaders, entrepreneures, professionnelles et bâtisseuses qui partagent avec générosité leur parcours, les défis qu’elles ont surmontés, leurs réussites et les apprentissages qui ont marqué leur cheminement.</p>
+            <p>Au fil des épisodes, nous explorons des thèmes qui sont au cœur de notre mission : le leadership et la culture d’entreprise, le repreneuriat et la croissance, l’entrepreneuriat, ainsi que la relève. Nous souhaitons offrir à notre communauté des réflexions porteuses, des perspectives diversifiées et des outils concrets qui favorisent le développement professionnel et personnel.</p>
+            <p>Avec Leadership &amp; Inspiration, nous poursuivons notre engagement à faire rayonner les femmes de l’immobilier commercial, à valoriser leurs réalisations et à créer des occasions d’apprentissage et de connexion dans l’ensemble de notre réseau.</p>]]></description>
+                <pubDate>Thu, 02 Jul 2026 17:06:06 -0300</pubDate>
+                <generator>https://podbean.com/?v=5.5</generator>
+                <language>fr-ca</language>
+                    <copyright>Copyright 2022 All rights reserved.</copyright>
+                <category>Business</category>
+                <ttl>1440</ttl>
+                <itunes:type>episodic</itunes:type>
+                      <itunes:summary></itunes:summary>
+                    <itunes:author>crewmontreal</itunes:author>
+            <itunes:category text="Business" />
+                <itunes:owner>
+                    <itunes:name>crewmontreal</itunes:name>
+                        </itunes:owner>
+                	<itunes:block>No</itunes:block>
+            	<itunes:explicit>false</itunes:explicit>
+                <itunes:image href="https://pbcdn1.podbean.com/imglogo/image-logo/13860905/CREW_M_Visuel_Balado_1400_x_1400_px_6erpd.png" />
+                <image>
+                    <url>https://pbcdn1.podbean.com/imglogo/image-logo/13860905/CREW_M_Visuel_Balado_1400_x_1400_px_6erpd.png</url>
+                    <title>Leadership &amp; Inspiration</title>
+                    <link>https://crewmontreal.podbean.com</link>
+                    <width>144</width>
+                    <height>144</height>
+                </image>
+                <item>
+                    <title>Leadership &amp; Inspiration | Épisode 1 : Quand le design rencontre le leadership</title>
+                    <itunes:title>Leadership &amp; Inspiration | Épisode 1 : Quand le design rencontre le leadership</itunes:title>
+                    <link>https://crewmontreal.podbean.com/e/leadership-inspiration/</link>
+                                <comments>https://crewmontreal.podbean.com/e/leadership-inspiration/#comments</comments>        <pubDate>Thu, 02 Jul 2026 17:06:06 -0300</pubDate>
+                    <guid isPermaLink="false">crewmontreal.podbean.com/b1a01686-97ca-3bd9-b2c3-bc33bc715203</guid>
+                                                <description><![CDATA[<p>Chez CREW M, nous croyons au pouvoir des échanges, du partage d’expériences et de la visibilité des modèles féminins pour faire progresser notre industrie.</p>
+            <p>C’est dans cet esprit que nous avons créé Leadership &amp; Inspiration, un balado qui met en lumière des femmes qui façonnent l’immobilier commercial d’aujourd’hui et de demain. À travers des conversations authentiques et inspirantes avec des femmes d’exception — membres CREW M ou invitées —, nous rencontrons des leaders, entrepreneures, professionnelles et bâtisseuses qui partagent avec générosité leur parcours, les défis qu’elles ont surmontés, leurs réussites et les apprentissages qui ont marqué leur cheminement.</p>
+            Quand le design rencontre le leadership
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <p>Dans cet épisode de Leadership &amp; Inspiration, notre animatrice Nathalie Picard, consultante principale chez Boyden et membre engagée de CREW M depuis 2017, reçoit Julie Laforêt, vice-présidente et associée chez Folio Design, elle aussi membre CREW M. </p>
+            <p>Ensemble, elles explorent le parcours inspirant de Julie, son cheminement entrepreneurial ainsi que les étapes qui l'ont menée à devenir associée au sein de son entreprise. Elles discutent également de l'évolution de l'immobilier commercial et de son influence sur le design d'intérieur, de l'importance du développement professionnel et des qualités de leadership essentielles pour faire évoluer une organisation dans un secteur en constante transformation. </p>
+            <p>Une conversation authentique qui met en lumière le pouvoir de l'audace, de la vision et de l'innovation, tout en offrant des réflexions concrètes pour les professionnels.elles qui souhaitent faire progresser leur carrière et contribuer à l'avenir de l'industrie. </p>
+            <p>Bonne écoute! </p>
+            
+            
+            
+            
+             
+            
+            
+            
+            
+            
+            
+            
+            
+            
+             ]]></description>
+                                                                        <content:encoded><![CDATA[<p>Chez CREW M, nous croyons au pouvoir des échanges, du partage d’expériences et de la visibilité des modèles féminins pour faire progresser notre industrie.</p>
+            <p>C’est dans cet esprit que nous avons créé Leadership &amp; Inspiration, un balado qui met en lumière des femmes qui façonnent l’immobilier commercial d’aujourd’hui et de demain. À travers des conversations authentiques et inspirantes avec des femmes d’exception — membres CREW M ou invitées —, nous rencontrons des leaders, entrepreneures, professionnelles et bâtisseuses qui partagent avec générosité leur parcours, les défis qu’elles ont surmontés, leurs réussites et les apprentissages qui ont marqué leur cheminement.</p>
+            Quand le design rencontre le leadership
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <p>Dans cet épisode de <em>Leadership &amp; Inspiration</em>, notre animatrice Nathalie Picard, consultante principale chez Boyden et membre engagée de CREW M depuis 2017, reçoit Julie Laforêt, vice-présidente et associée chez Folio Design, elle aussi membre CREW M. </p>
+            <p>Ensemble, elles explorent le parcours inspirant de Julie, son cheminement entrepreneurial ainsi que les étapes qui l'ont menée à devenir associée au sein de son entreprise. Elles discutent également de l'évolution de l'immobilier commercial et de son influence sur le design d'intérieur, de l'importance du développement professionnel et des qualités de leadership essentielles pour faire évoluer une organisation dans un secteur en constante transformation. </p>
+            <p>Une conversation authentique qui met en lumière le pouvoir de l'audace, de la vision et de l'innovation, tout en offrant des réflexions concrètes pour les professionnels.elles qui souhaitent faire progresser leur carrière et contribuer à l'avenir de l'industrie. </p>
+            <p>Bonne écoute! </p>
+            
+            
+            
+            
+             
+            
+            
+            
+            
+            
+            
+            
+            
+            
+             ]]></content:encoded>
+                                                
+                    <enclosure url="https://mcdn.podbean.com/mf/web/5j6j6bb3fnpbs9zh/1_Julie_Lafor_t_Folio_Design_VF_HDbmk6i.mp3" length="26384142" type="audio/mpeg"/>
+                            <itunes:summary><![CDATA[Chez CREW M, nous croyons au pouvoir des échanges, du partage d’expériences et de la visibilité des modèles féminins pour faire progresser notre industrie.
+            C’est dans cet esprit que nous avons créé Leadership &amp; Inspiration, un balado qui met en lumière des femmes qui façonnent l’immobilier commercial d’aujourd’hui et de demain. À travers des conversations authentiques et inspirantes avec des femmes d’exception — membres CREW M ou invitées —, nous rencontrons des leaders, entrepreneures, professionnelles et bâtisseuses qui partagent avec générosité leur parcours, les défis qu’elles ont surmontés, leurs réussites et les apprentissages qui ont marqué leur cheminement.
+            Quand le design rencontre le leadership
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            Dans cet épisode de Leadership &amp; Inspiration, notre animatrice Nathalie Picard, consultante principale chez Boyden et membre engagée de CREW M depuis 2017, reçoit Julie Laforêt, vice-présidente et associée chez Folio Design, elle aussi membre CREW M. 
+            Ensemble, elles explorent le parcours inspirant de Julie, son cheminement entrepreneurial ainsi que les étapes qui l'ont menée à devenir associée au sein de son entreprise. Elles discutent également de l'évolution de l'immobilier commercial et de son influence sur le design d'intérieur, de l'importance du développement professionnel et des qualités de leadership essentielles pour faire évoluer une organisation dans un secteur en constante transformation. 
+            Une conversation authentique qui met en lumière le pouvoir de l'audace, de la vision et de l'innovation, tout en offrant des réflexions concrètes pour les professionnels.elles qui souhaitent faire progresser leur carrière et contribuer à l'avenir de l'industrie. 
+            Bonne écoute! 
+            
+            
+            
+            
+             
+            
+            
+            
+            
+            
+            
+            
+            
+            
+             ]]></itunes:summary>
+                    <itunes:author>crewmontreal</itunes:author>
+                    <itunes:explicit>false</itunes:explicit>
+                    <itunes:block>No</itunes:block>
+                    <itunes:duration>1648</itunes:duration>
+                    <itunes:season>1</itunes:season>
+                    <itunes:episode>1</itunes:episode>
+                    <itunes:episodeType>full</itunes:episodeType>
+                    <itunes:image href="https://pbcdn1.podbean.com/imglogo/ep-logo/pbblog13860905/CREW_M_Visuel_Balado9laup.png" />    </item>
+            </channel>
+            </rss>
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Generation 1 fiche episode max (hebdomadaire, RSS)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_SLUG: |-
+            leadership-amp-inspiration
+          MAX_EPISODES: '1'
+        run: python automation/scripts/generate_episode_fiches_btb.py
+
+      - name: Commit fiches
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: podcast-btb leadership-amp-inspiration"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
