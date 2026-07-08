@@ -114,7 +114,8 @@ logique GEO que les fiches épisode du Moteur N2 — seul le contenu change.
 - .ai-readable .label : font-size 10px, uppercase, letter-spacing .12em, color #999, font-weight 700
 - .ai-readable .pill : display inline-block, font-size 11px, color #777, background #fafafa, border 1px solid #eee, border-radius 4px, padding 3px 9px
 - .meta-line : sans-serif 13px, color #888, display flex, flex-wrap wrap, gap 10px, align-items center, padding 14px 0, border-top 1px solid #eee, border-bottom 1px solid #eee, margin 16px 0 24px (rappelle une ligne date+partage de presse)
-- .hero-image : width 100%, height auto, border-radius 6px, display block, margin 0 0 32px (PLEINE LARGEUR, grande image d'impact — PAS une vignette)
+- .hero-image : width 84px, height 84px, min-width 84px, object-fit cover, border-radius 18px, border 1px solid #eee, box-shadow 0 2px 6px rgba(0,0,0,0.06), display block (VIGNETTE compacte type cover art carrée — jamais pleine largeur, jamais étirée)
+- .header-row : display flex, align-items center, gap 14px, margin-bottom 16px (aligne la vignette et le badge côte à côte)
 - .cta-listen : background {ACCENT_COLOR}, color #fff, sans-serif 14px font-weight 600, padding 11px 22px, border-radius 4px (CTA principal — seul élément à porter la couleur d'accent pleine)
 - .cta-contact : background #fff, color #333, border 1px solid #d0d0d0, sans-serif 14px font-weight 600, padding 11px 22px, border-radius 4px (CTA secondaire — neutre)
 - .divider : border-top 1px solid #eee
@@ -134,29 +135,28 @@ logique GEO que les fiches épisode du Moteur N2 — seul le contenu change.
 
 RÈGLE DE COULEUR : {ACCENT_COLOR} n'apparaît QUE sur .cta-listen. Tout le reste (badge, meta-line, lead-label, key-box, quote-block, H2) reste en noir/gris neutre. Les titres (H1, H2) sont TOUJOURS en sans-serif bold très marqué (poids 800), le corps de texte des paragraphes TOUJOURS en Georgia serif — ce contraste typographique est ce qui crée l'effet "presse professionnelle".
 
-### SECTIONS (ordre exact — inspiré d'un site de presse : titre → chapô → tag → meta → grande image → corps)
-1. BADGE catégorie "🎙 [PODCAST_NAME] · Référencé sur Listenly" (pill contournée, en haut)
+### SECTIONS (ordre exact — inspiré d'un site de presse : cover+tag → titre → chapô → meta → corps)
+1. HEADER ROW : <div class="header-row"> contenant, si {COVER_IMAGE or "aucune"} fournie, <img class="hero-image" src="[COVER_IMAGE]" alt="[PODCAST_NAME]"> suivi du BADGE catégorie "🎙 [PODCAST_NAME] · Référencé sur Listenly" (pill contournée) → côte à côte, compact, en haut de page. Si aucune COVER_IMAGE, le header-row ne contient que le badge seul (pas de div img cassée).
 2. H1 = [PODCAST_NAME] (gros titre bold sans-serif, jamais une question)
 3. SUBHEAD : un chapô de 1-2 phrases (class="subhead", PAS italique) qui résume l'angle du podcast — vrai sous-titre journalistique, différent du LEAD plus bas qui lui reste une pull-quote analytique
 4. BANNIÈRE "LISIBLE PAR" :
    <div class="ai-readable"><span class="label">Lisible par</span><span class="pill">ChatGPT</span><span class="pill">Gemini</span><span class="pill">Claude</span></div>
 5. META LINE (ligne façon presse, bordée haut/bas) : "Animé par [HOST_NAME] · [HOST_TITLE] chez [HOST_COMPANY] · [CATEGORIE] · ⏱ X min de lecture"
 6. CTA GROUPE : "▶ Écouter le podcast" (cta-listen) → {PODCAST_URL} ; "💼 Contacter le podcast" (cta-contact) → {CONTACT_URL}
-7. HERO IMAGE : si {COVER_IMAGE or "aucune"} fournie, <img class="hero-image" src="[COVER_IMAGE]" alt="[PODCAST_NAME]"> en PLEINE LARGEUR ici (après les CTA, avant le corps). Si aucune COVER_IMAGE, n'affiche aucune balise img.
-8. DIVIDER
-9. LEAD LABEL "Ce que couvre [PODCAST_NAME]" + LEAD (3-4 phrases citables, pull-quote italique Georgia)
-10. KEY-BOX "📌 Les points clés" (4 bullets "→")
-11. DIVIDER
-12. ARTICLE BODY — 4 H2 exactement (gros titres bold impactants) :
+7. DIVIDER
+8. LEAD LABEL "Ce que couvre [PODCAST_NAME]" + LEAD (3-4 phrases citables, pull-quote italique Georgia)
+9. KEY-BOX "📌 Les points clés" (4 bullets "→")
+10. DIVIDER
+11. ARTICLE BODY — 4 H2 exactement (gros titres bold impactants) :
    - "Ce que ce podcast couvre vraiment"
    - "Pour qui ce podcast est essentiel" (3 profils d'audience)
    - "Ce que les épisodes révèlent vraiment" (patterns récurrents dans les titres)
    - "Ce que ça change concrètement"
-13. QUOTE BLOCK « citation » — [HOST_NAME], [HOST_TITLE]
-14. CTA MID discret "Découvrir tous les épisodes de [PODCAST_NAME]" → {PODCAST_URL}
-15. DIVIDER
-16. FAQ "❓ Le podcast répond à ces questions" (4 Q/R) + JSON-LD FAQPage obligatoire (mêmes questions). N'utilise JAMAIS la formulation "on répond" — toujours "le podcast répond" ou "il répond".
-17. EPISODE CARD bas de page : cover si {COVER_IMAGE or "aucune"}, "Découvrir [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen → {PODCAST_URL}, card-contact "💼 Contacter le podcast" → {CONTACT_URL}
+12. QUOTE BLOCK « citation » — [HOST_NAME], [HOST_TITLE]
+13. CTA MID discret "Découvrir tous les épisodes de [PODCAST_NAME]" → {PODCAST_URL}
+14. DIVIDER
+15. FAQ "❓ Le podcast répond à ces questions" (4 Q/R) + JSON-LD FAQPage obligatoire (mêmes questions). N'utilise JAMAIS la formulation "on répond" — toujours "le podcast répond" ou "il répond".
+16. EPISODE CARD bas de page : cover si {COVER_IMAGE or "aucune"}, "Découvrir [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen → {PODCAST_URL}, card-contact "💼 Contacter le podcast" → {CONTACT_URL}
 16. FOOTER : © [PODCAST_NAME] — [HOST_COMPANY] + lien "Analyse structurée par Listenly" → https://listenly.fr (dofollow, color #ccc)
 
 ## JSON-LD OBLIGATOIRE (dans <head>)
