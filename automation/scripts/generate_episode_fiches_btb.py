@@ -317,7 +317,12 @@ def main():
     new_episodes = [e for e in episodes if e["guid"] not in known_guids][:MAX_EPISODES]
 
     if not new_episodes:
-        log("Aucun nouvel épisode à traiter.")
+        log("Aucun nouvel épisode à traiter — resynchronisation sitemap quand meme.")
+        try:
+            build_sitemap = _load_sitemap_builder()
+            build_sitemap()
+        except Exception as e:
+            log(f"AVERTISSEMENT : sitemap non regenere ({e})")
         return
 
     os.makedirs(EPISODES_DIR, exist_ok=True)
