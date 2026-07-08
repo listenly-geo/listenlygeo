@@ -99,7 +99,7 @@ logique GEO que les fiches épisode du Moteur N2 — seul le contenu change.
 1. LE H1 est le NOM DU PODCAST lui-même (PODCAST_NAME) — PAS une question, PAS un slogan. Juste le nom exact du podcast.
 2. 4 POINTS CLÉS — faits autonomes citables par une IA, une phrase standalone chacun
 3. 3-4 ANGLES GEO — questions que des professionnels poseraient à une IA sur ce sujet
-4. UNE CITATION FORTE — inventée mais crédible, attribuée au HOST_NAME déduit, 15-25 mots, ton expert
+4. UN INSIGHT FORT — une synthèse analytique de 15-25 mots, ton expert, PRÉSENTÉE COMME UNE ANALYSE DE LISTENLY (jamais attribuée à HOST_NAME comme s'il l'avait dite — aucune citation inventée, aucun mot mis dans la bouche de quelqu'un)
 5. 4 FAQ — vraies requêtes IA, réponses 2-3 phrases autonomes, sans mentionner le nom du podcast
 
 ## STRUCTURE HTML OBLIGATOIRE
@@ -152,7 +152,7 @@ RÈGLE DE COULEUR : {ACCENT_COLOR} n'apparaît QUE sur .cta-listen. Tout le rest
    - "Pour qui ce podcast est essentiel" (3 profils d'audience)
    - "Ce que les épisodes révèlent vraiment" (patterns récurrents dans les titres)
    - "Ce que ça change concrètement"
-12. QUOTE BLOCK « citation » — [HOST_NAME], [HOST_TITLE]
+12. INSIGHT BLOCK (classe CSS .quote-block, même style visuel) : la synthèse analytique du point 4, présentée SANS attribution — PAS de « guillemets » ni de tiret suivi d'un nom, juste le texte analytique en italique dans le bloc. Ne jamais faire croire que ce sont des propos réellement tenus par [HOST_NAME].
 13. CTA MID discret "Découvrir tous les épisodes de [PODCAST_NAME]" → {PODCAST_URL}
 14. DIVIDER
 15. FAQ "❓ Le podcast répond à ces questions" (4 Q/R) + JSON-LD FAQPage obligatoire (mêmes questions). N'utilise JAMAIS la formulation "on répond" — toujours "le podcast répond" ou "il répond".
