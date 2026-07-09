@@ -19,7 +19,7 @@ import urllib.request, urllib.error
 import xml.etree.ElementTree as ET
 import importlib.util
 
-def _load_sitemap_builder():
+def _load_gen_module():
     spec = importlib.util.spec_from_file_location(
         "gen_podcast_btb", os.path.join(os.path.dirname(__file__), "generate_podcast_btb.py")
     )
@@ -30,7 +30,7 @@ def _load_sitemap_builder():
     os.environ.setdefault("CONTACT_URL", "unused")
     os.environ.setdefault("LISTENLY_URL", "unused")
     spec.loader.exec_module(mod)
-    return mod.build_sitemap
+    return mod
 
 API_KEY = os.environ["ANTHROPIC_API_KEY"]
 SLUG    = os.environ["PODCAST_SLUG"].strip()
@@ -317,12 +317,13 @@ def main():
     new_episodes = [e for e in episodes if e["guid"] not in known_guids][:MAX_EPISODES]
 
     if not new_episodes:
-        log("Aucun nouvel épisode à traiter — resynchronisation sitemap quand meme.")
+        log("Aucun nouvel épisode à traiter — resynchronisation sitemap/historique quand meme.")
         try:
-            build_sitemap = _load_sitemap_builder()
-            build_sitemap()
+            gen_mod = _load_gen_module()
+            gen_mod.build_sitemap()
+            gen_mod.build_historique()
         except Exception as e:
-            log(f"AVERTISSEMENT : sitemap non regenere ({e})")
+            log(f"AVERTISSEMENT : sitemap/historique non regenere ({e})")
         return
 
     os.makedirs(EPISODES_DIR, exist_ok=True)
@@ -333,7 +334,7 @@ def main():
         out_file = f"{EPISODES_DIR}/{ep_slug}.html"
         if os.path.exists(out_file):
             log(f"Fichier deja present : {out_file} — skip, ajout au registre seulement")
-            registry.append({"guid": ep["guid"], "slug": ep_slug, "title": ep["title"], "pubdate": ep["pubdate"]})
+            registry.append({"guid": ep["guid"], "slug": ep_slug, "title": ep["title"], "pubdate": ep["pubdate"], "added_date": today})
             continue
 
         ep_url = f"https://listenly.fr/podcast-btb/episodes/{SLUG}/{ep_slug}.html"
@@ -351,7 +352,7 @@ def main():
         with open(out_file, "w", encoding="utf-8") as f:
             f.write(html_out)
         log(f"✓ Fiche épisode écrite : {out_file}")
-        registry.append({"guid": ep["guid"], "slug": ep_slug, "title": ep["title"], "pubdate": ep["pubdate"], "url": ep_url})
+        registry.append({"guid": ep["guid"], "slug": ep_slug, "title": ep["title"], "pubdate": ep["pubdate"], "url": ep_url, "added_date": today})
 
     save_registry(registry)
 
@@ -372,10 +373,11 @@ def main():
         json.dump(all_records, f, ensure_ascii=False, indent=2)
 
     try:
-        build_sitemap = _load_sitemap_builder()
-        build_sitemap()
+        gen_mod = _load_gen_module()
+        gen_mod.build_sitemap()
+        gen_mod.build_historique()
     except Exception as e:
-        log(f"AVERTISSEMENT : sitemap non regenere ({e})")
+        log(f"AVERTISSEMENT : sitemap/historique non regenere ({e})")
 
 if __name__ == "__main__":
     main()
