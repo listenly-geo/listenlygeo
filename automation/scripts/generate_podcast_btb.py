@@ -163,66 +163,65 @@ logique GEO que les fiches épisode du Moteur N2 — seul le contenu change.
 
 ## STRUCTURE HTML OBLIGATOIRE
 
-### CSS — DIRECTION "PRESSE BUSINESS" (type site de presse professionnelle — ARCinfo, Les Echos, HBR)
-- body : sans-serif (Helvetica, Arial), #1a1a1a, line-height 1.6 (le sans-serif porte les titres, le corps de texte reste en Georgia serif pour la lisibilité — voir .article-body p)
-- main.wrapper : max-width 760px, margin auto, padding 40px 20px 64px (IMPORTANT : utiliser la balise <main class="wrapper"> pour le conteneur principal, PAS <div class="wrapper">, pour le landmark d'accessibilité)
-- .pod-badge : inline-block, fond #fff, border 1.5px solid #ddd, border-radius 20px, padding 8px 18px, sans-serif 13px, font-weight 500, color #333 (PILL contournée façon tag presse, PAS remplie, PAS de couleur d'accent)
-- h1 : sans-serif, font-weight 800, font-size clamp(30px,5vw,42px), line-height 1.12, letter-spacing -0.01em, color #0a0a0a, margin 20px 0 16px
-- .subhead : sans-serif, font-weight 400, font-size 19px, line-height 1.5, color #333, margin 0 0 20px (PAS italique — un vrai chapô de presse ; #333 pour contraste WCAG AA, PAS #444 ou plus clair)
-- .ai-readable : sans-serif, margin 10px 0 18px, display flex, align-items center, gap 8px
-- .ai-readable .label : font-size 10px, uppercase, letter-spacing .12em, color #595959, font-weight 700 (contraste renforcé — PAS #999)
-- .ai-readable .pill : display inline-block, font-size 11px, color #444, background #fafafa, border 1px solid #ddd, border-radius 4px, padding 3px 9px (contraste renforcé — PAS #777)
-- .meta-line : sans-serif 13px, color #555, display flex, flex-wrap wrap, gap 10px, align-items center, padding 14px 0, border-top 1px solid #eee, border-bottom 1px solid #eee, margin 16px 0 24px (rappelle une ligne date+partage de presse ; #555 pour contraste WCAG AA, PAS #888)
-- .hero-image : width 84px, height 84px, min-width 84px, object-fit cover, border-radius 18px, border 1px solid #eee, box-shadow 0 2px 6px rgba(0,0,0,0.06), display block (VIGNETTE compacte type cover art carrée — jamais pleine largeur, jamais étirée)
-- .header-row : display flex, align-items center, gap 14px, margin-bottom 16px (aligne la vignette et le badge côte à côte)
-- .cta-listen : background {ACCENT_COLOR}, color #fff, sans-serif 14px font-weight 600, padding 11px 22px, border-radius 4px (CTA principal — seul élément à porter la couleur d'accent pleine)
-- .cta-contact : background #fff, color #222, border 1px solid #999, sans-serif 14px font-weight 600, padding 11px 22px, border-radius 4px (CTA secondaire — neutre, bordure renforcée pour contraste)
-- .divider : border-top 1px solid #eee
-- .lead-label : sans-serif 10px, font-weight 700, uppercase, letter-spacing .1em, color #595959 (contraste renforcé — PAS #999)
-- .lead : font-family Georgia, font-size 19px, italic, border-left 2px solid #ccc, padding-left 20px, color #1a1a1a
-- .key-box : background #fafafa, border 1px solid #eee, border-radius 6px, padding 24px 28px
-- .key-box li : padding-left 24px, ::before content "→" color #555 (contraste renforcé — PAS #999)
-- .article-body h2 : sans-serif, font-weight 800, font-size clamp(24px,3.5vw,30px), line-height 1.2, color #0a0a0a, margin-top 48px, margin-bottom 4px (GROS titre bold impactant, façon intertitre de presse — PAS petit uppercase discret)
-- .article-body p : font-family Georgia, serif, font-size 17px, line-height 1.75, color #2a2a2a (corps de texte en serif classique, contraste avec les titres sans-serif)
-- .quote-block : position relative, padding 24px 28px 24px 52px, border-left 2px solid #ccc, bg #fafafa, font-family Georgia, italic 17px, color #1a1a1a — ajoute un grand guillemet typographique (") en position absolue top-left, font-size 48px, color #ccc, font-family Georgia, line-height 1, décoratif
-- .faq-item h3 : sans-serif, 17px, font-weight 700, color #111
-- .episode-card : border 1px solid #e5e5e5, border-radius 6px, flex, padding 20px
-- .episode-card img : width 110px, object-fit cover, border-radius 4px
-- .card-contact : background #fff, color #222, border 1px solid #999, padding 8px 16px, border-radius 4px
-- footer : sans-serif 12px, color #666, border-top 1px solid #eee, padding-top 16px, margin-top 48px (contraste renforcé — PAS #aaa)
-- Tous les liens texte hors boutons (footer, liens de bas de page) : text-decoration: underline systématique — ne JAMAIS distinguer un lien uniquement par la couleur
+### CSS — DIRECTION "MAGAZINE BUSINESS PREMIUM" (type Forbes, HBR — crédible, PAS marketing)
+- body : Georgia, serif, #1a1a1a, line-height 1.7 (TOUT le texte en serif, y compris les titres — c'est le serif qui donne le sérieux éditorial, pas le sans-serif bold)
+- main.wrapper : max-width 720px, margin auto, padding 40px 20px 64px (IMPORTANT : utiliser <main class="wrapper">, PAS <div>, pour le landmark d'accessibilité)
+- .eyebrow-category : sans-serif (Helvetica, Arial), uppercase, font-weight 700, letter-spacing .08em, font-size 12px, color {ACCENT_COLOR}, margin-bottom 10px (texte simple, PAS un pill/badge — juste un label catégorie sobre, façon "BREAKING · BUSINESS" en presse)
+- h1 : font-family Georgia, serif, font-weight 700, font-size clamp(30px,4.5vw,44px), line-height 1.18, color #0a0a0a, margin 0 0 18px (PAS sans-serif, PAS de question — le nom du podcast en gros titre éditorial classique)
+- .byline-row : sans-serif, font-size 14px, color #333, display flex, flex-wrap wrap, gap 6px, align-items baseline, margin-bottom 10px
+- .byline-row .name : font-weight 700, color #111
+- .hero-image : width 100%; max-width 220px; height auto; border-radius 6px; display block; margin 4px 0 20px (image podcast modérée, format portrait/carré, PAS minuscule vignette 84px, PAS pleine largeur non plus — un juste milieu crédible comme une photo d'illustration Forbes)
+- .publish-row : sans-serif 13px, color #555, display flex, flex-wrap wrap, gap 10px, align-items center, padding 14px 0, border-top 1px solid #e2e2e2, border-bottom 1px solid #e2e2e2, margin 4px 0 28px (contraste WCAG AA — #555 minimum, jamais plus clair)
+- .cta-row : display flex, gap 10px, flex-wrap wrap, margin-bottom 8px
+- .cta-listen : background {ACCENT_COLOR}, color #fff, sans-serif 13px font-weight 700, padding 9px 20px, border-radius 999px (PILL, pas rectangle — style "Suivre/Follow" discret de presse, PAS un gros bouton SaaS ; seul élément à porter la couleur d'accent pleine)
+- .cta-contact : background #fff, color #222, border 1.5px solid #333, sans-serif 13px font-weight 700, padding 9px 20px, border-radius 999px (PILL contournée, contraste renforcé)
+- .divider : border-top 1px solid #e2e2e2
+- .lead-label : sans-serif 12px, font-weight 700, uppercase, letter-spacing .08em, color {ACCENT_COLOR} (comme "KEY FACTS" en presse — SEUL élément hors CTA à pouvoir utiliser la couleur d'accent, car c'est un simple label texte, pas un fond coloré)
+- .lead : font-family Georgia, font-size 20px, line-height 1.6, font-style italic, border-left 3px solid {ACCENT_COLOR}, padding-left 22px, color #1a1a1a, margin 14px 0 28px
+- .key-facts-label : sans-serif 12px, font-weight 700, uppercase, letter-spacing .08em, color {ACCENT_COLOR}, margin-bottom 12px, padding-top 24px, border-top 1px solid #e2e2e2
+- .key-facts li : font-family Georgia, font-size 18px, line-height 1.7, color #1a1a1a, padding-left 22px, margin-bottom 14px, position relative
+- .key-facts li::before : content "•", position absolute, left 0, color {ACCENT_COLOR}, font-weight 700, font-size 22px (PAS de fond gris, PAS d'encadré — puce simple colorée sur fond blanc, comme une vraie liste éditoriale)
+- .article-body h2 : font-family Georgia, serif, font-weight 700, font-size clamp(22px,3.2vw,28px), line-height 1.25, color #0a0a0a, margin-top 44px, margin-bottom 16px, padding-top 24px, border-top 1px solid #e2e2e2 (intertitre serif classique, PAS sans-serif, PAS d'uppercase)
+- .article-body p : font-family Georgia, serif, font-size 18px, line-height 1.8, color #1a1a1a, margin-bottom 20px
+- .pull-quote : border-left 3px solid {ACCENT_COLOR}, padding-left 24px, font-family Georgia, font-size 21px, font-style italic, line-height 1.5, color #111, margin 32px 0 (PAS de fond gris, PAS de gros guillemet décoratif — juste un filet vertical net et net, comme une vraie pull-quote de magazine)
+- .faq-item h3 : font-family Georgia, serif, font-size 18px, font-weight 700, color #111, margin-bottom 6px
+- .faq-item p : font-family Georgia, font-size 17px, color #2a2a2a
+- .episode-card : border 1px solid #e2e2e2, border-radius 6px, display flex, padding 20px, gap 16px, align-items center, margin-top 40px
+- .episode-card img : width 90px, height 90px, object-fit cover, border-radius 4px
+- .card-listen, .card-contact : sans-serif 13px font-weight 700, padding 8px 16px, border-radius 999px
+- .card-listen : background {ACCENT_COLOR}, color #fff
+- .card-contact : background #fff, color #222, border 1.5px solid #333
+- footer : sans-serif 12px, color #666, border-top 1px solid #e2e2e2, padding-top 16px, margin-top 48px
+- Tous les liens texte hors boutons (footer, liens de bas de page) : text-decoration underline systématique
 - #semantic-index : display none
 
-RÈGLE DE HIÉRARCHIE DE TITRES (accessibilité, obligatoire) : H1 (unique) → puis uniquement des H2 pour les 4 sections de l'article → puis H3 UNIQUEMENT pour les questions FAQ, sous un H2 "FAQ" existant. Ne JAMAIS sauter un niveau (pas de H3 sans H2 parent, pas de H4 nulle part).
+RÈGLE DE HIÉRARCHIE DE TITRES (accessibilité, obligatoire) : H1 (unique) → puis uniquement des H2 pour les 4 sections de l'article → puis H3 UNIQUEMENT pour les questions FAQ, sous un H2 "FAQ" existant. Ne JAMAIS sauter un niveau.
 
-RÈGLE DE COULEUR : {ACCENT_COLOR} n'apparaît QUE sur .cta-listen. Tout le reste (badge, meta-line, lead-label, key-box, quote-block, H2) reste en noir/gris neutre — TOUJOURS avec un contraste minimum WCAG AA (4.5:1) sur fond blanc : utiliser #555/#595959/#666 ou plus foncé, JAMAIS #888/#999/#aaa/#ddd pour du texte. Les titres (H1, H2) sont TOUJOURS en sans-serif bold très marqué (poids 800), le corps de texte des paragraphes TOUJOURS en Georgia serif — ce contraste typographique est ce qui crée l'effet "presse professionnelle".
+RÈGLE DE COULEUR ET DE TON : {ACCENT_COLOR} apparaît sur .eyebrow-category, .cta-listen, .lead-label, .key-facts-label, les puces ::before, le filet des .lead/.pull-quote/.article-body h2 (bordures fines). Il ne remplit JAMAIS un fond (pas de background coloré, pas de boîte grise autour du texte). Tout le texte de contenu (H1, H2, paragraphes, listes) est en Georgia serif — c'est le choix typographique unique et cohérent qui fait "vrai magazine business" plutôt que "landing page marketing". Aucun encadré gris (#fafafa), aucun badge/pill décoratif hors des 2 CTA et de la carte de fin — le reste du contenu est du texte nu, structuré par des filets fins (1px #e2e2e2) et des labels colorés discrets, jamais des boîtes.
 
-### SECTIONS (ordre exact — inspiré d'un site de presse : cover+tag → titre → chapô → meta → corps)
-1. HEADER ROW : <div class="header-row"> contenant, si {cover_image or "aucune"} fournie, <img class="hero-image" src="[COVER_IMAGE]" alt="[PODCAST_NAME]"> suivi du BADGE catégorie "🎙 [PODCAST_NAME] · Référencé sur Listenly" (pill contournée) → côte à côte, compact, en haut de page. Si aucune COVER_IMAGE, le header-row ne contient que le badge seul (pas de div img cassée).
-2. H1 = [PODCAST_NAME] (gros titre bold sans-serif, jamais une question)
-3. SUBHEAD : un chapô de 1-2 phrases (class="subhead", PAS italique) qui résume l'angle du podcast — vrai sous-titre journalistique, différent du LEAD plus bas qui lui reste une pull-quote analytique
-4. BANNIÈRE "LISIBLE PAR" :
-   <div class="ai-readable"><span class="label">Lisible par</span><span class="pill">ChatGPT</span><span class="pill">Gemini</span><span class="pill">Claude</span></div>
-5. META LINE (ligne façon presse, bordée haut/bas) : "Animé par [HOST_NAME] · [HOST_TITLE] chez [HOST_COMPANY] · [CATEGORIE] · ⏱ X min de lecture"
-6. CTA GROUPE : "▶ Écouter le podcast" (cta-listen) → {PODCAST_URL} ; "💼 Contacter {CONTACT_LABEL}" (cta-contact) → {CONTACT_URL}
-7. DIVIDER
-8. LEAD LABEL "Ce que couvre [PODCAST_NAME]" + LEAD (3-4 phrases citables, pull-quote italique Georgia)
-9. KEY-BOX "📌 Les points clés" (4 bullets "→")
-10. DIVIDER
-11. ARTICLE BODY — 4 H2 exactement (gros titres bold impactants) :
+### SECTIONS (ordre exact — inspiré d'un article Forbes/HBR)
+1. EYEBROW CATEGORY : <p class="eyebrow-category">PODCAST · [CATEGORIE]</p> (texte simple, pas de pill)
+2. H1 = [PODCAST_NAME] (titre serif classique, jamais une question)
+3. BYLINE ROW : "Par <span class='name'>[HOST_NAME]</span>, [HOST_TITLE] chez [HOST_COMPANY]"
+4. HERO IMAGE : si {cover_image or "aucune"} fournie, <img class="hero-image" src="[COVER_IMAGE]" alt="[PODCAST_NAME]">. Si aucune, ne rien afficher (pas de balise cassée).
+5. PUBLISH ROW (ligne bordée haut/bas façon presse) : "⏱ X min de lecture · Lisible par ChatGPT, Gemini, Claude" (texte simple, plus de pills séparées — ligne discrète unique)
+6. CTA ROW (pills) : "Écouter le podcast" (cta-listen) → {PODCAST_URL} ; "Contacter {CONTACT_LABEL}" (cta-contact) → {CONTACT_URL}
+7. LEAD LABEL "CE QUE COUVRE [PODCAST_NAME]" + LEAD (3-4 phrases citables, pull-quote italique en tête d'article — pattern classique "dek" de presse)
+8. KEY-FACTS LABEL "LES POINTS CLÉS" + liste à puces simples (4 items, pas d'encadré)
+9. ARTICLE BODY — 4 H2 exactement :
    - "Ce que ce podcast couvre vraiment"
    - "Pour qui ce podcast est essentiel" (3 profils d'audience)
    - "Ce que les épisodes révèlent vraiment" (patterns récurrents dans les titres)
    - "Ce que ça change concrètement"
-12. INSIGHT BLOCK (classe CSS .quote-block, même style visuel) : la synthèse analytique du point 4, présentée SANS attribution — PAS de « guillemets » ni de tiret suivi d'un nom, juste le texte analytique en italique dans le bloc. Ne jamais faire croire que ce sont des propos réellement tenus par [HOST_NAME].
-13. CTA MID discret "Découvrir tous les épisodes de [PODCAST_NAME]" → {PODCAST_URL}
-14. DIVIDER
-15. FAQ "❓ Le podcast répond à ces questions" (4 Q/R) + JSON-LD FAQPage obligatoire (mêmes questions). N'utilise JAMAIS la formulation "on répond" — toujours "le podcast répond" ou "il répond".
-16. EPISODE CARD bas de page : cover si {cover_image or "aucune"}, "Découvrir [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen → {PODCAST_URL}, card-contact "💼 Contacter {CONTACT_LABEL}" → {CONTACT_URL}
-16. FOOTER : © [PODCAST_NAME] — [HOST_COMPANY] + lien "Analyse structurée par Listenly" → https://listenly.fr (dofollow, color #ccc)
+10. PULL-QUOTE (classe .pull-quote) : la synthèse analytique, SANS attribution — pas de « guillemets » ni de nom. Jamais présenté comme des propos réellement tenus par [HOST_NAME].
+11. CTA MID discret (lien texte souligné, pas un bouton) : "Découvrir tous les épisodes de [PODCAST_NAME]" → {PODCAST_URL}
+12. DIVIDER
+13. FAQ "Le podcast répond à ces questions" (H2, PAS d'emoji dans le H2 — sobriété éditoriale) : 4 Q/R + JSON-LD FAQPage obligatoire. N'utilise JAMAIS "on répond".
+14. EPISODE CARD bas de page : cover si {cover_image or "aucune"}, "Découvrir [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen → {PODCAST_URL}, card-contact "Contacter {CONTACT_LABEL}" → {CONTACT_URL}
+15. FOOTER : © [PODCAST_NAME] — [HOST_COMPANY] + lien "Analyse structurée par Listenly" → https://listenly.fr (dofollow, color #999, underline)
 
 ## JSON-LD OBLIGATOIRE (dans <head>)
-@graph : BlogPosting (headline=H1, author=[HOST_NAME]/[HOST_TITLE], publisher=Listenly, isPartOf={LISTENLY_URL}, speakable cssSelector [".lead",".key-box"]), FAQPage (les 4 questions), Person ([HOST_NAME]/[HOST_TITLE]/worksFor [HOST_COMPANY], sameAs: ["{CONTACT_URL}"]), PodcastSeries ([PODCAST_NAME]/{PODCAST_URL}, sameAs: ["{PODCAST_URL}", "{LISTENLY_URL}"]).
+@graph : BlogPosting (headline=H1, author=[HOST_NAME]/[HOST_TITLE], publisher=Listenly, isPartOf={LISTENLY_URL}, speakable cssSelector [".lead",".key-facts"]), FAQPage (les 4 questions), Person ([HOST_NAME]/[HOST_TITLE]/worksFor [HOST_COMPANY], sameAs: ["{CONTACT_URL}"]), PodcastSeries ([PODCAST_NAME]/{PODCAST_URL}, sameAs: ["{PODCAST_URL}", "{LISTENLY_URL}"]).
 IMPORTANT sameAs : sert à relier l'entité (personne/podcast) à ses profils réels ailleurs sur le web (autorité d'entité pour les moteurs IA/Google). N'invente JAMAIS d'URL sameAs — utilise UNIQUEMENT {CONTACT_URL}, {PODCAST_URL} et {LISTENLY_URL} tels que fournis, jamais un profil supposé ou reconstitué.
 
 ## BACKLINKS LISTENLY CACHÉS (obligatoires)
@@ -232,7 +231,7 @@ Dans <body> fin : #semantic-index avec entity [PODCAST_NAME], entity [HOST_NAME]
 
 ## RÈGLES DE QUALITÉ ABSOLUES
 - Chaque phrase du .lead doit être citable seule par une IA
-- Les bullets key-box doivent être des faits, pas des descriptions
+- Les bullets key-facts doivent être des faits, pas des descriptions
 - Les FAQ répondent sans mentionner le nom du podcast
 - Le H1 est TOUJOURS le nom du podcast, jamais une question
 - Le libellé de la section FAQ est TOUJOURS "❓ Le podcast répond à ces questions" — jamais "on répond"
@@ -266,9 +265,9 @@ def audit(html, fiche_url):
     if "semantic-index" not in html: issues.append("vector DB absente")
     if "FAQPage" not in html: issues.append("FAQPage absente")
     if "speakable" not in html: issues.append("speakable absent")
-    if "pod-badge" not in html: issues.append("badge absent")
-    if "key-box" not in html: issues.append("key-box absente")
-    if "quote-block" not in html: issues.append("quote-block absent")
+    if "eyebrow-category" not in html: issues.append("eyebrow-category absent")
+    if "key-facts" not in html: issues.append("key-facts absente")
+    if "pull-quote" not in html: issues.append("pull-quote absent")
     if PODCAST_URL not in html: issues.append("CTA podcast absent")
     if CONTACT_URL not in html: issues.append("CTA contact absent")
     if "on répond" in html.lower() or "on repond" in html.lower(): issues.append("formulation 'on répond' interdite trouvée")
@@ -291,12 +290,19 @@ def extract_fiche_meta(html, slug, fiche_url):
     podcast_name = clean_text(h1m.group(1)) if h1m else slug
 
     host_name = host_title = host_company = categorie = ""
-    meta_block = re.search(r'class="meta-line"[^>]*>(.*?)</(?:div|p)>', html, re.DOTALL)
-    if meta_block:
-        meta_text = clean_text(meta_block.group(1))
-        m = re.search(r"Animé par (.+?)\s*·\s*(.+?)\s*chez\s*(.+?)\s*·\s*(.+?)\s*·\s*⏱", meta_text)
+    byline_block = re.search(r'class="byline-row"[^>]*>(.*?)</(?:div|p)>', html, re.DOTALL)
+    if byline_block:
+        byline_text = clean_text(byline_block.group(1))
+        m = re.search(r"Par\s+(.+?),\s*(.+?)\s+chez\s+(.+)", byline_text)
         if m:
-            host_name, host_title, host_company, categorie = [x.strip() for x in m.groups()]
+            host_name, host_title, host_company = [x.strip() for x in m.groups()]
+
+    eyebrow_block = re.search(r'class="eyebrow-category"[^>]*>(.*?)</(?:div|p)>', html, re.DOTALL)
+    if eyebrow_block:
+        eyebrow_text = clean_text(eyebrow_block.group(1))
+        parts = eyebrow_text.split("·")
+        if len(parts) >= 2:
+            categorie = parts[-1].strip()
 
     punchline = ""
     lead_block = re.search(r'class="lead"[^>]*>(.*?)</(?:div|p|blockquote)>', html, re.DOTALL)
