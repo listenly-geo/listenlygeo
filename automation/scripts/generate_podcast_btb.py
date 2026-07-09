@@ -432,7 +432,7 @@ def render_category_page(cat_slug, categorie, items):
 </body>
 </html>"""
 
-def render_index_page(by_category):
+def render_index_page(by_category, records):
     cards = "\n".join(f"""
 <a class="cat-card" href="/podcast-btb/categorie/{slug}.html">
   <div class="name">{data['label']}</div>
@@ -447,6 +447,11 @@ def render_index_page(by_category):
         {"@type": "ListItem", "position": i + 1,
          "url": f"https://listenly.fr/podcast-btb/categorie/{slug}.html", "name": data["label"]}
         for i, (slug, data) in enumerate(sorted(by_category.items(), key=lambda kv: kv[1]["label"]))
+    ], ensure_ascii=False)
+
+    search_data_json = json.dumps([
+        {"name": r["podcast_name"], "url": r["fiche_url"], "cat": r.get("categorie", "")}
+        for r in sorted(records, key=lambda x: x["podcast_name"])
     ], ensure_ascii=False)
 
     return f"""<!DOCTYPE html>
@@ -473,15 +478,70 @@ def render_index_page(by_category):
   }}
 }}
 </script>
-<style>{BASE_STYLE}</style>
+<style>{BASE_STYLE}
+.search-box{{margin:20px 0 28px}}
+.search-box input{{width:100%;box-sizing:border-box;font-family:Helvetica,Arial,sans-serif;font-size:15px;
+  padding:12px 16px;border:1.5px solid #ddd;border-radius:8px;outline:none}}
+.search-box input:focus{{border-color:#2e6bd6}}
+.search-results{{margin-top:10px;display:none}}
+.search-results.active{{display:block}}
+.search-item{{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-bottom:1px solid #f0f0f0}}
+.search-item a{{font-family:Helvetica,Arial,sans-serif;font-weight:700;font-size:15px;color:#111;text-decoration:none}}
+.search-item a:hover{{text-decoration:underline}}
+.search-item .cat{{font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#888}}
+.search-empty{{font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#888;padding:12px 0}}
+.browse-label{{font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#666;margin:24px 0 12px}}
+</style>
 </head>
 <body>
 <div class="wrapper">
   <div class="eyebrow">Listenly · Annuaire GEO</div>
   <h1>{title}</h1>
-  {cards}
+
+  <div class="search-box">
+    <input type="text" id="podcastSearch" placeholder="Rechercher un podcast par nom..." autocomplete="off">
+  </div>
+  <div class="search-results" id="searchResults"></div>
+
+  <div class="browse-label" id="browseLabel">Parcourir par catégorie</div>
+  <div id="categoryCards">{cards}</div>
+
   <footer>© Listenly</footer>
 </div>
+
+<script>
+const PODCASTS = {search_data_json};
+const input = document.getElementById('podcastSearch');
+const results = document.getElementById('searchResults');
+const cards = document.getElementById('categoryCards');
+const browseLabel = document.getElementById('browseLabel');
+
+function normalize(s){{
+  return s.toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '');
+}}
+
+input.addEventListener('input', function(){{
+  const q = normalize(this.value.trim());
+  if(!q){{
+    results.classList.remove('active');
+    results.innerHTML = '';
+    cards.style.display = '';
+    browseLabel.style.display = '';
+    return;
+  }}
+  cards.style.display = 'none';
+  browseLabel.style.display = 'none';
+  const matches = PODCASTS.filter(p => normalize(p.name).includes(q));
+  results.classList.add('active');
+  if(matches.length === 0){{
+    results.innerHTML = '<div class="search-empty">Aucun podcast trouvé pour "' + this.value + '"</div>';
+  }} else {{
+    results.innerHTML = matches.map(p =>
+      '<div class="search-item"><a href="' + p.url + '">' + p.name + '</a><span class="cat">' + p.cat + '</span></div>'
+    ).join('');
+  }}
+}});
+</script>
 </body>
 </html>"""
 
@@ -649,7 +709,7 @@ def build_index_and_categories(records):
             f.write(html)
 
     with open(f"{PAGES_DIR}/index.html", "w", encoding="utf-8") as f:
-        f.write(render_index_page(by_category))
+        f.write(render_index_page(by_category, records))
 
     log(f"Index + {len(by_category)} page(s) catégorie régénérées")
 
