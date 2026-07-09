@@ -1,0 +1,339 @@
+name: Podcast BTB — parlons-servicenow
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 5 * * 1'
+
+jobs:
+  podcast-btb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generation fiche podcast (lancement manuel uniquement)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_URL: |-
+            https://open.spotify.com/show/7vjaOR1BpRgYf17ndXw0xH?si=tHc4rWyAQRWR8eLdp55-4g&nd=1&dlsi=739af3aa83cd4c98
+          CONTACT_URL: |-
+            https://www.linkedin.com/in/mehdiattar/
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/parlons-services
+          COVER_IMAGE: |-
+            https://i.postimg.cc/BQ8fvp0j/4b7abb37-39be-4d86-b653-773d94382673-1199677843-SX768-SY768-BL0-QL100-UX716-FMwebp-QL85.webp
+          RSS_URL: |-
+            https://api.riverside.fm/hosting/eofYx7PD.rss
+          PODCAST_SLUG: |-
+            parlons-servicenow
+          ACCENT_COLOR: |-
+            #2e8bd6
+          PODCAST_RAW_INFO: |-
+            rss version="2.0">
+            <channel>
+            <title>Parlons ServiceNow</title>
+            <description>
+            <p><b>Parlons ServiceNow</b> est le podcast dédié à la plateforme qui transforme la gestion des services d'entreprise en français ! Chaque mois, nous explorons les nouveautés de ServiceNow, partageons des retours d'expérience concrets et discutons des bonnes pratiques pour optimiser vos processus IT et beyond IT. Que vous soyez un administrateur, un développeur, un consultant ou un chef de projet, rejoignez-nous pour échanger sur la plateforme qui façonne le futur du monde du travail.</p><hr />
+            </description>
+            <link>https://riverside.com</link>
+            <generator>Riverside.fm (https://riverside.com)</generator>
+            <lastBuildDate>Thu, 09 Jul 2026 06:01:31 GMT</lastBuildDate>
+            <atom:link href="https://api.riverside.com/hosting/eofYx7PD.rss" rel="self" type="application/rss+xml"/>
+            <author>Mehdi ATTAR</author>
+            <pubDate>Wed, 14 Jan 2026 09:08:37 GMT</pubDate>
+            <copyright>2026 Mehdi ATTAR</copyright>
+            <language>fr</language>
+            <ttl>60</ttl>
+            <category>Business</category>
+            <category>Technology</category>
+            <itunes:author>Mehdi ATTAR</itunes:author>
+            <itunes:summary>
+            <p><b>Parlons ServiceNow</b> est le podcast dédié à la plateforme qui transforme la gestion des services d'entreprise en français ! Chaque mois, nous explorons les nouveautés de ServiceNow, partageons des retours d'expérience concrets et discutons des bonnes pratiques pour optimiser vos processus IT et beyond IT. Que vous soyez un administrateur, un développeur, un consultant ou un chef de projet, rejoignez-nous pour échanger sur la plateforme qui façonne le futur du monde du travail.</p><hr />
+            </itunes:summary>
+            <itunes:type>episodic</itunes:type>
+            <itunes:owner>
+            <itunes:name>Mehdi ATTAR</itunes:name>
+            <itunes:email>mehdi.attar@atomxsystem.com</itunes:email>
+            </itunes:owner>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:category text="Business"/>
+            <itunes:category text="Technology"/>
+            <itunes:image href="https://hosting-media.riverside.com/media/imports/podcasts/0e121b11-823f-48d5-9215-7839c1918775/1755463910444-64589276-d44c-4d30-8f5a-7ca551c79935.jpeg"/>
+            <item>
+            <title>Parlons ServiceNow - 010 - Impact</title>
+            <description>
+            <p><b>ServiceNow Impact : comment en faire un vrai levier de pilotage de votre plateforme ?</b></p><p>Pour ce nouvel épisode de <b>Parlons ServiceNow</b>, je reçois <b>Eric</b>, Certified Master Architect et Practice Lead APAC chez Atos. Il accompagne au quotidien des clients — notamment dans la banque et l'assurance — pour tirer le meilleur d'Impact.</p><p>Si vous vous êtes déjà posé ces questions, cet épisode est pour vous :</p><p>→ J'ai Impact, mais par où je commence concrètement entre tous ces outils ? <br />→ Comment prouver à ma direction que notre plateforme est saine — et bien construite ? <br />→ « Ma plateforme a 10 ans et part dans tous les sens : je repars de zéro ou je corrige ? »<br />→ Les accélérateurs, ça va vraiment me faire gagner du temps sur mes implémentations ? <br />→ Je paie pour des dizaines de modules ServiceNow… comment être sûr d'en avoir pour mon argent ? <br />→ Avec l'IA générative, est-ce que mon métier d'architecte tient encore la route ?</p><p>Ce que vous y trouverez :</p><ul><li>La différence claire entre piloter sa gouvernance (Impact) et délivrer ses projets (NowCreate, Success Packs)</li><li>Le HealthScan comme arbitre pour trancher : reconstruire ou faire évoluer sa plateforme</li><li>La Capability Map pour adopter ServiceNow de façon <i>intentionnelle</i>, et arrêter de payer pour des features qui dorment</li></ul><p>Pour les <b>architectes, responsables de plateforme et décideurs IT/HR</b> qui veulent exploiter Impact à son plein potentiel.</p><p>Et vous, comment Impact s'intègre-t-il dans votre gouvernance ServiceNow ?</p><p>#ServiceNow #ChangeManagement #theworldworkswithservicenow</p>
+            </description>
+            <guid isPermaLink="false">22d47659-6caa-4b7e-b2e6-06adaca658ee</guid>
+            <dc:creator>Mehdi ATTAR</dc:creator>
+            <pubDate>Tue, 07 Jul 2026 08:00:00 GMT</pubDate>
+            <enclosure url="https://api.riverside.com/hosting-analytics/media/dd09c3219eb342f4917f0d0b093dd359a3fec544442f55a5794f47aee781eb66/eyJlcGlzb2RlSWQiOiIyMmQ0NzY1OS02Y2FhLTRiN2UtYjJlNi0wNmFkYWNhNjU4ZWUiLCJwb2RjYXN0SWQiOiIwZTEyMWIxMS04MjNmLTQ4ZDUtOTIxNS03ODM5YzE5MTg3NzUiLCJhY2NvdW50SWQiOiI2OGRmNzFlN2UxN2JhMzgyMGIyODEyZTEiLCJwYXRoIjoibWVkaWEvY2xpcHMvNmEyZmEwNmJhZThhYzNhZDUwZjBiY2I2L21laGRpcy1zdHVkaW8tWXhhNjMtY29tcG9zZXItMjAyNi02LTE1X184LTQ5LTE1Lm1wMyJ9.mp3" length="76228276" type="audio/mpeg"/>
+            <podcast:transcript url="https://hosting-media.riverside.com/media/podcasts/0e121b11-823f-48d5-9215-7839c1918775/episodes/22d47659-6caa-4b7e-b2e6-06adaca658ee/transcripts.txt" type="text/plain"/>
+            <itunes:summary>
+            <p><b>ServiceNow Impact : comment en faire un vrai levier de pilotage de votre plateforme ?</b></p><p>Pour ce nouvel épisode de <b>Parlons ServiceNow</b>, je reçois <b>Eric</b>, Certified Master Architect et Practice Lead APAC chez Atos. Il accompagne au quotidien des clients — notamment dans la banque et l'assurance — pour tirer le meilleur d'Impact.</p><p>Si vous vous êtes déjà posé ces questions, cet épisode est pour vous :</p><p>→ J'ai Impact, mais par où je commence concrètement entre tous ces outils ? <br />→ Comment prouver à ma direction que notre plateforme est saine — et bien construite ? <br />→ « Ma plateforme a 10 ans et part dans tous les sens : je repars de zéro ou je corrige ? »<br />→ Les accélérateurs, ça va vraiment me faire gagner du temps sur mes implémentations ? <br />→ Je paie pour des dizaines de modules ServiceNow… comment être sûr d'en avoir pour mon argent ? <br />→ Avec l'IA générative, est-ce que mon métier d'architecte tient encore la route ?</p><p>Ce que vous y trouverez :</p><ul><li>La différence claire entre piloter sa gouvernance (Impact) et délivrer ses projets (NowCreate, Success Packs)</li><li>Le HealthScan comme arbitre pour trancher : reconstruire ou faire évoluer sa plateforme</li><li>La Capability Map pour adopter ServiceNow de façon <i>intentionnelle</i>, et arrêter de payer pour des features qui dorment</li></ul><p>Pour les <b>architectes, responsables de plateforme et décideurs IT/HR</b> qui veulent exploiter Impact à son plein potentiel.</p><p>Et vous, comment Impact s'intègre-t-il dans votre gouvernance ServiceNow ?</p><p>#ServiceNow #ChangeManagement #theworldworkswithservicenow</p>
+            </itunes:summary>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:duration>00:39:42</itunes:duration>
+            <itunes:image href="https://hosting-media.riverside.com/media/podcasts/0e121b11-823f-48d5-9215-7839c1918775/episodes/22d47659-6caa-4b7e-b2e6-06adaca658ee/images/4b5bf0fd-013c-4642-ac8a-930221477c97.png"/>
+            <itunes:season>1</itunes:season>
+            <itunes:episode>10</itunes:episode>
+            <itunes:title>Parlons ServiceNow - 010 - Impact</itunes:title>
+            <itunes:episodeType>full</itunes:episodeType>
+            </item>
+            <item>
+            <title>Parlons ServiceNow - 009 - Workspace</title>
+            <description>
+            <p>On parle beaucoup de Workspace, de Next Experience, de modernisation de l’interface…</p><p>Mais concrètement : qu’est-ce que ça change vraiment ?</p><p>Dans cet épisode où j'ai la chance d'accueillir Emmanuel Toche, CMA &amp; Solution Architect.</p><p>On prend le temps de clarifier :</p><p>• Ce qu’est réellement la Next Experience</p><p>• La différence entre UI classique &amp; Workspace</p><p>• Les gains en termes d’usage, de performance et d’adoption</p><p>• Les erreurs à éviter quand on “migre” sans réfléchir</p><p>• Et surtout : dans quels cas ça vaut vraiment le coup</p><p>Parce que passer au Workspace, ce n’est pas juste cocher une case technique.</p><p>C’est repenser l’expérience utilisateur, les rôles, les écrans, et parfois même la manière de travailler.</p><p>Si vous êtes architecte, consultant ou simplement curieux de comprendre où va l’interface ServiceNow, cet épisode devrait vous parler.</p><p>Bonne écoute !</p>
+            </description>
+            <guid isPermaLink="false">7d9f40bc-c921-4258-9e5c-a9e6caeac2d9</guid>
+            <dc:creator>Mehdi ATTAR</dc:creator>
+            <pubDate>Tue, 02 Jun 2026 11:00:00 GMT</pubDate>
+            <enclosure url="https://api.riverside.com/hosting-analytics/media/9037c959b772578ac94fb5f7ebc274874be92c943128d4751b8f7f11e401e7c0/eyJlcGlzb2RlSWQiOiI3ZDlmNDBiYy1jOTIxLTQyNTgtOWU1Yy1hOWU2Y2FlYWMyZDkiLCJwb2RjYXN0SWQiOiIwZTEyMWIxMS04MjNmLTQ4ZDUtOTIxNS03ODM5YzE5MTg3NzUiLCJhY2NvdW50SWQiOiI2OGRmNzFlN2UxN2JhMzgyMGIyODEyZTEiLCJwYXRoIjoibWVkaWEvY2xpcHMvNmExZWE1ZDAyMmY5NjQyOTI3OWYyMWE4L21laGRpcy1zdHVkaW8tWXhhNjMtY29tcG9zZXItMjAyNi02LTJfXzExLTQzLTQ0Lm1wMyJ9.mp3" length="12824259" type="audio/mpeg"/>
+            <podcast:transcript url="https://hosting-media.riverside.com/media/podcasts/0e121b11-823f-48d5-9215-7839c1918775/episodes/7d9f40bc-c921-4258-9e5c-a9e6caeac2d9/transcripts.txt" type="text/plain"/>
+            <itunes:summary>
+            <p>On parle beaucoup de Workspace, de Next Experience, de modernisation de l’interface…</p><p>Mais concrètement : qu’est-ce que ça change vraiment ?</p><p>Dans cet épisode où j'ai la chance d'accueillir Emmanuel Toche, CMA &amp; Solution Architect.</p><p>On prend le temps de clarifier :</p><p>• Ce qu’est réellement la Next Experience</p><p>• La différence entre UI classique &amp; Workspace</p><p>• Les gains en termes d’usage, de performance et d’adoption</p><p>• Les erreurs à éviter quand on “migre” sans réfléchir</p><p>• Et surtout : dans quels cas ça vaut vraiment le coup</p><p>Parce que passer au Workspace, ce n’est pas juste cocher une case technique.</p><p>C’est repenser l’expérience utilisateur, les rôles, les écrans, et parfois même la manière de travailler.</p><p>Si vous êtes architecte, consultant ou simplement curieux de comprendre où va l’interface ServiceNow, cet épisode devrait vous parler.</p><p>Bonne écoute !</p>
+            </itunes:summary>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:duration>00:26:43</itunes:duration>
+            <itunes:image href="https://hosting-media.riverside.com/media/podcasts/0e121b11-823f-48d5-9215-7839c1918775/episodes/7d9f40bc-c921-4258-9e5c-a9e6caeac2d9/images/17a3e99a-568b-4585-94e0-4050bf7d1f01.jpeg"/>
+            <itunes:season>1</itunes:season>
+            <itunes:episode>9</itunes:episode>
+            <itunes:title>Parlons ServiceNow - 009 - Workspace</itunes:title>
+            <itunes:episodeType>full</itunes:episodeType>
+            </item>
+            <item>
+            <title>Parlons ServiceNow - 008 - HRSD</title>
+            <description>
+            <p>Dans quoi réside la vraie valeur d'une plateforme RH ?<br />Dans sa capacité à aider le métier à se focaliser sur ce qui à de l'importance.<br /></p><p>Aujourd'hui j'accueille Jérémy Potier, principal workflow architect chez ServiceNow qui a accepté de partager son expérience sur l'implémentation de HRSD.</p><p>Lors de notre échange, il a insisté sur un point fondamental : en automatisant les tâches répétitives et chronophages via ServiceNow HRSD, on libère du temps pour que les professionnels puissent se concentrer sur l'humain — leur mission principale.<br />La technologie devrait toujours permettre de faciliter la vie des utilisateurs en la simplifiant. La simplicité d’un portail unifié, la suppression des silos, la communication claire en langage compréhensible... tout ça construit une expérience employée plus fluide et donc humaine. </p><p>Et vous, qu’est-ce qui, dans votre quotidien, pourrait contribuer à recentrer l’expérience RH sur l’humain?<br /><br />#ServiceNow #HRSD #TransformationRH #ExpérienceEmployé</p>
+            </description>
+            <guid isPermaLink="false">2eb62827-94f6-4e24-a7dd-fffbe9828c16</guid>
+            <dc:creator>Mehdi ATTAR</dc:creator>
+            <pubDate>Mon, 27 Apr 2026 08:00:00 GMT</pubDate>
+            <enclosure url="https://api.riverside.com/hosting-analytics/media/408c0756062cd31fe5808dafdc59837b7ad2ea8d34ba3e64015134860ba22eea/eyJlcGlzb2RlSWQiOiIyZWI2MjgyNy05NGY2LTRlMjQtYTdkZC1mZmZiZTk4MjhjMTYiLCJwb2RjYXN0SWQiOiIwZTEyMWIxMS04MjNmLTQ4ZDUtOTIxNS03ODM5YzE5MTg3NzUiLCJhY2NvdW50SWQiOiI2OGRmNzFlN2UxN2JhMzgyMGIyODEyZTEiLCJwYXRoIjoibWVkaWEvY2xpcHMvNjljZTc4ZGYwMmMyZjFjNGZkYjY2YjA3L21laGRpcy1zdHVkaW8tWXhhNjMtY29tcG9zZXItMjAyNi00LTJfXzE2LTEwLTM5Lm1wMyJ9.mp3" length="18286777" type="audio/mpeg"/>
+            <podcast:transcript url="https://hosting-media.riverside.com/media/podcasts/0e121b11-823f-48d5-9215-7839c1918775/episodes/2eb62827-94f6-4e24-a7dd-fffbe9828c16/transcripts.txt" type="text/plain"/>
+            <itunes:summary>
+            <p>Dans quoi réside la vraie valeur d'une plateforme RH ?<br />Dans sa capacité à aider le métier à se focaliser sur ce qui à de l'importance.<br /></p><p>Aujourd'hui j'accueille Jérémy Potier, principal workflow architect chez ServiceNow qui a accepté de partager son expérience sur l'implémentation de HRSD.</p><p>Lors de notre échange, il a insisté sur un point fondamental : en automatisant les tâches répétitives et chronophages via ServiceNow HRSD, on libère du temps pour que les professionnels puissent se concentrer sur l'humain — leur mission principale.<br />La technologie devrait toujours permettre de faciliter la vie des utilisateurs en la simplifiant. La simplicité d’un portail unifié, la suppression des silos, la communication claire en langage compréhensible... tout ça construit une expérience employée plus fluide et donc humaine. </p><p>Et vous, qu’est-ce qui, dans votre quotidien, pourrait contribuer à recentrer l’expérience RH sur l’humain?<br /><br />#ServiceNow #HRSD #TransformationRH #ExpérienceEmployé</p>
+            </itunes:summary>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:duration>00:38:06</itunes:duration>
+            <itunes:image href="https://hosting-media.riverside.com/media/podcasts/0e121b11-823f-48d5-9215-7839c1918775/episodes/2eb62827-94f6-4e24-a7dd-fffbe9828c16/images/2bb28cc0-d236-47e4-80f8-4fe284ee1d5c.png"/>
+            <itunes:season>1</itunes:season>
+            <itunes:episode>9</itunes:episode>
+            <itunes:title>Parlons ServiceNow - 008 - HRSD</itunes:title>
+            <itunes:episodeType>full</itunes:episodeType>
+            </item>
+            <item>
+            <title>
+            Parlons ServiceNow - 006 - Mettre de l’IA pour mettre de l’IA ? On en parle.
+            </title>
+            <description>
+            <p>L’IA est partout.</p><p>Entre promesses marketing, buzz autour de ChatGPT, et annonces en cascade, il devient difficile de distinguer la réalité terrain du storytelling.</p><p>Dans ce nouvel épisode, j’échange avec un Xavier Gouy, CMA et architecte IA chez ServiceNow pour clarifier :</p><p>Ce qui différencie vraiment la GenAI de l’Agentic AI</p><p>Pourquoi l’IA ne remplace pas vos workflows</p><p>Les risques réels (hallucinations, prompt injection, data privacy…)</p><p>Les erreurs fréquentes des organisations qui veulent “mettre de l’IA” à tout prix</p><p>On parle architecture, adoption, maturité… et surtout on essaie de sortir du bruit ambiant.</p><p>Si vous travaillez sur des sujets IA dans votre organisation — côté IT, métier ou architecture — cet épisode devrait vous parler.</p>
+            </description>
+            <guid isPermaLink="false">c2cc03a6-ce99-43d5-83f9-d3488e1befc5</guid>
+            <dc:creator>Mehdi ATTAR</dc:creator>
+            <pubDate>Tue, 10 Mar 2026 09:00:00 GMT</pubDate>
+            <enclosure url="https://api.riverside.com/hosting-analytics/media/b8f79b79bd2dad250340f418a0abd8ef1a093c561b05fa7ae7fec021e20652f2/eyJlcGlzb2RlSWQiOiJjMmNjMDNhNi1jZTk5LTQzZDUtODNmOS1kMzQ4OGUxYmVmYzUiLCJwb2RjYXN0SWQiOiIwZTEyMWIxMS04MjNmLTQ4ZDUtOTIxNS03ODM5YzE5MTg3NzUiLCJhY2NvdW50SWQiOiI2OGRmNzFlN2UxN2JhMzgyMGIyODEyZTEiLCJwYXRoIjoibWVkaWEvY2xpcHMvNjlhZTgzN2UyYzdkYzE5YzY2YTlmNTQ2L21laGRpcy1zdHVkaW8tWXhhNjMtY29tcG9zZXItMjAyNi0zLTlfXzktMjMtMjYubXAzIn0=.mp3" length="18822182" type="audio/mpeg"/>
+            <podcast:transcript url="https://hosting-media.riverside.com/media/podcasts/0e121b11-823f-48d5-9215-7839c1918775/episodes/c2cc03a6-ce99-43d5-83f9-d3488e1befc5/transcripts.txt" type="text/plain"/>
+            <itunes:summary>
+            <p>L’IA est partout.</p><p>Entre promesses marketing, buzz autour de ChatGPT, et annonces en cascade, il devient difficile de distinguer la réalité terrain du storytelling.</p><p>Dans ce nouvel épisode, j’échange avec un Xavier Gouy, CMA et architecte IA chez ServiceNow pour clarifier :</p><p>Ce qui différencie vraiment la GenAI de l’Agentic AI</p><p>Pourquoi l’IA ne remplace pas vos workflows</p><p>Les risques réels (hallucinations, prompt injection, data privacy…)</p><p>Les erreurs fréquentes des organisations qui veulent “mettre de l’IA” à tout prix</p><p>On parle architecture, adoption, maturité… et surtout on essaie de sortir du bruit ambiant.</p><p>Si vous travaillez sur des sujets IA dans votre organisation — côté IT, métier ou architecture — cet épisode devrait vous parler.</p>
+            </itunes:summary>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:duration>00:39:13</itunes:duration>
+            <itunes:image href="https://hosting-media.riverside.com/media/podcasts/0e121b11-823f-48d5-9215-7839c1918775/episodes/c2cc03a6-ce99-43d5-83f9-d3488e1befc5/images/abaaa5be-ab82-4fdd-a03e-cc65b4127400.png"/>
+            <itunes:season>1</itunes:season>
+            <itunes:episode>6</itunes:episode>
+            <itunes:title>
+            Parlons ServiceNow - 006 - Mettre de l’IA pour mettre de l’IA ? On en parle.
+            </itunes:title>
+            <itunes:episodeType>full</itunes:episodeType>
+            </item>
+            <item>
+            <title>Parlons ServiceNow - 007 - Custom apps</title>
+            <description>
+            <p>Pour développer une application métier, faut-il <br /> Soit construire directement sur <b>ServiceNow</b> <br /> Soit développer avec d’autres technologies ?</p><p>Dans ce nouvel épisode, j’échange avec Jean-Charles Guillaume, CMA &amp; Solution Architect pour clarifier :</p><ul><li>Ce qu’est vraiment une <i>custom app</i> sur ServiceNow</li><li>Dans quels cas c’est un accélérateur</li><li>Quand ça peut devenir une mauvaise idée</li><li>Les impacts en termes d’architecture, de gouvernance et de coûts</li><li>Les erreurs fréquentes qu’on voit sur les projets</li></ul><p>Créer une custom app, ce n’est pas juste “faire du développement sur la plateforme”.<br />C’est un choix structurant pour le SI.</p><p>Si vous êtes architecte, consultant ou décideur et que vous vous posez la question “on le fait dans ServiceNow ou ailleurs ?” — cet épisode devrait vous intéresser.<br /><br />Bonne écoute !</p>
+            </description>
+            <guid isPermaLink="false">1bf1e962-3c87-4735-8b44-8264193d5c5f</guid>
+            <dc:creator>Mehdi ATTAR</dc:creator>
+            <pubDate>Mon, 06 Apr 2026 07:00:00 GMT</pubDate>
+            <enclosure url="https://api.riverside.com/hosting-analytics/media/ce8914fd72cf6abac1756e5475996f2ab14c6ca636ff7d90eb757e5ccf12f434/eyJlcGlzb2RlSWQiOiIxYmYxZTk2Mi0zYzg3LTQ3MzUtOGI0NC04MjY0MTkzZDVjNWYiLCJwb2RjYXN0SWQiOiIwZTEyMWIxMS04MjNmLTQ4ZDUtOTIxNS03ODM5YzE5MTg3NzUiLCJhY2NvdW50SWQiOiI2OGRmNzFlN2UxN2JhMzgyMGIyODEyZTEiLCJwYXRoIjoibWVkaWEvY2xpcHMvNjk5NmQxMmRiOTRlN2NjZDExODRmZWE0L21laGRpcy1zdHVkaW8tWXhhNjMtY29tcG9zZXItMjAyNi0yLTE5X18xMC0wLTI5Lm1wMyJ9.mp3" length="12204844" type="audio/mpeg"/>
+            <itunes:summary>
+            <p>Pour développer une application métier, faut-il <br /> Soit construire directement sur <b>ServiceNow</b> <br /> Soit développer avec d’autres technologies ?</p><p>Dans ce nouvel épisode, j’échange avec Jean-Charles Guillaume, CMA &amp; Solution Architect pour clarifier :</p><ul><li>Ce qu’est vraiment une <i>custom app</i> sur ServiceNow</li><li>Dans quels cas c’est un accélérateur</li><li>Quand ça peut devenir une mauvaise idée</li><li>Les impacts en termes d’architecture, de gouvernance et de coûts</li><li>Les erreurs fréquentes qu’on voit sur les projets</li></ul><p>Créer une custom app, ce n’est pas juste “faire du développement sur la plateforme”.<br />C’est un choix structurant pour le SI.</p><p>Si vous êtes architecte, consultant ou décideur et que vous vous posez la question “on le fait dans ServiceNow ou ailleurs ?” — cet épisode devrait vous intéresser.<br /><br />Bonne écoute !</p>
+            </itunes:summary>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:duration>00:25:26</itunes:duration>
+            <itunes:image href="https://hosting-media.riverside.com/media/podcasts/0e121b11-823f-48d5-9215-7839c1918775/episodes/1bf1e962-3c87-4735-8b44-8264193d5c5f/images/eea994ab-e18c-4214-990a-863f39aa26c0.png"/>
+            <itunes:season>1</itunes:season>
+            <itunes:episode>7</itunes:episode>
+            <itunes:title>Parlons ServiceNow - 007 - Custom apps</itunes:title>
+            <itunes:episodeType>full</itunes:episodeType>
+            </item>
+            <item>
+            <title>
+            Parlons ServiceNow - 003 - Strategic Portfolio Management
+            </title>
+            <description>
+            <p>Dans cet épisode de <i>Parlons ServiceNow</i>, nous plongeons dans l’univers du <b>Strategic Portfolio Management (SPM)</b>.</p><p>Comment s’assurer que les initiatives, projets et ressources d’une organisation soutiennent réellement sa stratégie ?</p><p>Comment transformer une vision en exécution mesurable et pilotée par la valeur ?</p><p>Avec notre invité <a rel="noopener noreferrer nofollow" href="https://fr.linkedin.com/in/mathiasbrannens" target="_blank">Mathias Brannens</a>, nous explorons :</p><ul><li>Les défis rencontrés par les entreprises pour relier la stratégie à l’action.</li><li>Le rôle de <b>ServiceNow SPM</b> dans la planification, la priorisation et le suivi des initiatives.</li><li>Les bonnes pratiques pour <b>démarrer simplement</b> et <b>impliquer les équipes</b>.</li><li>Et enfin, comment mesurer la <b>valeur réelle</b> créée par les portefeuilles et programmes.</li></ul><p>Un épisode incontournable pour tous ceux qui veulent passer de la planification stratégique à la performance concrète — et faire de ServiceNow un véritable levier de transformation.</p>
+            </description>
+            <link>
+            https://shows.acast.com/parlons-servicenow/episodes/68ff2f128a1151f617a80f60
+            </link>
+            <guid isPermaLink="false">68ff2f128a1151f617a80f60</guid>
+            <dc:creator>Mehdi ATTAR</dc:creator>
+            <pubDate>Sun, 09 Nov 2025 23:00:00 GMT</pubDate>
+            <enclosure url="https://api.riverside.com/hosting-analytics/media/67b1974f93218872ad27fd0cf54c2afca19b52097151c1411878cfb06e356629/eyJlcGlzb2RlSWQiOiI5MjAwOTUzNC02NGMwLTQ1ZmItYjNmNi03M2Q1ZmRiOWFmMGUiLCJwb2RjYXN0SWQiOiIwZTEyMWIxMS04MjNmLTQ4ZDUtOTIxNS03ODM5YzE5MTg3NzUiLCJhY2NvdW50SWQiOiI2OGRmNzFlN2UxN2JhMzgyMGIyODEyZTEiLCJwYXRoIjoibWVkaWEvaW1wb3J0cy9wb2RjYXN0cy8wZTEyMWIxMS04MjNmLTQ4ZDUtOTIxNS03ODM5YzE5MTg3NzUvZXBpc29kZXMvOTIwMDk1MzQtNjRjMC00NWZiLWIzZjYtNzNkNWZkYjlhZjBlL21lZGlhLm1wMyJ9.mp3" length="11751567" type="audio/mpeg"/>
+            <itunes:summary>
+            <p>Dans cet épisode de <i>Parlons ServiceNow</i>, nous plongeons dans l’univers du <b>Strategic Portfolio Management (SPM)</b>.</p><p>Comment s’assurer que les initiatives, projets et ressources d’une organisation soutiennent réellement sa stratégie ?</p><p>Comment transformer une vision en exécution mesurable et pilotée par la valeur ?</p><p>Avec notre invité <a rel="noopener noreferrer nofollow" href="https://fr.linkedin.com/in/mathiasbrannens" target="_blank">Mathias Brannens</a>, nous explorons :</p><ul><li>Les défis rencontrés par les entreprises pour relier la stratégie à l’action.</li><li>Le rôle de <b>ServiceNow SPM</b> dans la planification, la priorisation et le suivi des initiatives.</li><li>Les bonnes pratiques pour <b>démarrer simplement</b> et <b>impliquer les équipes</b>.</li><li>Et enfin, comment mesurer la <b>valeur réelle</b> créée par les portefeuilles et programmes.</li></ul><p>Un épisode incontournable pour tous ceux qui veulent passer de la planification stratégique à la performance concrète — et faire de ServiceNow un véritable levier de transformation.</p>
+            </itunes:summary>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:duration>00:24:28</itunes:duration>
+            <itunes:image href="https://hosting-media.riverside.com/media/imports/podcasts/0e121b11-823f-48d5-9215-7839c1918775/episodes/92009534-64c0-45fb-b3f6-73d5fdb9af0e/1762799436059-b2663945-eddc-4324-b67b-f13864f8a8c6.jpeg"/>
+            <itunes:season>1</itunes:season>
+            <itunes:episode>3</itunes:episode>
+            <itunes:title>
+            Parlons ServiceNow - 003 - Strategic Portfolio Management
+            </itunes:title>
+            <itunes:episodeType>full</itunes:episodeType>
+            </item>
+            <item>
+            <title>
+            Parlons ServiceNow - 004 - Aguaro x ServiceNow : mesurer et agir pour l'environnement
+            </title>
+            <description>
+            <p>Dans cet épisode de Parlons ServiceNow nous explorons comment la plateforme aide les organisations à mieux fonctionner et innover afin de protéger quelque chose de primordial : l'environnement.</p><p>Nous avons le plaisir d'accueillir Mathieu de chez Aguaro, qui aide les organisations à piloter la réduction de leur empreinte environnementale.</p><p>Découvrez comment Aguaro, permet aux grandes organisations de contrôler, maîtriser, et faire évoluer leur empreinte environnemental.</p>
+            </description>
+            <link>
+            https://shows.acast.com/parlons-servicenow/episodes/6921e5f553b254a5387bce9f
+            </link>
+            <guid isPermaLink="false">6921e5f553b254a5387bce9f</guid>
+            <dc:creator>Mehdi ATTAR</dc:creator>
+            <pubDate>Sun, 07 Dec 2025 20:36:36 GMT</pubDate>
+            <enclosure url="https://api.riverside.com/hosting-analytics/media/5cf5e0763ac2373978b14c3bd278255ebbc8e27ce2fbadaf557f3a139f63dad0/eyJlcGlzb2RlSWQiOiI4YzJhOTJhMi01ZTcwLTQ2MTgtYmU3Zi1jNWU0OGJiYWE1M2QiLCJwb2RjYXN0SWQiOiIwZTEyMWIxMS04MjNmLTQ4ZDUtOTIxNS03ODM5YzE5MTg3NzUiLCJhY2NvdW50SWQiOiI2OGRmNzFlN2UxN2JhMzgyMGIyODEyZTEiLCJwYXRoIjoibWVkaWEvaW1wb3J0cy9wb2RjYXN0cy8wZTEyMWIxMS04MjNmLTQ4ZDUtOTIxNS03ODM5YzE5MTg3NzUvZXBpc29kZXMvOGMyYTkyYTItNWU3MC00NjE4LWJlN2YtYzVlNDhiYmFhNTNkL21lZGlhLm1wMyJ9.mp3" length="19974496" type="audio/mpeg"/>
+            <itunes:summary>
+            <p>Dans cet épisode de Parlons ServiceNow nous explorons comment la plateforme aide les organisations à mieux fonctionner et innover afin de protéger quelque chose de primordial : l'environnement.</p><p>Nous avons le plaisir d'accueillir Mathieu de chez Aguaro, qui aide les organisations à piloter la réduction de leur empreinte environnementale.</p><p>Découvrez comment Aguaro, permet aux grandes organisations de contrôler, maîtriser, et faire évoluer leur empreinte environnemental.</p>
+            </itunes:summary>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:duration>00:41:36</itunes:duration>
+            <itunes:image href="https://hosting-media.riverside.com/media/imports/podcasts/0e121b11-823f-48d5-9215-7839c1918775/episodes/8c2a92a2-5e70-4618-be7f-c5e48bbaa53d/1763829157292-b5a2fdaa-7a28-4cab-a884-7889b24f7e32.jpeg"/>
+            <itunes:season>1</itunes:season>
+            <itunes:episode>4</itunes:episode>
+            <itunes:title>
+            Parlons ServiceNow - 004 - Aguaro x ServiceNow : mesurer et agir pour l'environnement
+            </itunes:title>
+            <itunes:episodeType>full</itunes:episodeType>
+            </item>
+            <item>
+            <title>
+            Parlons ServiceNow - 005 - ServiceNow AI Consultant
+            </title>
+            <description>
+            <p>Dans cet épisode, la discussion a naturellement évolué vers une question centrale : <b>comment utiliser l’IA de manière pertinente auprès de nos clients, et ce que cela change réellement pour le métier de consultant</b>.</p><p><br /></p><p>On y parle sans fantasme ni discours marketing de la place que l’IA peut prendre dans les missions de conseil, côté fonctionnel comme technique. Pas pour “faire de l’IA à tout prix”, mais pour comprendre <b>où elle apporte une vraie valeur</b>, et où elle ne fait que déplacer le problème.</p><p><br /></p><p>L’échange aborde aussi l’impact sur notre métier : évolution des compétences, posture du consultant, relation avec les clients, et risques d’une adoption trop rapide ou mal cadrée.</p><p>Un épisode sans promesse magique, pour prendre du recul sur un sujet qui s’impose déjà dans nos missions.</p>
+            </description>
+            <link>
+            https://shows.acast.com/parlons-servicenow/episodes/695be15fb1ddb8392c45a603
+            </link>
+            <guid isPermaLink="false">695be15fb1ddb8392c45a603</guid>
+            <dc:creator>Mehdi ATTAR</dc:creator>
+            <pubDate>Tue, 06 Jan 2026 23:00:00 GMT</pubDate>
+            <enclosure url="https://api.riverside.com/hosting-analytics/media/c3eaa84c9d120dc67e84ef3aad10df2574f73e82fe78d69c637dcd99a7571951/eyJlcGlzb2RlSWQiOiIyYjdmNmQyYy1kNGMxLTQwNjgtOTQxMy04OGJjOTk5YjYwODgiLCJwb2RjYXN0SWQiOiIwZTEyMWIxMS04MjNmLTQ4ZDUtOTIxNS03ODM5YzE5MTg3NzUiLCJhY2NvdW50SWQiOiI2OGRmNzFlN2UxN2JhMzgyMGIyODEyZTEiLCJwYXRoIjoibWVkaWEvaW1wb3J0cy9wb2RjYXN0cy8wZTEyMWIxMS04MjNmLTQ4ZDUtOTIxNS03ODM5YzE5MTg3NzUvZXBpc29kZXMvMmI3ZjZkMmMtZDRjMS00MDY4LTk0MTMtODhiYzk5OWI2MDg4L21lZGlhLm1wMyJ9.mp3" length="14218153" type="audio/mpeg"/>
+            <itunes:summary>
+            <p>Dans cet épisode, la discussion a naturellement évolué vers une question centrale : <b>comment utiliser l’IA de manière pertinente auprès de nos clients, et ce que cela change réellement pour le métier de consultant</b>.</p><p><br /></p><p>On y parle sans fantasme ni discours marketing de la place que l’IA peut prendre dans les missions de conseil, côté fonctionnel comme technique. Pas pour “faire de l’IA à tout prix”, mais pour comprendre <b>où elle apporte une vraie valeur</b>, et où elle ne fait que déplacer le problème.</p><p><br /></p><p>L’échange aborde aussi l’impact sur notre métier : évolution des compétences, posture du consultant, relation avec les clients, et risques d’une adoption trop rapide ou mal cadrée.</p><p>Un épisode sans promesse magique, pour prendre du recul sur un sujet qui s’impose déjà dans nos missions.</p>
+            </itunes:summary>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:duration>00:29:37</itunes:duration>
+            <itunes:image href="https://hosting-media.riverside.com/media/imports/podcasts/0e121b11-823f-48d5-9215-7839c1918775/episodes/2b7f6d2c-d4c1-4068-9413-88bc999b6088/1767629125512-ade64896-8fb5-4cb8-b355-5ce2c7624609.jpeg"/>
+            <itunes:season>1</itunes:season>
+            <itunes:episode>5</itunes:episode>
+            <itunes:title>
+            Parlons ServiceNow - 005 - ServiceNow AI Consultant
+            </itunes:title>
+            <itunes:episodeType>trailer</itunes:episodeType>
+            </item>
+            <item>
+            <title>Parlons ServiceNow - 001 - CSDM</title>
+            <description>
+            <p>Dans cet épisode, nous allons découvrir le <b>Common Service Data Model (CSDM)</b> de ServiceNow. Pourquoi est-il un pilier indispensable pour structurer vos donnée mais aussi votre CMDB ? Nous allons démystifier ses fondations, ses domaines et ses objets clés. Enfin, je vous donnerais quelques conseil sur la manière de démarrer et de l'utiliser efficacement. Que vous soyez novice ou expert, cet épisode contient des information clés qui, je l'espère, vous aiderons dans la mise en œuvre réussie du CSDM.</p>
+            </description>
+            <link>
+            https://shows.acast.com/parlons-servicenow/episodes/68a2493d29e2926e09ae0806
+            </link>
+            <guid isPermaLink="false">68a2493d29e2926e09ae0806</guid>
+            <dc:creator>Mehdi ATTAR</dc:creator>
+            <pubDate>Sun, 07 Sep 2025 18:48:21 GMT</pubDate>
+            <enclosure url="https://api.riverside.com/hosting-analytics/media/1e759f886797c4c30ab7abe9c5be9aef079a6dd9a0e0fad5b2afd9ded94e2f9c/eyJlcGlzb2RlSWQiOiIyZGQ3Y2UxYS03N2QzLTQ2OGYtYWI4Ny0xOTgzM2FkNDFiM2YiLCJwb2RjYXN0SWQiOiIwZTEyMWIxMS04MjNmLTQ4ZDUtOTIxNS03ODM5YzE5MTg3NzUiLCJhY2NvdW50SWQiOiI2OGRmNzFlN2UxN2JhMzgyMGIyODEyZTEiLCJwYXRoIjoibWVkaWEvaW1wb3J0cy9wb2RjYXN0cy8wZTEyMWIxMS04MjNmLTQ4ZDUtOTIxNS03ODM5YzE5MTg3NzUvZXBpc29kZXMvMmRkN2NlMWEtNzdkMy00NjhmLWFiODctMTk4MzNhZDQxYjNmL21lZGlhLm1wMyJ9.mp3" length="15162453" type="audio/mpeg"/>
+            <itunes:summary>
+            <p>Dans cet épisode, nous allons découvrir le <b>Common Service Data Model (CSDM)</b> de ServiceNow. Pourquoi est-il un pilier indispensable pour structurer vos donnée mais aussi votre CMDB ? Nous allons démystifier ses fondations, ses domaines et ses objets clés. Enfin, je vous donnerais quelques conseil sur la manière de démarrer et de l'utiliser efficacement. Que vous soyez novice ou expert, cet épisode contient des information clés qui, je l'espère, vous aiderons dans la mise en œuvre réussie du CSDM.</p>
+            </itunes:summary>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:duration>00:15:32</itunes:duration>
+            <itunes:image href="https://hosting-media.riverside.com/media/imports/podcasts/0e121b11-823f-48d5-9215-7839c1918775/episodes/2dd7ce1a-77d3-468f-ab87-19833ad41b3f/1757270124873-f8a9f03b-735c-4794-9398-108da75f63f9.jpeg"/>
+            <itunes:season>1</itunes:season>
+            <itunes:episode>1</itunes:episode>
+            <itunes:title>Parlons ServiceNow - 001 - CSDM</itunes:title>
+            <itunes:episodeType>trailer</itunes:episodeType>
+            </item>
+            <item>
+            <title>Parlons ServiceNow - 002 - Gouvernance technique</title>
+            <description>
+            <p>Plongez dans l'univers de la gouvernance technique avec Mehdi Attar et Jacques Clément, CMA.</p><p>Découvrez comment instaurer une cohérence durable dans vos développements et éviter les pièges des solutions improvisées.</p><p>Jacques partagera notamment ses astuces pour transformer la gouvernance en un espace d'échange et d'innovation, tout en gardant des processus simples et inclusifs.</p><p><br /></p><p>Prêt à améliorer votre votre collaboration technique autour de la plateforme IA ServiceNow ? Commencez dès maintenant, même à petite échelle en ne manquant pas cet épisode inspirant !</p><hr />
+            </description>
+            <link>
+            https://shows.acast.com/parlons-servicenow/episodes/68dffd1b59fa988cc42f072e
+            </link>
+            <guid isPermaLink="false">68dffd1b59fa988cc42f072e</guid>
+            <dc:creator>Mehdi ATTAR</dc:creator>
+            <pubDate>Mon, 06 Oct 2025 22:00:00 GMT</pubDate>
+            <enclosure url="https://api.riverside.com/hosting-analytics/media/d3248703e244eb87b681ef634c863bf68de6aed10fb92edd302fc67acf58c3d3/eyJlcGlzb2RlSWQiOiI4NTNhZmM5Ny0wYzNlLTQzY2EtOGU0Yi02MjdhYmJhM2U2ZTkiLCJwb2RjYXN0SWQiOiIwZTEyMWIxMS04MjNmLTQ4ZDUtOTIxNS03ODM5YzE5MTg3NzUiLCJhY2NvdW50SWQiOiI2OGRmNzFlN2UxN2JhMzgyMGIyODEyZTEiLCJwYXRoIjoibWVkaWEvaW1wb3J0cy9wb2RjYXN0cy8wZTEyMWIxMS04MjNmLTQ4ZDUtOTIxNS03ODM5YzE5MTg3NzUvZXBpc29kZXMvODUzYWZjOTctMGMzZS00M2NhLThlNGItNjI3YWJiYTNlNmU5L21lZGlhLm1wMyJ9.mp3" length="109662078" type="audio/mpeg"/>
+            <itunes:summary>
+            <p>Plongez dans l'univers de la gouvernance technique avec Mehdi Attar et Jacques Clément, CMA.</p><p>Découvrez comment instaurer une cohérence durable dans vos développements et éviter les pièges des solutions improvisées.</p><p>Jacques partagera notamment ses astuces pour transformer la gouvernance en un espace d'échange et d'innovation, tout en gardant des processus simples et inclusifs.</p><p><br /></p><p>Prêt à améliorer votre votre collaboration technique autour de la plateforme IA ServiceNow ? Commencez dès maintenant, même à petite échelle en ne manquant pas cet épisode inspirant !</p><hr />
+            </itunes:summary>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:duration>00:20:43</itunes:duration>
+            <itunes:image href="https://hosting-media.riverside.com/media/imports/podcasts/0e121b11-823f-48d5-9215-7839c1918775/episodes/853afc97-0c3e-43ca-8e4b-627abba3e6e9/1759510770086-58552e36-872c-475e-b72c-c067ce647721.jpeg"/>
+            <itunes:season>1</itunes:season>
+            <itunes:episode>2</itunes:episode>
+            <itunes:title>Parlons ServiceNow - 002 - Gouvernance technique</itunes:title>
+            <itunes:episodeType>full</itunes:episodeType>
+            </item>
+            </channel>
+            </rss>
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Generation 1 fiche episode max (cron hebdomadaire uniquement, jamais au lancement manuel)
+        if: github.event_name == 'schedule'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_SLUG: |-
+            parlons-servicenow
+          MAX_EPISODES: '1'
+        run: python automation/scripts/generate_episode_fiches_btb.py
+
+      - name: Commit fiches
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: podcast-btb parlons-servicenow"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
