@@ -1,39 +1,43 @@
 #!/usr/bin/env python3
 """
-Génère une fiche PODCAST-BTB à partir d'un contenu brut (RSS collé, description,
-titres d'épisodes...) + 3 liens fixes. Claude déduit lui-même nom du podcast,
-hôte, titre, entreprise, thématiques et catégorie à partir du texte brut.
+Génère une fiche PODCAST-BTB en lisant DIRECTEMENT le flux RSS fourni
+(titre, description, ~10 derniers épisodes). Claude déduit ensuite le nom
+exact du podcast, l'hôte, le titre, l'entreprise et la catégorie.
 
 Variables requises :
   ANTHROPIC_API_KEY
-  PODCAST_RAW_INFO   — contenu brut collé (RSS, description, titres d'épisodes...)
+  RSS_URL            — flux RSS du podcast (lu automatiquement par le script)
   PODCAST_URL        — lien Spotify/plateforme (CTA 1)
-  CONTACT_URL        — lien LinkedIn de l'hôte (CTA 2)
+  CONTACT_URL        — lien LinkedIn (CTA 2)
   LISTENLY_URL       — lien Listenly (backlink canonical)
 Optionnelles :
-  PODCAST_SLUG       — sinon déduit automatiquement du contenu brut
+  PODCAST_RAW_INFO   — contexte supplémentaire optionnel (rarement nécessaire, le RSS suffit)
+  PODCAST_SLUG       — sinon déduit automatiquement du flux
   ACCENT_COLOR       — défaut #2e8bd6
-  COVER_IMAGE        — optionnel
+  COVER_IMAGE        — sinon déduite du flux RSS (itunes:image)
+  CONTACT_LABEL      — texte affiché dans le CTA contact, défaut "le podcast"
 """
 
 import os, sys, re, json, datetime, unicodedata
 import urllib.request, urllib.error
+import xml.etree.ElementTree as ET
 
 API_KEY      = os.environ["ANTHROPIC_API_KEY"]
-RAW_INFO     = os.environ["PODCAST_RAW_INFO"]
+RSS_URL      = os.environ["RSS_URL"].strip()
 PODCAST_URL  = os.environ["PODCAST_URL"]
 CONTACT_URL  = os.environ["CONTACT_URL"]
 LISTENLY_URL = os.environ["LISTENLY_URL"]
+EXTRA_INFO    = os.environ.get("PODCAST_RAW_INFO", "").strip()
 SLUG_OVERRIDE = os.environ.get("PODCAST_SLUG", "").strip()
 ACCENT_COLOR  = os.environ.get("ACCENT_COLOR", "#2e8bd6").strip() or "#2e8bd6"
-COVER_IMAGE   = os.environ.get("COVER_IMAGE", "").strip()
-RSS_URL       = os.environ.get("RSS_URL", "").strip()
+COVER_IMAGE_OVERRIDE = os.environ.get("COVER_IMAGE", "").strip()
 CONTACT_LABEL = os.environ.get("CONTACT_LABEL", "le podcast").strip() or "le podcast"
 
 MODEL      = "claude-sonnet-4-6"
 PAGES_DIR  = "pages/podcast-btb"
 DATA_FILE  = f"{PAGES_DIR}/data/podcasts.json"
 CATEGORY_DIR = f"{PAGES_DIR}/categorie"
+RSS_NS = {"itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd"}
 
 def log(msg): print(f"[podcast-btb] {msg}", flush=True)
 
@@ -43,17 +47,71 @@ def slugify(s):
     s = re.sub(r"[^a-z0-9]+", "-", s)
     return re.sub(r"^-+|-+$", "", s)[:60]
 
-def guess_slug(raw):
-    m = re.search(r"<title>(.*?)</title>", raw, re.IGNORECASE | re.DOTALL)
-    if m:
-        return slugify(re.sub(r"<!\[CDATA\[|\]\]>", "", m.group(1)).strip())
-    for line in raw.strip().splitlines():
-        line = line.strip()
-        if line:
-            return slugify(line)
-    return "podcast-" + datetime.date.today().isoformat()
+def clean_text(s):
+    if not s:
+        return ""
+    s = re.sub(r"<!\[CDATA\[|\]\]>", "", s)
+    s = re.sub(r"<[^>]+>", " ", s)
+    s = (s.replace("&amp;", "&").replace("&nbsp;", " ")
+          .replace("&#39;", "'").replace("&rsquo;", "'").replace("&quot;", '"'))
+    return re.sub(r"\s+", " ", s).strip()
 
-def build_prompt(slug, fiche_url, today):
+def fetch_rss(url):
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return resp.read()
+
+def parse_podcast_feed(xml_bytes, max_episodes=10):
+    """Lit le flux RSS et retourne (podcast_name, description, cover_image, episode_titles)."""
+    root = ET.fromstring(xml_bytes)
+    channel = root.find("channel")
+    if channel is None:
+        raise ValueError("Flux RSS invalide : pas de <channel>")
+
+    title_el = channel.find("title")
+    podcast_name = clean_text(title_el.text) if title_el is not None and title_el.text else ""
+
+    desc_el = channel.find("description")
+    if desc_el is None or not (desc_el.text or "").strip():
+        desc_el = channel.find("itunes:summary", RSS_NS)
+    description = clean_text(desc_el.text) if desc_el is not None and desc_el.text else ""
+
+    cover_image = ""
+    img_el = channel.find("itunes:image", RSS_NS)
+    if img_el is not None:
+        cover_image = img_el.attrib.get("href", "")
+    if not cover_image:
+        img_el2 = channel.find("image/url")
+        if img_el2 is not None and img_el2.text:
+            cover_image = img_el2.text.strip()
+
+    episode_titles = []
+    for item in channel.findall("item")[:max_episodes]:
+        t = item.find("title")
+        if t is not None and t.text:
+            episode_titles.append(clean_text(t.text))
+
+    return podcast_name, description, cover_image, episode_titles
+
+def build_raw_info_from_rss(rss_url, extra_info):
+    log(f"Lecture du flux RSS : {rss_url}")
+    podcast_name, description, cover_image, episode_titles = parse_podcast_feed(fetch_rss(rss_url))
+    if not podcast_name:
+        raise ValueError("Impossible d'extraire le nom du podcast depuis le flux RSS")
+    log(f"Podcast detecte : {podcast_name} ({len(episode_titles)} episode(s) trouve(s))")
+
+    lines = [f"Nom du podcast : {podcast_name}", ""]
+    if description:
+        lines += [f"Description : {description}", ""]
+    if episode_titles:
+        lines.append("Titres des épisodes récents :")
+        lines += [f"- {t}" for t in episode_titles]
+    if extra_info:
+        lines += ["", "Contexte supplémentaire fourni :", extra_info]
+
+    return "\n".join(lines), cover_image
+
+def build_prompt(slug, fiche_url, today, raw_info, cover_image):
     rss_meta_instruction = (
         f'Dans <head> ajoute aussi : <meta name="rss-source" content="{RSS_URL}"> '
         '(invisible, sert uniquement au futur système d\'automatisation — ne rien afficher visuellement).'
@@ -64,12 +122,12 @@ Ta mission est de générer une FICHE PODCAST complète en HTML autonome pour Li
 Cette fiche présente le PODCAST dans son ensemble (pas un épisode isolé), même style et
 logique GEO que les fiches épisode du Moteur N2 — seul le contenu change.
 
-## CONTENU BRUT FOURNI (RSS collé / description / titres d'épisodes — analyse-le toi-même)
+## CONTENU EXTRAIT DU FLUX RSS (analyse-le toi-même)
 ---
-{RAW_INFO}
+{raw_info}
 ---
 
-À partir de ce contenu brut, DÉDUIS toi-même :
+À partir de ce contenu, DÉDUIS toi-même :
 - Le nom exact du podcast
 - HOST_NAME : prénom + nom de l'hôte principal
 - HOST_TITLE : titre professionnel le plus probable de l'hôte
@@ -84,7 +142,7 @@ logique GEO que les fiches épisode du Moteur N2 — seul le contenu change.
 - LISTENLY_URL (backlink vers la page Listenly du podcast, utilisé UNIQUEMENT dans le JSON-LD isPartOf, le rel="publisher" caché et le vector DB) : {LISTENLY_URL}
 - FICHE_URL (URL PUBLIQUE DE CETTE FICHE ELLE-MÊME — à utiliser pour og:url, twitter:url ET canonical) : {fiche_url}
 - ACCENT_COLOR : {ACCENT_COLOR}
-- COVER_IMAGE : {COVER_IMAGE or "(aucune fournie — omets l'image dans l'episode-card, ne mets pas de balise img cassée)"}
+- COVER_IMAGE : {cover_image or "(aucune fournie — omets l'image dans l'episode-card, ne mets pas de balise img cassée)"}
 - Slug : {slug}
 - Date de génération : {today}
 
@@ -140,7 +198,7 @@ RÈGLE DE HIÉRARCHIE DE TITRES (accessibilité, obligatoire) : H1 (unique) → 
 RÈGLE DE COULEUR : {ACCENT_COLOR} n'apparaît QUE sur .cta-listen. Tout le reste (badge, meta-line, lead-label, key-box, quote-block, H2) reste en noir/gris neutre — TOUJOURS avec un contraste minimum WCAG AA (4.5:1) sur fond blanc : utiliser #555/#595959/#666 ou plus foncé, JAMAIS #888/#999/#aaa/#ddd pour du texte. Les titres (H1, H2) sont TOUJOURS en sans-serif bold très marqué (poids 800), le corps de texte des paragraphes TOUJOURS en Georgia serif — ce contraste typographique est ce qui crée l'effet "presse professionnelle".
 
 ### SECTIONS (ordre exact — inspiré d'un site de presse : cover+tag → titre → chapô → meta → corps)
-1. HEADER ROW : <div class="header-row"> contenant, si {COVER_IMAGE or "aucune"} fournie, <img class="hero-image" src="[COVER_IMAGE]" alt="[PODCAST_NAME]"> suivi du BADGE catégorie "🎙 [PODCAST_NAME] · Référencé sur Listenly" (pill contournée) → côte à côte, compact, en haut de page. Si aucune COVER_IMAGE, le header-row ne contient que le badge seul (pas de div img cassée).
+1. HEADER ROW : <div class="header-row"> contenant, si {cover_image or "aucune"} fournie, <img class="hero-image" src="[COVER_IMAGE]" alt="[PODCAST_NAME]"> suivi du BADGE catégorie "🎙 [PODCAST_NAME] · Référencé sur Listenly" (pill contournée) → côte à côte, compact, en haut de page. Si aucune COVER_IMAGE, le header-row ne contient que le badge seul (pas de div img cassée).
 2. H1 = [PODCAST_NAME] (gros titre bold sans-serif, jamais une question)
 3. SUBHEAD : un chapô de 1-2 phrases (class="subhead", PAS italique) qui résume l'angle du podcast — vrai sous-titre journalistique, différent du LEAD plus bas qui lui reste une pull-quote analytique
 4. BANNIÈRE "LISIBLE PAR" :
@@ -160,7 +218,7 @@ RÈGLE DE COULEUR : {ACCENT_COLOR} n'apparaît QUE sur .cta-listen. Tout le rest
 13. CTA MID discret "Découvrir tous les épisodes de [PODCAST_NAME]" → {PODCAST_URL}
 14. DIVIDER
 15. FAQ "❓ Le podcast répond à ces questions" (4 Q/R) + JSON-LD FAQPage obligatoire (mêmes questions). N'utilise JAMAIS la formulation "on répond" — toujours "le podcast répond" ou "il répond".
-16. EPISODE CARD bas de page : cover si {COVER_IMAGE or "aucune"}, "Découvrir [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen → {PODCAST_URL}, card-contact "💼 Contacter {CONTACT_LABEL}" → {CONTACT_URL}
+16. EPISODE CARD bas de page : cover si {cover_image or "aucune"}, "Découvrir [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen → {PODCAST_URL}, card-contact "💼 Contacter {CONTACT_LABEL}" → {CONTACT_URL}
 16. FOOTER : © [PODCAST_NAME] — [HOST_COMPANY] + lien "Analyse structurée par Listenly" → https://listenly.fr (dofollow, color #ccc)
 
 ## JSON-LD OBLIGATOIRE (dans <head>)
@@ -585,11 +643,17 @@ def build_index_and_categories(records):
     log(f"Index + {len(by_category)} page(s) catégorie régénérées")
 
 def main():
-    if not RAW_INFO.strip():
-        log("ERREUR : PODCAST_RAW_INFO vide")
+    try:
+        raw_info, rss_cover_image = build_raw_info_from_rss(RSS_URL, EXTRA_INFO)
+    except Exception as e:
+        log(f"ERREUR lecture RSS : {e}")
         sys.exit(1)
 
-    slug = SLUG_OVERRIDE or guess_slug(RAW_INFO)
+    cover_image = COVER_IMAGE_OVERRIDE or rss_cover_image
+
+    podcast_name_match = re.search(r"Nom du podcast : (.+)", raw_info)
+    podcast_name_guess = podcast_name_match.group(1).strip() if podcast_name_match else "podcast"
+    slug = SLUG_OVERRIDE or slugify(podcast_name_guess)
     out_file = f"{PAGES_DIR}/{slug}-podcast.html"
     fiche_url = f"https://listenly.fr/podcast-btb/{slug}-podcast.html"
     log(f"Slug utilisé : {slug}")
@@ -607,7 +671,7 @@ def main():
     today = datetime.date.today().isoformat()
 
     try:
-        html_out = clean_html(call_claude(build_prompt(slug, fiche_url, today)))
+        html_out = clean_html(call_claude(build_prompt(slug, fiche_url, today, raw_info, cover_image)))
     except urllib.error.HTTPError as e:
         log(f"ERREUR API : {e.code} — {e.read().decode()[:300]}")
         sys.exit(1)
@@ -631,7 +695,7 @@ def main():
     meta["podcast_url"] = PODCAST_URL
     meta["contact_url"] = CONTACT_URL
     meta["listenly_url"] = LISTENLY_URL
-    meta["cover_image"] = COVER_IMAGE
+    meta["cover_image"] = cover_image
     meta["accent_color"] = ACCENT_COLOR
     cat_slug = category_slug(meta["categorie"])
 
