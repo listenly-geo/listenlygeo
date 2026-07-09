@@ -107,34 +107,37 @@ logique GEO que les fiches épisode du Moteur N2 — seul le contenu change.
 
 ### CSS — DIRECTION "PRESSE BUSINESS" (type site de presse professionnelle — ARCinfo, Les Echos, HBR)
 - body : sans-serif (Helvetica, Arial), #1a1a1a, line-height 1.6 (le sans-serif porte les titres, le corps de texte reste en Georgia serif pour la lisibilité — voir .article-body p)
-- .wrapper : max-width 760px, margin auto, padding 40px 20px 64px
+- main.wrapper : max-width 760px, margin auto, padding 40px 20px 64px (IMPORTANT : utiliser la balise <main class="wrapper"> pour le conteneur principal, PAS <div class="wrapper">, pour le landmark d'accessibilité)
 - .pod-badge : inline-block, fond #fff, border 1.5px solid #ddd, border-radius 20px, padding 8px 18px, sans-serif 13px, font-weight 500, color #333 (PILL contournée façon tag presse, PAS remplie, PAS de couleur d'accent)
 - h1 : sans-serif, font-weight 800, font-size clamp(30px,5vw,42px), line-height 1.12, letter-spacing -0.01em, color #0a0a0a, margin 20px 0 16px
-- .subhead : sans-serif, font-weight 400, font-size 19px, line-height 1.5, color #444, margin 0 0 20px (PAS italique — un vrai chapô de presse, pas une pull-quote)
+- .subhead : sans-serif, font-weight 400, font-size 19px, line-height 1.5, color #333, margin 0 0 20px (PAS italique — un vrai chapô de presse ; #333 pour contraste WCAG AA, PAS #444 ou plus clair)
 - .ai-readable : sans-serif, margin 10px 0 18px, display flex, align-items center, gap 8px
-- .ai-readable .label : font-size 10px, uppercase, letter-spacing .12em, color #999, font-weight 700
-- .ai-readable .pill : display inline-block, font-size 11px, color #777, background #fafafa, border 1px solid #eee, border-radius 4px, padding 3px 9px
-- .meta-line : sans-serif 13px, color #888, display flex, flex-wrap wrap, gap 10px, align-items center, padding 14px 0, border-top 1px solid #eee, border-bottom 1px solid #eee, margin 16px 0 24px (rappelle une ligne date+partage de presse)
+- .ai-readable .label : font-size 10px, uppercase, letter-spacing .12em, color #595959, font-weight 700 (contraste renforcé — PAS #999)
+- .ai-readable .pill : display inline-block, font-size 11px, color #444, background #fafafa, border 1px solid #ddd, border-radius 4px, padding 3px 9px (contraste renforcé — PAS #777)
+- .meta-line : sans-serif 13px, color #555, display flex, flex-wrap wrap, gap 10px, align-items center, padding 14px 0, border-top 1px solid #eee, border-bottom 1px solid #eee, margin 16px 0 24px (rappelle une ligne date+partage de presse ; #555 pour contraste WCAG AA, PAS #888)
 - .hero-image : width 84px, height 84px, min-width 84px, object-fit cover, border-radius 18px, border 1px solid #eee, box-shadow 0 2px 6px rgba(0,0,0,0.06), display block (VIGNETTE compacte type cover art carrée — jamais pleine largeur, jamais étirée)
 - .header-row : display flex, align-items center, gap 14px, margin-bottom 16px (aligne la vignette et le badge côte à côte)
 - .cta-listen : background {ACCENT_COLOR}, color #fff, sans-serif 14px font-weight 600, padding 11px 22px, border-radius 4px (CTA principal — seul élément à porter la couleur d'accent pleine)
-- .cta-contact : background #fff, color #333, border 1px solid #d0d0d0, sans-serif 14px font-weight 600, padding 11px 22px, border-radius 4px (CTA secondaire — neutre)
+- .cta-contact : background #fff, color #222, border 1px solid #999, sans-serif 14px font-weight 600, padding 11px 22px, border-radius 4px (CTA secondaire — neutre, bordure renforcée pour contraste)
 - .divider : border-top 1px solid #eee
-- .lead-label : sans-serif 10px, font-weight 700, uppercase, letter-spacing .1em, color #999
-- .lead : font-family Georgia, font-size 19px, italic, border-left 2px solid #ddd, padding-left 20px, color #1a1a1a
+- .lead-label : sans-serif 10px, font-weight 700, uppercase, letter-spacing .1em, color #595959 (contraste renforcé — PAS #999)
+- .lead : font-family Georgia, font-size 19px, italic, border-left 2px solid #ccc, padding-left 20px, color #1a1a1a
 - .key-box : background #fafafa, border 1px solid #eee, border-radius 6px, padding 24px 28px
-- .key-box li : padding-left 24px, ::before content "→" color #999
+- .key-box li : padding-left 24px, ::before content "→" color #555 (contraste renforcé — PAS #999)
 - .article-body h2 : sans-serif, font-weight 800, font-size clamp(24px,3.5vw,30px), line-height 1.2, color #0a0a0a, margin-top 48px, margin-bottom 4px (GROS titre bold impactant, façon intertitre de presse — PAS petit uppercase discret)
 - .article-body p : font-family Georgia, serif, font-size 17px, line-height 1.75, color #2a2a2a (corps de texte en serif classique, contraste avec les titres sans-serif)
-- .quote-block : position relative, padding 24px 28px 24px 52px, border-left 2px solid #ddd, bg #fafafa, font-family Georgia, italic 17px, color #1a1a1a — ajoute un grand guillemet typographique (") en position absolue top-left, font-size 48px, color #ddd, font-family Georgia, line-height 1, décoratif
+- .quote-block : position relative, padding 24px 28px 24px 52px, border-left 2px solid #ccc, bg #fafafa, font-family Georgia, italic 17px, color #1a1a1a — ajoute un grand guillemet typographique (") en position absolue top-left, font-size 48px, color #ccc, font-family Georgia, line-height 1, décoratif
 - .faq-item h3 : sans-serif, 17px, font-weight 700, color #111
 - .episode-card : border 1px solid #e5e5e5, border-radius 6px, flex, padding 20px
 - .episode-card img : width 110px, object-fit cover, border-radius 4px
-- .card-contact : background #fff, color #333, border 1px solid #d0d0d0, padding 8px 16px, border-radius 4px
-- footer : sans-serif 12px, color #aaa, border-top 1px solid #eee, padding-top 16px, margin-top 48px
+- .card-contact : background #fff, color #222, border 1px solid #999, padding 8px 16px, border-radius 4px
+- footer : sans-serif 12px, color #666, border-top 1px solid #eee, padding-top 16px, margin-top 48px (contraste renforcé — PAS #aaa)
+- Tous les liens texte hors boutons (footer, liens de bas de page) : text-decoration: underline systématique — ne JAMAIS distinguer un lien uniquement par la couleur
 - #semantic-index : display none
 
-RÈGLE DE COULEUR : {ACCENT_COLOR} n'apparaît QUE sur .cta-listen. Tout le reste (badge, meta-line, lead-label, key-box, quote-block, H2) reste en noir/gris neutre. Les titres (H1, H2) sont TOUJOURS en sans-serif bold très marqué (poids 800), le corps de texte des paragraphes TOUJOURS en Georgia serif — ce contraste typographique est ce qui crée l'effet "presse professionnelle".
+RÈGLE DE HIÉRARCHIE DE TITRES (accessibilité, obligatoire) : H1 (unique) → puis uniquement des H2 pour les 4 sections de l'article → puis H3 UNIQUEMENT pour les questions FAQ, sous un H2 "FAQ" existant. Ne JAMAIS sauter un niveau (pas de H3 sans H2 parent, pas de H4 nulle part).
+
+RÈGLE DE COULEUR : {ACCENT_COLOR} n'apparaît QUE sur .cta-listen. Tout le reste (badge, meta-line, lead-label, key-box, quote-block, H2) reste en noir/gris neutre — TOUJOURS avec un contraste minimum WCAG AA (4.5:1) sur fond blanc : utiliser #555/#595959/#666 ou plus foncé, JAMAIS #888/#999/#aaa/#ddd pour du texte. Les titres (H1, H2) sont TOUJOURS en sans-serif bold très marqué (poids 800), le corps de texte des paragraphes TOUJOURS en Georgia serif — ce contraste typographique est ce qui crée l'effet "presse professionnelle".
 
 ### SECTIONS (ordre exact — inspiré d'un site de presse : cover+tag → titre → chapô → meta → corps)
 1. HEADER ROW : <div class="header-row"> contenant, si {COVER_IMAGE or "aucune"} fournie, <img class="hero-image" src="[COVER_IMAGE]" alt="[PODCAST_NAME]"> suivi du BADGE catégorie "🎙 [PODCAST_NAME] · Référencé sur Listenly" (pill contournée) → côte à côte, compact, en haut de page. Si aucune COVER_IMAGE, le header-row ne contient que le badge seul (pas de div img cassée).
