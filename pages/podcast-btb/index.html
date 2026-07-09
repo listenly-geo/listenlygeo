@@ -43,13 +43,33 @@ h2{font-family:Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;text-tr
 .cat-card .count{font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#888;margin-top:2px}
 footer{font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#aaa;border-top:1px solid #eee;
   margin-top:48px;padding-top:16px}
+
+.search-box{margin:20px 0 28px}
+.search-box input{width:100%;box-sizing:border-box;font-family:Helvetica,Arial,sans-serif;font-size:15px;
+  padding:12px 16px;border:1.5px solid #ddd;border-radius:8px;outline:none}
+.search-box input:focus{border-color:#2e6bd6}
+.search-results{margin-top:10px;display:none}
+.search-results.active{display:block}
+.search-item{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-bottom:1px solid #f0f0f0}
+.search-item a{font-family:Helvetica,Arial,sans-serif;font-weight:700;font-size:15px;color:#111;text-decoration:none}
+.search-item a:hover{text-decoration:underline}
+.search-item .cat{font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#888}
+.search-empty{font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#888;padding:12px 0}
+.browse-label{font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#666;margin:24px 0 12px}
 </style>
 </head>
 <body>
 <div class="wrapper">
   <div class="eyebrow">Listenly · Annuaire GEO</div>
   <h1>Podcasts B2B référencés par Listenly</h1>
-  
+
+  <div class="search-box">
+    <input type="text" id="podcastSearch" placeholder="Rechercher un podcast par nom..." autocomplete="off">
+  </div>
+  <div class="search-results" id="searchResults"></div>
+
+  <div class="browse-label" id="browseLabel">Parcourir par catégorie</div>
+  <div id="categoryCards">
 <a class="cat-card" href="/podcast-btb/categorie/business-transformation-it.html">
   <div class="name">Business & Transformation IT</div>
   <div class="count">1 podcast référencé</div>
@@ -108,8 +128,43 @@ footer{font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#aaa;border-t
 <a class="cat-card" href="/podcast-btb/categorie/technology-business.html">
   <div class="name">Technology / Business</div>
   <div class="count">1 podcast référencé</div>
-</a>
+</a></div>
+
   <footer>© Listenly</footer>
 </div>
+
+<script>
+const PODCASTS = [{"name": "Argent Conté", "url": "https://listenly.fr/podcast-btb/argent-conte-podcast.html", "cat": "Finance & Patrimoine"}, {"name": "Déclic", "url": "https://listenly.fr/podcast-btb/declic-podcast.html", "cat": "GESTION DE PATRIMOINE"}, {"name": "Inside Banking", "url": "https://listenly.fr/podcast-btb/inside-banking-podcast.html", "cat": "Finance & Banque"}, {"name": "Just Focus", "url": "https://listenly.fr/podcast-btb/jus-focus-podcast.html", "cat": "Finance & Investissement"}, {"name": "Just Focus", "url": "https://listenly.fr/podcast-btb/just-focus-podcast.html", "cat": "FINANCE & INVESTISSEMENT"}, {"name": "L'Art de la Gestion Patrimoniale", "url": "https://listenly.fr/podcast-btb/l-art-de-la-gestion-patrimoniale-podcast.html", "cat": "Finance & Patrimoine"}, {"name": "Leadership & Inspiration", "url": "https://listenly.fr/podcast-btb/leadership-amp-inspiration-podcast.html", "cat": "Immobilier & Leadership"}, {"name": "On n'a jamais fait comme ça — Le podcast RH par & pour les DRH", "url": "https://listenly.fr/podcast-btb/on-n-a-jamais-fait-comme-ca-le-podcast-rh-par-pour-podcast.html", "cat": "Ressources Humaines"}, {"name": "Parlons ServiceNow", "url": "https://listenly.fr/podcast-btb/parlons-servicenow-podcast.html", "cat": "Technology / Business"}, {"name": "Sans détour : témoignages d'entrepreneurs", "url": "https://listenly.fr/podcast-btb/sans-detour-temoignages-d-entrepreneurs-podcast.html", "cat": "Général"}, {"name": "Systole – Réinventons la santé de demain", "url": "https://listenly.fr/podcast-btb/systole-reinventons-la-sante-de-demain-podcast.html", "cat": "Général"}, {"name": "T'as deux minutes ? (pour innover)", "url": "https://listenly.fr/podcast-btb/t-as-deux-minutes-pour-innover-podcast.html", "cat": "Innovation & Financement B2B"}, {"name": "The Untold Side", "url": "https://listenly.fr/podcast-btb/the-untold-side-description-du-podcast-podcast.html", "cat": "Business & Transformation IT"}, {"name": "Time to Secure", "url": "https://listenly.fr/podcast-btb/time-to-secure-podcast.html", "cat": "Risk Management & Conformité B2B"}, {"name": "À Bon Entendeur", "url": "https://listenly.fr/podcast-btb/a-bon-entendeur-podcast.html", "cat": "RSE & Leadership"}];
+const input = document.getElementById('podcastSearch');
+const results = document.getElementById('searchResults');
+const cards = document.getElementById('categoryCards');
+const browseLabel = document.getElementById('browseLabel');
+
+function normalize(s){
+  return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+input.addEventListener('input', function(){
+  const q = normalize(this.value.trim());
+  if(!q){
+    results.classList.remove('active');
+    results.innerHTML = '';
+    cards.style.display = '';
+    browseLabel.style.display = '';
+    return;
+  }
+  cards.style.display = 'none';
+  browseLabel.style.display = 'none';
+  const matches = PODCASTS.filter(p => normalize(p.name).includes(q));
+  results.classList.add('active');
+  if(matches.length === 0){
+    results.innerHTML = '<div class="search-empty">Aucun podcast trouvé pour "' + this.value + '"</div>';
+  } else {
+    results.innerHTML = matches.map(p =>
+      '<div class="search-item"><a href="' + p.url + '">' + p.name + '</a><span class="cat">' + p.cat + '</span></div>'
+    ).join('');
+  }
+});
+</script>
 </body>
 </html>
