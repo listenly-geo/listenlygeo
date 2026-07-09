@@ -161,7 +161,8 @@ RÈGLE DE COULEUR : {ACCENT_COLOR} n'apparaît QUE sur .cta-listen. Tout le rest
 16. FOOTER : © [PODCAST_NAME] — [HOST_COMPANY] + lien "Analyse structurée par Listenly" → https://listenly.fr (dofollow, color #ccc)
 
 ## JSON-LD OBLIGATOIRE (dans <head>)
-@graph : BlogPosting (headline=H1, author=[HOST_NAME]/[HOST_TITLE], publisher=Listenly, isPartOf={LISTENLY_URL}, speakable cssSelector [".lead",".key-box"]), FAQPage (les 4 questions), Person ([HOST_NAME]/[HOST_TITLE]/worksFor [HOST_COMPANY]), PodcastSeries ([PODCAST_NAME]/{PODCAST_URL}).
+@graph : BlogPosting (headline=H1, author=[HOST_NAME]/[HOST_TITLE], publisher=Listenly, isPartOf={LISTENLY_URL}, speakable cssSelector [".lead",".key-box"]), FAQPage (les 4 questions), Person ([HOST_NAME]/[HOST_TITLE]/worksFor [HOST_COMPANY], sameAs: ["{CONTACT_URL}"]), PodcastSeries ([PODCAST_NAME]/{PODCAST_URL}, sameAs: ["{PODCAST_URL}", "{LISTENLY_URL}"]).
+IMPORTANT sameAs : sert à relier l'entité (personne/podcast) à ses profils réels ailleurs sur le web (autorité d'entité pour les moteurs IA/Google). N'invente JAMAIS d'URL sameAs — utilise UNIQUEMENT {CONTACT_URL}, {PODCAST_URL} et {LISTENLY_URL} tels que fournis, jamais un profil supposé ou reconstitué.
 
 ## BACKLINKS LISTENLY CACHÉS (obligatoires)
 Dans <head> : canonical={fiche_url} (PAS {LISTENLY_URL} — voir RÈGLE CRITIQUE plus haut), rel="publisher" href="https://listenly.fr", meta name="data-provider" content="Listenly".
@@ -212,6 +213,7 @@ def audit(html, fiche_url):
     if "on répond" in html.lower() or "on repond" in html.lower(): issues.append("formulation 'on répond' interdite trouvée")
     if f'og:url" content="{fiche_url}"' not in html: issues.append("og:url ne pointe pas vers la fiche elle-même")
     if f'rel="canonical" href="{fiche_url}"' not in html: issues.append("canonical ne pointe pas vers la fiche elle-même")
+    if "sameAs" not in html: issues.append("sameAs absent (Person/PodcastSeries)")
     return issues
 
 def clean_text(s):
