@@ -1,0 +1,169 @@
+name: Podcast BTB — just-focus
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 15 * * 4'
+
+jobs:
+  podcast-btb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generation fiche podcast (lancement manuel uniquement)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_URL: |-
+            https://open.spotify.com/show/681RPTndhWXmgGKHw0PVjw
+          CONTACT_URL: |-
+            https://www.linkedin.com/company/sapians.com/
+          CONTACT_LABEL: |-
+            Sapians
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/just-focus-by-sapian
+          COVER_IMAGE: |-
+            https://i.postimg.cc/MXkstK22/ab67656300005f1ffc8ab2e6cd8347934dcc6e55.jpg
+          RSS_URL: |-
+            https://feeds.podcastics.com/podcastics/podcasts/rss/6651_cb27268b937e0ad273e50f4238d98874.rss
+          PODCAST_SLUG: |-
+            just-focus
+          ACCENT_COLOR: |-
+            #2e8bd6
+          PODCAST_RAW_INFO: |-
+            Just Focus
+            Le podcast de ceux qui mettent l’argent au service de leurs ambitions…Et non l’inverse !
+            ℹ️ You're looking at the RSS file of the podcast « Just Focus ». You'd maybe prefer to checkout its full website.
+            <p>Pour ceux qui mettent l’argent au service de leurs ambitions…Et non l’inverse !</p><p>Condamner l’argent en bloc pour suspicion de goinfrerie, c’est se priver de notre <strong>principal allié</strong> pour construire un monde meilleur.</p><p>Avec « just focus », nous donnons la parole à ceux qui sont <strong>perpétuellement en mouvement</strong>, ceux qui veulent que leurs investissements soient à l’image de leurs idées et engagements : un moyen de créer un futur qui leur ressemble.</p><p>Just focus c’est un <strong>pont</strong> entre l’investisseur et l’investissement.</p><p>Un nouveau regard sur la possession. Une invitation à passer à l’<strong>action</strong>.</p>
+            Comment repérer un bon fonds de private equity ? Les indicateurs qui prouvent (ou trahissent) sa performance réelle
+            Season 2, episode 42
+            Just Tips : analyser la performance des fonds de private equity, avec Pierre-Marie de Forville
+            Thu, 09 Jul 2026 03:30:00 +0000/00:16:56
+            Your browser does not support the element.
+            Pourquoi l'affaire Stellantis fait trembler le système des produits structurés ?
+            Season 2, episode 41
+            Focus Marchés : produits structurés et affaire Stellantis, avec Guillaume Dumans (co-fondateur de Feefty)
+            Thu, 02 Jul 2026 03:30:00 +0000/00:52:26
+            Your browser does not support the element.
+            Votre conseiller sert-il vraiment vos intérêts ? La vérité se trouve dans les frais que vous payez #Just Tips
+            Season 2, episode 40
+            Just Tips : la rémunération du conseil en gestion de patrimoine, avec Étienne de Saint-Germain
+            Thu, 25 Jun 2026 03:30:00 +0000/00:18:50
+            Your browser does not support the element.
+            #25 Investir dans des hôtels délaissés et en faire des machines à cash - Balestra × Honpô
+            Season 2, episode 39
+            L'hôtellerie économique - avec Raphaël Zribi (Responsable Relations Investisseurs de Balestra) & Yahia Ben Othman (Directeur général du Groupe Honpô)
+            Thu, 18 Jun 2026 03:30:00 +0000/01:02:06
+            Your browser does not support the element.
+            Location meublée en 2026 : le LMNP est-il encore rentable après le PLF 2025 ?
+            Season 2, episode 38
+            Focus Fonds : JD2M avec Stefano Demari
+            Thu, 11 Jun 2026 03:30:00 +0000/00:48:51
+            Your browser does not support the element.
+            #Mata Capital - SCPI, bureaux, hôtellerie : quelles opportunités immobilières en 2026 ? - avec Jean-Baptiste Pracca
+            Season 2, episode 37
+            Focus Fonds : Mata Capital avec Jean-Baptiste Pracca
+            Thu, 04 Jun 2026 03:30:00 +0000/00:55:32
+            Your browser does not support the element.
+            #Carte Financement - Crédit immobilier & entrepreneurs : comment présenter votre dossier à la banque ? - avec Jean-Baptiste Monié
+            Season 2, episode 36
+            Focus Fonds : Carte Financement avec Jean-Baptiste Monié
+            Thu, 28 May 2026 03:30:00 +0000/00:46:00
+            Your browser does not support the element.
+            #24 Investir dans un logisticien d'excellence pour dessiner le futur du commerce - Spring Invest × Acolyt
+            Season 2, episode 35
+            Laurent Foiry co-fondateur de Spring Invest & Martin Bour fondateur d'Acolyt
+            Thu, 21 May 2026 03:30:00 +0000/01:20:39
+            Your browser does not support the element.
+            La vérité sur les fonds evergreen : du private equity "liquide", mais à quel prix ? #Just Tips
+            Season 2, episode 34
+            Just Tips : les fonds evergreen, avec Etienne de Saint-Germain
+            Thu, 14 May 2026 03:30:00 +0000/00:26:39
+            Your browser does not support the element.
+            Finance comportementale : ces biais cognitifs sabotent vos performances en bourse #Focus Marchés
+            Season 2, episode 33
+            Focus Marchés : finance comportementale et biais cognitifs, avec Nour Bendimered
+            Thu, 07 May 2026 03:30:00 +0000/00:34:25
+            Your browser does not support the element.
+            Les meilleures enveloppes fiscales pour placer votre argent (guide complet) #Just Tips
+            Season 2, episode 32
+            Just Tips : conseils patrimoniaux pour dirigeants et entrepreneurs, avec Etienne de Saint Germain
+            Thu, 30 Apr 2026 03:30:00 +0000/00:25:50
+            Your browser does not support the element.
+            La fin du l'âge d'or du private equity : faut-il encore investir en 2026 ? #Just Tips
+            Season 2, episode 31
+            Just Tips : les fonds de private equity, avec Pierre-Marie de Forville
+            Thu, 23 Apr 2026 03:30:00 +0000/00:29:54
+            Your browser does not support the element.
+            #23 Quantique, spatial, décarbonation... Financer les champions Deeptech pour une Europe souveraine - avec Charles Beigbeder
+            Season 2, episode 30
+            Charles Beigbeder, fondateur d'Audacia, Poweo et Selftrade
+            Thu, 16 Apr 2026 03:30:00 +0000/01:10:37
+            Your browser does not support the element.
+            Vous allez hériter ? 5 décisions cruciales à prendre dans les 6 premiers mois ! #Just Tips
+            Season 2, episode 29
+            Just Tips : conseils patrimoniaux pour dirigeants et entrepreneurs, avec Souleymane-Jean Galadima
+            Thu, 09 Apr 2026 03:30:00 +0000/00:29:23
+            Your browser does not support the element.
+            Optimisez votre portefeuille actions avec la stratégie core-satellite #Focus Marchés
+            Season 2, episode 28
+            Focus Marchés : décryptage des produits financiers et analyse des marchés, avec Nour Bendimered
+            Thu, 02 Apr 2026 03:30:00 +0000/00:28:46
+            Your browser does not support the element.
+            #France Active - Quelle place pour la finance solidaire dans votre épargne ? - avec Denis Dementhon
+            Season 2, episode 27
+            Focus Fonds : France Active avec Denis Dementhon
+            Thu, 26 Mar 2026 04:30:00 +0000/00:41:26
+            Your browser does not support the element.
+            Quels sont les placements financiers à fuir absolument ? Comment les détecter ? #Just Tips
+            Season 2, episode 26
+            Just Tips : conseils patrimoniaux pour dirigeants et entrepreneurs, avec Etienne de Saint Germain
+            Thu, 19 Mar 2026 04:30:00 +0000/00:24:57
+            Your browser does not support the element.
+            #22 Des paris sportifs à la résurrection de Delage Automobiles - avec Laurent Tapie
+            Season 2, episode 25
+            Laurent Tapie, re-fondateur et CEO de Delage Automobiles
+            Thu, 12 Mar 2026 04:30:00 +0000/01:04:57
+            Your browser does not support the element.
+            Conce
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Generation 1 fiche episode max (cron hebdomadaire uniquement, jamais au lancement manuel)
+        if: github.event_name == 'schedule'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_SLUG: |-
+            just-focus
+          MAX_EPISODES: '1'
+        run: python automation/scripts/generate_episode_fiches_btb.py
+
+      - name: Commit fiches
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: podcast-btb just-focus"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
