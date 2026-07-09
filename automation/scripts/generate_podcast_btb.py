@@ -421,6 +421,8 @@ def build_sitemap():
         for fname in files:
             if not fname.endswith(".html"):
                 continue
+            if fname == "historique.html":
+                continue  # page interne perso, jamais dans le sitemap public
             full_path = os.path.join(root, fname)
             rel_path = os.path.relpath(full_path, PAGES_DIR).replace(os.sep, "/")
             url = f"https://listenly.fr/podcast-btb/{rel_path}"
@@ -443,6 +445,89 @@ def build_sitemap():
     with open(f"{PAGES_DIR}/sitemap-podcast-btb.xml", "w", encoding="utf-8") as f:
         f.write(xml)
     log(f"Sitemap regenere : {len(urls)} URL(s)")
+
+def build_historique():
+    """Page interne (usage perso, jamais dans le sitemap) listant chaque fiche
+    podcast et episode par ordre chronologique de creation."""
+    entries = []
+
+    records = load_data()
+    for r in records:
+        entries.append({
+            "date": r.get("date", ""),
+            "type": "Podcast",
+            "name": r.get("podcast_name", r.get("slug", "")),
+            "url": r.get("fiche_url", ""),
+            "podcast": r.get("podcast_name", ""),
+        })
+
+    episodes_root = f"{PAGES_DIR}/episodes"
+    if os.path.isdir(episodes_root):
+        for slug in os.listdir(episodes_root):
+            reg_file = f"{episodes_root}/{slug}/_generated.json"
+            if not os.path.exists(reg_file):
+                continue
+            with open(reg_file, encoding="utf-8") as f:
+                try:
+                    reg = json.load(f)
+                except json.JSONDecodeError:
+                    continue
+            podcast_name = next((r["podcast_name"] for r in records if r["slug"] == slug), slug)
+            for e in reg:
+                entries.append({
+                    "date": e.get("added_date", e.get("pubdate", "")),
+                    "type": "Episode",
+                    "name": e.get("title", ""),
+                    "url": e.get("url", ""),
+                    "podcast": podcast_name,
+                })
+
+    def sort_key(e):
+        return e.get("date", "") or ""
+    entries.sort(key=sort_key, reverse=True)
+
+    rows = "\n".join(f"""
+<tr>
+  <td>{e['date']}</td>
+  <td><span class="tag {'tag-podcast' if e['type']=='Podcast' else 'tag-episode'}">{e['type']}</span></td>
+  <td>{e['name']}</td>
+  <td>{e['podcast']}</td>
+  <td><a href="{e['url']}" target="_blank">Ouvrir →</a></td>
+</tr>""" for e in entries)
+
+    html = f"""<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Historique podcast-btb (usage interne)</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+body{{font-family:-apple-system,Helvetica,Arial,sans-serif;color:#1a1a1a;margin:0;background:#fafafa;padding:32px}}
+h1{{font-size:20px;margin:0 0 4px}}
+.sub{{color:#888;font-size:13px;margin-bottom:20px}}
+table{{width:100%;border-collapse:collapse;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}}
+th{{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#888;padding:10px 12px;border-bottom:1px solid #eee}}
+td{{padding:10px 12px;font-size:13px;border-bottom:1px solid #f2f2f2;vertical-align:top}}
+.tag{{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:600}}
+.tag-podcast{{background:#eef3fd;color:#2e6bd6}}
+.tag-episode{{background:#f0f0f0;color:#666}}
+a{{color:#2e6bd6;text-decoration:none;font-size:12px}}
+a:hover{{text-decoration:underline}}
+</style>
+</head>
+<body>
+<h1>Historique podcast-btb</h1>
+<div class="sub">Page interne — usage perso, exclue du sitemap et non indexee. {len(entries)} entree(s).</div>
+<table>
+<tr><th>Date</th><th>Type</th><th>Nom</th><th>Podcast</th><th>Lien</th></tr>
+{rows}
+</table>
+</body>
+</html>"""
+
+    with open(f"{PAGES_DIR}/historique.html", "w", encoding="utf-8") as f:
+        f.write(html)
+    log(f"Historique regenere : {len(entries)} entree(s)")
 
 def build_index_and_categories(records):
     by_category = {}
@@ -477,6 +562,7 @@ def main():
         records = load_data()
         build_index_and_categories(records)
         build_sitemap()
+        build_historique()
         return
 
     os.makedirs(PAGES_DIR, exist_ok=True)
@@ -522,6 +608,7 @@ def main():
     save_data(records)
     build_index_and_categories(records)
     build_sitemap()
+    build_historique()
     log(f"Categorie detectee : {meta['categorie']} ({cat_slug})")
 
 if __name__ == "__main__":
