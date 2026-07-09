@@ -1,0 +1,333 @@
+name: Podcast BTB — inside-banking
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 5 * * 1'
+
+jobs:
+  podcast-btb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generation fiche podcast (lancement manuel uniquement)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_URL: |-
+            https://open.spotify.com/episode/6LvU6clYwOTH0qsf1ytBiB
+          CONTACT_URL: |-
+            https://www.linkedin.com/in/richardmichaud1/
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/inside-banking
+          COVER_IMAGE: |-
+            https://i.postimg.cc/XqnjBCn8/500x500-000000-80-0-0.jpg
+          RSS_URL: |-
+            https://feed.ausha.co/E5qgYFY9jYWR
+          PODCAST_SLUG: |-
+            inside-banking
+          ACCENT_COLOR: |-
+            #2e8bd6
+          PODCAST_RAW_INFO: |-
+            Inside Banking
+            
+            Inside Banking est un média indépendant dédié à l’éducation financière. Notre objectif : rendre la finance accessible, compréhensible et utile, en France et en Europe. 🎙️ Ce que tu vas comprendre avec Inside Banking → Les transformations stratégiques du secteur bancaire en France et en Europe, → Les grands enjeux de l’investissement en Bourse (ETF, actions, allocation, fiscalité), → La montée en puissance de la crypto, des stablecoins et de la tokenisation, → L’intelligence artificielle appliquée à la finance. Chaque épisode donne la parole à : → Des dirigeants bancaire, → Des experts financiers, → Des entrepreneurs et décideurs. Qui partagent leurs parcours, leurs décisions stratégiques et leur vision de la finance de demain. 🔔 Pourquoi s’abonner ? Si tu veux : → Mieux comprendre la finance, → Prendre de meilleures décisions d’investissement, → Suivre les mutations du secteur bancaire. 👉 Abonne-toi dès maintenant à la chaîne ! Hébergé par Ausha. Visitez ausha.co/fr/politique-de-confidentialite pour plus d'informations.
+            
+            (Copyright : Richard Michaud)
+            
+                Stablecoins, MiCA, arrivée des banques : la crypto est-elle en train de devenir mainstream ? | Avec Raphaël Bloch, CEO de The Big Whale
+            
+                Download
+            
+                Wed, 08 Jul 2026
+                9 000 Md€ vont changer de mains en France d'ici 15 ans | Avec Pierre Marin, CEO & co-founder RockFi
+            
+                Download
+            
+                Wed, 24 Jun 2026
+                La révolution des Digital Assets (stablecoins, crypto, blockchain) - Stefan Brinaru, Head of Digital Assets BNP Paribas Asset Management
+            
+                Download
+            
+                Wed, 10 Jun 2026
+                Il conserve plus d’un milliard d’euros d’or pour le compte de ses clients | Avec Jean-François Faure, fondateur du groupe AuCOFFRE.com
+            
+                Download
+            
+                Wed, 27 May 2026
+                La Banque Postale : une banque comme les autres ? | Avec Stéphane Dedeyan, Président du directoire de La Banque Postale
+            
+                Download
+            
+                Wed, 13 May 2026
+                Marc Camus, membre du Comex de BNP Paribas | L'IA dans la banque : démêler le vrai du faux
+            
+                Download
+            
+                Wed, 29 Apr 2026
+                Michael Diguet - La révolution du crédit bancaire est en marche
+            
+                Download
+            
+                Wed, 15 Apr 2026
+                Comment verdir ton compte courant et tes crédits ? | Avec Maeva Courtois, CEO & Fondatrice d'helios, Chief of Banking Services de Younited
+            
+                Download
+            
+                Thu, 02 Apr 2026
+                Paris domine la Fintech européenne | Emmanuel Papadacci-Stephanopoli, DGD du Village by CA Paris
+            
+                Download
+            
+                Wed, 18 Mar 2026
+                Comment investir en temps de crise ? | Avec Andrea Tueni - Responsable des activités de marchés de Saxo Banque France
+            
+                Download
+            
+                Wed, 04 Mar 2026
+                Comment mettre son argent au service de l'environnement en 2026 | Avec Joseph Choueifaty, Founder & CEO de Goodvest
+            
+                Download
+            
+                Wed, 18 Feb 2026
+                Comment bien investir en 2026 ? | Avec Fabien Keryell, Directeur général de Saxo Banque France
+            
+                Download
+            
+                Wed, 04 Feb 2026
+                Comment l’IA transforme la banque ? | Avec Guillaume Durand, Chief Data Officer du LCL
+            
+                Download
+            
+                Wed, 21 Jan 2026
+                Jeremy Blackwell - Les secrets d’investisseur du banquier des stars de la tech
+            
+                Download
+            
+                Wed, 07 Jan 2026
+                Claire Balva - L'épisode pour (enfin) comprendre la crypto & la blockchain
+            
+                Download
+            
+                Wed, 17 Dec 2025
+                Marc Bouzy - Arnaques financières : comment les repérer et s’en protéger
+            
+                Download
+            
+                Wed, 03 Dec 2025
+                Priscille Szeradzki - DGA de la Confédération Nationale du Crédit Mutuel
+            
+                Download
+            
+                Wed, 19 Nov 2025
+                Kristen Charvin - Déléguée générale de France FinTech
+            
+                Download
+            
+                Wed, 05 Nov 2025
+                Nicolas Faucon - Investir en or facilement et en toute sécurité
+            
+                Download
+            
+                Wed, 22 Oct 2025
+                Samuel Guez - Investir en startups à partir de 1 000€
+            
+                Download
+            
+                Thu, 16 Oct 2025
+                Noémie Papp - EXCLU : Crypto-actifs, découvrez comment les Autorités européennes de surveillance agissent pour vous protéger
+            
+                Download
+            
+                Wed, 08 Oct 2025
+                Vincent Auriac - Agir concrètement pour une finance (enfin) plus responsable
+            
+                Download
+            
+                Wed, 24 Sep 2025
+                Quentin Couturier - Les secrets de création de contenu du p'tit jeune qui a cassé LinkedIn en 6 mois
+            
+                Download
+            
+                Sat, 20 Sep 2025
+                Ronan Le Moal - Concilier performance & impact en investissement, c'est possible !
+            
+                Download
+            
+                Wed, 10 Sep 2025
+                Nicolas Barrailler - L’histoire d’un informaticien devenu l'une des voix les plus influentes de la Finance sur LinkedIn
+            
+                Download
+            
+                Wed, 27 Aug 2025
+                [REDIFF] - Daniel Baal - Président du Crédit Mutuel
+            
+                Download
+            
+                Sat, 23 Aug 2025
+                [REDIFF] - Nicolas Pajot - Top 100 LinkedIn France, Top 25 LinkedIn Investissement Monde, Conseiller en gestion de patrimoine
+            
+                Download
+            
+                Thu, 21 Aug 2025
+                [REDIFF] - Florent Allombert - Un Conseiller en Gestion de Patrimoine (CGP) pas comme les autres
+            
+                Download
+            
+                Mon, 18 Aug 2025
+                [REDIFF] - Thibaut Boutrou - Tout comprendre à la blockchain & aux cryptos
+            
+                Download
+            
+                Thu, 14 Aug 2025
+                [REDIFF] - Grégory Guilmin - L'homme qui veut aider 1 million de personnes à investir
+            
+                Download
+            
+                Mon, 11 Aug 2025
+                [REDIFF] - Jeanne Le Melinaire - Education financière : le défi du siècle
+            
+                Download
+            
+                Thu, 07 Aug 2025
+                [REDIFF] - Miriasi Thouch - Parcours atypique, 20 ans de carrière en banque, anecdotes sur la finance
+            
+                Download
+            
+                Mon, 04 Aug 2025
+                [REDIFF] - Simon Kiennemann - Tout savoir sur les ETF
+            
+                Download
+            
+                Mon, 28 Jul 2025
+                Maxime Haffreingue - Changer de vie, se poser les bonnes questions avant d'investir, investir en solo vs. accompagné
+            
+                Download
+            
+                Wed, 23 Jul 2025
+                [REDIFF] - Olivier Lendrevie : D'ancien banquier à patron de média digital
+            
+                Download
+            
+                Tue, 15 Jul 2025
+                Chiara Operto - Tout savoir sur le M&A (salaires, horaires, mythes)
+            
+                Download
+            
+                Wed, 09 Jul 2025
+                [REDIFF] - Guillaume Simonin - Le spécialiste français de la pédagogie financière
+            
+                Download
+            
+                Tue, 01 Jul 2025
+                Daniel Baal - Président du Crédit Mutuel
+            
+                Download
+            
+                Wed, 25 Jun 2025
+                Nicolas Pajot - Top 100 LinkedIn France, Top 25 LinkedIn Investissement Monde, Conseiller en gestion de patrimoine
+            
+                Download
+            
+                Wed, 11 Jun 2025
+                Florent Allombert - Un Conseiller en Gestion de Patrimoine (CGP) pas comme les autres
+            
+                Download
+            
+                Wed, 28 May 2025
+                Thibaut Boutrou - Tout comprendre à la blockchain & aux cryptos
+            
+                Download
+            
+                Wed, 14 May 2025
+                Thibaud Juglaret - Le spécialiste de la finance pour les entreprises (investissement, stratégie, placement, trésorerie)
+            
+                Download
+            
+                Wed, 30 Apr 2025
+                Nicolas Pinto - L'expert des FinTechs et du paiement
+            
+                Download
+            
+                Wed, 16 Apr 2025
+                Julien Bichon - Tout comprendre sur l'Open Banking et les API
+            
+                Download
+            
+                Wed, 02 Apr 2025
+                Grégory Guilmin - L'homme qui veut aider 1 million de personnes à investir
+            
+                Download
+            
+                Wed, 19 Mar 2025
+                Jeanne Le Melinaire - Education financière : le défi du siècle
+            
+                Download
+            
+                Wed, 05 Mar 2025
+                Miriasi Thouch - Parcours atypique, 20 ans de carrière en banque, anecdotes sur la finance
+            
+                Download
+            
+                Wed, 19 Feb 2025
+                Simon Kiennemann - Tout savoir sur les ETF
+            
+                Download
+            
+                Wed, 05 Feb 2025
+                Olivier Lendrevie : D'ancien banquier à patron de média digital
+            
+                Download
+            
+                Wed, 22 Jan 2025
+                Guillaume Simonin - Le spécialiste français de la pédagogie financière
+            
+                Download
+            
+                Tue, 07 Jan 2025
+                Inside Banking Le Podcast - Trailer
+            
+                Download
+            
+                Sun, 15 Dec 2024
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Generation 1 fiche episode max (cron hebdomadaire uniquement, jamais au lancement manuel)
+        if: github.event_name == 'schedule'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_SLUG: |-
+            inside-banking
+          MAX_EPISODES: '1'
+        run: python automation/scripts/generate_episode_fiches_btb.py
+
+      - name: Commit fiches
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: podcast-btb inside-banking"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
