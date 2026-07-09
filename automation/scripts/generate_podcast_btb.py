@@ -451,6 +451,38 @@ def build_sitemap():
         f.write(xml)
     log(f"Sitemap regenere : {len(urls)} URL(s)")
 
+def build_llms_txt():
+    """Genere pages/podcast-btb/llms.txt (convention llms.txt) — resume structure
+    pour les crawlers IA. Se met a jour a chaque generation, comme le sitemap."""
+    records = load_data()
+    by_category = {}
+    for r in records:
+        cslug = category_slug(r["categorie"])
+        by_category.setdefault(cslug, {"label": r["categorie"], "items": []})
+        by_category[cslug]["items"].append(r)
+
+    lines = []
+    lines.append("# Listenly — Annuaire GEO des podcasts B2B (section podcast-btb)")
+    lines.append("")
+    lines.append("> Annuaire de podcasts B2B francophones référencés par Listenly, organisé par catégorie professionnelle. Chaque podcast dispose d'une fiche de présentation et, pour certains, de fiches par épisode. Contenu optimisé pour la citation par les moteurs IA (ChatGPT, Gemini, Claude, Perplexity).")
+    lines.append("")
+    lines.append("## Index")
+    lines.append("- [Tous les podcasts par catégorie](https://listenly.fr/podcast-btb/index.html)")
+    lines.append("")
+    lines.append("## Catégories")
+    for cslug, data in sorted(by_category.items(), key=lambda kv: kv[1]["label"]):
+        lines.append(f"- [{data['label']}](https://listenly.fr/podcast-btb/categorie/{cslug}.html): {len(data['items'])} podcast(s)")
+    lines.append("")
+    lines.append("## Podcasts référencés")
+    for r in sorted(records, key=lambda x: x["podcast_name"]):
+        punch = r.get("punchline", "").strip()
+        punch = (punch[:160] + "…") if len(punch) > 160 else punch
+        lines.append(f"- [{r['podcast_name']}]({r['fiche_url']}): {punch}")
+
+    with open(f"{PAGES_DIR}/llms.txt", "w", encoding="utf-8") as f:
+        f.write("\n".join(lines) + "\n")
+    log(f"llms.txt regenere : {len(records)} podcast(s), {len(by_category)} categorie(s)")
+
 def build_historique():
     """Page interne (usage perso, jamais dans le sitemap) listant chaque fiche
     podcast et episode par ordre chronologique de creation."""
@@ -568,6 +600,7 @@ def main():
         build_index_and_categories(records)
         build_sitemap()
         build_historique()
+        build_llms_txt()
         return
 
     os.makedirs(PAGES_DIR, exist_ok=True)
@@ -614,6 +647,7 @@ def main():
     build_index_and_categories(records)
     build_sitemap()
     build_historique()
+    build_llms_txt()
     log(f"Categorie detectee : {meta['categorie']} ({cat_slug})")
 
 if __name__ == "__main__":
