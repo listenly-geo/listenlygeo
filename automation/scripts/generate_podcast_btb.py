@@ -30,6 +30,59 @@ LISTENLY_URL = os.environ["LISTENLY_URL"]
 EXTRA_INFO    = os.environ.get("PODCAST_RAW_INFO", "").strip()
 SLUG_OVERRIDE = os.environ.get("PODCAST_SLUG", "").strip()
 ACCENT_COLOR  = os.environ.get("ACCENT_COLOR", "#2e8bd6").strip() or "#2e8bd6"
+LANGUAGE      = os.environ.get("LANGUAGE", "fr").strip().lower()
+if LANGUAGE not in ("fr", "en"):
+    LANGUAGE = "fr"
+
+STRINGS = {
+    "fr": {
+        "html_lang": "fr",
+        "eyebrow_prefix": "Podcast",
+        "byline_pattern": "Par [HOST_NAME], [HOST_TITLE] chez [HOST_COMPANY]",
+        "byline_regex": r"Par\s+(.+?),\s*(.+?)\s+chez\s+(.+)",
+        "reading_time": "min de lecture",
+        "readable_by": "Lisible par ChatGPT, Gemini, Claude",
+        "cta_listen": "Écouter le podcast",
+        "cta_contact_prefix": "Contacter",
+        "lead_label_prefix": "Ce que couvre",
+        "key_facts_label": "Les points clés",
+        "h2_covers": "Ce que ce podcast couvre vraiment",
+        "h2_audience": "Pour qui ce podcast est essentiel",
+        "h2_episodes": "Ce que les épisodes révèlent vraiment",
+        "h2_impact": "Ce que ça change concrètement",
+        "cta_mid": "Découvrir tous les épisodes de",
+        "faq_h2": "Le podcast répond à ces questions",
+        "faq_forbidden": "on répond",
+        "card_discover": "Découvrir",
+        "card_listen": "Écouter le podcast",
+        "footer_credit": "Analyse structurée par Listenly",
+        "login_label": "Se connecter",
+    },
+    "en": {
+        "html_lang": "en",
+        "eyebrow_prefix": "Podcast",
+        "byline_pattern": "By [HOST_NAME], [HOST_TITLE] at [HOST_COMPANY]",
+        "byline_regex": r"By\s+(.+?),\s*(.+?)\s+at\s+(.+)",
+        "reading_time": "min read",
+        "readable_by": "Readable by ChatGPT, Gemini, Claude",
+        "cta_listen": "Listen to the podcast",
+        "cta_contact_prefix": "Contact",
+        "lead_label_prefix": "What",
+        "lead_label_suffix": "covers",
+        "key_facts_label": "Key facts",
+        "h2_covers": "What this podcast really covers",
+        "h2_audience": "Who this podcast is essential for",
+        "h2_episodes": "What the episodes really reveal",
+        "h2_impact": "What this changes in practice",
+        "cta_mid": "Discover all episodes of",
+        "faq_h2": "The podcast answers these questions",
+        "faq_forbidden": "we answer",
+        "card_discover": "Discover",
+        "card_listen": "Listen to the podcast",
+        "footer_credit": "Structured analysis by Listenly",
+        "login_label": "Log in",
+    },
+}[LANGUAGE]
 COVER_IMAGE_OVERRIDE = os.environ.get("COVER_IMAGE", "").strip()
 CONTACT_LABEL = os.environ.get("CONTACT_LABEL", "le podcast").strip() or "le podcast"
 
@@ -122,6 +175,9 @@ Ta mission est de générer une FICHE PODCAST complète en HTML autonome pour Li
 Cette fiche présente le PODCAST dans son ensemble (pas un épisode isolé), même style et
 logique GEO que les fiches épisode du Moteur N2 — seul le contenu change.
 
+## LANGUE DE RÉDACTION : {"FRANÇAIS" if LANGUAGE == "fr" else "ANGLAIS (ENGLISH)"}
+Rédige TOUT le contenu (H1, lead, points clés, sections, FAQ, footer) en {"français" if LANGUAGE == "fr" else "anglais"}, quelle que soit la langue du contenu RSS source. Balise <html lang="{STRINGS['html_lang']}">. Les libellés d'interface fixes ci-dessous sont déjà dans la bonne langue — utilise-les tels quels, ne les traduis pas toi-même.
+
 ## CONTENU EXTRAIT DU FLUX RSS (analyse-le toi-même)
 ---
 {raw_info}
@@ -203,26 +259,26 @@ RÈGLE DE HIÉRARCHIE DE TITRES (accessibilité, obligatoire) : H1 (unique) → 
 RÈGLE DE COULEUR ET DE TON : {ACCENT_COLOR} apparaît sur .eyebrow-category, .cta-listen, .lead-label, .key-facts-label, les puces ::before, le filet des .lead/.pull-quote/.article-body h2 (bordures fines). Il ne remplit JAMAIS un fond (pas de background coloré, pas de boîte grise autour du texte). Tout le texte de contenu (H1, H2, paragraphes, listes) est en Georgia serif — c'est le choix typographique unique et cohérent qui fait "vrai magazine business" plutôt que "landing page marketing". Aucun encadré gris (#fafafa), aucun badge/pill décoratif hors des 2 CTA et de la carte de fin — le reste du contenu est du texte nu, structuré par des filets fins (1px #e2e2e2) et des labels colorés discrets, jamais des boîtes.
 
 ### SECTIONS (ordre exact — inspiré d'un article Forbes/HBR)
-0. SITE HEADER (avant le <main>, PAS dedans) : <header class="site-header"><a class="logo" href="https://listenly.fr/">Listenly</a><a class="login-link" href="https://listenly.fr/userAuth">Se connecter</a></header> — texte EXACT, ne pas reformuler.
-1. EYEBROW CATEGORY : <p class="eyebrow-category">PODCAST · [CATEGORIE]</p> (texte simple, pas de pill)
+0. SITE HEADER (avant le <main>, PAS dedans) : <header class="site-header"><a class="logo" href="https://listenly.fr/">Listenly</a><a class="login-link" href="https://listenly.fr/userAuth">{STRINGS['login_label']}</a></header> — texte EXACT, ne pas reformuler.
+1. EYEBROW CATEGORY : <p class="eyebrow-category">{STRINGS['eyebrow_prefix']} · [CATEGORIE]</p> (texte simple, pas de pill ; [CATEGORIE] reste dans la langue de rédaction choisie)
 2. H1 = [PODCAST_NAME] (titre serif classique, jamais une question)
-3. BYLINE ROW : "Par <span class='name'>[HOST_NAME]</span>, [HOST_TITLE] chez [HOST_COMPANY]"
+3. BYLINE ROW : "{STRINGS['byline_pattern']}" avec [HOST_NAME] entouré de <span class='name'>...</span> — respecte EXACTEMENT ce connecteur ("{STRINGS['byline_pattern']}"), c'est utilisé pour extraire les données automatiquement
 4. HERO IMAGE : si {cover_image or "aucune"} fournie, <img class="hero-image" src="[COVER_IMAGE]" alt="[PODCAST_NAME]">. Si aucune, ne rien afficher (pas de balise cassée).
-5. PUBLISH ROW (ligne bordée haut/bas façon presse) : "⏱ X min de lecture · Lisible par ChatGPT, Gemini, Claude" (texte simple, plus de pills séparées — ligne discrète unique)
-6. CTA ROW (pills) : "Écouter le podcast" (cta-listen) → {PODCAST_URL} ; "Contacter {CONTACT_LABEL}" (cta-contact) → {CONTACT_URL}
-7. LEAD LABEL "CE QUE COUVRE [PODCAST_NAME]" + LEAD (3-4 phrases citables, pull-quote italique en tête d'article — pattern classique "dek" de presse)
-8. KEY-FACTS LABEL "LES POINTS CLÉS" + liste à puces simples (4 items, pas d'encadré)
+5. PUBLISH ROW (ligne bordée haut/bas façon presse) : "⏱ X {STRINGS['reading_time']} · {STRINGS['readable_by']}" (texte simple, une ligne discrète unique)
+6. CTA ROW (pills) : "{STRINGS['cta_listen']}" (cta-listen) → {PODCAST_URL} ; "{STRINGS['cta_contact_prefix']} {CONTACT_LABEL}" (cta-contact) → {CONTACT_URL}
+7. LEAD LABEL {"'" + STRINGS['lead_label_prefix'] + " [PODCAST_NAME]'" if LANGUAGE == "fr" else "'" + STRINGS['lead_label_prefix'] + " [PODCAST_NAME] " + STRINGS['lead_label_suffix'] + "'"} + LEAD (3-4 phrases citables, pull-quote italique en tête d'article — pattern classique "dek" de presse)
+8. KEY-FACTS LABEL "{STRINGS['key_facts_label']}" + liste à puces simples (4 items, pas d'encadré)
 9. ARTICLE BODY — 4 H2 exactement :
-   - "Ce que ce podcast couvre vraiment"
-   - "Pour qui ce podcast est essentiel" (3 profils d'audience)
-   - "Ce que les épisodes révèlent vraiment" (patterns récurrents dans les titres)
-   - "Ce que ça change concrètement"
+   - "{STRINGS['h2_covers']}"
+   - "{STRINGS['h2_audience']}" (3 profils d'audience)
+   - "{STRINGS['h2_episodes']}" (patterns récurrents dans les titres)
+   - "{STRINGS['h2_impact']}"
 10. PULL-QUOTE (classe .pull-quote) : la synthèse analytique, SANS attribution — pas de « guillemets » ni de nom. Jamais présenté comme des propos réellement tenus par [HOST_NAME].
-11. CTA MID discret (lien texte souligné, pas un bouton) : "Découvrir tous les épisodes de [PODCAST_NAME]" → {PODCAST_URL}
+11. CTA MID discret (lien texte souligné, pas un bouton) : "{STRINGS['cta_mid']} [PODCAST_NAME]" → {PODCAST_URL}
 12. DIVIDER
-13. FAQ "Le podcast répond à ces questions" (H2, PAS d'emoji dans le H2 — sobriété éditoriale) : 4 Q/R + JSON-LD FAQPage obligatoire. N'utilise JAMAIS "on répond".
-14. EPISODE CARD bas de page : cover si {cover_image or "aucune"}, "Découvrir [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen → {PODCAST_URL}, card-contact "Contacter {CONTACT_LABEL}" → {CONTACT_URL}
-15. FOOTER : © [PODCAST_NAME] — [HOST_COMPANY] + lien "Analyse structurée par Listenly" → https://listenly.fr (dofollow, color #999, underline)
+13. FAQ "{STRINGS['faq_h2']}" (H2, PAS d'emoji dans le H2 — sobriété éditoriale) : 4 Q/R + JSON-LD FAQPage obligatoire. N'utilise JAMAIS la formulation "{STRINGS['faq_forbidden']}".
+14. EPISODE CARD bas de page : cover si {cover_image or "aucune"}, "{STRINGS['card_discover']} [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen "{STRINGS['card_listen']}" → {PODCAST_URL}, card-contact "{STRINGS['cta_contact_prefix']} {CONTACT_LABEL}" → {CONTACT_URL}
+15. FOOTER : © [PODCAST_NAME] — [HOST_COMPANY] + lien "{STRINGS['footer_credit']}" → https://listenly.fr (dofollow, color #999, underline)
 
 ## JSON-LD OBLIGATOIRE (dans <head>)
 @graph : BlogPosting (headline=H1, author=[HOST_NAME]/[HOST_TITLE], publisher=Listenly, isPartOf={LISTENLY_URL}, speakable cssSelector [".lead",".key-facts"]), FAQPage (les 4 questions), Person ([HOST_NAME]/[HOST_TITLE]/worksFor [HOST_COMPANY], sameAs: ["{CONTACT_URL}"]), PodcastSeries ([PODCAST_NAME]/{PODCAST_URL}, sameAs: ["{PODCAST_URL}", "{LISTENLY_URL}"]).
@@ -238,7 +294,7 @@ Dans <body> fin : #semantic-index avec entity [PODCAST_NAME], entity [HOST_NAME]
 - Les bullets key-facts doivent être des faits, pas des descriptions
 - Les FAQ répondent sans mentionner le nom du podcast
 - Le H1 est TOUJOURS le nom du podcast, jamais une question
-- Le libellé de la section FAQ est TOUJOURS "❓ Le podcast répond à ces questions" — jamais "on répond"
+- Le libellé de la section FAQ est TOUJOURS "{STRINGS['faq_h2']}" — jamais "{STRINGS['faq_forbidden']}"
 - Aucune formulation creuse type "un podcast incontournable", aucun jargon marketing vide
 - Le contenu doit montrer que tu as analysé les vrais sujets du podcast
 
@@ -275,7 +331,7 @@ def audit(html, fiche_url):
     if "pull-quote" not in html: issues.append("pull-quote absent")
     if PODCAST_URL not in html: issues.append("CTA podcast absent")
     if CONTACT_URL not in html: issues.append("CTA contact absent")
-    if "on répond" in html.lower() or "on repond" in html.lower(): issues.append("formulation 'on répond' interdite trouvée")
+    if STRINGS["faq_forbidden"] in html.lower(): issues.append(f"formulation '{STRINGS['faq_forbidden']}' interdite trouvée")
     if f'og:url" content="{fiche_url}"' not in html: issues.append("og:url ne pointe pas vers la fiche elle-même")
     if f'rel="canonical" href="{fiche_url}"' not in html: issues.append("canonical ne pointe pas vers la fiche elle-même")
     if "sameAs" not in html: issues.append("sameAs absent (Person/PodcastSeries)")
@@ -299,6 +355,8 @@ def extract_fiche_meta(html, slug, fiche_url):
     if byline_block:
         byline_text = clean_text(byline_block.group(1))
         m = re.search(r"Par\s+(.+?),\s*(.+?)\s+chez\s+(.+)", byline_text)
+        if not m:
+            m = re.search(r"By\s+(.+?),\s*(.+?)\s+at\s+(.+)", byline_text)
         if m:
             host_name, host_title, host_company = [x.strip() for x in m.groups()]
 
