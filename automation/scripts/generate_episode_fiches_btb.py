@@ -322,6 +322,7 @@ def main():
             gen_mod = _load_gen_module()
             gen_mod.build_sitemap()
             gen_mod.build_historique()
+            gen_mod.build_llms_txt()
         except Exception as e:
             log(f"AVERTISSEMENT : sitemap/historique non regenere ({e})")
         return
@@ -376,6 +377,7 @@ def main():
         gen_mod = _load_gen_module()
         gen_mod.build_sitemap()
         gen_mod.build_historique()
+        gen_mod.build_llms_txt()
     except Exception as e:
         log(f"AVERTISSEMENT : sitemap/historique non regenere ({e})")
 
