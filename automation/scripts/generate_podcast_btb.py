@@ -510,7 +510,6 @@ def main():
     meta["cover_image"] = COVER_IMAGE
     meta["accent_color"] = ACCENT_COLOR
     cat_slug = category_slug(meta["categorie"])
-    html_out = append_category_link(html_out, meta["categorie"], cat_slug)
 
     with open(out_file, "w", encoding="utf-8") as f:
         f.write(html_out)
