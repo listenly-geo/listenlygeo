@@ -165,6 +165,9 @@ logique GEO que les fiches épisode du Moteur N2 — seul le contenu change.
 
 ### CSS — DIRECTION "MAGAZINE BUSINESS PREMIUM" (type Forbes, HBR — crédible, PAS marketing)
 - body : Georgia, serif, #1a1a1a, line-height 1.7 (TOUT le texte en serif, y compris les titres — c'est le serif qui donne le sérieux éditorial, pas le sans-serif bold)
+- .site-header : position sticky, top 0, z-index 10, background #fff, border-bottom 1px solid #e2e2e2, padding 14px 24px, display flex, align-items center, justify-content space-between, flex-wrap wrap, gap 10px (pleine largeur, EN DEHORS de main.wrapper — pas limité à 720px)
+- .site-header .logo : font-family Georgia, serif, font-weight 700, font-size 19px, color #0a0a0a, text-decoration none, letter-spacing -0.01em (texte "Listenly", lien vers https://listenly.fr/)
+- .site-header .login-link : sans-serif, font-weight 700, font-size 13px, color #fff, background {ACCENT_COLOR}, padding 8px 18px, border-radius 999px, text-decoration none, white-space nowrap (lien vers https://listenly.fr/userAuth)
 - main.wrapper : max-width 720px, margin auto, padding 40px 20px 64px (IMPORTANT : utiliser <main class="wrapper">, PAS <div>, pour le landmark d'accessibilité)
 - .eyebrow-category : sans-serif (Helvetica, Arial), uppercase, font-weight 700, letter-spacing .08em, font-size 12px, color {ACCENT_COLOR}, margin-bottom 10px (texte simple, PAS un pill/badge — juste un label catégorie sobre, façon "BREAKING · BUSINESS" en presse)
 - h1 : font-family Georgia, serif, font-weight 700, font-size clamp(30px,4.5vw,44px), line-height 1.18, color #0a0a0a, margin 0 0 18px (PAS sans-serif, PAS de question — le nom du podcast en gros titre éditorial classique)
@@ -200,6 +203,7 @@ RÈGLE DE HIÉRARCHIE DE TITRES (accessibilité, obligatoire) : H1 (unique) → 
 RÈGLE DE COULEUR ET DE TON : {ACCENT_COLOR} apparaît sur .eyebrow-category, .cta-listen, .lead-label, .key-facts-label, les puces ::before, le filet des .lead/.pull-quote/.article-body h2 (bordures fines). Il ne remplit JAMAIS un fond (pas de background coloré, pas de boîte grise autour du texte). Tout le texte de contenu (H1, H2, paragraphes, listes) est en Georgia serif — c'est le choix typographique unique et cohérent qui fait "vrai magazine business" plutôt que "landing page marketing". Aucun encadré gris (#fafafa), aucun badge/pill décoratif hors des 2 CTA et de la carte de fin — le reste du contenu est du texte nu, structuré par des filets fins (1px #e2e2e2) et des labels colorés discrets, jamais des boîtes.
 
 ### SECTIONS (ordre exact — inspiré d'un article Forbes/HBR)
+0. SITE HEADER (avant le <main>, PAS dedans) : <header class="site-header"><a class="logo" href="https://listenly.fr/">Listenly</a><a class="login-link" href="https://listenly.fr/userAuth">Se connecter</a></header> — texte EXACT, ne pas reformuler.
 1. EYEBROW CATEGORY : <p class="eyebrow-category">PODCAST · [CATEGORIE]</p> (texte simple, pas de pill)
 2. H1 = [PODCAST_NAME] (titre serif classique, jamais une question)
 3. BYLINE ROW : "Par <span class='name'>[HOST_NAME]</span>, [HOST_TITLE] chez [HOST_COMPANY]"
@@ -266,6 +270,7 @@ def audit(html, fiche_url):
     if "FAQPage" not in html: issues.append("FAQPage absente")
     if "speakable" not in html: issues.append("speakable absent")
     if "eyebrow-category" not in html: issues.append("eyebrow-category absent")
+    if "site-header" not in html: issues.append("site-header absent")
     if "key-facts" not in html: issues.append("key-facts absente")
     if "pull-quote" not in html: issues.append("pull-quote absent")
     if PODCAST_URL not in html: issues.append("CTA podcast absent")
