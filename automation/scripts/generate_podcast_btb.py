@@ -670,15 +670,44 @@ def build_llms_txt():
         f.write("\n".join(lines) + "\n")
     log(f"llms.txt regenere : {len(records)} podcast(s), {len(by_category)} categorie(s)")
 
+MONTHS_FR = ["janvier", "février", "mars", "avril", "mai", "juin",
+             "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
+
+def parse_date_any(s):
+    """Essaie de parser une date ISO (YYYY-MM-DD) ou RFC822 (format RSS pubDate)."""
+    if not s:
+        return None
+    s = s.strip()
+    try:
+        return datetime.date.fromisoformat(s[:10])
+    except ValueError:
+        pass
+    try:
+        from email.utils import parsedate_to_datetime
+        return parsedate_to_datetime(s).date()
+    except Exception:
+        return None
+
+def format_date_fr(d):
+    if d is None:
+        return ""
+    today = datetime.date.today()
+    txt = f"{d.day} {MONTHS_FR[d.month - 1]}"
+    if d.year != today.year:
+        txt += f" {d.year}"
+    return txt
+
 def build_historique():
     """Page interne (usage perso, jamais dans le sitemap) listant chaque fiche
-    podcast et episode par ordre chronologique de creation."""
+    podcast et episode par ordre chronologique reel (plus recent en premier)."""
     entries = []
 
     records = load_data()
     for r in records:
+        d = parse_date_any(r.get("date", ""))
         entries.append({
-            "date": r.get("date", ""),
+            "sort_date": d or datetime.date.min,
+            "date_label": f"Ajouté le {format_date_fr(d)}" if d else "",
             "type": "Podcast",
             "name": r.get("podcast_name", r.get("slug", "")),
             "url": r.get("fiche_url", ""),
@@ -698,21 +727,21 @@ def build_historique():
                     continue
             podcast_name = next((r["podcast_name"] for r in records if r["slug"] == slug), slug)
             for e in reg:
+                d = parse_date_any(e.get("pubdate", "")) or parse_date_any(e.get("added_date", ""))
                 entries.append({
-                    "date": e.get("added_date", e.get("pubdate", "")),
+                    "sort_date": d or datetime.date.min,
+                    "date_label": f"Publié le {format_date_fr(d)}" if d else "",
                     "type": "Episode",
                     "name": e.get("title", ""),
                     "url": e.get("url", ""),
                     "podcast": podcast_name,
                 })
 
-    def sort_key(e):
-        return e.get("date", "") or ""
-    entries.sort(key=sort_key, reverse=True)
+    entries.sort(key=lambda e: e["sort_date"], reverse=True)
 
     rows = "\n".join(f"""
 <tr>
-  <td>{e['date']}</td>
+  <td>{e['date_label']}</td>
   <td><span class="tag {'tag-podcast' if e['type']=='Podcast' else 'tag-episode'}">{e['type']}</span></td>
   <td>{e['name']}</td>
   <td>{e['podcast']}</td>
