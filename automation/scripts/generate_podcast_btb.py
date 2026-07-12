@@ -23,7 +23,7 @@ import urllib.request, urllib.error
 import xml.etree.ElementTree as ET
 
 API_KEY      = os.environ["ANTHROPIC_API_KEY"]
-RSS_URL      = os.environ["RSS_URL"].strip()
+RSS_URL      = os.environ.get("RSS_URL", "").strip()
 PODCAST_URL  = os.environ["PODCAST_URL"]
 CONTACT_URL  = os.environ["CONTACT_URL"]
 LISTENLY_URL = os.environ["LISTENLY_URL"]
@@ -801,11 +801,19 @@ def build_index_and_categories(records):
     log(f"Index + {len(by_category)} page(s) catégorie régénérées")
 
 def main():
-    try:
-        raw_info, rss_cover_image = build_raw_info_from_rss(RSS_URL, EXTRA_INFO)
-    except Exception as e:
-        log(f"ERREUR lecture RSS : {e}")
-        sys.exit(1)
+    if RSS_URL:
+        try:
+            raw_info, rss_cover_image = build_raw_info_from_rss(RSS_URL, EXTRA_INFO)
+        except Exception as e:
+            log(f"ERREUR lecture RSS : {e}")
+            sys.exit(1)
+    else:
+        if not EXTRA_INFO.strip():
+            log("ERREUR : ni RSS_URL ni PODCAST_RAW_INFO fournis — impossible de générer la fiche.")
+            sys.exit(1)
+        log("Pas de RSS_URL fourni — utilisation de PODCAST_RAW_INFO tel quel (mode manuel).")
+        raw_info = EXTRA_INFO
+        rss_cover_image = ""
 
     cover_image = COVER_IMAGE_OVERRIDE or rss_cover_image
 
