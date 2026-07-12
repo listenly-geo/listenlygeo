@@ -1,0 +1,75 @@
+name: Podcast BTB — la-savane-podcast
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 11 * * 3'
+
+jobs:
+  podcast-btb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generation fiche podcast (lancement manuel uniquement)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RSS_URL: |-
+            https://anchor.fm/s/e648bf84/podcast/rss
+          PODCAST_URL: |-
+            https://open.spotify.com/show/3O7eAOjdhlKzxuvxTxVYA6
+          CONTACT_URL: |-
+            https://www.linkedin.com/company/la-savane-network/posts/?lipi=urn%3Ali%3Apage%3Ad_flagship3_search_srp_content%3BHU84Ag%2FwRBOYOViQz%2FCfCw%3D%3D
+          CONTACT_LABEL: |-
+            La savane network
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/la-savane-podcast
+          COVER_IMAGE: |-
+            https://i.postimg.cc/7YrVTKSf/ab6765630000ba8a67caafb6cb46e81740c0b1af.jpg
+          PODCAST_SLUG: |-
+            la-savane-podcast
+          ACCENT_COLOR: |-
+            #2e8bd6
+          LANGUAGE: |-
+            fr
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Generation 1 fiche episode max (cron hebdomadaire uniquement, jamais au lancement manuel)
+        if: github.event_name == 'schedule'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_SLUG: |-
+            la-savane-podcast
+          MAX_EPISODES: '1'
+        run: python automation/scripts/generate_episode_fiches_btb.py
+
+      - name: Commit fiches
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: podcast-btb la-savane-podcast"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
