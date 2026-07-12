@@ -1,0 +1,76 @@
+name: Podcast BTB — construire-la-wallonie
+
+on:
+  workflow_dispatch:
+
+jobs:
+  podcast-btb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generation fiche podcast (lancement manuel uniquement)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_URL: |-
+            https://open.spotify.com/show/3ikg0vG8E00cj0ZNTmnB1X
+          CONTACT_URL: |-
+            https://www.linkedin.com/showcase/construire-la-wallonie/
+          CONTACT_LABEL: |-
+            Construire la Wallonie
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/construire-la-wallonie
+          COVER_IMAGE: |-
+            https://i.postimg.cc/FKRsHwmh/ab6765630000ba8a45f552931d33cfa31c83e206.jpg
+          PODCAST_SLUG: |-
+            construire-la-wallonie
+          ACCENT_COLOR: |-
+            #2e8bd6
+          PODCAST_RAW_INFO: |-
+            Nom du podcast : Construire la Wallonie
+
+            Éditeur : Louwers Mediagroep
+
+            Description : Plateforme pour le bâtiment, le génie civil et les infrastructures en Belgique francophone et au Grand-Duché de Luxembourg.
+
+            Catégorie Spotify : Business
+
+            Titres des épisodes récents :
+            - Ciment bas carbone : comment l'industrie cimentière accélère sa transition vers le Net Zero (avec Hervé Camerlynck, directeur de Febelcem)
+            - Béton durable, innovation et préfabrication : comment Béton de la Lomme prépare l'avenir de la construction (avec Jacky Chalon)
+            - Construction bois en Wallonie – durable, locale et tournée vers l'avenir (avec Aurore Leblanc de Ligne Bois et Pierre-Antoine Cordy)
+            - Façades isolantes et ETICS : améliorer l'efficacité énergétique des bâtiments avec Knauf (avec Vincent Vanhecke, Product Manager ETICS & Renders chez Knauf Belgium)
+
+            Note : les épisodes sont animés par différents intervenants (Stéphanie Diaz Cuenca, Stéphane Hunot) qui reçoivent des experts du secteur de la construction à chaque épisode.
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Commit fiche
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: podcast-btb construire-la-wallonie"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
