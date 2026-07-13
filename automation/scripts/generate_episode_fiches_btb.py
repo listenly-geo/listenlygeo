@@ -294,6 +294,10 @@ def ensure_parent_link():
         log("Lien 'Voir tous les épisodes' ajouté à la fiche parente")
 
 def main():
+    if os.environ.get("GITHUB_EVENT_NAME") == "schedule" and os.path.exists(f"{PAGES_DIR}/.cron-paused"):
+        log("Cron podcast-btb en pause (fichier .cron-paused present) — run ignore.")
+        return
+
     podcast, all_records = load_podcast_record()
     podcast = enrich_from_fiche_html(podcast)
     rss_url = os.environ.get("RSS_URL", "").strip() or podcast.get("rss_url", "")
