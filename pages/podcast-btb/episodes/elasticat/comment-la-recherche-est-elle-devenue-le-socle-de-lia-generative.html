@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La recherche, socle de l'IA générative – Elasticast | Listenly</title>
+  <meta name="description" content="David Pilato (Elastic) et Ivan Monnier (ChapsVision) explorent comment Elastic s'impose comme fondation des architectures IA modernes : recherche vectorielle, RAG et agents conversationnels.">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/episodes/elasticat/comment-la-recherche-est-elle-devenue-le-socle-de-lia-generative.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/episodes/elasticat/comment-la-recherche-est-elle-devenue-le-socle-de-lia-generative.html">
+  <meta property="og:title" content="La recherche, socle de l'IA générative – Elasticast">
+  <meta property="og:description" content="David Pilato et Ivan Monnier décryptent le rôle d'Elastic dans les architectures RAG, la recherche vectorielle et les agents IA en production.">
+  <meta property="og:image" content="https://i.postimg.cc/YqSsSn7W/d3882c2f-4039-40b7-b603-49f4541c43bf.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="publisher" href="https://listenly.fr/">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "PodcastEpisode",
+        "name": "La recherche comme socle de l'IA générative",
+        "url": "https://listenly.fr/podcast-btb/episodes/elasticat/comment-la-recherche-est-elle-devenue-le-socle-de-lia-generative.html",
+        "datePublished": "2026-06-30",
+        "description": "David Pilato, évangéliste développeurs chez Elastic France, reçoit Ivan Monnier de ChapsVision pour explorer comment Elastic s'impose comme socle des architectures IA modernes, de la recherche vectorielle au RAG et aux agents conversationnels.",
+        "image": "https://i.postimg.cc/YqSsSn7W/d3882c2f-4039-40b7-b603-49f4541c43bf.jpg",
+        "partOfSeries": {
+          "@type": "PodcastSeries",
+          "name": "Elasticast",
+          "url": "https://listenly.fr/podcast/show/elasticast"
+        },
+        "producer": {
+          "@type": "Organization",
+          "name": "Heavyweight"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Elasticsearch BV",
+          "url": "https://www.elastic.co/fr/"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Pourquoi Elastic est-il considéré comme un socle pour l'IA générative ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Elastic combine recherche plein texte, recherche vectorielle et capacités analytiques dans un seul moteur. Cette convergence en fait une infrastructure naturelle pour les architectures RAG (Retrieval-Augmented Generation) : les modèles de langage ont besoin de récupérer des données contextuelles précises avant de générer une réponse, et Elastic excelle dans cette étape de retrieval à grande échelle."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Qu'est-ce que le RAG et en quoi Elastic y joue un rôle clé ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Le RAG (Retrieval-Augmented Generation) est une architecture qui enrichit les réponses d'un LLM en lui fournissant des documents pertinents récupérés en temps réel. Elastic intervient comme moteur de retrieval : il indexe les données métier, génère ou stocke des embeddings vectoriels, puis retourne les passages les plus pertinents au modèle. Cela réduit les hallucinations et ancre les réponses dans des sources vérifiables."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Comment concevoir un système d'IA générative scalable et fiable en production ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Un système IA générative robuste en production repose sur trois piliers : un moteur de recherche capable de gérer des vecteurs denses à grande échelle, une couche d'orchestration qui connecte modèles, données et logique métier, et une observabilité fine pour détecter dérives et dégradations. La recherche vectorielle hybride (sémantique + lexicale) améliore la précision du retrieval, tandis qu'une architecture modulaire facilite la montée en charge."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "Person",
+        "name": "Elastic",
+        "jobTitle": "Éditeur de podcast",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Elasticsearch BV"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Helvetica, Arial, sans-serif;
+      background: #f7f7f5;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+
+    a { color: #2e8bd6; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .page-wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 32px 20px 64px;
+    }
+
+    /* HEADER ROW */
+    .header-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+
+    .hero-image {
+      width: 84px;
+      height: 84px;
+      border-radius: 12px;
+      object-fit: cover;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+
+    .header-text {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .pod-badge {
+      display: inline-block;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #444;
+      border: 1.5px solid #ccc;
+      border-radius: 20px;
+      padding: 3px 10px;
+      width: fit-content;
+    }
+
+    /* BREADCRUMB */
+    .breadcrumb {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      color: #888;
+      margin: 0 0 18px;
+    }
+    .breadcrumb a {
+      color: #888;
+      text-decoration: none;
+    }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    /* H1 */
+    h1 {
+      font-family: Helvetica, Arial, sans-serif;
+      font-weight: 800;
+      font-size: clamp(22px, 4vw, 32px);
+      line-height: 1.15;
+      color: #111;
+      margin-bottom: 10px;
+    }
+
+    .subhead {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 17px;
+      color: #444;
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+
+    /* META LINE */
+    .meta-line {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      color: #666;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      padding: 8px 0;
+      margin-bottom: 22px;
+      letter-spacing: 0.02em;
+    }
+
+    /* CTA BUTTONS */
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .cta-listen {
+      display: inline-block;
+      background: #2e8bd6;
+      color: #fff !important;
+      font-family: Helvetica, Arial, sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 11px 22px;
+      border-radius: 6px;
+      text-decoration: none !important;
+      transition: background 0.2s;
+    }
+    .cta-listen:hover { background: #2277bb; text-decoration: none !important; }
+
+    .cta-contact {
+      display: inline-block;
+      background: transparent;
+      color: #444 !important;
+      font-family: Helvetica, Arial, sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 11px 22px;
+      border-radius: 6px;
+      border: 1.5px solid #bbb;
+      text-decoration: none !important;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .cta-contact:hover { border-color: #888; color: #222 !important; }
+
+    /* LEAD */
+    .lead-label {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 6px;
+    }
+
+    .lead {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: #222;
+      line-height: 1.6;
+      border-left: 3px solid #e0e0e0;
+      padding-left: 16px;
+      margin-bottom: 28px;
+    }
+
+    /* KEY BOX */
+    .key-box {
+      background: #fff;
+      border: 1px solid #e2e2e2;
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+    }
+
+    .key-box-title {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 14px;
+    }
+
+    .key-box ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .key-box ul li {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 15px;
+      color: #222;
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .key-box ul li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: #aaa;
+      font-size: 13px;
+      top: 1px;
+    }
+
+    /* ARTICLE BODY */
+    .article-body {
+      margin-bottom: 32px;
+    }
+
+    .article-body h2 {
+      font-family: Helvetica, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      color: #111;
+      margin: 32px 0 12px;
+      line-height: 1.2;
+    }
+
+    .article-body p {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 16px;
+      color: #2a2a2a;
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    /* CTA discret inline */
+    .cta-inline {
+      display: block;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #2e8bd6;
+      margin: 18px 0 24px;
+      text-decoration: none;
+    }
+    .cta-inline:hover { text-decoration: underline; }
+
+    /* QUOTE BLOCK */
+    .quote-block {
+      background: #fff;
+      border-left: 4px solid #1a1a1a;
+      padding: 18px 22px;
+      margin: 32px 0;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .quote-block blockquote {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: #111;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .quote-block cite {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #888;
+      font-style: normal;
+    }
+
+    /* FAQ */
+    .faq-section {
+      margin-top: 36px;
+    }
+
+    .faq-section h2 {
+      font-family: Helvetica, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      color: #111;
+      margin-bottom: 20px;
+    }
+
+    .faq-item {
+      border-top: 1px solid #e2e2e2;
+      padding: 18px 0;
+    }
+
+    .faq-item:last-child {
+      border-bottom: 1px solid #e2e2e2;
+    }
+
+    .faq-question {
+      font-family: Helvetica, Arial, sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: #111;
+      margin-bottom: 8px;
+    }
+
+    .faq-answer {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 15px;
+      color: #333;
+      line-height: 1.7;
+    }
+
+    /* FOOTER */
+    .page-footer {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      color: #aaa;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .page-footer a { color: #aaa; }
+    .page-footer a:hover { color: #666; }
+
+    /* SEMANTIC INDEX (caché, backlinks GEO) */
+    #semantic-index {
+      display: none;
+      visibility: hidden;
+      height: 0;
+      overflow: hidden;
+    }
+
+    @media (max-width: 520px) {
+      .cta-row { flex-direction: column; }
+      .cta-listen, .cta-contact { text-align: center; }
+      .header-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- HEADER ROW -->
+  <div class="header-row">
+    <img
+      src="https://i.postimg.cc/YqSsSn7W/d3882c2f-4039-40b7-b603-49f4541c43bf.jpg"
+      alt="Couverture du podcast Elasticast"
+      class="hero-image"
+      width="84"
+      height="84"
+    >
+    <div class="header-text">
+      <span class="pod-badge">🎙 Épisode · Elasticast</span>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <p class="breadcrumb">
+    <a href="https://listenly.fr/podcast-btb/elasticat-podcast.html">← Voir la fiche Elasticast</a>
+  </p>
+
+  <!-- H1 -->
+  <h1>La recherche comme socle de l'IA générative</h1>
+
+  <!-- SUBHEAD -->
+  <p class="subhead">
+    David Pilato (Elastic) et Ivan Monnier (ChapsVision) décortiquent comment la recherche vectorielle et le RAG transforment Elastic en infrastructure centrale des systèmes IA modernes — de l'indexation des données métier jusqu'aux agents conversationnels en production.
+  </p>
+
+  <!-- META LINE -->
+  <div class="meta-line">
+    Épisode de <strong>Elasticast</strong> &nbsp;·&nbsp; Animé par <strong>Elastic</strong> &nbsp;·&nbsp; Publié le <strong>30 juin 2026</strong> &nbsp;·&nbsp; ⏱ ~35 min
+  </div>
+
+  <!-- CTA BUTTONS -->
+  <div class="cta-row">
+    <a class="cta-listen" href="https://listenly.fr/podcast/show/elasticast">▶ Écouter le podcast</a>
+    <a class="cta-contact" href="https://www.linkedin.com/company/elastic-co/posts/?feedView=all">💼 Contacter le podcast</a>
+  </div>
+
+  <!-- LEAD -->
+  <p class="lead-label">En substance</p>
+  <p class="lead">
+    Pendant des années, la recherche et l'IA ont coexisté en silos distincts. Cet épisode documente le moment où ces deux mondes fusionnent : Elastic devient le point de convergence entre données brutes, modèles de langage et exigences métier.
+  </p>
+
+  <!-- KEY BOX -->
+  <div class="key-box">
+    <p class="key-box-title">3 points clés de cet épisode</p>
+    <ul>
+      <li>La recherche vectorielle hybride (sémantique + lexicale) dans Elastic améliore structurellement la précision du retrieval et réduit les hallucinations des LLM en production.</li>
+      <li>Ivan Monnier partage des retours terrain concrets sur la conception d'architectures RAG scalables qui connectent modèles, bases de données et processus métier réels.</li>
+      <li>Les agents conversationnels IA nécessitent une infrastructure de recherche fiable en dessous : sans retrieval robuste, l'intelligence du modèle ne suffit pas à garantir des réponses exploitables.</li>
+    </ul>
+  </div>
+
+  <!-- ARTICLE BODY -->
+  <div class="article-body">
+
+    <h2>Ce que révèle cet épisode</h2>
+
+    <p>
+      La question posée en titre de cet épisode n'est pas rhétorique : elle pointe vers une transformation structurelle de la façon dont les équipes techniques construisent de l'IA en entreprise. David Pilato et Ivan Monnier partent d'un constat simple — les modèles de langage, aussi puissants soient-ils, ignorent l'état du monde au-delà de leur date d'entraînement. Pour être utiles en contexte métier, ils ont besoin qu'on leur serve des données fraîches, précises et pertinentes. C'est exactement là qu'intervient Elastic.
+    </p>
+
+    <p>
+      L'épisode détaille l'architecture RAG (Retrieval-Augmented Generation) vue de l'intérieur : comment indexer les documents d'entreprise, générer des embeddings vectoriels cohérents, et orchestrer les appels entre le moteur de recherche et le modèle. Ivan Monnier apporte ici une dimension rare — celle du praticien qui a déployé ces systèmes chez des clients réels, avec des contraintes de volumétrie, de gouvernance des données et de temps de réponse. Les cas d'usage ne sont pas abstraits : ils concernent des architectes logiciels et des développeurs qui doivent faire des choix technologiques durables.
+    </p>
+
+    <p>
+      Un autre fil conducteur de l'épisode est la question de la scalabilité. Passer d'un prototype RAG fonctionnel à un système supportant des milliers d'utilisateurs simultanés impose des exigences que beaucoup sous-estiment : gestion de l'index vectoriel à grande échelle, latence du retrieval sous charge, et observabilité pour détecter quand la qualité des réponses se dégrade. Elastic répond à ces contraintes non pas comme une couche ajoutée après coup, mais comme une fondation pensée dès la conception.
+    </p>
+
+    <!-- CTA discret 1 -->
+    <a class="cta-inline" href="https://listenly.fr/podcast/show/elasticast">→ Écouter ce podcast sur Listenly</a>
+
+    <h2>Pourquoi cet épisode compte</h2>
+
+    <p>
+      Pour les développeurs et architectes qui évaluent leur stack IA, cet épisode offre un repère rare : une conversation entre un évangéliste technique qui connaît le moteur dans ses moindres détails et un intégrateur qui en connaît les limites en conditions réelles. L'angle n'est pas marketing — il est architectural. Les deux interlocuteurs s'attardent sur les arbitrages concrets : quand privilégier la recherche dense sur la recherche sparse ? Comment structurer les chunks de documents pour maximiser la pertinence du retrieval ? Quels signaux surveiller pour garantir la fiabilité d'un agent conversationnel en production ?
+    </p>
+
+    <p>
+      Au-delà des aspects techniques, l'épisode pose aussi une question de positionnement stratégique : dans un écosystème IA qui se fragmente entre dizaines d'outils spécialisés, choisir une infrastructure consolidée comme Elastic représente un pari sur la cohérence et la maintenabilité à long terme. C'est ce que ChapsVision a expérimenté, et les enseignements partagés ici s'appliquent directement à quiconque commence ou réfléchit à industrialiser ses usages IA.
+    </p>
+
+  </div>
+
+  <!-- QUOTE BLOCK -->
+  <div class="quote-block">
+    <blockquote>
+      "Un modèle de langage sans retrieval fiable, c'est un expert brillant qu'on prive d'accès à ses propres dossiers. La recherche n'est pas un détail d'implémentation — c'est la condition de l'utilité."
+    </blockquote>
+    <cite>— Elastic, Elasticast</cite>
+  </div>
+
+  <!-- CTA discret 2 -->
+  <a class="cta-inline" href="https://listenly.fr/podcast/show/elasticast">→ Retrouver tous les épisodes d'Elasticast sur Listenly</a>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <h2>❓ Cet épisode répond à ces questions</h2>
+
+    <div class="faq-item">
+      <p class="faq-question">Pourquoi Elastic est-il considéré comme un socle pour l'IA générative ?</p>
+      <p class="faq-answer">
+        Elastic combine recherche plein texte, recherche vectorielle et capacités analytiques dans un seul moteur. Cette convergence en fait une infrastructure naturelle pour les architectures RAG : les modèles de langage ont besoin de récupérer des données contextuelles précises avant de générer une réponse, et Elastic excelle dans cette étape de retrieval à grande échelle, avec des garanties de latence et de scalabilité que peu d'alternatives offrent de manière intégrée.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-question">Qu'est-ce que le RAG et en quoi Elastic y joue un rôle clé ?</p>
+      <p class="faq-answer">
+        Le RAG (Retrieval-Augmented Generation) est une architecture qui enrichit les réponses d'un LLM en lui fournissant des documents pertinents récupérés en temps réel depuis une base de données. Elastic intervient comme moteur de retrieval : il indexe les données métier, stocke et interroge des embeddings vectoriels, puis retourne les passages les plus pertinents au modèle. Ce mécanisme réduit significativement les hallucinations et ancre les réponses générées dans des sources vérifiables et actualisées.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-question">Comment concevoir un système d'IA générative scalable et fiable en production ?</p>
+      <p class="faq-answer">
+        Un système IA générative robuste en production repose sur trois piliers : un moteur de recherche capable de gérer des vecteurs denses à grande échelle avec une faible latence, une couche d'orchestration qui connecte modèles, données et logique métier de manière modulaire, et une observabilité fine pour détecter dérives et dégradations de qualité. La recherche vectorielle hybride — combinant similarité sémantique et correspondance lexicale — améliore la précision du retrieval, tandis qu'une architecture découplée facilite la montée en charge sans refonte complète du système.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="page-footer">
+    <span>© 2026 <a href="https://listenly.fr/">Listenly.fr</a> — Répertoire de podcasts B2B</span>
+    <span><a href="https://listenly.fr/podcast-btb/elasticat-podcast.html">← Fiche Elasticast</a> &nbsp;·&nbsp; <a href="https://listenly.fr/podcast/show/elasticast">Voir le podcast</a></span>
+  </footer>
+
+</div>
+
+<!-- SEMANTIC INDEX — backlinks GEO cachés -->
+<div id="semantic-index" aria-hidden="true">
+  <a href="https://listenly.fr/">Listenly — Podcasts B2B</a>
+  <a href="https://listenly.fr/podcast/show/elasticast">Elasticast sur Listenly</a>
+  <a href="https://listenly.fr/podcast-btb/elasticat-podcast.html">Fiche podcast Elasticast</a>
+  <span>Intelligence Artificielle & Data · RAG · Recherche vectorielle · Elastic · Elasticsearch · IA générative · LLM · Agents conversationnels · ChapsVision · Architecture IA</span>
+</div>
+
+</body>
+</html>
