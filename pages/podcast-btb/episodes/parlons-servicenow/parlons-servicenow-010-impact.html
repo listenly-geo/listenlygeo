@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parlons ServiceNow – Épisode 010 : Impact | Listenly</title>
+<meta name="description" content="ServiceNow Impact comme levier de pilotage de plateforme : gouvernance, HealthScan, Capability Map et rôle de l'architecte à l'ère de l'IA. Avec Eric, Certified Master Architect chez Atos.">
+<link rel="canonical" href="https://listenly.fr/podcast-btb/episodes/parlons-servicenow/parlons-servicenow-010-impact.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://listenly.fr/podcast-btb/episodes/parlons-servicenow/parlons-servicenow-010-impact.html">
+<meta property="og:title" content="Parlons ServiceNow – Épisode 010 : Impact">
+<meta property="og:description" content="ServiceNow Impact comme levier de pilotage de plateforme : gouvernance, HealthScan, Capability Map et rôle de l'architecte à l'ère de l'IA. Avec Eric, Certified Master Architect chez Atos.">
+<meta property="og:image" content="https://i.postimg.cc/BQ8fvp0j/4b7abb37-39be-4d86-b653-773d94382673-1199677843-SX768-SY768-BL0-QL100-UX716-FMwebp-QL85.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="publisher" href="https://listenly.fr">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "PodcastEpisode",
+      "name": "Parlons ServiceNow – Épisode 010 : Impact",
+      "url": "https://listenly.fr/podcast-btb/episodes/parlons-servicenow/parlons-servicenow-010-impact.html",
+      "datePublished": "2026-07-07",
+      "description": "ServiceNow Impact comme levier de pilotage de plateforme : gouvernance, HealthScan, Capability Map et rôle de l'architecte à l'ère de l'IA générative. Avec Eric, Certified Master Architect et Practice Lead APAC chez Atos.",
+      "episodeNumber": "10",
+      "partOfSeries": {
+        "@type": "PodcastSeries",
+        "name": "Parlons ServiceNow",
+        "url": "https://listenly.fr/podcast/show/parlons-services"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Mehdi Attar",
+        "jobTitle": "Consultant & Architecte ServiceNow",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "AtomX System"
+        }
+      },
+      "image": "https://i.postimg.cc/BQ8fvp0j/4b7abb37-39be-4d86-b653-773d94382673-1199677843-SX768-SY768-BL0-QL100-UX716-FMwebp-QL85.webp"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "À quoi sert concrètement ServiceNow Impact pour piloter une plateforme ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ServiceNow Impact est un outil de gouvernance qui permet aux responsables de plateforme d'évaluer la santé technique de leur environnement, de prioriser les améliorations et de prouver la valeur des investissements réalisés. Il se distingue de NowCreate ou des Success Packs, qui adressent la livraison de projets : Impact, lui, opère au niveau stratégique et continu du pilotage."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Qu'est-ce que le HealthScan ServiceNow et comment aide-t-il à décider entre refonte et évolution ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Le HealthScan est un diagnostic automatisé intégré à ServiceNow Impact qui analyse la qualité technique, les personnalisations et les dettes d'architecture d'une plateforme. Son score objectif permet aux équipes et à leur direction de trancher sur une question stratégique : vaut-il mieux reconstruire proprement une plateforme vieillissante ou la faire évoluer progressivement ? Il sert d'arbitre factuel pour dépasser les débats internes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment la Capability Map ServiceNow permet-elle d'optimiser le retour sur investissement des licences ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "La Capability Map est une cartographie des fonctionnalités disponibles dans ServiceNow croisée avec ce qui est réellement activé et utilisé dans une organisation. Elle permet d'adopter la plateforme de façon intentionnelle en identifiant les modules payés mais inutilisés, et en priorisant les prochaines activations selon la valeur métier attendue. C'est un outil central pour rentabiliser un portefeuille de licences ServiceNow complexe."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "name": "Mehdi Attar",
+      "jobTitle": "Consultant & Architecte ServiceNow",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "AtomX System"
+      },
+      "url": "https://www.linkedin.com/in/mehdiattar/"
+    }
+  ]
+}
+</script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.75;
+    color: #1a1a1a;
+    background: #f9f8f6;
+  }
+
+  a { color: #2e8bd6; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .page-wrapper {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  /* HEADER */
+  .site-header {
+    border-bottom: 2px solid #1a1a1a;
+    padding: 18px 0 14px;
+    margin-bottom: 24px;
+  }
+
+  .header-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .hero-image {
+    width: 84px;
+    height: 84px;
+    border-radius: 12px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid #ddd;
+  }
+
+  .header-text { flex: 1; }
+
+  .pod-badge {
+    display: inline-block;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    border: 1.5px solid #1a1a1a;
+    border-radius: 50px;
+    padding: 3px 11px;
+    margin-bottom: 8px;
+  }
+
+  h1 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 800;
+    font-size: clamp(22px, 4vw, 32px);
+    line-height: 1.18;
+    color: #0d0d0d;
+    margin-bottom: 0;
+  }
+
+  /* BREADCRUMB */
+  .breadcrumb {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: #888;
+    margin: 0 0 18px;
+  }
+
+  .breadcrumb a {
+    color: #888;
+    text-decoration: none;
+  }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  /* SUBHEAD */
+  .subhead {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #444;
+    margin: 10px 0 18px;
+    line-height: 1.5;
+  }
+
+  /* META LINE */
+  .meta-line {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: #555;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 9px 0;
+    margin-bottom: 22px;
+  }
+
+  /* CTA BUTTONS */
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+
+  .cta-listen {
+    display: inline-block;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    background: #2e8bd6;
+    color: #fff !important;
+    border: none;
+    border-radius: 6px;
+    padding: 11px 22px;
+    text-decoration: none !important;
+    transition: background 0.18s;
+  }
+  .cta-listen:hover { background: #256fb3; text-decoration: none !important; }
+
+  .cta-contact {
+    display: inline-block;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    background: transparent;
+    color: #1a1a1a !important;
+    border: 1.5px solid #1a1a1a;
+    border-radius: 6px;
+    padding: 11px 22px;
+    text-decoration: none !important;
+    transition: background 0.12s;
+  }
+  .cta-contact:hover { background: #f0f0f0; text-decoration: none !important; }
+
+  /* LEAD */
+  .lead-label {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 6px;
+  }
+
+  .lead {
+    font-size: 18px;
+    font-style: italic;
+    color: #222;
+    border-left: 4px solid #1a1a1a;
+    padding-left: 16px;
+    margin-bottom: 28px;
+    line-height: 1.65;
+  }
+
+  /* KEY BOX */
+  .key-box {
+    background: #fff;
+    border: 1.5px solid #1a1a1a;
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+  }
+
+  .key-box-title {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #0d0d0d;
+    margin-bottom: 14px;
+  }
+
+  .key-box ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .key-box ul li {
+    font-family: Georgia, serif;
+    font-size: 16px;
+    color: #1a1a1a;
+    padding: 7px 0;
+    border-bottom: 1px solid #eee;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .key-box ul li:last-child { border-bottom: none; }
+
+  .key-box ul li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #1a1a1a;
+    font-style: normal;
+  }
+
+  /* ARTICLE BODY */
+  .article-body h2 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 800;
+    font-size: clamp(18px, 3vw, 22px);
+    color: #0d0d0d;
+    margin: 36px 0 14px;
+    line-height: 1.25;
+  }
+
+  .article-body p {
+    margin-bottom: 18px;
+    color: #1a1a1a;
+  }
+
+  /* INLINE CTA TEXT */
+  .cta-inline {
+    display: block;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    margin: 4px 0 24px;
+    color: #2e8bd6;
+  }
+
+  /* QUOTE BLOCK */
+  .quote-block {
+    background: #fff;
+    border-left: 5px solid #1a1a1a;
+    margin: 32px 0;
+    padding: 20px 24px;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .quote-block blockquote {
+    font-size: 19px;
+    font-style: italic;
+    color: #111;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .quote-block cite {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #666;
+    font-style: normal;
+  }
+
+  /* FAQ */
+  .faq-section {
+    margin-top: 40px;
+  }
+
+  .faq-title {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: #0d0d0d;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #1a1a1a;
+  }
+
+  .faq-item {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .faq-item:last-child {
+    border-bottom: none;
+  }
+
+  .faq-question {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: #0d0d0d;
+    margin-bottom: 8px;
+  }
+
+  .faq-answer {
+    font-family: Georgia, serif;
+    font-size: 15.5px;
+    color: #333;
+    line-height: 1.7;
+  }
+
+  /* FOOTER */
+  .site-footer {
+    border-top: 2px solid #1a1a1a;
+    margin-top: 48px;
+    padding-top: 20px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: #888;
+    text-align: center;
+    line-height: 1.7;
+  }
+
+  .site-footer a { color: #888; }
+  .site-footer a:hover { color: #1a1a1a; }
+
+  /* SEMANTIC INDEX (hidden backlinks) */
+  #semantic-index {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 520px) {
+    .header-row { flex-direction: column; align-items: flex-start; }
+    .hero-image { width: 72px; height: 72px; }
+    .cta-row { flex-direction: column; }
+    .cta-listen, .cta-contact { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div id="semantic-index" aria-hidden="true">
+  <a href="https://listenly.fr">Listenly – Podcasts B2B</a>
+  <a href="https://listenly.fr/podcast/show/parlons-services">Parlons ServiceNow sur Listenly</a>
+  <a href="https://listenly.fr/podcast-btb/parlons-servicenow-podcast.html">Fiche podcast Parlons ServiceNow</a>
+</div>
+
+<div class="page-wrapper">
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-row">
+      <img
+        src="https://i.postimg.cc/BQ8fvp0j/4b7abb37-39be-4d86-b653-773d94382673-1199677843-SX768-SY768-BL0-QL100-UX716-FMwebp-QL85.webp"
+        alt="Couverture du podcast Parlons ServiceNow"
+        class="hero-image"
+        width="84"
+        height="84"
+        loading="eager"
+      >
+      <div class="header-text">
+        <span class="pod-badge">🎙 Épisode · Parlons ServiceNow</span>
+        <h1>Parlons ServiceNow – Épisode 010 : Impact</h1>
+      </div>
+    </div>
+  </header>
+
+  <!-- BREADCRUMB -->
+  <p class="breadcrumb">
+    <a href="https://listenly.fr/podcast-btb/parlons-servicenow-podcast.html">← Voir la fiche Parlons ServiceNow</a>
+  </p>
+
+  <!-- SUBHEAD -->
+  <p class="subhead">
+    Comment transformer ServiceNow Impact en véritable outil de pilotage stratégique de votre plateforme ? Cet épisode explore les mécanismes concrets — HealthScan, Capability Map, gouvernance — avec un Certified Master Architect qui accompagne des clients banque et assurance au quotidien.
+  </p>
+
+  <!-- META LINE -->
+  <div class="meta-line">
+    Épisode de <strong>Parlons ServiceNow</strong> · Animé par <strong>Mehdi Attar</strong> · Publié le <strong>7 juillet 2026</strong> · ⏱ ~40 min
+  </div>
+
+  <!-- CTA ROW -->
+  <div class="cta-row">
+    <a href="https://listenly.fr/podcast/show/parlons-services" class="cta-listen">▶ Écouter le podcast</a>
+    <a href="https://www.linkedin.com/in/mehdiattar/" class="cta-contact" target="_blank" rel="noopener">💼 Contacter le podcast</a>
+  </div>
+
+  <!-- LEAD -->
+  <p class="lead-label">L'essentiel de cet épisode</p>
+  <p class="lead">
+    Avoir accès à ServiceNow Impact ne suffit pas : encore faut-il savoir lequel de ses outils actionner en premier, comment en tirer un diagnostic crédible pour sa direction, et comment faire d'une plateforme vieillissante un actif maîtrisé plutôt qu'une dette technique subie.
+  </p>
+
+  <!-- KEY BOX -->
+  <div class="key-box">
+    <p class="key-box-title">3 points clés de cet épisode</p>
+    <ul>
+      <li>Impact vs NowCreate vs Success Packs : la frontière nette entre piloter la gouvernance et délivrer les projets, enfin clarifiée pour arbitrer sans ambiguïté.</li>
+      <li>Le HealthScan comme outil d'arbitrage objectif : comment son score guide la décision stratégique entre refonte complète et évolution incrémentale d'une plateforme de 10 ans.</li>
+      <li>La Capability Map comme antidote à la sur-licence : adopter ServiceNow de façon intentionnelle et arrêter de payer pour des fonctionnalités qui n'ont jamais été activées.</li>
+    </ul>
+  </div>
+
+  <!-- ARTICLE BODY -->
+  <div class="article-body">
+
+    <h2>Ce que révèle cet épisode</h2>
+
+    <p>
+      Mehdi Attar reçoit Eric, Certified Master Architect et Practice Lead APAC chez Atos, pour une conversation dense sur une réalité que beaucoup d'organisations ServiceNow traversent en silence : elles ont accès à Impact, elles savent vaguement ce que c'est, mais elles ne savent pas par quel bout commencer. Entre les accélérateurs, les diagnostics automatisés et les tableaux de bord de gouvernance, l'outil peut vite sembler pléthorique.
+    </p>
+
+    <p>
+      La première clarification structurante de l'épisode porte sur le positionnement d'Impact dans l'écosystème ServiceNow : ce n'est pas un outil de delivery (c'est le rôle de NowCreate ou des Success Packs), c'est un outil de pilotage continu. Il s'adresse aux responsables de plateforme et aux architectes qui doivent rendre compte de l'état de santé d'un système devenu critique pour leur organisation — et prouver à leur direction que l'investissement tient ses promesses.
+    </p>
+
+    <p>
+      Sur la question des plateformes vieillissantes — un sujet que beaucoup évitent —, Eric apporte une réponse concrète avec le HealthScan. Plutôt que de trancher sur la foi d'impressions ou d'historiques de tickets, le HealthScan produit un score factuel qui objective l'état technique réel de la plateforme : niveau de personnalisation, écarts aux bonnes pratiques, dette d'upgrade. C'est ce score qui permet de mener une conversation productive avec les décideurs, sans polémique.
+    </p>
+
+    <p>
+      La Capability Map aborde un problème économique souvent tabou dans les organisations ServiceNow : elles paient pour des dizaines de modules dont une fraction est réellement exploitée. Utilisée correctement, la Capability Map devient un outil d'adoption intentionnelle — elle permet de cartographier ce qui est disponible, ce qui est activé, et ce qui devrait l'être en priorité selon la stratégie métier.
+    </p>
+
+    <p>
+      L'épisode se clôture sur une question que peu osent poser frontalement : l'IA générative va-t-elle rendre le métier d'architecte ServiceNow obsolète ? La réponse d'Eric, tirée d'une expérience terrain quotidienne avec des équipes en APAC, est nuancée et concrète — et elle évite autant le catastrophisme que la naïveté.
+    </p>
+
+    <a href="https://listenly.fr/podcast/show/parlons-services" class="cta-inline">→ Écouter ce podcast sur Listenly</a>
+
+    <h2>Pourquoi cet épisode compte</h2>
+
+    <p>
+      Les épisodes sur ServiceNow Impact sont rares — et les conversations avec des architectes qui l'utilisent réellement sur des comptes complexes (banque, assurance, environnements multi-domaines) le sont encore plus. Ce que cet épisode apporte, c'est une lecture opérationnelle d'un outil souvent présenté sous l'angle commercial : qu'est-ce qu'on en fait concrètement le lundi matin ?
+    </p>
+
+    <p>
+      Pour un responsable de plateforme qui se demande comment justifier son budget ServiceNow en comité de direction, le triptyque HealthScan / Capability Map / gouvernance Impact offre un cadre immédiatement actionnable. Pour un architecte qui s'interroge sur l'évolution de son rôle avec l'IA, l'angle adopté dans cet épisode est moins théorique que la plupart des contenus disponibles sur le sujet.
+    </p>
+
+    <p>
+      Enfin, l'épisode traite avec franchise du syndrome de la plateforme vieillissante : cet état dans lequel une instance ServiceNow a tellement divergé des standards qu'on ne sait plus si la remettre d'aplomb coûte moins cher qu'un redémarrage propre. C'est une conversation que beaucoup d'équipes ont besoin d'avoir — et cet épisode fournit les outils pour la structurer.
+    </p>
+
+    <!-- QUOTE BLOCK -->
+    <div class="quote-block">
+      <blockquote>
+        "Impact n'est pas un outil de plus dans ServiceNow — c'est le cockpit depuis lequel vous pilotez réellement la valeur de votre plateforme. Sans lui, vous gérez des tickets. Avec lui, vous gérez un actif."
+      </blockquote>
+      <cite>— Mehdi Attar, Consultant &amp; Architecte ServiceNow, AtomX System</cite>
+    </div>
+
+  </div>
+
+  <!-- 2e CTA DISCRET AVANT FAQ -->
+  <a href="https://listenly.fr/podcast/show/parlons-services" class="cta-inline">→ Retrouver tous les épisodes de Parlons ServiceNow sur Listenly</a>
+
+  <!-- FAQ -->
+  <section class="faq-section" aria-label="Questions fréquentes">
+    <p class="faq-title">❓ Cet épisode répond à ces questions</p>
+
+    <div class="faq-item">
+      <p class="faq-question">À quoi sert concrètement ServiceNow Impact pour piloter une plateforme ?</p>
+      <p class="faq-answer">
+        ServiceNow Impact est un outil de gouvernance continue qui permet aux responsables de plateforme d'évaluer la santé technique de leur environnement, de prioriser les améliorations et de démontrer la valeur des investissements réalisés. Il se distingue de NowCreate ou des Success Packs, qui adressent la livraison de projets : Impact, lui, opère au niveau stratégique et continu du pilotage. Il donne accès à des diagnostics automatisés, des recommandations priorisées et des accélérateurs d'implémentation directement liés à la maturité de la plateforme.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-question">Qu'est-ce que le HealthScan ServiceNow et comment aide-t-il à décider entre refonte et évolution ?</p>
+      <p class="faq-answer">
+        Le HealthScan est un diagnostic automatisé intégré à ServiceNow Impact qui analyse la qualité technique d'une instance : niveau de personnalisation, écarts aux bonnes pratiques, dette d'upgrade, conformité aux standards ServiceNow. Son score objectif permet aux équipes et à leur direction de trancher sur une question stratégique difficile — vaut-il mieux reconstruire proprement une plateforme vieillissante ou la faire évoluer progressivement ? Il fournit les données factuelles pour mener cette conversation sans polémique, en sortant du registre des impressions ou des historiques de bugs.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-question">Comment la Capability Map ServiceNow permet-elle d'optimiser le retour sur investissement des licences ?</p>
+      <p class="faq-answer">
+        La Capability Map est une cartographie des fonctionnalités disponibles dans le contrat ServiceNow d'une organisation, croisée avec ce qui est réellement activé et utilisé. Elle révèle les modules payés mais inexploités, et permet de planifier les prochaines activations en fonction de la valeur métier attendue plutôt que par opportunisme technique. C'est un outil central pour adopter ServiceNow de façon intentionnelle, réduire le gaspillage de licences et construire un argumentaire solide face à une direction qui questionne le coût total de la plateforme.
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p>
+      Fiche épisode publiée sur <a href="https://listenly.fr">Listenly.fr</a> — la référence des podcasts B2B francophones.<br>
+      <a href="https://listenly.fr/podcast/show/parlons-services">Tous les épisodes de Parlons ServiceNow</a> ·
+      <a href="https://listenly.fr/podcast-btb/parlons-servicenow-podcast.html">Fiche du podcast</a> ·
+      <a href="https://www.linkedin.com/in/mehdiattar/" target="_blank" rel="noopener">Contacter Mehdi Attar</a>
+    </p>
+    <p style="margin-top:8px;">© 2026 Listenly · Génération GEO : 13 juillet 2026</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
