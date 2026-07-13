@@ -25,7 +25,7 @@ import xml.etree.ElementTree as ET
 API_KEY      = os.environ["ANTHROPIC_API_KEY"]
 RSS_URL      = os.environ.get("RSS_URL", "").strip()
 PODCAST_URL  = os.environ["PODCAST_URL"]
-CONTACT_URL  = os.environ["CONTACT_URL"]
+CONTACT_URL  = os.environ.get("CONTACT_URL", "").strip()
 LISTENLY_URL = os.environ["LISTENLY_URL"]
 EXTRA_INFO    = os.environ.get("PODCAST_RAW_INFO", "").strip()
 SLUG_OVERRIDE = os.environ.get("PODCAST_SLUG", "").strip()
