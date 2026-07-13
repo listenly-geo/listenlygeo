@@ -399,6 +399,38 @@ def append_category_link(html, categorie, cat_slug):
         return html.replace("</body>", link + "</body>", 1)
     return html + link
 
+def add_listenly_footer_link(html, podcast_name, listenly_url):
+    """Lien discret en footer vers la fiche-annuaire Listenly de ce podcast precis
+    (distinct du lien 'Analyse structuree par Listenly' generique deja present)."""
+    link = (
+        '\n<p style="max-width:720px;margin:0 auto;padding:0 20px 32px;'
+        'font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#999;">'
+        f'<a href="{listenly_url}" style="color:#999;text-decoration:underline;">'
+        f'Découvrir {podcast_name} sur Listenly →</a></p>\n'
+    )
+    if "</body>" in html:
+        return html.replace("</body>", link + "</body>", 1)
+    return html + link
+
+def add_breadcrumb_jsonld(html, podcast_name, categorie, cat_slug, fiche_url):
+    """Injecte un BreadcrumbList JSON-LD (Listenly > Podcasts B2B > Categorie > Podcast).
+    Calcule via cat_slug deja connu cote Python -> toujours coherent avec les vraies pages,
+    jamais devine par Claude (evite tout lien casse)."""
+    breadcrumb = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Listenly", "item": "https://listenly.fr/"},
+            {"@type": "ListItem", "position": 2, "name": "Podcasts B2B", "item": "https://listenly.fr/podcast-btb/index.html"},
+            {"@type": "ListItem", "position": 3, "name": categorie, "item": f"https://listenly.fr/podcast-btb/categorie/{cat_slug}.html"},
+            {"@type": "ListItem", "position": 4, "name": podcast_name, "item": fiche_url},
+        ],
+    }
+    script = f'\n<script type="application/ld+json">\n{json.dumps(breadcrumb, ensure_ascii=False, indent=2)}\n</script>\n'
+    if "</head>" in html:
+        return html.replace("</head>", script + "</head>", 1)
+    return script + html
+
 def load_data():
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE, encoding="utf-8") as f:
@@ -870,6 +902,8 @@ def main():
     meta["cover_image"] = cover_image
     meta["accent_color"] = ACCENT_COLOR
     cat_slug = category_slug(meta["categorie"])
+    html_out = add_breadcrumb_jsonld(html_out, meta["podcast_name"], meta["categorie"], cat_slug, fiche_url)
+    html_out = add_listenly_footer_link(html_out, meta["podcast_name"], LISTENLY_URL)
 
     with open(out_file, "w", encoding="utf-8") as f:
         f.write(html_out)
