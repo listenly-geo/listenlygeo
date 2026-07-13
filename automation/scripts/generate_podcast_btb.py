@@ -801,6 +801,10 @@ def build_index_and_categories(records):
     log(f"Index + {len(by_category)} page(s) catégorie régénérées")
 
 def main():
+    if os.environ.get("GITHUB_EVENT_NAME") == "schedule" and os.path.exists(f"{PAGES_DIR}/.cron-paused"):
+        log("Cron podcast-btb en pause (fichier .cron-paused present) — run ignore.")
+        return
+
     if RSS_URL:
         try:
             raw_info, rss_cover_image = build_raw_info_from_rss(RSS_URL, EXTRA_INFO)
