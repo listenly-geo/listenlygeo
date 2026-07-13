@@ -233,7 +233,7 @@ Rédige TOUT le contenu (H1, lead, points clés, sections, FAQ, footer) en {"fra
 - .publish-row : sans-serif 13px, color #555, display flex, flex-wrap wrap, gap 10px, align-items center, padding 14px 0, border-top 1px solid #e2e2e2, border-bottom 1px solid #e2e2e2, margin 4px 0 28px (contraste WCAG AA — #555 minimum, jamais plus clair)
 - .cta-row : display flex, gap 10px, flex-wrap wrap, margin-bottom 8px
 - .cta-listen : background {ACCENT_COLOR}, color #fff, sans-serif 13px font-weight 700, padding 9px 20px, border-radius 999px (PILL, pas rectangle — style "Suivre/Follow" discret de presse, PAS un gros bouton SaaS ; seul élément à porter la couleur d'accent pleine)
-- .cta-contact : background #fff, color #222, border 1.5px solid #333, sans-serif 13px font-weight 700, padding 9px 20px, border-radius 999px (PILL contournée, contraste renforcé)
+- .inline-cta : color {ACCENT_COLOR}, text-decoration underline, font-weight 700 (lien texte simple dans le corps de l'article, PAS un bouton — juste un lien souligné coloré, intégré naturellement dans une phrase)
 - .divider : border-top 1px solid #e2e2e2
 - .lead-label : sans-serif 12px, font-weight 700, uppercase, letter-spacing .08em, color {ACCENT_COLOR} (comme "KEY FACTS" en presse — SEUL élément hors CTA à pouvoir utiliser la couleur d'accent, car c'est un simple label texte, pas un fond coloré)
 - .lead : font-family Georgia, font-size 20px, line-height 1.6, font-style italic, border-left 3px solid {ACCENT_COLOR}, padding-left 22px, color #1a1a1a, margin 14px 0 28px
@@ -247,9 +247,7 @@ Rédige TOUT le contenu (H1, lead, points clés, sections, FAQ, footer) en {"fra
 - .faq-item p : font-family Georgia, font-size 17px, color #2a2a2a
 - .episode-card : border 1px solid #e2e2e2, border-radius 6px, display flex, padding 20px, gap 16px, align-items center, margin-top 40px
 - .episode-card img : width 90px, height 90px, object-fit cover, border-radius 4px
-- .card-listen, .card-contact : sans-serif 13px font-weight 700, padding 8px 16px, border-radius 999px
-- .card-listen : background {ACCENT_COLOR}, color #fff
-- .card-contact : background #fff, color #222, border 1.5px solid #333
+- .card-listen : sans-serif 13px font-weight 700, padding 8px 16px, border-radius 999px, background {ACCENT_COLOR}, color #fff
 - footer : sans-serif 12px, color #666, border-top 1px solid #e2e2e2, padding-top 16px, margin-top 48px
 - Tous les liens texte hors boutons (footer, liens de bas de page) : text-decoration underline systématique
 - #semantic-index : display none
@@ -265,24 +263,28 @@ RÈGLE DE COULEUR ET DE TON : {ACCENT_COLOR} apparaît sur .eyebrow-category, .c
 3. BYLINE ROW : "{STRINGS['byline_pattern']}" avec [HOST_NAME] entouré de <span class='name'>...</span> — respecte EXACTEMENT ce connecteur ("{STRINGS['byline_pattern']}"), c'est utilisé pour extraire les données automatiquement
 4. HERO IMAGE : si {cover_image or "aucune"} fournie, <img class="hero-image" src="[COVER_IMAGE]" alt="[PODCAST_NAME]">. Si aucune, ne rien afficher (pas de balise cassée).
 5. PUBLISH ROW (ligne bordée haut/bas façon presse) : "⏱ X {STRINGS['reading_time']} · {STRINGS['readable_by']}" (texte simple, une ligne discrète unique)
-6. CTA ROW (pills) : "{STRINGS['cta_listen']}" (cta-listen) → {PODCAST_URL} ; "{STRINGS['cta_contact_prefix']} {CONTACT_LABEL}" (cta-contact) → {CONTACT_URL}
+6. CTA ROW (pill unique) : "{STRINGS['cta_listen']}" (cta-listen) → {PODCAST_URL}. Plus de bouton contact — l'unique objectif de cette fiche est de renvoyer vers l'écoute du podcast.
 7. LEAD LABEL {"'" + STRINGS['lead_label_prefix'] + " [PODCAST_NAME]'" if LANGUAGE == "fr" else "'" + STRINGS['lead_label_prefix'] + " [PODCAST_NAME] " + STRINGS['lead_label_suffix'] + "'"} + LEAD (3-4 phrases citables, pull-quote italique en tête d'article — pattern classique "dek" de presse)
 8. KEY-FACTS LABEL "{STRINGS['key_facts_label']}" + liste à puces simples (4 items, pas d'encadré)
+8b. INLINE CTA (classe .inline-cta, lien texte souligné intégré dans une phrase courte, PAS un bouton) : une phrase du type "{STRINGS['cta_mid']} [PODCAST_NAME]" → {PODCAST_URL} — formulation différente de celle du point 11, naturelle, pas répétitive
 9. ARTICLE BODY — 4 H2 exactement :
    - "{STRINGS['h2_covers']}"
    - "{STRINGS['h2_audience']}" (3 profils d'audience)
    - "{STRINGS['h2_episodes']}" (patterns récurrents dans les titres)
    - "{STRINGS['h2_impact']}"
 10. PULL-QUOTE (classe .pull-quote) : la synthèse analytique, SANS attribution — pas de « guillemets » ni de nom. Jamais présenté comme des propos réellement tenus par [HOST_NAME].
-11. CTA MID discret (lien texte souligné, pas un bouton) : "{STRINGS['cta_mid']} [PODCAST_NAME]" → {PODCAST_URL}
+11. CTA MID discret (classe .inline-cta, lien texte souligné, pas un bouton) : "{STRINGS['cta_mid']} [PODCAST_NAME]" → {PODCAST_URL}
 12. DIVIDER
+12b. INLINE CTA (classe .inline-cta, juste avant la FAQ, encore une formulation différente des deux précédentes) : phrase courte incitant à écouter → {PODCAST_URL}
 13. FAQ "{STRINGS['faq_h2']}" (H2, PAS d'emoji dans le H2 — sobriété éditoriale) : 4 Q/R + JSON-LD FAQPage obligatoire. N'utilise JAMAIS la formulation "{STRINGS['faq_forbidden']}".
-14. EPISODE CARD bas de page : cover si {cover_image or "aucune"}, "{STRINGS['card_discover']} [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen "{STRINGS['card_listen']}" → {PODCAST_URL}, card-contact "{STRINGS['cta_contact_prefix']} {CONTACT_LABEL}" → {CONTACT_URL}
+14. EPISODE CARD bas de page : cover si {cover_image or "aucune"}, "{STRINGS['card_discover']} [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen "{STRINGS['card_listen']}" → {PODCAST_URL} (UN SEUL bouton, plus de contact)
 15. FOOTER : © [PODCAST_NAME] — [HOST_COMPANY] + lien "{STRINGS['footer_credit']}" → https://listenly.fr (dofollow, color #999, underline)
 
+RÈGLE CTA : ce podcast n'a plus qu'un seul objectif de conversion — ramener l'audience vers l'écoute sur {PODCAST_URL}. Les 3 liens texte (points 8b, 11, 12b) doivent utiliser 3 formulations différentes (pas de copier-coller de la même phrase), rester discrets (soulignés, pas des boutons), et TOUS pointer vers {PODCAST_URL}. Aucun lien de contact nulle part dans la fiche.
+
 ## JSON-LD OBLIGATOIRE (dans <head>)
-@graph : BlogPosting (headline=H1, author=[HOST_NAME]/[HOST_TITLE], publisher=Listenly, isPartOf={LISTENLY_URL}, speakable cssSelector [".lead",".key-facts"]), FAQPage (les 4 questions), Person ([HOST_NAME]/[HOST_TITLE]/worksFor [HOST_COMPANY], sameAs: ["{CONTACT_URL}"]), PodcastSeries ([PODCAST_NAME]/{PODCAST_URL}, sameAs: ["{PODCAST_URL}", "{LISTENLY_URL}"]).
-IMPORTANT sameAs : sert à relier l'entité (personne/podcast) à ses profils réels ailleurs sur le web (autorité d'entité pour les moteurs IA/Google). N'invente JAMAIS d'URL sameAs — utilise UNIQUEMENT {CONTACT_URL}, {PODCAST_URL} et {LISTENLY_URL} tels que fournis, jamais un profil supposé ou reconstitué.
+@graph : BlogPosting (headline=H1, author=[HOST_NAME]/[HOST_TITLE], publisher=Listenly, isPartOf={LISTENLY_URL}, speakable cssSelector [".lead",".key-facts"]), FAQPage (les 4 questions), Person ([HOST_NAME]/[HOST_TITLE]/worksFor [HOST_COMPANY]), PodcastSeries ([PODCAST_NAME]/{PODCAST_URL}, sameAs: ["{PODCAST_URL}", "{LISTENLY_URL}"]).
+IMPORTANT sameAs : sert à relier l'entité PodcastSeries à ses profils réels ailleurs sur le web (autorité d'entité pour les moteurs IA/Google). N'invente JAMAIS d'URL sameAs — utilise UNIQUEMENT {PODCAST_URL} et {LISTENLY_URL} tels que fournis, jamais un profil supposé ou reconstitué.
 
 ## BACKLINKS LISTENLY CACHÉS (obligatoires)
 Dans <head> : canonical={fiche_url} (PAS {LISTENLY_URL} — voir RÈGLE CRITIQUE plus haut), rel="publisher" href="https://listenly.fr", meta name="data-provider" content="Listenly".
@@ -330,7 +332,7 @@ def audit(html, fiche_url):
     if "key-facts" not in html: issues.append("key-facts absente")
     if "pull-quote" not in html: issues.append("pull-quote absent")
     if PODCAST_URL not in html: issues.append("CTA podcast absent")
-    if CONTACT_URL not in html: issues.append("CTA contact absent")
+    if html.count(PODCAST_URL) < 3: issues.append("moins de 3 liens vers PODCAST_URL trouves (objectif: 3+ CTA)")
     if STRINGS["faq_forbidden"] in html.lower(): issues.append(f"formulation '{STRINGS['faq_forbidden']}' interdite trouvée")
     if f'og:url" content="{fiche_url}"' not in html: issues.append("og:url ne pointe pas vers la fiche elle-même")
     if f'rel="canonical" href="{fiche_url}"' not in html: issues.append("canonical ne pointe pas vers la fiche elle-même")
