@@ -30,6 +30,9 @@ LISTENLY_URL = os.environ["LISTENLY_URL"]
 EXTRA_INFO    = os.environ.get("PODCAST_RAW_INFO", "").strip()
 SLUG_OVERRIDE = os.environ.get("PODCAST_SLUG", "").strip()
 ACCENT_COLOR  = os.environ.get("ACCENT_COLOR", "#2e8bd6").strip() or "#2e8bd6"
+EPISODE_CTA_TARGET = os.environ.get("EPISODE_CTA_TARGET", "listenly").strip().lower()
+if EPISODE_CTA_TARGET not in ("listenly", "spotify"):
+    EPISODE_CTA_TARGET = "listenly"
 LANGUAGE      = os.environ.get("LANGUAGE", "fr").strip().lower()
 if LANGUAGE not in ("fr", "en"):
     LANGUAGE = "fr"
@@ -901,6 +904,7 @@ def main():
     meta["listenly_url"] = LISTENLY_URL
     meta["cover_image"] = cover_image
     meta["accent_color"] = ACCENT_COLOR
+    meta["episode_cta_target"] = EPISODE_CTA_TARGET
     cat_slug = category_slug(meta["categorie"])
     html_out = add_breadcrumb_jsonld(html_out, meta["podcast_name"], meta["categorie"], cat_slug, fiche_url)
     html_out = add_listenly_footer_link(html_out, meta["podcast_name"], LISTENLY_URL)
