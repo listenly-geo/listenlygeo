@@ -148,13 +148,17 @@ def save_registry(reg):
 
 def build_episode_prompt(podcast, ep, ep_slug, ep_url, today):
     listenly_url = podcast.get("listenly_url", "")
+    podcast_url = podcast.get("podcast_url", "")
+    cta_target = podcast.get("episode_cta_target", "listenly")
+    cta_url = listenly_url if cta_target == "listenly" else podcast_url
+    accent_color = podcast.get("accent_color") or "#2e8bd6"
     return f"""Tu es un expert GEO (Generative Engine Optimization) spécialisé dans les podcasts B2B.
 
 Ta mission est de générer une FICHE ÉPISODE complète en HTML autonome pour Listenly.fr.
-MÊME style visuel et logique GEO que la fiche podcast globale (design "presse business" :
-titres sans-serif bold très marqués, corps de texte Georgia serif, badge en pastille contournée,
-couleur d'accent réservée au seul bouton principal). Cette fiche présente UN ÉPISODE précis,
-pas le podcast dans son ensemble.
+MÊME style visuel et logique GEO que la fiche podcast globale (design "magazine business premium"
+type Forbes/HBR : H1 et corps de texte en Georgia serif, eyebrow catégorie sobre, byline
+journalistique, couleur d'accent réservée au seul bouton principal). Cette fiche présente
+UN ÉPISODE précis, pas le podcast dans son ensemble.
 
 ## DONNÉES DE L'ÉPISODE (brutes, à interpréter)
 - Titre brut de l'épisode : {ep['title']}
@@ -169,38 +173,36 @@ pas le podcast dans son ensemble.
 - CATEGORIE : {podcast.get('categorie','Général')}
 - Fiche podcast parente (lien retour obligatoire) : {podcast['fiche_url']}
 
-## DONNÉES FIXES — CTA (IMPORTANT, NE PAS CONFONDRE)
-- CTA PRINCIPAL "▶ Écouter le podcast" (cta-listen, couleur d'accent pleine) → pointe TOUJOURS vers LISTENLY_URL : {listenly_url}
-  (PAS vers le lien audio brut de l'épisode, PAS vers Spotify directement — toujours vers la page Listenly du podcast)
-- CONTACT_URL (CTA contact "💼 Contacter le podcast", cta-contact, neutre) : {podcast.get('contact_url','')}
-- Ajoute EN PLUS 1 à 2 CTA discrets dans le corps de l'article (des liens texte simples, pas des boutons, style "→ Écouter ce podcast sur Listenly", couleur de lien standard, PAS de bouton plein) qui renvoient aussi vers {listenly_url} — un après la section "Ce que révèle cet épisode", un second optionnel juste avant la FAQ
-- ACCENT_COLOR : {podcast.get('accent_color') or '#2e8bd6'}
+## CTA — UNIQUE OBJECTIF DE CONVERSION (IMPORTANT)
+- Le bouton principal ET les 2 liens texte discrets dans le corps pointent TOUS vers la MÊME URL : {cta_url}
+  ({"page Listenly du podcast" if cta_target == "listenly" else "plateforme d'écoute (Spotify) du podcast"})
+- PAS de CTA contact, PAS de lien LinkedIn nulle part dans cette fiche — uniquement ramener vers l'écoute.
+- ACCENT_COLOR : {accent_color}
 - COVER_IMAGE : {podcast.get('cover_image') or "(aucune)"}
 - FICHE_URL (URL de CETTE fiche épisode — og:url/canonical) : {ep_url}
-- LISTENLY_URL (aussi utilisé dans le JSON-LD isPartOf) : {listenly_url}
+- LISTENLY_URL (utilisé UNIQUEMENT dans le JSON-LD isPartOf, jamais comme lien visible si cta_target=spotify) : {listenly_url}
 - Date de génération : {today}
 
 ## EXTRACTION OBLIGATOIRE
 1. H1 = le titre de l'épisode lui-même (nettoyé, PAS une question)
 2. SUBHEAD : 1-2 phrases qui résument le sujet précis de CET épisode
 3. 3 POINTS CLÉS spécifiques à cet épisode (pas génériques au podcast)
-4. UNE CITATION FORTE plausible tirée du sujet de l'épisode, attribuée à HOST_NAME
+4. UNE SYNTHÈSE ANALYTIQUE (pull-quote) tirée du sujet de l'épisode, SANS attribution — jamais présentée comme des propos réellement tenus par [HOST_NAME]
 5. 3 FAQ précises sur le sujet de CET épisode (vraies requêtes IA, réponses autonomes sans mentionner le podcast)
 
-## STRUCTURE HTML — MÊME CSS QUE LA FICHE PODCAST (repris à l'identique) :
-- body sans-serif, corps de texte Georgia serif, h1/h2 sans-serif font-weight 800
-- .pod-badge pastille contournée "🎙 Épisode · {podcast['podcast_name']}"
-- .hero-image vignette 84x84px arrondie (si COVER_IMAGE fournie), alignée avec le badge en header-row
-- BREADCRUMB juste sous le header-row : <p style="font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#888;margin:0 0 8px;"><a href="{podcast['fiche_url']}" style="color:#888;">← Voir la fiche {podcast['podcast_name']}</a></p>
-- .meta-line bordée haut/bas : "Épisode de {podcast['podcast_name']} · Animé par [HOST_NAME] · ⏱ X min"
-- .cta-listen (accent plein) "▶ Écouter le podcast" → {listenly_url} ; .cta-contact (neutre) "💼 Contacter le podcast" → {podcast.get('contact_url','')}
+## STRUCTURE HTML — MÊME CSS QUE LA FICHE PODCAST (repris à l'identique, mêmes classes) :
+- main.wrapper (PAS de div), header-row (vignette + eyebrow-category côte à côte), h1 Georgia serif bold, byline-row "Par [HOST_NAME], [HOST_TITLE] chez [HOST_COMPANY]"
+- .eyebrow-category : "Épisode · {podcast['podcast_name']}"
+- BREADCRUMB juste sous le header-row : <p style="font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#666;margin:0 0 8px;"><a href="{podcast['fiche_url']}" style="color:#666;text-decoration:underline;">← Voir la fiche {podcast['podcast_name']}</a></p>
+- .publish-row bordée haut/bas : "Épisode de {podcast['podcast_name']} · ⏱ X min de lecture"
+- .cta-listen (seul bouton, accent plein) "Écouter le podcast" → {cta_url}
 - .lead-label + .lead (pull-quote analytique de l'épisode)
-- .key-box 3 bullets (pas 4 — spécifique à l'épisode)
-- article-body : 2 H2 seulement ("Ce que révèle cet épisode" / "Pourquoi cet épisode compte") — plus court qu'une fiche podcast globale. Insère le 1er CTA discret texte juste après la 1ère section H2.
-- .quote-block
-- 2e CTA discret texte juste avant la FAQ
-- FAQ "❓ Cet épisode répond à ces questions" (3 Q/R, JSON-LD FAQPage) — JAMAIS "on répond"
-- footer identique avec lien Listenly
+- .key-facts 3 bullets (pas 4 — spécifique à l'épisode)
+- article-body : 2 H2 seulement ("Ce que révèle cet épisode" / "Pourquoi cet épisode compte") — plus court qu'une fiche podcast globale. Insère un 1er lien texte discret (.inline-cta, souligné, PAS un bouton) juste après la 1ère section H2 → {cta_url}
+- .pull-quote (sans attribution)
+- 2e lien texte discret (.inline-cta) juste avant la FAQ → {cta_url}, formulation différente du premier
+- FAQ "Cet épisode répond à ces questions" (H2 sobre, 3 Q/R, JSON-LD FAQPage) — JAMAIS "on répond"
+- footer identique avec lien Listenly générique + lien "Découvrir {podcast['podcast_name']} sur Listenly" (ajoutés automatiquement après génération, ne pas les écrire toi-même)
 
 ## JSON-LD (head)
 @graph : PodcastEpisode (name=H1, partOfSeries={{"@type":"PodcastSeries","name":"{podcast['podcast_name']}","url":"{listenly_url}"}}, datePublished, description), FAQPage (les 3 questions), Person (HOST_NAME/HOST_TITLE/worksFor HOST_COMPANY).
@@ -210,7 +212,7 @@ Backlinks cachés identiques à la fiche podcast (canonical={ep_url}, og:url={ep
 - H1 = titre épisode, jamais une question
 - FAQ = "Cet épisode répond à ces questions", jamais "on répond"
 - Couleur d'accent réservée au seul cta-listen
-- CTA principal et les 2 CTA discrets pointent TOUS vers LISTENLY_URL ({listenly_url}), jamais vers l'audio brut
+- CTA principal et les 2 liens discrets pointent TOUS vers {cta_url}, jamais vers l'audio brut, jamais de CTA contact
 - Contenu spécifique à CET épisode, pas générique au podcast
 
 IMPORTANT : Réponds UNIQUEMENT avec le code HTML complet, de <!DOCTYPE html> à </html>. Aucun texte avant/après, aucun markdown, aucun backtick."""
