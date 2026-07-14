@@ -1,0 +1,73 @@
+name: Podcast BTB — toit-pour-la-vie
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 11 * * 5'
+
+jobs:
+  podcast-btb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generation fiche podcast
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RSS_URL: |-
+            https://feed.ausha.co/vVKprCmaMQPM
+          PODCAST_URL: |-
+            https://open.spotify.com/show/7hYRTFzw4wvNULtZR50eaw
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/toit-pour-la-vie
+          COVER_IMAGE: |-
+            https://i.postimg.cc/85ByFFwG/kvx-SEq-Tlz7nwqq-ATJlk6O8u-SAk-Kh-X4VYqmp6KJ19-400x400.jpg
+          PODCAST_SLUG: |-
+            toit-pour-la-vie
+          ACCENT_COLOR: |-
+            #2e8bd6
+          LANGUAGE: |-
+            fr
+          EPISODE_CTA_TARGET: |-
+            listenly
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Generation 1 fiche episode max
+        if: github.event_name == 'schedule'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_SLUG: |-
+            toit-pour-la-vie
+          MAX_EPISODES: '1'
+        run: python automation/scripts/generate_episode_fiches_btb.py
+
+      - name: Commit fiches
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: podcast-btb toit-pour-la-vie"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
