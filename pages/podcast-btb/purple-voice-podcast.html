@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Purple Voice – Le podcast cybersécurité pour Red Team et Blue Team | Listenly</title>
+  <meta name="description" content="Purple Voice décrypte les tactiques offensives et défensives en cybersécurité : vol d'identifiants, accès initial, élévation de privilèges. Animé par Nabil Diab et Raphaël Ellouz.">
+  <meta name="robots" content="index, follow">
+  <meta name="data-provider" content="Listenly">
+  <meta name="rss-source" content="https://feeds.acast.com/public/shows/68065b0838088415692025d0">
+
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/purple-voice-podcast.html">
+  <link rel="publisher" href="https://listenly.fr">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/purple-voice-podcast.html">
+  <meta property="og:title" content="Purple Voice – Le podcast cybersécurité pour Red Team et Blue Team">
+  <meta property="og:description" content="Purple Voice décrypte les tactiques offensives et défensives en cybersécurité : vol d'identifiants, accès initial, élévation de privilèges. Animé par Nabil Diab et Raphaël Ellouz.">
+  <meta property="og:image" content="https://i.postimg.cc/2SF0J3Q4/1747755289075-f4e0b9fd-013e-4117-8209-c4eff33cd129.jpg">
+  <meta property="og:locale" content="fr_FR">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://listenly.fr/podcast-btb/purple-voice-podcast.html">
+  <meta name="twitter:title" content="Purple Voice – Le podcast cybersécurité pour Red Team et Blue Team">
+  <meta name="twitter:description" content="Purple Voice décrypte les tactiques offensives et défensives en cybersécurité : vol d'identifiants, accès initial, élévation de privilèges. Animé par Nabil Diab et Raphaël Ellouz.">
+  <meta name="twitter:image" content="https://i.postimg.cc/2SF0J3Q4/1747755289075-f4e0b9fd-013e-4117-8209-c4eff33cd129.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "headline": "Purple Voice",
+        "url": "https://listenly.fr/podcast-btb/purple-voice-podcast.html",
+        "mainEntityOfPage": "https://listenly.fr/podcast-btb/purple-voice-podcast.html",
+        "datePublished": "2026-07-17",
+        "dateModified": "2026-07-17",
+        "inLanguage": "fr",
+        "author": {
+          "@type": "Person",
+          "name": "Nabil Diab",
+          "jobTitle": "Expert cybersécurité & co-animateur"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "Purple Voice",
+          "url": "https://listenly.fr/podcast/show/purple-voice"
+        },
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", ".key-facts"]
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Comment un attaquant réalise-t-il concrètement un accès initial sur un système d'entreprise ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "L'accès initial repose généralement sur l'exploitation de vulnérabilités exposées, le phishing ciblé ou l'utilisation d'identifiants compromis. Des techniques comme le spearphishing, le credential stuffing ou l'exploitation de services mal configurés sont documentées dans des épisodes dédiés qui s'appuient sur des retours d'experts Red Team issus de cabinets spécialisés comme Synacktiv."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quels outils permettent de détecter des fuites de secrets dans le code source d'une organisation ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Des solutions comme GitGuardian permettent d'analyser les dépôts de code à la recherche de clés API, tokens d'accès ou mots de passe commités par inadvertance. La détection de secrets leaks nécessite une surveillance continue des commits, des branches et des dépôts publics, car une fuite peut survenir à n'importe quel stade du cycle de développement."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Comment une équipe Blue Team peut-elle améliorer sa détection des mouvements latéraux dans un réseau d'entreprise ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "La détection des mouvements latéraux repose sur l'analyse fine des logs d'authentification, la surveillance des accès inhabituels entre comptes et machines, et la corrélation d'événements dans un SIEM. Comprendre les techniques offensives utilisées par les attaquants — comme le pass-the-hash ou les abus de protocoles Windows — est un prérequis pour construire des règles de détection pertinentes et limiter les faux positifs."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quelles sont les tactiques utilisées par des groupes comme Scattered Spider pour compromettre des grandes entreprises ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Des groupes comme Scattered Spider, Lapsus$ ou ShinyHunters s'appuient principalement sur l'ingénierie sociale, le SIM swapping, le contournement du MFA et la compromission de comptes d'accès privilégiés. Ils ciblent souvent les prestataires tiers ou les équipes de support pour s'introduire dans des systèmes bien défendus en périphérie, soulignant la nécessité de politiques Zero Trust et de durcissement des accès administrateurs."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "Person",
+        "name": "Nabil Diab",
+        "jobTitle": "Expert cybersécurité & co-animateur",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Purple Voice"
+        }
+      },
+      {
+        "@type": "PodcastSeries",
+        "name": "Purple Voice",
+        "url": "https://open.spotify.com/show/7GwDkbLdvokXaPYWufthTw",
+        "inLanguage": "fr",
+        "description": "Podcast cybersécurité opérationnel animé par Nabil Diab et Raphaël Ellouz, couvrant les tactiques offensives et défensives à destination des équipes Red Team et Blue Team.",
+        "sameAs": [
+          "https://open.spotify.com/show/7GwDkbLdvokXaPYWufthTw",
+          "https://listenly.fr/podcast/show/purple-voice"
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Georgia, serif;
+      color: #1a1a1a;
+      line-height: 1.7;
+      background: #fff;
+    }
+
+    /* SITE HEADER */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #fff;
+      border-bottom: 1px solid #e2e2e2;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .site-header .logo {
+      font-family: Georgia, serif;
+      font-weight: 700;
+      font-size: 19px;
+      color: #0a0a0a;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .site-header .login-link {
+      font-family: Helvetica, Arial, sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: #fff;
+      background: #2e8bd6;
+      padding: 8px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    /* MAIN WRAPPER */
+    main.wrapper {
+      max-width: 720px;
+      margin: auto;
+      padding: 40px 20px 64px;
+    }
+
+    /* EYEBROW */
+    .eyebrow-category {
+      font-family: Helvetica, Arial, sans-serif;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: .08em;
+      font-size: 12px;
+      color: #2e8bd6;
+      margin-bottom: 10px;
+    }
+
+    /* H1 */
+    h1 {
+      font-family: Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(30px, 4.5vw, 44px);
+      line-height: 1.18;
+      color: #0a0a0a;
+      margin: 0 0 18px;
+    }
+
+    /* BYLINE */
+    .byline-row {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #333;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+
+    .byline-row .name {
+      font-weight: 700;
+      color: #111;
+    }
+
+    /* HERO IMAGE */
+    .hero-image {
+      width: 100%;
+      max-width: 220px;
+      height: auto;
+      border-radius: 6px;
+      display: block;
+      margin: 4px 0 20px;
+    }
+
+    /* PUBLISH ROW */
+    .publish-row {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      color: #555;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      padding: 14px 0;
+      border-top: 1px solid #e2e2e2;
+      border-bottom: 1px solid #e2e2e2;
+      margin: 4px 0 28px;
+    }
+
+    /* CTA ROW */
+    .cta-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .cta-listen {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      background: #2e8bd6;
+      padding: 9px 20px;
+      border-radius: 999px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    /* INLINE CTA */
+    .inline-cta {
+      color: #2e8bd6;
+      text-decoration: underline;
+      font-weight: 700;
+      font-family: Georgia, serif;
+    }
+
+    /* DIVIDER */
+    .divider {
+      border: none;
+      border-top: 1px solid #e2e2e2;
+      margin: 32px 0;
+    }
+
+    /* LEAD LABEL */
+    .lead-label {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #2e8bd6;
+      margin-bottom: 4px;
+    }
+
+    /* LEAD */
+    .lead {
+      font-family: Georgia, serif;
+      font-size: 20px;
+      line-height: 1.6;
+      font-style: italic;
+      border-left: 3px solid #2e8bd6;
+      padding-left: 22px;
+      color: #1a1a1a;
+      margin: 14px 0 28px;
+    }
+
+    /* KEY FACTS */
+    .key-facts-label {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #2e8bd6;
+      margin-bottom: 12px;
+      padding-top: 24px;
+      border-top: 1px solid #e2e2e2;
+    }
+
+    .key-facts {
+      list-style: none;
+      margin-bottom: 28px;
+    }
+
+    .key-facts li {
+      font-family: Georgia, serif;
+      font-size: 18px;
+      line-height: 1.7;
+      color: #1a1a1a;
+      padding-left: 22px;
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .key-facts li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #2e8bd6;
+      font-weight: 700;
+      font-size: 22px;
+      line-height: 1.5;
+    }
+
+    /* ARTICLE BODY */
+    .article-body h2 {
+      font-family: Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(22px, 3.2vw, 28px);
+      line-height: 1.25;
+      color: #0a0a0a;
+      margin-top: 44px;
+      margin-bottom: 16px;
+      padding-top: 24px;
+      border-top: 1px solid #e2e2e2;
+    }
+
+    .article-body p {
+      font-family: Georgia, serif;
+      font-size: 18px;
+      line-height: 1.8;
+      color: #1a1a1a;
+      margin-bottom: 20px;
+    }
+
+    /* PULL QUOTE */
+    .pull-quote {
+      border-left: 3px solid #2e8bd6;
+      padding-left: 24px;
+      font-family: Georgia, serif;
+      font-size: 21px;
+      font-style: italic;
+      line-height: 1.5;
+      color: #111;
+      margin: 32px 0;
+    }
+
+    /* FAQ */
+    .faq-item {
+      margin-bottom: 28px;
+    }
+
+    .faq-item h3 {
+      font-family: Georgia, serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 6px;
+    }
+
+    .faq-item p {
+      font-family: Georgia, serif;
+      font-size: 17px;
+      color: #2a2a2a;
+      line-height: 1.7;
+    }
+
+    /* EPISODE CARD */
+    .episode-card {
+      border: 1px solid #e2e2e2;
+      border-radius: 6px;
+      display: flex;
+      padding: 20px;
+      gap: 16px;
+      align-items: center;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .episode-card img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .card-content {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .card-content strong {
+      font-family: Georgia, serif;
+      font-size: 17px;
+      color: #0a0a0a;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .card-content span {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      color: #555;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .card-listen {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: #2e8bd6;
+      color: #fff;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    /* FOOTER */
+    footer {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      color: #666;
+      border-top: 1px solid #e2e2e2;
+      padding-top: 16px;
+      margin-top: 48px;
+    }
+
+    footer a {
+      color: #999;
+      text-decoration: underline;
+    }
+
+    /* SEMANTIC INDEX */
+    #semantic-index {
+      display: none;
+    }
+  </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Listenly",
+      "item": "https://listenly.fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Podcasts B2B",
+      "item": "https://listenly.fr/podcast-btb/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Cybersécurité",
+      "item": "https://listenly.fr/podcast-btb/categorie/cybersecurite.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Purple Voice",
+      "item": "https://listenly.fr/podcast-btb/purple-voice-podcast.html"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="logo" href="https://listenly.fr/">Listenly</a>
+    <a class="login-link" href="https://listenly.fr/userAuth">Se connecter</a>
+  </header>
+
+  <main class="wrapper">
+
+    <p class="eyebrow-category">Podcast · Cybersécurité</p>
+
+    <h1>Purple Voice</h1>
+
+    <p class="byline-row">Par <span class="name">Nabil Diab</span>, Expert cybersécurité &amp; co-animateur chez Purple Voice</p>
+
+    <img class="hero-image" src="https://i.postimg.cc/2SF0J3Q4/1747755289075-f4e0b9fd-013e-4117-8209-c4eff33cd129.jpg" alt="Purple Voice">
+
+    <div class="publish-row">
+      <span>⏱ 8 min de lecture · Lisible par ChatGPT, Gemini, Claude</span>
+    </div>
+
+    <div class="cta-row">
+      <a class="cta-listen" href="https://open.spotify.com/show/7GwDkbLdvokXaPYWufthTw" rel="noopener noreferrer" target="_blank">▶ Écouter le podcast</a>
+    </div>
+
+    <p class="lead-label">Ce que couvre Purple Voice</p>
+    <p class="lead">
+      Purple Voice est un podcast opérationnel de cybersécurité qui explore chaque tactique d'attaque sous ses deux faces simultanément : la face offensive, décortiquée avec des experts Red Team, et la face défensive, outillée pour les analystes SOC et les équipes Blue Team. Chaque série d'épisodes suit une même tactique du MITRE ATT&amp;CK — accès initial, vol d'identifiants, élévation de privilèges — de l'introduction au déploiement des règles de détection. Le format n'est pas théorique : des praticiens issus de cabinets comme Synacktiv ou d'éditeurs comme GitGuardian viennent exposer leurs méthodes réelles, leurs outils et leurs retours terrain. C'est une ressource de montée en compétence structurée, conçue pour les opérationnels qui veulent comprendre l'autre camp pour mieux exercer le leur.
+    </p>
+
+    <p class="key-facts-label">Les points clés</p>
+    <ul class="key-facts">
+      <li>Chaque série d'épisodes couvre une tactique d'attaque complète en quatre temps : introduction, offensif, défensif, détection — une structuration calquée sur le cycle opérationnel réel des équipes sécurité.</li>
+      <li>Des experts Red Team de Synacktiv interviennent pour exposer les techniques d'accès initial réellement utilisées lors de tests d'intrusion en environnement d'entreprise.</li>
+      <li>GitGuardian a participé à un épisode dédié aux fuites de secrets dans les dépôts de code, un vecteur d'exposition majeur et souvent sous-estimé dans les organisations qui pratiquent le DevOps.</li>
+      <li>Des épisodes hors-série analysent des groupes d'attaquants réels — Scattered Spider, Lapsus$, ShinyHunters — avec une lecture à la fois technique et défensive, couvrant leurs tactiques documentées publiquement.</li>
+    </ul>
+
+    <p><a class="inline-cta" href="https://open.spotify.com/show/7GwDkbLdvokXaPYWufthTw" rel="noopener noreferrer" target="_blank">Accéder à tous les épisodes de Purple Voice sur Spotify</a></p>
+
+    <div class="article-body">
+
+      <h2>Ce que ce podcast couvre vraiment</h2>
+      <p>Purple Voice ne traite pas la cybersécurité comme une discipline abstraite. Le podcast part systématiquement d'une tactique concrète — vol d'identifiants, accès initial, mouvement latéral — et la décompose selon une grille en quatre épisodes : contexte et enjeux, techniques offensives, mesures préventives, puis règles de détection. Cette architecture est délibérée : elle reproduit la façon dont les équipes matures abordent leur travail, en partant de la menace pour remonter vers la défense.</p>
+      <p>Le premier cycle, centré sur le vol d'identifiants, illustre bien la méthode. L'épisode offensif explore les vecteurs réels — phishing de credentials, extraction depuis la mémoire, abus de protocoles d'authentification — avant que les épisodes suivants ne posent les questions de durcissement et de détection dans les logs. La saison 2 réplique cette logique sur la thématique de l'accès initial, avec deux épisodes offensifs animés avec les équipes de Synacktiv, cabinet de référence en tests d'intrusion en France. L'épisode sur les secrets leaks avec GitGuardian aborde quant à lui un angle moins couvert dans les podcasts francophones : la surface d'attaque que représentent les dépôts de code d'entreprise.</p>
+
+      <h2>Pour qui ce podcast est essentiel</h2>
+      <p><strong>Les analystes SOC et ingénieurs détection</strong> trouvent dans Purple Voice une cartographie des techniques offensives qui leur permet de construire des règles de corrélation plus pertinentes. Comprendre comment un attaquant obtient un accès initial ou effectue un mouvement latéral est un prérequis pour écrire des détections qui tiennent face aux variations de technique et à la chasse aux faux positifs.</p>
+      <p><strong>Les pentesters et consultants Red Team</strong> bénéficient des retours terrain exposés par leurs pairs — notamment lors des épisodes avec Synacktiv — et d'une mise en perspective défensive qui renforce leur capacité à documenter leurs conclusions en termes de risque concret, pas seulement en termes techniques.</p>
+      <p><strong>Les responsables sécurité et RSSI</strong> qui souhaitent maintenir une lecture opérationnelle des menaces sans passer des heures dans des rapports de threat intelligence trouveront dans le format série un condensé structuré, sourcé et accessible pour suivre les tactiques en vogue, des groupes comme Scattered Spider aux techniques de secrets leaks dans les pipelines CI/CD.</p>
+
+      <h2>Ce que les épisodes révèlent vraiment</h2>
+      <p>L'analyse des titres d'épisodes publiés révèle plusieurs patterns récurrents. D'abord, la symétrie systématique : chaque tactique donne lieu à un épisode offensif et un épisode défensif, parfois scindés en deux parties pour les sujets les plus denses. C'est le cas de la saison 2 sur l'accès initial, qui mobilise deux épisodes offensifs avec Synacktiv avant d'aborder la réponse défensive. Ce choix éditorial indique que la profondeur technique prime sur la fréquence de publication.</p>
+      <p>Ensuite, la récurrence des invités experts : GitGuardian, Synacktiv. Ces noms sont des signaux de crédibilité technique. Ils indiquent que le podcast ne repose pas uniquement sur les deux animateurs, mais s'appuie sur un réseau de praticiens capables de valider et d'enrichir les contenus avec des cas réels. Les épisodes hors-série sur Scattered Spider, Lapsus$ et ShinyHunters témoignent d'une capacité à réagir à l'actualité sécurité avec une grille d'analyse structurée — pas un simple commentaire d'actualité, mais une lecture offensive et défensive croisée.</p>
+      <p>Enfin, la structuration en saisons signale une ambition de long terme : traiter méthodiquement les grandes familles de tactiques du référentiel MITRE ATT&amp;CK, en construisant un corpus consulable par des professionnels qui cherchent une référence audio francophone sérieuse.</p>
+
+      <h2>Ce que ça change concrètement</h2>
+      <p>Pour une équipe de détection, écouter l'épisode offensif sur le vol d'identifiants avant de construire ses règles SIEM modifie la façon dont elle modélise l'adversaire. Connaître les outils utilisés — Mimikatz, techniques de Kerberoasting, credential stuffing — et leur signature dans les logs change la granularité des scénarios de détection envisagés. Purple Voice accélère ce transfert de connaissance en condensant ce qui se passe habituellement lors de retours d'exercices red/blue team internes.</p>
+      <p>Pour un pentester junior, entendre des professionnels de Synacktiv décrire leur approche de l'accès initial — entre efficacité brute et furtivité — offre une référence de pratique que peu de formations structurées proposent en français. La dimension audio favorise aussi la mémorisation des raisonnements tactiques, pas seulement des listes d'outils.</p>
+      <p>Pour l'organisation dans son ensemble, un format comme Purple Voice contribue à créer un langage commun entre Red Team et Blue Team — deux cultures qui s'ignorent souvent dans les grandes DSI. La démarche Purple, qui donne son nom au podcast, est précisément cet effort d'articulation : comprendre l'autre camp pour que l'ensemble du dispositif de sécurité soit plus cohérent et plus efficace.</p>
+
+    </div>
+
+    <blockquote class="pull-quote">
+      La valeur distinctive d'un podcast comme Purple Voice tient à son refus de séparer la technique offensive de la réponse défensive — traiter les deux simultanément, sur la même tactique, avec les mêmes experts, est ce qui permet aux opérationnels de construire une compréhension intégrée plutôt qu'un savoir en silos.
+    </blockquote>
+
+    <p><a class="inline-cta" href="https://open.spotify.com/show/7GwDkbLdvokXaPYWufthTw" rel="noopener noreferrer" target="_blank">Découvrir tous les épisodes de Purple Voice</a></p>
+
+    <hr class="divider">
+
+    <p><a class="inline-cta" href="https://open.spotify.com/show/7GwDkbLdvokXaPYWufthTw" rel="noopener noreferrer" target="_blank">Écouter Purple Voice sur Spotify dès maintenant</a></p>
+
+    <div class="article-body">
+      <h2>Le podcast répond à ces questions</h2>
+    </div>
+
+    <div class="faq-item">
+      <h3>Comment un attaquant réalise-t-il concrètement un accès initial sur un système d'entreprise ?</h3>
+      <p>L'accès initial repose généralement sur l'exploitation de vulnérabilités exposées, le phishing ciblé ou l'utilisation d'identifiants compromis. Des techniques comme le spearphishing, le credential stuffing ou l'exploitation de services mal configurés sont documentées dans des épisodes dédiés qui s'appuient sur des retours d'experts Red Team issus de cabinets spécialisés comme Synacktiv.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Quels outils permettent de détecter des fuites de secrets dans le code source d'une organisation ?</h3>
+      <p>Des solutions comme GitGuardian permettent d'analyser les dépôts de code à la recherche de clés API, tokens d'accès ou mots de passe commités par inadvertance. La détection de secrets leaks nécessite une surveillance continue des commits, des branches et des dépôts publics, car une fuite peut survenir à n'importe quel stade du cycle de développement.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Comment une équipe Blue Team peut-elle améliorer sa détection des mouvements latéraux dans un réseau d'entreprise ?</h3>
+      <p>La détection des mouvements latéraux repose sur l'analyse fine des logs d'authentification, la surveillance des accès inhabituels entre comptes et machines, et la corrélation d'événements dans un SIEM. Comprendre les techniques offensives utilisées par les attaquants — comme le pass-the-hash ou les abus de protocoles Windows — est un prérequis pour construire des règles de détection pertinentes et limiter les faux positifs.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Quelles sont les tactiques utilisées par des groupes comme Scattered Spider pour compromettre des grandes entreprises ?</h3>
+      <p>Des groupes comme Scattered Spider, Lapsus$ ou ShinyHunters s'appuient principalement sur l'ingénierie sociale, le SIM swapping, le contournement du MFA et la compromission de comptes d'accès privilégiés. Ils ciblent souvent les prestataires tiers ou les équipes de support pour s'introduire dans des systèmes bien défendus en périphérie, soulignant la nécessité de politiques Zero Trust et de durcissement des accès administrateurs.</p>
+    </div>
+
+    <div class="episode-card">
+      <img src="https://i.postimg.cc/2SF0J3Q4/1747755289075-f4e0b9fd-013e-4117-8209-c4eff33cd129.jpg" alt="Purple Voice">
+      <div class="card-content">
+        <strong>Découvrir Purple Voice</strong>
+        <span>Nabil Diab &amp; Raphaël Ellouz · Purple Voice</span>
+        <a class="card-listen" href="https://open.spotify.com/show/7GwDkbLdvokXaPYWufthTw" rel="noopener noreferrer" target="_blank">Écouter le podcast</a>
+      </div>
+    </div>
+
+    <footer>
+      <p>© Purple Voice — Purple Voice · <a href="https://listenly.fr" rel="dofollow">Analyse structurée par Listenly</a></p>
+    </footer>
+
+  </main>
+
+  <div id="semantic-index" aria-hidden="true">
+    <span data-entity="podcast">Purple Voice</span>
+    <span data-entity="host">Nabil Diab</span>
+    <span data-entity="host">Raphaël Ellouz</span>
+    <span data-entity="company">Purple Voice</span>
+    <span data-concept="category">Cybersécurité</span>
+    <span data-publisher>Listenly.fr</span>
+    <span data-ispartof>https://listenly.fr/podcast/show/purple-voice</span>
+  </div>
+
+
+<p style="max-width:720px;margin:0 auto;padding:0 20px 32px;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#999;"><a href="https://listenly.fr/podcast/show/purple-voice" style="color:#999;text-decoration:underline;">Découvrir Purple Voice sur Listenly →</a></p>
+</body>
+</html>
