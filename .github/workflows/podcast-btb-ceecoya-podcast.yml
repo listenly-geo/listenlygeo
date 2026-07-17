@@ -1,0 +1,73 @@
+name: Podcast BTB — ceecoya-podcast
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 12 * * 3'
+
+jobs:
+  podcast-btb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generation fiche podcast (lancement manuel uniquement)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RSS_URL: |-
+            https://feeds.acast.com/public/shows/679cef30b51887deadf59615
+          PODCAST_URL: |-
+            https://open.spotify.com/show/3wVK84NApQFsxg9Ek2AY0J
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/ceecoya-podcast
+          COVER_IMAGE: |-
+            https://i.postimg.cc/FzBzYJKB/1740666655063-41001bee-3fd0-4f9b-b730-d6557e3de363.jpg
+          PODCAST_SLUG: |-
+            ceecoya-podcast
+          ACCENT_COLOR: |-
+            #2e8bd6
+          LANGUAGE: |-
+            fr
+          EPISODE_CTA_TARGET: |-
+            listenly
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Generation 1 fiche episode max (cron hebdomadaire uniquement)
+        if: github.event_name == 'schedule'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_SLUG: |-
+            ceecoya-podcast
+          MAX_EPISODES: '1'
+        run: python automation/scripts/generate_episode_fiches_btb.py
+
+      - name: Commit fiches
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: podcast-btb ceecoya-podcast"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
