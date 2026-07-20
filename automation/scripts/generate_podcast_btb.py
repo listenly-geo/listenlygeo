@@ -24,7 +24,7 @@ import xml.etree.ElementTree as ET
 
 API_KEY      = os.environ["ANTHROPIC_API_KEY"]
 RSS_URL      = os.environ.get("RSS_URL", "").strip()
-PODCAST_URL  = os.environ["PODCAST_URL"]
+PODCAST_URL  = os.environ.get("PODCAST_URL", "").strip()
 CONTACT_URL  = os.environ.get("CONTACT_URL", "").strip()
 LISTENLY_URL = os.environ["LISTENLY_URL"]
 EXTRA_INFO    = os.environ.get("PODCAST_RAW_INFO", "").strip()
@@ -118,7 +118,9 @@ def fetch_rss(url):
         return resp.read()
 
 def parse_podcast_feed(xml_bytes, max_episodes=10):
-    """Lit le flux RSS et retourne (podcast_name, description, cover_image, episode_titles)."""
+    """Lit le flux RSS et retourne (podcast_name, description, cover_image, episode_titles, spotify_url).
+    spotify_url reste vide si le flux ne pointe pas nativement vers open.spotify.com
+    (cas frequent pour les flux Ausha/Podcastics/Acast qui pointent vers leur propre page)."""
     root = ET.fromstring(xml_bytes)
     channel = root.find("channel")
     if channel is None:
@@ -141,20 +143,27 @@ def parse_podcast_feed(xml_bytes, max_episodes=10):
         if img_el2 is not None and img_el2.text:
             cover_image = img_el2.text.strip()
 
+    spotify_url = ""
+    link_el = channel.find("link")
+    if link_el is not None and link_el.text and "open.spotify.com" in link_el.text:
+        spotify_url = link_el.text.strip()
+
     episode_titles = []
     for item in channel.findall("item")[:max_episodes]:
         t = item.find("title")
         if t is not None and t.text:
             episode_titles.append(clean_text(t.text))
 
-    return podcast_name, description, cover_image, episode_titles
+    return podcast_name, description, cover_image, episode_titles, spotify_url
 
 def build_raw_info_from_rss(rss_url, extra_info):
     log(f"Lecture du flux RSS : {rss_url}")
-    podcast_name, description, cover_image, episode_titles = parse_podcast_feed(fetch_rss(rss_url))
+    podcast_name, description, cover_image, episode_titles, spotify_url = parse_podcast_feed(fetch_rss(rss_url))
     if not podcast_name:
         raise ValueError("Impossible d'extraire le nom du podcast depuis le flux RSS")
     log(f"Podcast detecte : {podcast_name} ({len(episode_titles)} episode(s) trouve(s))")
+    if spotify_url:
+        log(f"Lien Spotify detecte automatiquement dans le flux : {spotify_url}")
 
     lines = [f"Nom du podcast : {podcast_name}", ""]
     if description:
@@ -165,7 +174,7 @@ def build_raw_info_from_rss(rss_url, extra_info):
     if extra_info:
         lines += ["", "Contexte supplémentaire fourni :", extra_info]
 
-    return "\n".join(lines), cover_image
+    return "\n".join(lines), cover_image, spotify_url
 
 def build_prompt(slug, fiche_url, today, raw_info, cover_image):
     rss_meta_instruction = (
@@ -844,7 +853,7 @@ def main():
 
     if RSS_URL:
         try:
-            raw_info, rss_cover_image = build_raw_info_from_rss(RSS_URL, EXTRA_INFO)
+            raw_info, rss_cover_image, rss_spotify_url = build_raw_info_from_rss(RSS_URL, EXTRA_INFO)
         except Exception as e:
             log(f"ERREUR lecture RSS : {e}")
             sys.exit(1)
@@ -855,6 +864,15 @@ def main():
         log("Pas de RSS_URL fourni — utilisation de PODCAST_RAW_INFO tel quel (mode manuel).")
         raw_info = EXTRA_INFO
         rss_cover_image = ""
+        rss_spotify_url = ""
+
+    global PODCAST_URL
+    if not PODCAST_URL and rss_spotify_url:
+        PODCAST_URL = rss_spotify_url
+        log(f"PODCAST_URL non fourni — utilisation du lien Spotify auto-detecte : {PODCAST_URL}")
+    if not PODCAST_URL:
+        log("ERREUR : PODCAST_URL absent et aucun lien Spotify detecte automatiquement dans le flux RSS. Fournis-le manuellement.")
+        sys.exit(1)
 
     cover_image = COVER_IMAGE_OVERRIDE or rss_cover_image
 
