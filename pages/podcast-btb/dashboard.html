@@ -2,65 +2,82 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard podcast-btb (interne)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moteur Listenly GEO — Dashboard</title>
 <meta name="robots" content="noindex, nofollow">
 <style>
-body{font-family:-apple-system,Helvetica,Arial,sans-serif;color:#1a1a1a;margin:0;background:#fafafa;padding:32px}
-h1{font-size:22px;margin:0 0 4px}
-h2{font-size:15px;margin:28px 0 10px;color:#333}
-.sub{color:#777;font-size:13px;margin:0 0 24px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:8px}
-.card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:14px 16px}
-.card .num{font-size:26px;font-weight:800}
-.card .lbl{font-size:11px;color:#777;text-transform:uppercase;letter-spacing:.04em}
-table{border-collapse:collapse;width:100%;background:#fff;border:1px solid #e5e5e5;border-radius:10px;overflow:hidden;font-size:13px}
-th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#777;padding:10px 12px;border-bottom:2px solid #eee;background:#fcfcfc}
-td{padding:9px 12px;border-bottom:1px solid #f0f0f0;vertical-align:top}
-tr:hover td{background:#fafafa}
-a{color:#2e6bd6;text-decoration:none}
+:root{--bg:#f4f7fe;--card:#fff;--ink:#1b2540;--sub:#8b93a7;--accent:#4a6cf7;--accent-soft:#eef2ff;--ok:#22c98d;--warn-bg:#fdecec;--warn-ink:#e05252;--shadow:0 6px 24px rgba(27,37,64,.06)}
+*{box-sizing:border-box}
+body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg);padding:36px 4vw 60px}
+h1{font-size:26px;margin:0;font-weight:700}
+h1 b{color:var(--accent)}
+h2{font-size:15px;margin:34px 0 12px;font-weight:700;letter-spacing:.01em}
+.header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px;margin-bottom:26px}
+.sub{color:var(--sub);font-size:13px;margin:6px 0 0}
+.badge-live{display:inline-flex;align-items:center;gap:7px;background:var(--card);box-shadow:var(--shadow);border-radius:999px;padding:8px 16px;font-size:12px;font-weight:600;color:var(--sub)}
+.badge-live i{width:8px;height:8px;border-radius:50%;background:var(--ok);display:inline-block;animation:pulse 2s infinite}
+@keyframes pulse{0%{opacity:1}50%{opacity:.35}100%{opacity:1}}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+.card{background:var(--card);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow);transition:transform .15s}
+.card:hover{transform:translateY(-2px)}
+.card .ico{font-size:20px;margin-bottom:8px}
+.card .num{font-size:32px;font-weight:800;line-height:1.1}
+.card .lbl{font-size:11px;color:var(--sub);text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+.panel{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:20px 22px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--sub);padding:10px 12px;border-bottom:1px solid #eef0f6}
+td{padding:10px 12px;border-bottom:1px solid #f3f5fa;vertical-align:top}
+tr:hover td{background:#f8faff}
+a{color:var(--accent);text-decoration:none}
 a:hover{text-decoration:underline}
-.warn{background:#fdecec;color:#c0392b;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;white-space:nowrap}
-.bars{display:flex;gap:10px;align-items:flex-end;background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:18px 16px 10px}
-.bar-col{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
-.bar{width:100%;max-width:42px;background:#2e6bd6;border-radius:4px 4px 0 0}
-.bar-col span{font-size:10px;color:#999}
-.bar-col b{font-size:11px}
-ul{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:14px 16px 14px 32px;font-size:13px;margin:0}
-li{margin-bottom:4px}
-.note{font-size:11px;color:#999;margin-top:24px}
-.calendar{display:flex;gap:8px;background:#fff;border:1px solid #e5e5e5;border-radius:12px;padding:16px 14px 12px}
-.cal-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;padding:4px;border-radius:8px;cursor:default}
-.cal-col:hover{background:#f5f8ff}
-.cal-today{background:#eef3fd}
-.cal-stack{display:flex;flex-direction:column-reverse;justify-content:flex-start;width:100%;max-width:44px;min-height:92px}
-.seg{width:100%;border-radius:3px;margin-top:2px;transition:opacity .15s}
-.cal-col:hover .seg{opacity:.85}
-.seg-empty{height:6px;background:#eee}
-.cal-day{font-size:11px;font-weight:700;color:#555}
-.cal-count{font-size:11px;color:#2e6bd6;font-weight:600}
-.legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;font-size:11px;color:#555}
-.lg{display:inline-flex;align-items:center;gap:5px}
-.lg i{width:10px;height:10px;border-radius:3px;display:inline-block}
-.grid2{display:grid;grid-template-columns:2fr 1fr;gap:16px;align-items:start}
-@media(max-width:800px){.grid2{grid-template-columns:1fr}}
+.warn{background:var(--warn-bg);color:var(--warn-ink);font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.search{width:100%;max-width:340px;border:1px solid #e4e8f2;border-radius:10px;padding:10px 14px;font-size:13px;font-family:inherit;margin-bottom:12px;outline:none}
+.search:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.bars{display:flex;gap:12px;align-items:flex-end;padding-top:10px}
+.bar-col{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1}
+.bar{width:100%;max-width:46px;background:linear-gradient(180deg,#6d8bff,#4a6cf7);border-radius:8px 8px 3px 3px;transition:filter .15s}
+.bar-col:hover .bar{filter:brightness(1.12)}
+.bar-col span{font-size:10px;color:var(--sub)}
+.bar-col b{font-size:12px}
+ul.clean{padding:4px 0 0 18px;font-size:13px;margin:0}
+ul.clean li{margin-bottom:6px}
+.note{font-size:11px;color:var(--sub);margin-top:28px;line-height:1.6}
+.calendar{display:flex;gap:10px}
+.cal-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;padding:8px 4px;border-radius:12px;cursor:default;transition:background .15s}
+.cal-col:hover{background:var(--accent-soft)}
+.cal-today{background:var(--accent-soft);outline:2px solid #dbe4ff}
+.cal-stack{display:flex;flex-direction:column-reverse;width:100%;max-width:46px;min-height:96px;justify-content:flex-start}
+.seg{width:100%;border-radius:4px;margin-top:3px;transition:transform .12s}
+.cal-col:hover .seg{transform:scaleX(1.08)}
+.seg-empty{height:6px;background:#e9edf7}
+.cal-day{font-size:11px;font-weight:700;color:var(--ink)}
+.cal-count{font-size:11.5px;color:var(--accent);font-weight:700}
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:18px;align-items:start}
+@media(max-width:860px){.grid2{grid-template-columns:1fr}body{padding:24px 16px 50px}}
 </style>
 </head>
 <body>
-<h1>Dashboard moteur podcast-btb</h1>
-<p class="sub">Page interne — noindex, mise à jour automatique à chaque run. Généré le 24 juillet.</p>
-
-<div class="cards">
-  <div class="card"><div class="num">58</div><div class="lbl">Podcasts référencés</div></div>
-  <div class="card"><div class="num">30</div><div class="lbl">Fiches épisode totales</div></div>
-  <div class="card"><div class="num">16</div><div class="lbl">Épisodes cette semaine</div></div>
-  <div class="card"><div class="num">27</div><div class="lbl">Épisodes sur 30 jours</div></div>
+<div class="header">
+  <div>
+    <h1>Moteur <b>Listenly GEO</b></h1>
+    <p class="sub">Vue d'ensemble de la production automatisée · généré le 24 juillet</p>
+  </div>
+  <span class="badge-live"><i></i>Mise à jour automatique à chaque run</span>
 </div>
 
-<h2>Prévision semaine (49 fiche(s) programmée(s) sur 7 jours)</h2>
+<div class="cards">
+  <div class="card"><div class="ico">🎙️</div><div class="num">58</div><div class="lbl">Podcasts référencés</div></div>
+  <div class="card"><div class="ico">📄</div><div class="num">30</div><div class="lbl">Fiches épisode totales</div></div>
+  <div class="card"><div class="ico">⚡</div><div class="num">16</div><div class="lbl">Épisodes cette semaine</div></div>
+  <div class="card"><div class="ico">📈</div><div class="num">27</div><div class="lbl">Épisodes sur 30 jours</div></div>
+</div>
+
+<h2>Prévision semaine · 49 fiche(s) programmée(s)</h2>
+<div class="panel">
 
 <div class="calendar">
 <div class="cal-col cal-today" title="Immobilier : 2 (67%) · Santé & Pharma : 1 (33%)">
-  <div class="cal-stack"><div class="seg" style="height:12px;background:#e84393"></div><div class="seg" style="height:8px;background:#27ae60"></div></div>
+  <div class="cal-stack"><div class="seg" style="height:12px;background:#8e44ad"></div><div class="seg" style="height:8px;background:#7f8c8d"></div></div>
   <div class="cal-day">Ven 24</div>
   <div class="cal-count">+3 épisodes</div>
 </div>
@@ -74,32 +91,35 @@ li{margin-bottom:4px}
   <div class="cal-day">Dim 26</div>
   <div class="cal-count">—</div>
 </div>
-<div class="cal-col" title="BUSINESS : 1 (7%) · Droit : 1 (7%) · Finance & Banque : 1 (7%) · Finance & Conformité : 1 (7%) · Finance & Entrepreneuriat : 1 (7%) · Finance & Gestion d'actifs : 1 (7%) · Finance & Patrimoine : 1 (7%) · Immobilier : 2 (14%) · Immobilier & Leadership : 1 (7%) · Intelligence Artificielle & Data : 1 (7%) · Management & RH : 1 (7%) · Santé & Bien-être : 1 (7%) · Technology / Business : 1 (7%)">
-  <div class="cal-stack"><div class="seg" style="height:8px;background:#2e6bd6"></div><div class="seg" style="height:8px;background:#8e44ad"></div><div class="seg" style="height:8px;background:#2c3e50"></div><div class="seg" style="height:8px;background:#2e6bd6"></div><div class="seg" style="height:8px;background:#27ae60"></div><div class="seg" style="height:8px;background:#e67e22"></div><div class="seg" style="height:8px;background:#c0392b"></div><div class="seg" style="height:12px;background:#e84393"></div><div class="seg" style="height:8px;background:#2e6bd6"></div><div class="seg" style="height:8px;background:#e67e22"></div><div class="seg" style="height:8px;background:#8e44ad"></div><div class="seg" style="height:8px;background:#2c3e50"></div><div class="seg" style="height:8px;background:#7f8c8d"></div></div>
+<div class="cal-col" title="Business & Entrepreneuriat : 1 (7%) · Droit & Juridique : 1 (7%) · Finance & Patrimoine : 5 (36%) · Immobilier : 3 (21%) · RH & Management : 1 (7%) · Santé & Pharma : 1 (7%) · Tech & Cybersécurité : 2 (14%)">
+  <div class="cal-stack"><div class="seg" style="height:8px;background:#2e6bd6"></div><div class="seg" style="height:8px;background:#27ae60"></div><div class="seg" style="height:32px;background:#e67e22"></div><div class="seg" style="height:19px;background:#8e44ad"></div><div class="seg" style="height:8px;background:#16a085"></div><div class="seg" style="height:8px;background:#7f8c8d"></div><div class="seg" style="height:12px;background:#2c3e50"></div></div>
   <div class="cal-day">Lun 27</div>
   <div class="cal-count">+14 épisodes</div>
 </div>
-<div class="cal-col" title="Business : 1 (17%) · Finance & Investissement : 1 (17%) · Immobilier : 1 (17%) · Marketing : 1 (17%) · RSE & Leadership : 1 (17%) · Technologie & Business : 1 (17%)">
-  <div class="cal-stack"><div class="seg" style="height:8px;background:#27ae60"></div><div class="seg" style="height:8px;background:#8e44ad"></div><div class="seg" style="height:8px;background:#e84393"></div><div class="seg" style="height:8px;background:#c0392b"></div><div class="seg" style="height:8px;background:#d4a017"></div><div class="seg" style="height:8px;background:#d4a017"></div></div>
+<div class="cal-col" title="Business & Entrepreneuriat : 1 (17%) · Finance & Patrimoine : 1 (17%) · Immobilier : 1 (17%) · Marketing & Communication : 1 (17%) · RSE & Impact : 1 (17%) · Tech & Cybersécurité : 1 (17%)">
+  <div class="cal-stack"><div class="seg" style="height:8px;background:#2e6bd6"></div><div class="seg" style="height:8px;background:#e67e22"></div><div class="seg" style="height:8px;background:#8e44ad"></div><div class="seg" style="height:8px;background:#c0392b"></div><div class="seg" style="height:8px;background:#d4a017"></div><div class="seg" style="height:8px;background:#2c3e50"></div></div>
   <div class="cal-day">Mar 28</div>
   <div class="cal-count">+6 épisodes</div>
 </div>
-<div class="cal-col" title="Business : 1 (9%) · Cybersécurité : 1 (9%) · Développement personnel & Leadership : 1 (9%) · E-Commerce & Retail : 1 (9%) · Expertise comptable & Management : 1 (9%) · Géopolitique & Affaires : 1 (9%) · Immobilier & Habitat : 1 (9%) · Marketing : 1 (9%) · Santé & Médecine : 1 (9%) · Société & Foi : 1 (9%) · Société & Identité : 1 (9%)">
-  <div class="cal-stack"><div class="seg" style="height:8px;background:#27ae60"></div><div class="seg" style="height:8px;background:#e67e22"></div><div class="seg" style="height:8px;background:#c0392b"></div><div class="seg" style="height:8px;background:#16a085"></div><div class="seg" style="height:8px;background:#7f8c8d"></div><div class="seg" style="height:8px;background:#7f8c8d"></div><div class="seg" style="height:8px;background:#2c3e50"></div><div class="seg" style="height:8px;background:#c0392b"></div><div class="seg" style="height:8px;background:#2e6bd6"></div><div class="seg" style="height:8px;background:#8e44ad"></div><div class="seg" style="height:8px;background:#c0392b"></div></div>
+<div class="cal-col" title="Business & Entrepreneuriat : 3 (27%) · Finance & Patrimoine : 1 (9%) · Immobilier : 1 (9%) · Marketing & Communication : 1 (9%) · RH & Management : 1 (9%) · Santé & Pharma : 1 (9%) · Société & Culture : 2 (18%) · Tech & Cybersécurité : 1 (9%)">
+  <div class="cal-stack"><div class="seg" style="height:19px;background:#2e6bd6"></div><div class="seg" style="height:8px;background:#e67e22"></div><div class="seg" style="height:8px;background:#8e44ad"></div><div class="seg" style="height:8px;background:#c0392b"></div><div class="seg" style="height:8px;background:#16a085"></div><div class="seg" style="height:8px;background:#7f8c8d"></div><div class="seg" style="height:12px;background:#e84393"></div><div class="seg" style="height:8px;background:#2c3e50"></div></div>
   <div class="cal-day">Mer 29</div>
   <div class="cal-count">+11 épisodes</div>
 </div>
-<div class="cal-col" title="Business : 1 (14%) · Entrepreneuriat & Création : 1 (14%) · FINANCE & INVESTISSEMENT : 1 (14%) · Finance & Investissement : 1 (14%) · Impact social & finance responsable : 1 (14%) · Recherche & Management : 1 (14%) · Société & Personnalités : 1 (14%)">
-  <div class="cal-stack"><div class="seg" style="height:8px;background:#27ae60"></div><div class="seg" style="height:8px;background:#d4a017"></div><div class="seg" style="height:8px;background:#e84393"></div><div class="seg" style="height:8px;background:#8e44ad"></div><div class="seg" style="height:8px;background:#27ae60"></div><div class="seg" style="height:8px;background:#7f8c8d"></div><div class="seg" style="height:8px;background:#16a085"></div></div>
+<div class="cal-col" title="Business & Entrepreneuriat : 2 (29%) · Finance & Patrimoine : 2 (29%) · RH & Management : 1 (14%) · RSE & Impact : 1 (14%) · Société & Culture : 1 (14%)">
+  <div class="cal-stack"><div class="seg" style="height:12px;background:#2e6bd6"></div><div class="seg" style="height:12px;background:#e67e22"></div><div class="seg" style="height:8px;background:#16a085"></div><div class="seg" style="height:8px;background:#d4a017"></div><div class="seg" style="height:8px;background:#e84393"></div></div>
   <div class="cal-day">Jeu 30</div>
   <div class="cal-count">+7 épisodes</div>
 </div></div>
 <p class="note" style="margin-top:6px">⚠ 6 workflow(s) orphelin(s) programmé(s) cette semaine (échoueront sans produire).</p>
+</div>
 
-<div class="grid2">
+<div class="grid2" style="margin-top:34px">
 <div>
-<h2>Production par podcast</h2>
-<table>
+<h2 style="margin-top:0">Production par podcast</h2>
+<div class="panel">
+<input class="search" id="q" type="text" placeholder="🔍 Filtrer un podcast, une catégorie..." oninput="filterTable()">
+<table id="prodTable">
 <tr><th>Podcast</th><th>Catégorie</th><th>Épisodes</th><th>Dernier épisode</th><th>CTA</th><th>Search Console</th></tr>
 
 <tr>
@@ -120,7 +140,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/Nos-epaules-et-vos-ailes-podcast.html" target="_blank">Au fil des causes</a></td>
-  <td>Santé & Société</td>
+  <td>Santé & Pharma</td>
   <td style="text-align:center">1</td>
   <td>24 juillet</td>
   <td style="text-align:center">listenly</td>
@@ -128,7 +148,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/boussole-et-trajectoires-podcast.html" target="_blank">Boussole et Trajectoires</a></td>
-  <td>Management & RH</td>
+  <td>RH & Management</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -136,7 +156,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/caption-podcast-podcast.html" target="_blank">Caption Podcast - Investissement et conformité</a></td>
-  <td>Finance & Conformité</td>
+  <td>Finance & Patrimoine</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -144,7 +164,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/ceecoya-podcast-podcast.html" target="_blank">Ceecoya Podcast | L'émission transformation</a></td>
-  <td>Expertise comptable & Management</td>
+  <td>Finance & Patrimoine</td>
   <td style="text-align:center">1</td>
   <td>22 juillet</td>
   <td style="text-align:center">listenly</td>
@@ -152,7 +172,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/change-podcast-podcast.html" target="_blank">Change By Le Juriste de Demain</a></td>
-  <td>Droit & Business juridique</td>
+  <td>Droit & Juridique</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -160,7 +180,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/comment-ta-fait-podcast.html" target="_blank">Comment t'as fait ?® Les entrepreneurs expliquent leur business</a></td>
-  <td>Business</td>
+  <td>Business & Entrepreneuriat</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">spotify</td>
@@ -168,7 +188,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/construire-la-wallonie-podcast.html" target="_blank">Construire la Wallonie</a></td>
-  <td>Construction & Infrastructure</td>
+  <td>Business & Entrepreneuriat</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -176,7 +196,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/contemporary-challenges-podcast.html" target="_blank">Contemporary Challenges</a></td>
-  <td>Recherche & Management</td>
+  <td>RH & Management</td>
   <td style="text-align:center">1</td>
   <td>23 juillet</td>
   <td style="text-align:center">listenly</td>
@@ -192,7 +212,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/de-la-cave-au-grenier-podcast.html" target="_blank">De la cave au grenier</a></td>
-  <td>Immobilier & Habitat</td>
+  <td>Immobilier</td>
   <td style="text-align:center">1</td>
   <td>22 juillet</td>
   <td style="text-align:center">listenly</td>
@@ -200,7 +220,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/placeco-podcast-podcast.html" target="_blank">Dinamika, le podcast de la RSE au Pays basque</a></td>
-  <td>RSE & DÉVELOPPEMENT DURABLE</td>
+  <td>RSE & Impact</td>
   <td style="text-align:center">2</td>
   <td>24 juillet</td>
   <td style="text-align:center">listenly</td>
@@ -208,7 +228,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/declic-podcast.html" target="_blank">Déclic</a></td>
-  <td>GESTION DE PATRIMOINE</td>
+  <td>Finance & Patrimoine</td>
   <td style="text-align:center">2</td>
   <td>24 juillet</td>
   <td style="text-align:center">listenly</td>
@@ -216,7 +236,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/e-commerce-nation-podcast.html" target="_blank">E-Commerce Nation</a></td>
-  <td>E-Commerce & Retail</td>
+  <td>Business & Entrepreneuriat</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -224,7 +244,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/edge-podcast-podcast.html" target="_blank">Edge</a></td>
-  <td>BUSINESS</td>
+  <td>Business & Entrepreneuriat</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -232,7 +252,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/elasticat-podcast.html" target="_blank">Elasticast</a></td>
-  <td>Intelligence Artificielle & Data</td>
+  <td>Tech & Cybersécurité</td>
   <td style="text-align:center">1</td>
   <td>13 juillet</td>
   <td style="text-align:center">listenly</td>
@@ -248,7 +268,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/impact-info-podcast.html" target="_blank">Impact.info en français</a></td>
-  <td>Impact social & finance responsable</td>
+  <td>RSE & Impact</td>
   <td style="text-align:center">1</td>
   <td>23 juillet</td>
   <td style="text-align:center">listenly</td>
@@ -256,7 +276,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/in-the-air-podcast.html" target="_blank">In the Air</a></td>
-  <td>Santé & Bien-être</td>
+  <td>Santé & Pharma</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -264,7 +284,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/inside-banking-podcast.html" target="_blank">Inside Banking</a></td>
-  <td>Finance & Banque</td>
+  <td>Finance & Patrimoine</td>
   <td style="text-align:center">1</td>
   <td>13 juillet</td>
   <td style="text-align:center">listenly</td>
@@ -280,7 +300,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/j-aime-quand-vous-souriez-podcast.html" target="_blank">J'aime quand vous souriez</a></td>
-  <td>Entrepreneuriat & Création</td>
+  <td>Business & Entrepreneuriat</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -288,7 +308,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/jamais-dit-podcast.html" target="_blank">JAMAIS DIT ! le podcast d'Isabelle Farrugia</a></td>
-  <td>Société & Personnalités</td>
+  <td>Société & Culture</td>
   <td style="text-align:center">1</td>
   <td>23 juillet</td>
   <td style="text-align:center">listenly</td>
@@ -296,7 +316,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/just-focus-podcast.html" target="_blank">Just Focus</a></td>
-  <td>FINANCE & INVESTISSEMENT</td>
+  <td>Finance & Patrimoine</td>
   <td style="text-align:center">2</td>
   <td>23 juillet</td>
   <td style="text-align:center">listenly</td>
@@ -312,7 +332,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/l-impact-podcast.html" target="_blank">L'Impact</a></td>
-  <td>Marketing</td>
+  <td>Marketing & Communication</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -320,7 +340,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/le-siège-podcast.html" target="_blank">LE SIÈGE</a></td>
-  <td>Géopolitique & Affaires</td>
+  <td>Business & Entrepreneuriat</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -328,7 +348,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/la-savane-podcast-podcast.html" target="_blank">La Savane</a></td>
-  <td>Business</td>
+  <td>Business & Entrepreneuriat</td>
   <td style="text-align:center">1</td>
   <td>22 juillet</td>
   <td style="text-align:center">listenly</td>
@@ -336,7 +356,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/le-fil-podcast.html" target="_blank">Le FIL - Le podcast marketing des experts</a></td>
-  <td>Marketing</td>
+  <td>Marketing & Communication</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -344,7 +364,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/leaders-on-purpose-podcast.html" target="_blank">Leaders On Purpose with Manal Bernoussi</a></td>
-  <td>Développement personnel & Leadership</td>
+  <td>RH & Management</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -352,7 +372,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/leadership-amp-inspiration-podcast.html" target="_blank">Leadership & Inspiration</a></td>
-  <td>Immobilier & Leadership</td>
+  <td>Immobilier</td>
   <td style="text-align:center">1</td>
   <td>2 juillet <span class="warn">+14j sans épisode</span></td>
   <td style="text-align:center">listenly</td>
@@ -360,7 +380,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/les-potin-de-la-rh-podcast.html" target="_blank">Les potins de la RH</a></td>
-  <td>Ressources humaines</td>
+  <td>RH & Management</td>
   <td style="text-align:center">1</td>
   <td>10 juillet</td>
   <td style="text-align:center">listenly</td>
@@ -368,7 +388,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/legalite-podcast-podcast.html" target="_blank">Légalités</a></td>
-  <td>Droit</td>
+  <td>Droit & Juridique</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -384,7 +404,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/on-n-a-jamais-fait-comme-ca-le-podcast-rh-par-pour-podcast.html" target="_blank">On n'a jamais fait comme ça — Le podcast RH par & pour les DRH</a></td>
-  <td>Ressources Humaines</td>
+  <td>RH & Management</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -392,7 +412,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/parlons-servicenow-podcast.html" target="_blank">Parlons ServiceNow</a></td>
-  <td>Technology / Business</td>
+  <td>Tech & Cybersécurité</td>
   <td style="text-align:center">1</td>
   <td>13 juillet</td>
   <td style="text-align:center">listenly</td>
@@ -408,7 +428,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/podcast-de-liberall-podcast.html" target="_blank">Podcast de Liberall</a></td>
-  <td>Business</td>
+  <td>Business & Entrepreneuriat</td>
   <td style="text-align:center">1</td>
   <td>23 juillet</td>
   <td style="text-align:center">listenly</td>
@@ -416,7 +436,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/Pro-Pulse-podcast.html" target="_blank">ProPulse</a></td>
-  <td>Formation professionnelle</td>
+  <td>RH & Management</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -424,7 +444,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/purple-voice-podcast.html" target="_blank">Purple Voice</a></td>
-  <td>Cybersécurité</td>
+  <td>Tech & Cybersécurité</td>
   <td style="text-align:center">1</td>
   <td>22 juillet</td>
   <td style="text-align:center">listenly</td>
@@ -432,7 +452,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/rare-a-ecoute-podcast-podcast.html" target="_blank">RARE à l'écoute</a></td>
-  <td>Santé & Médecine</td>
+  <td>Santé & Pharma</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -448,7 +468,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/repenser-la-valeur-podcast.html" target="_blank">Repenser la valeur</a></td>
-  <td>Finance & Gestion d'actifs</td>
+  <td>Finance & Patrimoine</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -456,7 +476,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/sans-detour-temoignages-d-entrepreneurs-podcast.html" target="_blank">Sans détour : témoignages d'entrepreneurs</a></td>
-  <td>Général</td>
+  <td>Business & Entrepreneuriat</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -464,7 +484,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/systole-reinventons-la-sante-de-demain-podcast.html" target="_blank">Systole – Réinventons la santé de demain</a></td>
-  <td>Général</td>
+  <td>Business & Entrepreneuriat</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -472,7 +492,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/t-as-deux-minutes-pour-innover-podcast.html" target="_blank">T'as deux minutes ? (pour innover)</a></td>
-  <td>Innovation & Financement B2B</td>
+  <td>Finance & Patrimoine</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -480,7 +500,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/the-collective-advantage-podcast.html" target="_blank">The Collective Advantage</a></td>
-  <td>Finance & Entrepreneuriat</td>
+  <td>Finance & Patrimoine</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -488,7 +508,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/the-untold-side-description-du-podcast-podcast.html" target="_blank">The Untold Side</a></td>
-  <td>Business & Transformation IT</td>
+  <td>RH & Management</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -496,7 +516,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/time-to-secure-podcast.html" target="_blank">Time to Secure</a></td>
-  <td>Risk Management & Conformité B2B</td>
+  <td>Finance & Patrimoine</td>
   <td style="text-align:center">4</td>
   <td>7 juillet <span class="warn">+14j sans épisode</span></td>
   <td style="text-align:center">listenly</td>
@@ -512,7 +532,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/transition-podcast-podcast.html" target="_blank">Transitions</a></td>
-  <td>Finance & Investissement</td>
+  <td>Finance & Patrimoine</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -520,7 +540,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/ostrum-asset-managment-podcast.html" target="_blank">Transitions</a></td>
-  <td>Finance & Investissement</td>
+  <td>Finance & Patrimoine</td>
   <td style="text-align:center">1</td>
   <td>23 juillet</td>
   <td style="text-align:center">listenly</td>
@@ -536,7 +556,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/wintalk-podcast-podcast.html" target="_blank">Wintalk - Le podcast IT au cœur du business</a></td>
-  <td>Technologie & Business</td>
+  <td>Tech & Cybersécurité</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -544,7 +564,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/Zélie-podcast.html" target="_blank">Zélie - Le Podcast // Femmes inspirées</a></td>
-  <td>Société & Foi</td>
+  <td>Société & Culture</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -552,7 +572,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/a-bon-entendeur-podcast.html" target="_blank">À Bon Entendeur</a></td>
-  <td>RSE & Leadership</td>
+  <td>RSE & Impact</td>
   <td style="text-align:center">2</td>
   <td>14 juillet</td>
   <td style="text-align:center">listenly</td>
@@ -560,7 +580,7 @@ li{margin-bottom:4px}
 </tr>
 <tr>
   <td><a href="https://listenly.fr/podcast-btb/contre-jour-podcast.html" target="_blank">À Contre-Jour</a></td>
-  <td>Société & Identité</td>
+  <td>Société & Culture</td>
   <td style="text-align:center">0</td>
   <td>—</td>
   <td style="text-align:center">listenly</td>
@@ -568,24 +588,37 @@ li{margin-bottom:4px}
 </tr>
 </table>
 </div>
+</div>
 <div>
-<h2>Répartition par catégorie</h2>
+<h2 style="margin-top:0">Répartition par catégorie</h2>
+<div class="panel">
 <table>
 <tr><th>Catégorie</th><th>Podcasts</th></tr>
-<tr><td>Immobilier</td><td style='text-align:center'>7</td></tr><tr><td>Business</td><td style='text-align:center'>3</td></tr><tr><td>Général</td><td style='text-align:center'>2</td></tr><tr><td>Finance & Patrimoine</td><td style='text-align:center'>2</td></tr><tr><td>Santé & Pharma</td><td style='text-align:center'>2</td></tr><tr><td>Marketing</td><td style='text-align:center'>2</td></tr><tr><td>Finance & Investissement</td><td style='text-align:center'>2</td></tr><tr><td>Business & Transformation IT</td><td style='text-align:center'>1</td></tr><tr><td>Ressources Humaines</td><td style='text-align:center'>1</td></tr><tr><td>Innovation & Financement B2B</td><td style='text-align:center'>1</td></tr><tr><td>Risk Management & Conformité B2B</td><td style='text-align:center'>1</td></tr><tr><td>Immobilier & Leadership</td><td style='text-align:center'>1</td></tr><tr><td>RSE & Leadership</td><td style='text-align:center'>1</td></tr><tr><td>Technology / Business</td><td style='text-align:center'>1</td></tr><tr><td>Finance & Banque</td><td style='text-align:center'>1</td></tr><tr><td>GESTION DE PATRIMOINE</td><td style='text-align:center'>1</td></tr><tr><td>FINANCE & INVESTISSEMENT</td><td style='text-align:center'>1</td></tr><tr><td>RSE & DÉVELOPPEMENT DURABLE</td><td style='text-align:center'>1</td></tr><tr><td>BUSINESS</td><td style='text-align:center'>1</td></tr><tr><td>Ressources humaines</td><td style='text-align:center'>1</td></tr><tr><td>Santé & Médecine</td><td style='text-align:center'>1</td></tr><tr><td>Société & Identité</td><td style='text-align:center'>1</td></tr><tr><td>E-Commerce & Retail</td><td style='text-align:center'>1</td></tr><tr><td>Formation professionnelle</td><td style='text-align:center'>1</td></tr><tr><td>Santé & Société</td><td style='text-align:center'>1</td></tr><tr><td>Société & Foi</td><td style='text-align:center'>1</td></tr><tr><td>Finance & Entrepreneuriat</td><td style='text-align:center'>1</td></tr><tr><td>Intelligence Artificielle & Data</td><td style='text-align:center'>1</td></tr><tr><td>Construction & Infrastructure</td><td style='text-align:center'>1</td></tr><tr><td>Développement personnel & Leadership</td><td style='text-align:center'>1</td></tr><tr><td>Santé & Bien-être</td><td style='text-align:center'>1</td></tr><tr><td>Finance & Gestion d'actifs</td><td style='text-align:center'>1</td></tr><tr><td>Immobilier & Habitat</td><td style='text-align:center'>1</td></tr><tr><td>Droit & Business juridique</td><td style='text-align:center'>1</td></tr><tr><td>Technologie & Business</td><td style='text-align:center'>1</td></tr><tr><td>Expertise comptable & Management</td><td style='text-align:center'>1</td></tr><tr><td>Impact social & finance responsable</td><td style='text-align:center'>1</td></tr><tr><td>Société & Personnalités</td><td style='text-align:center'>1</td></tr><tr><td>Cybersécurité</td><td style='text-align:center'>1</td></tr><tr><td>Finance & Conformité</td><td style='text-align:center'>1</td></tr><tr><td>Recherche & Management</td><td style='text-align:center'>1</td></tr><tr><td>Droit</td><td style='text-align:center'>1</td></tr><tr><td>Management & RH</td><td style='text-align:center'>1</td></tr><tr><td>Géopolitique & Affaires</td><td style='text-align:center'>1</td></tr><tr><td>Entrepreneuriat & Création</td><td style='text-align:center'>1</td></tr>
+<tr><td>Finance & Patrimoine</td><td style='text-align:center'>13</td></tr><tr><td>Business & Entrepreneuriat</td><td style='text-align:center'>10</td></tr><tr><td>Immobilier</td><td style='text-align:center'>9</td></tr><tr><td>RH & Management</td><td style='text-align:center'>7</td></tr><tr><td>Santé & Pharma</td><td style='text-align:center'>5</td></tr><tr><td>Tech & Cybersécurité</td><td style='text-align:center'>4</td></tr><tr><td>RSE & Impact</td><td style='text-align:center'>3</td></tr><tr><td>Société & Culture</td><td style='text-align:center'>3</td></tr><tr><td>Marketing & Communication</td><td style='text-align:center'>2</td></tr><tr><td>Droit & Juridique</td><td style='text-align:center'>2</td></tr>
 </table>
+</div>
 
 <h2>Anomalies CTA / liens</h2>
-<ul><li><b>le-fil</b> — listenly_url suspect : https://feed.ausha.co/bld1aJF6jkd0</li><li><b>repenser-la-valeur</b> — listenly_url suspect : https://feed.ausha.co/y8JGYtlGjWrN</li><li><b>ogd6etwxpdgr</b> — listenly_url suspect : https://i.postimg.cc/BnvfNfHL/5x1c-Oneyzd-LFjxjq-FIi2q-I0X0V</li><li><b>de-la-cave-au-grenier</b> — listenly_url suspect : https://i.postimg.cc/BnvfNfHL/5x1c-Oneyzd-LFjxjq-FIi2q-I0X0V</li><li><b>contemporary-challenges</b> — listenly_url suspect : https://feed.ausha.co/omALGhA1ZrP3</li></ul>
+<div class="panel"><ul class="clean"><li><b>le-fil</b> — listenly_url suspect : https://feed.ausha.co/bld1aJF6jkd0</li><li><b>repenser-la-valeur</b> — listenly_url suspect : https://feed.ausha.co/y8JGYtlGjWrN</li><li><b>ogd6etwxpdgr</b> — listenly_url suspect : https://i.postimg.cc/BnvfNfHL/5x1c-Oneyzd-LFjxjq-FIi2q-I0X0V</li><li><b>de-la-cave-au-grenier</b> — listenly_url suspect : https://i.postimg.cc/BnvfNfHL/5x1c-Oneyzd-LFjxjq-FIi2q-I0X0V</li><li><b>contemporary-challenges</b> — listenly_url suspect : https://feed.ausha.co/omALGhA1ZrP3</li></ul></div>
 
 <h2>Doublons potentiels</h2>
-<ul><li><b>transitions</b> : transition-podcast, ostrum-asset-managment</li><li><b>de la cave au grenier</b> : ogd6etwxpdgr, de-la-cave-au-grenier</li></ul>
+<div class="panel"><ul class="clean"><li><b>transitions</b> : transition-podcast, ostrum-asset-managment</li><li><b>de la cave au grenier</b> : ogd6etwxpdgr, de-la-cave-au-grenier</li></ul></div>
 </div>
 </div>
 
 <h2>Production hebdomadaire (8 dernières semaines)</h2>
-<div class="bars"><div class="bar-col"><div class="bar" style="height:6px" title="0 fiche(s)"></div><span>01/06</span><b>0</b></div><div class="bar-col"><div class="bar" style="height:6px" title="0 fiche(s)"></div><span>08/06</span><b>0</b></div><div class="bar-col"><div class="bar" style="height:6px" title="0 fiche(s)"></div><span>15/06</span><b>0</b></div><div class="bar-col"><div class="bar" style="height:6px" title="0 fiche(s)"></div><span>22/06</span><b>0</b></div><div class="bar-col"><div class="bar" style="height:6px" title="1 fiche(s)"></div><span>29/06</span><b>1</b></div><div class="bar-col"><div class="bar" style="height:26px" title="6 fiche(s)"></div><span>06/07</span><b>6</b></div><div class="bar-col"><div class="bar" style="height:17px" title="4 fiche(s)"></div><span>13/07</span><b>4</b></div><div class="bar-col"><div class="bar" style="height:70px" title="16 fiche(s)"></div><span>20/07</span><b>16</b></div></div>
+<div class="panel"><div class="bars"><div class="bar-col"><div class="bar" style="height:6px" title="0 fiche(s)"></div><span>01/06</span><b>0</b></div><div class="bar-col"><div class="bar" style="height:6px" title="0 fiche(s)"></div><span>08/06</span><b>0</b></div><div class="bar-col"><div class="bar" style="height:6px" title="0 fiche(s)"></div><span>15/06</span><b>0</b></div><div class="bar-col"><div class="bar" style="height:6px" title="0 fiche(s)"></div><span>22/06</span><b>0</b></div><div class="bar-col"><div class="bar" style="height:6px" title="1 fiche(s)"></div><span>29/06</span><b>1</b></div><div class="bar-col"><div class="bar" style="height:26px" title="6 fiche(s)"></div><span>06/07</span><b>6</b></div><div class="bar-col"><div class="bar" style="height:17px" title="4 fiche(s)"></div><span>13/07</span><b>4</b></div><div class="bar-col"><div class="bar" style="height:70px" title="16 fiche(s)"></div><span>20/07</span><b>16</b></div></div></div>
 
 <p class="note">Ce tableau de bord n'affiche que les données de production internes au moteur. L'impact SEO réel (impressions, clics, citations IA) se mesure uniquement dans Google Search Console et vos analytics — le lien "Inspecter" ouvre l'outil d'inspection d'URL pour chaque fiche.</p>
+
+<script>
+function filterTable(){
+  var q = document.getElementById('q').value.toLowerCase();
+  var rows = document.querySelectorAll('#prodTable tr');
+  for(var i=1;i<rows.length;i++){
+    rows[i].style.display = rows[i].textContent.toLowerCase().indexOf(q) !== -1 ? '' : 'none';
+  }
+}
+</script>
 </body>
 </html>
