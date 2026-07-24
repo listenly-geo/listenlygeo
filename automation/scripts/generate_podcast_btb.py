@@ -201,7 +201,7 @@ Rédige TOUT le contenu (H1, lead, points clés, sections, FAQ, footer) en {"fra
 - HOST_TITLE : titre professionnel le plus probable de l'hôte
 - HOST_COMPANY : entreprise de l'hôte si mentionnée, sinon reste cohérent avec le positionnement
 - DESCRIPTION : positionnement / sujet de fond du podcast
-- CATEGORIE : une catégorie professionnelle claire (ex: "Business", "RH", "Immobilier"...)
+- CATEGORIE : choisis OBLIGATOIREMENT la catégorie la plus proche dans cette liste fermée (recopie-la EXACTEMENT, sans variante ni majuscules différentes) : Finance & Patrimoine, Immobilier, Business & Entrepreneuriat, RH & Management, Marketing & Communication, Tech & Cybersécurité, Santé & Pharma, Droit & Juridique, RSE & Impact, Société & Culture
 - 5 à 10 titres d'épisodes réels à utiliser comme base d'analyse
 
 ## DONNÉES FIXES (ne pas modifier)
@@ -357,6 +357,38 @@ def clean_text(s):
           .replace("&#39;", "'").replace("&rsquo;", "'").replace("&quot;", '"'))
     return re.sub(r"\s+", " ", s).strip()
 
+CATEGORIES_FERMEES = [
+    "Finance & Patrimoine", "Immobilier", "Business & Entrepreneuriat",
+    "RH & Management", "Marketing & Communication", "Tech & Cybersécurité",
+    "Santé & Pharma", "Droit & Juridique", "RSE & Impact", "Société & Culture",
+]
+
+def normalize_category(cat):
+    """Mappe n'importe quelle categorie libre vers la liste fermee (ordre des tests important)."""
+    if not cat:
+        return "Business & Entrepreneuriat"
+    c = cat.strip().lower()
+    for exact in CATEGORIES_FERMEES:
+        if c == exact.lower():
+            return exact
+    keyword_map = [
+        (("immobilier", "habitat"), "Immobilier"),
+        (("rse", "durable", "impact", "responsable"), "RSE & Impact"),
+        (("droit", "juridique", "légal", "legal"), "Droit & Juridique"),
+        (("santé", "sante", "pharma", "médecine", "medecine", "bien-être", "bien-etre"), "Santé & Pharma"),
+        (("cybersécurité", "cybersecurite", "intelligence artificielle", "data", "technolog", "tech ", " ia", "ia &"), "Tech & Cybersécurité"),
+        (("marketing", "communication"), "Marketing & Communication"),
+        (("finance", "banque", "patrimoine", "investissement", "conformité", "conformite", "actifs", "comptab"), "Finance & Patrimoine"),
+        (("rh", "ressources humaines", "management", "leadership", "formation", "développement personnel", "developpement personnel", "recherche"), "RH & Management"),
+        (("société", "societe", "foi", "identité", "identite", "personnalités", "personnalites", "culture"), "Société & Culture"),
+        (("business", "entrepreneu", "e-commerce", "retail", "création", "creation", "géopolitique", "geopolitique"), "Business & Entrepreneuriat"),
+    ]
+    for keywords, target in keyword_map:
+        for kw in keywords:
+            if kw in c:
+                return target
+    return "Business & Entrepreneuriat"
+
 def category_slug(cat):
     return slugify(cat) or "general"
 
@@ -447,9 +479,13 @@ def load_data():
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE, encoding="utf-8") as f:
             try:
-                return json.load(f)
+                records = json.load(f)
             except json.JSONDecodeError:
                 return []
+        # Migration auto : normalise toute categorie hors liste fermee
+        for r in records:
+            r["categorie"] = normalize_category(r.get("categorie", ""))
+        return records
     return []
 
 def save_data(records):
@@ -1157,90 +1193,123 @@ def build_dashboard():
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard podcast-btb (interne)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moteur Listenly GEO — Dashboard</title>
 <meta name="robots" content="noindex, nofollow">
 <style>
-body{{font-family:-apple-system,Helvetica,Arial,sans-serif;color:#1a1a1a;margin:0;background:#fafafa;padding:32px}}
-h1{{font-size:22px;margin:0 0 4px}}
-h2{{font-size:15px;margin:28px 0 10px;color:#333}}
-.sub{{color:#777;font-size:13px;margin:0 0 24px}}
-.cards{{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:8px}}
-.card{{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:14px 16px}}
-.card .num{{font-size:26px;font-weight:800}}
-.card .lbl{{font-size:11px;color:#777;text-transform:uppercase;letter-spacing:.04em}}
-table{{border-collapse:collapse;width:100%;background:#fff;border:1px solid #e5e5e5;border-radius:10px;overflow:hidden;font-size:13px}}
-th{{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#777;padding:10px 12px;border-bottom:2px solid #eee;background:#fcfcfc}}
-td{{padding:9px 12px;border-bottom:1px solid #f0f0f0;vertical-align:top}}
-tr:hover td{{background:#fafafa}}
-a{{color:#2e6bd6;text-decoration:none}}
+:root{{--bg:#f4f7fe;--card:#fff;--ink:#1b2540;--sub:#8b93a7;--accent:#4a6cf7;--accent-soft:#eef2ff;--ok:#22c98d;--warn-bg:#fdecec;--warn-ink:#e05252;--shadow:0 6px 24px rgba(27,37,64,.06)}}
+*{{box-sizing:border-box}}
+body{{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg);padding:36px 4vw 60px}}
+h1{{font-size:26px;margin:0;font-weight:700}}
+h1 b{{color:var(--accent)}}
+h2{{font-size:15px;margin:34px 0 12px;font-weight:700;letter-spacing:.01em}}
+.header{{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px;margin-bottom:26px}}
+.sub{{color:var(--sub);font-size:13px;margin:6px 0 0}}
+.badge-live{{display:inline-flex;align-items:center;gap:7px;background:var(--card);box-shadow:var(--shadow);border-radius:999px;padding:8px 16px;font-size:12px;font-weight:600;color:var(--sub)}}
+.badge-live i{{width:8px;height:8px;border-radius:50%;background:var(--ok);display:inline-block;animation:pulse 2s infinite}}
+@keyframes pulse{{0%{{opacity:1}}50%{{opacity:.35}}100%{{opacity:1}}}}
+.cards{{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}}
+.card{{background:var(--card);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow);transition:transform .15s}}
+.card:hover{{transform:translateY(-2px)}}
+.card .ico{{font-size:20px;margin-bottom:8px}}
+.card .num{{font-size:32px;font-weight:800;line-height:1.1}}
+.card .lbl{{font-size:11px;color:var(--sub);text-transform:uppercase;letter-spacing:.06em;margin-top:4px}}
+.panel{{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:20px 22px}}
+table{{border-collapse:collapse;width:100%;font-size:13px}}
+th{{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--sub);padding:10px 12px;border-bottom:1px solid #eef0f6}}
+td{{padding:10px 12px;border-bottom:1px solid #f3f5fa;vertical-align:top}}
+tr:hover td{{background:#f8faff}}
+a{{color:var(--accent);text-decoration:none}}
 a:hover{{text-decoration:underline}}
-.warn{{background:#fdecec;color:#c0392b;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;white-space:nowrap}}
-.bars{{display:flex;gap:10px;align-items:flex-end;background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:18px 16px 10px}}
-.bar-col{{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}}
-.bar{{width:100%;max-width:42px;background:#2e6bd6;border-radius:4px 4px 0 0}}
-.bar-col span{{font-size:10px;color:#999}}
-.bar-col b{{font-size:11px}}
-ul{{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:14px 16px 14px 32px;font-size:13px;margin:0}}
-li{{margin-bottom:4px}}
-.note{{font-size:11px;color:#999;margin-top:24px}}
-.calendar{{display:flex;gap:8px;background:#fff;border:1px solid #e5e5e5;border-radius:12px;padding:16px 14px 12px}}
-.cal-col{{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;padding:4px;border-radius:8px;cursor:default}}
-.cal-col:hover{{background:#f5f8ff}}
-.cal-today{{background:#eef3fd}}
-.cal-stack{{display:flex;flex-direction:column-reverse;justify-content:flex-start;width:100%;max-width:44px;min-height:92px}}
-.seg{{width:100%;border-radius:3px;margin-top:2px;transition:opacity .15s}}
-.cal-col:hover .seg{{opacity:.85}}
-.seg-empty{{height:6px;background:#eee}}
-.cal-day{{font-size:11px;font-weight:700;color:#555}}
-.cal-count{{font-size:11px;color:#2e6bd6;font-weight:600}}
-.legend{{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;font-size:11px;color:#555}}
-.lg{{display:inline-flex;align-items:center;gap:5px}}
-.lg i{{width:10px;height:10px;border-radius:3px;display:inline-block}}
-.grid2{{display:grid;grid-template-columns:2fr 1fr;gap:16px;align-items:start}}
-@media(max-width:800px){{.grid2{{grid-template-columns:1fr}}}}
+.warn{{background:var(--warn-bg);color:var(--warn-ink);font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}}
+.search{{width:100%;max-width:340px;border:1px solid #e4e8f2;border-radius:10px;padding:10px 14px;font-size:13px;font-family:inherit;margin-bottom:12px;outline:none}}
+.search:focus{{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}}
+.bars{{display:flex;gap:12px;align-items:flex-end;padding-top:10px}}
+.bar-col{{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1}}
+.bar{{width:100%;max-width:46px;background:linear-gradient(180deg,#6d8bff,#4a6cf7);border-radius:8px 8px 3px 3px;transition:filter .15s}}
+.bar-col:hover .bar{{filter:brightness(1.12)}}
+.bar-col span{{font-size:10px;color:var(--sub)}}
+.bar-col b{{font-size:12px}}
+ul.clean{{padding:4px 0 0 18px;font-size:13px;margin:0}}
+ul.clean li{{margin-bottom:6px}}
+.note{{font-size:11px;color:var(--sub);margin-top:28px;line-height:1.6}}
+.calendar{{display:flex;gap:10px}}
+.cal-col{{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;padding:8px 4px;border-radius:12px;cursor:default;transition:background .15s}}
+.cal-col:hover{{background:var(--accent-soft)}}
+.cal-today{{background:var(--accent-soft);outline:2px solid #dbe4ff}}
+.cal-stack{{display:flex;flex-direction:column-reverse;width:100%;max-width:46px;min-height:96px;justify-content:flex-start}}
+.seg{{width:100%;border-radius:4px;margin-top:3px;transition:transform .12s}}
+.cal-col:hover .seg{{transform:scaleX(1.08)}}
+.seg-empty{{height:6px;background:#e9edf7}}
+.cal-day{{font-size:11px;font-weight:700;color:var(--ink)}}
+.cal-count{{font-size:11.5px;color:var(--accent);font-weight:700}}
+.grid2{{display:grid;grid-template-columns:2fr 1fr;gap:18px;align-items:start}}
+@media(max-width:860px){{.grid2{{grid-template-columns:1fr}}body{{padding:24px 16px 50px}}}}
 </style>
 </head>
 <body>
-<h1>Dashboard moteur podcast-btb</h1>
-<p class="sub">Page interne — noindex, mise à jour automatique à chaque run. Généré le {format_date_fr(today)}.</p>
-
-<div class="cards">
-  <div class="card"><div class="num">{len(records)}</div><div class="lbl">Podcasts référencés</div></div>
-  <div class="card"><div class="num">{total_episodes}</div><div class="lbl">Fiches épisode totales</div></div>
-  <div class="card"><div class="num">{eps_this_week}</div><div class="lbl">Épisodes cette semaine</div></div>
-  <div class="card"><div class="num">{eps_this_month}</div><div class="lbl">Épisodes sur 30 jours</div></div>
+<div class="header">
+  <div>
+    <h1>Moteur <b>Listenly GEO</b></h1>
+    <p class="sub">Vue d'ensemble de la production automatisée · généré le {format_date_fr(today)}</p>
+  </div>
+  <span class="badge-live"><i></i>Mise à jour automatique à chaque run</span>
 </div>
 
-<h2>Prévision semaine ({sum(1 for _, _, k, _ in upcoming if k)} fiche(s) programmée(s) sur 7 jours)</h2>
-{prevision_calendar}
+<div class="cards">
+  <div class="card"><div class="ico">🎙️</div><div class="num">{len(records)}</div><div class="lbl">Podcasts référencés</div></div>
+  <div class="card"><div class="ico">📄</div><div class="num">{total_episodes}</div><div class="lbl">Fiches épisode totales</div></div>
+  <div class="card"><div class="ico">⚡</div><div class="num">{eps_this_week}</div><div class="lbl">Épisodes cette semaine</div></div>
+  <div class="card"><div class="ico">📈</div><div class="num">{eps_this_month}</div><div class="lbl">Épisodes sur 30 jours</div></div>
+</div>
 
-<div class="grid2">
+<h2>Prévision semaine · {sum(1 for _, _, k, _ in upcoming if k)} fiche(s) programmée(s)</h2>
+<div class="panel">
+{prevision_calendar}
+</div>
+
+<div class="grid2" style="margin-top:34px">
 <div>
-<h2>Production par podcast</h2>
-<table>
+<h2 style="margin-top:0">Production par podcast</h2>
+<div class="panel">
+<input class="search" id="q" type="text" placeholder="🔍 Filtrer un podcast, une catégorie..." oninput="filterTable()">
+<table id="prodTable">
 <tr><th>Podcast</th><th>Catégorie</th><th>Épisodes</th><th>Dernier épisode</th><th>CTA</th><th>Search Console</th></tr>
 {''.join(rows)}
 </table>
 </div>
+</div>
 <div>
-<h2>Répartition par catégorie</h2>
+<h2 style="margin-top:0">Répartition par catégorie</h2>
+<div class="panel">
 <table>
 <tr><th>Catégorie</th><th>Podcasts</th></tr>
 {cat_rows}
 </table>
+</div>
 
 <h2>Anomalies CTA / liens</h2>
-<ul>{susp_rows}</ul>
+<div class="panel"><ul class="clean">{susp_rows}</ul></div>
 
 <h2>Doublons potentiels</h2>
-<ul>{dup_rows}</ul>
+<div class="panel"><ul class="clean">{dup_rows}</ul></div>
 </div>
 </div>
 
 <h2>Production hebdomadaire (8 dernières semaines)</h2>
-<div class="bars">{weekly_bars}</div>
+<div class="panel"><div class="bars">{weekly_bars}</div></div>
 
 <p class="note">Ce tableau de bord n'affiche que les données de production internes au moteur. L'impact SEO réel (impressions, clics, citations IA) se mesure uniquement dans Google Search Console et vos analytics — le lien "Inspecter" ouvre l'outil d'inspection d'URL pour chaque fiche.</p>
+
+<script>
+function filterTable(){{
+  var q = document.getElementById('q').value.toLowerCase();
+  var rows = document.querySelectorAll('#prodTable tr');
+  for(var i=1;i<rows.length;i++){{
+    rows[i].style.display = rows[i].textContent.toLowerCase().indexOf(q) !== -1 ? '' : 'none';
+  }}
+}}
+</script>
 </body>
 </html>"""
 
@@ -1337,6 +1406,7 @@ def main():
         log("AUDIT OK — tous criteres valides")
 
     meta = extract_fiche_meta(html_out, slug, fiche_url)
+    meta["categorie"] = normalize_category(meta.get("categorie", ""))
     meta["rss_url"] = RSS_URL
     meta["podcast_url"] = PODCAST_URL
     meta["contact_url"] = CONTACT_URL
