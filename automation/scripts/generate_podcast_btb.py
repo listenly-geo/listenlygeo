@@ -1140,11 +1140,9 @@ def build_dashboard():
   <div class="cal-day">{DAYS_ABBR[d.weekday()]} {d.day}</div>
   <div class="cal-count">{count_label}</div>
 </div>""")
-    legend = "".join(f'<span class="lg"><i style="background:{col}"></i>{cat}</span>' for cat, col in cat_color.items())
     orphan_note = f'<p class="note" style="margin-top:6px">⚠ {orphans_count} workflow(s) orphelin(s) programmé(s) cette semaine (échoueront sans produire).</p>' if orphans_count else ""
     prevision_calendar = f"""
 <div class="calendar">{''.join(cal_cols)}</div>
-<div class="legend">{legend}</div>
 {orphan_note}"""
 
     weekly_bars = "".join(
