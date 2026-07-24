@@ -1160,18 +1160,19 @@ def build_dashboard():
         cats = by_day[d]
         total = sum(cats.values())
         segments = ""
-        tooltip_parts = []
+        tip_lines = []
         if total:
             for cat, n in sorted(cats.items()):
                 pct = round(100 * n / total)
                 seg_h = max(8, int(90 * n / max_day_total))
                 segments += f'<div class="seg" style="height:{seg_h}px;background:{cat_color[cat]}"></div>'
-                tooltip_parts.append(f"{cat} : {n} ({pct}%)")
-        tooltip = " · ".join(tooltip_parts) if tooltip_parts else "Aucun épisode prévu"
+                tip_lines.append(f'<div class="tip-row"><i style="background:{cat_color[cat]}"></i><span>{cat}</span><b>{n} · {pct}%</b></div>')
+        tip_html = "".join(tip_lines) if tip_lines else '<div class="tip-row"><span>Aucun épisode prévu</span></div>'
         count_label = f"+{total} épisode{'s' if total > 1 else ''}" if total else "—"
         today_cls = " cal-today" if d == datetime.date.today() else ""
         cal_cols.append(f"""
-<div class="cal-col{today_cls}" title="{tooltip}">
+<div class="cal-col{today_cls}">
+  <div class="tooltip">{tip_html}</div>
   <div class="cal-stack">{segments or '<div class="seg seg-empty"></div>'}</div>
   <div class="cal-day">{DAYS_ABBR[d.weekday()]} {d.day}</div>
   <div class="cal-count">{count_label}</div>
@@ -1234,8 +1235,15 @@ ul.clean{{padding:4px 0 0 18px;font-size:13px;margin:0}}
 ul.clean li{{margin-bottom:6px}}
 .note{{font-size:11px;color:var(--sub);margin-top:28px;line-height:1.6}}
 .calendar{{display:flex;gap:10px}}
-.cal-col{{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;padding:8px 4px;border-radius:12px;cursor:default;transition:background .15s}}
+.cal-col{{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;padding:8px 4px;border-radius:12px;cursor:default;transition:background .15s;position:relative}}
 .cal-col:hover{{background:var(--accent-soft)}}
+.tooltip{{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(4px);background:#1b2540;color:#fff;border-radius:10px;padding:10px 12px;font-size:11.5px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s,transform .15s;z-index:10;box-shadow:0 8px 24px rgba(27,37,64,.25)}}
+.tooltip::after{{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#1b2540}}
+.cal-col:hover .tooltip{{opacity:1;transform:translateX(-50%) translateY(0)}}
+.tip-row{{display:flex;align-items:center;gap:7px;margin:3px 0}}
+.tip-row i{{width:9px;height:9px;border-radius:3px;flex-shrink:0}}
+.tip-row span{{flex:1}}
+.tip-row b{{margin-left:10px;color:#aab6ff}}
 .cal-today{{background:var(--accent-soft);outline:2px solid #dbe4ff}}
 .cal-stack{{display:flex;flex-direction:column-reverse;width:100%;max-width:46px;min-height:96px;justify-content:flex-start}}
 .seg{{width:100%;border-radius:4px;margin-top:3px;transition:transform .12s}}
