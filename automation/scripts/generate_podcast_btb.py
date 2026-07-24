@@ -1124,7 +1124,8 @@ def build_dashboard():
         stale = ep["last"] is not None and (today - ep["last"]).days > 14
         stale_badge = ' <span class="warn">+14j sans épisode</span>' if stale else ""
         cta = r.get("episode_cta_target", "listenly")
-        insp_url = "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=" + r.get("fiche_url", "")
+        ep_index_url = f"https://listenly.fr/podcast-btb/episodes/{slug}/index.html"
+        ep_link = f'<a href="{ep_index_url}" target="_blank" style="font-size:11px">Voir les épisodes →</a>' if ep["count"] else '<span style="color:#bbb;font-size:11px">—</span>'
         rows.append(f"""
 <tr>
   <td><a href="{r.get('fiche_url','')}" target="_blank">{r.get('podcast_name','')}</a></td>
@@ -1132,7 +1133,7 @@ def build_dashboard():
   <td style="text-align:center">{ep['count']}</td>
   <td>{last_label}{stale_badge}</td>
   <td style="text-align:center">{cta}</td>
-  <td><a href="{insp_url}" target="_blank" style="font-size:11px">Inspecter →</a></td>
+  <td>{ep_link}</td>
 </tr>""")
 
     DAYS_ABBR = {0: "Lun", 1: "Mar", 2: "Mer", 3: "Jeu", 4: "Ven", 5: "Sam", 6: "Dim"}
@@ -1282,7 +1283,7 @@ ul.clean li{{margin-bottom:6px}}
 <div class="panel">
 <input class="search" id="q" type="text" placeholder="🔍 Filtrer un podcast, une catégorie..." oninput="filterTable()">
 <table id="prodTable">
-<tr><th>Podcast</th><th>Catégorie</th><th>Épisodes</th><th>Dernier épisode</th><th>CTA</th><th>Search Console</th></tr>
+<tr><th>Podcast</th><th>Catégorie</th><th>Épisodes</th><th>Dernier épisode</th><th>CTA</th><th>Fiches générées</th></tr>
 {''.join(rows)}
 </table>
 </div>
@@ -1307,7 +1308,7 @@ ul.clean li{{margin-bottom:6px}}
 <h2>Production hebdomadaire (8 dernières semaines)</h2>
 <div class="panel"><div class="bars">{weekly_bars}</div></div>
 
-<p class="note">Ce tableau de bord n'affiche que les données de production internes au moteur. L'impact SEO réel (impressions, clics, citations IA) se mesure uniquement dans Google Search Console et vos analytics — le lien "Inspecter" ouvre l'outil d'inspection d'URL pour chaque fiche.</p>
+<p class="note">Ce tableau de bord n'affiche que les données de production internes au moteur. L'impact SEO réel (impressions, clics, citations IA) se mesure uniquement dans Google Search Console et vos analytics — le lien "Voir les épisodes" ouvre la liste publique des fiches épisode générées pour chaque podcast.</p>
 
 <script>
 function filterTable(){{
