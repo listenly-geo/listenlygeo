@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard podcast-btb (interne)</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+body{font-family:-apple-system,Helvetica,Arial,sans-serif;color:#1a1a1a;margin:0;background:#fafafa;padding:32px}
+h1{font-size:22px;margin:0 0 4px}
+h2{font-size:15px;margin:28px 0 10px;color:#333}
+.sub{color:#777;font-size:13px;margin:0 0 24px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:8px}
+.card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:14px 16px}
+.card .num{font-size:26px;font-weight:800}
+.card .lbl{font-size:11px;color:#777;text-transform:uppercase;letter-spacing:.04em}
+table{border-collapse:collapse;width:100%;background:#fff;border:1px solid #e5e5e5;border-radius:10px;overflow:hidden;font-size:13px}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#777;padding:10px 12px;border-bottom:2px solid #eee;background:#fcfcfc}
+td{padding:9px 12px;border-bottom:1px solid #f0f0f0;vertical-align:top}
+tr:hover td{background:#fafafa}
+a{color:#2e6bd6;text-decoration:none}
+a:hover{text-decoration:underline}
+.warn{background:#fdecec;color:#c0392b;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;white-space:nowrap}
+.bars{display:flex;gap:10px;align-items:flex-end;background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:18px 16px 10px}
+.bar-col{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
+.bar{width:100%;max-width:42px;background:#2e6bd6;border-radius:4px 4px 0 0}
+.bar-col span{font-size:10px;color:#999}
+.bar-col b{font-size:11px}
+ul{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:14px 16px 14px 32px;font-size:13px;margin:0}
+li{margin-bottom:4px}
+.note{font-size:11px;color:#999;margin-top:24px}
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:16px;align-items:start}
+@media(max-width:800px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<h1>Dashboard moteur podcast-btb</h1>
+<p class="sub">Page interne — noindex, mise à jour automatique à chaque run. Généré le 24 juillet.</p>
+
+<div class="cards">
+  <div class="card"><div class="num">58</div><div class="lbl">Podcasts référencés</div></div>
+  <div class="card"><div class="num">30</div><div class="lbl">Fiches épisode totales</div></div>
+  <div class="card"><div class="num">16</div><div class="lbl">Épisodes cette semaine</div></div>
+  <div class="card"><div class="num">27</div><div class="lbl">Épisodes sur 30 jours</div></div>
+</div>
+
+<h2>Production hebdomadaire (8 dernières semaines)</h2>
+<div class="bars"><div class="bar-col"><div class="bar" style="height:6px" title="0 fiche(s)"></div><span>01/06</span><b>0</b></div><div class="bar-col"><div class="bar" style="height:6px" title="0 fiche(s)"></div><span>08/06</span><b>0</b></div><div class="bar-col"><div class="bar" style="height:6px" title="0 fiche(s)"></div><span>15/06</span><b>0</b></div><div class="bar-col"><div class="bar" style="height:6px" title="0 fiche(s)"></div><span>22/06</span><b>0</b></div><div class="bar-col"><div class="bar" style="height:6px" title="1 fiche(s)"></div><span>29/06</span><b>1</b></div><div class="bar-col"><div class="bar" style="height:26px" title="6 fiche(s)"></div><span>06/07</span><b>6</b></div><div class="bar-col"><div class="bar" style="height:17px" title="4 fiche(s)"></div><span>13/07</span><b>4</b></div><div class="bar-col"><div class="bar" style="height:70px" title="16 fiche(s)"></div><span>20/07</span><b>16</b></div></div>
+
+<div class="grid2">
+<div>
+<h2>Production par podcast</h2>
+<table>
+<tr><th>Podcast</th><th>Catégorie</th><th>Épisodes</th><th>Dernier épisode</th><th>CTA</th><th>Search Console</th></tr>
+
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/41-m-2-podcast.html" target="_blank">41m² - Le podcast de l'investissement immobilier et des finances perso</a></td>
+  <td>Immobilier</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/41-m-2-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/argent-conte-podcast.html" target="_blank">Argent Conté</a></td>
+  <td>Finance & Patrimoine</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/argent-conte-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/Nos-epaules-et-vos-ailes-podcast.html" target="_blank">Au fil des causes</a></td>
+  <td>Santé & Société</td>
+  <td style="text-align:center">1</td>
+  <td>24 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/Nos-epaules-et-vos-ailes-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/boussole-et-trajectoires-podcast.html" target="_blank">Boussole et Trajectoires</a></td>
+  <td>Management & RH</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/boussole-et-trajectoires-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/caption-podcast-podcast.html" target="_blank">Caption Podcast - Investissement et conformité</a></td>
+  <td>Finance & Conformité</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/caption-podcast-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/ceecoya-podcast-podcast.html" target="_blank">Ceecoya Podcast | L'émission transformation</a></td>
+  <td>Expertise comptable & Management</td>
+  <td style="text-align:center">1</td>
+  <td>22 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/ceecoya-podcast-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/change-podcast-podcast.html" target="_blank">Change By Le Juriste de Demain</a></td>
+  <td>Droit & Business juridique</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/change-podcast-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/comment-ta-fait-podcast.html" target="_blank">Comment t'as fait ?® Les entrepreneurs expliquent leur business</a></td>
+  <td>Business</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">spotify</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/comment-ta-fait-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/construire-la-wallonie-podcast.html" target="_blank">Construire la Wallonie</a></td>
+  <td>Construction & Infrastructure</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/construire-la-wallonie-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/contemporary-challenges-podcast.html" target="_blank">Contemporary Challenges</a></td>
+  <td>Recherche & Management</td>
+  <td style="text-align:center">1</td>
+  <td>23 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/contemporary-challenges-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/ogd6etwxpdgr-podcast.html" target="_blank">De la cave au grenier</a></td>
+  <td>Immobilier</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/ogd6etwxpdgr-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/de-la-cave-au-grenier-podcast.html" target="_blank">De la cave au grenier</a></td>
+  <td>Immobilier & Habitat</td>
+  <td style="text-align:center">1</td>
+  <td>22 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/de-la-cave-au-grenier-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/placeco-podcast-podcast.html" target="_blank">Dinamika, le podcast de la RSE au Pays basque</a></td>
+  <td>RSE & DÉVELOPPEMENT DURABLE</td>
+  <td style="text-align:center">2</td>
+  <td>24 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/placeco-podcast-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/declic-podcast.html" target="_blank">Déclic</a></td>
+  <td>GESTION DE PATRIMOINE</td>
+  <td style="text-align:center">2</td>
+  <td>24 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/declic-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/e-commerce-nation-podcast.html" target="_blank">E-Commerce Nation</a></td>
+  <td>E-Commerce & Retail</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/e-commerce-nation-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/edge-podcast-podcast.html" target="_blank">Edge</a></td>
+  <td>BUSINESS</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/edge-podcast-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/elasticat-podcast.html" target="_blank">Elasticast</a></td>
+  <td>Intelligence Artificielle & Data</td>
+  <td style="text-align:center">1</td>
+  <td>13 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/elasticat-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/experience-immobiliere-podcast.html" target="_blank">Expériences Immobilières</a></td>
+  <td>Immobilier</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/experience-immobiliere-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/impact-info-podcast.html" target="_blank">Impact.info en français</a></td>
+  <td>Impact social & finance responsable</td>
+  <td style="text-align:center">1</td>
+  <td>23 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/impact-info-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/in-the-air-podcast.html" target="_blank">In the Air</a></td>
+  <td>Santé & Bien-être</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/in-the-air-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/inside-banking-podcast.html" target="_blank">Inside Banking</a></td>
+  <td>Finance & Banque</td>
+  <td style="text-align:center">1</td>
+  <td>13 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/inside-banking-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/intra-muros-podcast.html" target="_blank">Intra-muros | Dans le bureau des leaders de l'immobilier d'entreprise</a></td>
+  <td>Immobilier</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/intra-muros-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/j-aime-quand-vous-souriez-podcast.html" target="_blank">J'aime quand vous souriez</a></td>
+  <td>Entrepreneuriat & Création</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/j-aime-quand-vous-souriez-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/jamais-dit-podcast.html" target="_blank">JAMAIS DIT ! le podcast d'Isabelle Farrugia</a></td>
+  <td>Société & Personnalités</td>
+  <td style="text-align:center">1</td>
+  <td>23 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/jamais-dit-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/just-focus-podcast.html" target="_blank">Just Focus</a></td>
+  <td>FINANCE & INVESTISSEMENT</td>
+  <td style="text-align:center">2</td>
+  <td>23 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/just-focus-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/l-art-de-la-gestion-patrimoniale-podcast.html" target="_blank">L'Art de la Gestion Patrimoniale</a></td>
+  <td>Finance & Patrimoine</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/l-art-de-la-gestion-patrimoniale-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/l-impact-podcast.html" target="_blank">L'Impact</a></td>
+  <td>Marketing</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/l-impact-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/le-siège-podcast.html" target="_blank">LE SIÈGE</a></td>
+  <td>Géopolitique & Affaires</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/le-siège-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/la-savane-podcast-podcast.html" target="_blank">La Savane</a></td>
+  <td>Business</td>
+  <td style="text-align:center">1</td>
+  <td>22 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/la-savane-podcast-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/le-fil-podcast.html" target="_blank">Le FIL - Le podcast marketing des experts</a></td>
+  <td>Marketing</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/le-fil-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/leaders-on-purpose-podcast.html" target="_blank">Leaders On Purpose with Manal Bernoussi</a></td>
+  <td>Développement personnel & Leadership</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/leaders-on-purpose-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/leadership-amp-inspiration-podcast.html" target="_blank">Leadership & Inspiration</a></td>
+  <td>Immobilier & Leadership</td>
+  <td style="text-align:center">1</td>
+  <td>2 juillet <span class="warn">+14j sans épisode</span></td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/leadership-amp-inspiration-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/les-potin-de-la-rh-podcast.html" target="_blank">Les potins de la RH</a></td>
+  <td>Ressources humaines</td>
+  <td style="text-align:center">1</td>
+  <td>10 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/les-potin-de-la-rh-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/legalite-podcast-podcast.html" target="_blank">Légalités</a></td>
+  <td>Droit</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/legalite-podcast-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/money-tree-podcast.html" target="_blank">Money Tree, le podcast Immobilier & Investissement d'Artae</a></td>
+  <td>Immobilier</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/money-tree-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/on-n-a-jamais-fait-comme-ca-le-podcast-rh-par-pour-podcast.html" target="_blank">On n'a jamais fait comme ça — Le podcast RH par & pour les DRH</a></td>
+  <td>Ressources Humaines</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/on-n-a-jamais-fait-comme-ca-le-podcast-rh-par-pour-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/parlons-servicenow-podcast.html" target="_blank">Parlons ServiceNow</a></td>
+  <td>Technology / Business</td>
+  <td style="text-align:center">1</td>
+  <td>13 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/parlons-servicenow-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/pharma-minds-podcast.html" target="_blank">Pharma Minds</a></td>
+  <td>Santé & Pharma</td>
+  <td style="text-align:center">1</td>
+  <td>24 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/pharma-minds-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/podcast-de-liberall-podcast.html" target="_blank">Podcast de Liberall</a></td>
+  <td>Business</td>
+  <td style="text-align:center">1</td>
+  <td>23 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/podcast-de-liberall-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/Pro-Pulse-podcast.html" target="_blank">ProPulse</a></td>
+  <td>Formation professionnelle</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/Pro-Pulse-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/purple-voice-podcast.html" target="_blank">Purple Voice</a></td>
+  <td>Cybersécurité</td>
+  <td style="text-align:center">1</td>
+  <td>22 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/purple-voice-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/rare-a-ecoute-podcast-podcast.html" target="_blank">RARE à l'écoute</a></td>
+  <td>Santé & Médecine</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/rare-a-ecoute-podcast-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/real-insiders-podcast.html" target="_blank">Real Insiders : Le podcast dédié à l'immobilier Suisse d'aujourd'hui et de demain</a></td>
+  <td>Immobilier</td>
+  <td style="text-align:center">1</td>
+  <td>24 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/real-insiders-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/repenser-la-valeur-podcast.html" target="_blank">Repenser la valeur</a></td>
+  <td>Finance & Gestion d'actifs</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/repenser-la-valeur-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/sans-detour-temoignages-d-entrepreneurs-podcast.html" target="_blank">Sans détour : témoignages d'entrepreneurs</a></td>
+  <td>Général</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/sans-detour-temoignages-d-entrepreneurs-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/systole-reinventons-la-sante-de-demain-podcast.html" target="_blank">Systole – Réinventons la santé de demain</a></td>
+  <td>Général</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/systole-reinventons-la-sante-de-demain-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/t-as-deux-minutes-pour-innover-podcast.html" target="_blank">T'as deux minutes ? (pour innover)</a></td>
+  <td>Innovation & Financement B2B</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/t-as-deux-minutes-pour-innover-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/the-collective-advantage-podcast.html" target="_blank">The Collective Advantage</a></td>
+  <td>Finance & Entrepreneuriat</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/the-collective-advantage-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/the-untold-side-description-du-podcast-podcast.html" target="_blank">The Untold Side</a></td>
+  <td>Business & Transformation IT</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/the-untold-side-description-du-podcast-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/time-to-secure-podcast.html" target="_blank">Time to Secure</a></td>
+  <td>Risk Management & Conformité B2B</td>
+  <td style="text-align:center">4</td>
+  <td>7 juillet <span class="warn">+14j sans épisode</span></td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/time-to-secure-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/toit-pour-la-vie-podcast.html" target="_blank">Toit pour la vie, le podcast T.PALM</a></td>
+  <td>Immobilier</td>
+  <td style="text-align:center">1</td>
+  <td>24 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/toit-pour-la-vie-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/transition-podcast-podcast.html" target="_blank">Transitions</a></td>
+  <td>Finance & Investissement</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/transition-podcast-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/ostrum-asset-managment-podcast.html" target="_blank">Transitions</a></td>
+  <td>Finance & Investissement</td>
+  <td style="text-align:center">1</td>
+  <td>23 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/ostrum-asset-managment-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/virage-pharma-podcast.html" target="_blank">Virage Pharma</a></td>
+  <td>Santé & Pharma</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/virage-pharma-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/wintalk-podcast-podcast.html" target="_blank">Wintalk - Le podcast IT au cœur du business</a></td>
+  <td>Technologie & Business</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/wintalk-podcast-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/Zélie-podcast.html" target="_blank">Zélie - Le Podcast // Femmes inspirées</a></td>
+  <td>Société & Foi</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/Zélie-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/a-bon-entendeur-podcast.html" target="_blank">À Bon Entendeur</a></td>
+  <td>RSE & Leadership</td>
+  <td style="text-align:center">2</td>
+  <td>14 juillet</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/a-bon-entendeur-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+<tr>
+  <td><a href="https://listenly.fr/podcast-btb/contre-jour-podcast.html" target="_blank">À Contre-Jour</a></td>
+  <td>Société & Identité</td>
+  <td style="text-align:center">0</td>
+  <td>—</td>
+  <td style="text-align:center">listenly</td>
+  <td><a href="https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=https://listenly.fr/podcast-btb/contre-jour-podcast.html" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>
+</table>
+</div>
+<div>
+<h2>Répartition par catégorie</h2>
+<table>
+<tr><th>Catégorie</th><th>Podcasts</th></tr>
+<tr><td>Immobilier</td><td style='text-align:center'>7</td></tr><tr><td>Business</td><td style='text-align:center'>3</td></tr><tr><td>Général</td><td style='text-align:center'>2</td></tr><tr><td>Finance & Patrimoine</td><td style='text-align:center'>2</td></tr><tr><td>Santé & Pharma</td><td style='text-align:center'>2</td></tr><tr><td>Marketing</td><td style='text-align:center'>2</td></tr><tr><td>Finance & Investissement</td><td style='text-align:center'>2</td></tr><tr><td>Business & Transformation IT</td><td style='text-align:center'>1</td></tr><tr><td>Ressources Humaines</td><td style='text-align:center'>1</td></tr><tr><td>Innovation & Financement B2B</td><td style='text-align:center'>1</td></tr><tr><td>Risk Management & Conformité B2B</td><td style='text-align:center'>1</td></tr><tr><td>Immobilier & Leadership</td><td style='text-align:center'>1</td></tr><tr><td>RSE & Leadership</td><td style='text-align:center'>1</td></tr><tr><td>Technology / Business</td><td style='text-align:center'>1</td></tr><tr><td>Finance & Banque</td><td style='text-align:center'>1</td></tr><tr><td>GESTION DE PATRIMOINE</td><td style='text-align:center'>1</td></tr><tr><td>FINANCE & INVESTISSEMENT</td><td style='text-align:center'>1</td></tr><tr><td>RSE & DÉVELOPPEMENT DURABLE</td><td style='text-align:center'>1</td></tr><tr><td>BUSINESS</td><td style='text-align:center'>1</td></tr><tr><td>Ressources humaines</td><td style='text-align:center'>1</td></tr><tr><td>Santé & Médecine</td><td style='text-align:center'>1</td></tr><tr><td>Société & Identité</td><td style='text-align:center'>1</td></tr><tr><td>E-Commerce & Retail</td><td style='text-align:center'>1</td></tr><tr><td>Formation professionnelle</td><td style='text-align:center'>1</td></tr><tr><td>Santé & Société</td><td style='text-align:center'>1</td></tr><tr><td>Société & Foi</td><td style='text-align:center'>1</td></tr><tr><td>Finance & Entrepreneuriat</td><td style='text-align:center'>1</td></tr><tr><td>Intelligence Artificielle & Data</td><td style='text-align:center'>1</td></tr><tr><td>Construction & Infrastructure</td><td style='text-align:center'>1</td></tr><tr><td>Développement personnel & Leadership</td><td style='text-align:center'>1</td></tr><tr><td>Santé & Bien-être</td><td style='text-align:center'>1</td></tr><tr><td>Finance & Gestion d'actifs</td><td style='text-align:center'>1</td></tr><tr><td>Immobilier & Habitat</td><td style='text-align:center'>1</td></tr><tr><td>Droit & Business juridique</td><td style='text-align:center'>1</td></tr><tr><td>Technologie & Business</td><td style='text-align:center'>1</td></tr><tr><td>Expertise comptable & Management</td><td style='text-align:center'>1</td></tr><tr><td>Impact social & finance responsable</td><td style='text-align:center'>1</td></tr><tr><td>Société & Personnalités</td><td style='text-align:center'>1</td></tr><tr><td>Cybersécurité</td><td style='text-align:center'>1</td></tr><tr><td>Finance & Conformité</td><td style='text-align:center'>1</td></tr><tr><td>Recherche & Management</td><td style='text-align:center'>1</td></tr><tr><td>Droit</td><td style='text-align:center'>1</td></tr><tr><td>Management & RH</td><td style='text-align:center'>1</td></tr><tr><td>Géopolitique & Affaires</td><td style='text-align:center'>1</td></tr><tr><td>Entrepreneuriat & Création</td><td style='text-align:center'>1</td></tr>
+</table>
+
+<h2>Anomalies CTA / liens</h2>
+<ul><li><b>le-fil</b> — listenly_url suspect : https://feed.ausha.co/bld1aJF6jkd0</li><li><b>repenser-la-valeur</b> — listenly_url suspect : https://feed.ausha.co/y8JGYtlGjWrN</li><li><b>ogd6etwxpdgr</b> — listenly_url suspect : https://i.postimg.cc/BnvfNfHL/5x1c-Oneyzd-LFjxjq-FIi2q-I0X0V</li><li><b>de-la-cave-au-grenier</b> — listenly_url suspect : https://i.postimg.cc/BnvfNfHL/5x1c-Oneyzd-LFjxjq-FIi2q-I0X0V</li><li><b>contemporary-challenges</b> — listenly_url suspect : https://feed.ausha.co/omALGhA1ZrP3</li></ul>
+
+<h2>Doublons potentiels</h2>
+<ul><li><b>transitions</b> : transition-podcast, ostrum-asset-managment</li><li><b>de la cave au grenier</b> : ogd6etwxpdgr, de-la-cave-au-grenier</li></ul>
+</div>
+</div>
+
+<p class="note">Ce tableau de bord n'affiche que les données de production internes au moteur. L'impact SEO réel (impressions, clics, citations IA) se mesure uniquement dans Google Search Console et vos analytics — le lien "Inspecter" ouvre l'outil d'inspection d'URL pour chaque fiche.</p>
+</body>
+</html>
