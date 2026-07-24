@@ -43,8 +43,15 @@ ul.clean{padding:4px 0 0 18px;font-size:13px;margin:0}
 ul.clean li{margin-bottom:6px}
 .note{font-size:11px;color:var(--sub);margin-top:28px;line-height:1.6}
 .calendar{display:flex;gap:10px}
-.cal-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;padding:8px 4px;border-radius:12px;cursor:default;transition:background .15s}
+.cal-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;padding:8px 4px;border-radius:12px;cursor:default;transition:background .15s;position:relative}
 .cal-col:hover{background:var(--accent-soft)}
+.tooltip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(4px);background:#1b2540;color:#fff;border-radius:10px;padding:10px 12px;font-size:11.5px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s,transform .15s;z-index:10;box-shadow:0 8px 24px rgba(27,37,64,.25)}
+.tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#1b2540}
+.cal-col:hover .tooltip{opacity:1;transform:translateX(-50%) translateY(0)}
+.tip-row{display:flex;align-items:center;gap:7px;margin:3px 0}
+.tip-row i{width:9px;height:9px;border-radius:3px;flex-shrink:0}
+.tip-row span{flex:1}
+.tip-row b{margin-left:10px;color:#aab6ff}
 .cal-today{background:var(--accent-soft);outline:2px solid #dbe4ff}
 .cal-stack{display:flex;flex-direction:column-reverse;width:100%;max-width:46px;min-height:96px;justify-content:flex-start}
 .seg{width:100%;border-radius:4px;margin-top:3px;transition:transform .12s}
@@ -76,37 +83,44 @@ ul.clean li{margin-bottom:6px}
 <div class="panel">
 
 <div class="calendar">
-<div class="cal-col cal-today" title="Immobilier : 2 (67%) · Santé & Pharma : 1 (33%)">
+<div class="cal-col cal-today">
+  <div class="tooltip"><div class="tip-row"><i style="background:#8e44ad"></i><span>Immobilier</span><b>2 · 67%</b></div><div class="tip-row"><i style="background:#7f8c8d"></i><span>Santé & Pharma</span><b>1 · 33%</b></div></div>
   <div class="cal-stack"><div class="seg" style="height:12px;background:#8e44ad"></div><div class="seg" style="height:8px;background:#7f8c8d"></div></div>
   <div class="cal-day">Ven 24</div>
   <div class="cal-count">+3 épisodes</div>
 </div>
-<div class="cal-col" title="Aucun épisode prévu">
+<div class="cal-col">
+  <div class="tooltip"><div class="tip-row"><span>Aucun épisode prévu</span></div></div>
   <div class="cal-stack"><div class="seg seg-empty"></div></div>
   <div class="cal-day">Sam 25</div>
   <div class="cal-count">—</div>
 </div>
-<div class="cal-col" title="Aucun épisode prévu">
+<div class="cal-col">
+  <div class="tooltip"><div class="tip-row"><span>Aucun épisode prévu</span></div></div>
   <div class="cal-stack"><div class="seg seg-empty"></div></div>
   <div class="cal-day">Dim 26</div>
   <div class="cal-count">—</div>
 </div>
-<div class="cal-col" title="Business & Entrepreneuriat : 1 (7%) · Droit & Juridique : 1 (7%) · Finance & Patrimoine : 5 (36%) · Immobilier : 3 (21%) · RH & Management : 1 (7%) · Santé & Pharma : 1 (7%) · Tech & Cybersécurité : 2 (14%)">
+<div class="cal-col">
+  <div class="tooltip"><div class="tip-row"><i style="background:#2e6bd6"></i><span>Business & Entrepreneuriat</span><b>1 · 7%</b></div><div class="tip-row"><i style="background:#27ae60"></i><span>Droit & Juridique</span><b>1 · 7%</b></div><div class="tip-row"><i style="background:#e67e22"></i><span>Finance & Patrimoine</span><b>5 · 36%</b></div><div class="tip-row"><i style="background:#8e44ad"></i><span>Immobilier</span><b>3 · 21%</b></div><div class="tip-row"><i style="background:#16a085"></i><span>RH & Management</span><b>1 · 7%</b></div><div class="tip-row"><i style="background:#7f8c8d"></i><span>Santé & Pharma</span><b>1 · 7%</b></div><div class="tip-row"><i style="background:#2c3e50"></i><span>Tech & Cybersécurité</span><b>2 · 14%</b></div></div>
   <div class="cal-stack"><div class="seg" style="height:8px;background:#2e6bd6"></div><div class="seg" style="height:8px;background:#27ae60"></div><div class="seg" style="height:32px;background:#e67e22"></div><div class="seg" style="height:19px;background:#8e44ad"></div><div class="seg" style="height:8px;background:#16a085"></div><div class="seg" style="height:8px;background:#7f8c8d"></div><div class="seg" style="height:12px;background:#2c3e50"></div></div>
   <div class="cal-day">Lun 27</div>
   <div class="cal-count">+14 épisodes</div>
 </div>
-<div class="cal-col" title="Business & Entrepreneuriat : 1 (17%) · Finance & Patrimoine : 1 (17%) · Immobilier : 1 (17%) · Marketing & Communication : 1 (17%) · RSE & Impact : 1 (17%) · Tech & Cybersécurité : 1 (17%)">
+<div class="cal-col">
+  <div class="tooltip"><div class="tip-row"><i style="background:#2e6bd6"></i><span>Business & Entrepreneuriat</span><b>1 · 17%</b></div><div class="tip-row"><i style="background:#e67e22"></i><span>Finance & Patrimoine</span><b>1 · 17%</b></div><div class="tip-row"><i style="background:#8e44ad"></i><span>Immobilier</span><b>1 · 17%</b></div><div class="tip-row"><i style="background:#c0392b"></i><span>Marketing & Communication</span><b>1 · 17%</b></div><div class="tip-row"><i style="background:#d4a017"></i><span>RSE & Impact</span><b>1 · 17%</b></div><div class="tip-row"><i style="background:#2c3e50"></i><span>Tech & Cybersécurité</span><b>1 · 17%</b></div></div>
   <div class="cal-stack"><div class="seg" style="height:8px;background:#2e6bd6"></div><div class="seg" style="height:8px;background:#e67e22"></div><div class="seg" style="height:8px;background:#8e44ad"></div><div class="seg" style="height:8px;background:#c0392b"></div><div class="seg" style="height:8px;background:#d4a017"></div><div class="seg" style="height:8px;background:#2c3e50"></div></div>
   <div class="cal-day">Mar 28</div>
   <div class="cal-count">+6 épisodes</div>
 </div>
-<div class="cal-col" title="Business & Entrepreneuriat : 3 (27%) · Finance & Patrimoine : 1 (9%) · Immobilier : 1 (9%) · Marketing & Communication : 1 (9%) · RH & Management : 1 (9%) · Santé & Pharma : 1 (9%) · Société & Culture : 2 (18%) · Tech & Cybersécurité : 1 (9%)">
+<div class="cal-col">
+  <div class="tooltip"><div class="tip-row"><i style="background:#2e6bd6"></i><span>Business & Entrepreneuriat</span><b>3 · 27%</b></div><div class="tip-row"><i style="background:#e67e22"></i><span>Finance & Patrimoine</span><b>1 · 9%</b></div><div class="tip-row"><i style="background:#8e44ad"></i><span>Immobilier</span><b>1 · 9%</b></div><div class="tip-row"><i style="background:#c0392b"></i><span>Marketing & Communication</span><b>1 · 9%</b></div><div class="tip-row"><i style="background:#16a085"></i><span>RH & Management</span><b>1 · 9%</b></div><div class="tip-row"><i style="background:#7f8c8d"></i><span>Santé & Pharma</span><b>1 · 9%</b></div><div class="tip-row"><i style="background:#e84393"></i><span>Société & Culture</span><b>2 · 18%</b></div><div class="tip-row"><i style="background:#2c3e50"></i><span>Tech & Cybersécurité</span><b>1 · 9%</b></div></div>
   <div class="cal-stack"><div class="seg" style="height:19px;background:#2e6bd6"></div><div class="seg" style="height:8px;background:#e67e22"></div><div class="seg" style="height:8px;background:#8e44ad"></div><div class="seg" style="height:8px;background:#c0392b"></div><div class="seg" style="height:8px;background:#16a085"></div><div class="seg" style="height:8px;background:#7f8c8d"></div><div class="seg" style="height:12px;background:#e84393"></div><div class="seg" style="height:8px;background:#2c3e50"></div></div>
   <div class="cal-day">Mer 29</div>
   <div class="cal-count">+11 épisodes</div>
 </div>
-<div class="cal-col" title="Business & Entrepreneuriat : 2 (29%) · Finance & Patrimoine : 2 (29%) · RH & Management : 1 (14%) · RSE & Impact : 1 (14%) · Société & Culture : 1 (14%)">
+<div class="cal-col">
+  <div class="tooltip"><div class="tip-row"><i style="background:#2e6bd6"></i><span>Business & Entrepreneuriat</span><b>2 · 29%</b></div><div class="tip-row"><i style="background:#e67e22"></i><span>Finance & Patrimoine</span><b>2 · 29%</b></div><div class="tip-row"><i style="background:#16a085"></i><span>RH & Management</span><b>1 · 14%</b></div><div class="tip-row"><i style="background:#d4a017"></i><span>RSE & Impact</span><b>1 · 14%</b></div><div class="tip-row"><i style="background:#e84393"></i><span>Société & Culture</span><b>1 · 14%</b></div></div>
   <div class="cal-stack"><div class="seg" style="height:12px;background:#2e6bd6"></div><div class="seg" style="height:12px;background:#e67e22"></div><div class="seg" style="height:8px;background:#16a085"></div><div class="seg" style="height:8px;background:#d4a017"></div><div class="seg" style="height:8px;background:#e84393"></div></div>
   <div class="cal-day">Jeu 30</div>
   <div class="cal-count">+7 épisodes</div>
