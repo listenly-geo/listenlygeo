@@ -1128,10 +1128,10 @@ def build_dashboard():
         ep_link = f'<a href="{ep_index_url}" target="_blank" style="font-size:11px">Voir les épisodes →</a>' if ep["count"] else '<span style="color:#bbb;font-size:11px">—</span>'
         rows.append(f"""
 <tr>
-  <td><a href="{r.get('fiche_url','')}" target="_blank">{r.get('podcast_name','')}</a></td>
+  <td class="pod-name"><a href="{r.get('fiche_url','')}" target="_blank">{r.get('podcast_name','')}</a></td>
   <td>{r.get('categorie','')}</td>
-  <td style="text-align:center">{ep['count']}</td>
-  <td>{last_label}{stale_badge}</td>
+  <td style="text-align:center" data-sort="{ep['count']}">{ep['count']}</td>
+  <td data-sort="{ep['last'].isoformat() if ep['last'] else ''}">{last_label}{stale_badge}</td>
   <td style="text-align:center">{cta}</td>
   <td>{ep_link}</td>
 </tr>""")
@@ -1191,6 +1191,15 @@ def build_dashboard():
     susp_rows = "".join(f"<li><b>{s}</b> — {msg}</li>" for s, msg in suspicious) or "<li>Aucune anomalie détectée ✓</li>"
     dup_rows = "".join(f"<li><b>{name}</b> : {', '.join(slugs)}</li>" for name, slugs in duplicates) or "<li>Aucun doublon détecté ✓</li>"
 
+    cron_paused = os.path.exists(f"{PAGES_DIR}/.cron-paused")
+    has_upcoming = any(k for _, _, k, _ in upcoming)
+    if cron_paused:
+        air_html = '<span class="badge-air off"><i></i>OFF AIR — cron en pause</span>'
+    elif has_upcoming:
+        air_html = '<span class="badge-air on"><i></i>ON AIR — production active</span>'
+    else:
+        air_html = '<span class="badge-air off"><i></i>OFF AIR — rien de programmé</span>'
+
     html = f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -1207,8 +1216,28 @@ h1 b{{color:var(--accent)}}
 h2{{font-size:15px;margin:34px 0 12px;font-weight:700;letter-spacing:.01em}}
 .header{{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px;margin-bottom:26px}}
 .sub{{color:var(--sub);font-size:13px;margin:6px 0 0}}
-.badge-live{{display:inline-flex;align-items:center;gap:7px;background:var(--card);box-shadow:var(--shadow);border-radius:999px;padding:8px 16px;font-size:12px;font-weight:600;color:var(--sub)}}
-.badge-live i{{width:8px;height:8px;border-radius:50%;background:var(--ok);display:inline-block;animation:pulse 2s infinite}}
+.badge-air{{display:inline-flex;align-items:center;gap:8px;background:var(--card);box-shadow:var(--shadow);border-radius:999px;padding:8px 16px;font-size:12px;font-weight:700;letter-spacing:.03em}}
+.badge-air.on{{color:#e05252}}
+.badge-air.off{{color:var(--sub)}}
+.badge-air i{{width:9px;height:9px;border-radius:50%;display:inline-block}}
+.badge-air.on i{{background:#e05252;animation:pulse 1.6s infinite}}
+.badge-air.off i{{background:#c3c9d6}}
+.wave{{display:inline-flex;align-items:center;gap:2.5px;margin-right:12px;height:22px;vertical-align:middle}}
+.wave i{{width:3.5px;background:var(--accent);border-radius:2px;animation:eq 1.4s ease-in-out infinite}}
+.wave i:nth-child(1){{height:8px;animation-delay:0s}}
+.wave i:nth-child(2){{height:16px;animation-delay:.2s}}
+.wave i:nth-child(3){{height:22px;animation-delay:.4s}}
+.wave i:nth-child(4){{height:13px;animation-delay:.6s}}
+.wave i:nth-child(5){{height:7px;animation-delay:.8s}}
+@keyframes eq{{0%,100%{{transform:scaleY(.55)}}50%{{transform:scaleY(1)}}}}
+th.sortable{{cursor:pointer;user-select:none}}
+th.sortable:hover{{color:var(--accent)}}
+th.sortable::after{{content:' ⇅';font-size:9px;opacity:.5}}
+th.sorted-asc::after{{content:' ↑';opacity:1;color:var(--accent)}}
+th.sorted-desc::after{{content:' ↓';opacity:1;color:var(--accent)}}
+.pod-name{{position:relative;padding-left:26px !important}}
+.pod-name::before{{content:'🎙';position:absolute;left:6px;opacity:0;transform:translateX(-4px);transition:opacity .15s,transform .15s;font-size:12px}}
+tr:hover .pod-name::before{{opacity:1;transform:translateX(0)}}
 @keyframes pulse{{0%{{opacity:1}}50%{{opacity:.35}}100%{{opacity:1}}}}
 .cards{{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}}
 .card{{background:var(--card);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow);transition:transform .15s}}
@@ -1259,17 +1288,17 @@ ul.clean li{{margin-bottom:6px}}
 <body>
 <div class="header">
   <div>
-    <h1>Moteur <b>Listenly GEO</b></h1>
+    <h1><span class="wave"><i></i><i></i><i></i><i></i><i></i></span>Moteur <b>Listenly GEO</b></h1>
     <p class="sub">Vue d'ensemble de la production automatisée · généré le {format_date_fr(today)}</p>
   </div>
-  <span class="badge-live"><i></i>Mise à jour automatique à chaque run</span>
+  {air_html}
 </div>
 
 <div class="cards">
-  <div class="card"><div class="ico">🎙️</div><div class="num">{len(records)}</div><div class="lbl">Podcasts référencés</div></div>
-  <div class="card"><div class="ico">📄</div><div class="num">{total_episodes}</div><div class="lbl">Fiches épisode totales</div></div>
-  <div class="card"><div class="ico">⚡</div><div class="num">{eps_this_week}</div><div class="lbl">Épisodes cette semaine</div></div>
-  <div class="card"><div class="ico">📈</div><div class="num">{eps_this_month}</div><div class="lbl">Épisodes sur 30 jours</div></div>
+  <div class="card"><div class="ico">🎙️</div><div class="num" data-target="{len(records)}">0</div><div class="lbl">Podcasts référencés</div></div>
+  <div class="card"><div class="ico">📄</div><div class="num" data-target="{total_episodes}">0</div><div class="lbl">Fiches épisode totales</div></div>
+  <div class="card"><div class="ico">⚡</div><div class="num" data-target="{eps_this_week}">0</div><div class="lbl">Épisodes cette semaine</div></div>
+  <div class="card"><div class="ico">📈</div><div class="num" data-target="{eps_this_month}">0</div><div class="lbl">Épisodes sur 30 jours</div></div>
 </div>
 
 <h2>Prévision semaine · {sum(1 for _, _, k, _ in upcoming if k)} fiche(s) programmée(s)</h2>
@@ -1283,7 +1312,7 @@ ul.clean li{{margin-bottom:6px}}
 <div class="panel">
 <input class="search" id="q" type="text" placeholder="🔍 Filtrer un podcast, une catégorie..." oninput="filterTable()">
 <table id="prodTable">
-<tr><th>Podcast</th><th>Catégorie</th><th>Épisodes</th><th>Dernier épisode</th><th>CTA</th><th>Fiches générées</th></tr>
+<tr><th>Podcast</th><th>Catégorie</th><th class="sortable" onclick="sortTable(2,true)">Épisodes</th><th class="sortable" onclick="sortTable(3,false)">Dernier épisode</th><th>CTA</th><th>Fiches générées</th></tr>
 {''.join(rows)}
 </table>
 </div>
@@ -1317,6 +1346,41 @@ function filterTable(){{
   for(var i=1;i<rows.length;i++){{
     rows[i].style.display = rows[i].textContent.toLowerCase().indexOf(q) !== -1 ? '' : 'none';
   }}
+}}
+
+// Compteurs animes au chargement
+document.addEventListener('DOMContentLoaded', function(){{
+  document.querySelectorAll('.num[data-target]').forEach(function(el){{
+    var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+    var dur = 900, start = null;
+    function step(ts){{
+      if(!start) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+      if(p < 1) requestAnimationFrame(step);
+    }}
+    requestAnimationFrame(step);
+  }});
+}});
+
+// Tri par colonne (numerique ou date ISO via data-sort)
+var sortState = {{}};
+function sortTable(colIdx, numeric){{
+  var table = document.getElementById('prodTable');
+  var rows = Array.prototype.slice.call(table.rows, 1);
+  var dir = sortState[colIdx] === 'desc' ? 'asc' : 'desc';
+  sortState = {{}}; sortState[colIdx] = dir;
+  rows.sort(function(a, b){{
+    var va = a.cells[colIdx].getAttribute('data-sort') || a.cells[colIdx].textContent;
+    var vb = b.cells[colIdx].getAttribute('data-sort') || b.cells[colIdx].textContent;
+    if(numeric){{ va = parseFloat(va) || 0; vb = parseFloat(vb) || 0; }}
+    if(va < vb) return dir === 'asc' ? -1 : 1;
+    if(va > vb) return dir === 'asc' ? 1 : -1;
+    return 0;
+  }});
+  rows.forEach(function(r){{ table.tBodies[0] ? table.tBodies[0].appendChild(r) : table.appendChild(r); }});
+  table.querySelectorAll('th').forEach(function(th){{ th.classList.remove('sorted-asc','sorted-desc'); }});
+  table.rows[0].cells[colIdx].classList.add(dir === 'asc' ? 'sorted-asc' : 'sorted-desc');
 }}
 </script>
 </body>
