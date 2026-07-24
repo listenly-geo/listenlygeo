@@ -1013,7 +1013,8 @@ def build_dashboard():
                 candidate += datetime.timedelta(days=7)
             if (candidate - now_dt).days < 7:
                 name = slugs_names.get(wf_slug)
-                upcoming.append((candidate, name or wf_slug, name is not None))
+                cat = next((r.get("categorie", "Autre") for r in records if r["slug"] == wf_slug), "Autre")
+                upcoming.append((candidate, name or wf_slug, name is not None, cat))
     upcoming.sort()
 
     # --- Collecte des episodes par podcast ---
@@ -1099,12 +1100,52 @@ def build_dashboard():
 </tr>""")
 
     DAYS_ABBR = {0: "Lun", 1: "Mar", 2: "Mer", 3: "Jeu", 4: "Ven", 5: "Sam", 6: "Dim"}
-    prev_list = []
-    for dt, name, known in upcoming:
-        badge = "" if known else ' <span class="warn">orphelin — échouera</span>'
-        day_label = f"{DAYS_ABBR[dt.weekday()]} {dt.day} {MONTHS_FR[dt.month - 1]}"
-        prev_list.append(f"<tr><td>{day_label} — {dt.hour:02d}h00</td><td>{name}</td><td>{'✓ fiche épisode prévue' + badge if known else badge}</td></tr>")
-    prevision_rows = "".join(prev_list) or "<tr><td colspan='3'>Aucun cron programmé sur les 7 prochains jours (cron en pause ?)</td></tr>"
+    CAT_COLORS = ["#2e6bd6", "#27ae60", "#e67e22", "#8e44ad", "#c0392b", "#16a085", "#d4a017", "#7f8c8d", "#e84393", "#2c3e50"]
+
+    # Palette stable : couleur attribuee par ordre alphabetique des categories presentes
+    cats_in_upcoming = sorted(set(cat for _, _, known, cat in upcoming if known))
+    cat_color = {c: CAT_COLORS[i % len(CAT_COLORS)] for i, c in enumerate(cats_in_upcoming)}
+
+    # Regrouper par jour (7 prochains jours a partir d'aujourd'hui)
+    days_seq = [datetime.date.today() + datetime.timedelta(days=i) for i in range(7)]
+    by_day = {d: {} for d in days_seq}
+    orphans_count = 0
+    for dt, name, known, cat in upcoming:
+        d = dt.date()
+        if d in by_day:
+            if known:
+                by_day[d][cat] = by_day[d].get(cat, 0) + 1
+            else:
+                orphans_count += 1
+    max_day_total = max((sum(v.values()) for v in by_day.values()), default=1) or 1
+
+    cal_cols = []
+    for d in days_seq:
+        cats = by_day[d]
+        total = sum(cats.values())
+        segments = ""
+        tooltip_parts = []
+        if total:
+            for cat, n in sorted(cats.items()):
+                pct = round(100 * n / total)
+                seg_h = max(8, int(90 * n / max_day_total))
+                segments += f'<div class="seg" style="height:{seg_h}px;background:{cat_color[cat]}"></div>'
+                tooltip_parts.append(f"{cat} : {n} ({pct}%)")
+        tooltip = " · ".join(tooltip_parts) if tooltip_parts else "Aucun épisode prévu"
+        count_label = f"+{total} épisode{'s' if total > 1 else ''}" if total else "—"
+        today_cls = " cal-today" if d == datetime.date.today() else ""
+        cal_cols.append(f"""
+<div class="cal-col{today_cls}" title="{tooltip}">
+  <div class="cal-stack">{segments or '<div class="seg seg-empty"></div>'}</div>
+  <div class="cal-day">{DAYS_ABBR[d.weekday()]} {d.day}</div>
+  <div class="cal-count">{count_label}</div>
+</div>""")
+    legend = "".join(f'<span class="lg"><i style="background:{col}"></i>{cat}</span>' for cat, col in cat_color.items())
+    orphan_note = f'<p class="note" style="margin-top:6px">⚠ {orphans_count} workflow(s) orphelin(s) programmé(s) cette semaine (échoueront sans produire).</p>' if orphans_count else ""
+    prevision_calendar = f"""
+<div class="calendar">{''.join(cal_cols)}</div>
+<div class="legend">{legend}</div>
+{orphan_note}"""
 
     weekly_bars = "".join(
         f'<div class="bar-col"><div class="bar" style="height:{max(6, int(70 * c / max_weekly))}px" title="{c} fiche(s)"></div><span>{s.strftime("%d/%m")}</span><b>{c}</b></div>'
@@ -1144,6 +1185,19 @@ a:hover{{text-decoration:underline}}
 ul{{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:14px 16px 14px 32px;font-size:13px;margin:0}}
 li{{margin-bottom:4px}}
 .note{{font-size:11px;color:#999;margin-top:24px}}
+.calendar{{display:flex;gap:8px;background:#fff;border:1px solid #e5e5e5;border-radius:12px;padding:16px 14px 12px}}
+.cal-col{{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;padding:4px;border-radius:8px;cursor:default}}
+.cal-col:hover{{background:#f5f8ff}}
+.cal-today{{background:#eef3fd}}
+.cal-stack{{display:flex;flex-direction:column-reverse;justify-content:flex-start;width:100%;max-width:44px;min-height:92px}}
+.seg{{width:100%;border-radius:3px;margin-top:2px;transition:opacity .15s}}
+.cal-col:hover .seg{{opacity:.85}}
+.seg-empty{{height:6px;background:#eee}}
+.cal-day{{font-size:11px;font-weight:700;color:#555}}
+.cal-count{{font-size:11px;color:#2e6bd6;font-weight:600}}
+.legend{{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;font-size:11px;color:#555}}
+.lg{{display:inline-flex;align-items:center;gap:5px}}
+.lg i{{width:10px;height:10px;border-radius:3px;display:inline-block}}
 .grid2{{display:grid;grid-template-columns:2fr 1fr;gap:16px;align-items:start}}
 @media(max-width:800px){{.grid2{{grid-template-columns:1fr}}}}
 </style>
@@ -1159,11 +1213,8 @@ li{{margin-bottom:4px}}
   <div class="card"><div class="num">{eps_this_month}</div><div class="lbl">Épisodes sur 30 jours</div></div>
 </div>
 
-<h2>Prévision semaine ({len(upcoming)} fiche(s) programmée(s) sur 7 jours)</h2>
-<table>
-<tr><th>Quand (UTC, retard GitHub possible de 1-3h)</th><th>Podcast</th><th>Statut</th></tr>
-{prevision_rows}
-</table>
+<h2>Prévision semaine ({sum(1 for _, _, k, _ in upcoming if k)} fiche(s) programmée(s) sur 7 jours)</h2>
+{prevision_calendar}
 
 <div class="grid2">
 <div>
