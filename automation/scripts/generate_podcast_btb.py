@@ -985,6 +985,37 @@ def build_dashboard():
     records = load_data()
     today = datetime.date.today()
 
+    # --- Previsions : prochains crons sur 7 jours (lus depuis .github/workflows/) ---
+    DAYS_FR_SHORT = {0: "Lundi", 1: "Mardi", 2: "Mercredi", 3: "Jeudi", 4: "Vendredi", 5: "Samedi", 6: "Dimanche"}
+    slugs_names = {r["slug"]: r.get("podcast_name", r["slug"]) for r in records}
+    upcoming = []
+    wf_dir = ".github/workflows"
+    if os.path.isdir(wf_dir):
+        now_dt = datetime.datetime.now()
+        for fname in os.listdir(wf_dir):
+            if not (fname.startswith("podcast-btb-") and fname.endswith(".yml")):
+                continue
+            wf_slug = fname[len("podcast-btb-"):-len(".yml")]
+            try:
+                with open(os.path.join(wf_dir, fname), encoding="utf-8") as f:
+                    content = f.read()
+            except OSError:
+                continue
+            m = re.search(r"cron:\s*'(\d+)\s+(\d+)\s+\S+\s+\S+\s+(\d+)'", content)
+            if not m:
+                continue
+            hour = int(m.group(2))
+            cron_dow = int(m.group(3))          # cron : 0=dimanche
+            py_weekday = (cron_dow - 1) % 7      # python : 0=lundi
+            days_ahead = (py_weekday - now_dt.weekday()) % 7
+            candidate = (now_dt + datetime.timedelta(days=days_ahead)).replace(hour=hour, minute=0, second=0, microsecond=0)
+            if candidate <= now_dt:
+                candidate += datetime.timedelta(days=7)
+            if (candidate - now_dt).days < 7:
+                name = slugs_names.get(wf_slug)
+                upcoming.append((candidate, name or wf_slug, name is not None))
+    upcoming.sort()
+
     # --- Collecte des episodes par podcast ---
     episodes_root = f"{PAGES_DIR}/episodes"
     ep_by_podcast = {}
@@ -1067,6 +1098,14 @@ def build_dashboard():
   <td><a href="{insp_url}" target="_blank" style="font-size:11px">Inspecter →</a></td>
 </tr>""")
 
+    DAYS_ABBR = {0: "Lun", 1: "Mar", 2: "Mer", 3: "Jeu", 4: "Ven", 5: "Sam", 6: "Dim"}
+    prev_list = []
+    for dt, name, known in upcoming:
+        badge = "" if known else ' <span class="warn">orphelin — échouera</span>'
+        day_label = f"{DAYS_ABBR[dt.weekday()]} {dt.day} {MONTHS_FR[dt.month - 1]}"
+        prev_list.append(f"<tr><td>{day_label} — {dt.hour:02d}h00</td><td>{name}</td><td>{'✓ fiche épisode prévue' + badge if known else badge}</td></tr>")
+    prevision_rows = "".join(prev_list) or "<tr><td colspan='3'>Aucun cron programmé sur les 7 prochains jours (cron en pause ?)</td></tr>"
+
     weekly_bars = "".join(
         f'<div class="bar-col"><div class="bar" style="height:{max(6, int(70 * c / max_weekly))}px" title="{c} fiche(s)"></div><span>{s.strftime("%d/%m")}</span><b>{c}</b></div>'
         for s, c in weekly
@@ -1120,8 +1159,11 @@ li{{margin-bottom:4px}}
   <div class="card"><div class="num">{eps_this_month}</div><div class="lbl">Épisodes sur 30 jours</div></div>
 </div>
 
-<h2>Production hebdomadaire (8 dernières semaines)</h2>
-<div class="bars">{weekly_bars}</div>
+<h2>Prévision semaine ({len(upcoming)} fiche(s) programmée(s) sur 7 jours)</h2>
+<table>
+<tr><th>Quand (UTC, retard GitHub possible de 1-3h)</th><th>Podcast</th><th>Statut</th></tr>
+{prevision_rows}
+</table>
 
 <div class="grid2">
 <div>
@@ -1145,6 +1187,9 @@ li{{margin-bottom:4px}}
 <ul>{dup_rows}</ul>
 </div>
 </div>
+
+<h2>Production hebdomadaire (8 dernières semaines)</h2>
+<div class="bars">{weekly_bars}</div>
 
 <p class="note">Ce tableau de bord n'affiche que les données de production internes au moteur. L'impact SEO réel (impressions, clics, citations IA) se mesure uniquement dans Google Search Console et vos analytics — le lien "Inspecter" ouvre l'outil d'inspection d'URL pour chaque fiche.</p>
 </body>
