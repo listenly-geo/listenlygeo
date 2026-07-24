@@ -979,6 +979,181 @@ a:hover{{text-decoration:underline}}
         f.write(html)
     log(f"Historique regenere : {len(entries)} entree(s)")
 
+def build_dashboard():
+    """Tableau de bord interne (noindex) : etat du moteur, production, sante technique.
+    N'affiche QUE des donnees mesurables par le systeme — aucun chiffre SEO invente."""
+    records = load_data()
+    today = datetime.date.today()
+
+    # --- Collecte des episodes par podcast ---
+    episodes_root = f"{PAGES_DIR}/episodes"
+    ep_by_podcast = {}
+    all_ep_dates = []
+    if os.path.isdir(episodes_root):
+        for slug in os.listdir(episodes_root):
+            reg_file = f"{episodes_root}/{slug}/_generated.json"
+            if not os.path.exists(reg_file):
+                continue
+            try:
+                with open(reg_file, encoding="utf-8") as f:
+                    reg = json.load(f)
+            except json.JSONDecodeError:
+                continue
+            dates = []
+            for e in reg:
+                d = parse_date_any(e.get("added_date", "")) or parse_date_any(e.get("pubdate", ""))
+                if d:
+                    dates.append(d)
+                    all_ep_dates.append(d)
+            ep_by_podcast[slug] = {
+                "count": len(reg),
+                "last": max(dates) if dates else None,
+            }
+
+    total_episodes = sum(v["count"] for v in ep_by_podcast.values())
+    week_ago = today - datetime.timedelta(days=7)
+    month_ago = today - datetime.timedelta(days=30)
+    eps_this_week = sum(1 for d in all_ep_dates if d >= week_ago)
+    eps_this_month = sum(1 for d in all_ep_dates if d >= month_ago)
+
+    # --- Production par semaine (8 dernieres semaines) ---
+    weekly = []
+    for w in range(7, -1, -1):
+        start = today - datetime.timedelta(days=today.weekday(), weeks=w)
+        end = start + datetime.timedelta(days=6)
+        count = sum(1 for d in all_ep_dates if start <= d <= end)
+        weekly.append((start, count))
+    max_weekly = max((c for _, c in weekly), default=1) or 1
+
+    # --- Sante technique ---
+    slugs_valid = set(r["slug"] for r in records)
+    suspicious = []
+    for r in records:
+        lu = r.get("listenly_url", "")
+        pu = r.get("podcast_url", "")
+        if lu and "listenly.fr" not in lu:
+            suspicious.append((r["slug"], f"listenly_url suspect : {lu[:60]}"))
+        if pu and ("linkedin.com" in pu or "postimg" in pu):
+            suspicious.append((r["slug"], f"podcast_url suspect : {pu[:60]}"))
+    dup_names = {}
+    for r in records:
+        key = r.get("podcast_name", "").strip().lower()
+        dup_names.setdefault(key, []).append(r["slug"])
+    duplicates = [(name, slugs) for name, slugs in dup_names.items() if len(slugs) > 1]
+
+    # --- Repartition par categorie ---
+    by_cat = {}
+    for r in records:
+        by_cat[r.get("categorie", "?")] = by_cat.get(r.get("categorie", "?"), 0) + 1
+    cats_sorted = sorted(by_cat.items(), key=lambda x: -x[1])
+
+    # --- Tableau par podcast ---
+    rows = []
+    for r in sorted(records, key=lambda x: x.get("podcast_name", "")):
+        slug = r["slug"]
+        ep = ep_by_podcast.get(slug, {"count": 0, "last": None})
+        last_label = format_date_fr(ep["last"]) if ep["last"] else "—"
+        stale = ep["last"] is not None and (today - ep["last"]).days > 14
+        stale_badge = ' <span class="warn">+14j sans épisode</span>' if stale else ""
+        cta = r.get("episode_cta_target", "listenly")
+        insp_url = "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Flistenly.fr%2F&id=" + r.get("fiche_url", "")
+        rows.append(f"""
+<tr>
+  <td><a href="{r.get('fiche_url','')}" target="_blank">{r.get('podcast_name','')}</a></td>
+  <td>{r.get('categorie','')}</td>
+  <td style="text-align:center">{ep['count']}</td>
+  <td>{last_label}{stale_badge}</td>
+  <td style="text-align:center">{cta}</td>
+  <td><a href="{insp_url}" target="_blank" style="font-size:11px">Inspecter →</a></td>
+</tr>""")
+
+    weekly_bars = "".join(
+        f'<div class="bar-col"><div class="bar" style="height:{max(6, int(70 * c / max_weekly))}px" title="{c} fiche(s)"></div><span>{s.strftime("%d/%m")}</span><b>{c}</b></div>'
+        for s, c in weekly
+    )
+    cat_rows = "".join(f"<tr><td>{label}</td><td style='text-align:center'>{n}</td></tr>" for label, n in cats_sorted)
+    susp_rows = "".join(f"<li><b>{s}</b> — {msg}</li>" for s, msg in suspicious) or "<li>Aucune anomalie détectée ✓</li>"
+    dup_rows = "".join(f"<li><b>{name}</b> : {', '.join(slugs)}</li>" for name, slugs in duplicates) or "<li>Aucun doublon détecté ✓</li>"
+
+    html = f"""<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard podcast-btb (interne)</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+body{{font-family:-apple-system,Helvetica,Arial,sans-serif;color:#1a1a1a;margin:0;background:#fafafa;padding:32px}}
+h1{{font-size:22px;margin:0 0 4px}}
+h2{{font-size:15px;margin:28px 0 10px;color:#333}}
+.sub{{color:#777;font-size:13px;margin:0 0 24px}}
+.cards{{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:8px}}
+.card{{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:14px 16px}}
+.card .num{{font-size:26px;font-weight:800}}
+.card .lbl{{font-size:11px;color:#777;text-transform:uppercase;letter-spacing:.04em}}
+table{{border-collapse:collapse;width:100%;background:#fff;border:1px solid #e5e5e5;border-radius:10px;overflow:hidden;font-size:13px}}
+th{{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#777;padding:10px 12px;border-bottom:2px solid #eee;background:#fcfcfc}}
+td{{padding:9px 12px;border-bottom:1px solid #f0f0f0;vertical-align:top}}
+tr:hover td{{background:#fafafa}}
+a{{color:#2e6bd6;text-decoration:none}}
+a:hover{{text-decoration:underline}}
+.warn{{background:#fdecec;color:#c0392b;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;white-space:nowrap}}
+.bars{{display:flex;gap:10px;align-items:flex-end;background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:18px 16px 10px}}
+.bar-col{{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}}
+.bar{{width:100%;max-width:42px;background:#2e6bd6;border-radius:4px 4px 0 0}}
+.bar-col span{{font-size:10px;color:#999}}
+.bar-col b{{font-size:11px}}
+ul{{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:14px 16px 14px 32px;font-size:13px;margin:0}}
+li{{margin-bottom:4px}}
+.note{{font-size:11px;color:#999;margin-top:24px}}
+.grid2{{display:grid;grid-template-columns:2fr 1fr;gap:16px;align-items:start}}
+@media(max-width:800px){{.grid2{{grid-template-columns:1fr}}}}
+</style>
+</head>
+<body>
+<h1>Dashboard moteur podcast-btb</h1>
+<p class="sub">Page interne — noindex, mise à jour automatique à chaque run. Généré le {format_date_fr(today)}.</p>
+
+<div class="cards">
+  <div class="card"><div class="num">{len(records)}</div><div class="lbl">Podcasts référencés</div></div>
+  <div class="card"><div class="num">{total_episodes}</div><div class="lbl">Fiches épisode totales</div></div>
+  <div class="card"><div class="num">{eps_this_week}</div><div class="lbl">Épisodes cette semaine</div></div>
+  <div class="card"><div class="num">{eps_this_month}</div><div class="lbl">Épisodes sur 30 jours</div></div>
+</div>
+
+<h2>Production hebdomadaire (8 dernières semaines)</h2>
+<div class="bars">{weekly_bars}</div>
+
+<div class="grid2">
+<div>
+<h2>Production par podcast</h2>
+<table>
+<tr><th>Podcast</th><th>Catégorie</th><th>Épisodes</th><th>Dernier épisode</th><th>CTA</th><th>Search Console</th></tr>
+{''.join(rows)}
+</table>
+</div>
+<div>
+<h2>Répartition par catégorie</h2>
+<table>
+<tr><th>Catégorie</th><th>Podcasts</th></tr>
+{cat_rows}
+</table>
+
+<h2>Anomalies CTA / liens</h2>
+<ul>{susp_rows}</ul>
+
+<h2>Doublons potentiels</h2>
+<ul>{dup_rows}</ul>
+</div>
+</div>
+
+<p class="note">Ce tableau de bord n'affiche que les données de production internes au moteur. L'impact SEO réel (impressions, clics, citations IA) se mesure uniquement dans Google Search Console et vos analytics — le lien "Inspecter" ouvre l'outil d'inspection d'URL pour chaque fiche.</p>
+</body>
+</html>"""
+
+    with open(f"{PAGES_DIR}/dashboard.html", "w", encoding="utf-8") as f:
+        f.write(html)
+    log(f"Dashboard regenere : {len(records)} podcast(s), {total_episodes} episode(s)")
+
 def build_index_and_categories(records):
     by_category = {}
     for r in records:
