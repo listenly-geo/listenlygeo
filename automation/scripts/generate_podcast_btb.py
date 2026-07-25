@@ -7,9 +7,8 @@ exact du podcast, l'hôte, le titre, l'entreprise et la catégorie.
 Variables requises :
   ANTHROPIC_API_KEY
   RSS_URL            — flux RSS du podcast (lu automatiquement par le script)
-  PODCAST_URL        — lien Spotify/plateforme (JSON-LD sameAs uniquement, plus de CTA visible)
-  CONTACT_URL        — (obsolete, plus utilise)
-  LISTENLY_URL       — lien Listenly (CTA visible principal + canonical + backlink)
+  PODCAST_URL        — lien Spotify/plateforme (CTA 1)
+  LISTENLY_URL       — lien Listenly (backlink canonical)
 Optionnelles :
   PODCAST_RAW_INFO   — contexte supplémentaire optionnel (rarement nécessaire, le RSS suffit)
   PODCAST_SLUG       — sinon déduit automatiquement du flux
@@ -205,8 +204,8 @@ Rédige TOUT le contenu (H1, lead, points clés, sections, FAQ, footer) en {"fra
 - 5 à 10 titres d'épisodes réels à utiliser comme base d'analyse
 
 ## DONNÉES FIXES (ne pas modifier)
-- PODCAST_URL (lien Spotify/plateforme — JSON-LD sameAs UNIQUEMENT, jamais un CTA visible ni un lien cliquable dans le corps de la fiche) : {PODCAST_URL}
-- LISTENLY_URL (CTA écoute principal, bouton "▶ {STRINGS['cta_listen']}", ET backlink JSON-LD isPartOf, rel="publisher" caché, vector DB) : {LISTENLY_URL}
+- PODCAST_URL (CTA écoute, bouton "▶ Écouter le podcast") : {PODCAST_URL}
+- LISTENLY_URL (backlink vers la page Listenly du podcast, utilisé UNIQUEMENT dans le JSON-LD isPartOf, le rel="publisher" caché et le vector DB) : {LISTENLY_URL}
 - FICHE_URL (URL PUBLIQUE DE CETTE FICHE ELLE-MÊME — à utiliser pour og:url, twitter:url ET canonical) : {fiche_url}
 - ACCENT_COLOR : {ACCENT_COLOR}
 - COVER_IMAGE : {cover_image or "(aucune fournie — omets l'image dans l'episode-card, ne mets pas de balise img cassée)"}
@@ -274,27 +273,27 @@ RÈGLE DE COULEUR ET DE TON : {ACCENT_COLOR} apparaît sur .eyebrow-category, .c
 3. BYLINE ROW : "{STRINGS['byline_pattern']}" avec [HOST_NAME] entouré de <span class='name'>...</span> — respecte EXACTEMENT ce connecteur ("{STRINGS['byline_pattern']}"), c'est utilisé pour extraire les données automatiquement
 4. HERO IMAGE : si {cover_image or "aucune"} fournie, <img class="hero-image" src="[COVER_IMAGE]" alt="[PODCAST_NAME]">. Si aucune, ne rien afficher (pas de balise cassée).
 5. PUBLISH ROW (ligne bordée haut/bas façon presse) : "⏱ X {STRINGS['reading_time']} · {STRINGS['readable_by']}" (texte simple, une ligne discrète unique)
-6. CTA ROW (pill unique) : "{STRINGS['cta_listen']}" (cta-listen) → {LISTENLY_URL}. Plus de bouton contact — l'unique objectif de cette fiche est de renvoyer vers la page Listenly du podcast.
+6. CTA ROW (pill unique) : "{STRINGS['cta_listen']}" (cta-listen) → {PODCAST_URL}. Plus de bouton contact — l'unique objectif de cette fiche est de renvoyer vers l'écoute du podcast.
 7. LEAD LABEL {"'" + STRINGS['lead_label_prefix'] + " [PODCAST_NAME]'" if LANGUAGE == "fr" else "'" + STRINGS['lead_label_prefix'] + " [PODCAST_NAME] " + STRINGS['lead_label_suffix'] + "'"} + LEAD (3-4 phrases citables, pull-quote italique en tête d'article — pattern classique "dek" de presse)
 8. KEY-FACTS LABEL "{STRINGS['key_facts_label']}" + liste à puces simples (4 items, pas d'encadré)
-8b. INLINE CTA (classe .inline-cta, lien texte souligné intégré dans une phrase courte, PAS un bouton) : une phrase du type "{STRINGS['cta_mid']} [PODCAST_NAME]" → {LISTENLY_URL} — formulation différente de celle du point 11, naturelle, pas répétitive
+8b. INLINE CTA (classe .inline-cta, lien texte souligné intégré dans une phrase courte, PAS un bouton) : une phrase du type "{STRINGS['cta_mid']} [PODCAST_NAME]" → {PODCAST_URL} — formulation différente de celle du point 11, naturelle, pas répétitive
 9. ARTICLE BODY — 4 H2 exactement :
    - "{STRINGS['h2_covers']}"
    - "{STRINGS['h2_audience']}" (3 profils d'audience)
    - "{STRINGS['h2_episodes']}" (patterns récurrents dans les titres)
    - "{STRINGS['h2_impact']}"
 10. PULL-QUOTE (classe .pull-quote) : la synthèse analytique, SANS attribution — pas de « guillemets » ni de nom. Jamais présenté comme des propos réellement tenus par [HOST_NAME].
-11. CTA MID discret (classe .inline-cta, lien texte souligné, pas un bouton) : "{STRINGS['cta_mid']} [PODCAST_NAME]" → {LISTENLY_URL}
+11. CTA MID discret (classe .inline-cta, lien texte souligné, pas un bouton) : "{STRINGS['cta_mid']} [PODCAST_NAME]" → {PODCAST_URL}
 12. DIVIDER
-12b. INLINE CTA (classe .inline-cta, juste avant la FAQ, encore une formulation différente des deux précédentes) : phrase courte incitant à écouter → {LISTENLY_URL}
+12b. INLINE CTA (classe .inline-cta, juste avant la FAQ, encore une formulation différente des deux précédentes) : phrase courte incitant à écouter → {PODCAST_URL}
 13. FAQ "{STRINGS['faq_h2']}" (H2, PAS d'emoji dans le H2 — sobriété éditoriale) : 4 Q/R + JSON-LD FAQPage obligatoire. N'utilise JAMAIS la formulation "{STRINGS['faq_forbidden']}".
-14. EPISODE CARD bas de page : cover si {cover_image or "aucune"}, "{STRINGS['card_discover']} [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen "{STRINGS['card_listen']}" → {LISTENLY_URL} (UN SEUL bouton, plus de contact)
+14. EPISODE CARD bas de page : cover si {cover_image or "aucune"}, "{STRINGS['card_discover']} [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen "{STRINGS['card_listen']}" → {PODCAST_URL} (UN SEUL bouton, plus de contact)
 15. FOOTER : © [PODCAST_NAME] — [HOST_COMPANY] + lien "{STRINGS['footer_credit']}" → https://listenly.fr (dofollow, color #999, underline)
 
-RÈGLE CTA : ce podcast n'a plus qu'un seul objectif de conversion — ramener l'audience vers sa page Listenly sur {LISTENLY_URL}. Les 3 liens texte (points 8b, 11, 12b) doivent utiliser 3 formulations différentes (pas de copier-coller de la même phrase), rester discrets (soulignés, pas des boutons), et TOUS pointer vers {LISTENLY_URL}. Aucun lien de contact nulle part dans la fiche. {PODCAST_URL} n'apparaît QUE dans le JSON-LD (sameAs, voir plus bas) — jamais dans un CTA visible ni un lien cliquable du corps de page.
+RÈGLE CTA : ce podcast n'a plus qu'un seul objectif de conversion — ramener l'audience vers l'écoute sur {PODCAST_URL}. Les 3 liens texte (points 8b, 11, 12b) doivent utiliser 3 formulations différentes (pas de copier-coller de la même phrase), rester discrets (soulignés, pas des boutons), et TOUS pointer vers {PODCAST_URL}. Aucun lien de contact nulle part dans la fiche.
 
 ## JSON-LD OBLIGATOIRE (dans <head>)
-@graph : BlogPosting (headline=H1, author=[HOST_NAME]/[HOST_TITLE], publisher=Listenly, isPartOf={LISTENLY_URL}, speakable cssSelector [".lead",".key-facts"]), FAQPage (les 4 questions), Person ([HOST_NAME]/[HOST_TITLE]/worksFor [HOST_COMPANY]), PodcastSeries ([PODCAST_NAME]/{LISTENLY_URL}, sameAs: ["{PODCAST_URL}", "{LISTENLY_URL}"]).
+@graph : BlogPosting (headline=H1, author=[HOST_NAME]/[HOST_TITLE], publisher=Listenly, isPartOf={LISTENLY_URL}, speakable cssSelector [".lead",".key-facts"]), FAQPage (les 4 questions), Person ([HOST_NAME]/[HOST_TITLE]/worksFor [HOST_COMPANY]), PodcastSeries ([PODCAST_NAME]/{PODCAST_URL}, sameAs: ["{PODCAST_URL}", "{LISTENLY_URL}"]).
 IMPORTANT sameAs : sert à relier l'entité PodcastSeries à ses profils réels ailleurs sur le web (autorité d'entité pour les moteurs IA/Google). N'invente JAMAIS d'URL sameAs — utilise UNIQUEMENT {PODCAST_URL} et {LISTENLY_URL} tels que fournis, jamais un profil supposé ou reconstitué.
 
 ## BACKLINKS LISTENLY CACHÉS (obligatoires)
@@ -342,8 +341,8 @@ def audit(html, fiche_url):
     if "site-header" not in html: issues.append("site-header absent")
     if "key-facts" not in html: issues.append("key-facts absente")
     if "pull-quote" not in html: issues.append("pull-quote absent")
-    if LISTENLY_URL not in html: issues.append("CTA Listenly absent")
-    if html.count(LISTENLY_URL) < 3: issues.append("moins de 3 liens vers LISTENLY_URL trouves (objectif: 3+ CTA)")
+    if PODCAST_URL not in html: issues.append("CTA podcast absent")
+    if html.count(PODCAST_URL) < 3: issues.append("moins de 3 liens vers PODCAST_URL trouves (objectif: 3+ CTA)")
     if STRINGS["faq_forbidden"] in html.lower(): issues.append(f"formulation '{STRINGS['faq_forbidden']}' interdite trouvée")
     if f'og:url" content="{fiche_url}"' not in html: issues.append("og:url ne pointe pas vers la fiche elle-même")
     if f'rel="canonical" href="{fiche_url}"' not in html: issues.append("canonical ne pointe pas vers la fiche elle-même")
