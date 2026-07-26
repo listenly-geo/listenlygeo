@@ -349,7 +349,7 @@ UN ÉPISODE précis, pas le podcast dans son ensemble.
 5. {"TOUTES les vraies questions/réponses fournies plus haut (section MATÉRIEL RÉEL) — n'en oublie aucune, ne les résume pas en 3, la fiche doit toutes les reprendre" if real_material else "3 FAQ précises sur le sujet de CET épisode (vraies requêtes IA, réponses autonomes sans mentionner le podcast)"}
 
 ## STRUCTURE HTML — MÊME CSS QUE LA FICHE PODCAST (repris à l'identique, mêmes classes) :
-- <head> OBLIGATOIRE : <title> ET <meta name="description" content="..."> (140-155 caractères, résumant le sujet précis de CET épisode, jamais omise) + og:title/og:description/og:url identiques + canonical={ep_url}
+- <head> OBLIGATOIRE : <title> ET <meta name="description" content="..."> (140-155 caractères, résumant le sujet précis de CET épisode, jamais omise) + og:title/og:description/og:url/og:type="article"/og:site_name="Listenly" + <meta name="twitter:card" content="summary_large_image"> + twitter:title (identique à og:title, 50-70 car.) + twitter:description (identique à og:description, 150-200 car.) + <meta name="author" content="[HOST_NAME]"> + <meta name="format-detection" content="telephone=no"> + canonical={ep_url}
 - main.wrapper (PAS de div), header-row (vignette + eyebrow-category côte à côte), h1 Georgia serif bold, byline-row "Par [HOST_NAME], [HOST_TITLE] chez [HOST_COMPANY]"
 - .eyebrow-category : "Épisode · {podcast['podcast_name']}"
 - BREADCRUMB juste sous le header-row : <p style="font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#666;margin:0 0 8px;"><a href="{podcast['fiche_url']}" style="color:#666;text-decoration:underline;">← Voir la fiche {podcast['podcast_name']}</a></p>
