@@ -127,22 +127,22 @@ def transcribe(audio_path):
 
 EXTRACT_REAL_QA_PROMPT = """Tu es un expert GEO (Generative Engine Optimization) pour podcasts B2B.
 
-À partir de la transcription réelle ci-dessous, identifie exactement 3 VRAIES questions abordées dans cet épisode et les vraies réponses apportées.
+À partir de la transcription réelle ci-dessous, identifie TOUTES les vraies questions distinctes et solides abordées dans cet épisode, avec les vraies réponses apportées. Pas de plafond fixe : si l'épisode en contient 3, extrais 3 ; s'il en contient 8, extrais 8. N'invente JAMAIS de question pour atteindre un quota — seule la qualité et la fidélité au transcript comptent.
 
-RÈGLE ABSOLUE : tout doit venir de ce qui a été dit dans la transcription. Aucune invention, aucun remplissage.
-- Les questions doivent correspondre à ce qu'un professionnel rechercherait sur ChatGPT/Perplexity
-- Les réponses doivent être basées sur ce que l'invité a réellement dit, résumées en 2-3 phrases autonomes
-- Choisis 3 angles distincts de la conversation
+CRITÈRE DE SÉLECTION (qualité, pas quantité artificielle) :
+- Question réellement posée ou clairement implicite dans la conversation
+- Réponse claire, autonome, citable — basée uniquement sur ce que l'invité a réellement dit
+- Chaque question couvre un angle DISTINCT (pas de doublons ou quasi-doublons entre elles)
+- La question reformulée doit correspondre à ce qu'un professionnel chercherait sur ChatGPT/Perplexity
 
 Podcast : {podcast_name} | Épisode : {ep_title}
 
 TRANSCRIPTION :
 \"\"\"{transcript}\"\"\"
 
-Réponds UNIQUEMENT avec un JSON, sans markdown, sans backtick — un tableau de 3 objets :
+Réponds UNIQUEMENT avec un JSON, sans markdown, sans backtick — un tableau d'objets (autant que de vraies questions distinctes trouvées, sans plafond ni minimum artificiel) :
 [
   {{"q": "Question reelle reformulee comme requete IA", "r": "Reponse 2-3 phrases tiree fidelement de la transcription"}},
-  {{"q": "...", "r": "..."}},
   {{"q": "...", "r": "..."}}
 ]"""
 
@@ -346,7 +346,7 @@ UN ÉPISODE précis, pas le podcast dans son ensemble.
 2. SUBHEAD : 1-2 phrases qui résument le sujet précis de CET épisode
 3. 3 POINTS CLÉS spécifiques à cet épisode (pas génériques au podcast)
 4. UNE SYNTHÈSE ANALYTIQUE (pull-quote) tirée du sujet de l'épisode, SANS attribution — jamais présentée comme des propos réellement tenus par [HOST_NAME]
-5. 3 FAQ précises sur le sujet de CET épisode (vraies requêtes IA, réponses autonomes sans mentionner le podcast)
+5. {"TOUTES les vraies questions/réponses fournies plus haut (section MATÉRIEL RÉEL) — n'en oublie aucune, ne les résume pas en 3, la fiche doit toutes les reprendre" if real_material else "3 FAQ précises sur le sujet de CET épisode (vraies requêtes IA, réponses autonomes sans mentionner le podcast)"}
 
 ## STRUCTURE HTML — MÊME CSS QUE LA FICHE PODCAST (repris à l'identique, mêmes classes) :
 - main.wrapper (PAS de div), header-row (vignette + eyebrow-category côte à côte), h1 Georgia serif bold, byline-row "Par [HOST_NAME], [HOST_TITLE] chez [HOST_COMPANY]"
@@ -359,11 +359,11 @@ UN ÉPISODE précis, pas le podcast dans son ensemble.
 - article-body : 2 H2 seulement ("Ce que révèle cet épisode" / "Pourquoi cet épisode compte") — plus court qu'une fiche podcast globale. Insère un 1er lien texte discret (.inline-cta, souligné, PAS un bouton) juste après la 1ère section H2 → {cta_url}
 - .pull-quote (sans attribution)
 - 2e lien texte discret (.inline-cta) juste avant la FAQ → {cta_url}, formulation différente du premier
-- FAQ "Cet épisode répond à ces questions" (H2 sobre, 3 Q/R, JSON-LD FAQPage) — JAMAIS "on répond"
+- FAQ "Cet épisode répond à ces questions" (H2 sobre, {"TOUTES les Q/R réelles fournies, une entrée par question — pas de plafond" if real_material else "3 Q/R"}, JSON-LD FAQPage) — JAMAIS "on répond"
 - footer identique avec lien Listenly générique + lien "Découvrir {podcast['podcast_name']} sur Listenly" (ajoutés automatiquement après génération, ne pas les écrire toi-même)
 
 ## JSON-LD (head)
-@graph : PodcastEpisode (name=H1, partOfSeries={{"@type":"PodcastSeries","name":"{podcast['podcast_name']}","url":"{listenly_url}"}}, datePublished, description), FAQPage (les 3 questions), Person (HOST_NAME/HOST_TITLE/worksFor HOST_COMPANY).
+@graph : PodcastEpisode (name=H1, partOfSeries={{"@type":"PodcastSeries","name":"{podcast['podcast_name']}","url":"{listenly_url}"}}, datePublished, description), FAQPage ({"TOUTES les questions réelles listées, une par une" if real_material else "les 3 questions"}), Person (HOST_NAME/HOST_TITLE/worksFor HOST_COMPANY).
 Backlinks cachés identiques à la fiche podcast (canonical={ep_url}, og:url={ep_url}, rel=publisher, #semantic-index).
 
 ## RÈGLES
