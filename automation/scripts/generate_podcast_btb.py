@@ -219,6 +219,9 @@ Rédige TOUT le contenu (H1, lead, points clés, sections, FAQ, footer) en {"fra
 - Le JSON-LD BlogPosting "url" ou "mainEntityOfPage" → {fiche_url}
 - {LISTENLY_URL} n'apparaît QUE dans : isPartOf du JSON-LD, le <link rel="publisher"> cache, et le bloc #semantic-index. Il ne doit JAMAIS remplacer FICHE_URL dans og:url/canonical/twitter:url.
 
+## BALISES <head> OBLIGATOIRES (en plus du JSON-LD plus bas)
+title, meta description (140-155 car.), canonical={fiche_url}, og:title, og:description, og:url={fiche_url}, og:type="website", og:image={cover_image or "omis"}, og:site_name="Listenly", meta name="twitter:card" content="summary_large_image", twitter:title (=og:title), twitter:description (=og:description), meta name="author" content="[HOST_NAME]", meta name="format-detection" content="telephone=no".
+
 ## EXTRACTION OBLIGATOIRE AVANT DE RÉDIGER
 
 1. LE H1 est le NOM DU PODCAST lui-même (PODCAST_NAME) — PAS une question, PAS un slogan. Juste le nom exact du podcast.
