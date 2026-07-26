@@ -15,6 +15,9 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Installer ffmpeg (necessaire pour compression audio Whisper)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
       - name: Generation fiche podcast (1ere fois seulement, jamais via cron)
         if: github.event_name == 'workflow_dispatch'
         env:
@@ -196,9 +199,11 @@ jobs:
       - name: Generation 1 fiche episode max (hebdomadaire, RSS)
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           PODCAST_SLUG: |-
             leadership-amp-inspiration
           MAX_EPISODES: '1'
+          USE_TRANSCRIPT: 'true'
         run: python automation/scripts/generate_episode_fiches_btb.py
 
       - name: Commit fiches
