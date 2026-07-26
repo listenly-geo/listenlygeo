@@ -127,9 +127,13 @@ def transcribe(audio_path):
 
 EXTRACT_REAL_QA_PROMPT = """Tu es un expert GEO (Generative Engine Optimization) pour podcasts B2B.
 
-À partir de la transcription réelle ci-dessous, identifie TOUTES les vraies questions distinctes et solides abordées dans cet épisode, avec les vraies réponses apportées. Pas de plafond fixe : si l'épisode en contient 3, extrais 3 ; s'il en contient 8, extrais 8. N'invente JAMAIS de question pour atteindre un quota — seule la qualité et la fidélité au transcript comptent.
+À partir de la transcription réelle ci-dessous :
 
-CRITÈRE DE SÉLECTION (qualité, pas quantité artificielle) :
+1. Identifie l'INVITÉ réel de cet épisode (la personne interrogée, PAS l'animateur du podcast) : son prénom, son nom, son titre/poste, et son entreprise, tels que mentionnés dans la transcription. Si aucun invité distinct de l'animateur n'est identifiable (épisode solo, table ronde sans nom clair, etc.), renvoie des champs vides — n'invente JAMAIS une identité.
+
+2. Identifie TOUTES les vraies questions distinctes et solides abordées dans cet épisode, avec les vraies réponses apportées. Pas de plafond fixe : si l'épisode en contient 3, extrais 3 ; s'il en contient 8, extrais 8. N'invente JAMAIS de question pour atteindre un quota — seule la qualité et la fidélité au transcript comptent.
+
+CRITÈRE DE SÉLECTION des questions (qualité, pas quantité artificielle) :
 - Question réellement posée ou clairement implicite dans la conversation
 - Réponse claire, autonome, citable — basée uniquement sur ce que l'invité a réellement dit
 - Chaque question couvre un angle DISTINCT (pas de doublons ou quasi-doublons entre elles)
@@ -140,14 +144,17 @@ Podcast : {podcast_name} | Épisode : {ep_title}
 TRANSCRIPTION :
 \"\"\"{transcript}\"\"\"
 
-Réponds UNIQUEMENT avec un JSON, sans markdown, sans backtick — un tableau d'objets (autant que de vraies questions distinctes trouvées, sans plafond ni minimum artificiel) :
-[
-  {{"q": "Question reelle reformulee comme requete IA", "r": "Reponse 2-3 phrases tiree fidelement de la transcription"}},
-  {{"q": "...", "r": "..."}}
-]"""
+Réponds UNIQUEMENT avec un JSON, sans markdown, sans backtick :
+{{
+  "guest": {{"prenom": "...", "nom": "...", "titre": "...", "entreprise": "..."}},
+  "qa": [
+    {{"q": "Question reelle reformulee comme requete IA", "r": "Reponse 2-3 phrases tiree fidelement de la transcription"}},
+    {{"q": "...", "r": "..."}}
+  ]
+}}"""
 
 def extract_real_qa(transcript, ep, podcast):
-    log("Extraction des 3 vraies questions/reponses depuis le transcript...")
+    log("Extraction identite invite + vraies questions/reponses depuis le transcript...")
     prompt = EXTRACT_REAL_QA_PROMPT.format(
         podcast_name=podcast["podcast_name"],
         ep_title=ep["title"],
@@ -157,17 +164,20 @@ def extract_real_qa(transcript, ep, podcast):
     raw = raw.strip()
     raw = re.sub(r"^```(?:json)?\s*", "", raw)
     raw = re.sub(r"\s*```$", "", raw)
-    idx = raw.find("[")
+    idx = raw.find("{")
     if idx > 0:
         raw = raw[idx:]
     data = json.loads(raw)
-    log(f"{len(data)} question(s) reelle(s) extraite(s)")
-    for i, qa in enumerate(data):
-        log(f"  Q{i+1}: {qa['q'][:70]}")
-    return data
+    guest = data.get("guest", {}) or {}
+    qa = data.get("qa", []) or []
+    log(f"Invite detecte : {guest.get('prenom','')} {guest.get('nom','')} ({guest.get('titre','') or 'titre inconnu'}, {guest.get('entreprise','') or 'entreprise inconnue'})".strip())
+    log(f"{len(qa)} question(s) reelle(s) extraite(s)")
+    for i, item in enumerate(qa):
+        log(f"  Q{i+1}: {item['q'][:70]}")
+    return guest, qa
 
 def get_real_transcript_material(ep, podcast):
-    """Tente le pipeline audio->transcript->Q/R reelles. Retourne None si echec
+    """Tente le pipeline audio->transcript->Q/R reelles + identite invite. Retourne None si echec
     (fallback silencieux vers la generation habituelle basee sur titre/description)."""
     if not ep.get("audio_url"):
         log("AVERTISSEMENT transcript : pas d'URL audio dans le flux RSS pour cet episode — fallback.")
@@ -184,8 +194,8 @@ def get_real_transcript_material(ep, podcast):
         if not transcript:
             log("AVERTISSEMENT transcript : transcription vide — fallback.")
             return None
-        real_qa = extract_real_qa(transcript, ep, podcast)
-        return {"transcript_excerpt": transcript[:4000], "real_qa": real_qa}
+        guest, real_qa = extract_real_qa(transcript, ep, podcast)
+        return {"transcript_excerpt": transcript[:4000], "real_qa": real_qa, "guest": guest}
     except Exception as e:
         log(f"AVERTISSEMENT transcript : echec pipeline ({e}) — fallback generation habituelle.")
         return None
@@ -293,22 +303,50 @@ def build_episode_prompt(podcast, ep, ep_slug, ep_url, today, real_material=None
 
     if real_material:
         real_qa_json = json.dumps(real_material["real_qa"], ensure_ascii=False, indent=2)
+        guest = real_material.get("guest") or {}
+        guest_full_name = f"{guest.get('prenom','')} {guest.get('nom','')}".strip()
+        if guest_full_name:
+            guest_block = f"""
+IDENTITÉ RÉELLE DE L'INVITÉ (extraite de la transcription — utilise-la telle quelle, n'invente RIEN de plus) :
+- Nom : {guest_full_name}
+- Titre/poste : {guest.get('titre') or '(non precise dans la transcription — ne pas inventer)'}
+- Entreprise : {guest.get('entreprise') or '(non precisee dans la transcription — ne pas inventer)'}
+
+OBLIGATOIRE : ajoute un court paragraphe d'introduction (2-3 phrases) présentant qui est {guest_full_name}
+avant la première citation ou mention de ses propos — un lecteur qui ne connaît pas cette personne doit
+comprendre son autorité/légitimité sur le sujet avant de lire ses propos. N'invente aucun détail biographique
+au-delà de ce qui est donné ci-dessus."""
+        else:
+            guest_block = "\nAucun invité distinct clairement identifiable dans la transcription (épisode solo ou table ronde) — ne pas inventer d'identité."
         transcript_block = f"""
 ## MATÉRIEL RÉEL ISSU DE LA TRANSCRIPTION AUDIO (TEST — priorité absolue sur toute invention)
 Un extrait de la transcription réelle de cet épisode (début) :
 \"\"\"{real_material['transcript_excerpt']}\"\"\"
+{guest_block}
 
-3 VRAIES questions/réponses déjà extraites fidèlement de la transcription complète — UTILISE-LES
+VRAIES questions/réponses déjà extraites fidèlement de la transcription complète — UTILISE-LES
 TELLES QUELLES pour la section FAQ (reformulation mineure de style autorisée, mais le fond doit
 rester fidèle à ce qui a été dit) :
 {real_qa_json}
 
-RÈGLE ABSOLUE : la FAQ de cette fiche doit être basée sur ces 3 vraies Q/R, pas inventée à partir
+RÈGLE ABSOLUE : la FAQ de cette fiche doit être basée sur ces vraies Q/R, pas inventée à partir
 du titre. Le pull-quote et les points clés doivent aussi s'appuyer sur l'extrait de transcription
 ci-dessus quand c'est pertinent, plutôt que d'être déduits du seul titre.
 """
     else:
+        guest = {}
+        guest_full_name = ""
         transcript_block = ""
+
+    if guest_full_name:
+        guest_org_part = f', "worksFor":{{"@type":"Organization","name":"{guest.get("entreprise","")}"}}' if guest.get("entreprise") else ""
+        person_guest_instruction = (
+            f"AJOUT OBLIGATOIRE — Person distincte pour l'INVITÉ de cet épisode : "
+            f'{{"@type":"Person","name":"{guest_full_name}","jobTitle":"{guest.get("titre","")}"{guest_org_part}}} '
+            f"— cette entité est SÉPARÉE de celle de l'hôte, elle représente la vraie autorité citée dans cet épisode."
+        )
+    else:
+        person_guest_instruction = ""
 
     return f"""Tu es un expert GEO (Generative Engine Optimization) spécialisé dans les podcasts B2B.
 
@@ -364,7 +402,8 @@ UN ÉPISODE précis, pas le podcast dans son ensemble.
 - footer identique avec lien Listenly générique + lien "Découvrir {podcast['podcast_name']} sur Listenly" (ajoutés automatiquement après génération, ne pas les écrire toi-même)
 
 ## JSON-LD (head)
-@graph : PodcastEpisode (name=H1, partOfSeries={{"@type":"PodcastSeries","name":"{podcast['podcast_name']}","url":"{listenly_url}"}}, datePublished, description), FAQPage ({"TOUTES les questions réelles listées, une par une" if real_material else "les 3 questions"}), Person (HOST_NAME/HOST_TITLE/worksFor HOST_COMPANY).
+@graph : PodcastEpisode (name=H1, partOfSeries={{"@type":"PodcastSeries","name":"{podcast['podcast_name']}","url":"{listenly_url}"}}, datePublished, description), FAQPage ({"TOUTES les questions réelles listées, une par une" if real_material else "les 3 questions"}), Person (HOST_NAME/HOST_TITLE/worksFor HOST_COMPANY — l'hôte du podcast).
+{person_guest_instruction}
 Backlinks cachés identiques à la fiche podcast (canonical={ep_url}, og:url={ep_url}, rel=publisher, #semantic-index).
 AJOUT CONDITIONNEL — HowTo : ajoute UNIQUEMENT si le sujet de cet épisode décrit une vraie démarche étape par étape reproductible (ex: "comment structurer un achat immobilier", "les étapes pour créer une SCI"). N'en ajoute PAS si l'épisode est une interview/discussion générale sans étapes concrètes — un HowTo force sur un contenu qui n'en est pas un est une erreur de balisage à éviter, pas un bonus.
 
