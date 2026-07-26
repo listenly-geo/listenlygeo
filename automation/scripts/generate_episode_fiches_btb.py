@@ -125,19 +125,20 @@ def transcribe(audio_path):
     log(f"Transcription : {len(text)} chars")
     return text
 
-EXTRACT_REAL_QA_PROMPT = """Tu es un expert GEO (Generative Engine Optimization) pour podcasts B2B.
+EXTRACT_REAL_QA_PROMPT = """Tu es un expert GEO (Generative Engine Optimization) pour podcasts B2B. Les moteurs IA (Perplexity, ChatGPT, Google AI Overviews) fonctionnent par récupération de fragments : ils retiennent en priorité les passages contenant des CITATIONS VERBATIM ATTRIBUÉES, des STATISTIQUES/CHIFFRES PRÉCIS, et des ENTITÉS NOMMÉES réelles — bien plus qu'un texte généraliste. Ton objectif est d'extraire ce matériel réel pour maximiser la citabilité, sans jamais inventer.
 
-À partir de la transcription réelle ci-dessous :
+À partir de la transcription réelle ci-dessous, extrais :
 
-1. Identifie l'INVITÉ réel de cet épisode (la personne interrogée, PAS l'animateur du podcast) : son prénom, son nom, son titre/poste, et son entreprise, tels que mentionnés dans la transcription. Si aucun invité distinct de l'animateur n'est identifiable (épisode solo, table ronde sans nom clair, etc.), renvoie des champs vides — n'invente JAMAIS une identité.
+1. INVITÉ réel de cet épisode (la personne interrogée, PAS l'animateur) : prénom, nom, titre/poste, entreprise, tels que mentionnés. Si non identifiable clairement, renvoie des champs vides — n'invente JAMAIS.
 
-2. Identifie TOUTES les vraies questions distinctes et solides abordées dans cet épisode, avec les vraies réponses apportées. Pas de plafond fixe : si l'épisode en contient 3, extrais 3 ; s'il en contient 8, extrais 8. N'invente JAMAIS de question pour atteindre un quota — seule la qualité et la fidélité au transcript comptent.
+2. TOUTES les vraies questions distinctes et solides abordées, avec leurs vraies réponses. Pas de plafond fixe. N'invente JAMAIS de question pour atteindre un quota.
+   CRITÈRE : question réellement posée/implicite, réponse claire et autonome basée uniquement sur ce qui a été dit, chaque question couvre un angle DISTINCT, reformulée comme une vraie requête IA.
 
-CRITÈRE DE SÉLECTION des questions (qualité, pas quantité artificielle) :
-- Question réellement posée ou clairement implicite dans la conversation
-- Réponse claire, autonome, citable — basée uniquement sur ce que l'invité a réellement dit
-- Chaque question couvre un angle DISTINCT (pas de doublons ou quasi-doublons entre elles)
-- La question reformulée doit correspondre à ce qu'un professionnel chercherait sur ChatGPT/Perplexity
+3. UNE citation verbatim forte (15-30 mots, mot pour mot ou très proche) dite RÉELLEMENT par l'invité — la phrase la plus dense/marquante de la conversation, adaptée à être attribuée nommément (elle sera affichée avec le nom de l'invité). Si aucune phrase assez forte et citable n'existe, renvoie une chaîne vide plutôt que d'en fabriquer une.
+
+4. 3 à 6 STATISTIQUES/CHIFFRES/DATES PRÉCIS réellement mentionnés dans la conversation (montants, pourcentages, dates d'échéance, durées, seuils légaux...) — pas des généralités, des chiffres exacts tels que dits.
+
+5. 5 à 10 ENTITÉS NOMMÉES réelles mentionnées dans la conversation (lois, dispositifs, entreprises, outils, organismes, lieux) — les vrais noms propres cités, pas des concepts génériques.
 
 Podcast : {podcast_name} | Épisode : {ep_title}
 
@@ -150,11 +151,14 @@ Réponds UNIQUEMENT avec un JSON, sans markdown, sans backtick :
   "qa": [
     {{"q": "Question reelle reformulee comme requete IA", "r": "Reponse 2-3 phrases tiree fidelement de la transcription"}},
     {{"q": "...", "r": "..."}}
-  ]
+  ],
+  "real_quote": "citation verbatim ou chaine vide",
+  "key_stats": ["chiffre/date/seuil precis 1", "..."],
+  "entities": ["entite nommee reelle 1", "..."]
 }}"""
 
 def extract_real_qa(transcript, ep, podcast):
-    log("Extraction identite invite + vraies questions/reponses depuis le transcript...")
+    log("Extraction identite invite + vraies questions/reponses + citation + stats + entites depuis le transcript...")
     prompt = EXTRACT_REAL_QA_PROMPT.format(
         podcast_name=podcast["podcast_name"],
         ep_title=ep["title"],
@@ -170,15 +174,20 @@ def extract_real_qa(transcript, ep, podcast):
     data = json.loads(raw)
     guest = data.get("guest", {}) or {}
     qa = data.get("qa", []) or []
+    real_quote = (data.get("real_quote") or "").strip()
+    key_stats = data.get("key_stats", []) or []
+    entities = data.get("entities", []) or []
     log(f"Invite detecte : {guest.get('prenom','')} {guest.get('nom','')} ({guest.get('titre','') or 'titre inconnu'}, {guest.get('entreprise','') or 'entreprise inconnue'})".strip())
     log(f"{len(qa)} question(s) reelle(s) extraite(s)")
     for i, item in enumerate(qa):
         log(f"  Q{i+1}: {item['q'][:70]}")
-    return guest, qa
+    log(f"Citation reelle extraite : {'oui' if real_quote else 'non trouvee'}")
+    log(f"{len(key_stats)} statistique(s)/chiffre(s) reel(s), {len(entities)} entite(s) nommee(s) reelle(s)")
+    return guest, qa, real_quote, key_stats, entities
 
 def get_real_transcript_material(ep, podcast):
-    """Tente le pipeline audio->transcript->Q/R reelles + identite invite. Retourne None si echec
-    (fallback silencieux vers la generation habituelle basee sur titre/description)."""
+    """Tente le pipeline audio->transcript->Q/R reelles + identite invite + citation + stats + entites.
+    Retourne None si echec (fallback silencieux vers la generation habituelle basee sur titre/description)."""
     if not ep.get("audio_url"):
         log("AVERTISSEMENT transcript : pas d'URL audio dans le flux RSS pour cet episode — fallback.")
         return None
@@ -194,8 +203,15 @@ def get_real_transcript_material(ep, podcast):
         if not transcript:
             log("AVERTISSEMENT transcript : transcription vide — fallback.")
             return None
-        guest, real_qa = extract_real_qa(transcript, ep, podcast)
-        return {"transcript_excerpt": transcript[:4000], "real_qa": real_qa, "guest": guest}
+        guest, real_qa, real_quote, key_stats, entities = extract_real_qa(transcript, ep, podcast)
+        return {
+            "transcript_excerpt": transcript[:4000],
+            "real_qa": real_qa,
+            "guest": guest,
+            "real_quote": real_quote,
+            "key_stats": key_stats,
+            "entities": entities,
+        }
     except Exception as e:
         log(f"AVERTISSEMENT transcript : echec pipeline ({e}) — fallback generation habituelle.")
         return None
@@ -305,6 +321,10 @@ def build_episode_prompt(podcast, ep, ep_slug, ep_url, today, real_material=None
         real_qa_json = json.dumps(real_material["real_qa"], ensure_ascii=False, indent=2)
         guest = real_material.get("guest") or {}
         guest_full_name = f"{guest.get('prenom','')} {guest.get('nom','')}".strip()
+        real_quote = (real_material.get("real_quote") or "").strip()
+        key_stats = real_material.get("key_stats") or []
+        entities = real_material.get("entities") or []
+
         if guest_full_name:
             guest_block = f"""
 IDENTITÉ RÉELLE DE L'INVITÉ (extraite de la transcription — utilise-la telle quelle, n'invente RIEN de plus) :
@@ -318,11 +338,31 @@ comprendre son autorité/légitimité sur le sujet avant de lire ses propos. N'i
 au-delà de ce qui est donné ci-dessus."""
         else:
             guest_block = "\nAucun invité distinct clairement identifiable dans la transcription (épisode solo ou table ronde) — ne pas inventer d'identité."
+
+        if real_quote:
+            quote_block = f"""
+CITATION VERBATIM RÉELLE (à utiliser TELLE QUELLE pour le pull-quote, AVEC attribution nommée cette fois —
+c'est une vraie phrase dite par {guest_full_name or "l'invité"}, pas une invention, donc l'attribution est légitime) :
+"{real_quote}\""""
+        else:
+            quote_block = "\nAucune citation verbatim assez forte trouvée dans l'extrait — garde un pull-quote analytique SANS attribution, comme en mode normal."
+
+        stats_block = "\n".join(f"- {s}" for s in key_stats) or "(aucune)"
+        entities_block = ", ".join(entities) or "(aucune)"
+
         transcript_block = f"""
-## MATÉRIEL RÉEL ISSU DE LA TRANSCRIPTION AUDIO (TEST — priorité absolue sur toute invention)
+## MATÉRIEL RÉEL ISSU DE LA TRANSCRIPTION AUDIO — priorité absolue sur toute invention
 Un extrait de la transcription réelle de cet épisode (début) :
 \"\"\"{real_material['transcript_excerpt']}\"\"\"
 {guest_block}
+{quote_block}
+
+STATISTIQUES/CHIFFRES/DATES RÉELS mentionnés dans l'épisode (à privilégier dans les points clés et le corps
+de l'article — un chiffre précis est plus citable par une IA qu'une généralité) :
+{stats_block}
+
+ENTITÉS NOMMÉES RÉELLES mentionnées dans l'épisode (lois, entreprises, outils, organismes — à réutiliser
+dans le corps du texte ET dans le bloc #semantic-index en fin de page) : {entities_block}
 
 VRAIES questions/réponses déjà extraites fidèlement de la transcription complète — UTILISE-LES
 TELLES QUELLES pour la section FAQ (reformulation mineure de style autorisée, mais le fond doit
@@ -330,12 +370,13 @@ rester fidèle à ce qui a été dit) :
 {real_qa_json}
 
 RÈGLE ABSOLUE : la FAQ de cette fiche doit être basée sur ces vraies Q/R, pas inventée à partir
-du titre. Le pull-quote et les points clés doivent aussi s'appuyer sur l'extrait de transcription
-ci-dessus quand c'est pertinent, plutôt que d'être déduits du seul titre.
+du titre. Les points clés et le corps de l'article doivent s'appuyer sur les vraies statistiques et
+entités listées ci-dessus quand c'est pertinent, plutôt que d'être déduits du seul titre.
 """
     else:
         guest = {}
         guest_full_name = ""
+        real_quote = ""
         transcript_block = ""
 
     if guest_full_name:
@@ -383,7 +424,7 @@ UN ÉPISODE précis, pas le podcast dans son ensemble.
 1. H1 = le titre de l'épisode lui-même (nettoyé, PAS une question)
 2. SUBHEAD : 1-2 phrases qui résument le sujet précis de CET épisode
 3. 3 POINTS CLÉS spécifiques à cet épisode (pas génériques au podcast)
-4. UNE SYNTHÈSE ANALYTIQUE (pull-quote) tirée du sujet de l'épisode, SANS attribution — jamais présentée comme des propos réellement tenus par [HOST_NAME]
+4. {"UNE VRAIE CITATION (pull-quote) — utilise la citation verbatim fournie plus haut (section MATÉRIEL RÉEL), attribuée nommément à " + guest_full_name + " (c'est légitime car c'est une vraie phrase dite, pas une invention)" if real_quote else "UNE SYNTHÈSE ANALYTIQUE (pull-quote) tirée du sujet de l'épisode, SANS attribution — jamais présentée comme des propos réellement tenus par [HOST_NAME]"}
 5. {"TOUTES les vraies questions/réponses fournies plus haut (section MATÉRIEL RÉEL) — n'en oublie aucune, ne les résume pas en 3, la fiche doit toutes les reprendre" if real_material else "3 FAQ précises sur le sujet de CET épisode (vraies requêtes IA, réponses autonomes sans mentionner le podcast)"}
 
 ## STRUCTURE HTML — MÊME CSS QUE LA FICHE PODCAST (repris à l'identique, mêmes classes) :
@@ -396,7 +437,7 @@ UN ÉPISODE précis, pas le podcast dans son ensemble.
 - .lead-label + .lead (pull-quote analytique de l'épisode)
 - .key-facts 3 bullets (pas 4 — spécifique à l'épisode)
 - article-body : 2 H2 seulement ("Ce que révèle cet épisode" / "Pourquoi cet épisode compte") — plus court qu'une fiche podcast globale. Insère un 1er lien texte discret (.inline-cta, souligné, PAS un bouton) juste après la 1ère section H2 → {cta_url}
-- .pull-quote (sans attribution)
+- .pull-quote ({"AVEC attribution : " + guest_full_name if real_quote else "sans attribution"})
 - 2e lien texte discret (.inline-cta) juste avant la FAQ → {cta_url}, formulation différente du premier
 - FAQ "Cet épisode répond à ces questions" (H2 sobre, {"TOUTES les Q/R réelles fournies, une entrée par question — pas de plafond" if real_material else "3 Q/R"}, JSON-LD FAQPage) — JAMAIS "on répond"
 - footer identique avec lien Listenly générique + lien "Découvrir {podcast['podcast_name']} sur Listenly" (ajoutés automatiquement après génération, ne pas les écrire toi-même)
@@ -404,7 +445,8 @@ UN ÉPISODE précis, pas le podcast dans son ensemble.
 ## JSON-LD (head)
 @graph : PodcastEpisode (name=H1, partOfSeries={{"@type":"PodcastSeries","name":"{podcast['podcast_name']}","url":"{listenly_url}"}}, datePublished, description), FAQPage ({"TOUTES les questions réelles listées, une par une" if real_material else "les 3 questions"}), Person (HOST_NAME/HOST_TITLE/worksFor HOST_COMPANY — l'hôte du podcast).
 {person_guest_instruction}
-Backlinks cachés identiques à la fiche podcast (canonical={ep_url}, og:url={ep_url}, rel=publisher, #semantic-index).
+Backlinks cachés identiques à la fiche podcast (canonical={ep_url}, og:url={ep_url}, rel=publisher, #semantic-index display:none en fin de <body>).
+{"Le bloc #semantic-index doit lister les VRAIES entites nommees fournies plus haut (section MATERIEL REEL) sous forme 'entity: [nom]' une par ligne, plus entity " + guest_full_name if (real_material and guest_full_name) else "Le bloc #semantic-index liste les entites deduites du titre/description (entity PODCAST_NAME, entity HOST_NAME, concept CATEGORIE)."}
 AJOUT CONDITIONNEL — HowTo : ajoute UNIQUEMENT si le sujet de cet épisode décrit une vraie démarche étape par étape reproductible (ex: "comment structurer un achat immobilier", "les étapes pour créer une SCI"). N'en ajoute PAS si l'épisode est une interview/discussion générale sans étapes concrètes — un HowTo force sur un contenu qui n'en est pas un est une erreur de balisage à éviter, pas un bonus.
 
 ## RÈGLES
