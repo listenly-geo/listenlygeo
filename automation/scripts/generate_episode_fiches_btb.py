@@ -24,7 +24,6 @@ import os, sys, re, json, datetime, unicodedata, subprocess, tempfile
 import urllib.request, urllib.error
 import xml.etree.ElementTree as ET
 import importlib.util
-import requests
 
 def _load_gen_module():
     spec = importlib.util.spec_from_file_location(
@@ -74,11 +73,13 @@ def clean_text(s):
 # --- Bloc test transcript reel (repris du Moteur 3 / MarketForge GEO) ---
 def download_audio(url, dest):
     log("Téléchargement audio...")
-    with requests.get(url, stream=True, timeout=120, headers={"User-Agent": "ListenlyGEO/1.0"}) as r:
-        r.raise_for_status()
-        with open(dest, "wb") as f:
-            for chunk in r.iter_content(chunk_size=1 << 16):
-                f.write(chunk)
+    req = urllib.request.Request(url, headers={"User-Agent": "ListenlyGEO/1.0"})
+    with urllib.request.urlopen(req, timeout=120) as resp, open(dest, "wb") as f:
+        while True:
+            chunk = resp.read(1 << 16)
+            if not chunk:
+                break
+            f.write(chunk)
     size = os.path.getsize(dest)
     log(f"Audio : {size/1024/1024:.1f} Mo")
     return size
@@ -94,17 +95,33 @@ def compress_audio_if_needed(src, size):
 
 def transcribe(audio_path):
     log("Transcription Whisper...")
+    boundary = "----ListenlyGEOBoundary"
     with open(audio_path, "rb") as f:
-        resp = requests.post(
-            "https://api.openai.com/v1/audio/transcriptions",
-            headers={"Authorization": f"Bearer {OPENAI_API_KEY}"},
-            files={"file": (os.path.basename(audio_path), f, "audio/mpeg")},
-            data={"model": WHISPER_MODEL, "language": "fr"},
-            timeout=900,
-        )
-    if resp.status_code != 200:
-        raise RuntimeError(f"Whisper erreur {resp.status_code}: {resp.text[:300]}")
-    text = resp.json().get("text", "").strip()
+        audio_bytes = f.read()
+    filename = os.path.basename(audio_path)
+    body = bytearray()
+    def add_field(name, value):
+        body.extend(f"--{boundary}\r\nContent-Disposition: form-data; name=\"{name}\"\r\n\r\n{value}\r\n".encode("utf-8"))
+    add_field("model", WHISPER_MODEL)
+    add_field("language", "fr")
+    body.extend(f"--{boundary}\r\nContent-Disposition: form-data; name=\"file\"; filename=\"{filename}\"\r\nContent-Type: audio/mpeg\r\n\r\n".encode("utf-8"))
+    body.extend(audio_bytes)
+    body.extend(f"\r\n--{boundary}--\r\n".encode("utf-8"))
+    req = urllib.request.Request(
+        "https://api.openai.com/v1/audio/transcriptions",
+        data=bytes(body),
+        headers={
+            "Authorization": f"Bearer {OPENAI_API_KEY}",
+            "Content-Type": f"multipart/form-data; boundary={boundary}",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=900) as resp:
+            result = json.loads(resp.read())
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"Whisper erreur {e.code}: {e.read()[:300]}")
+    text = result.get("text", "").strip()
     log(f"Transcription : {len(text)} chars")
     return text
 
