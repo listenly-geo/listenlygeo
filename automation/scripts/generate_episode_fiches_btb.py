@@ -389,6 +389,15 @@ entités listées ci-dessus quand c'est pertinent, plutôt que d'être déduits 
     else:
         person_guest_instruction = ""
 
+    if real_material:
+        h2_instruction = ("2 à 4 H2 REFORMULÉS comme des vraies sous-questions distinctes réellement "
+            "traitées dans l'épisode (ex: 'Pourquoi la facturation électronique devient obligatoire' "
+            "plutôt qu'un titre générique) — chaque H2 doit pouvoir répondre à lui seul à une recherche "
+            "IA précise, sans dépendre du reste de la page (les moteurs IA découpent une question en "
+            "plusieurs sous-requêtes et retrouvent séparément chaque section)")
+    else:
+        h2_instruction = '2 H2 seulement ("Ce que révèle cet épisode" / "Pourquoi cet épisode compte")'
+
     return f"""Tu es un expert GEO (Generative Engine Optimization) spécialisé dans les podcasts B2B.
 
 Ta mission est de générer une FICHE ÉPISODE complète en HTML autonome pour Listenly.fr.
@@ -436,7 +445,7 @@ UN ÉPISODE précis, pas le podcast dans son ensemble.
 - .cta-listen (seul bouton, accent plein) "Écouter le podcast" → {cta_url}
 - .lead-label + .lead (pull-quote analytique de l'épisode)
 - .key-facts 3 bullets (pas 4 — spécifique à l'épisode)
-- article-body : {"2 à 4 H2 REFORMULÉS comme des vraies sous-questions distinctes réellement traitées dans l'épisode (ex: 'Pourquoi la facturation électronique devient obligatoire' plutôt qu'un titre générique) — chaque H2 doit pouvoir répondre à lui seul à une recherche IA précise, sans dépendre du reste de la page (les moteurs IA découpent une question en plusieurs sous-requêtes et retrouvent séparément chaque section)" if real_material else "2 H2 seulement (\"Ce que révèle cet épisode\" / \"Pourquoi cet épisode compte\")"} — plus court qu'une fiche podcast globale. Insère un 1er lien texte discret (.inline-cta, souligné, PAS un bouton) juste après la 1ère section H2 → {cta_url}
+- article-body : {h2_instruction} — plus court qu'une fiche podcast globale. Insère un 1er lien texte discret (.inline-cta, souligné, PAS un bouton) juste après la 1ère section H2 → {cta_url}
 - .pull-quote ({"AVEC attribution : " + guest_full_name if real_quote else "sans attribution"})
 - 2e lien texte discret (.inline-cta) juste avant la FAQ → {cta_url}, formulation différente du premier
 - FAQ "Cet épisode répond à ces questions" (H2 sobre, {"TOUTES les Q/R réelles fournies, une entrée par question — pas de plafond" if real_material else "3 Q/R"}, JSON-LD FAQPage) — JAMAIS "on répond"
