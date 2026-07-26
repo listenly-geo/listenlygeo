@@ -274,6 +274,7 @@ RÈGLE DE COULEUR ET DE TON : {ACCENT_COLOR} apparaît sur .eyebrow-category, .c
 1. EYEBROW CATEGORY : <p class="eyebrow-category">{STRINGS['eyebrow_prefix']} · [CATEGORIE]</p> (texte simple, pas de pill ; [CATEGORIE] reste dans la langue de rédaction choisie)
 2. H1 = [PODCAST_NAME] (titre serif classique, jamais une question)
 3. BYLINE ROW : "{STRINGS['byline_pattern']}" avec [HOST_NAME] entouré de <span class='name'>...</span> — respecte EXACTEMENT ce connecteur ("{STRINGS['byline_pattern']}"), c'est utilisé pour extraire les données automatiquement
+3b. BIO DE CRÉDIBILITÉ (1 phrase courte, juste après la byline, style discret sans-serif petit, class="host-bio") établissant en quoi [HOST_NAME]/[HOST_COMPANY] est légitime sur ce sujet — basée uniquement sur HOST_TITLE/HOST_COMPANY/CATEGORIE déjà fournis, n'invente aucun détail biographique non déductible de ces données (signal E-E-A-T pour les moteurs IA)
 4. HERO IMAGE : si {cover_image or "aucune"} fournie, <img class="hero-image" src="[COVER_IMAGE]" alt="[PODCAST_NAME]">. Si aucune, ne rien afficher (pas de balise cassée).
 5. PUBLISH ROW (ligne bordée haut/bas façon presse) : "⏱ X {STRINGS['reading_time']} · {STRINGS['readable_by']}" (texte simple, une ligne discrète unique)
 6. CTA ROW (pill unique) : "{STRINGS['cta_listen']}" (cta-listen) → {PODCAST_URL}. Plus de bouton contact — l'unique objectif de cette fiche est de renvoyer vers l'écoute du podcast.
@@ -294,6 +295,8 @@ RÈGLE DE COULEUR ET DE TON : {ACCENT_COLOR} apparaît sur .eyebrow-category, .c
 15. FOOTER : © [PODCAST_NAME] — [HOST_COMPANY] + lien "{STRINGS['footer_credit']}" → https://listenly.fr (dofollow, color #999, underline)
 
 RÈGLE CTA : ce podcast n'a plus qu'un seul objectif de conversion — ramener l'audience vers l'écoute sur {PODCAST_URL}. Les 3 liens texte (points 8b, 11, 12b) doivent utiliser 3 formulations différentes (pas de copier-coller de la même phrase), rester discrets (soulignés, pas des boutons), et TOUS pointer vers {PODCAST_URL}. Aucun lien de contact nulle part dans la fiche.
+
+RÈGLE LANGAGE : écris avec assurance et autorité (levier de citabilité IA le mieux établi avec les citations/statistiques selon la littérature GEO) — affirme les faits directement, évite les tournures évasives ("il semblerait", "on pourrait dire"). Reste factuel, mais formule avec assurance.
 
 ## JSON-LD OBLIGATOIRE (dans <head>)
 @graph : BlogPosting (headline=H1, author=[HOST_NAME]/[HOST_TITLE], publisher=Listenly, isPartOf={LISTENLY_URL}, speakable cssSelector [".lead",".key-facts"]), FAQPage (les 4 questions), Person ([HOST_NAME]/[HOST_TITLE]/worksFor [HOST_COMPANY]), PodcastSeries ([PODCAST_NAME]/{PODCAST_URL}, sameAs: ["{PODCAST_URL}", "{LISTENLY_URL}"]).
