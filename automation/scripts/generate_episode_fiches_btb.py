@@ -117,7 +117,7 @@ def transcribe(audio_path):
         method="POST",
     )
     try:
-        with urllib.request.urlopen(req, timeout=900) as resp:
+        with urllib.request.urlopen(req, timeout=3300) as resp:
             result = json.loads(resp.read())
     except urllib.error.HTTPError as e:
         raise RuntimeError(f"Whisper erreur {e.code}: {e.read()[:300]}")
