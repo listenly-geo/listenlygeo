@@ -43,9 +43,11 @@ jobs:
         if: github.event_name == 'schedule'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           PODCAST_SLUG: |-
             41-m-2
           MAX_EPISODES: '1'
+          USE_TRANSCRIPT: 'true'
         run: python automation/scripts/generate_episode_fiches_btb.py
 
       - name: Commit fiches
