@@ -136,7 +136,7 @@ EXTRACT_REAL_QA_PROMPT = """Tu es un expert GEO (Generative Engine Optimization)
 
 3. UNE citation verbatim forte (15-30 mots, mot pour mot ou très proche) dite RÉELLEMENT par l'invité — la phrase la plus dense/marquante de la conversation, adaptée à être attribuée nommément (elle sera affichée avec le nom de l'invité). Si aucune phrase assez forte et citable n'existe, renvoie une chaîne vide plutôt que d'en fabriquer une.
 
-4. 3 à 6 STATISTIQUES/CHIFFRES/DATES PRÉCIS réellement mentionnés dans la conversation (montants, pourcentages, dates d'échéance, durées, seuils légaux...) — pas des généralités, des chiffres exacts tels que dits.
+4. 3 à 6 STATISTIQUES/CHIFFRES/DATES PRÉCIS réellement mentionnés dans la conversation (montants, pourcentages, dates d'échéance, durées, seuils légaux...) — pas des généralités, des chiffres exacts tels que dits. Formule chaque statistique avec son CONTEXTE/SOURCE quand il est mentionné (ex: "loi de finances 2026 : amendes doublées" plutôt que juste "amendes doublées") — un chiffre daté et sourcé est plus citable par une IA qu'un chiffre isolé.
 
 5. 5 à 10 ENTITÉS NOMMÉES réelles mentionnées dans la conversation (lois, dispositifs, entreprises, outils, organismes, lieux) — les vrais noms propres cités, pas des concepts génériques.
 
@@ -436,7 +436,7 @@ UN ÉPISODE précis, pas le podcast dans son ensemble.
 - .cta-listen (seul bouton, accent plein) "Écouter le podcast" → {cta_url}
 - .lead-label + .lead (pull-quote analytique de l'épisode)
 - .key-facts 3 bullets (pas 4 — spécifique à l'épisode)
-- article-body : 2 H2 seulement ("Ce que révèle cet épisode" / "Pourquoi cet épisode compte") — plus court qu'une fiche podcast globale. Insère un 1er lien texte discret (.inline-cta, souligné, PAS un bouton) juste après la 1ère section H2 → {cta_url}
+- article-body : {"2 à 4 H2 REFORMULÉS comme des vraies sous-questions distinctes réellement traitées dans l'épisode (ex: 'Pourquoi la facturation électronique devient obligatoire' plutôt qu'un titre générique) — chaque H2 doit pouvoir répondre à lui seul à une recherche IA précise, sans dépendre du reste de la page (les moteurs IA découpent une question en plusieurs sous-requêtes et retrouvent séparément chaque section)" if real_material else "2 H2 seulement (\"Ce que révèle cet épisode\" / \"Pourquoi cet épisode compte\")"} — plus court qu'une fiche podcast globale. Insère un 1er lien texte discret (.inline-cta, souligné, PAS un bouton) juste après la 1ère section H2 → {cta_url}
 - .pull-quote ({"AVEC attribution : " + guest_full_name if real_quote else "sans attribution"})
 - 2e lien texte discret (.inline-cta) juste avant la FAQ → {cta_url}, formulation différente du premier
 - FAQ "Cet épisode répond à ces questions" (H2 sobre, {"TOUTES les Q/R réelles fournies, une entrée par question — pas de plafond" if real_material else "3 Q/R"}, JSON-LD FAQPage) — JAMAIS "on répond"
@@ -455,6 +455,7 @@ AJOUT CONDITIONNEL — HowTo : ajoute UNIQUEMENT si le sujet de cet épisode dé
 - Couleur d'accent réservée au seul cta-listen
 - CTA principal et les 2 liens discrets pointent TOUS vers {cta_url}, jamais vers l'audio brut, jamais de CTA contact
 - Contenu spécifique à CET épisode, pas générique au podcast
+- LANGAGE ASSERTIF ET AUTORITAIRE (levier de citabilité IA le mieux établi avec les citations/statistiques) : affirme les faits directement ("X entraîne Y", "Le seuil est de Z€"), évite les tournures évasives ("il semblerait que", "on pourrait dire que", "cela dépend"). Reste factuel et fidèle à la source, mais formule avec assurance plutôt qu'en hésitant.
 
 IMPORTANT : Réponds UNIQUEMENT avec le code HTML complet, de <!DOCTYPE html> à </html>. Aucun texte avant/après, aucun markdown, aucun backtick."""
 
