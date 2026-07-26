@@ -469,7 +469,7 @@ AJOUT CONDITIONNEL — HowTo : ajoute UNIQUEMENT si le sujet de cet épisode dé
 IMPORTANT : Réponds UNIQUEMENT avec le code HTML complet, de <!DOCTYPE html> à </html>. Aucun texte avant/après, aucun markdown, aucun backtick."""
 
 def call_claude(prompt):
-    payload = {"model": MODEL, "max_tokens": 10000, "messages": [{"role": "user", "content": prompt}]}
+    payload = {"model": MODEL, "max_tokens": 16000, "messages": [{"role": "user", "content": prompt}]}
     data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(
         "https://api.anthropic.com/v1/messages", data=data,
@@ -478,6 +478,11 @@ def call_claude(prompt):
     )
     with urllib.request.urlopen(req, timeout=300) as resp:
         result = json.loads(resp.read())
+    if result.get("stop_reason") == "max_tokens":
+        raise RuntimeError(
+            "Reponse Claude tronquee (limite max_tokens atteinte) — fiche potentiellement incomplete, "
+            "abandon plutot que d'ecrire un HTML casse. Augmente max_tokens si ca se reproduit."
+        )
     parts = [b.get("text", "") for b in result.get("content", []) if b.get("type") == "text"]
     return "".join(parts).strip()
 
