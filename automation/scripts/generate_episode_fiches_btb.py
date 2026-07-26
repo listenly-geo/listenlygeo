@@ -349,6 +349,7 @@ UN ÉPISODE précis, pas le podcast dans son ensemble.
 5. {"TOUTES les vraies questions/réponses fournies plus haut (section MATÉRIEL RÉEL) — n'en oublie aucune, ne les résume pas en 3, la fiche doit toutes les reprendre" if real_material else "3 FAQ précises sur le sujet de CET épisode (vraies requêtes IA, réponses autonomes sans mentionner le podcast)"}
 
 ## STRUCTURE HTML — MÊME CSS QUE LA FICHE PODCAST (repris à l'identique, mêmes classes) :
+- <head> OBLIGATOIRE : <title> ET <meta name="description" content="..."> (140-155 caractères, résumant le sujet précis de CET épisode, jamais omise) + og:title/og:description/og:url identiques + canonical={ep_url}
 - main.wrapper (PAS de div), header-row (vignette + eyebrow-category côte à côte), h1 Georgia serif bold, byline-row "Par [HOST_NAME], [HOST_TITLE] chez [HOST_COMPANY]"
 - .eyebrow-category : "Épisode · {podcast['podcast_name']}"
 - BREADCRUMB juste sous le header-row : <p style="font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#666;margin:0 0 8px;"><a href="{podcast['fiche_url']}" style="color:#666;text-decoration:underline;">← Voir la fiche {podcast['podcast_name']}</a></p>
@@ -365,6 +366,7 @@ UN ÉPISODE précis, pas le podcast dans son ensemble.
 ## JSON-LD (head)
 @graph : PodcastEpisode (name=H1, partOfSeries={{"@type":"PodcastSeries","name":"{podcast['podcast_name']}","url":"{listenly_url}"}}, datePublished, description), FAQPage ({"TOUTES les questions réelles listées, une par une" if real_material else "les 3 questions"}), Person (HOST_NAME/HOST_TITLE/worksFor HOST_COMPANY).
 Backlinks cachés identiques à la fiche podcast (canonical={ep_url}, og:url={ep_url}, rel=publisher, #semantic-index).
+AJOUT CONDITIONNEL — HowTo : ajoute UNIQUEMENT si le sujet de cet épisode décrit une vraie démarche étape par étape reproductible (ex: "comment structurer un achat immobilier", "les étapes pour créer une SCI"). N'en ajoute PAS si l'épisode est une interview/discussion générale sans étapes concrètes — un HowTo force sur un contenu qui n'en est pas un est une erreur de balisage à éviter, pas un bonus.
 
 ## RÈGLES
 - H1 = titre épisode, jamais une question
@@ -402,6 +404,8 @@ def render_episodes_index(podcast, episodes_meta):
 </div>""" for e in sorted(episodes_meta, key=lambda x: x.get("pubdate",""), reverse=True))
 
     title = f"Épisodes de {podcast['podcast_name']}"
+    n = len(episodes_meta)
+    description = f"Retrouvez les {n} fiche{'s' if n > 1 else ''} épisode{'s' if n > 1 else ''} de {podcast['podcast_name']}, référencées par Listenly, avec les questions et sujets abordés."
     canonical = f"https://listenly.fr/podcast-btb/episodes/{SLUG}/index.html"
     style = """
 body{font-family:Helvetica,Arial,sans-serif;color:#1a1a1a;margin:0;background:#fff}
@@ -419,8 +423,10 @@ footer{font-size:12px;color:#aaa;border-top:1px solid #eee;margin-top:40px;paddi
 <head>
 <meta charset="UTF-8">
 <title>{title}</title>
+<meta name="description" content="{description}">
 <link rel="canonical" href="{canonical}">
 <meta property="og:title" content="{title}">
+<meta property="og:description" content="{description}">
 <meta property="og:url" content="{canonical}">
 <style>{style}</style>
 </head>
