@@ -39,8 +39,8 @@ jobs:
             fr
         run: python automation/scripts/generate_podcast_btb.py
 
-      - name: Generation 1 fiche episode max (cron hebdomadaire uniquement, jamais au lancement manuel)
-        if: github.event_name == 'schedule'
+      - name: Generation 1 fiche episode max (test manuel autorise temporairement)
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
