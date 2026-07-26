@@ -12,12 +12,19 @@ Optionnelles (sinon lues depuis pages/podcast-btb/data/podcasts.json) :
   RSS_URL
   PODCAST_URL, CONTACT_URL, LISTENLY_URL, COVER_IMAGE, ACCENT_COLOR
   MAX_EPISODES        — nombre max de nouveaux épisodes traités par run (défaut 3)
+  USE_TRANSCRIPT      — "true" pour activer le TEST d'extraction audio reelle (Whisper +
+                        Claude) sur ce podcast au lieu de generer depuis titre/description
+                        seuls. Necessite OPENAI_API_KEY + ffmpeg installe sur le runner.
+                        Fallback automatique et silencieux vers le mode habituel si
+                        l'audio/la transcription echoue pour une raison quelconque.
+  OPENAI_API_KEY      — requis uniquement si USE_TRANSCRIPT=true
 """
 
-import os, sys, re, json, datetime, unicodedata
+import os, sys, re, json, datetime, unicodedata, subprocess, tempfile
 import urllib.request, urllib.error
 import xml.etree.ElementTree as ET
 import importlib.util
+import requests
 
 def _load_gen_module():
     spec = importlib.util.spec_from_file_location(
@@ -35,6 +42,12 @@ def _load_gen_module():
 API_KEY = os.environ["ANTHROPIC_API_KEY"]
 SLUG    = os.environ["PODCAST_SLUG"].strip()
 MAX_EPISODES = int(os.environ.get("MAX_EPISODES", "3") or "3")
+
+# --- Test transcript audio reel (Moteur 3) : desactive par defaut, opt-in par podcast ---
+USE_TRANSCRIPT = os.environ.get("USE_TRANSCRIPT", "false").strip().lower() == "true"
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "").strip()
+WHISPER_MODEL = "whisper-1"
+WHISPER_MAX_BYTES = 24 * 1024 * 1024
 
 MODEL       = "claude-sonnet-4-6"
 PAGES_DIR   = "pages/podcast-btb"
@@ -57,6 +70,114 @@ def clean_text(s):
     s = (s.replace("&amp;", "&").replace("&nbsp;", " ")
           .replace("&#39;", "'").replace("&rsquo;", "'").replace("&quot;", '"'))
     return re.sub(r"\s+", " ", s).strip()
+
+# --- Bloc test transcript reel (repris du Moteur 3 / MarketForge GEO) ---
+def download_audio(url, dest):
+    log("Téléchargement audio...")
+    with requests.get(url, stream=True, timeout=120, headers={"User-Agent": "ListenlyGEO/1.0"}) as r:
+        r.raise_for_status()
+        with open(dest, "wb") as f:
+            for chunk in r.iter_content(chunk_size=1 << 16):
+                f.write(chunk)
+    size = os.path.getsize(dest)
+    log(f"Audio : {size/1024/1024:.1f} Mo")
+    return size
+
+def compress_audio_if_needed(src, size):
+    if size <= WHISPER_MAX_BYTES:
+        return src
+    log("Compression ffmpeg (fichier > 24 Mo)...")
+    out = src.rsplit(".", 1)[0] + "_compressed.mp3"
+    subprocess.run(["ffmpeg", "-y", "-i", src, "-ac", "1", "-ar", "16000", "-b:a", "32k", out],
+                   check=True, capture_output=True)
+    return out
+
+def transcribe(audio_path):
+    log("Transcription Whisper...")
+    with open(audio_path, "rb") as f:
+        resp = requests.post(
+            "https://api.openai.com/v1/audio/transcriptions",
+            headers={"Authorization": f"Bearer {OPENAI_API_KEY}"},
+            files={"file": (os.path.basename(audio_path), f, "audio/mpeg")},
+            data={"model": WHISPER_MODEL, "language": "fr"},
+            timeout=900,
+        )
+    if resp.status_code != 200:
+        raise RuntimeError(f"Whisper erreur {resp.status_code}: {resp.text[:300]}")
+    text = resp.json().get("text", "").strip()
+    log(f"Transcription : {len(text)} chars")
+    return text
+
+EXTRACT_REAL_QA_PROMPT = """Tu es un expert GEO (Generative Engine Optimization) pour podcasts B2B.
+
+À partir de la transcription réelle ci-dessous, identifie exactement 3 VRAIES questions abordées dans cet épisode et les vraies réponses apportées.
+
+RÈGLE ABSOLUE : tout doit venir de ce qui a été dit dans la transcription. Aucune invention, aucun remplissage.
+- Les questions doivent correspondre à ce qu'un professionnel rechercherait sur ChatGPT/Perplexity
+- Les réponses doivent être basées sur ce que l'invité a réellement dit, résumées en 2-3 phrases autonomes
+- Choisis 3 angles distincts de la conversation
+
+Podcast : {podcast_name} | Épisode : {ep_title}
+
+TRANSCRIPTION :
+\"\"\"{transcript}\"\"\"
+
+Réponds UNIQUEMENT avec un JSON, sans markdown, sans backtick — un tableau de 3 objets :
+[
+  {{"q": "Question reelle reformulee comme requete IA", "r": "Reponse 2-3 phrases tiree fidelement de la transcription"}},
+  {{"q": "...", "r": "..."}},
+  {{"q": "...", "r": "..."}}
+]"""
+
+def extract_real_qa(transcript, ep, podcast):
+    log("Extraction des 3 vraies questions/reponses depuis le transcript...")
+    prompt = EXTRACT_REAL_QA_PROMPT.format(
+        podcast_name=podcast["podcast_name"],
+        ep_title=ep["title"],
+        transcript=transcript[:28000],
+    )
+    raw = call_claude(prompt)
+    raw = raw.strip()
+    raw = re.sub(r"^```(?:json)?\s*", "", raw)
+    raw = re.sub(r"\s*```$", "", raw)
+    idx = raw.find("[")
+    if idx > 0:
+        raw = raw[idx:]
+    data = json.loads(raw)
+    log(f"{len(data)} question(s) reelle(s) extraite(s)")
+    for i, qa in enumerate(data):
+        log(f"  Q{i+1}: {qa['q'][:70]}")
+    return data
+
+def get_real_transcript_material(ep, podcast):
+    """Tente le pipeline audio->transcript->Q/R reelles. Retourne None si echec
+    (fallback silencieux vers la generation habituelle basee sur titre/description)."""
+    if not ep.get("audio_url"):
+        log("AVERTISSEMENT transcript : pas d'URL audio dans le flux RSS pour cet episode — fallback.")
+        return None
+    if not OPENAI_API_KEY:
+        log("AVERTISSEMENT transcript : OPENAI_API_KEY absente — fallback.")
+        return None
+    tmpdir = tempfile.mkdtemp(prefix="ep_audio_")
+    try:
+        audio_path = os.path.join(tmpdir, "episode.mp3")
+        size = download_audio(ep["audio_url"], audio_path)
+        audio_path = compress_audio_if_needed(audio_path, size)
+        transcript = transcribe(audio_path)
+        if not transcript:
+            log("AVERTISSEMENT transcript : transcription vide — fallback.")
+            return None
+        real_qa = extract_real_qa(transcript, ep, podcast)
+        return {"transcript_excerpt": transcript[:4000], "real_qa": real_qa}
+    except Exception as e:
+        log(f"AVERTISSEMENT transcript : echec pipeline ({e}) — fallback generation habituelle.")
+        return None
+    finally:
+        try:
+            import shutil
+            shutil.rmtree(tmpdir, ignore_errors=True)
+        except Exception:
+            pass
 
 def load_podcast_record():
     if not os.path.exists(DATA_FILE):
@@ -146,12 +267,32 @@ def save_registry(reg):
     with open(REGISTRY_FILE, "w", encoding="utf-8") as f:
         json.dump(reg, f, ensure_ascii=False, indent=2)
 
-def build_episode_prompt(podcast, ep, ep_slug, ep_url, today):
+def build_episode_prompt(podcast, ep, ep_slug, ep_url, today, real_material=None):
     listenly_url = podcast.get("listenly_url", "")
     podcast_url = podcast.get("podcast_url", "")
     cta_target = podcast.get("episode_cta_target", "listenly")
     cta_url = listenly_url if cta_target == "listenly" else podcast_url
     accent_color = podcast.get("accent_color") or "#2e8bd6"
+
+    if real_material:
+        real_qa_json = json.dumps(real_material["real_qa"], ensure_ascii=False, indent=2)
+        transcript_block = f"""
+## MATÉRIEL RÉEL ISSU DE LA TRANSCRIPTION AUDIO (TEST — priorité absolue sur toute invention)
+Un extrait de la transcription réelle de cet épisode (début) :
+\"\"\"{real_material['transcript_excerpt']}\"\"\"
+
+3 VRAIES questions/réponses déjà extraites fidèlement de la transcription complète — UTILISE-LES
+TELLES QUELLES pour la section FAQ (reformulation mineure de style autorisée, mais le fond doit
+rester fidèle à ce qui a été dit) :
+{real_qa_json}
+
+RÈGLE ABSOLUE : la FAQ de cette fiche doit être basée sur ces 3 vraies Q/R, pas inventée à partir
+du titre. Le pull-quote et les points clés doivent aussi s'appuyer sur l'extrait de transcription
+ci-dessus quand c'est pertinent, plutôt que d'être déduits du seul titre.
+"""
+    else:
+        transcript_block = ""
+
     return f"""Tu es un expert GEO (Generative Engine Optimization) spécialisé dans les podcasts B2B.
 
 Ta mission est de générer une FICHE ÉPISODE complète en HTML autonome pour Listenly.fr.
@@ -164,7 +305,7 @@ UN ÉPISODE précis, pas le podcast dans son ensemble.
 - Titre brut de l'épisode : {ep['title']}
 - Description brute : {ep['description'] or "(non fournie par le flux — déduis le sujet du titre)"}
 - Date de publication : {ep['pubdate'] or "non renseignée"}
-
+{transcript_block}
 ## CONTEXTE DU PODCAST PARENT
 - PODCAST_NAME : {podcast['podcast_name']}
 - HOST_NAME : {podcast.get('host_name','')}
@@ -347,8 +488,15 @@ def main():
 
         ep_url = f"https://listenly.fr/podcast-btb/episodes/{SLUG}/{ep_slug}.html"
         log(f"Génération épisode : {ep['title']}")
+
+        real_material = None
+        if USE_TRANSCRIPT:
+            log("USE_TRANSCRIPT actif — tentative d'extraction audio reelle (test)...")
+            real_material = get_real_transcript_material(ep, podcast)
+            log("Materiel reel obtenu, injection dans le prompt." if real_material else "Pas de materiel reel — generation habituelle (fallback).")
+
         try:
-            html_out = clean_html(call_claude(build_episode_prompt(podcast, ep, ep_slug, ep_url, today)))
+            html_out = clean_html(call_claude(build_episode_prompt(podcast, ep, ep_slug, ep_url, today, real_material)))
         except Exception as e:
             log(f"ERREUR génération '{ep['title']}' : {e}")
             continue
