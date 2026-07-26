@@ -1457,6 +1457,10 @@ def main():
         build_historique()
         build_llms_txt()
         build_dashboard()
+        github_output = os.environ.get("GITHUB_OUTPUT")
+        if github_output:
+            with open(github_output, "a", encoding="utf-8") as f:
+                f.write("new_podcast=false\n")
         return
 
     os.makedirs(PAGES_DIR, exist_ok=True)
@@ -1510,6 +1514,14 @@ def main():
     build_llms_txt()
     build_dashboard()
     log(f"Categorie detectee : {meta['categorie']} ({cat_slug})")
+
+    # Marqueur pour que le workflow puisse declencher la 1ere fiche episode dans la foulee,
+    # uniquement lors d'une VRAIE nouvelle creation (jamais lors d'un simple resync)
+    github_output = os.environ.get("GITHUB_OUTPUT")
+    if github_output:
+        with open(github_output, "a", encoding="utf-8") as f:
+            f.write("new_podcast=true\n")
+        log("Marqueur new_podcast=true ecrit (declenchera la generation du 1er episode).")
 
 if __name__ == "__main__":
     main()
