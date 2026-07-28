@@ -434,6 +434,7 @@ def extract_fiche_meta(html, slug, fiche_url):
         "punchline": punchline,
         "fiche_url": fiche_url,
         "date": datetime.date.today().isoformat(),
+        "language": LANGUAGE,
     }
 
 def append_category_link(html, categorie, cat_slug):
