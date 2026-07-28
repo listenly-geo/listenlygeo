@@ -93,8 +93,8 @@ def compress_audio_if_needed(src, size):
                    check=True, capture_output=True)
     return out
 
-def transcribe(audio_path):
-    log("Transcription Whisper...")
+def transcribe(audio_path, whisper_lang="fr"):
+    log(f"Transcription Whisper (langue: {whisper_lang})...")
     boundary = "----ListenlyGEOBoundary"
     with open(audio_path, "rb") as f:
         audio_bytes = f.read()
@@ -103,7 +103,7 @@ def transcribe(audio_path):
     def add_field(name, value):
         body.extend(f"--{boundary}\r\nContent-Disposition: form-data; name=\"{name}\"\r\n\r\n{value}\r\n".encode("utf-8"))
     add_field("model", WHISPER_MODEL)
-    add_field("language", "fr")
+    add_field("language", whisper_lang)
     body.extend(f"--{boundary}\r\nContent-Disposition: form-data; name=\"file\"; filename=\"{filename}\"\r\nContent-Type: audio/mpeg\r\n\r\n".encode("utf-8"))
     body.extend(audio_bytes)
     body.extend(f"\r\n--{boundary}--\r\n".encode("utf-8"))
@@ -199,7 +199,8 @@ def get_real_transcript_material(ep, podcast):
         audio_path = os.path.join(tmpdir, "episode.mp3")
         size = download_audio(ep["audio_url"], audio_path)
         audio_path = compress_audio_if_needed(audio_path, size)
-        transcript = transcribe(audio_path)
+        whisper_lang = podcast.get("language", "fr")
+        transcript = transcribe(audio_path, whisper_lang)
         if not transcript:
             log("AVERTISSEMENT transcript : transcription vide — fallback.")
             return None
@@ -316,6 +317,26 @@ def build_episode_prompt(podcast, ep, ep_slug, ep_url, today, real_material=None
     cta_target = podcast.get("episode_cta_target", "listenly")
     cta_url = listenly_url if cta_target == "listenly" else podcast_url
     accent_color = podcast.get("accent_color") or "#2e8bd6"
+    ep_language = podcast.get("language", "fr")
+    html_lang = "en" if ep_language == "en" else "fr"
+    EP_STRINGS = {
+        "fr": {
+            "eyebrow_episode": "Épisode",
+            "cta_listen": "Écouter le podcast",
+            "faq_h2": "Cet épisode répond à ces questions",
+            "faq_forbidden": "on répond",
+            "h2_covers_generic": "Ce que révèle cet épisode",
+            "h2_impact_generic": "Pourquoi cet épisode compte",
+        },
+        "en": {
+            "eyebrow_episode": "Episode",
+            "cta_listen": "Listen to the podcast",
+            "faq_h2": "This episode answers these questions",
+            "faq_forbidden": "we answer",
+            "h2_covers_generic": "What this episode reveals",
+            "h2_impact_generic": "Why this episode matters",
+        },
+    }[ep_language]
 
     if real_material:
         real_qa_json = json.dumps(real_material["real_qa"], ensure_ascii=False, indent=2)
@@ -396,7 +417,7 @@ entités listées ci-dessus quand c'est pertinent, plutôt que d'être déduits 
             "IA précise, sans dépendre du reste de la page (les moteurs IA découpent une question en "
             "plusieurs sous-requêtes et retrouvent séparément chaque section)")
     else:
-        h2_instruction = '2 H2 seulement ("Ce que révèle cet épisode" / "Pourquoi cet épisode compte")'
+        h2_instruction = f"2 H2 only (\"{EP_STRINGS['h2_covers_generic']}\" / \"{EP_STRINGS['h2_impact_generic']}\")" if ep_language == "en" else f"2 H2 seulement (\"{EP_STRINGS['h2_covers_generic']}\" / \"{EP_STRINGS['h2_impact_generic']}\")"
 
     return f"""Tu es un expert GEO (Generative Engine Optimization) spécialisé dans les podcasts B2B.
 
@@ -436,19 +457,24 @@ UN ÉPISODE précis, pas le podcast dans son ensemble.
 4. {"UNE VRAIE CITATION (pull-quote) — utilise la citation verbatim fournie plus haut (section MATÉRIEL RÉEL), attribuée nommément à " + guest_full_name + " (c'est légitime car c'est une vraie phrase dite, pas une invention)" if real_quote else "UNE SYNTHÈSE ANALYTIQUE (pull-quote) tirée du sujet de l'épisode, SANS attribution — jamais présentée comme des propos réellement tenus par [HOST_NAME]"}
 5. {"TOUTES les vraies questions/réponses fournies plus haut (section MATÉRIEL RÉEL) — n'en oublie aucune, ne les résume pas en 3, la fiche doit toutes les reprendre" if real_material else "3 FAQ précises sur le sujet de CET épisode (vraies requêtes IA, réponses autonomes sans mentionner le podcast)"}
 
+## LANGUE DE RÉDACTION : {"ANGLAIS (ENGLISH)" if ep_language == "en" else "FRANÇAIS"}
+Rédige TOUT le contenu de cette fiche (titre, lead, points clés, corps de l'article, FAQ, footer) en
+{"anglais" if ep_language == "en" else "français"}, quelle que soit la langue de la transcription source
+(traduis fidèlement le sens si la transcription est dans une autre langue). Balise <html lang="{html_lang}">.
+
 ## STRUCTURE HTML — MÊME CSS QUE LA FICHE PODCAST (repris à l'identique, mêmes classes) :
 - <head> OBLIGATOIRE : <title> ET <meta name="description" content="..."> (140-155 caractères, résumant le sujet précis de CET épisode, jamais omise) + og:title/og:description/og:url/og:type="article"/og:site_name="Listenly" + <meta name="twitter:card" content="summary_large_image"> + twitter:title (identique à og:title, 50-70 car.) + twitter:description (identique à og:description, 150-200 car.) + <meta name="author" content="[HOST_NAME]"> + <meta name="format-detection" content="telephone=no"> + canonical={ep_url}
 - main.wrapper (PAS de div), header-row (vignette + eyebrow-category côte à côte), h1 Georgia serif bold, byline-row "Par [HOST_NAME], [HOST_TITLE] chez [HOST_COMPANY]"
-- .eyebrow-category : "Épisode · {podcast['podcast_name']}"
+- .eyebrow-category : "{EP_STRINGS['eyebrow_episode']} · {podcast['podcast_name']}"
 - BREADCRUMB juste sous le header-row : <p style="font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#666;margin:0 0 8px;"><a href="{podcast['fiche_url']}" style="color:#666;text-decoration:underline;">← Voir la fiche {podcast['podcast_name']}</a></p>
 - .publish-row bordée haut/bas : "Épisode de {podcast['podcast_name']} · ⏱ X min de lecture"
-- .cta-listen (seul bouton, accent plein) "Écouter le podcast" → {cta_url}
+- .cta-listen (seul bouton, accent plein) "{EP_STRINGS['cta_listen']}" → {cta_url}
 - .lead-label + .lead (pull-quote analytique de l'épisode)
 - .key-facts 3 bullets (pas 4 — spécifique à l'épisode)
 - article-body : {h2_instruction} — plus court qu'une fiche podcast globale. Insère un 1er lien texte discret (.inline-cta, souligné, PAS un bouton) juste après la 1ère section H2 → {cta_url}
 - .pull-quote ({"AVEC attribution : " + guest_full_name if real_quote else "sans attribution"})
 - 2e lien texte discret (.inline-cta) juste avant la FAQ → {cta_url}, formulation différente du premier
-- FAQ "Cet épisode répond à ces questions" (H2 sobre, {"TOUTES les Q/R réelles fournies, une entrée par question — pas de plafond" if real_material else "3 Q/R"}, JSON-LD FAQPage) — JAMAIS "on répond"
+- FAQ "{EP_STRINGS['faq_h2']}" (H2 sobre, {"TOUTES les Q/R réelles fournies, une entrée par question — pas de plafond" if real_material else "3 Q/R"}, JSON-LD FAQPage) — JAMAIS "{EP_STRINGS['faq_forbidden']}"
 - footer identique avec lien Listenly générique + lien "Découvrir {podcast['podcast_name']} sur Listenly" (ajoutés automatiquement après génération, ne pas les écrire toi-même)
 
 ## JSON-LD (head)
@@ -460,7 +486,7 @@ AJOUT CONDITIONNEL — HowTo : ajoute UNIQUEMENT si le sujet de cet épisode dé
 
 ## RÈGLES
 - H1 = titre épisode, jamais une question
-- FAQ = "Cet épisode répond à ces questions", jamais "on répond"
+- FAQ = "{EP_STRINGS['faq_h2']}", jamais "{EP_STRINGS['faq_forbidden']}"
 - Couleur d'accent réservée au seul cta-listen
 - CTA principal et les 2 liens discrets pointent TOUS vers {cta_url}, jamais vers l'audio brut, jamais de CTA contact
 - Contenu spécifique à CET épisode, pas générique au podcast
