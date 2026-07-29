@@ -299,7 +299,8 @@ RÈGLE CTA : ce podcast n'a plus qu'un seul objectif de conversion — ramener l
 RÈGLE LANGAGE : écris avec assurance et autorité (levier de citabilité IA le mieux établi avec les citations/statistiques selon la littérature GEO) — affirme les faits directement, évite les tournures évasives ("il semblerait", "on pourrait dire"). Reste factuel, mais formule avec assurance.
 
 ## JSON-LD OBLIGATOIRE (dans <head>)
-@graph : BlogPosting (headline=H1, author=[HOST_NAME]/[HOST_TITLE], publisher=Listenly, isPartOf={LISTENLY_URL}, speakable cssSelector [".lead",".key-facts"]), FAQPage (les 4 questions), Person ([HOST_NAME]/[HOST_TITLE]/worksFor [HOST_COMPANY]), PodcastSeries ([PODCAST_NAME]/{PODCAST_URL}, sameAs: ["{PODCAST_URL}", "{LISTENLY_URL}"]).
+@graph : BlogPosting (headline=H1, author=[HOST_NAME]/[HOST_TITLE], publisher={{"@type":"Organization","name":"Listenly","url":"https://listenly.fr"}}, isPartOf={LISTENLY_URL}, speakable cssSelector [".lead",".key-facts"]), FAQPage (les 4 questions), Person ([HOST_NAME]/[HOST_TITLE]/worksFor [HOST_COMPANY]), PodcastSeries ([PODCAST_NAME]/{PODCAST_URL}, sameAs: ["{PODCAST_URL}", "{LISTENLY_URL}"]).
+IMPORTANT publisher : toujours l'objet Organization complet ci-dessus (name+url), jamais juste la chaîne "Listenly" seule — c'est l'entité éditrice réutilisée sur 100% des fiches, sa richesse profite au site entier. Si un logo Listenly existe réellement (favicon, image de marque), tu peux l'ajouter en "logo":{{"@type":"ImageObject","url":"..."}}, mais UNIQUEMENT si tu connais son URL réelle — sinon omets ce champ plutôt que d'inventer une URL.
 IMPORTANT sameAs : sert à relier l'entité PodcastSeries à ses profils réels ailleurs sur le web (autorité d'entité pour les moteurs IA/Google). N'invente JAMAIS d'URL sameAs — utilise UNIQUEMENT {PODCAST_URL} et {LISTENLY_URL} tels que fournis, jamais un profil supposé ou reconstitué.
 
 ## BACKLINKS LISTENLY CACHÉS (obligatoires)
@@ -735,6 +736,21 @@ def build_llms_txt():
         by_category.setdefault(cslug, {"label": r["categorie"], "items": []})
         by_category[cslug]["items"].append(r)
 
+    # Collecte des episodes existants (un par podcast qui en a)
+    episodes_root = f"{PAGES_DIR}/episodes"
+    episodes_by_podcast = {}
+    if os.path.isdir(episodes_root):
+        for slug in os.listdir(episodes_root):
+            reg_file = f"{episodes_root}/{slug}/_generated.json"
+            if os.path.exists(reg_file):
+                try:
+                    with open(reg_file, encoding="utf-8") as f:
+                        reg = json.load(f)
+                    if reg:
+                        episodes_by_podcast[slug] = reg
+                except (json.JSONDecodeError, OSError):
+                    pass
+
     lines = []
     lines.append("# Listenly — Annuaire GEO des podcasts B2B (section podcast-btb)")
     lines.append("")
@@ -752,10 +768,15 @@ def build_llms_txt():
         punch = r.get("punchline", "").strip()
         punch = (punch[:160] + "…") if len(punch) > 160 else punch
         lines.append(f"- [{r['podcast_name']}]({r['fiche_url']}): {punch}")
+        eps = episodes_by_podcast.get(r["slug"])
+        if eps:
+            for e in sorted(eps, key=lambda x: x.get("pubdate", ""), reverse=True):
+                lines.append(f"  - [{e['title']}]({e['url']})")
 
+    total_episodes = sum(len(v) for v in episodes_by_podcast.values())
     with open(f"{PAGES_DIR}/llms.txt", "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
-    log(f"llms.txt regenere : {len(records)} podcast(s), {len(by_category)} categorie(s)")
+    log(f"llms.txt regenere : {len(records)} podcast(s), {total_episodes} episode(s), {len(by_category)} categorie(s)")
 
 MONTHS_FR = ["janvier", "février", "mars", "avril", "mai", "juin",
              "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
