@@ -299,7 +299,7 @@ RÈGLE CTA : ce podcast n'a plus qu'un seul objectif de conversion — ramener l
 RÈGLE LANGAGE : écris avec assurance et autorité (levier de citabilité IA le mieux établi avec les citations/statistiques selon la littérature GEO) — affirme les faits directement, évite les tournures évasives ("il semblerait", "on pourrait dire"). Reste factuel, mais formule avec assurance.
 
 ## JSON-LD OBLIGATOIRE (dans <head>)
-@graph : BlogPosting (headline=H1, author=[HOST_NAME]/[HOST_TITLE], publisher={{"@type":"Organization","name":"Listenly","url":"https://listenly.fr"}}, isPartOf={LISTENLY_URL}, speakable cssSelector [".lead",".key-facts"]), FAQPage (les 4 questions), Person ([HOST_NAME]/[HOST_TITLE]/worksFor [HOST_COMPANY]), PodcastSeries ([PODCAST_NAME]/{PODCAST_URL}, sameAs: ["{PODCAST_URL}", "{LISTENLY_URL}"]).
+@graph : BlogPosting (headline=H1, author=[HOST_NAME]/[HOST_TITLE], publisher={{"@type":"Organization","name":"Listenly","url":"https://listenly.fr"}}, isPartOf={LISTENLY_URL}, speakable cssSelector [".lead",".key-facts"]), FAQPage (les 4 questions), Person ([HOST_NAME]/[HOST_TITLE]/worksFor [HOST_COMPANY]), PodcastSeries ([PODCAST_NAME]/{PODCAST_URL}, sameAs: ["{PODCAST_URL}", "{LISTENLY_URL}"]), BreadcrumbList (itemListElement : 1. Listenly (https://listenly.fr) 2. [CATEGORIE] (page catégorie correspondante) 3. [PODCAST_NAME] ({fiche_url})).
 IMPORTANT publisher : toujours l'objet Organization complet ci-dessus (name+url), jamais juste la chaîne "Listenly" seule — c'est l'entité éditrice réutilisée sur 100% des fiches, sa richesse profite au site entier. Si un logo Listenly existe réellement (favicon, image de marque), tu peux l'ajouter en "logo":{{"@type":"ImageObject","url":"..."}}, mais UNIQUEMENT si tu connais son URL réelle — sinon omets ce champ plutôt que d'inventer une URL.
 IMPORTANT sameAs : sert à relier l'entité PodcastSeries à ses profils réels ailleurs sur le web (autorité d'entité pour les moteurs IA/Google). N'invente JAMAIS d'URL sameAs — utilise UNIQUEMENT {PODCAST_URL} et {LISTENLY_URL} tels que fournis, jamais un profil supposé ou reconstitué.
 
@@ -537,6 +537,16 @@ def render_category_page(cat_slug, categorie, items):
     ], ensure_ascii=False)
 
     title = f"Podcasts {categorie} référencés par Listenly"
+    n = len(items_sorted)
+    sample_names = [it["podcast_name"] for it in items_sorted[:4]]
+    sample_str = ", ".join(sample_names)
+    if n > 4:
+        sample_str += f" et {n - 4} autre{'s' if n - 4 > 1 else ''}"
+    intro_text = (
+        f"Cette page recense {n} podcast{'s' if n > 1 else ''} B2B francophone{'s' if n > 1 else ''} "
+        f"référencé{'s' if n > 1 else ''} par Listenly dans la catégorie {categorie}, dont {sample_str}. "
+        f"Chaque fiche détaille l'animateur, l'entreprise éditrice et les thématiques abordées."
+    )
     description = f"Annuaire des podcasts B2B référencés par Listenly dans la catégorie {categorie}, avec leurs thématiques clés et intervenants."
     canonical = f"https://listenly.fr/podcast-btb/categorie/{cat_slug}.html"
 
@@ -570,6 +580,7 @@ def render_category_page(cat_slug, categorie, items):
 <div class="wrapper">
   <div class="eyebrow">Listenly · Annuaire GEO</div>
   <h1>{title}</h1>
+  <p class="cat-intro" style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#555;line-height:1.6;margin:0 0 24px">{intro_text}</p>
   {rows}
   <footer>
     © Listenly — <a href="/podcast-btb/index.html">Voir toutes les catégories</a>
@@ -617,7 +628,7 @@ def render_index_page(by_category, records):
   "@type": "CollectionPage",
   "name": "{title}",
   "url": "{canonical}",
-  "isPartOf": {{"@type": "WebSite", "name": "Listenly", "url": "https://listenly.fr"}},
+  "isPartOf": {{"@type": "WebSite", "name": "Listenly", "url": "https://listenly.fr", "potentialAction": {{"@type": "SearchAction", "target": "{canonical}?q={{search_term_string}}", "query-input": "required name=search_term_string"}}}},
   "mainEntity": {{
     "@type": "ItemList",
     "itemListElement": {item_list_json}
@@ -666,8 +677,8 @@ function normalize(s){{
   return s.toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '');
 }}
 
-input.addEventListener('input', function(){{
-  const q = normalize(this.value.trim());
+function runSearch(rawQuery){{
+  const q = normalize(rawQuery.trim());
   if(!q){{
     results.classList.remove('active');
     results.innerHTML = '';
@@ -680,13 +691,22 @@ input.addEventListener('input', function(){{
   const matches = PODCASTS.filter(p => normalize(p.name).includes(q));
   results.classList.add('active');
   if(matches.length === 0){{
-    results.innerHTML = '<div class="search-empty">Aucun podcast trouvé pour "' + this.value + '"</div>';
+    results.innerHTML = '<div class="search-empty">Aucun podcast trouvé pour "' + rawQuery + '"</div>';
   }} else {{
     results.innerHTML = matches.map(p =>
       '<div class="search-item"><a href="' + p.url + '">' + p.name + '</a><span class="cat">' + p.cat + '</span></div>'
     ).join('');
   }}
-}});
+}}
+
+input.addEventListener('input', function(){{ runSearch(this.value); }});
+
+// Support de l'URL ?q=... pour rendre la recherche adressable (SearchAction / partage de lien)
+const urlQuery = new URLSearchParams(window.location.search).get('q');
+if(urlQuery){{
+  input.value = urlQuery;
+  runSearch(urlQuery);
+}}
 </script>
 </body>
 </html>"""
@@ -694,7 +714,33 @@ input.addEventListener('input', function(){{
 def build_sitemap():
     """Scanne tout /pages/podcast-btb/ et régénère un sitemap XML à jour.
     Appelée par generate_podcast_btb.py ET generate_episode_fiches_btb.py
-    pour rester synchronisée quel que soit le script qui tourne en dernier."""
+    pour rester synchronisée quel que soit le script qui tourne en dernier.
+
+    IMPORTANT lastmod : ne PAS utiliser os.path.getmtime() — sur un runner CI/CD,
+    git checkout donne systematiquement la date du jour a TOUS les fichiers, rendant
+    lastmod totalement faux. On utilise a la place les vraies dates trackees :
+    - fiche podcast -> records["date"] (date de creation reelle)
+    - fiche episode -> added_date du registre _generated.json (date de generation reelle)
+    - pages generees dynamiquement (index, categorie...) -> mtime acceptable (elles
+      sont effectivement reecrites a chaque run qui touche les donnees sous-jacentes)
+    """
+    records = load_data()
+    podcast_dates = {r["slug"]: r.get("date", "") for r in records}
+    episode_dates = {}
+    episodes_root = f"{PAGES_DIR}/episodes"
+    if os.path.isdir(episodes_root):
+        for slug in os.listdir(episodes_root):
+            reg_file = f"{episodes_root}/{slug}/_generated.json"
+            if os.path.exists(reg_file):
+                try:
+                    with open(reg_file, encoding="utf-8") as f:
+                        reg = json.load(f)
+                    for e in reg:
+                        fname_key = e["url"].rsplit("/", 1)[-1]
+                        episode_dates[f"episodes/{slug}/{fname_key}"] = e.get("added_date", "")
+                except (json.JSONDecodeError, OSError):
+                    pass
+
     urls = []
     for root, dirs, files in os.walk(PAGES_DIR):
         dirs[:] = [d for d in dirs if d != "data"]
@@ -706,7 +752,15 @@ def build_sitemap():
             full_path = os.path.join(root, fname)
             rel_path = os.path.relpath(full_path, PAGES_DIR).replace(os.sep, "/")
             url = f"https://listenly.fr/podcast-btb/{rel_path}"
-            mtime = datetime.date.fromtimestamp(os.path.getmtime(full_path)).isoformat()
+
+            slug_from_fname = fname[:-len("-podcast.html")] if fname.endswith("-podcast.html") else None
+            if slug_from_fname and slug_from_fname in podcast_dates and podcast_dates[slug_from_fname]:
+                mtime = podcast_dates[slug_from_fname]
+            elif rel_path in episode_dates and episode_dates[rel_path]:
+                mtime = episode_dates[rel_path]
+            else:
+                mtime = datetime.date.fromtimestamp(os.path.getmtime(full_path)).isoformat()
+
             priority = "1.0" if fname == "index.html" and root == PAGES_DIR else \
                        "0.8" if "/categorie" in root or "/episodes" in root and fname == "index.html" else \
                        "0.6" if "/episodes/" in root else "0.9"
