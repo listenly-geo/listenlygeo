@@ -1,0 +1,79 @@
+name: Podcast BTB — salad-talk-money
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 10 * * 3'
+
+jobs:
+  podcast-btb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installer ffmpeg (necessaire pour compression audio Whisper)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: Generation fiche podcast (lancement manuel uniquement)
+        id: gen_podcast
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RSS_URL: |-
+            https://responsiblefinance.libsyn.com/rss
+          PODCAST_URL: |-
+            https://open.spotify.com/show/6ECLpZUIPJDBB9TMW3Vxsh?utm_source=chatgpt.com
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/salad-talk-money
+          COVER_IMAGE: |-
+            https://i.postimg.cc/Vv0PjKJ8/images.jpg
+          PODCAST_SLUG: |-
+            salad-talk-money
+          ACCENT_COLOR: |-
+            #2e8bd6
+          LANGUAGE: |-
+            en
+          EPISODE_CTA_TARGET: |-
+            listenly
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Generation 1 fiche episode max (cron hebdomadaire OU juste apres creation du podcast)
+        if: github.event_name == 'schedule' || steps.gen_podcast.outputs.new_podcast == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PODCAST_SLUG: |-
+            salad-talk-money
+          MAX_EPISODES: '1'
+          USE_TRANSCRIPT: 'true'
+        run: python automation/scripts/generate_episode_fiches_btb.py
+
+      - name: Commit fiches
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: podcast-btb salad-talk-money"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
