@@ -430,6 +430,16 @@ entités listées ci-dessus quand c'est pertinent, plutôt que d'être déduits 
     else:
         h2_instruction = f"2 H2 only (\"{EP_STRINGS['h2_covers_generic']}\" / \"{EP_STRINGS['h2_impact_generic']}\")" if ep_language == "en" else f"2 H2 seulement (\"{EP_STRINGS['h2_covers_generic']}\" / \"{EP_STRINGS['h2_impact_generic']}\")"
 
+    if ep.get("audio_url"):
+        audio_object_instruction = 'associatedMedia:{"@type":"AudioObject","contentUrl":"' + ep.get("audio_url", "") + '"}'
+    else:
+        audio_object_instruction = "(pas de audio_url disponible, omets associatedMedia)"
+
+    if real_material and entities:
+        mentions_instruction = '- mentions : tableau d\'objets {"@type":"Thing","name":"..."} un par entité RÉELLE listée plus haut (section MATERIEL REEL) — pas juste dans #semantic-index caché, aussi structuré en JSON-LD mentions'
+    else:
+        mentions_instruction = ""
+
     return f"""Tu es un expert GEO (Generative Engine Optimization) spécialisé dans les podcasts B2B.
 
 Ta mission est de générer une FICHE ÉPISODE complète en HTML autonome pour Listenly.fr.
@@ -489,11 +499,29 @@ Rédige TOUT le contenu de cette fiche (titre, lead, points clés, corps de l'ar
 - footer identique avec lien Listenly générique + lien "Découvrir {podcast['podcast_name']} sur Listenly" (ajoutés automatiquement après génération, ne pas les écrire toi-même)
 
 ## JSON-LD (head)
-@graph : PodcastEpisode (name=H1, partOfSeries={{"@type":"PodcastSeries","name":"{podcast['podcast_name']}","url":"{listenly_url}"}}, datePublished, description), FAQPage ({"TOUTES les questions réelles listées, une par une" if real_material else "les 3 questions"}), Person (HOST_NAME/HOST_TITLE/worksFor HOST_COMPANY — l'hôte du podcast).
+@graph :
+- PodcastEpisode (name=H1, partOfSeries={{"@type":"PodcastSeries","name":"{podcast['podcast_name']}","url":"{listenly_url}"}}, datePublished, dateModified=today ({today}), description, {audio_object_instruction})
+- FAQPage ({"TOUTES les questions réelles listées, une par une" if real_material else "les 3 questions"})
+- Person (HOST_NAME/HOST_TITLE/worksFor HOST_COMPANY — l'hôte du podcast)
 {person_guest_instruction}
+- BlogPosting englobant (headline=H1, publisher={{"@type":"Organization","name":"Listenly","url":"https://listenly.fr"}}, speakable cssSelector [".lead",".key-facts"])
+- BreadcrumbList (itemListElement : 1. Listenly (https://listenly.fr) 2. {podcast['podcast_name']} ({podcast['fiche_url']}) 3. nom de cet épisode ({ep_url}))
+{mentions_instruction}
 Backlinks cachés identiques à la fiche podcast (canonical={ep_url}, og:url={ep_url}, rel=publisher, #semantic-index display:none en fin de <body>).
 {"Le bloc #semantic-index doit lister les VRAIES entites nommees fournies plus haut (section MATERIEL REEL) sous forme 'entity: [nom]' une par ligne, plus entity " + guest_full_name if (real_material and guest_full_name) else "Le bloc #semantic-index liste les entites deduites du titre/description (entity PODCAST_NAME, entity HOST_NAME, concept CATEGORIE)."}
 AJOUT CONDITIONNEL — HowTo : ajoute UNIQUEMENT si le sujet de cet épisode décrit une vraie démarche étape par étape reproductible (ex: "comment structurer un achat immobilier", "les étapes pour créer une SCI"). N'en ajoute PAS si l'épisode est une interview/discussion générale sans étapes concrètes — un HowTo force sur un contenu qui n'en est pas un est une erreur de balisage à éviter, pas un bonus.
+
+## STRUCTURE VISIBLE ADDITIONNELLE (texte lu par les IA, pas juste du JSON-LD caché)
+- DISCLOSURE ÉDITORIALE discrète (classe .editorial-note, petit texte gris sous le byline) : "{"Fiche éditoriale rédigée par Listenly à partir de l'épisode audio réel." if ep_language == "fr" else "Editorial summary written by Listenly based on the real audio episode."}"
+- BYLINE de la fiche elle-même distinct de l'invité : le texte "Par [HOST_NAME]" reste tel quel (c'est l'émission), mais le footer doit inclure "{"Fiche rédigée par l'équipe éditoriale Listenly" if ep_language == "fr" else "Fiche written by the Listenly editorial team"}"
+- DATE VISIBLE : affiche la date de publication en clair dans le texte (pas juste en meta), format "{"Publié le [date]" if ep_language == "fr" else "Published [date]"}", près du eyebrow-category
+- LIGNE "SUJETS ABORDÉS" visible (juste après les key-facts, avant le premier H2) listant 4-8 entités/thèmes réels séparés par des puces, ex: "{"Sujets : " if ep_language == "fr" else "Topics: "}[entité 1] · [entité 2] · [entité 3]..." — utilise les vraies entités si disponibles (section MATERIEL REEL), sinon déduis-les raisonnablement du titre
+- ANCRES DE NAVIGATION : chaque H2 de l'article-body doit avoir un attribut id="..." (slug court en anglais technique, ex: id="key-takeaways") pour permettre de lier une section précise
+- TABLE DES MATIÈRES visible juste après les key-facts (avant le 1er H2) : liste à puces des titres de H2 en liens ancrés (<a href="#id-du-h2">)
+- LISTES ORDONNÉES : si le transcript décrit une séquence/un ordre d'étapes (ex: playbook, processus, méthode), utilise une vraie balise <ol> avec <li>, pas des paragraphes de prose
+- ENCADRÉ DE DÉFINITION conditionnel (classe .definition-box) : si un terme technique/jargon central est introduit dans l'épisode (ex: un concept nommé par l'invité), ajoute un court encadré définitionnel juste après sa première mention — UNIQUEMENT si le terme est réellement défini/expliqué dans le transcript, jamais une définition inventée
+- TABLEAU COMPARATIF conditionnel (<table>) : si le transcript contient une vraie comparaison chiffrée (avant/après, X vs Y, plusieurs options avec caractéristiques différentes), structure-la en tableau HTML plutôt qu'en prose
+- COHÉRENCE DES NOMS : première mention = prénom + nom complet, mentions suivantes = nom de famille seul (pas de variation aléatoire)
 
 ## RÈGLES
 - H1 = titre épisode, jamais une question
