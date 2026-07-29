@@ -131,6 +131,8 @@ EXTRACT_REAL_QA_PROMPT = """Tu es un expert GEO (Generative Engine Optimization)
 
 1. INVITÉ réel de cet épisode (la personne interrogée, PAS l'animateur) : prénom, nom, titre/poste, entreprise. Un podcast d'interview présente PRESQUE TOUJOURS son invité explicitement — cherche activement : la présentation de l'hôte en début d'épisode ("Aujourd'hui je reçois...", "I'm joined by...", "My guest today is..."), l'auto-présentation de l'invité ("Je suis...", "I'm [name], [title] at [company]"), ou toute mention de son nom/poste/entreprise ailleurs dans la conversation. Ne renvoie des champs vides QUE si la transcription est réellement un monologue solo sans aucune deuxième voix identifiable — pas simplement parce que la présentation n'est pas dans les tout premiers mots.
 
+1c. DOUBLE AFFILIATION éventuelle : si l'invité a DEUX rôles distincts réellement mentionnés (ex: fondateur d'une entreprise qu'il a créée ET poste actuel dans une autre suite à une acquisition/rachat/reconversion), capture les deux séparément dans "titre_secondaire"/"entreprise_secondaire". Ne force JAMAIS un second rôle s'il n'y en a qu'un seul de mentionné — laisse ces deux champs vides dans ce cas.
+
 1b. CONTEXTE BIOGRAPHIQUE RÉEL de l'invité (2-4 phrases) : tout élément factuel que l'invité ou l'hôte mentionne sur son parcours, son expérience, ses réalisations, ce qui légitime sa parole sur le sujet — UNIQUEMENT ce qui est explicitement dit, jamais déduit ou enrichi. Si rien n'est mentionné au-delà du titre/entreprise, renvoie une chaîne vide.
 
 2. TOUTES les vraies questions distinctes et solides abordées, avec leurs vraies réponses. Pas de plafond fixe. N'invente JAMAIS de question pour atteindre un quota.
@@ -149,7 +151,7 @@ TRANSCRIPTION :
 
 Réponds UNIQUEMENT avec un JSON, sans markdown, sans backtick :
 {{
-  "guest": {{"prenom": "...", "nom": "...", "titre": "...", "entreprise": "...", "bio_context": "..."}},
+  "guest": {{"prenom": "...", "nom": "...", "titre": "...", "entreprise": "...", "titre_secondaire": "...", "entreprise_secondaire": "...", "bio_context": "..."}},
   "qa": [
     {{"q": "Question reelle reformulee comme requete IA", "r": "Reponse 2-3 phrases tiree fidelement de la transcription"}},
     {{"q": "...", "r": "..."}}
@@ -352,17 +354,21 @@ def build_episode_prompt(podcast, ep, ep_slug, ep_url, today, real_material=None
         bio_context = (guest.get("bio_context") or "").strip()
 
         if guest_full_name:
+            second_role_line = (
+                f"\n- Second rôle réel mentionné : {guest.get('titre_secondaire')} chez {guest.get('entreprise_secondaire')}"
+                if guest.get("entreprise_secondaire") else ""
+            )
             guest_block = f"""
 IDENTITÉ RÉELLE DE L'INVITÉ (extraite de la transcription — utilise-la telle quelle, n'invente RIEN de plus) :
 - Nom : {guest_full_name}
 - Titre/poste : {guest.get('titre') or '(non precise dans la transcription — ne pas inventer)'}
-- Entreprise : {guest.get('entreprise') or '(non precisee dans la transcription — ne pas inventer)'}
+- Entreprise : {guest.get('entreprise') or '(non precisee dans la transcription — ne pas inventer)'}{second_role_line}
 - Contexte biographique réel mentionné : {bio_context or '(aucun element supplementaire mentionne dans la transcription)'}
 
 OBLIGATOIRE — SECTION DÉDIÉE VISIBLE "À propos de {guest_full_name}" (classe .guest-bio, PAS juste une
 phrase noyée dans le texte) : place-la juste après le lead/key-facts, AVANT le premier H2. Structure :
 - Un H3 ou label en petite majuscule : "{EP_STRINGS['about_guest_label']} {guest_full_name}"
-- Nom + titre + entreprise affichés clairement (ex: "{guest_full_name} — {guest.get('titre') or ''} chez {guest.get('entreprise') or ''}")
+- Nom + titre + entreprise affichés clairement — {"si un second rôle existe, montre les DEUX (ex: '" + guest_full_name + " — fondateur de " + str(guest.get('entreprise','')) + ", aujourd'hui " + str(guest.get('titre_secondaire','')) + " chez " + str(guest.get('entreprise_secondaire','')) + "')" if guest.get("entreprise_secondaire") else "(ex: '" + guest_full_name + " — " + str(guest.get('titre','')) + " chez " + str(guest.get('entreprise','')) + "')"}
 - 2-4 phrases développant le contexte biographique ci-dessus (ou, si aucun contexte n'est mentionné dans
   la transcription, contente-toi du nom/titre/entreprise sans rien ajouter d'inventé)
 Cette section doit être un vrai bloc HTML visible et substantiel — c'est le signal d'autorité (E-E-A-T) le
@@ -411,12 +417,27 @@ entités listées ci-dessus quand c'est pertinent, plutôt que d'être déduits 
         transcript_block = ""
 
     if guest_full_name:
-        guest_org_part = f', "worksFor":{{"@type":"Organization","name":"{guest.get("entreprise","")}"}}' if guest.get("entreprise") else ""
+        has_second_role = bool(guest.get("entreprise_secondaire"))
+        if has_second_role and guest.get("entreprise"):
+            guest_org_part = (
+                ', "worksFor":['
+                f'{{"@type":"Organization","name":"{guest.get("entreprise","")}"}},'
+                f'{{"@type":"Organization","name":"{guest.get("entreprise_secondaire","")}"}}'
+                ']'
+            )
+            guest_title_note = (
+                f" L'invité a DEUX rôles réels : \"{guest.get('titre','')}\" chez \"{guest.get('entreprise','')}\" "
+                f"ET \"{guest.get('titre_secondaire','')}\" chez \"{guest.get('entreprise_secondaire','')}\" — "
+                f"jobTitle doit refléter les deux (ex: \"{guest.get('titre','')} & {guest.get('titre_secondaire','')}\")."
+            )
+        else:
+            guest_org_part = f', "worksFor":{{"@type":"Organization","name":"{guest.get("entreprise","")}"}}' if guest.get("entreprise") else ""
+            guest_title_note = ""
         guest_desc_part = f', "description":"{bio_context}"' if bio_context else ""
         person_guest_instruction = (
             f"AJOUT OBLIGATOIRE — Person distincte pour l'INVITÉ de cet épisode : "
             f'{{"@type":"Person","name":"{guest_full_name}","jobTitle":"{guest.get("titre","")}"{guest_org_part}{guest_desc_part}}} '
-            f"— cette entité est SÉPARÉE de celle de l'hôte, elle représente la vraie autorité citée dans cet épisode."
+            f"— cette entité est SÉPARÉE de celle de l'hôte, elle représente la vraie autorité citée dans cet épisode.{guest_title_note}"
         )
     else:
         person_guest_instruction = ""
@@ -512,16 +533,24 @@ Backlinks cachés identiques à la fiche podcast (canonical={ep_url}, og:url={ep
 AJOUT CONDITIONNEL — HowTo : ajoute UNIQUEMENT si le sujet de cet épisode décrit une vraie démarche étape par étape reproductible (ex: "comment structurer un achat immobilier", "les étapes pour créer une SCI"). N'en ajoute PAS si l'épisode est une interview/discussion générale sans étapes concrètes — un HowTo force sur un contenu qui n'en est pas un est une erreur de balisage à éviter, pas un bonus.
 
 ## STRUCTURE VISIBLE ADDITIONNELLE (texte lu par les IA, pas juste du JSON-LD caché)
-- DISCLOSURE ÉDITORIALE discrète (classe .editorial-note, petit texte gris sous le byline) : "{"Fiche éditoriale rédigée par Listenly à partir de l'épisode audio réel." if ep_language == "fr" else "Editorial summary written by Listenly based on the real audio episode."}"
-- BYLINE de la fiche elle-même distinct de l'invité : le texte "Par [HOST_NAME]" reste tel quel (c'est l'émission), mais le footer doit inclure "{"Fiche rédigée par l'équipe éditoriale Listenly" if ep_language == "fr" else "Fiche written by the Listenly editorial team"}"
-- DATE VISIBLE : affiche la date de publication en clair dans le texte (pas juste en meta), format "{"Publié le [date]" if ep_language == "fr" else "Published [date]"}", près du eyebrow-category
-- LIGNE "SUJETS ABORDÉS" visible (juste après les key-facts, avant le premier H2) listant 4-8 entités/thèmes réels séparés par des puces, ex: "{"Sujets : " if ep_language == "fr" else "Topics: "}[entité 1] · [entité 2] · [entité 3]..." — utilise les vraies entités si disponibles (section MATERIEL REEL), sinon déduis-les raisonnablement du titre
+- LIGNE MÉTA UNIQUE ET DISCRÈTE (classe .meta-line, petit texte gris, sous le byline, UNE SEULE ligne — ne fragmente pas en plusieurs blocs séparés) combinant : date de publication + disclosure éditoriale + sujets abordés, séparés par " · ", ex: "{"Publié le [date] · Fiche éditoriale rédigée par Listenly à partir de l'épisode audio réel · Sujets : [entité 1] · [entité 2] · [entité 3]" if ep_language == "fr" else "Published [date] · Editorial summary by Listenly based on the real audio · Topics: [entity 1] · [entity 2] · [entity 3]"}" — utilise les vraies entités si disponibles, sinon déduis-les du titre. Cette ligne remplace 3 blocs séparés par UN SEUL, pour ne pas encombrer le haut de page avant le vrai contenu.
+- BYLINE de la fiche elle-même distinct de l'invité : footer inclut "{"Fiche rédigée par l'équipe éditoriale Listenly" if ep_language == "fr" else "Fiche written by the Listenly editorial team"}"
 - ANCRES DE NAVIGATION : chaque H2 de l'article-body doit avoir un attribut id="..." (slug court en anglais technique, ex: id="key-takeaways") pour permettre de lier une section précise
-- TABLE DES MATIÈRES visible juste après les key-facts (avant le 1er H2) : liste à puces des titres de H2 en liens ancrés (<a href="#id-du-h2">)
+- TABLE DES MATIÈRES discrète (classe .toc-mini, petite typo, presque un simple fil d'ancres — PAS un bloc formel type sommaire de document) juste après les key-facts, avant le 1er H2
 - LISTES ORDONNÉES : si le transcript décrit une séquence/un ordre d'étapes (ex: playbook, processus, méthode), utilise une vraie balise <ol> avec <li>, pas des paragraphes de prose
-- ENCADRÉ DE DÉFINITION conditionnel (classe .definition-box) : si un terme technique/jargon central est introduit dans l'épisode (ex: un concept nommé par l'invité), ajoute un court encadré définitionnel juste après sa première mention — UNIQUEMENT si le terme est réellement défini/expliqué dans le transcript, jamais une définition inventée
-- TABLEAU COMPARATIF conditionnel (<table>) : si le transcript contient une vraie comparaison chiffrée (avant/après, X vs Y, plusieurs options avec caractéristiques différentes), structure-la en tableau HTML plutôt qu'en prose
-- COHÉRENCE DES NOMS : première mention = prénom + nom complet, mentions suivantes = nom de famille seul (pas de variation aléatoire)
+- ENCADRÉ DE DÉFINITION conditionnel (classe .definition-box) : si un terme technique/jargon central est introduit dans l'épisode, ajoute un court encadré définitionnel juste après sa première mention — UNIQUEMENT si le terme est réellement défini/expliqué dans le transcript, jamais une définition inventée. Espace généreux au-dessus/en-dessous (ne colle pas au texte courant).
+- TABLEAU COMPARATIF conditionnel (<table>) : si le transcript contient une vraie comparaison chiffrée, structure-la en tableau HTML plutôt qu'en prose. Même règle d'aération.
+- COHÉRENCE DES NOMS : première mention = prénom + nom complet, mentions suivantes = nom de famille seul
+- FAQ EN ACCORDÉON si plus de 4 questions : affiche les 4 premières questions normalement, puis regroupe les suivantes dans des éléments <details><summary>[question]</summary><p>[réponse]</p></details> — le contenu reste dans le HTML (donc lu par les IA) mais replié visuellement pour ne pas submerger un lecteur humain avec 8-10 questions d'un coup
+
+## LISIBILITÉ HUMAINE — PRIORITÉ ABSOLUE sur le remplissage GEO
+Cette fiche doit avant tout être un article agréable à lire pour un humain, pas une liste de cases GEO cochées. Si un élément ci-dessus casse la fluidité de lecture, allège-le plutôt que de le forcer intégralement.
+- TRANSITIONS NARRATIVES : chaque H2 doit s'enchaîner avec une phrase de liaison (pas des blocs de faits juxtaposés sans lien logique entre eux)
+- CONCLUSION DE CLÔTURE : une phrase qui referme la boucle narrative de l'article-body, juste avant la bascule vers la FAQ (registre plus utilitaire) — évite une fin abrupte
+- RYTHME DES PHRASES : alterne phrases courtes percutantes et phrases plus développées — le langage assertif ne doit jamais devenir une succession monotone de phrases de même longueur
+- TON UNIFIÉ : la bio invité (factuelle) et le lead (accrocheur) doivent partager la même voix éditoriale, pas deux registres qui se contredisent
+- UN SEUL POINT FORT VISUEL : parmi pull-quote / encadré définition / tableau, hiérarchise lequel est LE moment fort de la page — évite que plusieurs éléments ne se disputent l'attention au même niveau d'intensité visuelle
+- TEMPS DE LECTURE : recalcule le "⏱ X min de lecture" affiché en fonction de la longueur RÉELLE de cette fiche précise (avec tous ses éléments), ne réutilise pas un chiffre générique
 
 ## RÈGLES
 - H1 = titre épisode, jamais une question
