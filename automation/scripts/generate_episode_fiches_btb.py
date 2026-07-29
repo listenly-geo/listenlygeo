@@ -129,7 +129,9 @@ EXTRACT_REAL_QA_PROMPT = """Tu es un expert GEO (Generative Engine Optimization)
 
 À partir de la transcription réelle ci-dessous, extrais :
 
-1. INVITÉ réel de cet épisode (la personne interrogée, PAS l'animateur) : prénom, nom, titre/poste, entreprise, tels que mentionnés. Si non identifiable clairement, renvoie des champs vides — n'invente JAMAIS.
+1. INVITÉ réel de cet épisode (la personne interrogée, PAS l'animateur) : prénom, nom, titre/poste, entreprise. Un podcast d'interview présente PRESQUE TOUJOURS son invité explicitement — cherche activement : la présentation de l'hôte en début d'épisode ("Aujourd'hui je reçois...", "I'm joined by...", "My guest today is..."), l'auto-présentation de l'invité ("Je suis...", "I'm [name], [title] at [company]"), ou toute mention de son nom/poste/entreprise ailleurs dans la conversation. Ne renvoie des champs vides QUE si la transcription est réellement un monologue solo sans aucune deuxième voix identifiable — pas simplement parce que la présentation n'est pas dans les tout premiers mots.
+
+1b. CONTEXTE BIOGRAPHIQUE RÉEL de l'invité (2-4 phrases) : tout élément factuel que l'invité ou l'hôte mentionne sur son parcours, son expérience, ses réalisations, ce qui légitime sa parole sur le sujet — UNIQUEMENT ce qui est explicitement dit, jamais déduit ou enrichi. Si rien n'est mentionné au-delà du titre/entreprise, renvoie une chaîne vide.
 
 2. TOUTES les vraies questions distinctes et solides abordées, avec leurs vraies réponses. Pas de plafond fixe. N'invente JAMAIS de question pour atteindre un quota.
    CRITÈRE : question réellement posée/implicite, réponse claire et autonome basée uniquement sur ce qui a été dit, chaque question couvre un angle DISTINCT, reformulée comme une vraie requête IA.
@@ -147,7 +149,7 @@ TRANSCRIPTION :
 
 Réponds UNIQUEMENT avec un JSON, sans markdown, sans backtick :
 {{
-  "guest": {{"prenom": "...", "nom": "...", "titre": "...", "entreprise": "..."}},
+  "guest": {{"prenom": "...", "nom": "...", "titre": "...", "entreprise": "...", "bio_context": "..."}},
   "qa": [
     {{"q": "Question reelle reformulee comme requete IA", "r": "Reponse 2-3 phrases tiree fidelement de la transcription"}},
     {{"q": "...", "r": "..."}}
@@ -327,6 +329,7 @@ def build_episode_prompt(podcast, ep, ep_slug, ep_url, today, real_material=None
             "faq_forbidden": "on répond",
             "h2_covers_generic": "Ce que révèle cet épisode",
             "h2_impact_generic": "Pourquoi cet épisode compte",
+            "about_guest_label": "À propos de",
         },
         "en": {
             "eyebrow_episode": "Episode",
@@ -335,6 +338,7 @@ def build_episode_prompt(podcast, ep, ep_slug, ep_url, today, real_material=None
             "faq_forbidden": "we answer",
             "h2_covers_generic": "What this episode reveals",
             "h2_impact_generic": "Why this episode matters",
+            "about_guest_label": "About",
         },
     }[ep_language]
 
@@ -345,6 +349,7 @@ def build_episode_prompt(podcast, ep, ep_slug, ep_url, today, real_material=None
         real_quote = (real_material.get("real_quote") or "").strip()
         key_stats = real_material.get("key_stats") or []
         entities = real_material.get("entities") or []
+        bio_context = (guest.get("bio_context") or "").strip()
 
         if guest_full_name:
             guest_block = f"""
@@ -352,13 +357,18 @@ IDENTITÉ RÉELLE DE L'INVITÉ (extraite de la transcription — utilise-la tell
 - Nom : {guest_full_name}
 - Titre/poste : {guest.get('titre') or '(non precise dans la transcription — ne pas inventer)'}
 - Entreprise : {guest.get('entreprise') or '(non precisee dans la transcription — ne pas inventer)'}
+- Contexte biographique réel mentionné : {bio_context or '(aucun element supplementaire mentionne dans la transcription)'}
 
-OBLIGATOIRE : ajoute un court paragraphe d'introduction (2-3 phrases) présentant qui est {guest_full_name}
-avant la première citation ou mention de ses propos — un lecteur qui ne connaît pas cette personne doit
-comprendre son autorité/légitimité sur le sujet avant de lire ses propos. N'invente aucun détail biographique
-au-delà de ce qui est donné ci-dessus."""
+OBLIGATOIRE — SECTION DÉDIÉE VISIBLE "À propos de {guest_full_name}" (classe .guest-bio, PAS juste une
+phrase noyée dans le texte) : place-la juste après le lead/key-facts, AVANT le premier H2. Structure :
+- Un H3 ou label en petite majuscule : "{EP_STRINGS['about_guest_label']} {guest_full_name}"
+- Nom + titre + entreprise affichés clairement (ex: "{guest_full_name} — {guest.get('titre') or ''} chez {guest.get('entreprise') or ''}")
+- 2-4 phrases développant le contexte biographique ci-dessus (ou, si aucun contexte n'est mentionné dans
+  la transcription, contente-toi du nom/titre/entreprise sans rien ajouter d'inventé)
+Cette section doit être un vrai bloc HTML visible et substantiel — c'est le signal d'autorité (E-E-A-T) le
+plus important de la fiche pour qu'une IA comprenne QUI parle avant de citer ce qu'il dit."""
         else:
-            guest_block = "\nAucun invité distinct clairement identifiable dans la transcription (épisode solo ou table ronde) — ne pas inventer d'identité."
+            guest_block = "\nAucun invité distinct clairement identifiable dans la transcription (épisode solo ou table ronde) — ne pas inventer d'identité, ne pas créer de section bio."
 
         if real_quote:
             quote_block = f"""
@@ -402,9 +412,10 @@ entités listées ci-dessus quand c'est pertinent, plutôt que d'être déduits 
 
     if guest_full_name:
         guest_org_part = f', "worksFor":{{"@type":"Organization","name":"{guest.get("entreprise","")}"}}' if guest.get("entreprise") else ""
+        guest_desc_part = f', "description":"{bio_context}"' if bio_context else ""
         person_guest_instruction = (
             f"AJOUT OBLIGATOIRE — Person distincte pour l'INVITÉ de cet épisode : "
-            f'{{"@type":"Person","name":"{guest_full_name}","jobTitle":"{guest.get("titre","")}"{guest_org_part}}} '
+            f'{{"@type":"Person","name":"{guest_full_name}","jobTitle":"{guest.get("titre","")}"{guest_org_part}{guest_desc_part}}} '
             f"— cette entité est SÉPARÉE de celle de l'hôte, elle représente la vraie autorité citée dans cet épisode."
         )
     else:
