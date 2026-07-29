@@ -736,8 +736,11 @@ def build_sitemap():
                     with open(reg_file, encoding="utf-8") as f:
                         reg = json.load(f)
                     for e in reg:
-                        fname_key = e["url"].rsplit("/", 1)[-1]
-                        episode_dates[f"episodes/{slug}/{fname_key}"] = e.get("added_date", "")
+                        raw = e.get("url") or e.get("file") or ""
+                        if not raw:
+                            continue  # entree de registre sans reference fichier -> mtime fallback
+                        fname_key = raw.rsplit("/", 1)[-1]
+                        episode_dates[f"episodes/{slug}/{fname_key}"] = e.get("added_date") or e.get("date", "")
                 except (json.JSONDecodeError, OSError):
                     pass
 
