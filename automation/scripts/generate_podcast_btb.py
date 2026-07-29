@@ -859,157 +859,6 @@ def format_date_fr(d):
         txt += f" {d.year}"
     return txt
 
-def build_dashboard():
-    """Page interne (usage perso, non indexee) donnant une vue d'ensemble
-    de la production du pipeline : volumes, repartition, fraicheur.
-    Ne pretend a AUCUN score SEO invente — uniquement des faits verifiables
-    (comptages, dates, presence structurelle) sans promesse de resultat."""
-    records = load_data()
-    today = datetime.date.today()
-
-    episodes_root = f"{PAGES_DIR}/episodes"
-    all_episodes = []
-    episodes_by_podcast = {}
-    if os.path.isdir(episodes_root):
-        for slug in os.listdir(episodes_root):
-            reg_file = f"{episodes_root}/{slug}/_generated.json"
-            if not os.path.exists(reg_file):
-                continue
-            with open(reg_file, encoding="utf-8") as f:
-                try:
-                    reg = json.load(f)
-                except json.JSONDecodeError:
-                    continue
-            episodes_by_podcast[slug] = reg
-            for e in reg:
-                d = parse_date_any(e.get("pubdate", "")) or parse_date_any(e.get("added_date", ""))
-                all_episodes.append({"slug": slug, "date": d})
-
-    total_podcasts = len(records)
-    total_episodes = len(all_episodes)
-    by_category = {}
-    for r in records:
-        cat = r.get("categorie", "Général")
-        by_category[cat] = by_category.get(cat, 0) + 1
-
-    def count_since(days):
-        cutoff = today - datetime.timedelta(days=days)
-        n_podcasts = sum(1 for r in records if (parse_date_any(r.get("date", "")) or datetime.date.min) >= cutoff)
-        n_episodes = sum(1 for e in all_episodes if (e["date"] or datetime.date.min) >= cutoff)
-        return n_podcasts, n_episodes
-
-    pod_7j, ep_7j = count_since(7)
-    pod_30j, ep_30j = count_since(30)
-
-    total_pages = total_podcasts + total_episodes + len(by_category) + 1  # +1 pour index.html
-
-    weekly_counts = []
-    for w in range(7, -1, -1):
-        start = today - datetime.timedelta(days=(w + 1) * 7)
-        end = today - datetime.timedelta(days=w * 7)
-        n = sum(1 for e in all_episodes if e["date"] and start <= e["date"] < end)
-        n += sum(1 for r in records if (parse_date_any(r.get("date", "")) or datetime.date.min) and start <= parse_date_any(r.get("date", "")) < end)
-        weekly_counts.append(n)
-    max_week = max(weekly_counts) if any(weekly_counts) else 1
-
-    bars_html = "\n".join(f"""
-<div class="bar-col">
-  <div class="bar" style="height:{max(4, int(70 * c / max_week))}px" title="{c} page(s)"></div>
-  <div class="bar-label">S-{7-i if i<7 else 0}</div>
-</div>""" for i, c in enumerate(weekly_counts))
-
-    cat_rows = "\n".join(f"""
-<tr><td>{cat}</td><td>{n}</td></tr>""" for cat, n in sorted(by_category.items(), key=lambda kv: -kv[1]))
-
-    podcast_rows = "\n".join(f"""
-<tr>
-  <td>{r.get('podcast_name', r['slug'])}</td>
-  <td>{r.get('categorie', '')}</td>
-  <td style="text-align:center">{len(episodes_by_podcast.get(r['slug'], []))}</td>
-  <td><a href="{r.get('fiche_url','')}" target="_blank">Ouvrir →</a></td>
-</tr>""" for r in sorted(records, key=lambda x: -len(episodes_by_podcast.get(x['slug'], []))))
-
-    html = f"""<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<title>Dashboard podcast-btb (usage interne)</title>
-<meta name="robots" content="noindex, nofollow">
-<style>
-body{{font-family:-apple-system,Helvetica,Arial,sans-serif;color:#1a1a1a;margin:0;background:#fafafa;padding:32px}}
-h1{{font-size:22px;margin:0 0 4px}}
-h2{{font-size:15px;margin:36px 0 12px;color:#333}}
-.sub{{color:#888;font-size:13px;margin-bottom:24px}}
-.cards{{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:8px}}
-.card{{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:16px}}
-.card .num{{font-size:28px;font-weight:800;color:#111}}
-.card .label{{font-size:12px;color:#888;margin-top:4px}}
-table{{width:100%;border-collapse:collapse;background:#fff;border-radius:8px;overflow:hidden;font-size:13px}}
-th{{text-align:left;padding:10px 14px;background:#f0f0f0;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#666}}
-td{{padding:10px 14px;border-top:1px solid #f0f0f0}}
-a{{color:#2e6bd6;text-decoration:none}}
-.bars{{display:flex;align-items:flex-end;gap:10px;height:90px;background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:12px}}
-.bar-col{{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;flex:1;height:100%}}
-.bar{{width:100%;max-width:28px;background:#2e6bd6;border-radius:3px 3px 0 0}}
-.bar-label{{font-size:10px;color:#999;margin-top:4px}}
-.seo-list{{background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:18px 22px;font-size:13px;line-height:1.8}}
-.seo-list li{{margin-bottom:6px}}
-.disclaimer{{background:#fff8e6;border:1px solid #f0d975;border-radius:8px;padding:12px 16px;font-size:12px;color:#7a5c00;margin-top:8px}}
-</style>
-</head>
-<body>
-<h1>Dashboard podcast-btb</h1>
-<p class="sub">Page interne — usage perso, exclue du sitemap et non indexée. Généré le {today.strftime('%d/%m/%Y')}.</p>
-
-<div class="cards">
-  <div class="card"><div class="num">{total_podcasts}</div><div class="label">Podcasts référencés</div></div>
-  <div class="card"><div class="num">{total_episodes}</div><div class="label">Fiches épisode</div></div>
-  <div class="card"><div class="num">{total_pages}</div><div class="label">Pages indexables totales</div></div>
-  <div class="card"><div class="num">{pod_7j + ep_7j}</div><div class="label">Nouvelles pages (7 jours)</div></div>
-  <div class="card"><div class="num">{pod_30j + ep_30j}</div><div class="label">Nouvelles pages (30 jours)</div></div>
-</div>
-
-<h2>Production par semaine (8 dernières semaines)</h2>
-<div class="bars">
-{bars_html}
-</div>
-
-<h2>Répartition par catégorie</h2>
-<table>
-<tr><th>Catégorie</th><th>Podcasts</th></tr>
-{cat_rows}
-</table>
-
-<h2>Par podcast (trié par nombre d'épisodes)</h2>
-<table>
-<tr><th>Podcast</th><th>Catégorie</th><th>Épisodes</th><th>Lien</th></tr>
-{podcast_rows}
-</table>
-
-<h2>Ce que chaque page apporte structurellement</h2>
-<div class="seo-list">
-<ul>
-  <li>Une URL indexable de plus, ciblant une requête de longue traîne précise (le sujet exact de l'épisode)</li>
-  <li>Données structurées JSON-LD (FAQPage, PodcastEpisode, BreadcrumbList) — lisibles par Google et les crawlers IA</li>
-  <li>Présence dans le sitemap podcast-btb et le fichier llms.txt</li>
-  <li>Maillage interne : lien retour vers la fiche podcast parente, lien vers la catégorie</li>
-  <li>Signal de fraîcheur (date de publication réelle affichée et en JSON-LD)</li>
-</ul>
-</div>
-<div class="disclaimer">
-Ces éléments sont des facteurs techniques vérifiables — ils ne garantissent ni l'indexation par Google,
-ni la citation par une IA, ni un volume de trafic. Le seul moyen de mesurer l'impact réel reste
-Search Console (indexation, impressions, clics) et les référents IA dans les outils d'analytics.
-</div>
-
-<footer style="margin-top:40px;font-size:11px;color:#aaa">Dashboard interne — non public</footer>
-</body>
-</html>"""
-
-    with open(f"{PAGES_DIR}/dashboard.html", "w", encoding="utf-8") as f:
-        f.write(html)
-    log(f"Dashboard regenere : {total_podcasts} podcasts, {total_episodes} episodes")
-
 def build_historique():
     """Page interne (usage perso, jamais dans le sitemap) listant chaque fiche
     podcast et episode par ordre chronologique reel (plus recent en premier)."""
@@ -1271,6 +1120,46 @@ def build_dashboard():
     susp_rows = "".join(f"<li><b>{s}</b> — {msg}</li>" for s, msg in suspicious) or "<li>Aucune anomalie détectée ✓</li>"
     dup_rows = "".join(f"<li><b>{name}</b> : {', '.join(slugs)}</li>" for name, slugs in duplicates) or "<li>Aucun doublon détecté ✓</li>"
 
+    # --- Pages orphelines : fichiers HTML presents sur disque mais absents du sitemap ---
+    sitemap_path = f"{PAGES_DIR}/sitemap-podcast-btb.xml"
+    sitemap_urls = set()
+    if os.path.exists(sitemap_path):
+        with open(sitemap_path, encoding="utf-8") as f:
+            sitemap_content = f.read()
+        sitemap_urls = set(re.findall(r"<loc>(.*?)</loc>", sitemap_content))
+    orphan_pages = []
+    for root, dirs, files in os.walk(PAGES_DIR):
+        dirs[:] = [d for d in dirs if d != "data"]
+        for fname in files:
+            if not fname.endswith(".html") or fname in ("historique.html", "dashboard.html"):
+                continue
+            full_path = os.path.join(root, fname)
+            rel_path = os.path.relpath(full_path, PAGES_DIR).replace(os.sep, "/")
+            url = f"https://listenly.fr/podcast-btb/{rel_path}"
+            if url not in sitemap_urls:
+                orphan_pages.append(rel_path)
+    orphan_rows = "".join(f"<li>{p}</li>" for p in orphan_pages[:20]) or "<li>Aucune page orpheline détectée ✓</li>"
+    if len(orphan_pages) > 20:
+        orphan_rows += f"<li>… et {len(orphan_pages) - 20} de plus</li>"
+
+    # --- Contenu trop court : fiches episode < 8000 caracteres (signe probable de generation sans transcript ou incomplete) ---
+    thin_episodes = []
+    if os.path.isdir(episodes_root):
+        for slug in os.listdir(episodes_root):
+            pod_dir = f"{episodes_root}/{slug}"
+            if not os.path.isdir(pod_dir):
+                continue
+            for fname in os.listdir(pod_dir):
+                if fname.endswith(".html") and fname != "index.html":
+                    fpath = f"{pod_dir}/{fname}"
+                    try:
+                        size = os.path.getsize(fpath)
+                        if size < 8000:
+                            thin_episodes.append((slug, fname, size))
+                    except OSError:
+                        pass
+    thin_rows = "".join(f"<li><b>{s}</b>/{f} — {sz} octets</li>" for s, f, sz in thin_episodes[:20]) or "<li>Aucune fiche anormalement courte ✓</li>"
+
     cron_paused = os.path.exists(f"{PAGES_DIR}/.cron-paused")
     has_upcoming = any(k for _, _, k, _ in upcoming)
     if cron_paused:
@@ -1411,6 +1300,12 @@ ul.clean li{{margin-bottom:6px}}
 
 <h2>Doublons potentiels</h2>
 <div class="panel"><ul class="clean">{dup_rows}</ul></div>
+
+<h2>Pages orphelines (absentes du sitemap)</h2>
+<div class="panel"><ul class="clean">{orphan_rows}</ul></div>
+
+<h2>Fiches anormalement courtes (&lt; 8 Ko)</h2>
+<div class="panel"><ul class="clean">{thin_rows}</ul></div>
 </div>
 </div>
 
