@@ -18,8 +18,17 @@ jobs:
       - name: Installer ffmpeg (necessaire pour compression audio Whisper)
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
 
-      - name: Generation fiche podcast N1 (lancement manuel uniquement)
-        if: github.event_name == 'workflow_dispatch'
+      - name: Verifier si la fiche podcast N1 existe deja
+        id: check_n1
+        run: |
+          if [ -f "pages/podcast-btb/salad-talk-money-podcast.html" ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generation fiche podcast N1 (une seule fois, a la creation)
+        if: steps.check_n1.outputs.exists == 'false'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           RSS_URL: |-
@@ -40,8 +49,7 @@ jobs:
             spotify
         run: python automation/scripts/generate_podcast_btb.py
 
-      - name: Generation fiche question N2 (cron hebdomadaire, ET juste apres chaque lancement manuel)
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+      - name: Generation fiche question N2 (a chaque run, cron quotidien ou manuel)
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
