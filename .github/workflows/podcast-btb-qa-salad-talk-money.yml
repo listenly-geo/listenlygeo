@@ -3,7 +3,7 @@ name: Podcast BTB Trafic — salad-talk-money
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 10 * * 3'
+    - cron: '0 10 * * *'
 
 jobs:
   podcast-btb-qa:
