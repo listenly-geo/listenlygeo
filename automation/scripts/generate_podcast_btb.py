@@ -980,11 +980,22 @@ def build_dashboard():
                     content = f.read()
             except OSError:
                 continue
-            m = re.search(r"cron:\s*'(\d+)\s+(\d+)\s+\S+\s+\S+\s+(\d+)'", content)
+            m = re.search(r"cron:\s*'(\S+)\s+(\d+)\s+\S+\s+\S+\s+(\S+)'", content)
             if not m:
                 continue
             hour = int(m.group(2))
-            cron_dow = int(m.group(3))          # cron : 0=dimanche
+            dow_field = m.group(3)
+            if dow_field == "*":
+                # Cron quotidien : une occurrence chaque jour de la fenetre 7 jours
+                for d_offset in range(7):
+                    candidate = (now_dt + datetime.timedelta(days=d_offset)).replace(hour=hour, minute=0, second=0, microsecond=0)
+                    if candidate <= now_dt:
+                        continue
+                    name = slugs_names.get(wf_slug)
+                    cat = next((r.get("categorie", "Autre") for r in records if r["slug"] == wf_slug), "Autre")
+                    upcoming.append((candidate, name or wf_slug, name is not None, cat, engine))
+                continue
+            cron_dow = int(dow_field)                # cron : 0=dimanche
             py_weekday = (cron_dow - 1) % 7      # python : 0=lundi
             days_ahead = (py_weekday - now_dt.weekday()) % 7
             candidate = (now_dt + datetime.timedelta(days=days_ahead)).replace(hour=hour, minute=0, second=0, microsecond=0)
