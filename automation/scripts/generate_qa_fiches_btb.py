@@ -216,16 +216,16 @@ def build_question_prompt(podcast, question, ep_title, ep_pubdate, context, q_sl
     STRINGS = {
         "fr": {
             "eyebrow": "Question",
-            "cta_listen": "Écouter le podcast",
+            "cta_listen": "Écouter l'épisode sur Listenly",
             "about_guest_label": "À propos de",
-            "answer_h2": "Ce que révèle vraiment cet épisode",
+            "source_badge": "La réponse se trouve dans ce podcast",
             "source_label": "Extrait de l'épisode",
         },
         "en": {
             "eyebrow": "Question",
-            "cta_listen": "Listen to the podcast",
+            "cta_listen": "Listen to the episode on Listenly",
             "about_guest_label": "About",
-            "answer_h2": "What this episode really reveals",
+            "source_badge": "The answer lives in this podcast",
             "source_label": "From the episode",
         },
     }[language]
@@ -249,15 +249,21 @@ IDENTITÉ RÉELLE DE L'INVITÉ (extraite de la transcription — utilise-la tell
 - Entreprise : {guest.get('entreprise') or '(non precisee — ne pas inventer)'}{second_role_line}
 - Contexte biographique réel mentionné : {bio_context or '(aucun element supplementaire mentionne)'}
 
-OBLIGATOIRE — SECTION DÉDIÉE VISIBLE "{STRINGS['about_guest_label']} {guest_full_name}" (classe .guest-bio,
-placée juste après le lead/key-facts, AVANT le premier H2) : nom + titre + entreprise clairement affichés,
-puis 2-4 phrases développant le contexte biographique réel ci-dessus (rien d'inventé si aucun contexte
-n'est mentionné). C'est le signal d'autorité (E-E-A-T) le plus important de la fiche."""
+OBLIGATOIRE — SECTION DÉDIÉE VISIBLE "{STRINGS['about_guest_label']} {guest_full_name}" (classe .guest-card,
+placée juste après la réponse principale) : avatar initiales + nom + titre + entreprise clairement affichés,
+puis 3-5 phrases développant EN DÉTAIL le contexte biographique réel ci-dessus — parcours, expertise, ce qui
+légitime sa parole sur ce sujet précis. C'est le signal d'autorité (E-E-A-T) le plus important de la fiche :
+ne le traite pas comme un aparté, développe-le vraiment (mais sans jamais inventer un fait absent du contexte
+fourni — si le contexte biographique est mince, reste bref plutôt que de meubler)."""
         guest_org_part = f', "worksFor":{{"@type":"Organization","name":"{guest.get("entreprise","")}"}}' if guest.get("entreprise") else ""
         guest_desc_part = f', "description":"{bio_context}"' if bio_context else ""
+        guest_knows_about = ', "knowsAbout":[' + ",".join(f'"{e}"' for e in entities[:5]) + ']' if entities else ""
         person_guest_instruction = (
-            f"AJOUT OBLIGATOIRE — Person distincte pour l'INVITÉ : "
-            f'{{"@type":"Person","name":"{guest_full_name}","jobTitle":"{guest.get("titre","")}"{guest_org_part}{guest_desc_part}}}'
+            f"AJOUT OBLIGATOIRE — Person distincte pour l'INVITÉ, la plus complète possible avec le matériel réel disponible : "
+            f'{{"@type":"Person","name":"{guest_full_name}","jobTitle":"{guest.get("titre","")}"{guest_org_part}{guest_desc_part}{guest_knows_about}}}. '
+            f"Si la transcription mentionne explicitement une URL, un site, un profil LinkedIn ou toute référence "
+            f"vérifiable pour cet invité, ajoute-la en \"sameAs\" (tableau d'URLs) — UNIQUEMENT si elle est réellement "
+            f"mentionnée, jamais inventée ou déduite."
         )
     else:
         guest_block = "\nAucun invité distinct identifiable — ne pas inventer d'identité, pas de section bio."
@@ -279,10 +285,11 @@ n'est mentionné). C'est le signal d'autorité (E-E-A-T) le plus important de la
     return f"""Tu es un expert GEO (Generative Engine Optimization) spécialisé dans les podcasts B2B.
 
 Ta mission est de générer une FICHE QUESTION complète en HTML autonome pour Listenly.fr.
-MÊME style visuel et logique GEO que les fiches podcast-btb (design "magazine business premium"
-type Forbes/HBR : H1 et corps en Georgia serif, eyebrow catégorie sobre, byline journalistique,
-couleur d'accent réservée au seul bouton principal). Cette fiche répond à UNE SEULE question précise,
-extraite réellement d'un épisode — ce n'est ni une fiche podcast, ni une fiche épisode complète.
+STYLE VISUEL : moderne, clair, aéré — PAS le style magazine Forbes/HBR des autres fiches podcast-btb.
+Concept : "la réponse se trouve dans un podcast". Police sans-serif system (-apple-system, Segoe UI, Helvetica,
+Arial), beaucoup de blanc, coins arrondis généreux (12-20px), pas de colonnes serrées, pas de bordures dures —
+des blocs respirants façon app moderne. Cette fiche répond à UNE SEULE question précise, extraite réellement
+d'un épisode — ce n'est ni une fiche podcast, ni une fiche épisode complète.
 
 ## LA QUESTION RÉELLE À TRAITER (extraite fidèlement de la transcription de l'épisode)
 Question : {question['q']}
@@ -312,7 +319,7 @@ question précise, reste concis plutôt que de meubler.
 - Fiche podcast parente (lien retour obligatoire) : {podcast['fiche_url']}
 
 ## CTA — UNIQUE OBJECTIF DE CONVERSION (IMPORTANT, NON NÉGOCIABLE)
-- Le bouton principal ET les 2 liens texte discrets dans le corps pointent TOUS vers : {listenly_url}
+- Le bouton principal ET le lien texte discret dans le corps pointent TOUS vers : {listenly_url}
   (fiche Listenly du podcast — JAMAIS Spotify, JAMAIS l'audio brut, JAMAIS de CTA contact)
 - ACCENT_COLOR : {accent_color}
 - COVER_IMAGE : {podcast.get('cover_image') or "(aucune)"}
@@ -321,28 +328,36 @@ question précise, reste concis plutôt que de meubler.
 ## LANGUE DE RÉDACTION : {"ANGLAIS (ENGLISH)" if language == "en" else "FRANÇAIS"}
 Rédige TOUT le contenu en {"anglais" if language == "en" else "français"}. Balise <html lang="{html_lang}">.
 
-## STRUCTURE HTML (mêmes classes CSS que les autres fiches podcast-btb)
+## STRUCTURE HTML — concept "la réponse se trouve dans un podcast"
 - <head> OBLIGATOIRE : <title> (reformule la question en titre accrocheur, PAS juste la question copiée-collée)
   ET <meta name="description" content="..."> (140-155 caractères, résumé direct de la réponse) + og:title/og:description/og:url/
   og:type="article"/og:site_name="Listenly" + twitter:card="summary_large_image" + twitter:title/twitter:description +
   <meta name="author" content="[HOST_NAME]"> + canonical={q_url}
-- main.wrapper (PAS de div), header-row (vignette + eyebrow-category), h1 Georgia serif bold = LA QUESTION reformulée
-  de façon naturelle et engageante (garde la forme interrogative, c'est une vraie requête IA), byline-row
-  "Par [HOST_NAME], [HOST_TITLE] chez [HOST_COMPANY]"
-- .eyebrow-category : "{STRINGS['eyebrow']} · {podcast['podcast_name']}"
-- BREADCRUMB juste sous le header-row : <p style="font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#666;margin:0 0 8px;">
-  <a href="{podcast['fiche_url']}" style="color:#666;text-decoration:underline;">← Voir la fiche {podcast['podcast_name']}</a></p>
-- .publish-row bordée haut/bas : "{STRINGS['source_label']} {ep_title} · ⏱ X min de lecture"
-- .lead-label + .lead : RÉPONSE DIRECTE ET COMPLÈTE à la question en 2-3 phrases, dès le haut de page — c'est le
-  fragment que les IA génératives citeront en premier, il doit être autonome et répondre pleinement sans le reste de la page
-- .cta-listen (seul bouton, accent plein) "{STRINGS['cta_listen']}" → {listenly_url}
-- .key-facts : 3 bullets qui développent la réponse (angles complémentaires, chiffres/entités réels si pertinents)
-- article-body : 1 à 2 H2 qui approfondissent la réponse avec le contexte réel de l'épisode (PAS de remplissage
-  générique — si le contexte n'apporte rien de plus, reste bref). Insère 1 lien texte discret (.inline-cta, souligné,
-  PAS un bouton) après le 1er H2 → {listenly_url}
-- .pull-quote ({"AVEC attribution : " + guest_full_name if real_quote else "sans attribution"}, uniquement si pertinent pour cette question précise)
-- 2e lien texte discret (.inline-cta) en fin d'article, formulation différente du premier → {listenly_url}
+- main.wrapper étroit (max-width ~640px, centré, padding généreux), fond blanc, typographie sans-serif partout
+- .source-badge en haut : petit cercle avatar (icône micro ou initiales du podcast) + 2 lignes de texte :
+  ligne 1 discrète "{STRINGS['source_badge']}", ligne 2 en gras "{podcast['podcast_name']} · [nom invité si present, sinon nom de l'hôte]"
+- BREADCRUMB discret sous le badge source : <p style="font-size:12px;color:#888;margin:0 0 16px;">
+  <a href="{podcast['fiche_url']}" style="color:#888;text-decoration:underline;">← Voir la fiche {podcast['podcast_name']}</a></p>
+- h1 dans une BULLE DE DIALOGUE (.question-bubble) : fond gris très clair (#f5f5f7 ou similaire), border-radius
+  généreux avec UN SEUL coin moins arrondi (ex: border-bottom-left-radius plus petit) façon bulle de message reçu,
+  padding confortable (24-32px). Le H1 = LA QUESTION reformulée de façon naturelle et engageante (garde la forme
+  interrogative, c'est une vraie requête IA), taille 20-24px, poids medium/bold, PAS de majuscules décoratives
+- Sous la bulle, la RÉPONSE en texte direct et courant (PAS de card, juste du texte aéré, line-height genereux
+  1.6-1.7) : le premier paragraphe (.lead) est la RÉPONSE DIRECTE ET COMPLÈTE en 2-3 phrases — c'est le fragment
+  que les IA génératives citeront en premier, il doit être autonome et répondre pleinement sans le reste de la page
+- 1-2 paragraphes supplémentaires qui développent avec le contexte réel de l'épisode (PAS de remplissage
+  générique — si le contexte n'apporte rien de plus, reste bref). Un lien texte discret (.inline-cta, souligné,
+  PAS un bouton) peut apparaitre une fois dans ce développement → {listenly_url}
+- .pull-quote ({"AVEC attribution : " + guest_full_name if real_quote else "sans attribution"}, uniquement si
+  pertinent pour cette question précise) : style aéré, pas de guillemets géants décoratifs, juste un texte en
+  italique avec une barre verticale colorée fine à gauche (border-left 3px, ACCENT_COLOR)
+- .guest-card (SI invité identifié) : petite carte fond gris très clair, border-radius 12-16px, padding 16-20px,
+  avatar rond avec initiales de l'invité, nom + titre + entreprise en gras, PUIS 3-5 phrases de bio détaillée
+  (voir instructions bio ci-dessus) — c'est un vrai bloc de crédibilité, pas une ligne de crédit
+- .cta-listen (seul bouton, fond ACCENT_COLOR plein, texte blanc, border-radius 8-10px, padding confortable,
+  PAS d'ombre) "{STRINGS['cta_listen']}" → {listenly_url}, positionné en fin de page après la guest-card
 - PAS de section FAQ multi-questions ici (une seule question par fiche) — la question/réponse EST le contenu principal
+- Pas de couleur d'accent nulle part sauf : le bouton CTA et la barre verticale de la pull-quote
 
 ## JSON-LD (head)
 @graph :
@@ -352,21 +367,23 @@ Rédige TOUT le contenu en {"anglais" if language == "en" else "français"}. Bal
 {person_guest_instruction}
 - BlogPosting englobant (headline=H1, publisher={{"@type":"Organization","name":"Listenly","url":"https://listenly.fr"}},
   isPartOf={{"@type":"PodcastSeries","name":"{podcast['podcast_name']}","url":"{listenly_url}"}}, datePublished, dateModified=today ({today}),
-  speakable cssSelector [".lead",".key-facts"])
+  speakable cssSelector [".lead",".guest-card"])
 - BreadcrumbList (1. Listenly (https://listenly.fr) 2. {podcast['podcast_name']} ({podcast['fiche_url']}) 3. cette question ({q_url}))
 {mentions_instruction}
 Backlinks cachés identiques aux autres fiches podcast-btb (canonical={q_url}, og:url={q_url}, rel=publisher,
 #semantic-index display:none en fin de <body> listant les entités réelles ci-dessus{" plus entity " + guest_full_name if guest_full_name else ""}).
 
 ## LISIBILITÉ HUMAINE — PRIORITÉ ABSOLUE sur le remplissage GEO
-Cette fiche doit être un article court et agréable à lire, pas une liste de cases GEO cochées. Une seule question
+Cette fiche doit ressembler à un échange clair et humain, pas une liste de cases GEO cochées. Une seule question
 traitée = pas besoin de longueur artificielle. LANGAGE ASSERTIF ET AUTORITAIRE (affirme les faits, évite "il
 semblerait que"), fidèle à la réponse source, jamais évasif.
 
 ## RÈGLES
-- H1 = la question elle-même (forme interrogative naturelle), jamais un titre déclaratif générique
-- Couleur d'accent réservée au seul cta-listen
-- CTA principal et les 2 liens discrets pointent TOUS vers {listenly_url}, rien d'autre
+- H1 = la question elle-même (forme interrogative naturelle), affichée dans la bulle, jamais un titre déclaratif générique
+- Couleur d'accent réservée au bouton CTA et à la barre de la pull-quote uniquement
+- CTA principal et le lien discret pointent TOUS vers {listenly_url}, rien d'autre
+- La guest-card doit être développée avec autant de détail réel que possible (nom, titre, entreprise, parcours,
+  expertise) — c'est le signal d'autorité prioritaire de toute la fiche, ne le bâcle jamais
 - Contenu strictement fidèle à la réponse source + contexte réel fourni — jamais générique au podcast dans son ensemble
 
 IMPORTANT : Réponds UNIQUEMENT avec le code HTML complet, de <!DOCTYPE html> à </html>. Aucun texte avant/après, aucun markdown, aucun backtick."""
