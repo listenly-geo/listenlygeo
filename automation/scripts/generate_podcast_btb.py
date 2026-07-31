@@ -828,7 +828,8 @@ def build_llms_txt():
         eps = episodes_by_podcast.get(r["slug"])
         if eps:
             for e in sorted(eps, key=lambda x: x.get("pubdate", ""), reverse=True):
-                lines.append(f"  - [{e['title']}]({e['url']})")
+                ep_url = e.get("url") or f"https://listenly.fr/podcast-btb/episodes/{r['slug']}/{e.get('slug','')}.html"
+                lines.append(f"  - [{e.get('title','(sans titre)')}]({ep_url})")
 
     total_episodes = sum(len(v) for v in episodes_by_podcast.values())
     with open(f"{PAGES_DIR}/llms.txt", "w", encoding="utf-8") as f:
