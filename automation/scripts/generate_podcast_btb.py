@@ -961,9 +961,14 @@ def build_dashboard():
     if os.path.isdir(wf_dir):
         now_dt = datetime.datetime.now()
         for fname in os.listdir(wf_dir):
-            if not (fname.startswith("podcast-btb-") and fname.endswith(".yml")):
+            if fname.startswith("podcast-btb-qa-") and fname.endswith(".yml"):
+                wf_slug = fname[len("podcast-btb-qa-"):-len(".yml")]
+                engine = "question"
+            elif fname.startswith("podcast-btb-") and fname.endswith(".yml"):
+                wf_slug = fname[len("podcast-btb-"):-len(".yml")]
+                engine = "episode"
+            else:
                 continue
-            wf_slug = fname[len("podcast-btb-"):-len(".yml")]
             try:
                 with open(os.path.join(wf_dir, fname), encoding="utf-8") as f:
                     content = f.read()
@@ -982,7 +987,7 @@ def build_dashboard():
             if (candidate - now_dt).days < 7:
                 name = slugs_names.get(wf_slug)
                 cat = next((r.get("categorie", "Autre") for r in records if r["slug"] == wf_slug), "Autre")
-                upcoming.append((candidate, name or wf_slug, name is not None, cat))
+                upcoming.append((candidate, name or wf_slug, name is not None, cat, engine))
     upcoming.sort()
 
     # --- Collecte des episodes par podcast ---
@@ -1016,14 +1021,49 @@ def build_dashboard():
     eps_this_week = sum(1 for d in all_ep_dates if d >= week_ago)
     eps_this_month = sum(1 for d in all_ep_dates if d >= month_ago)
 
+    # --- Collecte des fiches requete (moteur trafic / questions) par podcast ---
+    questions_root = f"{PAGES_DIR}/questions"
+    qa_by_podcast = {}
+    all_qa_dates = []
+    if os.path.isdir(questions_root):
+        for slug in os.listdir(questions_root):
+            reg_file = f"{questions_root}/{slug}/_qa_registry.json"
+            if not os.path.exists(reg_file):
+                continue
+            try:
+                with open(reg_file, encoding="utf-8") as f:
+                    qreg = json.load(f)
+            except (json.JSONDecodeError, OSError):
+                continue
+            published = qreg.get("published", []) or []
+            dates = []
+            for q in published:
+                d = parse_date_any(q.get("added_date", ""))
+                if d:
+                    dates.append(d)
+                    all_qa_dates.append(d)
+            qa_by_podcast[slug] = {
+                "count": len(published),
+                "last": max(dates) if dates else None,
+                "stock": len(qreg.get("pending_qa", []) or []),
+            }
+
+    total_questions = sum(v["count"] for v in qa_by_podcast.values())
+    qs_this_week = sum(1 for d in all_qa_dates if d >= week_ago)
+    qs_this_month = sum(1 for d in all_qa_dates if d >= month_ago)
+
     # --- Production par semaine (8 dernieres semaines) ---
     weekly = []
+    weekly_q = []
     for w in range(7, -1, -1):
         start = today - datetime.timedelta(days=today.weekday(), weeks=w)
         end = start + datetime.timedelta(days=6)
         count = sum(1 for d in all_ep_dates if start <= d <= end)
         weekly.append((start, count))
+        count_q = sum(1 for d in all_qa_dates if start <= d <= end)
+        weekly_q.append((start, count_q))
     max_weekly = max((c for _, c in weekly), default=1) or 1
+    max_weekly_q = max((c for _, c in weekly_q), default=1) or 1
 
     # --- Sante technique ---
     slugs_valid = set(r["slug"] for r in records)
@@ -1058,32 +1098,43 @@ def build_dashboard():
         cta = r.get("episode_cta_target", "listenly")
         ep_index_url = f"https://listenly.fr/podcast-btb/episodes/{slug}/index.html"
         ep_link = f'<a href="{ep_index_url}" target="_blank" style="font-size:11px">Voir les épisodes →</a>' if ep["count"] else '<span style="color:#bbb;font-size:11px">—</span>'
+
+        qa = qa_by_podcast.get(slug, {"count": 0, "last": None, "stock": 0})
+        qa_last_label = format_date_fr(qa["last"]) if qa["last"] else "—"
+        qa_stock_badge = f' <span class="warn" style="background:#eef2ff;color:#4a6cf7">{qa["stock"]} en stock</span>' if qa["stock"] else ""
+        qa_index_url = f"https://listenly.fr/podcast-btb/questions/{slug}/index.html"
+        qa_link = f'<a href="{qa_index_url}" target="_blank" style="font-size:11px">Voir les fiches requête →</a>' if qa["count"] else '<span style="color:#bbb;font-size:11px">—</span>'
+
         rows.append(f"""
 <tr>
   <td class="pod-name"><a href="{r.get('fiche_url','')}" target="_blank">{r.get('podcast_name','')}</a></td>
   <td>{r.get('categorie','')}</td>
   <td style="text-align:center" data-sort="{ep['count']}">{ep['count']}</td>
   <td data-sort="{ep['last'].isoformat() if ep['last'] else ''}">{last_label}{stale_badge}</td>
+  <td style="text-align:center" data-sort="{qa['count']}">{qa['count']}{qa_stock_badge}</td>
+  <td data-sort="{qa['last'].isoformat() if qa['last'] else ''}">{qa_last_label}</td>
   <td style="text-align:center">{cta}</td>
-  <td>{ep_link}</td>
+  <td>{ep_link}<br>{qa_link}</td>
 </tr>""")
 
     DAYS_ABBR = {0: "Lun", 1: "Mar", 2: "Mer", 3: "Jeu", 4: "Ven", 5: "Sam", 6: "Dim"}
     CAT_COLORS = ["#2e6bd6", "#27ae60", "#e67e22", "#8e44ad", "#c0392b", "#16a085", "#d4a017", "#7f8c8d", "#e84393", "#2c3e50"]
 
     # Palette stable : couleur attribuee par ordre alphabetique des categories presentes
-    cats_in_upcoming = sorted(set(cat for _, _, known, cat in upcoming if known))
+    cats_in_upcoming = sorted(set(cat for _, _, known, cat, _ in upcoming if known))
     cat_color = {c: CAT_COLORS[i % len(CAT_COLORS)] for i, c in enumerate(cats_in_upcoming)}
 
     # Regrouper par jour (7 prochains jours a partir d'aujourd'hui)
     days_seq = [datetime.date.today() + datetime.timedelta(days=i) for i in range(7)]
     by_day = {d: {} for d in days_seq}
+    engine_by_day = {d: {"episode": 0, "question": 0} for d in days_seq}
     orphans_count = 0
-    for dt, name, known, cat in upcoming:
+    for dt, name, known, cat, engine in upcoming:
         d = dt.date()
         if d in by_day:
             if known:
                 by_day[d][cat] = by_day[d].get(cat, 0) + 1
+                engine_by_day[d][engine] = engine_by_day[d].get(engine, 0) + 1
             else:
                 orphans_count += 1
     max_day_total = max((sum(v.values()) for v in by_day.values()), default=1) or 1
@@ -1100,8 +1151,14 @@ def build_dashboard():
                 seg_h = max(8, int(90 * n / max_day_total))
                 segments += f'<div class="seg" style="height:{seg_h}px;background:{cat_color[cat]}"></div>'
                 tip_lines.append(f'<div class="tip-row"><i style="background:{cat_color[cat]}"></i><span>{cat}</span><b>{n} · {pct}%</b></div>')
-        tip_html = "".join(tip_lines) if tip_lines else '<div class="tip-row"><span>Aucun épisode prévu</span></div>'
-        count_label = f"+{total} épisode{'s' if total > 1 else ''}" if total else "—"
+            eng = engine_by_day[d]
+            eng_parts = []
+            if eng.get("episode"): eng_parts.append(f"{eng['episode']} épisode(s)")
+            if eng.get("question"): eng_parts.append(f"{eng['question']} requête(s)")
+            if eng_parts:
+                tip_lines.append(f'<div class="tip-row" style="margin-top:4px;opacity:.75"><span>{" · ".join(eng_parts)}</span></div>')
+        tip_html = "".join(tip_lines) if tip_lines else '<div class="tip-row"><span>Aucune fiche prévue</span></div>'
+        count_label = f"+{total} fiche{'s' if total > 1 else ''}" if total else "—"
         today_cls = " cal-today" if d == datetime.date.today() else ""
         cal_cols.append(f"""
 <div class="cal-col{today_cls}">
@@ -1118,6 +1175,10 @@ def build_dashboard():
     weekly_bars = "".join(
         f'<div class="bar-col"><div class="bar" style="height:{max(6, int(70 * c / max_weekly))}px" title="{c} fiche(s)"></div><span>{s.strftime("%d/%m")}</span><b>{c}</b></div>'
         for s, c in weekly
+    )
+    weekly_q_bars = "".join(
+        f'<div class="bar-col"><div class="bar" style="height:{max(6, int(70 * c / max_weekly_q))}px;background:linear-gradient(180deg,#8e44ad,#6c3483)" title="{c} fiche(s)"></div><span>{s.strftime("%d/%m")}</span><b>{c}</b></div>'
+        for s, c in weekly_q
     )
     cat_rows = "".join(f"<tr><td>{label}</td><td style='text-align:center'>{n}</td></tr>" for label, n in cats_sorted)
     susp_rows = "".join(f"<li><b>{s}</b> — {msg}</li>" for s, msg in suspicious) or "<li>Aucune anomalie détectée ✓</li>"
@@ -1164,7 +1225,7 @@ def build_dashboard():
     thin_rows = "".join(f"<li><b>{s}</b>/{f} — {sz} octets</li>" for s, f, sz in thin_episodes[:20]) or "<li>Aucune fiche anormalement courte ✓</li>"
 
     cron_paused = os.path.exists(f"{PAGES_DIR}/.cron-paused")
-    has_upcoming = any(k for _, _, k, _ in upcoming)
+    has_upcoming = any(k for _, _, k, _, _ in upcoming)
     if cron_paused:
         air_html = '<span class="badge-air off"><i></i>OFF AIR — cron en pause</span>'
     elif has_upcoming:
@@ -1269,11 +1330,12 @@ ul.clean li{{margin-bottom:6px}}
 <div class="cards">
   <div class="card"><div class="ico">🎙️</div><div class="num" data-target="{len(records)}">0</div><div class="lbl">Podcasts référencés</div></div>
   <div class="card"><div class="ico">📄</div><div class="num" data-target="{total_episodes}">0</div><div class="lbl">Fiches épisode totales</div></div>
-  <div class="card"><div class="ico">⚡</div><div class="num" data-target="{eps_this_week}">0</div><div class="lbl">Épisodes cette semaine</div></div>
-  <div class="card"><div class="ico">📈</div><div class="num" data-target="{eps_this_month}">0</div><div class="lbl">Épisodes sur 30 jours</div></div>
+  <div class="card"><div class="ico">❓</div><div class="num" data-target="{total_questions}">0</div><div class="lbl">Fiches requête totales</div></div>
+  <div class="card"><div class="ico">⚡</div><div class="num" data-target="{eps_this_week + qs_this_week}">0</div><div class="lbl">Fiches cette semaine</div></div>
+  <div class="card"><div class="ico">📈</div><div class="num" data-target="{eps_this_month + qs_this_month}">0</div><div class="lbl">Fiches sur 30 jours</div></div>
 </div>
 
-<h2>Prévision semaine · {sum(1 for _, _, k, _ in upcoming if k)} fiche(s) programmée(s)</h2>
+<h2>Prévision semaine · {sum(1 for _, _, k, _, _ in upcoming if k)} fiche(s) programmée(s)</h2>
 <div class="panel">
 {prevision_calendar}
 </div>
@@ -1284,7 +1346,7 @@ ul.clean li{{margin-bottom:6px}}
 <div class="panel">
 <input class="search" id="q" type="text" placeholder="🔍 Filtrer un podcast, une catégorie..." oninput="filterTable()">
 <table id="prodTable">
-<tr><th>Podcast</th><th>Catégorie</th><th class="sortable" onclick="sortTable(2,true)">Épisodes</th><th class="sortable" onclick="sortTable(3,false)">Dernier épisode</th><th>CTA</th><th>Fiches générées</th></tr>
+<tr><th>Podcast</th><th>Catégorie</th><th class="sortable" onclick="sortTable(2,true)">Épisodes</th><th class="sortable" onclick="sortTable(3,false)">Dernier épisode</th><th class="sortable" onclick="sortTable(4,true)">Fiches requête</th><th class="sortable" onclick="sortTable(5,false)">Dernière requête</th><th>CTA</th><th>Fiches générées</th></tr>
 {''.join(rows)}
 </table>
 </div>
@@ -1312,8 +1374,11 @@ ul.clean li{{margin-bottom:6px}}
 </div>
 </div>
 
-<h2>Production hebdomadaire (8 dernières semaines)</h2>
+<h2>Production hebdomadaire — Fiches épisode (8 dernières semaines)</h2>
 <div class="panel"><div class="bars">{weekly_bars}</div></div>
+
+<h2>Production hebdomadaire — Fiches requête (8 dernières semaines)</h2>
+<div class="panel"><div class="bars">{weekly_q_bars}</div></div>
 
 <p class="note">Ce tableau de bord n'affiche que les données de production internes au moteur. L'impact SEO réel (impressions, clics, citations IA) se mesure uniquement dans Google Search Console et vos analytics — le lien "Voir les épisodes" ouvre la liste publique des fiches épisode générées pour chaque podcast.</p>
 
@@ -1366,7 +1431,7 @@ function sortTable(colIdx, numeric){{
 
     with open(f"{PAGES_DIR}/dashboard.html", "w", encoding="utf-8") as f:
         f.write(html)
-    log(f"Dashboard regenere : {len(records)} podcast(s), {total_episodes} episode(s)")
+    log(f"Dashboard regenere : {len(records)} podcast(s), {total_episodes} episode(s), {total_questions} fiche(s) requete")
 
 def build_index_and_categories(records):
     by_category = {}
