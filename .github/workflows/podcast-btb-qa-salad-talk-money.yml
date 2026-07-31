@@ -28,7 +28,7 @@ jobs:
       - name: Installer ffmpeg (necessaire pour compression audio Whisper)
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
 
-      - name: Generation fiche podcast N1 (lancement manuel : choix "podcast" ou "both")
+      - name: Generation fiche podcast N1 (lancement manuel — choix podcast ou both)
         if: github.event_name == 'workflow_dispatch' && (inputs.run_step == 'podcast' || inputs.run_step == 'both')
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -50,7 +50,7 @@ jobs:
             spotify
         run: python automation/scripts/generate_podcast_btb.py
 
-      - name: Generation 1 fiche question N2 (cron hebdomadaire, ou lancement manuel : choix "question"/"both")
+      - name: Generation 1 fiche question N2 (cron hebdomadaire, ou lancement manuel — choix question/both)
         if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && (inputs.run_step == 'question' || inputs.run_step == 'both'))
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
