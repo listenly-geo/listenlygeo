@@ -949,27 +949,32 @@ a:hover{{text-decoration:underline}}
     log(f"Historique regenere : {len(entries)} entree(s)")
 
 def build_dashboard():
-    """Tableau de bord interne (noindex) : etat du moteur, production, sante technique.
-    N'affiche QUE des donnees mesurables par le systeme — aucun chiffre SEO invente."""
-    records = load_data()
+    """Tableau de bord interne (noindex) — DEDIE au moteur trafic (fiches question) :
+    n'affiche QUE les podcasts onboardes via un workflow podcast-btb-qa-<slug>.yml,
+    jamais les podcasts du systeme episode legacy."""
+    all_records = load_data()
     today = datetime.date.today()
 
-    # --- Previsions : prochains crons sur 7 jours (lus depuis .github/workflows/) ---
+    # --- Perimetre : uniquement les podcasts avec un workflow podcast-btb-qa-*.yml ---
+    wf_dir = ".github/workflows"
+    qa_engine_slugs = set()
+    if os.path.isdir(wf_dir):
+        for fname in os.listdir(wf_dir):
+            if fname.startswith("podcast-btb-qa-") and fname.endswith(".yml"):
+                qa_engine_slugs.add(fname[len("podcast-btb-qa-"):-len(".yml")])
+    records = [r for r in all_records if r["slug"] in qa_engine_slugs]
+
+    # --- Previsions : prochains crons sur 7 jours (uniquement workflows du moteur trafic) ---
     DAYS_FR_SHORT = {0: "Lundi", 1: "Mardi", 2: "Mercredi", 3: "Jeudi", 4: "Vendredi", 5: "Samedi", 6: "Dimanche"}
     slugs_names = {r["slug"]: r.get("podcast_name", r["slug"]) for r in records}
     upcoming = []
-    wf_dir = ".github/workflows"
     if os.path.isdir(wf_dir):
         now_dt = datetime.datetime.now()
         for fname in os.listdir(wf_dir):
-            if fname.startswith("podcast-btb-qa-") and fname.endswith(".yml"):
-                wf_slug = fname[len("podcast-btb-qa-"):-len(".yml")]
-                engine = "question"
-            elif fname.startswith("podcast-btb-") and fname.endswith(".yml"):
-                wf_slug = fname[len("podcast-btb-"):-len(".yml")]
-                engine = "episode"
-            else:
+            if not (fname.startswith("podcast-btb-qa-") and fname.endswith(".yml")):
                 continue
+            wf_slug = fname[len("podcast-btb-qa-"):-len(".yml")]
+            engine = "question"
             try:
                 with open(os.path.join(wf_dir, fname), encoding="utf-8") as f:
                     content = f.read()
@@ -991,12 +996,14 @@ def build_dashboard():
                 upcoming.append((candidate, name or wf_slug, name is not None, cat, engine))
     upcoming.sort()
 
-    # --- Collecte des episodes par podcast ---
+    # --- Collecte des episodes par podcast (perimetre : podcasts du moteur trafic uniquement) ---
     episodes_root = f"{PAGES_DIR}/episodes"
     ep_by_podcast = {}
     all_ep_dates = []
     if os.path.isdir(episodes_root):
         for slug in os.listdir(episodes_root):
+            if slug not in qa_engine_slugs:
+                continue
             reg_file = f"{episodes_root}/{slug}/_generated.json"
             if not os.path.exists(reg_file):
                 continue
@@ -1028,6 +1035,8 @@ def build_dashboard():
     all_qa_dates = []
     if os.path.isdir(questions_root):
         for slug in os.listdir(questions_root):
+            if slug not in qa_engine_slugs:
+                continue
             reg_file = f"{questions_root}/{slug}/_qa_registry.json"
             if not os.path.exists(reg_file):
                 continue
@@ -1200,6 +1209,12 @@ def build_dashboard():
                 continue
             full_path = os.path.join(root, fname)
             rel_path = os.path.relpath(full_path, PAGES_DIR).replace(os.sep, "/")
+            is_qa_scope = (
+                rel_path in {f"{s}-podcast.html" for s in qa_engine_slugs}
+                or any(rel_path.startswith(f"questions/{s}/") for s in qa_engine_slugs)
+            )
+            if not is_qa_scope:
+                continue
             url = f"https://listenly.fr/podcast-btb/{rel_path}"
             if url not in sitemap_urls:
                 orphan_pages.append(rel_path)
@@ -1211,6 +1226,8 @@ def build_dashboard():
     thin_episodes = []
     if os.path.isdir(episodes_root):
         for slug in os.listdir(episodes_root):
+            if slug not in qa_engine_slugs:
+                continue
             pod_dir = f"{episodes_root}/{slug}"
             if not os.path.isdir(pod_dir):
                 continue
@@ -1225,7 +1242,7 @@ def build_dashboard():
                         pass
     thin_rows = "".join(f"<li><b>{s}</b>/{f} — {sz} octets</li>" for s, f, sz in thin_episodes[:20]) or "<li>Aucune fiche anormalement courte ✓</li>"
 
-    cron_paused = os.path.exists(f"{PAGES_DIR}/.cron-paused")
+    cron_paused = os.path.exists(f"{PAGES_DIR}/.cron-paused-qa")
     has_upcoming = any(k for _, _, k, _, _ in upcoming)
     if cron_paused:
         air_html = '<span class="badge-air off"><i></i>OFF AIR — cron en pause</span>'
@@ -1239,7 +1256,7 @@ def build_dashboard():
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Moteur Listenly GEO — Dashboard</title>
+<title>Moteur Trafic Listenly — Dashboard</title>
 <meta name="robots" content="noindex, nofollow">
 <style>
 :root{{--bg:#f4f7fe;--card:#fff;--ink:#1b2540;--sub:#8b93a7;--accent:#4a6cf7;--accent-soft:#eef2ff;--ok:#22c98d;--warn-bg:#fdecec;--warn-ink:#e05252;--shadow:0 6px 24px rgba(27,37,64,.06)}}
@@ -1322,8 +1339,8 @@ ul.clean li{{margin-bottom:6px}}
 <body>
 <div class="header">
   <div>
-    <h1><span class="wave"><i></i><i></i><i></i><i></i><i></i></span>Moteur <b>Listenly GEO</b></h1>
-    <p class="sub">Vue d'ensemble de la production automatisée · généré le {format_date_fr(today)}</p>
+    <h1><span class="wave"><i></i><i></i><i></i><i></i><i></i></span>Moteur <b>Trafic Listenly</b></h1>
+    <p class="sub">Fiches question du nouveau moteur uniquement · généré le {format_date_fr(today)}</p>
   </div>
   {air_html}
 </div>
