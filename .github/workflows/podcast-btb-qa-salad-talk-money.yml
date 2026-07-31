@@ -2,16 +2,6 @@ name: Podcast BTB Trafic — salad-talk-money
 
 on:
   workflow_dispatch:
-    inputs:
-      run_step:
-        description: 'Que lancer sur ce run manuel ?'
-        required: true
-        type: choice
-        default: podcast
-        options:
-          - podcast
-          - question
-          - both
   schedule:
     - cron: '0 10 * * 3'
 
@@ -28,8 +18,8 @@ jobs:
       - name: Installer ffmpeg (necessaire pour compression audio Whisper)
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
 
-      - name: Generation fiche podcast N1 (lancement manuel — choix podcast ou both)
-        if: github.event_name == 'workflow_dispatch' && (inputs.run_step == 'podcast' || inputs.run_step == 'both')
+      - name: Generation fiche podcast N1 (lancement manuel uniquement)
+        if: github.event_name == 'workflow_dispatch'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           RSS_URL: |-
@@ -50,8 +40,8 @@ jobs:
             spotify
         run: python automation/scripts/generate_podcast_btb.py
 
-      - name: Generation 1 fiche question N2 (cron hebdomadaire, ou lancement manuel — choix question/both)
-        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && (inputs.run_step == 'question' || inputs.run_step == 'both'))
+      - name: Generation fiche question N2 (cron hebdomadaire, ET juste apres chaque lancement manuel)
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
