@@ -435,8 +435,8 @@ def ensure_parent_link():
         log("Lien 'Voir toutes les questions' ajouté à la fiche parente")
 
 def main():
-    if os.environ.get("GITHUB_EVENT_NAME") == "schedule" and os.path.exists(f"{PAGES_DIR}/.cron-paused"):
-        log("Cron podcast-btb en pause (fichier .cron-paused present) — run ignore.")
+    if os.environ.get("GITHUB_EVENT_NAME") == "schedule" and os.path.exists(f"{PAGES_DIR}/.cron-paused-qa"):
+        log("Cron moteur trafic (fiches question) en pause (fichier .cron-paused-qa present) — run ignore.")
         return
 
     pmod = podcast_mod()
