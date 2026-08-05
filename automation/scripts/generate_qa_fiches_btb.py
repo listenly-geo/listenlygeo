@@ -60,6 +60,11 @@ QUESTIONS_DIR = f"{PAGES_DIR}/questions/{SLUG}"
 REGISTRY_FILE = f"{QUESTIONS_DIR}/_qa_registry.json"
 PARENT_FICHE  = f"{PAGES_DIR}/{SLUG}-podcast.html"
 
+# Inbox alimentée par les repos clients "moteur autorité N2" (sync_transcript_to_moteur_trafic.py).
+# Source ADDITIONNELLE et non-bloquante : si vide ou absente, comportement RSS inchangé.
+INBOX_DIR          = f"automation/inbox/moteur-trafic-transcripts/{SLUG}"
+INBOX_CONSUMED_DIR = f"{INBOX_DIR}/consumed"
+
 def log(msg): print(f"[qa-btb:{SLUG}] {msg}", flush=True)
 
 # --- Modules réutilisés tels quels (pas de duplication de logique) ---
@@ -139,6 +144,68 @@ def save_registry(reg):
     os.makedirs(QUESTIONS_DIR, exist_ok=True)
     with open(REGISTRY_FILE, "w", encoding="utf-8") as f:
         json.dump(reg, f, ensure_ascii=False, indent=2)
+
+# --- Consomme un transcript déjà extrait, envoyé par un repo client "moteur autorité N2" ---
+def try_load_from_inbox(registry):
+    if not os.path.isdir(INBOX_DIR):
+        return False  # aucun client relié à ce podcast — comportement RSS inchangé
+
+    candidates = sorted(
+        f for f in os.listdir(INBOX_DIR)
+        if f.endswith(".json") and os.path.isfile(os.path.join(INBOX_DIR, f))
+    )
+    if not candidates:
+        return False  # inbox vide pour l'instant — comportement RSS inchangé
+
+    known = set(registry["known_episode_guids"])
+    os.makedirs(INBOX_CONSUMED_DIR, exist_ok=True)
+
+    for fname in candidates:
+        fpath = os.path.join(INBOX_DIR, fname)
+        try:
+            with open(fpath, encoding="utf-8") as f:
+                payload = json.load(f)
+        except (json.JSONDecodeError, OSError) as e:
+            log(f"AVERTISSEMENT inbox : fichier illisible ignoré ({fname}: {e})")
+            shutil.move(fpath, os.path.join(INBOX_CONSUMED_DIR, fname))
+            continue
+
+        guid = payload.get("episode_guid") or fname
+        dest = os.path.join(INBOX_CONSUMED_DIR, fname)
+
+        if guid in known:
+            # Déjà traité (par le RSS ou un run précédent) — on absorbe le doublon sans le republier
+            log(f"Inbox : épisode déjà connu, fichier ignoré sans republication ({fname})")
+            shutil.move(fpath, dest)
+            continue
+
+        qa = payload.get("real_qa") or []
+        if not qa:
+            log(f"Inbox : aucune question dans ce fichier — ignoré ({fname})")
+            registry["known_episode_guids"].append(guid)
+            shutil.move(fpath, dest)
+            continue
+
+        registry["known_episode_guids"].append(guid)
+        registry["current_episode"] = {
+            "guid": guid,
+            "title": payload.get("episode_title", ""),
+            "pubdate": payload.get("pubdate", ""),
+            "audio_url": "",
+        }
+        registry["context"] = {
+            "guest": payload.get("guest") or {},
+            "real_quote": payload.get("real_quote", ""),
+            "key_stats": payload.get("key_stats") or [],
+            "entities": payload.get("entities") or [],
+            "transcript_excerpt": (payload.get("transcript_full") or "")[:4000],
+        }
+        registry["pending_qa"] = qa
+        shutil.move(fpath, dest)
+        log(f"{len(qa)} question(s) mise(s) en stock depuis l'inbox client : {payload.get('episode_title','')}")
+        return True
+
+    return False  # tous les fichiers présents étaient des doublons/vides — retombe sur le RSS
 
 # --- Mine un nouvel épisode (transcription + extraction réelle) ---
 def mine_next_episode(podcast, registry, rss_url):
@@ -473,7 +540,9 @@ def main():
     registry = load_registry()
 
     if not registry["pending_qa"]:
-        mined = mine_next_episode(podcast, registry, rss_url)
+        mined = try_load_from_inbox(registry)
+        if not mined:
+            mined = mine_next_episode(podcast, registry, rss_url)
         save_registry(registry)
         if not mined:
             log("Rien de neuf à publier ce run — resynchronisation sitemap/dashboard quand même.")
