@@ -1,0 +1,76 @@
+name: Podcast BTB Trafic — purpose-people-podcast
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 18 * * *'
+
+jobs:
+  podcast-btb-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installer ffmpeg (necessaire pour compression audio Whisper)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: Generation fiche podcast N1 (lancement manuel uniquement)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RSS_URL: |-
+            https://anchor.fm/s/c25f4ffc/podcast/rss
+          PODCAST_URL: |-
+            https://podcasts.apple.com/us/podcast/the-purpose-people-podcast/id1647162680
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/purpose-people-podcast
+          COVER_IMAGE: |-
+            https://i.postimg.cc/VLMRgnZX/Umprompted-master-assets-Title-Thumb.jpg
+          PODCAST_SLUG: |-
+            purpose-people-podcast
+          ACCENT_COLOR: |-
+            #2e8bd6
+          LANGUAGE: |-
+            en
+          EPISODE_CTA_TARGET: |-
+            listenly
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Generation fiche question N2 (cron quotidien, ET juste apres chaque lancement manuel)
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PODCAST_SLUG: |-
+            purpose-people-podcast
+        run: python automation/scripts/generate_qa_fiches_btb.py
+
+      - name: Commit fiches
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: podcast-btb-qa purpose-people-podcast"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
