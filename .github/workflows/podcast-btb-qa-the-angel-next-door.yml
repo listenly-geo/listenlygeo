@@ -53,12 +53,21 @@ jobs:
         run: |
           git config user.name  "listenly-bot"
           git config user.email "bot@listenly.fr"
-          git pull --rebase --autostash origin main
           git add pages/podcast-btb/
           if git diff --staged --quiet; then
             echo "Rien de nouveau."
           else
             git commit -m "Auto: podcast-btb-qa the-angel-next-door"
+            git fetch origin main
+            if ! git rebase origin/main; then
+              echo "::error::Conflit lors du rebase - abandon pour ne pas corrompre le depot. Relance le workflow (le run concurrent a normalement fini)."
+              git rebase --abort
+              exit 1
+            fi
+            if grep -rq "^<<<<<<< \|^=======$\|^>>>>>>> " pages/podcast-btb/ 2>/dev/null; then
+              echo "::error::Marqueurs de conflit detectes apres rebase - abandon pour ne pas corrompre le depot."
+              exit 1
+            fi
             git push
           fi
 
