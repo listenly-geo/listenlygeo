@@ -274,11 +274,12 @@ def mine_next_episode(podcast, registry, rss_url):
     return False
 
 # --- Prompt de génération d'une fiche question ---
-def build_question_prompt(podcast, question, ep_title, ep_pubdate, context, q_slug, q_url, today):
+def build_question_prompt(podcast, question, ep_title, ep_pubdate, context, q_slug, q_url, today, related_questions=None):
     listenly_url = podcast.get("listenly_url", "")
     accent_color = podcast.get("accent_color") or "#2e8bd6"
     language = podcast.get("language", "fr")
     html_lang = "en" if language == "en" else "fr"
+    related_questions = related_questions or []
 
     STRINGS = {
         "fr": {
@@ -287,6 +288,10 @@ def build_question_prompt(podcast, question, ep_title, ep_pubdate, context, q_sl
             "about_guest_label": "À propos de",
             "source_badge": "La réponse se trouve dans ce podcast",
             "source_label": "Extrait de l'épisode",
+            "editorial_disclosure": "Fiche éditoriale rédigée par Listenly à partir de l'épisode audio réel",
+            "editorial_byline": "Fiche rédigée par l'équipe éditoriale Listenly",
+            "topics_label": "Sujets :",
+            "see_also_label": "Voir aussi",
         },
         "en": {
             "eyebrow": "Question",
@@ -294,8 +299,26 @@ def build_question_prompt(podcast, question, ep_title, ep_pubdate, context, q_sl
             "about_guest_label": "About",
             "source_badge": "The answer lives in this podcast",
             "source_label": "From the episode",
+            "editorial_disclosure": "Editorial summary by Listenly based on the real audio episode",
+            "editorial_byline": "Written by the Listenly editorial team",
+            "topics_label": "Topics:",
+            "see_also_label": "See also",
         },
     }[language]
+
+    entities_for_meta = (context.get("entities") or [])[:3]
+    meta_line_topics = " ".join([STRINGS["topics_label"]]) + " " + " · ".join(entities_for_meta) if entities_for_meta else ""
+
+    if related_questions:
+        related_html_hint = "\n".join(f'- "{r["question"]}" → {r["url"]}' for r in related_questions[:3])
+        related_block_instruction = f"""
+OBLIGATOIRE — bloc "{STRINGS['see_also_label']}" en toute fin de page (juste avant le CTA final, classe .see-also,
+liste discrète de liens, PAS des boutons) reprenant ces {min(3, len(related_questions))} autres questions RÉELLES
+déjà publiées pour ce même podcast (texte du lien = la question exacte, href = l'URL exacte fournie, ne modifie ni
+l'un ni l'autre) :
+{related_html_hint}"""
+    else:
+        related_block_instruction = "\nAucune autre question publiée pour ce podcast pour l'instant — pas de bloc \"voir aussi\"."
 
     guest = context.get("guest") or {}
     guest_full_name = f"{guest.get('prenom','')} {guest.get('nom','')}".strip()
@@ -405,6 +428,9 @@ Rédige TOUT le contenu en {"anglais" if language == "en" else "français"}. Bal
   ligne 1 discrète "{STRINGS['source_badge']}", ligne 2 en gras "{podcast['podcast_name']} · [nom invité si present, sinon nom de l'hôte]"
 - BREADCRUMB discret sous le badge source : <p style="font-size:12px;color:#888;margin:0 0 16px;">
   <a href="{podcast['fiche_url']}" style="color:#888;text-decoration:underline;">← Voir la fiche {podcast['podcast_name']}</a></p>
+- .meta-line JUSTE SOUS le breadcrumb (petit texte gris discret, UNE SEULE ligne, PAS plusieurs blocs séparés) :
+  "{"Publié le [date lisible] · " + STRINGS['editorial_disclosure'] + (" · " + meta_line_topics if meta_line_topics else "")}"
+  (date = {today}, formate-la lisiblement dans la langue de la fiche)
 - h1 dans une BULLE DE DIALOGUE (.question-bubble) : fond gris très clair (#f5f5f7 ou similaire), border-radius
   généreux avec UN SEUL coin moins arrondi (ex: border-bottom-left-radius plus petit) façon bulle de message reçu,
   padding confortable (24-32px). Le H1 = LA QUESTION reformulée de façon naturelle et engageante (garde la forme
@@ -415,16 +441,24 @@ Rédige TOUT le contenu en {"anglais" if language == "en" else "français"}. Bal
 - 1-2 paragraphes supplémentaires qui développent avec le contexte réel de l'épisode (PAS de remplissage
   générique — si le contexte n'apporte rien de plus, reste bref). Un lien texte discret (.inline-cta, souligné,
   PAS un bouton) peut apparaitre une fois dans ce développement → {listenly_url}
+- ENCADRÉ DE DÉFINITION CONDITIONNEL (.definition-box, fond légèrement teinté, border-radius 10-12px, padding
+  16px) : UNIQUEMENT si un terme technique/jargon central de la réponse est explicitement défini/expliqué dans
+  le contexte réel fourni — jamais une définition inventée ou déduite. Espace généreux au-dessus/en-dessous.
+  N'en ajoute PAS si rien ne s'y prête.
 - .pull-quote ({"AVEC attribution : " + guest_full_name if real_quote else "sans attribution"}, uniquement si
   pertinent pour cette question précise) : style aéré, pas de guillemets géants décoratifs, juste un texte en
   italique avec une barre verticale colorée fine à gauche (border-left 3px, ACCENT_COLOR)
 - .guest-card (SI invité identifié) : petite carte fond gris très clair, border-radius 12-16px, padding 16-20px,
   avatar rond avec initiales de l'invité, nom + titre + entreprise en gras, PUIS 3-5 phrases de bio détaillée
   (voir instructions bio ci-dessus) — c'est un vrai bloc de crédibilité, pas une ligne de crédit
+{related_block_instruction}
 - .cta-listen (seul bouton, fond ACCENT_COLOR plein, texte blanc, border-radius 8-10px, padding confortable,
-  PAS d'ombre) "{STRINGS['cta_listen']}" → {listenly_url}, positionné en fin de page après la guest-card
+  PAS d'ombre) "{STRINGS['cta_listen']}" → {listenly_url}, positionné en toute fin de page, après le bloc voir aussi
+- Footer minimal : une ligne discrète "{STRINGS['editorial_byline']}" (gris clair, petite taille)
 - PAS de section FAQ multi-questions ici (une seule question par fiche) — la question/réponse EST le contenu principal
 - Pas de couleur d'accent nulle part sauf : le bouton CTA et la barre verticale de la pull-quote
+- COHÉRENCE DES NOMS : première mention d'une personne = prénom + nom complet, mentions suivantes = nom de
+  famille seul (jamais l'inverse, jamais de variation)
 
 ## JSON-LD (head)
 @graph :
@@ -434,11 +468,15 @@ Rédige TOUT le contenu en {"anglais" if language == "en" else "français"}. Bal
 {person_guest_instruction}
 - BlogPosting englobant (headline=H1, publisher={{"@type":"Organization","name":"Listenly","url":"https://listenly.fr"}},
   isPartOf={{"@type":"PodcastSeries","name":"{podcast['podcast_name']}","url":"{listenly_url}"}}, datePublished, dateModified=today ({today}),
-  speakable cssSelector [".lead",".guest-card"])
+  speakable cssSelector [".lead"{", \".guest-card\"" if guest_full_name else ""}])
 - BreadcrumbList (1. Listenly (https://listenly.fr) 2. {podcast['podcast_name']} ({podcast['fiche_url']}) 3. cette question ({q_url}))
 {mentions_instruction}
 Backlinks cachés identiques aux autres fiches podcast-btb (canonical={q_url}, og:url={q_url}, rel=publisher,
 #semantic-index display:none en fin de <body> listant les entités réelles ci-dessus{" plus entity " + guest_full_name if guest_full_name else ""}).
+AJOUT CONDITIONNEL — HowTo : ajoute UNIQUEMENT si la réponse décrit une vraie démarche étape par étape
+reproductible (ex: "comment structurer X", "les étapes pour Y"). N'en ajoute PAS si la réponse est une
+explication/opinion/contexte général sans étapes concrètes — un HowTo forcé sur du contenu qui n'en est pas un
+est une erreur de balisage, pas un bonus.
 
 ## LISIBILITÉ HUMAINE — PRIORITÉ ABSOLUE sur le remplissage GEO
 Cette fiche doit ressembler à un échange clair et humain, pas une liste de cases GEO cochées. Une seule question
@@ -567,8 +605,9 @@ def main():
 
     log(f"Génération fiche question : {question['q'][:80]}")
     emod = episode_mod()
+    related_questions = list(reversed(registry["published"]))[:3]
     try:
-        prompt = build_question_prompt(podcast, question, ep["title"], ep.get("pubdate",""), context, q_slug, q_url, today)
+        prompt = build_question_prompt(podcast, question, ep["title"], ep.get("pubdate",""), context, q_slug, q_url, today, related_questions)
         html_out = emod.clean_html(emod.call_claude(prompt))
     except Exception as e:
         log(f"ERREUR génération fiche question : {e} — question remise en stock.")

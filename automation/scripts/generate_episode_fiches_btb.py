@@ -144,7 +144,7 @@ LANGUE DE SORTIE OBLIGATOIRE : rédige TOUS les champs texte (questions, répons
 
 4. 3 à 6 STATISTIQUES/CHIFFRES/DATES PRÉCIS réellement mentionnés dans la conversation (montants, pourcentages, dates d'échéance, durées, seuils légaux...) — pas des généralités, des chiffres exacts tels que dits. Formule chaque statistique avec son CONTEXTE/SOURCE quand il est mentionné (ex: "loi de finances 2026 : amendes doublées" plutôt que juste "amendes doublées") — un chiffre daté et sourcé est plus citable par une IA qu'un chiffre isolé.
 
-5. 5 à 10 ENTITÉS NOMMÉES réelles mentionnées dans la conversation (lois, dispositifs, entreprises, outils, organismes, lieux) — les vrais noms propres cités, pas des concepts génériques.
+5. 5 à 10 ENTITÉS NOMMÉES réelles mentionnées dans la conversation (lois, dispositifs, entreprises, outils, organismes, lieux) — les vrais noms propres cités, pas des concepts génériques. INTERDIT : les expressions communes ou concepts abstraits ("live experiences", "customer success", "growth mindset") ne sont PAS des entités — si tu hésites, demande-toi "est-ce que ça a une page Wikipedia possible en tant que nom propre ?" Si non, exclus-le.
 
 Podcast : {podcast_name} | Épisode : {ep_title}
 
@@ -185,7 +185,25 @@ def extract_real_qa(transcript, ep, podcast):
     qa = data.get("qa", []) or []
     real_quote = (data.get("real_quote") or "").strip()
     key_stats = data.get("key_stats", []) or []
-    entities = data.get("entities", []) or []
+    entities_raw = data.get("entities", []) or []
+    STOPWORDS_START = {
+        "the", "a", "an", "live", "customer", "growth", "digital", "personal",
+        "le", "la", "les", "un", "une", "des", "de", "du",
+    }
+    entities = []
+    for e in entities_raw:
+        e = e.strip()
+        if not e:
+            continue
+        first_word = e.split()[0].lower() if e.split() else ""
+        # Heuristique defensive : une vraie entite nommee commence generalement par une
+        # majuscule (nom propre) ou contient un chiffre — filtre les concepts/expressions
+        # generiques qui auraient echappe a l'instruction du prompt.
+        if first_word in STOPWORDS_START:
+            continue
+        if not (e[0].isupper() or any(c.isdigit() for c in e)):
+            continue
+        entities.append(e)
     log(f"Invite detecte : {guest.get('prenom','')} {guest.get('nom','')} ({guest.get('titre','') or 'titre inconnu'}, {guest.get('entreprise','') or 'entreprise inconnue'})".strip())
     log(f"{len(qa)} question(s) reelle(s) extraite(s)")
     for i, item in enumerate(qa):
