@@ -127,6 +127,8 @@ def transcribe(audio_path, whisper_lang="fr"):
 
 EXTRACT_REAL_QA_PROMPT = """Tu es un expert GEO (Generative Engine Optimization) pour podcasts B2B. Les moteurs IA (Perplexity, ChatGPT, Google AI Overviews) fonctionnent par récupération de fragments : ils retiennent en priorité les passages contenant des CITATIONS VERBATIM ATTRIBUÉES, des STATISTIQUES/CHIFFRES PRÉCIS, et des ENTITÉS NOMMÉES réelles — bien plus qu'un texte généraliste. Ton objectif est d'extraire ce matériel réel pour maximiser la citabilité, sans jamais inventer.
 
+LANGUE DE SORTIE OBLIGATOIRE : rédige TOUS les champs texte (questions, réponses, citation, bio_context, key_stats, entities) en {output_language} — quelle que soit la langue de cette instruction. Ne traduis jamais un nom propre, une entité nommée ou un chiffre exact ; seule la formulation des phrases suit {output_language}.
+
 À partir de la transcription réelle ci-dessous, extrais :
 
 1. INVITÉ réel de cet épisode (la personne interrogée, PAS l'animateur) : prénom, nom, titre/poste, entreprise. Un podcast d'interview présente PRESQUE TOUJOURS son invité explicitement — cherche activement : la présentation de l'hôte en début d'épisode ("Aujourd'hui je reçois...", "I'm joined by...", "My guest today is..."), l'auto-présentation de l'invité ("Je suis...", "I'm [name], [title] at [company]"), ou toute mention de son nom/poste/entreprise ailleurs dans la conversation. Ne renvoie des champs vides QUE si la transcription est réellement un monologue solo sans aucune deuxième voix identifiable — pas simplement parce que la présentation n'est pas dans les tout premiers mots.
@@ -163,10 +165,13 @@ Réponds UNIQUEMENT avec un JSON, sans markdown, sans backtick :
 
 def extract_real_qa(transcript, ep, podcast):
     log("Extraction identite invite + vraies questions/reponses + citation + stats + entites depuis le transcript...")
+    lang_code = podcast.get("language", "fr")
+    output_language = "ANGLAIS (English)" if lang_code == "en" else "FRANÇAIS"
     prompt = EXTRACT_REAL_QA_PROMPT.format(
         podcast_name=podcast["podcast_name"],
         ep_title=ep["title"],
         transcript=transcript[:28000],
+        output_language=output_language,
     )
     raw = call_claude(prompt)
     raw = raw.strip()
