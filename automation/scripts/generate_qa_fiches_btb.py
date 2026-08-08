@@ -310,7 +310,6 @@ def build_question_prompt(podcast, question, ep_title, ep_pubdate, context, q_sl
     meta_line_topics = " ".join([STRINGS["topics_label"]]) + " " + " · ".join(entities_for_meta) if entities_for_meta else ""
 
     related_with_snippet = [r for r in related_questions if r.get("answer_snippet")][:3]
-    speakable_extra = ', ".guest-card"' if guest_full_name else ""
     if related_with_snippet:
         related_html_hint = "\n".join(
             f'- Q: "{r["question"]}" / R (extrait réel, à reprendre fidèlement, tu peux le reformuler légèrement '
@@ -342,6 +341,7 @@ question exacte, href = l'URL exacte fournie, ne modifie ni l'un ni l'autre) :
 
     guest = context.get("guest") or {}
     guest_full_name = f"{guest.get('prenom','')} {guest.get('nom','')}".strip()
+    speakable_extra = ', ".guest-card"' if guest_full_name else ""
     real_quote = (context.get("real_quote") or "").strip()
     key_stats = context.get("key_stats") or []
     entities = context.get("entities") or []
