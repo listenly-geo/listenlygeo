@@ -309,16 +309,35 @@ def build_question_prompt(podcast, question, ep_title, ep_pubdate, context, q_sl
     entities_for_meta = (context.get("entities") or [])[:3]
     meta_line_topics = " ".join([STRINGS["topics_label"]]) + " " + " · ".join(entities_for_meta) if entities_for_meta else ""
 
-    if related_questions:
+    related_with_snippet = [r for r in related_questions if r.get("answer_snippet")][:3]
+    if related_with_snippet:
+        related_html_hint = "\n".join(
+            f'- Q: "{r["question"]}" / R (extrait réel, à reprendre fidèlement, tu peux le reformuler légèrement '
+            f'mais sans changer le sens) : "{r["answer_snippet"]}" / lien : {r["url"]}'
+            for r in related_with_snippet
+        )
+        related_block_instruction = f"""
+OBLIGATOIRE — mini-FAQ "{STRINGS['see_also_label']}" en toute fin de page (juste avant le CTA final), sous un
+VRAI <h2>{STRINGS['see_also_label']}</h2> (pas juste du texte gras). Pour chacune des {len(related_with_snippet)}
+questions RÉELLES ci-dessous, déjà publiées sur ce même podcast : affiche la question (élément cliquable, lien
+vers l'URL fournie) suivie du court extrait de réponse tel quel (ou légèrement reformulé, sans changer le sens) :
+{related_html_hint}
+Ces mêmes {len(related_with_snippet)} entrées doivent AUSSI être balisées en JSON-LD FAQPage (mainEntity: tableau
+de Question/acceptedAnswer, reprenant exactement le texte affiché) — en plus du QAPage de la question principale,
+jamais à sa place."""
+        faq_jsonld_line = "- FAQPage distinct (mainEntity: les questions liées reelles listees dans le bloc \"voir aussi\", PAS la question principale — celle-ci reste dans QAPage uniquement)"
+    elif related_questions:
         related_html_hint = "\n".join(f'- "{r["question"]}" → {r["url"]}' for r in related_questions[:3])
         related_block_instruction = f"""
-OBLIGATOIRE — bloc "{STRINGS['see_also_label']}" en toute fin de page (juste avant le CTA final, classe .see-also,
-liste discrète de liens, PAS des boutons) reprenant ces {min(3, len(related_questions))} autres questions RÉELLES
-déjà publiées pour ce même podcast (texte du lien = la question exacte, href = l'URL exacte fournie, ne modifie ni
-l'un ni l'autre) :
+OBLIGATOIRE — bloc "{STRINGS['see_also_label']}" en toute fin de page (juste avant le CTA final, sous un vrai
+<h2>{STRINGS['see_also_label']}</h2>, liste discrète de liens, PAS des boutons) reprenant ces
+{min(3, len(related_questions))} autres questions RÉELLES déjà publiées pour ce même podcast (texte du lien = la
+question exacte, href = l'URL exacte fournie, ne modifie ni l'un ni l'autre) :
 {related_html_hint}"""
+        faq_jsonld_line = ""
     else:
         related_block_instruction = "\nAucune autre question publiée pour ce podcast pour l'instant — pas de bloc \"voir aussi\"."
+        faq_jsonld_line = ""
 
     guest = context.get("guest") or {}
     guest_full_name = f"{guest.get('prenom','')} {guest.get('nom','')}".strip()
@@ -339,12 +358,13 @@ IDENTITÉ RÉELLE DE L'INVITÉ (extraite de la transcription — utilise-la tell
 - Entreprise : {guest.get('entreprise') or '(non precisee — ne pas inventer)'}{second_role_line}
 - Contexte biographique réel mentionné : {bio_context or '(aucun element supplementaire mentionne)'}
 
-OBLIGATOIRE — SECTION DÉDIÉE VISIBLE "{STRINGS['about_guest_label']} {guest_full_name}" (classe .guest-card,
-placée juste après la réponse principale) : avatar initiales + nom + titre + entreprise clairement affichés,
-puis 3-5 phrases développant EN DÉTAIL le contexte biographique réel ci-dessus — parcours, expertise, ce qui
-légitime sa parole sur ce sujet précis. C'est le signal d'autorité (E-E-A-T) le plus important de la fiche :
-ne le traite pas comme un aparté, développe-le vraiment (mais sans jamais inventer un fait absent du contexte
-fourni — si le contexte biographique est mince, reste bref plutôt que de meubler)."""
+OBLIGATOIRE — SECTION DÉDIÉE VISIBLE sous un VRAI <h2>{STRINGS['about_guest_label']} {guest_full_name}</h2>
+(pas juste du texte gras — un vrai titre de section h2), classe .guest-card, placée juste après la réponse
+principale : avatar initiales + nom + titre + entreprise clairement affichés sous le h2, puis 3-5 phrases
+développant EN DÉTAIL le contexte biographique réel ci-dessus — parcours, expertise, ce qui légitime sa parole sur
+ce sujet précis. C'est le signal d'autorité (E-E-A-T) le plus important de la fiche : ne le traite pas comme un
+aparté, développe-le vraiment (mais sans jamais inventer un fait absent du contexte fourni — si le contexte
+biographique est mince, reste bref plutôt que de meubler)."""
         guest_org_part = f', "worksFor":{{"@type":"Organization","name":"{guest.get("entreprise","")}"}}' if guest.get("entreprise") else ""
         guest_desc_part = f', "description":"{bio_context}"' if bio_context else ""
         guest_knows_about = ', "knowsAbout":[' + ",".join(f'"{e}"' for e in entities[:5]) + ']' if entities else ""
@@ -455,7 +475,9 @@ Rédige TOUT le contenu en {"anglais" if language == "en" else "français"}. Bal
 - .cta-listen (seul bouton, fond ACCENT_COLOR plein, texte blanc, border-radius 8-10px, padding confortable,
   PAS d'ombre) "{STRINGS['cta_listen']}" → {listenly_url}, positionné en toute fin de page, après le bloc voir aussi
 - Footer minimal : une ligne discrète "{STRINGS['editorial_byline']}" (gris clair, petite taille)
-- PAS de section FAQ multi-questions ici (une seule question par fiche) — la question/réponse EST le contenu principal
+- PAS de FAQ sur la question PRINCIPALE elle-même (une seule question par fiche, elle reste en QAPage) — le
+  mini-FAQ "{STRINGS['see_also_label']}" ne concerne QUE les autres questions déjà publiées, jamais un doublon
+  de la question de cette fiche
 - Pas de couleur d'accent nulle part sauf : le bouton CTA et la barre verticale de la pull-quote
 - COHÉRENCE DES NOMS : première mention d'une personne = prénom + nom complet, mentions suivantes = nom de
   famille seul (jamais l'inverse, jamais de variation)
@@ -470,6 +492,7 @@ Rédige TOUT le contenu en {"anglais" if language == "en" else "français"}. Bal
   isPartOf={{"@type":"PodcastSeries","name":"{podcast['podcast_name']}","url":"{listenly_url}"}}, datePublished, dateModified=today ({today}),
   speakable cssSelector [".lead"{", \".guest-card\"" if guest_full_name else ""}])
 - BreadcrumbList (1. Listenly (https://listenly.fr) 2. {podcast['podcast_name']} ({podcast['fiche_url']}) 3. cette question ({q_url}))
+{faq_jsonld_line}
 {mentions_instruction}
 Backlinks cachés identiques aux autres fiches podcast-btb (canonical={q_url}, og:url={q_url}, rel=publisher,
 #semantic-index display:none en fin de <body> listant les entités réelles ci-dessus{" plus entity " + guest_full_name if guest_full_name else ""}).
@@ -625,10 +648,14 @@ def main():
         f.write(html_out)
     log(f"✓ Fiche question écrite : {out_file}")
 
+    answer_snippet = question["r"].strip()
+    if len(answer_snippet) > 160:
+        answer_snippet = answer_snippet[:157].rsplit(" ", 1)[0] + "…"
+
     registry["published"].append({
         "slug": q_slug, "question": question["q"], "url": q_url,
         "source_episode_title": ep["title"], "source_episode_guid": ep["guid"],
-        "added_date": today,
+        "added_date": today, "answer_snippet": answer_snippet,
     })
     if not registry["pending_qa"]:
         registry["current_episode"] = None
