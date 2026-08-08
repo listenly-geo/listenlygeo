@@ -1,0 +1,76 @@
+name: Podcast BTB Trafic — pegasus-radio
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 21 * * *'
+
+jobs:
+  podcast-btb-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installer ffmpeg (necessaire pour compression audio Whisper)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: Generation fiche podcast N1 (lancement manuel uniquement)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RSS_URL: |-
+            https://anchor.fm/s/51a32b8/podcast/rss
+          PODCAST_URL: |-
+            https://open.spotify.com/show/3h6UtrrIIv0qzPHhd8KVXV
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/the-pegasus-radio
+          COVER_IMAGE: |-
+            https://i.postimg.cc/44WPh5Tt/ab6765630000ba8a9986f685619b2d9fa2f0bece.jpg
+          PODCAST_SLUG: |-
+            pegasus-radio
+          ACCENT_COLOR: |-
+            #2e8bd6
+          LANGUAGE: |-
+            en
+          EPISODE_CTA_TARGET: |-
+            listenly
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Generation fiche question N2 (cron quotidien, ET juste apres chaque lancement manuel)
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PODCAST_SLUG: |-
+            pegasus-radio
+        run: python automation/scripts/generate_qa_fiches_btb.py
+
+      - name: Commit fiches
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: podcast-btb-qa pegasus-radio"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
