@@ -3,7 +3,7 @@ name: Podcast BTB Trafic — purpose-people-podcast
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 18 * * *'
+    - cron: '20 6 * * *'
 
 jobs:
   podcast-btb-qa:

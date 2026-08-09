@@ -3,7 +3,7 @@ name: Podcast BTB Trafic — the-mel-robbins-podcast
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 18 * * *'
+    - cron: '40 6 * * *'
 
 jobs:
   podcast-btb-qa:

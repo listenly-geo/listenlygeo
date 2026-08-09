@@ -3,7 +3,7 @@ name: Podcast BTB Trafic — the-conference-room
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 18 * * *'
+    - cron: '40 7 * * *'
 
 jobs:
   podcast-btb-qa:
