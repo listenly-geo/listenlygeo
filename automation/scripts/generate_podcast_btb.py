@@ -1268,6 +1268,32 @@ def build_dashboard():
     else:
         air_html = '<span class="badge-air off"><i></i>OFF AIR — rien de programmé</span>'
 
+    # --- Alerte collisions de cron (deux podcasts sur le meme creneau = runs qui se marchent dessus) ---
+    cron_slots = {}
+    if os.path.isdir(wf_dir):
+        for fname in os.listdir(wf_dir):
+            if fname.startswith("podcast-btb-qa-") and fname.endswith(".yml") and fname != "podcast-btb-qa-generic.yml":
+                wslug = fname[len("podcast-btb-qa-"):-len(".yml")]
+                try:
+                    wcontent = open(os.path.join(wf_dir, fname), encoding="utf-8").read()
+                except OSError:
+                    continue
+                cm = re.search(r"cron:\s*'(\d+)\s+(\d+)\s+\*\s+\*\s+\*'", wcontent)
+                if cm:
+                    cron_slots.setdefault((int(cm.group(2)), int(cm.group(1))), []).append(wslug)
+    cron_collisions = {slot: slugs for slot, slugs in cron_slots.items() if len(slugs) > 1}
+    if cron_collisions:
+        collision_lines = "<br>".join(
+            f"{h:02d}h{m:02d} UTC : {', '.join(slugs)}" for (h, m), slugs in sorted(cron_collisions.items())
+        )
+        collision_banner = (
+            f'<div class="warn-banner">⚠️ {len(cron_collisions)} collision(s) de cron détectée(s) — '
+            f'ces podcasts se disputent le même créneau, risque de runs manqués :<br>{collision_lines}<br>'
+            f'Corrige via le workflow <b>"Podcast BTB Trafic — Maintenance (anti-collision cron)"</b>.</div>'
+        )
+    else:
+        collision_banner = ""
+
     html = f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -1290,6 +1316,7 @@ h2{{font-size:15px;margin:34px 0 12px;font-weight:700;letter-spacing:.01em}}
 .badge-air i{{width:9px;height:9px;border-radius:50%;display:inline-block}}
 .badge-air.on i{{background:#e05252;animation:pulse 1.6s infinite}}
 .badge-air.off i{{background:#c3c9d6}}
+.warn-banner{{background:#fff4e5;border:1px solid #f5c16c;color:#8a5a00;border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.6;margin:0 0 20px}}
 .wave{{display:inline-flex;align-items:center;gap:2.5px;margin-right:12px;height:22px;vertical-align:middle}}
 .wave i{{width:3.5px;background:var(--accent);border-radius:2px;animation:eq 1.4s ease-in-out infinite}}
 .wave i:nth-child(1){{height:8px;animation-delay:0s}}
@@ -1361,6 +1388,7 @@ ul.clean li{{margin-bottom:6px}}
   </div>
   {air_html}
 </div>
+{collision_banner}
 
 <div class="cards">
   <div class="card"><div class="ico">🎙️</div><div class="num" data-target="{len(records)}">0</div><div class="lbl">Podcasts référencés</div></div>

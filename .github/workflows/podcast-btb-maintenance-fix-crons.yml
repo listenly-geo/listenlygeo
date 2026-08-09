@@ -1,0 +1,35 @@
+name: Podcast BTB Trafic — Maintenance (anti-collision cron)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fix-cron-collisions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Detecter et corriger les collisions de cron
+        run: python automation/scripts/fix_cron_collisions.py
+
+      - name: Commit si des workflows ont ete corriges
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git add .github/workflows/podcast-btb-qa-*.yml
+          if git diff --staged --quiet; then
+            echo "Rien a corriger."
+          else
+            git commit -m "Auto: correction des collisions de cron (moteur trafic)"
+            git fetch origin main
+            if ! git rebase origin/main; then
+              echo "::error::Conflit lors du rebase - abandon pour ne pas corrompre le depot."
+              git rebase --abort
+              exit 1
+            fi
+            git push
+          fi

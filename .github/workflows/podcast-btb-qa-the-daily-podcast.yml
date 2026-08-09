@@ -3,7 +3,7 @@ name: Podcast BTB Trafic — the-daily-podcast
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 23 * * *'
+    - cron: '15 23 * * *'
 
 jobs:
   podcast-btb-qa:
