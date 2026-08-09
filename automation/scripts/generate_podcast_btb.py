@@ -486,8 +486,14 @@ def load_data():
         with open(DATA_FILE, encoding="utf-8") as f:
             try:
                 records = json.load(f)
-            except json.JSONDecodeError:
-                return []
+            except json.JSONDecodeError as e:
+                # CRITIQUE : ne JAMAIS retourner [] ici. Un JSON corrompu traite comme "aucun
+                # podcast" par le code appelant entrainerait l'ecrasement de TOUTES les donnees
+                # existantes au prochain enregistrement (deja arrive suite a un conflit git non
+                # resolu). On echoue bruyamment a la place.
+                print(f"[podcast-btb] ERREUR FATALE : {DATA_FILE} est corrompu ({e}). "
+                      f"Arret pour eviter une perte de donnees en cascade.")
+                sys.exit(1)
         # Migration auto : normalise toute categorie hors liste fermee
         for r in records:
             r["categorie"] = normalize_category(r.get("categorie", ""))
