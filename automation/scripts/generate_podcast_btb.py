@@ -970,47 +970,33 @@ def build_dashboard():
                 qa_engine_slugs.add(fname[len("podcast-btb-qa-"):-len(".yml")])
     records = [r for r in all_records if r["slug"] in qa_engine_slugs]
 
-    # --- Previsions : prochains crons sur 7 jours (uniquement workflows du moteur trafic) ---
+    # --- Previsions : le moteur trafic tourne desormais via UN SEUL workflow maitre
+    # (podcast-btb-trafic-master.yml, cron toutes les 3h) qui traite tous les podcasts
+    # onboardes en une passe, 1 fiche/jour/podcast max. On ne lit donc plus le cron de
+    # chaque workflow individuel (ils n'en ont plus) : on projette 1 fiche/jour/podcast
+    # sur les 7 prochains jours, en sautant les podcasts deja publies aujourd'hui.
     DAYS_FR_SHORT = {0: "Lundi", 1: "Mardi", 2: "Mercredi", 3: "Jeudi", 4: "Vendredi", 5: "Samedi", 6: "Dimanche"}
     slugs_names = {r["slug"]: r.get("podcast_name", r["slug"]) for r in records}
     upcoming = []
-    if os.path.isdir(wf_dir):
-        now_dt = datetime.datetime.now()
-        for fname in os.listdir(wf_dir):
-            if not (fname.startswith("podcast-btb-qa-") and fname.endswith(".yml")):
-                continue
-            wf_slug = fname[len("podcast-btb-qa-"):-len(".yml")]
-            engine = "question"
+    now_dt = datetime.datetime.now()
+    today_iso = now_dt.date().isoformat()
+    for r in records:
+        wf_slug = r["slug"]
+        name = slugs_names.get(wf_slug)
+        cat = r.get("categorie", "Autre")
+        reg_path = f"{PAGES_DIR}/questions/{wf_slug}/_qa_registry.json"
+        published_today = False
+        if os.path.exists(reg_path):
             try:
-                with open(os.path.join(wf_dir, fname), encoding="utf-8") as f:
-                    content = f.read()
-            except OSError:
-                continue
-            m = re.search(r"cron:\s*'(\S+)\s+(\d+)\s+\S+\s+\S+\s+(\S+)'", content)
-            if not m:
-                continue
-            hour = int(m.group(2))
-            dow_field = m.group(3)
-            if dow_field == "*":
-                # Cron quotidien : une occurrence chaque jour de la fenetre 7 jours
-                for d_offset in range(7):
-                    candidate = (now_dt + datetime.timedelta(days=d_offset)).replace(hour=hour, minute=0, second=0, microsecond=0)
-                    if candidate <= now_dt:
-                        continue
-                    name = slugs_names.get(wf_slug)
-                    cat = next((r.get("categorie", "Autre") for r in records if r["slug"] == wf_slug), "Autre")
-                    upcoming.append((candidate, name or wf_slug, name is not None, cat, engine))
-                continue
-            cron_dow = int(dow_field)                # cron : 0=dimanche
-            py_weekday = (cron_dow - 1) % 7      # python : 0=lundi
-            days_ahead = (py_weekday - now_dt.weekday()) % 7
-            candidate = (now_dt + datetime.timedelta(days=days_ahead)).replace(hour=hour, minute=0, second=0, microsecond=0)
-            if candidate <= now_dt:
-                candidate += datetime.timedelta(days=7)
-            if (candidate - now_dt).days < 7:
-                name = slugs_names.get(wf_slug)
-                cat = next((r.get("categorie", "Autre") for r in records if r["slug"] == wf_slug), "Autre")
-                upcoming.append((candidate, name or wf_slug, name is not None, cat, engine))
+                reg = json.load(open(reg_path, encoding="utf-8"))
+                published_today = any(p.get("added_date") == today_iso for p in reg.get("published", []))
+            except (json.JSONDecodeError, OSError):
+                pass
+        for d_offset in range(7):
+            if d_offset == 0 and published_today:
+                continue  # deja fait aujourd'hui, le prochain passage du workflow maitre le sautera
+            candidate = (now_dt + datetime.timedelta(days=d_offset)).replace(hour=12, minute=0, second=0, microsecond=0)
+            upcoming.append((candidate, name or wf_slug, name is not None, cat, "question"))
     upcoming.sort()
 
     # --- Collecte des episodes par podcast (perimetre : podcasts du moteur trafic uniquement) ---
