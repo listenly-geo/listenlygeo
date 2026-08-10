@@ -2,8 +2,6 @@ name: Podcast BTB Trafic — beyond-the-deck
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '35 5 * * *'
 
 jobs:
   podcast-btb-qa:

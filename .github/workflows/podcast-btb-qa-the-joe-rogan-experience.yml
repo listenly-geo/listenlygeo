@@ -2,8 +2,6 @@ name: Podcast BTB Trafic — the-joe-rogan-experience
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '20 7 * * *'
 
 jobs:
   podcast-btb-qa:

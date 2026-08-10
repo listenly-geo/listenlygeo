@@ -2,8 +2,6 @@ name: Podcast BTB Trafic — date-line-nbc
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 22 * * *'
 
 jobs:
   podcast-btb-qa:

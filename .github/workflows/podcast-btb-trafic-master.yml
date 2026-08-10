@@ -1,0 +1,59 @@
+name: Podcast BTB Trafic — Génération quotidienne (tous podcasts)
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '0 */3 * * *'   # toutes les 3h — chaque podcast n'est reellement traite qu'une fois/jour (skip si deja fait), les autres passages sont juste des verifications rapides sans cout
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installer ffmpeg (necessaire pour compression audio Whisper)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: Generer les fiches question du jour (tous podcasts, 1 par podcast max)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python automation/scripts/run_all_qa_podcasts.py
+
+      - name: Commit fiches
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: podcast-btb-qa (run groupe quotidien)"
+            git fetch origin main
+            if ! git rebase origin/main; then
+              echo "::error::Conflit lors du rebase - abandon pour ne pas corrompre le depot."
+              git rebase --abort
+              exit 1
+            fi
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep

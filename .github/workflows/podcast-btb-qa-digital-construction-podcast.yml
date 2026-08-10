@@ -2,8 +2,6 @@ name: Podcast BTB Trafic — digital-construction-podcast
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '55 16 * * *'
 
 jobs:
   podcast-btb-qa:

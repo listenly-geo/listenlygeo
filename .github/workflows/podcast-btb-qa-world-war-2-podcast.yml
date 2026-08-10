@@ -2,8 +2,6 @@ name: Podcast BTB Trafic — world-war-2-podcast
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '33 2 * * *'
 
 jobs:
   podcast-btb-qa:

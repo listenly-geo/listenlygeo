@@ -2,8 +2,6 @@ name: Podcast BTB Trafic — the retreat leaders podcast
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 8 * * *'
 
 jobs:
   podcast-btb-qa:

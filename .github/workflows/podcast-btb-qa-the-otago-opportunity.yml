@@ -2,8 +2,6 @@ name: Podcast BTB Trafic — the-otago-opportunity
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 19 * * *'
 
 jobs:
   podcast-btb-qa:
