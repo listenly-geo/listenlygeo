@@ -1,0 +1,85 @@
+name: Podcast BTB Trafic — digital-construction-podcast
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '55 16 * * *'
+
+jobs:
+  podcast-btb-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installer ffmpeg (necessaire pour compression audio Whisper)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: Generation fiche podcast N1 (lancement manuel uniquement)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RSS_URL: |-
+            https://feeds.acast.com/public/shows/669f3ad4ca7bcba2a2a02540
+          PODCAST_URL: |-
+            https://open.spotify.com/show/4gm3CCWUjAhj3MrnpTrF6t
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/the-digital-construction-podcast
+          COVER_IMAGE: |-
+            https://i.postimg.cc/wxC0Z0x6/ab6765630000ba8ac647d9e9ce0912ed05eae2fd.jpg
+          PODCAST_SLUG: |-
+            digital-construction-podcast
+          ACCENT_COLOR: |-
+            #2e8bd6
+          LANGUAGE: |-
+            en
+          EPISODE_CTA_TARGET: |-
+            listenly
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Generation fiche question N2 (cron quotidien, ET juste apres chaque lancement manuel)
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PODCAST_SLUG: |-
+            digital-construction-podcast
+        run: python automation/scripts/generate_qa_fiches_btb.py
+
+      - name: Commit fiches
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: podcast-btb-qa digital-construction-podcast"
+            git fetch origin main
+            if ! git rebase origin/main; then
+              echo "::error::Conflit lors du rebase - abandon pour ne pas corrompre le depot. Relance le workflow (le run concurrent a normalement fini)."
+              git rebase --abort
+              exit 1
+            fi
+            if grep -rq "^<<<<<<< \|^=======$\|^>>>>>>> " pages/podcast-btb/ 2>/dev/null; then
+              echo "::error::Marqueurs de conflit detectes apres rebase - abandon pour ne pas corrompre le depot."
+              exit 1
+            fi
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
