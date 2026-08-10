@@ -561,25 +561,6 @@ footer{font-size:12px;color:#aaa;border-top:1px solid #eee;margin-top:40px;paddi
 </body>
 </html>"""
 
-def ensure_parent_link():
-    if not os.path.exists(PARENT_FICHE):
-        return
-    with open(PARENT_FICHE, encoding="utf-8") as f:
-        html = f.read()
-    marker = f"/podcast-btb/questions/{SLUG}/index.html"
-    if marker in html:
-        return
-    link = (
-        f'\n<p style="max-width:720px;margin:0 auto;padding:0 20px 20px;'
-        f'font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#999;">'
-        f'<a href="{marker}" style="color:#999;text-decoration:underline;">Voir toutes les questions traitées par ce podcast →</a></p>\n'
-    )
-    if "</body>" in html:
-        html = html.replace("</body>", link + "</body>", 1)
-        with open(PARENT_FICHE, "w", encoding="utf-8") as f:
-            f.write(html)
-        log("Lien 'Voir toutes les questions' ajouté à la fiche parente")
-
 def main():
     if os.environ.get("GITHUB_EVENT_NAME") == "schedule" and os.path.exists(f"{PAGES_DIR}/.cron-paused-qa"):
         log("Cron moteur trafic (fiches question) en pause (fichier .cron-paused-qa present) — run ignore.")
@@ -669,7 +650,8 @@ def main():
         f.write(index_html)
     log("Index des questions régénéré")
 
-    ensure_parent_link()
+    # ensure_parent_link() retiree volontairement : consigne = ne plus jamais faire apparaitre
+    # le lien "Voir toutes les questions traitees par ce podcast" sur la fiche podcast (N1).
 
     for r in all_records:
         if r["slug"] == SLUG:
