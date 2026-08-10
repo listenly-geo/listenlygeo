@@ -1558,7 +1558,10 @@ def main():
         build_sitemap()
         build_historique()
         build_llms_txt()
-        build_dashboard()
+        # build_dashboard() retire volontairement : ce dashboard est desormais exclusif au
+        # moteur trafic (podcast-btb-qa-*.yml) qui l'appelle lui-meme explicitement. Le laisser
+        # ici faisait regenerer/committer dashboard.html par les ~120 anciens workflows episode,
+        # multipliant enormement le risque de collision git sur ce fichier partage.
         return
 
     os.makedirs(PAGES_DIR, exist_ok=True)
@@ -1610,7 +1613,7 @@ def main():
     build_sitemap()
     build_historique()
     build_llms_txt()
-    build_dashboard()
+    # build_dashboard() retire volontairement — voir commentaire plus haut dans ce fichier.
     log(f"Categorie detectee : {meta['categorie']} ({cat_slug})")
 
 if __name__ == "__main__":
