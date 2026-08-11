@@ -518,15 +518,35 @@ semblerait que"), fidèle à la réponse source, jamais évasif.
 IMPORTANT : Réponds UNIQUEMENT avec le code HTML complet, de <!DOCTYPE html> à </html>. Aucun texte avant/après, aucun markdown, aucun backtick."""
 
 def render_questions_index(podcast, published):
+    language = podcast.get("language", "fr")
+    html_lang = "en" if language == "en" else "fr"
+
+    STRINGS = {
+        "fr": {
+            "eyebrow": "Listenly · Questions",
+            "title_prefix": "Questions autour de",
+            "desc_multi": "Retrouvez les {n} questions traitées par {name}, référencées par Listenly.",
+            "desc_single": "Retrouvez la question traitée par {name}, référencée par Listenly.",
+            "footer_link": "Voir la fiche podcast",
+        },
+        "en": {
+            "eyebrow": "Listenly · Questions",
+            "title_prefix": "Questions about",
+            "desc_multi": "Explore the {n} questions covered by {name}, indexed by Listenly.",
+            "desc_single": "Explore the question covered by {name}, indexed by Listenly.",
+            "footer_link": "View the podcast page",
+        },
+    }[language]
+
     items = "\n".join(f"""
 <div class="item">
   <a class="title" href="{q['url']}">{q['question']}</a>
   <div class="meta">{q.get('added_date','')} · {q.get('source_episode_title','')}</div>
 </div>""" for q in sorted(published, key=lambda x: x.get("added_date",""), reverse=True))
 
-    title = f"Questions autour de {podcast['podcast_name']}"
+    title = f"{STRINGS['title_prefix']} {podcast['podcast_name']}"
     n = len(published)
-    description = f"Retrouvez les {n} question{'s' if n > 1 else ''} traitée{'s' if n > 1 else ''} par {podcast['podcast_name']}, référencées par Listenly."
+    description = (STRINGS["desc_multi"] if n > 1 else STRINGS["desc_single"]).format(n=n, name=podcast["podcast_name"])
     canonical = f"https://listenly.fr/podcast-btb/questions/{SLUG}/index.html"
     style = """
 body{font-family:Helvetica,Arial,sans-serif;color:#1a1a1a;margin:0;background:#fff}
@@ -540,7 +560,7 @@ h1{font-size:clamp(24px,4vw,34px);font-weight:800;color:#0a0a0a;margin:0 0 24px}
 footer{font-size:12px;color:#aaa;border-top:1px solid #eee;margin-top:40px;padding-top:16px}
 """
     return f"""<!DOCTYPE html>
-<html lang="fr">
+<html lang="{html_lang}">
 <head>
 <meta charset="UTF-8">
 <title>{title}</title>
@@ -553,10 +573,10 @@ footer{font-size:12px;color:#aaa;border-top:1px solid #eee;margin-top:40px;paddi
 </head>
 <body>
 <div class="wrapper">
-  <div class="eyebrow">Listenly · Questions</div>
+  <div class="eyebrow">{STRINGS['eyebrow']}</div>
   <h1>{title}</h1>
   {items}
-  <footer>© {podcast['podcast_name']} — <a href="{podcast['fiche_url']}">Voir la fiche podcast</a></footer>
+  <footer>© {podcast['podcast_name']} — <a href="{podcast['fiche_url']}">{STRINGS['footer_link']}</a></footer>
 </div>
 </body>
 </html>"""
