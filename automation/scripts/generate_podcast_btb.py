@@ -1004,8 +1004,9 @@ def build_dashboard():
     # ordres de grandeur) : ~0,06 EUR par fiche generee (1 appel Claude), + ~0,33 EUR
     # supplementaires quand le stock d'un podcast s'epuise et qu'un nouvel episode doit
     # etre mine (Whisper + extraction), a raison d'environ 8 questions extraites par episode.
-    COST_PER_FICHE = 0.06
-    COST_PER_MINING = 0.33
+    COST_PER_FICHE = 0.06          # Claude Sonnet 4.6 - generation d'une fiche depuis le stock
+    COST_PER_MINING_EXTRACTION = 0.09   # Claude Sonnet 4.6 - extraction Q&A depuis le transcript complet
+    COST_PER_MINING_WHISPER = 0.24      # OpenAI Whisper - transcription d'un episode (~35-45 min audio)
     AVG_QUESTIONS_PER_EPISODE = 8
     upcoming_by_slug = {}
     for _dt, _name, _known, _cat, _engine in upcoming:
@@ -1026,7 +1027,9 @@ def build_dashboard():
         shortfall = max(0, projected_days - stock)
         if shortfall > 0:
             total_minings_projected += -(-shortfall // AVG_QUESTIONS_PER_EPISODE)  # division entiere arrondie au sup.
-    estimated_cost_week = total_fiches_projected * COST_PER_FICHE + total_minings_projected * COST_PER_MINING
+    estimated_cost_claude_week = total_fiches_projected * COST_PER_FICHE + total_minings_projected * COST_PER_MINING_EXTRACTION
+    estimated_cost_whisper_week = total_minings_projected * COST_PER_MINING_WHISPER
+    estimated_cost_week = estimated_cost_claude_week + estimated_cost_whisper_week
 
     # --- Collecte des episodes par podcast (perimetre : podcasts du moteur trafic uniquement) ---
     episodes_root = f"{PAGES_DIR}/episodes"
@@ -1410,7 +1413,8 @@ ul.clean li{{margin-bottom:6px}}
   <div>
     <div class="num" style="font-size:26px;">{estimated_cost_week:.2f} €</div>
     <div class="lbl">Coût estimé — semaine à venir ({total_fiches_projected} fiche(s), dont ~{total_minings_projected} minage(s) d'épisode)</div>
-    <div style="font-size:11px;color:var(--sub);margin-top:2px;">Estimation indicative (Claude Sonnet 4.6 + Whisper) — vérifier la facturation réelle sur console.anthropic.com / platform.openai.com</div>
+    <div style="font-size:12px;color:var(--ink);margin-top:4px;">dont <b>{estimated_cost_claude_week:.2f} €</b> Claude (Anthropic) · <b>{estimated_cost_whisper_week:.2f} €</b> Whisper (OpenAI)</div>
+    <div style="font-size:11px;color:var(--sub);margin-top:2px;">Estimation indicative — vérifier la facturation réelle sur console.anthropic.com / platform.openai.com</div>
   </div>
 </div>
 
