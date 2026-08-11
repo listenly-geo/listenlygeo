@@ -999,6 +999,35 @@ def build_dashboard():
             upcoming.append((candidate, name or wf_slug, name is not None, cat, "question"))
     upcoming.sort()
 
+    # --- Cout estime de la semaine a venir (Claude Sonnet 4.6 + Whisper) ---
+    # Hypotheses (a verifier sur la vraie facturation Anthropic/OpenAI, ce ne sont que des
+    # ordres de grandeur) : ~0,06 EUR par fiche generee (1 appel Claude), + ~0,33 EUR
+    # supplementaires quand le stock d'un podcast s'epuise et qu'un nouvel episode doit
+    # etre mine (Whisper + extraction), a raison d'environ 8 questions extraites par episode.
+    COST_PER_FICHE = 0.06
+    COST_PER_MINING = 0.33
+    AVG_QUESTIONS_PER_EPISODE = 8
+    upcoming_by_slug = {}
+    for _dt, _name, _known, _cat, _engine in upcoming:
+        if _known:
+            upcoming_by_slug[_name] = upcoming_by_slug.get(_name, 0) + 1
+    total_fiches_projected = sum(upcoming_by_slug.values())
+    total_minings_projected = 0
+    for r in records:
+        pname = r.get("podcast_name", r["slug"])
+        projected_days = upcoming_by_slug.get(pname, 0)
+        reg_file_cost = f"{PAGES_DIR}/questions/{r['slug']}/_qa_registry.json"
+        stock = 0
+        if os.path.exists(reg_file_cost):
+            try:
+                stock = len(json.load(open(reg_file_cost, encoding="utf-8")).get("pending_qa", []))
+            except (json.JSONDecodeError, OSError):
+                pass
+        shortfall = max(0, projected_days - stock)
+        if shortfall > 0:
+            total_minings_projected += -(-shortfall // AVG_QUESTIONS_PER_EPISODE)  # division entiere arrondie au sup.
+    estimated_cost_week = total_fiches_projected * COST_PER_FICHE + total_minings_projected * COST_PER_MINING
+
     # --- Collecte des episodes par podcast (perimetre : podcasts du moteur trafic uniquement) ---
     episodes_root = f"{PAGES_DIR}/episodes"
     ep_by_podcast = {}
@@ -1375,6 +1404,15 @@ ul.clean li{{margin-bottom:6px}}
   {air_html}
 </div>
 {collision_banner}
+
+<div class="card" style="background:linear-gradient(135deg,#eef2ff,#f7f4ff);border:1px solid #d8d4ff;margin-bottom:20px;display:flex;align-items:center;gap:18px;">
+  <div class="ico" style="font-size:28px;">💶</div>
+  <div>
+    <div class="num" style="font-size:26px;">{estimated_cost_week:.2f} €</div>
+    <div class="lbl">Coût estimé — semaine à venir ({total_fiches_projected} fiche(s), dont ~{total_minings_projected} minage(s) d'épisode)</div>
+    <div style="font-size:11px;color:var(--sub);margin-top:2px;">Estimation indicative (Claude Sonnet 4.6 + Whisper) — vérifier la facturation réelle sur console.anthropic.com / platform.openai.com</div>
+  </div>
+</div>
 
 <div class="cards">
   <div class="card"><div class="ico">🎙️</div><div class="num" data-target="{len(records)}">0</div><div class="lbl">Podcasts référencés</div></div>
