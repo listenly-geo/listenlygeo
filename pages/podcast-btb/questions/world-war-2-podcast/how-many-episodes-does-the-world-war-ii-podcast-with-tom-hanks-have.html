@@ -26,106 +26,107 @@
   <link rel="publisher" href="https://listenly.fr">
 
   <!-- JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "QAPage",
-        "@id": "https://listenly.fr/podcast-btb/questions/world-war-2-podcast/how-many-episodes-does-the-world-war-ii-podcast-with-tom-hanks-have.html#qapage",
-        "url": "https://listenly.fr/podcast-btb/questions/world-war-2-podcast/how-many-episodes-does-the-world-war-ii-podcast-with-tom-hanks-have.html",
-        "name": "How many episodes does the World War II podcast with Tom Hanks have?",
-        "mainEntity": {
-          "@type": "Question",
-          "name": "How many episodes does the World War II podcast with Tom Hanks have?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The World War II podcast with Tom Hanks consists of 20 parts. The series spans the six years of the Second World War, emphasizing that no part of the globe was untouched and no life unchanged. It is available on Apple Podcasts, Spotify, and wherever you get your podcasts."
-          }
-        }
-      },
-      {
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://listenly.fr#tom-hanks",
+      "name": "Tom Hanks",
+      "jobTitle": "Actor, Filmmaker & Historian",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Playtone Productions"
+      }
+    },
+    {
+      "@type": "BlogPosting",
+      "@id": "https://listenly.fr/podcast-btb/questions/world-war-2-podcast/how-many-episodes-does-the-world-war-ii-podcast-with-tom-hanks-have.html#article",
+      "headline": "How many episodes does the World War II podcast with Tom Hanks have?",
+      "datePublished": "2026-08-11",
+      "dateModified": "2026-08-11",
+      "author": {
         "@type": "Person",
-        "@id": "https://listenly.fr#tom-hanks",
-        "name": "Tom Hanks",
-        "jobTitle": "Actor, Filmmaker & Historian",
-        "worksFor": {
-          "@type": "Organization",
-          "name": "Playtone Productions"
-        }
+        "name": "Tom Hanks"
       },
-      {
-        "@type": "BlogPosting",
-        "@id": "https://listenly.fr/podcast-btb/questions/world-war-2-podcast/how-many-episodes-does-the-world-war-ii-podcast-with-tom-hanks-have.html#article",
-        "headline": "How many episodes does the World War II podcast with Tom Hanks have?",
-        "datePublished": "2026-08-11",
-        "dateModified": "2026-08-11",
-        "author": {
-          "@type": "Person",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Listenly",
+        "url": "https://listenly.fr"
+      },
+      "isPartOf": {
+        "@type": "PodcastSeries",
+        "name": "World War II with Tom Hanks",
+        "url": "https://listenly.fr/podcast/show/world-war-2"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          ".lead"
+        ]
+      },
+      "mentions": [
+        {
+          "@type": "Thing",
           "name": "Tom Hanks"
         },
-        "publisher": {
-          "@type": "Organization",
+        {
+          "@type": "Thing",
+          "name": "Apple Podcasts"
+        },
+        {
+          "@type": "Thing",
+          "name": "Spotify"
+        },
+        {
+          "@type": "Thing",
+          "name": "Second World War"
+        },
+        {
+          "@type": "Thing",
+          "name": "Playtone Productions"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
           "name": "Listenly",
-          "url": "https://listenly.fr"
+          "item": "https://listenly.fr"
         },
-        "isPartOf": {
-          "@type": "PodcastSeries",
+        {
+          "@type": "ListItem",
+          "position": 2,
           "name": "World War II with Tom Hanks",
-          "url": "https://listenly.fr/podcast/show/world-war-2"
+          "item": "https://listenly.fr/podcast-btb/world-war-2-podcast-podcast.html"
         },
-        "speakable": {
-          "@type": "SpeakableSpecification",
-          "cssSelector": [".lead"]
-        },
-        "mentions": [
-          {"@type": "Thing", "name": "Tom Hanks"},
-          {"@type": "Thing", "name": "Apple Podcasts"},
-          {"@type": "Thing", "name": "Spotify"},
-          {"@type": "Thing", "name": "Second World War"},
-          {"@type": "Thing", "name": "Playtone Productions"}
-        ]
-      },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Listenly",
-            "item": "https://listenly.fr"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "World War II with Tom Hanks",
-            "item": "https://listenly.fr/podcast-btb/world-war-2-podcast-podcast.html"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "How many episodes does the World War II podcast with Tom Hanks have?",
-            "item": "https://listenly.fr/podcast-btb/questions/world-war-2-podcast/how-many-episodes-does-the-world-war-ii-podcast-with-tom-hanks-have.html"
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How many episodes does the World War II podcast with Tom Hanks have?",
+          "item": "https://listenly.fr/podcast-btb/questions/world-war-2-podcast/how-many-episodes-does-the-world-war-ii-podcast-with-tom-hanks-have.html"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://listenly.fr/podcast-btb/questions/world-war-2-podcast/how-many-episodes-does-the-world-war-ii-podcast-with-tom-hanks-have.html#faqpage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the World War II podcast with Tom Hanks about?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "World War II with Tom Hanks is a 20-part podcast series describing the Second World War as the largest event in human history. The series aims to deliver the ultimate account of World War II, telling the stories of every person touched by the conflict."
           }
-        ]
-      },
-      {
-        "@type": "FAQPage",
-        "@id": "https://listenly.fr/podcast-btb/questions/world-war-2-podcast/how-many-episodes-does-the-world-war-ii-podcast-with-tom-hanks-have.html#faqpage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What is the World War II podcast with Tom Hanks about?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "World War II with Tom Hanks is a 20-part podcast series describing the Second World War as the largest event in human history. The series aims to deliver the ultimate account of World War II, telling the stories of every person touched by the conflict."
-            }
-          }
-        ]
-      }
-    ]
-  }
-  </script>
+        }
+      ]
+    }
+  ]
+}</script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }

@@ -26,127 +26,136 @@
   <link rel="publisher" href="https://listenly.fr">
 
   <!-- JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "QAPage",
-        "@id": "https://listenly.fr/podcast-btb/questions/this-american-life/what-management-strategies-does-cole-lindberg-use-to-motivate-young-am.html#qapage",
-        "name": "What management strategies does Cole Lindberg use to motivate young amusement park workers?",
-        "mainEntity": {
-          "@type": "Question",
-          "name": "What management strategies does Cole Lindberg use to motivate young amusement park workers?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Cole Lindberg runs season-long competitions including the Sweet 16 tournament, the Deathmatch tournament, and a stunt called Toss the Boss, where the game station that finished number one for the day earned the right to throw him into a pond. He also holds energetic morning shift meetings, writes and sings original songs, and dresses up as fictional characters such as 'Phil Bridges.' On particularly busy days, he soaks employees with a Super Soaker. His underlying philosophy is that keeping employees talking about his antics — even if their reaction is negative — sustains energy and engagement throughout the shift."
-          }
-        }
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://listenly.fr#ira-glass",
+      "name": "Ira Glass",
+      "jobTitle": "Host & Producer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "WBEZ Chicago"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://listenly.fr#cole-lindberg",
+      "name": "Cole Lindberg",
+      "jobTitle": "Games Department Manager",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Worlds of Fun"
       },
-      {
-        "@type": "Person",
-        "@id": "https://listenly.fr#ira-glass",
-        "name": "Ira Glass",
-        "jobTitle": "Host & Producer",
-        "worksFor": {
-          "@type": "Organization",
-          "name": "WBEZ Chicago"
-        }
+      "description": "Cole Lindberg started working at Worlds of Fun in Kansas City, Missouri as a summer job at age 14, wearing a suit to his interview. Eleven years later, he became a full-time year-round employee running the park's entire games department, overseeing 32 games and supervising over 100 young employees. In his senior year at the University of Kansas at Lawrence, he dropped out of school to accept the games manager position, describing it as 'probably only going to come along once in a lifetime.' His immediate boss Matt considers him one of the best games managers among the 11 amusement parks owned by Cedar Fair.",
+      "knowsAbout": [
+        "Worlds of Fun",
+        "Cedar Fair",
+        "Sweet 16 tournament",
+        "Toss the Boss",
+        "Deathmatch tournament"
+      ]
+    },
+    {
+      "@type": "BlogPosting",
+      "@id": "https://listenly.fr/podcast-btb/questions/this-american-life/what-management-strategies-does-cole-lindberg-use-to-motivate-young-am.html#article",
+      "headline": "How Cole Lindberg Keeps 100+ Young Amusement Park Workers Energized All Season",
+      "url": "https://listenly.fr/podcast-btb/questions/this-american-life/what-management-strategies-does-cole-lindberg-use-to-motivate-young-am.html",
+      "datePublished": "2026-08-11",
+      "dateModified": "2026-08-11",
+      "author": {
+        "@type": "Organization",
+        "name": "Listenly",
+        "url": "https://listenly.fr"
       },
-      {
-        "@type": "Person",
-        "@id": "https://listenly.fr#cole-lindberg",
-        "name": "Cole Lindberg",
-        "jobTitle": "Games Department Manager",
-        "worksFor": {
-          "@type": "Organization",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Listenly",
+        "url": "https://listenly.fr"
+      },
+      "isPartOf": {
+        "@type": "PodcastSeries",
+        "name": "This American Life",
+        "url": "https://listenly.fr/podcast/show/this-amrican-life"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          ".lead",
+          ".guest-card"
+        ]
+      },
+      "mentions": [
+        {
+          "@type": "Thing",
           "name": "Worlds of Fun"
         },
-        "description": "Cole Lindberg started working at Worlds of Fun in Kansas City, Missouri as a summer job at age 14, wearing a suit to his interview. Eleven years later, he became a full-time year-round employee running the park's entire games department, overseeing 32 games and supervising over 100 young employees. In his senior year at the University of Kansas at Lawrence, he dropped out of school to accept the games manager position, describing it as 'probably only going to come along once in a lifetime.' His immediate boss Matt considers him one of the best games managers among the 11 amusement parks owned by Cedar Fair.",
-        "knowsAbout": [
-          "Worlds of Fun",
-          "Cedar Fair",
-          "Sweet 16 tournament",
-          "Toss the Boss",
-          "Deathmatch tournament"
-        ]
-      },
-      {
-        "@type": "BlogPosting",
-        "@id": "https://listenly.fr/podcast-btb/questions/this-american-life/what-management-strategies-does-cole-lindberg-use-to-motivate-young-am.html#article",
-        "headline": "How Cole Lindberg Keeps 100+ Young Amusement Park Workers Energized All Season",
-        "url": "https://listenly.fr/podcast-btb/questions/this-american-life/what-management-strategies-does-cole-lindberg-use-to-motivate-young-am.html",
-        "datePublished": "2026-08-11",
-        "dateModified": "2026-08-11",
-        "author": {
-          "@type": "Organization",
-          "name": "Listenly",
-          "url": "https://listenly.fr"
+        {
+          "@type": "Thing",
+          "name": "Cedar Fair"
         },
-        "publisher": {
-          "@type": "Organization",
-          "name": "Listenly",
-          "url": "https://listenly.fr"
+        {
+          "@type": "Thing",
+          "name": "Sweet 16 tournament"
         },
-        "isPartOf": {
-          "@type": "PodcastSeries",
+        {
+          "@type": "Thing",
+          "name": "Toss the Boss"
+        },
+        {
+          "@type": "Thing",
+          "name": "Deathmatch tournament"
+        },
+        {
+          "@type": "Thing",
+          "name": "This American Life"
+        },
+        {
+          "@type": "Thing",
+          "name": "WBEZ Chicago"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Listenly",
+          "item": "https://listenly.fr"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
           "name": "This American Life",
-          "url": "https://listenly.fr/podcast/show/this-amrican-life"
+          "item": "https://listenly.fr/podcast-btb/this-american-life-podcast.html"
         },
-        "speakable": {
-          "@type": "SpeakableSpecification",
-          "cssSelector": [".lead", ".guest-card"]
-        },
-        "mentions": [
-          {"@type": "Thing", "name": "Worlds of Fun"},
-          {"@type": "Thing", "name": "Cedar Fair"},
-          {"@type": "Thing", "name": "Sweet 16 tournament"},
-          {"@type": "Thing", "name": "Toss the Boss"},
-          {"@type": "Thing", "name": "Deathmatch tournament"},
-          {"@type": "Thing", "name": "This American Life"},
-          {"@type": "Thing", "name": "WBEZ Chicago"}
-        ]
-      },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Listenly",
-            "item": "https://listenly.fr"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "This American Life",
-            "item": "https://listenly.fr/podcast-btb/this-american-life-podcast.html"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "What management strategies does Cole Lindberg use to motivate young amusement park workers?",
-            "item": "https://listenly.fr/podcast-btb/questions/this-american-life/what-management-strategies-does-cole-lindberg-use-to-motivate-young-am.html"
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "What management strategies does Cole Lindberg use to motivate young amusement park workers?",
+          "item": "https://listenly.fr/podcast-btb/questions/this-american-life/what-management-strategies-does-cole-lindberg-use-to-motivate-young-am.html"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://listenly.fr/podcast-btb/questions/this-american-life/what-management-strategies-does-cole-lindberg-use-to-motivate-young-am.html#faqpage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How did Cole Lindberg go from summer employee to full-time games manager at Worlds of Fun?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Cole Lindberg started at Worlds of Fun at age 14 as a summer job and never left, accumulating 11 years of experience before becoming a full-time year-round employee managing the park's entire games department."
           }
-        ]
-      },
-      {
-        "@type": "FAQPage",
-        "@id": "https://listenly.fr/podcast-btb/questions/this-american-life/what-management-strategies-does-cole-lindberg-use-to-motivate-young-am.html#faqpage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "How did Cole Lindberg go from summer employee to full-time games manager at Worlds of Fun?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Cole Lindberg started at Worlds of Fun at age 14 as a summer job and never left, accumulating 11 years of experience before becoming a full-time year-round employee managing the park's entire games department."
-            }
-          }
-        ]
-      }
-    ]
-  }
-  </script>
+        }
+      ]
+    }
+  ]
+}</script>
 
   <style>
     *, *::before, *::after {

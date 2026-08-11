@@ -18,7 +18,8 @@ Chaque fiche question :
     vers Spotify/l'audio.
   - Même niveau d'exigence GEO que le N2 du Moteur 2 (JSON-LD, bio invité E-E-A-T,
     citation verbatim, stats/entités réelles, lisibilité humaine prioritaire).
-  - JSON-LD QAPage (au lieu de FAQPage) car centrée sur UNE question précise.
+  - JSON-LD BlogPosting comme schema principal (pas QAPage — reserve aux pages communautaires multi-reponses,
+    mauvais usage pour du contenu editorial d'apres les consignes Google et confirme par Search Console).
 
 Variables requises :
   ANTHROPIC_API_KEY
@@ -323,9 +324,9 @@ questions RÉELLES ci-dessous, déjà publiées sur ce même podcast : affiche l
 vers l'URL fournie) suivie du court extrait de réponse tel quel (ou légèrement reformulé, sans changer le sens) :
 {related_html_hint}
 Ces mêmes {len(related_with_snippet)} entrées doivent AUSSI être balisées en JSON-LD FAQPage (mainEntity: tableau
-de Question/acceptedAnswer, reprenant exactement le texte affiché) — en plus du QAPage de la question principale,
-jamais à sa place."""
-        faq_jsonld_line = "- FAQPage distinct (mainEntity: les questions liées reelles listees dans le bloc \"voir aussi\", PAS la question principale — celle-ci reste dans QAPage uniquement)"
+de Question/acceptedAnswer, reprenant exactement le texte affiché) — un FAQPage distinct, jamais sur la question
+principale de cette fiche."""
+        faq_jsonld_line = "- FAQPage distinct (mainEntity: les questions liees reelles listees dans le bloc \"voir aussi\", PAS la question principale de cette fiche)"
     elif related_questions:
         related_html_hint = "\n".join(f'- "{r["question"]}" → {r["url"]}' for r in related_questions[:3])
         related_block_instruction = f"""
@@ -476,7 +477,7 @@ Rédige TOUT le contenu en {"anglais" if language == "en" else "français"}. Bal
 - .cta-listen (seul bouton, fond ACCENT_COLOR plein, texte blanc, border-radius 8-10px, padding confortable,
   PAS d'ombre) "{STRINGS['cta_listen']}" → {listenly_url}, positionné en toute fin de page, après le bloc voir aussi
 - Footer minimal : une ligne discrète "{STRINGS['editorial_byline']}" (gris clair, petite taille)
-- PAS de FAQ sur la question PRINCIPALE elle-même (une seule question par fiche, elle reste en QAPage) — le
+- PAS de FAQ sur la question PRINCIPALE elle-même (une seule question par fiche, traitée en BlogPosting) — le
   mini-FAQ "{STRINGS['see_also_label']}" ne concerne QUE les autres questions déjà publiées, jamais un doublon
   de la question de cette fiche
 - Pas de couleur d'accent nulle part sauf : le bouton CTA et la barre verticale de la pull-quote
@@ -485,16 +486,21 @@ Rédige TOUT le contenu en {"anglais" if language == "en" else "français"}. Bal
 
 ## JSON-LD (head)
 @graph :
-- QAPage avec mainEntity : {{"@type":"Question","name":"[la question, reformulée fidèlement]","acceptedAnswer":
-  {{"@type":"Answer","text":"[réponse développée, fidèle au contenu de la fiche]"}}}}
 - Person (HOST_NAME/HOST_TITLE/worksFor HOST_COMPANY)
 {person_guest_instruction}
-- BlogPosting englobant (headline=H1, publisher={{"@type":"Organization","name":"Listenly","url":"https://listenly.fr"}},
+- BlogPosting englobant — SCHEMA PRINCIPAL de la fiche (headline=H1, author={{"@type":"Organization","name":"[nom
+  reel de l'invite ou de l'entreprise source, ou HOST_NAME a defaut]"}}, publisher={{"@type":"Organization","name":"Listenly","url":"https://listenly.fr"}},
   isPartOf={{"@type":"PodcastSeries","name":"{podcast['podcast_name']}","url":"{listenly_url}"}}, datePublished, dateModified=today ({today}),
+  image=COVER_IMAGE si disponible, description=le meta description de la page,
   speakable cssSelector [".lead"{speakable_extra}])
 - BreadcrumbList (1. Listenly (https://listenly.fr) 2. {podcast['podcast_name']} ({podcast['fiche_url']}) 3. cette question ({q_url}))
 {faq_jsonld_line}
 {mentions_instruction}
+IMPORTANT — NE PAS ajouter de schema QAPage : Google reserve QAPage aux pages communautaires ou plusieurs
+utilisateurs repondent a une meme question (type forum), jamais a du contenu editorial ou une seule reponse
+redactionnelle est fournie a partir d'une source (ici : le podcast). Utiliser QAPage ici serait un mauvais usage
+du schema, invalide aux yeux de Google (verifie en Search Console). Le BlogPosting ci-dessus est le schema
+correct pour ce type de page.
 Backlinks cachés identiques aux autres fiches podcast-btb (canonical={q_url}, og:url={q_url}, rel=publisher,
 #semantic-index display:none en fin de <body> listant les entités réelles ci-dessus{" plus entity " + guest_full_name if guest_full_name else ""}).
 AJOUT CONDITIONNEL — HowTo : ajoute UNIQUEMENT si la réponse décrit une vraie démarche étape par étape
