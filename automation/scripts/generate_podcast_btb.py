@@ -1396,6 +1396,27 @@ ul.clean li{{margin-bottom:6px}}
 .cal-count{{font-size:11.5px;color:var(--accent);font-weight:700}}
 .grid2{{display:grid;grid-template-columns:2fr 1fr;gap:18px;align-items:start}}
 @media(max-width:860px){{.grid2{{grid-template-columns:1fr}}body{{padding:24px 16px 50px}}}}
+
+/* --- Adaptation mobile --- */
+@media(max-width:640px){{
+  body{{padding:16px 12px 40px}}
+  h1{{font-size:20px}}
+  h2{{font-size:14px;margin:26px 0 10px}}
+  .header{{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:18px}}
+  .cards{{grid-template-columns:repeat(2,1fr);gap:10px}}
+  .card{{padding:14px 14px;border-radius:12px}}
+  .card .num{{font-size:22px}}
+  .card .lbl{{font-size:9.5px}}
+  div[style*="linear-gradient(135deg,#eef2ff"]{{flex-direction:column;align-items:flex-start !important;gap:8px !important;padding:16px !important}}
+  .panel{{padding:14px 14px;border-radius:12px}}
+  table{{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap}}
+  .calendar{{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}}
+  .cal-col{{flex:0 0 auto;width:64px}}
+  .bars{{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}}
+  .bar-col{{flex:0 0 56px}}
+  .search{{max-width:100%}}
+  .warn-banner{{font-size:12px;padding:10px 12px}}
+}}
 </style>
 </head>
 <body>
