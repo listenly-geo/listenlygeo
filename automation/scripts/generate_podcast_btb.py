@@ -1408,8 +1408,8 @@ ul.clean li{{margin-bottom:6px}}
   .card .num{{font-size:22px}}
   .card .lbl{{font-size:9.5px}}
   div[style*="linear-gradient(135deg,#eef2ff"]{{flex-direction:column;align-items:flex-start !important;gap:8px !important;padding:16px !important}}
-  .panel{{padding:14px 14px;border-radius:12px}}
-  table{{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap}}
+  .panel{{padding:14px 14px;border-radius:12px;overflow-x:auto;-webkit-overflow-scrolling:touch}}
+  #prodTable{{width:auto;min-width:760px}}
   .calendar{{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}}
   .cal-col{{flex:0 0 auto;width:64px}}
   .bars{{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}}
