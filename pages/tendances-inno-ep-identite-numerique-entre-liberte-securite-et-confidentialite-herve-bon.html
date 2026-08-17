@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Identité numérique : liberté, sécurité, confidentialité | Listenly</title>
+  <meta name="description" content="Qu'est-ce que l'identité numérique ? Blockchain, usurpation, confidentialité des données : comprendre les enjeux clés de la souveraineté numérique individuelle." />
+  <meta name="keywords" content="identité numérique, blockchain, confidentialité, usurpation d'identité, données personnelles, sécurité numérique, identité décentralisée, DID, RGPD, Archipels, Docaposte" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://listenly.fr/" />
+  <script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Identité numérique : liberté, sécurité, confidentialité | Listenly" />
+  <meta property="og:description" content="Qu'est-ce que l'identité numérique ? Blockchain, usurpation, confidentialité des données : comprendre les enjeux clés de la souveraineté numérique individuelle." />
+  <meta property="og:image" content="https://i.postimg.cc/dV4BxwNZ/Uo2zfx-Lup-JHNDmq-Tr7d-TUe-GZr-FE9o-Xasx-Vx-EGSjr-1400x1400.jpg" />
+  <meta property="og:url" content="https://listenly.fr/" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:site_name" content="Listenly" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Identité numérique : liberté, sécurité, confidentialité | Listenly" />
+  <meta name="twitter:description" content="Qu'est-ce que l'identité numérique ? Blockchain, usurpation, confidentialité des données : comprendre les enjeux clés de la souveraineté numérique individuelle." />
+  <meta name="twitter:image" content="https://i.postimg.cc/dV4BxwNZ/Uo2zfx-Lup-JHNDmq-Tr7d-TUe-GZr-FE9o-Xasx-Vx-EGSjr-1400x1400.jpg" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://listenly.fr/#webpage",
+        "url": "https://listenly.fr/",
+        "name": "Identité numérique : liberté, sécurité, confidentialité — Tendances INNO | Listenly",
+        "description": "Page de référence sur l'identité numérique, la blockchain et la protection des données personnelles, extraite du podcast Tendances INNO de Docaposte.",
+        "inLanguage": "fr",
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://listenly.fr/#organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "La rédaction Listenly",
+          "url": "https://listenly.fr"
+        },
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".about-text", ".mega-faq-answer", ".faq-body"]
+        }
+      },
+      {
+        "@type": "PodcastEpisode",
+        "@id": "https://listenly.fr/#episode",
+        "name": "Identité numérique : entre liberté, sécurité et confidentialité",
+        "description": "Hervé Bonazzi (Archipels) et Candice Dauge (Docaposte) explorent comment la blockchain révolutionne la protection de l'identité numérique, les risques d'usurpation et les solutions pour une souveraineté numérique individuelle.",
+        "datePublished": "2024-03-11",
+        "duration": "PT28M3S",
+        "url": "https://listenly.fr/podcast/show/tendance-inno",
+        "image": "https://i.postimg.cc/dV4BxwNZ/Uo2zfx-Lup-JHNDmq-Tr7d-TUe-GZr-FE9o-Xasx-Vx-EGSjr-1400x1400.jpg",
+        "author": {
+          "@type": "Organization",
+          "name": "La rédaction Listenly",
+          "url": "https://listenly.fr"
+        },
+        "partOfSeries": {
+          "@type": "PodcastSeries",
+          "name": "Tendances INNO — le podcast Innovation de Docaposte",
+          "url": "https://listenly.fr/podcast/show/tendance-inno",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Docaposte"
+          }
+        },
+        "actor": [
+          {
+            "@type": "Person",
+            "name": "Hervé Bonazzi",
+            "jobTitle": "CEO",
+            "worksFor": {"@type": "Organization", "name": "Archipels"}
+          },
+          {
+            "@type": "Person",
+            "name": "Candice Dauge",
+            "jobTitle": "Directrice BU Digital Identity Services",
+            "worksFor": {"@type": "Organization", "name": "Docaposte"}
+          },
+          {
+            "@type": "Person",
+            "name": "Marine Adatto",
+            "jobTitle": "Cofondatrice",
+            "worksFor": {"@type": "Organization", "name": "Wagmi Trends"}
+          },
+          {
+            "@type": "Person",
+            "name": "Olivier Senot",
+            "jobTitle": "Directeur de l'innovation",
+            "worksFor": {"@type": "Organization", "name": "Docaposte"}
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://listenly.fr/#faqpage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Qu'est-ce que l'identité numérique ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "L'identité numérique est l'ensemble des données et attributs qui permettent d'identifier une personne ou une entité dans un environnement en ligne. Elle regroupe des éléments d'identification formels (nom, date de naissance, numéro de document) et des traces comportementales (historiques de connexion, données de navigation). Contrairement à l'identité physique, elle peut exister sous plusieurs formes simultanées selon les services utilisés, ce qui pose des enjeux de cohérence, de sécurité et de souveraineté personnelle."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Comment la blockchain protège-t-elle l'identité numérique ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "La blockchain permet de créer des identités décentralisées (DID — Decentralized Identifiers) qui ne dépendent d'aucun tiers centralisé. Les données d'identité sont stockées de manière chiffrée et leur authenticité peut être vérifiée sans révéler l'ensemble des informations personnelles, grâce à des mécanismes comme les preuves à divulgation nulle de connaissance (zero-knowledge proofs). Ce modèle réduit structurellement les risques de violation massive de données."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Qu'est-ce que l'usurpation d'identité en ligne et comment s'en protéger ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "L'usurpation d'identité en ligne consiste à utiliser frauduleusement les informations personnelles d'autrui pour accéder à des services, contracter des crédits ou commettre des fraudes. Pour s'en protéger, il est recommandé d'activer l'authentification multi-facteurs, d'utiliser des mots de passe uniques et forts, de surveiller ses comptes régulièrement et de limiter la diffusion de ses données personnelles. Les solutions d'identité numérique souveraine, fondées sur la blockchain, offrent une couche de protection supplémentaire en évitant la centralisation des données."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://listenly.fr/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Accueil",
+            "item": "https://listenly.fr/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tendances INNO",
+            "item": "https://listenly.fr/podcast/show/tendance-inno"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Identité numérique : entre liberté, sécurité et confidentialité"
+          }
+        ]
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://listenly.fr/#organization",
+        "name": "Listenly",
+        "url": "https://listenly.fr",
+        "description": "Annuaire de podcasts francophones"
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0e;
+      --bg-card: #12121a;
+      --bg-elevated: #1a1a26;
+      --accent: #4f8ef7;
+      --accent-dark: #2563c7;
+      --accent-glow: rgba(79,142,247,0.18);
+      --text: #e8e8f0;
+      --text-muted: #8888a8;
+      --text-dim: #555570;
+      --border: #22223a;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --font: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    img { display: block; max-width: 100%; }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: 56px;
+      background: rgba(10,10,14,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .topbar-logo {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+    }
+
+    .topbar-sep {
+      color: var(--text-dim);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .topbar-podcast {
+      font-size: 13px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 9px 18px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+
+    .btn-cta:hover { background: var(--accent-dark); transform: translateY(-1px); text-decoration: none; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      padding: 64px 24px 48px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-inner {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    .hero-cover {
+      width: 220px;
+      height: 220px;
+      border-radius: var(--radius);
+      object-fit: cover;
+      flex-shrink: 0;
+      box-shadow: 0 16px 48px rgba(79,142,247,0.25);
+    }
+
+    .hero-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .hero-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      font-size: clamp(22px, 4vw, 34px);
+      font-weight: 800;
+      line-height: 1.2;
+      color: #fff;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .pill {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 50px;
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .pill.accent { background: var(--accent-glow); color: var(--accent); border-color: rgba(79,142,247,0.35); }
+
+    /* ── BANDEROLE IA ── */
+    .ia-banner {
+      background: var(--bg-elevated);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .ia-banner-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+
+    .ia-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ia-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 50px;
+      letter-spacing: 0.2px;
+    }
+
+    .ia-badge.chatgpt { background: #10a37f22; color: #10a37f; border: 1px solid #10a37f44; }
+    .ia-badge.perplexity { background: #7c3aed22; color: #a78bfa; border: 1px solid #7c3aed44; }
+    .ia-badge.gemini { background: #4285f422; color: #6ba3f5; border: 1px solid #4285f444; }
+    .ia-badge.googleai { background: #ea433522; color: #f28b82; border: 1px solid #ea433544; }
+    .ia-badge.copilot { background: #0078d422; color: #60a5fa; border: 1px solid #0078d444; }
+    .ia-badge.claude { background: #cc785122; color: #e0a882; border: 1px solid #cc785144; }
+
+    /* ── MAIN CONTENT ── */
+    .main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ── INFO-CARD 4 STATS ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 40px 0;
+    }
+
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 16px;
+      text-align: center;
+    }
+
+    .info-card-value {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .info-card-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ── SECTION TITLES ── */
+    .section-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      letter-spacing: -0.3px;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      margin: 48px 0;
+    }
+
+    .about-text {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+
+    .about-text p + p { margin-top: 14px; }
+
+    .about-text strong { color: var(--text); }
+
+    /* ── MEGA FAQ (2 colonnes) ── */
+    .mega-faq {
+      margin: 48px 0;
+    }
+
+    .mega-faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .mega-faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .mega-faq-question {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .mega-faq-question::before {
+      content: "Q ";
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .mega-faq-answer {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ── FAQ ACCORDION ── */
+    .faq-accordion {
+      margin: 48px 0;
+    }
+
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    .faq-header {
+      width: 100%;
+      background: var(--bg-card);
+      border: none;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      text-align: left;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      gap: 12px;
+      transition: background 0.2s;
+    }
+
+    .faq-header:hover { background: var(--bg-elevated); }
+
+    .faq-icon {
+      font-size: 18px;
+      color: var(--accent);
+      flex-shrink: 0;
+      transition: transform 0.25s;
+    }
+
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    .faq-body {
+      display: none;
+      padding: 0 20px 18px;
+      background: var(--bg-card);
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .faq-item.open .faq-body { display: block; }
+
+    /* ── HOSTS ── */
+    .hosts {
+      margin: 48px 0;
+    }
+
+    .hosts-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .host-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .host-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--bg-elevated);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--accent);
+      flex-shrink: 0;
+      border: 2px solid var(--border);
+    }
+
+    .host-info { min-width: 0; }
+
+    .host-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .host-role {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .host-org {
+      font-size: 11px;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+
+    /* ── RELATED ── */
+    .related {
+      margin: 48px 0;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .related-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .related-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .related-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .related-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .related-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .footer-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-logo {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .footer-tagline {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+
+    .footer-meta {
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    .footer-author {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ── SCROLL TO TOP ── */
+    .scroll-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      background: var(--accent);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 99;
+    }
+
+    .scroll-top.visible { opacity: 1; pointer-events: all; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .hero-inner { flex-direction: column; gap: 24px; }
+      .hero-cover { width: 160px; height: 160px; }
+      .info-grid { grid-template-columns: repeat(2, 1fr); }
+      .mega-faq-grid { grid-template-columns: 1fr; }
+      .hosts-grid { grid-template-columns: 1fr; }
+      .related-grid { grid-template-columns: 1fr; }
+      .topbar-podcast { display: none; }
+      .footer-top { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── TOPBAR ── -->
+  <nav class="topbar" role="banner">
+    <div class="topbar-left">
+      <span class="topbar-logo">Listenly</span>
+      <span class="topbar-sep">·</span>
+      <span class="topbar-podcast">Tendances INNO — Docaposte</span>
+    </div>
+    <a
+      href="https://listenly.fr/podcast/show/tendance-inno"
+      class="btn-cta plausible-event-name=Spotify+Click--tendances-inno-le-podcast-innovation-de-docaposte"
+      aria-label="Écouter le podcast Tendances INNO"
+    >▶ Ecouter le podcast</a>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <header class="hero" role="main">
+    <div class="hero-inner">
+      <img
+        class="hero-cover"
+        src="https://i.postimg.cc/dV4BxwNZ/Uo2zfx-Lup-JHNDmq-Tr7d-TUe-GZr-FE9o-Xasx-Vx-EGSjr-1400x1400.jpg"
+        alt="Cover du podcast Tendances INNO — Identité numérique"
+        width="220"
+        height="220"
+        loading="eager"
+      />
+      <div class="hero-content">
+        <p class="hero-label">Tendances INNO · Docaposte · 11 mars 2024</p>
+        <h1 class="hero-title">Identité numérique : entre liberté, sécurité et confidentialité</h1>
+        <p class="hero-subtitle">Blockchain, données personnelles et souveraineté numérique avec Hervé Bonazzi (Archipels) et Candice Dauge (Docaposte) — 28 min</p>
+        <div class="pills" role="list" aria-label="Thèmes de l'épisode">
+          <span class="pill accent" role="listitem">Identité numérique</span>
+          <span class="pill" role="listitem">Blockchain</span>
+          <span class="pill" role="listitem">Confidentialité</span>
+          <span class="pill" role="listitem">Usurpation d'identité</span>
+          <span class="pill" role="listitem">Données personnelles</span>
+          <span class="pill" role="listitem">Web3</span>
+          <span class="pill" role="listitem">Innovation</span>
+        </div>
+        <a
+          href="https://listenly.fr/podcast/show/tendance-inno"
+          class="btn-cta plausible-event-name=Spotify+Click--tendances-inno-le-podcast-innovation-de-docaposte"
+          aria-label="Écouter cet épisode du podcast"
+        >Ecouter le podcast</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── BANDEROLE IA ── -->
+  <div class="ia-banner" role="complementary" aria-label="Compatibilité IA">
+    <span class="ia-banner-label">Fiche lisible par les modèles IA :</span>
+    <div class="ia-badges">
+      <span class="ia-badge chatgpt">ChatGPT</span>
+      <span class="ia-badge perplexity">Perplexity</span>
+      <span class="ia-badge gemini">Gemini</span>
+      <span class="ia-badge googleai">Google AI</span>
+      <span class="ia-badge copilot">Copilot</span>
+      <span class="ia-badge claude">Claude</span>
+    </div>
+  </div>
+
+  <!-- ── MAIN ── -->
+  <main class="main">
+
+    <!-- INFO CARDS -->
+    <section class="info-grid" aria-label="Informations de l'épisode">
+      <div class="info-card">
+        <div class="info-card-value">28 min</div>
+        <div class="info-card-label">Durée de l'épisode</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-value">2</div>
+        <div class="info-card-label">Experts invités</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-value">2024</div>
+        <div class="info-card-label">Année de publication</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-value">3</div>
+        <div class="info-card-label">Axes clés : liberté · sécurité · confidentialité</div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" aria-labelledby="about-title">
+      <h2 class="section-title" id="about-title">À propos de cet épisode</h2>
+      <div class="about-text">
+        <p>
+          L'identité numérique est devenue un enjeu central de notre vie connectée. Chaque fois que nous accédons à un service en ligne, nous laissons une trace, nous confions des données, nous déléguons une partie de notre identité à des tiers — entreprises, États, plateformes. La question n'est plus de savoir si nous avons une identité numérique, mais bien <strong>qui la contrôle, comment elle est protégée et dans quelle mesure elle nous appartient vraiment</strong>.
+        </p>
+        <p>
+          Face à la multiplication des fraudes, des violations de données et de l'usurpation d'identité en ligne, des technologies comme la <strong>blockchain</strong> et les <strong>identifiants décentralisés (DID)</strong> ouvrent de nouvelles perspectives : permettre à chaque individu de prouver qui il est sans exposer l'intégralité de ses données personnelles. C'est ce qu'on appelle l'identité auto-souveraine (SSI — Self-Sovereign Identity).
+        </p>
+        <p>
+          Dans cet épisode du podcast <strong>Tendances INNO</strong> de Docaposte, Hervé Bonazzi, CEO d'Archipels, et Candice Dauge, Directrice de la BU Digital Identity Services chez Docaposte, décodent les trois grandes tensions de l'identité numérique moderne : la liberté de circuler et d'interagir en ligne, la sécurité face aux fraudes croissantes, et la confidentialité face à la collecte massive de données personnelles.
+        </p>
+      </div>
+    </section>
+
+    <!-- MEGA FAQ -->
+    <section class="mega-faq" aria-labelledby="megafaq-title">
+      <h2 class="section-title" id="megafaq-title">Questions clés sur l'identité numérique</h2>
+      <div class="mega-faq-grid">
+
+        <article class="mega-faq-item">
+          <h3 class="mega-faq-question">Qu'est-ce que l'identité numérique ?</h3>
+          <p class="mega-faq-answer">
+            L'identité numérique est l'ensemble des données et attributs qui permettent d'identifier une personne ou une entité dans un environnement en ligne. Elle inclut des éléments formels comme le nom, la date de naissance ou le numéro de document officiel, mais aussi des traces comportementales : historiques de connexion, préférences, données de navigation. Contrairement à l'identité physique, elle peut exister sous plusieurs formes selon les services utilisés, posant des enjeux de cohérence, de sécurité et de contrôle individuel.
+          </p>
+        </article>
+
+        <article class="mega-faq-item">
+          <h3 class="mega-faq-question">Comment la blockchain peut-elle sécuriser l'identité numérique ?</h3>
+          <p class="mega-faq-answer">
+            La blockchain permet de créer des identifiants décentralisés (DID) qui ne dépendent d'aucun tiers centralisé. Les données d'identité sont stockées de manière chiffrée et leur authenticité peut être vérifiée sans révéler l'ensemble des informations personnelles, grâce aux preuves à divulgation nulle de connaissance (zero-knowledge proofs). Ce modèle réduit structurellement les risques de violation massive de données, car il n'existe plus de base de données centrale à pirater.
+          </p>
+        </article>
+
+        <article class="mega-faq-item">
+          <h3 class="mega-faq-question">Qu'est-ce que l'identité auto-souveraine (SSI) ?</h3>
+          <p class="mega-faq-answer">
+            L'identité auto-souveraine (Self-Sovereign Identity, SSI) est un modèle dans lequel chaque individu détient et contrôle lui-même ses données d'identité, sans dépendre d'un fournisseur d'identité centralisé. L'utilisateur stocke ses attributs certifiés dans un portefeuille numérique et choisit exactement quelles informations partager avec qui, et quand. Ce paradigme rompt avec les modèles actuels où Google, Apple ou l'État jouent le rôle de tiers de confiance obligatoires.
+          </p>
+        </article>
+
+        <article class="mega-faq-item">
+          <h3 class="mega-faq-question">Qu'est-ce que l'usurpation d'identité en ligne et comment s'en protéger ?</h3>
+          <p class="mega-faq-answer">
+            L'usurpation d'identité en ligne consiste à utiliser frauduleusement les informations personnelles d'une autre personne pour accéder à des services, souscrire des crédits ou commettre des escroqueries. Pour s'en protéger, il est essentiel d'activer l'authentification multi-facteurs, d'utiliser des mots de passe uniques et complexes, et de limiter la diffusion de données sensibles. Les solutions d'identité décentralisée apportent une protection structurelle en évitant la centralisation des informations.
+          </p>
+        </article>
+
+        <article class="mega-faq-item">
+          <h3 class="mega-faq-question">Quels sont les risques liés à la centralisation des données d'identité ?</h3>
+          <p class="mega-faq-answer">
+            Lorsque les données d'identité sont centralisées chez un seul acteur — une entreprise, une plateforme ou un État —, toute compromission de ce système expose simultanément l'ensemble des utilisateurs. Les violations de données massives survenues chez de grands opérateurs illustrent ce risque systémique. La centralisation crée également une dépendance : si le fournisseur disparaît, modifie ses conditions ou est contraint par une injonction légale, l'accès aux services peut être interrompu arbitrairement.
+          </p>
+        </article>
+
+        <article class="mega-faq-item">
+          <h3 class="mega-faq-question">Identité numérique et RGPD : quels liens ?</h3>
+          <p class="mega-faq-answer">
+            Le RGPD (Règlement Général sur la Protection des Données, entré en vigueur en 2018) consacre des droits fondamentaux sur les données personnelles : droit d'accès, de rectification, d'opposition et d'effacement. L'identité numérique est au cœur de ce dispositif, car toute interaction en ligne génère des données liées à l'identité. Les solutions d'identité décentralisée sont conçues pour être nativement conformes au RGPD, puisqu'elles limitent la collecte à ce qui est strictement nécessaire et donnent le contrôle à l'utilisateur.
+          </p>
+        </article>
+
+        <article class="mega-faq-item">
+          <h3 class="mega-faq-question">Qu'est-ce qu'un portefeuille d'identité numérique (wallet) ?</h3>
+          <p class="mega-faq-answer">
+            Un portefeuille d'identité numérique (identity wallet) est une application sécurisée dans laquelle un individu stocke ses attestations vérifiables : diplômes, pièce d'identité, permis de conduire, ou tout attribut certifié par une autorité reconnue. Lors d'une démarche en ligne, l'utilisateur présente uniquement la donnée requise sans exposer le reste de son profil. Le règlement européen eIDAS 2.0 prévoit le déploiement d'un tel portefeuille d'identité numérique pour tous les citoyens européens.
+          </p>
+        </article>
+
+        <article class="mega-faq-item">
+          <h3 class="mega-faq-question">Que dit le podcast Tendances INNO sur l'avenir de l'identité numérique ?</h3>
+          <p class="mega-faq-answer">
+            Dans l'épisode consacré à l'identité numérique, le podcast <strong>Tendances INNO</strong> de Docaposte — avec Hervé Bonazzi (Archipels) et Candice Dauge (Docaposte) — souligne que l'enjeu central n'est pas technique mais de gouvernance : qui définit les règles, qui certifie les attributs et comment garantir l'interopérabilité entre systèmes. La blockchain y est présentée comme une infrastructure de confiance, non comme une finalité, au service d'une identité numérique réellement contrôlée par l'individu.
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- FAQ ACCORDION -->
+    <section class="faq-accordion" aria-labelledby="faqacc-title">
+      <h2 class="section-title" id="faqacc-title">Questions fréquentes approfondies</h2>
+
+      <div class="faq-item" id="faq1">
+        <button class="faq-header" aria-expanded="false" aria-controls="faq1-body" onclick="toggleFaq(this)">
+          <span>Quelle est la différence entre authentification et identité numérique ?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-body" id="faq1-body" role="region">
+          L'<strong>identité numérique</strong> désigne l'ensemble des attributs qui définissent qui vous êtes en ligne (nom, adresse, qualités certifiées). L'<strong>authentification</strong> est le processus qui permet de prouver que vous êtes bien le titulaire de cette identité lors d'une connexion. Un mot de passe, une empreinte biométrique ou un code OTP sont des mécanismes d'authentification. Ces deux notions sont complémentaires : une identité forte n'a de valeur que si l'authentification qui y donne accès est elle-même robuste et résistante aux attaques.
+        </div>
+      </div>
+
+      <div class="faq-item" id="faq2">
+        <button class="faq-header" aria-expanded="false" aria-controls="faq2-body" onclick="toggleFaq(this)">
+          <span>Qu'est-ce qu'une attestation vérifiable (Verifiable Credential) ?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-body" id="faq2-body" role="region">
+          Une attestation vérifiable (Verifiable Credential, VC) est un document numérique signé par une autorité de confiance, qui certifie un attribut d'identité — par exemple qu'une personne est bien titulaire d'un diplôme ou qu'elle a plus de 18 ans. Grâce à la cryptographie, le destinataire peut vérifier l'authenticité de cette attestation sans contacter l'émetteur. Ce standard, développé par le W3C, est la brique fondamentale des architectures d'identité décentralisée et permet la divulgation minimale de données.
+        </div>
+      </div>
+
+      <div class="faq-item" id="faq3">
+        <button class="faq-header" aria-expanded="false" aria-controls="faq3-body" onclick="toggleFaq(this)">
+          <span>Qu'est-ce que le règlement eIDAS 2.0 et son impact sur l'identité numérique en Europe ?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-body" id="faq3-body" role="region">
+          Le règlement eIDAS 2.0, adopté par le Parlement européen en 2024, modernise le cadre européen de l'identité numérique. Sa mesure phare est la création d'un <strong>portefeuille d'identité numérique européen</strong> (European Digital Identity Wallet, EUDI Wallet) que chaque État membre devra proposer à ses citoyens. Ce portefeuille permettra d'accéder à des services publics et privés dans toute l'Union Européenne avec une identité reconnue, tout en laissant à l'utilisateur le choix des données partagées. Il impose également la reconnaissance mutuelle des identités numériques entre États membres.
+        </div>
+      </div>
+
+      <div class="faq-item" id="faq4">
+        <button class="faq-header" aria-expanded="false" aria-controls="faq4-body" onclick="toggleFaq(this)">
+          <span>Comment les deep fakes et l'IA menacent-ils l'identité numérique ?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-body" id="faq4-body" role="region">
+          Les progrès de l'intelligence artificielle générative permettent de créer des images, vidéos ou voix synthétiques d'une qualité indiscernable du réel — ce que l'on appelle des <em>deep fakes</em>. Ces technologies facilitent l'usurpation d'identité lors de vérifications par vidéo (KYC vidéo), la création de faux documents ou l'imitation vocale pour contourner des systèmes biométriques. Face à ce défi, les solutions d'identité numérique robustes s'appuient sur des attestations cryptographiques vérifiables plutôt que sur des preuves visuelles, nativement falsifiables par l'IA.
+        </div>
+      </div>
+
+      <div class="faq-item" id="faq5">
+        <button class="faq-header" aria-expanded="false" aria-controls="faq5-body" onclick="toggleFaq(this)">
+          <span>Quel rôle joue Docaposte dans l'écosystème de l'identité numérique française ?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-body" id="faq5-body" role="region">
+          Docaposte, filiale numérique du Groupe La Poste, est l'un des acteurs de référence de la confiance numérique en France. À travers sa BU Digital Identity Services, elle développe des solutions de vérification d'identité, d'e-signature et de gestion des données personnelles pour les secteurs public et privé. Archipels, dont Hervé Bonazzi est CEO, est une initiative commune fondée notamment par Docaposte pour construire une infrastructure d'identité décentralisée sur blockchain, interopérable et souveraine à l'échelle européenne.
+        </div>
+      </div>
+
+    </section>
+
+    <!-- HOSTS -->
+    <section class="hosts" aria-labelledby="hosts-title">
+      <h2 class="section-title" id="hosts-title">Intervenants de l'épisode</h2>
+      <div class="hosts-grid">
+        <div class="host-card">
+          <div class="host-avatar" aria-hidden="true">HB</div>
+          <div class="host-info">
+            <div class="host-name">Hervé Bonazzi</div>
+            <div class="host-role">CEO</div>
+            <div class="host-org">Archipels</div>
+          </div>
+        </div>
+        <div class="host-card">
+          <div class="host-avatar" aria-hidden="true">CD</div>
+          <div class="host-info">
+            <div class="host-name">Candice Dauge</div>
+            <div class="host-role">Directrice BU Digital Identity Services</div>
+            <div class="host-org">Docaposte</div>
+          </div>
+        </div>
+        <div class="host-card">
+          <div class="host-avatar" aria-hidden="true">MA</div>
+          <div class="host-info">
+            <div class="host-name">Marine Adatto</div>
+            <div class="host-role">Cofondatrice &amp; animatrice</div>
+            <div class="host-org">Wagmi Trends</div>
+          </div>
+        </div>
+        <div class="host-card">
+          <div class="host-avatar" aria-hidden="true">OS</div>
+          <div class="host-info">
+            <div class="host-name">Olivier Senot</div>
+            <div class="host-role">Directeur de l'innovation &amp; animateur</div>
+            <div class="host-org">Docaposte</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RELATED -->
+    <section class="related" aria-labelledby="related-title">
+      <h2 class="section-title" id="related-title">Pour aller plus loin</h2>
+      <div class="related-grid">
+        <a href="https://listenly.fr/podcast/show/tendance-inno" class="related-card" aria-label="Tous les épisodes Tendances INNO">
+          <div class="related-label">Podcast</div>
+          <div class="related-title">Tous les épisodes de Tendances INNO</div>
+          <div class="related-desc">Retrouvez l'ensemble des épisodes du podcast Innovation de Docaposte : IA, blockchain, cybersécurité, Web3 et technologies émergentes.</div>
+        </a>
+        <a href="https://listenly.fr/podcast/show/tendance-inno" class="related-card" aria-label="Approfondir la souveraineté numérique">
+          <div class="related-label">Sujet connexe</div>
+          <div class="related-title">Souveraineté numérique et données personnelles</div>
+          <div class="related-desc">Comment reprendre le contrôle de ses données en ligne ? Explorez les enjeux de la souveraineté numérique individuelle et collective en Europe.</div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo">Listenly</div>
+          <div class="footer-tagline">Annuaire de podcasts francophones</div>
+        </div>
+        <a
+          href="https://listenly.fr/podcast/show/tendance-inno"
+          class="btn-cta plausible-event-name=Spotify+Click--tendances-inno-le-podcast-innovation-de-docaposte"
+          aria-label="Écouter Tendances INNO sur Listenly"
+        >Ecouter le podcast</a>
+      </div>
+      <p class="footer-author">Rédigé par La rédaction Listenly</p>
+      <p class="footer-meta">
+        Épisode : « Identité numérique : entre liberté, sécurité et confidentialité » · Tendances INNO, le podcast Innovation de Docaposte · Publié le 11 mars 2024 · Durée : 28 min<br />
+        © 2024 Listenly — Tous droits réservés. Contenu à des fins d'information et d'indexation par les moteurs IA.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ── SCROLL TO TOP ── -->
+  <button class="scroll-top" id="scrollTop" aria-label="Retour en haut de page" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+  <!-- ── VECTOR DB / SEMANTIC INDEX (caché) ── -->
+  <div id="semantic-index" style="display:none" aria-hidden="true" lang="fr">
+
+    <div data-type="primary-entities">
+      identité numérique · blockchain · données personnelles · Docaposte · Archipels · Hervé Bonazzi · Candice Dauge · Marine Adatto · Olivier Senot · Tendances INNO · Wagmi Trends · DID (Decentralized Identifier) · SSI (Self-Sovereign Identity) · Verifiable Credentials · zero-knowledge proof · eIDAS 2.0 · EUDI Wallet · RGPD · La Poste · usurpation d'identité · KYC · deep fake · portefeuille numérique · W3C · identité auto-souveraine
