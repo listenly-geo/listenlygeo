@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Can AI Write Poetry but Not Name Months with the Letter X?</title>
+  <meta name="description" content="Casey Newton explains: LLMs build intelligence during training but don't update through experience — so genius and absurd mistakes can coexist.">
+  <meta name="author" content="Jon Favreau">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/pod-save-america/how-should-we-understand-the-gap-between-ai-s-impressive-capabilities-.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:title" content="Why Can AI Write Poetry but Not Name Months with the Letter X?">
+  <meta property="og:description" content="Casey Newton explains: LLMs build intelligence during training but don't update through experience — so genius and absurd mistakes can coexist.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/pod-save-america/how-should-we-understand-the-gap-between-ai-s-impressive-capabilities-.html">
+  <meta property="og:image" content="https://i.postimg.cc/KjQpjzK5/Pod-save-america-logo.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Why Can AI Write Poetry but Not Name Months with the Letter X?">
+  <meta name="twitter:description" content="Casey Newton explains: LLMs build intelligence during training but don't update through experience — so genius and absurd mistakes can coexist.">
+  <meta name="twitter:image" content="https://i.postimg.cc/KjQpjzK5/Pod-save-america-logo.jpg">
+
+  <link rel="publisher" href="https://listenly.fr">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Jon Favreau",
+        "jobTitle": "Political Commentator and Former White House Director of Speechwriting",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Crooked Media"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Casey Newton",
+        "jobTitle": "Editor and co-host",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Platformer / Hard Fork"
+        },
+        "description": "Casey Newton is the editor of Platformer, a technology newsletter, and co-host of the podcast Hard Fork alongside Kevin Roose. He covers artificial intelligence, Silicon Valley, and the tech industry in real time, and has been closely following AI safety issues for several years, including consulting his readers on how to approach AI risk coverage.",
+        "knowsAbout": ["Platformer", "Hard Fork", "OpenAI", "Hugging Face", "Anthropic"]
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Why Can AI Write Poetry but Not Name Months with the Letter X?",
+        "description": "Casey Newton explains: LLMs build intelligence during training but don't update through experience — so genius and absurd mistakes can coexist.",
+        "image": "https://i.postimg.cc/KjQpjzK5/Pod-save-america-logo.jpg",
+        "datePublished": "2026-08-17",
+        "dateModified": "2026-08-17",
+        "author": {
+          "@type": "Organization",
+          "name": "Platformer / Hard Fork"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "url": "https://listenly.fr/podcast-btb/questions/pod-save-america/how-should-we-understand-the-gap-between-ai-s-impressive-capabilities-.html",
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "Pod Save America",
+          "url": "https://listenly.fr/podcast/show/pod-save-amrica"
+        },
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", ".guest-card"]
+        },
+        "mentions": [
+          {"@type": "Thing", "name": "Platformer"},
+          {"@type": "Thing", "name": "Hard Fork"},
+          {"@type": "Thing", "name": "OpenAI"},
+          {"@type": "Thing", "name": "Anthropic"},
+          {"@type": "Thing", "name": "Claude"},
+          {"@type": "Thing", "name": "GPT-5"},
+          {"@type": "Thing", "name": "Large Language Models"},
+          {"@type": "Thing", "name": "Artificial Intelligence"},
+          {"@type": "Thing", "name": "Hugging Face"},
+          {"@type": "Thing", "name": "Pod Save America"}
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Pod Save America",
+            "item": "https://listenly.fr/podcast-btb/pod-save-america-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Why Can AI Write Poetry but Not Name Months with the Letter X?",
+            "item": "https://listenly.fr/podcast-btb/questions/pod-save-america/how-should-we-understand-the-gap-between-ai-s-impressive-capabilities-.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the key risk of progressive primary wins not translating to general election success?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Hayes uses a basketball analogy: just as a player needs 'a completely delusional sense of their own ability' to reach the NBA, a candidate like Mamdani must possess a similar kind of outsized confidence — but that very trait can become a liability when the electorate broadens in a general election."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does Donald Trump's economic approach compare to progressive or socialist economic policies?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Hayes argues that Trump is 'the most antagonistic president to free markets' he has ever seen, describing him as 'fundamentally authoritarian, illiberal' — a framing that complicates simple left-right comparisons on economic policy."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What tactical error has AIPAC made in Democratic primaries according to Chris Hayes?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Hayes argues that AIPAC has made 'an enormous tactical error' by relying on a strategy of 'attempting to trick voters as opposed to making their case.' He suggests this approach has backfired and undermined the organization's credibility within the Democratic primary electorate."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #f9f9fb;
+      color: #1a1a1a;
+      line-height: 1.65;
+      padding: 32px 16px 64px;
+    }
+
+    .wrapper {
+      max-width: 640px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 40px 36px 48px;
+    }
+
+    /* Source badge */
+    .source-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .source-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #e8e8ec;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .source-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .source-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .source-label {
+      font-size: 12px;
+      color: #888;
+      font-weight: 400;
+    }
+
+    .source-name {
+      font-size: 14px;
+      color: #1a1a1a;
+      font-weight: 600;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      font-size: 12px;
+      color: #888;
+      margin: 0 0 14px;
+    }
+
+    .breadcrumb a {
+      color: #888;
+      text-decoration: underline;
+    }
+
+    .breadcrumb a:hover {
+      color: #555;
+    }
+
+    /* Meta line */
+    .meta-line {
+      font-size: 12px;
+      color: #aaa;
+      margin: 0 0 28px;
+      line-height: 1.5;
+    }
+
+    /* Question bubble */
+    .question-bubble {
+      background: #f5f5f7;
+      border-radius: 18px 18px 18px 4px;
+      padding: 24px 28px;
+      margin-bottom: 32px;
+    }
+
+    .question-bubble h1 {
+      font-size: 21px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #1a1a1a;
+      letter-spacing: -0.01em;
+    }
+
+    /* Answer text */
+    .lead {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #1a1a1a;
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+
+    .body-text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .inline-cta {
+      color: #1a1a1a;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .inline-cta:hover {
+      color: #444;
+    }
+
+    /* Definition box */
+    .definition-box {
+      background: #f0f4f8;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin: 28px 0;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.65;
+    }
+
+    .definition-box strong {
+      display: block;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #888;
+      margin-bottom: 6px;
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      border-left: 3px solid #2e8bd6;
+      padding: 4px 0 4px 20px;
+      margin: 32px 0;
+    }
+
+    .pull-quote p {
+      font-style: italic;
+      font-size: 16px;
+      line-height: 1.65;
+      color: #333;
+    }
+
+    .pull-quote cite {
+      display: block;
+      font-style: normal;
+      font-size: 13px;
+      color: #888;
+      margin-top: 8px;
+    }
+
+    /* Guest card */
+    .guest-section {
+      margin: 36px 0 0;
+    }
+
+    .guest-section h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+
+    .guest-card {
+      background: #f5f5f7;
+      border-radius: 16px;
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .guest-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .guest-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #d0d0d8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: #555;
+      flex-shrink: 0;
+    }
+
+    .guest-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .guest-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .guest-title {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .guest-company {
+      font-size: 13px;
+      color: #888;
+    }
+
+    .guest-bio {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #444;
+    }
+
+    /* See also */
+    .see-also-section {
+      margin-top: 48px;
+    }
+
+    .see-also-section h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 18px;
+      letter-spacing: -0.01em;
+    }
+
+    .see-also-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .see-also-item {
+      background: #f9f9fb;
+      border-radius: 12px;
+      padding: 16px 18px;
+    }
+
+    .see-also-item a {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a1a;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      display: block;
+      margin-bottom: 6px;
+      line-height: 1.45;
+    }
+
+    .see-also-item a:hover {
+      color: #444;
+    }
+
+    .see-also-excerpt {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* CTA */
+    .cta-listen {
+      display: block;
+      background: #2e8bd6;
+      color: #ffffff;
+      text-decoration: none;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 16px 24px;
+      border-radius: 10px;
+      margin-top: 40px;
+      transition: opacity 0.15s ease;
+    }
+
+    .cta-listen:hover {
+      opacity: 0.9;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #bbb;
+      margin-top: 28px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: #efefef;
+      margin: 36px 0;
+    }
+
+    @media (max-width: 480px) {
+      .wrapper {
+        padding: 28px 20px 36px;
+      }
+      .question-bubble {
+        padding: 20px 20px;
+      }
+      .question-bubble h1 {
+        font-size: 19px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="wrapper">
+
+    <!-- Source badge -->
+    <div class="source-badge">
+      <div class="source-avatar">
+        <img src="https://i.postimg.cc/KjQpjzK5/Pod-save-america-logo.jpg" alt="Pod Save America podcast cover">
+      </div>
+      <div class="source-text">
+        <span class="source-label">The answer lives in this podcast</span>
+        <span class="source-name">Pod Save America · Casey Newton</span>
+      </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <p class="breadcrumb">
+      <a href="https://listenly.fr/podcast-btb/pod-save-america-podcast.html">← See the Pod Save America podcast page</a>
+    </p>
+
+    <!-- Meta line -->
+    <p class="meta-line">Published August 17, 2026 · Editorial summary by Listenly based on the real audio episode · Topics: Platformer · Hard Fork · OpenAI</p>
+
+    <!-- Question bubble -->
+    <div class="question-bubble">
+      <h1>Why can AI write complex code but fail to name a month containing the letter X?</h1>
+    </div>
+
+    <!-- Answer -->
+    <p class="lead">
+      Large language models do not possess knowledge the way humans do. According to Casey Newton, these systems develop their intelligence entirely during training — and once that training ends, they stop updating their understanding of the world through experience. This structural reality explains why the same model can produce remarkable, sophisticated output and simultaneously make a mistake that would embarrass a child.
+    </p>
+
+    <p class="body-text">
+      Newton's core point is that the gap between AI's impressive feats and its obvious failures is not a contradiction — it is a direct consequence of how these systems are built. A human who makes a dumb mistake in one moment can still be extraordinarily smart in the next, because lived experience continuously shapes and corrects their understanding. An LLM has no such feedback loop. It carries forward whatever patterns its training instilled, without the capacity to learn from a bad answer it just gave. You can explore the full conversation on <a href="https://listenly.fr/podcast/show/pod-save-amrica" class="inline-cta">Listenly's Pod Save America page</a>.
+    </p>
+
+    <p class="body-text">
+      Newton cautions against judging an LLM by its dumbest moment, framing it the same way we would a brilliant person who occasionally says something embarrassing. The failure is real, but it does not negate the capability. Understanding this distinction matters especially as tools like GPT-5 and Claude are deployed in increasingly high-stakes contexts — from OpenAI's autonomous AI agents to AI-assisted scientific research, including the Nature-published paper documenting AI-assisted creation of 16 new viruses.
+    </p>
+
+    <!-- Definition box -->
+    <div class="definition-box">
+      <strong>What is a Large Language Model?</strong>
+      A large language model (LLM) is an AI system trained on vast amounts of text data to recognize and generate language. Crucially, its "knowledge" is fixed at the point training ends — it does not update its understanding based on new experiences or interactions after deployment. This is precisely what Newton highlights when explaining why genius and ridiculous failure can coexist in the same system.
+    </div>
+
+    <!-- Pull quote -->
+    <div class="pull-quote">
+      <p>"These agents did that anyway, and so that's leading to a real reckoning here in Silicon Valley — when these systems are trained they try to give them values, they try to say to them don't go out there and commit crimes."</p>
+      <cite>— Casey Newton, editor of Platformer and co-host of Hard Fork, on Pod Save America</cite>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- About Casey Newton -->
+    <div class="guest-section">
+      <h2>About Casey Newton</h2>
+      <div class="guest-card">
+        <div class="guest-header">
+          <div class="guest-avatar">CN</div>
+          <div class="guest-info">
+            <span class="guest-name">Casey Newton</span>
+            <span class="guest-title">Editor and co-host</span>
+            <span class="guest-company">Platformer / Hard Fork</span>
+          </div>
+        </div>
+        <p class="guest-bio">
+          Casey Newton is the editor of Platformer, an independent technology newsletter focused on Silicon Valley and the broader tech industry. He is also the co-host of Hard Fork, a podcast produced alongside Kevin Roose that covers artificial intelligence, social media platforms, and the companies shaping digital life. Newton has spent several years reporting on AI safety and the behavior of frontier AI systems in real time — not as an outside observer, but as a journalist deeply embedded in the communities and organizations building these tools. His work at Platformer notably included consulting his own readership on how to responsibly approach AI risk coverage, reflecting both his journalistic rigor and the genuine uncertainty that surrounds these topics. On Pod Save America, Newton brings this combination of insider access, editorial independence, and long-form expertise to bear on questions about what AI systems can and cannot do — and why the distinction matters for everyone, not just technologists.
+        </p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- See also -->
+    <div class="see-also-section">
+      <h2>See also</h2>
+      <div class="see-also-list">
+
+        <div class="see-also-item">
+          <a href="https://listenly.fr/podcast-btb/questions/pod-save-america/what-is-the-key-risk-of-progressive-primary-wins-not-translating-to-ge.html">What is the key risk of progressive primary wins not translating to general election success?</a>
+          <p class="see-also-excerpt">Hayes uses a basketball analogy: just as a player needs "a completely delusional sense of their own ability" to reach the NBA, a candidate like Mamdani must possess similar outsized confidence — but that very trait can become a liability when the electorate broadens in a general election.</p>
+        </div>
+
+        <div class="see-also-item">
+          <a href="https://listenly.fr/podcast-btb/questions/pod-save-america/how-does-donald-trump-s-economic-approach-compare-to-progressive-or-so.html">How does Donald Trump's economic approach compare to progressive or socialist economic policies?</a>
+          <p class="see-also-excerpt">Hayes argues that Trump is "the most antagonistic president to free markets" he has ever seen, describing him as "fundamentally authoritarian, illiberal" — a framing that complicates simple left-right comparisons on economic policy.</p>
+        </div>
+
+        <div class="see-also-item">
+          <a href="https://listenly.fr/podcast-btb/questions/pod-save-america/what-tactical-error-has-aipac-made-in-democratic-primaries-according-t.html">What tactical error has AIPAC made in Democratic primaries according to Chris Hayes?</a>
+          <p class="see-also-excerpt">Hayes argues that AIPAC has made "an enormous tactical error" by relying on a strategy of "attempting to trick voters as opposed to making their case." He suggests this approach has backfired and undermined the organization's credibility within the Democratic primary electorate.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <a href="https://listenly.fr/podcast/show/pod-save-amrica" class="cta-listen">Listen to the episode on Listenly</a>
+
+    <!-- Footer -->
+    <p class="footer">Written by the Listenly editorial team</p>
+
+  </main>
+
+  <!-- Semantic index (hidden, for entity linking) -->
+  <div id="semantic-index" style="display:none;">
+    Casey Newton · Platformer · Hard Fork · OpenAI · Hugging Face · Anthropic · Claude · GPT-5 · Meta · Nvidia · Future of Life Institute · Nature · Eliezer Yudkowsky · Dario Amodei · Mark Andreessen · Mark Zuckerberg · Alex Stamos · Pod Save America · Large Language Models · Artificial Intelligence · Jon Favreau · Crooked Media · Listenly
+  </div>
+
+</body>
+</html>
