@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud souverain & GAIA-X — Podcast | Listenly</title>
+  <meta name="description" content="Cloud souverain, sécurité des données et initiatives européennes GAIA-X : tout comprendre sur les enjeux du cloud en Europe.">
+  <meta name="keywords" content="cloud souverain, GAIA-X, cloud computing, sécurité des données, souveraineté numérique, cloud Europe, OVH, Docaposte">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://listenly.fr/">
+  <script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Cloud souverain & GAIA-X — Podcast | Listenly">
+  <meta property="og:description" content="Cloud souverain, sécurité des données et initiatives européennes GAIA-X : tout comprendre sur les enjeux du cloud en Europe.">
+  <meta property="og:image" content="https://i.postimg.cc/dV4BxwNZ/Uo2zfx-Lup-JHNDmq-Tr7d-TUe-GZr-FE9o-Xasx-Vx-EGSjr-1400x1400.jpg">
+  <meta property="og:url" content="https://listenly.fr/">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:locale" content="fr_FR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cloud souverain & GAIA-X — Podcast | Listenly">
+  <meta name="twitter:description" content="Cloud souverain, sécurité des données et initiatives européennes GAIA-X : tout comprendre sur les enjeux du cloud en Europe.">
+  <meta name="twitter:image" content="https://i.postimg.cc/dV4BxwNZ/Uo2zfx-Lup-JHNDmq-Tr7d-TUe-GZr-FE9o-Xasx-Vx-EGSjr-1400x1400.jpg">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://listenly.fr/#webpage",
+        "url": "https://listenly.fr/",
+        "name": "Cloud souverain & GAIA-X — Podcast | Listenly",
+        "description": "Cloud souverain, sécurité des données et initiatives européennes GAIA-X : tout comprendre sur les enjeux du cloud en Europe.",
+        "inLanguage": "fr",
+        "datePublished": "2024-02-26",
+        "author": {
+          "@type": "Organization",
+          "name": "La rédaction Listenly",
+          "url": "https://listenly.fr"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".about-text", ".faq-answer", ".mega-faq-answer"]
+        },
+        "breadcrumb": {
+          "@id": "https://listenly.fr/#breadcrumb"
+        }
+      },
+      {
+        "@type": "PodcastEpisode",
+        "@id": "https://listenly.fr/#episode",
+        "name": "Le cloud : la révolution silencieuse | Alban Schmutz, Co-Fondateur de GAIA-X & Xavier Vaccari",
+        "description": "Exploration du cloud computing, de la souveraineté numérique européenne et de GAIA-X avec Alban Schmutz et Xavier Vaccari. Sécurité des données, transformation numérique et avenir du cloud en Europe.",
+        "datePublished": "2024-02-26",
+        "duration": "PT38M16S",
+        "inLanguage": "fr",
+        "url": "https://listenly.fr/podcast/show/tendance-inno",
+        "author": {
+          "@type": "Organization",
+          "name": "La rédaction Listenly",
+          "url": "https://listenly.fr"
+        },
+        "partOfSeries": {
+          "@type": "PodcastSeries",
+          "name": "Tendances INNO le podcast Innovation de Docaposte",
+          "url": "https://listenly.fr/podcast/show/tendance-inno",
+          "image": "https://i.postimg.cc/dV4BxwNZ/Uo2zfx-Lup-JHNDmq-Tr7d-TUe-GZr-FE9o-Xasx-Vx-EGSjr-1400x1400.jpg"
+        },
+        "associatedMedia": {
+          "@type": "MediaObject",
+          "contentUrl": "https://listenly.fr/podcast/show/tendance-inno"
+        },
+        "contributor": [
+          {
+            "@type": "Person",
+            "name": "Alban Schmutz",
+            "description": "Co-fondateur de GAIA-X, ancien dirigeant OVH Cloud"
+          },
+          {
+            "@type": "Person",
+            "name": "Xavier Vaccari",
+            "description": "Pionnier du Cloud souverain"
+          },
+          {
+            "@type": "Person",
+            "name": "Marine Adatto",
+            "description": "Cofondatrice de Wagmi Trends, animatrice"
+          },
+          {
+            "@type": "Person",
+            "name": "Olivier Senot",
+            "description": "Directeur de l'innovation chez Docaposte, animateur"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://listenly.fr/#faqpage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Qu'est-ce que la souveraineté numérique et pourquoi est-elle importante pour l'Europe ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "La souveraineté numérique désigne la capacité d'un État ou d'un ensemble d'États à contrôler leurs données, leurs infrastructures numériques et leurs technologies, sans dépendance subie vis-à-vis de puissances étrangères. Pour l'Europe, cet enjeu est crucial : une grande part des services cloud utilisés par les entreprises et administrations européennes est hébergée par des acteurs américains soumis au droit américain, notamment le Cloud Act, qui autorise les autorités américaines à accéder à des données stockées à l'étranger. Reprendre la maîtrise de ses données est donc une question stratégique, économique et démocratique."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Qu'est-ce que GAIA-X et quel est son rôle dans le cloud européen ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "GAIA-X est une initiative lancée en 2019 par la France et l'Allemagne pour construire une infrastructure de données fédérée, transparente et conforme aux valeurs européennes. L'objectif est de définir des standards communs d'interopérabilité, de portabilité des données et de sécurité, permettant aux entreprises européennes de choisir des fournisseurs cloud de confiance. GAIA-X n'est pas un cloud en soi, mais un cadre de certification et de gouvernance pour garantir que les services cloud respectent la réglementation européenne, notamment le RGPD."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quels sont les principaux risques de sécurité liés au stockage de données dans le cloud ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Les risques principaux incluent les violations de données (accès non autorisé à des informations confidentielles), les erreurs de configuration des buckets de stockage rendant des données publiquement accessibles, les attaques par rançongiciel ciblant les environnements cloud, et la perte de contrôle juridique liée à l'extraterritorialité du droit américain. À ces risques techniques s'ajoutent des risques de dépendance fournisseur (vendor lock-in) qui limitent la capacité à changer de prestataire et à récupérer ses données."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://listenly.fr/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Accueil",
+            "item": "https://listenly.fr/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tendances INNO",
+            "item": "https://listenly.fr/podcast/show/tendance-inno"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Le cloud : la révolution silencieuse",
+            "item": "https://listenly.fr/"
+          }
+        ]
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://listenly.fr/#organization",
+        "name": "Listenly",
+        "url": "https://listenly.fr",
+        "description": "Listenly, annuaire de podcasts francophones",
+        "sameAs": []
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary: #0a0a0e;
+      --bg-secondary: #111118;
+      --bg-card: #16161f;
+      --bg-card-hover: #1c1c28;
+      --accent: #4f8ef7;
+      --accent-dark: #2563d4;
+      --accent-glow: rgba(79,142,247,0.18);
+      --text-primary: #f0f0f5;
+      --text-secondary: #9898b0;
+      --text-muted: #5a5a72;
+      --border: #22222e;
+      --border-accent: rgba(79,142,247,0.35);
+      --radius: 12px;
+      --radius-lg: 20px;
+      --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: #7db0ff; }
+
+    /* TOPBAR */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,14,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      overflow: hidden;
+    }
+
+    .topbar-logo {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.3px;
+      flex-shrink: 0;
+    }
+
+    .topbar-logo span { color: var(--accent); }
+
+    .topbar-sep {
+      width: 1px;
+      height: 22px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    .topbar-podcast {
+      font-size: 13px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      border: none;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(79,142,247,0.4);
+    }
+
+    .btn-sm {
+      padding: 7px 16px;
+      font-size: 13px;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 72px 24px 56px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 60% 0%, rgba(79,142,247,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .hero-cover {
+      flex-shrink: 0;
+      width: 240px;
+      height: 240px;
+      border-radius: var(--radius-lg);
+      object-fit: cover;
+      box-shadow: 0 16px 60px rgba(0,0,0,0.6), 0 0 0 1px var(--border);
+    }
+
+    .hero-content { flex: 1; min-width: 0; }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-size: clamp(22px, 4vw, 36px);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      color: var(--text-primary);
+      margin-bottom: 14px;
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 22px;
+      max-width: 580px;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 13px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(79,142,247,0.12);
+      color: var(--accent);
+      border: 1px solid var(--border-accent);
+    }
+
+    /* BANDEROLE IA */
+    .ia-banner {
+      background: linear-gradient(90deg, #0d0d18 0%, #111122 50%, #0d0d18 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+    }
+
+    .ia-banner-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .ia-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .ia-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ia-badge {
+      padding: 4px 11px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid;
+    }
+
+    .badge-chatgpt { background: rgba(16,163,127,0.12); color: #10a37f; border-color: rgba(16,163,127,0.3); }
+    .badge-perplexity { background: rgba(32,168,216,0.12); color: #20a8d8; border-color: rgba(32,168,216,0.3); }
+    .badge-gemini { background: rgba(66,133,244,0.12); color: #4285f4; border-color: rgba(66,133,244,0.3); }
+    .badge-googleai { background: rgba(234,67,53,0.10); color: #ea4335; border-color: rgba(234,67,53,0.3); }
+    .badge-copilot { background: rgba(0,120,212,0.12); color: #0078d4; border-color: rgba(0,120,212,0.3); }
+    .badge-claude { background: rgba(205,135,79,0.12); color: #cd874f; border-color: rgba(205,135,79,0.3); }
+
+    /* SECTIONS COMMUNES */
+    .section { padding: 64px 24px; }
+    .section-alt { background: var(--bg-secondary); }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-title {
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      color: var(--text-primary);
+      margin-bottom: 32px;
+    }
+
+    .section-title span { color: var(--accent); }
+
+    /* INFO CARDS */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      text-align: center;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .info-card:hover { border-color: var(--border-accent); background: var(--bg-card-hover); }
+
+    .info-card-icon { font-size: 26px; margin-bottom: 10px; }
+    .info-card-value { font-size: 22px; font-weight: 800; color: var(--text-primary); margin-bottom: 4px; }
+    .info-card-label { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+
+    /* ABOUT */
+    .about-text {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      max-width: 780px;
+    }
+
+    .about-text p + p { margin-top: 16px; }
+
+    .about-text strong { color: var(--text-primary); font-weight: 700; }
+
+    /* MEGA FAQ */
+    .mega-faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .mega-faq-item {
+      padding: 32px 28px;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .mega-faq-item:nth-child(odd) { border-right: 1px solid var(--border); }
+    .mega-faq-item:nth-last-child(-n+2) { border-bottom: none; }
+
+    .mega-faq-q {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .mega-faq-q::before {
+      content: 'Q. ';
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .mega-faq-answer {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ACCORDION FAQ */
+    .accordion { display: flex; flex-direction: column; gap: 8px; }
+
+    .accordion-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .accordion-item:hover { border-color: var(--border-accent); }
+
+    .accordion-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 20px 24px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-family: var(--font);
+      color: var(--text-primary);
+      font-size: 15px;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+
+    .accordion-btn:hover { background: var(--bg-card-hover); }
+
+    .accordion-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      background: var(--accent-glow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 16px;
+      font-weight: 700;
+      transition: transform 0.25s;
+    }
+
+    .accordion-item.open .accordion-icon { transform: rotate(45deg); }
+
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+
+    .accordion-item.open .accordion-body { max-height: 300px; }
+
+    .accordion-content {
+      padding: 0 24px 20px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    /* HOSTS */
+    .hosts-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .host-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .host-card:hover { border-color: var(--border-accent); transform: translateY(-2px); }
+
+    .host-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      margin: 0 auto 14px;
+    }
+
+    .host-name { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+    .host-role { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+    .host-tag {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(79,142,247,0.12);
+      color: var(--accent);
+      border: 1px solid var(--border-accent);
+    }
+
+    /* RELATED */
+    .related-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .related-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      transition: border-color 0.2s, background 0.2s;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .related-card:hover { border-color: var(--border-accent); background: var(--bg-card-hover); }
+
+    .related-icon {
+      flex-shrink: 0;
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, #1a1a2e, #2a2a4e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      border: 1px solid var(--border);
+    }
+
+    .related-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .related-title { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; line-height: 1.4; }
+    .related-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      padding: 48px 24px 32px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 32px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand .footer-logo {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .footer-brand .footer-logo span { color: var(--accent); }
+    .footer-brand p { font-size: 13px; color: var(--text-muted); max-width: 320px; line-height: 1.6; }
+
+    .footer-cta-block { text-align: right; }
+    .footer-cta-label { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-meta { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+    .footer-author { font-size: 12px; color: var(--text-secondary); font-weight: 600; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .info-grid { grid-template-columns: repeat(2, 1fr); }
+      .hosts-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 700px) {
+      .hero-inner { flex-direction: column; align-items: flex-start; gap: 28px; }
+      .hero-cover { width: 160px; height: 160px; }
+      .mega-faq-grid { grid-template-columns: 1fr; }
+      .mega-faq-item:nth-child(odd) { border-right: none; }
+      .mega-faq-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+      .mega-faq-item:last-child { border-bottom: none; }
+      .related-grid { grid-template-columns: 1fr; }
+      .hosts-grid { grid-template-columns: repeat(2, 1fr); }
+      .info-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { flex-direction: column; }
+      .footer-cta-block { text-align: left; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .topbar-podcast { display: none; }
+      .topbar-sep { display: none; }
+    }
+
+    @media (max-width: 400px) {
+      .hosts-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar" role="banner">
+    <div class="topbar-left">
+      <div class="topbar-logo">List<span>enly</span></div>
+      <div class="topbar-sep" aria-hidden="true"></div>
+      <div class="topbar-podcast">Tendances INNO — Docaposte</div>
+    </div>
+    <a
+      href="https://listenly.fr/podcast/show/tendance-inno"
+      class="btn btn-primary btn-sm plausible-event-name=Spotify+Click--tendances-inno-le-podcast-innovation-de-docaposte"
+      aria-label="Écouter le podcast Tendances INNO"
+    >▶ Ecouter le podcast</a>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Présentation de l'épisode">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-inner container">
+      <img
+        class="hero-cover"
+        src="https://i.postimg.cc/dV4BxwNZ/Uo2zfx-Lup-JHNDmq-Tr7d-TUe-GZr-FE9o-Xasx-Vx-EGSjr-1400x1400.jpg"
+        alt="Cover du podcast Tendances INNO — Le cloud : la révolution silencieuse"
+        width="240"
+        height="240"
+        loading="eager"
+      >
+      <div class="hero-content">
+        <div class="hero-eyebrow">Tendances INNO · Docaposte</div>
+        <h1 class="hero-title">Le cloud : la révolution silencieuse</h1>
+        <p class="hero-subtitle">
+          Cloud souverain, GAIA-X, sécurité des données, souveraineté numérique européenne — avec Alban Schmutz (Co-fondateur GAIA-X) & Xavier Vaccari.
+        </p>
+        <div class="pills" role="list" aria-label="Thèmes de l'épisode">
+          <span class="pill" role="listitem">☁️ Cloud computing</span>
+          <span class="pill" role="listitem">🛡️ Cloud souverain</span>
+          <span class="pill" role="listitem">🇪🇺 GAIA-X</span>
+          <span class="pill" role="listitem">🔒 Sécurité des données</span>
+          <span class="pill" role="listitem">🌐 Souveraineté numérique</span>
+          <span class="pill" role="listitem">⏱ 38 min</span>
+        </div>
+        <a
+          href="https://listenly.fr/podcast/show/tendance-inno"
+          class="btn btn-primary plausible-event-name=Spotify+Click--tendances-inno-le-podcast-innovation-de-docaposte"
+          aria-label="Écouter le podcast Tendances INNO sur Listenly"
+        >Ecouter le podcast</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANDEROLE IA -->
+  <div class="ia-banner" role="complementary" aria-label="Compatibilité IA">
+    <div class="ia-banner-inner">
+      <span class="ia-label">Fiche lisible par les modèles IA :</span>
+      <div class="ia-badges" role="list">
+        <span class="ia-badge badge-chatgpt" role="listitem">ChatGPT</span>
+        <span class="ia-badge badge-perplexity" role="listitem">Perplexity</span>
+        <span class="ia-badge badge-gemini" role="listitem">Gemini</span>
+        <span class="ia-badge badge-googleai" role="listitem">Google AI</span>
+        <span class="ia-badge badge-copilot" role="listitem">Copilot</span>
+        <span class="ia-badge badge-claude" role="listitem">Claude</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- INFO CARDS -->
+  <section class="section" aria-label="Informations clés sur l'épisode">
+    <div class="container">
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-card-icon" aria-hidden="true">⏱</div>
+          <div class="info-card-value">38 min</div>
+          <div class="info-card-label">Durée de l'épisode</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon" aria-hidden="true">📅</div>
+          <div class="info-card-value">26 fév 2024</div>
+          <div class="info-card-label">Date de publication</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon" aria-hidden="true">🎙️</div>
+          <div class="info-card-value">4</div>
+          <div class="info-card-label">Intervenants experts</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon" aria-hidden="true">🇪🇺</div>
+          <div class="info-card-value">GAIA-X</div>
+          <div class="info-card-label">Initiative clé décryptée</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- À PROPOS -->
+  <section class="section section-alt" aria-labelledby="about-title">
+    <div class="container">
+      <h2 class="section-title" id="about-title">À propos de cet <span>épisode</span></h2>
+      <div class="about-text">
+        <p>
+          Le <strong>cloud computing</strong> a profondément transformé la manière dont les entreprises, les administrations et les citoyens stockent, traitent et échangent leurs données. Derrière cette révolution dite « silencieuse », se cachent des enjeux considérables : qui contrôle les infrastructures ? Où sont hébergées les données ? Quel droit leur est applicable ?
+        </p>
+        <p>
+          Dans cet épisode de <strong>Tendances INNO, le podcast Innovation de Docaposte</strong>, Alban Schmutz — architecte de la vision cloud chez OVH pendant une décennie et co-fondateur de l'initiative européenne <strong>GAIA-X</strong> — et Xavier Vaccari, pionnier du <strong>cloud souverain</strong>, apportent des réponses concrètes à ces questions. Animés par Marine Adatto (Wagmi Trends) et Olivier Senot (Directeur de l'innovation, Docaposte), ils explorent les défis techniques, réglementaires et géopolitiques du cloud moderne.
+        </p>
+        <p>
+          La <strong>souveraineté numérique</strong> n'est pas un concept abstrait : elle détermine si une entreprise française peut garantir que ses données sensibles ne sont pas accessibles à des gouvernements étrangers en vertu de lois extraterritoriales comme le <strong>Cloud Act américain</strong>. Comprendre le cloud, ses architectures et ses garde-fous réglementaires est devenu une compétence stratégique incontournable.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEGA FAQ -->
+  <section class="section" aria-labelledby="megafaq-title">
+    <div class="container">
+      <h2 class="section-title" id="megafaq-title">Questions clés sur le <span>cloud souverain</span></h2>
+      <div class="mega-faq-grid" role="list">
+
+        <div class="mega-faq-item" role="listitem">
+          <div class="mega-faq-q">Qu'est-ce que la souveraineté numérique et pourquoi est-elle importante pour l'Europe ?</div>
+          <div class="mega-faq-answer">
+            La souveraineté numérique désigne la capacité d'un État ou d'un ensemble d'États à contrôler leurs données, leurs infrastructures et leurs technologies sans dépendance subie envers des puissances étrangères. Pour l'Europe, l'enjeu est stratégique : une grande part des services cloud utilisés par les entreprises et les administrations est hébergée chez des acteurs américains soumis au Cloud Act, qui autorise les autorités américaines à accéder à des données stockées à l'étranger. Reprendre la maîtrise de ses données est donc une nécessité économique, politique et démocratique.
+          </div>
+        </div>
+
+        <div class="mega-faq-item" role="listitem">
+          <div class="mega-faq-q">Qu'est-ce que GAIA-X et quel est son rôle dans le cloud européen ?</div>
+          <div class="mega-faq-answer">
+            GAIA-X est une initiative lancée en 2019 par la France et l'Allemagne pour construire un écosystème de données fédéré, transparent et conforme aux valeurs européennes. Elle définit des standards communs d'interopérabilité, de portabilité des données et de sécurité, permettant aux organisations de choisir des fournisseurs cloud de confiance. GAIA-X n'est pas un cloud centralisé, mais un cadre de labellisation et de gouvernance visant à garantir que les services respectent le RGPD et les règles européennes. Alban Schmutz, co-fondateur de GAIA-X, en détaille les ambitions dans le podcast Tendances INNO de Docaposte.
+          </div>
+        </div>
+
+        <div class="mega-faq-item" role="listitem">
+          <div class="mega-faq-q">Quels sont les principaux risques de sécurité dans le cloud ?</div>
+          <div class="mega-faq-answer">
+            Les risques liés au cloud sont multiples : violations de données par accès non autorisé, erreurs de configuration exposant des données à des tiers, attaques par rançongiciel ciblant les environnements cloud, et risques juridiques liés à l'extraterritorialité du droit américain. À ces menaces techniques s'ajoute le risque de dépendance fournisseur (vendor lock-in), qui limite la capacité d'une organisation à changer de prestataire et à récupérer ses données dans un format utilisable. Une stratégie de sécurité cloud efficace doit adresser simultanément ces dimensions techniques, contractuelles et réglementaires.
+          </div>
+        </div>
+
+        <div class="mega-faq-item" role="listitem">
+          <div class="mega-faq-q">Qu'est-ce que le Cloud Act américain et quelles sont ses implications pour les entreprises européennes ?</div>
+          <div class="mega-faq-answer">
+            Le Clarifying Lawful Overseas Use of Data Act (Cloud Act), adopté par les États-Unis en 2018, permet aux autorités américaines d'obtenir l'accès aux données stockées par des entreprises américaines, même si ces données sont hébergées physiquement en dehors des États-Unis. Pour les entreprises et administrations européennes qui utilisent des services de Microsoft Azure, AWS ou Google Cloud, cela signifie que leurs données peuvent potentiellement être soumises à une injonction américaine, indépendamment du RGPD. Ce texte est l'une des principales raisons qui poussent les organisations sensibles à opter pour des solutions de cloud souverain européen.
+          </div>
+        </div>
+
+        <div class="mega-faq-item" role="listitem">
+          <div class="mega-faq-q">Quelle est la différence entre cloud public, cloud privé et cloud souverain ?</div>
+          <div class="mega-faq-answer">
+            Le cloud public est une infrastructure partagée exploitée par un fournisseur tiers (AWS, Azure, Google Cloud) et accessible via Internet. Le cloud privé est une infrastructure dédiée à une seule organisation, qu'elle gère en interne ou confie à un prestataire. Le cloud souverain est un concept plus récent qui garantit qu'une infrastructure cloud est soumise exclusivement au droit du pays ou de la zone géographique dans laquelle elle opère — typiquement, le droit européen — et que les données ne peuvent pas être accédées par des autorités étrangères. En France, des offres qualifiées SecNumCloud par l'ANSSI visent à répondre à cet impératif.
+          </div>
+        </div>
+
+        <div class="mega-faq-item" role="listitem">
+          <div class="mega-faq-q">Qu'est-ce que SecNumCloud et pourquoi est-ce important pour les administrations françaises ?</div>
+          <div class="mega-faq-answer">
+            SecNumCloud est un référentiel de qualification élaboré par l'Agence nationale de la sécurité des systèmes d'information (ANSSI) en France. Il définit les exigences techniques et organisationnelles que doit respecter un fournisseur de cloud pour être considéré comme de confiance par les autorités françaises. La version 3.2 de ce référentiel introduit notamment des exigences d'immunité au droit extraterritorial, ce qui exclut de fait les filiales d'entreprises américaines. Pour les Opérateurs d'Importance Vitale (OIV) et les données sensibles de l'État, le recours à un cloud qualifié SecNumCloud est fortement recommandé voire obligatoire dans certains contextes.
+          </div>
+        </div>
+
+        <div class="mega-faq-item" role="listitem">
+          <div class="mega-faq-q">Comment le cloud transforme-t-il concrètement la compétitivité des entreprises ?</div>
+          <div class="mega-faq-answer">
+            Le cloud permet aux entreprises d'accéder à des ressources informatiques (calcul, stockage, intelligence artificielle) à la demande, sans avoir à investir dans des infrastructures physiques coûteuses. Cela réduit les barrières à l'entrée pour les startups et permet aux grandes organisations de passer à l'échelle rapidement. La capacité à déployer des services dans le monde entier en quelques minutes, à tester de nouveaux modèles économiques sans risque d'investissement lourd, et à intégrer des briques d'IA avancée explique pourquoi le cloud est aujourd'hui au cœur de la transformation numérique dans tous les secteurs.
+          </div>
+        </div>
+
+        <div class="mega-faq-item" role="listitem">
+          <div class="mega-faq-q">Qu'est-ce que l'interopérabilité du cloud et pourquoi éviter le vendor lock-in ?</div>
+          <div class="mega-faq-answer">
+            L'interopérabilité désigne la capacité de faire fonctionner ensemble des systèmes informatiques de fournisseurs différents et de migrer facilement des données et des applications d'un cloud à un autre. Le vendor lock-in est la situation inverse : une organisation devient si dépendante des services propriétaires d'un fournisseur (formats de fichiers, API spécifiques, services packagés) qu'elle ne peut plus en changer sans un coût prohibitif. L'un des objectifs centraux de GAIA-X est précisément de définir des standards ouverts permettant d'éviter cette dépendance et de préserver la liberté de choix des organisations européennes.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCORDION FAQ -->
+  <section class="section section-alt" aria-labelledby="accordion-title">
+    <div class="container">
+      <h2 class="section-title" id="accordion-title">Questions <span>fréquentes</span></h2>
+      <div class="accordion" role="list">
+
+        <div class="accordion-item" role="listitem">
+          <button class="accordion-btn" aria-expanded="false" aria-controls="acc-1">
+            <span>Le RGPD protège-t-il suffisamment les données dans le cloud ?</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-body" id="acc-1" role="region">
+            <div class="accordion-content">
+              Le RGPD (Règlement Général sur la Protection des Données) impose des obligations strictes aux entreprises traitant des données de citoyens européens, notamment en matière de consentement, de minimisation des données et de notification en cas de violation. Cependant, le RGPD seul ne suffit pas à garantir la protection contre des injonctions judiciaires étrangères : si le fournisseur cloud est une entité soumise au droit américain, le Cloud Act peut prendre le dessus sur le RGPD dans certains scénarios. C'est pourquoi des garanties complémentaires — comme le recours à des acteurs qualifiés SecNumCloud ou à des architectures de chiffrement dont la clé n'est détenue que par le client — sont recommandées pour les données les plus sensibles.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item" role="listitem">
+          <button class="accordion-btn" aria-expanded="false" aria-controls="acc-2">
+            <span>OVHcloud est-il un acteur du cloud souverain européen ?</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-body" id="acc-2" role="region">
+            <div class="accordion-content">
+              OVHcloud est l'un des plus grands fournisseurs de cloud en Europe et une entité de droit français, ce qui la place en dehors du périmètre du Cloud Act américain. La société propose des offres certifiées HDS (Hébergement de Données de Santé) et travaille à l'obtention de qualifications SecNumCloud pour certaines de ses offres. Alban Schmutz, qui a passé une décennie à des postes de direction chez OVH avant de co-fonder GAIA-X, incarne ce positionnement stratégique : construire une alternative européenne crédible aux hyperscalers américains tout en participant à la définition des standards du cloud de confiance.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item" role="listitem">
+          <button class="accordion-btn" aria-expanded="false" aria-controls="acc-3">
+            <span>Quelle est la différence entre cloud souverain et cloud de confiance ?</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-body" id="acc-3" role="region">
+            <div class="accordion-content">
+              Le « cloud de confiance » est un concept apparu en France pour désigner des services cloud proposés par des acteurs étrangers (notamment Microsoft ou Google) mais opérés par une entité française indépendante, avec une séparation des droits d'accès. C'est le modèle retenu par l'offre Bleu (Microsoft/Orange/Capgemini) et S3NS (Google/Thales). Le cloud souverain, au sens strict, implique une entité juridiquement indépendante de toute puissance étrangère, sans aucune dépendance technologique ou capitalistique exposant aux lois extraterritoriales. Le débat entre ces deux approches reste vif dans les cercles politiques et industriels européens.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item" role="listitem">
+          <button class="accordion-btn" aria-expanded="false" aria-controls="acc-4">
+            <span>Comment choisir un fournisseur cloud adapté à ses besoins de sécurité ?</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-body" id="acc-4" role="region">
+            <div class="accordion-content">
+              Le choix d'un fournisseur cloud doit s'appuyer sur plusieurs critères : la sensibilité des données traitées, le cadre réglementaire applicable (santé, finance, défense), la localisation juridique du fournisseur et de ses actionnaires, les certifications obtenues (ISO 27001, HDS, SecNumCloud), et la politique de gestion des clés de chiffrement. Pour les données les plus sensibles, il est recommandé de privilégier des fournisseurs qualifiés SecNumCloud ou conformes au référentiel GAIA-X. Pour les données courantes, un audit des conditions contractuelles et une stratégie de chiffrement côté client peuvent suffire à réduire les risques.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item" role="listitem">
+          <button class="accordion-btn" aria-expanded="false" aria-controls="acc-5">
+            <span>Le cloud est-il incontournable pour la transformation numérique des entreprises ?</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-body" id="acc-5" role="region">
+            <div class="accordion-content">
+              Le cloud est devenu un prérequis pratique pour la grande majorité des projets de transformation numérique : il permet l'accès rapide à des capacités de calcul massives, à des services d'intelligence artificielle, et à une collaboration à distance sans infrastructure lourde. Il n'est pas strictement obligatoire sur le plan légal, mais les entreprises qui refusent d'y recourir s'exposent à des désavantages concurrentiels significatifs en termes de vitesse d'innovation et de coûts d'exploitation. La vraie question n'est plus « faut-il aller dans le cloud ? » mais « quel type de cloud, pour quelles données, avec quelles garanties ? »
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERVENANTS -->
+  <section class="section" aria-labelledby="hosts-title">
+    <div class="container">
+      <h2 class="section-title" id="hosts-title">Les <span>intervenants</span
