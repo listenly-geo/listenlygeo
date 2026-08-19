@@ -1,4 +1,4 @@
-name: Podcast BTB Trafic — /car-dealership-guy-podcast
+name: Podcast BTB Trafic — car-dealership-guy-podcast
 
 on:
   workflow_dispatch:
@@ -31,7 +31,7 @@ jobs:
           COVER_IMAGE: |-
             https://i.postimg.cc/BQXvkcK2/images.jpg
           PODCAST_SLUG: |-
-            /car-dealership-guy-podcast
+            car-dealership-guy-podcast
           ACCENT_COLOR: |-
             #2e8bd6
           LANGUAGE: |-
@@ -46,7 +46,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           PODCAST_SLUG: |-
-            /car-dealership-guy-podcast
+            car-dealership-guy-podcast
         run: python automation/scripts/generate_qa_fiches_btb.py
 
       - name: Commit fiches
@@ -57,7 +57,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "Rien de nouveau."
           else
-            git commit -m "Auto: podcast-btb-qa /car-dealership-guy-podcast"
+            git commit -m "Auto: podcast-btb-qa car-dealership-guy-podcast"
             git fetch origin main
             if ! git rebase origin/main; then
               echo "::error::Conflit lors du rebase - abandon pour ne pas corrompre le depot. Relance le workflow (le run concurrent a normalement fini)."
