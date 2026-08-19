@@ -19,7 +19,7 @@ jobs:
           python-version: '3.11'
 
       - name: Installer ffmpeg (necessaire pour compression audio Whisper)
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+        uses: FedericoCarboni/setup-ffmpeg@v3
 
       - name: Generer les fiches question du jour (tous podcasts, 1 par podcast max)
         env:
@@ -28,6 +28,7 @@ jobs:
         run: python automation/scripts/run_all_qa_podcasts.py
 
       - name: Commit fiches
+        if: always()
         run: |
           git config user.name  "listenly-bot"
           git config user.email "bot@listenly.fr"
@@ -46,6 +47,7 @@ jobs:
           fi
 
       - name: Deploy FTP
+        if: always()
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server:    ${{ secrets.FTP_SERVER }}
