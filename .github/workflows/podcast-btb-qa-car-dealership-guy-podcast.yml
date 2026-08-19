@@ -38,8 +38,7 @@ jobs:
         run: python automation/scripts/generate_podcast_btb.py
 
       - name: Installer ffmpeg (necessaire pour compression audio Whisper - N2 uniquement)
-        timeout-minutes: 3
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+        uses: FedericoCarboni/setup-ffmpeg@v3
 
       - name: Generation fiche question N2 (cron quotidien, ET juste apres chaque lancement manuel)
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
