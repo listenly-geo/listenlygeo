@@ -48,6 +48,7 @@ jobs:
         uses: FedericoCarboni/setup-ffmpeg@v3
 
       - name: Generation fiche question N2 (a chaque run, cron quotidien ou manuel)
+        if: github.event_name == 'workflow_dispatch' && steps.check_n1.outputs.exists == 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}

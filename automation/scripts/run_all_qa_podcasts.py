@@ -19,6 +19,8 @@ l'un n'empeche pas les autres de continuer.
 import os, sys, json, subprocess, datetime
 
 QUESTIONS_ROOT = "pages/podcast-btb/questions"
+WF_DIR = ".github/workflows"
+WF_PREFIX = "podcast-btb-qa-"
 
 def log(msg):
     print(f"[run-all-qa] {msg}", flush=True)
@@ -34,15 +36,26 @@ def already_published_today(slug):
     today = datetime.date.today().isoformat()
     return any(p.get("added_date") == today for p in reg.get("published", []))
 
+def discover_slugs():
+    """Le workflow podcast-btb-qa-<slug>.yml est la source de verite pour 'ce podcast
+    fait partie du moteur trafic' — PAS l'existence d'un _qa_registry.json. Un podcast
+    tout juste cree (N1 seul, N2 jamais encore lance) n'a pas encore de registre, mais
+    doit quand meme etre detecte ici pour que son premier N2 se declenche au prochain
+    passage du cron maitre (sinon il ne serait jamais decouvert : probleme de l'oeuf et
+    la poule deja rencontre)."""
+    if not os.path.isdir(WF_DIR):
+        return []
+    return sorted(
+        f[len(WF_PREFIX):-len(".yml")]
+        for f in os.listdir(WF_DIR)
+        if f.startswith(WF_PREFIX) and f.endswith(".yml") and f != f"{WF_PREFIX}generic.yml"
+    )
+
 def main():
-    if not os.path.isdir(QUESTIONS_ROOT):
+    slugs = discover_slugs()
+    if not slugs:
         log("Aucun podcast onboarde — rien a faire.")
         return
-
-    slugs = sorted(
-        s for s in os.listdir(QUESTIONS_ROOT)
-        if os.path.exists(f"{QUESTIONS_ROOT}/{s}/_qa_registry.json")
-    )
     log(f"{len(slugs)} podcast(s) onboarde(s) : {', '.join(slugs)}")
 
     done, skipped, failed = [], [], []
