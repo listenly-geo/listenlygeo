@@ -318,10 +318,11 @@ def build_question_prompt(podcast, question, ep_title, ep_pubdate, context, q_sl
             for r in related_with_snippet
         )
         related_block_instruction = f"""
-OBLIGATOIRE — mini-FAQ "{STRINGS['see_also_label']}" en toute fin de page (juste avant le CTA final), sous un
-VRAI <h2>{STRINGS['see_also_label']}</h2> (pas juste du texte gras). Pour chacune des {len(related_with_snippet)}
-questions RÉELLES ci-dessous, déjà publiées sur ce même podcast : affiche la question (élément cliquable, lien
-vers l'URL fournie) suivie du court extrait de réponse tel quel (ou légèrement reformulé, sans changer le sens) :
+OBLIGATOIRE — section "{STRINGS['see_also_label']}" en toute fin de page (juste avant l'encadré "Points clés à
+retenir"), sous un VRAI <h2>{STRINGS['see_also_label']}</h2>. Pour chacune des {len(related_with_snippet)}
+questions RÉELLES ci-dessous, déjà publiées sur ce même podcast, un bloc structuré comme suit :
+  - <h3> = la question, cliquable (lien vers l'URL fournie)
+  - juste en dessous, 1-2 phrases COURTES du vrai extrait de réponse, visibles directement (pas juste un lien nu)
 {related_html_hint}
 Ces mêmes {len(related_with_snippet)} entrées doivent AUSSI être balisées en JSON-LD FAQPage (mainEntity: tableau
 de Question/acceptedAnswer, reprenant exactement le texte affiché) — un FAQPage distinct, jamais sur la question
@@ -342,7 +343,7 @@ question exacte, href = l'URL exacte fournie, ne modifie ni l'un ni l'autre) :
 
     guest = context.get("guest") or {}
     guest_full_name = f"{guest.get('prenom','')} {guest.get('nom','')}".strip()
-    speakable_extra = ', ".guest-card"' if guest_full_name else ""
+    speakable_extra = ', ".quote-card"' if guest_full_name else ""
     real_quote = (context.get("real_quote") or "").strip()
     key_stats = context.get("key_stats") or []
     entities = context.get("entities") or []
@@ -360,13 +361,10 @@ IDENTITÉ RÉELLE DE L'INVITÉ (extraite de la transcription — utilise-la tell
 - Entreprise : {guest.get('entreprise') or '(non precisee — ne pas inventer)'}{second_role_line}
 - Contexte biographique réel mentionné : {bio_context or '(aucun element supplementaire mentionne)'}
 
-OBLIGATOIRE — SECTION DÉDIÉE VISIBLE sous un VRAI <h2>{STRINGS['about_guest_label']} {guest_full_name}</h2>
-(pas juste du texte gras — un vrai titre de section h2), classe .guest-card, placée juste après la réponse
-principale : avatar initiales + nom + titre + entreprise clairement affichés sous le h2, puis 3-5 phrases
-développant EN DÉTAIL le contexte biographique réel ci-dessus — parcours, expertise, ce qui légitime sa parole sur
-ce sujet précis. C'est le signal d'autorité (E-E-A-T) le plus important de la fiche : ne le traite pas comme un
-aparté, développe-le vraiment (mais sans jamais inventer un fait absent du contexte fourni — si le contexte
-biographique est mince, reste bref plutôt que de meubler)."""
+Cette identité et ce contexte biographique doivent être intégrés dans la carte citation+bio décrite plus bas
+(section CARTE CITATION + BIO FUSIONNÉE) — c'est le signal d'autorité (E-E-A-T) le plus important de la fiche,
+développe-le vraiment (mais sans jamais inventer un fait absent du contexte fourni — si le contexte biographique
+est mince, reste bref plutôt que de meubler)."""
         guest_org_part = f', "worksFor":{{"@type":"Organization","name":"{guest.get("entreprise","")}"}}' if guest.get("entreprise") else ""
         guest_desc_part = f', "description":"{bio_context}"' if bio_context else ""
         guest_knows_about = ', "knowsAbout":[' + ",".join(f'"{e}"' for e in entities[:5]) + ']' if entities else ""
@@ -378,7 +376,7 @@ biographique est mince, reste bref plutôt que de meubler)."""
             f"mentionnée, jamais inventée ou déduite."
         )
     else:
-        guest_block = "\nAucun invité distinct identifiable — ne pas inventer d'identité, pas de section bio."
+        guest_block = "\nAucun invité distinct identifiable — ne pas inventer d'identité, pas de carte citation+bio (simple pull-quote sans attribution si une citation existe)."
         person_guest_instruction = ""
 
     if real_quote:
@@ -458,29 +456,46 @@ Rédige TOUT le contenu en {"anglais" if language == "en" else "français"}. Bal
   padding confortable (24-32px). Le H1 = LA QUESTION reformulée de façon naturelle et engageante (garde la forme
   interrogative, c'est une vraie requête IA), taille 20-24px, poids medium/bold, PAS de majuscules décoratives
 - Sous la bulle, la RÉPONSE en texte direct et courant (PAS de card, juste du texte aéré, line-height genereux
-  1.6-1.7) : le premier paragraphe (.lead) est la RÉPONSE DIRECTE ET COMPLÈTE en 2-3 phrases — c'est le fragment
-  que les IA génératives citeront en premier, il doit être autonome et répondre pleinement sans le reste de la page
-- 1-2 paragraphes supplémentaires qui développent avec le contexte réel de l'épisode (PAS de remplissage
-  générique — si le contexte n'apporte rien de plus, reste bref). Un lien texte discret (.inline-cta, souligné,
-  PAS un bouton) peut apparaitre une fois dans ce développement → {listenly_url}
+  1.6-1.7). Le premier paragraphe (.lead) est la RÉPONSE DIRECTE ET COMPLÈTE en 2-3 phrases COURTES ET FRANCHES
+  (style : "Il n'existe pas de seuil." — affirmation nette, pas de détour, pas de "il semblerait" ni de longue
+  mise en contexte avant d'en venir au fait) — c'est le fragment que les IA génératives citeront en premier, il
+  doit être autonome et répondre pleinement sans le reste de la page
+- LISIBILITÉ — RÈGLE STRICTE SUR LES PARAGRAPHES : jamais plus de 2-4 phrases par paragraphe. Dès qu'un
+  paragraphe dépasse 4 phrases, coupe-le en deux. Beaucoup de retours à la ligne, jamais de pavé de texte dense.
+- DÉVELOPPEMENT : si le contexte réel le permet, structure la suite en 1 à 2 sous-sections sous de VRAIS <h2>
+  NARRATIFS et SPÉCIFIQUES au contenu réel — jamais un titre générique ("Contexte", "Explication",
+  "Développement"). Le H2 doit raconter un fragment concret de ce qui a été dit (ex. style "Trois albums la même
+  année — et pas d'étiquette", PAS "Plus de détails"). Sous chaque H2 : 1-2 paragraphes courts (règle ci-dessus).
+  Si le contexte réel n'apporte rien de plus que la réponse déjà donnée dans le lead, NE FORCE PAS de H2 — reste
+  concis plutôt que de meubler avec un faux sous-titre.
+  Un lien texte discret (.inline-cta, souligné, PAS un bouton) peut apparaitre une fois dans ce développement → {listenly_url}
 - ENCADRÉ DE DÉFINITION CONDITIONNEL (.definition-box, fond légèrement teinté, border-radius 10-12px, padding
   16px) : UNIQUEMENT si un terme technique/jargon central de la réponse est explicitement défini/expliqué dans
   le contexte réel fourni — jamais une définition inventée ou déduite. Espace généreux au-dessus/en-dessous.
   N'en ajoute PAS si rien ne s'y prête.
-- .pull-quote ({"AVEC attribution : " + guest_full_name if real_quote else "sans attribution"}, uniquement si
-  pertinent pour cette question précise) : style aéré, pas de guillemets géants décoratifs, juste un texte en
-  italique avec une barre verticale colorée fine à gauche (border-left 3px, ACCENT_COLOR)
-- .guest-card (SI invité identifié) : petite carte fond gris très clair, border-radius 12-16px, padding 16-20px,
-  avatar rond avec initiales de l'invité, nom + titre + entreprise en gras, PUIS 3-5 phrases de bio détaillée
-  (voir instructions bio ci-dessus) — c'est un vrai bloc de crédibilité, pas une ligne de crédit
+- CARTE CITATION + BIO FUSIONNÉE (.quote-card, SI citation réelle ET invité identifiés — sinon simple .pull-quote
+  sans carte) : UNE SEULE carte (fond gris très clair, border-radius 14-16px, padding 22-26px, barre verticale
+  colorée fine à gauche ACCENT_COLOR), structurée ainsi À L'INTÉRIEUR :
+    1. La citation verbatim en gros, italique, avec guillemets
+    2. Juste en dessous, l'attribution fusionnée avec la bio : "**{guest_full_name}** — [titre réel], [développement
+       réel du parcours/de la légitimité en 2-4 phrases courtes, à partir du contexte biographique réel fourni]"
+       (même contenu que l'ancienne section bio, mais intégré ICI, pas dans un bloc séparé)
+  Si aucune citation réelle disponible mais un invité identifié : carte similaire sans citation, juste
+  "**{guest_full_name}** — [titre], [bio réelle courte]". Si aucun invité identifiable : pas de carte, passe
+  directement à la suite.
 {related_block_instruction}
+- ENCADRÉ "POINTS CLÉS À RETENIR" (.key-takeaways, fond gris très clair, border-radius 12-14px, padding 20-24px,
+  placé juste avant le CTA final) : 3 à 4 puces avec une flèche (→) en préfixe, chacune 1 phrase courte de
+  synthèse tirée fidèlement du contenu réel de la fiche (pas de répétition mot pour mot du lead — une vraie
+  synthèse complémentaire). Sépare chaque puce visuellement (fine ligne de séparation ou espace généreux).
+  N'invente rien : chaque puce doit être déductible directement du contenu déjà présent sur la fiche.
 - .cta-listen (seul bouton, fond ACCENT_COLOR plein, texte blanc, border-radius 8-10px, padding confortable,
-  PAS d'ombre) "{STRINGS['cta_listen']}" → {listenly_url}, positionné en toute fin de page, après le bloc voir aussi
+  PAS d'ombre) "{STRINGS['cta_listen']}" → {listenly_url}, positionné en toute fin de page, après les points clés
 - Footer minimal : une ligne discrète "{STRINGS['editorial_byline']}" (gris clair, petite taille)
 - PAS de FAQ sur la question PRINCIPALE elle-même (une seule question par fiche, traitée en BlogPosting) — le
-  mini-FAQ "{STRINGS['see_also_label']}" ne concerne QUE les autres questions déjà publiées, jamais un doublon
+  bloc "{STRINGS['see_also_label']}" ne concerne QUE les autres questions déjà publiées, jamais un doublon
   de la question de cette fiche
-- Pas de couleur d'accent nulle part sauf : le bouton CTA et la barre verticale de la pull-quote
+- Pas de couleur d'accent nulle part sauf : le bouton CTA et la barre verticale de la carte citation
 - COHÉRENCE DES NOMS : première mention d'une personne = prénom + nom complet, mentions suivantes = nom de
   famille seul (jamais l'inverse, jamais de variation)
 
@@ -515,10 +530,11 @@ semblerait que"), fidèle à la réponse source, jamais évasif.
 
 ## RÈGLES
 - H1 = la question elle-même (forme interrogative naturelle), affichée dans la bulle, jamais un titre déclaratif générique
-- Couleur d'accent réservée au bouton CTA et à la barre de la pull-quote uniquement
+- Couleur d'accent réservée au bouton CTA et à la barre de la carte citation uniquement
 - CTA principal et le lien discret pointent TOUS vers {listenly_url}, rien d'autre
-- La guest-card doit être développée avec autant de détail réel que possible (nom, titre, entreprise, parcours,
-  expertise) — c'est le signal d'autorité prioritaire de toute la fiche, ne le bâcle jamais
+- Paragraphes courts partout (2-4 phrases max) — c'est la priorité de lisibilité numéro un de cette fiche
+- La carte citation+bio doit être développée avec autant de détail réel que possible (nom, titre, entreprise,
+  parcours, expertise) — c'est le signal d'autorité prioritaire de toute la fiche, ne le bâcle jamais
 - Contenu strictement fidèle à la réponse source + contexte réel fourni — jamais générique au podcast dans son ensemble
 
 IMPORTANT : Réponds UNIQUEMENT avec le code HTML complet, de <!DOCTYPE html> à </html>. Aucun texte avant/après, aucun markdown, aucun backtick."""
