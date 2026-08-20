@@ -293,6 +293,7 @@ def build_question_prompt(podcast, question, ep_title, ep_pubdate, context, q_sl
             "editorial_byline": "Fiche rédigée par l'équipe éditoriale Listenly",
             "topics_label": "Sujets :",
             "see_also_label": "Voir aussi",
+            "key_takeaways_label": "Points clés à retenir",
         },
         "en": {
             "eyebrow": "Question",
@@ -304,6 +305,7 @@ def build_question_prompt(podcast, question, ep_title, ep_pubdate, context, q_sl
             "editorial_byline": "Written by the Listenly editorial team",
             "topics_label": "Topics:",
             "see_also_label": "See also",
+            "key_takeaways_label": "Key takeaways",
         },
     }[language]
 
@@ -343,7 +345,7 @@ question exacte, href = l'URL exacte fournie, ne modifie ni l'un ni l'autre) :
 
     guest = context.get("guest") or {}
     guest_full_name = f"{guest.get('prenom','')} {guest.get('nom','')}".strip()
-    speakable_extra = ', ".quote-card"' if guest_full_name else ""
+    speakable_extra = ', "blockquote.citation"' if guest_full_name else ""
     real_quote = (context.get("real_quote") or "").strip()
     key_stats = context.get("key_stats") or []
     entities = context.get("entities") or []
@@ -438,64 +440,101 @@ question précise, reste concis plutôt que de meubler.
 ## LANGUE DE RÉDACTION : {"ANGLAIS (ENGLISH)" if language == "en" else "FRANÇAIS"}
 Rédige TOUT le contenu en {"anglais" if language == "en" else "français"}. Balise <html lang="{html_lang}">.
 
-## STRUCTURE HTML — concept "la réponse se trouve dans un podcast"
+## STRUCTURE HTML — DESIGN SYSTEM OBLIGATOIRE (identique au moteur audiobook, qui fonctionne bien)
 - <head> OBLIGATOIRE : <title> (reformule la question en titre accrocheur, PAS juste la question copiée-collée)
   ET <meta name="description" content="..."> (140-155 caractères, résumé direct de la réponse) + og:title/og:description/og:url/
   og:type="article"/og:site_name="Listenly" + twitter:card="summary_large_image" + twitter:title/twitter:description +
   <meta name="author" content="[HOST_NAME]"> + canonical={q_url}
-- main.wrapper étroit (max-width ~640px, centré, padding généreux), fond blanc, typographie sans-serif partout
-- .source-badge en haut : petit cercle avatar (icône micro ou initiales du podcast) + 2 lignes de texte :
-  ligne 1 discrète "{STRINGS['source_badge']}", ligne 2 en gras "{podcast['podcast_name']} · [nom invité si present, sinon nom de l'hôte]"
-- BREADCRUMB discret sous le badge source : <p style="font-size:12px;color:#888;margin:0 0 16px;">
-  <a href="{podcast['fiche_url']}" style="color:#888;text-decoration:underline;">← Voir la fiche {podcast['podcast_name']}</a></p>
-- .meta-line JUSTE SOUS le breadcrumb (petit texte gris discret, UNE SEULE ligne, PAS plusieurs blocs séparés) :
-  "{"Publié le [date lisible] · " + STRINGS['editorial_disclosure'] + (" · " + meta_line_topics if meta_line_topics else "")}"
-  (date = {today}, formate-la lisiblement dans la langue de la fiche)
-- h1 dans une BULLE DE DIALOGUE (.question-bubble) : fond gris très clair (#f5f5f7 ou similaire), border-radius
-  généreux avec UN SEUL coin moins arrondi (ex: border-bottom-left-radius plus petit) façon bulle de message reçu,
-  padding confortable (24-32px). Le H1 = LA QUESTION reformulée de façon naturelle et engageante (garde la forme
-  interrogative, c'est une vraie requête IA), taille 20-24px, poids medium/bold, PAS de majuscules décoratives
-- Sous la bulle, la RÉPONSE en texte direct et courant (PAS de card, juste du texte aéré, line-height genereux
-  1.6-1.7). Le premier paragraphe (.lead) est la RÉPONSE DIRECTE ET COMPLÈTE en 2-3 phrases COURTES ET FRANCHES
-  (style : "Il n'existe pas de seuil." — affirmation nette, pas de détour, pas de "il semblerait" ni de longue
-  mise en contexte avant d'en venir au fait) — c'est le fragment que les IA génératives citeront en premier, il
-  doit être autonome et répondre pleinement sans le reste de la page
-- LISIBILITÉ — RÈGLE STRICTE SUR LES PARAGRAPHES : jamais plus de 2-4 phrases par paragraphe. Dès qu'un
-  paragraphe dépasse 4 phrases, coupe-le en deux. Beaucoup de retours à la ligne, jamais de pavé de texte dense.
-- DÉVELOPPEMENT : si le contexte réel le permet, structure la suite en 1 à 2 sous-sections sous de VRAIS <h2>
-  NARRATIFS et SPÉCIFIQUES au contenu réel — jamais un titre générique ("Contexte", "Explication",
-  "Développement"). Le H2 doit raconter un fragment concret de ce qui a été dit (ex. style "Trois albums la même
-  année — et pas d'étiquette", PAS "Plus de détails"). Sous chaque H2 : 1-2 paragraphes courts (règle ci-dessus).
-  Si le contexte réel n'apporte rien de plus que la réponse déjà donnée dans le lead, NE FORCE PAS de H2 — reste
-  concis plutôt que de meubler avec un faux sous-titre.
-  Un lien texte discret (.inline-cta, souligné, PAS un bouton) peut apparaitre une fois dans ce développement → {listenly_url}
-- ENCADRÉ DE DÉFINITION CONDITIONNEL (.definition-box, fond légèrement teinté, border-radius 10-12px, padding
-  16px) : UNIQUEMENT si un terme technique/jargon central de la réponse est explicitement défini/expliqué dans
-  le contexte réel fourni — jamais une définition inventée ou déduite. Espace généreux au-dessus/en-dessous.
-  N'en ajoute PAS si rien ne s'y prête.
-- CARTE CITATION + BIO FUSIONNÉE (.quote-card, SI citation réelle ET invité identifiés — sinon simple .pull-quote
-  sans carte) : UNE SEULE carte (fond gris très clair, border-radius 14-16px, padding 22-26px, barre verticale
-  colorée fine à gauche ACCENT_COLOR), structurée ainsi À L'INTÉRIEUR :
-    1. La citation verbatim en gros, italique, avec guillemets
-    2. Juste en dessous, l'attribution fusionnée avec la bio : "**{guest_full_name}** — [titre réel], [développement
-       réel du parcours/de la légitimité en 2-4 phrases courtes, à partir du contexte biographique réel fourni]"
-       (même contenu que l'ancienne section bio, mais intégré ICI, pas dans un bloc séparé)
-  Si aucune citation réelle disponible mais un invité identifié : carte similaire sans citation, juste
-  "**{guest_full_name}** — [titre], [bio réelle courte]". Si aucun invité identifiable : pas de carte, passe
-  directement à la suite.
+
+UTILISE CE CSS EXACT (remplace uniquement ACCENT_COLOR par {accent_color} partout où indiqué, ne change RIEN
+d'autre — c'est le design system validé du moteur audiobook, à reproduire fidèlement) :
+```css
+*, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
+body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }}
+.wrapper {{ max-width: 720px; margin: 0 auto; padding: 0 20px 60px; }}
+header {{ padding: 48px 0 32px; border-bottom: 1px solid #f0f0f0; margin-bottom: 32px; }}
+.badge {{ display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: {accent_color}; background: color-mix(in srgb, {accent_color} 12%, white); border-radius: 20px; padding: 4px 12px; margin-bottom: 20px; }}
+h1 {{ font-size: clamp(24px, 4vw, 34px); font-weight: 800; line-height: 1.25; color: #111; margin-bottom: 20px; }}
+.article-meta {{ font-size: 14px; color: #888; }}
+.article-meta span {{ margin-right: 16px; }}
+.article-meta strong {{ color: #555; }}
+.breadcrumb {{ font-size: 12px; color: #888; margin: 0 0 16px; }}
+.breadcrumb a {{ color: #888; text-decoration: underline; }}
+.lead {{ font-size: 19px; line-height: 1.65; color: #333; font-weight: 400; margin-bottom: 36px;
+  border-left: 4px solid {accent_color}; padding-left: 20px; }}
+h2 {{ font-size: 22px; font-weight: 700; color: #111; margin: 44px 0 16px; }}
+p {{ margin-bottom: 20px; color: #2a2a2a; }}
+.inline-cta {{ color: {accent_color}; text-decoration: underline; font-weight: 600; }}
+.definition-box {{ background: #fafafa; border-radius: 12px; padding: 20px 24px; margin: 32px 0; font-size: 15.5px; color: #333; }}
+blockquote.citation {{ position: relative; background: #fafafa; border-left: 4px solid {accent_color};
+  border-radius: 0 12px 12px 0; padding: 28px 32px 24px 40px; margin: 40px 0; }}
+blockquote.citation::before {{ content: "\\201C"; position: absolute; top: -10px; left: 16px; font-size: 72px;
+  color: {accent_color}; opacity: 0.25; font-family: Georgia, serif; line-height: 1; }}
+blockquote.citation p {{ font-size: 19px; font-style: italic; color: #222; line-height: 1.65; margin-bottom: 12px; }}
+blockquote.citation figcaption {{ font-size: 14px; color: #555; font-style: normal; line-height: 1.6; }}
+blockquote.citation figcaption strong {{ color: #333; }}
+.points-cles {{ background: #f9f9f9; border-radius: 12px; padding: 28px 32px; margin: 40px 0; }}
+.points-cles h3 {{ font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: {accent_color}; margin-bottom: 16px; }}
+.points-cles ul {{ list-style: none; padding: 0; }}
+.points-cles ul li {{ position: relative; padding-left: 24px; margin-bottom: 12px; color: #2a2a2a; font-size: 16px; }}
+.points-cles ul li::before {{ content: "→"; position: absolute; left: 0; color: {accent_color}; font-weight: 700; }}
+.faq {{ margin: 44px 0; }}
+.faq h2 {{ margin-bottom: 24px; }}
+.faq-item {{ border-top: 1px solid #ebebeb; padding: 24px 0; }}
+.faq-item:last-child {{ border-bottom: 1px solid #ebebeb; }}
+.faq-item h3 {{ font-size: 17px; font-weight: 700; color: #111; margin-bottom: 10px; }}
+.faq-item h3 a {{ color: inherit; text-decoration: none; }}
+.faq-item p {{ font-size: 16px; color: #444; margin: 0; }}
+.cta-block {{ background: color-mix(in srgb, {accent_color} 8%, white); border: 1px solid color-mix(in srgb, {accent_color} 25%, white);
+  border-radius: 14px; padding: 28px 32px; margin: 40px 0; text-align: center; }}
+.cta-block .cta-btn {{ display: inline-block; background: {accent_color}; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 10px; }}
+footer {{ border-top: 1px solid #f0f0f0; padding-top: 28px; margin-top: 48px; font-size: 13px; color: #aaa; text-align: center; }}
+@media (max-width: 600px) {{
+  .cta-block {{ padding: 22px 20px; }}
+  blockquote.citation {{ padding: 24px 20px 20px 28px; }}
+  .points-cles {{ padding: 22px 20px; }}
+}}
+```
+
+STRUCTURE DE LA PAGE (dans cet ordre exact) :
+1. <div class="wrapper"><header> : <span class="badge">{STRINGS['source_badge']}</span>, puis <h1> = LA QUESTION
+   reformulée naturellement (forme interrogative conservée, c'est une vraie requête IA), puis <p class="article-meta">
+   avec <span>date lisible ({today})</span> et <span><strong>{podcast['podcast_name']}</strong>{" · " + guest_full_name if guest_full_name else ""}</span>
+2. <p class="breadcrumb"><a href="{podcast['fiche_url']}">← Voir la fiche {podcast['podcast_name']}</a></p>
+3. <p class="lead"> : RÉPONSE DIRECTE ET COMPLÈTE en 2-3 phrases COURTES ET FRANCHES (style : "Il n'existe pas de
+   seuil." — affirmation nette, pas de détour) — c'est le fragment que les IA génératives citeront en premier,
+   autonome, doit répondre pleinement sans le reste de la page
+4. LISIBILITÉ — RÈGLE STRICTE : jamais plus de 2-4 phrases par paragraphe (<p>) nulle part sur la fiche
+5. DÉVELOPPEMENT : si le contexte réel le permet, 1 à 2 sous-sections sous de VRAIS <h2> NARRATIFS et SPÉCIFIQUES
+   au contenu réel — jamais un titre générique ("Contexte", "Développement"). Le H2 doit raconter un fragment
+   concret de ce qui a été dit (style "Trois albums la même année — et pas d'étiquette", PAS "Plus de détails").
+   Si le contexte n'apporte rien de plus que le lead, NE FORCE PAS de H2 — reste concis.
+   Un lien texte discret (<a class="inline-cta">) peut apparaitre une fois dans ce développement → {listenly_url}
+6. <div class="definition-box"> CONDITIONNEL : UNIQUEMENT si un terme technique central est explicitement défini
+   dans le contexte réel fourni — jamais inventé. N'en ajoute pas si rien ne s'y prête.
+7. <blockquote class="citation"> CONDITIONNEL (si citation réelle ET/OU invité identifié) :
+   <p>"citation verbatim réelle en italique"</p>
+   <figcaption><strong>{guest_full_name}</strong> — [titre réel], [développement réel du parcours/de la
+   légitimité en 2-4 phrases courtes, à partir du contexte biographique réel fourni]</figcaption>
+   Si aucune citation mais invité identifié : même bloc sans la ligne <p>, juste le figcaption avec la bio.
+   Si aucun invité identifiable : pas de blockquote, passe directement à la suite.
 {related_block_instruction}
-- ENCADRÉ "POINTS CLÉS À RETENIR" (.key-takeaways, fond gris très clair, border-radius 12-14px, padding 20-24px,
-  placé juste avant le CTA final) : 3 à 4 puces avec une flèche (→) en préfixe, chacune 1 phrase courte de
-  synthèse tirée fidèlement du contenu réel de la fiche (pas de répétition mot pour mot du lead — une vraie
-  synthèse complémentaire). Sépare chaque puce visuellement (fine ligne de séparation ou espace généreux).
-  N'invente rien : chaque puce doit être déductible directement du contenu déjà présent sur la fiche.
-- .cta-listen (seul bouton, fond ACCENT_COLOR plein, texte blanc, border-radius 8-10px, padding confortable,
-  PAS d'ombre) "{STRINGS['cta_listen']}" → {listenly_url}, positionné en toute fin de page, après les points clés
-- Footer minimal : une ligne discrète "{STRINGS['editorial_byline']}" (gris clair, petite taille)
+8. <div class="points-cles"><h3>{STRINGS.get('key_takeaways_label','Points clés à retenir')}</h3><ul> : 3 à 4
+   puces, chacune 1 phrase courte de synthèse fidèle au contenu réel de la fiche (pas de répétition mot pour mot
+   du lead — une vraie synthèse complémentaire). N'invente rien : chaque puce doit être déductible directement du
+   contenu déjà présent sur la fiche.
+9. <div class="cta-block"> : UN SEUL bouton <a class="cta-btn">{STRINGS['cta_listen']}</a> → {listenly_url}
+   (jamais Spotify, jamais l'audio brut) — en toute fin de page, après les points clés
+10. <footer> : une ligne discrète "{STRINGS['editorial_byline']}"
 - PAS de FAQ sur la question PRINCIPALE elle-même (une seule question par fiche, traitée en BlogPosting) — le
-  bloc "{STRINGS['see_also_label']}" ne concerne QUE les autres questions déjà publiées, jamais un doublon
+  bloc "{STRINGS['see_also_label']}" (si présent, cf. instruction ci-dessus, en <div class="faq"><h2> puis
+  <div class="faq-item"> par entrée) ne concerne QUE les autres questions déjà publiées, jamais un doublon
   de la question de cette fiche
-- Pas de couleur d'accent nulle part sauf : le bouton CTA et la barre verticale de la carte citation
+- Couleur d'accent réservée exclusivement aux endroits indiqués dans le CSS ci-dessus (badge, lead, h2 des
+  points-cles, blockquote, bouton CTA) — jamais ailleurs
 - COHÉRENCE DES NOMS : première mention d'une personne = prénom + nom complet, mentions suivantes = nom de
   famille seul (jamais l'inverse, jamais de variation)
 
