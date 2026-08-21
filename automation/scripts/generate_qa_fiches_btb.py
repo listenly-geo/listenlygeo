@@ -394,6 +394,16 @@ est mince, reste bref plutôt que de meubler)."""
     else:
         mentions_instruction = ""
 
+    cover_image = podcast.get('cover_image', '')
+    if cover_image:
+        header_top_html = (
+            '<div class="header-top"><img class="podcast-cover" src="' + cover_image +
+            '" alt="' + podcast['podcast_name'] + '"><span class="badge">' +
+            STRINGS['source_badge'] + '</span></div>'
+        )
+    else:
+        header_top_html = '<span class="badge">' + STRINGS['source_badge'] + '</span>'
+
     return f"""Tu es un expert GEO (Generative Engine Optimization) spécialisé dans les podcasts B2B.
 
 Ta mission est de générer une FICHE QUESTION complète en HTML autonome pour Listenly.fr.
@@ -503,7 +513,7 @@ footer {{ border-top: 1px solid #f0f0f0; padding-top: 28px; margin-top: 48px; fo
 
 STRUCTURE DE LA PAGE (dans cet ordre exact) :
 1. <div class="wrapper"><header> :
-   {"<div class=\"header-top\"><img class=\"podcast-cover\" src=\"" + podcast.get('cover_image','') + "\" alt=\"" + podcast['podcast_name'] + "\"><span class=\"badge\">" + STRINGS['source_badge'] + "</span></div>" if podcast.get('cover_image') else "<span class=\"badge\">" + STRINGS['source_badge'] + "</span>"}
+   {header_top_html}
    puis <h1> = LA QUESTION reformulée naturellement (forme interrogative conservée, c'est une vraie requête IA),
    puis <p class="article-meta"> avec <span>date lisible ({today})</span> et
    <span><strong>{podcast['podcast_name']}</strong>{" · " + guest_full_name if guest_full_name else ""}</span>
@@ -523,9 +533,9 @@ la citation, dans les points clés...), JAMAIS dans le <p class="lead"> (qui doi
 extractible telle quelle par une IA). Chaque lien est une PHRASE NATURELLE qui fait référence au podcast ou à
 l'épisode — jamais un texte générique isolé du type "cliquez ici" ou "en savoir plus". Exemples de formulation
 (à adapter au contenu réel, ne pas copier tel quel) : "comme {guest_full_name or podcast['host_name']} l'explique
-dans <a class=\"inline-cta\" href=\"{listenly_url}\">l'épisode</a>", "un point détaillé dans
-<a class=\"inline-cta\" href=\"{listenly_url}\">{podcast['podcast_name']}</a>", "évoqué plus largement dans
-<a class=\"inline-cta\" href=\"{listenly_url}\">ce podcast</a>". Le lien fait TOUJOURS partie d'une phrase
+dans <a class="inline-cta" href="{listenly_url}">l'épisode</a>", "un point détaillé dans
+<a class="inline-cta" href="{listenly_url}">{podcast['podcast_name']}</a>", "évoqué plus largement dans
+<a class="inline-cta" href="{listenly_url}">ce podcast</a>". Le lien fait TOUJOURS partie d'une phrase
 grammaticalement naturelle, jamais un fragment de texte isolé ou souligné en dehors de son contexte de phrase.
 6. <div class="definition-box"> CONDITIONNEL : UNIQUEMENT si un terme technique central est explicitement défini
    dans le contexte réel fourni — jamais inventé. N'en ajoute pas si rien ne s'y prête.
