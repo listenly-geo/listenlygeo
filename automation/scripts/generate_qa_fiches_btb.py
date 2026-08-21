@@ -454,8 +454,10 @@ body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hel
   background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }}
 .wrapper {{ max-width: 720px; margin: 0 auto; padding: 0 20px 60px; }}
 header {{ padding: 48px 0 32px; border-bottom: 1px solid #f0f0f0; margin-bottom: 32px; }}
+.header-top {{ display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }}
+.podcast-cover {{ width: 56px; height: 56px; border-radius: 12px; object-fit: cover; flex-shrink: 0; }}
 .badge {{ display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
-  color: {accent_color}; background: color-mix(in srgb, {accent_color} 12%, white); border-radius: 20px; padding: 4px 12px; margin-bottom: 20px; }}
+  color: {accent_color}; background: color-mix(in srgb, {accent_color} 12%, white); border-radius: 20px; padding: 4px 12px; margin: 0; }}
 h1 {{ font-size: clamp(24px, 4vw, 34px); font-weight: 800; line-height: 1.25; color: #111; margin-bottom: 20px; }}
 .article-meta {{ font-size: 14px; color: #888; }}
 .article-meta span {{ margin-right: 16px; }}
@@ -500,9 +502,11 @@ footer {{ border-top: 1px solid #f0f0f0; padding-top: 28px; margin-top: 48px; fo
 ```
 
 STRUCTURE DE LA PAGE (dans cet ordre exact) :
-1. <div class="wrapper"><header> : <span class="badge">{STRINGS['source_badge']}</span>, puis <h1> = LA QUESTION
-   reformulée naturellement (forme interrogative conservée, c'est une vraie requête IA), puis <p class="article-meta">
-   avec <span>date lisible ({today})</span> et <span><strong>{podcast['podcast_name']}</strong>{" · " + guest_full_name if guest_full_name else ""}</span>
+1. <div class="wrapper"><header> :
+   {"<div class=\"header-top\"><img class=\"podcast-cover\" src=\"" + podcast.get('cover_image','') + "\" alt=\"" + podcast['podcast_name'] + "\"><span class=\"badge\">" + STRINGS['source_badge'] + "</span></div>" if podcast.get('cover_image') else "<span class=\"badge\">" + STRINGS['source_badge'] + "</span>"}
+   puis <h1> = LA QUESTION reformulée naturellement (forme interrogative conservée, c'est une vraie requête IA),
+   puis <p class="article-meta"> avec <span>date lisible ({today})</span> et
+   <span><strong>{podcast['podcast_name']}</strong>{" · " + guest_full_name if guest_full_name else ""}</span>
 2. <p class="breadcrumb"><a href="{podcast['fiche_url']}">← Voir la fiche {podcast['podcast_name']}</a></p>
 3. <p class="lead"> : RÉPONSE DIRECTE ET COMPLÈTE en 2-3 phrases COURTES ET FRANCHES (style : "Il n'existe pas de
    seuil." — affirmation nette, pas de détour) — c'est le fragment que les IA génératives citeront en premier,
@@ -512,7 +516,17 @@ STRUCTURE DE LA PAGE (dans cet ordre exact) :
    au contenu réel — jamais un titre générique ("Contexte", "Développement"). Le H2 doit raconter un fragment
    concret de ce qui a été dit (style "Trois albums la même année — et pas d'étiquette", PAS "Plus de détails").
    Si le contexte n'apporte rien de plus que le lead, NE FORCE PAS de H2 — reste concis.
-   Un lien texte discret (<a class="inline-cta">) peut apparaitre une fois dans ce développement → {listenly_url}
+
+CTA TEXTE INTÉGRÉS (OBLIGATOIRE — 3 à 5 occurrences, PAS UNE SEULE) : dissémine 3 à 5 liens <a class="inline-cta"
+href="{listenly_url}">...</a> à différents endroits du corps de l'article (développement, définition, avant/après
+la citation, dans les points clés...), JAMAIS dans le <p class="lead"> (qui doit rester une réponse pure,
+extractible telle quelle par une IA). Chaque lien est une PHRASE NATURELLE qui fait référence au podcast ou à
+l'épisode — jamais un texte générique isolé du type "cliquez ici" ou "en savoir plus". Exemples de formulation
+(à adapter au contenu réel, ne pas copier tel quel) : "comme {guest_full_name or podcast['host_name']} l'explique
+dans <a class=\"inline-cta\" href=\"{listenly_url}\">l'épisode</a>", "un point détaillé dans
+<a class=\"inline-cta\" href=\"{listenly_url}\">{podcast['podcast_name']}</a>", "évoqué plus largement dans
+<a class=\"inline-cta\" href=\"{listenly_url}\">ce podcast</a>". Le lien fait TOUJOURS partie d'une phrase
+grammaticalement naturelle, jamais un fragment de texte isolé ou souligné en dehors de son contexte de phrase.
 6. <div class="definition-box"> CONDITIONNEL : UNIQUEMENT si un terme technique central est explicitement défini
    dans le contexte réel fourni — jamais inventé. N'en ajoute pas si rien ne s'y prête.
 7. <blockquote class="citation"> CONDITIONNEL (si citation réelle ET/OU invité identifié) :
