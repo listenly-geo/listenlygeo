@@ -472,7 +472,7 @@ p {{ margin-bottom: 20px; color: #2a2a2a; }}
 .definition-box {{ background: #fafafa; border-radius: 12px; padding: 20px 24px; margin: 32px 0; font-size: 15.5px; color: #333; }}
 blockquote.citation {{ position: relative; background: #fafafa; border-left: 4px solid {accent_color};
   border-radius: 0 12px 12px 0; padding: 28px 32px 24px 40px; margin: 40px 0; }}
-blockquote.citation::before {{ content: "\\201C"; position: absolute; top: -10px; left: 16px; font-size: 72px;
+blockquote.citation::before {{ content: "“"; position: absolute; top: -10px; left: 16px; font-size: 72px;
   color: {accent_color}; opacity: 0.25; font-family: Georgia, serif; line-height: 1; }}
 blockquote.citation p {{ font-size: 19px; font-style: italic; color: #222; line-height: 1.65; margin-bottom: 12px; }}
 blockquote.citation figcaption {{ font-size: 14px; color: #555; font-style: normal; line-height: 1.6; }}
