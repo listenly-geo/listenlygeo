@@ -33,6 +33,63 @@ import os, sys, re, json, datetime, unicodedata, tempfile, shutil
 import urllib.request, urllib.error
 import importlib.util
 
+# Design system des fiches question (identique au moteur audiobook). Injecte directement
+# par le script APRES generation Claude — jamais envoye dans le prompt ni ecrit par Claude.
+# Ca economise des tokens en entree (plus besoin de decrire/repeter ces ~50 lignes a chaque
+# appel) ET en sortie (Claude ne les recopie plus dans sa reponse a chaque fois), sans
+# aucun impact sur le contenu, la structure GEO ou le JSON-LD — uniquement la maniere dont
+# le CSS arrive dans le fichier final.
+CSS_TEMPLATE = """*, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
+body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }}
+.wrapper {{ max-width: 720px; margin: 0 auto; padding: 0 20px 60px; }}
+header {{ padding: 48px 0 32px; border-bottom: 1px solid #f0f0f0; margin-bottom: 32px; }}
+.header-top {{ display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }}
+.podcast-cover {{ width: 56px; height: 56px; border-radius: 12px; object-fit: cover; flex-shrink: 0; }}
+.badge {{ display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: {accent_color}; background: color-mix(in srgb, {accent_color} 12%, white); border-radius: 20px; padding: 4px 12px; margin: 0; }}
+h1 {{ font-size: clamp(24px, 4vw, 34px); font-weight: 800; line-height: 1.25; color: #111; margin-bottom: 20px; }}
+.article-meta {{ font-size: 14px; color: #888; }}
+.article-meta span {{ margin-right: 16px; }}
+.article-meta strong {{ color: #555; }}
+.breadcrumb {{ font-size: 12px; color: #888; margin: 0 0 16px; }}
+.breadcrumb a {{ color: #888; text-decoration: underline; }}
+.lead {{ font-size: 19px; line-height: 1.65; color: #333; font-weight: 400; margin-bottom: 36px;
+  border-left: 4px solid {accent_color}; padding-left: 20px; }}
+h2 {{ font-size: 22px; font-weight: 700; color: #111; margin: 44px 0 16px; }}
+p {{ margin-bottom: 20px; color: #2a2a2a; }}
+.inline-cta {{ color: {accent_color}; text-decoration: underline; font-weight: 600; }}
+.definition-box {{ background: #fafafa; border-radius: 12px; padding: 20px 24px; margin: 32px 0; font-size: 15.5px; color: #333; }}
+blockquote.citation {{ position: relative; background: #fafafa; border-left: 4px solid {accent_color};
+  border-radius: 0 12px 12px 0; padding: 28px 32px 24px 40px; margin: 40px 0; }}
+blockquote.citation::before {{ content: "\u201c"; position: absolute; top: -10px; left: 16px; font-size: 72px;
+  color: {accent_color}; opacity: 0.25; font-family: Georgia, serif; line-height: 1; }}
+blockquote.citation p {{ font-size: 19px; font-style: italic; color: #222; line-height: 1.65; margin-bottom: 12px; }}
+blockquote.citation figcaption {{ font-size: 14px; color: #555; font-style: normal; line-height: 1.6; }}
+blockquote.citation figcaption strong {{ color: #333; }}
+.points-cles {{ background: #f9f9f9; border-radius: 12px; padding: 28px 32px; margin: 40px 0; }}
+.points-cles h3 {{ font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: {accent_color}; margin-bottom: 16px; }}
+.points-cles ul {{ list-style: none; padding: 0; }}
+.points-cles ul li {{ position: relative; padding-left: 24px; margin-bottom: 12px; color: #2a2a2a; font-size: 16px; }}
+.points-cles ul li::before {{ content: "\u2192"; position: absolute; left: 0; color: {accent_color}; font-weight: 700; }}
+.faq {{ margin: 44px 0; }}
+.faq h2 {{ margin-bottom: 24px; }}
+.faq-item {{ border-top: 1px solid #ebebeb; padding: 24px 0; }}
+.faq-item:last-child {{ border-bottom: 1px solid #ebebeb; }}
+.faq-item h3 {{ font-size: 17px; font-weight: 700; color: #111; margin-bottom: 10px; }}
+.faq-item h3 a {{ color: inherit; text-decoration: none; }}
+.faq-item p {{ font-size: 16px; color: #444; margin: 0; }}
+.cta-block {{ background: color-mix(in srgb, {accent_color} 8%, white); border: 1px solid color-mix(in srgb, {accent_color} 25%, white);
+  border-radius: 14px; padding: 28px 32px; margin: 40px 0; text-align: center; }}
+.cta-block .cta-btn {{ display: inline-block; background: {accent_color}; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 10px; }}
+footer {{ border-top: 1px solid #f0f0f0; padding-top: 28px; margin-top: 48px; font-size: 13px; color: #aaa; text-align: center; }}
+@media (max-width: 600px) {{
+  .cta-block {{ padding: 22px 20px; }}
+  blockquote.citation {{ padding: 24px 20px 20px 28px; }}
+  .points-cles {{ padding: 22px 20px; }}
+}}"""
+
 def _load_module(filename, extra_env=None):
     spec = importlib.util.spec_from_file_location(
         filename.replace(".py", ""), os.path.join(os.path.dirname(__file__), filename)
@@ -456,60 +513,15 @@ Rédige TOUT le contenu en {"anglais" if language == "en" else "français"}. Bal
   og:type="article"/og:site_name="Listenly" + twitter:card="summary_large_image" + twitter:title/twitter:description +
   <meta name="author" content="[HOST_NAME]"> + canonical={q_url}
 
-UTILISE CE CSS EXACT (remplace uniquement ACCENT_COLOR par {accent_color} partout où indiqué, ne change RIEN
-d'autre — c'est le design system validé du moteur audiobook, à reproduire fidèlement) :
-```css
-*, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
-body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }}
-.wrapper {{ max-width: 720px; margin: 0 auto; padding: 0 20px 60px; }}
-header {{ padding: 48px 0 32px; border-bottom: 1px solid #f0f0f0; margin-bottom: 32px; }}
-.header-top {{ display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }}
-.podcast-cover {{ width: 56px; height: 56px; border-radius: 12px; object-fit: cover; flex-shrink: 0; }}
-.badge {{ display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
-  color: {accent_color}; background: color-mix(in srgb, {accent_color} 12%, white); border-radius: 20px; padding: 4px 12px; margin: 0; }}
-h1 {{ font-size: clamp(24px, 4vw, 34px); font-weight: 800; line-height: 1.25; color: #111; margin-bottom: 20px; }}
-.article-meta {{ font-size: 14px; color: #888; }}
-.article-meta span {{ margin-right: 16px; }}
-.article-meta strong {{ color: #555; }}
-.breadcrumb {{ font-size: 12px; color: #888; margin: 0 0 16px; }}
-.breadcrumb a {{ color: #888; text-decoration: underline; }}
-.lead {{ font-size: 19px; line-height: 1.65; color: #333; font-weight: 400; margin-bottom: 36px;
-  border-left: 4px solid {accent_color}; padding-left: 20px; }}
-h2 {{ font-size: 22px; font-weight: 700; color: #111; margin: 44px 0 16px; }}
-p {{ margin-bottom: 20px; color: #2a2a2a; }}
-.inline-cta {{ color: {accent_color}; text-decoration: underline; font-weight: 600; }}
-.definition-box {{ background: #fafafa; border-radius: 12px; padding: 20px 24px; margin: 32px 0; font-size: 15.5px; color: #333; }}
-blockquote.citation {{ position: relative; background: #fafafa; border-left: 4px solid {accent_color};
-  border-radius: 0 12px 12px 0; padding: 28px 32px 24px 40px; margin: 40px 0; }}
-blockquote.citation::before {{ content: "“"; position: absolute; top: -10px; left: 16px; font-size: 72px;
-  color: {accent_color}; opacity: 0.25; font-family: Georgia, serif; line-height: 1; }}
-blockquote.citation p {{ font-size: 19px; font-style: italic; color: #222; line-height: 1.65; margin-bottom: 12px; }}
-blockquote.citation figcaption {{ font-size: 14px; color: #555; font-style: normal; line-height: 1.6; }}
-blockquote.citation figcaption strong {{ color: #333; }}
-.points-cles {{ background: #f9f9f9; border-radius: 12px; padding: 28px 32px; margin: 40px 0; }}
-.points-cles h3 {{ font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: {accent_color}; margin-bottom: 16px; }}
-.points-cles ul {{ list-style: none; padding: 0; }}
-.points-cles ul li {{ position: relative; padding-left: 24px; margin-bottom: 12px; color: #2a2a2a; font-size: 16px; }}
-.points-cles ul li::before {{ content: "→"; position: absolute; left: 0; color: {accent_color}; font-weight: 700; }}
-.faq {{ margin: 44px 0; }}
-.faq h2 {{ margin-bottom: 24px; }}
-.faq-item {{ border-top: 1px solid #ebebeb; padding: 24px 0; }}
-.faq-item:last-child {{ border-bottom: 1px solid #ebebeb; }}
-.faq-item h3 {{ font-size: 17px; font-weight: 700; color: #111; margin-bottom: 10px; }}
-.faq-item h3 a {{ color: inherit; text-decoration: none; }}
-.faq-item p {{ font-size: 16px; color: #444; margin: 0; }}
-.cta-block {{ background: color-mix(in srgb, {accent_color} 8%, white); border: 1px solid color-mix(in srgb, {accent_color} 25%, white);
-  border-radius: 14px; padding: 28px 32px; margin: 40px 0; text-align: center; }}
-.cta-block .cta-btn {{ display: inline-block; background: {accent_color}; color: #fff; font-size: 15px; font-weight: 600;
-  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 10px; }}
-footer {{ border-top: 1px solid #f0f0f0; padding-top: 28px; margin-top: 48px; font-size: 13px; color: #aaa; text-align: center; }}
-@media (max-width: 600px) {{
-  .cta-block {{ padding: 22px 20px; }}
-  blockquote.citation {{ padding: 24px 20px 20px 28px; }}
-  .points-cles {{ padding: 22px 20px; }}
-}}
-```
+DANS <head>, laisse une balise <style></style> VIDE (littéralement sans rien dedans) — le CSS réel est injecté
+automatiquement par le script juste après ta génération, tu n'as pas à l'écrire.
+
+Classes CSS disponibles (déjà stylées, utilise-les par leur nom exact, n'invente aucune autre classe) :
+.wrapper (conteneur principal) · header/.header-top/.podcast-cover/.badge (en-tête) · .article-meta/.breadcrumb
+(métadonnées) · .lead (réponse directe d'ouverture) · .inline-cta (lien texte intégré) · .definition-box
+(encadré définition conditionnel) · blockquote.citation + <p> + <figcaption> (citation+bio fusionnées) ·
+.points-cles + <h3> + <ul><li> (synthèse à puces) · .faq + .faq-item (section voir aussi) · .cta-block +
+.cta-btn (bouton final) · footer
 
 STRUCTURE DE LA PAGE (dans cet ordre exact) :
 1. <div class="wrapper"><header> :
@@ -557,8 +569,7 @@ grammaticalement naturelle, jamais un fragment de texte isolé ou souligné en d
   bloc "{STRINGS['see_also_label']}" (si présent, cf. instruction ci-dessus, en <div class="faq"><h2> puis
   <div class="faq-item"> par entrée) ne concerne QUE les autres questions déjà publiées, jamais un doublon
   de la question de cette fiche
-- Couleur d'accent réservée exclusivement aux endroits indiqués dans le CSS ci-dessus (badge, lead, h2 des
-  points-cles, blockquote, bouton CTA) — jamais ailleurs
+- Couleur d'accent déjà gérée par les classes CSS — n'ajoute jamais de style inline supplémentaire
 - COHÉRENCE DES NOMS : première mention d'une personne = prénom + nom complet, mentions suivantes = nom de
   famille seul (jamais l'inverse, jamais de variation)
 
@@ -727,6 +738,20 @@ def main():
 
     if not html_out.lower().startswith("<!doctype"):
         log("ERREUR sortie invalide — question remise en stock.")
+        registry["pending_qa"].insert(0, question)
+        save_registry(registry)
+        sys.exit(1)
+
+    real_css = CSS_TEMPLATE.format(accent_color=podcast.get("accent_color") or "#2e8bd6")
+    if "<style></style>" in html_out:
+        html_out = html_out.replace("<style></style>", f"<style>{real_css}</style>", 1)
+    elif "<style>" in html_out and "</style>" in html_out:
+        # Claude a quand meme ecrit un peu de CSS malgre l'instruction — on remplace son
+        # contenu par le vrai template plutot que de le laisser tel quel (fail-safe).
+        html_out = re.sub(r"<style>.*?</style>", f"<style>{real_css}</style>", html_out, count=1, flags=re.DOTALL)
+        log("AVERTISSEMENT : Claude a ecrit du CSS malgre l'instruction — remplace par le template reel.")
+    else:
+        log("ERREUR : aucune balise <style> trouvee dans la sortie — question remise en stock.")
         registry["pending_qa"].insert(0, question)
         save_registry(registry)
         sys.exit(1)
