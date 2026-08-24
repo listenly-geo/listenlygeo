@@ -36,20 +36,34 @@ def already_published_today(slug):
     today = datetime.date.today().isoformat()
     return any(p.get("added_date") == today for p in reg.get("published", []))
 
+def load_paused_slugs():
+    path = "pages/podcast-btb/data/paused_podcasts.json"
+    if not os.path.exists(path):
+        return set()
+    try:
+        return set(json.load(open(path, encoding="utf-8")).keys())
+    except (json.JSONDecodeError, OSError):
+        return set()
+
 def discover_slugs():
     """Le workflow podcast-btb-qa-<slug>.yml est la source de verite pour 'ce podcast
     fait partie du moteur trafic' — PAS l'existence d'un _qa_registry.json. Un podcast
     tout juste cree (N1 seul, N2 jamais encore lance) n'a pas encore de registre, mais
     doit quand meme etre detecte ici pour que son premier N2 se declenche au prochain
     passage du cron maitre (sinon il ne serait jamais decouvert : probleme de l'oeuf et
-    la poule deja rencontre)."""
+    la poule deja rencontre). Les podcasts listes dans paused_podcasts.json sont exclus
+    (mis en pause manuellement, audience jugee peu alignee avec l'objectif decideurs) —
+    leur workflow individuel reste utilisable en manuel si besoin, seul le traitement
+    automatique via ce script est saute."""
     if not os.path.isdir(WF_DIR):
         return []
-    return sorted(
+    paused = load_paused_slugs()
+    slugs = sorted(
         f[len(WF_PREFIX):-len(".yml")]
         for f in os.listdir(WF_DIR)
         if f.startswith(WF_PREFIX) and f.endswith(".yml") and f != f"{WF_PREFIX}generic.yml"
     )
+    return [s for s in slugs if s not in paused]
 
 def main():
     slugs = discover_slugs()
