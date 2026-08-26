@@ -20,6 +20,8 @@ jobs:
 
       - name: Installer ffmpeg (necessaire pour compression audio Whisper)
         uses: FedericoCarboni/setup-ffmpeg@v3
+        with:
+          ffmpeg-version: '6.1.1'
 
       - name: Generer les fiches question du jour (tous podcasts, 1 par podcast max)
         env:

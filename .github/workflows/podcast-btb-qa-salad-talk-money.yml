@@ -50,6 +50,8 @@ jobs:
 
       - name: Installer ffmpeg (necessaire pour compression audio Whisper - N2 uniquement)
         uses: FedericoCarboni/setup-ffmpeg@v3
+        with:
+          ffmpeg-version: '6.1.1'
 
       - name: Generation fiche question N2 (a chaque run, cron quotidien ou manuel)
         if: github.event_name == 'workflow_dispatch' && steps.check_n1.outputs.exists == 'true'
