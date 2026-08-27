@@ -19,9 +19,18 @@ jobs:
           python-version: '3.11'
 
       - name: Installer ffmpeg (necessaire pour compression audio Whisper)
-        uses: FedericoCarboni/setup-ffmpeg@v3
-        with:
-          ffmpeg-version: '6.1.1'
+        run: |
+          if command -v ffmpeg >/dev/null 2>&1; then
+            echo "ffmpeg deja present sur le runner : $(ffmpeg -version | head -1)"
+          else
+            echo "ffmpeg absent, installation via apt-get..."
+            export DEBIAN_FRONTEND=noninteractive
+            for i in 1 2 3 4 5; do
+              sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg && break
+              echo "Tentative $i echouee (verrou apt probable), nouvel essai dans 10s..."
+              sleep 10
+            done
+          fi
 
       - name: Generer les fiches question du jour (tous podcasts, 1 par podcast max)
         env:

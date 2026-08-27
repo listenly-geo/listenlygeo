@@ -49,9 +49,18 @@ jobs:
         run: python automation/scripts/rebuild_dashboard.py
 
       - name: Installer ffmpeg (necessaire pour compression audio Whisper - N2 uniquement)
-        uses: FedericoCarboni/setup-ffmpeg@v3
-        with:
-          ffmpeg-version: '6.1.1'
+        run: |
+          if command -v ffmpeg >/dev/null 2>&1; then
+            echo "ffmpeg deja present sur le runner : $(ffmpeg -version | head -1)"
+          else
+            echo "ffmpeg absent, installation via apt-get..."
+            export DEBIAN_FRONTEND=noninteractive
+            for i in 1 2 3 4 5; do
+              sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg && break
+              echo "Tentative $i echouee (verrou apt probable), nouvel essai dans 10s..."
+              sleep 10
+            done
+          fi
 
       - name: Generation fiche question N2 (a chaque run, cron quotidien ou manuel)
         if: github.event_name == 'workflow_dispatch' && steps.check_n1.outputs.exists == 'true'
