@@ -1,0 +1,109 @@
+name: Podcast BTB Trafic — your-next-dollar-money-management-for-hi
+
+on:
+  workflow_dispatch:
+
+jobs:
+  podcast-btb-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verifier si la fiche N1 existait deja avant ce run
+        id: check_n1
+        run: |
+          if [ -f "pages/podcast-btb/your-next-dollar-money-management-for-hi-podcast.html" ]; then
+            echo "existed_before=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "existed_before=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generation fiche podcast N1 (lancement manuel uniquement)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RSS_URL: |-
+            https://feeds.megaphone.fm/ARML1979794369
+          PODCAST_URL: |-
+            https://podcasts.apple.com/us/podcast/your-next-dollar-money-management-for-high-earners/id1896598041
+          LISTENLY_URL: |-
+            https://listenly.fr/podcast/show/your-next-dollar
+          COVER_IMAGE: |-
+            https://i.postimg.cc/ZnzLfpPT/560x560bb.webp
+          PODCAST_SLUG: |-
+            your-next-dollar-money-management-for-hi
+          ACCENT_COLOR: |-
+            #2e8bd6
+          LANGUAGE: |-
+            en
+          EPISODE_CTA_TARGET: |-
+            listenly
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Regenerer le dashboard (visibilite immediate, meme avant le 1er N2)
+        if: steps.check_n1.outputs.existed_before == 'false'
+        run: python automation/scripts/rebuild_dashboard.py
+
+      - name: Installer ffmpeg (necessaire pour compression audio Whisper - N2 uniquement)
+        run: |
+          if command -v ffmpeg >/dev/null 2>&1; then
+            echo "ffmpeg deja present sur le runner : $(ffmpeg -version | head -1)"
+          else
+            echo "ffmpeg absent, installation via apt-get..."
+            export DEBIAN_FRONTEND=noninteractive
+            for i in 1 2 3 4 5; do
+              sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg && break
+              echo "Tentative $i echouee (verrou apt probable), nouvel essai dans 10s..."
+              sleep 10
+            done
+          fi
+
+      - name: Generation fiche question N2 (lance manuellement uniquement si N1 existait deja - sinon attend le cron maitre)
+        if: github.event_name == 'workflow_dispatch' && steps.check_n1.outputs.existed_before == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PODCAST_SLUG: |-
+            your-next-dollar-money-management-for-hi
+        run: python automation/scripts/generate_qa_fiches_btb.py
+
+      - name: Commit fiches
+        if: always()
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: podcast-btb-qa your-next-dollar-money-management-for-hi"
+            git fetch origin main
+            if ! git rebase origin/main; then
+              echo "::error::Conflit lors du rebase - abandon pour ne pas corrompre le depot. Relance le workflow (le run concurrent a normalement fini)."
+              git rebase --abort
+              exit 1
+            fi
+            if grep -rq "^<<<<<<< \|^=======$\|^>>>>>>> " pages/podcast-btb/ 2>/dev/null; then
+              echo "::error::Marqueurs de conflit detectes apres rebase - abandon pour ne pas corrompre le depot."
+              exit 1
+            fi
+            git push
+          fi
+
+      - name: Deploy FTP
+        if: always()
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
