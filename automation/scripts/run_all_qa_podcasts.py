@@ -45,6 +45,19 @@ def load_paused_slugs():
     except (json.JSONDecodeError, OSError):
         return set()
 
+def load_priority_slugs():
+    """Si non vide, agit comme une liste blanche stricte : SEULS ces podcasts sont
+    traites, tous les autres sont completement arretes (controle de cout). Vide ou
+    fichier absent = comportement normal (tous les podcasts actifs tournent)."""
+    path = "pages/podcast-btb/data/priority_podcasts.json"
+    if not os.path.exists(path):
+        return set()
+    try:
+        data = json.load(open(path, encoding="utf-8"))
+        return set(data.get("slugs", []))
+    except (json.JSONDecodeError, OSError):
+        return set()
+
 def discover_slugs():
     """Le workflow podcast-btb-qa-<slug>.yml est la source de verite pour 'ce podcast
     fait partie du moteur trafic' — PAS l'existence d'un _qa_registry.json. Un podcast
@@ -54,16 +67,23 @@ def discover_slugs():
     la poule deja rencontre). Les podcasts listes dans paused_podcasts.json sont exclus
     (mis en pause manuellement, audience jugee peu alignee avec l'objectif decideurs) —
     leur workflow individuel reste utilisable en manuel si besoin, seul le traitement
-    automatique via ce script est saute."""
+    automatique via ce script est saute. Si priority_podcasts.json contient une liste
+    non vide, elle agit comme liste blanche stricte (controle de cout) : seuls ces
+    podcasts sont traites, tous les autres actifs sont completement arretes jusqu'a
+    y etre ajoutes."""
     if not os.path.isdir(WF_DIR):
         return []
     paused = load_paused_slugs()
+    priority = load_priority_slugs()
     slugs = sorted(
         f[len(WF_PREFIX):-len(".yml")]
         for f in os.listdir(WF_DIR)
         if f.startswith(WF_PREFIX) and f.endswith(".yml") and f != f"{WF_PREFIX}generic.yml"
     )
-    return [s for s in slugs if s not in paused]
+    slugs = [s for s in slugs if s not in paused]
+    if priority:
+        slugs = [s for s in slugs if s in priority]
+    return slugs
 
 def main():
     slugs = discover_slugs()
