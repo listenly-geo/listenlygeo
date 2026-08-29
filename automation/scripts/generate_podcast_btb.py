@@ -88,7 +88,7 @@ STRINGS = {
 COVER_IMAGE_OVERRIDE = os.environ.get("COVER_IMAGE", "").strip()
 CONTACT_LABEL = os.environ.get("CONTACT_LABEL", "le podcast").strip() or "le podcast"
 
-MODEL      = "claude-sonnet-4-6"
+MODEL      = "claude-haiku-4-5-20251001"
 PAGES_DIR  = "pages/podcast-btb"
 DATA_FILE  = f"{PAGES_DIR}/data/podcasts.json"
 CATEGORY_DIR = f"{PAGES_DIR}/categorie"

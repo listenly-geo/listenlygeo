@@ -729,6 +729,9 @@ def main():
     related_questions = list(reversed(registry["published"]))[:3]
     try:
         prompt = build_question_prompt(podcast, question, ep["title"], ep.get("pubdate",""), context, q_slug, q_url, today, related_questions)
+        # Haiku (moins cher, ~2x moins couteux que Sonnet) pour toute la generation de ce
+        # moteur, y compris l'extraction/minage — decision explicite de reduire les couts
+        # au maximum. A surveiller : fidelite des citations/chiffres extraits du transcript.
         html_out = emod.clean_html(emod.call_claude(prompt))
     except Exception as e:
         log(f"ERREUR génération fiche question : {e} — question remise en stock.")

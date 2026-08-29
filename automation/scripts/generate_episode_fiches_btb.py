@@ -48,7 +48,7 @@ OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "").strip()
 WHISPER_MODEL = "whisper-1"
 WHISPER_MAX_BYTES = 24 * 1024 * 1024
 
-MODEL       = "claude-sonnet-4-6"
+MODEL       = "claude-haiku-4-5-20251001"
 PAGES_DIR   = "pages/podcast-btb"
 DATA_FILE   = f"{PAGES_DIR}/data/podcasts.json"
 EPISODES_DIR = f"{PAGES_DIR}/episodes/{SLUG}"
@@ -585,8 +585,8 @@ Cette fiche doit avant tout être un article agréable à lire pour un humain, p
 
 IMPORTANT : Réponds UNIQUEMENT avec le code HTML complet, de <!DOCTYPE html> à </html>. Aucun texte avant/après, aucun markdown, aucun backtick."""
 
-def call_claude(prompt):
-    payload = {"model": MODEL, "max_tokens": 16000, "messages": [{"role": "user", "content": prompt}]}
+def call_claude(prompt, model=None):
+    payload = {"model": model or MODEL, "max_tokens": 16000, "messages": [{"role": "user", "content": prompt}]}
     data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(
         "https://api.anthropic.com/v1/messages", data=data,
