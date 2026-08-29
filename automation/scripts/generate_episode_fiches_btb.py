@@ -585,8 +585,19 @@ Cette fiche doit avant tout être un article agréable à lire pour un humain, p
 
 IMPORTANT : Réponds UNIQUEMENT avec le code HTML complet, de <!DOCTYPE html> à </html>. Aucun texte avant/après, aucun markdown, aucun backtick."""
 
-def call_claude(prompt, model=None):
-    payload = {"model": model or MODEL, "max_tokens": 16000, "messages": [{"role": "user", "content": prompt}]}
+def call_claude(prompt, model=None, static_prompt=None):
+    if static_prompt:
+        # Bloc statique marque pour le cache de prompt Anthropic : identique sur tous les
+        # appels d'une meme langue (voir STATIC_QUESTION_PROMPT_FR/EN) - facture plein tarif
+        # une fois, puis ~10% du prix sur les appels suivants dans la fenetre de cache
+        # (quelques minutes), tant que le contenu de ce bloc ne change pas d'un octet.
+        content = [
+            {"type": "text", "text": static_prompt, "cache_control": {"type": "ephemeral"}},
+            {"type": "text", "text": prompt},
+        ]
+    else:
+        content = prompt
+    payload = {"model": model or MODEL, "max_tokens": 16000, "messages": [{"role": "user", "content": content}]}
     data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(
         "https://api.anthropic.com/v1/messages", data=data,

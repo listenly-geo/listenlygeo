@@ -90,6 +90,240 @@ footer {{ border-top: 1px solid #f0f0f0; padding-top: 28px; margin-top: 48px; fo
   .points-cles {{ padding: 22px 20px; }}
 }}"""
 
+# Bloc STATIQUE du prompt de generation des fiches question — strictement identique sur
+# TOUS les appels dans une meme langue (seules les valeurs specifiques a chaque podcast/
+# question changent, via les jetons [[...]] resolus dans le bloc dynamique fourni a la
+# suite). Permet le cache de prompt Anthropic : sur un run groupe de 50 podcasts d'affilee,
+# ce bloc n'est facture plein tarif qu'une fois, ~10% du prix sur les appels suivants dans
+# la fenetre de cache. CHAINES NORMALES (pas des f-strings) — aucun risque de backslash
+# dans une expression, contrairement au bloc dynamique construit plus bas.
+STATIC_QUESTION_PROMPT_FR = """Tu es un expert GEO (Generative Engine Optimization) spécialisé dans les podcasts B2B.
+
+Ta mission est de générer une FICHE QUESTION complète en HTML autonome pour Listenly.fr.
+STYLE VISUEL : moderne, clair, aéré — PAS le style magazine Forbes/HBR des autres fiches podcast-btb.
+Concept : "la réponse se trouve dans un podcast". Police sans-serif system (-apple-system, Segoe UI, Helvetica,
+Arial), beaucoup de blanc, coins arrondis généreux (12-20px), pas de colonnes serrées, pas de bordures dures —
+des blocs respirants façon app moderne. Cette fiche répond à UNE SEULE question précise, extraite réellement
+d'un épisode — ce n'est ni une fiche podcast, ni une fiche épisode complète.
+
+## BALISES <head> OBLIGATOIRES
+<title> (reformule la question en titre accrocheur, PAS juste la question copiée-collée) ET
+<meta name="description" content="..."> (140-155 caractères, résumé direct de la réponse) + og:title/og:description/og:url/
+og:type="article"/og:site_name="Listenly" + twitter:card="summary_large_image" + twitter:title/twitter:description +
+<meta name="author" content="HOST_NAME"> + canonical=[[Q_URL]]
+
+DANS <head>, laisse une balise <style></style> VIDE (littéralement sans rien dedans) — le CSS réel est injecté
+automatiquement par le script juste après ta génération, tu n'as pas à l'écrire.
+
+Classes CSS disponibles (déjà stylées, utilise-les par leur nom exact, n'invente aucune autre classe) :
+.wrapper (conteneur principal) · header/.header-top/.podcast-cover/.badge (en-tête) · .article-meta/.breadcrumb
+(métadonnées) · .lead (réponse directe d'ouverture) · .inline-cta (lien texte intégré) · .definition-box
+(encadré définition conditionnel) · blockquote.citation + <p> + <figcaption> (citation+bio fusionnées) ·
+.points-cles + <h3> + <ul><li> (synthèse à puces) · .faq + .faq-item (section voir aussi) · .cta-block +
+.cta-btn (bouton final) · footer
+
+STRUCTURE DE LA PAGE (dans cet ordre exact) :
+1. <div class="wrapper"><header> :
+   [[HEADER_TOP_HTML]]
+   puis <h1> = LA QUESTION reformulée naturellement (forme interrogative conservée, c'est une vraie requête IA),
+   puis <p class="article-meta"> avec <span>date lisible ([[TODAY_DATE]])</span> et
+   <span><strong>[[PODCAST_NAME]]</strong>[[GUEST_NAME_SUFFIX]]</span>
+2. <p class="breadcrumb"><a href="[[FICHE_URL]]">← Voir la fiche [[PODCAST_NAME]]</a></p>
+3. <p class="lead"> : RÉPONSE DIRECTE ET COMPLÈTE en 2-3 phrases COURTES ET FRANCHES (style : "Il n'existe pas de
+   seuil." — affirmation nette, pas de détour) — c'est le fragment que les IA génératives citeront en premier,
+   autonome, doit répondre pleinement sans le reste de la page
+4. LISIBILITÉ — RÈGLE STRICTE : jamais plus de 2-4 phrases par paragraphe (<p>) nulle part sur la fiche
+5. DÉVELOPPEMENT : si le contexte réel le permet, 1 à 2 sous-sections sous de VRAIS <h2> NARRATIFS et SPÉCIFIQUES
+   au contenu réel — jamais un titre générique ("Contexte", "Développement"). Le H2 doit raconter un fragment
+   concret de ce qui a été dit (style "Trois albums la même année — et pas d'étiquette", PAS "Plus de détails").
+   Si le contexte n'apporte rien de plus que le lead, NE FORCE PAS de H2 — reste concis.
+
+CTA TEXTE INTÉGRÉS (OBLIGATOIRE — 3 à 5 occurrences, PAS UNE SEULE) : dissémine 3 à 5 liens <a class="inline-cta"
+href="[[LISTENLY_URL]]">...</a> à différents endroits du corps de l'article (développement, définition, avant/après
+la citation, dans les points clés...), JAMAIS dans le <p class="lead"> (qui doit rester une réponse pure,
+extractible telle quelle par une IA). Chaque lien est une PHRASE NATURELLE qui fait référence au podcast ou à
+l'épisode — jamais un texte générique isolé du type "cliquez ici" ou "en savoir plus". Exemples de formulation
+(à adapter au contenu réel, ne pas copier tel quel) : "comme [[SPEAKER_NAME]] l'explique
+dans <a class="inline-cta" href="[[LISTENLY_URL]]">l'épisode</a>", "un point détaillé dans
+<a class="inline-cta" href="[[LISTENLY_URL]]">[[PODCAST_NAME]]</a>", "évoqué plus largement dans
+<a class="inline-cta" href="[[LISTENLY_URL]]">ce podcast</a>". Le lien fait TOUJOURS partie d'une phrase
+grammaticalement naturelle, jamais un fragment de texte isolé ou souligné en dehors de son contexte de phrase.
+6. <div class="definition-box"> CONDITIONNEL : UNIQUEMENT si un terme technique central est explicitement défini
+   dans le contexte réel fourni — jamais inventé. N'en ajoute pas si rien ne s'y prête.
+7. <blockquote class="citation"> CONDITIONNEL (si citation réelle ET/OU invité identifié) :
+   <p>"citation verbatim réelle en italique"</p>
+   <figcaption><strong>[[SPEAKER_NAME]]</strong> — [titre réel], [développement réel du parcours/de la
+   légitimité en 2-4 phrases courtes, à partir du contexte biographique réel fourni]</figcaption>
+   Si aucune citation mais invité identifié : même bloc sans la ligne <p>, juste le figcaption avec la bio.
+   Si aucun invité identifiable : pas de blockquote, passe directement à la suite.
+[[RELATED_BLOCK_INSTRUCTION]]
+8. <div class="points-cles"><h3>Points clés à retenir</h3><ul> : 3 à 4
+   puces, chacune 1 phrase courte de synthèse fidèle au contenu réel de la fiche (pas de répétition mot pour mot
+   du lead — une vraie synthèse complémentaire). N'invente rien : chaque puce doit être déductible directement du
+   contenu déjà présent sur la fiche.
+9. <div class="cta-block"> : UN SEUL bouton <a class="cta-btn">Écouter l'épisode sur Listenly</a> → [[LISTENLY_URL]]
+   (jamais Spotify, jamais l'audio brut) — en toute fin de page, après les points clés
+10. <footer> : une ligne discrète "Fiche rédigée par l'équipe éditoriale Listenly"
+- PAS de FAQ sur la question PRINCIPALE elle-même (une seule question par fiche, traitée en BlogPosting) — le
+  bloc "Voir aussi" (si présent, cf. instruction ci-dessus, en <div class="faq"><h2> puis
+  <div class="faq-item"> par entrée) ne concerne QUE les autres questions déjà publiées, jamais un doublon
+  de la question de cette fiche
+- Couleur d'accent déjà gérée par les classes CSS — n'ajoute jamais de style inline supplémentaire
+- COHÉRENCE DES NOMS : première mention d'une personne = prénom + nom complet, mentions suivantes = nom de
+  famille seul (jamais l'inverse, jamais de variation)
+
+## JSON-LD (head)
+@graph :
+- Person (HOST_NAME/HOST_TITLE/worksFor HOST_COMPANY)
+[[PERSON_GUEST_INSTRUCTION]]
+- BlogPosting englobant — SCHEMA PRINCIPAL de la fiche (headline=H1, author={"@type":"Organization","name":"[nom
+  reel de l'invite ou de l'entreprise source, ou HOST_NAME a defaut]"}, publisher={"@type":"Organization","name":"Listenly","url":"https://listenly.fr"},
+  isPartOf={"@type":"PodcastSeries","name":"[[PODCAST_NAME]]","url":"[[LISTENLY_URL]]"}, datePublished, dateModified=today ([[TODAY_DATE]]),
+  image=COVER_IMAGE si disponible, description=le meta description de la page,
+  speakable cssSelector [".lead"[[SPEAKABLE_EXTRA]]])
+- BreadcrumbList (1. Listenly (https://listenly.fr) 2. [[PODCAST_NAME]] ([[FICHE_URL]]) 3. cette question ([[Q_URL]]))
+[[FAQ_JSONLD_LINE]]
+[[MENTIONS_INSTRUCTION]]
+IMPORTANT — NE PAS ajouter de schema QAPage : Google reserve QAPage aux pages communautaires ou plusieurs
+utilisateurs repondent a une meme question (type forum), jamais a du contenu editorial ou une seule reponse
+redactionnelle est fournie a partir d'une source (ici : le podcast). Utiliser QAPage ici serait un mauvais usage
+du schema, invalide aux yeux de Google (verifie en Search Console). Le BlogPosting ci-dessus est le schema
+correct pour ce type de page.
+Backlinks cachés identiques aux autres fiches podcast-btb (canonical=[[Q_URL]], og:url=[[Q_URL]], rel=publisher,
+#semantic-index display:none en fin de <body> listant les entités réelles ci-dessus[[ENTITY_SUFFIX]]).
+AJOUT CONDITIONNEL — HowTo : ajoute UNIQUEMENT si la réponse décrit une vraie démarche étape par étape
+reproductible (ex: "comment structurer X", "les étapes pour Y"). N'en ajoute PAS si la réponse est une
+explication/opinion/contexte général sans étapes concrètes — un HowTo forcé sur du contenu qui n'en est pas un
+est une erreur de balisage, pas un bonus.
+
+## LISIBILITÉ HUMAINE — PRIORITÉ ABSOLUE sur le remplissage GEO
+Cette fiche doit ressembler à un échange clair et humain, pas une liste de cases GEO cochées. Une seule question
+traitée = pas besoin de longueur artificielle. LANGAGE ASSERTIF ET AUTORITAIRE (affirme les faits, évite "il
+semblerait que"), fidèle à la réponse source, jamais évasif.
+
+## RÈGLES
+- H1 = la question elle-même (forme interrogative naturelle), affichée dans la bulle, jamais un titre déclaratif générique
+- Couleur d'accent réservée au bouton CTA et à la barre de la carte citation uniquement
+- CTA principal et le lien discret pointent TOUS vers [[LISTENLY_URL]], rien d'autre
+- Paragraphes courts partout (2-4 phrases max) — c'est la priorité de lisibilité numéro un de cette fiche
+- La carte citation+bio doit être développée avec autant de détail réel que possible (nom, titre, entreprise,
+  parcours, expertise) — c'est le signal d'autorité prioritaire de toute la fiche, ne le bâcle jamais
+- Contenu strictement fidèle à la réponse source + contexte réel fourni — jamais générique au podcast dans son ensemble
+
+IMPORTANT : Réponds UNIQUEMENT avec le code HTML complet, de <!DOCTYPE html> à </html>. Aucun texte avant/après, aucun markdown, aucun backtick."""
+
+STATIC_QUESTION_PROMPT_EN = """You are a GEO (Generative Engine Optimization) expert specialized in B2B podcasts.
+
+Your mission is to generate a complete, self-contained HTML QUESTION FICHE for Listenly.fr.
+VISUAL STYLE: modern, clear, airy — NOT the Forbes/HBR magazine style of the other podcast-btb fiches.
+Concept: "the answer lives in a podcast". System sans-serif font (-apple-system, Segoe UI, Helvetica,
+Arial), lots of white space, generous rounded corners (12-20px), no tight columns, no hard borders —
+breathable blocks in a modern app style. This fiche answers ONE SINGLE precise question, genuinely extracted
+from an episode — it is neither a podcast fiche nor a full episode fiche.
+
+## REQUIRED <head> TAGS
+<title> (rephrase the question into a catchy title, NOT just the copy-pasted question) AND
+<meta name="description" content="..."> (140-155 characters, direct summary of the answer) + og:title/og:description/og:url/
+og:type="article"/og:site_name="Listenly" + twitter:card="summary_large_image" + twitter:title/twitter:description +
+<meta name="author" content="HOST_NAME"> + canonical=[[Q_URL]]
+
+IN <head>, leave an EMPTY <style></style> tag (literally nothing inside) — the real CSS is injected
+automatically by the script right after your generation, you don't have to write it.
+
+Available CSS classes (already styled, use them by their exact name, never invent another class):
+.wrapper (main container) · header/.header-top/.podcast-cover/.badge (header) · .article-meta/.breadcrumb
+(metadata) · .lead (direct opening answer) · .inline-cta (integrated text link) · .definition-box
+(conditional definition box) · blockquote.citation + <p> + <figcaption> (merged quote+bio) ·
+.points-cles + <h3> + <ul><li> (bullet-point summary) · .faq + .faq-item (see-also section) · .cta-block +
+.cta-btn (final button) · footer
+
+PAGE STRUCTURE (in this exact order):
+1. <div class="wrapper"><header>:
+   [[HEADER_TOP_HTML]]
+   then <h1> = THE QUESTION rephrased naturally (keep the interrogative form, this is a real AI query),
+   then <p class="article-meta"> with <span>readable date ([[TODAY_DATE]])</span> and
+   <span><strong>[[PODCAST_NAME]]</strong>[[GUEST_NAME_SUFFIX]]</span>
+2. <p class="breadcrumb"><a href="[[FICHE_URL]]">← See the [[PODCAST_NAME]] fiche</a></p>
+3. <p class="lead">: DIRECT, COMPLETE ANSWER in 2-3 SHORT, BLUNT sentences (style: "There is no threshold." —
+   a plain statement, no hedging) — this is the fragment generative AIs will quote first, it must stand alone
+   and fully answer the question without the rest of the page
+4. READABILITY — STRICT RULE: never more than 2-4 sentences per paragraph (<p>) anywhere on the fiche
+5. DEVELOPMENT: if the real context allows it, 1 to 2 sub-sections under REAL NARRATIVE and SPECIFIC <h2>
+   headings tied to the real content — never a generic title ("Context", "Development"). The H2 must tell a
+   concrete fragment of what was actually said (style "Three albums the same year — and no label", NOT "More
+   details"). If the context adds nothing beyond the lead, DO NOT force an H2 — stay concise.
+
+INTEGRATED TEXT CTAs (MANDATORY — 3 to 5 occurrences, NOT JUST ONE): scatter 3 to 5 <a class="inline-cta"
+href="[[LISTENLY_URL]]">...</a> links across different parts of the article body (development, definition,
+before/after the quote, in the key takeaways...), NEVER inside the <p class="lead"> (which must stay a pure
+answer, extractable as-is by an AI). Each link is a NATURAL SENTENCE referencing the podcast or episode —
+never an isolated generic text like "click here" or "learn more". Example phrasings (adapt to the real
+content, don't copy verbatim): "as [[SPEAKER_NAME]] explains in
+<a class="inline-cta" href="[[LISTENLY_URL]]">the episode</a>", "a point detailed in
+<a class="inline-cta" href="[[LISTENLY_URL]]">[[PODCAST_NAME]]</a>", "discussed at length in
+<a class="inline-cta" href="[[LISTENLY_URL]]">this podcast</a>". The link is ALWAYS part of a grammatically
+natural sentence, never an isolated or underlined text fragment out of its sentence context.
+6. <div class="definition-box"> CONDITIONAL: ONLY if a central technical term is explicitly defined in the
+   real context provided — never invented. Don't add one if nothing calls for it.
+7. <blockquote class="citation"> CONDITIONAL (if a real quote AND/OR an identified guest exist):
+   <p>"real verbatim quote in italics"</p>
+   <figcaption><strong>[[SPEAKER_NAME]]</strong> — [real title], [real development of their background/
+   legitimacy in 2-4 short sentences, based on the real biographical context provided]</figcaption>
+   If there's no quote but a guest is identified: same block without the <p> line, just the figcaption with the bio.
+   If no guest is identifiable: no blockquote, move straight to the next section.
+[[RELATED_BLOCK_INSTRUCTION]]
+8. <div class="points-cles"><h3>Key takeaways</h3><ul>: 3 to 4
+   bullets, each a short sentence summarizing content faithfully from the real content of the fiche (not a
+   word-for-word repeat of the lead — a genuine complementary synthesis). Invent nothing: each bullet must be
+   directly deducible from content already present on the fiche.
+9. <div class="cta-block">: ONE SINGLE button <a class="cta-btn">Listen to the episode on Listenly</a> → [[LISTENLY_URL]]
+   (never Spotify, never the raw audio) — at the very end of the page, after the key takeaways
+10. <footer>: one discreet line "Written by the Listenly editorial team"
+- NO FAQ on the MAIN question itself (one question per fiche, handled as BlogPosting) — the "See also"
+  block (if present, per the instruction above, as <div class="faq"><h2> then <div class="faq-item"> per
+  entry) ONLY covers other already-published questions, never a duplicate of this fiche's own question
+- Accent color already handled by the CSS classes — never add extra inline styling
+- NAME CONSISTENCY: first mention of a person = full first+last name, subsequent mentions = last name only
+  (never the reverse, never inconsistent)
+
+## JSON-LD (head)
+@graph:
+- Person (HOST_NAME/HOST_TITLE/worksFor HOST_COMPANY)
+[[PERSON_GUEST_INSTRUCTION]]
+- Enclosing BlogPosting — MAIN schema of the fiche (headline=H1, author={"@type":"Organization","name":"[real
+  name of the guest or source company, or HOST_NAME by default]"}, publisher={"@type":"Organization","name":"Listenly","url":"https://listenly.fr"},
+  isPartOf={"@type":"PodcastSeries","name":"[[PODCAST_NAME]]","url":"[[LISTENLY_URL]]"}, datePublished, dateModified=today ([[TODAY_DATE]]),
+  image=COVER_IMAGE if available, description=the page's meta description,
+  speakable cssSelector [".lead"[[SPEAKABLE_EXTRA]]])
+- BreadcrumbList (1. Listenly (https://listenly.fr) 2. [[PODCAST_NAME]] ([[FICHE_URL]]) 3. this question ([[Q_URL]]))
+[[FAQ_JSONLD_LINE]]
+[[MENTIONS_INSTRUCTION]]
+IMPORTANT — DO NOT add a QAPage schema: Google reserves QAPage for community pages where multiple users
+answer the same question (forum-style), never for editorial content or a single authored answer sourced
+from an interview (here: the podcast). Using QAPage here would be a schema misuse, flagged invalid by
+Google (verified via Search Console). The BlogPosting above is the correct schema for this type of page.
+Hidden backlinks identical to the other podcast-btb fiches (canonical=[[Q_URL]], og:url=[[Q_URL]], rel=publisher,
+#semantic-index display:none at the end of <body> listing the real entities above[[ENTITY_SUFFIX]]).
+CONDITIONAL ADDITION — HowTo: add ONLY if the answer describes a real, reproducible step-by-step process
+(e.g. "how to structure X", "the steps for Y"). DO NOT add one if the answer is an explanation/opinion/
+general context without concrete steps — a forced HowTo on content that isn't one is a markup error, not a bonus.
+
+## HUMAN READABILITY — ABSOLUTE PRIORITY over GEO box-checking
+This fiche must read like a clear, human exchange, not a checklist of GEO boxes ticked off. One single
+question handled = no need for artificial length. ASSERTIVE, AUTHORITATIVE LANGUAGE (state facts plainly,
+avoid "it would seem that"), faithful to the source answer, never evasive.
+
+## RULES
+- H1 = the question itself (natural interrogative form), shown in the bubble, never a generic declarative title
+- Accent color reserved for the CTA button and the citation card's border only
+- The main CTA and the discreet inline link ALL point to [[LISTENLY_URL]], nothing else
+- Short paragraphs everywhere (2-4 sentences max) — this is the top readability priority of this fiche
+- The quote+bio card must be developed with as much real detail as possible (name, title, company,
+  background, expertise) — it's the top authority signal of the whole fiche, never skimp on it
+- Content strictly faithful to the source answer + real context provided — never generic to the podcast as a whole
+
+IMPORTANT: Reply ONLY with the complete HTML code, from <!DOCTYPE html> to </html>. No text before/after, no markdown, no backticks."""
+
 def _load_module(filename, extra_env=None):
     spec = importlib.util.spec_from_file_location(
         filename.replace(".py", ""), os.path.join(os.path.dirname(__file__), filename)
@@ -461,16 +695,13 @@ est mince, reste bref plutôt que de meubler)."""
     else:
         header_top_html = '<span class="badge">' + STRINGS['source_badge'] + '</span>'
 
-    return f"""Tu es un expert GEO (Generative Engine Optimization) spécialisé dans les podcasts B2B.
+    static_prompt = STATIC_QUESTION_PROMPT_EN if language == "en" else STATIC_QUESTION_PROMPT_FR
 
-Ta mission est de générer une FICHE QUESTION complète en HTML autonome pour Listenly.fr.
-STYLE VISUEL : moderne, clair, aéré — PAS le style magazine Forbes/HBR des autres fiches podcast-btb.
-Concept : "la réponse se trouve dans un podcast". Police sans-serif system (-apple-system, Segoe UI, Helvetica,
-Arial), beaucoup de blanc, coins arrondis généreux (12-20px), pas de colonnes serrées, pas de bordures dures —
-des blocs respirants façon app moderne. Cette fiche répond à UNE SEULE question précise, extraite réellement
-d'un épisode — ce n'est ni une fiche podcast, ni une fiche épisode complète.
+    guest_name_suffix = f" · {guest_full_name}" if guest_full_name else ""
+    speaker_name = guest_full_name or podcast.get("host_name", "")
+    entity_suffix = f" plus entity {guest_full_name}" if guest_full_name else ""
 
-## LA QUESTION RÉELLE À TRAITER (extraite fidèlement de la transcription de l'épisode)
+    dynamic_prompt = f"""## LA QUESTION RÉELLE À TRAITER (extraite fidèlement de la transcription de l'épisode)
 Question : {question['q']}
 Réponse (telle qu'extraite, fidèle à la transcription) : {question['r']}
 
@@ -507,111 +738,25 @@ question précise, reste concis plutôt que de meubler.
 ## LANGUE DE RÉDACTION : {"ANGLAIS (ENGLISH)" if language == "en" else "FRANÇAIS"}
 Rédige TOUT le contenu en {"anglais" if language == "en" else "français"}. Balise <html lang="{html_lang}">.
 
-## STRUCTURE HTML — DESIGN SYSTEM OBLIGATOIRE (identique au moteur audiobook, qui fonctionne bien)
-- <head> OBLIGATOIRE : <title> (reformule la question en titre accrocheur, PAS juste la question copiée-collée)
-  ET <meta name="description" content="..."> (140-155 caractères, résumé direct de la réponse) + og:title/og:description/og:url/
-  og:type="article"/og:site_name="Listenly" + twitter:card="summary_large_image" + twitter:title/twitter:description +
-  <meta name="author" content="[HOST_NAME]"> + canonical={q_url}
+## RÉSOLUTION DES JETONS [[...]]
+Les instructions générales ci-dessus (partie précédente du message) utilisent des jetons entre doubles crochets
+— remplace-les PARTOUT où ils apparaissent par leur vraie valeur ci-dessous, jamais par le texte du jeton lui-même :
+- [[TODAY_DATE]] = {today}
+- [[PODCAST_NAME]] = {podcast['podcast_name']}
+- [[FICHE_URL]] = {podcast['fiche_url']}
+- [[LISTENLY_URL]] = {listenly_url}
+- [[Q_URL]] = {q_url}
+- [[HEADER_TOP_HTML]] = {header_top_html}
+- [[GUEST_NAME_SUFFIX]] = {guest_name_suffix or "(chaîne vide — aucun invité identifié)"}
+- [[SPEAKER_NAME]] = {speaker_name}
+- [[SPEAKABLE_EXTRA]] = {speakable_extra or "(chaîne vide)"}
+- [[FAQ_JSONLD_LINE]] = {faq_jsonld_line or "(chaîne vide — pas de FAQPage sur cette fiche)"}
+- [[MENTIONS_INSTRUCTION]] = {mentions_instruction or "(chaîne vide — aucune entité à lister)"}
+- [[ENTITY_SUFFIX]] = {entity_suffix or "(chaîne vide)"}
+- [[PERSON_GUEST_INSTRUCTION]] = {person_guest_instruction or "(chaîne vide — aucun invité distinct identifiable)"}
+- [[RELATED_BLOCK_INSTRUCTION]] = {related_block_instruction}"""
 
-DANS <head>, laisse une balise <style></style> VIDE (littéralement sans rien dedans) — le CSS réel est injecté
-automatiquement par le script juste après ta génération, tu n'as pas à l'écrire.
-
-Classes CSS disponibles (déjà stylées, utilise-les par leur nom exact, n'invente aucune autre classe) :
-.wrapper (conteneur principal) · header/.header-top/.podcast-cover/.badge (en-tête) · .article-meta/.breadcrumb
-(métadonnées) · .lead (réponse directe d'ouverture) · .inline-cta (lien texte intégré) · .definition-box
-(encadré définition conditionnel) · blockquote.citation + <p> + <figcaption> (citation+bio fusionnées) ·
-.points-cles + <h3> + <ul><li> (synthèse à puces) · .faq + .faq-item (section voir aussi) · .cta-block +
-.cta-btn (bouton final) · footer
-
-STRUCTURE DE LA PAGE (dans cet ordre exact) :
-1. <div class="wrapper"><header> :
-   {header_top_html}
-   puis <h1> = LA QUESTION reformulée naturellement (forme interrogative conservée, c'est une vraie requête IA),
-   puis <p class="article-meta"> avec <span>date lisible ({today})</span> et
-   <span><strong>{podcast['podcast_name']}</strong>{" · " + guest_full_name if guest_full_name else ""}</span>
-2. <p class="breadcrumb"><a href="{podcast['fiche_url']}">← Voir la fiche {podcast['podcast_name']}</a></p>
-3. <p class="lead"> : RÉPONSE DIRECTE ET COMPLÈTE en 2-3 phrases COURTES ET FRANCHES (style : "Il n'existe pas de
-   seuil." — affirmation nette, pas de détour) — c'est le fragment que les IA génératives citeront en premier,
-   autonome, doit répondre pleinement sans le reste de la page
-4. LISIBILITÉ — RÈGLE STRICTE : jamais plus de 2-4 phrases par paragraphe (<p>) nulle part sur la fiche
-5. DÉVELOPPEMENT : si le contexte réel le permet, 1 à 2 sous-sections sous de VRAIS <h2> NARRATIFS et SPÉCIFIQUES
-   au contenu réel — jamais un titre générique ("Contexte", "Développement"). Le H2 doit raconter un fragment
-   concret de ce qui a été dit (style "Trois albums la même année — et pas d'étiquette", PAS "Plus de détails").
-   Si le contexte n'apporte rien de plus que le lead, NE FORCE PAS de H2 — reste concis.
-
-CTA TEXTE INTÉGRÉS (OBLIGATOIRE — 3 à 5 occurrences, PAS UNE SEULE) : dissémine 3 à 5 liens <a class="inline-cta"
-href="{listenly_url}">...</a> à différents endroits du corps de l'article (développement, définition, avant/après
-la citation, dans les points clés...), JAMAIS dans le <p class="lead"> (qui doit rester une réponse pure,
-extractible telle quelle par une IA). Chaque lien est une PHRASE NATURELLE qui fait référence au podcast ou à
-l'épisode — jamais un texte générique isolé du type "cliquez ici" ou "en savoir plus". Exemples de formulation
-(à adapter au contenu réel, ne pas copier tel quel) : "comme {guest_full_name or podcast['host_name']} l'explique
-dans <a class="inline-cta" href="{listenly_url}">l'épisode</a>", "un point détaillé dans
-<a class="inline-cta" href="{listenly_url}">{podcast['podcast_name']}</a>", "évoqué plus largement dans
-<a class="inline-cta" href="{listenly_url}">ce podcast</a>". Le lien fait TOUJOURS partie d'une phrase
-grammaticalement naturelle, jamais un fragment de texte isolé ou souligné en dehors de son contexte de phrase.
-6. <div class="definition-box"> CONDITIONNEL : UNIQUEMENT si un terme technique central est explicitement défini
-   dans le contexte réel fourni — jamais inventé. N'en ajoute pas si rien ne s'y prête.
-7. <blockquote class="citation"> CONDITIONNEL (si citation réelle ET/OU invité identifié) :
-   <p>"citation verbatim réelle en italique"</p>
-   <figcaption><strong>{guest_full_name}</strong> — [titre réel], [développement réel du parcours/de la
-   légitimité en 2-4 phrases courtes, à partir du contexte biographique réel fourni]</figcaption>
-   Si aucune citation mais invité identifié : même bloc sans la ligne <p>, juste le figcaption avec la bio.
-   Si aucun invité identifiable : pas de blockquote, passe directement à la suite.
-{related_block_instruction}
-8. <div class="points-cles"><h3>{STRINGS.get('key_takeaways_label','Points clés à retenir')}</h3><ul> : 3 à 4
-   puces, chacune 1 phrase courte de synthèse fidèle au contenu réel de la fiche (pas de répétition mot pour mot
-   du lead — une vraie synthèse complémentaire). N'invente rien : chaque puce doit être déductible directement du
-   contenu déjà présent sur la fiche.
-9. <div class="cta-block"> : UN SEUL bouton <a class="cta-btn">{STRINGS['cta_listen']}</a> → {listenly_url}
-   (jamais Spotify, jamais l'audio brut) — en toute fin de page, après les points clés
-10. <footer> : une ligne discrète "{STRINGS['editorial_byline']}"
-- PAS de FAQ sur la question PRINCIPALE elle-même (une seule question par fiche, traitée en BlogPosting) — le
-  bloc "{STRINGS['see_also_label']}" (si présent, cf. instruction ci-dessus, en <div class="faq"><h2> puis
-  <div class="faq-item"> par entrée) ne concerne QUE les autres questions déjà publiées, jamais un doublon
-  de la question de cette fiche
-- Couleur d'accent déjà gérée par les classes CSS — n'ajoute jamais de style inline supplémentaire
-- COHÉRENCE DES NOMS : première mention d'une personne = prénom + nom complet, mentions suivantes = nom de
-  famille seul (jamais l'inverse, jamais de variation)
-
-## JSON-LD (head)
-@graph :
-- Person (HOST_NAME/HOST_TITLE/worksFor HOST_COMPANY)
-{person_guest_instruction}
-- BlogPosting englobant — SCHEMA PRINCIPAL de la fiche (headline=H1, author={{"@type":"Organization","name":"[nom
-  reel de l'invite ou de l'entreprise source, ou HOST_NAME a defaut]"}}, publisher={{"@type":"Organization","name":"Listenly","url":"https://listenly.fr"}},
-  isPartOf={{"@type":"PodcastSeries","name":"{podcast['podcast_name']}","url":"{listenly_url}"}}, datePublished, dateModified=today ({today}),
-  image=COVER_IMAGE si disponible, description=le meta description de la page,
-  speakable cssSelector [".lead"{speakable_extra}])
-- BreadcrumbList (1. Listenly (https://listenly.fr) 2. {podcast['podcast_name']} ({podcast['fiche_url']}) 3. cette question ({q_url}))
-{faq_jsonld_line}
-{mentions_instruction}
-IMPORTANT — NE PAS ajouter de schema QAPage : Google reserve QAPage aux pages communautaires ou plusieurs
-utilisateurs repondent a une meme question (type forum), jamais a du contenu editorial ou une seule reponse
-redactionnelle est fournie a partir d'une source (ici : le podcast). Utiliser QAPage ici serait un mauvais usage
-du schema, invalide aux yeux de Google (verifie en Search Console). Le BlogPosting ci-dessus est le schema
-correct pour ce type de page.
-Backlinks cachés identiques aux autres fiches podcast-btb (canonical={q_url}, og:url={q_url}, rel=publisher,
-#semantic-index display:none en fin de <body> listant les entités réelles ci-dessus{" plus entity " + guest_full_name if guest_full_name else ""}).
-AJOUT CONDITIONNEL — HowTo : ajoute UNIQUEMENT si la réponse décrit une vraie démarche étape par étape
-reproductible (ex: "comment structurer X", "les étapes pour Y"). N'en ajoute PAS si la réponse est une
-explication/opinion/contexte général sans étapes concrètes — un HowTo forcé sur du contenu qui n'en est pas un
-est une erreur de balisage, pas un bonus.
-
-## LISIBILITÉ HUMAINE — PRIORITÉ ABSOLUE sur le remplissage GEO
-Cette fiche doit ressembler à un échange clair et humain, pas une liste de cases GEO cochées. Une seule question
-traitée = pas besoin de longueur artificielle. LANGAGE ASSERTIF ET AUTORITAIRE (affirme les faits, évite "il
-semblerait que"), fidèle à la réponse source, jamais évasif.
-
-## RÈGLES
-- H1 = la question elle-même (forme interrogative naturelle), affichée dans la bulle, jamais un titre déclaratif générique
-- Couleur d'accent réservée au bouton CTA et à la barre de la carte citation uniquement
-- CTA principal et le lien discret pointent TOUS vers {listenly_url}, rien d'autre
-- Paragraphes courts partout (2-4 phrases max) — c'est la priorité de lisibilité numéro un de cette fiche
-- La carte citation+bio doit être développée avec autant de détail réel que possible (nom, titre, entreprise,
-  parcours, expertise) — c'est le signal d'autorité prioritaire de toute la fiche, ne le bâcle jamais
-- Contenu strictement fidèle à la réponse source + contexte réel fourni — jamais générique au podcast dans son ensemble
-
-IMPORTANT : Réponds UNIQUEMENT avec le code HTML complet, de <!DOCTYPE html> à </html>. Aucun texte avant/après, aucun markdown, aucun backtick."""
+    return static_prompt, dynamic_prompt
 
 def render_questions_index(podcast, published):
     language = podcast.get("language", "fr")
@@ -728,11 +873,13 @@ def main():
     emod = episode_mod()
     related_questions = list(reversed(registry["published"]))[:3]
     try:
-        prompt = build_question_prompt(podcast, question, ep["title"], ep.get("pubdate",""), context, q_slug, q_url, today, related_questions)
+        static_prompt, dynamic_prompt = build_question_prompt(podcast, question, ep["title"], ep.get("pubdate",""), context, q_slug, q_url, today, related_questions)
         # Haiku (moins cher, ~2x moins couteux que Sonnet) pour toute la generation de ce
         # moteur, y compris l'extraction/minage — decision explicite de reduire les couts
         # au maximum. A surveiller : fidelite des citations/chiffres extraits du transcript.
-        html_out = emod.clean_html(emod.call_claude(prompt))
+        # Bloc statique marque pour le cache de prompt Anthropic (voir call_claude) : sur un
+        # run groupe de plusieurs podcasts d'affilee, seul le 1er appel paie plein tarif dessus.
+        html_out = emod.clean_html(emod.call_claude(dynamic_prompt, static_prompt=static_prompt))
     except Exception as e:
         log(f"ERREUR génération fiche question : {e} — question remise en stock.")
         registry["pending_qa"].insert(0, question)
