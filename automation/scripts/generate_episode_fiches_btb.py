@@ -93,17 +93,29 @@ def compress_audio_if_needed(src, size):
                    check=True, capture_output=True)
     return out
 
-WHISPER_SPEEDUP_FACTOR = 1.5  # reduit la duree audio (donc le cout Whisper, facture a la minute
-# d'audio) sans perdre un mot : atempo change la vitesse de lecture sans distordre la hauteur,
-# Whisper transcrit le meme contenu, juste en moins de temps facture. 1.5x est un facteur
-# reconnu comme sur pour la precision de transcription (au-dela de 2x, la qualite se degrade
-# davantage) — 1.5x reduit le cout Whisper d'environ un tiers pour un episode donne.
+WHISPER_SPEEDUP_FACTOR = float(os.environ.get("WHISPER_SPEEDUP_FACTOR", "1.5"))  # reduit la duree
+# audio (donc le cout Whisper, facture a la minute d'audio) sans perdre un mot : atempo change
+# la vitesse de lecture sans distordre la hauteur, Whisper transcrit le meme contenu, juste en
+# moins de temps facture. 1.5x est le facteur par defaut, reconnu comme sur pour la precision de
+# transcription. Surchageable via la variable d'environnement WHISPER_SPEEDUP_FACTOR — utilise
+# pour tester un facteur different sur un podcast precis sans changer le comportement global.
+def _atempo_filter_chain(factor):
+    """Le filtre ffmpeg atempo est limite a 0.5-2.0 par instance — au-dela, il faut en chainer
+    plusieurs (ex: 2.5x = atempo=2.0,atempo=1.25)."""
+    parts = []
+    remaining = factor
+    while remaining > 2.0:
+        parts.append("atempo=2.0")
+        remaining /= 2.0
+    parts.append(f"atempo={remaining}")
+    return ",".join(parts)
+
 def speed_up_audio(src):
     log(f"Acceleration audio x{WHISPER_SPEEDUP_FACTOR} (reduction cout Whisper, sans perte de mots)...")
     out = src.rsplit(".", 1)[0] + "_fast.mp3"
     try:
         subprocess.run(
-            ["ffmpeg", "-y", "-i", src, "-filter:a", f"atempo={WHISPER_SPEEDUP_FACTOR}", "-vn", out],
+            ["ffmpeg", "-y", "-i", src, "-filter:a", _atempo_filter_chain(WHISPER_SPEEDUP_FACTOR), "-vn", out],
             check=True, capture_output=True,
         )
         return out
