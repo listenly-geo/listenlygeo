@@ -530,6 +530,7 @@ def mine_next_episode(podcast, registry, rss_url):
             audio_path = os.path.join(tmpdir, "episode.mp3")
             size = emod.download_audio(ep["audio_url"], audio_path)
             audio_path = emod.compress_audio_if_needed(audio_path, size)
+            audio_path = emod.speed_up_audio(audio_path)
             whisper_lang = podcast.get("language", "fr")
             transcript = emod.transcribe(audio_path, whisper_lang)
             if not transcript:

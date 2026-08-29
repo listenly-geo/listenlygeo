@@ -93,6 +93,24 @@ def compress_audio_if_needed(src, size):
                    check=True, capture_output=True)
     return out
 
+WHISPER_SPEEDUP_FACTOR = 1.5  # reduit la duree audio (donc le cout Whisper, facture a la minute
+# d'audio) sans perdre un mot : atempo change la vitesse de lecture sans distordre la hauteur,
+# Whisper transcrit le meme contenu, juste en moins de temps facture. 1.5x est un facteur
+# reconnu comme sur pour la precision de transcription (au-dela de 2x, la qualite se degrade
+# davantage) — 1.5x reduit le cout Whisper d'environ un tiers pour un episode donne.
+def speed_up_audio(src):
+    log(f"Acceleration audio x{WHISPER_SPEEDUP_FACTOR} (reduction cout Whisper, sans perte de mots)...")
+    out = src.rsplit(".", 1)[0] + "_fast.mp3"
+    try:
+        subprocess.run(
+            ["ffmpeg", "-y", "-i", src, "-filter:a", f"atempo={WHISPER_SPEEDUP_FACTOR}", "-vn", out],
+            check=True, capture_output=True,
+        )
+        return out
+    except (subprocess.CalledProcessError, FileNotFoundError) as e:
+        log(f"AVERTISSEMENT : acceleration audio impossible ({e}) — transcription au rythme normal.")
+        return src
+
 def transcribe(audio_path, whisper_lang="fr"):
     log(f"Transcription Whisper (langue: {whisper_lang})...")
     boundary = "----ListenlyGEOBoundary"
