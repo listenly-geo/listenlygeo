@@ -89,6 +89,62 @@ COVER_IMAGE_OVERRIDE = os.environ.get("COVER_IMAGE", "").strip()
 CONTACT_LABEL = os.environ.get("CONTACT_LABEL", "le podcast").strip() or "le podcast"
 
 MODEL      = "claude-haiku-4-5-20251001"
+
+# Design system des fiches podcast N1 ("magazine business premium", Georgia serif type
+# Forbes/HBR). Injecte directement par le script APRES generation Claude — jamais envoye
+# dans le prompt ni ecrit par Claude (meme technique que sur le moteur N2, deja validee) :
+# economie de tokens en entree ET en sortie, aucun impact sur le contenu ou la structure GEO.
+CSS_TEMPLATE = """body {{ font-family: Georgia, serif; color: #1a1a1a; line-height: 1.7; margin: 0; }}
+.site-header {{ position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #e2e2e2;
+  padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }}
+.site-header .logo {{ font-family: Georgia, serif; font-weight: 700; font-size: 19px; color: #0a0a0a;
+  text-decoration: none; letter-spacing: -0.01em; }}
+.site-header .login-link {{ font-family: Helvetica, Arial, sans-serif; font-weight: 700; font-size: 13px;
+  color: #fff; background: {accent_color}; padding: 8px 18px; border-radius: 999px; text-decoration: none; white-space: nowrap; }}
+main.wrapper {{ max-width: 720px; margin: 0 auto; padding: 40px 20px 64px; }}
+.eyebrow-category {{ font-family: Helvetica, Arial, sans-serif; text-transform: uppercase; font-weight: 700;
+  letter-spacing: .08em; font-size: 12px; color: {accent_color}; margin-bottom: 10px; }}
+h1 {{ font-family: Georgia, serif; font-weight: 700; font-size: clamp(30px,4.5vw,44px); line-height: 1.18;
+  color: #0a0a0a; margin: 0 0 18px; }}
+.byline-row {{ font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #333; display: flex;
+  flex-wrap: wrap; gap: 6px; align-items: baseline; margin-bottom: 10px; }}
+.byline-row .name {{ font-weight: 700; color: #111; }}
+.host-bio {{ font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #666; margin-bottom: 14px; }}
+.hero-image {{ width: 100%; max-width: 220px; height: auto; border-radius: 6px; display: block; margin: 4px 0 20px; }}
+.publish-row {{ font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #555; display: flex;
+  flex-wrap: wrap; gap: 10px; align-items: center; padding: 14px 0; border-top: 1px solid #e2e2e2;
+  border-bottom: 1px solid #e2e2e2; margin: 4px 0 28px; }}
+.cta-row {{ display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }}
+.cta-listen {{ background: {accent_color}; color: #fff; font-family: Helvetica, Arial, sans-serif; font-size: 13px;
+  font-weight: 700; padding: 9px 20px; border-radius: 999px; text-decoration: none; }}
+.inline-cta {{ color: {accent_color}; text-decoration: underline; font-weight: 700; }}
+.divider {{ border-top: 1px solid #e2e2e2; }}
+.lead-label {{ font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: {accent_color}; }}
+.lead {{ font-family: Georgia, serif; font-size: 20px; line-height: 1.6; font-style: italic;
+  border-left: 3px solid {accent_color}; padding-left: 22px; color: #1a1a1a; margin: 14px 0 28px; }}
+.key-facts-label {{ font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: {accent_color}; margin-bottom: 12px; padding-top: 24px; border-top: 1px solid #e2e2e2; }}
+.key-facts {{ list-style: none; padding: 0; }}
+.key-facts li {{ font-family: Georgia, serif; font-size: 18px; line-height: 1.7; color: #1a1a1a; padding-left: 22px;
+  margin-bottom: 14px; position: relative; }}
+.key-facts li::before {{ content: "\u2022"; position: absolute; left: 0; color: {accent_color}; font-weight: 700; font-size: 22px; }}
+.article-body h2 {{ font-family: Georgia, serif; font-weight: 700; font-size: clamp(22px,3.2vw,28px); line-height: 1.25;
+  color: #0a0a0a; margin-top: 44px; margin-bottom: 16px; padding-top: 24px; border-top: 1px solid #e2e2e2; }}
+.article-body p {{ font-family: Georgia, serif; font-size: 18px; line-height: 1.8; color: #1a1a1a; margin-bottom: 20px; }}
+.pull-quote {{ border-left: 3px solid {accent_color}; padding-left: 24px; font-family: Georgia, serif; font-size: 21px;
+  font-style: italic; line-height: 1.5; color: #111; margin: 32px 0; }}
+.faq-item h3 {{ font-family: Georgia, serif; font-size: 18px; font-weight: 700; color: #111; margin-bottom: 6px; }}
+.faq-item p {{ font-family: Georgia, serif; font-size: 17px; color: #2a2a2a; }}
+.episode-card {{ border: 1px solid #e2e2e2; border-radius: 6px; display: flex; padding: 20px; gap: 16px;
+  align-items: center; margin-top: 40px; }}
+.episode-card img {{ width: 90px; height: 90px; object-fit: cover; border-radius: 4px; }}
+.card-listen {{ font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 16px;
+  border-radius: 999px; background: {accent_color}; color: #fff; text-decoration: none; }}
+footer {{ font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #666; border-top: 1px solid #e2e2e2;
+  padding-top: 16px; margin-top: 48px; }}
+footer a {{ text-decoration: underline; color: #999; }}
+#semantic-index {{ display: none; }}"""
 PAGES_DIR  = "pages/podcast-btb"
 DATA_FILE  = f"{PAGES_DIR}/data/podcasts.json"
 CATEGORY_DIR = f"{PAGES_DIR}/categorie"
@@ -232,42 +288,21 @@ title, meta description (140-155 car.), canonical={fiche_url}, og:title, og:desc
 
 ## STRUCTURE HTML OBLIGATOIRE
 
-### CSS — DIRECTION "MAGAZINE BUSINESS PREMIUM" (type Forbes, HBR — crédible, PAS marketing)
-- body : Georgia, serif, #1a1a1a, line-height 1.7 (TOUT le texte en serif, y compris les titres — c'est le serif qui donne le sérieux éditorial, pas le sans-serif bold)
-- .site-header : position sticky, top 0, z-index 10, background #fff, border-bottom 1px solid #e2e2e2, padding 14px 24px, display flex, align-items center, justify-content space-between, flex-wrap wrap, gap 10px (pleine largeur, EN DEHORS de main.wrapper — pas limité à 720px)
-- .site-header .logo : font-family Georgia, serif, font-weight 700, font-size 19px, color #0a0a0a, text-decoration none, letter-spacing -0.01em (texte "Listenly", lien vers https://listenly.fr/)
-- .site-header .login-link : sans-serif, font-weight 700, font-size 13px, color #fff, background {ACCENT_COLOR}, padding 8px 18px, border-radius 999px, text-decoration none, white-space nowrap (lien vers https://listenly.fr/userAuth)
-- main.wrapper : max-width 720px, margin auto, padding 40px 20px 64px (IMPORTANT : utiliser <main class="wrapper">, PAS <div>, pour le landmark d'accessibilité)
-- .eyebrow-category : sans-serif (Helvetica, Arial), uppercase, font-weight 700, letter-spacing .08em, font-size 12px, color {ACCENT_COLOR}, margin-bottom 10px (texte simple, PAS un pill/badge — juste un label catégorie sobre, façon "BREAKING · BUSINESS" en presse)
-- h1 : font-family Georgia, serif, font-weight 700, font-size clamp(30px,4.5vw,44px), line-height 1.18, color #0a0a0a, margin 0 0 18px (PAS sans-serif, PAS de question — le nom du podcast en gros titre éditorial classique)
-- .byline-row : sans-serif, font-size 14px, color #333, display flex, flex-wrap wrap, gap 6px, align-items baseline, margin-bottom 10px
-- .byline-row .name : font-weight 700, color #111
-- .hero-image : width 100%; max-width 220px; height auto; border-radius 6px; display block; margin 4px 0 20px (image podcast modérée, format portrait/carré, PAS minuscule vignette 84px, PAS pleine largeur non plus — un juste milieu crédible comme une photo d'illustration Forbes)
-- .publish-row : sans-serif 13px, color #555, display flex, flex-wrap wrap, gap 10px, align-items center, padding 14px 0, border-top 1px solid #e2e2e2, border-bottom 1px solid #e2e2e2, margin 4px 0 28px (contraste WCAG AA — #555 minimum, jamais plus clair)
-- .cta-row : display flex, gap 10px, flex-wrap wrap, margin-bottom 8px
-- .cta-listen : background {ACCENT_COLOR}, color #fff, sans-serif 13px font-weight 700, padding 9px 20px, border-radius 999px (PILL, pas rectangle — style "Suivre/Follow" discret de presse, PAS un gros bouton SaaS ; seul élément à porter la couleur d'accent pleine)
-- .inline-cta : color {ACCENT_COLOR}, text-decoration underline, font-weight 700 (lien texte simple dans le corps de l'article, PAS un bouton — juste un lien souligné coloré, intégré naturellement dans une phrase)
-- .divider : border-top 1px solid #e2e2e2
-- .lead-label : sans-serif 12px, font-weight 700, uppercase, letter-spacing .08em, color {ACCENT_COLOR} (comme "KEY FACTS" en presse — SEUL élément hors CTA à pouvoir utiliser la couleur d'accent, car c'est un simple label texte, pas un fond coloré)
-- .lead : font-family Georgia, font-size 20px, line-height 1.6, font-style italic, border-left 3px solid {ACCENT_COLOR}, padding-left 22px, color #1a1a1a, margin 14px 0 28px
-- .key-facts-label : sans-serif 12px, font-weight 700, uppercase, letter-spacing .08em, color {ACCENT_COLOR}, margin-bottom 12px, padding-top 24px, border-top 1px solid #e2e2e2
-- .key-facts li : font-family Georgia, font-size 18px, line-height 1.7, color #1a1a1a, padding-left 22px, margin-bottom 14px, position relative
-- .key-facts li::before : content "•", position absolute, left 0, color {ACCENT_COLOR}, font-weight 700, font-size 22px (PAS de fond gris, PAS d'encadré — puce simple colorée sur fond blanc, comme une vraie liste éditoriale)
-- .article-body h2 : font-family Georgia, serif, font-weight 700, font-size clamp(22px,3.2vw,28px), line-height 1.25, color #0a0a0a, margin-top 44px, margin-bottom 16px, padding-top 24px, border-top 1px solid #e2e2e2 (intertitre serif classique, PAS sans-serif, PAS d'uppercase)
-- .article-body p : font-family Georgia, serif, font-size 18px, line-height 1.8, color #1a1a1a, margin-bottom 20px
-- .pull-quote : border-left 3px solid {ACCENT_COLOR}, padding-left 24px, font-family Georgia, font-size 21px, font-style italic, line-height 1.5, color #111, margin 32px 0 (PAS de fond gris, PAS de gros guillemet décoratif — juste un filet vertical net et net, comme une vraie pull-quote de magazine)
-- .faq-item h3 : font-family Georgia, serif, font-size 18px, font-weight 700, color #111, margin-bottom 6px
-- .faq-item p : font-family Georgia, font-size 17px, color #2a2a2a
-- .episode-card : border 1px solid #e2e2e2, border-radius 6px, display flex, padding 20px, gap 16px, align-items center, margin-top 40px
-- .episode-card img : width 90px, height 90px, object-fit cover, border-radius 4px
-- .card-listen : sans-serif 13px font-weight 700, padding 8px 16px, border-radius 999px, background {ACCENT_COLOR}, color #fff
-- footer : sans-serif 12px, color #666, border-top 1px solid #e2e2e2, padding-top 16px, margin-top 48px
-- Tous les liens texte hors boutons (footer, liens de bas de page) : text-decoration underline systématique
-- #semantic-index : display none
+DANS <head>, laisse une balise <style></style> VIDE (littéralement sans rien dedans) — le CSS réel (design
+"magazine business premium", Georgia serif type Forbes/HBR) est injecté automatiquement par le script juste
+après ta génération, tu n'as pas à l'écrire.
+
+Classes CSS disponibles (déjà stylées, utilise-les par leur nom exact, n'invente aucune autre classe) :
+.site-header + .logo + .login-link (header hors de main.wrapper) · main.wrapper (conteneur, utiliser <main>
+PAS <div>) · .eyebrow-category · h1 · .byline-row + .name · .host-bio (bio crédibilité 1 phrase) ·
+.hero-image · .publish-row · .cta-row + .cta-listen (pill unique) · .inline-cta (lien texte souligné, PAS
+un bouton) · .divider · .lead-label + .lead · .key-facts-label + .key-facts (liste à puces) ·
+.article-body h2/p · .pull-quote (SANS attribution) · .faq-item h3/p · .episode-card + .card-listen ·
+footer · #semantic-index (display:none)
 
 RÈGLE DE HIÉRARCHIE DE TITRES (accessibilité, obligatoire) : H1 (unique) → puis uniquement des H2 pour les 4 sections de l'article → puis H3 UNIQUEMENT pour les questions FAQ, sous un H2 "FAQ" existant. Ne JAMAIS sauter un niveau.
 
-RÈGLE DE COULEUR ET DE TON : {ACCENT_COLOR} apparaît sur .eyebrow-category, .cta-listen, .lead-label, .key-facts-label, les puces ::before, le filet des .lead/.pull-quote/.article-body h2 (bordures fines). Il ne remplit JAMAIS un fond (pas de background coloré, pas de boîte grise autour du texte). Tout le texte de contenu (H1, H2, paragraphes, listes) est en Georgia serif — c'est le choix typographique unique et cohérent qui fait "vrai magazine business" plutôt que "landing page marketing". Aucun encadré gris (#fafafa), aucun badge/pill décoratif hors des 2 CTA et de la carte de fin — le reste du contenu est du texte nu, structuré par des filets fins (1px #e2e2e2) et des labels colorés discrets, jamais des boîtes.
+RÈGLE DE COULEUR ET DE TON : la couleur d'accent (déjà gérée par les classes CSS) apparaît sur .eyebrow-category, .cta-listen, .lead-label, .key-facts-label, les puces ::before, le filet des .lead/.pull-quote/.article-body h2. Tout le texte de contenu (H1, H2, paragraphes, listes) est en Georgia serif — c'est le choix typographique unique et cohérent qui fait "vrai magazine business" plutôt que "landing page marketing". Aucun encadré gris, aucun badge/pill décoratif hors des 2 CTA et de la carte de fin — le reste du contenu est du texte nu, structuré par des filets fins et des labels colorés discrets, jamais des boîtes.
 
 ### SECTIONS (ordre exact — inspiré d'un article Forbes/HBR)
 0. SITE HEADER (avant le <main>, PAS dedans) : <header class="site-header"><a class="logo" href="https://listenly.fr/">Listenly</a><a class="login-link" href="https://listenly.fr/userAuth">{STRINGS['login_label']}</a></header> — texte EXACT, ne pas reformuler.
@@ -1628,6 +1663,16 @@ def main():
     if not html_out.lower().startswith("<!doctype"):
         log("ERREUR : sortie invalide")
         log(html_out[:200])
+        sys.exit(1)
+
+    real_css = CSS_TEMPLATE.format(accent_color=ACCENT_COLOR)
+    if "<style></style>" in html_out:
+        html_out = html_out.replace("<style></style>", f"<style>{real_css}</style>", 1)
+    elif "<style>" in html_out and "</style>" in html_out:
+        html_out = re.sub(r"<style>.*?</style>", f"<style>{real_css}</style>", html_out, count=1, flags=re.DOTALL)
+        log("AVERTISSEMENT : Claude a ecrit du CSS malgre l'instruction — remplace par le template reel.")
+    else:
+        log("ERREUR : aucune balise <style> trouvee dans la sortie")
         sys.exit(1)
 
     issues = audit(html_out, fiche_url)
