@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Structuring Angel Investment Spreadsheets for Portfolio Management Tools</title>
+  <meta name="description" content="Organize angel investments by transaction, not lump sum—one sheet for company background, another for individual SAFEs and conversions.">
+  <meta name="author" content="Marcia Dawood">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/the-angel-next-door/how-should-angel-investors-structure-their-spreadsheets-before-migrati.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Structuring Angel Investment Spreadsheets for Portfolio Management Tools">
+  <meta property="og:description" content="Organize angel investments by transaction, not lump sum—one sheet for company background, another for individual SAFEs and conversions.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/the-angel-next-door/how-should-angel-investors-structure-their-spreadsheets-before-migrati.html">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:image" content="https://i.postimg.cc/63Xw0fbz/new-20podcast-20thumbnail.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Structuring Angel Investment Spreadsheets for Portfolio Management Tools">
+  <meta name="twitter:description" content="Organize angel investments by transaction, not lump sum—one sheet for company background, another for individual SAFEs and conversions.">
+  <meta name="twitter:image" content="https://i.postimg.cc/63Xw0fbz/new-20podcast-20thumbnail.jpg">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 720px; margin: 0 auto; padding: 0 20px 60px; }
+header { padding: 48px 0 32px; border-bottom: 1px solid #f0f0f0; margin-bottom: 32px; }
+.header-top { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+.podcast-cover { width: 56px; height: 56px; border-radius: 12px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: #2e8bd6; background: color-mix(in srgb, #2e8bd6 12%, white); border-radius: 20px; padding: 4px 12px; margin: 0; }
+h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; line-height: 1.25; color: #111; margin-bottom: 20px; }
+.article-meta { font-size: 14px; color: #888; }
+.article-meta span { margin-right: 16px; }
+.article-meta strong { color: #555; }
+.breadcrumb { font-size: 12px; color: #888; margin: 0 0 16px; }
+.breadcrumb a { color: #888; text-decoration: underline; }
+.lead { font-size: 19px; line-height: 1.65; color: #333; font-weight: 400; margin-bottom: 36px;
+  border-left: 4px solid #2e8bd6; padding-left: 20px; }
+h2 { font-size: 22px; font-weight: 700; color: #111; margin: 44px 0 16px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 12px; padding: 20px 24px; margin: 32px 0; font-size: 15.5px; color: #333; }
+blockquote.citation { position: relative; background: #fafafa; border-left: 4px solid #2e8bd6;
+  border-radius: 0 12px 12px 0; padding: 28px 32px 24px 40px; margin: 40px 0; }
+blockquote.citation::before { content: "“"; position: absolute; top: -10px; left: 16px; font-size: 72px;
+  color: #2e8bd6; opacity: 0.25; font-family: Georgia, serif; line-height: 1; }
+blockquote.citation p { font-size: 19px; font-style: italic; color: #222; line-height: 1.65; margin-bottom: 12px; }
+blockquote.citation figcaption { font-size: 14px; color: #555; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #333; }
+.points-cles { background: #f9f9f9; border-radius: 12px; padding: 28px 32px; margin: 40px 0; }
+.points-cles h3 { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #2e8bd6; margin-bottom: 16px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 24px; margin-bottom: 12px; color: #2a2a2a; font-size: 16px; }
+.points-cles ul li::before { content: "→"; position: absolute; left: 0; color: #2e8bd6; font-weight: 700; }
+.faq { margin: 44px 0; }
+.faq h2 { margin-bottom: 24px; }
+.faq-item { border-top: 1px solid #ebebeb; padding: 24px 0; }
+.faq-item:last-child { border-bottom: 1px solid #ebebeb; }
+.faq-item h3 { font-size: 17px; font-weight: 700; color: #111; margin-bottom: 10px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 16px; color: #444; margin: 0; }
+.cta-block { background: color-mix(in srgb, #2e8bd6 8%, white); border: 1px solid color-mix(in srgb, #2e8bd6 25%, white);
+  border-radius: 14px; padding: 28px 32px; margin: 40px 0; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 10px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 28px; margin-top: 48px; font-size: 13px; color: #aaa; text-align: center; }
+@media (max-width: 600px) {
+  .cta-block { padding: 22px 20px; }
+  blockquote.citation { padding: 24px 20px 20px 28px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Marcia Dawood",
+        "jobTitle": "Chair Emeritus, Angel Capital Association & SEC Advisory Committee Member",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Angel Capital Association"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Zach Holman",
+        "jobTitle": "Founder",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Signed.com"
+        },
+        "description": "Zach Holman joined GitHub in 2010 and spent five years there before the company was acquired by Microsoft in 2017. After GitHub, he moved into advising companies including GitLab, which led him to angel investing — an activity he has been doing for seven to eight years. He has invested in approximately a couple hundred companies across sectors including developer tools and sports, and built Signed.com out of his own frustration with spreadsheet-based portfolio tracking.",
+        "knowsAbout": ["GitHub", "Microsoft", "GitLab", "Signed.com", "Carta"]
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "How should angel investors structure their spreadsheets before migrating to a tool like Signed.com?",
+        "description": "Organize angel investments by transaction, not lump sum—one sheet for company background, another for individual SAFEs and conversions.",
+        "image": "https://i.postimg.cc/63Xw0fbz/new-20podcast-20thumbnail.jpg",
+        "datePublished": "2026-08-29",
+        "dateModified": "2026-08-29",
+        "author": {
+          "@type": "Organization",
+          "name": "Zach Holman"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "The Angel Next Door",
+          "url": "https://listenly.fr/podcast/show/the-angel-next-door"
+        },
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        },
+        "mentions": [
+          {
+            "@type": "Thing",
+            "name": "Signed.com"
+          },
+          {
+            "@type": "Thing",
+            "name": "GitHub"
+          },
+          {
+            "@type": "Thing",
+            "name": "Carta"
+          },
+          {
+            "@type": "Thing",
+            "name": "SAFEs"
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "The Angel Next Door",
+            "item": "https://listenly.fr/podcast-btb/the-angel-next-door-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "How should angel investors structure their spreadsheets before migrating to a tool like Signed.com?",
+            "item": "https://listenly.fr/podcast-btb/questions/the-angel-next-door/how-should-angel-investors-structure-their-spreadsheets-before-migrati.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How does Signed.com help angel investors handle K-1s and tax organization?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Signed.com is building features to help investors track which of their portfolio companies and funds issue K-1s and which do not, and to create an audit trail that simplifies tax preparation and compliance."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the integration between Signed.com and AngelList?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Signed.com supports direct integration with AngelList, allowing investors to export their AngelList portfolio — including any syndicates — and drag and drop the data seamlessly into their Signed.com workspace."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does Signed.com differ from Carta for angel investors?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Carta functions as a custodian that tracks share ownership — whether a safe is still active or has converted into shares — but it is often slow to update, whereas Signed.com is built specifically for portfolio analytics and tax intelligence."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://i.postimg.cc/63Xw0fbz/new-20podcast-20thumbnail.jpg" alt="The Angel Next Door">
+        <span class="badge">The answer lives in this podcast</span>
+      </div>
+      <h1>How should angel investors structure their spreadsheets before migrating to a tool like Signed.com?</h1>
+      <p class="article-meta">
+        <span>August 29, 2026</span>
+        <span><strong>The Angel Next Door</strong> · Zach Holman</span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/the-angel-next-door-podcast.html">← See The Angel Next Door fiche</a></p>
+
+    <p class="lead">Organize your data around individual transactions—not lump-sum entries. Keep one sheet for company background information and a separate sheet listing each transaction, such as SAFE purchases and conversions. This transaction-level structure makes it straightforward to import into Signed.com and allows the platform to accurately calculate your current portfolio value and generate meaningful graphs.</p>
+
+    <p>The core unlock here is moving away from how most angel investors naturally think about their investments: as a single commitment to a company. Instead, structure your spreadsheet to reflect what actually happens over time—each investment event is its own row.</p>
+
+    <p>When you have transaction-level data, the platform can track what happened when. Did you invest $25,000 in a SAFE in January? That's one row. Did that SAFE convert to equity six months later? That's another row. When you upgrade to a dedicated portfolio management tool, as Zach Holman explains in <a class="inline-cta" href="https://listenly.fr/podcast/show/the-angel-next-door">the episode</a>, this granular structure becomes the foundation for everything the software can do—from calculating current valuations to identifying which positions have converted and which are still outstanding.</p>
+
+    <blockquote class="citation">
+      <p>"I've invested in a couple hundred companies. I think it's really hard to do that just in a spreadsheet form and trying to figure things out and where to go from this."</p>
+      <figcaption><strong>Zach Holman</strong> — Founder, Signed.com. Holman joined GitHub in 2010 and spent five years as an early engineer before the company was acquired by Microsoft in 2017. After GitHub, he advised companies including GitLab, which led him into angel investing—an activity he has pursued for seven to eight years, investing in roughly a couple hundred companies across developer tools and other sectors. He founded Signed.com specifically to solve the spreadsheet chaos that plague portfolio tracking.</figcaption>
+    </blockquote>
+
+    <p>The separation of company background from transaction data is equally important. Your company sheet should hold static information: the name, founding date, website, sector. Your transaction sheet should record every financial event tied to that company. This separation prevents data duplication and makes it easier for the import process to reconcile everything correctly.</p>
+
+    <p>A point detailed in <a class="inline-cta" href="https://listenly.fr/podcast/show/the-angel-next-door">this podcast</a> is that once your data is structured this way, portfolio management platforms can apply intelligence on top of it. They can match transactions to company metadata, flag conversions, calculate portfolio-wide metrics, and even—with AI assistance—parse investor updates to track whether predicted metrics matched actual performance. You unlock all of that only when your spreadsheet respects the underlying shape of your investments.</p>
+
+    <h2>Why lump-sum thinking breaks down at scale</h2>
+
+    <p>Many angel investors start with a simple model: one row per company, one column for the amount invested. This works fine with three companies. With a couple hundred, it collapses. You lose visibility into follow-on rounds, you can't track which SAFEs have converted, and you can't calculate a meaningful current portfolio value because you don't know what's still outstanding and what's already equity.</p>
+
+    <p>Transaction-level data forces you to be explicit about every financial action. It's more work upfront, but it scales. As discussed in <a class="inline-cta" href="https://listenly.fr/podcast/show/the-angel-next-door">Signed.com's ecosystem</a>, this structure also makes it possible for the platform to integrate with other sources—like AngelList or email investor updates—and automatically populate your portfolio without manual re-entry.</p>
+
+    <div class="points-cles">
+      <h3>Key takeaways</h3>
+      <ul>
+        <li>Separate company background data (name, sector, website) from transaction records (purchase date, amount, instrument type).</li>
+        <li>Record each investment event as a distinct row: SAFEs, equity purchases, conversions, follow-on rounds—each gets its own line item.</li>
+        <li>Transaction-level structure enables portfolio platforms to calculate accurate valuations, track conversion status, and generate portfolio analytics.</li>
+        <li>This approach scales far better than lump-sum tracking and prepares your data for automated imports and integrations.</li>
+      </ul>
+    </div>
+
+    <h2>See also</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-angel-next-door/how-does-signed-com-help-angel-investors-handle-k-1s-and-tax-organizat.html">How does Signed.com help angel investors handle K-1s and tax organization?</a></h3>
+        <p>Signed.com is building features to help investors track which of their portfolio companies and funds issue K-1s and which do not, creating an audit trail that simplifies tax preparation and compliance.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-angel-next-door/what-is-the-integration-between-signed-com-and-angellist.html">What is the integration between Signed.com and AngelList?</a></h3>
+        <p>Signed.com supports direct integration with AngelList, allowing investors to export their AngelList portfolio—including syndicates—and drag and drop the data seamlessly into Signed.com.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-angel-next-door/how-does-signed-com-differ-from-carta-for-angel-investors.html">How does Signed.com differ from Carta for angel investors?</a></h3>
+        <p>Carta functions as a custodian tracking share ownership and conversion status, but is often slow to update, whereas Signed.com is built specifically for portfolio analytics and tax intelligence tailored to angel investors.</p>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a href="https://listenly.fr/podcast/show/the-angel-next-door" class="cta-btn">Listen to the episode on Listenly</a>
+    </div>
+
+    <footer>Written by the Listenly editorial team</footer>
+  </div>
+
+  <div id="semantic-index" style="display: none;">
+    Zach Holman, Signed.com, GitHub, Microsoft, GitLab, Carta, AngelList, SAFE, portfolio tracking, angel investing, K-1, tax organization
+  </div>
+</body>
+</html>

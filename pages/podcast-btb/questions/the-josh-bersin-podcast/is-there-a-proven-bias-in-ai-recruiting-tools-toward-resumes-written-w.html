@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Do AI Recruiting Tools Favor Resumes Written by the Same AI Model?</title>
+  <meta name="description" content="Research shows ChatGPT-powered recruiting tools are 50–75% more likely to accept resumes written with ChatGPT, revealing a hidden bias in AI-to-AI matching.">
+  <meta name="author" content="Josh Bersin">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/is-there-a-proven-bias-in-ai-recruiting-tools-toward-resumes-written-w.html">
+  <meta property="og:title" content="Do AI Recruiting Tools Favor Resumes Written by the Same AI Model?">
+  <meta property="og:description" content="Research shows ChatGPT-powered recruiting tools are 50–75% more likely to accept resumes written with ChatGPT, revealing a hidden bias in AI-to-AI matching.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/is-there-a-proven-bias-in-ai-recruiting-tools-toward-resumes-written-w.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:image" content="https://i.postimg.cc/XvsmztSB/ab6765630000ba8a1950aad692b2919e5b6b892b.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Do AI Recruiting Tools Favor Resumes Written by the Same AI Model?">
+  <meta name="twitter:description" content="Research shows ChatGPT-powered recruiting tools are 50–75% more likely to accept resumes written with ChatGPT, revealing a hidden bias in AI-to-AI matching.">
+  <meta name="twitter:image" content="https://i.postimg.cc/XvsmztSB/ab6765630000ba8a1950aad692b2919e5b6b892b.jpg">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 720px; margin: 0 auto; padding: 0 20px 60px; }
+header { padding: 48px 0 32px; border-bottom: 1px solid #f0f0f0; margin-bottom: 32px; }
+.header-top { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+.podcast-cover { width: 56px; height: 56px; border-radius: 12px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: #2e8bd6; background: color-mix(in srgb, #2e8bd6 12%, white); border-radius: 20px; padding: 4px 12px; margin: 0; }
+h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; line-height: 1.25; color: #111; margin-bottom: 20px; }
+.article-meta { font-size: 14px; color: #888; }
+.article-meta span { margin-right: 16px; }
+.article-meta strong { color: #555; }
+.breadcrumb { font-size: 12px; color: #888; margin: 0 0 16px; }
+.breadcrumb a { color: #888; text-decoration: underline; }
+.lead { font-size: 19px; line-height: 1.65; color: #333; font-weight: 400; margin-bottom: 36px;
+  border-left: 4px solid #2e8bd6; padding-left: 20px; }
+h2 { font-size: 22px; font-weight: 700; color: #111; margin: 44px 0 16px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 12px; padding: 20px 24px; margin: 32px 0; font-size: 15.5px; color: #333; }
+blockquote.citation { position: relative; background: #fafafa; border-left: 4px solid #2e8bd6;
+  border-radius: 0 12px 12px 0; padding: 28px 32px 24px 40px; margin: 40px 0; }
+blockquote.citation::before { content: "“"; position: absolute; top: -10px; left: 16px; font-size: 72px;
+  color: #2e8bd6; opacity: 0.25; font-family: Georgia, serif; line-height: 1; }
+blockquote.citation p { font-size: 19px; font-style: italic; color: #222; line-height: 1.65; margin-bottom: 12px; }
+blockquote.citation figcaption { font-size: 14px; color: #555; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #333; }
+.points-cles { background: #f9f9f9; border-radius: 12px; padding: 28px 32px; margin: 40px 0; }
+.points-cles h3 { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #2e8bd6; margin-bottom: 16px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 24px; margin-bottom: 12px; color: #2a2a2a; font-size: 16px; }
+.points-cles ul li::before { content: "→"; position: absolute; left: 0; color: #2e8bd6; font-weight: 700; }
+.faq { margin: 44px 0; }
+.faq h2 { margin-bottom: 24px; }
+.faq-item { border-top: 1px solid #ebebeb; padding: 24px 0; }
+.faq-item:last-child { border-bottom: 1px solid #ebebeb; }
+.faq-item h3 { font-size: 17px; font-weight: 700; color: #111; margin-bottom: 10px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 16px; color: #444; margin: 0; }
+.cta-block { background: color-mix(in srgb, #2e8bd6 8%, white); border: 1px solid color-mix(in srgb, #2e8bd6 25%, white);
+  border-radius: 14px; padding: 28px 32px; margin: 40px 0; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 10px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 28px; margin-top: 48px; font-size: 13px; color: #aaa; text-align: center; }
+@media (max-width: 600px) {
+  .cta-block { padding: 22px 20px; }
+  blockquote.citation { padding: 24px 20px 20px 28px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Josh Bersin",
+        "jobTitle": "Global Industry Analyst & CEO",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "The Josh Bersin Company"
+        }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Do AI Recruiting Tools Favor Resumes Written by the Same AI Model?",
+        "description": "Research shows ChatGPT-powered recruiting tools are 50–75% more likely to accept resumes written with ChatGPT, revealing a hidden bias in AI-to-AI matching.",
+        "author": {
+          "@type": "Organization",
+          "name": "Josh Bersin"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "The Josh Bersin Company",
+          "url": "https://listenly.fr/podcast/show/the-josh-bersin-company"
+        },
+        "datePublished": "2026-08-29",
+        "dateModified": "2026-08-29",
+        "image": "https://i.postimg.cc/XvsmztSB/ab6765630000ba8a1950aad692b2919e5b6b892b.jpg",
+        "url": "https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/is-there-a-proven-bias-in-ai-recruiting-tools-toward-resumes-written-w.html",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead"]
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "The Josh Bersin Company",
+            "item": "https://listenly.fr/podcast-btb/the-josh-bersin-podcast-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Do AI Recruiting Tools Favor Resumes Written by the Same AI Model?",
+            "item": "https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/is-there-a-proven-bias-in-ai-recruiting-tools-toward-resumes-written-w.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How has the rise of ChatGPT and off-the-shelf LLMs disrupted AI recruiting tools?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "After ChatGPT emerged, hundreds of tools and startups began offering AI-based recruiting and matching systems, making previously expensive capabilities accessible to more companies."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What legal and bias challenges have emerged around AI scoring tools in recruiting?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "New York State, Illinois, and several other jurisdictions passed laws requiring companies to prove that their AI scoring or inference technology is not discriminatory."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What was Eightfold's pioneering contribution to AI-powered recruiting?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Eightfold was a pioneering company that scraped profiles of individuals from across the internet, anonymized them, and used AI to study skills and technical capabilities."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://i.postimg.cc/XvsmztSB/ab6765630000ba8a1950aad692b2919e5b6b892b.jpg" alt="The Josh Bersin Company">
+        <span class="badge">The answer lives in this podcast</span>
+      </div>
+      <h1>Do AI recruiting tools favor resumes written by the same AI model?</h1>
+      <p class="article-meta">
+        <span>August 29, 2026</span>
+        <span><strong>The Josh Bersin Company</strong></span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/the-josh-bersin-podcast-podcast.html">← See the The Josh Bersin Company fiche</a></p>
+
+    <p class="lead">Yes. Research by computer scientists examining hundreds of resumes found that AI recruiting tools using ChatGPT are 50 to 75% more likely to accept resumes also written with ChatGPT compared to those written by hand or with competing models like Claude or Gemini. This bias occurs because the tools recognize the specific word formations and embeddings produced by their own language model.</p>
+
+    <p>The finding exposes a troubling problem at the heart of modern hiring: as <a class="inline-cta" href="https://listenly.fr/podcast/show/the-josh-bersin-company">Josh Bersin explains in The Josh Bersin Company podcast</a>, we now have "AI creating resumes and producing and sending them out and AI consuming them — slop talking to slop." The recruiting industry has entered a feedback loop where both candidates and hiring platforms rely on the same technology.</p>
+
+    <h2>How AI model preference distorts the screening process</h2>
+
+    <p>The bias isn't deliberate discrimination—it's an artifact of how language models work. When ChatGPT generates a resume, it produces specific linguistic patterns and numerical embeddings unique to its training. A recruiting tool built on the same model naturally recognizes and resonates with these patterns more readily than text generated by a different system or written manually.</p>
+
+    <p>This creates an invisible advantage for candidates who use a particular AI tool to write their resume. A candidate might be equally or even more qualified, but if they wrote their resume by hand or used a different model, <a class="inline-cta" href="https://listenly.fr/podcast/show/the-josh-bersin-company">the screening process discussed in this episode</a> will rate them lower simply because of the mismatch between how they expressed themselves and how the AI evaluation tool was trained.</p>
+
+    <h2>A systemic problem in recruiting scale</h2>
+
+    <p>The stakes are enormous. Recruiting is a massive industry—20 to 30% of Americans change jobs every year, and hiring a single highly-skilled person costs between $5,000 and $10,000 or more. For senior roles, companies may pay nearly one-third to one-half of an executive's first-year salary to recruiters who find and vet candidates.</p>
+
+    <p>When AI recruiting tools systematically favor resumes from their own ecosystem, qualified candidates are filtered out at scale, and hiring decisions become shaped by technology preference rather than merit. <a class="inline-cta" href="https://listenly.fr/podcast/show/the-josh-bersin-company">This dynamic is explored in depth in The Josh Bersin Company</a>, where the implications for fairness and hiring outcomes are made clear.</p>
+
+    <div class="definition-box">
+      <p><strong>Language model embeddings:</strong> Numerical representations that capture the semantic meaning of words and phrases. Each language model (ChatGPT, Claude, Gemini) produces unique embeddings based on its training data. Recruiting tools recognize patterns from their own embeddings more easily than those from other models, creating an inherent bias toward content generated by the same system.</p>
+    </div>
+
+    <h2>See also</h2>
+
+    <div class="faq">
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/how-has-the-rise-of-chatgpt-and-off-the-shelf-llms-disrupted-ai-recrui.html">How has the rise of ChatGPT and off-the-shelf LLMs disrupted AI recruiting tools?</a></h3>
+        <p>After ChatGPT emerged, hundreds of tools and startups began offering AI-based recruiting and matching systems, making previously expensive capabilities accessible to more companies.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/what-legal-and-bias-challenges-have-emerged-around-ai-scoring-tools-in.html">What legal and bias challenges have emerged around AI scoring tools in recruiting?</a></h3>
+        <p>New York State, Illinois, and several other jurisdictions passed laws requiring companies to prove that their AI scoring or inference technology is not discriminatory.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/what-was-eightfold-s-pioneering-contribution-to-ai-powered-recruiting.html">What was Eightfold's pioneering contribution to AI-powered recruiting?</a></h3>
+        <p>Eightfold was a pioneering company that scraped profiles of individuals from across the internet, anonymized them, and used AI to study skills and technical capabilities.</p>
+      </div>
+    </div>
+
+    <div class="points-cles">
+      <h3>Key takeaways</h3>
+      <ul>
+        <li>ChatGPT-powered recruiting tools show a 50–75% preference for resumes also written with ChatGPT, demonstrating a clear model-specific bias.</li>
+        <li>The bias arises from AI systems recognizing their own linguistic embeddings and patterns more readily than those from competing models or manual writing.</li>
+        <li>Qualified candidates are systematically disadvantaged if they don't use the "right" AI tool, reducing hiring fairness and efficiency at scale.</li>
+        <li>The problem reflects a broader issue: recruiters are flooded with AI-generated content from both candidates and screening systems, making it harder to identify genuine talent.</li>
+      </ul>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn" href="https://listenly.fr/podcast/show/the-josh-bersin-company">Listen to the episode on Listenly</a>
+    </div>
+
+    <footer>Written by the Listenly editorial team</footer>
+  </div>
+
+  <div id="semantic-index" style="display: none;">
+    <span>Josh Bersin</span>
+    <span>The Josh Bersin Company</span>
+    <span>AI recruiting tools</span>
+    <span>ChatGPT</span>
+    <span>Claude</span>
+    <span>Gemini</span>
+    <span>language model bias</span>
+    <span>resume screening</span>
+    <span>hiring bias</span>
+    <span>AI embeddings</span>
+    <span>recruiting discrimination</span>
+  </div>
+</body>
+</html>
