@@ -67,6 +67,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          WHISPER_SPEEDUP_FACTOR: "2.0"
           PODCAST_SLUG: |-
             pegasus-radio
         run: python automation/scripts/generate_qa_fiches_btb.py
