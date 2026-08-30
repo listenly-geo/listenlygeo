@@ -1192,14 +1192,14 @@ def build_dashboard():
 
         rows.append(f"""
 <tr>
-  <td class="pod-name"><a href="{r.get('fiche_url','')}" target="_blank">{r.get('podcast_name','')}</a></td>
-  <td>{r.get('categorie','')}</td>
-  <td style="text-align:center" data-sort="{ep['count']}">{ep['count']}</td>
-  <td data-sort="{ep['last'].isoformat() if ep['last'] else ''}">{last_label}{stale_badge}</td>
-  <td style="text-align:center" data-sort="{qa['count']}">{qa['count']}{qa_stock_badge}</td>
-  <td data-sort="{qa['last'].isoformat() if qa['last'] else ''}">{qa_last_label}</td>
-  <td style="text-align:center">{cta}</td>
-  <td>{ep_link}<br>{qa_link}</td>
+  <td class="pod-name" data-label="Podcast"><a href="{r.get('fiche_url','')}" target="_blank">{r.get('podcast_name','')}</a></td>
+  <td data-label="Catégorie">{r.get('categorie','')}</td>
+  <td style="text-align:center" data-label="Épisodes" data-sort="{ep['count']}">{ep['count']}</td>
+  <td data-label="Dernier épisode" data-sort="{ep['last'].isoformat() if ep['last'] else ''}">{last_label}{stale_badge}</td>
+  <td style="text-align:center" data-label="Fiches requête" data-sort="{qa['count']}">{qa['count']}{qa_stock_badge}</td>
+  <td data-label="Dernière requête" data-sort="{qa['last'].isoformat() if qa['last'] else ''}">{qa_last_label}</td>
+  <td style="text-align:center" data-label="CTA">{cta}</td>
+  <td data-label="Fiches générées">{ep_link}<br>{qa_link}</td>
 </tr>""")
 
     DAYS_ABBR = {0: "Lun", 1: "Mar", 2: "Mer", 3: "Jeu", 4: "Ven", 5: "Sam", 6: "Dim"}
@@ -1593,8 +1593,26 @@ ul.clean li{{margin-bottom:6px}}
   .card .num{{font-size:22px}}
   .card .lbl{{font-size:9.5px}}
   div[style*="linear-gradient(135deg,#eef2ff"]{{flex-direction:column;align-items:flex-start !important;gap:8px !important;padding:16px !important}}
-  .panel{{padding:14px 14px;border-radius:12px;overflow-x:auto;-webkit-overflow-scrolling:touch}}
-  #prodTable{{width:auto;min-width:760px}}
+  .panel{{padding:14px 14px;border-radius:12px}}
+
+  /* Tableau "Production par podcast" -> cartes empilees (plus de scroll horizontal, rendu
+     app-like) : chaque <tr> devient une carte, chaque <td> une ligne label/valeur via
+     data-label (voir generation Python), l'entete de colonnes classique est masquee. */
+  #prodTable{{width:100%;min-width:0;border-collapse:separate;border-spacing:0}}
+  #prodTable thead{{display:none}}
+  #prodTable, #prodTable tbody, #prodTable tr, #prodTable td{{display:block;width:100%}}
+  #prodTable tr{{border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:12px;background:#fff}}
+  #prodTable td{{border:none;padding:7px 0;text-align:left !important;position:relative;padding-left:44%}}
+  #prodTable td::before{{content:attr(data-label);position:absolute;left:0;top:7px;width:40%;font-size:10.5px;
+    font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--sub)}}
+  #prodTable td.pod-name{{padding-left:0;padding-top:0;padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:6px;font-size:15px;font-weight:700}}
+  #prodTable td.pod-name::before{{content:none}}
+  #prodTable td.pod-name::after{{content:'🎙';margin-right:6px}}
+
+  /* Historique optimisation : titre/date empiles au lieu de se serrer sur une seule ligne */
+  .opt-item summary{{flex-direction:column;align-items:flex-start !important;gap:2px}}
+  .opt-item{{padding:12px 14px}}
+
   .calendar{{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}}
   .cal-col{{flex:0 0 auto;width:64px}}
   .bars{{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}}
