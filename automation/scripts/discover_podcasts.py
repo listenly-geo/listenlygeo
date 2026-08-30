@@ -14,7 +14,7 @@ lancer le workflow "Fiche Podcast-BTB" (Moteur N1).
 
 Variables d'environnement :
   ANTHROPIC_API_KEY     — obligatoire (qualification GEO)
-  DISCOVERY_COUNTRIES   — codes pays iTunes separes par virgule (defaut: "fr,us")
+  DISCOVERY_COUNTRIES   — codes pays iTunes separes par virgule (defaut: pays anglophones)
   DISCOVERY_MAX_QUALIFY — nombre max de candidats a qualifier par run (defaut: 15,
                           controle le cout des appels Claude+recherche web)
   DISCOVERY_KEYWORDS_FILE — chemin du fichier JSON de mots-cles (defaut ci-dessous)
@@ -30,7 +30,7 @@ import urllib.request, urllib.error, urllib.parse
 
 API_KEY = os.environ["ANTHROPIC_API_KEY"]
 MODEL = "claude-haiku-4-5-20251001"
-COUNTRIES = [c.strip() for c in os.environ.get("DISCOVERY_COUNTRIES", "us,gb,au,ca").split(",") if c.strip()]
+COUNTRIES = [c.strip() for c in os.environ.get("DISCOVERY_COUNTRIES", "us,gb,au,ca,ie,nz,sg,za").split(",") if c.strip()]  # pays anglophones elargis (30/08/2026)
 MAX_QUALIFY = int(os.environ.get("DISCOVERY_MAX_QUALIFY", "15"))
 KEYWORDS_FILE = os.environ.get(
     "DISCOVERY_KEYWORDS_FILE", "automation/data/discovery_keywords.json"
