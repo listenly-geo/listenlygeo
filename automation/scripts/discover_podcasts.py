@@ -93,10 +93,14 @@ METADONNEES ITUNES :
 - Description : {description}
 - Nombre d'episodes : {track_count}
 
+Determine aussi la langue principale de ce podcast (a partir du nom, de l'editeur et de la description) —
+UNIQUEMENT "fr" (francais), "en" (anglais), ou "other" (toute autre langue, y compris si incertain).
+
 Reponds STRICTEMENT avec un objet JSON valide, rien d'autre :
 {{
   "mass_media_or_celebrity": true/false,
   "existing_coverage_level": "faible/moyen/eleve",
+  "detected_language": "fr" ou "en" ou "other",
   "verdict": "ONBOARD" ou "REJECT",
   "reason": "1-2 phrases en francais expliquant le verdict"
 }}"""
@@ -215,6 +219,8 @@ def main():
             "genre": r.get("primaryGenreName", ""),
             "track_count": r.get("trackCount", 0),
             "collection_view_url": r.get("collectionViewUrl", ""),
+            "cover_image": r.get("artworkUrl600") or r.get("artworkUrl100") or r.get("artworkUrl60") or "",
+            "detected_language": result.get("detected_language", "other"),
             "verdict": result.get("verdict", "REJECT"),
             "reason": result.get("reason", ""),
             "checked_date": __import__("datetime").date.today().isoformat(),
