@@ -183,10 +183,34 @@ function applyCandidate(){
   if(!c) return;
   document.querySelector('input[name="input_mode"][value="rss"]').checked = true;
   switchMode();
+
   document.getElementById('f_rss_url').value = c.feed_url || '';
+
+  // Lien plateforme : le champ accepte tout lien d'ecoute connu (Spotify, Apple, Deezer...),
+  // pas seulement Spotify malgre son libelle -- on utilise le lien Apple Podcasts fourni par
+  // iTunes Search quand disponible, l'utilisateur peut le remplacer par un lien Spotify s'il
+  // le trouve/prefere.
+  document.getElementById('f_podcast_url').value = c.collection_view_url || '';
   checkPodcastUrl();
+
+  // Slug pre-rempli a partir du nom du podcast (plus lisible qu'un slug derive de l'URL RSS,
+  // qui peut etre long/tronque) -- reste modifiable, sanitizeSlug() re-nettoiera de toute facon
+  // au moment de la generation si l'utilisateur le modifie.
+  document.getElementById('f_slug').value = sanitizeSlug(c.podcast_name || '');
+
+  // Image de couverture fournie directement par iTunes Search (artworkUrl600).
+  document.getElementById('f_cover_image').value = c.cover_image || '';
+
+  // Langue : uniquement si detectee avec confiance en fr/en (le generateur ne supporte que ces
+  // deux langues) -- sinon on laisse le choix explicite a l'utilisateur plutot que de deviner.
+  if(c.detected_language === 'fr' || c.detected_language === 'en'){
+    document.getElementById('f_language').value = c.detected_language;
+  }
+
   reasonEl.textContent = 'Verdict GEO : ONBOARD — ' + (c.reason || '') +
-    (c.genre ? ' · Genre iTunes : ' + c.genre : '');
+    (c.genre ? ' · Genre iTunes : ' + c.genre : '') +
+    (c.detected_language && c.detected_language !== 'fr' && c.detected_language !== 'en'
+      ? ' · Langue non detectee avec certitude, verifie-la manuellement.' : '');
 }
 
 window.addEventListener('DOMContentLoaded', loadDiscoveryCandidates);
