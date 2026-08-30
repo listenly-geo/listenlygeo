@@ -1352,6 +1352,57 @@ def build_dashboard():
     else:
         collision_banner = ""
 
+    # --- Statistiques Search Console (remplace l'ancienne carte "cout estime", jugee peu
+    # parlante le 30/08/2026 : produire des fiches n'est pas la meme chose que generer du
+    # trafic reel. Lit un fichier alimente par fetch_gsc_stats.py (Google Search Console
+    # API), absent tant que la connexion n'est pas configuree cote Google Cloud -- dans ce
+    # cas, affiche un etat clair plutot qu'une carte vide ou une fausse donnee.
+    gsc_path = f"{PAGES_DIR}/data/gsc_stats.json"
+    gsc_data = None
+    if os.path.exists(gsc_path):
+        try:
+            gsc_data = json.load(open(gsc_path, encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            gsc_data = None
+
+    if gsc_data and gsc_data.get("daily"):
+        clicks_total = gsc_data.get("clicks_total", 0)
+        impressions_total = gsc_data.get("impressions_total", 0)
+        ctr_avg = (clicks_total / impressions_total * 100) if impressions_total else 0
+        prev_clicks = gsc_data.get("clicks_previous_period", 0)
+        delta_pct = ((clicks_total - prev_clicks) / prev_clicks * 100) if prev_clicks else None
+        delta_html = ""
+        if delta_pct is not None:
+            arrow = "▲" if delta_pct >= 0 else "▼"
+            color = "#16a34a" if delta_pct >= 0 else "#dc2626"
+            delta_html = f' <span style="color:{color};font-size:13px;font-weight:600">{arrow} {abs(delta_pct):.0f}% vs periode precedente</span>'
+        daily = gsc_data.get("daily", [])
+        max_clicks = max((d.get("clicks", 0) for d in daily), default=1) or 1
+        sparkline_bars = "".join(
+            f'<div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;'
+            f'height:{max(4, round(d.get("clicks",0)/max_clicks*40))}px" title="{d.get("date","")} : {d.get("clicks",0)} clics"></div>'
+            for d in daily[-30:]
+        )
+        period_label = gsc_data.get("period_label", "30 derniers jours")
+        updated_label = gsc_data.get("fetched_at", "")
+        gsc_stats_html = f"""
+  <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
+    <div><div class="num" style="font-size:26px;">{clicks_total:,}</div><div class="lbl">Clics vers Listenly ({period_label}){delta_html}</div></div>
+    <div><div class="num" style="font-size:26px;">{impressions_total:,}</div><div class="lbl">Impressions ({period_label})</div></div>
+    <div><div class="num" style="font-size:26px;">{ctr_avg:.2f}%</div><div class="lbl">CTR moyen</div></div>
+  </div>
+  <div style="display:flex;align-items:flex-end;gap:2px;height:44px;margin-top:14px;">{sparkline_bars}</div>
+  <div style="font-size:11px;color:var(--sub);margin-top:6px;">Source : Google Search Console · dernière synchro {updated_label}</div>""".replace(",", " ")
+    else:
+        gsc_stats_html = """
+  <div style="display:flex;align-items:center;gap:18px;">
+    <div class="ico" style="font-size:28px;">📊</div>
+    <div>
+      <div class="lbl" style="font-size:14px;font-weight:600;color:var(--ink);">Statistiques Search Console non connectées</div>
+      <div style="font-size:12px;color:var(--sub);margin-top:2px;">Connecte l'API Google Search Console (voir automation/scripts/fetch_gsc_stats.py) pour afficher ici les vrais clics/impressions générés par ces fiches.</div>
+    </div>
+  </div>"""
+
     html = f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -1469,14 +1520,8 @@ ul.clean li{{margin-bottom:6px}}
 </div>
 {collision_banner}
 
-<div class="card" style="background:linear-gradient(135deg,#eef2ff,#f7f4ff);border:1px solid #d8d4ff;margin-bottom:20px;display:flex;align-items:center;gap:18px;">
-  <div class="ico" style="font-size:28px;">💶</div>
-  <div>
-    <div class="num" style="font-size:26px;">{estimated_cost_week:.2f} €</div>
-    <div class="lbl">Coût estimé — semaine à venir ({total_fiches_projected} fiche(s), dont ~{total_minings_projected} minage(s) d'épisode)</div>
-    <div style="font-size:12px;color:var(--ink);margin-top:4px;">dont <b>{estimated_cost_claude_week:.2f} €</b> Claude (Anthropic) · <b>{estimated_cost_whisper_week:.2f} €</b> Whisper (OpenAI)</div>
-    <div style="font-size:11px;color:var(--sub);margin-top:2px;">Estimation indicative — vérifier la facturation réelle sur console.anthropic.com / platform.openai.com</div>
-  </div>
+<div class="card" style="background:linear-gradient(135deg,#eef2ff,#f7f4ff);border:1px solid #d8d4ff;margin-bottom:20px;">
+{gsc_stats_html}
 </div>
 
 <div class="cards">
