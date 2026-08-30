@@ -1265,7 +1265,60 @@ def build_dashboard():
         f'<div class="bar-col"><div class="bar" style="height:{max(6, int(70 * c / max_weekly_q))}px;background:linear-gradient(180deg,#8e44ad,#6c3483)" title="{c} fiche(s)"></div><span>{s.strftime("%d/%m")}</span><b>{c}</b></div>'
         for s, c in weekly_q
     )
-    cat_rows = "".join(f"<tr><td>{label}</td><td style='text-align:center'>{n}</td></tr>" for label, n in cats_sorted)
+    # --- Historique optimisation (remplace "Repartition par categorie", jugee peu utile
+    # le 30/08/2026) : liste des dernieres ameliorations systeme, lue depuis un fichier
+    # editable a la main a chaque nouvelle optimisation livree. Affiche les 10 plus
+    # recentes en accordeon (titre + coche, resume au clic), avec lien vers une page
+    # HTML dediee listant l'historique complet.
+    opt_history_path = f"{PAGES_DIR}/data/optimization_history.json"
+    opt_history = []
+    if os.path.exists(opt_history_path):
+        try:
+            opt_history = json.load(open(opt_history_path, encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            opt_history = []
+
+    def render_opt_item(item):
+        return f"""<details class="opt-item">
+  <summary>✅ {item.get('title','')} <span style="color:var(--sub);font-weight:400;font-size:11px;">{item.get('date','')}</span></summary>
+  <div class="opt-summary">{item.get('summary','')} <code style="font-size:11px;color:var(--sub);">{item.get('commit','')}</code></div>
+</details>"""
+
+    opt_rows_html = "".join(render_opt_item(it) for it in opt_history[:10]) or "<p style='color:var(--sub);font-size:13px;'>Aucune optimisation enregistrée pour le moment.</p>"
+    opt_full_link = ""
+    if len(opt_history) > 10 or opt_history:
+        opt_full_link = f'<a href="https://listenly.fr/podcast-btb/historique-optimisations.html" target="_blank" style="font-size:12px;">Voir l\'historique complet ({len(opt_history)}) →</a>'
+
+    # Genere aussi la page complete (toutes les entrees, meme rendu)
+    if opt_history:
+        full_items_html = "".join(render_opt_item(it) for it in opt_history)
+        full_page_html = f"""<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Historique des optimisations — Moteur Trafic Listenly</title>
+<style>
+body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f8fc;color:#1a1a2e;max-width:820px;margin:0 auto;padding:32px 20px 60px;}}
+h1{{font-size:22px;margin-bottom:4px;}}
+.sub{{color:#6b7280;font-size:13px;margin-bottom:28px;}}
+.opt-item{{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:12px 16px;margin-bottom:10px;}}
+.opt-item summary{{cursor:pointer;font-weight:600;font-size:14px;list-style:none;}}
+.opt-item summary::-webkit-details-marker{{display:none;}}
+.opt-summary{{margin-top:8px;font-size:13px;color:#444;line-height:1.5;}}
+a{{color:#4a6cf7;}}
+</style>
+</head>
+<body>
+<h1>Historique des optimisations</h1>
+<p class="sub">{len(opt_history)} optimisation(s) · <a href="https://listenly.fr/podcast-btb/dashboard.html">← Retour au dashboard</a></p>
+{full_items_html}
+</body>
+</html>"""
+        with open(f"{PAGES_DIR}/historique-optimisations.html", "w", encoding="utf-8") as f:
+            f.write(full_page_html)
+
     susp_rows = "".join(f"<li><b>{s}</b> — {msg}</li>" for s, msg in suspicious) or "<li>Aucune anomalie détectée ✓</li>"
     dup_rows = "".join(f"<li><b>{name}</b> : {', '.join(slugs)}</li>" for name, slugs in duplicates) or "<li>Aucun doublon détecté ✓</li>"
 
@@ -1587,12 +1640,16 @@ ul.clean li{{margin-bottom:6px}}
 </div>
 </div>
 <div>
-<h2 style="margin-top:0">Répartition par catégorie</h2>
+<h2 style="margin-top:0">Historique optimisation</h2>
 <div class="panel">
-<table>
-<tr><th>Catégorie</th><th>Podcasts</th></tr>
-{cat_rows}
-</table>
+<style>
+.opt-item{{background:#fafbff;border:1px solid #e8e9f5;border-radius:8px;padding:10px 14px;margin-bottom:8px;}}
+.opt-item summary{{cursor:pointer;font-weight:600;font-size:13px;list-style:none;display:flex;justify-content:space-between;gap:8px;}}
+.opt-item summary::-webkit-details-marker{{display:none;}}
+.opt-summary{{margin-top:8px;font-size:12px;color:#555;line-height:1.5;}}
+</style>
+{opt_rows_html}
+<div style="margin-top:10px;text-align:right;">{opt_full_link}</div>
 </div>
 
 <h2>Anomalies CTA / liens</h2>
