@@ -32,7 +32,7 @@ import urllib.request, urllib.error
 
 SITE_URL = os.environ.get("GSC_SITE_URL", "sc-domain:listenly.fr")  # propriete de type "domaine" (confirme via Search Console)
 PATH_FILTER = os.environ.get("GSC_PATH_FILTER", "/podcast-btb/")
-DAYS = int(os.environ.get("GSC_DAYS", "30"))
+DAYS = int(os.environ.get("GSC_DAYS", "180"))  # large historique : la selection de periode (7/30/90j) se fait cote navigateur, sans re-fetch
 OUTPUT_FILE = "pages/podcast-btb/data/gsc_stats.json"
 
 SCOPE = "https://www.googleapis.com/auth/webmasters.readonly"
@@ -137,10 +137,12 @@ def main():
     # des jours dont les donnees sont completes et stables.
     end_date = today - datetime.timedelta(days=3)
     start_date = end_date - datetime.timedelta(days=DAYS - 1)
-    prev_end_date = start_date - datetime.timedelta(days=1)
-    prev_start_date = prev_end_date - datetime.timedelta(days=DAYS - 1)
 
-    log(f"Periode actuelle : {start_date} -> {end_date}")
+    # Une seule requete large (180j par defaut) : le dashboard calcule cote navigateur
+    # n'importe quelle periode (7/30/90j) et sa comparaison avec la periode precedente
+    # directement a partir de ce tableau -- pas besoin de refaire un appel API par
+    # changement de selecteur.
+    log(f"Periode recuperee : {start_date} -> {end_date} ({DAYS} jour(s))")
     try:
         daily_result = query_search_analytics(access_token, start_date.isoformat(), end_date.isoformat(), ["date"])
     except urllib.error.HTTPError as e:
@@ -154,23 +156,21 @@ def main():
     ]
     daily.sort(key=lambda d: d["date"])
 
-    clicks_total = sum(d["clicks"] for d in daily)
-    impressions_total = sum(d["impressions"] for d in daily)
-
-    log(f"Periode precedente (comparaison) : {prev_start_date} -> {prev_end_date}")
-    prev_result = query_search_analytics(access_token, prev_start_date.isoformat(), prev_end_date.isoformat(), [])
-    prev_rows = prev_result.get("rows", [])
-    clicks_previous_period = int(prev_rows[0].get("clicks", 0)) if prev_rows else 0
+    # Totaux par defaut sur les 30 derniers jours du tableau (premier affichage cote serveur,
+    # avant que le JS ne prenne le relais pour les autres periodes) -- purement indicatif,
+    # le dashboard recalculera de toute facon cote client au chargement.
+    default_window = daily[-30:] if len(daily) >= 30 else daily
+    clicks_total = sum(d["clicks"] for d in default_window)
+    impressions_total = sum(d["impressions"] for d in default_window)
 
     output = {
         "site_url": SITE_URL,
         "path_filter": PATH_FILTER,
-        "period_label": f"{DAYS} derniers jours",
+        "period_label": "30 derniers jours",
         "period_start": start_date.isoformat(),
         "period_end": end_date.isoformat(),
         "clicks_total": clicks_total,
         "impressions_total": impressions_total,
-        "clicks_previous_period": clicks_previous_period,
         "daily": daily,
         "fetched_at": datetime.datetime.now().strftime("%d/%m/%Y %H:%M"),
     }
