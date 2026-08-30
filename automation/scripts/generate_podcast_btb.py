@@ -1366,33 +1366,74 @@ def build_dashboard():
             gsc_data = None
 
     if gsc_data and gsc_data.get("daily"):
-        clicks_total = gsc_data.get("clicks_total", 0)
-        impressions_total = gsc_data.get("impressions_total", 0)
-        ctr_avg = (clicks_total / impressions_total * 100) if impressions_total else 0
-        prev_clicks = gsc_data.get("clicks_previous_period", 0)
-        delta_pct = ((clicks_total - prev_clicks) / prev_clicks * 100) if prev_clicks else None
-        delta_html = ""
-        if delta_pct is not None:
-            arrow = "▲" if delta_pct >= 0 else "▼"
-            color = "#16a34a" if delta_pct >= 0 else "#dc2626"
-            delta_html = f' <span style="color:{color};font-size:13px;font-weight:600">{arrow} {abs(delta_pct):.0f}% vs periode precedente</span>'
         daily = gsc_data.get("daily", [])
-        max_clicks = max((d.get("clicks", 0) for d in daily), default=1) or 1
-        sparkline_bars = "".join(
-            f'<div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;'
-            f'height:{max(4, round(d.get("clicks",0)/max_clicks*40))}px" title="{d.get("date","")} : {d.get("clicks",0)} clics"></div>'
-            for d in daily[-30:]
-        )
-        period_label = gsc_data.get("period_label", "30 derniers jours")
         updated_label = gsc_data.get("fetched_at", "")
+        # Le tableau complet (jusqu'a ~180 jours) est embarque tel quel dans la page : le
+        # choix de periode (7/30/90j) et son calcul (totaux, CTR, delta vs periode
+        # precedente, sparkline) se font entierement cote navigateur via renderGscPeriod(),
+        # sans jamais re-appeler l'API Search Console au clic.
+        daily_json = json.dumps(daily, ensure_ascii=False)
         gsc_stats_html = f"""
-  <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
-    <div><div class="num" style="font-size:26px;">{clicks_total:,}</div><div class="lbl">Clics vers Listenly ({period_label}){delta_html}</div></div>
-    <div><div class="num" style="font-size:26px;">{impressions_total:,}</div><div class="lbl">Impressions ({period_label})</div></div>
-    <div><div class="num" style="font-size:26px;">{ctr_avg:.2f}%</div><div class="lbl">CTR moyen</div></div>
+  <div id="gscPeriodButtons" style="margin-bottom:12px;">
+    <button type="button" class="gsc-period-btn" data-days="7" onclick="renderGscPeriod(7)">7 jours</button>
+    <button type="button" class="gsc-period-btn active" data-days="30" onclick="renderGscPeriod(30)">30 jours</button>
+    <button type="button" class="gsc-period-btn" data-days="90" onclick="renderGscPeriod(90)">90 jours</button>
   </div>
-  <div style="display:flex;align-items:flex-end;gap:2px;height:44px;margin-top:14px;">{sparkline_bars}</div>
-  <div style="font-size:11px;color:var(--sub);margin-top:6px;">Source : Google Search Console · dernière synchro {updated_label}</div>""".replace(",", " ")
+  <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
+    <div><div class="num" style="font-size:26px;" id="gscClicks">—</div><div class="lbl">Clics vers Listenly (<span id="gscPeriodLabel1">30 derniers jours</span>)<span id="gscDelta"></span></div></div>
+    <div><div class="num" style="font-size:26px;" id="gscImpressions">—</div><div class="lbl">Impressions (<span id="gscPeriodLabel2">30 derniers jours</span>)</div></div>
+    <div><div class="num" style="font-size:26px;" id="gscCtr">—</div><div class="lbl">CTR moyen</div></div>
+  </div>
+  <div style="display:flex;align-items:flex-end;gap:2px;height:44px;margin-top:14px;" id="gscSparkline"></div>
+  <div style="font-size:11px;color:var(--sub);margin-top:6px;">Source : Google Search Console · dernière synchro {updated_label}</div>
+<script id="gscDailyData" type="application/json">{daily_json}</script>
+<style>
+.gsc-period-btn {{ font-size:12px; font-weight:600; padding:5px 12px; border-radius:16px; border:1px solid #d8d4ff;
+  background:#fff; color:var(--ink); cursor:pointer; margin-right:6px; }}
+.gsc-period-btn.active {{ background:var(--accent); color:#fff; border-color:var(--accent); }}
+</style>
+<script>
+function renderGscPeriod(days){{
+  var raw = document.getElementById('gscDailyData');
+  if(!raw) return;
+  var daily = JSON.parse(raw.textContent);
+  var current = daily.slice(-days);
+  var previous = daily.slice(-days * 2, -days);
+  function sum(arr, key){{ return arr.reduce(function(a, d){{ return a + (d[key] || 0); }}, 0); }}
+  var clicks = sum(current, 'clicks');
+  var impressions = sum(current, 'impressions');
+  var ctr = impressions ? (clicks / impressions * 100) : 0;
+  var prevClicks = sum(previous, 'clicks');
+  var deltaHtml = '';
+  if(previous.length && prevClicks){{
+    var deltaPct = (clicks - prevClicks) / prevClicks * 100;
+    var arrow = deltaPct >= 0 ? '▲' : '▼';
+    var color = deltaPct >= 0 ? '#16a34a' : '#dc2626';
+    deltaHtml = ' <span style="color:' + color + ';font-size:13px;font-weight:600">' + arrow + ' ' +
+      Math.abs(Math.round(deltaPct)) + '% vs periode precedente</span>';
+  }}
+  var label = days + ' derniers jours';
+  document.getElementById('gscClicks').textContent = clicks.toLocaleString('fr-FR');
+  document.getElementById('gscImpressions').textContent = impressions.toLocaleString('fr-FR');
+  document.getElementById('gscCtr').textContent = ctr.toFixed(2) + '%';
+  document.getElementById('gscDelta').innerHTML = deltaHtml;
+  document.getElementById('gscPeriodLabel1').textContent = label;
+  document.getElementById('gscPeriodLabel2').textContent = label;
+
+  var maxClicks = Math.max.apply(null, current.map(function(d){{ return d.clicks || 0; }}).concat([1]));
+  var spark = document.getElementById('gscSparkline');
+  spark.innerHTML = current.map(function(d){{
+    var h = Math.max(4, Math.round((d.clicks || 0) / maxClicks * 40));
+    return '<div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:' + h +
+      'px" title="' + d.date + ' : ' + (d.clicks || 0) + ' clics"></div>';
+  }}).join('');
+
+  document.querySelectorAll('.gsc-period-btn').forEach(function(btn){{
+    btn.classList.toggle('active', parseInt(btn.getAttribute('data-days'), 10) === days);
+  }});
+}}
+renderGscPeriod(30);
+</script>"""
     else:
         gsc_stats_html = """
   <div style="display:flex;align-items:center;gap:18px;">
