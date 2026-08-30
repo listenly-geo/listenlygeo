@@ -1505,28 +1505,28 @@ renderGscPeriod(30);
 <title>Moteur Trafic Listenly — Dashboard</title>
 <meta name="robots" content="noindex, nofollow">
 <style>
-:root{{--bg:#f4f7fe;--card:#fff;--ink:#1b2540;--sub:#8b93a7;--accent:#4a6cf7;--accent-soft:#eef2ff;--ok:#22c98d;--warn-bg:#fdecec;--warn-ink:#e05252;--shadow:0 6px 24px rgba(27,37,64,.06)}}
+:root{{--bg:#f5f6fa;--card:#fff;--ink:#0f1729;--sub:#64748b;--accent:#2563eb;--accent-soft:#eaf0ff;--ok:#16a34a;--warn-bg:#fdecec;--warn-ink:#dc2626;--border:#e2e6f0;--shadow:0 4px 16px rgba(15,23,41,.05)}}
 *{{box-sizing:border-box}}
-body{{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg);padding:36px 4vw 60px}}
-h1{{font-size:26px;margin:0;font-weight:700}}
+body{{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg);padding:40px 4vw 60px}}
+h1{{font-size:34px;margin:0;font-weight:800;letter-spacing:-.01em}}
 h1 b{{color:var(--accent)}}
-h2{{font-size:15px;margin:34px 0 12px;font-weight:700;letter-spacing:.01em}}
-.header{{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px;margin-bottom:26px}}
-.sub{{color:var(--sub);font-size:13px;margin:6px 0 0}}
-.badge-air{{display:inline-flex;align-items:center;gap:8px;background:var(--card);box-shadow:var(--shadow);border-radius:999px;padding:8px 16px;font-size:12px;font-weight:700;letter-spacing:.03em}}
-.badge-air.on{{color:#e05252}}
+h2{{font-size:13px;margin:40px 0 14px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--sub)}}
+.header{{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px;margin-bottom:30px}}
+.sub{{color:var(--sub);font-size:14px;margin:8px 0 0}}
+.badge-air{{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow);border-radius:999px;padding:9px 18px;font-size:12px;font-weight:700;letter-spacing:.03em}}
+.badge-air.on{{color:#dc2626}}
 .badge-air.off{{color:var(--sub)}}
 .badge-air i{{width:9px;height:9px;border-radius:50%;display:inline-block}}
-.badge-air.on i{{background:#e05252;animation:pulse 1.6s infinite}}
+.badge-air.on i{{background:#dc2626;animation:pulse 1.6s infinite}}
 .badge-air.off i{{background:#c3c9d6}}
 .warn-banner{{background:#fff4e5;border:1px solid #f5c16c;color:#8a5a00;border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.6;margin:0 0 20px}}
-.wave{{display:inline-flex;align-items:center;gap:2.5px;margin-right:12px;height:22px;vertical-align:middle}}
-.wave i{{width:3.5px;background:var(--accent);border-radius:2px;animation:eq 1.4s ease-in-out infinite}}
-.wave i:nth-child(1){{height:8px;animation-delay:0s}}
-.wave i:nth-child(2){{height:16px;animation-delay:.2s}}
-.wave i:nth-child(3){{height:22px;animation-delay:.4s}}
-.wave i:nth-child(4){{height:13px;animation-delay:.6s}}
-.wave i:nth-child(5){{height:7px;animation-delay:.8s}}
+.wave{{display:inline-flex;align-items:center;gap:2.5px;margin-right:14px;height:26px;vertical-align:middle}}
+.wave i{{width:4px;background:var(--accent);border-radius:2px;animation:eq 1.4s ease-in-out infinite}}
+.wave i:nth-child(1){{height:9px;animation-delay:0s}}
+.wave i:nth-child(2){{height:18px;animation-delay:.2s}}
+.wave i:nth-child(3){{height:26px;animation-delay:.4s}}
+.wave i:nth-child(4){{height:15px;animation-delay:.6s}}
+.wave i:nth-child(5){{height:8px;animation-delay:.8s}}
 @keyframes eq{{0%,100%{{transform:scaleY(.55)}}50%{{transform:scaleY(1)}}}}
 th.sortable{{cursor:pointer;user-select:none}}
 th.sortable:hover{{color:var(--accent)}}
@@ -1537,15 +1537,15 @@ th.sorted-desc::after{{content:' ↓';opacity:1;color:var(--accent)}}
 .pod-name::before{{content:'🎙';position:absolute;left:6px;opacity:0;transform:translateX(-4px);transition:opacity .15s,transform .15s;font-size:12px}}
 tr:hover .pod-name::before{{opacity:1;transform:translateX(0)}}
 @keyframes pulse{{0%{{opacity:1}}50%{{opacity:.35}}100%{{opacity:1}}}}
-.cards{{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}}
-.card{{background:var(--card);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow);transition:transform .15s}}
-.card:hover{{transform:translateY(-2px)}}
-.card .ico{{font-size:20px;margin-bottom:8px}}
-.card .num{{font-size:32px;font-weight:800;line-height:1.1}}
-.card .lbl{{font-size:11px;color:var(--sub);text-transform:uppercase;letter-spacing:.06em;margin-top:4px}}
-.panel{{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:20px 22px}}
-table{{border-collapse:collapse;width:100%;font-size:13px}}
-th{{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--sub);padding:10px 12px;border-bottom:1px solid #eef0f6}}
+.cards{{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}}
+.card{{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:26px 28px;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}}
+.card:hover{{transform:translateY(-2px);box-shadow:0 10px 28px rgba(15,23,41,.09)}}
+.card .ico{{font-size:22px;margin-bottom:10px}}
+.card .num{{font-size:42px;font-weight:800;line-height:1;letter-spacing:-.02em}}
+.card .lbl{{font-size:12px;color:var(--sub);text-transform:uppercase;letter-spacing:.06em;margin-top:8px;font-weight:600}}
+.panel{{background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:26px 28px}}
+table{{border-collapse:collapse;width:100%;font-size:14px}}
+th{{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--sub);font-weight:700;padding:12px 14px;border-bottom:2px solid var(--border)}}
 td{{padding:10px 12px;border-bottom:1px solid #f3f5fa;vertical-align:top}}
 tr:hover td{{background:#f8faff}}
 a{{color:var(--accent);text-decoration:none}}
@@ -1555,7 +1555,7 @@ a:hover{{text-decoration:underline}}
 .search:focus{{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}}
 .bars{{display:flex;gap:12px;align-items:flex-end;padding-top:10px}}
 .bar-col{{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1}}
-.bar{{width:100%;max-width:46px;background:linear-gradient(180deg,#6d8bff,#4a6cf7);border-radius:8px 8px 3px 3px;transition:filter .15s}}
+.bar{{width:100%;max-width:46px;background:linear-gradient(180deg,#5a8dff,#2563eb);border-radius:8px 8px 3px 3px;transition:filter .15s}}
 .bar-col:hover .bar{{filter:brightness(1.12)}}
 .bar-col span{{font-size:10px;color:var(--sub)}}
 .bar-col b{{font-size:12px}}
