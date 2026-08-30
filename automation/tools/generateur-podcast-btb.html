@@ -150,28 +150,44 @@ var LISTEN_DOMAINS = ["spotify.com","apple.com","deezer.com","podcasts.google","
 // Ne pré-remplit QUE le flux RSS (seule donnée fiable fournie par la découverte) — Spotify
 // et Listenly restent à vérifier/compléter manuellement comme avant.
 var DISCOVERY_URL = 'https://raw.githubusercontent.com/listenly-geo/listenlygeo/main/pages/podcast-btb/data/discovery_candidates.json';
+var PODCASTS_URL = 'https://raw.githubusercontent.com/listenly-geo/listenlygeo/main/pages/podcast-btb/data/podcasts.json';
 var discoveryCandidates = [];
+
+function normalizeName(s){
+  return (s || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
+}
 
 function loadDiscoveryCandidates(){
   var sel = document.getElementById('f_candidate');
-  fetch(DISCOVERY_URL, {cache:'no-store'})
-    .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-    .then(function(data){
-      discoveryCandidates = Object.keys(data).map(function(k){ return data[k]; })
-        .filter(function(c){ return c.verdict === 'ONBOARD'; });
-      if(discoveryCandidates.length === 0){
-        sel.innerHTML = '<option value="">Aucun candidat ONBOARD disponible pour le moment</option>';
-        return;
-      }
-      sel.innerHTML = '<option value="">— Choisir un candidat (' + discoveryCandidates.length + ' disponible(s)) —</option>' +
-        discoveryCandidates.map(function(c, i){
-          var label = c.podcast_name + (c.artist_name ? ' — ' + c.artist_name : '') + ' (' + (c.track_count || '?') + ' ép.)';
-          return '<option value="' + i + '">' + label.replace(/</g,'&lt;') + '</option>';
-        }).join('');
-    })
-    .catch(function(e){
-      sel.innerHTML = '<option value="">Impossible de charger les candidats (' + e.message + ')</option>';
-    });
+  Promise.all([
+    fetch(DISCOVERY_URL, {cache:'no-store'}).then(function(r){ if(!r.ok) throw new Error('discovery HTTP ' + r.status); return r.json(); }),
+    fetch(PODCASTS_URL, {cache:'no-store'}).then(function(r){ if(!r.ok) throw new Error('podcasts HTTP ' + r.status); return r.json(); })
+  ]).then(function(results){
+    var discoveryData = results[0];
+    var existingPodcasts = results[1];
+    // Un podcast deja onboarde (present dans podcasts.json) ne doit plus jamais reapparaitre
+    // dans la liste de reco, meme s'il traine encore dans discovery_candidates.json (fichier
+    // jamais purge automatiquement apres onboarding) -- verifie a chaque chargement de page,
+    // donc toujours a jour independamment de quand la decouverte a tourne.
+    var existingNames = {};
+    (existingPodcasts || []).forEach(function(p){ existingNames[normalizeName(p.podcast_name)] = true; });
+
+    discoveryCandidates = Object.keys(discoveryData).map(function(k){ return discoveryData[k]; })
+      .filter(function(c){ return c.verdict === 'ONBOARD'; })
+      .filter(function(c){ return !existingNames[normalizeName(c.podcast_name)]; });
+
+    if(discoveryCandidates.length === 0){
+      sel.innerHTML = '<option value="">Aucun candidat ONBOARD disponible pour le moment</option>';
+      return;
+    }
+    sel.innerHTML = '<option value="">— Choisir un candidat (' + discoveryCandidates.length + ' disponible(s)) —</option>' +
+      discoveryCandidates.map(function(c, i){
+        var label = c.podcast_name + (c.artist_name ? ' — ' + c.artist_name : '') + ' (' + (c.track_count || '?') + ' ép.)';
+        return '<option value="' + i + '">' + label.replace(/</g,'&lt;') + '</option>';
+      }).join('');
+  }).catch(function(e){
+    sel.innerHTML = '<option value="">Impossible de charger les candidats (' + e.message + ')</option>';
+  });
 }
 
 function applyCandidate(){
