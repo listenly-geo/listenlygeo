@@ -48,6 +48,11 @@ header {{ padding: 48px 0 32px; border-bottom: 1px solid #f0f0f0; margin-bottom:
 .podcast-cover {{ width: 56px; height: 56px; border-radius: 12px; object-fit: cover; flex-shrink: 0; }}
 .badge {{ display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
   color: {accent_color}; background: color-mix(in srgb, {accent_color} 12%, white); border-radius: 20px; padding: 4px 12px; margin: 0; }}
+.source-line {{ font-size: 14px; color: #666; margin: 6px 0 0; line-height: 1.5; }}
+.top-cta-btn {{ display: inline-flex; align-items: center; gap: 8px; background: {accent_color}; color: #fff;
+  font-size: 14px; font-weight: 600; padding: 10px 22px; border-radius: 8px; text-decoration: none;
+  margin: 16px 0 4px; }}
+.top-cta-btn:hover {{ opacity: 0.9; }}
 h1 {{ font-size: clamp(24px, 4vw, 34px); font-weight: 800; line-height: 1.25; color: #111; margin-bottom: 20px; }}
 .article-meta {{ font-size: 14px; color: #888; }}
 .article-meta span {{ margin-right: 16px; }}
@@ -581,6 +586,7 @@ def build_question_prompt(podcast, question, ep_title, ep_pubdate, context, q_sl
             "about_guest_label": "À propos de",
             "source_badge": "La réponse se trouve dans ce podcast",
             "source_label": "Extrait de l'épisode",
+            "source_line": "Réponse extraite du podcast {podcast_name} — écoute l'épisode complet ci-dessous.",
             "editorial_disclosure": "Fiche éditoriale rédigée par Listenly à partir de l'épisode audio réel",
             "editorial_byline": "Fiche rédigée par l'équipe éditoriale Listenly",
             "topics_label": "Sujets :",
@@ -593,6 +599,7 @@ def build_question_prompt(podcast, question, ep_title, ep_pubdate, context, q_sl
             "about_guest_label": "About",
             "source_badge": "The answer lives in this podcast",
             "source_label": "From the episode",
+            "source_line": "Answer extracted from the {podcast_name} podcast — listen to the full episode below.",
             "editorial_disclosure": "Editorial summary by Listenly based on the real audio episode",
             "editorial_byline": "Written by the Listenly editorial team",
             "topics_label": "Topics:",
@@ -710,15 +717,30 @@ est mince, reste bref plutôt que de meubler)."""
     else:
         mentions_instruction = ""
 
+    # UX/CVR fix (30/08/2026) : sur les fiches publiees, le concept "reponse extraite d'un
+    # podcast" etait porte par un badge minuscule, et le SEUL bouton d'acces au podcast etait
+    # tout en bas de page (cta-block final) -- un visiteur qui lit juste la reponse en haut
+    # n'a aucune raison de scroller jusque-la. On ajoute donc une phrase d'explication claire
+    # + un vrai bouton CTA visible des le haut de page (en plus du bouton final, pas a la
+    # place), tous deux 100% generes en Python (jamais par le LLM) pour une fiabilite totale
+    # sur les 682+ fiches existantes comme sur toutes les futures.
     cover_image = podcast.get('cover_image', '')
+    source_line_text = STRINGS['source_line'].format(podcast_name=podcast['podcast_name'])
+    top_cta_html = (
+        '<a class="top-cta-btn" href="' + listenly_url + '">🎧 ' + STRINGS['cta_listen'] + '</a>'
+    )
     if cover_image:
         header_top_html = (
             '<div class="header-top"><img class="podcast-cover" src="' + cover_image +
-            '" alt="' + podcast['podcast_name'] + '"><span class="badge">' +
-            STRINGS['source_badge'] + '</span></div>'
+            '" alt="' + podcast['podcast_name'] + '"><div><span class="badge">' +
+            STRINGS['source_badge'] + '</span><p class="source-line">' + source_line_text +
+            '</p></div></div>' + top_cta_html
         )
     else:
-        header_top_html = '<span class="badge">' + STRINGS['source_badge'] + '</span>'
+        header_top_html = (
+            '<span class="badge">' + STRINGS['source_badge'] + '</span><p class="source-line">' +
+            source_line_text + '</p>' + top_cta_html
+        )
 
     static_prompt = STATIC_QUESTION_PROMPT_EN if language == "en" else STATIC_QUESTION_PROMPT_FR
 
