@@ -94,17 +94,18 @@ def get_access_token(sa_info):
 import urllib.parse  # noqa: E402 (utilise dans get_access_token)
 
 
-def query_search_analytics(access_token, start_date, end_date, dimensions):
+def query_search_analytics(access_token, start_date, end_date, dimensions, apply_path_filter=True):
     url = f"https://www.googleapis.com/webmasters/v3/sites/{urllib.parse.quote(SITE_URL, safe='')}/searchAnalytics/query"
     body = {
         "startDate": start_date,
         "endDate": end_date,
         "dimensions": dimensions,
-        "dimensionFilterGroups": [{
-            "filters": [{"dimension": "page", "operator": "contains", "expression": PATH_FILTER}]
-        }],
         "rowLimit": 25000,
     }
+    if apply_path_filter:
+        body["dimensionFilterGroups"] = [{
+            "filters": [{"dimension": "page", "operator": "contains", "expression": PATH_FILTER}]
+        }]
     req = urllib.request.Request(
         url, data=json.dumps(body).encode(), method="POST",
         headers={"Authorization": f"Bearer {access_token}", "Content-Type": "application/json"},
@@ -163,6 +164,21 @@ def main():
     clicks_total = sum(d["clicks"] for d in default_window)
     impressions_total = sum(d["impressions"] for d in default_window)
 
+    # Diagnostic (30/08/2026) : comparer le total filtre /podcast-btb/ au total site entier
+    # sur la meme fenetre, pour verifier que l'ecart avec les chiffres vus dans l'UI Search
+    # Console (souvent affichee sans filtre de chemin) vient bien du scope, pas d'un bug.
+    try:
+        site_wide_result = query_search_analytics(
+            access_token, start_date.isoformat(), end_date.isoformat(), [], apply_path_filter=False
+        )
+        site_wide_rows = site_wide_result.get("rows", [])
+        site_wide_clicks_total = int(site_wide_rows[0].get("clicks", 0)) if site_wide_rows else 0
+        site_wide_impressions_total = int(site_wide_rows[0].get("impressions", 0)) if site_wide_rows else 0
+    except urllib.error.HTTPError as e:
+        log(f"AVERTISSEMENT : comparaison site entier impossible ({e.code}).")
+        site_wide_clicks_total = None
+        site_wide_impressions_total = None
+
     output = {
         "site_url": SITE_URL,
         "path_filter": PATH_FILTER,
@@ -171,6 +187,8 @@ def main():
         "period_end": end_date.isoformat(),
         "clicks_total": clicks_total,
         "impressions_total": impressions_total,
+        "site_wide_clicks_total_full_range": site_wide_clicks_total,
+        "site_wide_impressions_total_full_range": site_wide_impressions_total,
         "daily": daily,
         "fetched_at": datetime.datetime.now().strftime("%d/%m/%Y %H:%M"),
     }
