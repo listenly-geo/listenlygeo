@@ -55,9 +55,12 @@
   <div class="card">
     <div class="step">Candidats détectés automatiquement</div>
     <label>Podcast pré-qualifié (source : discover_podcasts.py, verdict ONBOARD uniquement)</label>
-    <select id="f_candidate" onchange="applyCandidate()">
-      <option value="">— Chargement des candidats… —</option>
-    </select>
+    <div style="display:flex;gap:10px;align-items:flex-start">
+      <select id="f_candidate" onchange="applyCandidate()" style="flex:1">
+        <option value="">— Chargement des candidats… —</option>
+      </select>
+      <button type="button" class="btn-copy" style="white-space:nowrap;height:40px" onclick="loadDiscoveryCandidates()">↻ Rafraîchir</button>
+    </div>
     <p class="note" id="candidateReason" style="min-height:14px"></p>
   </div>
 
@@ -159,6 +162,9 @@ function normalizeName(s){
 
 function loadDiscoveryCandidates(){
   var sel = document.getElementById('f_candidate');
+  var reasonEl = document.getElementById('candidateReason');
+  sel.innerHTML = '<option value="">— Chargement des candidats… —</option>';
+  reasonEl.textContent = '';
   Promise.all([
     fetch(DISCOVERY_URL, {cache:'no-store'}).then(function(r){ if(!r.ok) throw new Error('discovery HTTP ' + r.status); return r.json(); }),
     fetch(PODCASTS_URL, {cache:'no-store'}).then(function(r){ if(!r.ok) throw new Error('podcasts HTTP ' + r.status); return r.json(); })
