@@ -93,7 +93,7 @@ def compress_audio_if_needed(src, size):
                    check=True, capture_output=True)
     return out
 
-WHISPER_SPEEDUP_FACTOR = float(os.environ.get("WHISPER_SPEEDUP_FACTOR", "1.5"))  # reduit la duree
+WHISPER_SPEEDUP_FACTOR = float(os.environ.get("WHISPER_SPEEDUP_FACTOR", "1.0"))  # reduit la duree
 # audio (donc le cout Whisper, facture a la minute d'audio) sans perdre un mot : atempo change
 # la vitesse de lecture sans distordre la hauteur, Whisper transcrit le meme contenu, juste en
 # moins de temps facture. 1.5x est le facteur par defaut, reconnu comme sur pour la precision de
