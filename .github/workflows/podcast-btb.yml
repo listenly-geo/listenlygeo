@@ -27,6 +27,10 @@ on:
         description: 'URL image cover (optionnel)'
         required: false
         default: ''
+      force_onboard:
+        description: 'Ignorer le filtre de pre-qualification GEO (mass-media/concurrence) si REJECT'
+        required: false
+        default: 'false'
 
 jobs:
   fiche-podcast-btb:
@@ -37,6 +41,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
+      - name: Pre-qualification GEO (mass-media / concurrence documentaire)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_RAW_INFO:  ${{ github.event.inputs.podcast_raw_info }}
+          PODCAST_URL:       ${{ github.event.inputs.podcast_url }}
+          FORCE_ONBOARD:     ${{ github.event.inputs.force_onboard }}
+        run: python automation/scripts/check_podcast_qualification.py
 
       - name: Génération fiche podcast-btb
         env:
