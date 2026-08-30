@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Générateur Podcast-BTB — Moteur Trafic (N1 + Questions)</title>
+<style>
+  :root{--ink:#151517;--sub:#63636b;--line:#e6e6e9;--bg:#fafafa;--card:#fff;--accent:#2e6bd6;--accent-soft:#eef3fd;--ok:#1a7a4c}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;padding:32px 20px 80px}
+  .wrap{max-width:820px;margin:0 auto}
+  h1{font-size:24px;margin:0 0 6px}
+  header p{color:var(--sub);margin:0 0 24px;font-size:14px}
+  .banner{background:#e8f7ee;border-radius:8px;padding:10px 14px;margin-bottom:18px;font-size:12px;color:var(--ok)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-bottom:18px}
+  label{font-size:12px;font-weight:600;display:block;margin-bottom:5px}
+  textarea,input{width:100%;font-family:inherit;font-size:14px;border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:4px}
+  select{width:100%;font-family:inherit;font-size:14px;border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:12px;height:40px}
+  textarea{resize:vertical;min-height:80px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .radio-group{display:flex;gap:10px;margin-bottom:12px}
+  .radio-group label{flex:1;display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-weight:500;font-size:13px;cursor:pointer;margin-bottom:0}
+  .radio-group input{width:auto;margin:0}
+  button{font-family:inherit;font-size:14px;font-weight:600;border:none;border-radius:8px;padding:11px 18px;cursor:pointer}
+  .btn-primary{background:var(--accent);color:#fff;width:100%}
+  .btn-copy{background:var(--accent-soft);color:var(--accent)}
+  .btn-reset{background:#eef3fd;color:var(--accent);width:100%;border:1.5px solid var(--accent);margin-top:14px}
+  pre{background:#f6f6f7;border-radius:8px;padding:14px;font-size:11px;font-family:'SF Mono',Consolas,monospace;max-height:280px;overflow:auto;white-space:pre-wrap;word-break:break-all}
+  .links{display:flex;gap:10px;margin-top:14px}
+  .link-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;height:42px;border:1px solid var(--accent);border-radius:8px;text-decoration:none;color:var(--accent);font-weight:600;font-size:14px}
+  .link-btn:hover{background:var(--accent-soft)}
+  .step{font-size:11px;color:var(--sub);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:10px}
+  #output{display:none}
+  small{color:#c23434;font-size:11px;display:none;margin-bottom:10px}
+  small.visible{display:block}
+  small.hint{color:#888;display:block;margin-bottom:10px}
+  details{margin-bottom:14px}
+  summary{font-size:12px;color:var(--sub);cursor:pointer}
+  #recap{display:none;background:#fffbea;border:1px solid #f0d975;border-radius:8px;padding:12px 14px;margin-bottom:18px;font-size:12px;color:#7a5c00}
+  .mode-toggle{display:flex;gap:10px;margin-bottom:18px}
+  .mode-toggle label{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;border:1.5px solid var(--line);border-radius:8px;padding:10px;font-weight:600;font-size:13px;cursor:pointer}
+  .mode-toggle input{width:auto;margin:0}
+  .mode-toggle input:checked + span{color:var(--accent)}
+  .note{font-size:11.5px;color:var(--sub);margin:-4px 0 12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Générateur Podcast-BTB — Moteur Trafic</h1>
+    <p>N1 : fiche podcast classique. N2 : au lieu des fiches épisode, génère des fiches question (1 par run, CTA 100% Listenly).</p>
+  </header>
+
+  <div class="banner" id="modeBanner">Mode RSS : nom, description, image et lien Spotify (si dispo) sont lus automatiquement dans le flux.</div>
+
+  <div class="card">
+    <div class="step">Candidats détectés automatiquement</div>
+    <label>Podcast pré-qualifié (source : discover_podcasts.py, verdict ONBOARD uniquement)</label>
+    <select id="f_candidate" onchange="applyCandidate()">
+      <option value="">— Chargement des candidats… —</option>
+    </select>
+    <p class="note" id="candidateReason" style="min-height:14px"></p>
+  </div>
+
+  <div class="card">
+    <div class="step">Mode de saisie</div>
+    <div class="mode-toggle">
+      <label><input type="radio" name="input_mode" value="rss" checked onchange="switchMode()"> <span>Avec flux RSS</span></label>
+      <label><input type="radio" name="input_mode" value="manual" onchange="switchMode()"> <span>Sans RSS (saisie manuelle)</span></label>
+    </div>
+
+    <div class="step">1. Renseigner (fiche podcast N1)</div>
+
+    <div id="rssField">
+      <label>Flux RSS</label>
+      <input id="f_rss_url" placeholder="https://.../feed.xml" style="margin-bottom:12px">
+    </div>
+
+    <div id="manualField" style="display:none">
+      <label>Contexte du podcast (nom, description, quelques titres d'épisodes récents — colle ce que tu trouves)</label>
+      <textarea id="f_raw_info" placeholder="Nom du podcast : ...&#10;Description : ...&#10;Titres des épisodes récents :&#10;- ...&#10;- ..." style="min-height:120px;margin-bottom:12px"></textarea>
+    </div>
+
+    <div class="row2">
+      <div>
+        <label>Lien Spotify <span id="spotifyOptionalTag" style="font-weight:400;color:var(--sub)">(optionnel — auto-détection possible si RSS)</span></label>
+        <input id="f_podcast_url" placeholder="https://open.spotify.com/show/..." oninput="checkPodcastUrl()">
+        <small id="warn_podcast">Ceci ne ressemble pas à un lien de plateforme d'écoute connue</small>
+      </div>
+      <div>
+        <label>Lien Listenly (obligatoire)</label>
+        <input id="f_listenly_url" placeholder="https://listenly.fr/podcast/show/..." oninput="checkListenlyUrl()">
+        <small id="warn_listenly">Ceci ne ressemble pas à un lien listenly.fr</small>
+      </div>
+    </div>
+
+    <label style="margin-top:8px">Cible CTA (fiche podcast N1 uniquement)</label>
+    <div class="radio-group">
+      <label><input type="radio" name="cta_target" value="listenly" checked> Vers Listenly</label>
+      <label><input type="radio" name="cta_target" value="spotify"> Vers Spotify</label>
+    </div>
+    <p class="note">Les fiches question (N2) pointent TOUJOURS vers Listenly, quel que soit ce réglage — ce champ ne concerne que la fiche podcast elle-même.</p>
+
+    <label>Langue de la fiche</label>
+    <select id="f_language">
+      <option value="" selected disabled>⚠️ Choisis une langue</option>
+      <option value="fr">Français</option>
+      <option value="en">Anglais (English)</option>
+    </select>
+
+    <details>
+      <summary>Options avancées</summary>
+      <div style="margin-top:10px">
+        <label>Slug personnalisé (sinon dérivé automatiquement)</label>
+        <input id="f_slug" placeholder="ex: mon-podcast">
+        <label>Image de couverture (sinon déduite automatiquement du RSS si disponible)</label>
+        <input id="f_cover_image">
+        <label id="extraInfoLabel">Contexte supplémentaire (en plus du RSS, rarement nécessaire)</label>
+        <textarea id="rawInfo"></textarea>
+      </div>
+    </details>
+
+    <div id="recap"></div>
+
+    <button class="btn-primary" onclick="generateYaml()">Vérifier et générer le YAML</button>
+  </div>
+
+  <div class="card" id="output">
+    <div class="step">2. Copier et déployer</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="font-size:13px;color:var(--sub)">Fichier : <code id="filenameOut" style="font-family:monospace"></code> — <span id="sizeOut"></span></span>
+      <button class="btn-copy" onclick="copyYaml()" id="copyBtn">Copier le YAML</button>
+    </div>
+    <pre id="yamlOut"></pre>
+    <div class="links">
+      <a id="link1" class="link-btn" href="#" target="_blank">1. Créer le fichier →</a>
+      <a id="link2" class="link-btn" href="#" target="_blank">2. Lancer le run →</a>
+    </div>
+    <p id="cronNote" style="font-size:12px;color:var(--sub);margin-top:10px"></p>
+    <button class="btn-reset" onclick="resetForm()">✓ Fait — podcast suivant</button>
+  </div>
+</div>
+
+<script>
+
+var LISTEN_DOMAINS = ["spotify.com","apple.com","deezer.com","podcasts.google","ausha.co","podcastics.com","anchor.fm","acast.com","podbean.com","buzzsprout.com","simplecast.com","transistor.fm","soundcloud.com"];
+
+// --- Candidats détectés automatiquement (discover_podcasts.py) ------------------------
+// Lit directement le fichier produit par le workflow "Découverte de podcasts candidats"
+// sur GitHub (raw.githubusercontent.com, public, pas besoin d'authentification pour lire).
+// Ne pré-remplit QUE le flux RSS (seule donnée fiable fournie par la découverte) — Spotify
+// et Listenly restent à vérifier/compléter manuellement comme avant.
+var DISCOVERY_URL = 'https://raw.githubusercontent.com/listenly-geo/listenlygeo/main/pages/podcast-btb/data/discovery_candidates.json';
+var discoveryCandidates = [];
+
+function loadDiscoveryCandidates(){
+  var sel = document.getElementById('f_candidate');
+  fetch(DISCOVERY_URL, {cache:'no-store'})
+    .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function(data){
+      discoveryCandidates = Object.keys(data).map(function(k){ return data[k]; })
+        .filter(function(c){ return c.verdict === 'ONBOARD'; });
+      if(discoveryCandidates.length === 0){
+        sel.innerHTML = '<option value="">Aucun candidat ONBOARD disponible pour le moment</option>';
+        return;
+      }
+      sel.innerHTML = '<option value="">— Choisir un candidat (' + discoveryCandidates.length + ' disponible(s)) —</option>' +
+        discoveryCandidates.map(function(c, i){
+          var label = c.podcast_name + (c.artist_name ? ' — ' + c.artist_name : '') + ' (' + (c.track_count || '?') + ' ép.)';
+          return '<option value="' + i + '">' + label.replace(/</g,'&lt;') + '</option>';
+        }).join('');
+    })
+    .catch(function(e){
+      sel.innerHTML = '<option value="">Impossible de charger les candidats (' + e.message + ')</option>';
+    });
+}
+
+function applyCandidate(){
+  var idx = document.getElementById('f_candidate').value;
+  var reasonEl = document.getElementById('candidateReason');
+  reasonEl.textContent = '';
+  if(idx === '') return;
+  var c = discoveryCandidates[idx];
+  if(!c) return;
+  document.querySelector('input[name="input_mode"][value="rss"]').checked = true;
+  switchMode();
+  document.getElementById('f_rss_url').value = c.feed_url || '';
+  checkPodcastUrl();
+  reasonEl.textContent = 'Verdict GEO : ONBOARD — ' + (c.reason || '') +
+    (c.genre ? ' · Genre iTunes : ' + c.genre : '');
+}
+
+window.addEventListener('DOMContentLoaded', loadDiscoveryCandidates);
+
+function switchMode(){
+  var mode = document.querySelector('input[name="input_mode"]:checked').value;
+  var rssField = document.getElementById('rssField');
+  var manualField = document.getElementById('manualField');
+  var banner = document.getElementById('modeBanner');
+  var spotifyTag = document.getElementById('spotifyOptionalTag');
+  var extraLabel = document.getElementById('extraInfoLabel');
+  if(mode === 'rss'){
+    rssField.style.display = 'block';
+    manualField.style.display = 'none';
+    banner.textContent = 'Mode RSS : nom, description, image et lien Spotify (si dispo) sont lus automatiquement dans le flux.';
+    spotifyTag.textContent = '(optionnel — auto-détection possible si RSS)';
+    extraLabel.textContent = 'Contexte supplémentaire (en plus du RSS, rarement nécessaire)';
+  } else {
+    rssField.style.display = 'none';
+    manualField.style.display = 'block';
+    banner.textContent = 'Mode manuel : aucun flux RSS — le contenu que tu colles ci-dessous remplace entièrement le RSS. Spotify et image doivent être fournis manuellement.';
+    spotifyTag.textContent = '(obligatoire en mode manuel)';
+    extraLabel.textContent = 'Contexte supplémentaire additionnel (optionnel)';
+  }
+}
+
+function looksLikeListenDomain(v){
+  if(!v) return false;
+  for(var i=0;i<LISTEN_DOMAINS.length;i++){ if(v.indexOf(LISTEN_DOMAINS[i])!==-1) return true; }
+  return false;
+}
+function checkPodcastUrl(){
+  var v = document.getElementById('f_podcast_url').value.trim();
+  var bad = v && (!looksLikeListenDomain(v) || /listenly\.fr/i.test(v));
+  document.getElementById('warn_podcast').className = bad ? 'visible' : '';
+}
+function checkListenlyUrl(){
+  var v = document.getElementById('f_listenly_url').value.trim();
+  var bad = v && !/listenly\.fr/i.test(v);
+  document.getElementById('warn_listenly').className = bad ? 'visible' : '';
+}
+
+function indentBlock(text, n){
+  var pad = new Array(n+1).join(' ');
+  return (text || ' ').split('\n').map(function(l){ return pad + l; }).join('\n');
+}
+function hashCode(s){
+  var h = 0;
+  for(var i=0;i<s.length;i++){ h = ((h<<5)-h) + s.charCodeAt(i); h |= 0; }
+  return Math.abs(h);
+}
+function pickFreeSlot(seed){
+  // Granularite a la minute (1440 creneaux/jour) plutot qu'a l'heure (24 creneaux) :
+  // avec seulement 24 creneaux, la probabilite de collision entre plusieurs podcasts
+  // crees au fil du temps est tres elevee (deja arrive : 7 podcasts sur le meme
+  // creneau). Avec 1440 creneaux, elle devient negligeable, sans avoir besoin de
+  // connaitre en direct les podcasts deja crees.
+  var h = hashCode(seed + '-qa-v2');
+  var totalMinutes = h % 1440; // 0-1439
+  var hour = Math.floor(totalMinutes / 60);
+  var minute = totalMinutes % 60;
+  return {hour: hour, minute: minute};
+}
+function slugFromUrl(url){
+  var m = url.match(/\/([^\/]+?)(\.xml|\.rss)?\/?$/i);
+  return (m ? m[1] : url).replace(/[^a-zA-Z0-9]+/g,'-').toLowerCase().slice(0,40) || 'podcast';
+}
+function slugFromText(text){
+  var firstLine = (text || '').split('\n')[0] || 'podcast';
+  return firstLine.replace(/[^a-zA-Z0-9]+/g,'-').toLowerCase().slice(0,40).replace(/^-+|-+$/g,'') || 'podcast';
+}
+// Nettoyage universel : tout slug (y compris le champ "Slug personnalise" saisi a la
+// main) DOIT passer par ici avant usage. Sans ca, un caractere comme "/" tape ou colle
+// par erreur (ex: "mon-podcast/") finit dans le nom de fichier .yml, et GitHub
+// l'interprete comme un separateur de dossier -> le workflow devient invisible pour
+// GitHub Actions (deja arrive plusieurs fois).
+function sanitizeSlug(s){
+  return (s || '').trim().replace(/[^a-zA-Z0-9]+/g,'-').toLowerCase().slice(0,40).replace(/^-+|-+$/g,'');
+}
+
+var currentYaml = '';
+
+function generateYaml(){
+  var mode = document.querySelector('input[name="input_mode"]:checked').value;
+  var rss_url = document.getElementById('f_rss_url').value.trim();
+  var raw_info_manual = document.getElementById('f_raw_info').value.trim();
+  var podcast_url = document.getElementById('f_podcast_url').value.trim();
+  var listenly_url = document.getElementById('f_listenly_url').value.trim();
+  var cover_image = document.getElementById('f_cover_image').value.trim();
+  var extra_info = document.getElementById('rawInfo').value.trim();
+  var slug_input = document.getElementById('f_slug').value.trim();
+  var language = document.getElementById('f_language').value;
+  var cta_target = document.querySelector('input[name="cta_target"]:checked').value;
+
+  if(!language){
+    alert("Choisis une langue (Français ou Anglais) avant de générer.");
+    return;
+  }
+  if(mode === 'rss'){
+    if(!rss_url){ alert('Le flux RSS est requis en mode RSS.'); return; }
+    if(!listenly_url){ alert('Le lien Listenly est requis.'); return; }
+  } else {
+    if(!raw_info_manual){ alert('Le contexte du podcast est requis en mode manuel.'); return; }
+    if(!podcast_url){ alert('Le lien Spotify est requis en mode manuel (pas de RSS pour le déduire).'); return; }
+    if(!listenly_url){ alert('Le lien Listenly est requis.'); return; }
+  }
+  if(podcast_url && !looksLikeListenDomain(podcast_url)){
+    alert("Le lien Spotify ne ressemble pas à une plateforme d'écoute connue. Vérifie ce champ.");
+    return;
+  }
+  if(podcast_url && /listenly\.fr/i.test(podcast_url)){
+    alert("Le champ Spotify contient un lien listenly.fr — vérifie que tu n'as pas inversé les deux champs.");
+    return;
+  }
+  if(listenly_url && !/listenly\.fr/i.test(listenly_url)){
+    alert('Le champ Listenly ne contient pas listenly.fr — vérifie ce lien.');
+    return;
+  }
+  if(podcast_url && podcast_url === listenly_url){
+    alert('Spotify et Listenly ont exactement le même lien — vérifie tes deux champs.');
+    return;
+  }
+
+  var slug = sanitizeSlug(slug_input) || (mode === 'rss' ? slugFromUrl(rss_url) : slugFromText(raw_info_manual));
+  var slot = pickFreeSlot(slug); // conserve uniquement a titre indicatif dans le recap
+  var filename = 'podcast-btb-qa-' + slug + '.yml';
+  var path = '.github/workflows/' + filename;
+  var cron = slot.minute + ' ' + slot.hour + ' * * *';
+
+  var combinedExtra = (mode === 'manual')
+    ? (raw_info_manual + (extra_info ? '\n\n' + extra_info : ''))
+    : extra_info;
+
+  currentYaml =
+'name: Podcast BTB Trafic — ' + slug + '\n\n' +
+'on:\n' +
+'  workflow_dispatch:\n\n' +
+'jobs:\n  podcast-btb-qa:\n    runs-on: ubuntu-latest\n    steps:\n' +
+'      - uses: actions/checkout@v4\n\n' +
+"      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n\n" +
+'      - name: Verifier si la fiche N1 existait deja avant ce run\n        id: check_n1\n        run: |\n          if [ -f "pages/podcast-btb/' + slug + '-podcast.html" ]; then\n            echo "existed_before=true" >> "$GITHUB_OUTPUT"\n          else\n            echo "existed_before=false" >> "$GITHUB_OUTPUT"\n          fi\n\n' +
+'      - name: Generation fiche podcast N1 (lancement manuel uniquement)\n' +
+"        if: github.event_name == 'workflow_dispatch'\n" +
+'        env:\n' +
+'          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}\n' +
+(mode === 'rss' ? '          RSS_URL: |-\n' + indentBlock(rss_url, 12) + '\n' : '') +
+(podcast_url ? '          PODCAST_URL: |-\n' + indentBlock(podcast_url, 12) + '\n' : '') +
+'          LISTENLY_URL: |-\n' + indentBlock(listenly_url, 12) + '\n' +
+'          COVER_IMAGE: |-\n' + indentBlock(cover_image, 12) + '\n' +
+'          PODCAST_SLUG: |-\n' + indentBlock(slug, 12) + '\n' +
+'          ACCENT_COLOR: |-\n' + indentBlock('#2e8bd6', 12) + '\n' +
+'          LANGUAGE: |-\n' + indentBlock(language, 12) + '\n' +
+'          EPISODE_CTA_TARGET: |-\n' + indentBlock(cta_target, 12) + '\n' +
+(combinedExtra ? '          PODCAST_RAW_INFO: |-\n' + indentBlock(combinedExtra, 12) + '\n' : '') +
+'        run: python automation/scripts/generate_podcast_btb.py\n\n' +
+'      - name: Regenerer le dashboard (visibilite immediate, meme avant le 1er N2)\n        if: steps.check_n1.outputs.existed_before == \'false\'\n        run: python automation/scripts/rebuild_dashboard.py\n\n' +
+'      - name: Installer ffmpeg (necessaire pour compression audio Whisper - N2 uniquement)\n        run: |\n          if command -v ffmpeg >/dev/null 2>&1; then\n            echo "ffmpeg deja present sur le runner : $(ffmpeg -version | head -1)"\n          else\n            echo "ffmpeg absent, installation via apt-get..."\n            export DEBIAN_FRONTEND=noninteractive\n            for i in 1 2 3 4 5; do\n              sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg && break\n              echo "Tentative $i echouee (verrou apt probable), nouvel essai dans 10s..."\n              sleep 10\n            done\n          fi\n\n' +
+'      - name: Generation fiche question N2 (lance manuellement uniquement si N1 existait deja - sinon attend le cron maitre)\n' +
+"        if: github.event_name == 'workflow_dispatch' && steps.check_n1.outputs.existed_before == 'true'\n" +
+'        env:\n' +
+'          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}\n' +
+'          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}\n' +
+'          PODCAST_SLUG: |-\n' + indentBlock(slug, 12) + '\n' +
+'        run: python automation/scripts/generate_qa_fiches_btb.py\n\n' +
+'      - name: Commit fiches\n        if: always()\n        run: |\n' +
+'          git config user.name  "listenly-bot"\n' +
+'          git config user.email "bot@listenly.fr"\n' +
+'          git add pages/podcast-btb/\n' +
+'          if git diff --staged --quiet; then\n' +
+'            echo "Rien de nouveau."\n' +
+'          else\n' +
+'            git commit -m "Auto: podcast-btb-qa ' + slug + '"\n' +
+'            git fetch origin main\n' +
+'            if ! git rebase origin/main; then\n' +
+'              echo "::error::Conflit lors du rebase - abandon pour ne pas corrompre le depot. Relance le workflow (le run concurrent a normalement fini)."\n' +
+'              git rebase --abort\n' +
+'              exit 1\n' +
+'            fi\n' +
+'            if grep -rq "^<<<<<<< \\|^=======$\\|^>>>>>>> " pages/podcast-btb/ 2>/dev/null; then\n' +
+'              echo "::error::Marqueurs de conflit detectes apres rebase - abandon pour ne pas corrompre le depot."\n' +
+'              exit 1\n' +
+'            fi\n' +
+'            git push\n' +
+'          fi\n\n' +
+'      - name: Deploy FTP\n        if: always()\n' +
+'        uses: SamKirkland/FTP-Deploy-Action@v4.3.5\n        with:\n' +
+'          server:    ${{ secrets.FTP_SERVER }}\n' +
+'          username:  ${{ secrets.FTP_USERNAME }}\n' +
+'          password:  ${{ secrets.FTP_PASSWORD }}\n' +
+'          local-dir: ./pages/podcast-btb/\n' +
+'          server-dir: /listenly.fr/podcast-btb/\n' +
+'          exclude: |\n            **/.git*\n            **/.git*/**\n            **/.gitkeep\n';
+
+  document.getElementById('yamlOut').textContent = currentYaml;
+  document.getElementById('filenameOut').textContent = path;
+  document.getElementById('sizeOut').textContent = (new Blob([currentYaml]).size / 1024).toFixed(1) + ' Ko';
+  document.getElementById('link1').href = 'https://github.com/listenly-geo/listenlygeo/new/main?filename=' + encodeURIComponent(path);
+  document.getElementById('link2').href = 'https://github.com/listenly-geo/listenlygeo/actions/workflows/' + filename;
+  document.getElementById('cronNote').textContent = 'Slug : ' + slug + '. Mode : ' + (mode === 'rss' ? 'RSS' : 'manuel') + '. CTA fiche N1 → ' + cta_target + ' (N2 = toujours Listenly). Pas de cron individuel : la production quotidienne de fiches question est geree par le workflow maitre (podcast-btb-trafic-master.yml), qui decouvrira ce podcast automatiquement des sa creation.';
+
+  var recap = document.getElementById('recap');
+  recap.style.display = 'block';
+  var recapHtml = '<strong>Vérification :</strong> ';
+  if(slug_input && sanitizeSlug(slug_input) !== slug_input){
+    recapHtml += '⚠️ Slug nettoyé automatiquement ("' + slug_input + '" → "' + slug + '") pour éviter tout caractère invalide dans le nom de fichier.<br>';
+  }
+  recapHtml += mode === 'rss' ? ('RSS → ' + rss_url + '<br>') : ('Mode manuel (pas de RSS)<br>');
+  recapHtml += 'Spotify → ' + (podcast_url || 'non fourni, détection auto depuis le RSS si possible') + '<br>';
+  recapHtml += 'Listenly → ' + listenly_url;
+  recap.innerHTML = recapHtml;
+
+  document.getElementById('output').style.display = 'block';
+}
+
+function copyYaml(){
+  navigator.clipboard.writeText(currentYaml).then(function(){
+    var btn = document.getElementById('copyBtn');
+    var orig = btn.textContent;
+    btn.textContent = 'Copié !';
+    setTimeout(function(){ btn.textContent = orig; }, 1500);
+  });
+}
+
+function resetForm(){
+  document.getElementById('f_rss_url').value = '';
+  document.getElementById('f_raw_info').value = '';
+  document.getElementById('f_podcast_url').value = '';
+  document.getElementById('f_listenly_url').value = '';
+  document.getElementById('f_slug').value = '';
+  document.getElementById('f_cover_image').value = '';
+  document.getElementById('rawInfo').value = '';
+  document.getElementById('f_language').value = '';
+  document.querySelector('input[name="cta_target"][value="listenly"]').checked = true;
+  document.querySelector('input[name="input_mode"][value="rss"]').checked = true;
+  switchMode();
+  document.getElementById('warn_podcast').className = '';
+  document.getElementById('warn_listenly').className = '';
+  document.getElementById('recap').style.display = 'none';
+  document.getElementById('output').style.display = 'none';
+  document.getElementById('f_rss_url').focus();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+</script>
+</body>
+</html>
