@@ -643,6 +643,30 @@ question exacte, href = l'URL exacte fournie, ne modifie ni l'un ni l'autre) :
     entities = context.get("entities") or []
     bio_context = (guest.get("bio_context") or "").strip()
 
+    # Strategie GEO (validee sur donnees Search Console reelles, 30/08/2026) : les fiches qui
+    # s'appuient sur la notoriete supposee d'un invite/podcast performent nettement moins bien
+    # (CTR ~1.19%, position moy ~19.3) que celles centrees sur l'expertise factuelle pure
+    # (CTR ~3.76%, position moy ~14.0), a volume d'impressions pourtant inferieur. Mode par
+    # defaut pour TOUS les nouveaux podcasts : "expertise" (aucune invocation de notoriete).
+    # Mode "autorite" reserve manuellement (champ fiche_mode dans podcasts.json) aux invites a
+    # la fois experts ET reconnus sectoriellement B2B (jamais une notoriete grand public).
+    fiche_mode = podcast.get("fiche_mode", "expertise")
+    if fiche_mode == "autorite":
+        mode_instruction = """
+## MODE DE FICHE : AUTORITE SECTORIELLE (reserve, valide manuellement pour ce podcast)
+Cet invite est reconnu dans son secteur B2B specifique (pas une notoriete grand public) — tu peux t'appuyer sur
+cette reconnaissance sectorielle en complement des faits (ex: mentionner son role/poids reconnu dans l'industrie),
+mais jamais en remplacement des faits : chiffres reels, methode concrete et citation verbatim restent
+obligatoires et prioritaires sur toute mention de notoriete."""
+    else:
+        mode_instruction = """
+## MODE DE FICHE : EXPERTISE FACTUELLE (mode par defaut)
+Ne t'appuie JAMAIS sur une notoriete supposee de l'invite ou du podcast pour donner de la valeur a la reponse —
+meme si le nom est cite, ne presente jamais l'invite comme "celebre", "reconnu", "star de..." ou equivalent. La
+legitimite de cette fiche repose uniquement sur la precision factuelle : chiffres reels, methode concrete,
+citation verbatim, titre/poste verifiable. Un lecteur qui ne connait pas du tout ce podcast ni cet invite doit
+trouver la reponse tout aussi utile et credible — le contenu doit se suffire entierement a lui-meme."""
+
     if guest_full_name:
         second_role_line = (
             f"\n- Second rôle réel mentionné : {guest.get('titre_secondaire')} chez {guest.get('entreprise_secondaire')}"
@@ -721,6 +745,7 @@ RÈGLE ABSOLUE : développe et illustre la réponse ci-dessus fidèlement — n'
 ni sur la réponse fournie, ni sur les stats/entités listées. Si le contexte plus large n'a rien à ajouter à cette
 question précise, reste concis plutôt que de meubler.
 
+{mode_instruction}
 ## CONTEXTE DU PODCAST PARENT
 - PODCAST_NAME : {podcast['podcast_name']}
 - HOST_NAME : {podcast.get('host_name','')}
