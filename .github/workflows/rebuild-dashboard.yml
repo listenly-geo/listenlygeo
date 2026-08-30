@@ -1,0 +1,47 @@
+name: Régénérer le dashboard (Moteur Trafic)
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Régénérer dashboard.html (+ sitemap/llms/historique)
+        run: python automation/scripts/rebuild_dashboard.py
+
+      - name: Commit
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: rebuild dashboard (declenchement manuel)"
+            git fetch origin main
+            git rebase origin/main
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
