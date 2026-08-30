@@ -1,0 +1,48 @@
+name: Découverte de podcasts candidats (Moteur BTB)
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_qualify:
+        description: 'Nombre max de candidats a qualifier (controle le cout Claude)'
+        required: false
+        default: '15'
+      countries:
+        description: 'Codes pays iTunes separes par virgule'
+        required: false
+        default: 'fr,us'
+  schedule:
+    - cron: '0 6 * * 1'   # tous les lundis 6h — un lot de candidats frais chaque semaine
+
+permissions:
+  contents: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Découverte + qualification GEO
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DISCOVERY_MAX_QUALIFY: ${{ github.event.inputs.max_qualify || '15' }}
+          DISCOVERY_COUNTRIES: ${{ github.event.inputs.countries || 'fr,us' }}
+        run: python automation/scripts/discover_podcasts.py
+
+      - name: Commit historique des candidats
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/data/discovery_candidates.json
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: discovery_candidates.json (run decouverte podcasts)"
+            git push
+          fi
