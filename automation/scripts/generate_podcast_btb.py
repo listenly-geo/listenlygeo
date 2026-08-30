@@ -1280,8 +1280,8 @@ def build_dashboard():
 
     def render_opt_item(item):
         return f"""<details class="opt-item">
-  <summary>✅ {item.get('title','')} <span style="color:var(--sub);font-weight:400;font-size:11px;">{item.get('date','')}</span></summary>
-  <div class="opt-summary">{item.get('summary','')} <code style="font-size:11px;color:var(--sub);">{item.get('commit','')}</code></div>
+  <summary><span class="opt-title">✅ {item.get('title','')}</span><span class="opt-date">{item.get('date','')}</span></summary>
+  <div class="opt-summary">{item.get('summary','')} <code>{item.get('commit','')}</code></div>
 </details>"""
 
     opt_rows_html = "".join(render_opt_item(it) for it in opt_history[:10]) or "<p style='color:var(--sub);font-size:13px;'>Aucune optimisation enregistrée pour le moment.</p>"
@@ -1300,14 +1300,21 @@ def build_dashboard():
 <meta name="robots" content="noindex">
 <title>Historique des optimisations — Moteur Trafic Listenly</title>
 <style>
-body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f8fc;color:#1a1a2e;max-width:820px;margin:0 auto;padding:32px 20px 60px;}}
+body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f8fc;color:#1a1a2e;max-width:820px;margin:0 auto;padding:32px 20px 60px;overflow-x:hidden}}
+*{{box-sizing:border-box;min-width:0}}
 h1{{font-size:22px;margin-bottom:4px;}}
 .sub{{color:#6b7280;font-size:13px;margin-bottom:28px;}}
 .opt-item{{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:12px 16px;margin-bottom:10px;}}
-.opt-item summary{{cursor:pointer;font-weight:600;font-size:14px;list-style:none;}}
+.opt-item summary{{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;}}
 .opt-item summary::-webkit-details-marker{{display:none;}}
-.opt-summary{{margin-top:8px;font-size:13px;color:#444;line-height:1.5;}}
+.opt-title{{font-weight:600;font-size:14px;overflow-wrap:break-word;word-break:break-word;}}
+.opt-date{{color:#6b7280;font-weight:400;font-size:11px;white-space:nowrap;flex-shrink:0;}}
+.opt-summary{{margin-top:8px;font-size:13px;color:#444;line-height:1.5;overflow-wrap:break-word;word-break:break-word;}}
+.opt-summary code{{font-size:11px;color:#6b7280;}}
 a{{color:#4a6cf7;}}
+@media(max-width:480px){{
+  .opt-item summary{{flex-direction:column;align-items:flex-start;gap:2px;}}
+}}
 </style>
 </head>
 <body>
@@ -1506,8 +1513,13 @@ renderGscPeriod(30);
 <meta name="robots" content="noindex, nofollow">
 <style>
 :root{{--bg:#f5f6fa;--card:#fff;--ink:#0f1729;--sub:#64748b;--accent:#2563eb;--accent-soft:#eaf0ff;--ok:#16a34a;--warn-bg:#fdecec;--warn-ink:#dc2626;--border:#e2e6f0;--shadow:0 4px 16px rgba(15,23,41,.05)}}
-*{{box-sizing:border-box}}
-body{{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg);padding:40px 4vw 60px}}
+/* min-width:0 global : les elements grid/flex ont par defaut min-width:auto, cale sur la
+   largeur naturelle de leur contenu -- un seul enfant "incompressible" (badge nowrap, texte
+   long dans un flex) peut alors forcer TOUTE la page a deborder horizontalement sur mobile.
+   Corrige a la racine plutot que rafistole section par section (bug repere le 30/08/2026 sur
+   Production par podcast + Historique optimisation). */
+*{{box-sizing:border-box;min-width:0}}
+body{{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg);padding:40px 4vw 60px;overflow-x:hidden}}
 h1{{font-size:34px;margin:0;font-weight:800;letter-spacing:-.01em}}
 h1 b{{color:var(--accent)}}
 h2{{font-size:13px;margin:40px 0 14px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--sub)}}
@@ -1602,7 +1614,7 @@ ul.clean li{{margin-bottom:6px}}
   #prodTable thead{{display:none}}
   #prodTable, #prodTable tbody, #prodTable tr, #prodTable td{{display:block;width:100%}}
   #prodTable tr{{border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:12px;background:#fff}}
-  #prodTable td{{border:none;padding:7px 0;text-align:left !important;position:relative;padding-left:44%}}
+  #prodTable td{{border:none;padding:7px 0;text-align:left !important;position:relative;padding-left:44%;overflow-wrap:break-word;word-break:break-word}}
   #prodTable td::before{{content:attr(data-label);position:absolute;left:0;top:7px;width:40%;font-size:10.5px;
     font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--sub)}}
   #prodTable td.pod-name{{padding-left:0;padding-top:0;padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:6px;font-size:15px;font-weight:700}}
@@ -1610,7 +1622,7 @@ ul.clean li{{margin-bottom:6px}}
   #prodTable td.pod-name::after{{content:'🎙';margin-right:6px}}
 
   /* Historique optimisation : titre/date empiles au lieu de se serrer sur une seule ligne */
-  .opt-item summary{{flex-direction:column;align-items:flex-start !important;gap:2px}}
+  .opt-item summary{{flex-direction:column;align-items:flex-start;gap:2px}}
   .opt-item{{padding:12px 14px}}
 
   .calendar{{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}}
@@ -1662,9 +1674,12 @@ ul.clean li{{margin-bottom:6px}}
 <div class="panel">
 <style>
 .opt-item{{background:#fafbff;border:1px solid #e8e9f5;border-radius:8px;padding:10px 14px;margin-bottom:8px;}}
-.opt-item summary{{cursor:pointer;font-weight:600;font-size:13px;list-style:none;display:flex;justify-content:space-between;gap:8px;}}
+.opt-item summary{{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;}}
 .opt-item summary::-webkit-details-marker{{display:none;}}
-.opt-summary{{margin-top:8px;font-size:12px;color:#555;line-height:1.5;}}
+.opt-title{{font-weight:600;font-size:13px;overflow-wrap:break-word;word-break:break-word;}}
+.opt-date{{color:var(--sub);font-weight:400;font-size:11px;white-space:nowrap;flex-shrink:0;}}
+.opt-summary{{margin-top:8px;font-size:12px;color:#555;line-height:1.5;overflow-wrap:break-word;word-break:break-word;}}
+.opt-summary code{{font-size:11px;color:var(--sub);}}
 </style>
 {opt_rows_html}
 <div style="margin-top:10px;text-align:right;">{opt_full_link}</div>
