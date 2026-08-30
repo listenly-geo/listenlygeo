@@ -117,13 +117,66 @@ ul.clean li{margin-bottom:6px}
 
 <div class="card" style="background:linear-gradient(135deg,#eef2ff,#f7f4ff);border:1px solid #d8d4ff;margin-bottom:20px;">
 
-  <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
-    <div><div class="num" style="font-size:26px;">15</div><div class="lbl">Clics vers Listenly (30 derniers jours)</div></div>
-    <div><div class="num" style="font-size:26px;">993</div><div class="lbl">Impressions (30 derniers jours)</div></div>
-    <div><div class="num" style="font-size:26px;">1.51%</div><div class="lbl">CTR moyen</div></div>
+  <div id="gscPeriodButtons" style="margin-bottom:12px;">
+    <button type="button" class="gsc-period-btn" data-days="7" onclick="renderGscPeriod(7)">7 jours</button>
+    <button type="button" class="gsc-period-btn active" data-days="30" onclick="renderGscPeriod(30)">30 jours</button>
+    <button type="button" class="gsc-period-btn" data-days="90" onclick="renderGscPeriod(90)">90 jours</button>
   </div>
-  <div style="display:flex;align-items:flex-end;gap:2px;height:44px;margin-top:14px;"><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-07-29 : 0 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-07-30 : 0 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-07-31 : 0 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-08-01 : 0 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-08-02 : 0 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-08-03 : 0 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-08-04 : 0 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-08-05 : 0 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-08-06 : 0 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-08-07 : 0 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-08-08 : 0 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-08-09 : 0 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-08-10 : 0 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:20px" title="2026-08-11 : 1 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-08-12 : 0 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:20px" title="2026-08-13 : 1 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:20px" title="2026-08-14 : 1 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:20px" title="2026-08-15 : 1 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-08-16 : 0 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:40px" title="2026-08-17 : 2 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:40px" title="2026-08-18 : 2 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-08-19 : 0 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:40px" title="2026-08-20 : 2 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:40px" title="2026-08-21 : 2 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:40px" title="2026-08-22 : 2 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-08-23 : 0 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-08-24 : 0 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-08-25 : 0 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:20px" title="2026-08-26 : 1 clics"></div><div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:4px" title="2026-08-27 : 0 clics"></div></div>
-  <div style="font-size:11px;color:var(--sub);margin-top:6px;">Source : Google Search Console · dernière synchro 30/08/2026 16:41</div>
+  <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
+    <div><div class="num" style="font-size:26px;" id="gscClicks">—</div><div class="lbl">Clics vers Listenly (<span id="gscPeriodLabel1">30 derniers jours</span>)<span id="gscDelta"></span></div></div>
+    <div><div class="num" style="font-size:26px;" id="gscImpressions">—</div><div class="lbl">Impressions (<span id="gscPeriodLabel2">30 derniers jours</span>)</div></div>
+    <div><div class="num" style="font-size:26px;" id="gscCtr">—</div><div class="lbl">CTR moyen</div></div>
+  </div>
+  <div style="display:flex;align-items:flex-end;gap:2px;height:44px;margin-top:14px;" id="gscSparkline"></div>
+  <div style="font-size:11px;color:var(--sub);margin-top:6px;">Source : Google Search Console · dernière synchro 30/08/2026 16:45</div>
+<script id="gscDailyData" type="application/json">[{"date": "2026-06-19", "clicks": 0, "impressions": 0}, {"date": "2026-06-20", "clicks": 0, "impressions": 0}, {"date": "2026-06-21", "clicks": 0, "impressions": 0}, {"date": "2026-06-22", "clicks": 0, "impressions": 0}, {"date": "2026-06-23", "clicks": 0, "impressions": 0}, {"date": "2026-06-24", "clicks": 0, "impressions": 0}, {"date": "2026-06-25", "clicks": 0, "impressions": 0}, {"date": "2026-06-26", "clicks": 0, "impressions": 0}, {"date": "2026-06-27", "clicks": 0, "impressions": 0}, {"date": "2026-06-28", "clicks": 0, "impressions": 0}, {"date": "2026-06-29", "clicks": 0, "impressions": 0}, {"date": "2026-06-30", "clicks": 0, "impressions": 0}, {"date": "2026-07-01", "clicks": 0, "impressions": 0}, {"date": "2026-07-02", "clicks": 0, "impressions": 0}, {"date": "2026-07-03", "clicks": 0, "impressions": 0}, {"date": "2026-07-04", "clicks": 0, "impressions": 0}, {"date": "2026-07-05", "clicks": 0, "impressions": 0}, {"date": "2026-07-06", "clicks": 0, "impressions": 0}, {"date": "2026-07-07", "clicks": 0, "impressions": 0}, {"date": "2026-07-08", "clicks": 0, "impressions": 0}, {"date": "2026-07-09", "clicks": 0, "impressions": 0}, {"date": "2026-07-10", "clicks": 0, "impressions": 1}, {"date": "2026-07-11", "clicks": 0, "impressions": 0}, {"date": "2026-07-12", "clicks": 0, "impressions": 0}, {"date": "2026-07-13", "clicks": 0, "impressions": 0}, {"date": "2026-07-14", "clicks": 0, "impressions": 2}, {"date": "2026-07-15", "clicks": 0, "impressions": 2}, {"date": "2026-07-16", "clicks": 0, "impressions": 3}, {"date": "2026-07-17", "clicks": 0, "impressions": 6}, {"date": "2026-07-18", "clicks": 0, "impressions": 0}, {"date": "2026-07-19", "clicks": 0, "impressions": 1}, {"date": "2026-07-20", "clicks": 0, "impressions": 0}, {"date": "2026-07-21", "clicks": 0, "impressions": 0}, {"date": "2026-07-22", "clicks": 0, "impressions": 0}, {"date": "2026-07-23", "clicks": 0, "impressions": 2}, {"date": "2026-07-24", "clicks": 0, "impressions": 0}, {"date": "2026-07-25", "clicks": 0, "impressions": 2}, {"date": "2026-07-26", "clicks": 0, "impressions": 0}, {"date": "2026-07-27", "clicks": 0, "impressions": 3}, {"date": "2026-07-28", "clicks": 0, "impressions": 0}, {"date": "2026-07-29", "clicks": 0, "impressions": 0}, {"date": "2026-07-30", "clicks": 0, "impressions": 1}, {"date": "2026-07-31", "clicks": 0, "impressions": 1}, {"date": "2026-08-01", "clicks": 0, "impressions": 0}, {"date": "2026-08-02", "clicks": 0, "impressions": 0}, {"date": "2026-08-03", "clicks": 0, "impressions": 0}, {"date": "2026-08-04", "clicks": 0, "impressions": 0}, {"date": "2026-08-05", "clicks": 0, "impressions": 0}, {"date": "2026-08-06", "clicks": 0, "impressions": 0}, {"date": "2026-08-07", "clicks": 0, "impressions": 0}, {"date": "2026-08-08", "clicks": 0, "impressions": 3}, {"date": "2026-08-09", "clicks": 0, "impressions": 13}, {"date": "2026-08-10", "clicks": 0, "impressions": 33}, {"date": "2026-08-11", "clicks": 1, "impressions": 90}, {"date": "2026-08-12", "clicks": 0, "impressions": 78}, {"date": "2026-08-13", "clicks": 1, "impressions": 95}, {"date": "2026-08-14", "clicks": 1, "impressions": 52}, {"date": "2026-08-15", "clicks": 1, "impressions": 55}, {"date": "2026-08-16", "clicks": 0, "impressions": 48}, {"date": "2026-08-17", "clicks": 2, "impressions": 54}, {"date": "2026-08-18", "clicks": 2, "impressions": 37}, {"date": "2026-08-19", "clicks": 0, "impressions": 57}, {"date": "2026-08-20", "clicks": 2, "impressions": 52}, {"date": "2026-08-21", "clicks": 2, "impressions": 30}, {"date": "2026-08-22", "clicks": 2, "impressions": 48}, {"date": "2026-08-23", "clicks": 0, "impressions": 49}, {"date": "2026-08-24", "clicks": 0, "impressions": 58}, {"date": "2026-08-25", "clicks": 0, "impressions": 49}, {"date": "2026-08-26", "clicks": 1, "impressions": 52}, {"date": "2026-08-27", "clicks": 0, "impressions": 38}]</script>
+<style>
+.gsc-period-btn { font-size:12px; font-weight:600; padding:5px 12px; border-radius:16px; border:1px solid #d8d4ff;
+  background:#fff; color:var(--ink); cursor:pointer; margin-right:6px; }
+.gsc-period-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+</style>
+<script>
+function renderGscPeriod(days){
+  var raw = document.getElementById('gscDailyData');
+  if(!raw) return;
+  var daily = JSON.parse(raw.textContent);
+  var current = daily.slice(-days);
+  var previous = daily.slice(-days * 2, -days);
+  function sum(arr, key){ return arr.reduce(function(a, d){ return a + (d[key] || 0); }, 0); }
+  var clicks = sum(current, 'clicks');
+  var impressions = sum(current, 'impressions');
+  var ctr = impressions ? (clicks / impressions * 100) : 0;
+  var prevClicks = sum(previous, 'clicks');
+  var deltaHtml = '';
+  if(previous.length && prevClicks){
+    var deltaPct = (clicks - prevClicks) / prevClicks * 100;
+    var arrow = deltaPct >= 0 ? '▲' : '▼';
+    var color = deltaPct >= 0 ? '#16a34a' : '#dc2626';
+    deltaHtml = ' <span style="color:' + color + ';font-size:13px;font-weight:600">' + arrow + ' ' +
+      Math.abs(Math.round(deltaPct)) + '% vs periode precedente</span>';
+  }
+  var label = days + ' derniers jours';
+  document.getElementById('gscClicks').textContent = clicks.toLocaleString('fr-FR');
+  document.getElementById('gscImpressions').textContent = impressions.toLocaleString('fr-FR');
+  document.getElementById('gscCtr').textContent = ctr.toFixed(2) + '%';
+  document.getElementById('gscDelta').innerHTML = deltaHtml;
+  document.getElementById('gscPeriodLabel1').textContent = label;
+  document.getElementById('gscPeriodLabel2').textContent = label;
+
+  var maxClicks = Math.max.apply(null, current.map(function(d){ return d.clicks || 0; }).concat([1]));
+  var spark = document.getElementById('gscSparkline');
+  spark.innerHTML = current.map(function(d){
+    var h = Math.max(4, Math.round((d.clicks || 0) / maxClicks * 40));
+    return '<div style="flex:1;background:var(--accent);opacity:.75;border-radius:2px 2px 0 0;height:' + h +
+      'px" title="' + d.date + ' : ' + (d.clicks || 0) + ' clics"></div>';
+  }).join('');
+
+  document.querySelectorAll('.gsc-period-btn').forEach(function(btn){
+    btn.classList.toggle('active', parseInt(btn.getAttribute('data-days'), 10) === days);
+  });
+}
+renderGscPeriod(30);
+</script>
 </div>
 
 <div class="cards">
