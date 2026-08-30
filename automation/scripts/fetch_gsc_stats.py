@@ -30,7 +30,7 @@ Sortie : pages/podcast-btb/data/gsc_stats.json
 import os, sys, json, datetime
 import urllib.request, urllib.error
 
-SITE_URL = os.environ.get("GSC_SITE_URL", "https://listenly.fr/")
+SITE_URL = os.environ.get("GSC_SITE_URL", "sc-domain:listenly.fr")  # propriete de type "domaine" (confirme via Search Console)
 PATH_FILTER = os.environ.get("GSC_PATH_FILTER", "/podcast-btb/")
 DAYS = int(os.environ.get("GSC_DAYS", "30"))
 OUTPUT_FILE = "pages/podcast-btb/data/gsc_stats.json"
@@ -125,7 +125,12 @@ def main():
         log("ERREUR : GSC_SERVICE_ACCOUNT_JSON n'est pas un JSON valide.")
         sys.exit(1)
 
-    access_token = get_access_token(sa_info)
+    try:
+        access_token = get_access_token(sa_info)
+    except urllib.error.HTTPError as e:
+        log(f"ERREUR OAuth ({e.code}) : {e.read().decode(errors='replace')}")
+        sys.exit(1)
+    log("Token OAuth obtenu avec succes.")
 
     today = datetime.date.today()
     # GSC a un delai de fraicheur de 2-3 jours -- on s'arrete a J-3 pour n'avoir que
@@ -136,7 +141,12 @@ def main():
     prev_start_date = prev_end_date - datetime.timedelta(days=DAYS - 1)
 
     log(f"Periode actuelle : {start_date} -> {end_date}")
-    daily_result = query_search_analytics(access_token, start_date.isoformat(), end_date.isoformat(), ["date"])
+    try:
+        daily_result = query_search_analytics(access_token, start_date.isoformat(), end_date.isoformat(), ["date"])
+    except urllib.error.HTTPError as e:
+        log(f"ERREUR requete Search Analytics ({e.code}) : {e.read().decode(errors='replace')}")
+        log(f"SITE_URL utilise : {SITE_URL} -- verifie que ca correspond EXACTEMENT au format de ta propriete dans Search Console.")
+        sys.exit(1)
     rows = daily_result.get("rows", [])
     daily = [
         {"date": r["keys"][0], "clicks": int(r.get("clicks", 0)), "impressions": int(r.get("impressions", 0))}
