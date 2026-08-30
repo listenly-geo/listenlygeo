@@ -7,8 +7,13 @@
 <meta name="robots" content="noindex, nofollow">
 <style>
 :root{--bg:#f5f6fa;--card:#fff;--ink:#0f1729;--sub:#64748b;--accent:#2563eb;--accent-soft:#eaf0ff;--ok:#16a34a;--warn-bg:#fdecec;--warn-ink:#dc2626;--border:#e2e6f0;--shadow:0 4px 16px rgba(15,23,41,.05)}
-*{box-sizing:border-box}
-body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg);padding:40px 4vw 60px}
+/* min-width:0 global : les elements grid/flex ont par defaut min-width:auto, cale sur la
+   largeur naturelle de leur contenu -- un seul enfant "incompressible" (badge nowrap, texte
+   long dans un flex) peut alors forcer TOUTE la page a deborder horizontalement sur mobile.
+   Corrige a la racine plutot que rafistole section par section (bug repere le 30/08/2026 sur
+   Production par podcast + Historique optimisation). */
+*{box-sizing:border-box;min-width:0}
+body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg);padding:40px 4vw 60px;overflow-x:hidden}
 h1{font-size:34px;margin:0;font-weight:800;letter-spacing:-.01em}
 h1 b{color:var(--accent)}
 h2{font-size:13px;margin:40px 0 14px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--sub)}
@@ -103,7 +108,7 @@ ul.clean li{margin-bottom:6px}
   #prodTable thead{display:none}
   #prodTable, #prodTable tbody, #prodTable tr, #prodTable td{display:block;width:100%}
   #prodTable tr{border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:12px;background:#fff}
-  #prodTable td{border:none;padding:7px 0;text-align:left !important;position:relative;padding-left:44%}
+  #prodTable td{border:none;padding:7px 0;text-align:left !important;position:relative;padding-left:44%;overflow-wrap:break-word;word-break:break-word}
   #prodTable td::before{content:attr(data-label);position:absolute;left:0;top:7px;width:40%;font-size:10.5px;
     font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--sub)}
   #prodTable td.pod-name{padding-left:0;padding-top:0;padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:6px;font-size:15px;font-weight:700}
@@ -111,7 +116,7 @@ ul.clean li{margin-bottom:6px}
   #prodTable td.pod-name::after{content:'🎙';margin-right:6px}
 
   /* Historique optimisation : titre/date empiles au lieu de se serrer sur une seule ligne */
-  .opt-item summary{flex-direction:column;align-items:flex-start !important;gap:2px}
+  .opt-item summary{flex-direction:column;align-items:flex-start;gap:2px}
   .opt-item{padding:12px 14px}
 
   .calendar{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
@@ -807,40 +812,43 @@ renderGscPeriod(30);
 <div class="panel">
 <style>
 .opt-item{background:#fafbff;border:1px solid #e8e9f5;border-radius:8px;padding:10px 14px;margin-bottom:8px;}
-.opt-item summary{cursor:pointer;font-weight:600;font-size:13px;list-style:none;display:flex;justify-content:space-between;gap:8px;}
+.opt-item summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;}
 .opt-item summary::-webkit-details-marker{display:none;}
-.opt-summary{margin-top:8px;font-size:12px;color:#555;line-height:1.5;}
+.opt-title{font-weight:600;font-size:13px;overflow-wrap:break-word;word-break:break-word;}
+.opt-date{color:var(--sub);font-weight:400;font-size:11px;white-space:nowrap;flex-shrink:0;}
+.opt-summary{margin-top:8px;font-size:12px;color:#555;line-height:1.5;overflow-wrap:break-word;word-break:break-word;}
+.opt-summary code{font-size:11px;color:var(--sub);}
 </style>
 <details class="opt-item">
-  <summary>✅ Dashboard : nettoyage des cartes KPI <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
-  <div class="opt-summary">Retrait de 3 cartes jugées peu utiles (Fiches épisode totales, Fiches cette semaine, Fiches sur 30 jours) — ne restent que Podcasts référencés et Fiches requête totales, juste sous les stats Search Console. <code style="font-size:11px;color:var(--sub);">29bc587</code></div>
+  <summary><span class="opt-title">✅ Dashboard : nettoyage des cartes KPI</span><span class="opt-date">2026-08-30</span></summary>
+  <div class="opt-summary">Retrait de 3 cartes jugées peu utiles (Fiches épisode totales, Fiches cette semaine, Fiches sur 30 jours) — ne restent que Podcasts référencés et Fiches requête totales, juste sous les stats Search Console. <code>29bc587</code></div>
 </details><details class="opt-item">
-  <summary>✅ Dashboard : sélecteur de période sur les stats Search Console <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
-  <div class="opt-summary">Boutons 7j / 30j / 90j — le calcul (clics, impressions, CTR, évolution) se fait entièrement côté navigateur à partir d'un large historique déjà chargé, sans re-synchroniser à chaque clic. <code style="font-size:11px;color:var(--sub);">96bd4b3</code></div>
+  <summary><span class="opt-title">✅ Dashboard : sélecteur de période sur les stats Search Console</span><span class="opt-date">2026-08-30</span></summary>
+  <div class="opt-summary">Boutons 7j / 30j / 90j — le calcul (clics, impressions, CTR, évolution) se fait entièrement côté navigateur à partir d'un large historique déjà chargé, sans re-synchroniser à chaque clic. <code>96bd4b3</code></div>
 </details><details class="opt-item">
-  <summary>✅ Dashboard : vraies statistiques Search Console <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
-  <div class="opt-summary">Remplace l'ancienne carte "coût estimé" par les vrais clics/impressions générés vers Listenly, via connexion à l'API Google Search Console (compte de service). <code style="font-size:11px;color:var(--sub);">353b8e6</code></div>
+  <summary><span class="opt-title">✅ Dashboard : vraies statistiques Search Console</span><span class="opt-date">2026-08-30</span></summary>
+  <div class="opt-summary">Remplace l'ancienne carte "coût estimé" par les vrais clics/impressions générés vers Listenly, via connexion à l'API Google Search Console (compte de service). <code>353b8e6</code></div>
 </details><details class="opt-item">
-  <summary>✅ Dashboard : tri par dernier podcast ajouté <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
-  <div class="opt-summary">Le tableau "Production par podcast" trie désormais par date d'ajout décroissante au lieu de l'ordre alphabétique — les ajouts récents apparaissent en premier. <code style="font-size:11px;color:var(--sub);">e784cb7</code></div>
+  <summary><span class="opt-title">✅ Dashboard : tri par dernier podcast ajouté</span><span class="opt-date">2026-08-30</span></summary>
+  <div class="opt-summary">Le tableau "Production par podcast" trie désormais par date d'ajout décroissante au lieu de l'ordre alphabétique — les ajouts récents apparaissent en premier. <code>e784cb7</code></div>
 </details><details class="opt-item">
-  <summary>✅ Générateur : préremplissage des candidats détectés <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
-  <div class="opt-summary">Slug, image de couverture, lien plateforme et langue détectée se remplissent automatiquement en sélectionnant un candidat trouvé par la découverte automatique. <code style="font-size:11px;color:var(--sub);">2d66f3e</code></div>
+  <summary><span class="opt-title">✅ Générateur : préremplissage des candidats détectés</span><span class="opt-date">2026-08-30</span></summary>
+  <div class="opt-summary">Slug, image de couverture, lien plateforme et langue détectée se remplissent automatiquement en sélectionnant un candidat trouvé par la découverte automatique. <code>2d66f3e</code></div>
 </details><details class="opt-item">
-  <summary>✅ Découverte automatique de podcasts (anglais uniquement) <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
-  <div class="opt-summary">Recherche iTunes sur 37 mots-clés sectoriels B2B, qualification GEO automatique (Claude + recherche web), pays anglophones uniquement pour un impact maximal — tourne chaque semaine. <code style="font-size:11px;color:var(--sub);">db1ffc8</code></div>
+  <summary><span class="opt-title">✅ Découverte automatique de podcasts (anglais uniquement)</span><span class="opt-date">2026-08-30</span></summary>
+  <div class="opt-summary">Recherche iTunes sur 37 mots-clés sectoriels B2B, qualification GEO automatique (Claude + recherche web), pays anglophones uniquement pour un impact maximal — tourne chaque semaine. <code>db1ffc8</code></div>
 </details><details class="opt-item">
-  <summary>✅ Fiches : gras stratégique + hook de curiosité <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
-  <div class="opt-summary">Une expression clé en gras par paragraphe pour la lisibilité en diagonale, et une phrase pointant vers un détail non traité de l'épisode juste avant la citation, pour inciter au clic sans affaiblir la réponse GEO. <code style="font-size:11px;color:var(--sub);">adde768</code></div>
+  <summary><span class="opt-title">✅ Fiches : gras stratégique + hook de curiosité</span><span class="opt-date">2026-08-30</span></summary>
+  <div class="opt-summary">Une expression clé en gras par paragraphe pour la lisibilité en diagonale, et une phrase pointant vers un détail non traité de l'épisode juste avant la citation, pour inciter au clic sans affaiblir la réponse GEO. <code>adde768</code></div>
 </details><details class="opt-item">
-  <summary>✅ Fiches : bouton CTA visible en haut de page <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
-  <div class="opt-summary">Le seul bouton d'accès au podcast était tout en bas — ajout d'un bouton visible dès le haut, avec une phrase expliquant le concept de la fiche. <code style="font-size:11px;color:var(--sub);">215c4de</code></div>
+  <summary><span class="opt-title">✅ Fiches : bouton CTA visible en haut de page</span><span class="opt-date">2026-08-30</span></summary>
+  <div class="opt-summary">Le seul bouton d'accès au podcast était tout en bas — ajout d'un bouton visible dès le haut, avec une phrase expliquant le concept de la fiche. <code>215c4de</code></div>
 </details><details class="opt-item">
-  <summary>✅ Mass-media mis en dormant (12 podcasts) <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
-  <div class="opt-summary">NYT, NPR, Mel Robbins, Diary of a CEO et 8 autres retirés de la production active — leurs fiches existantes restent en ligne mais plus aucune génération future. <code style="font-size:11px;color:var(--sub);">7ad3bfe</code></div>
+  <summary><span class="opt-title">✅ Mass-media mis en dormant (12 podcasts)</span><span class="opt-date">2026-08-30</span></summary>
+  <div class="opt-summary">NYT, NPR, Mel Robbins, Diary of a CEO et 8 autres retirés de la production active — leurs fiches existantes restent en ligne mais plus aucune génération future. <code>7ad3bfe</code></div>
 </details><details class="opt-item">
-  <summary>✅ Mode "expertise factuelle" par défaut, mode "autorité" réservé <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
-  <div class="opt-summary">Toutes les fiches s'appuient désormais sur les faits (chiffres, méthode, citation) plutôt que sur une notoriété supposée — conforme aux données Search Console (CTR 3.76% niche B2B vs 1.19% mass-media). <code style="font-size:11px;color:var(--sub);">43f87c3</code></div>
+  <summary><span class="opt-title">✅ Mode "expertise factuelle" par défaut, mode "autorité" réservé</span><span class="opt-date">2026-08-30</span></summary>
+  <div class="opt-summary">Toutes les fiches s'appuient désormais sur les faits (chiffres, méthode, citation) plutôt que sur une notoriété supposée — conforme aux données Search Console (CTR 3.76% niche B2B vs 1.19% mass-media). <code>43f87c3</code></div>
 </details>
 <div style="margin-top:10px;text-align:right;"><a href="https://listenly.fr/podcast-btb/historique-optimisations.html" target="_blank" style="font-size:12px;">Voir l'historique complet (12) →</a></div>
 </div>
