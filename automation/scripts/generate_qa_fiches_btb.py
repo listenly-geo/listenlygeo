@@ -138,6 +138,10 @@ STRUCTURE DE LA PAGE (dans cet ordre exact) :
    seuil." — affirmation nette, pas de détour) — c'est le fragment que les IA génératives citeront en premier,
    autonome, doit répondre pleinement sans le reste de la page
 4. LISIBILITÉ — RÈGLE STRICTE : jamais plus de 2-4 phrases par paragraphe (<p>) nulle part sur la fiche
+4bis. REPÈRES VISUELS : dans les paragraphes de DÉVELOPPEMENT (jamais dans le lead), mets en <strong>gras</strong>
+   UNE seule expression clé par paragraphe (le fait, chiffre ou insight le plus important de la phrase) — jamais
+   plus d'une par paragraphe, jamais la phrase entière, jamais un mot isolé sans valeur informative. Objectif :
+   qu'une lecture en diagonale des seuls mots en gras donne déjà l'essentiel, sans surcharger visuellement.
 5. DÉVELOPPEMENT : si le contexte réel le permet, 1 à 2 sous-sections sous de VRAIS <h2> NARRATIFS et SPÉCIFIQUES
    au contenu réel — jamais un titre générique ("Contexte", "Développement"). Le H2 doit raconter un fragment
    concret de ce qui a été dit (style "Trois albums la même année — et pas d'étiquette", PAS "Plus de détails").
@@ -155,6 +159,13 @@ dans <a class="inline-cta" href="[[LISTENLY_URL]]">l'épisode</a>", "un point d�
 grammaticalement naturelle, jamais un fragment de texte isolé ou souligné en dehors de son contexte de phrase.
 6. <div class="definition-box"> CONDITIONNEL : UNIQUEMENT si un terme technique central est explicitement défini
    dans le contexte réel fourni — jamais inventé. N'en ajoute pas si rien ne s'y prête.
+6bis. HOOK DE CURIOSITÉ (OBLIGATOIRE si le contexte le permet) : juste avant la citation (ou juste avant les
+   points clés s'il n'y a pas de citation), UNE phrase qui évoque un détail concret et spécifique de l'épisode
+   qui N'EST PAS développé sur cette fiche (une anecdote, une méthode précise, un autre chiffre, une autre partie
+   de la conversation) — formulée comme un lien <a class="inline-cta" href="[[LISTENLY_URL]]">...</a> naturel, un
+   de plus parmi les 3-5 CTA déjà demandés. Objectif : donner une vraie raison d'écouter l'épisode complet, pas
+   répéter ce qui est déjà dit sur la fiche. RÈGLE ABSOLUE : n'invente jamais ce détail — si le contexte fourni
+   n'a réellement rien d'autre à offrir, ignore cette instruction plutôt que de forcer un hook creux.
 7. <blockquote class="citation"> CONDITIONNEL (si citation réelle ET/OU invité identifié) :
    <p>"citation verbatim réelle en italique"</p>
    <figcaption><strong>[[SPEAKER_NAME]]</strong> — [titre réel], [développement réel du parcours/de la
@@ -253,6 +264,10 @@ PAGE STRUCTURE (in this exact order):
    a plain statement, no hedging) — this is the fragment generative AIs will quote first, it must stand alone
    and fully answer the question without the rest of the page
 4. READABILITY — STRICT RULE: never more than 2-4 sentences per paragraph (<p>) anywhere on the fiche
+4bis. VISUAL ANCHORS: in DEVELOPMENT paragraphs only (never in the lead), bold <strong>one</strong> key phrase
+   per paragraph (the single most important fact, number, or insight in that sentence) — never more than one per
+   paragraph, never the whole sentence, never an isolated word with no informational value. Goal: a reader
+   skimming only the bolded words should already get the gist.
 5. DEVELOPMENT: if the real context allows it, 1 to 2 sub-sections under REAL NARRATIVE and SPECIFIC <h2>
    headings tied to the real content — never a generic title ("Context", "Development"). The H2 must tell a
    concrete fragment of what was actually said (style "Three albums the same year — and no label", NOT "More
@@ -270,6 +285,13 @@ content, don't copy verbatim): "as [[SPEAKER_NAME]] explains in
 natural sentence, never an isolated or underlined text fragment out of its sentence context.
 6. <div class="definition-box"> CONDITIONAL: ONLY if a central technical term is explicitly defined in the
    real context provided — never invented. Don't add one if nothing calls for it.
+6bis. CURIOSITY HOOK (MANDATORY if the context allows it): right before the quote block (or right before the key
+   takeaways if there's no quote), ONE sentence that references a concrete, specific detail from the episode
+   that is NOT covered on this fiche (an anecdote, a precise method, another number, another part of the
+   conversation) — phrased as a natural <a class="inline-cta" href="[[LISTENLY_URL]]">...</a> link, counted
+   among the 3-5 CTAs already required. Goal: give a real reason to listen to the full episode, not repeat what
+   the fiche already says. ABSOLUTE RULE: never invent this detail — if the provided context genuinely has
+   nothing else to offer, skip this instruction rather than forcing a hollow hook.
 7. <blockquote class="citation"> CONDITIONAL (if a real quote AND/OR an identified guest exist):
    <p>"real verbatim quote in italics"</p>
    <figcaption><strong>[[SPEAKER_NAME]]</strong> — [real title], [real development of their background/
