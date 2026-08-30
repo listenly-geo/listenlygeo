@@ -160,12 +160,30 @@ function normalizeName(s){
   return (s || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
 }
 
+// Candidats deja "traites" par l'utilisateur (YAML genere pour eux) -- stockage local au
+// navigateur, tant que cet outil n'a pas d'ecriture directe vers GitHub. Complementaire au
+// filtre podcasts.json ci-dessus : celui-ci reagit immediatement au clic, l'autre confirme
+// une fois l'onboarding reellement termine (delai de quelques minutes).
+var VALIDATED_KEY = 'listenly_validated_candidates';
+
+function getValidatedSet(){
+  try { return new Set(JSON.parse(localStorage.getItem(VALIDATED_KEY) || '[]')); }
+  catch(e){ return new Set(); }
+}
+
+function markValidated(feedUrl){
+  if(!feedUrl) return;
+  var set = getValidatedSet();
+  set.add(feedUrl);
+  try { localStorage.setItem(VALIDATED_KEY, JSON.stringify(Array.from(set))); } catch(e){ /* stockage indisponible, tant pis */ }
+}
+
 function loadDiscoveryCandidates(){
   var sel = document.getElementById('f_candidate');
   var reasonEl = document.getElementById('candidateReason');
   sel.innerHTML = '<option value="">— Chargement des candidats… —</option>';
   reasonEl.textContent = '';
-  Promise.all([
+  return Promise.all([
     fetch(DISCOVERY_URL, {cache:'no-store'}).then(function(r){ if(!r.ok) throw new Error('discovery HTTP ' + r.status); return r.json(); }),
     fetch(PODCASTS_URL, {cache:'no-store'}).then(function(r){ if(!r.ok) throw new Error('podcasts HTTP ' + r.status); return r.json(); })
   ]).then(function(results){
@@ -177,10 +195,12 @@ function loadDiscoveryCandidates(){
     // donc toujours a jour independamment de quand la decouverte a tourne.
     var existingNames = {};
     (existingPodcasts || []).forEach(function(p){ existingNames[normalizeName(p.podcast_name)] = true; });
+    var validated = getValidatedSet();
 
     discoveryCandidates = Object.keys(discoveryData).map(function(k){ return discoveryData[k]; })
       .filter(function(c){ return c.verdict === 'ONBOARD'; })
-      .filter(function(c){ return !existingNames[normalizeName(c.podcast_name)]; });
+      .filter(function(c){ return !existingNames[normalizeName(c.podcast_name)]; })
+      .filter(function(c){ return !validated.has(c.feed_url); });
 
     if(discoveryCandidates.length === 0){
       sel.innerHTML = '<option value="">Aucun candidat ONBOARD disponible pour le moment</option>';
@@ -457,6 +477,16 @@ function copyYaml(){
 }
 
 function resetForm(){
+  // Si le formulaire venait d'un candidat de la liste automatique, on le marque comme
+  // traite avant de vider les champs -- il ne reapparaitra plus dans "Candidats detectes
+  // automatiquement" (dans ce navigateur), et on enchaine directement sur le suivant.
+  var sel = document.getElementById('f_candidate');
+  var candidateIdx = sel.value;
+  var hadCandidate = candidateIdx !== '' && discoveryCandidates[candidateIdx];
+  if(hadCandidate){
+    markValidated(discoveryCandidates[candidateIdx].feed_url);
+  }
+
   document.getElementById('f_rss_url').value = '';
   document.getElementById('f_raw_info').value = '';
   document.getElementById('f_podcast_url').value = '';
@@ -472,8 +502,21 @@ function resetForm(){
   document.getElementById('warn_listenly').className = '';
   document.getElementById('recap').style.display = 'none';
   document.getElementById('output').style.display = 'none';
-  document.getElementById('f_rss_url').focus();
   window.scrollTo({top:0, behavior:'smooth'});
+
+  // Recharge la liste (le candidat traite en est desormais exclu) et enchaine
+  // automatiquement sur le prochain candidat disponible, champs pre-remplis.
+  loadDiscoveryCandidates().then(function(){
+    if(sel.options.length > 1){
+      sel.selectedIndex = 1;
+      applyCandidate();
+    } else {
+      document.getElementById('candidateReason').textContent = hadCandidate
+        ? 'Candidat marque comme traite. Plus aucun autre candidat en attente pour le moment.'
+        : '';
+      document.getElementById('f_rss_url').focus();
+    }
+  });
 }
 </script>
 </body>
