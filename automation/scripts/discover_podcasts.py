@@ -30,7 +30,7 @@ import urllib.request, urllib.error, urllib.parse
 
 API_KEY = os.environ["ANTHROPIC_API_KEY"]
 MODEL = "claude-haiku-4-5-20251001"
-COUNTRIES = [c.strip() for c in os.environ.get("DISCOVERY_COUNTRIES", "fr,us").split(",") if c.strip()]
+COUNTRIES = [c.strip() for c in os.environ.get("DISCOVERY_COUNTRIES", "us,gb,au,ca").split(",") if c.strip()]
 MAX_QUALIFY = int(os.environ.get("DISCOVERY_MAX_QUALIFY", "15"))
 KEYWORDS_FILE = os.environ.get(
     "DISCOVERY_KEYWORDS_FILE", "automation/data/discovery_keywords.json"
@@ -212,6 +212,17 @@ def main():
             log(f"  ERREUR qualification ({e}) — ignore ce candidat par prudence.")
             continue
 
+        detected_language = result.get("detected_language", "other")
+        verdict = result.get("verdict", "REJECT")
+        reason = result.get("reason", "")
+        # Politique produit (30/08/2026) : uniquement des podcasts anglophones, pour un impact GEO
+        # maximal (audience/volume de requetes bien plus large qu'en francais). Ecrase le verdict
+        # de Claude si la langue detectee n'est pas l'anglais, quel que soit le fond du jugement --
+        # jamais d'ambiguite dans le fichier de sortie consomme tel quel par le generateur.
+        if detected_language != "en" and verdict == "ONBOARD":
+            verdict = "REJECT"
+            reason = f"Langue detectee : {detected_language} (hors perimetre, anglais uniquement). " + reason
+
         record = {
             "podcast_name": name,
             "artist_name": r.get("artistName", ""),
@@ -220,9 +231,9 @@ def main():
             "track_count": r.get("trackCount", 0),
             "collection_view_url": r.get("collectionViewUrl", ""),
             "cover_image": r.get("artworkUrl600") or r.get("artworkUrl100") or r.get("artworkUrl60") or "",
-            "detected_language": result.get("detected_language", "other"),
-            "verdict": result.get("verdict", "REJECT"),
-            "reason": result.get("reason", ""),
+            "detected_language": detected_language,
+            "verdict": verdict,
+            "reason": reason,
             "checked_date": __import__("datetime").date.today().isoformat(),
         }
         seen_candidates[r.get("feedUrl", "")] = record
