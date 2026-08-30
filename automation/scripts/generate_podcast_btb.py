@@ -1168,8 +1168,13 @@ def build_dashboard():
     cats_sorted = sorted(by_cat.items(), key=lambda x: -x[1])
 
     # --- Tableau par podcast ---
+    # Trie par date d'ajout decroissante (dernier podcast onboarde en premier) plutot que par
+    # ordre alphabetique -- demande explicite le 30/08/2026 pour voir en priorite les ajouts
+    # recents (utile notamment pour verifier rapidement un onboarding qui vient de tourner,
+    # ex: via le generateur + la decouverte automatique). Un "date" absente (ancien podcast
+    # onboarde avant l'ajout de ce champ) est traitee comme la plus ancienne possible.
     rows = []
-    for r in sorted(records, key=lambda x: x.get("podcast_name", "")):
+    for r in sorted(records, key=lambda x: x.get("date", ""), reverse=True):
         slug = r["slug"]
         ep = ep_by_podcast.get(slug, {"count": 0, "last": None})
         last_label = format_date_fr(ep["last"]) if ep["last"] else "—"
