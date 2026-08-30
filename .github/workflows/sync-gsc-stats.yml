@@ -1,0 +1,54 @@
+name: Synchroniser les statistiques Search Console
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '30 5 * * *'   # tous les jours 5h30 UTC, avant les premiers passages du moteur trafic
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Récupérer les stats Search Console
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: python automation/scripts/fetch_gsc_stats.py
+
+      - name: Régénérer le dashboard avec les nouvelles stats
+        run: python automation/scripts/rebuild_dashboard.py
+
+      - name: Commit
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: sync stats Search Console"
+            git fetch origin main
+            git rebase origin/main
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
