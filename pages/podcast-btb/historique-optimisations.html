@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Historique des optimisations — Moteur Trafic Listenly</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f8fc;color:#1a1a2e;max-width:820px;margin:0 auto;padding:32px 20px 60px;}
+h1{font-size:22px;margin-bottom:4px;}
+.sub{color:#6b7280;font-size:13px;margin-bottom:28px;}
+.opt-item{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+.opt-item summary{cursor:pointer;font-weight:600;font-size:14px;list-style:none;}
+.opt-item summary::-webkit-details-marker{display:none;}
+.opt-summary{margin-top:8px;font-size:13px;color:#444;line-height:1.5;}
+a{color:#4a6cf7;}
+</style>
+</head>
+<body>
+<h1>Historique des optimisations</h1>
+<p class="sub">12 optimisation(s) · <a href="https://listenly.fr/podcast-btb/dashboard.html">← Retour au dashboard</a></p>
+<details class="opt-item">
+  <summary>✅ Dashboard : nettoyage des cartes KPI <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
+  <div class="opt-summary">Retrait de 3 cartes jugées peu utiles (Fiches épisode totales, Fiches cette semaine, Fiches sur 30 jours) — ne restent que Podcasts référencés et Fiches requête totales, juste sous les stats Search Console. <code style="font-size:11px;color:var(--sub);">29bc587</code></div>
+</details><details class="opt-item">
+  <summary>✅ Dashboard : sélecteur de période sur les stats Search Console <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
+  <div class="opt-summary">Boutons 7j / 30j / 90j — le calcul (clics, impressions, CTR, évolution) se fait entièrement côté navigateur à partir d'un large historique déjà chargé, sans re-synchroniser à chaque clic. <code style="font-size:11px;color:var(--sub);">96bd4b3</code></div>
+</details><details class="opt-item">
+  <summary>✅ Dashboard : vraies statistiques Search Console <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
+  <div class="opt-summary">Remplace l'ancienne carte "coût estimé" par les vrais clics/impressions générés vers Listenly, via connexion à l'API Google Search Console (compte de service). <code style="font-size:11px;color:var(--sub);">353b8e6</code></div>
+</details><details class="opt-item">
+  <summary>✅ Dashboard : tri par dernier podcast ajouté <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
+  <div class="opt-summary">Le tableau "Production par podcast" trie désormais par date d'ajout décroissante au lieu de l'ordre alphabétique — les ajouts récents apparaissent en premier. <code style="font-size:11px;color:var(--sub);">e784cb7</code></div>
+</details><details class="opt-item">
+  <summary>✅ Générateur : préremplissage des candidats détectés <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
+  <div class="opt-summary">Slug, image de couverture, lien plateforme et langue détectée se remplissent automatiquement en sélectionnant un candidat trouvé par la découverte automatique. <code style="font-size:11px;color:var(--sub);">2d66f3e</code></div>
+</details><details class="opt-item">
+  <summary>✅ Découverte automatique de podcasts (anglais uniquement) <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
+  <div class="opt-summary">Recherche iTunes sur 37 mots-clés sectoriels B2B, qualification GEO automatique (Claude + recherche web), pays anglophones uniquement pour un impact maximal — tourne chaque semaine. <code style="font-size:11px;color:var(--sub);">db1ffc8</code></div>
+</details><details class="opt-item">
+  <summary>✅ Fiches : gras stratégique + hook de curiosité <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
+  <div class="opt-summary">Une expression clé en gras par paragraphe pour la lisibilité en diagonale, et une phrase pointant vers un détail non traité de l'épisode juste avant la citation, pour inciter au clic sans affaiblir la réponse GEO. <code style="font-size:11px;color:var(--sub);">adde768</code></div>
+</details><details class="opt-item">
+  <summary>✅ Fiches : bouton CTA visible en haut de page <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
+  <div class="opt-summary">Le seul bouton d'accès au podcast était tout en bas — ajout d'un bouton visible dès le haut, avec une phrase expliquant le concept de la fiche. <code style="font-size:11px;color:var(--sub);">215c4de</code></div>
+</details><details class="opt-item">
+  <summary>✅ Mass-media mis en dormant (12 podcasts) <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
+  <div class="opt-summary">NYT, NPR, Mel Robbins, Diary of a CEO et 8 autres retirés de la production active — leurs fiches existantes restent en ligne mais plus aucune génération future. <code style="font-size:11px;color:var(--sub);">7ad3bfe</code></div>
+</details><details class="opt-item">
+  <summary>✅ Mode "expertise factuelle" par défaut, mode "autorité" réservé <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
+  <div class="opt-summary">Toutes les fiches s'appuient désormais sur les faits (chiffres, méthode, citation) plutôt que sur une notoriété supposée — conforme aux données Search Console (CTR 3.76% niche B2B vs 1.19% mass-media). <code style="font-size:11px;color:var(--sub);">43f87c3</code></div>
+</details><details class="opt-item">
+  <summary>✅ Filtre de pré-qualification GEO à l'onboarding <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
+  <div class="opt-summary">Claude + recherche web vérifient chaque nouveau podcast avant onboarding — bloque le mass-media et les sujets déjà fortement couverts ailleurs. <code style="font-size:11px;color:var(--sub);">2eb409e</code></div>
+</details><details class="opt-item">
+  <summary>✅ Whisper repassé à 1,0× (fiabilité) <span style="color:var(--sub);font-weight:400;font-size:11px;">2026-08-30</span></summary>
+  <div class="opt-summary">1,5× déformait des noms propres (ex: Akerlof → Accaloft) — retour à la vitesse normale sur tout le système après test. <code style="font-size:11px;color:var(--sub);">8cf3bb0</code></div>
+</details>
+</body>
+</html>
