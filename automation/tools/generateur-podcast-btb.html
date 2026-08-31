@@ -96,12 +96,7 @@
       </div>
     </div>
 
-    <label style="margin-top:8px">Cible CTA (fiche podcast N1 uniquement)</label>
-    <div class="radio-group">
-      <label><input type="radio" name="cta_target" value="listenly" checked> Vers Listenly</label>
-      <label><input type="radio" name="cta_target" value="spotify"> Vers Spotify</label>
-    </div>
-    <p class="note">Les fiches question (N2) pointent TOUJOURS vers Listenly, quel que soit ce réglage — ce champ ne concerne que la fiche podcast elle-même.</p>
+    <p class="note" style="margin-top:8px">CTA de la fiche podcast (N1) : pointe désormais toujours vers Listenly, comme les fiches question (N2) — aucun réglage à faire.</p>
 
     <label>Langue de la fiche</label>
     <select id="f_language">
@@ -345,7 +340,7 @@ function generateYaml(){
   var extra_info = document.getElementById('rawInfo').value.trim();
   var slug_input = document.getElementById('f_slug').value.trim();
   var language = document.getElementById('f_language').value;
-  var cta_target = document.querySelector('input[name="cta_target"]:checked').value;
+  var cta_target = 'listenly'; // toujours Listenly desormais (N1 comme N2) -- plus de choix a faire
 
   if(!language){
     alert("Choisis une langue (Français ou Anglais) avant de générer.");
@@ -495,7 +490,6 @@ function resetForm(){
   document.getElementById('f_cover_image').value = '';
   document.getElementById('rawInfo').value = '';
   document.getElementById('f_language').value = '';
-  document.querySelector('input[name="cta_target"][value="listenly"]').checked = true;
   document.querySelector('input[name="input_mode"][value="rss"]').checked = true;
   switchMode();
   document.getElementById('warn_podcast').className = '';
