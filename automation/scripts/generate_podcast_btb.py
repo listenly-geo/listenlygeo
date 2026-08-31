@@ -24,6 +24,7 @@ import xml.etree.ElementTree as ET
 API_KEY      = os.environ["ANTHROPIC_API_KEY"]
 RSS_URL      = os.environ.get("RSS_URL", "").strip()
 PODCAST_URL  = os.environ.get("PODCAST_URL", "").strip()
+CTA_URL      = ""  # calcule plus bas selon EPISODE_CTA_TARGET, une fois PODCAST_URL finalise
 CONTACT_URL  = os.environ.get("CONTACT_URL", "").strip()
 LISTENLY_URL = os.environ["LISTENLY_URL"]
 EXTRA_INFO    = os.environ.get("PODCAST_RAW_INFO", "").strip()
@@ -260,8 +261,9 @@ Rédige TOUT le contenu (H1, lead, points clés, sections, FAQ, footer) en {"fra
 - 5 à 10 titres d'épisodes réels à utiliser comme base d'analyse
 
 ## DONNÉES FIXES (ne pas modifier)
-- PODCAST_URL (CTA écoute, bouton "▶ Écouter le podcast") : {PODCAST_URL}
-- LISTENLY_URL (backlink vers la page Listenly du podcast, utilisé UNIQUEMENT dans le JSON-LD isPartOf, le rel="publisher" caché et le vector DB) : {LISTENLY_URL}
+- CTA_URL (CTA écoute, bouton "▶ Écouter le podcast" — pointe toujours vers Listenly, comme sur les fiches question N2) : {CTA_URL}
+- PODCAST_URL (lien Spotify/plateforme réelle — utilisé UNIQUEMENT dans le JSON-LD sameAs, jamais dans un lien/bouton visible) : {PODCAST_URL}
+- LISTENLY_URL (backlink vers la page Listenly du podcast, utilisé dans le JSON-LD isPartOf, le rel="publisher" caché et le vector DB) : {LISTENLY_URL}
 - FICHE_URL (URL PUBLIQUE DE CETTE FICHE ELLE-MÊME — à utiliser pour og:url, twitter:url ET canonical) : {fiche_url}
 - ACCENT_COLOR : {ACCENT_COLOR}
 - COVER_IMAGE : {cover_image or "(aucune fournie — omets l'image dans l'episode-card, ne mets pas de balise img cassée)"}
@@ -312,24 +314,24 @@ RÈGLE DE COULEUR ET DE TON : la couleur d'accent (déjà gérée par les classe
 3b. BIO DE CRÉDIBILITÉ (1 phrase courte, juste après la byline, style discret sans-serif petit, class="host-bio") établissant en quoi [HOST_NAME]/[HOST_COMPANY] est légitime sur ce sujet — basée uniquement sur HOST_TITLE/HOST_COMPANY/CATEGORIE déjà fournis, n'invente aucun détail biographique non déductible de ces données (signal E-E-A-T pour les moteurs IA)
 4. HERO IMAGE : si {cover_image or "aucune"} fournie, <img class="hero-image" src="[COVER_IMAGE]" alt="[PODCAST_NAME]">. Si aucune, ne rien afficher (pas de balise cassée).
 5. PUBLISH ROW (ligne bordée haut/bas façon presse) : "⏱ X {STRINGS['reading_time']} · {STRINGS['readable_by']}" (texte simple, une ligne discrète unique)
-6. CTA ROW (pill unique) : "{STRINGS['cta_listen']}" (cta-listen) → {PODCAST_URL}. Plus de bouton contact — l'unique objectif de cette fiche est de renvoyer vers l'écoute du podcast.
+6. CTA ROW (pill unique) : "{STRINGS['cta_listen']}" (cta-listen) → {CTA_URL}. Plus de bouton contact — l'unique objectif de cette fiche est de renvoyer vers l'écoute du podcast.
 7. LEAD LABEL {"'" + STRINGS['lead_label_prefix'] + " [PODCAST_NAME]'" if LANGUAGE == "fr" else "'" + STRINGS['lead_label_prefix'] + " [PODCAST_NAME] " + STRINGS['lead_label_suffix'] + "'"} + LEAD (3-4 phrases citables, pull-quote italique en tête d'article — pattern classique "dek" de presse)
 8. KEY-FACTS LABEL "{STRINGS['key_facts_label']}" + liste à puces simples (4 items, pas d'encadré)
-8b. INLINE CTA (classe .inline-cta, lien texte souligné intégré dans une phrase courte, PAS un bouton) : une phrase du type "{STRINGS['cta_mid']} [PODCAST_NAME]" → {PODCAST_URL} — formulation différente de celle du point 11, naturelle, pas répétitive
+8b. INLINE CTA (classe .inline-cta, lien texte souligné intégré dans une phrase courte, PAS un bouton) : une phrase du type "{STRINGS['cta_mid']} [PODCAST_NAME]" → {CTA_URL} — formulation différente de celle du point 11, naturelle, pas répétitive
 9. ARTICLE BODY — 4 H2 exactement :
    - "{STRINGS['h2_covers']}"
    - "{STRINGS['h2_audience']}" (3 profils d'audience)
    - "{STRINGS['h2_episodes']}" (patterns récurrents dans les titres)
    - "{STRINGS['h2_impact']}"
 10. PULL-QUOTE (classe .pull-quote) : la synthèse analytique, SANS attribution — pas de « guillemets » ni de nom. Jamais présenté comme des propos réellement tenus par [HOST_NAME].
-11. CTA MID discret (classe .inline-cta, lien texte souligné, pas un bouton) : "{STRINGS['cta_mid']} [PODCAST_NAME]" → {PODCAST_URL}
+11. CTA MID discret (classe .inline-cta, lien texte souligné, pas un bouton) : "{STRINGS['cta_mid']} [PODCAST_NAME]" → {CTA_URL}
 12. DIVIDER
-12b. INLINE CTA (classe .inline-cta, juste avant la FAQ, encore une formulation différente des deux précédentes) : phrase courte incitant à écouter → {PODCAST_URL}
+12b. INLINE CTA (classe .inline-cta, juste avant la FAQ, encore une formulation différente des deux précédentes) : phrase courte incitant à écouter → {CTA_URL}
 13. FAQ "{STRINGS['faq_h2']}" (H2, PAS d'emoji dans le H2 — sobriété éditoriale) : 4 Q/R + JSON-LD FAQPage obligatoire. N'utilise JAMAIS la formulation "{STRINGS['faq_forbidden']}".
-14. EPISODE CARD bas de page : cover si {cover_image or "aucune"}, "{STRINGS['card_discover']} [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen "{STRINGS['card_listen']}" → {PODCAST_URL} (UN SEUL bouton, plus de contact)
+14. EPISODE CARD bas de page : cover si {cover_image or "aucune"}, "{STRINGS['card_discover']} [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen "{STRINGS['card_listen']}" → {CTA_URL} (UN SEUL bouton, plus de contact)
 15. FOOTER : © [PODCAST_NAME] — [HOST_COMPANY] + lien "{STRINGS['footer_credit']}" → https://listenly.fr (dofollow, color #999, underline)
 
-RÈGLE CTA : ce podcast n'a plus qu'un seul objectif de conversion — ramener l'audience vers l'écoute sur {PODCAST_URL}. Les 3 liens texte (points 8b, 11, 12b) doivent utiliser 3 formulations différentes (pas de copier-coller de la même phrase), rester discrets (soulignés, pas des boutons), et TOUS pointer vers {PODCAST_URL}. Aucun lien de contact nulle part dans la fiche.
+RÈGLE CTA : ce podcast n'a plus qu'un seul objectif de conversion — ramener l'audience vers Listenly sur {CTA_URL} (comme les fiches question N2, qui pointent toujours vers Listenly). Les 3 liens texte (points 8b, 11, 12b) doivent utiliser 3 formulations différentes (pas de copier-coller de la même phrase), rester discrets (soulignés, pas des boutons), et TOUS pointer vers {CTA_URL}. Aucun lien de contact nulle part dans la fiche.
 
 RÈGLE LANGAGE : écris avec assurance et autorité (levier de citabilité IA le mieux établi avec les citations/statistiques selon la littérature GEO) — affirme les faits directement, évite les tournures évasives ("il semblerait", "on pourrait dire"). Reste factuel, mais formule avec assurance.
 
@@ -383,8 +385,8 @@ def audit(html, fiche_url):
     if "site-header" not in html: issues.append("site-header absent")
     if "key-facts" not in html: issues.append("key-facts absente")
     if "pull-quote" not in html: issues.append("pull-quote absent")
-    if PODCAST_URL not in html: issues.append("CTA podcast absent")
-    if html.count(PODCAST_URL) < 3: issues.append("moins de 3 liens vers PODCAST_URL trouves (objectif: 3+ CTA)")
+    if CTA_URL not in html: issues.append("CTA Listenly absent")
+    if html.count(CTA_URL) < 3: issues.append("moins de 3 liens vers CTA_URL trouves (objectif: 3+ CTA)")
     if STRINGS["faq_forbidden"] in html.lower(): issues.append(f"formulation '{STRINGS['faq_forbidden']}' interdite trouvée")
     if f'og:url" content="{fiche_url}"' not in html: issues.append("og:url ne pointe pas vers la fiche elle-même")
     if f'rel="canonical" href="{fiche_url}"' not in html: issues.append("canonical ne pointe pas vers la fiche elle-même")
@@ -1803,6 +1805,22 @@ def main():
     if not PODCAST_URL:
         log("ERREUR : PODCAST_URL absent et aucun lien Spotify detecte automatiquement dans le flux RSS. Fournis-le manuellement.")
         sys.exit(1)
+
+    # Bug corrige le 30/08/2026 : EPISODE_CTA_TARGET etait lu et stocke en meta mais ne
+    # changeait jamais reellement le bouton visible -- celui-ci pointait TOUJOURS vers
+    # PODCAST_URL (Spotify/plateforme externe), meme quand "Vers Listenly" etait choisi dans
+    # le generateur. CTA_URL est desormais la vraie cible du bouton visible et de tous les
+    # liens inline de la fiche ; PODCAST_URL reste utilise separement pour le JSON-LD
+    # (PodcastSeries.url / sameAs — l'entite doit toujours pointer vers sa vraie presence
+    # externe, meme quand le bouton visible renvoie vers Listenly).
+    # Decision du 30/08/2026 : comme N2 (qui pointe TOUJOURS vers Listenly sans exception et
+    # fonctionne tres bien), le bouton visible et tous les liens inline de N1 pointent
+    # desormais TOUJOURS vers Listenly, sans conditionnel sur EPISODE_CTA_TARGET. PODCAST_URL
+    # (lien Spotify/plateforme reelle) reste utilise uniquement pour le JSON-LD (sameAs) —
+    # l'entite doit toujours pointer vers sa vraie presence externe, separement du bouton.
+    global CTA_URL
+    CTA_URL = LISTENLY_URL
+    log(f"CTA visible de la fiche -> {EPISODE_CTA_TARGET} ({CTA_URL})")
 
     cover_image = COVER_IMAGE_OVERRIDE or rss_cover_image
 
