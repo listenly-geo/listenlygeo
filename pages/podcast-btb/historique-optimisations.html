@@ -25,8 +25,26 @@ a{color:#4a6cf7;}
 </head>
 <body>
 <h1>Historique des optimisations</h1>
-<p class="sub">12 optimisation(s) · <a href="https://listenly.fr/podcast-btb/dashboard.html">← Retour au dashboard</a></p>
+<p class="sub">18 optimisation(s) · <a href="https://listenly.fr/podcast-btb/dashboard.html">← Retour au dashboard</a></p>
 <details class="opt-item">
+  <summary><span class="opt-title">✅ Fiches : formulation sujet-first des questions extraites</span><span class="opt-date">2026-08-31</span></summary>
+  <div class="opt-summary">Les questions minées sont désormais formulées autour du sujet/de la leçon par défaut, sans nom propre — un invité inconnu a un volume de recherche nul sur son nom, ça ne pourra jamais ranker. Le nom de l'invité ne porte la question que si le fait attaché est une accroche forte en soi (chiffre frappant) ou si l'invité est une autorité sectorielle reconnue. <code>e386a99</code></div>
+</details><details class="opt-item">
+  <summary><span class="opt-title">✅ N1 : bouton et liens pointent désormais toujours vers Listenly</span><span class="opt-date">2026-08-31</span></summary>
+  <div class="opt-summary">Le réglage "Vers Listenly / Vers Spotify" du générateur n'avait aucun effet réel — le bouton pointait toujours vers Spotify. Corrigé : comme les fiches question (N2), la fiche podcast (N1) redirige maintenant systématiquement vers Listenly sur son bouton et ses 3 liens inline. <code>43b70cc</code></div>
+</details><details class="opt-item">
+  <summary><span class="opt-title">✅ Découverte : mots-clés élargis (37 → 81) + 4 nouveaux pays</span><span class="opt-date">2026-08-31</span></summary>
+  <div class="opt-summary">Nouveaux secteurs B2B (private equity, cybersécurité, santé pro, dental/vétérinaire, franchise, immobilier commercial...) et 4 pays anglophones supplémentaires (Irlande, Nouvelle-Zélande, Singapour, Afrique du Sud) — 7 candidats ONBOARD sont passés à 28 dès le premier run élargi. <code>e4d79fb</code></div>
+</details><details class="opt-item">
+  <summary><span class="opt-title">✅ Générateur : le bouton "podcast suivant" marque et enchaîne automatiquement</span><span class="opt-date">2026-08-31</span></summary>
+  <div class="opt-summary">Marque le candidat traité (mémorisé dans le navigateur), recharge la liste, et pré-remplit automatiquement le candidat suivant disponible — plus besoin de re-choisir manuellement à chaque podcast onboardé. <code>aa67e90</code></div>
+</details><details class="opt-item">
+  <summary><span class="opt-title">✅ Dashboard : correction du débordement horizontal sur mobile</span><span class="opt-date">2026-08-31</span></summary>
+  <div class="opt-summary">Production par podcast et Historique optimisation débordaient de l'écran sur téléphone (bug classique min-width:auto en grid/flex). Corrigé à la racine avec un reset min-width:0 global, une structure titre/date explicite, et un filet de sécurité overflow-x:hidden. <code>ee6678a</code></div>
+</details><details class="opt-item">
+  <summary><span class="opt-title">✅ Dashboard : nouvelle esthétique plus contrastée et affirmée</span><span class="opt-date">2026-08-31</span></summary>
+  <div class="opt-summary">Palette plus franche (accent bleu #2563eb, texte quasi-noir), chiffres clés des cartes agrandis (32px → 42px), bordures fines en plus des ombres, espacement plus généreux — rendu plus "pro" que l'ancien style doux. <code>875e355</code></div>
+</details><details class="opt-item">
   <summary><span class="opt-title">✅ Dashboard : nettoyage des cartes KPI</span><span class="opt-date">2026-08-30</span></summary>
   <div class="opt-summary">Retrait de 3 cartes jugées peu utiles (Fiches épisode totales, Fiches cette semaine, Fiches sur 30 jours) — ne restent que Podcasts référencés et Fiches requête totales, juste sous les stats Search Console. <code>29bc587</code></div>
 </details><details class="opt-item">
