@@ -1436,10 +1436,15 @@ a{{color:#4a6cf7;}}
         # sans jamais re-appeler l'API Search Console au clic.
         daily_json = json.dumps(daily, ensure_ascii=False)
         gsc_stats_html = f"""
-  <div id="gscPeriodButtons" style="margin-bottom:12px;">
-    <button type="button" class="gsc-period-btn" data-days="7" onclick="renderGscPeriod(7)">7 jours</button>
-    <button type="button" class="gsc-period-btn active" data-days="30" onclick="renderGscPeriod(30)">30 jours</button>
-    <button type="button" class="gsc-period-btn" data-days="90" onclick="renderGscPeriod(90)">90 jours</button>
+  <div id="gscPeriodButtons" style="margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+    <div>
+      <button type="button" class="gsc-period-btn" data-days="7" onclick="renderGscPeriod(7)">7 jours</button>
+      <button type="button" class="gsc-period-btn active" data-days="30" onclick="renderGscPeriod(30)">30 jours</button>
+      <button type="button" class="gsc-period-btn" data-days="90" onclick="renderGscPeriod(90)">90 jours</button>
+    </div>
+    <a class="gsc-refresh-link" href="https://github.com/listenly-geo/listenlygeo/actions/workflows/sync-gsc-stats.yml" target="_blank" rel="noopener">
+      ↻ Rafraîchir les stats Google
+    </a>
   </div>
   <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
     <div><div class="num" style="font-size:26px;" id="gscClicks">—</div><div class="lbl">Clics vers Listenly (<span id="gscPeriodLabel1">30 derniers jours</span>)<span id="gscDelta"></span></div></div>
@@ -1447,9 +1452,12 @@ a{{color:#4a6cf7;}}
     <div><div class="num" style="font-size:26px;" id="gscCtr">—</div><div class="lbl">CTR moyen</div></div>
   </div>
   <div style="display:flex;align-items:flex-end;gap:2px;height:44px;margin-top:14px;" id="gscSparkline"></div>
-  <div style="font-size:11px;color:var(--sub);margin-top:6px;">Source : Google Search Console · dernière synchro {updated_label}</div>
+  <div style="font-size:11px;color:var(--sub);margin-top:6px;">Source : Google Search Console · dernière synchro {updated_label} · <a href="https://github.com/listenly-geo/listenlygeo/actions/workflows/sync-gsc-stats.yml" target="_blank" rel="noopener" style="color:var(--sub);text-decoration:underline;">rafraîchir</a></div>
 <script id="gscDailyData" type="application/json">{daily_json}</script>
 <style>
+.gsc-refresh-link {{ font-size:12px; font-weight:600; color:var(--accent); text-decoration:none; border:1px solid var(--border);
+  border-radius:16px; padding:5px 14px; background:#fff; white-space:nowrap; }}
+.gsc-refresh-link:hover {{ background:var(--accent-soft); }}
 .gsc-period-btn {{ font-size:12px; font-weight:600; padding:5px 12px; border-radius:16px; border:1px solid #d8d4ff;
   background:#fff; color:var(--ink); cursor:pointer; margin-right:6px; }}
 .gsc-period-btn.active {{ background:var(--accent); color:#fff; border-color:var(--accent); }}
