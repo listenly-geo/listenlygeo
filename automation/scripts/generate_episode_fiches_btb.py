@@ -170,6 +170,13 @@ LANGUE DE SORTIE OBLIGATOIRE : rédige TOUS les champs texte (questions, répons
 2. TOUTES les vraies questions distinctes et solides abordées, avec leurs vraies réponses. Pas de plafond fixe. N'invente JAMAIS de question pour atteindre un quota.
    CRITÈRE : question réellement posée/implicite, réponse claire et autonome basée uniquement sur ce qui a été dit, chaque question couvre un angle DISTINCT, reformulée comme une vraie requête IA.
 
+   CRITÈRE DE FORMULATION — NOM DE L'INVITÉ DANS LA QUESTION (essentiel pour le ranking, à appliquer question par question) :
+   Par défaut, formule la question autour du SUJET/LA LEÇON généralisable — ce qu'un inconnu de l'invité chercherait sur ce thème — PAS autour de son nom propre : un invité non-notoire a un volume de recherche nul sur son nom, une question centrée sur ce nom ne pourra jamais ranker aussi bonne soit la réponse.
+   N'utilise le nom de l'invité DANS LA QUESTION elle-même que dans l'un de ces deux cas précis :
+     (a) le fait qui lui est attaché est en soi une accroche assez forte pour être cherchée indépendamment de sa notoriété (un chiffre frappant, un exploit précis, un résultat contre-intuitif) — ex: "How did [Name] sell his first business for $1M at age 19?" reste valable, c'est le chiffre qui fait la requête, pas le nom ;
+     (b) l'invité est explicitement identifiable comme une autorité reconnue dans son secteur (poste senior confirmé dans une entreprise notable, statut d'expert cité comme tel par l'hôte) — alors son nom peut légitimement porter la question.
+   DANS TOUS LES AUTRES CAS, reformule SANS nom propre au centre de la question — ex: préfère "What lesson helped a boutique firm triple its size in seven years?" à "What was [Guest]'s biggest career win?". Le nom de l'invité reste bien sûr mentionné dans la RÉPONSE et la citation — c'est uniquement la formulation de la QUESTION qui doit maximiser le volume de recherche potentiel, pas le contenu de la fiche.
+
 3. UNE citation verbatim forte (15-30 mots, mot pour mot ou très proche) dite RÉELLEMENT par l'invité — la phrase la plus dense/marquante de la conversation, adaptée à être attribuée nommément (elle sera affichée avec le nom de l'invité). Si aucune phrase assez forte et citable n'existe, renvoie une chaîne vide plutôt que d'en fabriquer une.
 
 4. 3 à 6 STATISTIQUES/CHIFFRES/DATES PRÉCIS réellement mentionnés dans la conversation (montants, pourcentages, dates d'échéance, durées, seuils légaux...) — pas des généralités, des chiffres exacts tels que dits. Formule chaque statistique avec son CONTEXTE/SOURCE quand il est mentionné (ex: "loi de finances 2026 : amendes doublées" plutôt que juste "amendes doublées") — un chiffre daté et sourcé est plus citable par une IA qu'un chiffre isolé.
