@@ -382,22 +382,18 @@ def clean_html(text):
 # leger (Haiku), decouple de la generation de la fiche elle-meme -- plus simple et plus
 # fiable qu'extraire des tags multi-facettes par regex depuis du HTML libre.
 #
-# Fix du 01/09/2026 : la taxonomie doit correspondre a la langue du podcast (la grande
-# majorite du catalogue est desormais anglophone, suite a la strategie "anglais uniquement"
-# de decouverte) -- deux fichiers strictement en miroir (memes facettes, meme nombre de tags),
-# choisi selon meta["language"].
-TAGS_TAXONOMY_FILE_FR = f"{PAGES_DIR}/data/tags_taxonomy.json"
-TAGS_TAXONOMY_FILE_EN = f"{PAGES_DIR}/data/tags_taxonomy_en.json"
+# UN SEUL fichier, bilingue (cles top-level "fr" et "en", chacune avec ses propres noms de
+# facette dans la bonne langue -- ex: "secteur" en fr, "sector" en en). select_tags() choisit
+# la bonne moitie selon meta["language"]. Evite la confusion de deux fichiers separes a
+# maintenir en miroir (bug reel du 01/09/2026 : un fichier tags_taxonomy_en.json orphelin
+# avait des valeurs anglaises mais des noms de cles restes en francais, jamais utilisable).
+TAGS_TAXONOMY_FILE = f"{PAGES_DIR}/data/tags_taxonomy.json"
 
-def load_tags_taxonomy(language="en"):
-    path = TAGS_TAXONOMY_FILE_EN if language != "fr" else TAGS_TAXONOMY_FILE_FR
-    if not os.path.exists(path):
-        # Repli sur l'autre langue plutot que pas de tags du tout si un fichier venait a manquer.
-        path = TAGS_TAXONOMY_FILE_FR if path == TAGS_TAXONOMY_FILE_EN else TAGS_TAXONOMY_FILE_EN
-    if not os.path.exists(path):
+def load_tags_taxonomy():
+    if not os.path.exists(TAGS_TAXONOMY_FILE):
         return None
     try:
-        with open(path, encoding="utf-8") as f:
+        with open(TAGS_TAXONOMY_FILE, encoding="utf-8") as f:
             return json.load(f)
     except (json.JSONDecodeError, OSError):
         return None
@@ -2041,7 +2037,7 @@ def main():
 
     # Tags media buying (01/09/2026) : selection dans la taxonomie fermee, appel Claude leger
     # et decouple -- echec silencieux (fiche generee normalement meme si les tags echouent).
-    tags_taxonomy = load_tags_taxonomy(meta.get("language", "en"))
+    tags_taxonomy = load_tags_taxonomy()
     if tags_taxonomy:
         tags = select_tags(meta, tags_taxonomy)
         if tags:
