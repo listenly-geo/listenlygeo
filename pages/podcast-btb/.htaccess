@@ -1,0 +1,10 @@
+# Consolidation SEO du 01/09/2026 : les pages index par podcast
+# (questions/<slug>/index.html) etaient du thin content a l'echelle du site
+# (nombreuses fiches N1 classees "Detectee, non indexee" par Google Search
+# Console). Elles sont remplacees par un bloc "Questions couvertes" injecte
+# directement dans la fiche N1 correspondante, qui devient le hub complet du
+# podcast. Cette regle redirige (301) toute ancienne URL index deja
+# decouverte/indexee par Google vers la fiche N1, pour transferer son
+# autorite au lieu de la perdre (evite les 404 sur des URLs deja crawlees).
+RewriteEngine On
+RewriteRule ^questions/([^/]+)/index\.html$ /podcast-btb/$1-podcast.html [R=301,L]
