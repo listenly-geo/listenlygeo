@@ -10,7 +10,7 @@ on:
       countries:
         description: 'Codes pays iTunes separes par virgule'
         required: false
-        default: 'us,gb,au,ca,ie,nz,sg,za'
+        default: 'us'
   schedule:
     - cron: '0 6 * * 1'   # tous les lundis 6h — un lot de candidats frais chaque semaine
 
@@ -31,7 +31,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           DISCOVERY_MAX_QUALIFY: ${{ github.event.inputs.max_qualify || '15' }}
-          DISCOVERY_COUNTRIES: ${{ github.event.inputs.countries || 'us,gb,au,ca,ie,nz,sg,za' }}
+          DISCOVERY_COUNTRIES: ${{ github.event.inputs.countries || 'us' }}
         run: python automation/scripts/discover_podcasts.py
 
       - name: Commit historique des candidats
