@@ -1,5 +1,41 @@
 [
   {
+    "date": "2026-09-01",
+    "title": "SEO : correction du positionnement du bloc \"Questions couvertes\"",
+    "summary": "Le bloc était injecté hors du conteneur principal de la fiche N1 (rendu cassé : pleine largeur, collé à gauche, grand vide) — corrigé pour s'insérer à l'intérieur du <main>, cohérent visuellement avec le reste de la page. Auto-répare aussi les fiches déjà mal positionnées.",
+    "commit": "c7b558b"
+  },
+  {
+    "date": "2026-09-01",
+    "title": "SEO : rendu en cartes du bloc \"Questions couvertes\"",
+    "summary": "Remplace la liste plate initiale par des cartes cliquables (bordure arrondie, effet au survol), cohérentes avec le style du reste de la fiche N1.",
+    "commit": "6a9f605"
+  },
+  {
+    "date": "2026-09-01",
+    "title": "SEO : fusion de la page index séparée dans la fiche N1",
+    "summary": "La page index par podcast (questions/<slug>/index.html) était du thin content à l'échelle du site (nombreuses fiches N1 classées \"Détectée, non indexée\" par Search Console). Remplacée par un bloc \"Questions couvertes\" injecté directement dans la fiche N1, qui devient le hub complet du podcast. Anciennes URLs redirigées (301) via .htaccess.",
+    "commit": "3748b2c"
+  },
+  {
+    "date": "2026-09-01",
+    "title": "Dashboard : carte \"Coût estimé\" (Claude + transcription Groq)",
+    "summary": "Nouvelle carte séparée des stats Search Console, calculant le coût hebdomadaire combiné à partir de taux réels mesurés (~0,021 $/fiche Claude, ~0,027 $/épisode Groq).",
+    "commit": "06bbce8"
+  },
+  {
+    "date": "2026-09-01",
+    "title": "Transcription : migration de OpenAI Whisper vers Groq",
+    "summary": "Groq Whisper Large V3 Turbo remplace OpenAI comme fournisseur par défaut — environ 9x moins cher (0,04 $/h vs 0,36 $/h) pour une qualité équivalente. Un blocage Cloudflare initial (erreur 1010) a été corrigé en ajoutant un User-Agent explicite aux requêtes. Testé et validé en conditions réelles.",
+    "commit": "2eb85f8"
+  },
+  {
+    "date": "2026-09-01",
+    "title": "Dashboard : bouton de rafraîchissement des stats Search Console",
+    "summary": "Lien qui ouvre directement le workflow GitHub Actions de synchro (pas de token exposé sur ce site statique public) — 2 clics au lieu de passer par GitHub manuellement.",
+    "commit": "abb22b2"
+  },
+  {
     "date": "2026-08-31",
     "title": "Fiches : formulation sujet-first des questions extraites",
     "summary": "Les questions minées sont désormais formulées autour du sujet/de la leçon par défaut, sans nom propre — un invité inconnu a un volume de recherche nul sur son nom, ça ne pourra jamais ranker. Le nom de l'invité ne porte la question que si le fait attaché est une accroche forte en soi (chiffre frappant) ou si l'invité est une autorité sectorielle reconnue.",
