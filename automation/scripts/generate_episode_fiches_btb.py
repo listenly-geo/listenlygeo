@@ -12,12 +12,15 @@ Optionnelles (sinon lues depuis pages/podcast-btb/data/podcasts.json) :
   RSS_URL
   PODCAST_URL, CONTACT_URL, LISTENLY_URL, COVER_IMAGE, ACCENT_COLOR
   MAX_EPISODES        — nombre max de nouveaux épisodes traités par run (défaut 3)
-  USE_TRANSCRIPT      — "true" pour activer le TEST d'extraction audio reelle (Whisper +
+  USE_TRANSCRIPT      — "true" pour activer le TEST d'extraction audio reelle (transcription +
                         Claude) sur ce podcast au lieu de generer depuis titre/description
-                        seuls. Necessite OPENAI_API_KEY + ffmpeg installe sur le runner.
+                        seuls. Necessite une cle de transcription + ffmpeg installe sur le runner.
                         Fallback automatique et silencieux vers le mode habituel si
                         l'audio/la transcription echoue pour une raison quelconque.
-  OPENAI_API_KEY      — requis uniquement si USE_TRANSCRIPT=true
+  TRANSCRIPTION_PROVIDER — "groq" (defaut, ~9x moins cher, quasi meme qualite Whisper) ou
+                        "openai" (fallback si besoin de revenir en arriere)
+  GROQ_API_KEY        — requis si TRANSCRIPTION_PROVIDER=groq (defaut)
+  OPENAI_API_KEY      — requis si TRANSCRIPTION_PROVIDER=openai
 """
 
 import os, sys, re, json, datetime, unicodedata, subprocess, tempfile
@@ -44,9 +47,24 @@ MAX_EPISODES = int(os.environ.get("MAX_EPISODES", "3") or "3")
 
 # --- Test transcript audio reel (Moteur 3) : desactive par defaut, opt-in par podcast ---
 USE_TRANSCRIPT = os.environ.get("USE_TRANSCRIPT", "false").strip().lower() == "true"
+
+# Migration du 01/09/2026 : Groq (API compatible OpenAI, meme modele Whisper Large V3 Turbo)
+# remplace OpenAI comme fournisseur de transcription par defaut -- environ 9x moins cher
+# ($0,04/h vs $0,36/h) pour une qualite quasi identique. OPENAI_API_KEY reste supporte en
+# fallback via TRANSCRIPTION_PROVIDER=openai si Groq pose probleme.
+TRANSCRIPTION_PROVIDER = os.environ.get("TRANSCRIPTION_PROVIDER", "groq").strip().lower()
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "").strip()
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "").strip()
-WHISPER_MODEL = "whisper-1"
 WHISPER_MAX_BYTES = 24 * 1024 * 1024
+
+if TRANSCRIPTION_PROVIDER == "groq":
+    TRANSCRIPTION_URL = "https://api.groq.com/openai/v1/audio/transcriptions"
+    TRANSCRIPTION_MODEL = "whisper-large-v3-turbo"
+    TRANSCRIPTION_API_KEY = GROQ_API_KEY
+else:
+    TRANSCRIPTION_URL = "https://api.openai.com/v1/audio/transcriptions"
+    TRANSCRIPTION_MODEL = "whisper-1"
+    TRANSCRIPTION_API_KEY = OPENAI_API_KEY
 
 MODEL       = "claude-haiku-4-5-20251001"
 PAGES_DIR   = "pages/podcast-btb"
@@ -124,7 +142,7 @@ def speed_up_audio(src):
         return src
 
 def transcribe(audio_path, whisper_lang="fr"):
-    log(f"Transcription Whisper (langue: {whisper_lang})...")
+    log(f"Transcription {TRANSCRIPTION_PROVIDER} (langue: {whisper_lang})...")
     boundary = "----ListenlyGEOBoundary"
     with open(audio_path, "rb") as f:
         audio_bytes = f.read()
@@ -132,16 +150,16 @@ def transcribe(audio_path, whisper_lang="fr"):
     body = bytearray()
     def add_field(name, value):
         body.extend(f"--{boundary}\r\nContent-Disposition: form-data; name=\"{name}\"\r\n\r\n{value}\r\n".encode("utf-8"))
-    add_field("model", WHISPER_MODEL)
+    add_field("model", TRANSCRIPTION_MODEL)
     add_field("language", whisper_lang)
     body.extend(f"--{boundary}\r\nContent-Disposition: form-data; name=\"file\"; filename=\"{filename}\"\r\nContent-Type: audio/mpeg\r\n\r\n".encode("utf-8"))
     body.extend(audio_bytes)
     body.extend(f"\r\n--{boundary}--\r\n".encode("utf-8"))
     req = urllib.request.Request(
-        "https://api.openai.com/v1/audio/transcriptions",
+        TRANSCRIPTION_URL,
         data=bytes(body),
         headers={
-            "Authorization": f"Bearer {OPENAI_API_KEY}",
+            "Authorization": f"Bearer {TRANSCRIPTION_API_KEY}",
             "Content-Type": f"multipart/form-data; boundary={boundary}",
         },
         method="POST",
@@ -150,7 +168,7 @@ def transcribe(audio_path, whisper_lang="fr"):
         with urllib.request.urlopen(req, timeout=3300) as resp:
             result = json.loads(resp.read())
     except urllib.error.HTTPError as e:
-        raise RuntimeError(f"Whisper erreur {e.code}: {e.read()[:300]}")
+        raise RuntimeError(f"Transcription erreur ({TRANSCRIPTION_PROVIDER}) {e.code}: {e.read()[:300]}")
     text = result.get("text", "").strip()
     log(f"Transcription : {len(text)} chars")
     return text
@@ -255,8 +273,8 @@ def get_real_transcript_material(ep, podcast):
     if not ep.get("audio_url"):
         log("AVERTISSEMENT transcript : pas d'URL audio dans le flux RSS pour cet episode — fallback.")
         return None
-    if not OPENAI_API_KEY:
-        log("AVERTISSEMENT transcript : OPENAI_API_KEY absente — fallback.")
+    if not TRANSCRIPTION_API_KEY:
+        log(f"AVERTISSEMENT transcript : cle API absente pour le provider '{TRANSCRIPTION_PROVIDER}' — fallback.")
         return None
     tmpdir = tempfile.mkdtemp(prefix="ep_audio_")
     try:
