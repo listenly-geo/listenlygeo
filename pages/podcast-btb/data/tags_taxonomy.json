@@ -1,0 +1,95 @@
+{
+  "_meta": {
+    "description": "Taxonomie de tags a facettes pour Listenly. Chaque podcast recoit 1 categorie (liste fermee, navigation) + plusieurs tags par facette (ciblage media buying precis). Objectif : capter QUI ecoute (poste, taille d'entreprise) et QUEL PROBLEME business le podcast traite, pas juste le sujet general.",
+    "version": "2026-09-01",
+    "usage": "Le generateur (generate_podcast_btb.py) choisit parmi ces listes fermees -- jamais de tag invente hors de cette taxonomie, pour garder un vocabulaire exploitable et coherent dans le temps."
+  },
+
+  "secteur": [
+    "Immobilier commercial", "Immobilier résidentiel", "Property Management", "PropTech",
+    "Promotion immobilière", "Immobilier de luxe", "Immobilier industriel", "Gestion locative",
+    "BTP", "Construction résidentielle", "Construction commerciale", "Ingénierie civile",
+    "Architecture", "Matériaux de construction", "Menuiserie & Vitrage", "Rénovation énergétique",
+    "Gestion de patrimoine", "Banque privée", "Capital-investissement", "Venture Capital",
+    "Fintech", "Assurance", "Comptabilité", "Fiscalité", "Credit Union", "Family Office",
+    "Courtage financier", "Audit & Conformité financière",
+    "Recrutement", "Formation professionnelle", "SIRH & HR Tech", "Marque employeur",
+    "Diversité & Inclusion", "Rémunération & Avantages sociaux", "Travail temporaire",
+    "SaaS B2B", "Cybersécurité", "Intelligence Artificielle", "DevOps & Infrastructure",
+    "Cloud Computing", "Data & Analytics", "ERP & Logiciels métier", "MarTech", "SalesTech",
+    "Développement logiciel",
+    "Droit des affaires", "Droit du travail", "LegalTech", "Propriété intellectuelle",
+    "Droit immobilier", "Droit fiscal",
+    "MedTech", "Pharma", "Dispositifs médicaux", "Cabinet dentaire", "Cabinet vétérinaire",
+    "Établissements de santé", "Biotechnologie", "Santé mentale au travail",
+    "Automatisation industrielle", "Aéronautique & Défense", "Chimie industrielle",
+    "Emballage industriel", "Textile & Mode B2B", "Métallurgie", "Électronique industrielle",
+    "Transport routier", "Fret maritime", "Fret aérien", "Entreposage & Logistique",
+    "Chaîne du froid", "Gestion de flotte",
+    "Énergies renouvelables", "Pétrole & Gaz", "Utilities & Distribution d'énergie",
+    "Efficacité énergétique", "Mines & Ressources naturelles", "Eau & Assainissement",
+    "E-commerce", "Distribution alimentaire", "Concession automobile", "Franchise",
+    "Retail physique", "Grande distribution",
+    "Growth Marketing", "SEO & GEO", "Relations Presse", "Marketing d'influence B2B",
+    "Publicité digitale", "Branding & Identité de marque",
+    "Agroalimentaire", "AgTech", "Élevage", "Viticulture",
+    "Hôtellerie", "Restauration collective", "Événementiel B2B", "Tourisme d'affaires",
+    "Conseil en stratégie", "Conseil en management", "Cabinet d'avocats", "Cabinet comptable",
+    "Éducation & EdTech", "Formation continue", "Enseignement supérieur",
+    "Automobile & Mobilité", "Véhicules électriques", "Mobilité urbaine",
+  "Télécommunications", "Infrastructure réseau",
+    "Secteur public", "Collectivités territoriales", "Défense & Sécurité nationale",
+    "Associations & Non-profit", "Économie sociale et solidaire"
+  ],
+
+  "fonction_cible": [
+    "CEO / Président", "CFO / Directeur Financier", "COO / Directeur des Opérations",
+    "CMO / Directeur Marketing", "CHRO / DRH", "CTO / Directeur Technique",
+    "CISO / RSSI", "CDO / Directeur Digital",
+    "Directeur Commercial", "Directeur des Achats", "Directeur Juridique",
+    "Directeur RSE", "Directeur de la Stratégie", "Directeur des Opérations",
+    "Directeur Général", "Directeur Régional",
+    "Responsable Recrutement", "Contrôleur de Gestion", "Responsable Conformité",
+    "Responsable Innovation", "Responsable Supply Chain", "Responsable Qualité",
+    "Responsable RSE", "Chargé de Communication", "Chef de Projet",
+    "Ingénieur", "Architecte", "Consultant senior", "Analyste financier",
+    "Gestionnaire de patrimoine", "Courtier", "Agent immobilier",
+    "Fondateur / Founder", "Co-fondateur", "Repreneur d'entreprise",
+    "Investisseur", "Business Angel", "Associé de cabinet", "Dirigeant de PME",
+    "Artisan / Chef d'entreprise", "Franchisé"
+  ],
+
+  "taille_entreprise": [
+    "TPE (moins de 10 salariés)", "PME (10 à 250 salariés)", "ETI (250 à 5000 salariés)",
+    "Grand compte (5000+ salariés)", "Startup", "Scale-up", "Groupe familial",
+    "Entreprise cotée", "Indépendant / Solopreneur"
+  ],
+
+  "intention_business": [
+    "Transformation digitale", "Recrutement et rétention des talents", "Levée de fonds",
+    "Cession ou acquisition d'entreprise", "Optimisation de la supply chain",
+    "Conformité réglementaire", "Cybersécurité et protection des données",
+    "Réduction des coûts", "Expansion internationale", "Succession d'entreprise",
+    "Gestion de crise", "Innovation produit", "Fidélisation client",
+    "Automatisation des processus", "ESG et reporting durable",
+    "Structuration financière", "Optimisation fiscale", "Diversification d'activité",
+    "Digitalisation des ventes", "Amélioration de la marque employeur",
+    "Gestion du changement organisationnel", "Scalabilité opérationnelle",
+    "Optimisation énergétique", "Résilience face à la crise économique",
+    "Négociation commerciale", "Développement de partenariats",
+    "Mise en conformité RGPD", "Stratégie de croissance externe",
+    "Amélioration de l'expérience client", "Pilotage de la performance"
+  ],
+
+  "format": [
+    "Interview individuelle", "Format solo", "Panel / Table ronde", "Étude de cas",
+    "Storytelling narratif", "Format Q&A", "Débat contradictoire",
+    "Retour d'expérience", "Format flash / court", "Format investigation longue"
+  ],
+
+  "geographie": [
+    "France", "Belgique", "Suisse", "Canada / Québec", "États-Unis", "Royaume-Uni",
+    "Irlande", "Australie", "Nouvelle-Zélande", "Singapour", "Afrique du Sud",
+    "Allemagne / DACH", "Benelux", "International"
+  ]
+}
