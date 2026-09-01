@@ -959,6 +959,24 @@ renderGscPeriod(30);
 .opt-summary code{font-size:11px;color:var(--sub);}
 </style>
 <details class="opt-item">
+  <summary><span class="opt-title">✅ SEO : correction du positionnement du bloc "Questions couvertes"</span><span class="opt-date">2026-09-01</span></summary>
+  <div class="opt-summary">Le bloc était injecté hors du conteneur principal de la fiche N1 (rendu cassé : pleine largeur, collé à gauche, grand vide) — corrigé pour s'insérer à l'intérieur du <main>, cohérent visuellement avec le reste de la page. Auto-répare aussi les fiches déjà mal positionnées. <code>c7b558b</code></div>
+</details><details class="opt-item">
+  <summary><span class="opt-title">✅ SEO : rendu en cartes du bloc "Questions couvertes"</span><span class="opt-date">2026-09-01</span></summary>
+  <div class="opt-summary">Remplace la liste plate initiale par des cartes cliquables (bordure arrondie, effet au survol), cohérentes avec le style du reste de la fiche N1. <code>6a9f605</code></div>
+</details><details class="opt-item">
+  <summary><span class="opt-title">✅ SEO : fusion de la page index séparée dans la fiche N1</span><span class="opt-date">2026-09-01</span></summary>
+  <div class="opt-summary">La page index par podcast (questions/<slug>/index.html) était du thin content à l'échelle du site (nombreuses fiches N1 classées "Détectée, non indexée" par Search Console). Remplacée par un bloc "Questions couvertes" injecté directement dans la fiche N1, qui devient le hub complet du podcast. Anciennes URLs redirigées (301) via .htaccess. <code>3748b2c</code></div>
+</details><details class="opt-item">
+  <summary><span class="opt-title">✅ Dashboard : carte "Coût estimé" (Claude + transcription Groq)</span><span class="opt-date">2026-09-01</span></summary>
+  <div class="opt-summary">Nouvelle carte séparée des stats Search Console, calculant le coût hebdomadaire combiné à partir de taux réels mesurés (~0,021 $/fiche Claude, ~0,027 $/épisode Groq). <code>06bbce8</code></div>
+</details><details class="opt-item">
+  <summary><span class="opt-title">✅ Transcription : migration de OpenAI Whisper vers Groq</span><span class="opt-date">2026-09-01</span></summary>
+  <div class="opt-summary">Groq Whisper Large V3 Turbo remplace OpenAI comme fournisseur par défaut — environ 9x moins cher (0,04 $/h vs 0,36 $/h) pour une qualité équivalente. Un blocage Cloudflare initial (erreur 1010) a été corrigé en ajoutant un User-Agent explicite aux requêtes. Testé et validé en conditions réelles. <code>2eb85f8</code></div>
+</details><details class="opt-item">
+  <summary><span class="opt-title">✅ Dashboard : bouton de rafraîchissement des stats Search Console</span><span class="opt-date">2026-09-01</span></summary>
+  <div class="opt-summary">Lien qui ouvre directement le workflow GitHub Actions de synchro (pas de token exposé sur ce site statique public) — 2 clics au lieu de passer par GitHub manuellement. <code>abb22b2</code></div>
+</details><details class="opt-item">
   <summary><span class="opt-title">✅ Fiches : formulation sujet-first des questions extraites</span><span class="opt-date">2026-08-31</span></summary>
   <div class="opt-summary">Les questions minées sont désormais formulées autour du sujet/de la leçon par défaut, sans nom propre — un invité inconnu a un volume de recherche nul sur son nom, ça ne pourra jamais ranker. Le nom de l'invité ne porte la question que si le fait attaché est une accroche forte en soi (chiffre frappant) ou si l'invité est une autorité sectorielle reconnue. <code>e386a99</code></div>
 </details><details class="opt-item">
@@ -970,26 +988,8 @@ renderGscPeriod(30);
 </details><details class="opt-item">
   <summary><span class="opt-title">✅ Générateur : le bouton "podcast suivant" marque et enchaîne automatiquement</span><span class="opt-date">2026-08-31</span></summary>
   <div class="opt-summary">Marque le candidat traité (mémorisé dans le navigateur), recharge la liste, et pré-remplit automatiquement le candidat suivant disponible — plus besoin de re-choisir manuellement à chaque podcast onboardé. <code>aa67e90</code></div>
-</details><details class="opt-item">
-  <summary><span class="opt-title">✅ Dashboard : correction du débordement horizontal sur mobile</span><span class="opt-date">2026-08-31</span></summary>
-  <div class="opt-summary">Production par podcast et Historique optimisation débordaient de l'écran sur téléphone (bug classique min-width:auto en grid/flex). Corrigé à la racine avec un reset min-width:0 global, une structure titre/date explicite, et un filet de sécurité overflow-x:hidden. <code>ee6678a</code></div>
-</details><details class="opt-item">
-  <summary><span class="opt-title">✅ Dashboard : nouvelle esthétique plus contrastée et affirmée</span><span class="opt-date">2026-08-31</span></summary>
-  <div class="opt-summary">Palette plus franche (accent bleu #2563eb, texte quasi-noir), chiffres clés des cartes agrandis (32px → 42px), bordures fines en plus des ombres, espacement plus généreux — rendu plus "pro" que l'ancien style doux. <code>875e355</code></div>
-</details><details class="opt-item">
-  <summary><span class="opt-title">✅ Dashboard : nettoyage des cartes KPI</span><span class="opt-date">2026-08-30</span></summary>
-  <div class="opt-summary">Retrait de 3 cartes jugées peu utiles (Fiches épisode totales, Fiches cette semaine, Fiches sur 30 jours) — ne restent que Podcasts référencés et Fiches requête totales, juste sous les stats Search Console. <code>29bc587</code></div>
-</details><details class="opt-item">
-  <summary><span class="opt-title">✅ Dashboard : sélecteur de période sur les stats Search Console</span><span class="opt-date">2026-08-30</span></summary>
-  <div class="opt-summary">Boutons 7j / 30j / 90j — le calcul (clics, impressions, CTR, évolution) se fait entièrement côté navigateur à partir d'un large historique déjà chargé, sans re-synchroniser à chaque clic. <code>96bd4b3</code></div>
-</details><details class="opt-item">
-  <summary><span class="opt-title">✅ Dashboard : vraies statistiques Search Console</span><span class="opt-date">2026-08-30</span></summary>
-  <div class="opt-summary">Remplace l'ancienne carte "coût estimé" par les vrais clics/impressions générés vers Listenly, via connexion à l'API Google Search Console (compte de service). <code>353b8e6</code></div>
-</details><details class="opt-item">
-  <summary><span class="opt-title">✅ Dashboard : tri par dernier podcast ajouté</span><span class="opt-date">2026-08-30</span></summary>
-  <div class="opt-summary">Le tableau "Production par podcast" trie désormais par date d'ajout décroissante au lieu de l'ordre alphabétique — les ajouts récents apparaissent en premier. <code>e784cb7</code></div>
 </details>
-<div style="margin-top:10px;text-align:right;"><a href="https://listenly.fr/podcast-btb/historique-optimisations.html" target="_blank" style="font-size:12px;">Voir l'historique complet (18) →</a></div>
+<div style="margin-top:10px;text-align:right;"><a href="https://listenly.fr/podcast-btb/historique-optimisations.html" target="_blank" style="font-size:12px;">Voir l'historique complet (24) →</a></div>
 </div>
 
 <h2>Anomalies CTA / liens</h2>
