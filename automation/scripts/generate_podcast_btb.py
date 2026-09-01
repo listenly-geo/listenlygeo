@@ -2023,22 +2023,12 @@ def main():
 
     # Tags media buying (01/09/2026) : selection dans la taxonomie fermee, appel Claude leger
     # et decouple -- echec silencieux (fiche generee normalement meme si les tags echouent).
-    # DEBUG TEMPORAIRE : capture toute erreur dans meta["tags_debug"] pour diagnostiquer sans
-    # acces aux logs bruts -- a retirer une fois le mecanisme confirme fonctionnel.
-    try:
-        tags_taxonomy = load_tags_taxonomy()
-        if tags_taxonomy is None:
-            meta["tags_debug"] = "load_tags_taxonomy() a renvoye None (fichier introuvable ou JSON invalide) -- chemin teste : " + TAGS_TAXONOMY_FILE + " -- cwd=" + os.getcwd()
-        else:
-            tags = select_tags(meta, tags_taxonomy)
-            if tags:
-                meta["tags"] = tags
-                log(f"Tags assignes : { {k: v for k, v in tags.items() if v} }")
-            else:
-                meta["tags_debug"] = "select_tags() a renvoye None ou vide"
-    except Exception as e:
-        import traceback
-        meta["tags_debug"] = "EXCEPTION : " + repr(e) + " | " + traceback.format_exc()[-500:]
+    tags_taxonomy = load_tags_taxonomy()
+    if tags_taxonomy:
+        tags = select_tags(meta, tags_taxonomy)
+        if tags:
+            meta["tags"] = tags
+            log(f"Tags assignes : { {k: v for k, v in tags.items() if v} }")
 
     meta["rss_url"] = RSS_URL
     meta["podcast_url"] = PODCAST_URL
