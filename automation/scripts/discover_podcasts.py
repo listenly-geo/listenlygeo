@@ -157,22 +157,26 @@ def main():
 
     seen_candidates = load_json(CANDIDATES_FILE, {})  # feedUrl -> record deja traite
 
-    # --- 1) Collecte brute via iTunes Search ---
-    raw_results = {}
+    # --- 1) Collecte brute via iTunes Search -- on garde le mot-cle qui a trouve chaque
+    # resultat, pour pouvoir diversifier la selection ensuite (voir etape 3).
+    raw_results = {}  # feed_url -> (record, keyword)
     for kw in keywords:
         for country in COUNTRIES:
             for r in itunes_search(kw, country):
                 feed_url = r.get("feedUrl")
                 if not feed_url:
                     continue
-                raw_results[feed_url] = r
+                if feed_url not in raw_results:
+                    raw_results[feed_url] = (r, kw)
             time.sleep(0.2)  # courtoisie API
 
     log(f"{len(raw_results)} podcasts uniques trouves (avant filtrage).")
 
     # --- 2) Filtrage grossier : deja onboarde, deja pausé, deja traite, heuristiques ---
-    new_candidates = []
-    for feed_url, r in raw_results.items():
+    # Regroupe par mot-cle d'origine (proxy de secteur/categorie) plutot qu'en liste plate.
+    by_keyword = {}
+    total_new = 0
+    for feed_url, (r, kw) in raw_results.items():
         name = r.get("collectionName", "")
         norm = normalize_name(name)
         if norm in existing_names:
@@ -184,14 +188,29 @@ def main():
         track_count = r.get("trackCount", 0)
         if track_count < 3:
             continue  # trop peu d'episodes, probablement inactif/test
-        new_candidates.append(r)
+        by_keyword.setdefault(kw, []).append(r)
+        total_new += 1
 
-    log(f"{len(new_candidates)} candidats nouveaux (non deja onboardes/pausés/traites).")
+    log(f"{total_new} candidats nouveaux (non deja onboardes/pausés/traites), repartis sur {len(by_keyword)} mot(s)-cle(s).")
 
-    # --- 3) Qualification GEO (plafonnee pour controler le cout) ---
-    to_qualify = new_candidates[:MAX_QUALIFY]
-    if len(new_candidates) > MAX_QUALIFY:
-        log(f"Plafonne a {MAX_QUALIFY} candidats sur ce run (les autres seront vus au prochain passage).")
+    # --- 3) Qualification GEO (plafonnee pour controler le cout) -- selection en
+    # round-robin entre mots-cles/secteurs plutot qu'en ordre brut : evite qu'un seul
+    # secteur riche en resultats (ex: commercial real estate, tres dense aux US) ne
+    # monopolise tout le budget de qualification au detriment de la diversite sectorielle
+    # visee par la strategie GEO (30/08/2026 : cibler large tant que ca reste B2B/dirigeants).
+    to_qualify = []
+    keyword_pools = list(by_keyword.values())
+    while len(to_qualify) < MAX_QUALIFY and any(keyword_pools):
+        for pool in keyword_pools:
+            if not pool:
+                continue
+            to_qualify.append(pool.pop(0))
+            if len(to_qualify) >= MAX_QUALIFY:
+                break
+
+    new_candidates = to_qualify  # conserve pour compatibilite avec le resume plus bas
+    if total_new > MAX_QUALIFY:
+        log(f"Plafonne a {MAX_QUALIFY} candidats sur ce run, repartis entre secteurs (les autres seront vus au prochain passage).")
 
     onboard_list = []
     reject_list = []
@@ -251,8 +270,9 @@ def main():
     summary_lines = [
         "## Decouverte automatique de podcasts — resultats",
         "",
-        f"{len(raw_results)} podcasts trouves via iTunes Search, {len(new_candidates)} nouveaux, "
-        f"{len(to_qualify)} qualifies sur ce run.",
+        f"{len(raw_results)} podcasts trouves via iTunes Search, {total_new} nouveaux "
+        f"(sur {len(by_keyword)} secteur(s)/mot(s)-cle(s) distinct(s)), "
+        f"{len(to_qualify)} qualifies sur ce run (repartis entre secteurs).",
         "",
         f"### Candidats ONBOARD ({len(onboard_list)})",
         "",
