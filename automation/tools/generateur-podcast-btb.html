@@ -60,7 +60,10 @@
         <option value="">— Chargement des candidats… —</option>
       </select>
       <button type="button" class="btn-copy" style="white-space:nowrap;height:40px" onclick="loadDiscoveryCandidates()">↻ Rafraîchir</button>
+      <a href="https://github.com/listenly-geo/listenlygeo/actions/workflows/discover-podcasts.yml" target="_blank" rel="noopener"
+         class="btn-copy" style="white-space:nowrap;height:40px;display:inline-flex;align-items:center;text-decoration:none;">🔍 Nouvelle recherche</a>
     </div>
+    <p class="note" style="margin-top:4px;">"Rafraîchir" recharge la liste depuis GitHub (aucun nouveau candidat). "Nouvelle recherche" ouvre le workflow de découverte — clique "Run workflow" là-bas, attends ~2-5 min, puis reviens "Rafraîchir" ici.</p>
     <p class="note" id="candidateReason" style="min-height:14px"></p>
   </div>
 
@@ -155,22 +158,26 @@ function normalizeName(s){
   return (s || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
 }
 
-// Candidats deja "traites" par l'utilisateur (YAML genere pour eux) -- stockage local au
-// navigateur, tant que cet outil n'a pas d'ecriture directe vers GitHub. Complementaire au
-// filtre podcasts.json ci-dessus : celui-ci reagit immediatement au clic, l'autre confirme
-// une fois l'onboarding reellement termine (delai de quelques minutes).
-var VALIDATED_KEY = 'listenly_validated_candidates';
+// Candidats deja "traites" par l'utilisateur (YAML genere pour eux) -- stockage EN MEMOIRE
+// (variable JS de session), pas localStorage : sur un fichier ouvert en file://, Firefox (et
+// d'autres navigateurs en mode strict) isolent souvent chaque fichier local comme une origine
+// unique, ce qui rend localStorage peu fiable ici (donnee non persistee, silencieusement).
+// Consequence assumee : cette liste se reinitialise si tu recharges la page -- mais au moins
+// elle fonctionne de facon fiable PENDANT une session de travail (plusieurs onboardings a la
+// suite sans recharger). Complementaire au filtre podcasts.json ci-dessus : celui-ci confirme
+// une fois l'onboarding reellement termine (delai de quelques minutes), utile meme apres un
+// rechargement de page.
+var sessionValidatedFeedUrls = [];
 
 function getValidatedSet(){
-  try { return new Set(JSON.parse(localStorage.getItem(VALIDATED_KEY) || '[]')); }
-  catch(e){ return new Set(); }
+  return new Set(sessionValidatedFeedUrls);
 }
 
 function markValidated(feedUrl){
   if(!feedUrl) return;
-  var set = getValidatedSet();
-  set.add(feedUrl);
-  try { localStorage.setItem(VALIDATED_KEY, JSON.stringify(Array.from(set))); } catch(e){ /* stockage indisponible, tant pis */ }
+  if(sessionValidatedFeedUrls.indexOf(feedUrl) === -1){
+    sessionValidatedFeedUrls.push(feedUrl);
+  }
 }
 
 function loadDiscoveryCandidates(){
