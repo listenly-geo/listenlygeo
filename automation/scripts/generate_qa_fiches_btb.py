@@ -883,9 +883,15 @@ def render_questions_block(podcast, published):
 
 def update_n1_questions_block(podcast, published):
     """Injecte/met a jour le bloc 'Questions couvertes' dans la fiche N1 sur disque, entre des
-    marqueurs HTML. Si les marqueurs sont absents (fiche N1 generee avant cette fonctionnalite),
-    insere le bloc juste avant </body> -- auto-migration progressive des anciennes fiches, sans
-    script de backfill separe necessaire."""
+    marqueurs HTML.
+
+    Fix du 01/09/2026 : la version precedente inserait toujours avant </body>, ce qui plagait
+    le bloc APRES la fermeture du conteneur principal (<main class="wrapper">, max-width 720px
+    centre) -- rendu casse (plein largeur, colle a gauche, grand vide avant). Desormais :
+    1) retire d'abord tout bloc existant, peu importe sa position actuelle (auto-repare les
+       fiches deja mal positionnees, comme un bloc jadis insere avant </body>) ;
+    2) reinsere le bloc juste avant </main> (a l'interieur du conteneur principal, coherent
+       visuellement avec le reste de la fiche) ; si absent, retente </body> en dernier recours."""
     n1_path = "{pages_dir}/{slug}-podcast.html".format(pages_dir=PAGES_DIR, slug=SLUG)
     if not os.path.exists(n1_path):
         log("AVERTISSEMENT : fiche N1 introuvable (" + n1_path + ") — bloc questions non mis à jour.")
@@ -893,23 +899,28 @@ def update_n1_questions_block(podcast, published):
     with open(n1_path, encoding="utf-8") as f:
         n1_html = f.read()
 
-    block = render_questions_block(podcast, published)
     start_marker = "<!-- QUESTIONS_COVERED_START -->"
     end_marker = "<!-- QUESTIONS_COVERED_END -->"
+
+    # Retire un bloc existant quelle que soit sa position actuelle, avant de le reinserer au
+    # bon endroit -- gere aussi bien une premiere insertion qu'une migration/reparation.
     if start_marker in n1_html and end_marker in n1_html:
         pre = n1_html.split(start_marker)[0]
         post = n1_html.split(end_marker)[1]
-        new_html = pre + start_marker + block + end_marker + post
+        n1_html = pre + post
+
+    block = render_questions_block(podcast, published)
+    insertion = start_marker + block + end_marker
+    if "</main>" in n1_html:
+        new_html = n1_html.replace("</main>", insertion + "\n</main>", 1)
+    elif "</body>" in n1_html:
+        new_html = n1_html.replace("</body>", insertion + "\n</body>", 1)
     else:
-        insertion = start_marker + block + end_marker
-        if "</body>" in n1_html:
-            new_html = n1_html.replace("</body>", insertion + "\n</body>", 1)
-        else:
-            new_html = n1_html + insertion
+        new_html = n1_html + insertion
 
     with open(n1_path, "w", encoding="utf-8") as f:
         f.write(new_html)
-    log("Bloc 'Questions couvertes' mis à jour sur la fiche N1.")
+    log("Bloc 'Questions couvertes' mis à jour sur la fiche N1 (dans le conteneur principal).")
 
 
 def _unused_render_questions_index(podcast, published):
