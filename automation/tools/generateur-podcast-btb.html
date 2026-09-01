@@ -337,7 +337,7 @@ function loadDiscoveryCandidates(){
     }
     sel.innerHTML = '<option value="">— Choisir un candidat (' + discoveryCandidates.length + ' disponible(s)) —</option>' +
       discoveryCandidates.map(function(c, i){
-        var label = c.podcast_name + (c.artist_name ? ' — ' + c.artist_name : '') + ' (' + (c.track_count || '?') + ' ép.)';
+        var label = (i + 1) + ') ' + c.podcast_name + (c.artist_name ? ' — ' + c.artist_name : '') + ' (' + (c.track_count || '?') + ' ép.)';
         return '<option value="' + i + '">' + label.replace(/</g,'&lt;') + '</option>';
       }).join('');
   }).catch(function(e){
