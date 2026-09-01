@@ -122,9 +122,10 @@
     </div>
 
     <div class="card" style="margin-top:16px;background:#fafbff;">
-      <div class="step">🏷️ Tags suggérés (annuaire général)</div>
+      <div class="step">🗂️ Catégorie + 🏷️ Tags suggérés (annuaire général)</div>
       <p class="note">Remplis le champ "Contexte supplémentaire" ci-dessus (nom, description, sujets abordés) pour de meilleures suggestions, puis clique. Vérifie/adapte toujours avant de copier — c'est une suggestion automatique, pas un choix définitif.</p>
-      <button type="button" class="btn-copy" onclick="suggestDirectoryTags()">Suggérer 3-4 tags</button>
+      <button type="button" class="btn-copy" onclick="suggestDirectoryTags()">Suggérer catégorie + tags</button>
+      <div id="categorySuggestion" style="margin-top:10px;"></div>
       <div id="tagSuggestions" style="margin-top:10px;"></div>
     </div>
 
@@ -161,12 +162,14 @@ var LISTEN_DOMAINS = ["spotify.com","apple.com","deezer.com","podcasts.google","
 var DISCOVERY_URL = 'https://raw.githubusercontent.com/listenly-geo/listenlygeo/main/pages/podcast-btb/data/discovery_candidates.json';
 var PODCASTS_URL = 'https://raw.githubusercontent.com/listenly-geo/listenlygeo/main/pages/podcast-btb/data/podcasts.json';
 var DIRECTORY_TAGS_URL = 'https://raw.githubusercontent.com/listenly-geo/listenlygeo/main/pages/podcast-btb/data/directory_tags.json';
+var DIRECTORY_CATEGORIES_URL = 'https://raw.githubusercontent.com/listenly-geo/listenlygeo/main/pages/podcast-btb/data/directory_categories.json';
 var directoryTagsCache = null;
+var directoryCategoriesCache = null;
 
-// Suggestion de tags (annuaire general, 798 tags / 28 thematiques) -- correspondance de
-// mots-cles en local (pas d'appel API depuis cet outil statique/public). Utilise tout texte
-// disponible : contexte supplementaire saisi, raison de qualification GEO du candidat
-// selectionne. Meilleurs resultats si le champ "Contexte supplementaire" est rempli.
+// Suggestion de categorie + tags (annuaire general) -- correspondance de mots-cles en local
+// (pas d'appel API depuis cet outil statique/public). Utilise tout texte disponible : contexte
+// supplementaire saisi, raison de qualification GEO du candidat selectionne. Meilleurs
+// resultats si le champ "Contexte supplementaire" est rempli.
 function gatherTextForTagging(){
   var parts = [];
   var raw = document.getElementById('rawInfo');
@@ -183,24 +186,67 @@ function gatherTextForTagging(){
   return parts.join(' ');
 }
 
+function loadDirectoryCategories(){
+  return directoryCategoriesCache
+    ? Promise.resolve(directoryCategoriesCache)
+    : fetch(DIRECTORY_CATEGORIES_URL, {cache:'no-store'}).then(function(r){
+        if(!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      }).then(function(data){ directoryCategoriesCache = data; return data; });
+}
+
+function suggestCategory(text){
+  var catBox = document.getElementById('categorySuggestion');
+  catBox.innerHTML = '<span class="note">Chargement des catégories…</span>';
+  loadDirectoryCategories().then(function(categories){
+    var scored = categories.map(function(cat){
+      var words = cat.toLowerCase().replace(/[^a-z0-9àâäéèêëïîôöùûüç\s]/gi, ' ').split(/\s+/).filter(function(w){ return w.length > 3; });
+      var score = 0;
+      words.forEach(function(w){ if(text.indexOf(w) !== -1) score++; });
+      return {cat: cat, score: score};
+    }).filter(function(s){ return s.score > 0; });
+
+    scored.sort(function(a, b){ return b.score - a.score; });
+
+    if(scored.length === 0){
+      catBox.innerHTML = '<span class="note">Aucune catégorie ne correspond clairement — choisis manuellement dans la liste (41 catégories, voir directory_categories.json).</span>';
+      return;
+    }
+
+    var best = scored[0].cat;
+    catBox.innerHTML =
+      '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">' +
+      '<span style="background:#dff5e1;border:1px solid #b9e6c0;border-radius:14px;padding:4px 12px;font-size:13px;font-weight:600;">' + best + '</span>' +
+      '<button type="button" class="btn-copy" onclick="navigator.clipboard.writeText(\'' + best.replace(/'/g, "\\'") + '\')">📋 Copier la catégorie</button>' +
+      '</div>';
+  }).catch(function(e){
+    catBox.innerHTML = '<span class="note">Impossible de charger les catégories (' + e.message + ')</span>';
+  });
+}
+
 function suggestDirectoryTags(){
   var box = document.getElementById('tagSuggestions');
+  var catBox = document.getElementById('categorySuggestion');
   box.innerHTML = '<span class="note">Chargement de la taxonomie…</span>';
 
-  var textPromise = directoryTagsCache
+  var text = gatherTextForTagging().toLowerCase();
+  if(!text.trim()){
+    var msg = '<span class="note">⚠️ Aucun texte disponible — remplis "Contexte supplémentaire" (nom, description, sujets) ci-dessus.</span>';
+    box.innerHTML = msg;
+    catBox.innerHTML = '';
+    return;
+  }
+
+  suggestCategory(text);
+
+  var tagPromise = directoryTagsCache
     ? Promise.resolve(directoryTagsCache)
     : fetch(DIRECTORY_TAGS_URL, {cache:'no-store'}).then(function(r){
         if(!r.ok) throw new Error('HTTP ' + r.status);
         return r.json();
       }).then(function(data){ directoryTagsCache = data; return data; });
 
-  textPromise.then(function(taxonomy){
-    var text = gatherTextForTagging().toLowerCase();
-    if(!text.trim()){
-      box.innerHTML = '<span class="note">⚠️ Aucun texte disponible pour suggérer des tags — remplis "Contexte supplémentaire" (nom, description, sujets) ci-dessus.</span>';
-      return;
-    }
-
+  tagPromise.then(function(taxonomy){
     var scored = [];
     Object.keys(taxonomy).forEach(function(theme){
       if(theme === '_meta') return;
