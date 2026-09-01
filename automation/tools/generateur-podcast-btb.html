@@ -120,6 +120,13 @@
       </div>
     </details>
 
+    <div class="card" style="margin-top:16px;background:#fafbff;">
+      <div class="step">🏷️ Tags suggérés (annuaire général)</div>
+      <p class="note">Remplis le champ "Contexte supplémentaire" ci-dessus (nom, description, sujets abordés) pour de meilleures suggestions, puis clique. Vérifie/adapte toujours avant de copier — c'est une suggestion automatique, pas un choix définitif.</p>
+      <button type="button" class="btn-copy" onclick="suggestDirectoryTags()">Suggérer 3-4 tags</button>
+      <div id="tagSuggestions" style="margin-top:10px;"></div>
+    </div>
+
     <div id="recap"></div>
 
     <button class="btn-primary" onclick="generateYaml()">Vérifier et générer le YAML</button>
@@ -152,6 +159,79 @@ var LISTEN_DOMAINS = ["spotify.com","apple.com","deezer.com","podcasts.google","
 // et Listenly restent à vérifier/compléter manuellement comme avant.
 var DISCOVERY_URL = 'https://raw.githubusercontent.com/listenly-geo/listenlygeo/main/pages/podcast-btb/data/discovery_candidates.json';
 var PODCASTS_URL = 'https://raw.githubusercontent.com/listenly-geo/listenlygeo/main/pages/podcast-btb/data/podcasts.json';
+var DIRECTORY_TAGS_URL = 'https://raw.githubusercontent.com/listenly-geo/listenlygeo/main/pages/podcast-btb/data/directory_tags.json';
+var directoryTagsCache = null;
+
+// Suggestion de tags (annuaire general, 798 tags / 28 thematiques) -- correspondance de
+// mots-cles en local (pas d'appel API depuis cet outil statique/public). Utilise tout texte
+// disponible : contexte supplementaire saisi, raison de qualification GEO du candidat
+// selectionne. Meilleurs resultats si le champ "Contexte supplementaire" est rempli.
+function gatherTextForTagging(){
+  var parts = [];
+  var raw = document.getElementById('rawInfo');
+  if(raw && raw.value) parts.push(raw.value);
+  var rawInfoManual = document.getElementById('f_raw_info');
+  if(rawInfoManual && rawInfoManual.value) parts.push(rawInfoManual.value);
+  var candIdx = document.getElementById('f_candidate') ? document.getElementById('f_candidate').value : '';
+  if(candIdx !== '' && discoveryCandidates[candIdx]){
+    var c = discoveryCandidates[candIdx];
+    parts.push(c.podcast_name || '');
+    parts.push(c.genre || '');
+    parts.push(c.reason || '');
+  }
+  return parts.join(' ');
+}
+
+function suggestDirectoryTags(){
+  var box = document.getElementById('tagSuggestions');
+  box.innerHTML = '<span class="note">Chargement de la taxonomie…</span>';
+
+  var textPromise = directoryTagsCache
+    ? Promise.resolve(directoryTagsCache)
+    : fetch(DIRECTORY_TAGS_URL, {cache:'no-store'}).then(function(r){
+        if(!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      }).then(function(data){ directoryTagsCache = data; return data; });
+
+  textPromise.then(function(taxonomy){
+    var text = gatherTextForTagging().toLowerCase();
+    if(!text.trim()){
+      box.innerHTML = '<span class="note">⚠️ Aucun texte disponible pour suggérer des tags — remplis "Contexte supplémentaire" (nom, description, sujets) ci-dessus.</span>';
+      return;
+    }
+
+    var scored = [];
+    Object.keys(taxonomy).forEach(function(theme){
+      if(theme === '_meta') return;
+      taxonomy[theme].forEach(function(tag){
+        var words = tag.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(function(w){ return w.length > 3; });
+        var score = 0;
+        words.forEach(function(w){ if(text.indexOf(w) !== -1) score++; });
+        if(score > 0) scored.push({tag: tag, theme: theme, score: score});
+      });
+    });
+
+    scored.sort(function(a, b){ return b.score - a.score; });
+    var top = scored.slice(0, 4);
+
+    if(top.length === 0){
+      box.innerHTML = '<span class="note">Aucune correspondance trouvée — enrichis le texte fourni (sujets précis abordés dans le podcast) ou choisis manuellement dans la liste complète (798 tags, voir directory_tags.json).</span>';
+      return;
+    }
+
+    var tagList = top.map(function(t){ return t.tag; }).join(', ');
+    box.innerHTML =
+      '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;">' +
+      top.map(function(t){
+        return '<span style="background:#eef2ff;border:1px solid #d8d4ff;border-radius:14px;padding:4px 12px;font-size:13px;" title="' + t.theme + '">' + t.tag + '</span>';
+      }).join('') +
+      '</div>' +
+      '<button type="button" class="btn-copy" onclick="navigator.clipboard.writeText(\'' + tagList.replace(/'/g, "\\'") + '\')">📋 Copier (' + tagList + ')</button>';
+  }).catch(function(e){
+    box.innerHTML = '<span class="note">Impossible de charger la taxonomie (' + e.message + ')</span>';
+  });
+}
+
 var discoveryCandidates = [];
 
 function normalizeName(s){
