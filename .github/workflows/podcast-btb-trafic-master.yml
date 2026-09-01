@@ -35,6 +35,7 @@ jobs:
       - name: Generer les fiches question du jour (tous podcasts, 1 par podcast max)
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python automation/scripts/run_all_qa_podcasts.py
 
