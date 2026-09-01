@@ -1514,6 +1514,28 @@ renderGscPeriod(30);
     </div>
   </div>"""
 
+    # --- Cout estime hebdomadaire (Claude + transcription Groq), section separee des stats
+    # Search Console (01/09/2026). Bases sur des taux reels mesures (~0,021$/fiche Claude
+    # Haiku, console Anthropic du 30/08 : 1,05$/jour pour 50 fiches ; ~0,027$/episode Groq,
+    # 0,04$/h pour ~40min d'audio moyen). Le nombre d'evenements de minage/semaine est estime
+    # a partir du nombre de fiches question publiees cette semaine divise par 10 (une session
+    # de minage produit jusqu'a 10 questions en stock, consommees ~1/jour/podcast).
+    CLAUDE_COST_PER_FICHE = 0.021
+    TRANSCRIPTION_COST_PER_EPISODE = 0.027
+    total_fiches_week = eps_this_week + qs_this_week
+    mining_events_week = round(qs_this_week / 10) if qs_this_week else 0
+    claude_cost_week = total_fiches_week * CLAUDE_COST_PER_FICHE
+    transcription_cost_week = mining_events_week * TRANSCRIPTION_COST_PER_EPISODE
+    total_cost_week = claude_cost_week + transcription_cost_week
+
+    cost_overview_html = f"""
+  <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
+    <div><div class="num" style="font-size:26px;">{total_cost_week:.2f} $</div><div class="lbl">Coût total estimé (7 derniers jours)</div></div>
+    <div><div class="num" style="font-size:26px;">{claude_cost_week:.2f} $</div><div class="lbl">Claude (Anthropic) — {total_fiches_week} fiche(s)</div></div>
+    <div><div class="num" style="font-size:26px;">{transcription_cost_week:.2f} $</div><div class="lbl">Transcription (Groq) — ~{mining_events_week} épisode(s) miné(s)</div></div>
+  </div>
+  <div style="font-size:11px;color:var(--sub);margin-top:10px;">Estimation indicative, basée sur des taux mesurés (~0,021 $/fiche Claude, ~0,027 $/épisode Groq) — vérifier la facturation réelle sur console.anthropic.com / console.groq.com.</div>"""
+
     html = f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -1656,6 +1678,11 @@ ul.clean li{{margin-bottom:6px}}
 
 <div class="card" style="background:linear-gradient(135deg,#eef2ff,#f7f4ff);border:1px solid #d8d4ff;margin-bottom:20px;">
 {gsc_stats_html}
+</div>
+
+<div class="card" style="background:linear-gradient(135deg,#fff7ed,#fef3e8);border:1px solid #fbdcb4;margin-bottom:20px;">
+<h2 style="margin-top:0;font-size:13px;">💰 Coût estimé</h2>
+{cost_overview_html}
 </div>
 
 <div class="cards">
