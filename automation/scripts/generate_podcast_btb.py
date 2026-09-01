@@ -375,6 +375,91 @@ def clean_html(text):
     text = re.sub(r"\s*```$", "", text)
     return text.strip()
 
+# --- Tags media buying (01/09/2026) : selection de tags dans une taxonomie fermee a facettes
+# (secteur, fonction cible, taille d'entreprise, intention business, format, geographie),
+# stockee separement du fichier podcasts.json pour rester reutilisable par d'autres outils
+# (media buying, filtrage) sans dependre du format des fiches HTML. Appel Claude dedie et
+# leger (Haiku), decouple de la generation de la fiche elle-meme -- plus simple et plus
+# fiable qu'extraire des tags multi-facettes par regex depuis du HTML libre.
+TAGS_TAXONOMY_FILE = f"{PAGES_DIR}/data/tags_taxonomy.json"
+
+def load_tags_taxonomy():
+    if not os.path.exists(TAGS_TAXONOMY_FILE):
+        return None
+    try:
+        with open(TAGS_TAXONOMY_FILE, encoding="utf-8") as f:
+            return json.load(f)
+    except (json.JSONDecodeError, OSError):
+        return None
+
+def select_tags(meta, taxonomy):
+    """Appelle Claude pour choisir, dans la taxonomie fermee, les tags reellement pertinents
+    pour ce podcast precis -- jamais de tag invente hors de cette liste. Renvoie un dict
+    {facette: [tags...]} ou None si la taxonomie est indisponible ou l'appel echoue (fallback
+    silencieux, n'empeche jamais la generation de la fiche elle-meme)."""
+    if not taxonomy:
+        return None
+
+    facettes_txt = "\n\n".join(
+        f"## {facette}\n" + ", ".join(valeurs)
+        for facette, valeurs in taxonomy.items() if facette != "_meta"
+    )
+
+    prompt = f"""Tu classes un podcast B2B dans une taxonomie de tags FERMEE, pour du ciblage
+publicitaire precis (media buying) -- l'objectif est de capter QUI ecoute ce podcast (poste
+du decideur vise, taille d'entreprise typique) et QUEL PROBLEME business il traite, pas juste
+le sujet general.
+
+REGLE ABSOLUE : choisis UNIQUEMENT parmi les valeurs listees ci-dessous, jamais de tag invente
+hors de cette liste. Si aucune valeur d'une facette ne convient reellement, renvoie une liste
+vide pour cette facette plutot que de forcer un choix approximatif.
+
+TAXONOMIE DISPONIBLE (par facette) :
+
+{facettes_txt}
+
+PODCAST A CLASSER :
+- Nom : {meta.get('podcast_name','')}
+- Categorie deja assignee : {meta.get('categorie','')}
+- Hote : {meta.get('host_name','')} — {meta.get('host_title','')} chez {meta.get('host_company','')}
+- Description : {meta.get('punchline','')}
+
+Reponds STRICTEMENT en JSON, rien d'autre (pas de markdown, pas de texte avant/apres) :
+{{
+  "secteur": ["...", "..."],
+  "fonction_cible": ["...", "..."],
+  "taille_entreprise": ["..."],
+  "intention_business": ["...", "..."],
+  "format": ["..."],
+  "geographie": ["..."]
+}}
+Choisis 2-4 tags pour "secteur" et "intention_business" (les facettes les plus riches), 1-3
+pour "fonction_cible", 1 seul pour "taille_entreprise" et "format" (le plus representatif),
+1-2 pour "geographie"."""
+
+    try:
+        raw = call_claude(prompt)
+        raw = re.sub(r"^```json\s*", "", raw.strip())
+        raw = re.sub(r"^```\s*", "", raw)
+        raw = re.sub(r"\s*```$", "", raw)
+        m = re.search(r"\{.*\}", raw, re.DOTALL)
+        if not m:
+            return None
+        result = json.loads(m.group(0))
+    except Exception as e:
+        print(f"[podcast-btb] AVERTISSEMENT : selection des tags echouee ({e}) — fiche generee sans tags.")
+        return None
+
+    # Validation stricte : ne garde que les valeurs reellement presentes dans la taxonomie,
+    # au cas ou le modele en aurait legerement invente une malgre la consigne.
+    cleaned = {}
+    for facette, valeurs_autorisees in taxonomy.items():
+        if facette == "_meta":
+            continue
+        proposees = result.get(facette, []) or []
+        cleaned[facette] = [v for v in proposees if v in valeurs_autorisees]
+    return cleaned
+
 def audit(html, fiche_url):
     issues = []
     if html.count("<h1") != 1: issues.append("H1 absent ou multiple")
@@ -400,13 +485,20 @@ def clean_text(s):
     return re.sub(r"\s+", " ", s).strip()
 
 CATEGORIES_FERMEES = [
-    "Finance & Patrimoine", "Immobilier", "Business & Entrepreneuriat",
-    "RH & Management", "Marketing & Communication", "Tech & Cybersécurité",
-    "Santé & Pharma", "Droit & Juridique", "RSE & Impact", "Société & Culture",
+    "Immobilier", "Construction & BTP", "Finance & Patrimoine", "RH & Management",
+    "Marketing & Communication", "Tech & SaaS", "Cybersécurité", "Santé & Pharma",
+    "Droit & Juridique", "RSE & Impact", "Société & Culture", "Industrie & Manufacturing",
+    "Logistique & Supply Chain", "Énergie & Environnement", "Retail & Distribution",
+    "Consulting & Private Equity", "Agroalimentaire", "Éducation & Formation",
+    "Automobile & Mobilité", "Hôtellerie & Tourisme", "Assurance", "Télécommunications",
+    "Secteur Public", "Business & Entrepreneuriat",
 ]
 
 def normalize_category(cat):
-    """Mappe n'importe quelle categorie libre vers la liste fermee (ordre des tests important)."""
+    """Mappe n'importe quelle categorie libre vers la liste fermee (ordre des tests important --
+    du plus specifique au plus generique, "Business & Entrepreneuriat" reste le filet de secours
+    en dernier). Elargie le 01/09/2026 (10 -> 24 categories) pour reduire le fourre-tout generique
+    (31% des podcasts y tombaient faute de categorie assez precise disponible)."""
     if not cat:
         return "Business & Entrepreneuriat"
     c = cat.strip().lower()
@@ -414,16 +506,30 @@ def normalize_category(cat):
         if c == exact.lower():
             return exact
     keyword_map = [
-        (("immobilier", "habitat"), "Immobilier"),
-        (("rse", "durable", "impact", "responsable"), "RSE & Impact"),
+        (("construction", "bâtiment", "batiment", "btp", "vitrage", "menuiserie", "architecte", "chantier"), "Construction & BTP"),
+        (("immobilier", "habitat", "foncier"), "Immobilier"),
+        (("cybersécurité", "cybersecurite", "sécurité informatique", "securite informatique", "rssi"), "Cybersécurité"),
+        (("saas", "logiciel", "intelligence artificielle", "data", "technolog", "tech ", " ia", "ia &", "cloud", "devops"), "Tech & SaaS"),
+        (("assurance", "assureur", "courtage d'assurance"), "Assurance"),
+        (("logistique", "supply chain", "transport", "fret", "entrepôt", "entrepot"), "Logistique & Supply Chain"),
+        (("énergie", "energie", "pétrole", "petrole", "gaz", "renouvelable", "environnement", "climat"), "Énergie & Environnement"),
+        (("retail", "distribution", "e-commerce", "commerce de détail", "commerce de detail", "franchise"), "Retail & Distribution"),
+        (("private equity", "capital-investissement", "conseil en stratégie", "conseil en strategie", "cabinet de conseil", "consulting"), "Consulting & Private Equity"),
+        (("agroalimentaire", "agriculture", "agtech", "élevage", "elevage", "viticulture"), "Agroalimentaire"),
+        (("éducation", "education", "formation", "edtech", "enseignement"), "Éducation & Formation"),
+        (("automobile", "véhicule", "vehicule", "mobilité", "mobilite"), "Automobile & Mobilité"),
+        (("hôtellerie", "hotellerie", "tourisme", "restauration", "événementiel", "evenementiel"), "Hôtellerie & Tourisme"),
+        (("télécommunications", "telecommunications", "réseau télécom", "reseau telecom"), "Télécommunications"),
+        (("secteur public", "collectivité", "collectivite", "gouvernement", "administration publique", "défense", "defense"), "Secteur Public"),
+        (("industrie", "manufacturing", "usine", "automatisation industrielle", "aéronautique", "aeronautique", "chimie industrielle"), "Industrie & Manufacturing"),
+        (("rse", "durable", "impact", "responsable", "esg"), "RSE & Impact"),
         (("droit", "juridique", "légal", "legal"), "Droit & Juridique"),
         (("santé", "sante", "pharma", "médecine", "medecine", "bien-être", "bien-etre"), "Santé & Pharma"),
-        (("cybersécurité", "cybersecurite", "intelligence artificielle", "data", "technolog", "tech ", " ia", "ia &"), "Tech & Cybersécurité"),
         (("marketing", "communication"), "Marketing & Communication"),
         (("finance", "banque", "patrimoine", "investissement", "conformité", "conformite", "actifs", "comptab"), "Finance & Patrimoine"),
-        (("rh", "ressources humaines", "management", "leadership", "formation", "développement personnel", "developpement personnel", "recherche"), "RH & Management"),
+        (("rh", "ressources humaines", "management", "leadership", "développement personnel", "developpement personnel", "recherche"), "RH & Management"),
         (("société", "societe", "foi", "identité", "identite", "personnalités", "personnalites", "culture"), "Société & Culture"),
-        (("business", "entrepreneu", "e-commerce", "retail", "création", "creation", "géopolitique", "geopolitique"), "Business & Entrepreneuriat"),
+        (("business", "entrepreneu", "création", "creation", "géopolitique", "geopolitique"), "Business & Entrepreneuriat"),
     ]
     for keywords, target in keyword_map:
         for kw in keywords:
@@ -1914,6 +2020,16 @@ def main():
 
     meta = extract_fiche_meta(html_out, slug, fiche_url)
     meta["categorie"] = normalize_category(meta.get("categorie", ""))
+
+    # Tags media buying (01/09/2026) : selection dans la taxonomie fermee, appel Claude leger
+    # et decouple -- echec silencieux (fiche generee normalement meme si les tags echouent).
+    tags_taxonomy = load_tags_taxonomy()
+    if tags_taxonomy:
+        tags = select_tags(meta, tags_taxonomy)
+        if tags:
+            meta["tags"] = tags
+            log(f"Tags assignes : { {k: v for k, v in tags.items() if v} }")
+
     meta["rss_url"] = RSS_URL
     meta["podcast_url"] = PODCAST_URL
     meta["contact_url"] = CONTACT_URL
