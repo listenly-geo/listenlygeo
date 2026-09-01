@@ -30,7 +30,7 @@ import urllib.request, urllib.error, urllib.parse
 
 API_KEY = os.environ["ANTHROPIC_API_KEY"]
 MODEL = "claude-haiku-4-5-20251001"
-COUNTRIES = [c.strip() for c in os.environ.get("DISCOVERY_COUNTRIES", "us,gb,au,ca,ie,nz,sg,za").split(",") if c.strip()]  # pays anglophones elargis (30/08/2026)
+COUNTRIES = [c.strip() for c in os.environ.get("DISCOVERY_COUNTRIES", "us").split(",") if c.strip()]  # US uniquement par defaut (01/09/2026) -- 8 pays generaient trop de requetes (429 Too Many Requests) et diluaient le budget de qualification sans reel gain de diversite
 MAX_QUALIFY = int(os.environ.get("DISCOVERY_MAX_QUALIFY", "15"))
 KEYWORDS_FILE = os.environ.get(
     "DISCOVERY_KEYWORDS_FILE", "automation/data/discovery_keywords.json"
@@ -58,19 +58,29 @@ def normalize_name(name):
     return re.sub(r"[^a-z0-9]+", "", (name or "").lower())
 
 
-def itunes_search(term, country, limit=25):
+def itunes_search(term, country, limit=25, max_retries=3):
     url = (
         "https://itunes.apple.com/search?"
         + urllib.parse.urlencode({"term": term, "media": "podcast", "limit": limit, "country": country})
     )
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    try:
-        with urllib.request.urlopen(req, timeout=20) as resp:
-            data = json.loads(resp.read())
-        return data.get("results", [])
-    except (urllib.error.URLError, json.JSONDecodeError) as e:
-        log(f"  ERREUR recherche '{term}' ({country}) : {e}")
-        return []
+    for attempt in range(max_retries):
+        try:
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                data = json.loads(resp.read())
+            return data.get("results", [])
+        except urllib.error.HTTPError as e:
+            if e.code == 429 and attempt < max_retries - 1:
+                wait = 5 * (2 ** attempt)  # 5s, 10s, 20s
+                log(f"  429 Too Many Requests sur '{term}' ({country}) -- pause {wait}s puis nouvelle tentative ({attempt+1}/{max_retries})")
+                time.sleep(wait)
+                continue
+            log(f"  ERREUR recherche '{term}' ({country}) : {e}")
+            return []
+        except (urllib.error.URLError, json.JSONDecodeError) as e:
+            log(f"  ERREUR recherche '{term}' ({country}) : {e}")
+            return []
+    return []
 
 
 QUALIFICATION_PROMPT = """Tu es un analyste GEO (Generative Engine Optimization) charge de decider si un
@@ -198,13 +208,28 @@ def main():
     # secteur riche en resultats (ex: commercial real estate, tres dense aux US) ne
     # monopolise tout le budget de qualification au detriment de la diversite sectorielle
     # visee par la strategie GEO (30/08/2026 : cibler large tant que ca reste B2B/dirigeants).
+    #
+    # Fix du 01/09/2026 : le round-robin seul ne suffisait pas -- des que la plupart des
+    # mots-cles niche (peu de resultats iTunes) etaient epuises, les rounds suivants ne
+    # tiraient plus QUE des mots-cles riches (real estate...), qui finissaient par
+    # monopoliser le budget malgre le round-robin. Ajout d'un plafond dur par mot-cle : un
+    # seul mot-cle ne peut jamais fournir plus de MAX_PER_KEYWORD candidats sur un run,
+    # quel que soit le nombre de rounds restants.
+    MAX_PER_KEYWORD = 2
     to_qualify = []
-    keyword_pools = list(by_keyword.values())
-    while len(to_qualify) < MAX_QUALIFY and any(keyword_pools):
-        for pool in keyword_pools:
+    taken_per_keyword = {}
+    keyword_pools = list(by_keyword.items())
+    progress = True
+    while len(to_qualify) < MAX_QUALIFY and progress:
+        progress = False
+        for kw, pool in keyword_pools:
             if not pool:
                 continue
+            if taken_per_keyword.get(kw, 0) >= MAX_PER_KEYWORD:
+                continue
             to_qualify.append(pool.pop(0))
+            taken_per_keyword[kw] = taken_per_keyword.get(kw, 0) + 1
+            progress = True
             if len(to_qualify) >= MAX_QUALIFY:
                 break
 
