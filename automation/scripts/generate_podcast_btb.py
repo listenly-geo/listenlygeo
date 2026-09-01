@@ -406,7 +406,16 @@ def select_tags(meta, taxonomy):
     """Appelle Claude pour choisir, dans la taxonomie fermee, les tags reellement pertinents
     pour ce podcast precis -- jamais de tag invente hors de cette liste. Renvoie un dict
     {facette: [tags...]} ou None si la taxonomie est indisponible ou l'appel echoue (fallback
-    silencieux, n'empeche jamais la generation de la fiche elle-meme)."""
+    silencieux, n'empeche jamais la generation de la fiche elle-meme).
+
+    01/09/2026 : la taxonomie est bilingue (fr/en) -- on choisit la sous-taxonomie
+    correspondant a la langue du podcast (meta['language']) pour ne jamais melanger les
+    langues dans les tags d'une meme fiche (risque de confusion SEO si le contenu de la page
+    est en anglais mais les tags/metadonnees en francais)."""
+    if not taxonomy:
+        return None
+    lang_key = "en" if meta.get("language") == "en" else "fr"
+    taxonomy = taxonomy.get(lang_key)
     if not taxonomy:
         return None
 
@@ -414,6 +423,9 @@ def select_tags(meta, taxonomy):
         f"## {facette}\n" + ", ".join(valeurs)
         for facette, valeurs in taxonomy.items() if facette != "_meta"
     )
+
+    facette_keys = [f for f in taxonomy.keys() if f != "_meta"]
+    schema_lines = ",\n".join(f'  "{f}": ["...", "..."]' for f in facette_keys)
 
     prompt = f"""Tu classes un podcast B2B dans une taxonomie de tags FERMEE, pour du ciblage
 publicitaire precis (media buying) -- l'objectif est de capter QUI ecoute ce podcast (poste
@@ -434,18 +446,14 @@ PODCAST A CLASSER :
 - Hote : {meta.get('host_name','')} — {meta.get('host_title','')} chez {meta.get('host_company','')}
 - Description : {meta.get('punchline','')}
 
-Reponds STRICTEMENT en JSON, rien d'autre (pas de markdown, pas de texte avant/apres) :
+Reponds STRICTEMENT en JSON, avec EXACTEMENT ces noms de cles (rien d'autre, pas de markdown,
+pas de texte avant/apres) :
 {{
-  "secteur": ["...", "..."],
-  "fonction_cible": ["...", "..."],
-  "taille_entreprise": ["..."],
-  "intention_business": ["...", "..."],
-  "format": ["..."],
-  "geographie": ["..."]
+{schema_lines}
 }}
-Choisis 2-4 tags pour "secteur" et "intention_business" (les facettes les plus riches), 1-3
-pour "fonction_cible", 1 seul pour "taille_entreprise" et "format" (le plus representatif),
-1-2 pour "geographie"."""
+Choisis 2-4 tags pour les facettes secteur/sujet et intention/probleme business (les plus
+riches), 1-3 pour la fonction/poste cible, 1 seul pour la taille d'entreprise et le format
+(le plus representatif), 1-2 pour la geographie."""
 
     try:
         raw = call_claude(prompt)
