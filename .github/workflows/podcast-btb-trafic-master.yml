@@ -37,6 +37,10 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          # TEMPORAIRE (01/09/2026) : credit OpenAI Whisper deja paye (~7$) a epuiser avant de
+          # basculer sur Groq -- retirer cette ligne une fois le credit a 0 pour repasser au
+          # defaut Groq (voir generate_episode_fiches_btb.py, TRANSCRIPTION_PROVIDER).
+          TRANSCRIPTION_PROVIDER: openai
         run: python automation/scripts/run_all_qa_podcasts.py
 
       - name: Commit fiches
