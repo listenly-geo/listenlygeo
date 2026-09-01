@@ -828,7 +828,69 @@ Les instructions générales ci-dessus (partie précédente du message) utilisen
 
     return static_prompt, dynamic_prompt
 
-def render_questions_index(podcast, published):
+def render_questions_block(podcast, published):
+    """Bloc 'Questions couvertes' injecte directement dans la fiche N1 (podcast). Remplace
+    depuis le 01/09/2026 la page index separee (questions/<slug>/index.html), qui etait du
+    thin content a l'echelle du site (nombreuses fiches N1 classees 'Detectee, non indexee'
+    par Google Search Console). La fiche N1, deja substantielle, devient le hub complet du
+    podcast -- toute l'autorite de lien se concentre sur une seule page forte au lieu de se
+    diviser entre une page riche et une page quasi vide."""
+    language = podcast.get("language", "fr")
+    heading = "Questions couvertes" if language != "en" else "Questions covered"
+
+    items = "\n".join(
+        """  <li style="border-bottom:1px solid #eee;padding:12px 0;list-style:none;">
+    <a href="{url}" style="font-weight:600;text-decoration:none;color:inherit;">{question}</a>
+    <div style="font-size:12px;color:#888;margin-top:3px;">{date} · {ep_title}</div>
+  </li>""".format(
+            url=q["url"], question=q["question"],
+            date=q.get("added_date", ""), ep_title=q.get("source_episode_title", "")
+        )
+        for q in sorted(published, key=lambda x: x.get("added_date", ""), reverse=True)
+    )
+
+    return """
+<div class="questions-covered" style="margin-top:40px;padding-top:28px;border-top:1px solid #eee;">
+  <h2 style="font-size:18px;font-weight:800;margin:0 0 6px;">{heading}</h2>
+  <ul style="list-style:none;padding:0;margin:0;">
+{items}
+  </ul>
+</div>
+""".format(heading=heading, items=items)
+
+
+def update_n1_questions_block(podcast, published):
+    """Injecte/met a jour le bloc 'Questions couvertes' dans la fiche N1 sur disque, entre des
+    marqueurs HTML. Si les marqueurs sont absents (fiche N1 generee avant cette fonctionnalite),
+    insere le bloc juste avant </body> -- auto-migration progressive des anciennes fiches, sans
+    script de backfill separe necessaire."""
+    n1_path = "{pages_dir}/{slug}-podcast.html".format(pages_dir=PAGES_DIR, slug=SLUG)
+    if not os.path.exists(n1_path):
+        log("AVERTISSEMENT : fiche N1 introuvable (" + n1_path + ") — bloc questions non mis à jour.")
+        return
+    with open(n1_path, encoding="utf-8") as f:
+        n1_html = f.read()
+
+    block = render_questions_block(podcast, published)
+    start_marker = "<!-- QUESTIONS_COVERED_START -->"
+    end_marker = "<!-- QUESTIONS_COVERED_END -->"
+    if start_marker in n1_html and end_marker in n1_html:
+        pre = n1_html.split(start_marker)[0]
+        post = n1_html.split(end_marker)[1]
+        new_html = pre + start_marker + block + end_marker + post
+    else:
+        insertion = start_marker + block + end_marker
+        if "</body>" in n1_html:
+            new_html = n1_html.replace("</body>", insertion + "\n</body>", 1)
+        else:
+            new_html = n1_html + insertion
+
+    with open(n1_path, "w", encoding="utf-8") as f:
+        f.write(new_html)
+    log("Bloc 'Questions couvertes' mis à jour sur la fiche N1.")
+
+
+def _unused_render_questions_index(podcast, published):
     language = podcast.get("language", "fr")
     html_lang = "en" if language == "en" else "fr"
 
@@ -995,13 +1057,12 @@ def main():
         log("Stock de questions épuisé pour cet épisode — le prochain run minera un nouvel épisode.")
     save_registry(registry)
 
-    index_html = render_questions_index(podcast, registry["published"])
-    with open(f"{QUESTIONS_DIR}/index.html", "w", encoding="utf-8") as f:
-        f.write(index_html)
-    log("Index des questions régénéré")
-
-    # ensure_parent_link() retiree volontairement : consigne = ne plus jamais faire apparaitre
-    # le lien "Voir toutes les questions traitees par ce podcast" sur la fiche podcast (N1).
+    # Consolidation du 01/09/2026 : la page index separee (questions/<slug>/index.html) est
+    # remplacee par un bloc "Questions couvertes" injecte directement dans la fiche N1 --
+    # Google classait massivement ces pages index en "Detectee, non indexee" (thin content a
+    # l'echelle du site). Voir update_n1_questions_block(). L'ancienne generation d'index.html
+    # est retiree ; les URLs deja indexees redirigent vers la fiche N1 (voir .htaccess).
+    update_n1_questions_block(podcast, registry["published"])
 
     for r in all_records:
         if r["slug"] == SLUG:
