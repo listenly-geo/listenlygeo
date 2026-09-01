@@ -834,15 +834,25 @@ def render_questions_block(podcast, published):
     thin content a l'echelle du site (nombreuses fiches N1 classees 'Detectee, non indexee'
     par Google Search Console). La fiche N1, deja substantielle, devient le hub complet du
     podcast -- toute l'autorite de lien se concentre sur une seule page forte au lieu de se
-    diviser entre une page riche et une page quasi vide."""
+    diviser entre une page riche et une page quasi vide.
+
+    Rendu en cartes (01/09/2026, retour utilisateur : l'ancien rendu en simple liste etait
+    "ecrase" en bas de page, incoherent avec le reste de la fiche qui utilise des cartes) --
+    palette neutre volontairement (pas la couleur d'accent du podcast, non reutilisable ici
+    de facon fiable) pour rester coherent quel que soit le podcast."""
     language = podcast.get("language", "fr")
     heading = "Questions couvertes" if language != "en" else "Questions covered"
+    n = len(published)
+    subtitle = (
+        f"{n} question{'s' if n > 1 else ''} explorée{'s' if n > 1 else ''} dans ce podcast" if language != "en"
+        else f"{n} question{'s' if n != 1 else ''} explored from this podcast"
+    )
 
     items = "\n".join(
-        """  <li style="border-bottom:1px solid #eee;padding:12px 0;list-style:none;">
-    <a href="{url}" style="font-weight:600;text-decoration:none;color:inherit;">{question}</a>
-    <div style="font-size:12px;color:#888;margin-top:3px;">{date} · {ep_title}</div>
-  </li>""".format(
+        """  <a class="qc-item" href="{url}">
+    <div class="qc-q">{question}</div>
+    <div class="qc-meta">{date} · {ep_title}</div>
+  </a>""".format(
             url=q["url"], question=q["question"],
             date=q.get("added_date", ""), ep_title=q.get("source_episode_title", "")
         )
@@ -850,13 +860,25 @@ def render_questions_block(podcast, published):
     )
 
     return """
-<div class="questions-covered" style="margin-top:40px;padding-top:28px;border-top:1px solid #eee;">
-  <h2 style="font-size:18px;font-weight:800;margin:0 0 6px;">{heading}</h2>
-  <ul style="list-style:none;padding:0;margin:0;">
+<style>
+.qc-wrap {{ margin-top:48px; padding-top:32px; border-top:1px solid #ececec; }}
+.qc-title {{ font-size:21px; font-weight:800; margin:0 0 4px; color:#0a0a0a; }}
+.qc-sub {{ font-size:13px; color:#888; margin:0 0 20px; }}
+.qc-list {{ display:flex; flex-direction:column; gap:10px; }}
+.qc-item {{ display:block; padding:16px 20px; border:1px solid #ececec; border-radius:12px;
+  text-decoration:none; color:inherit; background:#fafafa; transition:border-color .15s, box-shadow .15s, background .15s; }}
+.qc-item:hover {{ border-color:#c9c9c9; background:#fff; box-shadow:0 3px 12px rgba(0,0,0,.06); }}
+.qc-q {{ font-weight:700; font-size:15px; color:#111; line-height:1.4; margin-bottom:5px; }}
+.qc-meta {{ font-size:12px; color:#999; }}
+</style>
+<div class="questions-covered qc-wrap">
+  <h2 class="qc-title">{heading}</h2>
+  <p class="qc-sub">{subtitle}</p>
+  <div class="qc-list">
 {items}
-  </ul>
+  </div>
 </div>
-""".format(heading=heading, items=items)
+""".format(heading=heading, subtitle=subtitle, items=items)
 
 
 def update_n1_questions_block(podcast, published):
