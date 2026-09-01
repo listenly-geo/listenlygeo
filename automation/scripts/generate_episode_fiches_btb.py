@@ -161,6 +161,11 @@ def transcribe(audio_path, whisper_lang="fr"):
         headers={
             "Authorization": f"Bearer {TRANSCRIPTION_API_KEY}",
             "Content-Type": f"multipart/form-data; boundary={boundary}",
+            # Fix du 01/09/2026 : Groq (derriere Cloudflare) rejetait 100% des requetes avec
+            # une erreur Cloudflare 1010 -- d'apres la doc Cloudflare, ce code correspond tres
+            # souvent a un User-Agent absent/suspect (Python envoie "Python-urllib/x.x" par
+            # defaut, frequemment bloque). Un User-Agent explicite resout ce cas de figure.
+            "User-Agent": "Mozilla/5.0 (compatible; ListenlyGEO/1.0; +https://listenly.fr)",
         },
         method="POST",
     )
