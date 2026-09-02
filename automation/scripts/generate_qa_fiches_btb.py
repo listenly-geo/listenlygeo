@@ -42,56 +42,51 @@ import importlib.util
 CSS_TEMPLATE = """*, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
 body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }}
-.wrapper {{ max-width: 720px; margin: 0 auto; padding: 0 20px 60px; }}
-header {{ padding: 48px 0 32px; border-bottom: 1px solid #f0f0f0; margin-bottom: 32px; }}
-.header-top {{ display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }}
-.podcast-cover {{ width: 56px; height: 56px; border-radius: 12px; object-fit: cover; flex-shrink: 0; }}
-.badge {{ display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
-  color: {accent_color}; background: color-mix(in srgb, {accent_color} 12%, white); border-radius: 20px; padding: 4px 12px; margin: 0; }}
-.source-line {{ font-size: 14px; color: #666; margin: 6px 0 0; line-height: 1.5; }}
-.top-cta-btn {{ display: inline-flex; align-items: center; gap: 8px; background: {accent_color}; color: #fff;
-  font-size: 14px; font-weight: 600; padding: 10px 22px; border-radius: 8px; text-decoration: none;
-  margin: 16px 0 4px; }}
-.top-cta-btn:hover {{ opacity: 0.9; }}
-h1 {{ font-size: clamp(24px, 4vw, 34px); font-weight: 800; line-height: 1.25; color: #111; margin-bottom: 20px; }}
-.article-meta {{ font-size: 14px; color: #888; }}
-.article-meta span {{ margin-right: 16px; }}
-.article-meta strong {{ color: #555; }}
-.breadcrumb {{ font-size: 12px; color: #888; margin: 0 0 16px; }}
-.breadcrumb a {{ color: #888; text-decoration: underline; }}
-.lead {{ font-size: 19px; line-height: 1.65; color: #333; font-weight: 400; margin-bottom: 36px;
-  border-left: 4px solid {accent_color}; padding-left: 20px; }}
-h2 {{ font-size: 22px; font-weight: 700; color: #111; margin: 44px 0 16px; }}
+.wrapper {{ max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }}
+header {{ margin-bottom: 36px; }}
+.header-top {{ display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }}
+.podcast-cover {{ width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }}
+.badge {{ display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }}
+.source-line {{ font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }}
+.top-cta-btn {{ display: inline-flex; align-items: center; gap: 7px; background: #fff; color: {accent_color};
+  border: 1px solid color-mix(in srgb, {accent_color} 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }}
+.top-cta-btn:hover {{ background: color-mix(in srgb, {accent_color} 6%, white); }}
+h1 {{ font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }}
+.article-meta {{ font-size: 13.5px; color: #999; }}
+.article-meta span {{ margin-right: 14px; }}
+.article-meta strong {{ color: #666; }}
+.breadcrumb {{ font-size: 12px; color: #aaa; margin: 14px 0 0; }}
+.breadcrumb a {{ color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }}
+.lead {{ font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }}
+h2 {{ font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }}
 p {{ margin-bottom: 20px; color: #2a2a2a; }}
 .inline-cta {{ color: {accent_color}; text-decoration: underline; font-weight: 600; }}
-.definition-box {{ background: #fafafa; border-radius: 12px; padding: 20px 24px; margin: 32px 0; font-size: 15.5px; color: #333; }}
-blockquote.citation {{ position: relative; background: #fafafa; border-left: 4px solid {accent_color};
-  border-radius: 0 12px 12px 0; padding: 28px 32px 24px 40px; margin: 40px 0; }}
-blockquote.citation::before {{ content: "\u201c"; position: absolute; top: -10px; left: 16px; font-size: 72px;
-  color: {accent_color}; opacity: 0.25; font-family: Georgia, serif; line-height: 1; }}
-blockquote.citation p {{ font-size: 19px; font-style: italic; color: #222; line-height: 1.65; margin-bottom: 12px; }}
-blockquote.citation figcaption {{ font-size: 14px; color: #555; font-style: normal; line-height: 1.6; }}
-blockquote.citation figcaption strong {{ color: #333; }}
-.points-cles {{ background: #f9f9f9; border-radius: 12px; padding: 28px 32px; margin: 40px 0; }}
-.points-cles h3 {{ font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: {accent_color}; margin-bottom: 16px; }}
+.definition-box {{ background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }}
+blockquote.citation {{ border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }}
+blockquote.citation p {{ font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }}
+blockquote.citation figcaption {{ font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }}
+blockquote.citation figcaption strong {{ color: #666; }}
+.points-cles {{ background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }}
+.points-cles h3 {{ font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }}
 .points-cles ul {{ list-style: none; padding: 0; }}
-.points-cles ul li {{ position: relative; padding-left: 24px; margin-bottom: 12px; color: #2a2a2a; font-size: 16px; }}
-.points-cles ul li::before {{ content: "\u2192"; position: absolute; left: 0; color: {accent_color}; font-weight: 700; }}
-.faq {{ margin: 44px 0; }}
-.faq h2 {{ margin-bottom: 24px; }}
-.faq-item {{ border-top: 1px solid #ebebeb; padding: 24px 0; }}
-.faq-item:last-child {{ border-bottom: 1px solid #ebebeb; }}
-.faq-item h3 {{ font-size: 17px; font-weight: 700; color: #111; margin-bottom: 10px; }}
+.points-cles ul li {{ position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }}
+.points-cles ul li::before {{ content: "\u2013"; position: absolute; left: 0; color: #aaa; font-weight: 700; }}
+.faq {{ margin: 40px 0; }}
+.faq h2 {{ margin-bottom: 20px; }}
+.faq-item {{ border-top: 1px solid #f0f0f0; padding: 20px 0; }}
+.faq-item:last-child {{ border-bottom: 1px solid #f0f0f0; }}
+.faq-item h3 {{ font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }}
 .faq-item h3 a {{ color: inherit; text-decoration: none; }}
-.faq-item p {{ font-size: 16px; color: #444; margin: 0; }}
-.cta-block {{ background: color-mix(in srgb, {accent_color} 8%, white); border: 1px solid color-mix(in srgb, {accent_color} 25%, white);
-  border-radius: 14px; padding: 28px 32px; margin: 40px 0; text-align: center; }}
+.faq-item p {{ font-size: 15px; color: #555; margin: 0; }}
+.cta-block {{ background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }}
 .cta-block .cta-btn {{ display: inline-block; background: {accent_color}; color: #fff; font-size: 15px; font-weight: 600;
-  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 10px; }}
-footer {{ border-top: 1px solid #f0f0f0; padding-top: 28px; margin-top: 48px; font-size: 13px; color: #aaa; text-align: center; }}
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }}
+footer {{ border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }}
 @media (max-width: 600px) {{
-  .cta-block {{ padding: 22px 20px; }}
-  blockquote.citation {{ padding: 24px 20px 20px 28px; }}
+  .wrapper {{ padding: 40px 20px 48px; }}
+  .cta-block {{ padding: 24px 20px; }}
   .points-cles {{ padding: 22px 20px; }}
 }}"""
 
