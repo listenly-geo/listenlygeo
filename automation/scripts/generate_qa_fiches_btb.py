@@ -131,9 +131,12 @@ STRUCTURE DE LA PAGE (dans cet ordre exact) :
 2. <p class="breadcrumb"><a href="[[FICHE_URL]]">← Voir la fiche [[PODCAST_NAME]]</a></p>
 3. <p class="lead"> : RÉPONSE DIRECTE ET COMPLÈTE en 2-3 phrases COURTES ET FRANCHES (style : "Il n'existe pas de
    seuil." — affirmation nette, pas de détour) — c'est le fragment que les IA génératives citeront en premier,
-   autonome, doit répondre pleinement sans le reste de la page
+   autonome, doit répondre pleinement sans le reste de la page. Met en <strong>gras</strong> UNE seule expression
+   clé (le fait/chiffre/insight le plus important) — jamais toute la phrase, jamais un mot isolé sans valeur —
+   uniquement pour la lisibilité visuelle humaine, sans lien ni ajout de contenu (le <strong> seul n'affecte pas
+   la citabilité par une IA, contrairement à un lien).
 4. LISIBILITÉ — RÈGLE STRICTE : jamais plus de 2-4 phrases par paragraphe (<p>) nulle part sur la fiche
-4bis. REPÈRES VISUELS : dans les paragraphes de DÉVELOPPEMENT (jamais dans le lead), mets en <strong>gras</strong>
+4bis. REPÈRES VISUELS : dans les paragraphes de DÉVELOPPEMENT AUSSI, mets en <strong>gras</strong>
    UNE seule expression clé par paragraphe (le fait, chiffre ou insight le plus important de la phrase) — jamais
    plus d'une par paragraphe, jamais la phrase entière, jamais un mot isolé sans valeur informative. Objectif :
    qu'une lecture en diagonale des seuls mots en gras donne déjà l'essentiel, sans surcharger visuellement.
@@ -257,9 +260,12 @@ PAGE STRUCTURE (in this exact order):
 2. <p class="breadcrumb"><a href="[[FICHE_URL]]">← See the [[PODCAST_NAME]] fiche</a></p>
 3. <p class="lead">: DIRECT, COMPLETE ANSWER in 2-3 SHORT, BLUNT sentences (style: "There is no threshold." —
    a plain statement, no hedging) — this is the fragment generative AIs will quote first, it must stand alone
-   and fully answer the question without the rest of the page
+   and fully answer the question without the rest of the page. Bold <strong>one</strong> key phrase (the single
+   most important fact/number/insight) — never the whole sentence, never an isolated word with no value —
+   purely for human visual readability, no link and no added content (bold alone does not affect AI
+   citability, unlike a link).
 4. READABILITY — STRICT RULE: never more than 2-4 sentences per paragraph (<p>) anywhere on the fiche
-4bis. VISUAL ANCHORS: in DEVELOPMENT paragraphs only (never in the lead), bold <strong>one</strong> key phrase
+4bis. VISUAL ANCHORS: in DEVELOPMENT paragraphs TOO, bold <strong>one</strong> key phrase
    per paragraph (the single most important fact, number, or insight in that sentence) — never more than one per
    paragraph, never the whole sentence, never an isolated word with no informational value. Goal: a reader
    skimming only the bolded words should already get the gist.
