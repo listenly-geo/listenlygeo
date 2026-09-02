@@ -96,55 +96,57 @@ MODEL      = "claude-haiku-4-5-20251001"
 # dans le prompt ni ecrit par Claude (meme technique que sur le moteur N2, deja validee) :
 # economie de tokens en entree ET en sortie, aucun impact sur le contenu ou la structure GEO.
 CSS_TEMPLATE = """body {{ font-family: Georgia, serif; color: #1a1a1a; line-height: 1.7; margin: 0; }}
-.site-header {{ position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #e2e2e2;
+.site-header {{ position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #ededed;
   padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }}
 .site-header .logo {{ font-family: Georgia, serif; font-weight: 700; font-size: 19px; color: #0a0a0a;
   text-decoration: none; letter-spacing: -0.01em; }}
 .site-header .login-link {{ font-family: Helvetica, Arial, sans-serif; font-weight: 700; font-size: 13px;
-  color: #fff; background: {accent_color}; padding: 8px 18px; border-radius: 999px; text-decoration: none; white-space: nowrap; }}
-main.wrapper {{ max-width: 720px; margin: 0 auto; padding: 40px 20px 64px; }}
+  color: {accent_color}; background: #fff; border: 1px solid color-mix(in srgb, {accent_color} 35%, white);
+  padding: 7px 17px; border-radius: 999px; text-decoration: none; white-space: nowrap; }}
+main.wrapper {{ max-width: 720px; margin: 0 auto; padding: 44px 20px 64px; }}
 .eyebrow-category {{ font-family: Helvetica, Arial, sans-serif; text-transform: uppercase; font-weight: 700;
-  letter-spacing: .08em; font-size: 12px; color: {accent_color}; margin-bottom: 10px; }}
-h1 {{ font-family: Georgia, serif; font-weight: 700; font-size: clamp(30px,4.5vw,44px); line-height: 1.18;
+  letter-spacing: .08em; font-size: 12px; color: {accent_color}; margin-bottom: 12px; }}
+h1 {{ font-family: Georgia, serif; font-weight: 700; font-size: clamp(28px,4.5vw,42px); line-height: 1.22;
   color: #0a0a0a; margin: 0 0 18px; }}
-.byline-row {{ font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #333; display: flex;
+.byline-row {{ font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #444; display: flex;
   flex-wrap: wrap; gap: 6px; align-items: baseline; margin-bottom: 10px; }}
-.byline-row .name {{ font-weight: 700; color: #111; }}
-.host-bio {{ font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #666; margin-bottom: 14px; }}
-.hero-image {{ width: 100%; max-width: 220px; height: auto; border-radius: 6px; display: block; margin: 4px 0 20px; }}
-.publish-row {{ font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #555; display: flex;
-  flex-wrap: wrap; gap: 10px; align-items: center; padding: 14px 0; border-top: 1px solid #e2e2e2;
-  border-bottom: 1px solid #e2e2e2; margin: 4px 0 28px; }}
+.byline-row .name {{ font-weight: 700; color: #222; }}
+.host-bio {{ font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #888; margin-bottom: 14px; }}
+.hero-image {{ width: 100%; max-width: 200px; height: auto; border-radius: 8px; display: block; margin: 6px 0 22px; }}
+.publish-row {{ font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #999; display: flex;
+  flex-wrap: wrap; gap: 10px; align-items: center; padding: 14px 0; border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed; margin: 6px 0 30px; }}
 .cta-row {{ display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }}
-.cta-listen {{ background: {accent_color}; color: #fff; font-family: Helvetica, Arial, sans-serif; font-size: 13px;
-  font-weight: 700; padding: 9px 20px; border-radius: 999px; text-decoration: none; }}
+.cta-listen {{ background: #fff; color: {accent_color}; border: 1px solid color-mix(in srgb, {accent_color} 35%, white);
+  font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 19px;
+  border-radius: 999px; text-decoration: none; }}
 .inline-cta {{ color: {accent_color}; text-decoration: underline; font-weight: 700; }}
-.divider {{ border-top: 1px solid #e2e2e2; }}
+.divider {{ border-top: 1px solid #ededed; }}
 .lead-label {{ font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
   letter-spacing: .08em; color: {accent_color}; }}
-.lead {{ font-family: Georgia, serif; font-size: 20px; line-height: 1.6; font-style: italic;
-  border-left: 3px solid {accent_color}; padding-left: 22px; color: #1a1a1a; margin: 14px 0 28px; }}
+.lead {{ font-family: Georgia, serif; font-size: 19.5px; line-height: 1.65; font-style: italic;
+  border-left: 2px solid color-mix(in srgb, {accent_color} 55%, white); padding-left: 20px; color: #2a2a2a; margin: 16px 0 30px; }}
 .key-facts-label {{ font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .08em; color: {accent_color}; margin-bottom: 12px; padding-top: 24px; border-top: 1px solid #e2e2e2; }}
+  letter-spacing: .08em; color: {accent_color}; margin-bottom: 14px; padding-top: 26px; border-top: 1px solid #ededed; }}
 .key-facts {{ list-style: none; padding: 0; }}
-.key-facts li {{ font-family: Georgia, serif; font-size: 18px; line-height: 1.7; color: #1a1a1a; padding-left: 22px;
+.key-facts li {{ font-family: Georgia, serif; font-size: 17.5px; line-height: 1.7; color: #2a2a2a; padding-left: 20px;
   margin-bottom: 14px; position: relative; }}
-.key-facts li::before {{ content: "\u2022"; position: absolute; left: 0; color: {accent_color}; font-weight: 700; font-size: 22px; }}
-.article-body h2 {{ font-family: Georgia, serif; font-weight: 700; font-size: clamp(22px,3.2vw,28px); line-height: 1.25;
-  color: #0a0a0a; margin-top: 44px; margin-bottom: 16px; padding-top: 24px; border-top: 1px solid #e2e2e2; }}
-.article-body p {{ font-family: Georgia, serif; font-size: 18px; line-height: 1.8; color: #1a1a1a; margin-bottom: 20px; }}
-.pull-quote {{ border-left: 3px solid {accent_color}; padding-left: 24px; font-family: Georgia, serif; font-size: 21px;
-  font-style: italic; line-height: 1.5; color: #111; margin: 32px 0; }}
-.faq-item h3 {{ font-family: Georgia, serif; font-size: 18px; font-weight: 700; color: #111; margin-bottom: 6px; }}
-.faq-item p {{ font-family: Georgia, serif; font-size: 17px; color: #2a2a2a; }}
-.episode-card {{ border: 1px solid #e2e2e2; border-radius: 6px; display: flex; padding: 20px; gap: 16px;
-  align-items: center; margin-top: 40px; }}
-.episode-card img {{ width: 90px; height: 90px; object-fit: cover; border-radius: 4px; }}
-.card-listen {{ font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 16px;
-  border-radius: 999px; background: {accent_color}; color: #fff; text-decoration: none; }}
-footer {{ font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #666; border-top: 1px solid #e2e2e2;
-  padding-top: 16px; margin-top: 48px; }}
-footer a {{ text-decoration: underline; color: #999; }}
+.key-facts li::before {{ content: "\u2013"; position: absolute; left: 0; color: #bbb; font-weight: 700; font-size: 18px; }}
+.article-body h2 {{ font-family: Georgia, serif; font-weight: 700; font-size: clamp(21px,3.2vw,26px); line-height: 1.3;
+  color: #111; margin-top: 46px; margin-bottom: 16px; padding-top: 26px; border-top: 1px solid #ededed; }}
+.article-body p {{ font-family: Georgia, serif; font-size: 17.5px; line-height: 1.8; color: #2a2a2a; margin-bottom: 20px; }}
+.pull-quote {{ border-left: 2px solid color-mix(in srgb, {accent_color} 55%, white); padding-left: 22px; font-family: Georgia, serif; font-size: 20px;
+  font-style: italic; line-height: 1.55; color: #222; margin: 34px 0; }}
+.faq-item h3 {{ font-family: Georgia, serif; font-size: 17.5px; font-weight: 700; color: #111; margin-bottom: 6px; }}
+.faq-item p {{ font-family: Georgia, serif; font-size: 16.5px; color: #444; }}
+.episode-card {{ border: 1px solid #ededed; border-radius: 12px; display: flex; padding: 22px; gap: 16px;
+  align-items: center; margin-top: 44px; }}
+.episode-card img {{ width: 84px; height: 84px; object-fit: cover; border-radius: 8px; }}
+.card-listen {{ font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 17px;
+  border-radius: 999px; background: #fff; color: {accent_color}; border: 1px solid color-mix(in srgb, {accent_color} 35%, white); text-decoration: none; }}
+footer {{ font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #aaa; border-top: 1px solid #ededed;
+  padding-top: 18px; margin-top: 48px; }}
+footer a {{ text-decoration: underline; color: #bbb; }}
 #semantic-index {{ display: none; }}"""
 PAGES_DIR  = "pages/podcast-btb"
 DATA_FILE  = f"{PAGES_DIR}/data/podcasts.json"
