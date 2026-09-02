@@ -159,7 +159,7 @@ var LISTEN_DOMAINS = ["spotify.com","apple.com","deezer.com","podcasts.google","
 // sur GitHub (raw.githubusercontent.com, public, pas besoin d'authentification pour lire).
 // Ne pré-remplit QUE le flux RSS (seule donnée fiable fournie par la découverte) — Spotify
 // et Listenly restent à vérifier/compléter manuellement comme avant.
-var DISCOVERY_URL = 'https://raw.githubusercontent.com/listenly-geo/listenlygeo/main/pages/podcast-btb/data/discovery_candidates.json';
+var ISSUES_URL = 'https://api.github.com/repos/listenly-geo/listenlygeo/issues?labels=candidate&state=open&per_page=100';
 var PODCASTS_URL = 'https://raw.githubusercontent.com/listenly-geo/listenlygeo/main/pages/podcast-btb/data/podcasts.json';
 var DIRECTORY_TAGS_URL = 'https://raw.githubusercontent.com/listenly-geo/listenlygeo/main/pages/podcast-btb/data/directory_tags.json';
 var DIRECTORY_CATEGORIES_URL = 'https://raw.githubusercontent.com/listenly-geo/listenlygeo/main/pages/podcast-btb/data/directory_categories.json';
@@ -307,32 +307,58 @@ function markValidated(feedUrl){
   }
 }
 
+function parseIssueBody(body){
+  body = body || '';
+  function field(label){
+    var re = new RegExp('\\\\*\\\\*' + label + ' :\\\\*\\\\* (.+)');
+    var m = body.match(re);
+    return m ? m[1].trim() : '';
+  }
+  var feedUrlMatch = body.match(/<!-- feed_url: (.*?) -->/);
+  return {
+    feed_url: feedUrlMatch ? feedUrlMatch[1].trim() : '',
+    artist_name: field('Éditeur/hôte'),
+    genre: field('Genre'),
+    track_count: field('Épisodes'),
+    detected_language: field('Langue détectée'),
+    collection_view_url: field('Fiche iTunes'),
+    cover_image: field('Image de couverture'),
+    reason: (body.split('**Raison de qualification :**\n')[1] || '').split('\n\n---')[0].trim(),
+  };
+}
+
 function loadDiscoveryCandidates(){
   var sel = document.getElementById('f_candidate');
   var reasonEl = document.getElementById('candidateReason');
   sel.innerHTML = '<option value="">— Chargement des candidats… —</option>';
   reasonEl.textContent = '';
   return Promise.all([
-    fetch(DISCOVERY_URL, {cache:'no-store'}).then(function(r){ if(!r.ok) throw new Error('discovery HTTP ' + r.status); return r.json(); }),
+    fetch(ISSUES_URL, {cache:'no-store', headers:{Accept:'application/vnd.github+json'}}).then(function(r){ if(!r.ok) throw new Error('issues HTTP ' + r.status); return r.json(); }),
     fetch(PODCASTS_URL, {cache:'no-store'}).then(function(r){ if(!r.ok) throw new Error('podcasts HTTP ' + r.status); return r.json(); })
   ]).then(function(results){
-    var discoveryData = results[0];
+    var issues = results[0];
     var existingPodcasts = results[1];
     // Un podcast deja onboarde (present dans podcasts.json) ne doit plus jamais reapparaitre
-    // dans la liste de reco, meme s'il traine encore dans discovery_candidates.json (fichier
-    // jamais purge automatiquement apres onboarding) -- verifie a chaque chargement de page,
-    // donc toujours a jour independamment de quand la decouverte a tourne.
+    // dans la liste, meme si son issue n'a pas encore ete fermee manuellement -- verifie a
+    // chaque chargement de page, donc toujours a jour independamment de quand l'onboarding a eu lieu.
     var existingNames = {};
     (existingPodcasts || []).forEach(function(p){ existingNames[normalizeName(p.podcast_name)] = true; });
     var validated = getValidatedSet();
 
-    discoveryCandidates = Object.keys(discoveryData).map(function(k){ return discoveryData[k]; })
-      .filter(function(c){ return c.verdict === 'ONBOARD'; })
+    discoveryCandidates = (issues || [])
+      .filter(function(issue){ return !issue.pull_request; })  // securite : ignore les PR (l'API issues les inclut parfois)
+      .map(function(issue){
+        var parsed = parseIssueBody(issue.body);
+        parsed.podcast_name = issue.title.replace(/^🎙️\s*/, '');
+        parsed.issue_number = issue.number;
+        parsed.issue_url = issue.html_url;
+        return parsed;
+      })
       .filter(function(c){ return !existingNames[normalizeName(c.podcast_name)]; })
       .filter(function(c){ return !validated.has(c.feed_url); });
 
     if(discoveryCandidates.length === 0){
-      sel.innerHTML = '<option value="">Aucun candidat ONBOARD disponible pour le moment</option>';
+      sel.innerHTML = '<option value="">Aucun candidat disponible pour le moment (voir "Nouvelle recherche")</option>';
       return;
     }
     sel.innerHTML = '<option value="">— Choisir un candidat (' + discoveryCandidates.length + ' disponible(s)) —</option>' +
@@ -378,10 +404,12 @@ function applyCandidate(){
     document.getElementById('f_language').value = c.detected_language;
   }
 
-  reasonEl.textContent = 'Verdict GEO : ONBOARD — ' + (c.reason || '') +
+  reasonEl.innerHTML = ('Verdict GEO : ONBOARD — ' + (c.reason || '') +
     (c.genre ? ' · Genre iTunes : ' + c.genre : '') +
     (c.detected_language && c.detected_language !== 'fr' && c.detected_language !== 'en'
-      ? ' · Langue non detectee avec certitude, verifie-la manuellement.' : '');
+      ? ' · Langue non detectee avec certitude, verifie-la manuellement.' : '')
+  ).replace(/</g,'&lt;') +
+    (c.issue_url ? ' · <a href="' + c.issue_url + '" target="_blank" rel="noopener"><strong>Fermer cette issue sur GitHub →</strong></a>' : '');
 }
 
 window.addEventListener('DOMContentLoaded', loadDiscoveryCandidates);
