@@ -30,6 +30,17 @@ import urllib.request, urllib.error, urllib.parse
 
 API_KEY = os.environ["ANTHROPIC_API_KEY"]
 MODEL = "claude-haiku-4-5-20251001"
+
+# GitHub Issues comme file d'attente des candidats (01/09/2026) -- remplace l'ecriture directe
+# dans discovery_candidates.json. Raison : le fichier JSON s'accumulait indefiniment (jamais
+# purge), et un fichier HTML statique local ne peut jamais supprimer/fermer une entree en un
+# clic sans exposer une cle d'ecriture (le repo est PUBLIC). Les issues GitHub offrent
+# nativement : pagination, recherche, fermeture en un clic (Etienne est deja connecte a
+# GitHub avec ses propres droits, aucune cle necessaire cote generateur pour la lecture --
+# repo public).
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "").strip()
+GITHUB_REPOSITORY = os.environ.get("GITHUB_REPOSITORY", "listenly-geo/listenlygeo").strip()
+CANDIDATE_LABEL = "candidate"
 COUNTRIES = [c.strip() for c in os.environ.get("DISCOVERY_COUNTRIES", "us").split(",") if c.strip()]  # US uniquement par defaut (01/09/2026) -- 8 pays generaient trop de requetes (429 Too Many Requests) et diluaient le budget de qualification sans reel gain de diversite
 MAX_QUALIFY = int(os.environ.get("DISCOVERY_MAX_QUALIFY", "15"))
 KEYWORDS_FILE = os.environ.get(
@@ -37,7 +48,13 @@ KEYWORDS_FILE = os.environ.get(
 )
 PODCASTS_FILE = "pages/podcast-btb/data/podcasts.json"
 PAUSED_FILE = "pages/podcast-btb/data/paused_podcasts.json"
-CANDIDATES_FILE = "pages/podcast-btb/data/discovery_candidates.json"
+# Historique permanent (01/09/2026) : seul fichier qui accumule pour toujours, utilise
+# uniquement pour la deduplication interne ("deja qualifie, ne pas re-payer un appel Claude").
+# Jamais lu par le generateur -- les candidats visibles/actionnables sont desormais des
+# issues GitHub (voir GITHUB_TOKEN plus bas), qui remplacent l'ancien discovery_candidates.json
+# : celui-ci s'accumulait indefiniment sans jamais etre purge, et un fichier HTML statique ne
+# peut pas fermer/supprimer une entree en un clic sans exposer une cle d'ecriture (repo public).
+SEEN_HISTORY_FILE = "automation/data/discovery_seen_history.json"
 
 
 def log(msg):
@@ -135,6 +152,72 @@ def call_claude_with_search(prompt):
     return "".join(parts).strip()
 
 
+def github_api_request(method, path, payload=None):
+    url = f"https://api.github.com/repos/{GITHUB_REPOSITORY}{path}"
+    data = json.dumps(payload).encode("utf-8") if payload is not None else None
+    req = urllib.request.Request(url, data=data, method=method, headers={
+        "Authorization": f"Bearer {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github+json",
+        "Content-Type": "application/json",
+        "User-Agent": "listenly-discovery-bot",
+    })
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return json.loads(resp.read())
+
+
+def list_existing_candidate_feed_urls():
+    """Recupere le feed_url de TOUTES les issues candidates existantes (ouvertes ET fermees)
+    -- sert de deduplication permanente : un podcast deja propose une fois (accepte ou rejete
+    par Etienne en fermant l'issue) ne doit jamais generer une nouvelle issue en double."""
+    seen = set()
+    page = 1
+    while True:
+        try:
+            issues = github_api_request(
+                "GET",
+                f"/issues?labels={CANDIDATE_LABEL}&state=all&per_page=100&page={page}",
+            )
+        except Exception as e:
+            log(f"AVERTISSEMENT : lecture des issues existantes echouee ({e}) -- deduplication partielle possible.")
+            break
+        if not issues:
+            break
+        for issue in issues:
+            m = re.search(r"<!-- feed_url: (.*?) -->", issue.get("body", "") or "")
+            if m:
+                seen.add(m.group(1).strip())
+        if len(issues) < 100:
+            break
+        page += 1
+    return seen
+
+
+def create_candidate_issue(record):
+    """Cree une issue GitHub pour un candidat ONBOARD. Le feed_url est encode dans un
+    commentaire HTML cache dans le corps, pour un matching fiable independant du formatage
+    visible (voir list_existing_candidate_feed_urls)."""
+    title = f"🎙️ {record['podcast_name']}"
+    body = (
+        f"<!-- feed_url: {record['feed_url']} -->\n\n"
+        f"**Éditeur/hôte :** {record['artist_name']}\n"
+        f"**Genre :** {record['genre']}\n"
+        f"**Épisodes :** {record['track_count']}\n"
+        f"**Langue détectée :** {record['detected_language']}\n"
+        f"**Flux RSS :** `{record['feed_url']}`\n"
+        f"**Fiche iTunes :** {record['collection_view_url']}\n"
+        f"**Image de couverture :** {record['cover_image']}\n\n"
+        f"**Raison de qualification :**\n{record['reason']}\n\n"
+        f"---\n_Détecté automatiquement le {record['checked_date']}. Ferme cette issue une fois "
+        f"le podcast traité (onboardé ou écarté) pour qu'elle disparaisse définitivement du générateur._"
+    )
+    try:
+        github_api_request("POST", "/issues", {"title": title, "body": body, "labels": [CANDIDATE_LABEL]})
+        return True
+    except Exception as e:
+        log(f"  ERREUR creation issue pour '{record['podcast_name']}' : {e}")
+        return False
+
+
 def extract_json(text):
     text = re.sub(r"^```json\s*", "", text.strip())
     text = re.sub(r"^```\s*", "", text)
@@ -165,7 +248,7 @@ def main():
     paused = load_json(PAUSED_FILE, {})
     paused_names = {normalize_name(slug.replace("-", " ")) for slug in paused.keys()}
 
-    seen_candidates = load_json(CANDIDATES_FILE, {})  # feedUrl -> record deja traite
+    seen_candidates = load_json(SEEN_HISTORY_FILE, {})  # feedUrl -> record deja traite (historique permanent)
 
     # --- 1) Collecte brute via iTunes Search -- on garde le mot-cle qui a trouve chaque
     # resultat, pour pouvoir diversifier la selection ensuite (voir etape 3).
@@ -287,10 +370,29 @@ def main():
             reject_list.append(record)
         time.sleep(0.3)
 
-    with open(CANDIDATES_FILE, "w", encoding="utf-8") as f:
+    os.makedirs(os.path.dirname(SEEN_HISTORY_FILE), exist_ok=True)
+    with open(SEEN_HISTORY_FILE, "w", encoding="utf-8") as f:
         json.dump(seen_candidates, f, ensure_ascii=False, indent=2)
 
-    log(f"Termine : {len(onboard_list)} candidats ONBOARD, {len(reject_list)} REJECT.")
+    # Creation d'une issue GitHub par candidat ONBOARD (remplace l'ecriture dans
+    # discovery_candidates.json, voir commentaire sur GITHUB_TOKEN plus haut). Verification
+    # anti-doublon supplementaire ici (au-dela du filtre seen_candidates) : filet de securite
+    # si l'historique JSON venait a etre perdu/reinitialise alors que des issues existent deja.
+    created_count = 0
+    if onboard_list:
+        if not GITHUB_TOKEN:
+            log("AVERTISSEMENT : GITHUB_TOKEN absent -- aucune issue creee pour les candidats ONBOARD.")
+        else:
+            existing_issue_feed_urls = list_existing_candidate_feed_urls()
+            for record in onboard_list:
+                if record["feed_url"] in existing_issue_feed_urls:
+                    log(f"  Issue deja existante pour '{record['podcast_name']}' -- ignore.")
+                    continue
+                if create_candidate_issue(record):
+                    created_count += 1
+                time.sleep(0.5)
+
+    log(f"Termine : {len(onboard_list)} candidats ONBOARD ({created_count} nouvelle(s) issue(s) creee(s)), {len(reject_list)} REJECT.")
 
     summary_lines = [
         "## Decouverte automatique de podcasts — resultats",
