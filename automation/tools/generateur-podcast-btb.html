@@ -132,6 +132,8 @@
     <div id="recap"></div>
 
     <button class="btn-primary" onclick="generateYaml()">Vérifier et générer le YAML</button>
+    <button class="btn-reset" style="margin-top:10px" onclick="if(confirm('Écarter ce candidat sans générer de fiche (mauvaise qualité) et passer au suivant ?')) resetForm();">⏭️ Passer ce candidat (mauvaise qualité) — suivant</button>
+    <p class="note" style="margin-top:6px;">Ce bouton le masque pour cette session. Pour qu'il disparaisse définitivement, ferme aussi son issue sur GitHub (lien affiché au-dessus, sous la raison de qualification, une fois le candidat sélectionné).</p>
   </div>
 
   <div class="card" id="output">
@@ -310,9 +312,12 @@ function markValidated(feedUrl){
 function parseIssueBody(body){
   body = body || '';
   function field(label){
-    var re = new RegExp('\\\\*\\\\*' + label + ' :\\\\*\\\\* (.+)');
-    var m = body.match(re);
-    return m ? m[1].trim() : '';
+    var marker = '**' + label + ' :**';
+    var idx = body.indexOf(marker);
+    if(idx === -1) return '';
+    var rest = body.slice(idx + marker.length);
+    var end = rest.indexOf('\n');
+    return (end === -1 ? rest : rest.slice(0, end)).trim();
   }
   var feedUrlMatch = body.match(/<!-- feed_url: (.*?) -->/);
   return {
