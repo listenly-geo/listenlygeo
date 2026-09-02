@@ -87,9 +87,13 @@ def itunes_search(term, country, limit=25, max_retries=3):
                 data = json.loads(resp.read())
             return data.get("results", [])
         except urllib.error.HTTPError as e:
-            if e.code == 429 and attempt < max_retries - 1:
-                wait = 5 * (2 ** attempt)  # 5s, 10s, 20s
-                log(f"  429 Too Many Requests sur '{term}' ({country}) -- pause {wait}s puis nouvelle tentative ({attempt+1}/{max_retries})")
+            # Fix du 02/09/2026 : le 403 s'est avere aussi frequent que le 429 en pratique --
+            # les runners GitHub Actions partagent des plages d'IP avec d'autres utilisateurs,
+            # et iTunes semble parfois renvoyer 403 plutot que 429 sous charge/reputation d'IP
+            # partagee. Meme logique de retry pour les deux codes.
+            if e.code in (429, 403) and attempt < max_retries - 1:
+                wait = 6 * (2 ** attempt)  # 6s, 12s, 24s
+                log(f"  {e.code} sur '{term}' ({country}) -- pause {wait}s puis nouvelle tentative ({attempt+1}/{max_retries})")
                 time.sleep(wait)
                 continue
             log(f"  ERREUR recherche '{term}' ({country}) : {e}")
