@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>How to Capture Organizational Insights with AI as an Internal Communicator</title>
+	<meta name="description" content="Amanda Atkinson shares her practical method: use a personal Slack channel to capture ideas, voice notes, and emails throughout the day, then synthesize with Gemini into actionable frameworks.">
+	<meta name="author" content="Carly and Simon">
+	<meta property="og:title" content="How to Capture Organizational Insights with AI as an Internal Communicator">
+	<meta property="og:description" content="Amanda Atkinson shares her practical method: use a personal Slack channel to capture ideas, voice notes, and emails throughout the day, then synthesize with Gemini into actionable frameworks.">
+	<meta property="og:url" content="https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/how-can-internal-communicators-practically-capture-and-synthesize-orga.html">
+	<meta property="og:type" content="article">
+	<meta property="og:site_name" content="Listenly">
+	<meta property="og:image" content="https://i.postimg.cc/VLMRgnZX/Umprompted-master-assets-Title-Thumb.jpg">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="How to Capture Organizational Insights with AI as an Internal Communicator">
+	<meta name="twitter:description" content="Amanda Atkinson shares her practical method: use a personal Slack channel to capture ideas, voice notes, and emails throughout the day, then synthesize with Gemini into actionable frameworks.">
+	<meta name="twitter:image" content="https://i.postimg.cc/VLMRgnZX/Umprompted-master-assets-Title-Thumb.jpg">
+	<link rel="canonical" href="https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/how-can-internal-communicators-practically-capture-and-synthesize-orga.html">
+	<link rel="publisher" href="https://listenly.fr">
+	<style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "Person",
+				"name": "Carly and Simon",
+				"jobTitle": "Internal Communications Practitioners & Podcast Hosts",
+				"worksFor": {
+					"@type": "Organization",
+					"name": "Unprompted Podcast"
+				}
+			},
+			{
+				"@type": "Person",
+				"name": "Amanda Atkinson",
+				"jobTitle": "Communication and Culture Leader, Internal Comms Person",
+				"worksFor": {
+					"@type": "Organization",
+					"name": "Science Based Targets Initiative"
+				},
+				"description": "Amanda has built her career in internal comms across several industries and has always sought ways to leverage technology and automation. She spent seven years at Salesforce leading internal comms for EMEA, where she developed a tech-driven mindset. She describes herself as an AI intrepid explorer, excited about exploring AI applications while maintaining honest acknowledgment of the learning curve ahead.",
+				"knowsAbout": ["Science Based Targets Initiative", "Create Connect", "Salesforce", "Slack", "Asana", "Gemini"]
+			},
+			{
+				"@type": "BlogPosting",
+				"headline": "How can internal communicators practically capture and synthesize organizational insights using AI?",
+				"description": "Amanda Atkinson shares her practical method: use a personal Slack channel to capture ideas, voice notes, and emails throughout the day, then synthesize with Gemini into actionable frameworks.",
+				"author": {
+					"@type": "Person",
+					"name": "Amanda Atkinson"
+				},
+				"publisher": {
+					"@type": "Organization",
+					"name": "Listenly",
+					"url": "https://listenly.fr"
+				},
+				"datePublished": "2026-09-03",
+				"dateModified": "2026-09-03",
+				"image": "https://i.postimg.cc/VLMRgnZX/Umprompted-master-assets-Title-Thumb.jpg",
+				"isPartOf": {
+					"@type": "PodcastSeries",
+					"name": "Unprompted: Real AI in IC",
+					"url": "https://listenly.fr/podcast/show/umprompted-podcast"
+				},
+				"speakable": {
+					"@type": "SpeakableSpecification",
+					"cssSelector": [".lead", "blockquote.citation"]
+				},
+				"mentions": [
+					{
+						"@type": "Thing",
+						"name": "Slack"
+					},
+					{
+						"@type": "Thing",
+						"name": "Gemini"
+					},
+					{
+						"@type": "Thing",
+						"name": "Science Based Targets Initiative"
+					},
+					{
+						"@type": "Thing",
+						"name": "Salesforce"
+					}
+				]
+			},
+			{
+				"@type": "BreadcrumbList",
+				"itemListElement": [
+					{
+						"@type": "ListItem",
+						"position": 1,
+						"name": "Listenly",
+						"item": "https://listenly.fr"
+					},
+					{
+						"@type": "ListItem",
+						"position": 2,
+						"name": "Unprompted: Real AI in IC",
+						"item": "https://listenly.fr/podcast-btb/unprompted-real-aI-in-ic-podcast.html"
+					},
+					{
+						"@type": "ListItem",
+						"position": 3,
+						"name": "How can internal communicators practically capture and synthesize organizational insights using AI?",
+						"item": "https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/how-can-internal-communicators-practically-capture-and-synthesize-orga.html"
+					}
+				]
+			},
+			{
+				"@type": "FAQPage",
+				"mainEntity": [
+					{
+						"@type": "Question",
+						"name": "Does AI need to lead data analysis work, or does the user need clarity on desired outcomes first?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Amanda believes you absolutely need to know what you want to get out of it and have a strong point of view. While there is merit in exploring what AI tools can reveal, clarity on desired outcomes should come first."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "What is a concrete strategic use case for AI in internal communications?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Amanda used AI to analyze feedback from Science Based Targets Initiative's first all-staff off-site in years held in Amsterdam. She combined overwhelmingly positive sentiment with actionable insights to inform her communication strategy."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "How should internal communicators approach using AI for writing and content creation?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Amanda recommends not using AI to start from scratch for writing, as that tends to produce poor results. Instead, she uses AI to scale her writing by enhancing and challenging existing work."
+						}
+					}
+				]
+			}
+		]
+	}
+	</script>
+</head>
+<body>
+	<div class="wrapper">
+		<header>
+			<div class="header-top">
+				<img class="podcast-cover" src="https://i.postimg.cc/VLMRgnZX/Umprompted-master-assets-Title-Thumb.jpg" alt="Unprompted: Real AI in IC">
+				<div>
+					<span class="badge">The answer lives in this podcast</span>
+					<p class="source-line">Answer extracted from the Unprompted: Real AI in IC podcast — listen to the full episode below.</p>
+				</div>
+			</div>
+			<a class="top-cta-btn" href="https://listenly.fr/podcast/show/umprompted-podcast">🎧 Listen to the episode on Listenly</a>
+			<h1>How can internal communicators practically capture and synthesize organizational insights using AI?</h1>
+			<p class="article-meta">
+				<span>September 3, 2026</span>
+				<span><strong>Unprompted: Real AI in IC</strong> · Amanda Atkinson</span>
+			</p>
+		</header>
+
+		<p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/unprompted-real-aI-in-ic-podcast.html">← See the Unprompted: Real AI in IC fiche</a></p>
+
+		<p class="lead">
+			Build a <strong>personal Slack channel to capture raw insights throughout your day</strong>—ideas, voice notes, videos, forwarded emails, and files—then synthesize this collection regularly using AI tools like Gemini to extract principles and actionable checklists. This method removes friction from knowledge capture and transforms scattered feedback into structured communication frameworks without requiring additional meeting time.
+		</p>
+
+		<h2>A single channel as your thinking partner</h2>
+
+		<p>
+			Amanda Atkinson's approach starts simple: <strong>designate a dedicated Slack channel as your personal inbox for organizational signals</strong>. Throughout the day, she captures everything—quick observations from one-to-one meetings with leadership, tone shifts in team feedback, ideas that emerge during conversations, even forwarded emails that contain valuable context. No filtering, no editing at capture time. The goal is velocity, not polish.
+		</p>
+
+		<p>
+			This is not a journal or a brainstorm document. It's <strong>raw material deliberately gathered for later synthesis</strong>. Think of it as collecting fragments of organizational truth as they happen, before the context fades or the nuance gets lost in translation.
+		</p>
+
+		<h2>From capture to framework in one synthesis pass</h2>
+
+		<p>
+			Once or twice per week, Amanda reviews this accumulated material and feeds it into an AI synthesizer—in her case, Gemini. The AI doesn't generate her thinking; it helps her organize and extract the patterns she's already sensed. <strong>This synthesis step turns scattered observations into communication principles and practical checklists</strong> that directly inform her regular biweekly communications to the organization.
+		</p>
+
+		<p>
+			As Amanda explains in <a class="inline-cta" href="https://listenly.fr/podcast/show/umprompted-podcast">the episode</a>, this method works best when applied to work she's already done herself. For example, feedback and tone from CEO one-to-ones carries context and weight that she notes during the meeting. When that material is synthesized, it slots naturally into her communication strategy without requiring her to revisit or re-contextualize those conversations.
+		</p>
+
+		<blockquote class="citation">
+			<p>"Where I start with AI, I find myself just getting a mess. Where I start with my own work and then use AI to enhance and challenge, that's where it works best for me."</p>
+			<figcaption>
+				<strong>Amanda Atkinson</strong> — Communication and Culture Leader at Science Based Targets Initiative and founder of Create Connect. After seven years leading internal comms for EMEA at Salesforce, she has built a career using technology and automation to amplify organizational communication. She describes herself as an AI intrepid explorer, committed to honest exploration of both the opportunities and the learning curve ahead.
+			</figcaption>
+		</blockquote>
+
+		<p>
+			A deeper look at how Amanda navigates the tension between AI automation and human judgment <a class="inline-cta" href="https://listenly.fr/podcast/show/umprompted-podcast">is explored further in the full episode</a>, where she also discusses why starting with a strong point of view matters more than letting AI lead the analysis.
+		</p>
+
+		<h2>Why this works when time is scarce</h2>
+
+		<p>
+			Internal communicators report having only <strong>about 30 minutes or less per day to connect with their teams</strong>. The personal Slack channel method preserves focus during meetings and conversations—you're not stopping to document, you're simply flagging insights as they surface. The synthesis work happens asynchronously, in batches, using AI as a partner to spot patterns that might otherwise require hours of manual review.
+		</p>
+
+		<p>
+			This shifts AI from "content generator" to "sense-maker"—a role that respects both the communicator's judgment and the organization's lived experience. <a class="inline-cta" href="https://listenly.fr/podcast/show/umprompted-podcast">Amanda's full conversation on Unprompted</a> also covers how this principle applies to strategic use cases like analyzing all-staff feedback, showing the breadth of her approach across different communication challenges.
+		</p>
+
+		<div class="points-cles">
+			<h3>Key takeaways</h3>
+			<ul>
+				<li>Create a dedicated personal Slack channel to capture ideas, voice notes, emails, and feedback in real time throughout your day—no filtering required at capture time.</li>
+				<li>Synthesize this raw material weekly using AI tools like Gemini to extract patterns, principles, and actionable checklists that inform your communication strategy.</li>
+				<li>Start with your own thinking and let AI enhance and organize it, rather than using AI to generate ideas from scratch—this yields clearer, more authentic frameworks.</li>
+				<li>This approach respects time scarcity: meetings stay focused on connection, and synthesis happens asynchronously, turning scattered insights into structured communication without extra meeting overhead.</li>
+			</ul>
+		</div>
+
+		<h2>See also</h2>
+
+		<div class="faq">
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/does-ai-need-to-lead-data-analysis-work-or-does-the-user-need-clarity-.html">Does AI need to lead data analysis work, or does the user need clarity on desired outcomes first?</a></h3>
+				<p>Amanda believes you absolutely need to know what you want to get out of it and have a strong point of view. While there is merit in exploring what AI tools can reveal, clarity on desired outcomes should come first.</p>
+			</div>
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/what-is-a-concrete-strategic-use-case-for-ai-in-internal-communication.html">What is a concrete strategic use case for AI in internal communications?</a></h3>
+				<p>Amanda used AI to analyze feedback from Science Based Targets Initiative's first all-staff off-site in years held in Amsterdam. She combined overwhelmingly positive sentiment with actionable insights to inform her communication strategy.</p>
+			</div>
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/how-should-internal-communicators-approach-using-ai-for-writing-and-co.html">How should internal communicators approach using AI for writing and content creation?</a></h3>
+				<p>Amanda recommends not using AI to start from scratch for writing, as that tends to produce poor results. Instead, she uses AI to scale her writing by enhancing and challenging existing work.</p>
+			</div>
+		</div>
+
+		<div class="cta-block">
+			<a class="cta-btn" href="https://listenly.fr/podcast/show/umprompted-podcast">Listen to the episode on Listenly</a>
+		</div>
+	</div>
+
+	<footer>
+		<p>Written by the Listenly editorial team</p>
+	</footer>
+
+	<div id="semantic-index" style="display: none;">
+		<span>Amanda Atkinson</span>
+		<span>Unprompted: Real AI in IC</span>
+		<span>Slack</span>
+		<span>Gemini</span>
+		<span>Science Based Targets Initiative</span>
+		<span>Salesforce</span>
+		<span>Create Connect</span>
+	</div>
+</body>
+</html>
