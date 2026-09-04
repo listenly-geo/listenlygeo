@@ -164,17 +164,28 @@ grammaticalement naturelle, jamais un fragment de texte isolé ou souligné en d
    de plus parmi les 3-5 CTA déjà demandés. Objectif : donner une vraie raison d'écouter l'épisode complet, pas
    répéter ce qui est déjà dit sur la fiche. RÈGLE ABSOLUE : n'invente jamais ce détail — si le contexte fourni
    n'a réellement rien d'autre à offrir, ignore cette instruction plutôt que de forcer un hook creux.
-7. <blockquote class="citation"> CONDITIONNEL (si citation réelle ET/OU invité identifié) :
+7. <blockquote class="citation"> CONDITIONNEL, barre haute (uniquement si la citation verbatim est vraiment
+   frappante/spécifique — un chiffre précis, une formule mémorable, un aveu — PAS n'importe quelle phrase
+   disponible juste parce qu'une citation existe) :
    <p>"citation verbatim réelle en italique"</p>
    <figcaption><strong>[[SPEAKER_NAME]]</strong> — [titre réel], [développement réel du parcours/de la
    légitimité en 2-4 phrases courtes, à partir du contexte biographique réel fourni]</figcaption>
-   Si aucune citation mais invité identifié : même bloc sans la ligne <p>, juste le figcaption avec la bio.
-   Si aucun invité identifiable : pas de blockquote, passe directement à la suite.
+   Si aucune citation vraiment frappante mais invité identifié : même bloc sans la ligne <p>, juste le
+   figcaption avec la bio. Si aucun invité identifiable : pas de blockquote, passe directement à la suite.
+   IMPORTANT (variation structurelle, 02/09/2026) : n'inclus PAS ce bloc par réflexe sur chaque fiche — vise
+   à l'omettre complètement sur une fiche sur 3-4 environ quand rien ne justifie vraiment sa presence, pour
+   eviter que chaque fiche du site suive exactement le même squelette (signal de contenu programmatique a
+   grande echelle, a eviter).
 [[RELATED_BLOCK_INSTRUCTION]]
-8. <div class="points-cles"><h3>Points clés à retenir</h3><ul> : 3 à 4
-   puces, chacune 1 phrase courte de synthèse fidèle au contenu réel de la fiche (pas de répétition mot pour mot
-   du lead — une vraie synthèse complémentaire). N'invente rien : chaque puce doit être déductible directement du
-   contenu déjà présent sur la fiche.
+8. <div class="points-cles"><h3>Points clés à retenir</h3><ul> : CONDITIONNEL, pas systematique —
+   inclus ce bloc UNIQUEMENT si la réponse contient réellement 3-4 faits/chiffres/étapes distincts qui
+   gagnent à être listés séparément (pas une simple reformulation du texte déjà écrit). Si le sujet ne s'y
+   prête pas naturellement (réponse plus narrative/nuancée qu'une liste de faits), OMETS ce bloc entièrement
+   plutôt que de forcer 3-4 puces artificielles. Quand inclus : chaque puce = 1 phrase courte de synthèse
+   fidèle au contenu réel de la fiche (pas de répétition mot pour mot du lead). N'invente rien : chaque puce
+   doit être déductible directement du contenu déjà présent sur la fiche.
+   IMPORTANT (variation structurelle) : viser une majorité de fiches SANS ce bloc plutôt qu'avec — c'est
+   l'exception qui ajoute de la valeur, pas la norme systématique.
 9. <div class="cta-block"> : UN SEUL bouton <a class="cta-btn">Écouter l'épisode sur Listenly</a> → [[LISTENLY_URL]]
    (jamais Spotify, jamais l'audio brut) — en toute fin de page, après les points clés
 10. <footer> : une ligne discrète "Fiche rédigée par l'équipe éditoriale Listenly"
@@ -293,17 +304,27 @@ natural sentence, never an isolated or underlined text fragment out of its sente
    among the 3-5 CTAs already required. Goal: give a real reason to listen to the full episode, not repeat what
    the fiche already says. ABSOLUTE RULE: never invent this detail — if the provided context genuinely has
    nothing else to offer, skip this instruction rather than forcing a hollow hook.
-7. <blockquote class="citation"> CONDITIONAL (if a real quote AND/OR an identified guest exist):
+7. <blockquote class="citation"> CONDITIONAL, high bar (only if the verbatim quote is genuinely striking/
+   specific — a precise number, a memorable phrasing, a candid admission — NOT just any available line simply
+   because a quote exists):
    <p>"real verbatim quote in italics"</p>
    <figcaption><strong>[[SPEAKER_NAME]]</strong> — [real title], [real development of their background/
    legitimacy in 2-4 short sentences, based on the real biographical context provided]</figcaption>
-   If there's no quote but a guest is identified: same block without the <p> line, just the figcaption with the bio.
-   If no guest is identifiable: no blockquote, move straight to the next section.
+   If there's no genuinely striking quote but a guest is identified: same block without the <p> line, just the
+   figcaption with the bio. If no guest is identifiable: no blockquote, move straight to the next section.
+   IMPORTANT (structural variation, 02/09/2026): do NOT include this block by default on every fiche — aim to
+   fully omit it on roughly 1 in 3-4 fiches when nothing truly justifies it, to avoid every fiche on the site
+   following the exact same skeleton (a signal of programmatic content at scale, to be avoided).
 [[RELATED_BLOCK_INSTRUCTION]]
-8. <div class="points-cles"><h3>Key takeaways</h3><ul>: 3 to 4
-   bullets, each a short sentence summarizing content faithfully from the real content of the fiche (not a
-   word-for-word repeat of the lead — a genuine complementary synthesis). Invent nothing: each bullet must be
+8. <div class="points-cles"><h3>Key takeaways</h3><ul>: CONDITIONAL, not systematic — include this block
+   ONLY if the answer genuinely contains 3-4 distinct facts/numbers/steps that benefit from being listed
+   separately (not a mere rephrasing of text already written). If the topic doesn't naturally lend itself to
+   this (a more narrative/nuanced answer than a list of facts), OMIT this block entirely rather than forcing
+   3-4 artificial bullets. When included: each bullet = 1 short sentence summarizing content faithfully from
+   the real content of the fiche (not a word-for-word repeat of the lead). Invent nothing: each bullet must be
    directly deducible from content already present on the fiche.
+   IMPORTANT (structural variation): aim for a majority of fiches WITHOUT this block rather than with it —
+   it's the exception that adds value, not the systematic default.
 9. <div class="cta-block">: ONE SINGLE button <a class="cta-btn">Listen to the episode on Listenly</a> → [[LISTENLY_URL]]
    (never Spotify, never the raw audio) — at the very end of the page, after the key takeaways
 10. <footer>: one discreet line "Written by the Listenly editorial team"
