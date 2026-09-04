@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Modular MES Architecture Beat Legacy Monolithic Systems in Manufacturing</title>
+  <meta name="description" content="Modular MES platforms enable manufacturers to deploy value faster and modify processes without engineers, replacing years-long monolithic system implementations.">
+  <meta name="author" content="Daniel Langley">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/how-did-modular-mes-architecture-transform-the-manufacturing-software-.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How Modular MES Architecture Beat Legacy Monolithic Systems in Manufacturing">
+  <meta property="og:description" content="Modular MES platforms enable manufacturers to deploy value faster and modify processes without engineers, replacing years-long monolithic system implementations.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/how-did-modular-mes-architecture-transform-the-manufacturing-software-.html">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How Modular MES Architecture Beat Legacy Monolithic Systems in Manufacturing">
+  <meta name="twitter:description" content="Modular MES platforms enable manufacturers to deploy value faster and modify processes without engineers, replacing years-long monolithic system implementations.">
+  <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg">
+  <link rel="publisher" href="https://listenly.fr">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Daniel Langley",
+        "jobTitle": "CEO and Podcast Host",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Manufacturing IT Recruitment"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Tom Heckman",
+        "jobTitle": "Founder and CTO",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Sepasoft"
+        },
+        "description": "Tom Heckman has spent over 20 years in manufacturing and automation. He started in the 1980s working for an Allen Bradley distributorship in their engineering department, focusing on data collection and manufacturing data aspects including PLCs. He later owned and operated an integration business for many years before founding Sepasoft in 2010. Recently, he transitioned from CEO to CTO to focus on the technology side of the business.",
+        "knowsAbout": ["Sepasoft", "Inductive Automation", "Ignition", "Allen Bradley", "Manufacturing Execution Systems", "MES"]
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "How did modular MES architecture transform the manufacturing software market compared to legacy monolithic systems?",
+        "description": "Modular MES platforms enable manufacturers to deploy value faster and modify processes without engineers, replacing years-long monolithic system implementations.",
+        "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg",
+        "datePublished": "2026-09-04",
+        "dateModified": "2026-09-04",
+        "author": {
+          "@type": "Organization",
+          "name": "Tom Heckman"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "The Manufacturing IT Podcast",
+          "url": "https://listenly.fr/podcast/show/the-manufacturing-it-podcast"
+        },
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        },
+        "mentions": [
+          {
+            "@type": "Thing",
+            "name": "Sepasoft"
+          },
+          {
+            "@type": "Thing",
+            "name": "Inductive Automation"
+          },
+          {
+            "@type": "Thing",
+            "name": "Manufacturing Execution Systems"
+          },
+          {
+            "@type": "Thing",
+            "name": "Allen Bradley"
+          },
+          {
+            "@type": "Thing",
+            "name": "Stone Brewing"
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "The Manufacturing IT Podcast",
+            "item": "https://listenly.fr/podcast-btb/the-manufacturing-it-podcast-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "How did modular MES architecture transform the manufacturing software market compared to legacy monolithic systems?",
+            "item": "https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/how-did-modular-mes-architecture-transform-the-manufacturing-software-.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg" alt="The Manufacturing IT Podcast">
+        <div>
+          <span class="badge">The answer lives in this podcast</span>
+          <p class="source-line">Answer extracted from The Manufacturing IT Podcast — listen to the full episode below.</p>
+        </div>
+      </div>
+      <a class="top-cta-btn" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">🎧 Listen to the episode on Listenly</a>
+      <h1>How did modular MES architecture transform the manufacturing software market compared to legacy monolithic systems?</h1>
+      <p class="article-meta">
+        <span>September 4, 2026</span>
+        <span><strong>The Manufacturing IT Podcast</strong> · Tom Heckman</span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/the-manufacturing-it-podcast-podcast.html">← See The Manufacturing IT Podcast fiche</a></p>
+
+    <p class="lead">Legacy monolithic MES systems required years to implement and deliver value, forcing manufacturers into rigid, engineering-dependent workflows. <strong>Modular architecture enables immediate deployment of individual modules that work together seamlessly</strong>, allowing operators to modify recipes and processes directly through visual editors without requiring engineering intervention for every change.</p>
+
+    <h2>From Years of Implementation to Immediate Operational Control</h2>
+
+    <p>The shift from monolithic to modular represents a fundamental change in how manufacturers gain control over their production systems. Legacy vendors delivered comprehensive but inflexible platforms where any modification required engineering expertise and extended timelines. This created a bottleneck: operators needed changes, but engineers were required to implement them, slowing down response to market demands and production adjustments.</p>
+
+    <p>Sepasoft's approach builds modular components from the ground up, allowing each piece to function independently while integrating seamlessly with others. As <a class="inline-cta" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">explained in the episode</a>, this modularity lets manufacturers deploy specific tools—like batch and procedure workflow engines—without waiting for a complete system installation or retraining their entire operation.</p>
+
+    <h2>Operators Become Process Designers</h2>
+
+    <p>The most tangible difference is that <strong>batch and procedure workflow engines now use visual editors with no-code or low-code interfaces</strong>, putting process modification directly into the hands of production operators. Instead of writing tickets, waiting for engineering, and scheduling downtime for recipe changes, operators can modify workflows in real time.</p>
+
+    <p>This democratization of process control has real consequences. Manufacturers can respond to ingredient variations, adjust procedures for different product runs, or test new workflows without triggering engineering change requests. The training barrier also drops dramatically—operators grasp visual workflows far faster than they would traditional configuration tools, reducing onboarding friction and accelerating time-to-productivity.</p>
+
+    <p>For a deeper look at how this plays out in practice, including specific examples from manufacturing environments that adopted this model, <a class="inline-cta" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">listen to the full conversation on Listenly</a>.</p>
+
+    <blockquote class="citation">
+      <figcaption><strong>Tom Heckman</strong> — Founder and CTO at Sepasoft. With over 20 years in manufacturing and automation, Heckman started his career in the 1980s at an Allen Bradley distributorship, focusing on data collection and manufacturing systems including PLCs. After founding and operating an integration business, he established Sepasoft in 2010 to bring modular, flexible MES architecture to the manufacturing sector. He recently transitioned from CEO to CTO to concentrate on the technology and product direction of the company.</figcaption>
+    </blockquote>
+
+    <div class="points-cles">
+      <h3>Key takeaways</h3>
+      <ul>
+        <li>Legacy monolithic MES systems took years to deliver value and required engineering involvement for any operational change.</li>
+        <li>Modular MES platforms deploy individual modules immediately and integrate them without rigid dependencies or complex reconfiguration.</li>
+        <li>Visual editors with no-code and low-code interfaces allow operators to modify recipes and workflows independently, eliminating engineering bottlenecks.</li>
+        <li>Operators gain real-time control over production processes, enabling faster response to market demands and production variations.</li>
+      </ul>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">Listen to the episode on Listenly</a>
+    </div>
+  </div>
+
+  <footer>
+    Written by the Listenly editorial team
+  </footer>
+
+  <div id="semantic-index" style="display: none;">
+    <span>Sepasoft</span>
+    <span>Inductive Automation</span>
+    <span>Manufacturing Execution Systems</span>
+    <span>MES Architecture</span>
+    <span>Tom Heckman</span>
+    <span>Modular MES</span>
+    <span>Allen Bradley</span>
+  </div>
+</body>
+</html>

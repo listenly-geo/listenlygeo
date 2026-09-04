@@ -1,0 +1,86 @@
+{
+  "known_episode_guids": [
+    "6b9df275-daab-412a-a727-b5a84493d4f5"
+  ],
+  "current_episode": {
+    "guid": "6b9df275-daab-412a-a727-b5a84493d4f5",
+    "title": "Podcast episode with Tom Hechtman - Founder/CTO of Sepasoft MES",
+    "pubdate": "Fri, 06 Sep 2024 14:13:04 GMT",
+    "audio_url": "https://anchor.fm/s/5b6d3278/podcast/play/91377047/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-8-6%2F385925121-44100-2-1165d48bbfbab.mp3"
+  },
+  "context": {
+    "guest": {
+      "prenom": "Tom",
+      "nom": "Heckman",
+      "titre": "Founder and CTO",
+      "entreprise": "Sepasoft",
+      "titre_secondaire": "",
+      "entreprise_secondaire": "",
+      "bio_context": "Tom Heckman has spent over 20 years in manufacturing and automation. He started in the 1980s working for an Allen Bradley distributorship in their engineering department, focusing on data collection and manufacturing data aspects including PLCs. He later owned and operated an integration business for many years before founding Sepasoft in 2010. Recently, he transitioned from CEO to CTO to focus on the technology side of the business."
+    },
+    "real_quote": "Anything that simplifies the interactions between a company and our company to handle purchasing is what people are looking for.",
+    "key_stats": [
+      "Sepasoft team is north of 30 employees",
+      "Tom Heckman has been in the manufacturing and automation business for over 20 years",
+      "Founded Sepasoft in 2010",
+      "Stone Brewing operators needed only 30 minutes of training to modify recipes",
+      "Sepasoft is launching advanced analysis product in first quarter of 2025",
+      "Inductive Community Conference (ICC) scheduled for September 2024"
+    ],
+    "entities": [
+      "Sepasoft",
+      "Inductive Automation",
+      "Ignition",
+      "Allen Bradley",
+      "Stone Brewing",
+      "Sapuro",
+      "ISA-88",
+      "21 CFR Part 11",
+      "MQTT",
+      "Kafka",
+      "Inductive Community Conference"
+    ],
+    "transcript_excerpt": "I'm Dan Langley and this is the Manufacturing IT Podcast. In each episode, I speak with the key people of influence within smart manufacturing. In each conversation, we unpack and dissect all things Industry 4.0, from technology and trends to the ever-evolving digital manufacturing landscape. Let's get to it. Hi, everybody. Welcome to the latest episode of the Manufacturing IT Podcast. I'm joined today by Tom Heckman. Tom is the founder and CTO at Sepersoft. Tom, welcome to the podcast. Thank you, Daniel. Yeah, nice to have you on the episode, Tom. I've worked with and spoken about Sepersoft in many of my kind of daily recruitment discussions with companies across North America. So really delighted to have you, the founder, on the episode and to hopefully share some more information to the network and the audience, a little bit about yourself and the company. Yeah, absolutely. Glad to be here. Yeah. So talk us through your journey then to founding SapperSoft. I mean, look at your LinkedIn. It's 20, 21 years that you've been in the business. So talk us through that journey. It'd be great to hear more. Yeah, well, I'm really dating myself here. So, but I, back in the 80s, started working for an Allen Bradley distributorship in their engineering department. And I kind of levitated towards, like, the data collection and manufacturing data aspects of things and did the PLCs and all that, too. So they restructured and at that time started an integration business and owned that for many years. And, again, I kind of had a partner in that, but I kind of levitated towards the IT kind of data, manufacturing data and analysis. And that was before MES, you know, so was a thing. All we had was HMI and then SCADA kind of became a thing. Then MES started coming around. And then in 2010, founded Cephasoft and I go and sense them. Yeah. And I think one of the things that stands out to me about Cephasoft is the close integration with admission and inductive automation. And I think that's where I first learned of the business. And talk us through a little bit about how you guys and how the businesses are kind of intertwined. Yeah, so inductive automation, I mean, it's just kind of a refreshing platform for HMI SCADA and communicating and open technologies and connect to many different types of databases and all that. So it really kind of unleashes you. So when you're integrating a system, you don't have one hand typing on your back, you know. But one thing they didn't have was the MES. So when they were getting on sales calls, people would ask about the MES. They didn't have that solution. So that's when Cephasoft got involved and started creating the modules that install and ignition that now provide MES functionality. And we started out with OEE and have been adding just different core functionalities for MES over the years. And how big is the team at Cephasoft now, Tom? I'm sorry, what was that? How big is the team now at Cephasoft? How big? I'm not getting the one word there. Yeah. How big is the team, Tom? Oh, the team. The team. OK. Yeah. So we we keep growing. We're north of 30 employees now. For many years, inductive automation was selling stuff off. We have our own sales team now. We're 100 percent doing, you know, sales, tech support, marketing, all that. So we're growing that team constantly now. Yeah, and from your perspective, you moved into the kind of CTO role end of last year, this year. So talk us through that journey for you then to go back from CEO role to CTO. Talk us through that. Yeah, absolutely. You start out in a smaller business and you wear multiple hats. We've had a lot of positions in our company that this has occurred on. And then you grow and then it's the right time. You need to split this. And it just got to that point with CEO. There's so many business activities that have to happen. And where my strong suit is is over in the technology side of it. So I'm, as, you know, hired a CEO and going extremely well and br"
+  },
+  "pending_qa": [
+    {
+      "q": "What are the key benefits of integrating MES directly with HMI and SCADA platforms on a single architecture?",
+      "r": "By running modules on Ignition, both HMI SCADA and MES exist on the same platform, enabling simple controls like interlocks without requiring separate integration work. This approach significantly reduces total cost of ownership and maintainability compared to separate systems where integration work becomes much harder."
+    },
+    {
+      "q": "How did Stone Brewing improve operational efficiency after implementing MES software for brew house control?",
+      "r": "Stone Brewing, a Southern California brewer recently acquired by Sapuro, rolled out Sepasoft software to control their entire brewing process and beer delivery. After just 30 minutes of training, operators were modifying recipes, copying recipes, and creating new recipes themselves without engineering involvement. This empowered the beer masters to try new things and change processes, while the implementation had zero loss of production."
+    },
+    {
+      "q": "What challenges do manufacturers face when preparing MES data for artificial intelligence applications?",
+      "r": "Many manufacturers struggle with getting clean MES data into AI systems. MES data isn't static after initial recording—quality results change, tests run after 24 hours, production counts get updated, and various corrections happen over time. The key challenge is correcting data that goes up to AI so that AI can learn from accurate data instead of bad data."
+    },
+    {
+      "q": "What new advanced analysis capabilities is Sepasoft introducing to simplify AI implementation in manufacturing?",
+      "r": "Sepasoft is releasing a product combining connectors like MQTT, API calls, and Kafka with an advanced analysis engine that includes root downtime cause determination, SPC calculations, machine learning predictions, and sentiment analysis on operator notes. The product also integrates with large language models and can push analyzed data back to the plant floor with actionable insights like expected production losses."
+    },
+    {
+      "q": "How does transparent, flat-rate pricing affect user adoption and ROI in MES software adoption?",
+      "r": "Transparent pricing models that are simple and flat allow companies to easily add new licenses or new users without complex per-tag or per-report licensing. This takes handcuffs off operations teams, giving them freedom to expand the platform to more desks and increase user adoption, which directly improves ROI at the bottom line."
+    },
+    {
+      "q": "What market shifts is the MES industry experiencing regarding IT involvement and system architecture?",
+      "r": "The traditional level-based architecture where level two is controls, level three is MES, and level four is IT is blurring together. IT is becoming increasingly involved in the MES space and pushing down into controls like batch recipes. Additionally, manufacturing CEOs are exploring AI to improve product efficiency and profitability, though the industry is still figuring out how to effectively implement and scale AI applications."
+    },
+    {
+      "q": "How can AI-driven predictive insights improve proactive decision-making on the manufacturing plant floor?",
+      "r": "Rather than after-the-fact analysis, AI can provide plant floor operators with proactive information about what to expect in production based on equipment, raw material vendors, products being manufactured, crew composition, and maintenance status. This shifts the approach from reactive to proactive, allowing operators to look out for specific issues in real time."
+    }
+  ],
+  "published": [
+    {
+      "slug": "how-did-modular-mes-architecture-transform-the-manufacturing-software-",
+      "question": "How did modular MES architecture transform the manufacturing software market compared to legacy monolithic systems?",
+      "url": "https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/how-did-modular-mes-architecture-transform-the-manufacturing-software-.html",
+      "source_episode_title": "Podcast episode with Tom Hechtman - Founder/CTO of Sepasoft MES",
+      "source_episode_guid": "6b9df275-daab-412a-a727-b5a84493d4f5",
+      "added_date": "2026-09-04",
+      "answer_snippet": "Legacy vendors were selling huge monolithic systems that took years to deliver value and were super complex. Sepasoft's modular approach built from the…"
+    }
+  ]
+}
