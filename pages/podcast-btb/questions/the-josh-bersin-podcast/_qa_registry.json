@@ -1,10 +1,72 @@
 {
   "known_episode_guids": [
-    "https://permalink.castos.com/podcast/8541/episode/2575962"
+    "https://permalink.castos.com/podcast/8541/episode/2575962",
+    "https://permalink.castos.com/podcast/8541/episode/2593977"
   ],
-  "current_episode": null,
-  "context": null,
-  "pending_qa": [],
+  "current_episode": {
+    "guid": "https://permalink.castos.com/podcast/8541/episode/2593977",
+    "title": "Inside Databricks: The Dynamic Learning Operation That Fuels Hypergrowth",
+    "pubdate": "Wed, 02 Sep 2026 13:16:01 +0000",
+    "audio_url": "https://dts.podtrac.com/redirect.mp3/episodes.castos.com/5ec15cd7392977-60728870/2593977/c1e-znrzt3kpjdin2n1q-5zrw1ng9bzdp-v5bd6r.mp3"
+  },
+  "context": {
+    "guest": {
+      "prenom": "Roshana",
+      "nom": "Golani",
+      "titre": "VP of Enablement",
+      "entreprise": "Databricks",
+      "titre_secondaire": "",
+      "entreprise_secondaire": "",
+      "bio_context": "Roshana has worked at the intersection of disruptive technology and organizational transformation across multiple major tech companies including VMware, Amazon, and Google, focusing on skills transformation and enablement during periods of virtualization, cloud migration, and data/AI adoption. At Databricks, she reports to a co-founder and sits within the field engineering organization, where her work spans enablement across go-to-market functions including sales, marketing, and product engineering."
+    },
+    "real_quote": "We need to understand what is it that the solution architects were doing? Where were they doing it? And can I bring it to them in a way that makes sense?",
+    "key_stats": [
+      "Databricks founded approximately 13 years ago (2011) by seven researchers from UC Berkeley",
+      "Databricks growing 80 percent year over year",
+      "Databricks serving over 20,000 customers globally",
+      "Greater than 60 percent of people initially express fear that AI technology will replace their jobs when first encountering it"
+    ],
+    "entities": [
+      "Databricks",
+      "UC Berkeley",
+      "VMware",
+      "Amazon",
+      "Google",
+      "Skills Navigator",
+      "Genie",
+      "Lakebase",
+      "Agent Bricks",
+      "Salesforce",
+      "Coursera",
+      "LinkedIn",
+      "Slack",
+      "Polestar",
+      "SANA"
+    ],
+    "transcript_excerpt": "Good morning, everybody. I'm very excited to be talking with Roshana Golani, the VP of Enablement at Databricks. And there's three things we're going to talk about. We're going to talk about Databricks. We're going to talk about enablement. And Roshana is going to talk to us about her career and how she's really pioneering, to me, a whole new dimension and definition of what L&D is all about. So, Roshana, thank you for joining me. Why don't we start with a little intro? So tell everybody a little bit about your background and your role at Databricks, and we'll talk about Databricks. Awesome. Josh, thank you so much. I feel really honored and privileged to be here talking to you today. A little bit about myself. So I really think of my journey as somebody who thought of skills and did that at the intersection of disruptive technology and the need for transformation. So I've had the privilege of working with multiple disruptive technology, the biggest one that's in front of us right now. But whether it was virtualization in the early 2000s to the next decade being all about cloud and then data and AI. And in every single one of these, humans are the most important part of that journey, people that make that transformation happen. And I've had the privilege to make enablement possible and skills transformation possible. Amazing organizations like VMware, Amazon, Google, and now Databricks to rethink how people should function in this new world. So you have a lot of experience with these big technology transformations and evolutions. So you told me a story when I first met you about your job title and your reporting structure. And before we get into what Databricks does, tell everybody a little bit about where you fit in the organization and what your mission is. Yeah, that sounds really great. Somebody asked me this recently, too. And you want to be when you're working in an organization or when you're doing work like I do, where we are focused on helping people, enablement or learning and development capabilities, whatever we are calling the term that we do, you have to really be empowered to do that job. You have to know that the company values that work, but more importantly, it's really needed. So you wouldn't do an enablement job in an organization where the product is super, I don't want to say like small scope, but like enablement doesn't matter. Right. So in this case, Databricks is impacting very, very large enterprises to really think about how they transform to become a data and AI company. And so enablement was really, really key. And so you needed to do this from a place of not just I am doing learning and then you're buried somewhere in the organization where you just focused on generating a P&L or you're focused on creating the next training content. content. So I'm privileged, again, to say that at Databricks, I get to work for one of the co-founders. I'm part of the field engineering organization, but I work with the co-founder. And what that enables us to do is that your org boundaries are no longer boundaries, right? Whether I sit in field engineering, we're still enabling sellers. We're still thinking of marketing. We're still thinking of product. We are working with product and engineering. So the org boundaries sort of gray out and you're just able to do the work that really matters for our customers. So is the traditional L&D leadership development onboarding stuff not in your domain then? Or is that also part of your mission? It is for the teams that I support. Yeah, for go-to-market. But we do partner up very, very closely with the people team who are an amazing set of individuals. and we partner with them for when we are trying to think about leadership and culture development in the organization. We work very, very closely with them. Okay. So let me go back to the beginning of Databricks first so everybody understands what enable means. So you validated the thesis we have, which is that most of L&D is l"
+  },
+  "pending_qa": [
+    {
+      "q": "What is Skills Navigator and how does it infer employee skills without traditional taxonomies?",
+      "r": "Skills Navigator is an internally-built tool at Databricks that uses a skills inference engine running on the Databricks data lakehouse to automatically detect employee capabilities from their actual work activities. Rather than requiring a pre-built skills taxonomy, the system starts with an initial taxonomy and refines it through data, continuously learning what actual skills look like as employees perform their jobs, allowing managers and employees to have informed conversations about proficiency development."
+    },
+    {
+      "q": "How can AI systems like Genie generate personalized training content dynamically rather than relying on static course libraries?",
+      "r": "AI can consume multiple input sources including PRDs, product documentation, webinars, and knowledge transfer sessions, then dynamically create customized content tailored to individual learner needs and context. The system maintains instructional soundness through human-in-the-loop design and uses ontology and product telemetry to ensure content is relevant to specific use cases, such as teaching a solutions architect how to demo Databricks to a manufacturing customer."
+    },
+    {
+      "q": "What role do subject matter experts and non-technical business users play in AI-powered learning systems?",
+      "r": "Non-technical business users tend to adopt and innovate with AI technology more effectively than technologists because they focus on solving business problems rather than engineering complexity. Subject matter experts remain critical for providing knowledge, and the technology should be designed to make it easy for both groups to contribute; program managers without technical backgrounds have successfully built applications using Databricks for their own purposes."
+    },
+    {
+      "q": "How can data integration from multiple organizational systems enable skills inference and personalized enablement at scale?",
+      "r": "By consolidating data from sources like Salesforce, product infrastructure, and customer interaction systems into a unified data lakehouse, organizations can infer actual employee skills and performance patterns. This enables the system to understand what employees are doing, where they're doing it, and deliver enablement in their context—applicable across industries from software companies to services, retail, or manufacturing."
+    },
+    {
+      "q": "What is the adoption curve when introducing AI-driven enablement tools to traditional L&D and business teams?",
+      "r": "Greater than 60 percent of people initially fear that AI technology will replace their jobs, but disarming these concerns through messaging that emphasizes human-AI collaboration and the critical role humans play in the loop helps accelerate adoption. Once people see that they remain the intelligent actor guiding the technology and that AI makes them better at their work, adoption becomes easier and reveals significant new opportunities."
+    }
+  ],
   "published": [
     {
       "slug": "how-large-and-costly-is-the-recruiting-industry-in-the-united-states",
@@ -104,6 +166,15 @@
       "source_episode_guid": "https://permalink.castos.com/podcast/8541/episode/2575962",
       "added_date": "2026-09-03",
       "answer_snippet": "Even the most sophisticated AI video interviewing tools from companies like Eightfold and HireVue are mostly used only for screening, not final assessment.…"
+    },
+    {
+      "slug": "how-can-organizations-move-from-traditional-push-based-training-certif",
+      "question": "How can organizations move from traditional push-based training certification models to AI-driven performance enablement in the flow of work?",
+      "url": "https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/how-can-organizations-move-from-traditional-push-based-training-certif.html",
+      "source_episode_title": "Inside Databricks: The Dynamic Learning Operation That Fuels Hypergrowth",
+      "source_episode_guid": "https://permalink.castos.com/podcast/8541/episode/2593977",
+      "added_date": "2026-09-04",
+      "answer_snippet": "Rather than starting with course design and certifications, organizations should identify the actual job being performed and deliver just-in-time training…"
     }
   ]
 }
