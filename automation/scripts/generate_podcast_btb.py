@@ -1403,8 +1403,11 @@ def build_dashboard():
             opt_history = []
 
     def render_opt_item(item):
+        is_flagged = item.get("flag") == "warning"
+        icon = "⚠️" if is_flagged else "✅"
+        title_style = ' style="color:#c0392b;"' if is_flagged else ""
         return f"""<details class="opt-item">
-  <summary><span class="opt-title">✅ {item.get('title','')}</span><span class="opt-date">{item.get('date','')}</span></summary>
+  <summary><span class="opt-title"{title_style}>{icon} {item.get('title','')}</span><span class="opt-date">{item.get('date','')}</span></summary>
   <div class="opt-summary">{item.get('summary','')} <code>{item.get('commit','')}</code></div>
 </details>"""
 
