@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why unified HMI, SCADA, and MES on one platform cuts complexity and costs</title>
+  <meta name="description" content="Running MES, HMI, and SCADA on a single architecture like Ignition eliminates integration work and dramatically reduces total cost of ownership.">
+  <meta name="author" content="Daniel Langley">
+  <meta property="og:title" content="Why unified HMI, SCADA, and MES on one platform cuts complexity and costs">
+  <meta property="og:description" content="Running MES, HMI, and SCADA on a single architecture like Ignition eliminates integration work and dramatically reduces total cost of ownership.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-are-the-key-benefits-of-integrating-mes-directly-with-hmi-and-sca.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Why unified HMI, SCADA, and MES on one platform cuts complexity and costs">
+  <meta name="twitter:description" content="Running MES, HMI, and SCADA on a single architecture like Ignition eliminates integration work and dramatically reduces total cost of ownership.">
+  <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-are-the-key-benefits-of-integrating-mes-directly-with-hmi-and-sca.html">
+  <link rel="publisher" href="https://listenly.fr">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Daniel Langley",
+        "jobTitle": "CEO and Podcast Host",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Manufacturing IT Recruitment"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Tom Heckman",
+        "jobTitle": "Founder and CTO",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Sepasoft"
+        },
+        "description": "Tom Heckman has spent over 20 years in manufacturing and automation. He started in the 1980s working for an Allen Bradley distributorship in their engineering department, focusing on data collection and manufacturing data aspects including PLCs. He later owned and operated an integration business for many years before founding Sepasoft in 2010. Recently, he transitioned from CEO to CTO to focus on the technology side of the business.",
+        "knowsAbout": ["Sepasoft", "Inductive Automation", "Ignition", "Allen Bradley", "Manufacturing Execution Systems", "HMI", "SCADA"]
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Why does integrating MES directly with HMI and SCADA on a single architecture deliver such significant advantages?",
+        "description": "Running MES, HMI, and SCADA on a single architecture like Ignition eliminates integration work and dramatically reduces total cost of ownership.",
+        "datePublished": "2026-09-05",
+        "dateModified": "2026-09-05",
+        "author": {
+          "@type": "Organization",
+          "name": "Sepasoft"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "The Manufacturing IT Podcast",
+          "url": "https://listenly.fr/podcast/show/the-manufacturing-it-podcast"
+        },
+        "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "The Manufacturing IT Podcast",
+            "item": "https://listenly.fr/podcast-btb/the-manufacturing-it-podcast-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Why unified HMI, SCADA, and MES on one platform cuts complexity and costs",
+            "item": "https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-are-the-key-benefits-of-integrating-mes-directly-with-hmi-and-sca.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How did modular MES architecture transform the manufacturing software market compared to legacy monolithic systems?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Legacy vendors were selling huge monolithic systems that took years to deliver value and were super complex. Sepasoft's modular approach built from the ground up enables faster implementation and greater flexibility."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "Thing",
+        "name": "Sepasoft"
+      },
+      {
+        "@type": "Thing",
+        "name": "Inductive Automation"
+      },
+      {
+        "@type": "Thing",
+        "name": "Ignition"
+      },
+      {
+        "@type": "Thing",
+        "name": "Allen Bradley"
+      },
+      {
+        "@type": "Thing",
+        "name": "Manufacturing Execution Systems"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg" alt="The Manufacturing IT Podcast">
+        <div>
+          <span class="badge">The answer lives in this podcast</span>
+          <p class="source-line">Answer extracted from The Manufacturing IT Podcast — listen to the full episode below.</p>
+        </div>
+      </div>
+      <a class="top-cta-btn" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">🎧 Listen to the episode on Listenly</a>
+      <h1>Why does integrating MES directly with HMI and SCADA on a single architecture deliver such significant advantages?</h1>
+      <p class="article-meta">
+        <span>September 5, 2026</span>
+        <span><strong>The Manufacturing IT Podcast</strong> · Tom Heckman</span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/the-manufacturing-it-podcast-podcast.html">← See The Manufacturing IT Podcast fiche</a></p>
+
+    <p class="lead">When MES, HMI, and SCADA run on the same platform like Ignition, <strong>integration work becomes unnecessary—controls like interlocks function natively without separate development effort</strong>. This consolidated approach cuts the total cost of ownership significantly because you eliminate the complexity and maintenance burden of connecting three separate systems.</p>
+
+    <p>The traditional manufacturing software architecture forces teams to integrate independent systems, each with its own database, security model, and communication layer. As Tom Heckman explains in <a class="inline-cta" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">the episode</a>, this fragmentation creates friction at every operational level—from configuration to troubleshooting.</p>
+
+    <p>By contrast, unified architecture means operators and engineers work within a single environment. Real-time data flows seamlessly between HMI dashboards, SCADA supervisory controls, and MES recipe logic. When a production rule needs to change, or when you need to add an interlock between a packaging line and material handling, the modification happens in one place, not across three separate vendor platforms.</p>
+
+    <h2>The operational efficiency gain</h2>
+
+    <p>The practical benefit surfaces immediately. A factory running recipe management through a <strong>single modular MES framework on Ignition</strong> requires operators to log in once, view all production data in one interface, and execute commands that automatically propagate across HMI screens and SCADA devices. No middleware translation layer. No API mapping errors.</p>
+
+    <p>This consolidation also strengthens maintainability. When issues arise—a sensor reading mismatch, a timing conflict between line stages—the support and engineering team investigates within one codebase, one data model, one vendor's documentation. For details on how this modularity reshapes the entire manufacturing software approach, <a class="inline-cta" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">listen to the full discussion</a> where Tom Heckman discusses the evolution from legacy monolithic systems.</p>
+
+    <blockquote class="citation">
+      <figcaption><strong>Tom Heckman</strong> — Founder and CTO, Sepasoft. Over 20 years in manufacturing automation, starting at Allen Bradley distributorship engineering in the 1980s, then owning an integration business before founding Sepasoft in 2010 to modernize MES architecture through modular, platform-agnostic design.</figcaption>
+    </blockquote>
+
+    <p>The cost savings extend beyond engineering hours. Unified architecture reduces staff training time because there is only one interface to learn, not three vendor-specific tools. It lowers licensing complexity—fewer separate contracts and renewal dates to manage. And it dramatically cuts long-term maintenance risk by eliminating the custom integration code that often becomes a hidden liability in multi-system environments.</p>
+
+    <p>This advantage becomes especially visible at manufacturing sites where production rules change frequently. A beverage producer adjusting recipe batches or a pharmaceutical manufacturer adapting batch record compliance procedures can modify workflows instantly, right within <a class="inline-cta" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">the platform discussed in this episode</a>, without waiting for integrators to re-map data points or rebuild connectors.</p>
+
+    <h2>See also</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/how-did-modular-mes-architecture-transform-the-manufacturing-software-.html">How did modular MES architecture transform the manufacturing software market compared to legacy monolithic systems?</a></h3>
+        <p>Legacy vendors were selling huge monolithic systems that took years to deliver value and were super complex. Sepasoft's modular approach built from the ground up enables faster implementation and greater flexibility.</p>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">Listen to the episode on Listenly</a>
+    </div>
+  </div>
+
+  <footer>Written by the Listenly editorial team</footer>
+
+  <div id="semantic-index" style="display:none;">
+    Sepasoft, Inductive Automation, Ignition, Allen Bradley, Manufacturing Execution Systems, HMI, SCADA, Tom Heckman, Daniel Langley, Manufacturing IT Podcast
+  </div>
+</body>
+</html>

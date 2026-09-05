@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Does Skills Navigator Detect Employee Capabilities Without Pre-Built Taxonomies?</title>
+  <meta name="description" content="Skills Navigator is Databricks' internal tool that infers employee skills from actual work activities using a data-driven engine, continuously refining capabilities without relying on traditional taxonomies.">
+  <meta name="author" content="Josh Bersin">
+  <meta property="og:title" content="How Does Skills Navigator Detect Employee Capabilities Without Pre-Built Taxonomies?">
+  <meta property="og:description" content="Skills Navigator is Databricks' internal tool that infers employee skills from actual work activities using a data-driven engine, continuously refining capabilities without relying on traditional taxonomies.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/what-is-skills-navigator-and-how-does-it-infer-employee-skills-without.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How Does Skills Navigator Detect Employee Capabilities Without Pre-Built Taxonomies?">
+  <meta name="twitter:description" content="Skills Navigator is Databricks' internal tool that infers employee skills from actual work activities using a data-driven engine, continuously refining capabilities without relying on traditional taxonomies.">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/what-is-skills-navigator-and-how-does-it-infer-employee-skills-without.html">
+  <link rel="publisher" href="https://listenly.fr">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Josh Bersin",
+        "jobTitle": "Global Industry Analyst & CEO",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "The Josh Bersin Company"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Roshana Golani",
+        "jobTitle": "VP of Enablement",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Databricks"
+        },
+        "description": "Roshana has worked at the intersection of disruptive technology and organizational transformation across multiple major tech companies including VMware, Amazon, and Google, focusing on skills transformation and enablement during periods of virtualization, cloud migration, and data/AI adoption. At Databricks, she reports to a co-founder and sits within the field engineering organization, where her work spans enablement across go-to-market functions including sales, marketing, and product engineering."
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "How Does Skills Navigator Detect Employee Capabilities Without Pre-Built Taxonomies?",
+        "description": "Skills Navigator is Databricks' internal tool that infers employee skills from actual work activities using a data-driven engine, continuously refining capabilities without relying on traditional taxonomies.",
+        "author": {
+          "@type": "Organization",
+          "name": "Roshana Golani"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "The Josh Bersin Company",
+          "url": "https://listenly.fr/podcast/show/the-josh-bersin-company"
+        },
+        "datePublished": "2026-09-02",
+        "dateModified": "2026-09-05",
+        "image": "https://i.postimg.cc/XvsmztSB/ab6765630000ba8a1950aad692b2919e5b6b892b.jpg",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        },
+        "mentions": [
+          { "@type": "Thing", "name": "Databricks" },
+          { "@type": "Thing", "name": "Skills Navigator" },
+          { "@type": "Thing", "name": "UC Berkeley" },
+          { "@type": "Thing", "name": "VMware" },
+          { "@type": "Thing", "name": "Amazon" },
+          { "@type": "Thing", "name": "Google" }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "The Josh Bersin Company",
+            "item": "https://listenly.fr/podcast-btb/the-josh-bersin-podcast-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "How Does Skills Navigator Detect Employee Capabilities Without Pre-Built Taxonomies?",
+            "item": "https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/what-is-skills-navigator-and-how-does-it-infer-employee-skills-without.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How can organizations move from traditional push-based training certification models to AI-driven performance enablement in the flow of work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Rather than starting with course design and certifications, organizations should identify the actual job being performed and deliver just-in-time training directly in the workflow where employees need it, enabling real-time performance support."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the key limitations of AI video interviewing tools currently?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Even the most sophisticated AI video interviewing tools from companies like Eightfold and HireVue are mostly used only for screening, not final assessment, meaning they cannot yet reliably replace human judgment in critical hiring decisions."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What role does industrial-organizational psychology play in the future of AI recruiting?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Josh Bersin identifies smarter IO (industrial-organizational psychology) assessments built into AI as the future direction of recruiting technology, enabling more predictive and valid candidate evaluation beyond traditional resume screening."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://i.postimg.cc/XvsmztSB/ab6765630000ba8a1950aad692b2919e5b6b892b.jpg" alt="The Josh Bersin Company">
+        <div>
+          <span class="badge">The answer lives in this podcast</span>
+          <p class="source-line">Answer extracted from The Josh Bersin Company podcast — listen to the full episode below.</p>
+        </div>
+      </div>
+      <a class="top-cta-btn" href="https://listenly.fr/podcast/show/the-josh-bersin-company">🎧 Listen to the episode on Listenly</a>
+      <h1>How does Skills Navigator detect employee capabilities without pre-built taxonomies?</h1>
+      <p class="article-meta">
+        <span>September 5, 2026</span>
+        <span><strong>The Josh Bersin Company</strong> · Roshana Golani</span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/the-josh-bersin-podcast-podcast.html">← See the The Josh Bersin Company fiche</a></p>
+
+    <p class="lead">
+      Skills Navigator is an internally-built tool at Databricks that uses a <strong>skills inference engine running on the Databricks data lakehouse to automatically detect employee capabilities</strong> from their actual work activities. Rather than requiring a pre-built skills taxonomy, the system starts with an initial taxonomy and continuously refines it through data, learning what actual skills look like as employees perform their jobs.
+    </p>
+
+    <p>
+      The power of Skills Navigator lies in its ability to <strong>observe real work patterns</strong> rather than rely on employees to self-assess or managers to manually categorize competencies. By analyzing how employees actually spend their time—the projects they work on, the tools they use, the problems they solve—the system builds a living, evolving picture of what skills genuinely exist within the organization.
+    </p>
+
+    <p>
+      As Roshana Golani explains in <a class="inline-cta" href="https://listenly.fr/podcast/show/the-josh-bersin-company">the episode</a>, this data-driven approach enables managers and employees to have more informed conversations about proficiency development. Instead of guessing what skills matter or waiting for an annual performance review, they can reference concrete evidence of capability—what someone has actually demonstrated through their work.
+    </p>
+
+    <h2>From static taxonomy to continuous learning</h2>
+
+    <p>
+      The traditional approach to skills management relies on a fixed taxonomy—a predefined list of competencies that often becomes outdated the moment a new technology or role emerges. Skills Navigator sidesteps this problem by treating the taxonomy as a starting point, not a destination. <strong>The system learns continuously as it observes employee behavior</strong>, updating its understanding of which skills are most relevant and how they combine in real work contexts.
+    </p>
+
+    <p>
+      This dynamic refinement matters especially in fast-moving industries like data and AI, where Databricks operates. New techniques, tools, and job requirements emerge constantly, and Skills Navigator adapts without waiting for a manual taxonomy refresh. The inference engine does the heavy lifting: <a class="inline-cta" href="https://listenly.fr/podcast/show/the-josh-bersin-company">as discussed in this podcast</a>, the system understands what solution architects and other technical roles actually do, and it brings relevant skill insights to those individuals in real time.
+    </p>
+
+    <blockquote class="citation">
+      <p>"We need to understand what is it that the solution architects were doing? Where were they doing it? And can I bring it to them in a way that makes sense?"</p>
+      <figcaption><strong>Roshana Golani</strong> — VP of Enablement, Databricks. Roshana has spent her career at the intersection of disruptive technology and organizational transformation, working previously at VMware, Amazon, and Google where she led enablement initiatives during major shifts including virtualization, cloud migration, and data/AI adoption. At Databricks, she reports directly to a co-founder and drives enablement strategy across sales, marketing, and product engineering functions.</figcaption>
+    </blockquote>
+
+    <p>
+      The inference engine's ability to work in context—delivering insights and guidance exactly where employees need them, in the flow of their actual work—represents a fundamental shift. Rather than treating skills as abstract competencies tracked in an HR database, Skills Navigator embeds skill awareness into the daily work experience itself, making proficiency development actionable and immediate.
+    </p>
+
+    <p>
+      What makes this approach particularly powerful is that it removes friction from skill recognition. Employees don't need to remember to update a skills profile; managers don't need to conduct manual assessments; and the organization doesn't need to maintain an expensive taxonomy infrastructure. <strong>The data lakehouse becomes the source of truth</strong>, capturing real evidence of what people can do, and the inference engine translates that evidence into meaningful development conversations.
+    </p>
+
+    <div class="points-cles">
+      <h3>Key takeaways</h3>
+      <ul>
+        <li>Skills Navigator infers capabilities directly from observed work activities, removing reliance on self-reported or manually-curated skill taxonomies.</li>
+        <li>The system continuously refines its understanding as employees perform their jobs, ensuring the skills model stays relevant in fast-moving fields like data and AI.</li>
+        <li>Rather than treating skills as static HR data, Skills Navigator embeds proficiency insights into the flow of work itself, enabling real-time development conversations.</li>
+        <li>Built on the Databricks data lakehouse, the inference engine uses actual work patterns as the authoritative source of employee capability, removing guesswork from skills management.</li>
+      </ul>
+    </div>
+
+    <h2>See also</h2>
+
+    <div class="faq">
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/how-can-organizations-move-from-traditional-push-based-training-certif.html">How can organizations move from traditional push-based training certification models to AI-driven performance enablement in the flow of work?</a></h3>
+        <p>Rather than starting with course design and certifications, organizations should identify the actual job being performed and deliver just-in-time training directly in the workflow where employees need it, enabling real-time performance support.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/what-are-the-key-limitations-of-ai-video-interviewing-tools-currently.html">What are the key limitations of AI video interviewing tools currently?</a></h3>
+        <p>Even the most sophisticated AI video interviewing tools from companies like Eightfold and HireVue are mostly used only for screening, not final assessment, meaning they cannot yet reliably replace human judgment in critical hiring decisions.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/what-role-does-industrial-organizational-psychology-play-in-the-future.html">What role does industrial-organizational psychology play in the future of AI recruiting?</a></h3>
+        <p>Josh Bersin identifies smarter IO (industrial-organizational psychology) assessments built into AI as the future direction of recruiting technology, enabling more predictive and valid candidate evaluation beyond traditional resume screening.</p>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn" href="https://listenly.fr/podcast/show/the-josh-bersin-company">Listen to the episode on Listenly</a>
+    </div>
+
+    <footer>
+      Written by the Listenly editorial team
+    </footer>
+  </div>
+
+  <div id="semantic-index" style="display:none;">
+    <span>Databricks</span>
+    <span>Skills Navigator</span>
+    <span>Roshana Golani</span>
+    <span>Josh Bersin</span>
+    <span>The Josh Bersin Company</span>
+    <span>UC Berkeley</span>
+    <span>VMware</span>
+    <span>Amazon</span>
+    <span>Google</span>
+    <span>Skills inference engine</span>
+    <span>Data lakehouse</span>
+    <span>Employee capabilities</span>
+    <span>Enablement</span>
+  </div>
+</body>
+</html>

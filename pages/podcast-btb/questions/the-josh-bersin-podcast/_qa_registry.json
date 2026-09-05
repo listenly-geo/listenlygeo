@@ -47,10 +47,6 @@
   },
   "pending_qa": [
     {
-      "q": "What is Skills Navigator and how does it infer employee skills without traditional taxonomies?",
-      "r": "Skills Navigator is an internally-built tool at Databricks that uses a skills inference engine running on the Databricks data lakehouse to automatically detect employee capabilities from their actual work activities. Rather than requiring a pre-built skills taxonomy, the system starts with an initial taxonomy and refines it through data, continuously learning what actual skills look like as employees perform their jobs, allowing managers and employees to have informed conversations about proficiency development."
-    },
-    {
       "q": "How can AI systems like Genie generate personalized training content dynamically rather than relying on static course libraries?",
       "r": "AI can consume multiple input sources including PRDs, product documentation, webinars, and knowledge transfer sessions, then dynamically create customized content tailored to individual learner needs and context. The system maintains instructional soundness through human-in-the-loop design and uses ontology and product telemetry to ensure content is relevant to specific use cases, such as teaching a solutions architect how to demo Databricks to a manufacturing customer."
     },
@@ -175,6 +171,15 @@
       "source_episode_guid": "https://permalink.castos.com/podcast/8541/episode/2593977",
       "added_date": "2026-09-04",
       "answer_snippet": "Rather than starting with course design and certifications, organizations should identify the actual job being performed and deliver just-in-time training…"
+    },
+    {
+      "slug": "what-is-skills-navigator-and-how-does-it-infer-employee-skills-without",
+      "question": "What is Skills Navigator and how does it infer employee skills without traditional taxonomies?",
+      "url": "https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/what-is-skills-navigator-and-how-does-it-infer-employee-skills-without.html",
+      "source_episode_title": "Inside Databricks: The Dynamic Learning Operation That Fuels Hypergrowth",
+      "source_episode_guid": "https://permalink.castos.com/podcast/8541/episode/2593977",
+      "added_date": "2026-09-05",
+      "answer_snippet": "Skills Navigator is an internally-built tool at Databricks that uses a skills inference engine running on the Databricks data lakehouse to automatically…"
     }
   ]
 }
