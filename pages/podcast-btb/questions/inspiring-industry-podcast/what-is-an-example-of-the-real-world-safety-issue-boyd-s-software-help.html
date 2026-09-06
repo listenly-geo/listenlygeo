@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How a Five-Week Safety Report Delay Exposed the Need for Real-Time Digital Systems</title>
+  <meta name="description" content="A South Texas pipeline observation card took five weeks to reach leadership, demonstrating why digital, real-time safety reporting systems are essential to capture and act immediately.">
+  <meta name="author" content="Darren Boyd">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/inspiring-industry-podcast/what-is-an-example-of-the-real-world-safety-issue-boyd-s-software-help.html">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How a Five-Week Safety Report Delay Exposed the Need for Real-Time Digital Systems">
+  <meta property="og:description" content="A South Texas pipeline observation card took five weeks to reach leadership, demonstrating why digital, real-time safety reporting systems are essential to capture and act immediately.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/inspiring-industry-podcast/what-is-an-example-of-the-real-world-safety-issue-boyd-s-software-help.html">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/ba/d8/d1/bad8d166-99a8-7517-7892-ab9c9eba97f8/mza_16519927645926487050.jpg/600x600bb.jpg">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How a Five-Week Safety Report Delay Exposed the Need for Real-Time Digital Systems">
+  <meta name="twitter:description" content="A South Texas pipeline observation card took five weeks to reach leadership, demonstrating why digital, real-time safety reporting systems are essential to capture and act immediately.">
+  <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/ba/d8/d1/bad8d166-99a8-7517-7892-ab9c9eba97f8/mza_16519927645926487050.jpg/600x600bb.jpg">
+  
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Darren Boyd",
+        "jobTitle": "SVP of new markets",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "KPA services"
+        },
+        "description": "Darren Boyd started his career at the University of Oklahoma as director of basketball operations for the women's basketball team, working with the coaching staff for six or seven seasons. He then transitioned to athletics development as an assistant athletics director focused on fundraising and donor relations for five to six years. In 2011, he joined an oilfield services water transfer company on the operations side and was promoted to oversee the health and safety department within 90 days. This experience managing safety compliance across 1,200 employees in 24 US locations led him to co-found a safety software company in 2014 with two partners, which was later acquired by KPA services, where he now leads new market expansion and product development.",
+        "knowsAbout": ["KPA services", "University of Oklahoma", "University of Pittsburgh", "Jeff Capel", "Safety software", "Field auditing"]
+      },
+      {
+        "@type": "Person",
+        "name": "Inspiring Industry Podcast Team",
+        "jobTitle": "Podcast Creators",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Inspiring Industry"
+        }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "How a Five-Week Safety Report Delay Exposed the Need for Real-Time Digital Systems",
+        "description": "A South Texas pipeline observation card took five weeks to reach leadership, demonstrating why digital, real-time safety reporting systems are essential to capture and act immediately.",
+        "author": {
+          "@type": "Organization",
+          "name": "Darren Boyd"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "Inspiring Industry Podcast",
+          "url": "https://listenly.fr/podcast/show/inspiring-industry-podcast"
+        },
+        "datePublished": "2026-09-06",
+        "dateModified": "2026-09-06",
+        "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/ba/d8/d1/bad8d166-99a8-7517-7892-ab9c9eba97f8/mza_16519927645926487050.jpg/600x600bb.jpg",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Inspiring Industry Podcast",
+            "item": "https://listenly.fr/podcast-btb/inspiring-industry-podcast-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "How a Five-Week Safety Report Delay Exposed the Need for Real-Time Digital Systems",
+            "item": "https://listenly.fr/podcast-btb/questions/inspiring-industry-podcast/what-is-an-example-of-the-real-world-safety-issue-boyd-s-software-help.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the importance of behavior-based safety and rapid employee feedback in Boyd's philosophy?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Boyd implemented behavior-based safety where all employees report observations they find concerning. The most damaging thing to safety culture is crickets — when employees stop speaking up about issues because their feedback isn't acted upon."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What specific problem did Boyd's software address in field auditing and reporting?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Field auditors had to drive to job sites, spend two to three hours performing audits, drive back, and type up reports at night with pictures and notes. This process was time-consuming and delayed critical safety insights."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does Darren Boyd believe technology should be used in safety management?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Boyd believes that when technology is used to give humans more time to do other things, that is where positive safety impact happens. Technology should push people to be more human, not replace human relationships and trust-building."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/ba/d8/d1/bad8d166-99a8-7517-7892-ab9c9eba97f8/mza_16519927645926487050.jpg/600x600bb.jpg" alt="Inspiring Industry Podcast">
+        <div>
+          <span class="badge">The answer lives in this podcast</span>
+          <p class="source-line">Answer extracted from the Inspiring Industry Podcast — listen to the full episode below.</p>
+        </div>
+      </div>
+      <a class="top-cta-btn" href="https://listenly.fr/podcast/show/inspiring-industry-podcast">🎧 Listen to the episode on Listenly</a>
+      
+      <h1>How a Five-Week Safety Report Delay Exposed the Need for Real-Time Digital Systems</h1>
+      
+      <p class="article-meta">
+        <span>6 September 2026</span>
+        <span><strong>Inspiring Industry Podcast</strong> · Darren Boyd</span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/inspiring-industry-podcast-podcast.html">← See the Inspiring Industry Podcast fiche</a></p>
+
+    <p class="lead">In South Texas, an employee spotted rattlesnakes nesting under warm pipeline during cold weather and submitted an observation card on paper — but <strong>five weeks passed before the report reached Boyd</strong>, and by then the employee had already left the company, making action impossible. This real-world delay illustrated why digital, real-time reporting systems are essential to capture and respond to safety concerns while they're still relevant.</p>
+
+    <h2>Why Paper-Based Safety Reports Failed</h2>
+
+    <p>When Boyd first took over health and safety oversight at an oilfield services company managing <strong>1,200 employees across 24 US locations</strong>, the infrastructure for collecting employee safety observations was purely manual. Observation cards filled out on paper had to travel through multiple hands and departments before reaching leadership, creating bottlenecks that defeated the entire purpose of having a reporting system in the first place.</p>
+
+    <p>The rattlesnake incident was emblematic of a larger problem: by the time critical safety observations reached decision-makers, the window to act had already closed. The employee who reported the hazard was gone, context had faded, and any corrective action felt reactive rather than preventive. As <a class="inline-cta" href="https://listenly.fr/podcast/show/inspiring-industry-podcast">discussed in the episode</a>, this delay undermined the foundation of effective safety culture — immediate visibility and rapid response to employee concerns.</p>
+
+    <blockquote class="citation">
+      <p>"When technology gets used for people to be people, to give humans more time to do other things, that's where the positive impact from a safety perspective happens."</p>
+      <figcaption><strong>Darren Boyd</strong> — SVP of new markets at KPA services. Boyd's career spans sports management at the University of Oklahoma, athletics development, and over a decade in oilfield operations. In 2011, he was promoted to oversee health and safety within 90 days, managing compliance across 1,200 employees. This hands-on experience with safety challenges led him to co-found a software company in 2014 that was later acquired by KPA services, where he now drives product development and market expansion.</figcaption>
+    </blockquote>
+
+    <p>The core insight behind digital safety reporting is straightforward: <strong>real-time visibility enables real-time action</strong>. When an employee can submit an observation digitally and it reaches leadership within hours instead of weeks, the organization can investigate while the hazard is still present, interview the reporter while memory is fresh, and implement controls before someone gets hurt. The technology itself matters far less than the speed and reliability it enables.</p>
+
+    <p>Boyd's experience managing field audits also reinforced this need. Before digital tools, auditors would <a class="inline-cta" href="https://listenly.fr/podcast/show/inspiring-industry-podcast">drive hours to job sites, spend two to three hours on-site, and type reports at night</a> — a process that stretched important safety data collection across days. The same principle applied to observation cards: delay killed value.</p>
+
+    <h2>Building a Safety Culture Around Immediate Feedback</h2>
+
+    <p>Solving the rattlesnake problem required more than software alone. It required changing how employees saw their role in safety. <strong>Boyd implemented behavior-based safety, where every employee is empowered to report observations</strong> — not just hazards they directly encounter, but anything they notice that might endanger themselves or colleagues.</p>
+
+    <p>This philosophy only works if employees trust that their reports will be seen, taken seriously, and acted upon quickly. A multi-week delay destroys that trust. When an employee submits a concern and hears nothing for weeks, the unspoken message is: your input doesn't matter. Over time, employees stop speaking up entirely — a problem Boyd has called <a class="inline-cta" href="https://listenly.fr/podcast/show/inspiring-industry-podcast">"the most damaging thing to safety culture: crickets"</a>, the silence of disengaged workers.</p>
+
+    <p>Digital systems close this loop. Real-time notifications alert supervisors or safety teams the moment an observation arrives, enabling immediate investigation, feedback to the reporter, and visible action. The employee sees that their concern was heard and addressed, reinforcing the behavior and strengthening safety culture across the organization.</p>
+
+    <div class="points-cles">
+      <h3>Key takeaways</h3>
+      <ul>
+        <li>Paper-based observation systems introduce delays that can render safety reports obsolete by the time leadership receives them.</li>
+        <li>Real-time digital reporting keeps hazard information current and actionable, enabling immediate investigation and response.</li>
+        <li>Rapid feedback to employees who submit safety concerns builds trust and sustains engagement in behavior-based safety programs.</li>
+        <li>Technology's value in safety lies not in automation but in enabling humans to respond faster and more effectively to employee insights.</li>
+      </ul>
+    </div>
+
+    <h2>See also</h2>
+
+    <div class="faq">
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/inspiring-industry-podcast/what-is-the-importance-of-behavior-based-safety-and-rapid-employee-fee.html">What is the importance of behavior-based safety and rapid employee feedback in Boyd's philosophy?</a></h3>
+        <p>Boyd implemented behavior-based safety where all employees report observations they find concerning. The most damaging thing to safety culture is when employees stop speaking up because their feedback isn't acted upon — what Boyd calls "crickets," the silence of disengaged workers.</p>
+      </div>
+      
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/inspiring-industry-podcast/what-specific-problem-did-boyd-s-software-address-in-field-auditing-an.html">What specific problem did Boyd's software address in field auditing and reporting?</a></h3>
+        <p>Field auditors had to drive to job sites, spend two to three hours performing audits, drive back, and type up reports at night with pictures and notes. This manual, time-consuming process delayed critical safety insights reaching leadership.</p>
+      </div>
+      
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/inspiring-industry-podcast/how-does-darren-boyd-believe-technology-should-be-used-in-safety-manag.html">How does Darren Boyd believe technology should be used in safety management?</a></h3>
+        <p>Boyd believes that when technology is used to give humans more time to do other things, that is where positive safety impact happens. Technology should push people to be more human, not replace human relationships and trust-building.</p>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn" href="https://listenly.fr/podcast/show/inspiring-industry-podcast">Listen to the episode on Listenly</a>
+    </div>
+
+    <footer>
+      Written by the Listenly editorial team
+    </footer>
+  </div>
+
+  <div id="semantic-index" style="display: none;">
+    <span>Darren Boyd</span>
+    <span>KPA services</span>
+    <span>Inspiring Industry Podcast</span>
+    <span>University of Oklahoma</span>
+    <span>South Texas</span>
+    <span>Safety software</span>
+    <span>Field auditing</span>
+    <span>Real-time reporting</span>
+  </div>
+</body>
+</html>

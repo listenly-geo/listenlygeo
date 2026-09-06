@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why internally designed tests fail to compare student performance fairly</title>
+  <meta name="description" content="Internally designed assessments lack standardization, making fair comparison across students, time, and schools impossible. Standardized tests solve this through scaled scoring.">
+  <meta name="author" content="GL Assessment Editorial Team">
+  <meta property="og:title" content="Why internally designed tests fail to compare student performance fairly">
+  <meta property="og:description" content="Internally designed assessments lack standardization, making fair comparison across students, time, and schools impossible. Standardized tests solve this through scaled scoring.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/education-joining-the-dots/what-are-the-key-limitations-of-internally-designed-assessments-compar.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:image" content="https://i.postimg.cc/Yq9LZSD5/560x560bb.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Why internally designed tests fail to compare student performance fairly">
+  <meta name="twitter:description" content="Internally designed assessments lack standardization, making fair comparison across students, time, and schools impossible. Standardized tests solve this through scaled scoring.">
+  <meta name="twitter:image" content="https://i.postimg.cc/Yq9LZSD5/560x560bb.webp">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/education-joining-the-dots/what-are-the-key-limitations-of-internally-designed-assessments-compar.html">
+  <link rel="publisher" href="https://listenly.fr">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "GL Assessment Editorial Team",
+        "jobTitle": "Education Assessment Specialists",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "GL Assessment"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Becky Sinjin",
+        "jobTitle": "Freelance school assessment and performance data consultant",
+        "description": "Becky started 15 years ago as a data manager in a large secondary school using CISRA tracking systems. She eventually became Head of Training at CISRA before transitioning to freelance work seven years ago, where she has worked with multiple companies and schools on data management, data analysis, and data strategy. She previously worked in the training team for GL Assessment pre-COVID, visiting schools to train teachers and administrators on assessment systems.",
+        "knowsAbout": [
+          "GL Assessment",
+          "GL Education",
+          "CISRA",
+          "school data management",
+          "assessment systems"
+        ]
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Why internally designed tests fail to compare student performance fairly",
+        "description": "Internally designed assessments lack standardization, making fair comparison across students, time, and schools impossible. Standardized tests solve this through scaled scoring.",
+        "datePublished": "2026-09-06",
+        "dateModified": "2026-09-06",
+        "author": {
+          "@type": "Organization",
+          "name": "GL Assessment"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "Education: Joining the Dots",
+          "url": "https://listenly.fr/podcast/show/education-joining-the-dots"
+        },
+        "image": "https://i.postimg.cc/Yq9LZSD5/560x560bb.webp",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [
+            ".lead",
+            "blockquote.citation"
+          ]
+        },
+        "mentions": [
+          {
+            "@type": "Thing",
+            "name": "GL Assessment"
+          },
+          {
+            "@type": "Thing",
+            "name": "Standardized testing"
+          },
+          {
+            "@type": "Thing",
+            "name": "Student assessment"
+          },
+          {
+            "@type": "Thing",
+            "name": "Educational data"
+          },
+          {
+            "@type": "Thing",
+            "name": "CISRA"
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Education: Joining the Dots",
+            "item": "https://listenly.fr/podcast-btb/education-joining-the-dots-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Why internally designed tests fail to compare student performance fairly",
+            "item": "https://listenly.fr/podcast-btb/questions/education-joining-the-dots/what-are-the-key-limitations-of-internally-designed-assessments-compar.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What theoretical foundation supports the use of oracy in cognitive development?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Vygotsky's theories emphasize that communication tools are critical for cognitive development because they help shape the way individuals understand and process information."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does oracy development support other areas of literacy like writing and reading?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Being able to talk through ideas before putting pen to paper is incredibly useful; 86% of staff at one secondary school believe oracy strategies supported overall literacy development."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How have teachers' initial reservations about oracy development changed over time in the trust?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "There were initial teacher reservations when first starting to develop oracy in schools. As teachers learned and developed knowledge around oracy, speech and communication confidence increased significantly."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <header>
+    <div class="header-top">
+      <img class="podcast-cover" src="https://i.postimg.cc/Yq9LZSD5/560x560bb.webp" alt="Education: Joining the Dots">
+      <div>
+        <span class="badge">The answer lives in this podcast</span>
+        <p class="source-line">Answer extracted from the Education: Joining the Dots podcast — listen to the full episode below.</p>
+      </div>
+    </div>
+    <a class="top-cta-btn" href="https://listenly.fr/podcast/show/education-joining-the-dots">🎧 Listen to the episode on Listenly</a>
+
+    <h1>Why internally designed tests fail to compare student performance fairly</h1>
+
+    <p class="article-meta">
+      <span>6 September 2026</span>
+      <span><strong>Education: Joining the Dots</strong> · Becky Sinjin</span>
+    </p>
+  </header>
+
+  <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/education-joining-the-dots-podcast.html">← See the Education: Joining the Dots fiche</a></p>
+
+  <p class="lead">
+    Internally designed tests are <strong>inherently inconsistent in difficulty</strong>, making them poor tools for comparing performance across different students, time periods, schools, or subjects. Standardized tests solve this problem by converting raw scores onto a scaled distribution, enabling fair comparison against national benchmarks and meaningful tracking over time.
+  </p>
+
+  <h2>The core problem: no common yardstick</h2>
+
+  <p>
+    When schools create their own assessments, they have no way to ensure that one test is as challenging as another. A vocabulary test designed in one classroom may be significantly harder or easier than an identical test written by another teacher, not because of teaching quality, but simply due to how questions are phrased, selected, or weighted. This inconsistency makes it impossible to know whether a student's score reflects their actual learning or just the difficulty of the specific test they took.
+  </p>
+
+  <p>
+    The real damage happens when educators try to use these internally designed scores for comparison. <strong>You cannot reliably compare one student's performance to another's</strong> if both took different tests, even if those tests supposedly cover the same material. You cannot track genuine progress over time if assessment difficulty fluctuates from term to term. And you certainly cannot compare results fairly across different schools or subjects, where internal assessment standards vary widely.
+  </p>
+
+  <h2>How standardized tests create a level playing field</h2>
+
+  <p>
+    Standardized assessments work differently. They convert raw scores—the number of questions a student gets right—into a <strong>scaled score anchored to a standard distribution</strong>. This process, refined through rigorous statistical analysis, allows a student's performance to be meaningfully positioned against all other students who took the same test nationally.
+  </p>
+
+  <p>
+    This scaling mechanism unlocks genuine insight. A score of 75 on a standardized test tells you not just that a student answered 75% of questions correctly, but exactly where they sit relative to their peers across the entire country. It enables you to measure real growth over time—because the scale remains constant. And it allows fair comparison across different subjects and schools, because all scores are calibrated to the same standard. As Becky Sinjin explains in <a class="inline-cta" href="https://listenly.fr/podcast/show/education-joining-the-dots">the episode</a>, this consistency is what transforms raw data into actionable intelligence.
+  </p>
+
+  <blockquote class="citation">
+    <p>"The standardized test results are there to support the teacher judgment, to contribute to the teacher judgment, not to replace it."</p>
+    <figcaption><strong>Becky Sinjin</strong> — Freelance school assessment and performance data consultant. With 15 years as a data manager in secondary schools using CISRA tracking systems and seven years of freelance consulting work with multiple schools and companies on data management and assessment strategy, Sinjin brings deep operational expertise to the intersection of assessment design and data interpretation. She previously trained educators at GL Assessment on assessment systems before transitioning to independent practice.</figcaption>
+  </blockquote>
+
+  <p>
+    This clarification—that standardized results support rather than replace professional judgment—highlights why the comparison gap matters. Teachers need reliable data to make better decisions faster, whether in selecting intervention students, tracking cohort progress, or identifying learning gaps. A standardized test provides that foundation; internally designed assessments cannot.
+  </p>
+
+  <p>
+    The broader implication, discussed in depth across <a class="inline-cta" href="https://listenly.fr/podcast/show/education-joining-the-dots">this podcast episode</a>, is that assessment design is not simply an operational detail—it directly shapes what educators can know about their students and, by extension, how effectively they can teach.
+  </p>
+
+  <h2>See also</h2>
+
+  <div class="faq">
+    <div class="faq-item">
+      <h3><a href="https://listenly.fr/podcast-btb/questions/education-joining-the-dots/what-theoretical-foundation-supports-the-use-of-oracy-in-cognitive-dev.html">What theoretical foundation supports the use of oracy in cognitive development?</a></h3>
+      <p>Vygotsky's theories emphasize that communication tools are critical for cognitive development because they help shape the way individuals understand and process information.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3><a href="https://listenly.fr/podcast-btb/questions/education-joining-the-dots/how-does-oracy-development-support-other-areas-of-literacy-like-writin.html">How does oracy development support other areas of literacy like writing and reading?</a></h3>
+      <p>Being able to talk through ideas before putting pen to paper is incredibly useful; 86% of staff at one secondary school believe oracy strategies supported overall literacy development.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3><a href="https://listenly.fr/podcast-btb/questions/education-joining-the-dots/how-have-teachers-initial-reservations-about-oracy-development-changed.html">How have teachers' initial reservations about oracy development changed over time in the trust?</a></h3>
+      <p>There were initial teacher reservations when first starting to develop oracy in schools. As teachers learned and developed knowledge around oracy, speech and communication confidence increased significantly.</p>
+    </div>
+  </div>
+
+  <div class="points-cles">
+    <h3>Key takeaways</h3>
+    <ul>
+      <li>Internally designed tests vary in difficulty with no objective standard, making fair student comparison impossible.</li>
+      <li>Standardized assessments convert raw scores to scaled scores calibrated to a national distribution, enabling valid comparison across students and time.</li>
+      <li>Only standardized tests allow meaningful tracking of progress, fair cross-school comparison, and reliable identification of students needing intervention.</li>
+      <li>Standardized data supports teacher judgment rather than replacing it, providing the foundation for faster, better-informed instructional decisions.</li>
+    </ul>
+  </div>
+
+  <div class="cta-block">
+    <a class="cta-btn" href="https://listenly.fr/podcast/show/education-joining-the-dots">Listen to the episode on Listenly</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Written by the Listenly editorial team</p>
+</footer>
+
+<div id="semantic-index" style="display:none;">
+  <span>Becky Sinjin</span>
+  <span>GL Assessment</span>
+  <span>GL Education</span>
+  <span>CISRA</span>
+  <span>Standardized testing</span>
+  <span>Student assessment</span>
+  <span>Educational data</span>
+  <span>Internal assessments</span>
+  <span>Data manager</span>
+  <span>Assessment systems</span>
+</div>
+
+</body>
+</html>

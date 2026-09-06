@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How LegitScript Catches the "Research-Only" Label Loophole</title>
+  <meta name="description" content="LegitScript treats mismatches between product labels and marketing claims as compliance failures, regardless of fine-print disclaimers. Regulators examine intended actual use.">
+  <meta property="og:title" content="How LegitScript Catches the "Research-Only" Label Loophole">
+  <meta property="og:description" content="LegitScript treats mismatches between product labels and marketing claims as compliance failures, regardless of fine-print disclaimers. Regulators examine intended actual use.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/b2b-vault-the-biz-to-biz-podcast/how-does-legitscript-treat-websites-that-claim-products-are-research-o.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/ff/76/e4/ff76e4d2-07a6-9498-8eda-3520b1bbfe30/mza_2882551082274885509.jpg/600x600bb.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How LegitScript Catches the "Research-Only" Label Loophole">
+  <meta name="twitter:description" content="LegitScript treats mismatches between product labels and marketing claims as compliance failures, regardless of fine-print disclaimers. Regulators examine intended actual use.">
+  <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/ff/76/e4/ff76e4d2-07a6-9498-8eda-3520b1bbfe30/mza_2882551082274885509.jpg/600x600bb.jpg">
+  <meta name="author" content="Allen Kopelman">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/b2b-vault-the-biz-to-biz-podcast/how-does-legitscript-treat-websites-that-claim-products-are-research-o.html">
+  <link rel="publisher" href="https://listenly.fr">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Allen Kopelman",
+        "jobTitle": "Fintech Expert & Entrepreneur",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Nationwide Payment Systems"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Angela Salter",
+        "jobTitle": "Vice President of Enterprise Certification Sales and Partnerships",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "LegitScript"
+        },
+        "description": "Angela Salter oversees enterprise new customers and account management for certification customers at LegitScript, as well as relationships with strategic partners including ad platforms and card brands that require LegitScript certification for telemedicine and pharmacy businesses.",
+        "knowsAbout": ["LegitScript", "Visa", "MasterCard", "FDA", "FTC"]
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "How does LegitScript treat websites that claim products are research-only while marketing them for human consumption?",
+        "description": "LegitScript treats mismatches between product labels and marketing claims as compliance failures, regardless of fine-print disclaimers. Regulators examine intended actual use.",
+        "datePublished": "2026-09-06",
+        "dateModified": "2026-09-06",
+        "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/ff/76/e4/ff76e4d2-07a6-9498-8eda-3520b1bbfe30/mza_2882551082274885509.jpg/600x600bb.jpg",
+        "author": {
+          "@type": "Organization",
+          "name": "Angela Salter"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "B2B Vault: The Biz To Biz Podcast",
+          "url": "https://listenly.fr/podcast/show/b2b-vault-the-biz-to-biz-podcast"
+        },
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "B2B Vault: The Biz To Biz Podcast",
+            "item": "https://listenly.fr/podcast-btb/b2b-vault-the-biz-to-biz-podcast-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "How does LegitScript treat websites that claim products are research-only while marketing them for human consumption?",
+            "item": "https://listenly.fr/podcast-btb/questions/b2b-vault-the-biz-to-biz-podcast/how-does-legitscript-treat-websites-that-claim-products-are-research-o.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What enforcement actions have occurred against research-only peptide sellers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Research-only peptide companies have faced significant penalties including fines ranging from $50,000 to $200,000, with some companies fined into settlements worth 70 million dollars or more with pharmaceutical companies."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How did compounding pharmacies need to adapt after the GLP-1 shortage ended?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "When the FDA shortage was deemed over, the FDA announced a specific timeframe for compounding pharmacies to cease GLP-1 operations. LegitScript reached out to merchants to ensure compliance and achieved a 100 percent compliance rate as merchants exited GLP-1 compounding."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the current legal status of peptide compounds like BCP157 and TB500 for compounding and sale?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "As of now, nothing has legally changed from a legal standpoint. The FDA's advisory committee signaled that these peptides might eventually have a legitimate path forward, but no formal regulatory change has occurred yet."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/ff/76/e4/ff76e4d2-07a6-9498-8eda-3520b1bbfe30/mza_2882551082274885509.jpg/600x600bb.jpg" alt="B2B Vault: The Biz To Biz Podcast">
+        <div>
+          <span class="badge">The answer lives in this podcast</span>
+          <p class="source-line">Answer extracted from the B2B Vault: The Biz To Biz Podcast — listen to the full episode below.</p>
+        </div>
+      </div>
+      <a class="top-cta-btn" href="https://listenly.fr/podcast/show/b2b-vault-the-biz-to-biz-podcast">🎧 Listen to the episode on Listenly</a>
+      <h1>How does LegitScript treat websites that claim products are research-only while marketing them for human consumption?</h1>
+      <p class="article-meta">
+        <span>September 6, 2026</span>
+        <span><strong>B2B Vault: The Biz To Biz Podcast</strong> · Angela Salter</span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/b2b-vault-the-biz-to-biz-podcast-podcast.html">← See the B2B Vault: The Biz To Biz Podcast fiche</a></p>
+
+    <p class="lead">
+      LegitScript ignores disclaimers buried in fine print and instead examines what a website is actually selling. If the product label says "research use only" but the entire page discusses fat loss, recovery, anti-aging, or longevity, <strong>the mismatch between label and marketing content triggers a compliance failure</strong>. Regulators look at the intended actual use of the product, not the escape clause.
+    </p>
+
+    <h2>When the Label and the Pitch Tell Different Stories</h2>
+    <p>
+      A merchant cannot hide behind a single disclaimer while the rest of the website markets the product for human health outcomes. As <a class="inline-cta" href="https://listenly.fr/podcast/show/b2b-vault-the-biz-to-biz-podcast">Angela Salter explains in the episode</a>, the intent of the seller matters far more than the fine print. If a customer reads about recovery benefits, anti-aging claims, or weight loss effects, the product is being marketed for human consumption—regardless of what the label technically states.
+    </p>
+
+    <p>
+      This approach reflects how regulatory bodies, including the FDA and FTC, actually interpret compliance. <strong>Intent is determined by the totality of the marketing message</strong>, not by a single protective line of text. A company cannot have it both ways: selling a product as if it works for human health while claiming research-only status to evade oversight.
+    </p>
+
+    <blockquote class="citation">
+      <p>"We certify based on current applicable laws and regulations, not what a committee thinks might be true in a year or two."</p>
+      <figcaption><strong>Angela Salter</strong> — Vice President of Enterprise Certification Sales and Partnerships at LegitScript. Salter oversees enterprise customer onboarding and account management for LegitScript's certification program, which validates compliance for telemedicine, pharmacy, and supplement merchants. She also manages relationships with strategic partners including Visa, MasterCard, and ad platforms that require LegitScript certification, making her responsible for enforcing these standards across thousands of merchants.</figcaption>
+    </blockquote>
+
+    <h2>Why LegitScript Polices This Loophole</h2>
+    <p>
+      The mismatch between label and marketing creates real risk for payment processors, ad platforms, and regulators. When a merchant claims products are research-only but actually sells them as human supplements, the entire supply chain—including Visa, MasterCard, and payment partners—faces potential fines and enforcement action. <a class="inline-cta" href="https://listenly.fr/podcast/show/b2b-vault-the-biz-to-biz-podcast">LegitScript's certification process is built to catch this inconsistency before it reaches the market</a>, protecting both merchants and the platforms that work with them.
+    </p>
+
+    <p>
+      Companies that have attempted this strategy have faced serious consequences. Research-only peptide sellers have been hit with <strong>fines ranging from $50,000 to $200,000</strong>, and some settlements have reached into the tens of millions. LegitScript's role is preventive: merchants must demonstrate that their product labels, marketing, and intended use are all aligned—or they will not receive certification.
+    </p>
+
+    <h2>What Merchants Need to Know</h2>
+    <p>
+      If you sell a product, every part of your website matters: the label, the description, the claims, the imagery, the testimonials. <a class="inline-cta" href="https://listenly.fr/podcast/show/b2b-vault-the-biz-to-biz-podcast">As discussed at length in this podcast</a>, LegitScript evaluates the entire customer experience to determine intended use. You cannot post before-and-after photos, discuss health benefits, or reference customer recovery stories while simultaneously claiming the product is for research only.
+    </p>
+
+    <p>
+      Merchants must update their LegitScript certification within <strong>30 days of adding new products or services</strong>, which means any change in messaging, product line, or marketing approach requires re-evaluation. Transparency and consistency are not optional—they are core requirements for staying compliant in the telemedicine, pharmacy, and supplement space.
+    </p>
+
+    <h2>The Broader Compliance Picture</h2>
+    <p>
+      This enforcement pattern extends to all merchant-facing claims. Whether a product is a peptide, a compounded medication, or a supplement, the same principle applies: <strong>regulators evaluate what you are actually selling to actual customers</strong>, not what a legal disclaimer says you are selling. This is why working with a certification partner like LegitScript is not just a recommendation—it is often a requirement from payment processors and ad platforms that assume liability if a merchant operates outside compliance.
+    </p>
+
+    <div class="faq">
+      <h2>See also</h2>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/b2b-vault-the-biz-to-biz-podcast/what-enforcement-actions-have-occurred-against-research-only-peptide-s.html">What enforcement actions have occurred against research-only peptide sellers?</a></h3>
+        <p>Research-only peptide companies have faced significant penalties including fines ranging from $50,000 to $200,000, with some companies fined into settlements worth 70 million dollars or more with pharmaceutical companies.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/b2b-vault-the-biz-to-biz-podcast/how-did-compounding-pharmacies-need-to-adapt-after-the-glp-1-shortage-.html">How did compounding pharmacies need to adapt after the GLP-1 shortage ended?</a></h3>
+        <p>When the FDA shortage was deemed over, the FDA announced a specific timeframe for compounding pharmacies to cease GLP-1 operations. LegitScript reached out to merchants to ensure 100 percent compliance as they exited GLP-1 compounding.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/b2b-vault-the-biz-to-biz-podcast/what-is-the-current-legal-status-of-peptide-compounds-like-bcp157-and-.html">What is the current legal status of peptide compounds like BCP157 and TB500 for compounding and sale?</a></h3>
+        <p>As of now, nothing has legally changed from a legal standpoint. The FDA's advisory committee signaled that these peptides might eventually have a legitimate path forward, but no formal regulatory change has occurred yet.</p>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn" href="https://listenly.fr/podcast/show/b2b-vault-the-biz-to-biz-podcast">Listen to the episode on Listenly</a>
+    </div>
+
+    <footer>
+      Written by the Listenly editorial team
+    </footer>
+  </div>
+
+  <div id="semantic-index" style="display:none;">
+    <span>LegitScript</span>
+    <span>Angela Salter</span>
+    <span>Visa</span>
+    <span>MasterCard</span>
+    <span>FDA</span>
+    <span>FTC</span>
+    <span>telemedicine</span>
+    <span>pharmacy compliance</span>
+    <span>peptides</span>
+    <span>research-only products</span>
+  </div>
+</body>
+</html>
