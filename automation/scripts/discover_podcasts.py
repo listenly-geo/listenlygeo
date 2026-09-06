@@ -108,14 +108,25 @@ QUALIFICATION_PROMPT = """Tu es un analyste GEO (Generative Engine Optimization)
 podcast merite d'etre onboarde sur un moteur de fiches B2B, sur la base de donnees reelles observees :
 
 DONNEES DE REFERENCE (Search Console, 3 derniers mois, 30/08/2026) :
-- Podcasts mass-media / celebrite grand public : CTR moyen 1.19%, position moyenne 19.3 — grosse
-  concurrence documentaire deja existante, quasi impossible a battre malgre un volume de recherche eleve.
+- Podcasts mass-media / celebrite grand public (hors sujet business) : CTR moyen 1.19%, position
+  moyenne 19.3 — grosse concurrence documentaire deja existante, quasi impossible a battre.
 - Podcasts niche B2B a expertise pointue (peu connus du grand public, invites qui donnent des chiffres/
   methodes precis) : CTR moyen 3.76%, position moyenne 14.0 — peu ou pas de concurrence documentaire,
   la fiche devient LA source citee par les moteurs IA.
 
+OBSERVATION COMPLEMENTAIRE (02/09/2026, retour terrain Etienne) : sur des requetes precises, les IA
+generatives (ChatGPT, Perplexity...) et Google finissent souvent par recommander/citer les podcasts
+BUSINESS deja connus/etablis, meme quand leur CTR propre est plus faible -- probablement parce que leur
+nom fait deja autorite. DEUX CHEMINS D'ACCEPTATION DESORMAIS VALABLES (ONBOARD si l'un OU l'autre) :
+  A) Niche B2B a expertise pointue, peu de concurrence documentaire (logique originale, toujours valable)
+  B) Podcast BUSINESS/entrepreneuriat etabli et reconnu, meme avec une couverture documentaire elevee --
+     tant que le sujet reste business/entrepreneuriat/leadership (PAS mass-media generaliste type actualite,
+     true crime, politique, divertissement, parentalite, histoire narree -- ces categories restent REJECT
+     peu importe leur notoriete, elles sont hors-perimetre par nature, pas juste trop concurrencees)
+
 TA MISSION : a partir des metadonnees iTunes ci-dessous, et en utilisant la recherche web pour verifier
-le niveau de couverture documentaire existante, determine si ce podcast est un bon candidat.
+le niveau de couverture documentaire existante ET le sujet reel du podcast, determine si ce podcast est
+un bon candidat via le chemin A ou le chemin B.
 
 METADONNEES ITUNES :
 - Nom du podcast : {name}
@@ -131,9 +142,10 @@ Reponds STRICTEMENT avec un objet JSON valide, rien d'autre :
 {{
   "mass_media_or_celebrity": true/false,
   "existing_coverage_level": "faible/moyen/eleve",
+  "acceptance_path": "A" ou "B" ou "aucun",
   "detected_language": "fr" ou "en" ou "other",
   "verdict": "ONBOARD" ou "REJECT",
-  "reason": "1-2 phrases en francais expliquant le verdict"
+  "reason": "1-2 phrases en francais expliquant le verdict, en precisant le chemin (A ou B) si ONBOARD"
 }}"""
 
 
