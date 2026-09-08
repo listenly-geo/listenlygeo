@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Advanced Analysis Engine Is Sepasoft Adding to Simplify AI in Manufacturing?</title>
+  <meta name="description" content="Sepasoft is releasing an advanced analysis engine combining MQTT, APIs, and Kafka with root cause analysis, SPC, machine learning, and LLM integration to drive actionable manufacturing insights.">
+  <meta name="author" content="Daniel Langley">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:title" content="What Advanced Analysis Engine Is Sepasoft Adding to Simplify AI in Manufacturing?">
+  <meta property="og:description" content="Sepasoft is releasing an advanced analysis engine combining MQTT, APIs, and Kafka with root cause analysis, SPC, machine learning, and LLM integration to drive actionable manufacturing insights.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-new-advanced-analysis-capabilities-is-sepasoft-introducing-to-sim.html">
+  <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="What Advanced Analysis Engine Is Sepasoft Adding to Simplify AI in Manufacturing?">
+  <meta name="twitter:description" content="Sepasoft is releasing an advanced analysis engine combining MQTT, APIs, and Kafka with root cause analysis, SPC, machine learning, and LLM integration to drive actionable manufacturing insights.">
+  <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-new-advanced-analysis-capabilities-is-sepasoft-introducing-to-sim.html">
+  <link rel="publisher" href="https://listenly.fr">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Daniel Langley",
+        "jobTitle": "CEO and Podcast Host",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Manufacturing IT Recruitment"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Tom Heckman",
+        "jobTitle": "Founder and CTO",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Sepasoft"
+        },
+        "description": "Tom Heckman has spent over 20 years in manufacturing and automation. He started in the 1980s working for an Allen Bradley distributorship in their engineering department, focusing on data collection and manufacturing data aspects including PLCs. He later owned and operated an integration business for many years before founding Sepasoft in 2010. Recently, he transitioned from CEO to CTO to focus on the technology side of the business.",
+        "knowsAbout": ["Sepasoft", "Inductive Automation", "Ignition", "Allen Bradley", "Stone Brewing"]
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "What Advanced Analysis Engine Is Sepasoft Adding to Simplify AI in Manufacturing?",
+        "description": "Sepasoft is releasing an advanced analysis engine combining MQTT, APIs, and Kafka with root cause analysis, SPC, machine learning, and LLM integration to drive actionable manufacturing insights.",
+        "datePublished": "2026-09-08",
+        "dateModified": "2026-09-08",
+        "author": {
+          "@type": "Organization",
+          "name": "Tom Heckman"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "The Manufacturing IT Podcast",
+          "url": "https://listenly.fr/podcast/show/the-manufacturing-it-podcast"
+        },
+        "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        },
+        "mentions": [
+          {"@type": "Thing", "name": "Sepasoft"},
+          {"@type": "Thing", "name": "MQTT"},
+          {"@type": "Thing", "name": "Kafka"},
+          {"@type": "Thing", "name": "Machine Learning"},
+          {"@type": "Thing", "name": "SPC (Statistical Process Control)"},
+          {"@type": "Thing", "name": "Root Cause Analysis"},
+          {"@type": "Thing", "name": "Large Language Models"},
+          {"@type": "Thing", "name": "Inductive Automation"}
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "The Manufacturing IT Podcast",
+            "item": "https://listenly.fr/podcast-btb/the-manufacturing-it-podcast-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "What Advanced Analysis Engine Is Sepasoft Adding to Simplify AI in Manufacturing?",
+            "item": "https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-new-advanced-analysis-capabilities-is-sepasoft-introducing-to-sim.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What challenges do manufacturers face when preparing MES data for artificial intelligence applications?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Many manufacturers struggle with getting clean MES data into AI systems. MES data isn't static after initial recording—quality results change, tests run, and the datasets require continuous validation before feeding into machine learning models."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How did Stone Brewing improve operational efficiency after implementing MES software for brew house control?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Stone Brewing, a Southern California brewer recently acquired by Sapuro, rolled out Sepasoft software to control their entire brewing process and beer production, enabling operators to modify recipes with minimal training and improve consistency across batches."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the key benefits of integrating MES directly with HMI and SCADA platforms on a single architecture?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "By running modules on Ignition, both HMI SCADA and MES exist on the same platform, enabling simple controls like interlocks without requiring separate systems, reducing complexity and improving data flow between operator interfaces and manufacturing execution."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg" alt="The Manufacturing IT Podcast">
+        <div>
+          <span class="badge">The answer lives in this podcast</span>
+          <p class="source-line">Answer extracted from the The Manufacturing IT Podcast — listen to the full episode below.</p>
+        </div>
+      </div>
+      <a class="top-cta-btn" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">🎧 Listen to the episode on Listenly</a>
+      <h1>What advanced analysis engine is Sepasoft adding to simplify AI implementation in manufacturing?</h1>
+      <p class="article-meta">
+        <span>September 8, 2026</span>
+        <span><strong>The Manufacturing IT Podcast</strong> · Tom Heckman</span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/the-manufacturing-it-podcast-podcast.html">← See The Manufacturing IT Podcast fiche</a></p>
+
+    <p class="lead">
+      Sepasoft is launching a production-ready analysis engine combining industry connectors like <strong>MQTT, APIs, and Kafka</strong> with an advanced analytics layer that automatically determines root downtime causes, calculates statistical process control metrics, generates machine learning predictions, and analyzes operator sentiment from notes. The system integrates with large language models and pushes actionable insights back to the plant floor, such as expected production losses, eliminating the friction that typically slows AI adoption in manufacturing environments.
+    </p>
+
+    <h2>From connectors to actionable intelligence</h2>
+    <p>
+      Most AI implementations in manufacturing fail because data integration and analysis remain separate, disconnected workflows. Sepasoft's approach <a class="inline-cta" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">as discussed in the episode</a> solves this by bundling connectivity and intelligence into one product.
+    </p>
+    <p>
+      The engine handles the heavy lifting that manufacturers typically outsource or abandon: <strong>root cause determination automatically identifies why downtime occurred</strong> by correlating production logs with equipment states and operator actions. Statistical process control calculations track quality drift in real time. Machine learning models trained on historical data predict failures and anomalies before they impact production.
+    </p>
+    <p>
+      Beyond pure statistics, the system analyzes free-text operator notes using natural language processing to extract patterns humans might miss—sentiment shifts, recurring complaints, maintenance hints buried in casual remarks. This data feeds back into machine learning pipelines to refine predictions.
+    </p>
+
+    <h2>LLMs and the feedback loop</h2>
+    <p>
+      The integration with large language models marks a shift from isolated analytics to conversational AI on the plant floor. <strong>Analyzed data flows back as plain-language recommendations</strong>: "Expected production loss next shift: 2 hours" or "Machine 3 risk of bearing failure increased 15% this hour."
+    </p>
+    <p>
+      This transforms raw analysis into decisions operators and supervisors can act on immediately. A manufacturing leader detailed in <a class="inline-cta" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">this conversation</a> noted that simplicity in implementation is what customers demand—and this feedback loop design removes the need for data scientists on the floor, making AI practical for plants with limited technical depth.
+    </p>
+
+    <blockquote class="citation">
+      <p>"Anything that simplifies the interactions between a company and our company to handle purchasing is what people are looking for."</p>
+      <figcaption><strong>Tom Heckman</strong> — Founder and CTO at Sepasoft, with over 20 years in manufacturing and automation. Heckman started in the 1980s at an Allen Bradley distributorship focusing on data collection and PLCs, later owned an integration business, and founded Sepasoft in 2010 to bridge the gap between MES and modern IT infrastructure. He recently transitioned to CTO to focus on the technology vision behind products like this analysis engine.</figcaption>
+    </blockquote>
+
+    <p>
+      The product is scheduled for release in <strong>the first quarter of 2025</strong>, positioning Sepasoft to address a concrete pain point: manufacturers have the data but lack the accessible tools to extract and act on it. The connectors are proven—MQTT, APIs, Kafka have become standards—so the differentiation lies in the analysis layer and its ease of deployment.
+    </p>
+
+    <p>
+      For operators and plant managers, the value is immediate. One detail worth exploring <a class="inline-cta" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">in the full episode</a> is how Sepasoft's tight integration with Inductive Automation's Ignition platform reduces friction further, allowing analysis modules to live alongside HMI and SCADA on a single system rather than requiring yet another standalone tool.
+    </p>
+
+    <h2>See also</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-challenges-do-manufacturers-face-when-preparing-mes-data-for-arti.html">What challenges do manufacturers face when preparing MES data for artificial intelligence applications?</a></h3>
+        <p>Many manufacturers struggle with getting clean MES data into AI systems. MES data isn't static after initial recording—quality results change, tests run, and datasets require continuous validation before feeding into machine learning models.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/how-did-stone-brewing-improve-operational-efficiency-after-implementin.html">How did Stone Brewing improve operational efficiency after implementing MES software for brew house control?</a></h3>
+        <p>Stone Brewing, a Southern California brewer recently acquired by Sapuro, rolled out Sepasoft software to control their entire brewing process and beer production, enabling operators to modify recipes with minimal training and improve consistency across batches.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-are-the-key-benefits-of-integrating-mes-directly-with-hmi-and-sca.html">What are the key benefits of integrating MES directly with HMI and SCADA platforms on a single architecture?</a></h3>
+        <p>By running modules on Ignition, both HMI SCADA and MES exist on the same platform, enabling simple controls like interlocks without requiring separate systems, reducing complexity and improving data flow between operator interfaces and manufacturing execution.</p>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">Listen to the episode on Listenly</a>
+    </div>
+
+    <footer>
+      Written by the Listenly editorial team
+    </footer>
+  </div>
+
+  <div id="semantic-index" style="display:none;">
+    Sepasoft, MQTT, Kafka, API, root cause analysis, SPC, machine learning, sentiment analysis, large language models, LLM, plant floor, production loss, downtime, statistical process control, natural language processing, Ignition, Inductive Automation, manufacturing AI, MES, Tom Heckman, Manufacturing IT Podcast
+  </div>
+</body>
+</html>
