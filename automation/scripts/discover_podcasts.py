@@ -314,9 +314,55 @@ def main():
     # monopoliser le budget malgre le round-robin. Ajout d'un plafond dur par mot-cle : un
     # seul mot-cle ne peut jamais fournir plus de MAX_PER_KEYWORD candidats sur un run,
     # quel que soit le nombre de rounds restants.
+    #
+    # Fix du 09/09/2026 : les mots-cles ciblant des podcasts BUSINESS CONNUS/etablis (chemin
+    # B de qualification) ne representaient que 34 mots-cles sur 123 -- en pratique quasi
+    # jamais tires malgre le round-robin, noyes dans la masse des mots-cles niche generiques.
+    # Un quota EXPLICITE est desormais reserve a ce groupe en premier, avant le round-robin
+    # general, pour garantir qu'il s'exprime vraiment a chaque run plutot que de rester
+    # theorique.
+    KNOWN_KEYWORDS = {
+        "top business podcast", "best entrepreneurship podcast", "top CEO interview podcast",
+        "famous business podcast", "best leadership podcast", "top startup podcast",
+        "well known entrepreneur podcast", "top rated business podcast",
+        "My First Million podcast", "How I Built This podcast", "Masters of Scale podcast",
+        "The Prof G Pod", "Acquired podcast", "Invest Like the Best podcast",
+        "The Tim Ferriss Show", "a16z podcast", "20VC podcast", "The Twenty Minute VC",
+        "Business Wars podcast", "The Founders podcast", "Planet Money podcast",
+        "Freakonomics Radio", "The Indicator podcast", "Marketplace podcast",
+        "StartUp podcast Gimlet", "The GaryVee Audio Experience",
+        "Marketing School podcast", "The Marketing Millennials", "Duct Tape Marketing podcast",
+        "Real Estate Rockstars podcast", "BiggerPockets Real Estate Podcast",
+        "HR Happy Hour podcast", "Work Life with Adam Grant",
+        "Supply Chain Now podcast", "The Logistics of Logistics podcast",
+        "Sales Gravy podcast", "The Advanced Selling Podcast",
+        "Coaching for Leaders podcast", "The Leadership Podcast",
+        "Chad and Cheese podcast", "The SaaS Podcast", "This Week in Startups",
+    }
+    KNOWN_QUOTA_RATIO = 0.4  # au moins 40% du budget de qualification reserve aux "connus"
+    known_quota = max(1, round(MAX_QUALIFY * KNOWN_QUOTA_RATIO))
     MAX_PER_KEYWORD = 2
+
     to_qualify = []
     taken_per_keyword = {}
+
+    # Passe 1 : remplir le quota "connus" en priorite, round-robin entre EUX seulement.
+    known_pools = [(kw, pool) for kw, pool in by_keyword.items() if kw in KNOWN_KEYWORDS]
+    progress = True
+    while len(to_qualify) < known_quota and progress:
+        progress = False
+        for kw, pool in known_pools:
+            if not pool or taken_per_keyword.get(kw, 0) >= MAX_PER_KEYWORD:
+                continue
+            to_qualify.append(pool.pop(0))
+            taken_per_keyword[kw] = taken_per_keyword.get(kw, 0) + 1
+            progress = True
+            if len(to_qualify) >= known_quota:
+                break
+    log(f"Quota 'podcasts connus' : {len(to_qualify)}/{known_quota} candidats reserves avant le round-robin general.")
+
+    # Passe 2 : round-robin general (comme avant) sur TOUS les mots-cles, y compris les
+    # "connus" restants, pour completer jusqu'a MAX_QUALIFY.
     keyword_pools = list(by_keyword.items())
     progress = True
     while len(to_qualify) < MAX_QUALIFY and progress:
