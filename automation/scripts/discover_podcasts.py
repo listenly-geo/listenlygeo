@@ -42,7 +42,7 @@ GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "").strip()
 GITHUB_REPOSITORY = os.environ.get("GITHUB_REPOSITORY", "listenly-geo/listenlygeo").strip()
 CANDIDATE_LABEL = "candidate"
 COUNTRIES = [c.strip() for c in os.environ.get("DISCOVERY_COUNTRIES", "us").split(",") if c.strip()]  # US uniquement par defaut (01/09/2026) -- 8 pays generaient trop de requetes (429 Too Many Requests) et diluaient le budget de qualification sans reel gain de diversite
-MAX_QUALIFY = int(os.environ.get("DISCOVERY_MAX_QUALIFY", "15"))
+MAX_QUALIFY = int(os.environ.get("DISCOVERY_MAX_QUALIFY", "10"))
 KEYWORDS_FILE = os.environ.get(
     "DISCOVERY_KEYWORDS_FILE", "automation/data/discovery_keywords.json"
 )
@@ -339,7 +339,11 @@ def main():
         "Coaching for Leaders podcast", "The Leadership Podcast",
         "Chad and Cheese podcast", "The SaaS Podcast", "This Week in Startups",
     }
-    KNOWN_QUOTA_RATIO = 0.4  # au moins 40% du budget de qualification reserve aux "connus"
+    # Fix du 09/09/2026 (demande directe) : 100% du budget reserve aux podcasts connus/etablis
+    # -- la niche B2B (chemin A) n'est plus recherchee par defaut sur ce mode, uniquement les
+    # podcasts business connus deja identifies (chemin B). Reste ajustable via env var si besoin
+    # de revenir a un mix (ex: 0.4 pour 40% connu / 60% niche comme avant).
+    KNOWN_QUOTA_RATIO = float(os.environ.get("DISCOVERY_KNOWN_RATIO", "1.0"))
     known_quota = max(1, round(MAX_QUALIFY * KNOWN_QUOTA_RATIO))
     MAX_PER_KEYWORD = 2
 
