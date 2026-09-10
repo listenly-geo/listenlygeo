@@ -623,6 +623,16 @@ def add_listenly_footer_link(html, podcast_name, listenly_url):
         return html.replace("</body>", link + "</body>", 1)
     return html + link
 
+def add_plausible_script(html):
+    """Injecte le script Plausible (variante tagged-events, necessaire pour que les classes
+    CSS plausible-event-name=... soient captees comme Custom Events) avant </head>. Deterministe
+    en Python, jamais laisse au LLM -- ce script ne varie jamais, aucune raison de risquer une
+    faute de frappe ou un oubli cote generation."""
+    script = '\n<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>\n'
+    if "</head>" in html:
+        return html.replace("</head>", script + "</head>", 1)
+    return script + html
+
 def add_breadcrumb_jsonld(html, podcast_name, categorie, cat_slug, fiche_url):
     """Injecte un BreadcrumbList JSON-LD (Listenly > Podcasts B2B > Categorie > Podcast).
     Calcule via cat_slug deja connu cote Python -> toujours coherent avec les vraies pages,
@@ -2060,6 +2070,7 @@ def main():
     meta["episode_cta_target"] = EPISODE_CTA_TARGET
     cat_slug = category_slug(meta["categorie"])
     html_out = add_breadcrumb_jsonld(html_out, meta["podcast_name"], meta["categorie"], cat_slug, fiche_url)
+    html_out = add_plausible_script(html_out)
     html_out = add_listenly_footer_link(html_out, meta["podcast_name"], LISTENLY_URL)
 
     with open(out_file, "w", encoding="utf-8") as f:
