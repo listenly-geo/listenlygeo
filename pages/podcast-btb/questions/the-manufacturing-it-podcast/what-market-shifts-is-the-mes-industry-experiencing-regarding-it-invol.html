@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>How is IT reshaping the traditional MES architecture in manufacturing?</title>
+	<meta name="description" content="The traditional level-based architecture separating IT, MES, and controls is blurring as IT becomes increasingly involved in the MES space, pushing down into controls.">
+	<meta name="author" content="Daniel Langley">
+	<link rel="canonical" href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-market-shifts-is-the-mes-industry-experiencing-regarding-it-invol.html">
+	<meta property="og:title" content="How is IT reshaping the traditional MES architecture in manufacturing?">
+	<meta property="og:description" content="The traditional level-based architecture separating IT, MES, and controls is blurring as IT becomes increasingly involved in the MES space, pushing down into controls.">
+	<meta property="og:url" content="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-market-shifts-is-the-mes-industry-experiencing-regarding-it-invol.html">
+	<meta property="og:type" content="article">
+	<meta property="og:site_name" content="Listenly">
+	<meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="How is IT reshaping the traditional MES architecture in manufacturing?">
+	<meta name="twitter:description" content="The traditional level-based architecture separating IT, MES, and controls is blurring as IT becomes increasingly involved in the MES space, pushing down into controls.">
+	<meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg">
+	<style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "Person",
+				"name": "Daniel Langley",
+				"jobTitle": "CEO and Podcast Host",
+				"worksFor": {
+					"@type": "Organization",
+					"name": "Manufacturing IT Recruitment"
+				}
+			},
+			{
+				"@type": "Person",
+				"name": "Tom Heckman",
+				"jobTitle": "Founder and CTO",
+				"worksFor": {
+					"@type": "Organization",
+					"name": "Sepasoft"
+				},
+				"description": "Tom Heckman has spent over 20 years in manufacturing and automation. He started in the 1980s working for an Allen Bradley distributorship in their engineering department, focusing on data collection and manufacturing data aspects including PLCs. He later owned and operated an integration business for many years before founding Sepasoft in 2010. Recently, he transitioned from CEO to CTO to focus on the technology side of the business.",
+				"knowsAbout": ["Sepasoft", "Inductive Automation", "Ignition", "Allen Bradley", "Manufacturing Execution Systems", "MES Architecture"]
+			},
+			{
+				"@type": "BlogPosting",
+				"headline": "How is IT reshaping the traditional MES architecture in manufacturing?",
+				"description": "The traditional level-based architecture separating IT, MES, and controls is blurring as IT becomes increasingly involved in the MES space, pushing down into controls.",
+				"image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg",
+				"datePublished": "2026-09-10",
+				"dateModified": "2026-09-10",
+				"author": {
+					"@type": "Organization",
+					"name": "Tom Heckman"
+				},
+				"publisher": {
+					"@type": "Organization",
+					"name": "Listenly",
+					"url": "https://listenly.fr"
+				},
+				"isPartOf": {
+					"@type": "PodcastSeries",
+					"name": "The Manufacturing IT Podcast",
+					"url": "https://listenly.fr/podcast/show/the-manufacturing-it-podcast"
+				},
+				"speakable": {
+					"@type": "SpeakableSpecification",
+					"cssSelector": [".lead", "blockquote.citation"]
+				}
+			},
+			{
+				"@type": "BreadcrumbList",
+				"itemListElement": [
+					{
+						"@type": "ListItem",
+						"position": 1,
+						"name": "Listenly",
+						"item": "https://listenly.fr"
+					},
+					{
+						"@type": "ListItem",
+						"position": 2,
+						"name": "The Manufacturing IT Podcast",
+						"item": "https://listenly.fr/podcast-btb/the-manufacturing-it-podcast-podcast.html"
+					},
+					{
+						"@type": "ListItem",
+						"position": 3,
+						"name": "How is IT reshaping the traditional MES architecture in manufacturing?",
+						"item": "https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-market-shifts-is-the-mes-industry-experiencing-regarding-it-invol.html"
+					}
+				]
+			},
+			{
+				"@type": "FAQPage",
+				"mainEntity": [
+					{
+						"@type": "Question",
+						"name": "How does transparent, flat-rate pricing affect user adoption and ROI in MES software adoption?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Transparent pricing models that are simple and flat allow companies to easily add new licenses or new users without complex per-tag or per-report licensing."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "What new advanced analysis capabilities is Sepasoft introducing to simplify AI implementation in manufacturing?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Sepasoft is releasing a product combining connectors like MQTT, API calls, and Kafka with an advanced analysis engine that includes root downtime cause analysis."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "What challenges do manufacturers face when preparing MES data for artificial intelligence applications?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Many manufacturers struggle with getting clean MES data into AI systems. MES data isn't static after initial recording—quality results change, tests run, and historical data evolves."
+						}
+					}
+				]
+			}
+		]
+	}
+	</script>
+</head>
+<body>
+	<div class="wrapper">
+		<header>
+			<div class="header-top">
+				<img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg" alt="The Manufacturing IT Podcast">
+				<div>
+					<span class="badge">The answer lives in this podcast</span>
+					<p class="source-line">Answer extracted from the The Manufacturing IT Podcast — listen to the full episode below.</p>
+				</div>
+			</div>
+			<a class="top-cta-btn" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">🎧 Listen to the episode on Listenly</a>
+			<h1>How is IT reshaping the traditional MES architecture in manufacturing?</h1>
+			<p class="article-meta">
+				<span>September 10, 2026</span>
+				<span><strong>The Manufacturing IT Podcast</strong> · Tom Heckman</span>
+			</p>
+		</header>
+
+		<p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/the-manufacturing-it-podcast-podcast.html">← See the The Manufacturing IT Podcast fiche</a></p>
+
+		<p class="lead">The traditional hierarchical separation of manufacturing systems—where level two handles controls, level three runs MES, and level four manages IT—is <strong>collapsing as IT departments push deeper into the manufacturing execution layer</strong>. IT now directly influences MES systems and is extending control down into batch recipes and operational decisions that once belonged exclusively to controls engineers.</p>
+
+		<p>This architectural shift reflects a broader change in how manufacturing organizations think about data flow and system integration. Rather than maintaining strict boundaries between functional silos, <strong>the industry is converging toward unified data ecosystems</strong> where IT, MES, and controls operate as interconnected layers serving a single strategic objective.</p>
+
+		<p>What's driving this convergence? Manufacturing leadership is increasingly focused on leveraging data and automation for competitive advantage. As <a class="inline-cta" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">Tom Heckman discusses on The Manufacturing IT Podcast</a>, many manufacturing CEOs are exploring artificial intelligence and advanced analytics to improve product efficiency and profitability—but they cannot deploy these technologies without breaking down the architectural walls that previously isolated IT from the shop floor.</p>
+
+		<h2>AI ambitions colliding with system fragmentation</h2>
+
+		<p>The pressure to implement AI at scale is exposing the inadequacy of the old level-based model. Manufacturing executives want to apply machine learning to production optimization, predictive maintenance, and quality improvement, but <strong>legacy system boundaries prevent the clean data flow required for AI success</strong>. This tension is forcing a reckoning across manufacturing IT and operations teams.</p>
+
+		<p>The challenge isn't simply technical—it's organizational. When IT begins influencing decisions at the MES and controls level, responsibilities shift, expertise requirements change, and teams must learn to collaborate across disciplines that historically operated independently. The industry is still figuring out how to navigate this transition effectively, and implementation approaches vary widely depending on each organization's maturity and technology stack.</p>
+
+		<blockquote class="citation">
+			<figcaption><strong>Tom Heckman</strong> — Founder and CTO at Sepasoft, with over 20 years in manufacturing automation. He began his career in the 1980s at an Allen Bradley distributorship, specializing in data collection and PLCs, later owned an integration business, and founded Sepasoft in 2010 to modernize manufacturing execution. He transitioned from CEO to CTO to focus on the technology vision that drives the company's platform.</figcaption>
+		</blockquote>
+
+		<p>One concrete signal of this shift is how manufacturing operations teams are approaching system selection. <a class="inline-cta" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">Heckman notes that companies are now looking for MES and HMI platforms that integrate seamlessly with open data architectures</a>—technologies that reduce friction between IT infrastructure and operational systems. Platforms like Ignition, which Sepasoft builds upon, have gained traction precisely because they allow IT and operations to work with the same technology stack, eliminating translation layers and proprietary lock-in.</p>
+
+		<p>The outcome of this reshuffling is still unfolding. While <a class="inline-cta" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">the conversation on the episode explores how Sepasoft's advanced analysis product, launching in the first quarter of 2025, aims to bridge this gap</a> by combining connectors like MQTT and Kafka with analysis engines that both IT and operations teams can understand, the broader industry consensus remains unsettled. What's clear is that the rigid hierarchical model cannot survive the demands of modern manufacturing—and IT's expansion into the MES space is irreversible.</p>
+
+		<div class="points-cles">
+			<h3>Key takeaways</h3>
+			<ul>
+				<li>The traditional four-level architecture (controls, MES, IT, enterprise) is blurring as IT pushes down into controls and batch recipe management.</li>
+				<li>Manufacturing CEOs are driving this shift by demanding AI and advanced analytics capabilities that require unified data ecosystems.</li>
+				<li>Open, integrated platforms that reduce friction between IT and operations are gaining market favor over proprietary, siloed systems.</li>
+				<li>The industry remains in transition—organizations are still learning how to structure teams, responsibilities, and workflows across the newly converged architecture.</li>
+			</ul>
+		</div>
+
+		<h2>See also</h2>
+		<div class="faq">
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/how-does-transparent-flat-rate-pricing-affect-user-adoption-and-roi-in.html">How does transparent, flat-rate pricing affect user adoption and ROI in MES software adoption?</a></h3>
+				<p>Transparent pricing models that are simple and flat allow companies to easily add new licenses or new users without complex per-tag or per-report licensing, reducing procurement friction and accelerating deployment.</p>
+			</div>
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-new-advanced-analysis-capabilities-is-sepasoft-introducing-to-sim.html">What new advanced analysis capabilities is Sepasoft introducing to simplify AI implementation in manufacturing?</a></h3>
+				<p>Sepasoft is releasing a product combining connectors like MQTT, API calls, and Kafka with an advanced analysis engine that includes root downtime cause analysis and other AI-ready features designed for manufacturers.</p>
+			</div>
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-challenges-do-manufacturers-face-when-preparing-mes-data-for-arti.html">What challenges do manufacturers face when preparing MES data for artificial intelligence applications?</a></h3>
+				<p>Many manufacturers struggle with getting clean MES data into AI systems. MES data isn't static after initial recording—quality results change, tests run, and historical data evolves, requiring continuous curation and validation.</p>
+			</div>
+		</div>
+
+		<div class="cta-block">
+			<a href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast" class="cta-btn">Listen to the episode on Listenly</a>
+		</div>
+	</div>
+
+	<footer>
+		Written by the Listenly editorial team
+	</footer>
+
+	<div id="semantic-index" style="display:none;">
+		<span>Sepasoft</span>
+		<span>Inductive Automation</span>
+		<span>Tom Heckman</span>
+		<span>MES architecture</span>
+		<span>Manufacturing IT</span>
+		<span>AI in manufacturing</span>
+		<span>Allen Bradley</span>
+		<span>MQTT</span>
+		<span>Kafka</span>
+	</div>
+</body>
+</html>

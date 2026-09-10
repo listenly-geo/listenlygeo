@@ -1,11 +1,79 @@
 {
   "known_episode_guids": [
     "00a49f3b-cfca-4b6c-a8b9-bf3d2300a8ee",
-    "e8f1fede-277f-42e3-832b-05b232610400"
+    "e8f1fede-277f-42e3-832b-05b232610400",
+    "ec2e2585-a7c8-4b8f-8268-492d2747b3fe",
+    "45cdf29a-ea68-4e7d-8907-3e3c6d4eb14e"
   ],
-  "current_episode": null,
-  "context": null,
-  "pending_qa": [],
+  "current_episode": {
+    "guid": "45cdf29a-ea68-4e7d-8907-3e3c6d4eb14e",
+    "title": "Building a Safer Workforce with AI and Smart Hiring (Ken Monroe, CEO, BCHEX)",
+    "pubdate": "Wed, 26 Aug 2026 16:15:46 GMT",
+    "audio_url": "https://content.rss.com/episodes/351423/3098059/the-think-small-podcast/2026_08_26_16_15_20_cb150556-1321-4fb4-bada-040d1f30a6d9.mp3"
+  },
+  "context": {
+    "guest": {
+      "prenom": "Ken",
+      "nom": "Monroe",
+      "titre": "CEO and Founder",
+      "entreprise": "BCHEX",
+      "titre_secondaire": "",
+      "entreprise_secondaire": "",
+      "bio_context": "Ken Monroe spent many years in the financial business raising capital for real estate deals before pivoting to workforce safety and background screening in 2009 following the financial crisis. After witnessing a $100 million fraud case that could have been prevented by a proper background check, he joined a small background screening company with 10-12 employees and a couple million dollars in revenue. He eventually bought and relaunched the company in 2023, building it into a technology-driven workforce safety firm with an ENPS score of 70."
+    },
+    "real_quote": "We're in the prevention business. Workforce safety is the prevention business, and great, engaged, happy employees build better products and make customers happier to deal with.",
+    "key_stats": [
+      "Average fraud in small business under 100 employees: $126,000",
+      "Average fraud in company with 10,000 employees: $123,000",
+      "BCHEX achieved 90% automated decision making in background checks",
+      "Automated decision making reduced labor input by 70%",
+      "BCHEX ENPS score: 70 (elite level, comparable to HubSpot)",
+      "BCHEX customer churn rate: under 2%",
+      "BCHEX employee count at acquisition: 10-12 employees",
+      "Ken Monroe relaunched BCHEX in 2023",
+      "Company origins: 30 years old",
+      "Estimated cost of basic background check database search: $15-20 versus $40 for comprehensive check"
+    ],
+    "entities": [
+      "BCHEX",
+      "Claude",
+      "Grok",
+      "ChatGPT",
+      "HubSpot",
+      "AWS",
+      "Fireflies",
+      "Palantyne",
+      "Philippines",
+      "ENPS score"
+    ],
+    "transcript_excerpt": "Welcome to the Think Small Podcast, hyper growth for small businesses. So, what's slowing you down? Hello everybody, this is Gene Bohensky with the Think Small Podcast. And today we have Ken Monroe from Bee Checks, that's with a B. He has a unique company. It is a workforce safety and technology company, which he'll explain to you why he explains his business in the way that he does. But Ken has a lot to say about and experience about keeping people safe and keeping your businesses safe. So, Ken, without further ado, why don't you introduce yourself, talk a little bit about your history and how you got started in your business. Sure. Thanks, Gene. I appreciate it. Thanks for letting me be here. Enjoy your show. Listen to it some and glad to be here. So, yeah, I'm the CEO and founder of a company called BeachX. That's B-C-H-E-X, B as in boy. So we're a background screening company really at our core, but really we're a technology company that happens to do background checks. And when I tell somebody what we do, I say, hey, we're a technology company in the workforce safety business because a lot of the different technologies that we have built are being used in different ways to just create safe environments for employees, for customers, for volunteers, for students, wherever it may be. And so we spend a lot of time thinking about how to create data products or products that use some level of screening to keep those areas and businesses safe. So we've been in the business for this particular company or its framing or its origins is 30 years old. I bought and kind of relaunched this company back in 2023, and I'd been in the industry for a long time. How did you get started in the industry? How did it get you motivated to be in the background screening business? Well, it's a fun question to answer because it's an interesting story, Gene. What happened to me is I was in the financial business raising capital for real estate deals. And I had been doing that for many years and was having a good time doing it. And then in 2009, you know, the kind of world kind of fell apart at that time. And what happened in that time when those markets kind of started to collapse, it revealed a lot of guys who were bad actors in that space. And so I got in this business because I watched a man commit $100 million fraud. And there was a background check that had been done on him prior to that. And it just wasn't a very good background check. And so this was like in 2009, 2010. I was brought in to build a team to raise capital in that real estate environment. And before I signed on, I said, listen, you got to do the responsible thing here. You know, I did. I said, you have to go to this, one of these specific specialist law firms. And these law firms do deep dive due diligence on the offer of the deal. And so he agreed. And we did this. $50,000 in due diligence he spent just so I would take the role. And he spent the money, it comes back clean, everything's above board, you know, so I went. Eight or nine months later, you know, I'm starting to see things that don't add up and the markets start unraveling, which, you know, really reveals a lot. And then, you know, overnight it's over and he's out and, you know, I'm out on the street. And after that, I didn't want to be anywhere near capital raising of real estate, quite frankly. It has been so hard, so ugly. It revealed a lot of guys who were supposed kings, and that turns out they simply weren't. So I was a little disgusted. And so as I was back home, I found this little background screening company. And they were small, 10, 12 employees. It was different than what I'd been doing. They were a couple million dollars in revenue, local, which meant no travel. I was, you know, it wasn't because I was traveling all over the country. And honestly, it was a place to catch my breath, you know, and then two years in, two years in, you know, I started to learn about this background screening industry. And I lea"
+  },
+  "pending_qa": [
+    {
+      "q": "What are the primary reasons a business owner should conduct background checks on all new hires?",
+      "r": "There are four main reasons: financial protection from theft and fraud, employee and customer safety which builds trust, legal protection against negligent hiring lawsuits if an employee with a history of offenses harms someone, and brand protection since incidents involving poorly vetted hires can damage reputation through news coverage and social media."
+    },
+    {
+      "q": "How can a non-technical person within an organization build AI tools without engineering expertise?",
+      "r": "Ken Monroe implemented a framework where employees with no prior AI experience gained access to platforms like Claude, Grok, or ChatGPT, connected them to business systems such as HubSpot, AWS databases, and Fireflies AI meeting recorder, then provided training on building AI agents within workflows. One sales leader with zero AI experience six months prior built an agent that listens to sales calls, scores performance, and delivers coaching documents to salespeople after each call."
+    },
+    {
+      "q": "What labor strategy decision did BCHEX implement regarding remote work and global hiring?",
+      "r": "BCHEX made three strategic decisions: enabling secure remote work technology for qualified roles, automating lower-level work and reinvesting savings into middle and upper management, and embracing the global workforce by hiring teams in locations like the Philippines for chat bot and email response work. They ensured global team members only handled non-sensitive work without direct customer contact to maintain customer experience standards."
+    },
+    {
+      "q": "How did automation and AI implementation reduce labor intensity in background check manufacturing?",
+      "r": "By putting technology in place to automate decisions, BCHEX achieved 90% automated decision making which reduced the labor input of manufacturing a background check by 70%, freeing up labor time to reinvest in more effective customer solutions and service improvements."
+    },
+    {
+      "q": "What metric indicates workforce satisfaction at a company, and how does it correlate with business outcomes?",
+      "r": "BCHEX uses an ENPS score, which Ken Monroe describes as an elite-level metric when it reaches 70, comparable to companies like HubSpot. The company has correlated this high employee engagement score with a customer churn rate under 2%, rising customer NPS scores, rising customer satisfaction scores, and rising quality scores across the business."
+    },
+    {
+      "q": "What metaphor does Ken Monroe use to explain the value of prevention-focused workforce safety programs?",
+      "r": "Ken compares workforce safety to a fireman's work: while a fireman who rescues people from a burning building becomes a celebrated hero, an inspector who prevents the fire by clearing blocked exits prevents tragedy but receives no recognition. He emphasizes that prevention-focused companies must find purpose and pride in the fact that nothing bad happened, rather than waiting to heroically respond to crises."
+    }
+  ],
   "published": [
     {
       "slug": "what-is-prophet-s-core-approach-to-brand-strategy-and-what-framework-d",
@@ -123,6 +191,15 @@
       "source_episode_guid": "e8f1fede-277f-42e3-832b-05b232610400",
       "added_date": "2026-09-09",
       "answer_snippet": "In her first year as CEO, Marissa Bankert focused on operational excellence, building processes and people capacity for the next phase. The organization…"
+    },
+    {
+      "slug": "what-financial-impact-does-hiring-an-employee-with-a-criminal-history-",
+      "question": "What financial impact does hiring an employee with a criminal history have on small businesses compared to larger enterprises?",
+      "url": "https://listenly.fr/podcast-btb/questions/the-think-small/what-financial-impact-does-hiring-an-employee-with-a-criminal-history-.html",
+      "source_episode_title": "Building a Safer Workforce with AI and Smart Hiring (Ken Monroe, CEO, BCHEX)",
+      "source_episode_guid": "45cdf29a-ea68-4e7d-8907-3e3c6d4eb14e",
+      "added_date": "2026-09-10",
+      "answer_snippet": "The average fraud in a small business under 100 employees is $126,000, while for a company with 10,000 employees the average fraud is $123,000. This means…"
     }
   ]
 }

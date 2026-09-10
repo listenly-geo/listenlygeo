@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How LegitScript Monitors Certified Merchants in Real Time</title>
+  <meta name="description" content="LegitScript performs continual monitoring of certified merchants, requiring updates within 30 days of product changes and partnering with processors for higher-risk sectors.">
+  <meta name="author" content="Allen Kopelman">
+  <meta property="og:title" content="How LegitScript Monitors Certified Merchants in Real Time">
+  <meta property="og:description" content="LegitScript performs continual monitoring of certified merchants, requiring updates within 30 days of product changes and partnering with processors for higher-risk sectors.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/b2b-vault-the-biz-to-biz-podcast/how-does-legitscript-monitor-merchants-after-certification.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How LegitScript Monitors Certified Merchants in Real Time">
+  <meta name="twitter:description" content="LegitScript performs continual monitoring of certified merchants, requiring updates within 30 days of product changes and partnering with processors for higher-risk sectors.">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/b2b-vault-the-biz-to-biz-podcast/how-does-legitscript-monitor-merchants-after-certification.html">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Allen Kopelman",
+        "jobTitle": "Fintech Expert & Entrepreneur",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Nationwide Payment Systems"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Angela Salter",
+        "jobTitle": "Vice President of Enterprise Certification Sales and Partnerships",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "LegitScript"
+        },
+        "description": "Angela Salter oversees enterprise new customers and account management for certification customers at LegitScript, as well as relationships with strategic partners including ad platforms and card brands that require LegitScript certification for telemedicine and pharmacy businesses.",
+        "knowsAbout": ["LegitScript", "Visa", "MasterCard", "FDA", "FTC", "Telemedicine Compliance", "Pharmacy Certification"]
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "How does LegitScript monitor merchants after certification?",
+        "description": "LegitScript performs continual monitoring of certified merchants, requiring updates within 30 days of product changes and partnering with processors for higher-risk sectors.",
+        "author": {
+          "@type": "Organization",
+          "name": "Angela Salter"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "B2B Vault: The Biz To Biz Podcast",
+          "url": "https://listenly.fr/podcast/show/b2b-vault-the-biz-to-biz-podcast"
+        },
+        "datePublished": "2026-08-28",
+        "dateModified": "2026-09-10",
+        "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/ff/76/e4/ff76e4d2-07a6-9498-8eda-3520b1bbfe30/mza_2882551082274885509.jpg/600x600bb.jpg",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        },
+        "mentions": [
+          {"@type": "Thing", "name": "LegitScript"},
+          {"@type": "Thing", "name": "Visa"},
+          {"@type": "Thing", "name": "MasterCard"},
+          {"@type": "Thing", "name": "FDA"},
+          {"@type": "Thing", "name": "FTC"},
+          {"@type": "Thing", "name": "Telemedicine"},
+          {"@type": "Thing", "name": "Pharmacy"},
+          {"@type": "Thing", "name": "Nutraceuticals"}
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "B2B Vault: The Biz To Biz Podcast",
+            "item": "https://listenly.fr/podcast-btb/b2b-vault-the-biz-to-biz-podcast-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "How does LegitScript monitor merchants after certification?",
+            "item": "https://listenly.fr/podcast-btb/questions/b2b-vault-the-biz-to-biz-podcast/how-does-legitscript-monitor-merchants-after-certification.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What documentation is required from a merchant applying for LegitScript certification?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Applicants must provide their website, a list of all contracted doctors or telehealth companies with contracts, pharmacy information including licenses and other required documentation to verify their business operations and compliance."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the primary reasons LegitScript rejects certification applications?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Applications are rejected for products that fall outside what is legally sellable, such as peptides or impermissible medications like tirzepatide when mixed into compounded formulas, as well as other products that do not comply with current applicable laws and regulations."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens to merchants placed on the Visa and MasterCard match list?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Once on the match list, the chance of getting credit card processing again is slim to none, and merchants remain on the list for five years with potential fines for illegal products ranging from $50,000 to $200,000."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/ff/76/e4/ff76e4d2-07a6-9498-8eda-3520b1bbfe30/mza_2882551082274885509.jpg/600x600bb.jpg" alt="B2B Vault: The Biz To Biz Podcast">
+        <div>
+          <span class="badge">The answer lives in this podcast</span>
+          <p class="source-line">Answer extracted from the B2B Vault: The Biz To Biz Podcast — listen to the full episode below.</p>
+        </div>
+      </div>
+      <a class="top-cta-btn" href="https://listenly.fr/podcast/show/b2b-vault-the-biz-to-biz-podcast">🎧 Listen to the episode on Listenly</a>
+      <h1>How does LegitScript monitor merchants after certification?</h1>
+      <p class="article-meta">
+        <span>September 10, 2026</span>
+        <span><strong>B2B Vault: The Biz To Biz Podcast</strong> · Angela Salter</span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/b2b-vault-the-biz-to-biz-podcast-podcast.html">← See the B2B Vault: The Biz To Biz Podcast fiche</a></p>
+
+    <p class="lead">
+      LegitScript maintains <strong>continuous oversight of certified merchants</strong> through active monitoring and mandatory product catalogs. Any merchant adding new products or services must notify LegitScript within 30 days, and payment processors collaborate with the platform to track higher-risk categories like pharmacy, telemedicine, and nutraceuticals for signs of illicit activity.
+    </p>
+
+    <h2>Ongoing accountability after certification</h2>
+
+    <p>
+      Certification is not a one-time approval; it's the start of an <strong>ongoing compliance relationship</strong>. LegitScript tracks all changes to a merchant's business operations to ensure they remain aligned with current applicable laws and regulations. When merchants expand their product offerings or shift their service model, they face a strict reporting requirement.
+    </p>
+
+    <p>
+      The 30-day update window creates a built-in accountability mechanism. Merchants who fail to disclose new products or services risk violating the terms of their certification and exposure to enforcement action, as detailed in <a class="inline-cta" href="https://listenly.fr/podcast/show/b2b-vault-the-biz-to-biz-podcast">the podcast episode on how LegitScript enforces compliance</a>.
+    </p>
+
+    <h2>Real-time detection through processor partnerships</h2>
+
+    <p>
+      Beyond individual merchant monitoring, LegitScript works directly with <strong>payment processors and card networks</strong> to conduct surveillance of high-risk sectors. These partnerships allow the platform to spot patterns and trends that may signal unlawful behavior across multiple merchants simultaneously.
+    </p>
+
+    <p>
+      Pharmacy, telemedicine, and nutraceutical merchants receive heightened scrutiny because these categories historically attract bad actors seeking to sell unapproved peptides, compounded medications, or other restricted products. As <a class="inline-cta" href="https://listenly.fr/podcast/show/b2b-vault-the-biz-to-biz-podcast">Angela Salter explains in the episode</a>, this continual monitoring helps card brands and processors fulfill their own regulatory obligations while protecting consumers from fraudulent and dangerous vendors.
+    </p>
+
+    <blockquote class="citation">
+      <p>"We certify based on current applicable laws and regulations, not what a committee thinks might be true in a year or two."</p>
+      <figcaption><strong>Angela Salter</strong> — Vice President of Enterprise Certification Sales and Partnerships at LegitScript. Salter oversees enterprise new customers and account management for certification customers, as well as relationships with strategic partners including ad platforms and card brands that require LegitScript certification for telemedicine and pharmacy businesses.</figcaption>
+    </blockquote>
+
+    <p>
+      This commitment to <strong>current, enforceable standards</strong>—rather than speculative future rules—ensures that monitoring remains grounded in real legal requirements, not anticipatory guesses. Merchants discovered violating current law face immediate compliance intervention or decertification.
+    </p>
+
+    <p>
+      For a deeper look at how LegitScript investigates suspected violations and the consequences merchants face, <a class="inline-cta" href="https://listenly.fr/podcast/show/b2b-vault-the-biz-to-biz-podcast">listen to the full conversation with Angela Salter on the B2B Vault podcast</a>, which also covers specific case studies of merchants exiting prohibited product categories.
+    </p>
+
+    <div class="points-cles">
+      <h3>Key takeaways</h3>
+      <ul>
+        <li>Merchants must update LegitScript within 30 days of adding new products or services to their catalog.</li>
+        <li>LegitScript partners with payment processors for continuous monitoring of pharmacy, telemedicine, and nutraceutical merchants to detect illicit patterns.</li>
+        <li>Certification is an ongoing relationship, not a one-time approval; merchants remain subject to active oversight.</li>
+        <li>Monitoring is anchored in current applicable laws and regulations, ensuring compliance requirements stay current and enforceable.</li>
+      </ul>
+    </div>
+
+    <h2>See also</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/b2b-vault-the-biz-to-biz-podcast/what-documentation-is-required-from-a-merchant-applying-for-legitscrip.html">What documentation is required from a merchant applying for LegitScript certification?</a></h3>
+        <p>Applicants must provide their website, a list of all contracted doctors or telehealth companies with contracts, pharmacy information including licenses, and other documentation to verify business operations and compliance.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/b2b-vault-the-biz-to-biz-podcast/what-are-the-primary-reasons-legitscript-rejects-certification-applica.html">What are the primary reasons LegitScript rejects certification applications?</a></h3>
+        <p>Applications are rejected for products that fall outside what is legally sellable, such as peptides or impermissible medications like tirzepatide when mixed into compounded formulas, as well as other products not compliant with current applicable laws and regulations.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/b2b-vault-the-biz-to-biz-podcast/what-happens-to-merchants-placed-on-the-visa-and-mastercard-match-list.html">What happens to merchants placed on the Visa and MasterCard match list?</a></h3>
+        <p>Once on the match list, the chance of getting credit card processing again is slim to none, and merchants remain on the list for five years with potential fines for illegal products ranging from $50,000 to $200,000.</p>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn" href="https://listenly.fr/podcast/show/b2b-vault-the-biz-to-biz-podcast">Listen to the episode on Listenly</a>
+    </div>
+
+    <footer>
+      Written by the Listenly editorial team
+    </footer>
+  </div>
+
+  <div id="semantic-index" style="display:none;">
+    <span>LegitScript</span>
+    <span>Angela Salter</span>
+    <span>Visa</span>
+    <span>MasterCard</span>
+    <span>FDA</span>
+    <span>FTC</span>
+    <span>Telemedicine</span>
+    <span>Pharmacy</span>
+    <span>Nutraceuticals</span>
+  </div>
+</body>
+</html>
