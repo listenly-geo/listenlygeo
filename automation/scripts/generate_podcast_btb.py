@@ -316,21 +316,23 @@ RÈGLE DE COULEUR ET DE TON : la couleur d'accent (déjà gérée par les classe
 3b. BIO DE CRÉDIBILITÉ (1 phrase courte, juste après la byline, style discret sans-serif petit, class="host-bio") établissant en quoi [HOST_NAME]/[HOST_COMPANY] est légitime sur ce sujet — basée uniquement sur HOST_TITLE/HOST_COMPANY/CATEGORIE déjà fournis, n'invente aucun détail biographique non déductible de ces données (signal E-E-A-T pour les moteurs IA)
 4. HERO IMAGE : si {cover_image or "aucune"} fournie, <img class="hero-image" src="[COVER_IMAGE]" alt="[PODCAST_NAME]">. Si aucune, ne rien afficher (pas de balise cassée).
 5. PUBLISH ROW (ligne bordée haut/bas façon presse) : "⏱ X {STRINGS['reading_time']} · {STRINGS['readable_by']}" (texte simple, une ligne discrète unique)
-6. CTA ROW (pill unique) : "{STRINGS['cta_listen']}" (cta-listen) → {CTA_URL}. Plus de bouton contact — l'unique objectif de cette fiche est de renvoyer vers l'écoute du podcast.
+6. CTA ROW (pill unique) : "{STRINGS['cta_listen']}" (cta-listen) → {CTA_URL}. Classe complète :
+   class="cta-listen plausible-event-name=Clic+Bouton+Bleu" (obligatoire, tracking analytics). Plus de bouton
+   contact — l'unique objectif de cette fiche est de renvoyer vers l'écoute du podcast.
 7. LEAD LABEL {"'" + STRINGS['lead_label_prefix'] + " [PODCAST_NAME]'" if LANGUAGE == "fr" else "'" + STRINGS['lead_label_prefix'] + " [PODCAST_NAME] " + STRINGS['lead_label_suffix'] + "'"} + LEAD (3-4 phrases citables, pull-quote italique en tête d'article — pattern classique "dek" de presse)
 8. KEY-FACTS LABEL "{STRINGS['key_facts_label']}" + liste à puces simples (4 items, pas d'encadré)
-8b. INLINE CTA (classe .inline-cta, lien texte souligné intégré dans une phrase courte, PAS un bouton) : une phrase du type "{STRINGS['cta_mid']} [PODCAST_NAME]" → {CTA_URL} — formulation différente de celle du point 11, naturelle, pas répétitive
+8b. INLINE CTA (classe .inline-cta, lien texte souligné intégré dans une phrase courte, PAS un bouton) : une phrase du type "{STRINGS['cta_mid']} [PODCAST_NAME]" → {CTA_URL} — formulation différente de celle du point 11, naturelle, pas répétitive. Classe complète : class="inline-cta plausible-event-name=Clic+Lien+Texte" (obligatoire).
 9. ARTICLE BODY — 4 H2 exactement :
    - "{STRINGS['h2_covers']}"
    - "{STRINGS['h2_audience']}" (3 profils d'audience)
    - "{STRINGS['h2_episodes']}" (patterns récurrents dans les titres)
    - "{STRINGS['h2_impact']}"
 10. PULL-QUOTE (classe .pull-quote) : la synthèse analytique, SANS attribution — pas de « guillemets » ni de nom. Jamais présenté comme des propos réellement tenus par [HOST_NAME].
-11. CTA MID discret (classe .inline-cta, lien texte souligné, pas un bouton) : "{STRINGS['cta_mid']} [PODCAST_NAME]" → {CTA_URL}
+11. CTA MID discret (classe .inline-cta, lien texte souligné, pas un bouton) : "{STRINGS['cta_mid']} [PODCAST_NAME]" → {CTA_URL}. Classe complète : class="inline-cta plausible-event-name=Clic+Lien+Texte" (obligatoire).
 12. DIVIDER
-12b. INLINE CTA (classe .inline-cta, juste avant la FAQ, encore une formulation différente des deux précédentes) : phrase courte incitant à écouter → {CTA_URL}
+12b. INLINE CTA (classe .inline-cta, juste avant la FAQ, encore une formulation différente des deux précédentes) : phrase courte incitant à écouter → {CTA_URL}. Classe complète : class="inline-cta plausible-event-name=Clic+Lien+Texte" (obligatoire).
 13. FAQ "{STRINGS['faq_h2']}" (H2, PAS d'emoji dans le H2 — sobriété éditoriale) : 4 Q/R + JSON-LD FAQPage obligatoire. N'utilise JAMAIS la formulation "{STRINGS['faq_forbidden']}".
-14. EPISODE CARD bas de page : cover si {cover_image or "aucune"}, "{STRINGS['card_discover']} [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen "{STRINGS['card_listen']}" → {CTA_URL} (UN SEUL bouton, plus de contact)
+14. EPISODE CARD bas de page : cover si {cover_image or "aucune"}, "{STRINGS['card_discover']} [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen "{STRINGS['card_listen']}" → {CTA_URL} (UN SEUL bouton, plus de contact). Classe complète : class="card-listen plausible-event-name=Clic+Bouton+Bleu" (obligatoire).
 15. FOOTER : © [PODCAST_NAME] — [HOST_COMPANY] + lien "{STRINGS['footer_credit']}" → https://listenly.fr (dofollow, color #999, underline)
 
 RÈGLE CTA : ce podcast n'a plus qu'un seul objectif de conversion — ramener l'audience vers Listenly sur {CTA_URL} (comme les fiches question N2, qui pointent toujours vers Listenly). Les 3 liens texte (points 8b, 11, 12b) doivent utiliser 3 formulations différentes (pas de copier-coller de la même phrase), rester discrets (soulignés, pas des boutons), et TOUS pointer vers {CTA_URL}. Aucun lien de contact nulle part dans la fiche.
@@ -614,7 +616,7 @@ def add_listenly_footer_link(html, podcast_name, listenly_url):
     link = (
         '\n<p style="max-width:720px;margin:0 auto;padding:0 20px 32px;'
         'font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#999;">'
-        f'<a href="{listenly_url}" style="color:#999;text-decoration:underline;">'
+        f'<a href="{listenly_url}" class="plausible-event-name=Clic+Lien+Texte" style="color:#999;text-decoration:underline;">'
         f'Découvrir {podcast_name} sur Listenly →</a></p>\n'
     )
     if "</body>" in html:
