@@ -145,22 +145,23 @@ STRUCTURE DE LA PAGE (dans cet ordre exact) :
    concret de ce qui a été dit (style "Trois albums la même année — et pas d'étiquette", PAS "Plus de détails").
    Si le contexte n'apporte rien de plus que le lead, NE FORCE PAS de H2 — reste concis.
 
-CTA TEXTE INTÉGRÉS (OBLIGATOIRE — 3 à 5 occurrences, PAS UNE SEULE) : dissémine 3 à 5 liens <a class="inline-cta"
-href="[[LISTENLY_URL]]">...</a> à différents endroits du corps de l'article (développement, définition, avant/après
+CTA TEXTE INTÉGRÉS (OBLIGATOIRE — 3 à 5 occurrences, PAS UNE SEULE) : dissémine 3 à 5 liens <a class="inline-cta
+plausible-event-name=Clic+Lien+Texte" href="[[LISTENLY_URL]]">...</a> (classe complète obligatoire, tracking
+analytics) à différents endroits du corps de l'article (développement, définition, avant/après
 la citation, dans les points clés...), JAMAIS dans le <p class="lead"> (qui doit rester une réponse pure,
 extractible telle quelle par une IA). Chaque lien est une PHRASE NATURELLE qui fait référence au podcast ou à
 l'épisode — jamais un texte générique isolé du type "cliquez ici" ou "en savoir plus". Exemples de formulation
 (à adapter au contenu réel, ne pas copier tel quel) : "comme [[SPEAKER_NAME]] l'explique
-dans <a class="inline-cta" href="[[LISTENLY_URL]]">l'épisode</a>", "un point détaillé dans
-<a class="inline-cta" href="[[LISTENLY_URL]]">[[PODCAST_NAME]]</a>", "évoqué plus largement dans
-<a class="inline-cta" href="[[LISTENLY_URL]]">ce podcast</a>". Le lien fait TOUJOURS partie d'une phrase
+dans <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="[[LISTENLY_URL]]">l'épisode</a>", "un point détaillé dans
+<a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="[[LISTENLY_URL]]">[[PODCAST_NAME]]</a>", "évoqué plus largement dans
+<a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="[[LISTENLY_URL]]">ce podcast</a>". Le lien fait TOUJOURS partie d'une phrase
 grammaticalement naturelle, jamais un fragment de texte isolé ou souligné en dehors de son contexte de phrase.
 6. <div class="definition-box"> CONDITIONNEL : UNIQUEMENT si un terme technique central est explicitement défini
    dans le contexte réel fourni — jamais inventé. N'en ajoute pas si rien ne s'y prête.
 6bis. HOOK DE CURIOSITÉ (OBLIGATOIRE si le contexte le permet) : juste avant la citation (ou juste avant les
    points clés s'il n'y a pas de citation), UNE phrase qui évoque un détail concret et spécifique de l'épisode
    qui N'EST PAS développé sur cette fiche (une anecdote, une méthode précise, un autre chiffre, une autre partie
-   de la conversation) — formulée comme un lien <a class="inline-cta" href="[[LISTENLY_URL]]">...</a> naturel, un
+   de la conversation) — formulée comme un lien <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="[[LISTENLY_URL]]">...</a> naturel, un
    de plus parmi les 3-5 CTA déjà demandés. Objectif : donner une vraie raison d'écouter l'épisode complet, pas
    répéter ce qui est déjà dit sur la fiche. RÈGLE ABSOLUE : n'invente jamais ce détail — si le contexte fourni
    n'a réellement rien d'autre à offrir, ignore cette instruction plutôt que de forcer un hook creux.
@@ -186,8 +187,8 @@ grammaticalement naturelle, jamais un fragment de texte isolé ou souligné en d
    doit être déductible directement du contenu déjà présent sur la fiche.
    IMPORTANT (variation structurelle) : viser une majorité de fiches SANS ce bloc plutôt qu'avec — c'est
    l'exception qui ajoute de la valeur, pas la norme systématique.
-9. <div class="cta-block"> : UN SEUL bouton <a class="cta-btn">Écouter l'épisode sur Listenly</a> → [[LISTENLY_URL]]
-   (jamais Spotify, jamais l'audio brut) — en toute fin de page, après les points clés
+9. <div class="cta-block"> : UN SEUL bouton <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu">Écouter l'épisode sur Listenly</a> → [[LISTENLY_URL]]
+   (classe complète obligatoire, tracking analytics ; jamais Spotify, jamais l'audio brut) — en toute fin de page, après les points clés
 10. <footer> : une ligne discrète "Fiche rédigée par l'équipe éditoriale Listenly"
 - PAS de FAQ sur la question PRINCIPALE elle-même (une seule question par fiche, traitée en BlogPosting) — le
   bloc "Voir aussi" (si présent, cf. instruction ci-dessus, en <div class="faq"><h2> puis
@@ -285,22 +286,23 @@ PAGE STRUCTURE (in this exact order):
    concrete fragment of what was actually said (style "Three albums the same year — and no label", NOT "More
    details"). If the context adds nothing beyond the lead, DO NOT force an H2 — stay concise.
 
-INTEGRATED TEXT CTAs (MANDATORY — 3 to 5 occurrences, NOT JUST ONE): scatter 3 to 5 <a class="inline-cta"
-href="[[LISTENLY_URL]]">...</a> links across different parts of the article body (development, definition,
+INTEGRATED TEXT CTAs (MANDATORY — 3 to 5 occurrences, NOT JUST ONE): scatter 3 to 5 <a class="inline-cta
+plausible-event-name=Clic+Lien+Texte" href="[[LISTENLY_URL]]">...</a> links (full class mandatory, analytics
+tracking) across different parts of the article body (development, definition,
 before/after the quote, in the key takeaways...), NEVER inside the <p class="lead"> (which must stay a pure
 answer, extractable as-is by an AI). Each link is a NATURAL SENTENCE referencing the podcast or episode —
 never an isolated generic text like "click here" or "learn more". Example phrasings (adapt to the real
 content, don't copy verbatim): "as [[SPEAKER_NAME]] explains in
-<a class="inline-cta" href="[[LISTENLY_URL]]">the episode</a>", "a point detailed in
-<a class="inline-cta" href="[[LISTENLY_URL]]">[[PODCAST_NAME]]</a>", "discussed at length in
-<a class="inline-cta" href="[[LISTENLY_URL]]">this podcast</a>". The link is ALWAYS part of a grammatically
+<a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="[[LISTENLY_URL]]">the episode</a>", "a point detailed in
+<a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="[[LISTENLY_URL]]">[[PODCAST_NAME]]</a>", "discussed at length in
+<a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="[[LISTENLY_URL]]">this podcast</a>". The link is ALWAYS part of a grammatically
 natural sentence, never an isolated or underlined text fragment out of its sentence context.
 6. <div class="definition-box"> CONDITIONAL: ONLY if a central technical term is explicitly defined in the
    real context provided — never invented. Don't add one if nothing calls for it.
 6bis. CURIOSITY HOOK (MANDATORY if the context allows it): right before the quote block (or right before the key
    takeaways if there's no quote), ONE sentence that references a concrete, specific detail from the episode
    that is NOT covered on this fiche (an anecdote, a precise method, another number, another part of the
-   conversation) — phrased as a natural <a class="inline-cta" href="[[LISTENLY_URL]]">...</a> link, counted
+   conversation) — phrased as a natural <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="[[LISTENLY_URL]]">...</a> link, counted
    among the 3-5 CTAs already required. Goal: give a real reason to listen to the full episode, not repeat what
    the fiche already says. ABSOLUTE RULE: never invent this detail — if the provided context genuinely has
    nothing else to offer, skip this instruction rather than forcing a hollow hook.
@@ -325,8 +327,8 @@ natural sentence, never an isolated or underlined text fragment out of its sente
    directly deducible from content already present on the fiche.
    IMPORTANT (structural variation): aim for a majority of fiches WITHOUT this block rather than with it —
    it's the exception that adds value, not the systematic default.
-9. <div class="cta-block">: ONE SINGLE button <a class="cta-btn">Listen to the episode on Listenly</a> → [[LISTENLY_URL]]
-   (never Spotify, never the raw audio) — at the very end of the page, after the key takeaways
+9. <div class="cta-block">: ONE SINGLE button <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu">Listen to the episode on Listenly</a> → [[LISTENLY_URL]]
+   (full class mandatory, analytics tracking; never Spotify, never the raw audio) — at the very end of the page, after the key takeaways
 10. <footer>: one discreet line "Written by the Listenly editorial team"
 - NO FAQ on the MAIN question itself (one question per fiche, handled as BlogPosting) — the "See also"
   block (if present, per the instruction above, as <div class="faq"><h2> then <div class="faq-item"> per
@@ -777,7 +779,7 @@ est mince, reste bref plutôt que de meubler)."""
     cover_image = podcast.get('cover_image', '')
     source_line_text = STRINGS['source_line'].format(podcast_name=podcast['podcast_name'])
     top_cta_html = (
-        '<a class="top-cta-btn" href="' + listenly_url + '">🎧 ' + STRINGS['cta_listen'] + '</a>'
+        '<a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="' + listenly_url + '">🎧 ' + STRINGS['cta_listen'] + '</a>'
     )
     if cover_image:
         header_top_html = (
