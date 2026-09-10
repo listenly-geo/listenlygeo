@@ -152,6 +152,11 @@ def transcribe(audio_path, whisper_lang="fr"):
         body.extend(f"--{boundary}\r\nContent-Disposition: form-data; name=\"{name}\"\r\n\r\n{value}\r\n".encode("utf-8"))
     add_field("model", TRANSCRIPTION_MODEL)
     add_field("language", whisper_lang)
+    # Ajout du 09/09/2026 (prepare le futur module Knowledge Search) : verbose_json renvoie
+    # les segments avec leurs timestamps (start/end par segment), en plus du texte complet --
+    # meme cout, meme appel API, juste un format de reponse plus riche. Groq et OpenAI
+    # supportent tous les deux ce parametre de la meme facon (API compatible).
+    add_field("response_format", "verbose_json")
     body.extend(f"--{boundary}\r\nContent-Disposition: form-data; name=\"file\"; filename=\"{filename}\"\r\nContent-Type: audio/mpeg\r\n\r\n".encode("utf-8"))
     body.extend(audio_bytes)
     body.extend(f"\r\n--{boundary}--\r\n".encode("utf-8"))
@@ -175,8 +180,11 @@ def transcribe(audio_path, whisper_lang="fr"):
     except urllib.error.HTTPError as e:
         raise RuntimeError(f"Transcription erreur ({TRANSCRIPTION_PROVIDER}) {e.code}: {e.read()[:300]}")
     text = result.get("text", "").strip()
-    log(f"Transcription : {len(text)} chars")
-    return text
+    # Segments timestampes (liste de {start, end, text}) -- None si le provider ne les a pas
+    # renvoyes pour une raison quelconque (fallback silencieux, le texte complet reste dispo).
+    segments = result.get("segments")
+    log(f"Transcription : {len(text)} chars" + (f", {len(segments)} segments timestampes" if segments else ""))
+    return text, segments
 
 EXTRACT_REAL_QA_PROMPT = """Tu es un expert GEO (Generative Engine Optimization) pour podcasts B2B. Les moteurs IA (Perplexity, ChatGPT, Google AI Overviews) fonctionnent par récupération de fragments : ils retiennent en priorité les passages contenant des CITATIONS VERBATIM ATTRIBUÉES, des STATISTIQUES/CHIFFRES PRÉCIS, et des ENTITÉS NOMMÉES réelles — bien plus qu'un texte généraliste. Ton objectif est d'extraire ce matériel réel pour maximiser la citabilité, sans jamais inventer.
 
@@ -208,29 +216,57 @@ LANGUE DE SORTIE OBLIGATOIRE : rédige TOUS les champs texte (questions, répons
 
 Podcast : {podcast_name} | Épisode : {ep_title}
 
-TRANSCRIPTION :
+TRANSCRIPTION (avec repères de temps [MM:SS] au début de chaque segment) :
 \"\"\"{transcript}\"\"\"
 
 Réponds UNIQUEMENT avec un JSON, sans markdown, sans backtick :
 {{
   "guest": {{"prenom": "...", "nom": "...", "titre": "...", "entreprise": "...", "titre_secondaire": "...", "entreprise_secondaire": "...", "bio_context": "..."}},
   "qa": [
-    {{"q": "Question reelle reformulee comme requete IA", "r": "Reponse 2-3 phrases tiree fidelement de la transcription"}},
-    {{"q": "...", "r": "..."}}
+    {{"q": "Question reelle reformulee comme requete IA", "r": "Reponse 2-3 phrases tiree fidelement de la transcription", "start_seconds": 154, "end_seconds": 210}},
+    {{"q": "...", "r": "...", "start_seconds": 0, "end_seconds": 0}}
   ],
   "real_quote": "citation verbatim ou chaine vide",
   "key_stats": ["chiffre/date/seuil precis 1", "..."],
   "entities": ["entite nommee reelle 1", "..."]
-}}"""
+}}
 
-def extract_real_qa(transcript, ep, podcast):
+Pour start_seconds/end_seconds : en secondes, deduits des reperes [MM:SS] du segment ou cette
+question est posee et ou la reponse se termine. Si aucun repere de temps n'est present dans la
+transcription (pas de timestamps), renvoie 0 pour les deux -- ne les invente jamais."""
+
+def build_timestamped_transcript(transcript, segments, max_chars=28000):
+    """Construit une version du transcript prefixee de reperes [MM:SS] par segment, pour que
+    Claude puisse deduire des timestamps approximatifs par question. Fallback sur le texte brut
+    (sans reperes) si les segments sont absents -- le reste du pipeline continue de fonctionner
+    normalement, juste sans timestamps (start_seconds/end_seconds renverront alors 0)."""
+    if not segments:
+        return transcript[:max_chars]
+    lines = []
+    total_chars = 0
+    for seg in segments:
+        start = seg.get("start", 0)
+        text = (seg.get("text") or "").strip()
+        if not text:
+            continue
+        mm, ss = divmod(int(start), 60)
+        line = f"[{mm:02d}:{ss:02d}] {text}"
+        if total_chars + len(line) > max_chars:
+            break
+        lines.append(line)
+        total_chars += len(line)
+    return "\n".join(lines)
+
+
+def extract_real_qa(transcript, ep, podcast, segments=None):
     log("Extraction identite invite + vraies questions/reponses + citation + stats + entites depuis le transcript...")
     lang_code = podcast.get("language", "fr")
     output_language = "ANGLAIS (English)" if lang_code == "en" else "FRANÇAIS"
+    transcript_for_prompt = build_timestamped_transcript(transcript, segments)
     prompt = EXTRACT_REAL_QA_PROMPT.format(
         podcast_name=podcast["podcast_name"],
         ep_title=ep["title"],
-        transcript=transcript[:28000],
+        transcript=transcript_for_prompt,
         output_language=output_language,
     )
     raw = call_claude(prompt)
@@ -272,6 +308,36 @@ def extract_real_qa(transcript, ep, podcast):
     log(f"{len(key_stats)} statistique(s)/chiffre(s) reel(s), {len(entities)} entite(s) nommee(s) reelle(s)")
     return guest, qa, real_quote, key_stats, entities
 
+KNOWLEDGE_MOMENTS_DIR = f"{PAGES_DIR}/data/knowledge_moments"
+
+def save_knowledge_moments(podcast, ep, guest, real_qa):
+    """Ecrit les knowledge moments (question + timeline) de cet episode dans un fichier JSON
+    portable, un fichier par episode -- pas encore connecte a la vraie base Listenly.fr
+    (_c_p_knowledge_moments), juste une capture durable en attendant. Format directement
+    compatible avec un import ulterieur dans cette table (memes noms de champs)."""
+    if not real_qa:
+        return
+    guest_name = f"{guest.get('prenom','')} {guest.get('nom','')}".strip() or None
+    moments = []
+    for item in real_qa:
+        moments.append({
+            "podcast_name": podcast.get("podcast_name"),
+            "episode_title": ep.get("title"),
+            "audio_url": ep.get("audio_url"),
+            "question": item.get("q", ""),
+            "transcript_excerpt": item.get("r", ""),
+            "expert_name": guest_name,
+            "start_seconds": item.get("start_seconds", 0) or 0,
+            "end_seconds": item.get("end_seconds", 0) or 0,
+        })
+    os.makedirs(KNOWLEDGE_MOMENTS_DIR, exist_ok=True)
+    ep_slug = slugify(ep.get("title", "episode"))[:80]
+    out_path = f"{KNOWLEDGE_MOMENTS_DIR}/{SLUG}--{ep_slug}.json"
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(moments, f, ensure_ascii=False, indent=2)
+    log(f"Knowledge moments : {len(moments)} capture(s) ecrite(s) dans {out_path}")
+
+
 def get_real_transcript_material(ep, podcast):
     """Tente le pipeline audio->transcript->Q/R reelles + identite invite + citation + stats + entites.
     Retourne None si echec (fallback silencieux vers la generation habituelle basee sur titre/description)."""
@@ -287,11 +353,20 @@ def get_real_transcript_material(ep, podcast):
         size = download_audio(ep["audio_url"], audio_path)
         audio_path = compress_audio_if_needed(audio_path, size)
         whisper_lang = podcast.get("language", "fr")
-        transcript = transcribe(audio_path, whisper_lang)
+        transcript, segments = transcribe(audio_path, whisper_lang)
         if not transcript:
             log("AVERTISSEMENT transcript : transcription vide — fallback.")
             return None
-        guest, real_qa, real_quote, key_stats, entities = extract_real_qa(transcript, ep, podcast)
+        guest, real_qa, real_quote, key_stats, entities = extract_real_qa(transcript, ep, podcast, segments)
+        # Capture des knowledge moments (09/09/2026, prepare le futur module Podcast Knowledge
+        # Search) : chaque question reelle extraite, avec son timestamp, ecrite dans un fichier
+        # JSON dedie -- stockage "ouvert" en attendant une connexion a la vraie base Listenly.fr
+        # (voir architecture-knowledge-search.md). N'affecte en rien le reste du pipeline (fiches
+        # HTML generees normalement, que cette ecriture reussisse ou echoue).
+        try:
+            save_knowledge_moments(podcast, ep, guest, real_qa)
+        except Exception as km_err:
+            log(f"AVERTISSEMENT knowledge moments : echec ecriture ({km_err}) — fiche generee normalement quand meme.")
         return {
             "transcript_excerpt": transcript[:4000],
             "real_qa": real_qa,
