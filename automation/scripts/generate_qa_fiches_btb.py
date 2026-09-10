@@ -1101,6 +1101,13 @@ def main():
         save_registry(registry)
         sys.exit(1)
 
+    # Script Plausible (variante tagged-events, necessaire pour capter les classes CSS
+    # plausible-event-name=... comme Custom Events) -- deterministe en Python, jamais laisse
+    # au LLM, ce script ne varie jamais.
+    plausible_script = '\n<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>\n'
+    if "</head>" in html_out:
+        html_out = html_out.replace("</head>", plausible_script + "</head>", 1)
+
     with open(out_file, "w", encoding="utf-8") as f:
         f.write(html_out)
     log(f"✓ Fiche question écrite : {out_file}")
