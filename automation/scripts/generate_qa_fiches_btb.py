@@ -581,12 +581,18 @@ def mine_next_episode(podcast, registry, rss_url):
             audio_path = emod.compress_audio_if_needed(audio_path, size)
             audio_path = emod.speed_up_audio(audio_path)
             whisper_lang = podcast.get("language", "fr")
-            transcript = emod.transcribe(audio_path, whisper_lang)
+            transcript, segments = emod.transcribe(audio_path, whisper_lang)
             if not transcript:
                 log("Transcription vide — épisode ignoré.")
                 registry["known_episode_guids"].append(ep["guid"])
                 continue
-            guest, qa, real_quote, key_stats, entities = emod.extract_real_qa(transcript, ep, podcast)
+            guest, qa, real_quote, key_stats, entities = emod.extract_real_qa(transcript, ep, podcast, segments)
+            # Capture des knowledge moments (09/09/2026, prepare le futur module Podcast
+            # Knowledge Search) -- echec silencieux, n'affecte jamais la generation de la fiche.
+            try:
+                emod.save_knowledge_moments(podcast, ep, guest, qa)
+            except Exception as km_err:
+                log(f"AVERTISSEMENT knowledge moments : echec ecriture ({km_err}) — fiche generee normalement quand meme.")
         except Exception as e:
             log(f"ÉCHEC mining ({e}) — épisode ignoré, tentative du suivant.")
             registry["known_episode_guids"].append(ep["guid"])
