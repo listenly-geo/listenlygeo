@@ -1,11 +1,55 @@
 {
   "known_episode_guids": [
     "a010ed3b-c512-44e5-92a6-44f29950d934",
-    "b4c13fbe-2788-446e-9763-80238b697b80"
+    "b4c13fbe-2788-446e-9763-80238b697b80",
+    "29845455-3114-4bb0-a1e1-8dbcfd29f02c"
   ],
-  "current_episode": null,
-  "context": null,
-  "pending_qa": [],
+  "current_episode": {
+    "guid": "29845455-3114-4bb0-a1e1-8dbcfd29f02c",
+    "title": "Episode 32: The Evolution of Freight Fraud",
+    "pubdate": "Tue, 30 Jun 2026 16:29:30 GMT",
+    "audio_url": "https://anchor.fm/s/f17a08cc/podcast/play/122203795/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-5-30%2F427110488-44100-2-0e41bcda3c331.m4a"
+  },
+  "context": {
+    "guest": {
+      "prenom": "Eric",
+      "nom": "Garcia",
+      "titre": "Carrier Sales Manager",
+      "entreprise": "Fetch Freight",
+      "titre_secondaire": "",
+      "entreprise_secondaire": "",
+      "bio_context": "Eric Garcia works directly in carrier vetting and onboarding at Fetch Freight, where he observes freight fraud tactics in real time during the booking and onboarding process. He has first-hand experience tracking how fraudster methods have evolved over recent years, particularly in how bad actors now leverage AI and stolen carrier identities."
+    },
+    "real_quote": "now with ai like a lot of people are implementing that these bad actors are also using it and using it to their advantage as well",
+    "key_stats": [
+      "COI (Certificate of Insurance) expiration tracking - mandatory FMCSA update requirement for carriers",
+      "Real-time tracking integration for shipment verification throughout lifecycle",
+      "Truck and trailer plate number verification as primary identity confirmation at pickup"
+    ],
+    "entities": [
+      "Fetch Freight",
+      "FMCSA (Federal Motor Carrier Safety Administration)",
+      "Certificate of Insurance (COI)",
+      "Hit The Brakes podcast",
+      "AI (Artificial Intelligence)",
+      "FetchFreight.com"
+    ],
+    "transcript_excerpt": "Welcome to Hit the Breaks, where we dive into the top stories, market trends, and ins and outs of the supply chain. No matter if you're tuning in from the cab of your truck, behind your desk, or on your daily commute, we're glad you're here and we're ready to serve you. Let's get this show on the road. Welcome back to Hit the Breaks. I'm Anna Claire Gatlin, Marketing and Communications Coordinator at Vetch Freight. One of our main priorities here at Fetch is to both earn and maintain the trust and confidence of both our carriers and customers. We know that fraud is an ever-evolving issue that we actively fight day in and day out in order to protect our customers' goods. Great fraud is no longer just a problem with stolen loads or physical cargo theft. The threat has shifted into a more complex and harder-to-detect form, one that often starts online before a shipment even moves. Fraudsters are now using stolen identities, compromised email accounts, and fake carrier profiles that can pass standard vetting processes with ease. As these schemes become more sophisticated, the industry is being forced to rethink how trust is established and maintained across the supply chain. Today we break down how fraud has evolved and what both shippers and carriers need to watch out for to stay protected Joining me today is Eric Garcia Carrier Sales Manager here at Fetch Freight Eric you are directly involved in vetting carriers every day and you see how fraud tactics are showing up in real time during booking and onboarding. How have you seen freight fraud show up differently in recent years compared to previous strategies in the past? When I first started, it was very over the phone and you can just tell who was being like real about like who as a carrier and like you could kind of like hear it in their voice or like hear people on the back whispering and things like that i think now with um with like ai like a lot of people are implementing that these bad actors are also using it and using it to their advantage as well so um i mean now you have people like calling in pretending to be these carriers these real carriers and like using their information that they can just get online now and all that i think really just like the use of ai And like now that we know like bad actors can use it. So I think that's the big change I've noticed in the last couple of years. We've talked about compliance being one of our most important things here at Fetch. We've said we want to protect our customers and our carriers as well. So on the carrier side, what are some of the things that they can do to ensure that they're in good standing with brokerages for a smoother onboarding process for both parties? One thing that we see is like insurance COIs like expiring If you have a new COI or you know it about to expire you going to change Go ahead and get that updated with the FMCSA Just trying to make it as smooth as possible for these carriers But yeah, I think COI is a big one. Also, you know, if you buy a new truck or something like that, you need to report that to the FMCSA. Like making sure you stay on top of that because, you know, if you start saying that you're driving a truck and it's not on there, well, I think it's just going to cause a lot of delays. So just making sure all your info is updated, phone numbers, emails that the carrier itself are using, just making sure all of that just stays updated all the time. Just being as proactive as possible helps save time on both ends. Exactly. So once a carrier is onboarded, tell our listeners about what Fetch is doing from a compliance and ongoing verification standpoint to help protect our partners throughout the shipment lifecycle. Yeah. For example, we're asking for like truck and trailer plate numbers and we'll send that to our customers and just let them know like, hey, you know, here's the carrier name that's coming up. Here's the driver name that's going to come up and pick up this load. the plate numb"
+  },
+  "pending_qa": [
+    {
+      "q": "What compliance steps should carriers take to maintain good standing with brokerages and avoid onboarding delays?",
+      "r": "Carriers should keep their Certificate of Insurance (COI) current and update it with the FMCSA before expiration. They should also report new trucks to the FMCSA immediately, keep all contact information updated including phone numbers and emails, and stay proactive about maintaining accurate records. Keeping everything up to date helps save time on both ends of the onboarding process.",
+      "start_seconds": 138,
+      "end_seconds": 216
+    },
+    {
+      "q": "What verification methods does Fetch Freight use throughout the shipment lifecycle to protect customers from fraudulent carriers?",
+      "r": "Fetch Freight collects truck and trailer plate numbers and shares them with customers so they know exactly which carrier and driver will pick up the load. They also provide real-time tracking and alert customers not to load anyone else claiming to pick up the shipment. If carrier insurance expires or a carrier falls out of good standing, Fetch notifies customers immediately to prevent liability issues.",
+      "start_seconds": 216,
+      "end_seconds": 270
+    }
+  ],
   "published": [
     {
       "slug": "why-is-advance-planning-critical-for-maintaining-freight-movement-duri",
@@ -96,6 +140,15 @@
       "source_episode_guid": "b4c13fbe-2788-446e-9763-80238b697b80",
       "added_date": "2026-09-10",
       "answer_snippet": "The explosion of data centers and AI facilities has brought industrial manufacturing demand that contributes to large-scale industrial projects across the…"
+    },
+    {
+      "slug": "how-have-freight-fraud-tactics-shifted-from-phone-based-identity-theft",
+      "question": "How have freight fraud tactics shifted from phone-based identity theft to AI-assisted schemes in carrier onboarding?",
+      "url": "https://listenly.fr/podcast-btb/questions/hit-the-brakes-the-can-t-miss-topics-in/how-have-freight-fraud-tactics-shifted-from-phone-based-identity-theft.html",
+      "source_episode_title": "Episode 32: The Evolution of Freight Fraud",
+      "source_episode_guid": "29845455-3114-4bb0-a1e1-8dbcfd29f02c",
+      "added_date": "2026-09-11",
+      "answer_snippet": "When Eric Garcia first started, fraud was primarily over the phone and could be detected by hearing the person's voice or background noise. Now, bad actors…"
     }
   ]
 }
