@@ -127,6 +127,13 @@ for guid in resolved:
         matches = data.get("matches", [])
         log(f"{len(matches)} question(s) localisee(s) pour cet episode.")
 
+        # Fix (09/09/2026, trouve via le pilote) : retirer chaque question deja localisee de la
+        # liste AVANT l'episode suivant -- sinon rien n'empeche la meme question d'etre
+        # "reclamee" par plusieurs episodes independamment (chaque appel Claude ne sait pas ce
+        # qu'un appel precedent a deja trouve). Match par egalite exacte du texte.
+        matched_texts = {m.get("question", "").strip() for m in matches}
+        published_questions = [q for q in published_questions if q.strip() not in matched_texts]
+
         if matches:
             moments = []
             for m in matches:
