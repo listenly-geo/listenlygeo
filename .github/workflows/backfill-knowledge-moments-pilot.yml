@@ -1,0 +1,55 @@
+name: Backfill Knowledge Moments — PILOTE
+
+on:
+  workflow_dispatch:
+    inputs:
+      podcast_slug:
+        description: 'Slug du podcast a traiter (ex: glazing-insider)'
+        required: true
+        default: 'glazing-insider'
+
+jobs:
+  backfill-pilot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installer ffmpeg
+        run: |
+          if command -v ffmpeg >/dev/null 2>&1; then
+            echo "ffmpeg deja present"
+          else
+            export DEBIAN_FRONTEND=noninteractive
+            for i in 1 2 3 4 5; do
+              sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg && break
+              echo "Tentative $i echouee, nouvel essai dans 10s..."
+              sleep 10
+            done
+          fi
+
+      - name: Lancer le pilote de backfill
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PODCAST_SLUG: ${{ github.event.inputs.podcast_slug }}
+        run: python automation/scripts/backfill_knowledge_moments_pilot.py
+
+      - name: Commit les knowledge moments retrouves
+        if: always()
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git add pages/podcast-btb/data/knowledge_moments/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: backfill knowledge moments pilote (${{ github.event.inputs.podcast_slug }})"
+            git fetch origin main
+            git rebase origin/main
+            git push
+          fi
