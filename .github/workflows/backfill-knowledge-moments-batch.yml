@@ -1,0 +1,59 @@
+name: Backfill Knowledge Moments — LOT
+
+on:
+  workflow_dispatch:
+    inputs:
+      podcast_slugs:
+        description: 'Slugs separes par virgules'
+        required: true
+
+jobs:
+  backfill-batch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installer ffmpeg
+        run: |
+          if command -v ffmpeg >/dev/null 2>&1; then
+            echo "ffmpeg deja present"
+          else
+            export DEBIAN_FRONTEND=noninteractive
+            for i in 1 2 3 4 5; do
+              sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg && break
+              sleep 10
+            done
+          fi
+
+      - name: Lancer le backfill sur le lot
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PODCAST_SLUGS: ${{ github.event.inputs.podcast_slugs }}
+        run: python automation/scripts/backfill_knowledge_moments_pilot.py
+
+      - name: Commit les knowledge moments retrouves
+        if: always()
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git add pages/podcast-btb/data/knowledge_moments/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: backfill knowledge moments (lot)"
+            git fetch origin main
+            for i in 1 2 3 4 5; do
+              git rebase origin/main && git push && break
+              echo "Rebase/push echoue, nouvel essai..."
+              git rebase --abort 2>/dev/null || true
+              sleep $((RANDOM % 15 + 5))
+              git fetch origin main
+            done
+          fi
