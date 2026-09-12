@@ -623,9 +623,33 @@ def mine_next_episode(podcast, registry, rss_url):
 
     return False
 
+EPISODE_URL_API = "https://listenly.fr/api/get-episode-url.php"
+
+def get_episode_seo_url(podcast, ep_title):
+    """Interroge l'endpoint PHP pour retrouver le lien vers l'episode precis sur Listenly
+    (plutot que la page podcast generale). Echec silencieux (timeout, erreur reseau, episode
+    non trouve...) -- retourne None dans tous les cas d'echec, jamais d'exception qui
+    bloquerait la generation de la fiche."""
+    try:
+        payload = json.dumps({
+            "rss_url": podcast.get("rss_url", ""),
+            "episode_title": ep_title,
+        }).encode("utf-8")
+        req = urllib.request.Request(
+            EPISODE_URL_API, data=payload,
+            headers={"Content-Type": "application/json"}, method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=8) as resp:
+            data = json.loads(resp.read())
+        if data.get("found"):
+            return f"https://listenly.fr/podcast/episode/{data['seo_url']}"
+    except Exception as e:
+        log(f"AVERTISSEMENT lien episode : resolution echouee ({e}) — repli sur le lien podcast.")
+    return None
+
 # --- Prompt de génération d'une fiche question ---
 def build_question_prompt(podcast, question, ep_title, ep_pubdate, context, q_slug, q_url, today, related_questions=None):
-    listenly_url = podcast.get("listenly_url", "")
+    listenly_url = get_episode_seo_url(podcast, ep_title) or podcast.get("listenly_url", "")
     accent_color = podcast.get("accent_color") or "#2e8bd6"
     language = podcast.get("language", "fr")
     html_lang = "en" if language == "en" else "fr"
