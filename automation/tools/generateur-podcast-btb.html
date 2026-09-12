@@ -67,6 +67,7 @@
          class="btn-copy" style="white-space:nowrap;height:40px;display:inline-flex;align-items:center;text-decoration:none;">🔍 Nouvelle recherche</a>
     </div>
     <p class="note" style="margin-top:4px;">"Rafraîchir" recharge la liste depuis GitHub (aucun nouveau candidat). "Nouvelle recherche" ouvre le workflow de découverte — clique "Run workflow" là-bas, attends ~2-5 min, puis reviens "Rafraîchir" ici.</p>
+    <div id="candidatePagination" style="display:flex;gap:8px;align-items:center;margin-top:6px;"></div>
     <p class="note" id="candidateReason" style="min-height:14px"></p>
   </div>
 
@@ -332,11 +333,43 @@ function parseIssueBody(body){
   };
 }
 
+var candidatePage = 0;
+var CANDIDATES_PER_PAGE = 10;
+
+function renderCandidatePage(){
+  var sel = document.getElementById('f_candidate');
+  var pagEl = document.getElementById('candidatePagination');
+  var total = discoveryCandidates.length;
+  var totalPages = Math.max(1, Math.ceil(total / CANDIDATES_PER_PAGE));
+  if (candidatePage >= totalPages) candidatePage = totalPages - 1;
+  if (candidatePage < 0) candidatePage = 0;
+
+  var start = candidatePage * CANDIDATES_PER_PAGE;
+  var pageItems = discoveryCandidates.slice(start, start + CANDIDATES_PER_PAGE);
+
+  sel.innerHTML = '<option value="">— Choisir un candidat (page ' + (candidatePage + 1) + '/' + totalPages + ', ' + total + ' au total) —</option>' +
+    pageItems.map(function(c, i){
+      var realIdx = start + i;  // index reel dans discoveryCandidates, pour que applyCandidate() fonctionne
+      var label = (realIdx + 1) + ') ' + c.podcast_name + (c.artist_name ? ' — ' + c.artist_name : '') + ' (' + (c.track_count || '?') + ' ép.)';
+      return '<option value="' + realIdx + '">' + label.replace(/</g,'&lt;') + '</option>';
+    }).join('');
+
+  // Navigation : Precedent / page courante / Suivant -- jamais les memes candidats sur 2 pages
+  // (simple decoupage sequentiel de la meme liste dedupliquee, aucun chevauchement possible)
+  pagEl.innerHTML =
+    '<button type="button" class="btn-copy" ' + (candidatePage === 0 ? 'disabled' : '') + ' onclick="candidatePage--;renderCandidatePage()">← Précédent</button>' +
+    '<span class="note">Page ' + (candidatePage + 1) + ' / ' + totalPages + '</span>' +
+    '<button type="button" class="btn-copy" ' + (candidatePage >= totalPages - 1 ? 'disabled' : '') + ' onclick="candidatePage++;renderCandidatePage()">Suivant →</button>';
+}
+
 function loadDiscoveryCandidates(){
   var sel = document.getElementById('f_candidate');
   var reasonEl = document.getElementById('candidateReason');
+  var pagEl = document.getElementById('candidatePagination');
   sel.innerHTML = '<option value="">— Chargement des candidats… —</option>';
   reasonEl.textContent = '';
+  pagEl.innerHTML = '';
+  candidatePage = 0;
   return Promise.all([
     fetch(ISSUES_URL, {cache:'no-store', headers:{Accept:'application/vnd.github+json'}}).then(function(r){ if(!r.ok) throw new Error('issues HTTP ' + r.status); return r.json(); }),
     fetch(PODCASTS_URL, {cache:'no-store'}).then(function(r){ if(!r.ok) throw new Error('podcasts HTTP ' + r.status); return r.json(); })
@@ -364,13 +397,10 @@ function loadDiscoveryCandidates(){
 
     if(discoveryCandidates.length === 0){
       sel.innerHTML = '<option value="">Aucun candidat disponible pour le moment (voir "Nouvelle recherche")</option>';
+      pagEl.innerHTML = '';
       return;
     }
-    sel.innerHTML = '<option value="">— Choisir un candidat (' + discoveryCandidates.length + ' disponible(s)) —</option>' +
-      discoveryCandidates.map(function(c, i){
-        var label = (i + 1) + ') ' + c.podcast_name + (c.artist_name ? ' — ' + c.artist_name : '') + ' (' + (c.track_count || '?') + ' ép.)';
-        return '<option value="' + i + '">' + label.replace(/</g,'&lt;') + '</option>';
-      }).join('');
+    renderCandidatePage();
   }).catch(function(e){
     sel.innerHTML = '<option value="">Impossible de charger les candidats (' + e.message + ')</option>';
   });
