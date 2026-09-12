@@ -1,10 +1,84 @@
 {
   "known_episode_guids": [
-    "6b9df275-daab-412a-a727-b5a84493d4f5"
+    "6b9df275-daab-412a-a727-b5a84493d4f5",
+    "26ddc218-433f-457a-a1cb-aa0508905e84"
   ],
-  "current_episode": null,
-  "context": null,
-  "pending_qa": [],
+  "current_episode": {
+    "guid": "26ddc218-433f-457a-a1cb-aa0508905e84",
+    "title": "Podcast episode with Mo Abuali - Director, Digital Strategy, Wipfli and Daniel Langley",
+    "pubdate": "Thu, 22 Aug 2024 11:00:00 GMT",
+    "audio_url": "https://anchor.fm/s/5b6d3278/podcast/play/90669000/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-7-20%2F385060449-44100-2-71be3aa908a72.mp3"
+  },
+  "context": {
+    "guest": {
+      "prenom": "Mo",
+      "nom": "Abuali",
+      "titre": "Director, Digital Strategy",
+      "entreprise": "Wipfli",
+      "titre_secondaire": "",
+      "entreprise_secondaire": "",
+      "bio_context": "Mo Abuali has spent almost 25 years in manufacturing, with half his career on shop floors serving companies like Toyota in the automotive industry, and the second half delivering digital solutions including MES, IoT platforms, and AI to manufacturers. He holds a PhD in Industrial Engineering from the University of Cincinnati's Center for Intelligent Maintenance Systems (IMS), where he conducted applied practical research across manufacturing facilities globally in the States, Japan, Taiwan, and Singapore. His dissertation, conducted almost 20 years ago, focused on leveraging AI and predictive maintenance when sensor costs were prohibitively expensive and cloud infrastructure did not exist."
+    },
+    "real_quote": "If you don't have the data or the data quality or the data integrity, putting your stuff in ChatGPT is garbage in, garbage out.",
+    "key_stats": [
+      "Mo Abuali has been in manufacturing for almost 25 years",
+      "Small and medium-sized manufacturers make up more than 90% of the market in North America",
+      "Wipfli works with more than 7,000 manufacturing, retail, and distribution accounts ranging from 20 million to 250 million in annual revenue",
+      "99% of 350 surveyed small and medium manufacturers across nearly 30 states prioritize digital investments",
+      "Only 30% of surveyed SMMs have started to trial advanced AI solutions",
+      "Mo Abuali's dissertation research on predictive maintenance and AI occurred almost 20 years ago when sensor costs were prohibitively expensive and cloud did not exist",
+      "Average age of skilled operators at major aerospace and defense OEMs is 55 years old, requiring retirement and knowledge transfer within five to ten years"
+    ],
+    "entities": [
+      "Wipfli",
+      "Manufacturing IT Podcast",
+      "Toyota",
+      "Center for Intelligent Maintenance Systems (IMS)",
+      "University of Cincinnati",
+      "WIPFLY IQ",
+      "Harbor Results",
+      "MAP (Plastics Processors Association)",
+      "PMA (Precision Manufacturers Association)",
+      "GPT-4",
+      "OpenAI",
+      "QuickBooks",
+      "Microsoft Excel",
+      "ChatGPT"
+    ],
+    "transcript_excerpt": "I'm Dan Langley and this is the Manufacturing IT Podcast. In each episode, I speak with the key people of influence within smart manufacturing. In each conversation, we unpack and dissect all things Industry 4.0, from technology and trends to the ever-evolving digital manufacturing landscape. Let's get to it. Hi everybody, welcome to the latest episode of the Manufacturing IT Podcast. I'm joined today by Mo Abwali. Mo, welcome to the podcast. Daniel, pleasure to be here. Good to see you. Yeah, I appreciate you taking the time, Mo, to speak with us. And you and I have been connected for a little while now, met a couple of times online, and I think you're part of, you said my MES WhatsApp community is great. So maybe you can share some introduction into yourself and a little bit more about you. Absolutely. Thanks for the opportunity. Yeah, I've been in manufacturing for almost 25 years. I've had the pleasure of working half of my career in manufacturing plants on the shop floor, serving companies like Toyota, for example, coming out of the automotive industry. And the second part of my career was on the other side of the aisle, serving manufacturers with digital solutions. You mentioned MES, manufacturing execution systems, IoT platforms, all the way to artificial intelligence solutions. So my career has really been around how can we help manufacturers improve their people, process, technology, and overall strategy to become more competitive in the global landscape. yeah and I think it's an area that I'm super passionate about the listenership and audience on the podcast as well super passionate about so to have someone with your level of experience Mo is great on the podcast and we're really looking forward to hearing a bit more about your thoughts Mo talk to us a little bit about your PhD your industrial engineering degree it'd be great to hear a little bit more about that yeah yeah I followed a unique route to get my PhD actually It was not a theoretical research type of dissertation. It was actually applied practical research in manufacturing companies. So I was part of the Center for Intelligent Maintenance Systems, IMS, at the University of Cincinnati. And the whole model was how can we embed researchers in industrial companies to deliver results and practical R&D activities. So I had the pleasure of working across the globe in the States, in Japan, Taiwan, Singapore. And I saw different cultures. I saw different mindsets around smart manufacturing, predictive analytics. My dissertation was actually on leveraging AI and predictive maintenance almost 20 years ago, where the cost of sensors on hardware was very expensive. The cloud was not around. So fast forward 20 years today, there's just so many opportunities now to accelerate implementation of these types of solutions and do it more affordably and get quick time to value. So it's impressive what's been going on in the space in the past 20 years or so. Yeah, and I must admit, you know, it does sound like a really interesting journey that you've been on now. And I guess one of the things that stood out to me with your experience is that your title now is Trusted Advisor. And that's a term that we hear so much in the industry. You know, we want to be our client's trusted advisor. But I guess someone like yourself, the journey you've been on, you know, you really own that title, right? Thank you. Thank you. I would say my career has been around working with large enterprise companies who have been, I would say, lucky and blessed to have strong people and resource access and strong infrastructure, IT, OT. But I've pivoted into serving and becoming a trusted advisor to small and middle market companies. So those are companies that are 10 mil in revenue up to maybe 200 mil in annual revenue. So they're facing a lot of challenges. They're facing infrastructure challenges. They're facing how do I justify return on investment from implementing these industry 4.0 IOP solutions tha"
+  },
+  "pending_qa": [
+    {
+      "q": "What is digital maturity and how do manufacturers assess it?",
+      "r": "Wipfli assesses digital maturity across technology, people, and process through innovation workshops and digital assessments, scoring capabilities in production, quality, and maintenance. They benchmark against a large database called WIPFLY IQ containing data from plastics, molding, and stamping companies, allowing manufacturers to see where they stand compared to similar companies in their industry and revenue range.",
+      "start_seconds": 240,
+      "end_seconds": 610
+    },
+    {
+      "q": "What are the primary technology trends small and medium manufacturers should prioritize?",
+      "r": "Five major trends are industrial machine learning to collect real-time shop floor data, advanced planning and scheduling to improve standards and job profitability, ESG and sustainability activities to reduce carbon footprint, advanced analytics and AI for labor efficiency, and connected worker applications using augmented reality and digital work instructions to reskill people rather than replace them.",
+      "start_seconds": 621,
+      "end_seconds": 1193
+    },
+    {
+      "q": "What barriers prevent small manufacturers from successfully implementing Industry 4.0 solutions?",
+      "r": "Technology challenges include old IT systems, legacy machines, lack of connectivity and security. Process challenges occur when companies jump to technology without first establishing mature processes, such as implementing predictive maintenance sensors without having a preventive maintenance process in place. People challenges involve change management, requiring friendly user experiences, human-centric machine interfaces, and multidisciplinary teams from operator to C-level to ensure adoption.",
+      "start_seconds": 1207,
+      "end_seconds": 1353
+    },
+    {
+      "q": "How will industrial AI and generative AI differ in their manufacturing applications over the next five years?",
+      "r": "Industrial AI and machine learning have existed for decades, using sensor data and machine vision for predictive maintenance, quality tracking, and zero downtime manufacturing. Generative AI, a newer subset powered by deep learning and neural networks, excels at content creation, natural language processing, summarization, and can process multimodal data—text, video, and pictures—through systems like GPT-4 to significantly improve labor efficiency and knowledge transfer.",
+      "start_seconds": 1513,
+      "end_seconds": 1727
+    },
+    {
+      "q": "What survey data reveals the gap between digital investment intentions and advanced AI adoption in small manufacturers?",
+      "r": "Wipfli surveyed approximately 350 small and medium manufacturers across nearly 30 states in North America. The survey found that 99% of respondents prioritize digital investments, but only 30% have started to trial advanced AI solutions, indicating most investments are going into foundational infrastructure—cloud, servers, cybersecurity, networking, and machines—before advancing to AI implementation.",
+      "start_seconds": 868,
+      "end_seconds": 953
+    }
+  ],
   "published": [
     {
       "slug": "how-did-modular-mes-architecture-transform-the-manufacturing-software-",
@@ -77,6 +151,15 @@
       "source_episode_guid": "6b9df275-daab-412a-a727-b5a84493d4f5",
       "added_date": "2026-09-11",
       "answer_snippet": "Rather than after-the-fact analysis, AI can provide plant floor operators with proactive information about what to expect in production based on equipment,…"
+    },
+    {
+      "slug": "what-career-path-led-to-expertise-in-both-shop-floor-operations-and-di",
+      "question": "What career path led to expertise in both shop floor operations and digital manufacturing solutions?",
+      "url": "https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-career-path-led-to-expertise-in-both-shop-floor-operations-and-di.html",
+      "source_episode_title": "Podcast episode with Mo Abuali - Director, Digital Strategy, Wipfli and Daniel Langley",
+      "source_episode_guid": "26ddc218-433f-457a-a1cb-aa0508905e84",
+      "added_date": "2026-09-12",
+      "answer_snippet": "Mo Abuali spent almost 25 years in manufacturing, half on shop floors serving companies like Toyota in automotive, and half delivering digital solutions…"
     }
   ]
 }

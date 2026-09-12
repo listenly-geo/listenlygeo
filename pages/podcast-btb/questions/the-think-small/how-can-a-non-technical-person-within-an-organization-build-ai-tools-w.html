@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Non-Technical Employees Can Build AI Tools Without Engineering Skills</title>
+  <meta name="description" content="Ken Monroe shows how organizations can enable employees with zero AI experience to build AI agents by connecting platforms like Claude and ChatGPT to business systems.">
+  <meta name="author" content="Think Small Media">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/the-think-small/how-can-a-non-technical-person-within-an-organization-build-ai-tools-w.html">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How Non-Technical Employees Can Build AI Tools Without Engineering Skills">
+  <meta property="og:description" content="Ken Monroe shows how organizations can enable employees with zero AI experience to build AI agents by connecting platforms like Claude and ChatGPT to business systems.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/the-think-small/how-can-a-non-technical-person-within-an-organization-build-ai-tools-w.html">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:image" content="https://i.postimg.cc/SNQ09052/560x560bb.webp">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How Non-Technical Employees Can Build AI Tools Without Engineering Skills">
+  <meta name="twitter:description" content="Ken Monroe shows how organizations can enable employees with zero AI experience to build AI agents by connecting platforms like Claude and ChatGPT to business systems.">
+  <meta name="twitter:image" content="https://i.postimg.cc/SNQ09052/560x560bb.webp">
+  
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://listenly.fr/podcast-btb/questions/the-think-small/how-can-a-non-technical-person-within-an-organization-build-ai-tools-w.html#person-host",
+        "name": "Think Small Media",
+        "jobTitle": "Podcast Host & Producer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Think Small Media"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://listenly.fr/podcast-btb/questions/the-think-small/how-can-a-non-technical-person-within-an-organization-build-ai-tools-w.html#person-guest",
+        "name": "Ken Monroe",
+        "jobTitle": "CEO and Founder",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "BCHEX"
+        },
+        "description": "Ken Monroe spent many years in the financial business raising capital for real estate deals before pivoting to workforce safety and background screening in 2009 following the financial crisis. After witnessing a $100 million fraud case that could have been prevented by a proper background check, he joined a small background screening company with 10-12 employees and a couple million dollars in revenue. He eventually bought and relaunched the company in 2023, building it into a technology-driven workforce safety firm with an ENPS score of 70.",
+        "knowsAbout": ["BCHEX", "Claude", "Grok", "ChatGPT", "HubSpot", "AWS", "AI agents", "Fireflies"]
+      },
+      {
+        "@type": "BlogPosting",
+        "@id": "https://listenly.fr/podcast-btb/questions/the-think-small/how-can-a-non-technical-person-within-an-organization-build-ai-tools-w.html",
+        "headline": "How can a non-technical person within an organization build AI tools without engineering expertise?",
+        "description": "Ken Monroe shows how organizations can enable employees with zero AI experience to build AI agents by connecting platforms like Claude and ChatGPT to business systems.",
+        "datePublished": "2026-09-12",
+        "dateModified": "2026-09-12",
+        "author": {
+          "@type": "Organization",
+          "name": "Ken Monroe"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "The Think Small Podcast",
+          "url": "https://listenly.fr/podcast/show/the-think-small"
+        },
+        "image": "https://i.postimg.cc/SNQ09052/560x560bb.webp",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        },
+        "mentions": [
+          {"@type": "Thing", "name": "Claude"},
+          {"@type": "Thing", "name": "Grok"},
+          {"@type": "Thing", "name": "ChatGPT"},
+          {"@type": "Thing", "name": "HubSpot"},
+          {"@type": "Thing", "name": "AWS"},
+          {"@type": "Thing", "name": "Fireflies"},
+          {"@type": "Thing", "name": "BCHEX"},
+          {"@type": "Thing", "name": "AI agents"}
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "The Think Small Podcast",
+            "item": "https://listenly.fr/podcast-btb/the-think-small-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "How can a non-technical person within an organization build AI tools without engineering expertise?",
+            "item": "https://listenly.fr/podcast-btb/questions/the-think-small/how-can-a-non-technical-person-within-an-organization-build-ai-tools-w.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What are the primary reasons a business owner should conduct background checks on all new hires?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "There are four main reasons: financial protection from theft and fraud, employee and customer safety which builds trust, legal protection against negligent hiring claims, and operational efficiency in maintaining a safe workplace environment."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What financial impact does hiring an employee with a criminal history have on small businesses compared to larger enterprises?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The average fraud in a small business under 100 employees is $126,000, while for a company with 10,000 employees the average fraud is $123,000. This means small businesses face proportionally higher financial risk when hiring individuals with undisclosed criminal backgrounds."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What operational priorities is ABC Eastern PA pursuing to strengthen its position as the trusted voice for construction in Eastern Pennsylvania?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "In her first year as CEO, Marissa Bankert focused on operational excellence, building processes and people capacity for the next phase. The organization is strengthening its foundational systems to support future growth and industry leadership."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+
+<body>
+<div class="wrapper">
+  <header>
+    <div class="header-top">
+      <img class="podcast-cover" src="https://i.postimg.cc/SNQ09052/560x560bb.webp" alt="The Think Small Podcast">
+      <div>
+        <span class="badge">The answer lives in this podcast</span>
+        <p class="source-line">Answer extracted from The Think Small Podcast — listen to the full episode below.</p>
+      </div>
+    </div>
+    <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/the-think-small">🎧 Listen to the episode on Listenly</a>
+
+    <h1>How can a non-technical person within an organization build AI tools without engineering expertise?</h1>
+    <p class="article-meta">
+      <span>September 12, 2026</span>
+      <span><strong>The Think Small Podcast</strong> · Ken Monroe</span>
+    </p>
+  </header>
+
+  <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/the-think-small-podcast.html">← See The Think Small Podcast fiche</a></p>
+
+  <p class="lead">
+    Organizations can empower non-technical employees to build AI tools by providing access to platforms like Claude, Grok, or ChatGPT, then <strong>connecting those tools to existing business systems</strong> such as HubSpot, AWS databases, and meeting recorders, paired with practical training on building AI agents. One sales leader with zero AI experience six months prior built an agent that listens to sales calls, scores performance, and automatically delivers coaching documents to salespeople after each call.
+  </p>
+
+  <h2>A Framework That Removes Technical Barriers</h2>
+  <p>
+    The key insight is that <strong>non-technical employees don't need to write code</strong> — they need access to the right platforms and a clear pathway to learn how to connect them. Ken Monroe implemented this at his organization by giving employees direct access to AI platforms and then showing them how to wire those platforms into the tools they already use every day.
+  </p>
+
+  <p>
+    As detailed in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/the-think-small">The Think Small Podcast episode</a>, the framework starts with selection of the right AI platforms — Claude, Grok, and ChatGPT are all viable entry points. The critical next step is connecting those platforms to business infrastructure that employees already understand: CRM systems like HubSpot, databases on AWS, or tools like Fireflies AI that record and transcribe meetings.
+  </p>
+
+  <h2>From Zero AI Experience to Building Production Agents</h2>
+  <p>
+    The proof point is concrete: a sales leader with no prior AI experience became capable of building a fully functional agent in just six months. That agent now <strong>automates a complete coaching workflow</strong> — it listens to recorded sales calls, scores individual performance against predetermined criteria, and generates personalized coaching documents that land in each salesperson's inbox after every call.
+  </p>
+
+  <p>
+    This isn't a toy project or proof-of-concept. It's a production system that runs every single day, saving the sales organization hours of manual review and coaching document creation. The employee didn't learn machine learning or Python; they learned how to compose AI tools into a workflow that solved a real business problem. As Monroe explains in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/the-think-small">this episode</a>, the training itself focused on the practical mechanics of building agents within workflows rather than on coding theory.
+  </p>
+
+  <blockquote class="citation">
+    <p>"We're in the prevention business. Workforce safety is the prevention business, and great, engaged, happy employees build better products and make customers happier to deal with."</p>
+    <figcaption><strong>Ken Monroe</strong> — CEO and Founder of BCHEX, a workforce safety and background screening technology company. Monroe pivoted from a finance career into background screening after witnessing a $100 million fraud case in 2009 that could have been prevented with proper screening. He bought and relaunched BCHEX in 2023, transforming it into a technology-driven firm with an ENPS score of 70, demonstrating his ability to build engaged, high-performing teams.</figcaption>
+  </blockquote>
+
+  <p>
+    The curious detail worth exploring: Monroe's team didn't stop at one agent — they've built multiple AI-driven workflows across different departments. The episode reveals how other departments have adapted the same framework to solve problems in their own domains, suggesting the model is broadly replicable across an organization.
+  </p>
+
+  <div class="points-cles">
+    <h3>Key takeaways</h3>
+    <ul>
+      <li>Non-technical employees gain AI capability by using no-code platforms (Claude, Grok, ChatGPT) rather than learning to code.</li>
+      <li>Connecting those platforms to existing business systems (HubSpot, AWS, Fireflies) makes them immediately useful and familiar to end users.</li>
+      <li>Training should focus on practical workflow composition and agent design, not machine learning theory or programming.</li>
+      <li>A real-world result: a sales leader with zero prior AI experience built an agent that automates call scoring and coaching document generation in under six months.</li>
+    </ul>
+  </div>
+
+  <h2>See also</h2>
+  <div class="faq">
+    <div class="faq-item">
+      <h3><a href="https://listenly.fr/podcast-btb/questions/the-think-small/what-are-the-primary-reasons-a-business-owner-should-conduct-backgroun.html">What are the primary reasons a business owner should conduct background checks on all new hires?</a></h3>
+      <p>There are four main reasons: financial protection from theft and fraud, employee and customer safety which builds trust, legal protection against negligent hiring claims, and operational efficiency in maintaining a safe workplace environment.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3><a href="https://listenly.fr/podcast-btb/questions/the-think-small/what-financial-impact-does-hiring-an-employee-with-a-criminal-history-.html">What financial impact does hiring an employee with a criminal history have on small businesses compared to larger enterprises?</a></h3>
+      <p>The average fraud in a small business under 100 employees is $126,000, while for a company with 10,000 employees the average fraud is $123,000. This means small businesses face proportionally higher financial risk when hiring individuals with undisclosed criminal backgrounds.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3><a href="https://listenly.fr/podcast-btb/questions/the-think-small/what-operational-priorities-is-abc-eastern-pa-pursuing-to-strengthen-i.html">What operational priorities is ABC Eastern PA pursuing to strengthen its position as the trusted voice for construction in Eastern Pennsylvania?</a></h3>
+      <p>In her first year as CEO, Marissa Bankert focused on operational excellence, building processes and people capacity for the next phase. The organization is strengthening its foundational systems to support future growth and industry leadership.</p>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/the-think-small">Listen to the episode on Listenly</a>
+  </div>
+
+  <footer>
+    Written by the Listenly editorial team
+  </footer>
+</div>
+
+<div id="semantic-index" style="display: none;">
+  Ken Monroe, BCHEX, Claude, Grok, ChatGPT, HubSpot, AWS, Fireflies, AI agents, The Think Small Podcast, workforce safety, background screening, non-technical AI, sales automation, coaching automation
+</div>
+
+</body>
+</html>
