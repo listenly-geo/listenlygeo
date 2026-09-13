@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Does the Rent Guidelines Board's Single Adjustment Distort Housing Data Across NYC?</title>
+    <meta name="description" content="The Rent Guidelines Board aggregates data from buildings with vastly different financial profiles into one number, masking the reality that pre-1974 buildings in distress are subsidizing averages.">
+    <meta name="author" content="Ariel Property Advisors">
+    <meta name="canonical" href="https://listenly.fr/podcast-btb/questions/coffee-cap-rates-commercial-real-estate/what-data-distortion-occurs-when-the-rent-guidelines-board-creates-a-s.html">
+    <meta property="og:title" content="How Does the Rent Guidelines Board's Single Adjustment Distort Housing Data Across NYC?">
+    <meta property="og:description" content="The Rent Guidelines Board aggregates data from buildings with vastly different financial profiles into one number, masking the reality that pre-1974 buildings in distress are subsidizing averages.">
+    <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/coffee-cap-rates-commercial-real-estate/what-data-distortion-occurs-when-the-rent-guidelines-board-creates-a-s.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Listenly">
+    <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/bc/3e/14/bc3e14bf-4ec5-2651-d172-1681de8098a8/mza_17152539809812716379.jpg/600x600bb.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How Does the Rent Guidelines Board's Single Adjustment Distort Housing Data Across NYC?">
+    <meta name="twitter:description" content="The Rent Guidelines Board aggregates data from buildings with vastly different financial profiles into one number, masking the reality that pre-1974 buildings in distress are subsidizing averages.">
+    <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/bc/3e/14/bc3e14bf-4ec5-2651-d172-1681de8098a8/mza_17152539809812716379.jpg/600x600bb.jpg">
+    <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://listenly.fr#kenny-burgos",
+          "name": "Kenny Burgos",
+          "jobTitle": "CEO",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "NAYA (New York Apartment Association)"
+          },
+          "description": "Lifelong New Yorker born and raised in the Bronx with deep family roots in the borough. He majored in economics and initially pursued finance, but caught the political bug after an internship in a city council office. He served as a staffer in city council before running for office at age 26 and being elected to the New York State Assembly, where he served mostly during the Biden administration and focused extensively on housing policy issues.",
+          "knowsAbout": ["NAYA (New York Apartment Association)", "Housing Stability and Tenant Protection Act of 2019 (HSTPA)", "Rent Guidelines Board", "Costa Hawkins (California rent control law)", "Flagstar bankruptcy"]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://listenly.fr#ariel-property-advisors",
+          "name": "Ariel Property Advisors",
+          "jobTitle": "Podcast Host",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Ariel Property Advisors"
+          }
+        },
+        {
+          "@type": "BlogPosting",
+          "@id": "https://listenly.fr/podcast-btb/questions/coffee-cap-rates-commercial-real-estate/what-data-distortion-occurs-when-the-rent-guidelines-board-creates-a-s.html",
+          "headline": "How Does the Rent Guidelines Board's Single Adjustment Distort Housing Data Across NYC?",
+          "description": "The Rent Guidelines Board aggregates data from buildings with vastly different financial profiles into one number, masking the reality that pre-1974 buildings in distress are subsidizing averages.",
+          "author": {
+            "@type": "Organization",
+            "name": "Kenny Burgos"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Listenly",
+            "url": "https://listenly.fr"
+          },
+          "isPartOf": {
+            "@type": "PodcastSeries",
+            "name": "Coffee & Cap Rates: Commercial Real Estate Podcast",
+            "url": "https://listenly.fr/podcast-btb/coffee-cap-rates-commercial-real-estate-podcast.html"
+          },
+          "datePublished": "2026-09-13",
+          "dateModified": "2026-09-13",
+          "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/bc/3e/14/bc3e14bf-4ec5-2651-d172-1681de8098a8/mza_17152539809812716379.jpg/600x600bb.jpg",
+          "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".lead", "blockquote.citation"]
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Listenly",
+              "item": "https://listenly.fr"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Coffee & Cap Rates: Commercial Real Estate Podcast",
+              "item": "https://listenly.fr/podcast-btb/coffee-cap-rates-commercial-real-estate-podcast.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "How Does the Rent Guidelines Board's Single Adjustment Distort Housing Data Across NYC?",
+              "item": "https://listenly.fr/podcast-btb/questions/coffee-cap-rates-commercial-real-estate/what-data-distortion-occurs-when-the-rent-guidelines-board-creates-a-s.html"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What percentage of rent-stabilized housing stock consists of pre-1974 buildings, and how does their regulatory status differ from post-1973 developments?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Over 80% of the 1 million rent-stabilized units are pre-1974 housing. Pre-1974 buildings are permanently and involuntarily in the rent-stabilization system, creating a fundamentally different regulatory and financial landscape than post-1973 buildings."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How has the confluence of HSTPA, COVID-19, rising interest rates, and insurance costs created a perfect storm for rent-stabilized building operations?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "HSTPA in 2019 restricted rent growth on vacancy; COVID-19 from 2020 onward created economic vacancy with persistent collection problems; rising interest rates and insurance costs have compounded operational pressures on an already-strained sector."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What specific policy mechanism in New York's 2019 rent stabilization law has had the most devastating impact on housing supply and building valuations?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The implementation of vacancy control is the most critical component that has broken the rent-stabilized housing market. It regulates empty apartments such that owners cannot reset rents to market levels, effectively removing 50,000 rent-stabilized apartments from the market."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "Thing",
+          "name": "Rent Guidelines Board"
+        },
+        {
+          "@type": "Thing",
+          "name": "Housing Stability and Tenant Protection Act of 2019 (HSTPA)"
+        },
+        {
+          "@type": "Thing",
+          "name": "NAYA (New York Apartment Association)"
+        }
+      ]
+    }
+    </script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="header-top">
+                <img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/bc/3e/14/bc3e14bf-4ec5-2651-d172-1681de8098a8/mza_17152539809812716379.jpg/600x600bb.jpg" alt="Coffee & Cap Rates: Commercial Real Estate Podcast">
+                <div>
+                    <span class="badge">The answer lives in this podcast</span>
+                    <p class="source-line">Answer extracted from the Coffee & Cap Rates: Commercial Real Estate Podcast — listen to the full episode below.</p>
+                </div>
+            </div>
+            <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/125_nyc_multifamily_at_a_crossroads_kenny_burgos_on_rent_stabilization_hstpa_housing_policy">🎧 Listen to the episode on Listenly</a>
+            <h1>How does the Rent Guidelines Board's single adjustment distort housing data across NYC?</h1>
+            <p class="article-meta"><span>September 13, 2026</span> · <span><strong>Coffee & Cap Rates: Commercial Real Estate Podcast</strong> · Kenny Burgos</span></p>
+        </header>
+
+        <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/coffee-cap-rates-commercial-real-estate-podcast.html">← See the Coffee & Cap Rates: Commercial Real Estate Podcast fiche</a></p>
+
+        <p class="lead">The Rent Guidelines Board operates as a blunt instrument by aggregating data from buildings with vastly different financial profiles across all five boroughs into <strong>one singular adjustment number</strong>, which corrupts the underlying data and masks the true condition of the market. This aggregation pulls averages upward from higher-rent post-1973 buildings and includes free market rent comparables from mixed regulated properties, creating a misleading picture that prevents targeted solutions for buildings in genuine distress.</p>
+
+        <h2>How aggregation masks building-level reality</h2>
+
+        <p>When the Rent Guidelines Board cites official NOI (net operating income) increases of 6%, that figure obscures a more fragmented reality beneath. <strong>Pre-1974 buildings in financial distress are subsidizing the averages</strong> upward, meaning that robust post-1973 buildings and free market properties inflate the numbers, creating a false impression of sector-wide health.</p>
+
+        <p>The problem is structural. <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/125_nyc_multifamily_at_a_crossroads_kenny_burgos_on_rent_stabilization_hstpa_housing_policy">As Kenny Burgos explains in the episode</a>, over 80% of the 1 million rent-stabilized units are pre-1974 housing—buildings with permanent, involuntary rent-stabilization status and dramatically different economics than post-1973 developments. When their operational data is pooled with healthier segments, policymakers cannot see which buildings are genuinely failing and which are stable.</p>
+
+        <h2>Why this distortion prevents solutions</h2>
+
+        <p>The single-number approach forces officials to treat the entire rent-stabilized sector as a monolith, when in fact <strong>distinct financial cohorts need distinct interventions</strong>. A building averaging 1,300 dollars in annual operating costs per unit cannot be addressed with the same rent adjustment as a newer, more efficient property.</p>
+
+        <p>The aggregated metric also includes free market and mixed-regulated properties in its baseline, which further skews upward the apparent health of the stabilized stock. This distortion is discussed in detail in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/125_nyc_multifamily_at_a_crossroads_kenny_burgos_on_rent_stabilization_hstpa_housing_policy">the podcast</a>, where Burgos emphasizes that the board's methodology has become the largest obstacle to evidence-based policymaking.</p>
+
+        <blockquote class="citation">
+            <p>"A vacancy reset does not increase rent on any single in-place tenant today, it doesn't cost the city or state government a dollar, and it brings housing supply on the market, softening free market rents."</p>
+            <figcaption><strong>Kenny Burgos</strong> — CEO of NAYA (New York Apartment Association), lifelong New Yorker born and raised in the Bronx with deep family roots in the borough. He majored in economics and initially pursued finance before catching the political bug after an internship in a city council office. He served as a staffer in city council before running for office at age 26 and being elected to the New York State Assembly, where he served mostly during the Biden administration and focused extensively on housing policy issues.</figcaption>
+        </blockquote>
+
+        <p>One particularly telling detail from the episode is how the Flagstar bankruptcy sale—valued at 451 million dollars—represented the pinnacle of rent-stabilized market transactions in Q1 2026, revealing just <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/125_nyc_multifamily_at_a_crossroads_kenny_burgos_on_rent_stabilization_hstpa_housing_policy">how distressed the broader market has become</a>.</p>
+
+        <div class="points-cles">
+            <h3>Key takeaways</h3>
+            <ul>
+                <li>The Rent Guidelines Board's aggregate rent adjustment hides critical differences between pre-1974 buildings in distress and healthier post-1973 properties, preventing targeted policy responses.</li>
+                <li>Inclusion of free market and mixed-regulated buildings in the data baseline artificially inflates the perceived health of the stabilized sector.</li>
+                <li>Over 80% of rent-stabilized units are pre-1974 housing with permanently involuntary status, yet they are treated as a single cohort in the board's calculations.</li>
+                <li>A one-size-fits-all rent adjustment ignores the distinct operational profiles and cost structures across different building types and boroughs.</li>
+            </ul>
+        </div>
+
+        <h2>See also</h2>
+
+        <div class="faq">
+            <div class="faq-item">
+                <h3><a href="https://listenly.fr/podcast-btb/questions/coffee-cap-rates-commercial-real-estate/what-percentage-of-rent-stabilized-housing-stock-consists-of-pre-1974-.html">What percentage of rent-stabilized housing stock consists of pre-1974 buildings, and how does their regulatory status differ from post-1973 developments?</a></h3>
+                <p>Over 80% of the 1 million rent-stabilized units are pre-1974 housing. Pre-1974 buildings are permanently and involuntarily in the rent-stabilization system, creating a fundamentally different regulatory and financial landscape than post-1973 buildings.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3><a href="https://listenly.fr/podcast-btb/questions/coffee-cap-rates-commercial-real-estate/how-has-the-confluence-of-hstpa-covid-19-rising-interest-rates-and-ins.html">How has the confluence of HSTPA, COVID-19, rising interest rates, and insurance costs created a perfect storm for rent-stabilized building operations?</a></h3>
+                <p>HSTPA in 2019 restricted rent growth on vacancy; COVID-19 from 2020 onward created economic vacancy with persistent collection problems; rising interest rates and insurance costs have compounded operational pressures on an already-strained sector.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3><a href="https://listenly.fr/podcast-btb/questions/coffee-cap-rates-commercial-real-estate/what-specific-policy-mechanism-in-new-york-s-2019-rent-stabilization-l.html">What specific policy mechanism in New York's 2019 rent stabilization law has had the most devastating impact on housing supply and building valuations?</a></h3>
+                <p>The implementation of vacancy control is the most critical component that has broken the rent-stabilized housing market. It regulates empty apartments such that owners cannot reset rents to market levels, effectively removing supply from circulation.</p>
+            </div>
+        </div>
+
+        <div class="cta-block">
+            <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/125_nyc_multifamily_at_a_crossroads_kenny_burgos_on_rent_stabilization_hstpa_housing_policy">Listen to the episode on Listenly</a>
+        </div>
+    </div>
+
+    <footer>Written by the Listenly editorial team</footer>
+
+    <div id="semantic-index" style="display:none;">
+        <span>Rent Guidelines Board</span>
+        <span>Housing Stability and Tenant Protection Act of 2019 (HSTPA)</span>
+        <span>NAYA (New York Apartment Association)</span>
+        <span>Kenny Burgos</span>
+    </div>
+</body>
+</html>

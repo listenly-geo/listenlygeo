@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>How to Roll Out an AI Agent Successfully in Your Organization</title>
+	<meta name="description" content="Three critical steps for AI agent implementation: identify need through data, create the agent, and design behavioural rollout for adoption at the moment of need.">
+	<meta name="author" content="Carly and Simon">
+	<link rel="canonical" href="https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/what-are-the-key-steps-for-implementing-and-rolling-out-an-ai-agent-in.html">
+	<meta property="og:title" content="How to Roll Out an AI Agent Successfully in Your Organization">
+	<meta property="og:description" content="Three critical steps for AI agent implementation: identify need through data, create the agent, and design behavioural rollout for adoption at the moment of need.">
+	<meta property="og:url" content="https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/what-are-the-key-steps-for-implementing-and-rolling-out-an-ai-agent-in.html">
+	<meta property="og:type" content="article">
+	<meta property="og:site_name" content="Listenly">
+	<meta property="og:image" content="https://i.postimg.cc/VLMRgnZX/Umprompted-master-assets-Title-Thumb.jpg">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="How to Roll Out an AI Agent Successfully in Your Organization">
+	<meta name="twitter:description" content="Three critical steps for AI agent implementation: identify need through data, create the agent, and design behavioural rollout for adoption at the moment of need.">
+	<meta name="twitter:image" content="https://i.postimg.cc/VLMRgnZX/Umprompted-master-assets-Title-Thumb.jpg">
+	<style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "Person",
+				"name": "Carly and Simon",
+				"jobTitle": "Internal Communications Practitioners & Podcast Hosts",
+				"worksFor": {
+					"@type": "Organization",
+					"name": "Unprompted Podcast"
+				}
+			},
+			{
+				"@type": "Person",
+				"name": "Rebecca Lindsay",
+				"jobTitle": "Internal Comms Manager",
+				"worksFor": {
+					"@type": "Organization",
+					"name": "Hyper Exponential"
+				},
+				"description": "Rebecca Lindsay works at Hyper Exponential, a tech-focused company where the CEO describes himself as an AI maximalist and encourages all employees to use AI in their roles. She has been part of the company's AI enablement squad and is known for experimenting with AI agents and tools to solve internal communications challenges, building multiple agents including tone of voice, annual leave assistant, and emotionally intelligent communications checkers.",
+				"knowsAbout": ["Hyper Exponential", "ChatGPT", "Microsoft Copilot", "Copilot Studio", "Glean"]
+			},
+			{
+				"@type": "BlogPosting",
+				"headline": "How to Roll Out an AI Agent Successfully in Your Organization",
+				"description": "Three critical steps for AI agent implementation: identify need through data, create the agent, and design behavioural rollout for adoption at the moment of need.",
+				"image": "https://i.postimg.cc/VLMRgnZX/Umprompted-master-assets-Title-Thumb.jpg",
+				"datePublished": "2026-09-13",
+				"dateModified": "2026-09-13",
+				"author": {
+					"@type": "Organization",
+					"name": "Rebecca Lindsay"
+				},
+				"publisher": {
+					"@type": "Organization",
+					"name": "Listenly",
+					"url": "https://listenly.fr"
+				},
+				"isPartOf": {
+					"@type": "PodcastSeries",
+					"name": "Unprompted: Real AI in IC",
+					"url": "https://listenly.fr/podcast-btb/unprompted-real-aI-in-ic-podcast.html"
+				},
+				"speakable": {
+					"@type": "SpeakableSpecification",
+					"cssSelector": [".lead", "blockquote.citation"]
+				}
+			},
+			{
+				"@type": "BreadcrumbList",
+				"itemListElement": [
+					{
+						"@type": "ListItem",
+						"position": 1,
+						"name": "Listenly",
+						"item": "https://listenly.fr"
+					},
+					{
+						"@type": "ListItem",
+						"position": 2,
+						"name": "Unprompted: Real AI in IC",
+						"item": "https://listenly.fr/podcast-btb/unprompted-real-aI-in-ic-podcast.html"
+					},
+					{
+						"@type": "ListItem",
+						"position": 3,
+						"name": "How to Roll Out an AI Agent Successfully in Your Organization",
+						"item": "https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/what-are-the-key-steps-for-implementing-and-rolling-out-an-ai-agent-in.html"
+					}
+				]
+			},
+			{
+				"@type": "FAQPage",
+				"mainEntity": [
+					{
+						"@type": "Question",
+						"name": "How can internal communicators identify which problems are suitable for AI agent solutions?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Rebecca identifies needs through data and evidence, such as from internal comms surveys. For example, the annual leave assistant was created after survey data revealed this was a pain point for employees."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "Why does productivity with AI initially decrease before increasing, and how should communicators plan for this learning curve?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Adele references a piece in The Economist explaining that productivity with AI goes down before it goes up because time must be invested in experimentation and learning how to use these tools effectively."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "What new skill sets are required for internal communications teams managing AI tools and GPT agents?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Adele identifies the need for skills to understand AI tools, keep communication GPTs updated, and manage their performance like any team member, ensuring these agents work effectively for your organization."
+						}
+					}
+				]
+			}
+		]
+	}
+	</script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<header>
+			<div class="header-top">
+				<img class="podcast-cover" src="https://i.postimg.cc/VLMRgnZX/Umprompted-master-assets-Title-Thumb.jpg" alt="Unprompted: Real AI in IC">
+				<div>
+					<span class="badge">The answer lives in this podcast</span>
+					<p class="source-line">Answer extracted from the Unprompted: Real AI in IC podcast — listen to the full episode below.</p>
+				</div>
+			</div>
+			<a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/s01_ep1_-_experimenting_with_ai_agents_in_internal_comms_with_rebecca_lindsay_hyperexponential">🎧 Listen to the episode on Listenly</a>
+			<h1>How to Roll Out an AI Agent Successfully in Your Organization?</h1>
+			<p class="article-meta">
+				<span>13 September 2026</span>
+				<span><strong>Unprompted: Real AI in IC</strong> · Rebecca Lindsay</span>
+			</p>
+		</header>
+
+		<p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/unprompted-real-aI-in-ic-podcast.html">← See the Unprompted: Real AI in IC fiche</a></p>
+
+		<p class="lead">
+			AI agent rollout requires three sequential steps: <strong>identify the need through data or observed friction</strong>, create the agent itself, then design the behavioral rollout so it reaches users at their moment of greatest need. Success depends on placing the agent at the exact point where employees encounter the problem it solves.
+		</p>
+
+		<h2>Starting with Evidence, Not Assumptions</h2>
+		<p>
+			The first step is not to guess which problems your organization should solve. <strong>Data from surveys or direct feedback reveals the actual pain points</strong> that employees face daily. This grounds your AI investment in real friction, not intuition.
+		</p>
+		<p>
+			As <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/s01_ep1_-_experimenting_with_ai_agents_in_internal_comms_with_rebecca_lindsay_hyperexponential">Rebecca Lindsay explains in the episode</a>, Hyper Exponential identified the annual leave assistant as a priority after survey data showed this was genuinely pulling people's attention away from other work.
+		</p>
+
+		<h2>Timing Is Everything: The Moment-of-Need Principle</h2>
+		<p>
+			Once the agent exists, <strong>the rollout strategy determines whether employees actually use it</strong>. Launching an agent and hoping people find it is passive; designing the moment of adoption is active adoption strategy.
+		</p>
+		<p>
+			Rebecca's approach integrated the annual leave assistant directly into the HR platform so employees received the agent link at the exact moment they submitted their annual leave request. They did not have to remember the tool existed or search for it—it appeared where the problem manifested. This behavioral design pattern dramatically increases adoption compared to sending a blanket announcement and waiting for uptake.
+		</p>
+		<p>
+			This principle applies across all AI agents: <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/s01_ep1_-_experimenting_with_ai_agents_in_internal_comms_with_rebecca_lindsay_hyperexponential">the episode explores how strategic placement</a> turns a tool nobody remembers into a solution people use instinctively.
+		</p>
+
+		<blockquote class="citation">
+			<p>"We want to be giving you the tools to do great comms yourself, and that is precisely what AI can enable us to do at scale."</p>
+			<figcaption><strong>Rebecca Lindsay</strong> — Internal Comms Manager, Hyper Exponential. As part of the company's AI enablement squad, Lindsay has built multiple agents to solve internal communications challenges, including tone-of-voice checkers and emotionally intelligent communication tools, all designed to scale human capability rather than replace it.</figcaption>
+		</blockquote>
+
+		<p>
+			<a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/s01_ep1_-_experimenting_with_ai_agents_in_internal_comms_with_rebecca_lindsay_hyperexponential">The full conversation also covers how Hyper Exponential's CEO takes an AI-maximalist stance</a>, creating organizational permission for experimentation and iteration—a context that allowed these rollout strategies to develop in the first place.
+		</p>
+
+		<div class="points-cles">
+			<h3>Key takeaways</h3>
+			<ul>
+				<li>Identify problems through data and surveys, not guesswork, to ensure the agent solves a real need.</li>
+				<li>Create the agent with clear functionality aligned to that identified friction point.</li>
+				<li>Design the behavioral rollout to reach employees at their moment of need, not through announcement alone.</li>
+				<li>Embed the agent within existing workflows (e.g., HR platform integration) to maximize discovery and adoption without extra effort from users.</li>
+			</ul>
+		</div>
+
+		<h2>See also</h2>
+		<div class="faq">
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/how-can-internal-communicators-identify-which-problems-are-suitable-fo.html">How can internal communicators identify which problems are suitable for AI agent solutions?</a></h3>
+				<p>Rebecca identifies needs through data and evidence, such as from internal comms surveys. For example, the annual leave assistant was created after survey data revealed this was a genuine pain point for employees.</p>
+			</div>
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/why-does-productivity-with-ai-initially-decrease-before-increasing-and.html">Why does productivity with AI initially decrease before increasing, and how should communicators plan for this learning curve?</a></h3>
+				<p>Adele references a piece in The Economist explaining that productivity with AI goes down before it goes up because time must be invested in experimentation and learning how to use these tools effectively.</p>
+			</div>
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/what-new-skill-sets-are-required-for-internal-communications-teams-man.html">What new skill sets are required for internal communications teams managing AI tools and GPT agents?</a></h3>
+				<p>Adele identifies the need for skills to understand AI tools, keep communication GPTs updated, and manage their performance like any team member, ensuring these agents work effectively for your organization.</p>
+			</div>
+		</div>
+
+		<div class="cta-block">
+			<a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/s01_ep1_-_experimenting_with_ai_agents_in_internal_comms_with_rebecca_lindsay_hyperexponential">Listen to the episode on Listenly</a>
+		</div>
+	</div>
+
+	<footer>
+		Written by the Listenly editorial team
+	</footer>
+
+	<div id="semantic-index" style="display:none;">
+		Rebecca Lindsay, Hyper Exponential, ChatGPT, Microsoft Copilot, Copilot Studio, Glean, Unprompted: Real AI in IC
+	</div>
+</body>
+</html>
