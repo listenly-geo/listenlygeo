@@ -1825,7 +1825,11 @@ ul.clean li{{margin-bottom:6px}}
 <div class="cards">
   <div class="card"><div class="ico">🎙️</div><div class="num" data-target="{len(records)}">0</div><div class="lbl">Podcasts référencés</div></div>
   <div class="card"><div class="ico">❓</div><div class="num" data-target="{total_questions}">0</div><div class="lbl">Fiches requête totales</div></div>
+  <div class="card"><div class="ico">🔗</div><div class="num" data-target="0">0</div><div class="lbl">Backlinks moteurs autorité</div></div>
 </div>
+
+<h2>Moteurs autorité</h2>
+<div class="panel"><ul class="clean"><li>Aucun moteur autorité installé pour l'instant</li></ul></div>
 
 <h2>Prévision semaine · {sum(1 for _, _, k, _, _ in upcoming if k)} fiche(s) programmée(s)</h2>
 <div class="panel">
