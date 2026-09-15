@@ -960,6 +960,45 @@ def build_sitemap():
         f.write(xml)
     log(f"Sitemap regenere : {len(urls)} URL(s)")
 
+    build_sitemap_quality(urls)
+
+def build_sitemap_quality(urls):
+    """Regenere sitemap-quality.xml a partir des URLs deja collectees par build_sitemap(),
+    en excluant les pages non pertinentes pour l'indexation :
+    - pages contenant une balise <meta name="robots" content="noindex"...>
+    - fiches anormalement courtes (< 8 Ko), meme seuil que l'anomalie deja detectee au dashboard.
+    Remplace l'ancien fichier fige (cree manuellement, jamais mis a jour) qui bloquait
+    la decouverte des nouvelles fiches par Google."""
+    MIN_SIZE_BYTES = 8 * 1024
+    quality_urls = []
+    for url, mtime, priority in urls:
+        rel_path = url.replace("https://listenly.fr/podcast-btb/", "")
+        full_path = os.path.join(PAGES_DIR, rel_path)
+        try:
+            if os.path.getsize(full_path) < MIN_SIZE_BYTES:
+                continue
+            with open(full_path, encoding="utf-8", errors="ignore") as f:
+                content = f.read()
+            if "noindex" in content.lower():
+                continue
+        except OSError:
+            continue
+        quality_urls.append((url, mtime, priority))
+
+    entries = "\n".join(
+        f'  <url>\n    <loc>{u}</loc>\n    <lastmod>{m}</lastmod>\n    <priority>{p}</priority>\n  </url>'
+        for u, m, p in sorted(quality_urls)
+    )
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f'{entries}\n'
+        '</urlset>\n'
+    )
+    with open(f"{PAGES_DIR}/sitemap-quality.xml", "w", encoding="utf-8") as f:
+        f.write(xml)
+    log(f"Sitemap qualite regenere : {len(quality_urls)} URL(s) (sur {len(urls)} au total)")
+
 def build_llms_txt():
     """Genere pages/podcast-btb/llms.txt (convention llms.txt) — resume structure
     pour les crawlers IA. Se met a jour a chaque generation, comme le sitemap."""
