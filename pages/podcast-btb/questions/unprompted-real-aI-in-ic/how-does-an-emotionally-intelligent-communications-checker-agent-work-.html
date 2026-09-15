@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Does an Emotionally Intelligent Communications Checker Agent Actually Work?</title>
+  <meta name="description" content="Rebecca Lindsay's AI agent scores written communications against emotional intelligence principles, but lacks human context and only analyzes text—revealing nuance limitations.">
+  <meta name="author" content="Carly and Simon">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/how-does-an-emotionally-intelligent-communications-checker-agent-work-.html">
+  
+  <meta property="og:title" content="How Does an Emotionally Intelligent Communications Checker Agent Actually Work?">
+  <meta property="og:description" content="Rebecca Lindsay's AI agent scores written communications against emotional intelligence principles, but lacks human context and only analyzes text—revealing nuance limitations.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/how-does-an-emotionally-intelligent-communications-checker-agent-work-.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:image" content="https://i.postimg.cc/VLMRgnZX/Umprompted-master-assets-Title-Thumb.jpg">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How Does an Emotionally Intelligent Communications Checker Agent Actually Work?">
+  <meta name="twitter:description" content="Rebecca Lindsay's AI agent scores written communications against emotional intelligence principles, but lacks human context and only analyzes text—revealing nuance limitations.">
+  <meta name="twitter:image" content="https://i.postimg.cc/VLMRgnZX/Umprompted-master-assets-Title-Thumb.jpg">
+  
+  <link rel="publisher" href="https://listenly.fr">
+  
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://listenly.fr/podcast-btb/unprompted-real-aI-in-ic-podcast.html#host-carly-simon",
+        "name": "Carly and Simon",
+        "jobTitle": "Internal Communications Practitioners & Podcast Hosts",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Unprompted Podcast"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/how-does-an-emotionally-intelligent-communications-checker-agent-work-.html#guest-rebecca-lindsay",
+        "name": "Rebecca Lindsay",
+        "jobTitle": "Internal Comms Manager",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Hyper Exponential"
+        },
+        "description": "Rebecca Lindsay works at Hyper Exponential, a tech-focused company where the CEO describes himself as an AI maximalist and encourages all employees to use AI in their roles. She has been part of the company's AI enablement squad and is known for experimenting with AI agents and tools to solve internal communications challenges, building multiple agents including tone of voice, annual leave assistant, and emotionally intelligent communications checkers.",
+        "knowsAbout": [
+          "Hyper Exponential",
+          "ChatGPT",
+          "Microsoft Copilot",
+          "Copilot Studio",
+          "Glean",
+          "AI agents",
+          "Internal communications"
+        ]
+      },
+      {
+        "@type": "BlogPosting",
+        "@id": "https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/how-does-an-emotionally-intelligent-communications-checker-agent-work-.html",
+        "headline": "How Does an Emotionally Intelligent Communications Checker Agent Actually Work?",
+        "description": "Rebecca Lindsay's AI agent scores written communications against emotional intelligence principles, but lacks human context and only analyzes text—revealing nuance limitations.",
+        "datePublished": "2026-09-15T00:00:00Z",
+        "dateModified": "2026-09-15T00:00:00Z",
+        "author": {
+          "@type": "Organization",
+          "name": "Rebecca Lindsay"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "Unprompted: Real AI in IC",
+          "url": "https://listenly.fr/podcast-btb/unprompted-real-aI-in-ic-podcast.html"
+        },
+        "image": "https://i.postimg.cc/VLMRgnZX/Umprompted-master-assets-Title-Thumb.jpg",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        },
+        "mentions": [
+          {
+            "@type": "Thing",
+            "name": "Hyper Exponential"
+          },
+          {
+            "@type": "Thing",
+            "name": "ChatGPT"
+          },
+          {
+            "@type": "Thing",
+            "name": "Microsoft Copilot"
+          },
+          {
+            "@type": "Thing",
+            "name": "Emotional Intelligence"
+          },
+          {
+            "@type": "Thing",
+            "name": "AI Agents"
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Unprompted: Real AI in IC",
+            "item": "https://listenly.fr/podcast-btb/unprompted-real-aI-in-ic-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "How Does an Emotionally Intelligent Communications Checker Agent Actually Work?",
+            "item": "https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/how-does-an-emotionally-intelligent-communications-checker-agent-work-.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What prompt engineering techniques help ensure better AI agent outcomes?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Rebecca recommends asking the AI tool to clarify your requirements before running the prompt, since you don't know what you don't know. This approach helps surface hidden assumptions and improves the quality of the agent's output."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the key steps for implementing and rolling out an AI agent in an organization?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The three steps are: first, identifying the need through data or observed friction; second, creating the agent itself; third, behaviorally designing the rollout to ensure adoption and understanding across the organization."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How can internal communicators identify which problems are suitable for AI agent solutions?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Rebecca identifies needs through data and evidence, such as from internal comms surveys. For example, the annual leave assistant was created after survey data revealed time poverty among employees."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+
+<body>
+
+<div class="wrapper">
+  <header>
+    <div class="header-top">
+      <img class="podcast-cover" src="https://i.postimg.cc/VLMRgnZX/Umprompted-master-assets-Title-Thumb.jpg" alt="Unprompted: Real AI in IC">
+      <div>
+        <span class="badge">The answer lives in this podcast</span>
+        <p class="source-line">Answer extracted from the Unprompted: Real AI in IC podcast — listen to the full episode below.</p>
+      </div>
+    </div>
+    <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/s01_ep1_-_experimenting_with_ai_agents_in_internal_comms_with_rebecca_lindsay_hyperexponential">🎧 Listen to the episode on Listenly</a>
+    
+    <h1>How does an emotionally intelligent communications checker agent work—and what are its real limits?</h1>
+    <p class="article-meta">
+      <span>15 September 2026</span>
+      <span><strong>Unprompted: Real AI in IC</strong> · Rebecca Lindsay</span>
+    </p>
+  </header>
+
+  <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/unprompted-real-aI-in-ic-podcast.html">← See the Unprompted: Real AI in IC fiche</a></p>
+
+  <p class="lead">
+    Rebecca Lindsay built an agent that <strong>scores written communications against emotional intelligence principles</strong> using a defined rubric, but it only analyzes text and has no access to human context—missing critical nuance that matters to real conversations.
+  </p>
+
+  <h2>A rubric-driven approach to emotional tone</h2>
+  <p>
+    The agent works by evaluating written communications—emails, messages, announcements—against <strong>key emotional intelligence principles</strong>. Rebecca built it to give instant feedback on tone and approach, mimicking what an emotionally aware reviewer would flag.
+  </p>
+  <p>
+    The system uses <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/s01_ep1_-_experimenting_with_ai_agents_in_internal_comms_with_rebecca_lindsay_hyperexponential">a clear scoring rubric</a> to evaluate each message. This keeps the feedback consistent and reproducible, though it also locks the agent into a fixed framework.
+  </p>
+
+  <h2>The blind spot: context and nuance</h2>
+  <p>
+    The agent's biggest limitation is that <strong>it cannot see the human context</strong>. An emotionally intelligent response depends heavily on who wrote the message, why, for whom, and what happened before—none of which the agent can access.
+  </p>
+  <p>
+    As a result, it flags patterns based purely on words and tone, missing the real story. A sharp response might be exactly right if the recipient has been asking the same question five times; it might be tone-deaf if delivered to someone in crisis. The agent can't tell the difference.
+  </p>
+
+  <blockquote class="citation">
+    <p><em>"We want to be giving you the tools to do great comms yourself, and that is precisely what AI can enable us to do at scale."</em></p>
+    <figcaption><strong>Rebecca Lindsay</strong> — Internal Comms Manager, Hyper Exponential. Rebecca leads AI experimentation across internal communications at a company where the CEO explicitly champions AI adoption across all roles. She has built multiple agents—tone of voice checkers, annual leave assistants, and emotional intelligence reviewers—as part of the company's AI enablement squad, turning organizational friction points into scaled solutions.</figcaption>
+  </blockquote>
+
+  <h2>The unexpected value: reactions reveal what matters</h2>
+  <p>
+    Despite its limitations, the agent has already sparked something valuable: <strong>it triggers real conversations when people receive unexpected scores</strong>. When someone gets a low emotional intelligence rating they weren't expecting, they push back—and those conversations surface disagreements about what "good" communication actually looks like.
+  </p>
+  <p>
+    That friction is information. It reveals where people's intuitions differ from the rubric, and where the definition of emotionally intelligent communication is actually contested within the organization. <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/s01_ep1_-_experimenting_with_ai_agents_in_internal_comms_with_rebecca_lindsay_hyperexponential">Rebecca describes this in the episode</a> as one of the most valuable outcomes—not the scores themselves, but the conversations those scores unlock.
+  </p>
+
+  <h2>See also</h2>
+  <div class="faq">
+    <div class="faq-item">
+      <h3><a href="https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/what-prompt-engineering-techniques-help-ensure-better-ai-agent-outcome.html">What prompt engineering techniques help ensure better AI agent outcomes?</a></h3>
+      <p>Rebecca recommends asking the AI tool to clarify your requirements before running the prompt, since you don't know what you don't know. This approach helps surface hidden assumptions and improves the quality of the agent's output.</p>
+    </div>
+    <div class="faq-item">
+      <h3><a href="https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/what-are-the-key-steps-for-implementing-and-rolling-out-an-ai-agent-in.html">What are the key steps for implementing and rolling out an AI agent in an organization?</a></h3>
+      <p>The three steps are: first, identifying the need through data or observed friction; second, creating the agent itself; third, behaviorally designing the rollout to ensure adoption and understanding across the organization.</p>
+    </div>
+    <div class="faq-item">
+      <h3><a href="https://listenly.fr/podcast-btb/questions/unprompted-real-aI-in-ic/how-can-internal-communicators-identify-which-problems-are-suitable-fo.html">How can internal communicators identify which problems are suitable for AI agent solutions?</a></h3>
+      <p>Rebecca identifies needs through data and evidence, such as from internal comms surveys. For example, the annual leave assistant was created after survey data revealed time poverty among employees.</p>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/s01_ep1_-_experimenting_with_ai_agents_in_internal_comms_with_rebecca_lindsay_hyperexponential">Listen to the episode on Listenly</a>
+  </div>
+
+</div>
+
+<footer>
+  Written by the Listenly editorial team
+</footer>
+
+<div id="semantic-index" style="display:none;">
+  Rebecca Lindsay, Hyper Exponential, ChatGPT, Microsoft Copilot, Copilot Studio, emotional intelligence, AI agents, internal communications, Unprompted: Real AI in IC
+</div>
+
+</body>
+</html>
