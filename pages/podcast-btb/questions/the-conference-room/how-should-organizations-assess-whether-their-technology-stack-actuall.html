@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Stack Fit: Matching Your Tools to Your Growth Stage</title>
+  <meta name="description" content="Match your technology tools to your growth stage, not the other way around. Audit your software stack to eliminate redundancy and misalignment.">
+  <meta name="author" content="Simon Lader">
+  <meta property="og:title" content="Tech Stack Fit: Matching Your Tools to Your Growth Stage">
+  <meta property="og:description" content="Match your technology tools to your growth stage, not the other way around. Audit your software stack to eliminate redundancy and misalignment.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/the-conference-room/how-should-organizations-assess-whether-their-technology-stack-actuall.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:image" content="https://i.postimg.cc/rp2KpvnH/images.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tech Stack Fit: Matching Your Tools to Your Growth Stage">
+  <meta name="twitter:description" content="Match your technology tools to your growth stage, not the other way around. Audit your software stack to eliminate redundancy and misalignment.">
+  <meta name="twitter:image" content="https://i.postimg.cc/rp2KpvnH/images.jpg">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/the-conference-room/how-should-organizations-assess-whether-their-technology-stack-actuall.html">
+  <link rel="publisher" href="https://listenly.fr">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Simon Lader",
+        "jobTitle": "Co-Founder, Executive Search & Podcast Consulting",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Salisi Human Capital / Viva Podcasts"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Val Coyne",
+        "jobTitle": "Systems and Technology Strategist",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Digital Transformation Advisory Consultancy"
+        },
+        "description": "Val Coyne began her career in hospitality, managing a family restaurant in Italy and later a chain of restaurants, bistros, bars and bakeries in the Noosa region on Australia's Sunshine Coast. She transitioned into technology as a founding member of a startup building software for the disability sector, where she learned to build systems in growing companies. She subsequently exited that business to launch her current consultancy, now working with C-suite executives, CEOs and COOs to align technology, people and process.",
+        "knowsAbout": ["Systems design", "Technology strategy", "Growth-stage alignment", "Software auditing", "Organizational transformation"]
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "How should organizations assess whether their technology stack actually supports their growth stage?",
+        "description": "Match your technology tools to your growth stage, not the other way around. Audit your software stack to eliminate redundancy and misalignment.",
+        "datePublished": "2026-09-16",
+        "dateModified": "2026-09-16",
+        "image": "https://i.postimg.cc/rp2KpvnH/images.jpg",
+        "author": {
+          "@type": "Organization",
+          "name": "Val Coyne"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "The Conference Room with Simon Lader",
+          "url": "https://listenly.fr/podcast-btb/the-conference-room-podcast.html"
+        },
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "The Conference Room with Simon Lader",
+            "item": "https://listenly.fr/podcast-btb/the-conference-room-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "How should organizations assess whether their technology stack actually supports their growth stage?",
+            "item": "https://listenly.fr/podcast-btb/questions/the-conference-room/how-should-organizations-assess-whether-their-technology-stack-actuall.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why should process and people considerations come before technology in organizational transformation?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "If you start from technology alone, you replicate exactly what you're doing today with software and call it automation, but you haven't truly become more efficient or transformed your operations."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the true definition of digital transformation beyond simply implementing software?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Digital transformation is the process of digitizing your business and taking a step back to examine your operations to identify where processes can be genuinely improved, not just automated."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What early challenges did Dr. Sherry Zhang face as an immigrant pursuing higher education in the United States?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Dr. Zhang's visa was rejected three times before she could start her PhD at Marquette University in Wisconsin; she arrived late for her start date, but persevered through the difficulties."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://i.postimg.cc/rp2KpvnH/images.jpg" alt="The Conference Room with Simon Lader">
+        <div>
+          <span class="badge">The answer lives in this podcast</span>
+          <p class="source-line">Answer extracted from the The Conference Room with Simon Lader podcast — listen to the full episode below.</p>
+        </div>
+      </div>
+      <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/ep183_-bringing_structure_and_systems_to_accidental_ceos">🎧 Listen to the episode on Listenly</a>
+      <h1>How should organizations assess whether their technology stack actually supports their growth stage?</h1>
+      <p class="article-meta"><span>September 16, 2026</span> <span><strong>The Conference Room with Simon Lader</strong> · Val Coyne</span></p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/the-conference-room-podcast.html">← See the The Conference Room with Simon Lader fiche</a></p>
+
+    <p class="lead">First, <strong>identify your growth stage</strong>—startup, grow up, scale up, established, or hyper growth—and match your tools to that phase, not the reverse. A startup doesn't need enterprise software like Salesforce because processes are still fluid. Second, audit how many software platforms you actually use and whether teams are truly using them; most organizations accumulate 30 to 50 different pieces of software without realizing existing platforms already contain the features they need.</p>
+
+    <h2>Stage-First Assessment: The Foundation</h2>
+    <p>The biggest mistake organizations make is selecting technology based on what competitors use or what the industry expects. <strong>Your tools must reflect where you are</strong>, not where you aspire to be in five years. A startup with founder-led operations has different needs than an established business with formal processes and multiple departments.</p>
+
+    <p>As <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/ep183_-bringing_structure_and_systems_to_accidental_ceos">Val Coyne explains in the episode</a>, early-stage businesses often have agility as their competitive advantage. Implementing rigid enterprise systems too early locks you into structures that may not match how you actually operate. The flexibility to pivot and adapt—something easier with lighter software—disappears once you're invested in a massive platform.</p>
+
+    <h2>The Hidden Software Audit: What You Don't Know</h2>
+    <p>Most organizations don't know how much software they've accumulated. <strong>Conducting a full inventory reveals redundancy that consumes budget and creates confusion</strong>. Businesses often discover teams using Google Drive for what another department does with a paid platform, or realizing a feature built into existing software handles a problem they thought required a separate tool.</p>
+
+    <p>The pattern is consistent: software platforms gain 10 or more new features over 3 to 6 years that users never discover. This happens because teams don't revisit platform capabilities once deployment is complete. A quarterly check-in of your software inventory paired with one full annual audit prevents this waste, as <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/ep183_-bringing_structure_and_systems_to_accidental_ceos">detailed in this podcast</a>.</p>
+
+    <blockquote class="citation">
+      <p>"Technology always, always, always comes last. Typically, first comes process, second comes people, and third comes technology."</p>
+      <figcaption><strong>Val Coyne</strong> — Systems and Technology Strategist. Val brings over a decade of experience helping C-suite executives and accidental CEOs align their operations. She began her career building systems in hospitality, managing a family restaurant in Italy and later a chain across Australia's Sunshine Coast, before transitioning to technology as a founding member of a disability-sector software startup. She now consults with CEOs and COOs to ensure technology, people, and process work together as one integrated system.</figcaption>
+    </blockquote>
+
+    <p>This principle anchors the entire assessment. If you select technology first and then try to fit your people and processes around it, you've already lost. <strong>Process design and team structure must come first</strong>; technology is the enabler that follows, not the foundation.</p>
+
+    <p>For a more detailed exploration of why this sequencing matters and how it transforms organizational outcomes, <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/ep183_-bringing_structure_and_systems_to_accidental_ceos">listen to the full conversation</a> between Simon Lader and Val Coyne.</p>
+
+    <div class="points-cles">
+      <h3>Key takeaways</h3>
+      <ul>
+        <li>Align your technology to your current growth stage (startup, scale up, established, hyper growth) rather than choosing tools based on industry norms or future aspirations.</li>
+        <li>Most organizations carry 30 to 50 overlapping software platforms; auditing your inventory reveals redundancy and hidden feature overlap.</li>
+        <li>Software platforms accumulate features over years that users never discover; quarterly check-ins and annual full audits prevent budget waste.</li>
+        <li>Technology must follow process and people decisions, never precede them—selecting software first forces you into misaligned operations.</li>
+      </ul>
+    </div>
+
+    <h2>See also</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-conference-room/why-should-process-and-people-considerations-come-before-technology-in.html">Why should process and people considerations come before technology in organizational transformation?</a></h3>
+        <p>If you start from technology alone, you replicate exactly what you're doing today with software and call it automation, but you haven't truly transformed your operations or become more efficient.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-conference-room/what-is-the-true-definition-of-digital-transformation-beyond-simply-im.html">What is the true definition of digital transformation beyond simply implementing software?</a></h3>
+        <p>Digital transformation is the process of digitizing your business and taking a step back to examine your operations—identifying where processes can be genuinely improved, not just automated.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-conference-room/what-early-challenges-did-dr-sherry-zhang-face-as-an-immigrant-pursuin.html">What early challenges did Dr. Sherry Zhang face as an immigrant pursuing higher education in the United States?</a></h3>
+        <p>Dr. Zhang's visa was rejected three times before she could start her PhD at Marquette University in Wisconsin; she arrived late for her start date, but persevered through these obstacles.</p>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/ep183_-bringing_structure_and_systems_to_accidental_ceos">🎧 Listen to the episode on Listenly</a>
+    </div>
+
+    <footer>Written by the Listenly editorial team</footer>
+  </div>
+
+  <div id="semantic-index" style="display:none;">
+    <span>Val Coyne</span>
+    <span>Simon Lader</span>
+    <span>The Conference Room with Simon Lader</span>
+    <span>Systems and Technology Strategy</span>
+    <span>Growth-stage assessment</span>
+    <span>Software auditing</span>
+    <span>Organizational transformation</span>
+  </div>
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Industrial AI vs. Generative AI: What's the Real Difference in Manufacturing?</title>
+  <meta name="description" content="Industrial AI uses sensor data for predictive maintenance; generative AI excels at content creation and knowledge transfer. Both reshape manufacturing differently.">
+  <meta name="author" content="Daniel Langley">
+  <meta property="og:title" content="Industrial AI vs. Generative AI: What's the Real Difference in Manufacturing?">
+  <meta property="og:description" content="Industrial AI uses sensor data for predictive maintenance; generative AI excels at content creation and knowledge transfer. Both reshape manufacturing differently.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/how-will-industrial-ai-and-generative-ai-differ-in-their-manufacturing.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Industrial AI vs. Generative AI: What's the Real Difference in Manufacturing?">
+  <meta name="twitter:description" content="Industrial AI uses sensor data for predictive maintenance; generative AI excels at content creation and knowledge transfer. Both reshape manufacturing differently.">
+  <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/how-will-industrial-ai-and-generative-ai-differ-in-their-manufacturing.html">
+  <link rel="publisher" href="https://listenly.fr">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Daniel Langley",
+        "jobTitle": "CEO and Podcast Host",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Manufacturing IT Recruitment"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Mo Abuali",
+        "jobTitle": "Director, Digital Strategy",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Wipfli"
+        },
+        "description": "Mo Abuali has spent almost 25 years in manufacturing, with half his career on shop floors serving companies like Toyota in the automotive industry, and the second half delivering digital solutions including MES, IoT platforms, and AI to manufacturers. He holds a PhD in Industrial Engineering from the University of Cincinnati's Center for Intelligent Maintenance Systems (IMS), where he conducted applied practical research across manufacturing facilities globally in the States, Japan, Taiwan, and Singapore. His dissertation, conducted almost 20 years ago, focused on leveraging AI and predictive maintenance when sensor costs were prohibitively expensive and cloud infrastructure did not exist.",
+        "knowsAbout": [
+          "Wipfli",
+          "Manufacturing IT Podcast",
+          "Toyota",
+          "Center for Intelligent Maintenance Systems (IMS)",
+          "University of Cincinnati",
+          "Industrial AI",
+          "Generative AI",
+          "Predictive Maintenance",
+          "Machine Learning",
+          "MES (Manufacturing Execution Systems)",
+          "IoT Platforms"
+        ]
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "How will industrial AI and generative AI differ in their manufacturing applications over the next five years?",
+        "description": "Industrial AI uses sensor data for predictive maintenance; generative AI excels at content creation and knowledge transfer. Both reshape manufacturing differently.",
+        "datePublished": "2026-09-16",
+        "dateModified": "2026-09-16",
+        "author": {
+          "@type": "Organization",
+          "name": "Mo Abuali"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "The Manufacturing IT Podcast",
+          "url": "https://listenly.fr/podcast/show/the-manufacturing-it-podcast"
+        },
+        "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        },
+        "mentions": [
+          {
+            "@type": "Thing",
+            "name": "Wipfli"
+          },
+          {
+            "@type": "Thing",
+            "name": "Toyota"
+          },
+          {
+            "@type": "Thing",
+            "name": "Center for Intelligent Maintenance Systems (IMS)"
+          },
+          {
+            "@type": "Thing",
+            "name": "University of Cincinnati"
+          },
+          {
+            "@type": "Thing",
+            "name": "GPT-4"
+          },
+          {
+            "@type": "Thing",
+            "name": "Machine Learning"
+          },
+          {
+            "@type": "Thing",
+            "name": "Generative AI"
+          },
+          {
+            "@type": "Thing",
+            "name": "Industrial AI"
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "The Manufacturing IT Podcast",
+            "item": "https://listenly.fr/podcast-btb/the-manufacturing-it-podcast-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "How will industrial AI and generative AI differ in their manufacturing applications?",
+            "item": "https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/how-will-industrial-ai-and-generative-ai-differ-in-their-manufacturing.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What barriers prevent small manufacturers from successfully implementing Industry 4.0 solutions?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Technology challenges include old IT systems, legacy machines, lack of connectivity and security. Process challenges occur when companies jump to technology without strategy."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the primary technology trends small and medium manufacturers should prioritize?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Five major trends are industrial machine learning to collect real-time shop floor data, advanced planning and scheduling to improve standards and job sequencing."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is digital maturity and how do manufacturers assess it?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Wipfli assesses digital maturity across technology, people, and process through innovation workshops and digital assessments, scoring capabilities in critical areas."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg" alt="The Manufacturing IT Podcast">
+        <div>
+          <span class="badge">The answer lives in this podcast</span>
+          <p class="source-line">Answer extracted from The Manufacturing IT Podcast — listen to the full episode below.</p>
+        </div>
+      </div>
+      <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">🎧 Listen to the episode on Listenly</a>
+      <h1>How will industrial AI and generative AI differ in their manufacturing applications over the next five years?</h1>
+      <p class="article-meta">
+        <span>September 16, 2026</span>
+        <span><strong>The Manufacturing IT Podcast</strong> · Mo Abuali</span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/the-manufacturing-it-podcast-podcast.html">← See the The Manufacturing IT Podcast fiche</a></p>
+
+    <p class="lead">Industrial AI, powered by sensor data and machine vision, has been solving manufacturing problems for decades—handling predictive maintenance, quality tracking, and zero-downtime production. <strong>Generative AI, a newer capability built on deep learning and neural networks, tackles a fundamentally different problem: processing multimodal data (text, video, pictures) to dramatically improve labor efficiency and knowledge transfer</strong> through systems like GPT-4.</p>
+
+    <h2>Two technologies, two timelines, two impacts</h2>
+
+    <p>Industrial AI is mature and proven. <strong>It relies on structured sensor data and machine vision to predict equipment failures before they happen</strong>, optimize quality gates, and keep production floors running without unexpected downtime. This is not new technology—it has been embedded in manufacturing operations since the early 2000s, and Mo Abuali's own doctoral research, conducted almost 20 years ago at the University of Cincinnati's Center for Intelligent Maintenance Systems, focused on predictive maintenance using AI when sensor costs were prohibitively expensive and cloud infrastructure did not exist.</p>
+
+    <p>Generative AI, by contrast, is nascent in manufacturing. Its superpower is multimodal learning—the ability to ingest text, video, images, and structured data simultaneously. <strong>This unlocks immediate applications in knowledge transfer, labor training, and process documentation</strong>, areas where manufacturing has historically struggled, especially as skilled operators age out of the workforce. According to industry data discussed in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">this episode</a>, the average age of skilled operators at major aerospace and defense original equipment manufacturers (OEMs) is 55 years old, with retirements expected within five to ten years—a crisis that generative AI can help solve through rapid documentation and training material generation.</p>
+
+    <div class="definition-box">
+      <p><strong>Multimodal data:</strong> Information that exists in multiple formats—text, video, images, and structured data—processed simultaneously by a single AI model. Unlike industrial AI systems that typically work with numeric sensor streams, generative AI models like GPT-4 can analyze a factory floor video, extract the process steps, cross-reference written procedures, and generate training materials instantly.</p>
+    </div>
+
+    <p>Over the next five years, expect industrial AI to deepen its grip on operational excellence—sensors will multiply, real-time anomaly detection will improve, and predictive models will become more granular. <strong>Generative AI will move from proof-of-concept into labor efficiency and knowledge capture roles</strong>, especially as companies realize that their biggest constraint is not equipment failures but human capability and training speed.</p>
+
+    <p>Data quality will be the deciding factor, as Abuali emphasizes in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">the podcast</a>. Neither industrial nor generative AI can function on bad data—but for different reasons. Industrial AI fails silently on sensor noise; generative AI amplifies garbage inputs into plausible-sounding but useless outputs.</p>
+
+    <blockquote class="citation">
+      <p>"If you don't have the data or the data quality or the data integrity, putting your stuff in ChatGPT is garbage in, garbage out."</p>
+      <figcaption><strong>Mo Abuali</strong> — Director, Digital Strategy at Wipfli. With nearly 25 years in manufacturing, Abuali has worked on shop floors at companies like Toyota and has spent the second half of his career implementing digital solutions—MES systems, IoT platforms, and AI systems—for manufacturers globally. His PhD in Industrial Engineering from the University of Cincinnati was earned through applied research conducted in manufacturing facilities across the United States, Japan, Taiwan, and Singapore.</figcaption>
+    </blockquote>
+
+    <p>The real competitive advantage over the next five years won't go to companies that choose one technology or the other—it will go to those who recognize that <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">industrial AI optimizes what you already do, while generative AI helps you do new things faster</a>, particularly in areas where human expertise has been your bottleneck.</p>
+
+    <div class="points-cles">
+      <h3>Key takeaways</h3>
+      <ul>
+        <li>Industrial AI has been operational in manufacturing for two decades, using sensor data and machine vision for predictive maintenance, quality control, and zero-downtime production.</li>
+        <li>Generative AI is a newer subset that excels at processing multimodal data (text, video, images) simultaneously, unlocking rapid knowledge transfer and labor training—critical as skilled operator retirements loom.</li>
+        <li>Industrial AI deepens operational excellence; generative AI accelerates human capability and documentation speed—both reshape manufacturing differently.</li>
+        <li>Data quality determines success for both technologies, but in different ways: industrial AI fails on sensor noise, while generative AI amplifies poor-quality inputs into plausible errors.</li>
+      </ul>
+    </div>
+
+    <h2>See also</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-barriers-prevent-small-manufacturers-from-successfully-implementi.html">What barriers prevent small manufacturers from successfully implementing Industry 4.0 solutions?</a></h3>
+        <p>Technology challenges include old IT systems, legacy machines, lack of connectivity and security. Process challenges occur when companies jump to technology without developing a clear strategy first.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-are-the-primary-technology-trends-small-and-medium-manufacturers-.html">What are the primary technology trends small and medium manufacturers should prioritize?</a></h3>
+        <p>Five major trends are industrial machine learning to collect real-time shop floor data, advanced planning and scheduling to improve standards and job sequencing, and other foundational capabilities.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-is-digital-maturity-and-how-do-manufacturers-assess-it.html">What is digital maturity and how do manufacturers assess it?</a></h3>
+        <p>Wipfli assesses digital maturity across technology, people, and process through innovation workshops and digital assessments, scoring capabilities in critical operational areas.</p>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">Listen to the episode on Listenly</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>Written by the Listenly editorial team</p>
+  </footer>
+
+  <div id="semantic-index" style="display:none;">
+    <span>Wipfli</span>
+    <span>The Manufacturing IT Podcast</span>
+    <span>Daniel Langley</span>
+    <span>Mo Abuali</span>
+    <span>Toyota</span>
+    <span>Center for Intelligent Maintenance Systems (IMS)</span>
+    <span>University of Cincinnati</span>
+    <span>Industrial AI</span>
+    <span>Generative AI</span>
+    <span>Predictive Maintenance</span>
+    <span>Machine Learning</span>
+    <span>GPT-4</span>
+    <span>Manufacturing Execution Systems</span>
+    <span>IoT Platforms</span>
+  </div>
+</body>
+</html>

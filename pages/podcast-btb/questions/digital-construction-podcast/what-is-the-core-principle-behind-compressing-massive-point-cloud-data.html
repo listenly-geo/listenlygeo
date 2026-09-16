@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Do You Compress Massive Point Cloud Data for Cloud Sharing?</title>
+    <meta name="description" content="Point clouds are converted into 3D meshes and surfaces that match real-world continuous surfaces, enabling compression and web browser streaming with virtually no data loss.">
+    <meta name="author" content="Digital Construction Podcast">
+    <meta property="og:title" content="How Do You Compress Massive Point Cloud Data for Cloud Sharing?">
+    <meta property="og:description" content="Point clouds are converted into 3D meshes and surfaces that match real-world continuous surfaces, enabling compression and web browser streaming with virtually no data loss.">
+    <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/digital-construction-podcast/what-is-the-core-principle-behind-compressing-massive-point-cloud-data.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Listenly">
+    <meta property="og:image" content="https://i.postimg.cc/wxC0Z0x6/ab6765630000ba8ac647d9e9ce0912ed05eae2fd.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How Do You Compress Massive Point Cloud Data for Cloud Sharing?">
+    <meta name="twitter:description" content="Point clouds are converted into 3D meshes and surfaces that match real-world continuous surfaces, enabling compression and web browser streaming with virtually no data loss.">
+    <meta name="twitter:image" content="https://i.postimg.cc/wxC0Z0x6/ab6765630000ba8ac647d9e9ce0912ed05eae2fd.jpg">
+    <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/digital-construction-podcast/what-is-the-core-principle-behind-compressing-massive-point-cloud-data.html">
+    <link rel="publisher" href="https://listenly.fr">
+    <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "name": "Digital Construction Podcast",
+          "jobTitle": "Host & Digital Construction Specialist",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Digital Construction Podcast"
+          }
+        },
+        {
+          "@type": "Person",
+          "name": "Dominique Pouliquen",
+          "jobTitle": "Co-founder and CEO",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Cintoo"
+          },
+          "description": "Dominique Pouliquen joined Autodesk through the acquisition of his first company, RealViz, a spin-off from a French lab developing photogrammetry technology for extracting 3D from 2D pictures. At Autodesk, he co-led the ReCap team in San Francisco, building software to manage massive point cloud data and democratizing access to point clouds across Revit, AutoCAD, and C3D. He left Autodesk to co-found Cintoo with PhDs from another French lab who had developed compression technology to make point cloud data cloud-accessible and streamable in web browsers.",
+          "knowsAbout": ["Cintoo", "Autodesk", "RealViz", "ReCap", "Revit", "AutoCAD", "C3D", "Point Cloud Compression", "3D Mesh Technology"]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "How Do You Compress Massive Point Cloud Data for Cloud Sharing?",
+          "description": "Point clouds are converted into 3D meshes and surfaces that match real-world continuous surfaces, enabling compression and web browser streaming with virtually no data loss.",
+          "author": {
+            "@type": "Organization",
+            "name": "Dominique Pouliquen"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Listenly",
+            "url": "https://listenly.fr"
+          },
+          "isPartOf": {
+            "@type": "PodcastSeries",
+            "name": "Digital Construction Podcast",
+            "url": "https://listenly.fr/podcast-btb/digital-construction-podcast-podcast.html"
+          },
+          "datePublished": "2026-09-16",
+          "dateModified": "2026-09-16",
+          "image": "https://i.postimg.cc/wxC0Z0x6/ab6765630000ba8ac647d9e9ce0912ed05eae2fd.jpg",
+          "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".lead", "blockquote.citation"]
+          },
+          "mentions": [
+            {
+              "@type": "Thing",
+              "name": "Cintoo"
+            },
+            {
+              "@type": "Thing",
+              "name": "Autodesk"
+            },
+            {
+              "@type": "Thing",
+              "name": "Point Cloud"
+            },
+            {
+              "@type": "Thing",
+              "name": "3D Mesh"
+            },
+            {
+              "@type": "Thing",
+              "name": "Web Browser Streaming"
+            },
+            {
+              "@type": "Thing",
+              "name": "ReCap"
+            },
+            {
+              "@type": "Thing",
+              "name": "RealViz"
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Listenly",
+              "item": "https://listenly.fr"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Digital Construction Podcast",
+              "item": "https://listenly.fr/podcast-btb/digital-construction-podcast-podcast.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "How Do You Compress Massive Point Cloud Data for Cloud Sharing?",
+              "item": "https://listenly.fr/podcast-btb/questions/digital-construction-podcast/what-is-the-core-principle-behind-compressing-massive-point-cloud-data.html"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What advice does Devon Middleditch give to early-career technical professionals aspiring to leadership?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "If you are a technical person, it is easy to drift back to your safe space. Devon suggests taking professional development modules on understanding self and developing leadership fundamentals, rather than staying isolated in technical expertise."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What innovative technologies did Devon Middleditch implement on the Doha Expressway Program around 2010?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "On the Doha Expressway Program, Devon implemented drones to verify if digging was occurring on the ground for progress payments, iPads with early augmented reality capabilities for field teams, and digital documentation systems to capture real-world construction progress in real time."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What was the career-defining moment that led to Devon Middleditch's leadership in digital engineering?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Devon wrote a paper to executives outlining Engineering 2.0 and the need to scale computing technology in engineering delivery. Initially receiving no support, he eventually implemented these ideas on major projects, proving the value of digital transformation in construction and engineering."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="header-top">
+                <img class="podcast-cover" src="https://i.postimg.cc/wxC0Z0x6/ab6765630000ba8ac647d9e9ce0912ed05eae2fd.jpg" alt="Digital Construction Podcast">
+                <div>
+                    <span class="badge">The answer lives in this podcast</span>
+                    <p class="source-line">Answer extracted from the Digital Construction Podcast — listen to the full episode below.</p>
+                </div>
+            </div>
+            <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/cintoo_the_netflix_for_3d_data_with_dominique_pouliquen">🎧 Listen to the episode on Listenly</a>
+            <h1>How do you compress massive point cloud data into formats suitable for cloud sharing?</h1>
+            <p class="article-meta">
+                <span>September 16, 2026</span>
+                <span><strong>Digital Construction Podcast</strong> · Dominique Pouliquen</span>
+            </p>
+        </header>
+
+        <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/digital-construction-podcast-podcast.html">← See the Digital Construction Podcast fiche</a></p>
+
+        <p class="lead">
+            The core principle is <strong>converting point clouds into 3D meshes and surfaces that match real-world continuous surfaces</strong>—solving the fundamental problem that point clouds appear as transparent 3D dots floating in space rather than solid objects. These compressed 3D meshes can be streamed directly in a web browser at full source resolution and converted back to point cloud format with virtually no data loss when needed.
+        </p>
+
+        <h2>From Transparent Dots to Solid Surfaces</h2>
+
+        <p>
+            Point clouds present a unique challenge: they capture millions of individual data points in 3D space, but those points don't represent continuous surfaces the way the real world does. When you view a raw point cloud, you're looking through empty space between the dots—it's difficult to interpret and consumes enormous amounts of storage and bandwidth.
+        </p>
+
+        <p>
+            The breakthrough approach is to <strong>reconstruct those point clouds as 3D meshes</strong>, converting discrete points into continuous surfaces. This transformation addresses two critical problems simultaneously. First, it enables dramatic data compression—reducing file sizes to manageable proportions for cloud distribution. Second, it makes the data far more intuitive to interpret, since you're now viewing actual surfaces rather than trying to mentally fill in the gaps between scattered points.
+        </p>
+
+        <p>
+            As <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/cintoo_the_netflix_for_3d_data_with_dominique_pouliquen">Dominique Pouliquen explains in the Digital Construction Podcast episode</a>, this mesh-based approach is fundamental to Cintoo's architecture. The technology was originally developed by PhDs from a French laboratory who recognized that the real world is made of continuous surfaces—you don't see through walls, floors, or ceilings. By honoring that physical reality in the data compression, the team solved both the storage problem and the usability problem in one step.
+        </p>
+
+        <h2>Streaming Without Compromise</h2>
+
+        <p>
+            The compression is only half the story. <strong>High-resolution 3D meshes can be streamed directly in a web browser</strong> using fast streaming technology, meaning stakeholders don't need specialized desktop software or powerful workstations to view the data. This democratization of access was so novel when Cintoo launched that the company earned the nickname "the Netflix for 3D data"—allowing anyone with a browser to stream and interact with high-fidelity 3D reconstructions at the full resolution of the original scans.
+        </p>
+
+        <p>
+            The technology also preserves reversibility: <strong>these compressed meshes can be converted back to point cloud format</strong> with virtually no information loss when specialized processing is required. This flexibility is critical in construction and engineering workflows, where different teams may need different representations of the same reality capture data.
+        </p>
+
+        <blockquote class="citation">
+            <p>"Point cloud is like a 3D dot in space. So you see through the dots. It's not continuous information. But the world we are looking at is made of surfaces. You don't see through the walls. So by turning point cloud into 3D surfaces, I was also pretty convinced that this would be a much easier way to interpret your point cloud data."</p>
+            <figcaption><strong>Dominique Pouliquen</strong> — Co-founder and CEO of Cintoo. Before founding Cintoo in 2017, Pouliquen joined Autodesk through the acquisition of RealViz, his first company, which developed photogrammetry technology for extracting 3D geometry from 2D images. At Autodesk, he co-led the ReCap team in San Francisco, building software to manage massive point cloud data and democratizing access to point clouds across industry-standard tools like Revit, AutoCAD, and Civil 3D. He returned to founding to address the final frontier: making compressed, cloud-native 3D data accessible to every stakeholder in the construction and engineering process.</figcaption>
+        </blockquote>
+
+        <p>
+            To understand how this compression strategy integrates into real-world construction workflows, <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/cintoo_the_netflix_for_3d_data_with_dominique_pouliquen">you can listen to the full episode on Listenly</a>, where Pouliquen also shares why this approach outpaced earlier desktop-centric solutions and how the platform has scaled to serve over 110,000 active users in construction, renovation, and facility management.
+        </p>
+
+        <h2>See also</h2>
+
+        <div class="faq">
+            <div class="faq-item">
+                <h3><a href="https://listenly.fr/podcast-btb/questions/digital-construction-podcast/what-advice-does-devon-middleditch-give-to-early-career-technical-prof.html">What advice does Devon Middleditch give to early-career technical professionals aspiring to leadership?</a></h3>
+                <p>If you are a technical person, it is easy to drift back to your safe space. Devon suggests taking professional development modules on understanding self and developing leadership fundamentals, rather than staying isolated in technical expertise.</p>
+            </div>
+            <div class="faq-item">
+                <h3><a href="https://listenly.fr/podcast-btb/questions/digital-construction-podcast/what-innovative-technologies-did-devon-middleditch-implement-on-the-do.html">What innovative technologies did Devon Middleditch implement on the Doha Expressway Program around 2010?</a></h3>
+                <p>On the Doha Expressway Program, Devon implemented drones to verify if digging was occurring on the ground for progress payments, iPads with early augmented reality capabilities for field teams, and digital documentation systems to capture real-world construction progress in real time.</p>
+            </div>
+            <div class="faq-item">
+                <h3><a href="https://listenly.fr/podcast-btb/questions/digital-construction-podcast/what-was-the-career-defining-moment-that-led-to-devon-middleditch-s-le.html">What was the career-defining moment that led to Devon Middleditch's leadership in digital engineering?</a></h3>
+                <p>Devon wrote a paper to executives outlining Engineering 2.0 and the need to scale computing technology in engineering delivery. Initially receiving no support, he eventually implemented these ideas on major projects, proving the value of digital transformation in construction and engineering.</p>
+            </div>
+        </div>
+
+        <div class="points-cles">
+            <h3>Key takeaways</h3>
+            <ul>
+                <li>Point clouds as raw data are transparent and difficult to interpret—converting them to 3D meshes creates continuous surfaces that match the real world.</li>
+                <li>Mesh-based compression dramatically reduces file size while simultaneously improving data usability and interpretability for stakeholders.</li>
+                <li>High-resolution 3D meshes can be streamed in web browsers without specialized software, democratizing access to reality capture data across teams.</li>
+                <li>Compressed meshes are reversible and can be converted back to point cloud format with virtually no loss of information when specialized processing is needed.</li>
+            </ul>
+        </div>
+
+        <div class="cta-block">
+            <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/cintoo_the_netflix_for_3d_data_with_dominique_pouliquen">Listen to the episode on Listenly</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>Written by the Listenly editorial team</p>
+    </footer>
+
+    <div id="semantic-index" style="display:none;">
+        <span>Cintoo</span>
+        <span>Dominique Pouliquen</span>
+        <span>Digital Construction Podcast</span>
+        <span>Point Cloud Compression</span>
+        <span>3D Mesh</span>
+        <span>Reality Capture</span>
+        <span>Autodesk</span>
+        <span>ReCap</span>
+        <span>Web Browser Streaming</span>
+    </div>
+</body>
+</html>
