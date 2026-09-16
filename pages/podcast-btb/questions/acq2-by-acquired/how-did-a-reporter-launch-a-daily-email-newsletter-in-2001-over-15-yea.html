@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Andrew Ross Sorkin Built DealBook as a Daily Newsletter in 2001—15 Years Before Substack</title>
+  <meta name="description" content="Andrew Sorkin launched DealBook in 2001 as a daily email newsletter covering M&A, bypassing print and linking directly to Wall Street professionals' inboxes.">
+  <meta name="author" content="Ben Gilbert">
+  <meta property="og:title" content="How Andrew Ross Sorkin Built DealBook as a Daily Newsletter in 2001—15 Years Before Substack">
+  <meta property="og:description" content="Andrew Sorkin launched DealBook in 2001 as a daily email newsletter covering M&A, bypassing print and linking directly to Wall Street professionals' inboxes.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/acq2-by-acquired/how-did-a-reporter-launch-a-daily-email-newsletter-in-2001-over-15-yea.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/e7/00/ba/e700baf3-5905-f3f3-5407-1cee00ed7323/mza_1092016977693271801.jpg/600x600bb.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How Andrew Ross Sorkin Built DealBook as a Daily Newsletter in 2001—15 Years Before Substack">
+  <meta name="twitter:description" content="Andrew Sorkin launched DealBook in 2001 as a daily email newsletter covering M&A, bypassing print and linking directly to Wall Street professionals' inboxes.">
+  <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/e7/00/ba/e700baf3-5905-f3f3-5407-1cee00ed7323/mza_1092016977693271801.jpg/600x600bb.jpg">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/acq2-by-acquired/how-did-a-reporter-launch-a-daily-email-newsletter-in-2001-over-15-yea.html">
+  <link rel="publisher" href="https://listenly.fr">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Ben Gilbert",
+        "jobTitle": "Host and Co-founder",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Acquired"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Andrew Sorkin",
+        "jobTitle": "Anchor",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "CNBC Squawk Box"
+        },
+        "description": "Andrew Ross Sorkin joined the New York Times at age 18 in 1995 after creating Sports Page Magazine in high school in Scarsdale, New York. He founded DealBook in 2001 as an email newsletter covering mergers and acquisitions and has grown it to over one million subscribers over 25 years. He is the co-creator of the television series Billions, has authored two major books—Too Big to Fail and 1929—and hosts the annual Dealbook Summit every December.",
+        "knowsAbout": ["New York Times", "DealBook", "CNBC Squawk Box", "Billions (television series)", "Dealbook Summit"]
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "How did a reporter launch a daily email newsletter in 2001, over 15 years before Substack emerged?",
+        "description": "Andrew Sorkin launched DealBook in 2001 as a daily email newsletter covering M&A, bypassing print and linking directly to Wall Street professionals' inboxes.",
+        "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/e7/00/ba/e700baf3-5905-f3f3-5407-1cee00ed7323/mza_1092016977693271801.jpg/600x600bb.jpg",
+        "datePublished": "2026-09-16",
+        "dateModified": "2026-09-16",
+        "author": {
+          "@type": "Organization",
+          "name": "Andrew Sorkin"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "ACQ2 by Acquired",
+          "url": "https://listenly.fr/podcast-btb/acq2-by-acquired-podcast.html"
+        },
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        },
+        "mentions": [
+          {"@type": "Thing", "name": "New York Times"},
+          {"@type": "Thing", "name": "DealBook"},
+          {"@type": "Thing", "name": "CNBC Squawk Box"},
+          {"@type": "Thing", "name": "Substack"},
+          {"@type": "Thing", "name": "Mergers and acquisitions"},
+          {"@type": "Thing", "name": "Wall Street Journal"},
+          {"@type": "Thing", "name": "SEC filings"},
+          {"@type": "Thing", "name": "Email newsletter"}
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "ACQ2 by Acquired",
+            "item": "https://listenly.fr/podcast-btb/acq2-by-acquired-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "How did a reporter launch a daily email newsletter in 2001, over 15 years before Substack emerged?",
+            "item": "https://listenly.fr/podcast-btb/questions/acq2-by-acquired/how-did-a-reporter-launch-a-daily-email-newsletter-in-2001-over-15-yea.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/e7/00/ba/e700baf3-5905-f3f3-5407-1cee00ed7323/mza_1092016977693271801.jpg/600x600bb.jpg" alt="ACQ2 by Acquired">
+        <div>
+          <span class="badge">The answer lives in this podcast</span>
+          <p class="source-line">Answer extracted from the ACQ2 by Acquired podcast — listen to the full episode below.</p>
+        </div>
+      </div>
+      <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/the_insane_productivity_of_andrew_ross_sorkin">🎧 Listen to the episode on Listenly</a>
+      <h1>How did a reporter launch a daily email newsletter in 2001, over 15 years before Substack emerged?</h1>
+      <p class="article-meta">
+        <span>September 16, 2026</span>
+        <span><strong>ACQ2 by Acquired</strong> · Andrew Sorkin</span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/acq2-by-acquired-podcast.html">← See the ACQ2 by Acquired fiche</a></p>
+
+    <p class="lead">
+      Andrew Sorkin launched DealBook in 2001 after returning to New York from London, frustrated that Wall Street professionals told him they read the Wall Street Journal instead of the New York Times. He conceived a <strong>daily email newsletter bypassing print entirely</strong>, sending curated M&A coverage directly to inboxes with links to relevant stories—including competitors' pieces and SEC filings. Within weeks, the newsletter caught fire as subscriptions poured in and CEOs requested faxed copies for their offices.
+    </p>
+
+    <h2>From Wall Street frustration to a subscription breakthrough</h2>
+
+    <p>
+      Sorkin's insight came from a direct observation: powerful financial executives told him they relied on the Wall Street Journal, not the Times, for market intelligence. Rather than pitch a new print section, he realized <strong>the medium itself was the problem</strong>. A daily newspaper arrived once a day; deal flow moved faster. He designed DealBook to solve this friction—sending a compact daily brief directly to decision-makers' email inboxes before 6 a.m.
+    </p>
+
+    <p>
+      The original format was deliberately lean: curated links to DealBook's own reporting plus coverage from competitors and regulatory filings, all served as a single daily digest. This approach <strong>removed the friction of hunting across multiple sources</strong> and positioned the Times as an editorial curator rather than just a byline publisher. As detailed in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/the_insane_productivity_of_andrew_ross_sorkin">this episode of ACQ2 by Acquired</a>, the strategy worked so well that subscriptions snowballed organically within months.
+    </p>
+
+    <h2>A business model a decade before its ecosystem</h2>
+
+    <p>
+      DealBook arrived in 2001 as a standalone email product—<strong>over 13 years before Ben Thompson launched Stratechery in 2013</strong> and 15 years before Substack made independent newsletters mainstream in 2016–2017. At that time, email distribution was barely monetized and the tools to run such a business barely existed. Yet Sorkin built it inside the Times, turning a commodity newsletter into the newsroom's flagship M&A intelligence product.
+    </p>
+
+    <p>
+      Executives didn't just subscribe; they had it printed and faxed to their offices, a signal of genuine demand in an era when email itself was still novel infrastructure. What began as <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/the_insane_productivity_of_andrew_ross_sorkin">Sorkin's response to a single editorial problem</a> evolved into a one-million-subscriber operation spanning 25 years, proving that audience and business precede platforms—not the other way around.
+    </p>
+
+    <blockquote class="citation">
+      <figcaption><strong>Andrew Sorkin</strong> — Anchor, CNBC Squawk Box, and Founder of DealBook. Sorkin joined the New York Times at age 18 in 1995, where he launched DealBook as a daily email newsletter covering mergers and acquisitions in 2001. Over 25 years, the newsletter has grown to over one million subscribers. He is also the co-creator of the television series Billions, author of two major books—Too Big to Fail and 1929—and founder of the annual Dealbook Summit, which has become a canonical business and technology forum held every December.</figcaption>
+    </blockquote>
+
+    <div class="points-cles">
+      <h3>Key takeaways</h3>
+      <ul>
+        <li>Sorkin identified an audience gap: Wall Street professionals preferred the Journal to the Times because the Times didn't serve deal intelligence at their speed.</li>
+        <li>He designed DealBook to bypass print, sending a daily curated digest of M&A news and SEC filings directly to inboxes—a radical format for 2001.</li>
+        <li>The newsletter gained traction organically within weeks, with CEOs requesting faxed copies, proving direct email distribution had real business value.</li>
+        <li>DealBook arrived over a decade before Stratechery (2013) and 15 years before Substack, making it an early precursor to the modern newsletter economy.</li>
+      </ul>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/the_insane_productivity_of_andrew_ross_sorkin">Listen to the episode on Listenly</a>
+    </div>
+  </div>
+
+  <footer>
+    Written by the Listenly editorial team
+  </footer>
+
+  <div id="semantic-index" style="display:none;">
+    Andrew Sorkin, New York Times, DealBook, CNBC Squawk Box, Billions, Dealbook Summit, Substack, Stratechery, Wall Street Journal, mergers and acquisitions, email newsletter, Acquired podcast, ACQ2
+  </div>
+</body>
+</html>
