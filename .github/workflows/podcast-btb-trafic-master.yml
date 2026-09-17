@@ -37,6 +37,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          KNOWLEDGE_IMPORT_SECRET: ${{ secrets.KNOWLEDGE_IMPORT_SECRET }}
         run: python automation/scripts/run_all_qa_podcasts.py
 
       - name: Commit fiches
