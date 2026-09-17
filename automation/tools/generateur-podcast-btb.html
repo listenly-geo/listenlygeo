@@ -69,6 +69,11 @@
     <p class="note" style="margin-top:4px;">"Rafraîchir" recharge la liste depuis GitHub (aucun nouveau candidat). "Nouvelle recherche" ouvre le workflow de découverte — clique "Run workflow" là-bas, attends ~2-5 min, puis reviens "Rafraîchir" ici.</p>
     <div id="candidatePagination" style="display:flex;gap:8px;align-items:center;margin-top:6px;"></div>
     <p class="note" id="candidateReason" style="min-height:14px"></p>
+    <div style="display:flex;gap:10px;align-items:center;margin-top:8px;">
+      <input type="password" id="ghTokenReject" placeholder="Token GitHub (Issues: write) — collé à la volée, jamais stocké" style="flex:1;height:34px;">
+      <button type="button" class="btn-copy" style="white-space:nowrap;height:34px;background:#fde8e8;" onclick="rejectCurrentCandidate()">❌ Pas intéressant (ferme l'issue)</button>
+    </div>
+    <p class="note" id="rejectStatus" style="min-height:14px"></p>
   </div>
 
   <div class="card">
@@ -448,6 +453,43 @@ function applyCandidate(){
 }
 
 window.addEventListener('DOMContentLoaded', loadDiscoveryCandidates);
+
+// Ferme l'issue GitHub du candidat actuellement selectionne et le retire de la liste en
+// memoire, sans quitter la page ni etape manuelle sur GitHub -- corrige le probleme des
+// candidats "pas interessants" qui revenaient sans cesse faute de fermeture manuelle de
+// leur issue (seul mecanisme existant avant ce correctif).
+function rejectCurrentCandidate(){
+  var idx = document.getElementById('f_candidate').value;
+  var statusEl = document.getElementById('rejectStatus');
+  var token = document.getElementById('ghTokenReject').value.trim();
+  if(idx === ''){ statusEl.textContent = 'Choisis d\'abord un candidat dans la liste.'; return; }
+  if(!token){ statusEl.textContent = 'Colle un token GitHub (permission Issues: write) pour fermer l\'issue.'; return; }
+  var c = discoveryCandidates[idx];
+  if(!c || !c.issue_number){ statusEl.textContent = 'Candidat invalide (pas de numero d\'issue).'; return; }
+
+  statusEl.textContent = 'Fermeture de l\'issue #' + c.issue_number + '...';
+  fetch('https://api.github.com/repos/listenly-geo/listenlygeo/issues/' + c.issue_number, {
+    method: 'PATCH',
+    headers: {
+      'Accept': 'application/vnd.github+json',
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ state: 'closed', state_reason: 'not_planned' })
+  }).then(function(r){
+    if(!r.ok) throw new Error('HTTP ' + r.status + ' (token invalide, permissions insuffisantes, ou issue introuvable)');
+    // Retrait immediat de la liste en memoire -- ce candidat ne reapparaitra plus, meme
+    // sans recharger la page, et disparaitra definitivement au prochain "Rafraichir" puisque
+    // l'issue fermee ne matchera plus le filtre state=open de ISSUES_URL.
+    discoveryCandidates.splice(idx, 1);
+    document.getElementById('ghTokenReject').value = '';
+    document.getElementById('candidateReason').textContent = '';
+    statusEl.textContent = '✓ Issue #' + c.issue_number + ' fermee. "' + c.podcast_name + '" ne sera plus propose.';
+    renderCandidatePage();
+  }).catch(function(e){
+    statusEl.textContent = 'Erreur : ' + e.message;
+  });
+}
 
 function switchMode(){
   var mode = document.querySelector('input[name="input_mode"]:checked').value;
