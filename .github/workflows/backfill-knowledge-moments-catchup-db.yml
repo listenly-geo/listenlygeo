@@ -1,0 +1,32 @@
+name: Backfill Knowledge Moments — RATTRAPAGE DB
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  catchup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Repousser tous les JSON knowledge_moments vers la base
+        env:
+          SECRET: ${{ secrets.KNOWLEDGE_IMPORT_SECRET }}
+        run: |
+          set -e
+          DIR="pages/podcast-btb/data/knowledge_moments"
+          TOTAL=$(ls "$DIR"/*.json | wc -l)
+          echo "=== $TOTAL fichier(s) a traiter ==="
+          i=0
+          for f in "$DIR"/*.json; do
+            i=$((i+1))
+            echo "[$i/$TOTAL] $(basename "$f")"
+            curl -sS -X POST "https://listenly.fr/api/knowledge-moments-import.php" \
+              -H "Content-Type: application/json" \
+              -H "X-Import-Secret: $SECRET" \
+              --data-binary "@$f" \
+              -o /tmp/resp.json -w "  -> HTTP %{http_code}\n"
+            cat /tmp/resp.json
+            echo ""
+          done
+          echo "=== Termine ==="
