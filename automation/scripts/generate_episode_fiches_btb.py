@@ -309,6 +309,34 @@ def extract_real_qa(transcript, ep, podcast, segments=None):
     return guest, qa, real_quote, key_stats, entities
 
 KNOWLEDGE_MOMENTS_DIR = f"{PAGES_DIR}/data/knowledge_moments"
+KNOWLEDGE_IMPORT_URL = os.environ.get("KNOWLEDGE_IMPORT_URL", "https://listenly.fr/api/knowledge-moments-import.php")
+KNOWLEDGE_IMPORT_SECRET = os.environ.get("KNOWLEDGE_IMPORT_SECRET", "")
+
+def push_knowledge_moments_to_db(moments):
+    """Pousse les knowledge moments directement dans la vraie base MySQL (_c_p_knowledge_moments)
+    via l'endpoint knowledge-moments-import.php, en plus de l'ecriture JSON sur GitHub.
+    Automatise le pont GitHub -> MySQL qui etait 100% manuel (import phpMyAdmin a chaque fois).
+    Echec silencieux : le JSON reste ecrit dans tous les cas (voir save_knowledge_moments),
+    donc un import manuel de secours reste toujours possible si cet appel echoue."""
+    if not KNOWLEDGE_IMPORT_SECRET:
+        log("AVERTISSEMENT knowledge moments : KNOWLEDGE_IMPORT_SECRET absent — pas d'import DB auto, JSON ecrit quand meme.")
+        return
+    try:
+        payload = json.dumps(moments).encode("utf-8")
+        req = urllib.request.Request(
+            KNOWLEDGE_IMPORT_URL,
+            data=payload,
+            method="POST",
+            headers={
+                "Content-Type": "application/json",
+                "X-Import-Secret": KNOWLEDGE_IMPORT_SECRET,
+            },
+        )
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            result = json.loads(resp.read().decode("utf-8"))
+        log(f"Knowledge moments -> DB : {result.get('inserted', 0)} inseree(s), {result.get('skipped_duplicate', 0)} doublon(s) ignore(s)")
+    except Exception as db_err:
+        log(f"AVERTISSEMENT knowledge moments : import DB echoue ({db_err}) — JSON reste disponible pour import manuel de secours.")
 
 def save_knowledge_moments(podcast, ep, guest, real_qa):
     """Ecrit les knowledge moments (question + timeline) de cet episode dans un fichier JSON
@@ -336,6 +364,7 @@ def save_knowledge_moments(podcast, ep, guest, real_qa):
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(moments, f, ensure_ascii=False, indent=2)
     log(f"Knowledge moments : {len(moments)} capture(s) ecrite(s) dans {out_path}")
+    push_knowledge_moments_to_db(moments)
 
 
 def get_real_transcript_material(ep, podcast):
