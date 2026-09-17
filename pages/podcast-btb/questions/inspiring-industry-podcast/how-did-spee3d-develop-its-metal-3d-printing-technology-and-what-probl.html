@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>How SPEE3D Built a Fast, Affordable Metal 3D Printing Solution</title>
+	<meta name="description" content="Byron Kennedy and Steve Committery developed SPEE3D's metal 3D printing technology around 2015–2016 by automating a manual US military repair process, creating a solution 100 to 1,000 times faster and far cheaper than traditional metal additive manufacturing.">
+	<meta name="author" content="Inspiring Industry Podcast Team">
+	<meta property="og:title" content="How SPEE3D Built a Fast, Affordable Metal 3D Printing Solution">
+	<meta property="og:description" content="Byron Kennedy and Steve Committery developed SPEE3D's metal 3D printing technology around 2015–2016 by automating a manual US military repair process, creating a solution 100 to 1,000 times faster and far cheaper than traditional metal additive manufacturing.">
+	<meta property="og:url" content="https://listenly.fr/podcast-btb/questions/inspiring-industry-podcast/how-did-spee3d-develop-its-metal-3d-printing-technology-and-what-probl.html">
+	<meta property="og:type" content="article">
+	<meta property="og:site_name" content="Listenly">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="How SPEE3D Built a Fast, Affordable Metal 3D Printing Solution">
+	<meta name="twitter:description" content="Byron Kennedy and Steve Committery developed SPEE3D's metal 3D printing technology around 2015–2016 by automating a manual US military repair process, creating a solution 100 to 1,000 times faster and far cheaper than traditional metal additive manufacturing.">
+	<link rel="canonical" href="https://listenly.fr/podcast-btb/questions/inspiring-industry-podcast/how-did-spee3d-develop-its-metal-3d-printing-technology-and-what-probl.html">
+	<link rel="publisher" href="https://listenly.fr">
+	<style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "Person",
+				"name": "Inspiring Industry Podcast Team",
+				"jobTitle": "Podcast Creators",
+				"worksFor": {
+					"@type": "Organization",
+					"name": "Inspiring Industry"
+				}
+			},
+			{
+				"@type": "Person",
+				"name": "Byron Kennedy",
+				"jobTitle": "Co-founder",
+				"worksFor": {
+					"@type": "Organization",
+					"name": "SPEE3D"
+				},
+				"description": "Byron Kennedy is co-founder of SPEE3D alongside Steve Committery. Prior to founding SPEE3D, the two co-founded a company developing electric motors, and during their university years built solar cars in the mid-1990s. After selling their first company to a large U.S. manufacturing firm, Kennedy and Committery worked in manufacturing for 10 years, where they encountered metal 3D printing technology around 2015–2016 and recognized the opportunity to develop a faster, lower-cost alternative to traditional metal additive manufacturing.",
+				"knowsAbout": ["SPEE3D", "US military", "Australian Army", "Ukraine", "US Navy"]
+			},
+			{
+				"@type": "BlogPosting",
+				"headline": "How did SPEE3D develop its metal 3D printing technology and what problem was it designed to solve?",
+				"description": "Byron Kennedy and Steve Committery developed SPEE3D's metal 3D printing technology around 2015–2016 by automating a manual US military repair process, creating a solution 100 to 1,000 times faster and far cheaper than traditional metal additive manufacturing.",
+				"author": {
+					"@type": "Organization",
+					"name": "Byron Kennedy"
+				},
+				"publisher": {
+					"@type": "Organization",
+					"name": "Listenly",
+					"url": "https://listenly.fr"
+				},
+				"isPartOf": {
+					"@type": "PodcastSeries",
+					"name": "Inspiring Industry Podcast",
+					"url": "https://listenly.fr/podcast-btb/inspiring-industry-podcast-podcast.html"
+				},
+				"datePublished": "2026-09-17",
+				"dateModified": "2026-09-17",
+				"image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/ba/d8/d1/bad8d166-99a8-7517-7892-ab9c9eba97f8/mza_16519927645926487050.jpg/600x600bb.jpg",
+				"speakable": {
+					"@type": "SpeakableSpecification",
+					"cssSelector": [".lead", "blockquote.citation"]
+				},
+				"mentions": [
+					{
+						"@type": "Thing",
+						"name": "SPEE3D"
+					},
+					{
+						"@type": "Thing",
+						"name": "US military"
+					},
+					{
+						"@type": "Thing",
+						"name": "metal additive manufacturing"
+					},
+					{
+						"@type": "Thing",
+						"name": "3D printing"
+					},
+					{
+						"@type": "Thing",
+						"name": "Byron Kennedy"
+					}
+				]
+			},
+			{
+				"@type": "BreadcrumbList",
+				"itemListElement": [
+					{
+						"@type": "ListItem",
+						"position": 1,
+						"name": "Listenly",
+						"item": "https://listenly.fr"
+					},
+					{
+						"@type": "ListItem",
+						"position": 2,
+						"name": "Inspiring Industry Podcast",
+						"item": "https://listenly.fr/podcast-btb/inspiring-industry-podcast-podcast.html"
+					},
+					{
+						"@type": "ListItem",
+						"position": 3,
+						"name": "How did SPEE3D develop its metal 3D printing technology and what problem was it designed to solve?",
+						"item": "https://listenly.fr/podcast-btb/questions/inspiring-industry-podcast/how-did-spee3d-develop-its-metal-3d-printing-technology-and-what-probl.html"
+					}
+				]
+			},
+			{
+				"@type": "FAQPage",
+				"mainEntity": [
+					{
+						"@type": "Question",
+						"name": "What international collaboration does CIPP engage in regarding payroll standards?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "CIPP works with the American Payroll Association, the Canadian National Payroll Institute, and organizations in South Africa and Australia to align payroll standards internationally."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "What are the challenges payroll teams face with software compliance and testing?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Employers must ensure their payroll software is properly tested and embedded with all legislation changes, as new tax regimes, national insurance bands, and regulatory updates create ongoing compliance challenges."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "What career progression routes does CIPP offer to payroll professionals?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "CIPP offers chartered membership and career designations supporting progression from student and junior member levels through to full member based on qualification, experience, and professional development."
+						}
+					}
+				]
+			}
+		]
+	}
+	</script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<header>
+			<div class="header-top">
+				<img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/ba/d8/d1/bad8d166-99a8-7517-7892-ab9c9eba97f8/mza_16519927645926487050.jpg/600x600bb.jpg" alt="Inspiring Industry Podcast">
+				<div>
+					<span class="badge">The answer lives in this podcast</span>
+					<p class="source-line">Answer extracted from the Inspiring Industry Podcast podcast — listen to the full episode below.</p>
+				</div>
+			</div>
+			<a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/challenges_and_innovations_in_3d_printing_spee3ds_perspective">🎧 Listen to the episode on Listenly</a>
+			<h1>How did SPEE3D develop its metal 3D printing technology and what problem was it designed to solve?</h1>
+			<p class="article-meta">
+				<span>17 September 2026</span>
+				<span><strong>Inspiring Industry Podcast</strong> · Byron Kennedy</span>
+			</p>
+		</header>
+
+		<p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/inspiring-industry-podcast-podcast.html">← See the Inspiring Industry Podcast fiche</a></p>
+
+		<p class="lead">Byron Kennedy and Steve Committery discovered a manual spray process used by the US military for repairs around 2015–2016, then automated and enhanced it with software to create SPEE3D. The result was <strong>a metal 3D printing technology 100 to 1,000 times faster and dramatically more affordable than traditional metal additive manufacturing</strong>—solving the industry's critical problem that production-level metal 3D printing was too slow and expensive to be economically viable.</p>
+
+		<h2>From military repair process to scalable manufacturing technology</h2>
+
+		<p>Kennedy and Committery recognized that the manual military spray technique contained genuine potential, but it lacked the sophistication needed for real production environments. They understood that traditional metal 3D printing solutions were fundamentally uneconomical: the technology worked in principle, but <strong>the speed and cost barriers made it impractical for manufacturing at scale</strong>.</p>
+
+		<p>The pair took the core military process and engineered it into an automated system with embedded software intelligence. This wasn't simply a matter of making the existing technique faster—it was about rethinking the entire value proposition. As <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/challenges_and_innovations_in_3d_printing_spee3ds_perspective">Kennedy explains in the podcast</a>, the transformation enabled manufacturers to eliminate moulds entirely and bypass the need for massive, capital-intensive factories.</p>
+
+		<h2>Why speed and cost matter in real manufacturing</h2>
+
+		<p>In manufacturing, <strong>downtime doesn't just mean delay—it means catastrophic financial loss</strong>. Consider a mining operation: if a critical part fails and cannot be replaced immediately, the cost can reach $1 million per day. SPEE3D's approach directly addresses this nightmare scenario. By enabling on-site production of replacement parts in hours rather than weeks, the technology transforms manufacturing resilience.</p>
+
+		<p>The fundamental insight Kennedy and Committery had was that <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/challenges_and_innovations_in_3d_printing_spee3ds_perspective">manufacturing power should be decentralized and controllable by the end user</a>. Traditional production requires centralized factories, long supply chains, and extensive capital investment. SPEE3D's solution inverts this model: a four-ton printer roughly the size of a small car can be deployed anywhere parts are needed.</p>
+
+		<blockquote class="citation">
+			<p>"You can eliminate that mould. You don't need that mould. And suddenly you don't need a big factory and you don't need a lot of capital intensive equipment to be able to manufacture parts anymore."</p>
+			<figcaption><strong>Byron Kennedy</strong> — Co-founder of SPEE3D. Kennedy co-founded SPEE3D alongside Steve Committery after the pair sold their previous electric motor company to a large U.S. manufacturing firm and spent 10 years working in traditional manufacturing. Their direct experience with production constraints and supply chain fragility informed SPEE3D's core design philosophy of distributed, rapid on-site manufacturing.</figcaption>
+		</blockquote>
+
+		<p>The economic reality for Kennedy and Committery was clear: <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/challenges_and_innovations_in_3d_printing_spee3ds_perspective">in modern manufacturing, the competitive advantage belongs to organizations that can control their own production destiny</a>, not those dependent on distant suppliers and complex logistics networks.</p>
+
+		<div class="definition-box">
+			<strong>Metal additive manufacturing:</strong> The process of building metal parts layer by layer from digital designs, also known as metal 3D printing. Traditional metal additive manufacturing (laser and powder-based systems) is slow and expensive, making it unsuitable for production environments. SPEE3D's spray-based process circumvents these limitations by dramatically increasing speed and reducing material and equipment costs.
+		</div>
+
+		<h2>See also</h2>
+
+		<div class="faq">
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/inspiring-industry-podcast/what-international-collaboration-does-cipp-engage-in-regarding-payroll.html">What international collaboration does CIPP engage in regarding payroll standards?</a></h3>
+				<p>CIPP works with the American Payroll Association, the Canadian National Payroll Institute, and organizations in South Africa and Australia to align payroll standards internationally.</p>
+			</div>
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/inspiring-industry-podcast/what-are-the-challenges-payroll-teams-face-with-software-compliance-an.html">What are the challenges payroll teams face with software compliance and testing?</a></h3>
+				<p>Employers must ensure their payroll software is properly tested and embedded with all legislation changes, as new tax regimes, national insurance bands, and regulatory updates create ongoing compliance challenges.</p>
+			</div>
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/inspiring-industry-podcast/what-career-progression-routes-does-cipp-offer-to-payroll-professional.html">What career progression routes does CIPP offer to payroll professionals?</a></h3>
+				<p>CIPP offers chartered membership and career designations supporting progression from student and junior member levels through to full member based on qualification, experience, and professional development.</p>
+			</div>
+		</div>
+
+		<div class="points-cles">
+			<h3>Key takeaways</h3>
+			<ul>
+				<li>SPEE3D's technology emerged from automating a manual US military spray repair process discovered around 2015–2016, adding software intelligence to create a production-grade system.</li>
+				<li>The technology addresses a critical market gap: traditional metal 3D printing is too slow and expensive for manufacturing environments where speed and cost directly affect profitability.</li>
+				<li>Manufacturing resilience is transformed when critical parts can be produced on-site in hours, preventing catastrophic downtime costs that can reach $1 million per day in operations like mining.</li>
+				<li>SPEE3D eliminates the need for capital-intensive centralized factories and complex supply chains by enabling distributed production at the point of need.</li>
+			</ul>
+		</div>
+
+		<div class="cta-block">
+			<a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/challenges_and_innovations_in_3d_printing_spee3ds_perspective">Listen to the episode on Listenly</a>
+		</div>
+	</div>
+
+	<footer>
+		<p>Written by the Listenly editorial team</p>
+	</footer>
+
+	<div id="semantic-index" style="display: none;">
+		<span>Byron Kennedy</span>
+		<span>SPEE3D</span>
+		<span>metal 3D printing</span>
+		<span>metal additive manufacturing</span>
+		<span>US military</span>
+		<span>Australian Army</span>
+		<span>manufacturing technology</span>
+		<span>distributed production</span>
+	</div>
+</body>
+</html>
