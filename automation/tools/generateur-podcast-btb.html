@@ -178,6 +178,21 @@ var directoryCategoriesCache = null;
 // (pas d'appel API depuis cet outil statique/public). Utilise tout texte disponible : contexte
 // supplementaire saisi, raison de qualification GEO du candidat selectionne. Meilleurs
 // resultats si le champ "Contexte supplementaire" est rempli.
+//
+// Correctif : la comparaison se faisait avant par sous-chaine (text.indexOf(w)), ce qui
+// matchait un mot-cle a l'interieur d'un autre mot sans rapport (ex. "art" matchait dans
+// "start", "smart", "chart"...) et produisait des suggestions hors-sujet. On compare
+// desormais un vrai ensemble de mots entiers du texte source.
+function wordsSetFrom(text){
+  var words = text.toLowerCase()
+    .replace(/[^a-z0-9àâäéèêëïîôöùûüç\s]/gi, ' ')
+    .split(/\s+/)
+    .filter(function(w){ return w.length > 3; });
+  var set = {};
+  words.forEach(function(w){ set[w] = true; });
+  return set;
+}
+
 function gatherTextForTagging(){
   var parts = [];
   var raw = document.getElementById('rawInfo');
@@ -206,11 +221,12 @@ function loadDirectoryCategories(){
 function suggestCategory(text){
   var catBox = document.getElementById('categorySuggestion');
   catBox.innerHTML = '<span class="note">Chargement des catégories…</span>';
+  var textWords = wordsSetFrom(text);
   loadDirectoryCategories().then(function(categories){
     var scored = categories.map(function(cat){
       var words = cat.toLowerCase().replace(/[^a-z0-9àâäéèêëïîôöùûüç\s]/gi, ' ').split(/\s+/).filter(function(w){ return w.length > 3; });
       var score = 0;
-      words.forEach(function(w){ if(text.indexOf(w) !== -1) score++; });
+      words.forEach(function(w){ if(textWords[w]) score++; });
       return {cat: cat, score: score};
     }).filter(function(s){ return s.score > 0; });
 
@@ -255,13 +271,14 @@ function suggestDirectoryTags(){
       }).then(function(data){ directoryTagsCache = data; return data; });
 
   tagPromise.then(function(taxonomy){
+    var textWords = wordsSetFrom(text);
     var scored = [];
     Object.keys(taxonomy).forEach(function(theme){
       if(theme === '_meta') return;
       taxonomy[theme].forEach(function(tag){
         var words = tag.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(function(w){ return w.length > 3; });
         var score = 0;
-        words.forEach(function(w){ if(text.indexOf(w) !== -1) score++; });
+        words.forEach(function(w){ if(textWords[w]) score++; });
         if(score > 0) scored.push({tag: tag, theme: theme, score: score});
       });
     });
