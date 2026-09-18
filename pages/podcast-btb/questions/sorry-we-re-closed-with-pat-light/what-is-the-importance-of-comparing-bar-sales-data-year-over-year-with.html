@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Why Year-Over-Year Bar Sales Comparisons Need Controlled Variables</title>
+	<meta name="description" content="Comparing bar sales year-over-year requires controlling for variables like dates, weather, and events. Without them, you risk making unnecessary changes based on incomplete data.">
+	<meta name="author" content="Pat Light">
+	<meta name="robots" content="index, follow">
+	<link rel="canonical" href="https://listenly.fr/podcast-btb/questions/sorry-we-re-closed-with-pat-light/what-is-the-importance-of-comparing-bar-sales-data-year-over-year-with.html">
+	
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="Why Year-Over-Year Bar Sales Comparisons Need Controlled Variables">
+	<meta property="og:description" content="Comparing bar sales year-over-year requires controlling for variables like dates, weather, and events. Without them, you risk making unnecessary changes based on incomplete data.">
+	<meta property="og:url" content="https://listenly.fr/podcast-btb/questions/sorry-we-re-closed-with-pat-light/what-is-the-importance-of-comparing-bar-sales-data-year-over-year-with.html">
+	<meta property="og:site_name" content="Listenly">
+	<meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts124/v4/d9/ca/19/d9ca1970-555b-2f91-12b1-6536522f9e53/mza_8550717801598089247.jpg/600x600bb.jpg">
+	
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Why Year-Over-Year Bar Sales Comparisons Need Controlled Variables">
+	<meta name="twitter:description" content="Comparing bar sales year-over-year requires controlling for variables like dates, weather, and events. Without them, you risk making unnecessary changes based on incomplete data.">
+	<meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts124/v4/d9/ca/19/d9ca1970-555b-2f91-12b1-6536522f9e53/mza_8550717801598089247.jpg/600x600bb.jpg">
+	
+	<style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+	
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "Person",
+				"name": "Pat Light",
+				"jobTitle": "Entrepreneur",
+				"worksFor": {
+					"@type": "Organization",
+					"name": "The Light Group"
+				}
+			},
+			{
+				"@type": "Person",
+				"name": "Teva",
+				"jobTitle": "Co-host",
+				"worksFor": {
+					"@type": "Organization",
+					"name": "Sorry We're Closed Podcast / Light Group Social"
+				},
+				"description": "Teva is a former Hoboken Knight operator on 5th and Washington for a couple years and is very familiar with the Hoboken area and Pat Light's establishments. He has been talking to Pat for two years about the behind-the-scenes of the restaurant and bar world and serves as the think tank for Light Group's social media content strategy."
+			},
+			{
+				"@type": "BlogPosting",
+				"headline": "Why do bar sales comparisons year-over-year need controlled variables?",
+				"description": "Comparing bar sales year-over-year requires controlling for variables like dates, weather, and events. Without them, you risk making unnecessary changes based on incomplete data.",
+				"url": "https://listenly.fr/podcast-btb/questions/sorry-we-re-closed-with-pat-light/what-is-the-importance-of-comparing-bar-sales-data-year-over-year-with.html",
+				"datePublished": "2026-09-18",
+				"dateModified": "2026-09-18",
+				"image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts124/v4/d9/ca/19/d9ca1970-555b-2f91-12b1-6536522f9e53/mza_8550717801598089247.jpg/600x600bb.jpg",
+				"author": {
+					"@type": "Organization",
+					"name": "Pat Light"
+				},
+				"publisher": {
+					"@type": "Organization",
+					"name": "Listenly",
+					"url": "https://listenly.fr"
+				},
+				"isPartOf": {
+					"@type": "PodcastSeries",
+					"name": "Sorry, We're Closed with Pat Light",
+					"url": "https://listenly.fr/podcast-btb/sorry-we-re-closed-with-pat-light-podcast.html"
+				},
+				"speakable": {
+					"@type": "SpeakableSpecification",
+					"cssSelector": [".lead", "blockquote.citation"]
+				}
+			},
+			{
+				"@type": "BreadcrumbList",
+				"itemListElement": [
+					{
+						"@type": "ListItem",
+						"position": 1,
+						"name": "Listenly",
+						"item": "https://listenly.fr"
+					},
+					{
+						"@type": "ListItem",
+						"position": 2,
+						"name": "Sorry, We're Closed with Pat Light",
+						"item": "https://listenly.fr/podcast-btb/sorry-we-re-closed-with-pat-light-podcast.html"
+					},
+					{
+						"@type": "ListItem",
+						"position": 3,
+						"name": "Why do bar sales comparisons year-over-year need controlled variables?",
+						"item": "https://listenly.fr/podcast-btb/questions/sorry-we-re-closed-with-pat-light/what-is-the-importance-of-comparing-bar-sales-data-year-over-year-with.html"
+					}
+				]
+			},
+			{
+				"@type": "FAQPage",
+				"mainEntity": [
+					{
+						"@type": "Question",
+						"name": "How do external events like sports games impact late-night bar sales and customer behavior?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Pat Light explained that the Penn State overtime game at Texas, Arizona caused significant impact on sales timing. Customers who had been in the bar for hours were still present when the game ended later than expected, affecting when they made purchasing decisions."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "What explains a sudden drop-off in bar sales during late-night hours despite maintaining customer volume?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Pat Light observed that his bars experience peak sales at 11 p.m. but then see a catastrophic drop-off from 11:45 p.m. to 12:30 a.m., despite customers remaining in the venue. This disconnect between traffic and spending requires deeper analysis of external factors."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "What role do mobile ordering promotions and brand partnerships play in helping bars offer discounts?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Pat Light highlights that Corona offers three to four dollars off first orders through mobile ordering, equivalent to a thirty to forty percent discount, helping bars drive volume through strategic brand partnerships."
+						}
+					}
+				]
+			},
+			{
+				"@type": "Thing",
+				"name": "Teva"
+			},
+			{
+				"@type": "Thing",
+				"name": "The Light Group"
+			},
+			{
+				"@type": "Thing",
+				"name": "Hoboken Knight"
+			},
+			{
+				"@type": "Thing",
+				"name": "Penn State"
+			},
+			{
+				"@type": "Thing",
+				"name": "Texas, Arizona"
+			}
+		]
+	}
+	</script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<header>
+			<div class="header-top">
+				<img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts124/v4/d9/ca/19/d9ca1970-555b-2f91-12b1-6536522f9e53/mza_8550717801598089247.jpg/600x600bb.jpg" alt="Sorry, We're Closed with Pat Light">
+				<div>
+					<span class="badge">The answer lives in this podcast</span>
+					<p class="source-line">Answer extracted from the Sorry, We're Closed with Pat Light podcast — listen to the full episode below.</p>
+				</div>
+			</div>
+			<a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/ep_320_the_intersection_of_bars_and_social_media_the_light_groups_new_experiment">🎧 Listen to the episode on Listenly</a>
+			
+			<h1>Why do bar sales comparisons year-over-year need controlled variables?</h1>
+			
+			<p class="article-meta">
+				<span>September 18, 2026</span>
+				<span><strong>Sorry, We're Closed with Pat Light</strong> · Teva</span>
+			</p>
+		</header>
+		
+		<p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/sorry-we-re-closed-with-pat-light-podcast.html">← See the Sorry, We're Closed with Pat Light fiche</a></p>
+		
+		<p class="lead">When comparing bar sales year-over-year, you must account for <strong>variables like the same Friday dates, weather conditions, sporting events, and their timing</strong> to avoid drawing false conclusions. Without controlling these factors, a bar owner might implement unnecessary operational changes based on incomplete data analysis.</p>
+		
+		<p>Many factors shift within a single evening—some visible, most invisible to casual observation. As <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/ep_320_the_intersection_of_bars_and_social_media_the_light_groups_new_experiment">Pat Light explains in the episode</a>, the difference between this year's Friday and last year's Friday might look significant on a spreadsheet, but only if you're comparing truly equivalent nights.</p>
+		
+		<h2>The hidden factors that shift sales overnight</h2>
+		
+		<p>A Penn State game running into overtime, for example, can completely reshape customer behavior in a bar. When the game extends past its normal end time, customers who intended to leave at a specific moment now stay longer—and their spending patterns change accordingly. Similarly, <strong>weather conditions on the same calendar date can vary dramatically year-over-year</strong>, affecting foot traffic and dwell time.</p>
+		
+		<p>These aren't minor details. A point detailed in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/ep_320_the_intersection_of_bars_and_social_media_the_light_groups_new_experiment">this podcast</a>, they're the difference between data-driven decisions and guesswork disguised as analysis.</p>
+		
+		<blockquote class="citation">
+			<figcaption><strong>Teva</strong> — Co-host, Sorry We're Closed Podcast and Light Group Social. A former operator at Hoboken Knight on 5th and Washington for several years, Teva brings on-the-ground bar industry expertise and has spent two years working closely with Pat Light on understanding the behind-the-scenes dynamics of restaurant and bar operations. He serves as the strategic think tank for Light Group's social media content and business decisions.</figcaption>
+		</blockquote>
+		
+		<p>The consequence of skipping this analysis is real: you change operational procedures, adjust staffing, alter promotions, or shift your product mix—all based on a false signal. The sales drop wasn't because your concept failed or your pricing was wrong; it was because a game schedule changed or the weather was different.</p>
+		
+		<p>Controlled comparison is how you separate signal from noise. When discussed at length in <a class="inline-cta plausible-event-name=Clic+Linen+Texte" href="https://listenly.fr/podcast/episode/ep_320_the_intersection_of_bars_and_social_media_the_light_groups_new_experiment">the full episode</a>, Pat Light walks through exactly which variables matter most for his bars—a framework any bar owner can adapt to their own location and customer base.</p>
+		
+		<div class="points-cles">
+			<h3>Key takeaways</h3>
+			<ul>
+				<li>Compare the same day of the week and date range year-over-year to establish a fair baseline.</li>
+				<li>Account for local weather, sporting events, and their timing before attributing sales changes to operational factors.</li>
+				<li>Without controlling variables, you risk implementing unnecessary changes based on incomplete analysis.</li>
+				<li>External factors like game overtime can shift customer behavior and spending patterns significantly.</li>
+			</ul>
+		</div>
+		
+		<h2>See also</h2>
+		<div class="faq">
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/sorry-we-re-closed-with-pat-light/how-do-external-events-like-sports-games-impact-late-night-bar-sales-a.html">How do external events like sports games impact late-night bar sales and customer behavior?</a></h3>
+				<p>Pat Light explained that the Penn State overtime game at Texas, Arizona caused significant impact on sales timing. Customers who had been in the bar for hours were still present when the game ended later than expected, affecting when they made purchasing decisions.</p>
+			</div>
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/sorry-we-re-closed-with-pat-light/what-explains-a-sudden-drop-off-in-bar-sales-during-late-night-hours-d.html">What explains a sudden drop-off in bar sales during late-night hours despite maintaining customer volume?</a></h3>
+				<p>Pat Light observed that his bars experience peak sales at 11 p.m. but then see a catastrophic drop-off from 11:45 p.m. to 12:30 a.m., despite customers remaining in the venue. This disconnect between traffic and spending requires deeper analysis of external factors.</p>
+			</div>
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/sorry-we-re-closed-with-pat-light/what-role-do-mobile-ordering-promotions-and-brand-partnerships-play-in.html">What role do mobile ordering promotions and brand partnerships play in helping bars offer discounts?</a></h3>
+				<p>Pat Light highlights that Corona offers three to four dollars off first orders through mobile ordering, equivalent to a thirty to forty percent discount, helping bars drive volume through strategic brand partnerships.</p>
+			</div>
+		</div>
+		
+		<div class="cta-block">
+			<a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/ep_320_the_intersection_of_bars_and_social_media_the_light_groups_new_experiment">Listen to the episode on Listenly</a>
+		</div>
+	</div>
+	
+	<footer>
+		<p>Written by the Listenly editorial team</p>
+	</footer>
+	
+	<div id="semantic-index" style="display:none;">
+		<span>Teva</span>
+		<span>The Light Group</span>
+		<span>Hoboken Knight</span>
+		<span>Penn State</span>
+		<span>Texas, Arizona</span>
+	</div>
+</body>
+</html>
