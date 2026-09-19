@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>From Machine OEMs to Factory Floors: How Mingo Pivoted to End-User Manufacturing</title>
+  <meta name="description" content="A manufacturing software startup shifted focus from machine OEMs to direct end-user factories in 2016, connecting equipment via PLCs and sensors to build a comprehensive factory operations platform.">
+  <meta name="author" content="Daniel Langley">
+  <meta property="og:title" content="From Machine OEMs to Factory Floors: How Mingo Pivoted to End-User Manufacturing">
+  <meta property="og:description" content="A manufacturing software startup shifted focus from machine OEMs to direct end-user factories in 2016, connecting equipment via PLCs and sensors to build a comprehensive factory operations platform.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/how-did-a-manufacturing-software-company-pivot-from-targeting-machine-.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="From Machine OEMs to Factory Floors: How Mingo Pivoted to End-User Manufacturing">
+  <meta name="twitter:description" content="A manufacturing software startup shifted focus from machine OEMs to direct end-user factories in 2016, connecting equipment via PLCs and sensors to build a comprehensive factory operations platform.">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/how-did-a-manufacturing-software-company-pivot-from-targeting-machine-.html">
+  <link rel="publisher" href="https://listenly.fr">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Daniel Langley",
+        "jobTitle": "CEO and Podcast Host",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Manufacturing IT Recruitment"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Bryan Sapot",
+        "jobTitle": "CEO",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Mingo Smart Factory"
+        },
+        "description": "Bryan Sapot is the CEO of Mingo Smart Factory and has spent 26+ years in software development and B2B systems. He previously owned a software consulting company that implemented ERP systems and has 18 years of experience in manufacturing. He wrote version one of the product (originally called SensorTracks) himself and is a network engineer and software developer by background.",
+        "knowsAbout": ["Mingo Smart Factory", "SensorTracks", "Manufacturing Execution Systems", "PLC", "Industry 4.0"]
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "How did a manufacturing software company pivot from targeting machine OEMs to end-user manufacturers?",
+        "author": {
+          "@type": "Organization",
+          "name": "Bryan Sapot"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "The Manufacturing IT Podcast",
+          "url": "https://listenly.fr/podcast/show/the-manufacturing-it-podcast"
+        },
+        "datePublished": "2026-09-19",
+        "dateModified": "2026-09-19",
+        "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg",
+        "description": "A manufacturing software startup shifted focus from machine OEMs to direct end-user factories in 2016, connecting equipment via PLCs and sensors to build a comprehensive factory operations platform.",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        },
+        "mentions": [
+          {
+            "@type": "Thing",
+            "name": "Mingo Smart Factory"
+          },
+          {
+            "@type": "Thing",
+            "name": "SensorTracks"
+          },
+          {
+            "@type": "Thing",
+            "name": "PLC"
+          },
+          {
+            "@type": "Thing",
+            "name": "Manufacturing Execution System"
+          },
+          {
+            "@type": "Thing",
+            "name": "Industry 4.0"
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "The Manufacturing IT Podcast",
+            "item": "https://listenly.fr/podcast-btb/the-manufacturing-it-podcast-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "How did a manufacturing software company pivot from targeting machine OEMs to end-user manufacturers?",
+            "item": "https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/how-did-a-manufacturing-software-company-pivot-from-targeting-machine-.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What are the primary functions of a manufacturing data platform that monitors production in real-time?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The platform helps manufacturing companies answer simple questions like when they will finish a job and where it is at in real-time, giving managers and operators access to real-time data instead of relying on manual paper-based tracking."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What survey data reveals the gap between digital investment intentions and advanced AI adoption in small manufacturers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Wipfli surveyed approximately 350 small and medium manufacturers across nearly 30 states in North America, finding a significant disconnect between stated digital investment goals and actual adoption of advanced AI technologies."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How will industrial AI and generative AI differ in their manufacturing applications over the next five years?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Industrial AI and machine learning have existed for decades, using sensor data and machine vision for predictive maintenance, quality tracking, and zero-downtime operations, while generative AI represents a new frontier for manufacturing applications."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg" alt="The Manufacturing IT Podcast">
+        <div>
+          <span class="badge">The answer lives in this podcast</span>
+          <p class="source-line">Answer extracted from The Manufacturing IT Podcast — listen to the full episode below.</p>
+        </div>
+      </div>
+      <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">🎧 Listen to the episode on Listenly</a>
+      <h1>How did a manufacturing software company pivot from targeting machine OEMs to end-user manufacturers?</h1>
+      <p class="article-meta">
+        <span>September 19, 2026</span>
+        <span><strong>The Manufacturing IT Podcast</strong> · Bryan Sapot</span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/the-manufacturing-it-podcast-podcast.html">← See The Manufacturing IT Podcast fiche</a></p>
+
+    <p class="lead">The company initially targeted mid-market machine manufacturers with a software-enabled monitoring service, but discovered they lacked readiness for the approach. In <strong>2016, the pivot toward end-user manufacturers began</strong>, connecting directly to factory floor equipment through PLCs and sensors to eventually build a comprehensive platform for managing entire factory operations.</p>
+
+    <p>What looked like the right market proved to be a dead end. The original strategy—helping machine OEMs monitor equipment in the field—assumed that equipment makers wanted to own the data relationship with their customers. This assumption proved false. Machine manufacturers weren't prepared to shift into a services model, and the pitch fell flat.</p>
+
+    <p>The turning point came when the company recognized a different opportunity. Instead of selling to the equipment maker, why not connect directly to the equipment itself? This insight led to a fundamental business model shift. By <strong>tapping into existing PLC and sensor connections</strong> on the factory floor, the product could bypass the middleman entirely and serve end-user manufacturers directly—the people actually running the machines day to day.</p>
+
+    <p>As explored in detail in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">this episode of The Manufacturing IT Podcast</a>, the pivot required rebuilding the entire product architecture and go-to-market strategy, but it aligned the company with a market segment that desperately needed visibility into their operations.</p>
+
+    <h2>From service model to platform: the 2019 turning point</h2>
+
+    <p>Between 2016 and 2019, the company transformed from a services-first approach into a full platform offering. By 2019, the <strong>turnkey solution was fully developed and ready to deploy</strong> at scale. This meant factories could implement the system with minimal custom engineering—a critical factor for adoption in a market skeptical of lengthy, expensive implementations.</p>
+
+    <p>The platform's core strength became clear: real-time visibility into production. Factory managers could finally answer questions that had always required walking the floor or checking clipboards—when will a job finish, where is it in the process right now, what's causing delays. Bryan Sapot, CEO of Mingo Smart Factory, explains in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">the episode</a> how this transparency feeds directly into improvement projects, giving manufacturing engineers the data they need to identify bottlenecks and track gains over time.</p>
+
+    <blockquote class="citation">
+      <p>"It's easy to get people to do this stuff. It's hard to keep them doing it because they want help."</p>
+      <figcaption><strong>Bryan Sapot</strong> — CEO of Mingo Smart Factory. With 26+ years in B2B software development and 18 years of manufacturing experience, Sapot previously owned a software consulting company implementing ERP systems. He personally wrote the first version of the product, originally called SensorTracks, and brings deep expertise as a network engineer and software developer.</figcaption>
+    </blockquote>
+
+    <p>The real challenge wasn't technology—it was sustaining behavioral change. Factories could install sensors and dashboards, but continuous improvement required operators and engineers to stay engaged with the data over time. This insight shaped how Mingo built its product roadmap and customer support model.</p>
+
+    <p>One concrete detail worth discovering in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">the full episode</a> is how Sapot discusses the market readiness challenge—why 60% of traditional MES (Manufacturing Execution System) deployments fail, and how Mingo's direct-to-floor architecture avoids those pitfalls by eliminating the need for heavy customization and organizational restructuring.</p>
+
+    <h2>See also</h2>
+
+    <div class="faq">
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-are-the-primary-functions-of-a-manufacturing-data-platform-that-m.html">What are the primary functions of a manufacturing data platform that monitors production in real-time?</a></h3>
+        <p>The platform helps manufacturing companies answer simple questions like when they will finish a job and where it is in real-time, giving managers and operators access to data instead of relying on manual paper-based tracking.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-survey-data-reveals-the-gap-between-digital-investment-intentions.html">What survey data reveals the gap between digital investment intentions and advanced AI adoption in small manufacturers?</a></h3>
+        <p>Wipfli surveyed approximately 350 small and medium manufacturers across nearly 30 states in North America, revealing a significant disconnect between stated digital investment goals and actual adoption of advanced AI technologies in the sector.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/how-will-industrial-ai-and-generative-ai-differ-in-their-manufacturing.html">How will industrial AI and generative AI differ in their manufacturing applications over the next five years?</a></h3>
+        <p>Industrial AI and machine learning have existed for decades, using sensor data and machine vision for predictive maintenance, quality tracking, and zero-downtime operations, while generative AI represents a new frontier for manufacturing applications.</p>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">Listen to the episode on Listenly</a>
+    </div>
+
+    <footer>Written by the Listenly editorial team</footer>
+  </div>
+
+  <div id="semantic-index" style="display: none;">
+    <span>Mingo Smart Factory</span>
+    <span>Bryan Sapot</span>
+    <span>SensorTracks</span>
+    <span>PLC</span>
+    <span>Manufacturing Execution System</span>
+    <span>Industry 4.0</span>
+    <span>Daniel Langley</span>
+    <span>Manufacturing IT Podcast</span>
+  </div>
+</body>
+</html>
