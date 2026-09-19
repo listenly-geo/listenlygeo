@@ -1,0 +1,72 @@
+[
+  {
+    "podcast_name": "AI + a16z",
+    "episode_title": "Inside vLLM: The Engine Powering Open-Source AI",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/112866f3-1a50-4a8d-b12e-850b73e71b33/episodes/bd288922-f2a9-44c6-9363-8971c973706f/audio/128/default.mp3?aid=rss_feed&awCollectionId=112866f3-1a50-4a8d-b12e-850b73e71b33&awEpisodeId=bd288922-f2a9-44c6-9363-8971c973706f&feed=Hb_IuXOo",
+    "question": "What makes serving a large language model fundamentally different from traditional machine learning workloads?",
+    "transcript_excerpt": "Serving a large language model requires running it on accelerators like GPUs or TPUs with computationally intensive processes that need quick and efficient responses. This means handling differences in input distribution, variable request length, non-deterministic output distribution, and complex batching and scheduling at the core of the inference engine.",
+    "expert_name": "Simon Mo",
+    "start_seconds": 147,
+    "end_seconds": 193
+  },
+  {
+    "podcast_name": "AI + a16z",
+    "episode_title": "Inside vLLM: The Engine Powering Open-Source AI",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/112866f3-1a50-4a8d-b12e-850b73e71b33/episodes/bd288922-f2a9-44c6-9363-8971c973706f/audio/128/default.mp3?aid=rss_feed&awCollectionId=112866f3-1a50-4a8d-b12e-850b73e71b33&awEpisodeId=bd288922-f2a9-44c6-9363-8971c973706f&feed=Hb_IuXOo",
+    "question": "How does vLLM function within the modern AI infrastructure stack for enterprises using open-source models?",
+    "transcript_excerpt": "vLLM is an inference engine that turns available GPUs into running endpoints for intelligence, comparable to databases and operating systems. It supports more than 1,000 model architectures and works closely with hardware vendors like NVIDIA, AMD, Google, Amazon, and Intel. vLLM implements models immediately upon release in a process called Day Zero model release, and vendors often use it as a benchmark to ensure their newest chips run effectively.",
+    "expert_name": "Simon Mo",
+    "start_seconds": 501,
+    "end_seconds": 567
+  },
+  {
+    "podcast_name": "AI + a16z",
+    "episode_title": "Inside vLLM: The Engine Powering Open-Source AI",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/112866f3-1a50-4a8d-b12e-850b73e71b33/episodes/bd288922-f2a9-44c6-9363-8971c973706f/audio/128/default.mp3?aid=rss_feed&awCollectionId=112866f3-1a50-4a8d-b12e-850b73e71b33&awEpisodeId=bd288922-f2a9-44c6-9363-8971c973706f&feed=Hb_IuXOo",
+    "question": "At what point did open source AI models become critical infrastructure rather than an experimental curiosity?",
+    "transcript_excerpt": "Open source became critical infrastructure around 2023, when GitHub Copilot and ChatGPT became something people could not live without, and open-weight models became a cornerstone of daily productivity. A threshold was passed about a year ago when application startups realized they could not build meaningful AI products solely on closed-source models and began turning to open source for mid-training, post-training, and inference deployment.",
+    "expert_name": "Simon Mo",
+    "start_seconds": 295,
+    "end_seconds": 415
+  },
+  {
+    "podcast_name": "AI + a16z",
+    "episode_title": "Inside vLLM: The Engine Powering Open-Source AI",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/112866f3-1a50-4a8d-b12e-850b73e71b33/episodes/bd288922-f2a9-44c6-9363-8971c973706f/audio/128/default.mp3?aid=rss_feed&awCollectionId=112866f3-1a50-4a8d-b12e-850b73e71b33&awEpisodeId=bd288922-f2a9-44c6-9363-8971c973706f&feed=Hb_IuXOo",
+    "question": "Why do enterprises choose to deploy open-weight models instead of relying on proprietary APIs, beyond cost considerations?",
+    "transcript_excerpt": "Control is a backbone motivation: enterprises want to control their own model infrastructure, extend it, add guardrails, understand exact performance profiles, and ensure SLA compliance. For example, voice agent companies need to control their own model to guarantee response times for customers on phone calls. Open-weight models also enable control over data retention, security, compliance, and the ability to fine-tune and understand token consumption exactly.",
+    "expert_name": "Simon Mo",
+    "start_seconds": 682,
+    "end_seconds": 850
+  },
+  {
+    "podcast_name": "AI + a16z",
+    "episode_title": "Inside vLLM: The Engine Powering Open-Source AI",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/112866f3-1a50-4a8d-b12e-850b73e71b33/episodes/bd288922-f2a9-44c6-9363-8971c973706f/audio/128/default.mp3?aid=rss_feed&awCollectionId=112866f3-1a50-4a8d-b12e-850b73e71b33&awEpisodeId=bd288922-f2a9-44c6-9363-8971c973706f&feed=Hb_IuXOo",
+    "question": "What economic advantages do open-weight models provide in terms of inference speed and customization compared to proprietary models?",
+    "transcript_excerpt": "For proprietary models there is only regular mode and fast mode, but for open-weight models every provider can offer potentially 10 different levels of speed, from the slowest mode which is cheaper to 400-500 tokens per second in many cases, which is typically 2x or 3x faster than the fast mode of proprietary solutions. This granular control over performance levels is only achievable when running your own infrastructure.",
+    "expert_name": "Simon Mo",
+    "start_seconds": 956,
+    "end_seconds": 1086
+  },
+  {
+    "podcast_name": "AI + a16z",
+    "episode_title": "Inside vLLM: The Engine Powering Open-Source AI",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/112866f3-1a50-4a8d-b12e-850b73e71b33/episodes/bd288922-f2a9-44c6-9363-8971c973706f/audio/128/default.mp3?aid=rss_feed&awCollectionId=112866f3-1a50-4a8d-b12e-850b73e71b33&awEpisodeId=bd288922-f2a9-44c6-9363-8971c973706f&feed=Hb_IuXOo",
+    "question": "Why are open-source model labs implementing commercial licensing terms and usage restrictions on recently released models?",
+    "transcript_excerpt": "Model labs are trying to understand ways to economically fund their own model development, since model training, research, and data are very expensive. Meta's LLAMA included terms requiring commercial agreements if daily active users or annual recurring revenue exceeded thresholds. More recently, models like Minimax M2.7 include usage-based terms, and Kimi has restrictions on derivative works, reflecting an attempt to create sustainable funding mechanisms since open source software donation models do not work at the scale required for AI training.",
+    "expert_name": "Simon Mo",
+    "start_seconds": 1194,
+    "end_seconds": 1386
+  },
+  {
+    "podcast_name": "AI + a16z",
+    "episode_title": "Inside vLLM: The Engine Powering Open-Source AI",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/112866f3-1a50-4a8d-b12e-850b73e71b33/episodes/bd288922-f2a9-44c6-9363-8971c973706f/audio/128/default.mp3?aid=rss_feed&awCollectionId=112866f3-1a50-4a8d-b12e-850b73e71b33&awEpisodeId=bd288922-f2a9-44c6-9363-8971c973706f&feed=Hb_IuXOo",
+    "question": "How does the funding model for open-source AI development differ from traditional open-source software sustainability?",
+    "transcript_excerpt": "Open-source software was historically supported by people donating their time or companies authorizing employees to volunteer, working as in-kind donations. This does not work for AI, which requires millions or billions of dollars of computing resources. Economic incentives and funding mechanisms are necessary to ensure model labs can continue training frontier models, much like the pharmaceutical industry funds R&D with the expectation that successful products will generate revenue to fund future research.",
+    "expert_name": "Simon Mo",
+    "start_seconds": 1488,
+    "end_seconds": 1608
+  }
+]
