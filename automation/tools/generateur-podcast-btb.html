@@ -199,14 +199,48 @@ function gatherTextForTagging(){
   if(raw && raw.value) parts.push(raw.value);
   var rawInfoManual = document.getElementById('f_raw_info');
   if(rawInfoManual && rawInfoManual.value) parts.push(rawInfoManual.value);
+  // Ne prend les infos du candidat selectionne que si son feed_url correspond bien a l'URL RSS
+  // actuellement dans le champ -- evite de melanger les infos d'un candidat different si l'URL
+  // a ete changee/collee manuellement sans reinitialiser le menu deroulant.
   var candIdx = document.getElementById('f_candidate') ? document.getElementById('f_candidate').value : '';
+  var rssField = document.getElementById('f_rss_url');
+  var currentRssUrl = rssField ? rssField.value.trim() : '';
   if(candIdx !== '' && discoveryCandidates[candIdx]){
     var c = discoveryCandidates[candIdx];
-    parts.push(c.podcast_name || '');
-    parts.push(c.genre || '');
-    parts.push(c.reason || '');
+    if(!currentRssUrl || currentRssUrl === c.feed_url){
+      parts.push(c.podcast_name || '');
+      parts.push(c.genre || '');
+      parts.push(c.reason || '');
+    }
   }
   return parts.join(' ');
+}
+
+// Tente de lire le vrai titre + description du flux RSS colle, pour enrichir le texte utilise
+// par la suggestion de categorie/tags (jusqu'ici jamais lu automatiquement malgre la bannière
+// "Mode RSS"). Repli silencieux si le flux refuse l'acces cross-origin depuis le navigateur
+// (CORS, variable selon l'hebergeur du flux) -- le reste du systeme continue de fonctionner
+// avec le texte manuel disponible.
+function fetchRssTextForTagging(){
+  var rssField = document.getElementById('f_rss_url');
+  var url = rssField ? rssField.value.trim() : '';
+  if(!url) return Promise.resolve('');
+  return fetch(url, {cache: 'no-store'})
+    .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+    .then(function(xmlText){
+      var doc = new DOMParser().parseFromString(xmlText, 'text/xml');
+      if(doc.querySelector('parsererror')) throw new Error('XML invalide');
+      var channel = doc.querySelector('channel') || doc.documentElement;
+      var title = channel.querySelector(':scope > title') ? channel.querySelector(':scope > title').textContent : '';
+      var desc = channel.querySelector(':scope > description') ? channel.querySelector(':scope > description').textContent : '';
+      var itunesSummary = channel.getElementsByTagNameNS('*', 'summary')[0];
+      var summaryText = itunesSummary ? itunesSummary.textContent : '';
+      // Quelques titres d'episodes recents comme signal supplementaire (sujets abordes)
+      var itemTitles = Array.prototype.slice.call(doc.querySelectorAll('item > title')).slice(0, 8)
+        .map(function(el){ return el.textContent; }).join(' ');
+      return [title, desc, summaryText, itemTitles].join(' ');
+    })
+    .catch(function(){ return ''; }); // CORS ou flux illisible -- echec silencieux, pas bloquant
 }
 
 function loadDirectoryCategories(){
@@ -223,14 +257,18 @@ function suggestCategory(text){
   catBox.innerHTML = '<span class="note">Chargement des catégories…</span>';
   var textWords = wordsSetFrom(text);
   loadDirectoryCategories().then(function(categories){
+    // Seuil de ratio (>= 50% des mots significatifs du nom de categorie doivent matcher) au lieu
+    // d'un simple "au moins un mot matche" -- evite qu'un mot generique isole (ex. "real" dans
+    // "real story") fasse remonter une categorie sans rapport (ex. "Real Estate").
     var scored = categories.map(function(cat){
       var words = cat.toLowerCase().replace(/[^a-z0-9àâäéèêëïîôöùûüç\s]/gi, ' ').split(/\s+/).filter(function(w){ return w.length > 3; });
-      var score = 0;
-      words.forEach(function(w){ if(textWords[w]) score++; });
-      return {cat: cat, score: score};
-    }).filter(function(s){ return s.score > 0; });
+      if(words.length === 0) return {cat: cat, ratio: 0, matched: 0};
+      var matched = 0;
+      words.forEach(function(w){ if(textWords[w]) matched++; });
+      return {cat: cat, ratio: matched / words.length, matched: matched};
+    }).filter(function(s){ return s.ratio >= 0.5; });
 
-    scored.sort(function(a, b){ return b.score - a.score; });
+    scored.sort(function(a, b){ return (b.ratio - a.ratio) || (b.matched - a.matched); });
 
     if(scored.length === 0){
       catBox.innerHTML = '<span class="note">Aucune catégorie ne correspond clairement — choisis manuellement dans la liste (41 catégories, voir directory_categories.json).</span>';
@@ -251,16 +289,23 @@ function suggestCategory(text){
 function suggestDirectoryTags(){
   var box = document.getElementById('tagSuggestions');
   var catBox = document.getElementById('categorySuggestion');
-  box.innerHTML = '<span class="note">Chargement de la taxonomie…</span>';
+  box.innerHTML = '<span class="note">Lecture du flux RSS + chargement de la taxonomie…</span>';
 
-  var text = gatherTextForTagging().toLowerCase();
-  if(!text.trim()){
-    var msg = '<span class="note">⚠️ Aucun texte disponible — remplis "Contexte supplémentaire" (nom, description, sujets) ci-dessus.</span>';
-    box.innerHTML = msg;
-    catBox.innerHTML = '';
-    return;
-  }
+  fetchRssTextForTagging().then(function(rssText){
+    var text = (gatherTextForTagging() + ' ' + rssText).toLowerCase();
+    if(!text.trim()){
+      var msg = '<span class="note">⚠️ Aucun texte disponible — remplis "Contexte supplémentaire" (nom, description, sujets) ci-dessus, ou verifie que l\'URL du flux RSS est correcte.</span>';
+      box.innerHTML = msg;
+      catBox.innerHTML = '';
+      return;
+    }
+    var rssFailed = !rssText;
+    runTagSuggestion(text, box, catBox, rssFailed);
+  });
+}
 
+function runTagSuggestion(text, box, catBox, rssFailed){
+  var rssNote = rssFailed ? '<p class="note">ℹ️ Flux RSS illisible depuis le navigateur (CORS) — suggestions basées uniquement sur le contexte manuel.</p>' : '';
   suggestCategory(text);
 
   var tagPromise = directoryTagsCache
@@ -272,27 +317,31 @@ function suggestDirectoryTags(){
 
   tagPromise.then(function(taxonomy){
     var textWords = wordsSetFrom(text);
+    // Meme seuil de ratio que pour la categorie (>= 50% des mots significatifs du tag doivent
+    // matcher) -- evite les faux positifs par coincidence sur un seul mot generique.
     var scored = [];
     Object.keys(taxonomy).forEach(function(theme){
       if(theme === '_meta') return;
       taxonomy[theme].forEach(function(tag){
         var words = tag.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(function(w){ return w.length > 3; });
-        var score = 0;
-        words.forEach(function(w){ if(textWords[w]) score++; });
-        if(score > 0) scored.push({tag: tag, theme: theme, score: score});
+        if(words.length === 0) return;
+        var matched = 0;
+        words.forEach(function(w){ if(textWords[w]) matched++; });
+        var ratio = matched / words.length;
+        if(ratio >= 0.5) scored.push({tag: tag, theme: theme, ratio: ratio, matched: matched});
       });
     });
 
-    scored.sort(function(a, b){ return b.score - a.score; });
+    scored.sort(function(a, b){ return (b.ratio - a.ratio) || (b.matched - a.matched); });
     var top = scored.slice(0, 4);
 
     if(top.length === 0){
-      box.innerHTML = '<span class="note">Aucune correspondance trouvée — enrichis le texte fourni (sujets précis abordés dans le podcast) ou choisis manuellement dans la liste complète (798 tags, voir directory_tags.json).</span>';
+      box.innerHTML = rssNote + '<span class="note">Aucune correspondance trouvée — enrichis le texte fourni (sujets précis abordés dans le podcast) ou choisis manuellement dans la liste complète (798 tags, voir directory_tags.json).</span>';
       return;
     }
 
     var tagList = top.map(function(t){ return t.tag; }).join(', ');
-    box.innerHTML =
+    box.innerHTML = rssNote +
       '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;">' +
       top.map(function(t){
         return '<span style="background:#eef2ff;border:1px solid #d8d4ff;border-radius:14px;padding:4px 12px;font-size:13px;" title="' + t.theme + '">' + t.tag + '</span>';
