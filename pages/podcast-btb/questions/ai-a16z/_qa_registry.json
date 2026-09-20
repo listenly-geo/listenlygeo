@@ -58,12 +58,6 @@
   },
   "pending_qa": [
     {
-      "q": "How does vLLM function within the modern AI infrastructure stack for enterprises using open-source models?",
-      "r": "vLLM is an inference engine that turns available GPUs into running endpoints for intelligence, comparable to databases and operating systems. It supports more than 1,000 model architectures and works closely with hardware vendors like NVIDIA, AMD, Google, Amazon, and Intel. vLLM implements models immediately upon release in a process called Day Zero model release, and vendors often use it as a benchmark to ensure their newest chips run effectively.",
-      "start_seconds": 501,
-      "end_seconds": 567
-    },
-    {
       "q": "At what point did open source AI models become critical infrastructure rather than an experimental curiosity?",
       "r": "Open source became critical infrastructure around 2023, when GitHub Copilot and ChatGPT became something people could not live without, and open-weight models became a cornerstone of daily productivity. A threshold was passed about a year ago when application startups realized they could not build meaningful AI products solely on closed-source models and began turning to open source for mid-training, post-training, and inference deployment.",
       "start_seconds": 295,
@@ -103,6 +97,15 @@
       "source_episode_guid": "39e4e3b9-a3ff-455e-aa60-f973ca2a5740",
       "added_date": "2026-09-19",
       "answer_snippet": "Serving a large language model requires running it on accelerators like GPUs or TPUs with computationally intensive processes that need quick and efficient…"
+    },
+    {
+      "slug": "how-does-vllm-function-within-the-modern-ai-infrastructure-stack-for-e",
+      "question": "How does vLLM function within the modern AI infrastructure stack for enterprises using open-source models?",
+      "url": "https://listenly.fr/podcast-btb/questions/ai-a16z/how-does-vllm-function-within-the-modern-ai-infrastructure-stack-for-e.html",
+      "source_episode_title": "Inside vLLM: The Engine Powering Open-Source AI",
+      "source_episode_guid": "39e4e3b9-a3ff-455e-aa60-f973ca2a5740",
+      "added_date": "2026-09-20",
+      "answer_snippet": "vLLM is an inference engine that turns available GPUs into running endpoints for intelligence, comparable to databases and operating systems. It supports…"
     }
   ]
 }

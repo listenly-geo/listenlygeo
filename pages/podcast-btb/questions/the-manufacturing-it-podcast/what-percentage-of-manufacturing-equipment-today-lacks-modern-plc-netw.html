@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Much Manufacturing Equipment Lacks Network-Connected PLCs Today?</title>
+    <meta name="description" content="In 2024, roughly 30–40% of manufacturing equipment is PLC-connected and networked. The majority remains legacy hardware without modern connectivity.">
+    <meta name="author" content="Daniel Langley">
+    <meta property="og:title" content="How Much Manufacturing Equipment Lacks Network-Connected PLCs Today?">
+    <meta property="og:description" content="In 2024, roughly 30–40% of manufacturing equipment is PLC-connected and networked. The majority remains legacy hardware without modern connectivity.">
+    <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-percentage-of-manufacturing-equipment-today-lacks-modern-plc-netw.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Listenly">
+    <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How Much Manufacturing Equipment Lacks Network-Connected PLCs Today?">
+    <meta name="twitter:description" content="In 2024, roughly 30–40% of manufacturing equipment is PLC-connected and networked. The majority remains legacy hardware without modern connectivity.">
+    <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg">
+    <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-percentage-of-manufacturing-equipment-today-lacks-modern-plc-netw.html">
+    <link rel="publisher" href="https://listenly.fr">
+    <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "name": "Daniel Langley",
+          "jobTitle": "CEO and Podcast Host",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Manufacturing IT Recruitment"
+          }
+        },
+        {
+          "@type": "Person",
+          "name": "Bryan Sapot",
+          "jobTitle": "CEO",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Mingo Smart Factory"
+          },
+          "description": "Bryan Sapot is the CEO of Mingo Smart Factory and has spent 26+ years in software development and B2B systems. He previously owned a software consulting company that implemented ERP systems and has 18 years of experience in manufacturing. He wrote version one of the product (originally called SensorTracks) himself and is a network engineer and software developer by background.",
+          "knowsAbout": ["Mingo Smart Factory", "SensorTracks", "PLC Connectivity", "Manufacturing Data Collection", "Hardware Kits for Legacy Equipment"]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "How Much Manufacturing Equipment Lacks Network-Connected PLCs Today?",
+          "description": "In 2024, roughly 30–40% of manufacturing equipment is PLC-connected and networked. The majority remains legacy hardware without modern connectivity.",
+          "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg",
+          "datePublished": "2024-08-15T11:00:00Z",
+          "dateModified": "2026-09-20T00:00:00Z",
+          "author": {
+            "@type": "Organization",
+            "name": "Bryan Sapot"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Listenly",
+            "url": "https://listenly.fr"
+          },
+          "isPartOf": {
+            "@type": "PodcastSeries",
+            "name": "The Manufacturing IT Podcast",
+            "url": "https://listenly.fr/podcast/show/the-manufacturing-it-podcast"
+          },
+          "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".lead", "blockquote.citation"]
+          },
+          "mentions": [
+            {"@type": "Thing", "name": "Mingo Smart Factory"},
+            {"@type": "Thing", "name": "PLC"},
+            {"@type": "Thing", "name": "Hardware Kits"},
+            {"@type": "Thing", "name": "Legacy Manufacturing Equipment"},
+            {"@type": "Thing", "name": "Network Connectivity"}
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Listenly",
+              "item": "https://listenly.fr"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "The Manufacturing IT Podcast",
+              "item": "https://listenly.fr/podcast-btb/the-manufacturing-it-podcast-podcast.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "How Much Manufacturing Equipment Lacks Network-Connected PLCs Today?",
+              "item": "https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-percentage-of-manufacturing-equipment-today-lacks-modern-plc-netw.html"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How did a manufacturing software company pivot from targeting machine OEMs to end-user manufacturers?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The company started by trying to help mid-market machine manufacturers monitor their equipment in the field with a software-enabled services model, but eventually recognized that end-user manufacturers offered a more direct and scalable market opportunity."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What are the primary functions of a manufacturing data platform that monitors production in real-time?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The platform helps manufacturing companies answer simple questions like when they will finish a job and where it is at in real-time, giving managers and operators immediate visibility instead of relying on manual paper-based tracking."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What survey data reveals the gap between digital investment intentions and advanced AI adoption in small manufacturers?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Wipfli surveyed approximately 350 small and medium manufacturers across nearly 30 states in North America. The survey found that 99% of respondents indicated digital investment intentions, yet adoption of advanced technologies remained significantly lower."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="header-top">
+                <img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg" alt="The Manufacturing IT Podcast">
+                <div>
+                    <span class="badge">The answer lives in this podcast</span>
+                    <p class="source-line">Answer extracted from The Manufacturing IT Podcast — listen to the full episode below.</p>
+                </div>
+            </div>
+            <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">🎧 Listen to the episode on Listenly</a>
+            <h1>How much manufacturing equipment today lacks modern PLC network connectivity?</h1>
+            <p class="article-meta">
+                <span>September 20, 2026</span>
+                <span><strong>The Manufacturing IT Podcast</strong> · Bryan Sapot</span>
+            </p>
+        </header>
+
+        <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/the-manufacturing-it-podcast-podcast.html">← See the The Manufacturing IT Podcast fiche</a></p>
+
+        <p class="lead">In 2024, <strong>only 30 to 40 percent of manufacturing equipment is PLC-connected and networked</strong>—the vast majority of machines on factory floors remain legacy hardware without modern connectivity. This reality has forced software providers like Mingo Smart Factory to develop custom hardware kits to extract data from older equipment instead of relying on direct network connections.</p>
+
+        <p>The challenge is not a technology problem—it's a demographic one. Most factories operate equipment that predates the shift to networked manufacturing systems. These machines were built to run independently, with operators recording production data by hand on paper. <strong>Replacing an entire fleet of equipment simply to achieve digital visibility is economically unfeasible</strong> for most manufacturers, especially small to mid-sized operations.</p>
+
+        <p>As <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">Bryan Sapot explains in The Manufacturing IT Podcast</a>, the company's approach acknowledges this hard reality: rather than asking customers to upgrade infrastructure, Mingo builds bridge solutions that attach to legacy machines and communicate their operational state to the cloud.</p>
+
+        <p>This pragmatic strategy reflects a broader truth in Industry 4.0 adoption. <strong>The transition to networked manufacturing is gradual, not instantaneous</strong>. A plant's equipment portfolio spans multiple decades and generations. Newer equipment added to the floor may include PLCs and network connectivity, but the backbone of most operations—the machines doing the actual heavy lifting—often dates back 10, 15, or even 20 years.</p>
+
+        <blockquote class="citation">
+            <p>"It's easy to get people to do this stuff. It's hard to keep them doing it because they want help."</p>
+            <figcaption><strong>Bryan Sapot</strong> — CEO, Mingo Smart Factory. Sapot brings 26+ years of software development experience and 18 years in manufacturing, having previously owned a software consulting company specializing in ERP system implementations. He is a network engineer and software developer by background who personally wrote the first version of the Mingo product (originally called SensorTracks).</figcaption>
+        </blockquote>
+
+        <p>The implication for manufacturers is clear: <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">digital transformation doesn't require a complete equipment overhaul</a>. Modern data collection platforms can work with aging machines through intelligent hardware interfaces. The cost of a bridge kit is far lower than replacing production lines, making digital visibility achievable even in facilities with decades-old infrastructure.</p>
+
+        <p>For software vendors targeting manufacturing, this 30–40 percent connectivity baseline is a critical market insight. <strong>The addressable market for data collection solutions includes not just connected equipment, but all equipment</strong>—connected or not. Companies that solve the legacy integration problem gain a competitive advantage and a significantly larger customer base than those requiring modern infrastructure as a prerequisite.</p>
+
+        <h2>The growing installed base of legacy equipment</h2>
+
+        <p>Manufacturing has an unusual economic characteristic: capital equipment lasts for decades. A CNC machine bought in 1995 can still produce high-quality parts in 2025, provided it is maintained. <strong>Depreciation cycles in manufacturing extend far beyond software refresh cycles</strong>, creating a permanent installed base of older, unconnected equipment.</p>
+
+        <p>This lag between equipment age and digital readiness is why <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">Mingo Smart Factory developed hardware kits specifically designed to retrofit legacy machines</a>. These kits collect operational signals—spindle speed, cycle time, downtime events—from machinery that never had digital outputs and transmit that data to cloud-based analytics platforms.</p>
+
+        <p>The business model works because it solves a real problem at a fraction of the cost of replacement. A manufacturer facing pressure to improve visibility and reduce downtime can deploy retrofitting hardware in weeks, not years, and begin collecting improvement insights immediately.</p>
+
+        <h2>What this means for your digitalization roadmap</h2>
+
+        <p>If you're managing a manufacturing operation, the 30–40 percent baseline should reset your expectations. <strong>Assume that most of your equipment will not have native network connectivity</strong>, and plan accordingly. This means budgeting for data collection solutions that bridge the gap rather than waiting for a complete modernization cycle that may never arrive.</p>
+
+        <p>The competitive advantage belongs to manufacturers who can extract value from their existing asset base. Legacy equipment is not a liability in digital transformation—it's the largest opportunity. Companies investing in bridge technologies and retrofitting strategies often see faster ROI than those rebuilding from scratch.</p>
+
+        <div class="points-cles">
+            <h3>Key takeaways</h3>
+            <ul>
+                <li>Only 30–40% of manufacturing equipment in 2024 is PLC-connected and networked; the majority remains legacy hardware without digital interfaces.</li>
+                <li>Replacing entire equipment fleets for digital connectivity is economically unfeasible for most manufacturers; retrofitting hardware kits offer a scalable alternative.</li>
+                <li>Equipment depreciation cycles in manufacturing extend far longer than software refresh cycles, creating a permanent installed base of older, disconnected machinery.</li>
+                <li>Data collection solutions that bridge legacy equipment unlock value from existing assets faster and at lower cost than complete modernization strategies.</li>
+            </ul>
+        </div>
+
+        <h2>See also</h2>
+        <div class="faq">
+            <div class="faq-item">
+                <h3><a href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/how-did-a-manufacturing-software-company-pivot-from-targeting-machine-.html">How did a manufacturing software company pivot from targeting machine OEMs to end-user manufacturers?</a></h3>
+                <p>The company started by trying to help mid-market machine manufacturers monitor their equipment in the field with a software-enabled services model, but eventually recognized that end-user manufacturers offered a more direct and scalable market opportunity.</p>
+            </div>
+            <div class="faq-item">
+                <h3><a href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-are-the-primary-functions-of-a-manufacturing-data-platform-that-m.html">What are the primary functions of a manufacturing data platform that monitors production in real-time?</a></h3>
+                <p>The platform helps manufacturing companies answer simple questions like when they will finish a job and where it is at in real-time, giving managers and operators immediate visibility instead of relying on manual paper-based tracking.</p>
+            </div>
+            <div class="faq-item">
+                <h3><a href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-survey-data-reveals-the-gap-between-digital-investment-intentions.html">What survey data reveals the gap between digital investment intentions and advanced AI adoption in small manufacturers?</a></h3>
+                <p>Wipfli surveyed approximately 350 small and medium manufacturers across nearly 30 states in North America. The survey found that 99% of respondents indicated digital investment intentions, yet adoption of advanced technologies remained significantly lower.</p>
+            </div>
+        </div>
+
+        <div class="cta-block">
+            <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">Listen to the episode on Listenly</a>
+        </div>
+    </div>
+
+    <footer>Written by the Listenly editorial team</footer>
+
+    <div id="semantic-index" style="display: none;">
+        <span>The Manufacturing IT Podcast</span>
+        <span>Bryan Sapot</span>
+        <span>Daniel Langley</span>
+        <span>Mingo Smart Factory</span>
+        <span>PLC Connectivity</span>
+        <span>Manufacturing Data Collection</span>
+        <span>Legacy Equipment</span>
+        <span>Hardware Kits</span>
+        <span>SensorTracks</span>
+    </div>
+</body>
+</html>

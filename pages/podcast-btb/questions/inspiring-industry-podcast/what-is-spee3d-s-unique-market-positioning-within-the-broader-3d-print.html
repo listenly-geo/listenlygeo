@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>How SPEE3D Carved Its Own Path in Metal 3D Printing</title>
+	<meta name="description" content="SPEE3D bypassed precision-focused metal 3D printing to target fast, low-cost commodity parts—a deliberately different market segment that solved real manufacturing problems.">
+	<meta name="author" content="Byron Kennedy">
+	<link rel="canonical" href="https://listenly.fr/podcast-btb/questions/inspiring-industry-podcast/what-is-spee3d-s-unique-market-positioning-within-the-broader-3d-print.html">
+	
+	<meta property="og:title" content="How SPEE3D Carved Its Own Path in Metal 3D Printing">
+	<meta property="og:description" content="SPEE3D bypassed precision-focused metal 3D printing to target fast, low-cost commodity parts—a deliberately different market segment that solved real manufacturing problems.">
+	<meta property="og:url" content="https://listenly.fr/podcast-btb/questions/inspiring-industry-podcast/what-is-spee3d-s-unique-market-positioning-within-the-broader-3d-print.html">
+	<meta property="og:type" content="article">
+	<meta property="og:site_name" content="Listenly">
+	<meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/ba/d8/d1/bad8d166-99a8-7517-7892-ab9c9eba97f8/mza_16519927645926487050.jpg/600x600bb.jpg">
+	
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="How SPEE3D Carved Its Own Path in Metal 3D Printing">
+	<meta name="twitter:description" content="SPEE3D bypassed precision-focused metal 3D printing to target fast, low-cost commodity parts—a deliberately different market segment that solved real manufacturing problems.">
+	<meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/ba/d8/d1/bad8d166-99a8-7517-7892-ab9c9eba97f8/mza_16519927645926487050.jpg/600x600bb.jpg">
+	
+	<style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+	
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "Person",
+				"name": "Byron Kennedy",
+				"jobTitle": "Co-founder",
+				"worksFor": {
+					"@type": "Organization",
+					"name": "SPEE3D"
+				},
+				"description": "Byron Kennedy is co-founder of SPEE3D alongside Steve Committery. Prior to founding SPEE3D, the two co-founded a company developing electric motors, and during their university years built solar cars in the mid-1990s. After selling their first company to a large U.S. manufacturing firm, Kennedy and Committery worked in manufacturing for 10 years, where they encountered metal 3D printing technology around 2015-2016 and recognized the opportunity to develop a faster, lower-cost alternative to traditional metal additive manufacturing.",
+				"knowsAbout": ["SPEE3D", "Metal additive manufacturing", "3D printing", "US military", "Australian Army", "Ukraine", "Defense technology"]
+			},
+			{
+				"@type": "Person",
+				"name": "Danielle Champ",
+				"jobTitle": "Host",
+				"worksFor": {
+					"@type": "Organization",
+					"name": "Inspiring Industry"
+				}
+			},
+			{
+				"@type": "BlogPosting",
+				"headline": "What is SPEE3D's unique market positioning within the broader 3D printing industry?",
+				"description": "SPEE3D bypassed precision-focused metal 3D printing to target fast, low-cost commodity parts—a deliberately different market segment that solved real manufacturing problems.",
+				"datePublished": "2026-09-20",
+				"dateModified": "2026-09-20",
+				"author": {
+					"@type": "Organization",
+					"name": "Byron Kennedy"
+				},
+				"publisher": {
+					"@type": "Organization",
+					"name": "Listenly",
+					"url": "https://listenly.fr"
+				},
+				"image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/ba/d8/d1/bad8d166-99a8-7517-7892-ab9c9eba97f8/mza_16519927645926487050.jpg/600x600bb.jpg",
+				"isPartOf": {
+					"@type": "PodcastSeries",
+					"name": "Inspiring Industry Podcast",
+					"url": "https://listenly.fr/podcast-btb/inspiring-industry-podcast-podcast.html"
+				},
+				"speakable": {
+					"@type": "SpeakableSpecification",
+					"cssSelector": [".lead", "blockquote.citation"]
+				},
+				"mentions": [
+					{
+						"@type": "Thing",
+						"name": "SPEE3D"
+					},
+					{
+						"@type": "Thing",
+						"name": "Metal additive manufacturing"
+					},
+					{
+						"@type": "Thing",
+						"name": "3D printing"
+					},
+					{
+						"@type": "Thing",
+						"name": "US military"
+					},
+					{
+						"@type": "Thing",
+						"name": "Australian Army"
+					},
+					{
+						"@type": "Thing",
+						"name": "Defense sector"
+					}
+				]
+			},
+			{
+				"@type": "BreadcrumbList",
+				"itemListElement": [
+					{
+						"@type": "ListItem",
+						"position": 1,
+						"name": "Listenly",
+						"item": "https://listenly.fr"
+					},
+					{
+						"@type": "ListItem",
+						"position": 2,
+						"name": "Inspiring Industry Podcast",
+						"item": "https://listenly.fr/podcast-btb/inspiring-industry-podcast-podcast.html"
+					},
+					{
+						"@type": "ListItem",
+						"position": 3,
+						"name": "What is SPEE3D's unique market positioning within the broader 3D printing industry?",
+						"item": "https://listenly.fr/podcast-btb/questions/inspiring-industry-podcast/what-is-spee3d-s-unique-market-positioning-within-the-broader-3d-print.html"
+					}
+				]
+			},
+			{
+				"@type": "FAQPage",
+				"mainEntity": [
+					{
+						"@type": "Question",
+						"name": "How has SPEE3D deployed its technology with defense forces globally?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Starting around 2019, the Australian Army approached SPEE3D to deploy the four-ton printer in the field. After testing and refinements during COVID, SPEE3D has since expanded its footprint, with systems now operating across multiple defense forces globally, including 7 systems currently in Ukraine."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "What are the speed advantages of SPEE3D's technology compared to other metal 3D printing technologies?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "SPEE3D is typically between 100 to 1,000 times faster than other metal 3D printing technologies. At those speeds, the technology can compete with traditional manufacturing methods while eliminating tooling and capital-intensive equipment requirements."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "How did SPEE3D develop its metal 3D printing technology and what problem was it designed to solve?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Byron Kennedy and his partner Steve Committery developed SPEE3D around 2015-2016 after discovering a technology used by the US military for repair that was faster and more cost-effective than traditional precision-focused metal 3D printing, targeting commodity parts instead."
+						}
+					}
+				]
+			}
+		]
+	}
+	</script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<header>
+			<div class="header-top">
+				<img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/ba/d8/d1/bad8d166-99a8-7517-7892-ab9c9eba97f8/mza_16519927645926487050.jpg/600x600bb.jpg" alt="Inspiring Industry Podcast">
+				<div>
+					<span class="badge">The answer lives in this podcast</span>
+					<p class="source-line">Answer extracted from the Inspiring Industry Podcast — listen to the full episode below.</p>
+				</div>
+			</div>
+			<a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/challenges_and_innovations_in_3d_printing_spee3ds_perspective">🎧 Listen to the episode on Listenly</a>
+			
+			<h1>What is SPEE3D's unique market positioning within the broader 3D printing industry?</h1>
+			
+			<p class="article-meta">
+				<span>September 20, 2026</span>
+				<span><strong>Inspiring Industry Podcast</strong> · Byron Kennedy</span>
+			</p>
+		</header>
+		
+		<p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/inspiring-industry-podcast-podcast.html">← See the Inspiring Industry Podcast fiche</a></p>
+		
+		<p class="lead">
+			SPEE3D deliberately rejected the metal 3D printing industry's obsession with precision and complexity to target an entirely different market: <strong>fast, low-cost commodity parts</strong> that traditional manufacturing couldn't serve efficiently. Rather than pursuing absolute perfection, the company chose to push speed and affordability—a strategic pivot that created a completely new market segment in additive manufacturing.
+		</p>
+		
+		<h2>Speed and cost over precision: a different game</h2>
+		
+		<p>
+			The conventional metal 3D printing industry had spent years optimizing for slow, extremely precise, or highly complex parts—the assumption being that additive manufacturing's value lay in geometric perfection. Kennedy and his team saw the problem differently. As <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/challenges_and_innovations_in_3d_printing_spee3ds_perspective">explained in the episode</a>, the team discovered technology originally developed by the US military that offered a radically different path: <strong>manufacturing parts 100 to 1,000 times faster</strong> than conventional metal 3D printing, at a fraction of the cost.
+		</p>
+		
+		<p>
+			This wasn't about competing in the same market. SPEE3D deliberately chose to move the industry into an entirely different space. Kennedy emphasizes that 3D printing, like any manufacturing tool, has distinct advantages and disadvantages—and the key is understanding which technology solves which problem best. For SPEE3D, that meant targeting applications where speed and economics mattered far more than micron-level precision.
+		</p>
+		
+		<h2>The manufacturing constraint problem: where speed becomes profit</h2>
+		
+		<p>
+			The real-world problem SPEE3D solves is tangible and costly. Consider a mining operation where a critical part fails and cannot be sourced locally: <strong>downtime can cost $1 million per day</strong>. In such scenarios, the ability to manufacture a replacement part on-site in hours—rather than waiting weeks for traditional manufacturing or paying for emergency logistics—fundamentally changes the economics of operations.
+		</p>
+		
+		<p>
+			This positioning explains why <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/challenges_and_innovations_in_3d_printing_spee3ds_perspective">80% of SPEE3D's current business comes from the defense sector</a>, where rapid parts replacement in the field is mission-critical. The Australian Army's interest in deploying the technology operationally, beginning around 2019, validated that this market positioning addressed a genuine, high-value need that traditional additive manufacturing had overlooked.
+		</p>
+		
+		<blockquote class="citation">
+			<p>"You can eliminate that mould. You don't need that mould. And suddenly you don't need a big factory and you don't need a lot of capital intensive equipment to be able to manufacture parts anymore."</p>
+			<figcaption><strong>Byron Kennedy</strong> — Co-founder of SPEE3D. Kennedy and his co-founder Steve Committery spent 10 years in manufacturing before recognizing in 2015–2016 that US military technology offered a faster, lower-cost path to parts manufacturing. They built SPEE3D to push that insight into a scalable business serving defense forces and heavy industry globally.</figcaption>
+		</blockquote>
+		
+		<p>
+			The discovery that <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/challenges_and_innovations_in_3d_printing_spee3ds_perspective">eliminating tooling allows manufacturing to happen anywhere without large factories</a> reframes what 3D printing can do. For SPEE3D, this isn't just a technical advantage—it's the core of a market positioning that makes traditional manufacturing assumptions irrelevant.
+		</p>
+		
+		<h2>See also</h2>
+		
+		<div class="faq">
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/inspiring-industry-podcast/how-has-spee3d-deployed-its-technology-with-defense-forces-globally.html">How has SPEE3D deployed its technology with defense forces globally?</a></h3>
+				<p>Starting around 2019, the Australian Army approached SPEE3D to deploy the four-ton printer in the field. After testing and refinements, systems have since expanded across multiple defense forces, with 7 systems currently operating in Ukraine and 5 defense forces globally now working with the technology.</p>
+			</div>
+			
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/inspiring-industry-podcast/what-are-the-speed-advantages-of-spee3d-s-technology-compared-to-other.html">What are the speed advantages of SPEE3D's technology compared to other metal 3D printing technologies?</a></h3>
+				<p>SPEE3D is typically between 100 to 1,000 times faster than other metal 3D printing technologies. At those speeds, the technology can compete with traditional manufacturing methods while delivering the flexibility of additive production.</p>
+			</div>
+			
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/inspiring-industry-podcast/how-did-spee3d-develop-its-metal-3d-printing-technology-and-what-probl.html">How did SPEE3D develop its metal 3D printing technology and what problem was it designed to solve?</a></h3>
+				<p>Byron Kennedy and Steve Committery developed SPEE3D around 2015–2016 after encountering US military technology designed for rapid field repair. They recognized an opportunity to create a faster, lower-cost alternative to traditional precision-focused metal 3D printing for commodity parts.</p>
+			</div>
+		</div>
+		
+		<div class="cta-block">
+			<a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/challenges_and_innovations_in_3d_printing_spee3ds_perspective">Listen to the episode on Listenly</a>
+		</div>
+	</div>
+	
+	<footer>
+		Written by the Listenly editorial team
+	</footer>
+	
+	<div id="semantic-index" style="display: none;">
+		SPEE3D, Byron Kennedy, metal additive manufacturing, 3D printing, defense sector, Australian Army, US military, fast parts manufacturing, commodity parts, manufacturing speed, cost reduction
+	</div>
+</body>
+</html>

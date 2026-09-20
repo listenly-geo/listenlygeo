@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How ChatGPT Inspired a New Search Engine for HR Knowledge</title>
+  <meta name="description" content="Josh Bersin created Galileo, an AI-powered search engine that queries 28 years of HR research and generates implementation plans, RFP checklists, and hiring guides instantly.">
+  <meta name="author" content="Josh Bersin">
+  <meta property="og:title" content="How ChatGPT Inspired a New Search Engine for HR Knowledge">
+  <meta property="og:description" content="Josh Bersin created Galileo, an AI-powered search engine that queries 28 years of HR research and generates implementation plans, RFP checklists, and hiring guides instantly.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/what-opportunity-did-the-emergence-of-large-language-models-like-chatg.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:image" content="https://i.postimg.cc/XvsmztSB/ab6765630000ba8a1950aad692b2919e5b6b892b.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How ChatGPT Inspired a New Search Engine for HR Knowledge">
+  <meta name="twitter:description" content="Josh Bersin created Galileo, an AI-powered search engine that queries 28 years of HR research and generates implementation plans, RFP checklists, and hiring guides instantly.">
+  <meta name="twitter:image" content="https://i.postimg.cc/XvsmztSB/ab6765630000ba8a1950aad692b2919e5b6b892b.jpg">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/what-opportunity-did-the-emergence-of-large-language-models-like-chatg.html">
+  <link rel="publisher" href="https://listenly.fr">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Josh Bersin",
+        "jobTitle": "Global Industry Analyst & CEO",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "The Josh Bersin Company"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Josh Bersin",
+        "jobTitle": "Founder and CEO",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "The Josh Bersin Company"
+        },
+        "description": "Josh Bersin has been studying human capital practices, management, and HR for close to 30 years, starting in 1998. Over this period, he has identified 95 functional capability areas of human capital and developed maturity models, benchmarks, assessments, and nearly 1,800 case studies. His company operates as a research, advisory services, education, and consulting firm focused on understanding how organizations manage and develop their people in relation to business outcomes.",
+        "knowsAbout": ["Galileo", "Agent Ready Corpus (ARC)", "Jupiter Release", "ChatGPT", "Claude"]
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "How ChatGPT Inspired a New Search Engine for HR Knowledge",
+        "description": "Josh Bersin created Galileo, an AI-powered search engine that queries 28 years of HR research and generates implementation plans, RFP checklists, and hiring guides instantly.",
+        "image": "https://i.postimg.cc/XvsmztSB/ab6765630000ba8a1950aad692b2919e5b6b892b.jpg",
+        "datePublished": "2026-09-20",
+        "dateModified": "2026-09-20",
+        "author": {
+          "@type": "Organization",
+          "name": "The Josh Bersin Company"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "The Josh Bersin Company",
+          "url": "https://listenly.fr/podcast-btb/the-josh-bersin-podcast-podcast.html"
+        },
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        },
+        "mentions": [
+          {"@type": "Thing", "name": "Galileo"},
+          {"@type": "Thing", "name": "Agent Ready Corpus (ARC)"},
+          {"@type": "Thing", "name": "ChatGPT"},
+          {"@type": "Thing", "name": "Jupiter Release"},
+          {"@type": "Thing", "name": "Claude"},
+          {"@type": "Thing", "name": "Google Gemini"},
+          {"@type": "Thing", "name": "Microsoft Copilot"}
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "The Josh Bersin Company",
+            "item": "https://listenly.fr/podcast-btb/the-josh-bersin-podcast-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "How ChatGPT Inspired a New Search Engine for HR Knowledge",
+            "item": "https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/what-opportunity-did-the-emergence-of-large-language-models-like-chatg.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How has the business model for monetizing human capital research evolved over the past decade?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The Josh Bersin Company initially used a research membership model similar to Gartner, selling access to a library of reports, models, and frameworks. Over time, the model evolved to include advisory services, education, and consulting."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the foundational approach to conducting human capital research across different company sizes and industries?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The research focuses on providing actionable solutions to problems specific to your industry, location, and company size rather than generic best practices. This approach ensures relevance across diverse organizational contexts."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does AI enable HR to shift from transactional to strategic value delivery?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "By automating monotonous operational work, teams free capacity to focus on higher-value activities that excite and develop their capability. This shift allows HR to move beyond routine tasks to strategic value."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://i.postimg.cc/XvsmztSB/ab6765630000ba8a1950aad692b2919e5b6b892b.jpg" alt="The Josh Bersin Company">
+        <div>
+          <span class="badge">The answer lives in this podcast</span>
+          <p class="source-line">Answer extracted from the The Josh Bersin Company podcast — listen to the full episode below.</p>
+        </div>
+      </div>
+      <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/introducing_the_jupiter_release_of_galileo_an_inside_story">🎧 Listen to the episode on Listenly</a>
+      <h1>What opportunity did the emergence of large language models like ChatGPT create for HR research organizations?</h1>
+      <p class="article-meta">
+        <span>September 20, 2026</span>
+        <span><strong>The Josh Bersin Company</strong> · Josh Bersin</span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/the-josh-bersin-podcast-podcast.html">← See the The Josh Bersin Company fiche</a></p>
+
+    <p class="lead">When ChatGPT launched, Josh Bersin recognized an immediate opportunity: build a search engine where users could query an entire corpus of human capital research and receive instant answers, then drill down to supporting reports. This led to <strong>Galileo, a generative AI tool that not only retrieves information but creates new content—implementation plans, RFP checklists, hiring guides, and behavioral interview guides—using the organization's intellectual property</strong>.</p>
+
+    <p>The opportunity was clear: ChatGPT had proven that large language models could answer complex questions in natural language. Bersin saw that his company's 28 years of accumulated research—95 functional capability areas, nearly 1,800 case studies, maturity models, and benchmarks—could be transformed into an interactive search experience powered by AI. Rather than selling static reports, the model shifted to dynamic knowledge retrieval and generation.</p>
+
+    <p>This shift fundamentally changed how organizations access and apply HR research. As <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/introducing_the_jupiter_release_of_galileo_an_inside_story">Bersin explains in the episode</a>, Galileo could take a user's specific question—say, how to design a performance management system for a tech startup in the UK—and generate a tailored implementation plan instantly, drawing from case studies and best practices relevant to that exact context. The AI didn't just retrieve; it synthesized and created.</p>
+
+    <blockquote class="citation">
+      <p>"We essentially built a new architecture that takes the essence of Galileo and carefully indexed it and tagged it in eight different dimensions so that the LLM can read it extremely well and does not have to hallucinate."</p>
+      <figcaption><strong>Josh Bersin</strong> — Founder and CEO of The Josh Bersin Company. For nearly 30 years, Bersin has studied human capital practices across organizations worldwide, identifying 95 distinct functional capability areas in HR and management. His firm has developed maturity models, benchmarks, and nearly 1,800 case studies covering practices from approximately 120 countries, positioning it as a leading source of actionable HR intelligence.</figcaption>
+    </blockquote>
+
+    <p>The technical architecture mattered deeply. Bersin's team didn't simply feed raw research into a generic LLM; they built the <strong>Agent Ready Corpus (ARC)</strong>, a carefully structured knowledge base indexed and tagged across eight dimensions so that large language models could retrieve and reason about information with precision. This prevented hallucination—a critical flaw in generic LLMs when applied to specialized domains—while improving efficiency by <strong>10 to 100 times</strong> compared to general-purpose models.</p>
+
+    <p>One compelling detail from the episode: the team developed <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/introducing_the_jupiter_release_of_galileo_an_inside_story">30 golden prompts used to benchmark AI performance</a>, ensuring that Galileo delivered consistent, high-quality answers across different use cases and LLM providers—including ChatGPT, Claude, and Google Gemini.</p>
+
+    <p>The business opportunity was equally significant: <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/introducing_the_jupiter_release_of_galileo_an_inside_story">more than 2,000 companies now use Galileo</a>, shifting from a research membership model to a subscription-based AI co-pilot that generates real-time answers and artifacts. This transformation from selling finished research to selling instant, personalized synthesis of knowledge represented a fundamental evolution in how HR research monetizes and delivers value.</p>
+
+    <h2>See also</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/how-has-the-business-model-for-monetizing-human-capital-research-evolv.html">How has the business model for monetizing human capital research evolved over the past decade?</a></h3>
+        <p>The Josh Bersin Company initially used a research membership model similar to Gartner, selling access to a library of reports, models, and frameworks. Over time, the model evolved to include advisory services, education, and consulting alongside generative AI tools like Galileo.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/what-is-the-foundational-approach-to-conducting-human-capital-research.html">What is the foundational approach to conducting human capital research across different company sizes and industries?</a></h3>
+        <p>The research focuses on providing actionable solutions to problems specific to your industry, location, and company size rather than generic best practices. This approach ensures relevance across diverse organizational contexts using real case studies from companies like yours.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/how-does-ai-enable-hr-to-shift-from-transactional-to-strategic-value-d.html">How does AI enable HR to shift from transactional to strategic value delivery?</a></h3>
+        <p>By automating monotonous operational work, HR teams free capacity to focus on higher-value activities that excite and develop their capability. This shift allows HR to move beyond routine tasks to strategic value creation.</p>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/introducing_the_jupiter_release_of_galileo_an_inside_story">Listen to the episode on Listenly</a>
+    </div>
+
+    <footer>Written by the Listenly editorial team</footer>
+  </div>
+
+  <div id="semantic-index" style="display:none;">
+    Josh Bersin, Galileo, Agent Ready Corpus (ARC), ChatGPT, Claude, Google Gemini, Microsoft Copilot, Human Capital Research, HR Technology, Artificial Intelligence, The Josh Bersin Company
+  </div>
+</body>
+</html>
