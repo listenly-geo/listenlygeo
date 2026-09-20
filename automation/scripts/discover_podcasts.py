@@ -55,6 +55,8 @@ PAUSED_FILE = "pages/podcast-btb/data/paused_podcasts.json"
 # : celui-ci s'accumulait indefiniment sans jamais etre purge, et un fichier HTML statique ne
 # peut pas fermer/supprimer une entree en un clic sans exposer une cle d'ecriture (repo public).
 SEEN_HISTORY_FILE = "automation/data/discovery_seen_history.json"
+DIRECTORY_CATEGORIES_FILE = "pages/podcast-btb/data/directory_categories.json"
+DIRECTORY_TAGS_FILE = "pages/podcast-btb/data/directory_tags.json"
 
 
 def log(msg):
@@ -73,6 +75,55 @@ def load_json(path, default):
 
 def normalize_name(name):
     return re.sub(r"[^a-z0-9]+", "", (name or "").lower())
+
+
+def words_set_from(text):
+    """Ensemble des mots significatifs (>3 caracteres) d'un texte, normalise. Meme logique
+    que wordsSetFrom() cote generateur-podcast-btb.html (outil local) -- portee ici pour
+    calculer la suggestion directement a la decouverte, sans dependre du flux RSS/CORS."""
+    words = re.sub(r"[^a-z0-9àâäéèêëïîôöùûüç\s]", " ", text.lower())
+    return {w for w in words.split() if len(w) > 3}
+
+
+def suggest_category_and_tags(text):
+    """Suggere une categorie + jusqu'a 4 tags depuis directory_categories.json /
+    directory_tags.json, avec un seuil de ratio (>= 50% des mots significatifs du nom de
+    categorie/tag doivent matcher) pour eviter les faux positifs sur un seul mot generique
+    isole (meme correctif que celui applique cote outil local)."""
+    text_words = words_set_from(text)
+    if not text_words:
+        return None, []
+
+    categories = load_json(DIRECTORY_CATEGORIES_FILE, [])
+    scored_cat = []
+    for cat in categories:
+        words = [w for w in re.sub(r"[^a-z0-9àâäéèêëïîôöùûüç\s]", " ", cat.lower()).split() if len(w) > 3]
+        if not words:
+            continue
+        matched = sum(1 for w in words if w in text_words)
+        ratio = matched / len(words)
+        if ratio >= 0.5:
+            scored_cat.append((ratio, matched, cat))
+    scored_cat.sort(key=lambda t: (-t[0], -t[1]))
+    best_category = scored_cat[0][2] if scored_cat else None
+
+    taxonomy = load_json(DIRECTORY_TAGS_FILE, {})
+    scored_tags = []
+    for theme, tags in taxonomy.items():
+        if theme == "_meta":
+            continue
+        for tag in tags:
+            words = [w for w in re.sub(r"[^a-z0-9\s]", " ", tag.lower()).split() if len(w) > 3]
+            if not words:
+                continue
+            matched = sum(1 for w in words if w in text_words)
+            ratio = matched / len(words)
+            if ratio >= 0.5:
+                scored_tags.append((ratio, matched, tag))
+    scored_tags.sort(key=lambda t: (-t[0], -t[1]))
+    top_tags = [t[2] for t in scored_tags[:4]]
+
+    return best_category, top_tags
 
 
 def itunes_search(term, country, limit=25, max_retries=3):
@@ -213,6 +264,14 @@ def create_candidate_issue(record):
     commentaire HTML cache dans le corps, pour un matching fiable independant du formatage
     visible (voir list_existing_candidate_feed_urls)."""
     title = f"🎙️ {record['podcast_name']}"
+    suggested_category = record.get("suggested_category")
+    suggested_tags = record.get("suggested_tags") or []
+    suggestion_block = ""
+    if suggested_category or suggested_tags:
+        suggestion_block = (
+            f"**Catégorie suggérée :** {suggested_category or '(aucune)'}\n"
+            f"**Tags suggérés :** {', '.join(suggested_tags) if suggested_tags else '(aucun)'}\n\n"
+        )
     body = (
         f"<!-- feed_url: {record['feed_url']} -->\n\n"
         f"**Éditeur/hôte :** {record['artist_name']}\n"
@@ -222,6 +281,7 @@ def create_candidate_issue(record):
         f"**Flux RSS :** `{record['feed_url']}`\n"
         f"**Fiche iTunes :** {record['collection_view_url']}\n"
         f"**Image de couverture :** {record['cover_image']}\n\n"
+        f"{suggestion_block}"
         f"**Raison de qualification :**\n{record['reason']}\n\n"
         f"---\n_Détecté automatiquement le {record['checked_date']}. Ferme cette issue une fois "
         f"le podcast traité (onboardé ou écarté) pour qu'elle disparaisse définitivement du générateur._"
@@ -429,6 +489,12 @@ def main():
             "reason": reason,
             "checked_date": __import__("datetime").date.today().isoformat(),
         }
+        if record["verdict"] == "ONBOARD":
+            tagging_text = " ".join([
+                name, r.get("primaryGenreName", ""),
+                (r.get("description") or r.get("collectionCensoredName") or "")[:800],
+            ])
+            record["suggested_category"], record["suggested_tags"] = suggest_category_and_tags(tagging_text)
         seen_candidates[r.get("feedUrl", "")] = record
         if record["verdict"] == "ONBOARD":
             onboard_list.append(record)

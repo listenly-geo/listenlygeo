@@ -392,6 +392,7 @@ function parseIssueBody(body){
     return (end === -1 ? rest : rest.slice(0, end)).trim();
   }
   var feedUrlMatch = body.match(/<!-- feed_url: (.*?) -->/);
+  var suggestedTagsRaw = field('Tags suggérés');
   return {
     feed_url: feedUrlMatch ? feedUrlMatch[1].trim() : '',
     artist_name: field('Éditeur/hôte'),
@@ -401,6 +402,8 @@ function parseIssueBody(body){
     collection_view_url: field('Fiche iTunes'),
     cover_image: field('Image de couverture'),
     reason: (body.split('**Raison de qualification :**\n')[1] || '').split('\n\n---')[0].trim(),
+    suggested_category: field('Catégorie suggérée').replace('(aucune)', ''),
+    suggested_tags: (suggestedTagsRaw && suggestedTagsRaw !== '(aucun)') ? suggestedTagsRaw.split(',').map(function(t){ return t.trim(); }) : [],
   };
 }
 
@@ -495,6 +498,37 @@ function applyCandidate(){
   // le trouve/prefere.
   document.getElementById('f_podcast_url').value = c.collection_view_url || '';
   checkPodcastUrl();
+
+  // Affiche immediatement la categorie/tags deja calcules a la decouverte (server-side,
+  // via Apple Podcasts genre+description) -- pas besoin de cliquer "Suggerer" ni de compter
+  // sur la lecture du flux RSS (qui peut echouer en CORS selon l'hebergeur).
+  var catBox = document.getElementById('categorySuggestion');
+  var tagBox = document.getElementById('tagSuggestions');
+  if(c.suggested_category || (c.suggested_tags && c.suggested_tags.length)){
+    if(c.suggested_category){
+      catBox.innerHTML =
+        '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">' +
+        '<span style="background:#dff5e1;border:1px solid #b9e6c0;border-radius:14px;padding:4px 12px;font-size:13px;font-weight:600;">' + c.suggested_category + '</span>' +
+        '<button type="button" class="btn-copy" onclick="navigator.clipboard.writeText(\'' + c.suggested_category.replace(/'/g, "\\'") + '\')">📋 Copier la catégorie</button>' +
+        '</div>';
+    } else {
+      catBox.innerHTML = '';
+    }
+    if(c.suggested_tags && c.suggested_tags.length){
+      var tagList = c.suggested_tags.join(', ');
+      tagBox.innerHTML =
+        '<p class="note">ℹ️ Suggestion pré-calculée à la découverte (Apple Podcasts) — clique "Suggérer" pour affiner avec le flux RSS.</p>' +
+        '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;">' +
+        c.suggested_tags.map(function(t){ return '<span style="background:#eef2ff;border:1px solid #d8d4ff;border-radius:14px;padding:4px 12px;font-size:13px;">' + t + '</span>'; }).join('') +
+        '</div>' +
+        '<button type="button" class="btn-copy" onclick="navigator.clipboard.writeText(\'' + tagList.replace(/'/g, "\\'") + '\')">📋 Copier (' + tagList + ')</button>';
+    } else {
+      tagBox.innerHTML = '';
+    }
+  } else {
+    catBox.innerHTML = '';
+    tagBox.innerHTML = '';
+  }
 
   // Slug pre-rempli a partir du nom du podcast (plus lisible qu'un slug derive de l'URL RSS,
   // qui peut etre long/tronque) -- reste modifiable, sanitizeSlug() re-nettoiera de toute facon
