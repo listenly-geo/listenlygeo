@@ -1,0 +1,72 @@
+[
+  {
+    "podcast_name": "a16z crypto show",
+    "episode_title": "The 'Useless' Theory Behind Modern SNARKs (ft. Gödel Prize Winner Noam Nisan)",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/bf52be5a-9faf-45fb-9bc3-bb4270ec53d9/episodes/2df54d8b-47a6-4cc9-9e2c-ad8d2bf87295/audio/128/default.mp3?aid=rss_feed&awCollectionId=bf52be5a-9faf-45fb-9bc3-bb4270ec53d9&awEpisodeId=2df54d8b-47a6-4cc9-9e2c-ad8d2bf87295&feed=XPOpH7r4",
+    "question": "What motivated a leading complexity theorist to pivot toward algorithmic game theory and economic computation in the mid-1990s?",
+    "transcript_excerpt": "Noam Nisan was inspired by the emergence of the Internet around 1995, which he saw as a massive paradigm shift that academia was too slow to embrace. He made a conscious decision to shift from computational complexity theory toward understanding how to get different computers to cooperate over the Internet, even when they do not belong to the same company or have the same goal. He initially tried to build systems but discovered that the most fascinating aspect was the economic and coordination problems of distributed cooperation.",
+    "expert_name": "Noam Nisan",
+    "start_seconds": 240,
+    "end_seconds": 345
+  },
+  {
+    "podcast_name": "a16z crypto show",
+    "episode_title": "The 'Useless' Theory Behind Modern SNARKs (ft. Gödel Prize Winner Noam Nisan)",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/bf52be5a-9faf-45fb-9bc3-bb4270ec53d9/episodes/2df54d8b-47a6-4cc9-9e2c-ad8d2bf87295/audio/128/default.mp3?aid=rss_feed&awCollectionId=bf52be5a-9faf-45fb-9bc3-bb4270ec53d9&awEpisodeId=2df54d8b-47a6-4cc9-9e2c-ad8d2bf87295&feed=XPOpH7r4",
+    "question": "How did the Popcorn project relate to ideas about verifying delegated computation?",
+    "transcript_excerpt": "In the Popcorn project, Nisan and his team realized that if you delegate work to someone, you need a way to check it. They explored various checking methods: giving the work to multiple people to see if they get the same result, or using NP-like proofs. While they were thinking about distributed systems with issues of trust and incentives, they were not thinking about blockchain systems, but rather about how workstations on the web could cooperate and share resources even when not belonging to the same company or university.",
+    "expert_name": "Noam Nisan",
+    "start_seconds": 558,
+    "end_seconds": 670
+  },
+  {
+    "podcast_name": "a16z crypto show",
+    "episode_title": "The 'Useless' Theory Behind Modern SNARKs (ft. Gödel Prize Winner Noam Nisan)",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/bf52be5a-9faf-45fb-9bc3-bb4270ec53d9/episodes/2df54d8b-47a6-4cc9-9e2c-ad8d2bf87295/audio/128/default.mp3?aid=rss_feed&awCollectionId=bf52be5a-9faf-45fb-9bc3-bb4270ec53d9&awEpisodeId=2df54d8b-47a6-4cc9-9e2c-ad8d2bf87295&feed=XPOpH7r4",
+    "question": "What is an interactive proof and why did it represent a fundamental extension of mathematical proof?",
+    "transcript_excerpt": "An interactive proof is a proof that uses both interaction and randomness, unlike traditional mathematical proofs. The key insight from work by Shamir, Goldreich, and Rakoff between 1984 and 1989 was that you need both interaction and randomness—if you only have one ingredient, you do not get anything new. This was mind-blowing for the community because interactive proofs could prove things in ways that are fundamentally different from conventional mathematical proofs.",
+    "expert_name": "Noam Nisan",
+    "start_seconds": 1200,
+    "end_seconds": 1350
+  },
+  {
+    "podcast_name": "a16z crypto show",
+    "episode_title": "The 'Useless' Theory Behind Modern SNARKs (ft. Gödel Prize Winner Noam Nisan)",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/bf52be5a-9faf-45fb-9bc3-bb4270ec53d9/episodes/2df54d8b-47a6-4cc9-9e2c-ad8d2bf87295/audio/128/default.mp3?aid=rss_feed&awCollectionId=bf52be5a-9faf-45fb-9bc3-bb4270ec53d9&awEpisodeId=2df54d8b-47a6-4cc9-9e2c-ad8d2bf87295&feed=XPOpH7r4",
+    "question": "How does the SumCheck protocol enable verification of computation across massive datasets and cloud computing?",
+    "transcript_excerpt": "Justin Thaler encountered the SumCheck protocol in a complexity theory course and later discovered it was instrumental for verifying cloud computation. The SumCheck protocol, from the LFKN paper, provides an efficient interactive proof mechanism that can be applied to streaming algorithms and massive datasets. Thaler found that for algorithms people care about with massive data sets, the SumCheck protocol serves as a universal solution—use SumCheck and you get optimal protocols for proving an untrusted prover solved the problem correctly, making it foundational to modern SNARKs.",
+    "expert_name": "Noam Nisan",
+    "start_seconds": 976,
+    "end_seconds": 1128
+  },
+  {
+    "podcast_name": "a16z crypto show",
+    "episode_title": "The 'Useless' Theory Behind Modern SNARKs (ft. Gödel Prize Winner Noam Nisan)",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/bf52be5a-9faf-45fb-9bc3-bb4270ec53d9/episodes/2df54d8b-47a6-4cc9-9e2c-ad8d2bf87295/audio/128/default.mp3?aid=rss_feed&awCollectionId=bf52be5a-9faf-45fb-9bc3-bb4270ec53d9&awEpisodeId=2df54d8b-47a6-4cc9-9e2c-ad8d2bf87295&feed=XPOpH7r4",
+    "question": "What role did the LFKN paper play in establishing interactive proof systems for modern verification?",
+    "transcript_excerpt": "The LFKN paper from 1990-1992 established an efficient interactive proof for SharpSAT using the SumCheck protocol and demonstrated remarkable foresight. As Nisan notes, the paper had exactly the right protocol that researchers are still using today for modern SNARKs. The protocol emerged fully formed and elegant, and it became the centerpiece of complexity theory textbooks, showing that combining two concepts into one unified problem in computer science yields powerful results.",
+    "expert_name": "Noam Nisan",
+    "start_seconds": 17,
+    "end_seconds": 150
+  },
+  {
+    "podcast_name": "a16z crypto show",
+    "episode_title": "The 'Useless' Theory Behind Modern SNARKs (ft. Gödel Prize Winner Noam Nisan)",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/bf52be5a-9faf-45fb-9bc3-bb4270ec53d9/episodes/2df54d8b-47a6-4cc9-9e2c-ad8d2bf87295/audio/128/default.mp3?aid=rss_feed&awCollectionId=bf52be5a-9faf-45fb-9bc3-bb4270ec53d9&awEpisodeId=2df54d8b-47a6-4cc9-9e2c-ad8d2bf87295&feed=XPOpH7r4",
+    "question": "How do modern SNARKs relate to interactive proofs and why is the SumCheck protocol central to current SNARK design?",
+    "transcript_excerpt": "Modern SNARKs combine interactive proofs with commitment schemes. Justin Thaler explains that the GKR protocol from 2008 uses the SumCheck protocol as a subroutine, and these interactive proofs are essentially half of a SNARK. By combining them with cryptographic commitments, the result is the SNARKs with the fastest provers today. Thaler predicts that SNARKs using the SumCheck protocol at the core will eventually transform how digital infrastructure handles trust, as the prover speed is the key bottleneck keeping SNARKs from widespread adoption.",
+    "expert_name": "Noam Nisan",
+    "start_seconds": 1140,
+    "end_seconds": 1320
+  },
+  {
+    "podcast_name": "a16z crypto show",
+    "episode_title": "The 'Useless' Theory Behind Modern SNARKs (ft. Gödel Prize Winner Noam Nisan)",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/bf52be5a-9faf-45fb-9bc3-bb4270ec53d9/episodes/2df54d8b-47a6-4cc9-9e2c-ad8d2bf87295/audio/128/default.mp3?aid=rss_feed&awCollectionId=bf52be5a-9faf-45fb-9bc3-bb4270ec53d9&awEpisodeId=2df54d8b-47a6-4cc9-9e2c-ad8d2bf87295&feed=XPOpH7r4",
+    "question": "What unexpected connection emerged between random self-reducibility and interactive proofs for hard computational problems?",
+    "transcript_excerpt": "Nisan discovered that Richard Lipton's proof of random self-reducibility for the permanent function could lead to an interactive proof. Initially Nisan could not believe Lipton's result because he knew that random self-reducibility could imply an interactive proof, yet the permanent is a notoriously difficult function. Upon closer inspection, he realized Lipton's approach worked because Lipton handled multiple instances rather than just one, enabling an interactive proof for this extremely hard problem.",
+    "expert_name": "Noam Nisan",
+    "start_seconds": 1374,
+    "end_seconds": 1470
+  }
+]

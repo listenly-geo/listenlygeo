@@ -1,0 +1,103 @@
+{
+  "known_episode_guids": [
+    "587902a4-5ca1-4cf1-8d1b-1752f104581e"
+  ],
+  "current_episode": {
+    "guid": "587902a4-5ca1-4cf1-8d1b-1752f104581e",
+    "title": "The 'Useless' Theory Behind Modern SNARKs (ft. Gödel Prize Winner Noam Nisan)",
+    "pubdate": "Thu, 13 Aug 2026 17:39:38 +0000",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/bf52be5a-9faf-45fb-9bc3-bb4270ec53d9/episodes/2df54d8b-47a6-4cc9-9e2c-ad8d2bf87295/audio/128/default.mp3?aid=rss_feed&awCollectionId=bf52be5a-9faf-45fb-9bc3-bb4270ec53d9&awEpisodeId=2df54d8b-47a6-4cc9-9e2c-ad8d2bf87295&feed=XPOpH7r4"
+  },
+  "context": {
+    "guest": {
+      "prenom": "Noam",
+      "nom": "Nisan",
+      "titre": "Principal Researcher",
+      "entreprise": "Starkware",
+      "titre_secondaire": "Computer Scientist",
+      "entreprise_secondaire": "Hebrew University of Jerusalem",
+      "bio_context": "Noam Nisan is a Knuth Prize and Gödel Prize-winning computer scientist whose early work on algebraic methods for interactive proof systems helped establish the theoretical foundations for modern SNARKs and verifiable computation. He co-founded the field of algorithmic game theory and has made foundational contributions to computational complexity, pseudorandom generators, Fourier analytic approaches to PAC learning, and interactive proof systems."
+    },
+    "real_quote": "If you have some kind of theoretical inclination, you always find really fascinating theoretical questions that come up.",
+    "key_stats": [
+      "Interactive proofs research period: 1984-1989, foundational work by Shamir, Goldreich, Rakoff, and others",
+      "LFKN paper: published in 1990 or 1992, established efficient interactive proofs for SharpSAT",
+      "Algorithmic mechanism design paper: published in 1999 with Amir Ronen",
+      "GKR protocol: published in 2008, uses SumCheck protocol as a subroutine",
+      "Complexity theory courses teaching SumCheck: became textbook material from Aurora Barak's complexity theory draft",
+      "Web emergence period: approximately 1995, catalyzed shift in Nisan's research focus"
+    ],
+    "entities": [
+      "Hebrew University of Jerusalem",
+      "Starkware",
+      "LFKN paper (Lund, Fortnow, Karloff, Nisan)",
+      "SumCheck protocol",
+      "GKR protocol",
+      "Popcorn project",
+      "Interactive proof systems",
+      "Algorithmic game theory",
+      "Mechanism design",
+      "SNARKs (Succinct Non-interactive Arguments of Knowledge)",
+      "Zero-knowledge proofs",
+      "Algorithmic mechanism design",
+      "a16z Crypto",
+      "Georgetown University",
+      "Lasso and Jolt systems",
+      "Zero-knowledge virtual machines (ZKVMs)",
+      "IP equals PSPACE",
+      "SharpSAT problem",
+      "Gödel Prize",
+      "Knuth Prize"
+    ],
+    "transcript_excerpt": "If you have some kind of theoretical inclination, you always find really fascinating theoretical questions. The general idea was that interactive proof was just an interesting extension of an NP, normal mathematical proof. You can do a lot more, but there are interesting things that you can do more. It's amazing to me that the very first paper, LFKN, to surprisingly show the power of these interactive proofs had exactly the right protocol that we're still using today. You went from kind of zero to exactly the right thing. In computer science, whenever you can take two things and combine them to one problem that you continue, you're very glad. Any blockchain that wants to have a token and figures out how to handle this token, does it need to mint new tokens, burn new tokens. You can't really just use macroeconomics as far as I understand, but I think that's really important. In a development that is extremely good for the blockchain space, what are you most excited about? So. Hi, everyone, and welcome to First Principles, a series by the team at A16Z Crypto. I'm Tim Roughgarden. I'm the head of research at A16Z Crypto. And today we're talking about what it means to verify a computation without having to redo it yourself. and how that ability has led to a surprising line of work that now underpins technologies like zero-knowledge proofs and verifiable computation. We speak with Noam Nisan, a Knuth Prize and Gödel Prize-winning computer scientist at the Hebrew University of Jerusalem and a principal researcher at Starkware. His early work on algebraic methods for interactive proof systems helped establish the theoretical foundations on which modern SNARCs and verifiable computation are built. Along the way, he also co-founded the field of algorithmic game theory, a field I've been fortunate to make contributions to as well. And joining us is going to be Justin Thaler, a research partner at A16Z Crypto, also an associate professor of computer science at Georgetown University. He's the author of the book Proofs, Arguments, and Zero Knowledge, one of the definitive references on SNARKs, as well as a co-creator of Lasso and Jolt, Two systems reshaping how zero-knowledge virtual machines, a.k.a. ZKVMs, are designed and built. Together, we follow Dr. Nissan's path from early work in computational complexity to foundational advances in interactive proofs, including the seemingly magical sum-check protocol and the line of ideas that led to IP equals PSPACE, which shows just how powerful interactive verification can be. We then trace through how these theoretical breakthroughs underpin modern blockchain systems. Here's our conversation. Well, thanks so much for joining us, Noam. Thank you for having me. I wanted to start the conversation. So your career has been fascinating with lots of twists and turns. I'd say many more distinct chapters than most researchers have in their career. And in particular, I thought maybe we could start at, I don't know if it was like 1996. I'm guessing it's around there, but a moment in time where, on the one hand, you know, you were a leading complexity theorist sort of worldwide. You were famous for hardness versus randomness paradigms, you know, what else? Pseudorandom generators for space-founded computation, Fourier analytic approaches to PAC learning, algebraic methods for interactive proof systems, which we'll talk more about later. And when you're leading a field, there are tremendous forces and incentives that encourage you to just keep doing what you're doing. Arguably, you have to be a little bit nuts to not just keep doing what you're doing when you're at the front of a field like that. But my understanding is sort of mid to late 90s, there was perhaps a conscious decision to pivot away from what you had been doing, competition complexity theory, up to that point and explore other options. So I was wondering if you could just start by a little bit about, you know, was that a sudden decision? Was i"
+  },
+  "pending_qa": [
+    {
+      "q": "How did the Popcorn project relate to ideas about verifying delegated computation?",
+      "r": "In the Popcorn project, Nisan and his team realized that if you delegate work to someone, you need a way to check it. They explored various checking methods: giving the work to multiple people to see if they get the same result, or using NP-like proofs. While they were thinking about distributed systems with issues of trust and incentives, they were not thinking about blockchain systems, but rather about how workstations on the web could cooperate and share resources even when not belonging to the same company or university.",
+      "start_seconds": 558,
+      "end_seconds": 670
+    },
+    {
+      "q": "What is an interactive proof and why did it represent a fundamental extension of mathematical proof?",
+      "r": "An interactive proof is a proof that uses both interaction and randomness, unlike traditional mathematical proofs. The key insight from work by Shamir, Goldreich, and Rakoff between 1984 and 1989 was that you need both interaction and randomness—if you only have one ingredient, you do not get anything new. This was mind-blowing for the community because interactive proofs could prove things in ways that are fundamentally different from conventional mathematical proofs.",
+      "start_seconds": 1200,
+      "end_seconds": 1350
+    },
+    {
+      "q": "How does the SumCheck protocol enable verification of computation across massive datasets and cloud computing?",
+      "r": "Justin Thaler encountered the SumCheck protocol in a complexity theory course and later discovered it was instrumental for verifying cloud computation. The SumCheck protocol, from the LFKN paper, provides an efficient interactive proof mechanism that can be applied to streaming algorithms and massive datasets. Thaler found that for algorithms people care about with massive data sets, the SumCheck protocol serves as a universal solution—use SumCheck and you get optimal protocols for proving an untrusted prover solved the problem correctly, making it foundational to modern SNARKs.",
+      "start_seconds": 976,
+      "end_seconds": 1128
+    },
+    {
+      "q": "What role did the LFKN paper play in establishing interactive proof systems for modern verification?",
+      "r": "The LFKN paper from 1990-1992 established an efficient interactive proof for SharpSAT using the SumCheck protocol and demonstrated remarkable foresight. As Nisan notes, the paper had exactly the right protocol that researchers are still using today for modern SNARKs. The protocol emerged fully formed and elegant, and it became the centerpiece of complexity theory textbooks, showing that combining two concepts into one unified problem in computer science yields powerful results.",
+      "start_seconds": 17,
+      "end_seconds": 150
+    },
+    {
+      "q": "How do modern SNARKs relate to interactive proofs and why is the SumCheck protocol central to current SNARK design?",
+      "r": "Modern SNARKs combine interactive proofs with commitment schemes. Justin Thaler explains that the GKR protocol from 2008 uses the SumCheck protocol as a subroutine, and these interactive proofs are essentially half of a SNARK. By combining them with cryptographic commitments, the result is the SNARKs with the fastest provers today. Thaler predicts that SNARKs using the SumCheck protocol at the core will eventually transform how digital infrastructure handles trust, as the prover speed is the key bottleneck keeping SNARKs from widespread adoption.",
+      "start_seconds": 1140,
+      "end_seconds": 1320
+    },
+    {
+      "q": "What unexpected connection emerged between random self-reducibility and interactive proofs for hard computational problems?",
+      "r": "Nisan discovered that Richard Lipton's proof of random self-reducibility for the permanent function could lead to an interactive proof. Initially Nisan could not believe Lipton's result because he knew that random self-reducibility could imply an interactive proof, yet the permanent is a notoriously difficult function. Upon closer inspection, he realized Lipton's approach worked because Lipton handled multiple instances rather than just one, enabling an interactive proof for this extremely hard problem.",
+      "start_seconds": 1374,
+      "end_seconds": 1470
+    }
+  ],
+  "published": [
+    {
+      "slug": "what-motivated-a-leading-complexity-theorist-to-pivot-toward-algorithm",
+      "question": "What motivated a leading complexity theorist to pivot toward algorithmic game theory and economic computation in the mid-1990s?",
+      "url": "https://listenly.fr/podcast-btb/questions/a16z-crypto-show/what-motivated-a-leading-complexity-theorist-to-pivot-toward-algorithm.html",
+      "source_episode_title": "The 'Useless' Theory Behind Modern SNARKs (ft. Gödel Prize Winner Noam Nisan)",
+      "source_episode_guid": "587902a4-5ca1-4cf1-8d1b-1752f104581e",
+      "added_date": "2026-09-20",
+      "answer_snippet": "Noam Nisan was inspired by the emergence of the Internet around 1995, which he saw as a massive paradigm shift that academia was too slow to embrace. He…"
+    }
+  ]
+}
