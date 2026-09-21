@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>How Sunday Robotics Solves the Robotics Data Problem</title>
+	<meta name="description" content="Sunday Robotics treats data scarcity as a solvable technical problem, focusing on cheap, clever data collection methods that support real-world robot generalization.">
+	<meta name="author" content="Patrick O'Shaughnessy">
+	<meta property="og:title" content="How Sunday Robotics Solves the Robotics Data Problem">
+	<meta property="og:description" content="Sunday Robotics treats data scarcity as a solvable technical problem, focusing on cheap, clever data collection methods that support real-world robot generalization.">
+	<meta property="og:url" content="https://listenly.fr/podcast-btb/questions/invest-like-the-best/what-makes-tony-zhao-and-cheng-chi-s-approach-to-robotics-generalizati.html">
+	<meta property="og:type" content="article">
+	<meta property="og:site_name" content="Listenly">
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:title" content="How Sunday Robotics Solves the Robotics Data Problem">
+	<meta property="twitter:description" content="Sunday Robotics treats data scarcity as a solvable technical problem, focusing on cheap, clever data collection methods that support real-world robot generalization.">
+	<link rel="canonical" href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/what-makes-tony-zhao-and-cheng-chi-s-approach-to-robotics-generalizati.html">
+	<link rel="publisher" href="https://listenly.fr">
+	<style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "Person",
+				"name": "Patrick O'Shaughnessy",
+				"jobTitle": "Podcast Host & Investment Manager",
+				"worksFor": {
+					"@type": "Organization",
+					"name": "Colossus"
+				}
+			},
+			{
+				"@type": "Person",
+				"name": "Sarah",
+				"jobTitle": "Investor",
+				"worksFor": {
+					"@type": "Organization",
+					"name": "Greylock"
+				},
+				"description": "Sarah is an early-stage investor focused on AI, biology, defense, and robotics. She co-founded or leads a venture fund with partners including Mike, Pranav, and Bella. She previously considered becoming a software entrepreneur but chose investing after realizing she is deeply curious, values understanding things deeply, and is motivated by working with extraordinary people and using her skills to make them more successful.",
+				"knowsAbout": ["Harvey", "OpenAI", "DeepMind", "Tesla", "Sunday Robotics"]
+			},
+			{
+				"@type": "BlogPosting",
+				"headline": "What makes Tony Zhao and Cheng Chi's approach to robotics generalization and data collection particularly innovative?",
+				"description": "Sunday Robotics treats data scarcity as a solvable technical problem, focusing on cheap, clever data collection methods that support real-world robot generalization.",
+				"datePublished": "2026-09-21",
+				"dateModified": "2026-09-21",
+				"author": {
+					"@type": "Organization",
+					"name": "Sarah"
+				},
+				"publisher": {
+					"@type": "Organization",
+					"name": "Listenly",
+					"url": "https://listenly.fr"
+				},
+				"isPartOf": {
+					"@type": "PodcastSeries",
+					"name": "Invest Like The Best",
+					"url": "https://listenly.fr/podcast-btb/invest-like-the-best-podcast.html"
+				},
+				"image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/74/2c/4c/742c4c8f-d334-5ba1-72c7-34cb6b64acd7/mza_11823333838679607998.jpg/600x600bb.jpg",
+				"speakable": {
+					"@type": "SpeakableSpecification",
+					"cssSelector": [".lead", "blockquote.citation"]
+				},
+				"mentions": [
+					{"@type": "Thing", "name": "Sunday Robotics"},
+					{"@type": "Thing", "name": "Tony Zhao"},
+					{"@type": "Thing", "name": "Cheng Chi"},
+					{"@type": "Thing", "name": "Data generalization"},
+					{"@type": "Thing", "name": "Robotics"}
+				]
+			},
+			{
+				"@type": "BreadcrumbList",
+				"itemListElement": [
+					{
+						"@type": "ListItem",
+						"position": 1,
+						"name": "Listenly",
+						"item": "https://listenly.fr"
+					},
+					{
+						"@type": "ListItem",
+						"position": 2,
+						"name": "Invest Like The Best",
+						"item": "https://listenly.fr/podcast-btb/invest-like-the-best-podcast.html"
+					},
+					{
+						"@type": "ListItem",
+						"position": 3,
+						"name": "What makes Tony Zhao and Cheng Chi's approach to robotics generalization and data collection particularly innovative?",
+						"item": "https://listenly.fr/podcast-btb/questions/invest-like-the-best/what-makes-tony-zhao-and-cheng-chi-s-approach-to-robotics-generalizati.html"
+					}
+				]
+			},
+			{
+				"@type": "FAQPage",
+				"mainEntity": [
+					{
+						"@type": "Question",
+						"name": "What regulatory and infrastructure barriers are preventing rapid scaling of compute capacity for AI development?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Sarah identifies compute availability and energy supply as critical constraints over the next five to ten years. She spoke with a hyperscaler infrastructure leader who stated nothing would move the needle for compute capacity at sufficient scale before 2030."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "What psychological challenges do frontier AI researchers face when working at scale in compute-intensive environments?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Sarah observes that many researchers feel disempowered by the massive scale and compute requirements of frontier labs. A large contingent believes either in recursive self-improvement leading to exponential intelligence within one to two years, or they feel sidelined by the infrastructure demands."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "What concerns do investors have about research-heavy AI companies when assessing capability and impact?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Sarah expresses concern that many investors are making large-scale research bets without fundamental intuition or a grounded point of view on the business fundamentals, competitive positioning, or reproducibility of results."
+						}
+					}
+				]
+			}
+		]
+	}
+	</script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<header>
+			<div class="header-top">
+				<img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/74/2c/4c/742c4c8f-d334-5ba1-72c7-34cb6b64acd7/mza_11823333838679607998.jpg/600x600bb.jpg" alt="Invest Like The Best">
+				<div>
+					<span class="badge">The answer lives in this podcast</span>
+					<p class="source-line">Answer extracted from the Invest Like The Best podcast — listen to the full episode below.</p>
+				</div>
+			</div>
+			<a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/she_knows_the_250_people_building_ai_heres_what_they_actually_believe">🎧 Listen to the episode on Listenly</a>
+			<h1>What makes Tony Zhao and Cheng Chi's approach to robotics generalization and data collection particularly innovative?</h1>
+			<p class="article-meta">
+				<span>September 21, 2026</span>
+				<span><strong>Invest Like The Best</strong> · Sarah</span>
+			</p>
+		</header>
+
+		<p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/invest-like-the-best-podcast.html">← See the Invest Like The Best fiche</a></p>
+
+		<p class="lead">
+			Tony Zhao and Cheng Chi at Sunday Robotics reframe data scarcity as <strong>a solvable technical problem rather than a fundamental blocker</strong>. Instead of chasing internet-scale datasets, they focus on collecting data cheaply and cleverly while maintaining the real-world distribution required for effective robot generalization.
+		</p>
+
+		<p>
+			Their core innovation lies in inverting the typical robotics challenge. Most teams assume that building robots that generalize across tasks and environments requires massive, expensive datasets collected at scale. Sunday Robotics takes a different path: <strong>they solve for how to extract maximum learning value from minimal, intelligently gathered data</strong>.
+		</p>
+
+		<p>
+			This approach matters because it unlocks robotics research for teams that don't have access to billions in compute budget or thousands of robots. As <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/she_knows_the_250_people_building_ai_heres_what_they_actually_believe">Sarah explains in the episode</a>, their belief that data constraints can be engineered away stands in sharp contrast to the fatalism many roboticists express about needing massive volumes.
+		</p>
+
+		<blockquote class="citation">
+			<figcaption><strong>Sarah</strong> — Early-stage investor at Greylock focused on AI, biology, defense, and robotics. She leads a venture fund with partners including Mike, Pranav, and Bella, and is drawn to high-agency founders who solve frontier problems with clarity and deep technical intuition.</figcaption>
+		</blockquote>
+
+		<p>
+			The practical impact becomes clear when you look at Sunday Robotics' timeline. Within just two years of existence, they are aiming to deploy general semi-humanoid robots in homes by the end of the year. That pace depends entirely on <strong>treating data collection as a design problem, not a resource problem</strong>. They ask: How can we collect data in the cheapest way possible while still maintaining the distribution that supports real environments and real tasks?
+		</p>
+
+		<p>
+			This is distinct from both the frontier labs approach (throw compute at scale) and from academic robotics (perfect data collection, slow iteration). A point <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/she_knows_the_250_people_building_ai_heres_what_they_actually_believe">discussed in detail in this podcast</a>, their philosophy of intelligent data scarcity reflects a deeper belief: that the best innovations often come from working backward from constraints, not forward from unlimited resources.
+		</p>
+
+		<p>
+			The legitimacy of this approach rests on translating cheap data collection directly into model learning. It's not about cutting corners on data quality; it's about being surgical with data gathering strategy so that every sample learned from improves the robot's real-world performance. <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/she_knows_the_250_people_building_ai_heres_what_they_actually_believe">This conversation with Sarah</a> captures why investors are watching this team closely — they represent a different operating model for robotics, one that could reshape which teams can compete in the space.
+		</p>
+
+		<h2>See also</h2>
+		<div class="faq">
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/what-regulatory-and-infrastructure-barriers-are-preventing-rapid-scali.html">What regulatory and infrastructure barriers are preventing rapid scaling of compute capacity for AI development?</a></h3>
+				<p>Sarah identifies compute availability and energy supply as critical constraints over the next five to ten years. She spoke with a hyperscaler infrastructure leader who stated nothing would move the needle for compute capacity at sufficient scale before 2030.</p>
+			</div>
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/what-psychological-challenges-do-frontier-ai-researchers-face-when-wor.html">What psychological challenges do frontier AI researchers face when working at scale in compute-intensive environments?</a></h3>
+				<p>Sarah observes that many researchers feel disempowered by the massive scale and compute requirements of frontier labs. A large contingent believes either in recursive self-improvement leading to exponential intelligence within one to two years, or they feel sidelined by the infrastructure demands.</p>
+			</div>
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/what-concerns-do-investors-have-about-research-heavy-ai-companies-when.html">What concerns do investors have about research-heavy AI companies when assessing capability and impact?</a></h3>
+				<p>Sarah expresses concern that many investors are making large-scale research bets without fundamental intuition or a grounded point of view on the business fundamentals, competitive positioning, or reproducibility of results.</p>
+			</div>
+		</div>
+
+		<div class="cta-block">
+			<a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/she_knows_the_250_people_building_ai_heres_what_they_actually_believe">Listen to the episode on Listenly</a>
+		</div>
+	</div>
+
+	<footer>
+		Written by the Listenly editorial team
+	</footer>
+
+	<div id="semantic-index" style="display:none;">
+		<span>Sunday Robotics</span>
+		<span>Tony Zhao</span>
+		<span>Cheng Chi</span>
+		<span>Robotics generalization</span>
+		<span>Data collection</span>
+		<span>Sarah</span>
+	</div>
+</body>
+</html>

@@ -53,12 +53,6 @@
   },
   "pending_qa": [
     {
-      "q": "How did the Popcorn project relate to ideas about verifying delegated computation?",
-      "r": "In the Popcorn project, Nisan and his team realized that if you delegate work to someone, you need a way to check it. They explored various checking methods: giving the work to multiple people to see if they get the same result, or using NP-like proofs. While they were thinking about distributed systems with issues of trust and incentives, they were not thinking about blockchain systems, but rather about how workstations on the web could cooperate and share resources even when not belonging to the same company or university.",
-      "start_seconds": 558,
-      "end_seconds": 670
-    },
-    {
       "q": "What is an interactive proof and why did it represent a fundamental extension of mathematical proof?",
       "r": "An interactive proof is a proof that uses both interaction and randomness, unlike traditional mathematical proofs. The key insight from work by Shamir, Goldreich, and Rakoff between 1984 and 1989 was that you need both interaction and randomness—if you only have one ingredient, you do not get anything new. This was mind-blowing for the community because interactive proofs could prove things in ways that are fundamentally different from conventional mathematical proofs.",
       "start_seconds": 1200,
@@ -98,6 +92,15 @@
       "source_episode_guid": "587902a4-5ca1-4cf1-8d1b-1752f104581e",
       "added_date": "2026-09-20",
       "answer_snippet": "Noam Nisan was inspired by the emergence of the Internet around 1995, which he saw as a massive paradigm shift that academia was too slow to embrace. He…"
+    },
+    {
+      "slug": "how-did-the-popcorn-project-relate-to-ideas-about-verifying-delegated-",
+      "question": "How did the Popcorn project relate to ideas about verifying delegated computation?",
+      "url": "https://listenly.fr/podcast-btb/questions/a16z-crypto-show/how-did-the-popcorn-project-relate-to-ideas-about-verifying-delegated-.html",
+      "source_episode_title": "The 'Useless' Theory Behind Modern SNARKs (ft. Gödel Prize Winner Noam Nisan)",
+      "source_episode_guid": "587902a4-5ca1-4cf1-8d1b-1752f104581e",
+      "added_date": "2026-09-21",
+      "answer_snippet": "In the Popcorn project, Nisan and his team realized that if you delegate work to someone, you need a way to check it. They explored various checking…"
     }
   ]
 }

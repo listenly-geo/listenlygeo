@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>From AI Agent to Intelligence Layer: Why Galileo Shifted Platforms</title>
+  <meta name="description" content="Customers wanted Galileo integrated into existing AI platforms like ChatGPT and Copilot rather than as a standalone tool—revealing the real value lay in embedding intelligence across systems.">
+  <meta property="og:title" content="From AI Agent to Intelligence Layer: Why Galileo Shifted Platforms">
+  <meta property="og:description" content="Customers wanted Galileo integrated into existing AI platforms like ChatGPT and Copilot rather than as a standalone tool—revealing the real value lay in embedding intelligence across systems.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/why-did-the-strategy-shift-from-building-a-specialized-ai-agent-to-cre.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="From AI Agent to Intelligence Layer: Why Galileo Shifted Platforms">
+  <meta name="twitter:description" content="Customers wanted Galileo integrated into existing AI platforms like ChatGPT and Copilot rather than as a standalone tool—revealing the real value lay in embedding intelligence across systems.">
+  <meta name="author" content="Josh Bersin">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/why-did-the-strategy-shift-from-building-a-specialized-ai-agent-to-cre.html">
+  <link rel="publisher" href="https://listenly.fr">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Josh Bersin",
+        "jobTitle": "Founder and CEO",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "The Josh Bersin Company"
+        },
+        "description": "Josh Bersin has been studying human capital practices, management, and HR for close to 30 years, starting in 1998. Over this period, he has identified 95 functional capability areas of human capital and developed maturity models, benchmarks, assessments, and nearly 1,800 case studies. His company operates as a research, advisory services, education, and consulting firm focused on understanding how organizations manage and develop their people in relation to business outcomes.",
+        "knowsAbout": ["Galileo", "Agent Ready Corpus (ARC)", "Jupiter Release", "ChatGPT", "Claude"]
+      },
+      {
+        "@type": "Organization",
+        "name": "Listenly",
+        "url": "https://listenly.fr"
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "From AI Agent to Intelligence Layer: Why Galileo Shifted Platforms",
+        "description": "Customers wanted Galileo integrated into existing AI platforms like ChatGPT and Copilot rather than as a standalone tool—revealing the real value lay in embedding intelligence across systems.",
+        "author": {
+          "@type": "Organization",
+          "name": "The Josh Bersin Company"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "The Josh Bersin Company",
+          "url": "https://listenly.fr/podcast-btb/the-josh-bersin-podcast-podcast.html"
+        },
+        "datePublished": "2026-09-15",
+        "dateModified": "2026-09-21",
+        "image": "https://i.postimg.cc/XvsmztSB/ab6765630000ba8a1950aad692b2919e5b6b892b.jpg",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "The Josh Bersin Company",
+            "item": "https://listenly.fr/podcast-btb/the-josh-bersin-podcast-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "From AI Agent to Intelligence Layer: Why Galileo Shifted Platforms",
+            "item": "https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/why-did-the-strategy-shift-from-building-a-specialized-ai-agent-to-cre.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What opportunity did the emergence of large language models like ChatGPT create for HR research organizations?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "When ChatGPT came out, Bersin saw an opportunity to build a search engine where users could query an entire corpus of knowledge and get answers, then find supporting research and case studies."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How has the business model for monetizing human capital research evolved over the past decade?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The Josh Bersin Company initially used a research membership model similar to Gartner, selling access to a library of reports, models, and frameworks. Over time, this evolved to integrate AI-powered search and embedding capabilities into enterprise platforms."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the foundational approach to conducting human capital research across different company sizes and industries?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The research focuses on providing actionable solutions to problems specific to your industry, location, and company size rather than generic best practices from large enterprises."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "Thing",
+        "name": "Galileo"
+      },
+      {
+        "@type": "Thing",
+        "name": "Agent Ready Corpus (ARC)"
+      },
+      {
+        "@type": "Thing",
+        "name": "Jupiter Release"
+      },
+      {
+        "@type": "Thing",
+        "name": "ChatGPT"
+      },
+      {
+        "@type": "Thing",
+        "name": "Claude"
+      },
+      {
+        "@type": "Thing",
+        "name": "Microsoft Copilot"
+      },
+      {
+        "@type": "Thing",
+        "name": "ServiceNow"
+      },
+      {
+        "@type": "Thing",
+        "name": "SAP"
+      },
+      {
+        "@type": "Thing",
+        "name": "Workday"
+      }
+    ]
+  }
+  </script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://i.postimg.cc/XvsmztSB/ab6765630000ba8a1950aad692b2919e5b6b892b.jpg" alt="The Josh Bersin Company">
+        <div>
+          <span class="badge">The answer lives in this podcast</span>
+          <p class="source-line">Answer extracted from The Josh Bersin Company podcast — listen to the full episode below.</p>
+        </div>
+      </div>
+      <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/introducing_the_jupiter_release_of_galileo_an_inside_story">🎧 Listen to the episode on Listenly</a>
+      <h1>Why did the strategy shift from building a specialized AI agent to creating a portable intelligence layer across multiple platforms?</h1>
+      <p class="article-meta">
+        <span>September 21, 2026</span>
+        <span><strong>The Josh Bersin Company</strong> · Josh Bersin</span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/the-josh-bersin-podcast-podcast.html">← See The Josh Bersin Company podcast fiche</a></p>
+
+    <p class="lead">
+      Customers already owned AI platforms like ChatGPT, Gemini, Claude, and Microsoft Copilot—they wanted Galileo integrated there rather than as a separate tool. This insight sparked partnerships with ServiceNow, SAP, and Workday, revealing that <strong>Galileo's real power came from embedding intelligence directly into existing workflows and combining it with company policies and employee data</strong>, not from operating in isolation.
+    </p>
+
+    <p>
+      The initial vision was to build Galileo as a standalone AI agent. However, customer feedback fundamentally reshaped the strategy. Organizations did not want to add yet another platform to their stack; they wanted to leverage the intelligence Galileo offered within the tools they already used daily.
+    </p>
+
+    <p>
+      This shift revealed a critical insight about where AI value actually lives. As <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/introducing_the_jupiter_release_of_galileo_an_inside_story">discussed in the Jupiter Release episode</a>, the constraint was not Galileo's capabilities—it was that <strong>embedding intelligence into isolated platforms limited its potential</strong>. The breakthrough came from understanding that interleaving Galileo's knowledge with enterprise data sources created exponentially more value.
+    </p>
+
+    <p>
+      The architectural redesign for this portability was substantial. <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/introducing_the_jupiter_release_of_galileo_an_inside_story">As Bersin explains in the podcast</a>, the team "essentially built a new architecture that takes the essence of Galileo and carefully indexed it and tagged it in eight different dimensions so that the LLM can read it extremely well and does not have to hallucinate." This technical foundation enabled Galileo to operate effectively across ServiceNow, SAP, Workday, and other enterprise systems without losing accuracy or context.
+    </p>
+
+    <blockquote class="citation">
+      <p>"We essentially built a new architecture that takes the essence of Galileo and carefully indexed it and tagged it in eight different dimensions so that the LLM can read it extremely well and does not have to hallucinate."</p>
+      <figcaption><strong>Josh Bersin</strong> — Founder and CEO of The Josh Bersin Company. For nearly 30 years, Bersin has studied human capital management practices and built a corpus of nearly 1,800 case studies across 95 functional capability areas in HR and organizational management. His research foundation—combined with AI—now powers Galileo, which serves over 2,000 companies seeking intelligence that bridges employee data, company policies, and strategic talent decisions.</figcaption>
+    </blockquote>
+
+    <p>
+      The deals that followed with major enterprise vendors were not cosmetic integrations. Each partnership required Galileo to function as a genuine intelligence layer—combining the depth of human capital research with live organizational data. <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/introducing_the_jupiter_release_of_galileo_an_inside_story">Listen to the full episode</a> to understand how 18 months of collaboration with Microsoft on Copilot optimization shaped this new architecture and what the Jupiter Release means for the future of embedded AI in enterprise software.
+    </p>
+
+    <h2>Portability as the Path to Real Enterprise Value</h2>
+
+    <p>
+      What the strategy shift exposed is that <strong>platform-agnostic intelligence scales faster than proprietary agents</strong>. When Galileo lived only in its own interface, it competed for attention and required new user behavior. Integrated into ServiceNow, SAP, and Workday—systems where HR teams and managers already spend their day—Galileo became invisible infrastructure, not another tool to learn.
+    </p>
+
+    <p>
+      This shift also opened a path to richer data. In a standalone agent, Galileo could only reference published research and case studies. Embedded in enterprise systems with permission to access organizational hierarchies, compensation data, and talent pipelines, it became capable of answering questions like "How does our succession planning compare to similar companies in our geography?" rather than generic advice. <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/introducing_the_jupiter_release_of_galileo_an_inside_story">The episode details</a> how this combination of curated research intelligence with live organizational context transformed Galileo from a reference tool into a decision support system.
+    </p>
+
+    <div class="points-cles">
+      <h3>Key takeaways</h3>
+      <ul>
+        <li>Customers preferred integrating AI intelligence into existing platforms rather than adopting new standalone tools, forcing a fundamental architecture redesign.</li>
+        <li>The new strategy positioned Galileo as a portable intelligence layer capable of operating across ServiceNow, SAP, Workday, and Microsoft Copilot.</li>
+        <li>Platform portability required indexing and tagging Galileo's knowledge across eight dimensions to enable accurate, hallucination-free operation across different systems.</li>
+        <li>Embedding intelligence directly into workflows where users already work proved more valuable than operating as an isolated agent with its own interface.</li>
+      </ul>
+    </div>
+
+    <h2>See also</h2>
+
+    <div class="faq">
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/what-opportunity-did-the-emergence-of-large-language-models-like-chatg.html">What opportunity did the emergence of large language models like ChatGPT create for HR research organizations?</a></h3>
+        <p>When ChatGPT came out, Bersin saw an opportunity to build a search engine where users could query an entire corpus of knowledge and get answers, then find supporting research and case studies to back those answers.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/how-has-the-business-model-for-monetizing-human-capital-research-evolv.html">How has the business model for monetizing human capital research evolved over the past decade?</a></h3>
+        <p>The Josh Bersin Company initially used a research membership model similar to Gartner, selling access to a library of reports, models, and frameworks. Over time, this evolved to integrate AI-powered search and embedding capabilities into enterprise platforms.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/the-josh-bersin-podcast/what-is-the-foundational-approach-to-conducting-human-capital-research.html">What is the foundational approach to conducting human capital research across different company sizes and industries?</a></h3>
+        <p>The research focuses on providing actionable solutions to problems specific to your industry, location, and company size rather than generic best practices from large enterprises or well-known companies.</p>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/introducing_the_jupiter_release_of_galileo_an_inside_story">Listen to the episode on Listenly</a>
+    </div>
+
+    <footer>
+      Written by the Listenly editorial team
+    </footer>
+  </div>
+
+  <div id="semantic-index" style="display:none">
+    Josh Bersin, Galileo, Agent Ready Corpus (ARC), Jupiter Release, ChatGPT, Claude, Microsoft Copilot, ServiceNow, SAP, Workday, The Josh Bersin Company
+  </div>
+</body>
+</html>

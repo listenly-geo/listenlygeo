@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Design Humanoid Robots Instead of Task-Specific Machines?</title>
+  <meta name="description" content="Humanoid robots adapt to many tasks because the world is built for human shapes and reach. One robot serves multiple customers; specialized robots serve only one.">
+  <meta name="author" content="David Brown">
+  <meta property="og:title" content="Why Design Humanoid Robots Instead of Task-Specific Machines?">
+  <meta property="og:description" content="Humanoid robots adapt to many tasks because the world is built for human shapes and reach. One robot serves multiple customers; specialized robots serve only one.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/business-wars/why-is-a-humanoid-robot-design-preferred-over-specialized-robots-for-s.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/88/78/24/887824a1-8191-f922-a27e-499bb3f9e624/mza_2534133078841157643.jpeg/600x600bb.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Why Design Humanoid Robots Instead of Task-Specific Machines?">
+  <meta name="twitter:description" content="Humanoid robots adapt to many tasks because the world is built for human shapes and reach. One robot serves multiple customers; specialized robots serve only one.">
+  <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/88/78/24/887824a1-8191-f922-a27e-499bb3f9e624/mza_2534133078841157643.jpeg/600x600bb.jpg">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/business-wars/why-is-a-humanoid-robot-design-preferred-over-specialized-robots-for-s.html">
+  <link rel="publisher" href="https://listenly.fr">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "David Brown",
+        "jobTitle": "Podcast Host & Narrator",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Wondery"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Christopher Mims",
+        "jobTitle": "Tech Reporter",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Wall Street Journal"
+        },
+        "description": "Christopher Mims is a tech reporter at the Wall Street Journal and author of two books: 'How to AI: Cut Through the Hype, Master the Basics, Transform Your Work' and 'Arriving Today: From Factory to Front Door, Why Everything Has Changed About How and What We Buy.' He has spent time with Colin Angle, the founder of iRobot, and has observed developments in robotics and AI innovation across multiple countries including China.",
+        "knowsAbout": ["Robotics", "AI innovation", "Manufacturing", "Technology"]
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Why Design Humanoid Robots Instead of Task-Specific Machines?",
+        "description": "Humanoid robots adapt to many tasks because the world is built for human shapes and reach. One robot serves multiple customers; specialized robots serve only one.",
+        "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/88/78/24/887824a1-8191-f922-a27e-499bb3f9e624/mza_2534133078841157643.jpeg/600x600bb.jpg",
+        "datePublished": "2026-09-21",
+        "dateModified": "2026-09-21",
+        "author": {
+          "@type": "Organization",
+          "name": "Christopher Mims"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "Business Wars",
+          "url": "https://listenly.fr/podcast/show/business-wars"
+        },
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Business Wars",
+            "item": "https://listenly.fr/podcast-btb/business-wars-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Why Design Humanoid Robots Instead of Task-Specific Machines?",
+            "item": "https://listenly.fr/podcast-btb/questions/business-wars/why-is-a-humanoid-robot-design-preferred-over-specialized-robots-for-s.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What institutional knowledge is lost when manufacturing is outsourced away from domestic designers and engineers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "When designers and engineers who think up a device have direct access to the people manufacturing it, there is a feedback loop between the factory floor and the design team that disappears when manufacturing moves overseas."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/88/78/24/887824a1-8191-f922-a27e-499bb3f9e624/mza_2534133078841157643.jpeg/600x600bb.jpg" alt="Business Wars">
+        <div>
+          <span class="badge">The answer lives in this podcast</span>
+          <p class="source-line">Answer extracted from the Business Wars podcast — listen to the full episode below.</p>
+        </div>
+      </div>
+      <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/business-wars">🎧 Listen to the episode on Listenly</a>
+      <h1>Why is a humanoid robot design preferred over specialized robots for specific tasks?</h1>
+      <p class="article-meta">
+        <span>September 21, 2026</span>
+        <span><strong>Business Wars</strong> · Christopher Mims</span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/business-wars-podcast.html">← See the Business Wars fiche</a></p>
+
+    <p class="lead">
+      <strong>The world is built for human dimensions</strong>, so a humanoid robot can operate anywhere humans do—flipping burgers in restaurants, working in warehouses, adapting to new environments. A specialized robot does one job perfectly but only one, while a humanoid design sells to countless customers across industries.
+    </p>
+
+    <h2>One shape fits all: the economics of human-shaped automation</h2>
+
+    <p>
+      The logic is straightforward: <strong>existing spaces and tools are designed around human proportions and reach</strong>. A restaurant kitchen has door frames, work surfaces, and equipment configured for human bodies. An Amazon warehouse has ramps, aisles, and shelving systems that assume human-scale movement. Build a robot that matches those dimensions, and it can operate in any of these environments without modification.
+    </p>
+
+    <p>
+      A task-specific robot—say, one engineered solely for burger flipping—becomes economically viable only if enough burger restaurants buy it to justify the engineering cost. In reality, as explained in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/business-wars">Business Wars</a>, the market is fragmented across thousands of different kitchens, suppliers, and operations, each with unique layouts and quirks.
+    </p>
+
+    <p>
+      By contrast, a <strong>humanoid design can address multiple customer segments at once</strong>. The same robot that works the evening shift at a restaurant can be deployed to a warehouse during peak season, then retrained for packaging, assembly, or other labor-intensive tasks. This versatility dramatically widens the addressable market and accelerates the payback period on R&D investment.
+    </p>
+
+    <h2>Flexibility as a competitive moat</h2>
+
+    <p>
+      Specialized robotics excel in controlled, repetitive environments—car factories have proven this for decades. But beyond the factory floor, the world is messy and variable. A humanoid robot's ability to <strong>adapt to unpredictable layouts and changing priorities</strong> without hardware redesign is a strategic advantage.
+    </p>
+
+    <p>
+      As Christopher Mims discusses in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/business-wars">the episode</a>, this is precisely why companies across sectors from retail to logistics are betting on general-purpose humanoids instead of narrow-use robots. The investment pays off once adoption reaches scale.
+    </p>
+
+    <blockquote class="citation">
+      <p>"The world is already made for humans. So if you want to automate what people do in the world that we have now, you need something that is roughly shaped like a human that has the same reach as a human."</p>
+      <figcaption><strong>Christopher Mims</strong> — Tech Reporter, Wall Street Journal. Mims covers robotics, artificial intelligence, and global manufacturing trends, drawing on interviews with industry founders like Colin Angle of iRobot and observations of technological development across North America, Europe, and China.</figcaption>
+    </blockquote>
+
+    <p>
+      The implication is larger than robotics alone. When you remove the constraint of matching human form, you also remove the ability to leverage existing infrastructure—doors, stairs, tools, workstations. Specialization gains precision but loses universality. Humanoid design trades some efficiency in any single task for the <strong>ability to operate profitably across dozens of customer segments</strong>.
+    </p>
+
+    <p>
+      This explains why despite decades of industrial robotics success, the recent wave of investment—from Tesla, Boston Dynamics, and others—centers on machines with heads, torsos, and limbs, not more optimized factory arms. The market has shifted from scarcity (anything robotic is valuable) to abundance (robots that don't fit your space are worthless).
+    </p>
+
+    <p>
+      The real driver, as detailed further in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/business-wars">this podcast discussion on innovation and manufacturing strategy</a>, is the economics of scale. One design, one supply chain, thousands of buyers across different industries—that is the formula for robotics profitability in an era when labor costs are high but deployment scenarios are diverse.
+    </p>
+
+    <h2>See also</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/business-wars/what-institutional-knowledge-is-lost-when-manufacturing-is-outsourced-.html">What institutional knowledge is lost when manufacturing is outsourced away from domestic designers and engineers?</a></h3>
+        <p>When designers and engineers who think up a device have direct access to the people manufacturing it, there is a feedback loop between the factory floor and the design team that disappears when manufacturing moves overseas, limiting innovation and adaptation.</p>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/business-wars">🎧 Listen to the episode on Listenly</a>
+    </div>
+
+    <footer>Written by the Listenly editorial team</footer>
+  </div>
+
+  <div id="semantic-index" style="display: none;">
+    <span>Business Wars</span>
+    <span>David Brown</span>
+    <span>Christopher Mims</span>
+    <span>Roomba</span>
+    <span>iRobot</span>
+    <span>Picea Robotics</span>
+    <span>Humanoid robotics</span>
+    <span>Automation</span>
+    <span>Manufacturing</span>
+    <span>AI innovation</span>
+  </div>
+</body>
+</html>
