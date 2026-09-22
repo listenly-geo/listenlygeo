@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Large Organizations Maintain Innovation at Scale: The Two-Pizza Rule and Beyond</title>
+  <meta name="description" content="Large organizations like Amazon and AWS maintain innovation through small autonomous teams (the two-pizza rule), customer-first thinking, and minimal dependencies between functions.">
+  <meta name="author" content="Simon Lader">
+  <meta property="og:title" content="How Large Organizations Maintain Innovation at Scale: The Two-Pizza Rule and Beyond">
+  <meta property="og:description" content="Large organizations like Amazon and AWS maintain innovation through small autonomous teams (the two-pizza rule), customer-first thinking, and minimal dependencies between functions.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/the-conference-room/how-do-large-organizations-like-amazon-and-aws-maintain-innovation-des.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:image" content="https://i.postimg.cc/rp2KpvnH/images.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How Large Organizations Maintain Innovation at Scale: The Two-Pizza Rule and Beyond">
+  <meta name="twitter:description" content="Large organizations like Amazon and AWS maintain innovation through small autonomous teams (the two-pizza rule), customer-first thinking, and minimal dependencies between functions.">
+  <meta name="twitter:image" content="https://i.postimg.cc/rp2KpvnH/images.jpg">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/the-conference-room/how-do-large-organizations-like-amazon-and-aws-maintain-innovation-des.html">
+  <link rel="publisher" href="https://listenly.fr">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Simon Lader",
+        "jobTitle": "Co-Founder, Executive Search & Podcast Consulting",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Salisi Human Capital / Viva Podcasts"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "David Etchew",
+        "jobTitle": "CEO",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Cyberbit"
+        },
+        "description": "David Etchew is a cybersecurity executive with over 20 years of experience building, scaling, and leading businesses at various stages of growth, from startups to major global organizations. His career includes senior roles at GE (where he was head of security globally and ran a $30 million business line), Rapid7, Blue Voyance, Gemalto, and CEO positions at NISO and Rangeforce before becoming CEO of Cyberbit following their acquisition of Rangeforce.",
+        "knowsAbout": ["Cyberbit", "Rangeforce", "General Electric (GE)", "Rapid7", "SafeNet", "AWS", "Amazon"]
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "How do large organizations like Amazon and AWS maintain innovation despite their enormous scale?",
+        "description": "Large organizations like Amazon and AWS maintain innovation through small autonomous teams (the two-pizza rule), customer-first thinking, and minimal dependencies between functions.",
+        "image": "https://i.postimg.cc/rp2KpvnH/images.jpg",
+        "datePublished": "2026-09-22",
+        "dateModified": "2026-09-22",
+        "author": {
+          "@type": "Organization",
+          "name": "David Etchew"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "The Conference Room with Simon Lader",
+          "url": "https://listenly.fr/podcast-btb/the-conference-room-podcast.html"
+        },
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "The Conference Room with Simon Lader",
+            "item": "https://listenly.fr/podcast-btb/the-conference-room-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "How do large organizations like Amazon and AWS maintain innovation despite their enormous scale?",
+            "item": "https://listenly.fr/podcast-btb/questions/the-conference-room/how-do-large-organizations-like-amazon-and-aws-maintain-innovation-des.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What operational capabilities do small companies have relative to larger enterprises?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Small companies are much more nimble, closer to the customer, and quicker in their decision processes and how they drive change. Large companies face structural constraints that slow innovation despite their resources."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What advantages does cross-functional leadership experience provide compared to deep specialization in a single domain?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "While deep experience in one area makes it easier to get a job, diverse cross-functional background gives leaders context and empathy across multiple functions, enabling them to navigate complex organizations more effectively."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What first step should leadership take to support an accidental CEO or newly promoted operations manager in their transformation?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Slow down and bring together the leadership team to decide on an organizational chart together. Explicitly define which seats exist, what responsibilities belong where, and establish clarity before moving forward with execution."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://i.postimg.cc/rp2KpvnH/images.jpg" alt="The Conference Room with Simon Lader">
+        <div>
+          <span class="badge">The answer lives in this podcast</span>
+          <p class="source-line">Answer extracted from The Conference Room with Simon Lader podcast — listen to the full episode below.</p>
+        </div>
+      </div>
+      <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/ep188_-the_ceo_playbook_start-ups_scale-ups_and_successful_exits">🎧 Listen to the episode on Listenly</a>
+      <h1>How do large organizations like Amazon and AWS maintain innovation despite their enormous scale?</h1>
+      <p class="article-meta">
+        <span>September 22, 2026</span>
+        <span><strong>The Conference Room with Simon Lader</strong> · David Etchew</span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/the-conference-room-podcast.html">← See The Conference Room with Simon Lader fiche</a></p>
+
+    <p class="lead">Large organizations stay innovative by applying <strong>the two-pizza rule—keeping teams small enough to feed with two pizzas (under 12 people)</strong>, a principle AWS used to launch S3 and transform cloud storage. Success also depends on writing the press release before building the product, granting autonomy between functions, and avoiding dependencies that slow decision-making.</p>
+
+    <p>Scale typically stifles innovation because bureaucracy, approval chains, and interdependencies slow execution. Yet companies like Amazon and AWS have cracked a different code: they treat innovation as a structural problem, not a cultural one. Etchew observed this firsthand while working with these organizations on encryption and cloud technologies.</p>
+
+    <p>The two-pizza rule emerged as a core organizing principle inside AWS. <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/ep188_-the_ceo_playbook_start-ups_scale-ups_and_successful_exits">As explained in the episode</a>, when AWS launched S3—arguably the foundational service that enabled modern cloud computing—they did it with <strong>only 12 people on the core team</strong>. That constraint forced clarity: what's essential, and what isn't? Small teams make faster decisions, own accountability completely, and sidestep the lengthy consensus-building that hamstrings larger groups.</p>
+
+    <h2>Writing the press release before building the product</h2>
+
+    <p>Another counterintuitive practice Etchew highlighted is beginning with the customer perspective. Instead of building first and writing marketing copy second, teams write the press release—the public-facing narrative of what the customer will experience—before a single line of code is written.</p>
+
+    <p>This disciplines the entire effort around <strong>what actually matters to the user</strong>, not what's easiest to build internally. It forces honest conversations: Is this feature worth building? Does it solve the problem we claim it solves? A product built backward from the customer promise is less likely to be a technical achievement that nobody wants.</p>
+
+    <p>The practice also acts as a forcing function for simplicity. A press release cannot dance around complexity or hide behind jargon—if you can't explain the value clearly in a paragraph, you haven't understood it yet.</p>
+
+    <h2>Autonomy and minimal dependencies</h2>
+
+    <p>At the organizational level, large companies often suffer from function-to-function dependencies that create chokepoints. One team needs approval from another, which needs input from a third, and the whole system grinds to a halt. AWS broke this by granting <strong>genuine autonomy between teams and business units</strong>, minimizing the need for cross-team coordination on every decision.</p>
+
+    <p>This doesn't mean chaos. It means each team owns its domain fully—including its failures. A team can choose its technology stack, decide its roadmap, and ship without waiting for central alignment, as long as they respect the contract they made with the customer (the press release) and don't break upstream services.</p>
+
+    <blockquote class="citation">
+      <p>"I could fail every day as long as I failed differently the day before I learned from it. The thing that drives me nuts is failing the same way twice."</p>
+      <figcaption><strong>David Etchew</strong> — CEO, Cyberbit. A cybersecurity executive with over 20 years leading businesses from startups to major global organizations, Etchew has held senior roles at GE (where he ran a $30 million business line and served as head of security globally), Rapid7, Gemalto, and led transformations at NISO and Rangeforce before assuming the CEO role at Cyberbit following their acquisition of Rangeforce.</figcaption>
+    </blockquote>
+
+    <p>This philosophy underscores why large organizations don't have to sacrifice speed. The constraint isn't size—it's structure. <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/ep188_-the_ceo_playbook_start-ups_scale-ups_and_successful_exits">The episode goes deeper into how teams navigate failure and learning</a>, showing that even inside organizations with thousands of employees, individual teams operate more like startups than departments.</p>
+
+    <p>These principles—small team size, customer-first thinking, and functional autonomy—apply regardless of company scale. A five-person startup and a 50,000-person corporation can both benefit from the two-pizza rule if they respect the discipline it demands. <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/ep188_-the_ceo_playbook_start-ups_scale-ups_and_successful_exits">Etchew shares concrete examples of how these practices play out in practice</a>, including the tension between scaling and staying nimble.</p>
+
+    <h2>See also</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3><a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast-btb/questions/the-conference-room/what-operational-capabilities-do-small-companies-have-relative-to-larg.html">What operational capabilities do small companies have relative to larger enterprises?</a></h3>
+        <p>Small companies are much more nimble, closer to the customer, and quicker in their decision processes and how they drive change. Large companies face structural constraints that require deliberate redesign to overcome.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast-btb/questions/the-conference-room/what-advantages-does-cross-functional-leadership-experience-provide-co.html">What advantages does cross-functional leadership experience provide compared to deep specialization in a single domain?</a></h3>
+        <p>While deep experience in one area makes it easier to get a job, diverse cross-functional background gives leaders context and empathy across multiple functions, enabling them to navigate complex organizations more effectively.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast-btb/questions/the-conference-room/what-first-step-should-leadership-take-to-support-an-accidental-ceo-or.html">What first step should leadership take to support an accidental CEO or newly promoted operations manager in their transformation?</a></h3>
+        <p>Slow down and bring together the leadership team to decide on an organizational chart together. Explicitly define which seats exist, what responsibilities belong where, and establish clarity before moving forward with execution.</p>
+      </div>
+    </div>
+
+    <div class="points-cles">
+      <h3>Key takeaways</h3>
+      <ul>
+        <li>AWS launched S3 with only 12 people, proving that small autonomous teams drive innovation even inside massive organizations.</li>
+        <li>The two-pizza rule—teams small enough to feed with two pizzas—forces clarity, accountability, and faster decision-making.</li>
+        <li>Writing the press release before building the product centers the entire effort on customer value, not internal convenience.</li>
+        <li>Autonomy between functions and minimal cross-team dependencies eliminate chokepoints that slow execution at scale.</li>
+      </ul>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/ep188_-the_ceo_playbook_start-ups_scale-ups_and_successful_exits">Listen to the episode on Listenly</a>
+    </div>
+
+    <footer>Written by the Listenly editorial team</footer>
+
+    <div id="semantic-index" style="display: none;">
+      <p>Entities: Cyberbit, Rangeforce, General Electric (GE), Rapid7, SafeNet, Gemalto, AWS, Amazon, NISO, Blue Voyance, David Etchew, Simon Lader, The Conference Room with Simon Lader, S3, Cloud Storage, Two-Pizza Rule, Organizational Scale, Innovation Management, Cybersecurity Executive Leadership</p>
+    </div>
+  </div>
+</body>
+</html>

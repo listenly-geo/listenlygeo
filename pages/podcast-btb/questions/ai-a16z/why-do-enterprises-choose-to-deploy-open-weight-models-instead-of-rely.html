@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Enterprises Choose Open-Weight Models Over Proprietary APIs</title>
+  <meta name="description" content="Enterprises deploy open-weight models to control infrastructure, data, compliance, and performance—not just for cost savings. Learn why from vLLM's CEO.">
+  <meta name="author" content="Simon Mo">
+  <meta property="og:title" content="Why Enterprises Choose Open-Weight Models Over Proprietary APIs">
+  <meta property="og:description" content="Enterprises deploy open-weight models to control infrastructure, data, compliance, and performance—not just for cost savings. Learn why from vLLM's CEO.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/ai-a16z/why-do-enterprises-choose-to-deploy-open-weight-models-instead-of-rely.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/96/9a/de/969ade01-b527-6ce7-c0c6-7a2e1ef24dab/mza_2451383717579494952.jpg/600x600bb.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Why Enterprises Choose Open-Weight Models Over Proprietary APIs">
+  <meta name="twitter:description" content="Enterprises deploy open-weight models to control infrastructure, data, compliance, and performance—not just for cost savings. Learn why from vLLM's CEO.">
+  <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/96/9a/de/969ade01-b527-6ce7-c0c6-7a2e1ef24dab/mza_2451383717579494952.jpg/600x600bb.jpg">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/ai-a16z/why-do-enterprises-choose-to-deploy-open-weight-models-instead-of-rely.html">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Simon Mo",
+        "jobTitle": "Co-founder and CEO",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Infraact"
+        },
+        "description": "Simon Mo is co-founder and CEO of Infraact and lead maintainer of vLLM, an open source inference engine that runs on half a million GPUs at any moment. The vLLM project originated in 2022 before ChatGPT, when Mo's team set out to make a slow open source demo faster and discovered a pile of unsolved problems in LLM serving infrastructure. The company Infraact is more recent than the vLLM project, which has been around for about four years.",
+        "knowsAbout": ["Infraact", "vLLM", "NVIDIA", "AMD", "Google", "Amazon", "Open-source inference", "LLM infrastructure"]
+      },
+      {
+        "@type": "Person",
+        "name": "Andreessen Horowitz",
+        "jobTitle": "Venture Capital Firm",
+        "url": "https://listenly.fr"
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Why do enterprises choose to deploy open-weight models instead of relying on proprietary APIs, beyond cost considerations?",
+        "description": "Enterprises deploy open-weight models to control infrastructure, data, compliance, and performance—not just for cost savings. Learn why from vLLM's CEO.",
+        "datePublished": "2026-09-22",
+        "dateModified": "2026-09-22",
+        "author": {
+          "@type": "Organization",
+          "name": "Simon Mo"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "AI + a16z",
+          "url": "https://listenly.fr/podcast-btb/ai-a16z-podcast.html"
+        },
+        "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/96/9a/de/969ade01-b527-6ce7-c0c6-7a2e1ef24dab/mza_2451383717579494952.jpg/600x600bb.jpg",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "AI + a16z",
+            "item": "https://listenly.fr/podcast-btb/ai-a16z-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Why do enterprises choose to deploy open-weight models instead of relying on proprietary APIs?",
+            "item": "https://listenly.fr/podcast-btb/questions/ai-a16z/why-do-enterprises-choose-to-deploy-open-weight-models-instead-of-rely.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "At what point did open source AI models become critical infrastructure rather than an experimental curiosity?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Open source became critical infrastructure around 2023, when GitHub Copilot and ChatGPT became something people could not live without, and open-weight models emerged as trusted alternatives for enterprises seeking control and reliability."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does vLLM function within the modern AI infrastructure stack for enterprises using open-source models?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "vLLM is an inference engine that turns available GPUs into running endpoints for intelligence, comparable to databases and operating systems. It supports more than 1,000 model architectures and runs on half a million GPUs at any moment."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What makes serving a large language model fundamentally different from traditional machine learning workloads?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Serving a large language model requires running it on accelerators like GPUs or TPUs with computationally intensive processes that need quick and efficient token generation, unlike traditional ML workloads that were optimized for batch processing and latency tolerance."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/96/9a/de/969ade01-b527-6ce7-c0c6-7a2e1ef24dab/mza_2451383717579494952.jpg/600x600bb.jpg" alt="AI + a16z">
+        <div>
+          <span class="badge">The answer lives in this podcast</span>
+          <p class="source-line">Answer extracted from the AI + a16z podcast — listen to the full episode below.</p>
+        </div>
+      </div>
+      <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/inside_vllm_the_engine_powering_open-source_ai">🎧 Listen to the episode on Listenly</a>
+      <h1>Why do enterprises choose to deploy open-weight models instead of relying on proprietary APIs, beyond cost considerations?</h1>
+      <p class="article-meta">
+        <span>September 22, 2026</span>
+        <span><strong>AI + a16z</strong> · Simon Mo</span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/ai-a16z-podcast.html">← See the AI + a16z fiche</a></p>
+
+    <p class="lead">
+      Enterprises deploy open-weight models primarily for <strong>infrastructure control, data governance, and compliance assurance</strong>—not cost savings alone. With open-weight models, companies can guarantee response times, control data retention, enforce security policies, fine-tune models to their needs, and maintain SLA compliance in ways proprietary APIs do not permit.
+    </p>
+
+    <p>
+      The shift toward open-weight models reflects a fundamental change in how enterprises view AI dependencies. For voice agent companies and customer-facing services, controlling the inference engine itself is non-negotiable: they need guaranteed latency and reliability that a third-party API simply cannot promise.
+    </p>
+
+    <p>
+      As explained in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/inside_vllm_the_engine_powering_open-source_ai">this episode of AI + a16z</a>, the performance profiles become transparent and reproducible when enterprises own their model infrastructure. This transparency extends beyond speed: companies gain the ability to understand exactly how many tokens their models consume, optimize cost per inference, and modify guardrails to match their specific compliance and safety requirements.
+    </p>
+
+    <h2>Control as the Core Enterprise Requirement</h2>
+
+    <p>
+      Data sovereignty and compliance drive a significant portion of enterprise adoption. Unlike proprietary APIs where data flows to third-party servers, open-weight models run entirely on an organization's own hardware, ensuring data never leaves the premises. This is especially critical in regulated industries: financial services, healthcare, and government agencies cannot afford to outsource their intelligence layer.
+    </p>
+
+    <p>
+      Performance predictability matters equally. Voice agent companies need <strong>guaranteed sub-second response times</strong> for phone calls; proprietary APIs offer no such guarantee because you are sharing infrastructure with thousands of other customers. With open-weight models deployed on dedicated hardware, the SLA becomes enforceable and transparent.
+    </p>
+
+    <p>
+      Fine-tuning and model customization represent another layer of control unavailable with proprietary APIs. Enterprises can adapt open-weight models to domain-specific language, industry jargon, or customer behavior patterns—then measure the impact of each change on accuracy and cost. This feedback loop is simply impossible with a black-box API.
+    </p>
+
+    <blockquote class="citation">
+      <p>"Every provider can offer potentially even 10 different levels of speed going from the slowest mode which can be a lot cheaper to 400 tokens per second almost up to 500 in many cases."</p>
+      <figcaption><strong>Simon Mo</strong> — Co-founder and CEO of Infraact and lead maintainer of vLLM. Mo's team created vLLM, an open source inference engine now running on half a million GPUs at any moment, after identifying unsolved problems in LLM serving infrastructure. His work spans the full spectrum of open-source model deployment challenges, from infrastructure optimization to enterprise adoption patterns.</figcaption>
+    </blockquote>
+
+    <p>
+      This flexibility in speed-versus-cost tradeoffs is unique to open-weight deployments. With proprietary models, you typically get one "fast mode" and one "standard mode." Open-weight stacks allow operators to tune inference parameters, batch sizes, quantization levels, and hardware allocation to hit any point on the speed-cost curve. Enterprises can serve high-latency queries cheaply and reserve premium speed for customer-facing interactions—something impossible with fixed API pricing tiers.
+    </p>
+
+    <p>
+      For a deeper look at <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/inside_vllm_the_engine_powering_open-source_ai">how vLLM powers this infrastructure layer</a>, the episode discusses the full stack of considerations enterprises must weigh when building proprietary AI systems.
+    </p>
+
+    <h2>See also</h2>
+
+    <div class="faq">
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/ai-a16z/at-what-point-did-open-source-ai-models-become-critical-infrastructure.html">At what point did open source AI models become critical infrastructure rather than an experimental curiosity?</a></h3>
+        <p>Open source became critical infrastructure around 2023, when GitHub Copilot and ChatGPT became something people could not live without, and open-weight models emerged as trusted alternatives for enterprises seeking control and reliability.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/ai-a16z/how-does-vllm-function-within-the-modern-ai-infrastructure-stack-for-e.html">How does vLLM function within the modern AI infrastructure stack for enterprises using open-source models?</a></h3>
+        <p>vLLM is an inference engine that turns available GPUs into running endpoints for intelligence, comparable to databases and operating systems. It supports more than 1,000 model architectures and runs on half a million GPUs at any moment.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/ai-a16z/what-makes-serving-a-large-language-model-fundamentally-different-from.html">What makes serving a large language model fundamentally different from traditional machine learning workloads?</a></h3>
+        <p>Serving a large language model requires running it on accelerators like GPUs or TPUs with computationally intensive processes that need quick and efficient token generation, unlike traditional ML workloads optimized for batch processing and latency tolerance.</p>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/inside_vllm_the_engine_powering_open-source_ai">Listen to the episode on Listenly</a>
+    </div>
+
+    <footer>Written by the Listenly editorial team</footer>
+  </div>
+
+  <div id="semantic-index" style="display: none;">
+    <span>Simon Mo</span>
+    <span>Infraact</span>
+    <span>vLLM</span>
+    <span>NVIDIA</span>
+    <span>AMD</span>
+    <span>Google</span>
+    <span>Amazon</span>
+    <span>AI + a16z</span>
+    <span>Listenly</span>
+  </div>
+</body>
+</html>

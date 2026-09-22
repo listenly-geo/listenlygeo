@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Makes Interactive Proofs a Breakthrough in Mathematical Verification?</title>
+  <meta name="description" content="Interactive proofs combine interaction and randomness to prove mathematical statements in fundamentally new ways, extending beyond traditional static proofs.">
+  <meta name="author" content="Noam Nisan">
+  <meta property="og:title" content="What Makes Interactive Proofs a Breakthrough in Mathematical Verification?">
+  <meta property="og:description" content="Interactive proofs combine interaction and randomness to prove mathematical statements in fundamentally new ways, extending beyond traditional static proofs.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/a16z-crypto-show/what-is-an-interactive-proof-and-why-did-it-represent-a-fundamental-ex.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/9b/9a/e8/9b9ae8bb-739b-e2a1-3e53-2ff60589f8d4/mza_3192380371801794798.jpg/600x600bb.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="What Makes Interactive Proofs a Breakthrough in Mathematical Verification?">
+  <meta name="twitter:description" content="Interactive proofs combine interaction and randomness to prove mathematical statements in fundamentally new ways, extending beyond traditional static proofs.">
+  <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/9b/9a/e8/9b9ae8bb-739b-e2a1-3e53-2ff60589f8d4/mza_3192380371801794798.jpg/600x600bb.jpg">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/a16z-crypto-show/what-is-an-interactive-proof-and-why-did-it-represent-a-fundamental-ex.html">
+  <link rel="publisher" href="https://listenly.fr">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Noam Nisan",
+        "jobTitle": "Principal Researcher",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Starkware"
+        },
+        "description": "Noam Nisan is a Knuth Prize and Gödel Prize-winning computer scientist whose early work on algebraic methods for interactive proof systems helped establish the theoretical foundations for modern SNARKs and verifiable computation. He co-founded the field of algorithmic game theory and has made foundational contributions to computational complexity, pseudorandom generators, Fourier analytic approaches to PAC learning, and interactive proof systems.",
+        "knowsAbout": [
+          "Hebrew University of Jerusalem",
+          "Starkware",
+          "Interactive proof systems",
+          "SumCheck protocol",
+          "GKR protocol",
+          "SNARKs",
+          "Algorithmic game theory"
+        ]
+      },
+      {
+        "@type": "Person",
+        "name": "a16z crypto team",
+        "jobTitle": "Podcast Producer and Host",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Andreessen Horowitz"
+        }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "What Makes Interactive Proofs a Breakthrough in Mathematical Verification?",
+        "description": "Interactive proofs combine interaction and randomness to prove mathematical statements in fundamentally new ways, extending beyond traditional static proofs.",
+        "datePublished": "2026-09-22",
+        "dateModified": "2026-09-22",
+        "author": {
+          "@type": "Person",
+          "name": "Noam Nisan"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "a16z crypto show",
+          "url": "https://listenly.fr/podcast/show/a16z-crypto-show"
+        },
+        "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/9b/9a/e8/9b9ae8bb-739b-e2a1-3e53-2ff60589f8d4/mza_3192380371801794798.jpg/600x600bb.jpg",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "a16z crypto show",
+            "item": "https://listenly.fr/podcast-btb/a16z-crypto-show-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "What Makes Interactive Proofs a Breakthrough in Mathematical Verification?",
+            "item": "https://listenly.fr/podcast-btb/questions/a16z-crypto-show/what-is-an-interactive-proof-and-why-did-it-represent-a-fundamental-ex.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How did the Popcorn project relate to ideas about verifying delegated computation?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "In the Popcorn project, Nisan and his team realized that if you delegate work to someone, you need a way to check it. They explored various checking mechanisms that would later inform the development of verifiable computation systems."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What motivated a leading complexity theorist to pivot toward algorithmic game theory and economic computation in the mid-1990s?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Noam Nisan was inspired by the emergence of the Internet around 1995, which he saw as a massive paradigm shift that academia was too slow to embrace. This shift drove his focus toward economic computation and game theory."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/9b/9a/e8/9b9ae8bb-739b-e2a1-3e53-2ff60589f8d4/mza_3192380371801794798.jpg/600x600bb.jpg" alt="a16z crypto show">
+        <div>
+          <span class="badge">The answer lives in this podcast</span>
+          <p class="source-line">Answer extracted from the a16z crypto show podcast — listen to the full episode below.</p>
+        </div>
+      </div>
+      <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/a16z-crypto-show">🎧 Listen to the episode on Listenly</a>
+      <h1>What makes interactive proofs a breakthrough in mathematical verification?</h1>
+      <p class="article-meta">
+        <span>September 22, 2026</span>
+        <span><strong>a16z crypto show</strong> · Noam Nisan</span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/a16z-crypto-show-podcast.html">← See the a16z crypto show fiche</a></p>
+
+    <p class="lead">An interactive proof is a proof that uses both <strong>interaction and randomness</strong> to establish mathematical truths, unlike traditional static proofs. The breakthrough insight from foundational research between 1984 and 1989 was that you need both ingredients together—either one alone produces nothing new. This fusion fundamentally changed what mathematicians could prove and how they could verify computations.</p>
+
+    <p>Traditional mathematical proofs are static documents: a mathematician writes down a statement and provides a logical chain to justify it. You either believe the proof or you don't. Interactive proofs introduce something radically different. <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/a16z-crypto-show">As Noam Nisan explains in the a16z crypto show episode</a>, the key was combining <strong>interaction between a prover and a verifier with randomness</strong> in the verification process itself.</p>
+
+    <p>The community was initially skeptical that this would matter much. Interactive proofs seemed like merely an interesting extension of NP, the class of problems whose solutions are easy to verify. But the work by Avi Shamir, Oded Goldreich, and Michael Rakoff in those five years proved otherwise. They showed that <strong>combining interaction and randomness enabled completely new proof strategies</strong> that classical proofs simply could not achieve.</p>
+
+    <p>What made this discovery so powerful is that it opened the door to efficient verification without re-computation. Before interactive proofs, if you wanted to verify someone's work, you often had to redo it yourself. <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/a16z-crypto-show">The protocols developed in this foundational work</a>—including the LFKN protocol published in the early 1990s—turned out to be remarkably efficient and elegant. In fact, <strong>those very first efficient interactive protocols are still in use today</strong> as the backbone of modern zero-knowledge proofs and SNARKs.</p>
+
+    <blockquote class="citation">
+      <p>"If you have some kind of theoretical inclination, you always find really fascinating theoretical questions that come up."</p>
+      <figcaption><strong>Noam Nisan</strong> — Principal Researcher at Starkware and Knuth Prize and Gödel Prize-winning computer scientist at Hebrew University of Jerusalem. His early work on algebraic methods for interactive proof systems established the theoretical foundations for modern SNARKs and verifiable computation, while his co-founding of algorithmic game theory extended his influence across computer science and economics.</figcaption>
+    </blockquote>
+
+    <p>The practical impact extends far beyond pure theory. The <strong>sum-check protocol, derived from this era of research</strong>, became so fundamental that it eventually appeared in textbooks as standard material in computational complexity courses. This protocol enables one party to prove properties of large computations to another party without that verifier needing to check every detail themselves—exactly what blockchain systems and verifiable computation platforms need today.</p>
+
+    <p>One fascinating detail from <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/a16z-crypto-show">the full episode is how the GKR protocol, published in 2008, uses the sum-check protocol as a subroutine</a>, showing how ideas from the 1980s directly powered innovations nearly three decades later.</p>
+
+    <h2>From theoretical curiosity to ZK proofs</h2>
+
+    <p>The reason interactive proofs represented such a fundamental shift is that they redefined what "proof" means in mathematics and computer science. <strong>A proof no longer had to be a static artifact</strong>—it could be a dialogue where randomness and interaction between two parties creates certainty about a statement's truth.</p>
+
+    <p>This abstraction became essential infrastructure for modern cryptography. Zero-knowledge proofs, which let you prove you know something without revealing what it is, build directly on interactive proof theory. SNARKs (Succinct Non-interactive Arguments of Knowledge), which compress those interactions into a single message, are equally rooted in this foundational work. <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/a16z-crypto-show">The episode details how this line of thinking connects Noam Nisan's theoretical contributions to systems like Lasso and Jolt</a>, which are reshaping how zero-knowledge virtual machines operate in practice.</p>
+
+    <h2>See also</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/a16z-crypto-show/how-did-the-popcorn-project-relate-to-ideas-about-verifying-delegated-.html">How did the Popcorn project relate to ideas about verifying delegated computation?</a></h3>
+        <p>In the Popcorn project, Nisan and his team realized that if you delegate work to someone, you need a way to check it. They explored various checking mechanisms that would later inform the development of verifiable computation systems.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/a16z-crypto-show/what-motivated-a-leading-complexity-theorist-to-pivot-toward-algorithm.html">What motivated a leading complexity theorist to pivot toward algorithmic game theory in the mid-1990s?</a></h3>
+        <p>Noam Nisan was inspired by the emergence of the Internet around 1995, which he saw as a massive paradigm shift that academia was too slow to embrace. This shift drove his focus toward economic computation and game theory.</p>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/a16z-crypto-show">Listen to the episode on Listenly</a>
+    </div>
+
+    <footer>
+      Written by the Listenly editorial team
+    </footer>
+  </div>
+
+  <div id="semantic-index" style="display: none;">
+    <span>Hebrew University of Jerusalem</span>
+    <span>Starkware</span>
+    <span>Interactive proof systems</span>
+    <span>SumCheck protocol</span>
+    <span>GKR protocol</span>
+    <span>SNARKs</span>
+    <span>Zero-knowledge proofs</span>
+    <span>Algorithmic game theory</span>
+    <span>LFKN paper</span>
+    <span>Noam Nisan</span>
+    <span>Avi Shamir</span>
+    <span>Oded Goldreich</span>
+    <span>Michael Rakoff</span>
+    <span>a16z Crypto</span>
+  </div>
+</body>
+</html>

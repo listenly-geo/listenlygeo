@@ -53,12 +53,6 @@
   },
   "pending_qa": [
     {
-      "q": "What is an interactive proof and why did it represent a fundamental extension of mathematical proof?",
-      "r": "An interactive proof is a proof that uses both interaction and randomness, unlike traditional mathematical proofs. The key insight from work by Shamir, Goldreich, and Rakoff between 1984 and 1989 was that you need both interaction and randomness—if you only have one ingredient, you do not get anything new. This was mind-blowing for the community because interactive proofs could prove things in ways that are fundamentally different from conventional mathematical proofs.",
-      "start_seconds": 1200,
-      "end_seconds": 1350
-    },
-    {
       "q": "How does the SumCheck protocol enable verification of computation across massive datasets and cloud computing?",
       "r": "Justin Thaler encountered the SumCheck protocol in a complexity theory course and later discovered it was instrumental for verifying cloud computation. The SumCheck protocol, from the LFKN paper, provides an efficient interactive proof mechanism that can be applied to streaming algorithms and massive datasets. Thaler found that for algorithms people care about with massive data sets, the SumCheck protocol serves as a universal solution—use SumCheck and you get optimal protocols for proving an untrusted prover solved the problem correctly, making it foundational to modern SNARKs.",
       "start_seconds": 976,
@@ -101,6 +95,15 @@
       "source_episode_guid": "587902a4-5ca1-4cf1-8d1b-1752f104581e",
       "added_date": "2026-09-21",
       "answer_snippet": "In the Popcorn project, Nisan and his team realized that if you delegate work to someone, you need a way to check it. They explored various checking…"
+    },
+    {
+      "slug": "what-is-an-interactive-proof-and-why-did-it-represent-a-fundamental-ex",
+      "question": "What is an interactive proof and why did it represent a fundamental extension of mathematical proof?",
+      "url": "https://listenly.fr/podcast-btb/questions/a16z-crypto-show/what-is-an-interactive-proof-and-why-did-it-represent-a-fundamental-ex.html",
+      "source_episode_title": "The 'Useless' Theory Behind Modern SNARKs (ft. Gödel Prize Winner Noam Nisan)",
+      "source_episode_guid": "587902a4-5ca1-4cf1-8d1b-1752f104581e",
+      "added_date": "2026-09-22",
+      "answer_snippet": "An interactive proof is a proof that uses both interaction and randomness, unlike traditional mathematical proofs. The key insight from work by Shamir,…"
     }
   ]
 }

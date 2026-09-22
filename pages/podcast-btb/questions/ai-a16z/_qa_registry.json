@@ -58,12 +58,6 @@
   },
   "pending_qa": [
     {
-      "q": "Why do enterprises choose to deploy open-weight models instead of relying on proprietary APIs, beyond cost considerations?",
-      "r": "Control is a backbone motivation: enterprises want to control their own model infrastructure, extend it, add guardrails, understand exact performance profiles, and ensure SLA compliance. For example, voice agent companies need to control their own model to guarantee response times for customers on phone calls. Open-weight models also enable control over data retention, security, compliance, and the ability to fine-tune and understand token consumption exactly.",
-      "start_seconds": 682,
-      "end_seconds": 850
-    },
-    {
       "q": "What economic advantages do open-weight models provide in terms of inference speed and customization compared to proprietary models?",
       "r": "For proprietary models there is only regular mode and fast mode, but for open-weight models every provider can offer potentially 10 different levels of speed, from the slowest mode which is cheaper to 400-500 tokens per second in many cases, which is typically 2x or 3x faster than the fast mode of proprietary solutions. This granular control over performance levels is only achievable when running your own infrastructure.",
       "start_seconds": 956,
@@ -109,6 +103,15 @@
       "source_episode_guid": "39e4e3b9-a3ff-455e-aa60-f973ca2a5740",
       "added_date": "2026-09-21",
       "answer_snippet": "Open source became critical infrastructure around 2023, when GitHub Copilot and ChatGPT became something people could not live without, and open-weight…"
+    },
+    {
+      "slug": "why-do-enterprises-choose-to-deploy-open-weight-models-instead-of-rely",
+      "question": "Why do enterprises choose to deploy open-weight models instead of relying on proprietary APIs, beyond cost considerations?",
+      "url": "https://listenly.fr/podcast-btb/questions/ai-a16z/why-do-enterprises-choose-to-deploy-open-weight-models-instead-of-rely.html",
+      "source_episode_title": "Inside vLLM: The Engine Powering Open-Source AI",
+      "source_episode_guid": "39e4e3b9-a3ff-455e-aa60-f973ca2a5740",
+      "added_date": "2026-09-22",
+      "answer_snippet": "Control is a backbone motivation: enterprises want to control their own model infrastructure, extend it, add guardrails, understand exact performance…"
     }
   ]
 }
