@@ -17,7 +17,7 @@ Optionnelles :
   CONTACT_LABEL      — texte affiché dans le CTA contact, défaut "le podcast"
 """
 
-import os, sys, re, json, datetime, unicodedata
+import os, sys, re, json, datetime, unicodedata, html
 import urllib.request, urllib.error
 import xml.etree.ElementTree as ET
 
@@ -1164,6 +1164,125 @@ a:hover{{text-decoration:underline}}
         f.write(html)
     log(f"Historique regenere : {len(entries)} entree(s)")
 
+def build_activity_page():
+    """Page vitrine publique 'Activite' -- design sombre style Apple (repris de la Hero
+    Knowledge Search), independante de index.html (ne le modifie pas). Affiche en gros les
+    compteurs podcasts/questions + un historique des 100 dernieres questions ajoutees
+    (date + lien), source : added_date deja present dans chaque _qa_registry.json (pas de
+    dependance a l'historique git, fiable meme en checkout superficiel sur un runner CI)."""
+    all_records = load_data()
+    wf_dir = ".github/workflows"
+    qa_engine_slugs = set()
+    if os.path.isdir(wf_dir):
+        for fname in os.listdir(wf_dir):
+            if fname.startswith("podcast-btb-qa-") and fname.endswith(".yml"):
+                qa_engine_slugs.add(fname[len("podcast-btb-qa-"):-len(".yml")])
+    records = [r for r in all_records if r["slug"] in qa_engine_slugs]
+    total_podcasts = len(records)
+    slug_to_name = {r["slug"]: r.get("podcast_name", r["slug"]) for r in records}
+
+    all_published = []
+    total_questions = 0
+    for r in records:
+        slug = r["slug"]
+        reg_path = f"{PAGES_DIR}/questions/{slug}/_qa_registry.json"
+        if not os.path.exists(reg_path):
+            continue
+        try:
+            with open(reg_path, encoding="utf-8") as f:
+                reg = json.load(f)
+        except (json.JSONDecodeError, OSError):
+            continue
+        published = reg.get("published", []) or []
+        total_questions += len(published)
+        for q in published:
+            all_published.append({
+                "question": q.get("question", ""),
+                "url": q.get("url", ""),
+                "added_date": q.get("added_date", ""),
+                "podcast_name": slug_to_name.get(slug, slug),
+            })
+
+    all_published.sort(key=lambda q: q["added_date"] or "", reverse=True)
+    recent = all_published[:100]
+
+    history_items = "\n".join(
+        f'<div class="hist-item">'
+        f'<div class="hist-date">{html.escape(q["added_date"] or "?")}</div>'
+        f'<div class="hist-body">'
+        f'<a class="hist-q" href="{html.escape(q["url"])}">{html.escape(q["question"])}</a>'
+        f'<div class="hist-podcast">{html.escape(q["podcast_name"])}</div>'
+        f'</div></div>'
+        for q in recent
+    )
+    if not history_items:
+        history_items = '<p class="hist-empty">Aucune question publiee pour le moment.</p>'
+
+    page = f"""<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activité Listenly — {total_questions} questions, {total_podcasts} podcasts référencés</title>
+<meta name="description" content="Activité en direct de Listenly : {total_questions} questions expertes indexées depuis {total_podcasts} podcasts B2B, mises à jour en continu.">
+<link rel="canonical" href="https://listenly.fr/podcast-btb/activite.html">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{{
+    --bg:#000; --panel:#1C1C1E; --ink:#F5F5F7; --ink-soft:#86868B;
+    --line-soft:rgba(255,255,255,0.08); --accent:#2997FF;
+  }}
+  *{{box-sizing:border-box;}}
+  html,body{{margin:0;padding:0;}}
+  body{{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'Inter',system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}}
+  .ambient-glow{{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}}
+  .glow-blob{{position:absolute;border-radius:50%;filter:blur(80px);}}
+  .glow-blob.a{{width:460px;height:460px;top:-260px;left:-12%;background:rgba(255,255,255,0.28);animation:driftA 16s ease-in-out infinite alternate;}}
+  .glow-blob.b{{width:380px;height:380px;bottom:-260px;right:-10%;background:rgba(255,255,255,0.22);animation:driftB 19s ease-in-out infinite alternate;}}
+  @keyframes driftA{{0%{{transform:translate(0,0) scale(1);}}100%{{transform:translate(140px,110px) scale(1.3);}}}}
+  @keyframes driftB{{0%{{transform:translate(0,0) scale(1);}}100%{{transform:translate(-130px,-90px) scale(0.8);}}}}
+  @media (prefers-reduced-motion: reduce){{.glow-blob{{animation:none;}}}}
+  main{{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:10vh 24px 80px;}}
+  .eyebrow{{text-align:center;color:var(--ink-soft);font-size:13px;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:18px;}}
+  .stats{{display:flex;justify-content:center;gap:56px;flex-wrap:wrap;margin-bottom:64px;}}
+  .stat{{text-align:center;}}
+  .stat .num{{font-size:clamp(48px,9vw,88px);font-weight:700;letter-spacing:-0.02em;line-height:1;}}
+  .stat .lbl{{font-size:15px;color:var(--ink-soft);margin-top:8px;}}
+  h2.hist-title{{font-size:15px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.04em;margin:0 0 20px;}}
+  .hist-item{{display:flex;gap:18px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--line-soft);}}
+  .hist-date{{flex-shrink:0;width:90px;font-size:13px;color:var(--ink-soft);font-variant-numeric:tabular-nums;}}
+  .hist-body{{flex:1;min-width:0;}}
+  .hist-q{{color:var(--ink);text-decoration:none;font-size:15px;line-height:1.4;display:block;}}
+  .hist-q:hover{{color:var(--accent);}}
+  .hist-podcast{{color:var(--ink-soft);font-size:12.5px;margin-top:3px;}}
+  .hist-empty{{color:var(--ink-soft);text-align:center;padding:40px 0;}}
+  @media (max-width:560px){{
+    main{{padding:8vh 18px 60px;}}
+    .stats{{gap:32px;}}
+    .hist-item{{gap:12px;}}
+    .hist-date{{width:70px;font-size:12px;}}
+  }}
+</style>
+</head>
+<body>
+<div class="ambient-glow"><div class="glow-blob a"></div><div class="glow-blob b"></div></div>
+<main>
+  <p class="eyebrow">Activité Listenly</p>
+  <div class="stats">
+    <div class="stat"><div class="num">{total_podcasts}</div><div class="lbl">Podcasts référencés</div></div>
+    <div class="stat"><div class="num">{total_questions}</div><div class="lbl">Questions répondues</div></div>
+  </div>
+  <h2 class="hist-title">Les 100 dernières questions ajoutées</h2>
+  {history_items}
+</main>
+</body>
+</html>
+"""
+    with open(f"{PAGES_DIR}/activite.html", "w", encoding="utf-8") as f:
+        f.write(page)
+    log(f"Page activite regeneree : {total_podcasts} podcast(s), {total_questions} question(s), {len(recent)} dans l'historique")
+
+
 def build_dashboard():
     """Tableau de bord interne (noindex) — DEDIE au moteur trafic (fiches question) :
     n'affiche QUE les podcasts onboardes via un workflow podcast-btb-qa-<slug>.yml,
@@ -1974,6 +2093,7 @@ function sortTable(colIdx, numeric){{
     with open(f"{PAGES_DIR}/dashboard.html", "w", encoding="utf-8") as f:
         f.write(html)
     log(f"Dashboard regenere : {len(records)} podcast(s), {total_episodes} episode(s), {total_questions} fiche(s) requete")
+    build_activity_page()
 
 def build_index_and_categories(records):
     by_category = {}
