@@ -1164,6 +1164,34 @@ a:hover{{text-decoration:underline}}
         f.write(html)
     log(f"Historique regenere : {len(entries)} entree(s)")
 
+def get_recent_published_questions(records, limit=100):
+    """Retourne les `limit` dernieres questions publiees (toutes confondues), triees par
+    added_date desc, en lisant les _qa_registry.json de chaque podcast. Source de verite
+    pour l'historique affiche sur activite.html ET la section dashboard 'Historique fiches'
+    (factorise pour ne pas dupliquer la meme lecture/tri deux fois)."""
+    slug_to_name = {r["slug"]: r.get("podcast_name", r["slug"]) for r in records}
+    all_published = []
+    for r in records:
+        slug = r["slug"]
+        reg_path = f"{PAGES_DIR}/questions/{slug}/_qa_registry.json"
+        if not os.path.exists(reg_path):
+            continue
+        try:
+            with open(reg_path, encoding="utf-8") as f:
+                reg = json.load(f)
+        except (json.JSONDecodeError, OSError):
+            continue
+        for q in reg.get("published", []) or []:
+            all_published.append({
+                "question": q.get("question", ""),
+                "url": q.get("url", ""),
+                "added_date": q.get("added_date", ""),
+                "podcast_name": slug_to_name.get(slug, slug),
+            })
+    all_published.sort(key=lambda q: q["added_date"] or "", reverse=True)
+    return all_published[:limit], len(all_published)
+
+
 def build_activity_page():
     """Page vitrine publique 'Activite' -- design sombre style Apple (repris de la Hero
     Knowledge Search), independante de index.html (ne le modifie pas). Affiche en gros les
@@ -1179,32 +1207,8 @@ def build_activity_page():
                 qa_engine_slugs.add(fname[len("podcast-btb-qa-"):-len(".yml")])
     records = [r for r in all_records if r["slug"] in qa_engine_slugs]
     total_podcasts = len(records)
-    slug_to_name = {r["slug"]: r.get("podcast_name", r["slug"]) for r in records}
 
-    all_published = []
-    total_questions = 0
-    for r in records:
-        slug = r["slug"]
-        reg_path = f"{PAGES_DIR}/questions/{slug}/_qa_registry.json"
-        if not os.path.exists(reg_path):
-            continue
-        try:
-            with open(reg_path, encoding="utf-8") as f:
-                reg = json.load(f)
-        except (json.JSONDecodeError, OSError):
-            continue
-        published = reg.get("published", []) or []
-        total_questions += len(published)
-        for q in published:
-            all_published.append({
-                "question": q.get("question", ""),
-                "url": q.get("url", ""),
-                "added_date": q.get("added_date", ""),
-                "podcast_name": slug_to_name.get(slug, slug),
-            })
-
-    all_published.sort(key=lambda q: q["added_date"] or "", reverse=True)
-    recent = all_published[:100]
+    recent, total_questions = get_recent_published_questions(records, limit=100)
 
     history_items = "\n".join(
         f'<div class="hist-item">'
@@ -1559,69 +1563,22 @@ def build_dashboard():
         f'<div class="bar-col"><div class="bar" style="height:{max(6, int(70 * c / max_weekly_q))}px;background:linear-gradient(180deg,#8e44ad,#6c3483)" title="{c} fiche(s)"></div><span>{s.strftime("%d/%m")}</span><b>{c}</b></div>'
         for s, c in weekly_q
     )
-    # --- Historique optimisation (remplace "Repartition par categorie", jugee peu utile
-    # le 30/08/2026) : liste des dernieres ameliorations systeme, lue depuis un fichier
-    # editable a la main a chaque nouvelle optimisation livree. Affiche les 10 plus
-    # recentes en accordeon (titre + coche, resume au clic), avec lien vers une page
-    # HTML dediee listant l'historique complet.
-    opt_history_path = f"{PAGES_DIR}/data/optimization_history.json"
-    opt_history = []
-    if os.path.exists(opt_history_path):
-        try:
-            opt_history = json.load(open(opt_history_path, encoding="utf-8"))
-        except (json.JSONDecodeError, OSError):
-            opt_history = []
+    # --- Historique des fiches (remplace "Historique optimisation" le 23/09/2026) : les
+    # 100 dernieres questions publiees, meme source que activite.html (get_recent_published_questions),
+    # affichees dans un conteneur scrollable (hauteur fixe ~10 lignes visibles, scroll pour le reste).
+    recent_qa, _ = get_recent_published_questions(records, limit=100)
 
-    def render_opt_item(item):
-        is_flagged = item.get("flag") == "warning"
-        icon = "⚠️" if is_flagged else "✅"
-        title_style = ' style="color:#c0392b;"' if is_flagged else ""
-        return f"""<details class="opt-item">
-  <summary><span class="opt-title"{title_style}>{icon} {item.get('title','')}</span><span class="opt-date">{item.get('date','')}</span></summary>
-  <div class="opt-summary">{item.get('summary','')} <code>{item.get('commit','')}</code></div>
-</details>"""
+    def render_hist_item(q):
+        return (
+            f'<div class="fiche-hist-item">'
+            f'<div class="fiche-hist-date">{q["added_date"] or "?"}</div>'
+            f'<div class="fiche-hist-body">'
+            f'<a class="fiche-hist-q" href="{q["url"]}" target="_blank" rel="noopener">{q["question"]}</a>'
+            f'<div class="fiche-hist-podcast">{q["podcast_name"]}</div>'
+            f'</div></div>'
+        )
 
-    opt_rows_html = "".join(render_opt_item(it) for it in opt_history[:10]) or "<p style='color:var(--sub);font-size:13px;'>Aucune optimisation enregistrée pour le moment.</p>"
-    opt_full_link = ""
-    if len(opt_history) > 10 or opt_history:
-        opt_full_link = f'<a href="https://listenly.fr/podcast-btb/historique-optimisations.html" target="_blank" style="font-size:12px;">Voir l\'historique complet ({len(opt_history)}) →</a>'
-
-    # Genere aussi la page complete (toutes les entrees, meme rendu)
-    if opt_history:
-        full_items_html = "".join(render_opt_item(it) for it in opt_history)
-        full_page_html = f"""<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
-<title>Historique des optimisations — Moteur Trafic Listenly</title>
-<style>
-body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f8fc;color:#1a1a2e;max-width:820px;margin:0 auto;padding:32px 20px 60px;overflow-x:hidden}}
-*{{box-sizing:border-box;min-width:0}}
-h1{{font-size:22px;margin-bottom:4px;}}
-.sub{{color:#6b7280;font-size:13px;margin-bottom:28px;}}
-.opt-item{{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:12px 16px;margin-bottom:10px;}}
-.opt-item summary{{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;}}
-.opt-item summary::-webkit-details-marker{{display:none;}}
-.opt-title{{font-weight:600;font-size:14px;overflow-wrap:break-word;word-break:break-word;}}
-.opt-date{{color:#6b7280;font-weight:400;font-size:11px;white-space:nowrap;flex-shrink:0;}}
-.opt-summary{{margin-top:8px;font-size:13px;color:#444;line-height:1.5;overflow-wrap:break-word;word-break:break-word;}}
-.opt-summary code{{font-size:11px;color:#6b7280;}}
-a{{color:#4a6cf7;}}
-@media(max-width:480px){{
-  .opt-item summary{{flex-direction:column;align-items:flex-start;gap:2px;}}
-}}
-</style>
-</head>
-<body>
-<h1>Historique des optimisations</h1>
-<p class="sub">{len(opt_history)} optimisation(s) · <a href="https://listenly.fr/podcast-btb/dashboard.html">← Retour au dashboard</a></p>
-{full_items_html}
-</body>
-</html>"""
-        with open(f"{PAGES_DIR}/historique-optimisations.html", "w", encoding="utf-8") as f:
-            f.write(full_page_html)
+    hist_rows_html = "".join(render_hist_item(q) for q in recent_qa) or "<p style='color:var(--sub);font-size:13px;'>Aucune fiche publiée pour le moment.</p>"
 
     susp_rows = "".join(f"<li><b>{s}</b> — {msg}</li>" for s, msg in suspicious) or "<li>Aucune anomalie détectée ✓</li>"
     dup_rows = "".join(f"<li><b>{name}</b> : {', '.join(slugs)}</li>" for name, slugs in duplicates) or "<li>Aucun doublon détecté ✓</li>"
@@ -2006,19 +1963,22 @@ ul.clean li{{margin-bottom:6px}}
 </div>
 </div>
 <div>
-<h2 style="margin-top:0">Historique optimisation</h2>
+<h2 style="margin-top:0">Historique des fiches (100 dernières)</h2>
 <div class="panel">
 <style>
-.opt-item{{background:#fafbff;border:1px solid #e8e9f5;border-radius:8px;padding:10px 14px;margin-bottom:8px;}}
-.opt-item summary{{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;}}
-.opt-item summary::-webkit-details-marker{{display:none;}}
-.opt-title{{font-weight:600;font-size:13px;overflow-wrap:break-word;word-break:break-word;}}
-.opt-date{{color:var(--sub);font-weight:400;font-size:11px;white-space:nowrap;flex-shrink:0;}}
-.opt-summary{{margin-top:8px;font-size:12px;color:#555;line-height:1.5;overflow-wrap:break-word;word-break:break-word;}}
-.opt-summary code{{font-size:11px;color:var(--sub);}}
+.fiche-hist-scroll{{max-height:420px;overflow-y:auto;border:1px solid #e8e9f5;border-radius:8px;}}
+.fiche-hist-item{{display:flex;gap:14px;align-items:baseline;padding:10px 14px;border-bottom:1px solid #f0f0f7;}}
+.fiche-hist-item:last-child{{border-bottom:none;}}
+.fiche-hist-date{{flex-shrink:0;width:78px;font-size:11px;color:var(--sub);font-variant-numeric:tabular-nums;}}
+.fiche-hist-body{{flex:1;min-width:0;}}
+.fiche-hist-q{{color:#1a1a2e;text-decoration:none;font-size:13px;line-height:1.4;display:block;overflow-wrap:break-word;word-break:break-word;}}
+.fiche-hist-q:hover{{color:var(--accent);}}
+.fiche-hist-podcast{{color:var(--sub);font-size:11px;margin-top:2px;}}
 </style>
-{opt_rows_html}
-<div style="margin-top:10px;text-align:right;">{opt_full_link}</div>
+<div class="fiche-hist-scroll">
+{hist_rows_html}
+</div>
+<div style="margin-top:10px;text-align:right;"><a href="https://listenly.fr/podcast-btb/activite.html" target="_blank" style="font-size:12px;">Voir la page activité complète →</a></div>
 </div>
 
 <h2>Anomalies CTA / liens</h2>
