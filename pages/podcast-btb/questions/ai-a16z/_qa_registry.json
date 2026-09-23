@@ -58,12 +58,6 @@
   },
   "pending_qa": [
     {
-      "q": "What economic advantages do open-weight models provide in terms of inference speed and customization compared to proprietary models?",
-      "r": "For proprietary models there is only regular mode and fast mode, but for open-weight models every provider can offer potentially 10 different levels of speed, from the slowest mode which is cheaper to 400-500 tokens per second in many cases, which is typically 2x or 3x faster than the fast mode of proprietary solutions. This granular control over performance levels is only achievable when running your own infrastructure.",
-      "start_seconds": 956,
-      "end_seconds": 1086
-    },
-    {
       "q": "Why are open-source model labs implementing commercial licensing terms and usage restrictions on recently released models?",
       "r": "Model labs are trying to understand ways to economically fund their own model development, since model training, research, and data are very expensive. Meta's LLAMA included terms requiring commercial agreements if daily active users or annual recurring revenue exceeded thresholds. More recently, models like Minimax M2.7 include usage-based terms, and Kimi has restrictions on derivative works, reflecting an attempt to create sustainable funding mechanisms since open source software donation models do not work at the scale required for AI training.",
       "start_seconds": 1194,
@@ -112,6 +106,15 @@
       "source_episode_guid": "39e4e3b9-a3ff-455e-aa60-f973ca2a5740",
       "added_date": "2026-09-22",
       "answer_snippet": "Control is a backbone motivation: enterprises want to control their own model infrastructure, extend it, add guardrails, understand exact performance…"
+    },
+    {
+      "slug": "what-economic-advantages-do-open-weight-models-provide-in-terms-of-inf",
+      "question": "What economic advantages do open-weight models provide in terms of inference speed and customization compared to proprietary models?",
+      "url": "https://listenly.fr/podcast-btb/questions/ai-a16z/what-economic-advantages-do-open-weight-models-provide-in-terms-of-inf.html",
+      "source_episode_title": "Inside vLLM: The Engine Powering Open-Source AI",
+      "source_episode_guid": "39e4e3b9-a3ff-455e-aa60-f973ca2a5740",
+      "added_date": "2026-09-23",
+      "answer_snippet": "For proprietary models there is only regular mode and fast mode, but for open-weight models every provider can offer potentially 10 different levels of…"
     }
   ]
 }

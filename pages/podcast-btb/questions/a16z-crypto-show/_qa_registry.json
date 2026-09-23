@@ -53,12 +53,6 @@
   },
   "pending_qa": [
     {
-      "q": "How does the SumCheck protocol enable verification of computation across massive datasets and cloud computing?",
-      "r": "Justin Thaler encountered the SumCheck protocol in a complexity theory course and later discovered it was instrumental for verifying cloud computation. The SumCheck protocol, from the LFKN paper, provides an efficient interactive proof mechanism that can be applied to streaming algorithms and massive datasets. Thaler found that for algorithms people care about with massive data sets, the SumCheck protocol serves as a universal solution—use SumCheck and you get optimal protocols for proving an untrusted prover solved the problem correctly, making it foundational to modern SNARKs.",
-      "start_seconds": 976,
-      "end_seconds": 1128
-    },
-    {
       "q": "What role did the LFKN paper play in establishing interactive proof systems for modern verification?",
       "r": "The LFKN paper from 1990-1992 established an efficient interactive proof for SharpSAT using the SumCheck protocol and demonstrated remarkable foresight. As Nisan notes, the paper had exactly the right protocol that researchers are still using today for modern SNARKs. The protocol emerged fully formed and elegant, and it became the centerpiece of complexity theory textbooks, showing that combining two concepts into one unified problem in computer science yields powerful results.",
       "start_seconds": 17,
@@ -104,6 +98,15 @@
       "source_episode_guid": "587902a4-5ca1-4cf1-8d1b-1752f104581e",
       "added_date": "2026-09-22",
       "answer_snippet": "An interactive proof is a proof that uses both interaction and randomness, unlike traditional mathematical proofs. The key insight from work by Shamir,…"
+    },
+    {
+      "slug": "how-does-the-sumcheck-protocol-enable-verification-of-computation-acro",
+      "question": "How does the SumCheck protocol enable verification of computation across massive datasets and cloud computing?",
+      "url": "https://listenly.fr/podcast-btb/questions/a16z-crypto-show/how-does-the-sumcheck-protocol-enable-verification-of-computation-acro.html",
+      "source_episode_title": "The 'Useless' Theory Behind Modern SNARKs (ft. Gödel Prize Winner Noam Nisan)",
+      "source_episode_guid": "587902a4-5ca1-4cf1-8d1b-1752f104581e",
+      "added_date": "2026-09-23",
+      "answer_snippet": "Justin Thaler encountered the SumCheck protocol in a complexity theory course and later discovered it was instrumental for verifying cloud computation. The…"
     }
   ]
 }
