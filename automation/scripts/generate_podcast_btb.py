@@ -1905,10 +1905,6 @@ ul.clean li{{margin-bottom:6px}}
   #prodTable td.pod-name::before{{content:none}}
   #prodTable td.pod-name::after{{content:'🎙';margin-right:6px}}
 
-  /* Historique optimisation : titre/date empiles au lieu de se serrer sur une seule ligne */
-  .opt-item summary{{flex-direction:column;align-items:flex-start;gap:2px}}
-  .opt-item{{padding:12px 14px}}
-
   .calendar{{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}}
   .cal-col{{flex:0 0 auto;width:64px}}
   .bars{{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}}
