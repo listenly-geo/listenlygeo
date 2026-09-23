@@ -1924,15 +1924,6 @@ ul.clean li{{margin-bottom:6px}}
 </div>
 {collision_banner}
 
-<div class="card" style="background:linear-gradient(135deg,#eef2ff,#f7f4ff);border:1px solid #d8d4ff;margin-bottom:20px;">
-{gsc_stats_html}
-</div>
-
-<div class="card" style="background:linear-gradient(135deg,#fff7ed,#fef3e8);border:1px solid #fbdcb4;margin-bottom:20px;">
-<h2 style="margin-top:0;font-size:13px;">💰 Coût estimé</h2>
-{cost_overview_html}
-</div>
-
 <div class="cards">
   <div class="card"><div class="ico">🎙️</div><div class="num" data-target="{len(records)}">0</div><div class="lbl">Podcasts référencés</div></div>
   <div class="card"><div class="ico">❓</div><div class="num" data-target="{total_questions}">0</div><div class="lbl">Fiches requête totales</div></div>
