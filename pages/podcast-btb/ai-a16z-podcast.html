@@ -334,48 +334,40 @@ footer a { text-decoration: underline; color: #bbb; }
 
 
 
+
 <!-- QUESTIONS_COVERED_START -->
 <style>
-.qc-wrap { margin-top:48px; padding-top:32px; border-top:1px solid #ececec; }
-.qc-title { font-size:21px; font-weight:800; margin:0 0 4px; color:#0a0a0a; }
-.qc-sub { font-size:13px; color:#888; margin:0 0 20px; }
-.qc-list { display:flex; flex-direction:column; gap:10px; }
-.qc-item { display:block; padding:16px 20px; border:1px solid #ececec; border-radius:12px;
-  text-decoration:none; color:inherit; background:#fafafa; transition:border-color .15s, box-shadow .15s, background .15s; }
-.qc-item:hover { border-color:#c9c9c9; background:#fff; box-shadow:0 3px 12px rgba(0,0,0,.06); }
-.qc-q { font-weight:700; font-size:15px; color:#111; line-height:1.4; margin-bottom:5px; }
-.qc-meta { font-size:12px; color:#999; }
+.hx-wrap { margin:32px 0 40px; padding-top:28px; border-top:1px solid #ececec; }
+.hx-title { font-size:22px; font-weight:800; margin:0 0 4px; color:#0a0a0a; }
+.hx-stats { font-size:13px; color:#777; margin:0 0 16px; }
+.hx-tools { position:sticky; top:0; background:#fff; padding:10px 0 8px; z-index:5; }
+.hx-search { width:100%; box-sizing:border-box; padding:12px 16px; font-size:16px; border:1px solid #e2e2e2; border-radius:12px; background:#fafafa; }
+.hx-chips { display:flex; gap:8px; overflow-x:auto; padding:10px 0 2px; }
+.hx-chip { white-space:nowrap; font-size:12px; color:#333; text-decoration:none; background:#f4f4f4; border:1px solid #e6e6e6; border-radius:999px; padding:5px 11px; }
+.hx-chip span { color:#999; }
+.hx-empty { font-size:14px; color:#888; }
+.hx-ep { font-size:17px; font-weight:800; color:#111; margin:26px 0 10px; line-height:1.35; }
+.hx-qa { border:1px solid #ececec; background:#fafafa; border-radius:12px; padding:16px 18px; margin:0 0 10px; }
+.hx-q { font-size:16px; font-weight:700; color:#111; line-height:1.4; margin:0 0 6px; }
+.hx-a { font-size:15px; line-height:1.6; color:#333; margin:0 0 10px; }
+.hx-foot { display:flex; flex-wrap:wrap; gap:14px; align-items:center; font-size:13px; }
+.hx-listen { font-weight:700; text-decoration:none; color:#1f5fbf; background:#eaf1fd; padding:5px 12px; border-radius:999px; }
+.hx-more { color:#777; }
+.hx-hidden { display:none; }
 </style>
-<div class="questions-covered qc-wrap">
-  <h2 class="qc-title">Questions covered</h2>
-  <p class="qc-sub">6 questions explored from this podcast</p>
-  <div class="qc-list">
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/ai-a16z/why-are-open-source-model-labs-implementing-commercial-licensing-terms.html">
-    <div class="qc-q">Why are open-source model labs implementing commercial licensing terms and usage restrictions on recently released models?</div>
-    <div class="qc-meta">2026-09-24 · Inside vLLM: The Engine Powering Open-Source AI</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/ai-a16z/what-economic-advantages-do-open-weight-models-provide-in-terms-of-inf.html">
-    <div class="qc-q">What economic advantages do open-weight models provide in terms of inference speed and customization compared to proprietary models?</div>
-    <div class="qc-meta">2026-09-23 · Inside vLLM: The Engine Powering Open-Source AI</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/ai-a16z/why-do-enterprises-choose-to-deploy-open-weight-models-instead-of-rely.html">
-    <div class="qc-q">Why do enterprises choose to deploy open-weight models instead of relying on proprietary APIs, beyond cost considerations?</div>
-    <div class="qc-meta">2026-09-22 · Inside vLLM: The Engine Powering Open-Source AI</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/ai-a16z/at-what-point-did-open-source-ai-models-become-critical-infrastructure.html">
-    <div class="qc-q">At what point did open source AI models become critical infrastructure rather than an experimental curiosity?</div>
-    <div class="qc-meta">2026-09-21 · Inside vLLM: The Engine Powering Open-Source AI</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/ai-a16z/how-does-vllm-function-within-the-modern-ai-infrastructure-stack-for-e.html">
-    <div class="qc-q">How does vLLM function within the modern AI infrastructure stack for enterprises using open-source models?</div>
-    <div class="qc-meta">2026-09-20 · Inside vLLM: The Engine Powering Open-Source AI</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/ai-a16z/what-makes-serving-a-large-language-model-fundamentally-different-from.html">
-    <div class="qc-q">What makes serving a large language model fundamentally different from traditional machine learning workloads?</div>
-    <div class="qc-meta">2026-09-19 · Inside vLLM: The Engine Powering Open-Source AI</div>
-  </a>
-  </div>
+<div class="questions-covered hx-wrap" id="answers">
+  <h2 class="hx-title">Answers from this podcast</h2>
+  <p class="hx-stats">6 questions answered · 1 episode indexed</p>
+  
+  <section class="hx-episode"><h3 class="hx-ep" id="ep-inside-vllm-the-engine-powering-open-source-ai">Inside vLLM: The Engine Powering Open-Source AI</h3><article class="hx-qa" id="why-are-open-source-model-labs-implementing-commercial-licensing-terms"><h3 class="hx-q">Why are open-source model labs implementing commercial licensing terms and usage restrictions on recently released models?</h3><p class="hx-a">Model labs are trying to understand ways to economically fund their own model development, since model training, research, and data are very expensive.…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/ai-a16z">▶ Listen to this moment · 19:54</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/ai-a16z/why-are-open-source-model-labs-implementing-commercial-licensing-terms.html">Full answer →</a></div></article><article class="hx-qa" id="what-economic-advantages-do-open-weight-models-provide-in-terms-of-inf"><h3 class="hx-q">What economic advantages do open-weight models provide in terms of inference speed and customization compared to proprietary models?</h3><p class="hx-a">For proprietary models there is only regular mode and fast mode, but for open-weight models every provider can offer potentially 10 different levels of…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/ai-a16z">▶ Listen to this moment · 15:56</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/ai-a16z/what-economic-advantages-do-open-weight-models-provide-in-terms-of-inf.html">Full answer →</a></div></article><article class="hx-qa" id="why-do-enterprises-choose-to-deploy-open-weight-models-instead-of-rely"><h3 class="hx-q">Why do enterprises choose to deploy open-weight models instead of relying on proprietary APIs, beyond cost considerations?</h3><p class="hx-a">Control is a backbone motivation: enterprises want to control their own model infrastructure, extend it, add guardrails, understand exact performance…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/ai-a16z">▶ Listen to this moment · 11:22</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/ai-a16z/why-do-enterprises-choose-to-deploy-open-weight-models-instead-of-rely.html">Full answer →</a></div></article><article class="hx-qa" id="at-what-point-did-open-source-ai-models-become-critical-infrastructure"><h3 class="hx-q">At what point did open source AI models become critical infrastructure rather than an experimental curiosity?</h3><p class="hx-a">Open source became critical infrastructure around 2023, when GitHub Copilot and ChatGPT became something people could not live without, and open-weight…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/ai-a16z">▶ Listen to this moment · 4:55</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/ai-a16z/at-what-point-did-open-source-ai-models-become-critical-infrastructure.html">Full answer →</a></div></article><article class="hx-qa" id="how-does-vllm-function-within-the-modern-ai-infrastructure-stack-for-e"><h3 class="hx-q">How does vLLM function within the modern AI infrastructure stack for enterprises using open-source models?</h3><p class="hx-a">vLLM is an inference engine that turns available GPUs into running endpoints for intelligence, comparable to databases and operating systems. It supports…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/ai-a16z">▶ Listen to this moment · 8:21</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/ai-a16z/how-does-vllm-function-within-the-modern-ai-infrastructure-stack-for-e.html">Full answer →</a></div></article><article class="hx-qa" id="what-makes-serving-a-large-language-model-fundamentally-different-from"><h3 class="hx-q">What makes serving a large language model fundamentally different from traditional machine learning workloads?</h3><p class="hx-a">Serving a large language model requires running it on accelerators like GPUs or TPUs with computationally intensive processes that need quick and efficient…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/ai-a16z">▶ Listen to this moment · 2:27</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/ai-a16z/what-makes-serving-a-large-language-model-fundamentally-different-from.html">Full answer →</a></div></article></section>
 </div>
+<script>
+(function(){var i=document.querySelector('.hx-search');if(!i)return;var e=document.querySelector('.hx-empty');
+i.addEventListener('input',function(){var v=i.value.toLowerCase().trim(),any=false;
+document.querySelectorAll('.hx-qa').forEach(function(a){var ok=!v||a.textContent.toLowerCase().indexOf(v)>-1;a.classList.toggle('hx-hidden',!ok);if(ok)any=true;});
+document.querySelectorAll('.hx-episode').forEach(function(s){s.classList.toggle('hx-hidden',!s.querySelector('.hx-qa:not(.hx-hidden)'));});
+if(e)e.hidden=any;});})();
+</script>
 <!-- QUESTIONS_COVERED_END -->
 </main>
 

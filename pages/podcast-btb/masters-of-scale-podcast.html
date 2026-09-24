@@ -345,56 +345,40 @@ footer a { text-decoration: underline; color: #bbb; }
 
 
 
+
 <!-- QUESTIONS_COVERED_START -->
 <style>
-.qc-wrap { margin-top:48px; padding-top:32px; border-top:1px solid #ececec; }
-.qc-title { font-size:21px; font-weight:800; margin:0 0 4px; color:#0a0a0a; }
-.qc-sub { font-size:13px; color:#888; margin:0 0 20px; }
-.qc-list { display:flex; flex-direction:column; gap:10px; }
-.qc-item { display:block; padding:16px 20px; border:1px solid #ececec; border-radius:12px;
-  text-decoration:none; color:inherit; background:#fafafa; transition:border-color .15s, box-shadow .15s, background .15s; }
-.qc-item:hover { border-color:#c9c9c9; background:#fff; box-shadow:0 3px 12px rgba(0,0,0,.06); }
-.qc-q { font-weight:700; font-size:15px; color:#111; line-height:1.4; margin-bottom:5px; }
-.qc-meta { font-size:12px; color:#999; }
+.hx-wrap { margin:32px 0 40px; padding-top:28px; border-top:1px solid #ececec; }
+.hx-title { font-size:22px; font-weight:800; margin:0 0 4px; color:#0a0a0a; }
+.hx-stats { font-size:13px; color:#777; margin:0 0 16px; }
+.hx-tools { position:sticky; top:0; background:#fff; padding:10px 0 8px; z-index:5; }
+.hx-search { width:100%; box-sizing:border-box; padding:12px 16px; font-size:16px; border:1px solid #e2e2e2; border-radius:12px; background:#fafafa; }
+.hx-chips { display:flex; gap:8px; overflow-x:auto; padding:10px 0 2px; }
+.hx-chip { white-space:nowrap; font-size:12px; color:#333; text-decoration:none; background:#f4f4f4; border:1px solid #e6e6e6; border-radius:999px; padding:5px 11px; }
+.hx-chip span { color:#999; }
+.hx-empty { font-size:14px; color:#888; }
+.hx-ep { font-size:17px; font-weight:800; color:#111; margin:26px 0 10px; line-height:1.35; }
+.hx-qa { border:1px solid #ececec; background:#fafafa; border-radius:12px; padding:16px 18px; margin:0 0 10px; }
+.hx-q { font-size:16px; font-weight:700; color:#111; line-height:1.4; margin:0 0 6px; }
+.hx-a { font-size:15px; line-height:1.6; color:#333; margin:0 0 10px; }
+.hx-foot { display:flex; flex-wrap:wrap; gap:14px; align-items:center; font-size:13px; }
+.hx-listen { font-weight:700; text-decoration:none; color:#1f5fbf; background:#eaf1fd; padding:5px 12px; border-radius:999px; }
+.hx-more { color:#777; }
+.hx-hidden { display:none; }
 </style>
-<div class="questions-covered qc-wrap">
-  <h2 class="qc-title">Questions covered</h2>
-  <p class="qc-sub">8 questions explored from this podcast</p>
-  <div class="qc-list">
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/masters-of-scale/how-does-a-humanitarian-organization-rebrand-its-identity-to-better-re.html">
-    <div class="qc-q">How does a humanitarian organization rebrand its identity to better reflect evolved mission scope beyond traditional emergency relief?</div>
-    <div class="qc-meta">2026-09-24 · Rebranding in a war zone, with Prosper Global (formerly Mercy Corps)</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/masters-of-scale/what-are-the-immediate-and-long-term-humanitarian-priorities-when-resp.html">
-    <div class="qc-q">What are the immediate and long-term humanitarian priorities when responding to catastrophic flooding in vulnerable regions prone to climate disasters?</div>
-    <div class="qc-meta">2026-09-23 · Rebranding in a war zone, with Prosper Global (formerly Mercy Corps)</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/masters-of-scale/what-skill-differentiates-intelligent-response-from-mere-speed-in-lead.html">
-    <div class="qc-q">What skill differentiates intelligent response from mere speed in leadership during times of disruption?</div>
-    <div class="qc-meta">2026-09-22 · Brené Brown & Reid Hoffman on the skills every leader needs now</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/masters-of-scale/how-does-systems-thinking-and-permeable-boundaries-relate-to-organizat.html">
-    <div class="qc-q">How does systems thinking and permeable boundaries relate to organizational resilience and AI investment success?</div>
-    <div class="qc-meta">2026-09-21 · Brené Brown & Reid Hoffman on the skills every leader needs now</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/masters-of-scale/what-is-emotional-granularity-and-why-is-it-critical-for-leadership-ef.html">
-    <div class="qc-q">What is emotional granularity and why is it critical for leadership effectiveness?</div>
-    <div class="qc-meta">2026-09-20 · Brené Brown & Reid Hoffman on the skills every leader needs now</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/masters-of-scale/what-is-the-distinction-between-cognitive-empathy-and-affective-empath.html">
-    <div class="qc-q">What is the distinction between cognitive empathy and affective empathy in leadership?</div>
-    <div class="qc-meta">2026-09-19 · Brené Brown & Reid Hoffman on the skills every leader needs now</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/masters-of-scale/how-should-leaders-identify-and-overcome-their-personal-defense-mechan.html">
-    <div class="qc-q">How should leaders identify and overcome their personal defense mechanisms when facing uncertainty?</div>
-    <div class="qc-meta">2026-09-18 · Brené Brown & Reid Hoffman on the skills every leader needs now</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/masters-of-scale/what-are-the-core-components-that-make-up-courageous-leadership-as-a-t.html">
-    <div class="qc-q">What are the core components that make up courageous leadership as a teachable skill?</div>
-    <div class="qc-meta">2026-09-17 · Brené Brown & Reid Hoffman on the skills every leader needs now</div>
-  </a>
-  </div>
+<div class="questions-covered hx-wrap" id="answers">
+  <h2 class="hx-title">Answers from this podcast</h2>
+  <p class="hx-stats">7 questions answered · 2 episodes indexed</p>
+  
+  <section class="hx-episode"><h3 class="hx-ep" id="ep-rebranding-in-a-war-zone-with-prosper-global-formerly-mercy-corps">Rebranding in a war zone, with Prosper Global (formerly Mercy Corps)</h3><article class="hx-qa" id="what-are-the-immediate-and-long-term-humanitarian-priorities-when-resp"><h3 class="hx-q">What are the immediate and long-term humanitarian priorities when responding to catastrophic flooding in vulnerable regions prone to climate disasters?</h3><p class="hx-a">In Nepal, the immediate response involves providing food, hygiene kits, and shelter. However, longer-term work focuses on helping communities become…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/masters-of-scale">▶ Listen to this moment · 1:54</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/masters-of-scale/what-are-the-immediate-and-long-term-humanitarian-priorities-when-resp.html">Full answer →</a></div></article></section><section class="hx-episode"><h3 class="hx-ep" id="ep-bren-brown-reid-hoffman-on-the-skills-every-leader-needs-now">Brené Brown &amp; Reid Hoffman on the skills every leader needs now</h3><article class="hx-qa" id="what-skill-differentiates-intelligent-response-from-mere-speed-in-lead"><h3 class="hx-q">What skill differentiates intelligent response from mere speed in leadership during times of disruption?</h3><p class="hx-a">Leaders today must develop anticipatory awareness, temporal awareness, and situational awareness—the ability to read what they can&#x27;t see, similar to a…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/masters-of-scale">▶ Listen to this moment · 21:00</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/masters-of-scale/what-skill-differentiates-intelligent-response-from-mere-speed-in-lead.html">Full answer →</a></div></article><article class="hx-qa" id="how-does-systems-thinking-and-permeable-boundaries-relate-to-organizat"><h3 class="hx-q">How does systems thinking and permeable boundaries relate to organizational resilience and AI investment success?</h3><p class="hx-a">A healthy system requires permeable boundaries where good data and feedback can flow in and out freely. When boundaries close and feedback is not brought in…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/masters-of-scale">▶ Listen to this moment · 15:48</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/masters-of-scale/how-does-systems-thinking-and-permeable-boundaries-relate-to-organizat.html">Full answer →</a></div></article><article class="hx-qa" id="what-is-emotional-granularity-and-why-is-it-critical-for-leadership-ef"><h3 class="hx-q">What is emotional granularity and why is it critical for leadership effectiveness?</h3><p class="hx-a">Emotional granularity is the ability to have a robust emotional lexicon and accurately name what you&#x27;re experiencing. Research shows adults in this country…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/masters-of-scale">▶ Listen to this moment · 9:48</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/masters-of-scale/what-is-emotional-granularity-and-why-is-it-critical-for-leadership-ef.html">Full answer →</a></div></article><article class="hx-qa" id="what-is-the-distinction-between-cognitive-empathy-and-affective-empath"><h3 class="hx-q">What is the distinction between cognitive empathy and affective empathy in leadership?</h3><p class="hx-a">Cognitive empathy is when someone shares a problem, you reflect back what you hear, and they feel seen, heard, and believed—this is the source code for…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/masters-of-scale">▶ Listen to this moment · 6:28</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/masters-of-scale/what-is-the-distinction-between-cognitive-empathy-and-affective-empath.html">Full answer →</a></div></article><article class="hx-qa" id="how-should-leaders-identify-and-overcome-their-personal-defense-mechan"><h3 class="hx-q">How should leaders identify and overcome their personal defense mechanisms when facing uncertainty?</h3><p class="hx-a">Leaders should identify their go-to armor—the self-protective behavior they default to when afraid, such as perfectionism, micromanagement, or…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/masters-of-scale">▶ Listen to this moment · 2:12</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/masters-of-scale/how-should-leaders-identify-and-overcome-their-personal-defense-mechan.html">Full answer →</a></div></article><article class="hx-qa" id="what-are-the-core-components-that-make-up-courageous-leadership-as-a-t"><h3 class="hx-q">What are the core components that make up courageous leadership as a teachable skill?</h3><p class="hx-a">Courage is teachable, measurable, and observable, made up of four things: the ability to be clear about your values and assess whether you&#x27;re behaving in…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/masters-of-scale">▶ Listen to this moment · 0:44</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/masters-of-scale/what-are-the-core-components-that-make-up-courageous-leadership-as-a-t.html">Full answer →</a></div></article></section>
 </div>
+<script>
+(function(){var i=document.querySelector('.hx-search');if(!i)return;var e=document.querySelector('.hx-empty');
+i.addEventListener('input',function(){var v=i.value.toLowerCase().trim(),any=false;
+document.querySelectorAll('.hx-qa').forEach(function(a){var ok=!v||a.textContent.toLowerCase().indexOf(v)>-1;a.classList.toggle('hx-hidden',!ok);if(ok)any=true;});
+document.querySelectorAll('.hx-episode').forEach(function(s){s.classList.toggle('hx-hidden',!s.querySelector('.hx-qa:not(.hx-hidden)'));});
+if(e)e.hidden=any;});})();
+</script>
 <!-- QUESTIONS_COVERED_END -->
 </main>
 	

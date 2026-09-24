@@ -355,84 +355,40 @@ footer a { text-decoration: underline; color: #bbb; }
 
 
 
+
 <!-- QUESTIONS_COVERED_START -->
 <style>
-.qc-wrap { margin-top:48px; padding-top:32px; border-top:1px solid #ececec; }
-.qc-title { font-size:21px; font-weight:800; margin:0 0 4px; color:#0a0a0a; }
-.qc-sub { font-size:13px; color:#888; margin:0 0 20px; }
-.qc-list { display:flex; flex-direction:column; gap:10px; }
-.qc-item { display:block; padding:16px 20px; border:1px solid #ececec; border-radius:12px;
-  text-decoration:none; color:inherit; background:#fafafa; transition:border-color .15s, box-shadow .15s, background .15s; }
-.qc-item:hover { border-color:#c9c9c9; background:#fff; box-shadow:0 3px 12px rgba(0,0,0,.06); }
-.qc-q { font-weight:700; font-size:15px; color:#111; line-height:1.4; margin-bottom:5px; }
-.qc-meta { font-size:12px; color:#999; }
+.hx-wrap { margin:32px 0 40px; padding-top:28px; border-top:1px solid #ececec; }
+.hx-title { font-size:22px; font-weight:800; margin:0 0 4px; color:#0a0a0a; }
+.hx-stats { font-size:13px; color:#777; margin:0 0 16px; }
+.hx-tools { position:sticky; top:0; background:#fff; padding:10px 0 8px; z-index:5; }
+.hx-search { width:100%; box-sizing:border-box; padding:12px 16px; font-size:16px; border:1px solid #e2e2e2; border-radius:12px; background:#fafafa; }
+.hx-chips { display:flex; gap:8px; overflow-x:auto; padding:10px 0 2px; }
+.hx-chip { white-space:nowrap; font-size:12px; color:#333; text-decoration:none; background:#f4f4f4; border:1px solid #e6e6e6; border-radius:999px; padding:5px 11px; }
+.hx-chip span { color:#999; }
+.hx-empty { font-size:14px; color:#888; }
+.hx-ep { font-size:17px; font-weight:800; color:#111; margin:26px 0 10px; line-height:1.35; }
+.hx-qa { border:1px solid #ececec; background:#fafafa; border-radius:12px; padding:16px 18px; margin:0 0 10px; }
+.hx-q { font-size:16px; font-weight:700; color:#111; line-height:1.4; margin:0 0 6px; }
+.hx-a { font-size:15px; line-height:1.6; color:#333; margin:0 0 10px; }
+.hx-foot { display:flex; flex-wrap:wrap; gap:14px; align-items:center; font-size:13px; }
+.hx-listen { font-weight:700; text-decoration:none; color:#1f5fbf; background:#eaf1fd; padding:5px 12px; border-radius:999px; }
+.hx-more { color:#777; }
+.hx-hidden { display:none; }
 </style>
-<div class="questions-covered qc-wrap">
-  <h2 class="qc-title">Questions covered</h2>
-  <p class="qc-sub">15 questions explored from this podcast</p>
-  <div class="qc-list">
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/what-challenges-does-an-independent-artist-face-in-promoting-an-album-.html">
-    <div class="qc-q">What challenges does an independent artist face in promoting an album in 2026?</div>
-    <div class="qc-meta">2026-09-24 · Adam Weiner</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/how-did-a-musician-discover-the-connection-between-president-obama-and.html">
-    <div class="qc-q">How did a musician discover the connection between President Obama and his band?</div>
-    <div class="qc-meta">2026-09-23 · Adam Weiner</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/what-decision-point-in-2015-led-adam-wiener-to-leave-teaching-and-purs.html">
-    <div class="qc-q">What decision point in 2015 led Adam Wiener to leave teaching and pursue music full-time?</div>
-    <div class="qc-meta">2026-09-22 · Adam Weiner</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/how-did-a-musician-transition-from-diy-promotion-to-systematic-outreac.html">
-    <div class="qc-q">How did a musician transition from DIY promotion to systematic outreach after initial press success?</div>
-    <div class="qc-meta">2026-09-21 · Adam Weiner</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/what-role-did-npr-s-fresh-air-play-in-low-cut-connie-s-breakthrough.html">
-    <div class="qc-q">What role did NPR's Fresh Air play in Low Cut Connie's breakthrough?</div>
-    <div class="qc-meta">2026-09-20 · Adam Weiner</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/how-did-low-cut-connie-receive-critical-attention-that-led-to-widespre.html">
-    <div class="qc-q">How did Low Cut Connie receive critical attention that led to widespread press coverage?</div>
-    <div class="qc-meta">2026-09-19 · Adam Weiner</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/what-event-transformed-low-cut-connie-from-a-one-off-project-into-a-co.html">
-    <div class="qc-q">What event transformed Low Cut Connie from a one-off project into a continuing band?</div>
-    <div class="qc-meta">2026-09-18 · Adam Weiner</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/what-circumstances-led-to-the-formation-of-low-cut-connie-as-a-band.html">
-    <div class="qc-q">What circumstances led to the formation of Low Cut Connie as a band?</div>
-    <div class="qc-meta">2026-09-17 · Adam Weiner</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/how-did-low-cut-connie-get-its-name.html">
-    <div class="qc-q">How did Low Cut Connie get its name?</div>
-    <div class="qc-meta">2026-09-16 · Adam Weiner</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/what-business-structures-and-mentor-relationships-sustain-an-independe.html">
-    <div class="qc-q">What business structures and mentor relationships sustain an independent artist through industry setbacks?</div>
-    <div class="qc-meta">2026-09-15 · Maggie Rose</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/how-does-a-songwriter-interpret-their-own-work-differently-after-major.html">
-    <div class="qc-q">How does a songwriter interpret their own work differently after major life events?</div>
-    <div class="qc-meta">2026-09-14 · Maggie Rose</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/what-circumstances-led-to-a-major-label-dropping-an-artist-and-how-did.html">
-    <div class="qc-q">What circumstances led to a major label dropping an artist and how did that impact her trajectory?</div>
-    <div class="qc-meta">2026-09-13 · Maggie Rose</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/how-did-becoming-a-mother-change-an-artist-s-creative-process-and-pers.html">
-    <div class="qc-q">How did becoming a mother change an artist's creative process and perspective on career ambition?</div>
-    <div class="qc-meta">2026-09-12 · Maggie Rose</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/what-role-does-the-album-format-play-in-an-artist-s-career-strategy-in.html">
-    <div class="qc-q">What role does the album format play in an artist's career strategy in the streaming era?</div>
-    <div class="qc-meta">2026-09-11 · Maggie Rose</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/how-does-a-nashville-based-artist-overcome-genre-categorization-when-t.html">
-    <div class="qc-q">How does a Nashville-based artist overcome genre categorization when their sound diverges from regional expectations?</div>
-    <div class="qc-meta">2026-09-10 · Maggie Rose</div>
-  </a>
-  </div>
+<div class="questions-covered hx-wrap" id="answers">
+  <h2 class="hx-title">Answers from this podcast</h2>
+  <p class="hx-stats">9 questions answered · 2 episodes indexed</p>
+  
+  <section class="hx-episode"><h3 class="hx-ep" id="ep-adam-weiner">Adam Weiner</h3><article class="hx-qa" id="what-challenges-does-an-independent-artist-face-in-promoting-an-album-"><h3 class="hx-q">What challenges does an independent artist face in promoting an album in 2026?</h3><p class="hx-a">Wiener acknowledged that nobody in the music industry has a clear answer for promoting albums in 2026, especially the album format itself. He emphasized…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/the-bob-lefsetz-podcast">▶ Listen to this moment · 21:14</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/what-challenges-does-an-independent-artist-face-in-promoting-an-album-.html">Full answer →</a></div></article><article class="hx-qa" id="how-did-a-musician-discover-the-connection-between-president-obama-and"><h3 class="hx-q">How did a musician discover the connection between President Obama and his band?</h3><p class="hx-a">The White House Instagram account posted a photograph of Obama writing out his summer playlist, and in the image underneath his hand, the text &#x27;Low Cut…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/the-bob-lefsetz-podcast">▶ Listen to this moment · 30:59</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/how-did-a-musician-discover-the-connection-between-president-obama-and.html">Full answer →</a></div></article><article class="hx-qa" id="what-decision-point-in-2015-led-adam-wiener-to-leave-teaching-and-purs"><h3 class="hx-q">What decision point in 2015 led Adam Wiener to leave teaching and pursue music full-time?</h3><p class="hx-a">In August 2015, President Obama included Low Cut Connie&#x27;s song &#x27;Boozophelia&#x27; on his official Spotify playlist of summer songs, alongside Rolling Stones,…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/the-bob-lefsetz-podcast">▶ Listen to this moment · 28:21</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/what-decision-point-in-2015-led-adam-wiener-to-leave-teaching-and-purs.html">Full answer →</a></div></article><article class="hx-qa" id="what-role-did-npr-s-fresh-air-play-in-low-cut-connie-s-breakthrough"><h3 class="hx-q">What role did NPR&#x27;s Fresh Air play in Low Cut Connie&#x27;s breakthrough?</h3><p class="hx-a">Wiener sent the album to Fresh Air&#x27;s music critic with a note mentioning endorsements from Robert Criscow and Dave Marsh. The Fresh Air producer responded…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/the-bob-lefsetz-podcast">▶ Listen to this moment · 10:18</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/what-role-did-npr-s-fresh-air-play-in-low-cut-connie-s-breakthrough.html">Full answer →</a></div></article><article class="hx-qa" id="how-did-low-cut-connie-receive-critical-attention-that-led-to-widespre"><h3 class="hx-q">How did Low Cut Connie receive critical attention that led to widespread press coverage?</h3><p class="hx-a">Wiener sent CDs to music critics including Robert Criscow at Village Voice, who gave the album an A- and called it one of the best albums of the year in…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/the-bob-lefsetz-podcast">▶ Listen to this moment · 7:57</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/how-did-low-cut-connie-receive-critical-attention-that-led-to-widespre.html">Full answer →</a></div></article><article class="hx-qa" id="what-event-transformed-low-cut-connie-from-a-one-off-project-into-a-co"><h3 class="hx-q">What event transformed Low Cut Connie from a one-off project into a continuing band?</h3><p class="hx-a">A New Year&#x27;s Eve show in Philadelphia in 2010 drew approximately 400 people and was described as &#x27;explosive,&#x27; with Wiener standing on the piano and tearing…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/the-bob-lefsetz-podcast">▶ Listen to this moment · 5:56</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/what-event-transformed-low-cut-connie-from-a-one-off-project-into-a-co.html">Full answer →</a></div></article><article class="hx-qa" id="what-circumstances-led-to-the-formation-of-low-cut-connie-as-a-band"><h3 class="hx-q">What circumstances led to the formation of Low Cut Connie as a band?</h3><p class="hx-a">Wiener turned 30 after years of unsuccessful solo music attempts and accepted a full-time teaching job starting in September. Two months before the job…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/the-bob-lefsetz-podcast">▶ Listen to this moment · 4:28</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/what-circumstances-led-to-the-formation-of-low-cut-connie-as-a-band.html">Full answer →</a></div></article><article class="hx-qa" id="how-did-low-cut-connie-get-its-name"><h3 class="hx-q">How did Low Cut Connie get its name?</h3><p class="hx-a">Two band members wanted different names—one wanted &#x27;The Low Cut&#x27; and another wanted &#x27;The Connies.&#x27; Wiener disliked both options and had 24 hours to decide…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/the-bob-lefsetz-podcast">▶ Listen to this moment · 0:12</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/how-did-low-cut-connie-get-its-name.html">Full answer →</a></div></article></section><section class="hx-episode"><h3 class="hx-ep" id="ep-maggie-rose">Maggie Rose</h3><article class="hx-qa" id="what-role-does-the-album-format-play-in-an-artist-s-career-strategy-in"><h3 class="hx-q">What role does the album format play in an artist&#x27;s career strategy in the streaming era?</h3><p class="hx-a">Rose believes deeply in the album format because it allows for longer-form storytelling in a bite-sized world, and she&#x27;s found that her fanbase comes to…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/the-bob-lefsetz-podcast">▶ Listen to this moment · 9:50</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/the-bob-lefsetz-podcast/what-role-does-the-album-format-play-in-an-artist-s-career-strategy-in.html">Full answer →</a></div></article></section>
 </div>
+<script>
+(function(){var i=document.querySelector('.hx-search');if(!i)return;var e=document.querySelector('.hx-empty');
+i.addEventListener('input',function(){var v=i.value.toLowerCase().trim(),any=false;
+document.querySelectorAll('.hx-qa').forEach(function(a){var ok=!v||a.textContent.toLowerCase().indexOf(v)>-1;a.classList.toggle('hx-hidden',!ok);if(ok)any=true;});
+document.querySelectorAll('.hx-episode').forEach(function(s){s.classList.toggle('hx-hidden',!s.querySelector('.hx-qa:not(.hx-hidden)'));});
+if(e)e.hidden=any;});})();
+</script>
 <!-- QUESTIONS_COVERED_END -->
 </main>
 
