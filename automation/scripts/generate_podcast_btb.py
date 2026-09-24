@@ -888,6 +888,17 @@ if(urlQuery){{
 </body>
 </html>"""
 
+NOINDEX_META_RE = re.compile(r'<meta[^>]+name=["\']robots["\'][^>]*noindex', re.IGNORECASE)
+
+def _has_noindex_meta(path):
+    """True si la page porte une balise <meta name="robots" ... noindex> (fiches retirees de
+    l'index lors de l'audit qualite du 24/09/2026, dashboard, pages internes...)."""
+    try:
+        with open(path, encoding="utf-8", errors="ignore") as f:
+            return bool(NOINDEX_META_RE.search(f.read(4000)))
+    except OSError:
+        return False
+
 def build_sitemap():
     """Scanne tout /pages/podcast-btb/ et régénère un sitemap XML à jour.
     Appelée par generate_podcast_btb.py ET generate_episode_fiches_btb.py
@@ -930,6 +941,8 @@ def build_sitemap():
             if fname == "historique.html":
                 continue  # page interne perso, jamais dans le sitemap public
             full_path = os.path.join(root, fname)
+            if _has_noindex_meta(full_path):
+                continue  # une page noindex n'a rien a faire dans un sitemap (signal contradictoire pour Google)
             rel_path = os.path.relpath(full_path, PAGES_DIR).replace(os.sep, "/")
             url = f"https://listenly.fr/podcast-btb/{rel_path}"
 

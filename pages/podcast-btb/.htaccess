@@ -28,3 +28,15 @@ RewriteRule ^episodes/([^/]+)/index\.html$ /podcast-btb/$1-podcast.html [R=301,L
 <FilesMatch "^(business|business-investing-gestion-de-patrimoine|business-transformation-it|construction-infrastructure|developpement-personnel-leadership|droit|droit-business-juridique|droit-juridique|e-commerce-retail|entrepreneuriat-creation|expertise-comptable-management|finance-banque|finance-conformite|finance-entrepreneuriat|finance-gestion-d-actifs|finance-investissement|formation-professionnelle|general|geopolitique-affaires|gestion-de-patrimoine|immobilier-habitat|immobilier-leadership|impact-social-finance-responsable|innovation-financement-b2b|intelligence-artificielle-data|management-rh|marketing|recherche-management|ressources-humaines|risk-management-conformite-b2b|rse-developpement-durable|rse-leadership|sante-bien-etre|sante-medecine|sante-societe|societe-foi|societe-identite|societe-personnalites|technologie-business|technology-business)\.html$">
   Header set X-Robots-Tag "noindex, follow"
 </FilesMatch>
+
+# Ajout du 24/09/2026 : le podcast "De la cave au grenier" existait en double
+# (slug aleatoire ogd6etwxpdgr + slug de-la-cave-au-grenier, meme flux RSS).
+# Google a refuse la copie ("Exploree, actuellement non indexee"). Le doublon est
+# supprime et redirige vers la fiche conservee.
+RewriteRule ^ogd6etwxpdgr-podcast\.html$ /podcast-btb/de-la-cave-au-grenier-podcast.html [R=301,L]
+
+# Ajout du 24/09/2026 : le slug "the retreat leaders podcast" contenait des espaces
+# (URLs en %20, canonique non conforme a l'URL exploree). Renomme en
+# the-retreat-leaders-podcast ; les anciennes URLs redirigent vers les nouvelles.
+RewriteRule ^the\s+retreat\s+leaders\s+podcast-podcast\.html$ /podcast-btb/the-retreat-leaders-podcast-podcast.html [R=301,L]
+RewriteRule ^questions/the\s+retreat\s+leaders\s+podcast/(.*)$ /podcast-btb/questions/the-retreat-leaders-podcast/$1 [R=301,L]

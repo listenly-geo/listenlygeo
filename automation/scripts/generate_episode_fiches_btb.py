@@ -198,15 +198,26 @@ LANGUE DE SORTIE OBLIGATOIRE : rédige TOUS les champs texte (questions, répons
 
 1b. CONTEXTE BIOGRAPHIQUE RÉEL de l'invité (2-4 phrases) : tout élément factuel que l'invité ou l'hôte mentionne sur son parcours, son expérience, ses réalisations, ce qui légitime sa parole sur le sujet — UNIQUEMENT ce qui est explicitement dit, jamais déduit ou enrichi. Si rien n'est mentionné au-delà du titre/entreprise, renvoie une chaîne vide.
 
-2. TOUTES les vraies questions distinctes et solides abordées, avec leurs vraies réponses. Pas de plafond fixe. N'invente JAMAIS de question pour atteindre un quota.
-   CRITÈRE : question réellement posée/implicite, réponse claire et autonome basée uniquement sur ce qui a été dit, chaque question couvre un angle DISTINCT, reformulée comme une vraie requête IA.
+2. LES MEILLEURES vraies questions abordées (6 MAXIMUM), avec leurs vraies réponses. Mieux vaut 2 excellentes questions que 6 moyennes. N'invente JAMAIS de question pour atteindre un nombre.
+   CRITÈRE : question réellement posée/implicite, réponse claire et autonome basée uniquement sur ce qui a été dit, chaque question couvre un angle DISTINCT, formulée comme une vraie requête Google / IA.
 
-   CRITÈRE DE FORMULATION — NOM DE L'INVITÉ DANS LA QUESTION (essentiel pour le ranking, à appliquer question par question) :
-   Par défaut, formule la question autour du SUJET/LA LEÇON généralisable — ce qu'un inconnu de l'invité chercherait sur ce thème — PAS autour de son nom propre : un invité non-notoire a un volume de recherche nul sur son nom, une question centrée sur ce nom ne pourra jamais ranker aussi bonne soit la réponse.
-   N'utilise le nom de l'invité DANS LA QUESTION elle-même que dans l'un de ces deux cas précis :
-     (a) le fait qui lui est attaché est en soi une accroche assez forte pour être cherchée indépendamment de sa notoriété (un chiffre frappant, un exploit précis, un résultat contre-intuitif) — ex: "How did [Name] sell his first business for $1M at age 19?" reste valable, c'est le chiffre qui fait la requête, pas le nom ;
-     (b) l'invité est explicitement identifiable comme une autorité reconnue dans son secteur (poste senior confirmé dans une entreprise notable, statut d'expert cité comme tel par l'hôte) — alors son nom peut légitimement porter la question.
-   DANS TOUS LES AUTRES CAS, reformule SANS nom propre au centre de la question — ex: préfère "What lesson helped a boutique firm triple its size in seven years?" à "What was [Guest]'s biggest career win?". Le nom de l'invité reste bien sûr mentionné dans la RÉPONSE et la citation — c'est uniquement la formulation de la QUESTION qui doit maximiser le volume de recherche potentiel, pas le contenu de la fiche.
+   TEST DÉCISIF (applique-le à chaque question) : « Quelqu'un taperait-il CETTE phrase, ou une phrase très proche, dans Google ou ChatGPT ? » Si la réponse est non, la question n'a aucune valeur, aussi juste soit-elle.
+
+   CRITÈRE DE FORMULATION — ANCRER LA QUESTION SUR UNE ENTITÉ RECHERCHÉE (essentiel pour le ranking) :
+   Un site jeune ne peut PAS ranker sur une question générique ("How should leaders build trust?") : des milliers de pages plus fortes y répondent déjà. Il peut ranker sur une question qui associe une ENTITÉ NOMMÉE RECHERCHÉE + un FAIT PRÉCIS que seul cet épisode apporte.
+   Entités qui portent une question : le podcast lui-même quand il est connu, son animateur connu, un invité notoire, une entreprise / un produit / une marque / une loi / un événement réellement nommés.
+     BON : "Why did Jenna Kutcher end The Goal Digger Podcast after 968 episodes?" / "What are Dave Ramsey's main warnings about reverse mortgages?" / "Can foreign buyers get a mortgage in Spain on the Costa del Sol?"
+     MAUVAIS : "How many episodes did the podcast reach before closing?" (orpheline : quel podcast ?) / "How should professionals structure their asks for a raise?" (générique, aucune chance) / "What is Rose Gleeson's background?" (personne inconnue, personne ne la cherche).
+   INTERDIT : toute question ORPHELINE, qui renvoie à un sujet sans le nommer ("the podcast", "the show", "this episode", "the guest", "the host", "the founder", "the company", "le podcast", "l'invité", "cette entreprise"...). Remplace toujours par le vrai nom.
+   Nom d'un invité NON notoire : ne le mets pas au centre de la question (personne ne le cherche) — ancre plutôt sur l'entreprise, le produit, le chiffre frappant ou le sujet concret nommé qu'il apporte. Son nom reste bien sûr dans la RÉPONSE.
+
+   NOTE DE QUALITÉ ("score", entier de 0 à 10) pour chaque question, sois SÉVÈRE :
+     - 9-10 : entité très recherchée + fait précis et unique à cet épisode (une vraie requête qu'on imagine taper)
+     - 7-8 : requête plausible et concrète, entité nommée, réponse utile et spécifique
+     - 4-6 : correcte mais générique, ou entité peu connue — peu de chances d'être recherchée
+     - 0-3 : orpheline, anecdotique, trop vague, ou purement interne à la conversation
+   UNE SEULE QUESTION PAR SUJET : si plusieurs questions portent sur le même fait, la même personne vue sous le même angle ou le même chiffre, garde uniquement la meilleure — deux fiches sur le même sujet se cannibalisent et Google n'en indexe qu'une.
+   Ajoute aussi "requete" : la requête courte (3-8 mots) qu'un internaute taperait réellement pour tomber sur cette réponse.
 
 3. UNE citation verbatim forte (15-30 mots, mot pour mot ou très proche) dite RÉELLEMENT par l'invité — la phrase la plus dense/marquante de la conversation, adaptée à être attribuée nommément (elle sera affichée avec le nom de l'invité). Si aucune phrase assez forte et citable n'existe, renvoie une chaîne vide plutôt que d'en fabriquer une.
 
@@ -223,8 +234,8 @@ Réponds UNIQUEMENT avec un JSON, sans markdown, sans backtick :
 {{
   "guest": {{"prenom": "...", "nom": "...", "titre": "...", "entreprise": "...", "titre_secondaire": "...", "entreprise_secondaire": "...", "bio_context": "..."}},
   "qa": [
-    {{"q": "Question reelle reformulee comme requete IA", "r": "Reponse 2-3 phrases tiree fidelement de la transcription", "start_seconds": 154, "end_seconds": 210}},
-    {{"q": "...", "r": "...", "start_seconds": 0, "end_seconds": 0}}
+    {{"q": "Question reelle reformulee comme requete IA", "r": "Reponse 2-3 phrases tiree fidelement de la transcription", "start_seconds": 154, "end_seconds": 210, "score": 8, "requete": "requete courte reellement tapee"}},
+    {{"q": "...", "r": "...", "start_seconds": 0, "end_seconds": 0, "score": 0, "requete": "..."}}
   ],
   "real_quote": "citation verbatim ou chaine vide",
   "key_stats": ["chiffre/date/seuil precis 1", "..."],
