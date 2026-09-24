@@ -53,12 +53,6 @@
   },
   "pending_qa": [
     {
-      "q": "What role did the LFKN paper play in establishing interactive proof systems for modern verification?",
-      "r": "The LFKN paper from 1990-1992 established an efficient interactive proof for SharpSAT using the SumCheck protocol and demonstrated remarkable foresight. As Nisan notes, the paper had exactly the right protocol that researchers are still using today for modern SNARKs. The protocol emerged fully formed and elegant, and it became the centerpiece of complexity theory textbooks, showing that combining two concepts into one unified problem in computer science yields powerful results.",
-      "start_seconds": 17,
-      "end_seconds": 150
-    },
-    {
       "q": "How do modern SNARKs relate to interactive proofs and why is the SumCheck protocol central to current SNARK design?",
       "r": "Modern SNARKs combine interactive proofs with commitment schemes. Justin Thaler explains that the GKR protocol from 2008 uses the SumCheck protocol as a subroutine, and these interactive proofs are essentially half of a SNARK. By combining them with cryptographic commitments, the result is the SNARKs with the fastest provers today. Thaler predicts that SNARKs using the SumCheck protocol at the core will eventually transform how digital infrastructure handles trust, as the prover speed is the key bottleneck keeping SNARKs from widespread adoption.",
       "start_seconds": 1140,
@@ -107,6 +101,15 @@
       "source_episode_guid": "587902a4-5ca1-4cf1-8d1b-1752f104581e",
       "added_date": "2026-09-23",
       "answer_snippet": "Justin Thaler encountered the SumCheck protocol in a complexity theory course and later discovered it was instrumental for verifying cloud computation. The…"
+    },
+    {
+      "slug": "what-role-did-the-lfkn-paper-play-in-establishing-interactive-proof-sy",
+      "question": "What role did the LFKN paper play in establishing interactive proof systems for modern verification?",
+      "url": "https://listenly.fr/podcast-btb/questions/a16z-crypto-show/what-role-did-the-lfkn-paper-play-in-establishing-interactive-proof-sy.html",
+      "source_episode_title": "The 'Useless' Theory Behind Modern SNARKs (ft. Gödel Prize Winner Noam Nisan)",
+      "source_episode_guid": "587902a4-5ca1-4cf1-8d1b-1752f104581e",
+      "added_date": "2026-09-24",
+      "answer_snippet": "The LFKN paper from 1990-1992 established an efficient interactive proof for SharpSAT using the SumCheck protocol and demonstrated remarkable foresight. As…"
     }
   ]
 }

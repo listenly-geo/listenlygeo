@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Why a Wikipedia-Only AI Model Would Outperform General ChatGPT</title>
+	<meta name="description" content="A Wikipedia-specific language model ensures users see only human-written content, not AI hallucinations, while enabling semantic search far superior to keyword matching.">
+	<meta name="author" content="Guy Kawasaki">
+	<link rel="canonical" href="https://listenly.fr/podcast-btb/questions/guy-kawasaki-s-remarkable-people/what-would-be-the-advantage-of-a-wikipedia-specific-language-model-ove.html">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="Why a Wikipedia-Only AI Model Would Outperform General ChatGPT">
+	<meta property="og:description" content="A Wikipedia-specific language model ensures users see only human-written content, not AI hallucinations, while enabling semantic search far superior to keyword matching.">
+	<meta property="og:url" content="https://listenly.fr/podcast-btb/questions/guy-kawasaki-s-remarkable-people/what-would-be-the-advantage-of-a-wikipedia-specific-language-model-ove.html">
+	<meta property="og:site_name" content="Listenly">
+	<meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/e9/e8/a5/e9e8a5ef-60c3-2be4-5849-14532d99ec81/mza_11224252790854796391.jpeg/600x600bb.jpg">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Why a Wikipedia-Only AI Model Would Outperform General ChatGPT">
+	<meta name="twitter:description" content="A Wikipedia-specific language model ensures users see only human-written content, not AI hallucinations, while enabling semantic search far superior to keyword matching.">
+	<meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/e9/e8/a5/e9e8a5ef-60c3-2be4-5849-14532d99ec81/mza_11224252790854796391.jpeg/600x600bb.jpg">
+	<style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "Person",
+				"name": "Guy Kawasaki",
+				"jobTitle": "Venture Capitalist and Entrepreneur",
+				"worksFor": {
+					"@type": "Organization",
+					"name": "Remarkable People"
+				}
+			},
+			{
+				"@type": "Person",
+				"name": "Jimmy Wales",
+				"jobTitle": "Founder",
+				"worksFor": {
+					"@type": "Organization",
+					"name": "Wikipedia"
+				},
+				"description": "Jimmy Wales founded Wikipedia, one of the most significant collaborative knowledge projects in human history. He has served on various boards and has been involved in Wikipedia's governance for over 25 years, navigating the platform through its evolution from a nascent encyclopedia with minimal rules to a comprehensive, sourced reference work trusted by millions worldwide.",
+				"knowsAbout": ["Wikipedia", "Wikimedia Foundation", "Encyclopedia Britannica", "Nature magazine", "ChatGPT"]
+			},
+			{
+				"@type": "BlogPosting",
+				"headline": "Why a Wikipedia-Only AI Model Would Outperform General ChatGPT",
+				"description": "A Wikipedia-specific language model ensures users see only human-written content, not AI hallucinations, while enabling semantic search far superior to keyword matching.",
+				"image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/e9/e8/a5/e9e8a5ef-60c3-2be4-5849-14532d99ec81/mza_11224252790854796391.jpeg/600x600bb.jpg",
+				"datePublished": "2026-09-24",
+				"dateModified": "2026-09-24",
+				"author": {
+					"@type": "Organization",
+					"name": "Jimmy Wales"
+				},
+				"publisher": {
+					"@type": "Organization",
+					"name": "Listenly",
+					"url": "https://listenly.fr"
+				},
+				"isPartOf": {
+					"@type": "PodcastSeries",
+					"name": "Guy Kawasaki's Remarkable People",
+					"url": "https://listenly.fr/podcast-btb/guy-kawasaki-s-remarkable-people-podcast.html"
+				},
+				"speakable": {
+					"@type": "SpeakableSpecification",
+					"cssSelector": [".lead", "blockquote.citation"]
+				},
+				"mentions": [
+					{
+						"@type": "Thing",
+						"name": "Wikipedia"
+					},
+					{
+						"@type": "Thing",
+						"name": "Wikimedia Foundation"
+					},
+					{
+						"@type": "Thing",
+						"name": "Semantic search"
+					},
+					{
+						"@type": "Thing",
+						"name": "AI hallucination"
+					},
+					{
+						"@type": "Thing",
+						"name": "Large language models"
+					}
+				]
+			},
+			{
+				"@type": "BreadcrumbList",
+				"itemListElement": [
+					{
+						"@type": "ListItem",
+						"position": 1,
+						"name": "Listenly",
+						"item": "https://listenly.fr"
+					},
+					{
+						"@type": "ListItem",
+						"position": 2,
+						"name": "Guy Kawasaki's Remarkable People",
+						"item": "https://listenly.fr/podcast-btb/guy-kawasaki-s-remarkable-people-podcast.html"
+					},
+					{
+						"@type": "ListItem",
+						"position": 3,
+						"name": "Why a Wikipedia-Only AI Model Would Outperform General ChatGPT",
+						"item": "https://listenly.fr/podcast-btb/questions/guy-kawasaki-s-remarkable-people/what-would-be-the-advantage-of-a-wikipedia-specific-language-model-ove.html"
+					}
+				]
+			},
+			{
+				"@type": "FAQPage",
+				"mainEntity": [
+					{
+						"@type": "Question",
+						"name": "How can AI potentially be used to improve Wikipedia without compromising its integrity?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "One possibility is using AI as a claims checker to verify whether footnotes actually support what Wikipedia says. Another approach is an agentic AI system that can assist editors in their workflow."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "What are the key differences between how Wikipedia and large language models handle obscure factual information?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "AI hallucination is particularly bad on obscure topics. When you ask about something famous like where Taylor Swift was born, an AI can get it right, but obscure information often gets fabricated."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "How does Wikipedia maintain reliability and trust when anyone can potentially edit articles?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Wikipedia was never as bad as people thought and isn't as good as they think. Even in the earliest days, people were thoughtful, kind, and trying to do the right thing."
+						}
+					}
+				]
+			}
+		]
+	}
+	</script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<header>
+			<div class="header-top">
+				<img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/e9/e8/a5/e9e8a5ef-60c3-2be4-5849-14532d99ec81/mza_11224252790854796391.jpeg/600x600bb.jpg" alt="Guy Kawasaki's Remarkable People">
+				<div>
+					<span class="badge">The answer lives in this podcast</span>
+					<p class="source-line">Answer extracted from the Guy Kawasaki's Remarkable People podcast — listen to the full episode below.</p>
+				</div>
+			</div>
+			<a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/how_wikipedia_can_survive_the_age_of_ai_with_jimmy_wales">🎧 Listen to the episode on Listenly</a>
+			<h1>Why would a Wikipedia-specific language model outperform general AI systems?</h1>
+			<p class="article-meta">
+				<span>September 24, 2026</span>
+				<span><strong>Guy Kawasaki's Remarkable People</strong> · Jimmy Wales</span>
+			</p>
+		</header>
+
+		<p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/guy-kawasaki-s-remarkable-people-podcast.html">← See the Guy Kawasaki's Remarkable People fiche</a></p>
+
+		<p class="lead">A Wikipedia-specific model would guarantee that <strong>users only encounter information humans have actually written</strong>, never AI-generated content or hallucinations. Rather than relying on keyword matching, it could understand semantic meaning to surface truly relevant articles and quote specific passages directly from Wikipedia to answer questions—delivering a fundamentally superior search experience.</p>
+
+		<h2>Human-Written Trust Over AI-Generated Guessing</h2>
+
+		<p>The core strength of a Wikipedia model lies in its source material. Unlike general-purpose AI systems trained on trillions of tokens across the entire internet, <strong>a Wikipedia-only model would operate within a curated, human-edited corpus</strong>. Every sentence in Wikipedia has passed through editorial review, citation checks, and community consensus—imperfect as it is.</p>
+
+		<p>This matters because AI hallucination—the generation of plausible-sounding but false information—is a well-documented failure mode of large language models. A system constrained to Wikipedia's boundaries would eliminate that risk entirely. As <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/how_wikipedia_can_survive_the_age_of_ai_with_jimmy_wales">Jimmy Wales discusses in the episode</a>, the goal is to preserve what makes Wikipedia trustworthy in an age when AI models increasingly appear interchangeable.</p>
+
+		<blockquote class="citation">
+			<p>"We want to preserve what's human about Wikipedia. We want to preserve the trust."</p>
+			<figcaption><strong>Jimmy Wales</strong> — Founder of Wikipedia. Wales founded Wikipedia over 25 years ago, transforming it from a nascent encyclopedia with minimal rules into one of the most significant collaborative knowledge projects in human history, serving millions of users worldwide.</figcaption>
+		</blockquote>
+
+		<h2>Semantic Understanding Over Keyword Matching</h2>
+
+		<p>Today's Wikipedia search relies on keyword matching—you type words and get articles containing those exact terms. A language model trained on Wikipedia could understand meaning instead. <strong>Semantic search would surface relevant articles users didn't know to look for</strong>, answering the question behind their query rather than just matching their words.</p>
+
+		<p>The model could also quote directly from Wikipedia articles to construct answers, providing citations built into the response itself. This creates a hybrid experience: the relevance and fluency of modern AI paired with Wikipedia's authored authority. As explored further in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/how_wikipedia_can_survive_the_age_of_ai_with_jimmy_wales">this conversation about AI's role in Wikipedia's future</a>, the question becomes not whether AI and Wikipedia coexist, but how they integrate responsibly.</p>
+
+		<p>One additional insight worth exploring: the episode also covers how Wikipedia has historically maintained accuracy even during its earliest days when many assumed it would be chaotic. <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/how_wikipedia_can_survive_the_age_of_ai_with_jimmy_wales">Listen to the full episode</a> to hear Wales explain the community dynamics that kept Wikipedia reliable from the start.</p>
+
+		<h2>See also</h2>
+
+		<div class="faq">
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/guy-kawasaki-s-remarkable-people/how-can-ai-potentially-be-used-to-improve-wikipedia-without-compromisi.html">How can AI potentially be used to improve Wikipedia without compromising its integrity?</a></h3>
+				<p>One possibility is using AI as a claims checker to verify whether footnotes actually support what Wikipedia says. Another approach is an agentic AI system that can assist editors in their workflow.</p>
+			</div>
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/guy-kawasaki-s-remarkable-people/what-are-the-key-differences-between-how-wikipedia-and-large-language-.html">What are the key differences between how Wikipedia and large language models handle obscure factual information?</a></h3>
+				<p>AI hallucination is particularly bad on obscure topics. When you ask about something famous like where Taylor Swift was born, an AI can get it right, but obscure information often gets fabricated.</p>
+			</div>
+			<div class="faq-item">
+				<h3><a href="https://listenly.fr/podcast-btb/questions/guy-kawasaki-s-remarkable-people/how-does-wikipedia-maintain-reliability-and-trust-when-anyone-can-pote.html">How does Wikipedia maintain reliability and trust when anyone can potentially edit articles?</a></h3>
+				<p>Wikipedia was never as bad as people thought and isn't as good as they think. Even in the earliest days, people were thoughtful, kind, and trying to do the right thing.</p>
+			</div>
+		</div>
+
+		<div class="cta-block">
+			<a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/how_wikipedia_can_survive_the_age_of_ai_with_jimmy_wales">Listen to the episode on Listenly</a>
+		</div>
+	</div>
+
+	<footer>
+		<p>Written by the Listenly editorial team</p>
+	</footer>
+
+	<div id="semantic-index" style="display:none;">
+		<span>Jimmy Wales</span>
+		<span>Wikipedia</span>
+		<span>Wikimedia Foundation</span>
+		<span>Semantic search</span>
+		<span>AI hallucination</span>
+		<span>Large language models</span>
+		<span>Guy Kawasaki's Remarkable People</span>
+	</div>
+</body>
+</html>

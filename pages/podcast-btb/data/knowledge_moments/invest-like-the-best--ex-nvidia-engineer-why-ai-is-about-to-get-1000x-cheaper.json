@@ -1,0 +1,172 @@
+[
+  {
+    "podcast_name": "Invest Like The Best",
+    "episode_title": "Ex-NVIDIA Engineer: Why AI Is About to Get 1000x Cheaper",
+    "audio_url": "https://api.spreaker.com/download/episode/74788767/2092228676313780226.mp3",
+    "question": "What is the core business model and technical offering of a token factory API service?",
+    "transcript_excerpt": "Tail Research operates as a token factory with an API where anyone can send requests to use large language models and open source language models for any task, serving tokens at unbeatable market prices. They also support agents through sale boxes, which are long-running agent virtual machines hosted in the cloud designed for agents that run for hours, days, or weeks.",
+    "expert_name": null,
+    "start_seconds": 41,
+    "end_seconds": 87
+  },
+  {
+    "podcast_name": "Invest Like The Best",
+    "episode_title": "Ex-NVIDIA Engineer: Why AI Is About to Get 1000x Cheaper",
+    "audio_url": "https://api.spreaker.com/download/episode/74788767/2092228676313780226.mp3",
+    "question": "Why is token cost the right metric to optimize for in AI inference rather than other measures?",
+    "transcript_excerpt": "Token cost is the current North Star because tokens are what the industry uses today to measure work, though the guest notes this is not the final unit of work or intelligence. After tokens, the focus will move toward outcomes, where agents self-administer token budgets depending on the task rather than companies setting monthly token budgets for engineers.",
+    "expert_name": null,
+    "start_seconds": 98,
+    "end_seconds": 150
+  },
+  {
+    "podcast_name": "Invest Like The Best",
+    "episode_title": "Ex-NVIDIA Engineer: Why AI Is About to Get 1000x Cheaper",
+    "audio_url": "https://api.spreaker.com/download/episode/74788767/2092228676313780226.mp3",
+    "question": "What market opportunity exists in serving open source language models at scale compared to proprietary closed models?",
+    "transcript_excerpt": "The rise of open source creates a robust market for customized models because customers increasingly want to own their intelligence and have control and sovereignty over it. Open source models give customers the weights and the right to deploy however they like, which cannot be taken away, making this a much more resilient market than relying on proprietary providers.",
+    "expert_name": null,
+    "start_seconds": 165,
+    "end_seconds": 211
+  },
+  {
+    "podcast_name": "Invest Like The Best",
+    "episode_title": "Ex-NVIDIA Engineer: Why AI Is About to Get 1000x Cheaper",
+    "audio_url": "https://api.spreaker.com/download/episode/74788767/2092228676313780226.mp3",
+    "question": "Why should AI inference for agents prioritize long-running background tasks over low-latency interactive responses?",
+    "transcript_excerpt": "The future of agent inference is long-horizon tasks running for hours or days at a time, where token output speed of 10 tokens per second is acceptable if it brings corresponding efficiency advantages. The best latency is no latency at all—when you wake up in the morning, the work has already been done overnight without you having to ask for it, enabling agents to operate on human timescales rather than requiring constant human prompting.",
+    "expert_name": null,
+    "start_seconds": 222,
+    "end_seconds": 307
+  },
+  {
+    "podcast_name": "Invest Like The Best",
+    "episode_title": "Ex-NVIDIA Engineer: Why AI Is About to Get 1000x Cheaper",
+    "audio_url": "https://api.spreaker.com/download/episode/74788767/2092228676313780226.mp3",
+    "question": "What evidence supports the shift toward longer-running agents as a viable product direction?",
+    "transcript_excerpt": "Test-time compute scaling shows that giving an agent more time produces better answers. Opus 4.5, released late last year, was the first agent suitable for longer-horizon tasks, and looking at more recent models and open source implementations, agents are now capable of running for an hour at a time, with task lengths getting longer and longer.",
+    "expert_name": null,
+    "start_seconds": 313,
+    "end_seconds": 357
+  },
+  {
+    "podcast_name": "Invest Like The Best",
+    "episode_title": "Ex-NVIDIA Engineer: Why AI Is About to Get 1000x Cheaper",
+    "audio_url": "https://api.spreaker.com/download/episode/74788767/2092228676313780226.mp3",
+    "question": "What is the predicted shift in token consumption patterns between real-time and background workloads over the next several years?",
+    "transcript_excerpt": "This year is expected to end at roughly 50-50 split between background and real-time workloads, but the long-term projection is 90-10 in favor of background tasks, since background processing has no human-in-the-loop constraint and can consume as many tokens as needed.",
+    "expert_name": null,
+    "start_seconds": 360,
+    "end_seconds": 392
+  },
+  {
+    "podcast_name": "Invest Like The Best",
+    "episode_title": "Ex-NVIDIA Engineer: Why AI Is About to Get 1000x Cheaper",
+    "audio_url": "https://api.spreaker.com/download/episode/74788767/2092228676313780226.mp3",
+    "question": "How can long-running agents improve deep research and information synthesis compared to interactive queries?",
+    "transcript_excerpt": "Most deep research questions benefit from analyzing 10,000 sources or more rather than just 100 or 1,000. Building authoritative indexes like one customer's parallel web systems seeks to do—indexing the whole Internet and monitoring it in real time for changes—requires the kind of exabyte-scale task that demands a very different kind and scale of intelligence.",
+    "expert_name": null,
+    "start_seconds": 398,
+    "end_seconds": 448
+  },
+  {
+    "podcast_name": "Invest Like The Best",
+    "episode_title": "Ex-NVIDIA Engineer: Why AI Is About to Get 1000x Cheaper",
+    "audio_url": "https://api.spreaker.com/download/episode/74788767/2092228676313780226.mp3",
+    "question": "What role do long-running AI agents play in autonomous cybersecurity vulnerability detection?",
+    "transcript_excerpt": "Rather than running an AI model once against source code, specialized agents need to be set up in actual environments where they can pen-test applications and look for multiple classes of vulnerabilities including memory errors, business logic errors, and network vulnerabilities. Security has become proof-of-work where the quality of your software security is determined by how many dollars you spend on Anthropic APIs trying to break into your software.",
+    "expert_name": null,
+    "start_seconds": 453,
+    "end_seconds": 509
+  },
+  {
+    "podcast_name": "Invest Like The Best",
+    "episode_title": "Ex-NVIDIA Engineer: Why AI Is About to Get 1000x Cheaper",
+    "audio_url": "https://api.spreaker.com/download/episode/74788767/2092228676313780226.mp3",
+    "question": "How does diversity in AI model capabilities improve the detection of software vulnerabilities compared to relying on a single frontier model?",
+    "transcript_excerpt": "The frontier of intelligence in cybersecurity is jagged—a small model might find bugs that a large model misses, Haiku finds bugs that Fable doesn't find and vice versa. This encouraged a very diverse approach to sampling and building cybersecurity agents that break software autonomously using multiple models to ensure comprehensive vulnerability detection.",
+    "expert_name": null,
+    "start_seconds": 513,
+    "end_seconds": 555
+  },
+  {
+    "podcast_name": "Invest Like The Best",
+    "episode_title": "Ex-NVIDIA Engineer: Why AI Is About to Get 1000x Cheaper",
+    "audio_url": "https://api.spreaker.com/download/episode/74788767/2092228676313780226.mp3",
+    "question": "What new product categories could abundant, cheap long-running AI agents unlock for individual users?",
+    "transcript_excerpt": "Proactive intelligent agents like an enhanced Siri running in the background can understand all emails and text messages received daily, building an encyclopedic view of your life to be more helpful. The machine could even understand how you interact with it and proactively surface your next action when you open your phone, with the key unlock being incredibly cheap intelligence that lets you spend tokens without any promise of return.",
+    "expert_name": null,
+    "start_seconds": 560,
+    "end_seconds": 623
+  },
+  {
+    "podcast_name": "Invest Like The Best",
+    "episode_title": "Ex-NVIDIA Engineer: Why AI Is About to Get 1000x Cheaper",
+    "audio_url": "https://api.spreaker.com/download/episode/74788767/2092228676313780226.mp3",
+    "question": "What types of problems become economically solvable with dramatically cheaper token costs for long-horizon AI tasks?",
+    "transcript_excerpt": "Intelligence can tackle any verifiable problem, which includes most software, formal math proofs, and scientific discovery. These currently have a dollar cost attached—the question is how many tokens you can harness. The cost for long-horizon tasks is now being brought within view at reasonable levels: thousands of dollars rather than millions, and potentially hundreds or tens of dollars in the near future for definitive answers to scientific questions or research problems.",
+    "expert_name": null,
+    "start_seconds": 627,
+    "end_seconds": 692
+  },
+  {
+    "podcast_name": "Invest Like The Best",
+    "episode_title": "Ex-NVIDIA Engineer: Why AI Is About to Get 1000x Cheaper",
+    "audio_url": "https://api.spreaker.com/download/episode/74788767/2092228676313780226.mp3",
+    "question": "What is the three-layer technical stack approach to dramatically reducing AI inference costs?",
+    "transcript_excerpt": "The master plan involves software, hardware, and power layers. On the software layer, the entire LLM stack is being built around peak GPU efficiency using NVIDIA GPUs to squeeze out more tokens from the same chip than anyone else. This starts with the lowest level of programming—kernels—where optimization can unlock significant efficiency gains.",
+    "expert_name": null,
+    "start_seconds": 779,
+    "end_seconds": 835
+  },
+  {
+    "podcast_name": "Invest Like The Best",
+    "episode_title": "Ex-NVIDIA Engineer: Why AI Is About to Get 1000x Cheaper",
+    "audio_url": "https://api.spreaker.com/download/episode/74788767/2092228676313780226.mp3",
+    "question": "What is the role of TensorCores in GPU-accelerated AI inference and how were they developed?",
+    "transcript_excerpt": "TensorCores are specialized units on the GPU that accelerate matrix multiplication. Starting in 2016, NVIDIA allocated precious silicon die area to develop the first generation of TensorCores, initially receiving only 5-10% of chip area while competing against graphics teams for silicon. The technology evolved as NVIDIA recognized that machine learning adoption of gaming GPUs was growing.",
+    "expert_name": null,
+    "start_seconds": 841,
+    "end_seconds": 910
+  },
+  {
+    "podcast_name": "Invest Like The Best",
+    "episode_title": "Ex-NVIDIA Engineer: Why AI Is About to Get 1000x Cheaper",
+    "audio_url": "https://api.spreaker.com/download/episode/74788767/2092228676313780226.mp3",
+    "question": "What is NVIDIA's engineering culture principle of speed of light and how does it drive hardware optimization?",
+    "transcript_excerpt": "Speed of light is NVIDIA's concept of the absolute maximum performance possible for any piece of hardware they make. The culture is deeply ingrained that if a machine can do something, engineers push it to the frontier until it reaches what's theoretically possible. It means chasing 100% speed of light—absolute numbers of what the chip can achieve—rather than relative performance versus competitors.",
+    "expert_name": null,
+    "start_seconds": 915,
+    "end_seconds": 980
+  },
+  {
+    "podcast_name": "Invest Like The Best",
+    "episode_title": "Ex-NVIDIA Engineer: Why AI Is About to Get 1000x Cheaper",
+    "audio_url": "https://api.spreaker.com/download/episode/74788767/2092228676313780226.mp3",
+    "question": "Why is there a fundamental tradeoff between GPU throughput optimization and latency optimization for AI inference?",
+    "transcript_excerpt": "GPUs are throughput machines happiest when given lots of work and left to chew through it at peak compute utilization, but recent AI usage pushed toward interactive chatbot tools caring about spitting answers out quickly to users. There is a classic computer science tradeoff between getting a small amount of data through the system quickly (narrow and fast) versus running wide and slow, which manifests in GPUs through batching where larger batches fill compute units but add latency per individual user request.",
+    "expert_name": null,
+    "start_seconds": 986,
+    "end_seconds": 1060
+  },
+  {
+    "podcast_name": "Invest Like The Best",
+    "episode_title": "Ex-NVIDIA Engineer: Why AI Is About to Get 1000x Cheaper",
+    "audio_url": "https://api.spreaker.com/download/episode/74788767/2092228676313780226.mp3",
+    "question": "How does GPU batching create a fundamental latency-throughput tradeoff for AI inference services?",
+    "transcript_excerpt": "Batching groups multiple users' work together to exploit GPU parallelism, but you do net more work when running a large batch, meaning each individual token or user request spends longer on the GPU being carried with other people's traffic. This is analogous to a bus versus private transit—a bus serves many people and must work for everyone, taking a slower path with stops, while private transit takes the direct path.",
+    "expert_name": null,
+    "start_seconds": 1065,
+    "end_seconds": 1122
+  },
+  {
+    "podcast_name": "Invest Like The Best",
+    "episode_title": "Ex-NVIDIA Engineer: Why AI Is About to Get 1000x Cheaper",
+    "audio_url": "https://api.spreaker.com/download/episode/74788767/2092228676313780226.mp3",
+    "question": "How does NVLink GPU interconnect technology enable distributed matrix multiplication to reduce latency?",
+    "transcript_excerpt": "NVLink is an NVIDIA innovation that allows large matrix multiplications to be split in half and sharded across up to eight NVIDIA GPUs, with each GPU working on pieces of the larger operation and connecting their results together at the end by reducing results back together. This is an effective way to cut the minimum latency of an operation.",
+    "expert_name": null,
+    "start_seconds": 1131,
+    "end_seconds": 1165
+  }
+]

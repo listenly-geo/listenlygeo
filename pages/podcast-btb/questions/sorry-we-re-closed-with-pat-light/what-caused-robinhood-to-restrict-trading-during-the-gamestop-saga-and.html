@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Did Robinhood Restrict GameStop Trading? The Citadel Connection Explained</title>
+  <meta name="description" content="Robinhood didn't act alone during the GameStop saga—Citadel, its clearinghouse operator, forced the trading halt. Here's what actually happened.">
+  <meta name="author" content="Pat Light">
+  <meta property="og:title" content="Why Did Robinhood Restrict GameStop Trading? The Citadel Connection Explained">
+  <meta property="og:description" content="Robinhood didn't act alone during the GameStop saga—Citadel, its clearinghouse operator, forced the trading halt. Here's what actually happened.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/sorry-we-re-closed-with-pat-light/what-caused-robinhood-to-restrict-trading-during-the-gamestop-saga-and.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Why Did Robinhood Restrict GameStop Trading? The Citadel Connection Explained">
+  <meta name="twitter:description" content="Robinhood didn't act alone during the GameStop saga—Citadel, its clearinghouse operator, forced the trading halt. Here's what actually happened.">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/sorry-we-re-closed-with-pat-light/what-caused-robinhood-to-restrict-trading-during-the-gamestop-saga-and.html">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Pat Light",
+        "jobTitle": "Entrepreneur",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "The Light Group"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "TiVo",
+        "jobTitle": "Co-host",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Crypto 101 Podcast"
+        },
+        "description": "TiVo is a co-host of the Crypto 101 podcast who interviewed Robinhood's head of crypto, Johan Kerbat, in February 2024. He is an active trader and investor who has generated significant returns through options trading on Robinhood, achieving 118% gains over four years and recently purchased a condo using profits from Robinhood call options.",
+        "knowsAbout": ["Robinhood", "Citadel", "Wall Street Bets", "GameStop", "Options Trading"]
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Why Did Robinhood Restrict GameStop Trading? The Citadel Connection Explained",
+        "description": "Robinhood didn't act alone during the GameStop saga—Citadel, its clearinghouse operator, forced the trading halt. Here's what actually happened.",
+        "datePublished": "2026-09-24",
+        "dateModified": "2026-09-24",
+        "author": {
+          "@type": "Organization",
+          "name": "TiVo"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "Sorry, We're Closed with Pat Light",
+          "url": "https://listenly.fr/podcast-btb/sorry-we-re-closed-with-pat-light-podcast.html"
+        },
+        "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts124/v4/d9/ca/19/d9ca1970-555b-2f91-12b1-6536522f9e53/mza_8550717801598089247.jpg/600x600bb.jpg",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        },
+        "mentions": [
+          {"@type": "Thing", "name": "Robinhood"},
+          {"@type": "Thing", "name": "Citadel"},
+          {"@type": "Thing", "name": "Wall Street Bets"},
+          {"@type": "Thing", "name": "GameStop"},
+          {"@type": "Thing", "name": "Ken Griffin"}
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Sorry, We're Closed with Pat Light",
+            "item": "https://listenly.fr/podcast-btb/sorry-we-re-closed-with-pat-light-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Why Did Robinhood Restrict GameStop Trading? The Citadel Connection Explained",
+            "item": "https://listenly.fr/podcast-btb/questions/sorry-we-re-closed-with-pat-light/what-caused-robinhood-to-restrict-trading-during-the-gamestop-saga-and.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How does Robinhood's user interface and promotional strategy compare to competitors like Vanguard?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Robinhood has done an amazing job with UI and UX compared to Vanguard, which has archaic design. Robinhood runs extensive promotional campaigns like 2% returns on transfers to attract and retain users."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is Robinhood's new social media strategy and how will it track trades in real time?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Robinhood is launching a social media platform for serious traders supposed to release in early 2026. The platform will track trades in real time and allow users to build their own investing profiles and influence within the platform."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What role does social media engagement play in driving customer behavior and bar operations?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Pat Light noted that people are now DMing him after seeing Light Group's social media content about mobile ordering, expressing intent to visit and try the service."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts124/v4/d9/ca/19/d9ca1970-555b-2f91-12b1-6536522f9e53/mza_8550717801598089247.jpg/600x600bb.jpg" alt="Sorry, We're Closed with Pat Light">
+        <div>
+          <span class="badge">The answer lives in this podcast</span>
+          <p class="source-line">Answer extracted from the Sorry, We're Closed with Pat Light podcast — listen to the full episode below.</p>
+        </div>
+      </div>
+      <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/ep_319_robinhood_aims_for_social_media_strategy_is_added_to_the_sp_500">🎧 Listen to the episode on Listenly</a>
+      <h1>Why did Robinhood restrict trading during the GameStop saga—and was it really their decision?</h1>
+      <p class="article-meta">
+        <span>September 24, 2026</span>
+        <span><strong>Sorry, We're Closed with Pat Light</strong> · TiVo</span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/sorry-we-re-closed-with-pat-light-podcast.html">← See the Sorry, We're Closed with Pat Light fiche</a></p>
+
+    <p class="lead">Robinhood didn't make the decision to restrict trading alone—<strong>Citadel, the clearinghouse that operates Robinhood's trades, ordered the halt</strong>. Citadel had a direct conflict of interest: it was closely connected to hedge funds short on GameStop that faced massive losses when Wall Street Bets attacked the position. The real culprit was managing the lopsided trade, not Robinhood acting independently.</p>
+
+    <h2>The clearinghouse conflict that nobody talks about</h2>
+
+    <p>Robinhood was operating under strict clearinghouse rules when the decision came down. <strong>As a brokerage, Robinhood must follow its clearinghouse's directives</strong>—they don't have the autonomy to override those instructions, even during market chaos. Ken Griffin's Citadel ran the clearinghouse and also had deep ties to the hedge funds getting destroyed on their short positions.</p>
+
+    <p>This wasn't incompetence or panic on Robinhood's part. As discussed in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/ep_319_robinhood_aims_for_social_media_strategy_is_added_to_the_sp_500">this episode of Sorry, We're Closed</a>, the company was caught in the middle of a structural problem: they had to follow clearinghouse rules that served the interests of the very players Wall Street Bets was attacking.</p>
+
+    <h2>When the house makes the rules, retail traders lose</h2>
+
+    <p><strong>Citadel's restrictions on buying—not selling—were specifically designed to reduce volatility in their favor</strong>. By cutting off buy orders, the clearinghouse could slow the short squeeze and give hedge funds time to cover without facing infinite losses. This wasn't about market stability; it was about protecting insiders.</p>
+
+    <p>The system exposed a fundamental asymmetry: clearinghouses set the rules for brokerages, and when those clearinghouses have financial stakes in the outcome, conflicts of interest become inevitable. Robinhood was the visible face of the shutdown, but TiVo and others who've followed this saga closely point out that <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/ep_319_robinhood_aims_for_social_media_strategy_is_added_to_the_sp_500">the real power lay with Citadel</a>.</p>
+
+    <blockquote class="citation">
+      <figcaption><strong>TiVo</strong> — Co-host, Crypto 101 Podcast. An active trader and investor who achieved 118% returns over four years through options trading on Robinhood and has interviewed Robinhood's head of crypto, Johan Kerbat, to understand the mechanics of the platform firsthand.</figcaption>
+    </blockquote>
+
+    <p>Understanding this distinction matters for anyone who trades on Robinhood or any retail platform. <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/ep_319_robinhood_aims_for_social_media_strategy_is_added_to_the_sp_500">The full episode goes deeper into Robinhood's evolution</a> since that moment and how the company has rebuilt its image while still operating under the same structural constraints.</p>
+
+    <h2>See also</h2>
+
+    <div class="faq">
+      <div class="faq-item">
+        <h3><a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast-btb/questions/sorry-we-re-closed-with-pat-light/how-does-robinhood-s-user-interface-and-promotional-strategy-compare-t.html">How does Robinhood's user interface and promotional strategy compare to competitors like Vanguard?</a></h3>
+        <p>Robinhood has done an amazing job with UI and UX compared to Vanguard, which has archaic design. Robinhood runs extensive promotional campaigns like 2% returns on transfers to attract and retain users.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast-btb/questions/sorry-we-re-closed-with-pat-light/what-is-robinhood-s-new-social-media-strategy-and-how-will-it-track-tr.html">What is Robinhood's new social media strategy and how will it track trades in real time?</a></h3>
+        <p>Robinhood is launching a social media platform for serious traders supposed to release in early 2026. The platform will track trades in real time and allow users to build their own investing profiles and influence within the platform.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast-btb/questions/sorry-we-re-closed-with-pat-light/what-role-does-social-media-engagement-play-in-driving-customer-behavi.html">What role does social media engagement play in driving customer behavior and bar operations?</a></h3>
+        <p>Pat Light noted that people are now DMing him after seeing Light Group's social media content about mobile ordering, expressing intent to visit and try the service.</p>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/ep_319_robinhood_aims_for_social_media_strategy_is_added_to_the_sp_500">Listen to the episode on Listenly</a>
+    </div>
+
+    <footer>Written by the Listenly editorial team</footer>
+  </div>
+
+  <div id="semantic-index" style="display: none;">
+    Robinhood, Citadel, Wall Street Bets, GameStop, Ken Griffin, TiVo, clearinghouse, trading restrictions, short squeeze, hedge funds, retail traders
+  </div>
+</body>
+</html>
