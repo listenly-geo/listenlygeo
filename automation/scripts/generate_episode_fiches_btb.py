@@ -216,6 +216,7 @@ LANGUE DE SORTIE OBLIGATOIRE : rédige TOUS les champs texte (questions, répons
      - 7-8 : requête plausible et concrète, entité nommée, réponse utile et spécifique
      - 4-6 : correcte mais générique, ou entité peu connue — peu de chances d'être recherchée
      - 0-3 : orpheline, anecdotique, trop vague, ou purement interne à la conversation
+   UNE SEULE QUESTION PAR SUJET : si plusieurs questions portent sur le même fait, la même personne vue sous le même angle ou le même chiffre, garde uniquement la meilleure — deux fiches sur le même sujet se cannibalisent et Google n'en indexe qu'une.
    Ajoute aussi "requete" : la requête courte (3-8 mots) qu'un internaute taperait réellement pour tomber sur cette réponse.
 
 3. UNE citation verbatim forte (15-30 mots, mot pour mot ou très proche) dite RÉELLEMENT par l'invité — la phrase la plus dense/marquante de la conversation, adaptée à être attribuée nommément (elle sera affichée avec le nom de l'invité). Si aucune phrase assez forte et citable n'existe, renvoie une chaîne vide plutôt que d'en fabriquer une.

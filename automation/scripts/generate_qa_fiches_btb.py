@@ -428,10 +428,47 @@ ORPHAN_QUESTION_RE = re.compile(
 def is_orphan_question(q):
     return bool(ORPHAN_QUESTION_RE.search(q or ""))
 
-def filter_quality_qa(qa):
-    """Garde les QA_MAX_PER_EPISODE meilleures questions notees >= QA_MIN_SCORE, jamais d'orpheline.
-    Une question sans score (ancien format) n'est ecartee que si elle est orpheline."""
-    kept, rejected = [], []
+# --- Anti-doublon (24/09/2026) ---
+# Sur les 14 pages refusees par Google, deux avaient une fiche soeur sur le meme sujet
+# (Caroline Goldman x2, "repair orders" x2) : Google n'en garde qu'une. Une question est donc
+# refusee si elle partage l'essentiel de ses mots-cles avec une question deja publiee pour ce
+# podcast ou deja retenue pour cet episode. Calibre sur les 2 627 fiches existantes : ~2 %
+# signalees (Accaloft x3, proces Clancy x2, Goldman x2...) sans bloquer des angles differents
+# sur un meme invite (ex. Alex Honnold : El Capitan vs Half Dome).
+QA_DUPLICATE_OVERLAP = float(os.environ.get("QA_DUPLICATE_OVERLAP", "0.6") or "0.6")
+QA_DUPLICATE_MIN_SHARED = 3
+_STOPWORDS = set("""a an the and or of to in on for with at by from as is are was were be been does do did how what why when
+where who which whose whom can could should would will this that these those it its into about according their his her
+they them he she you your our we not than more most much many has have had say says said role play le la les un une des
+du de et ou en au aux pour par sur dans est sont que qui quoi comment pourquoi quel quelle quels quelles ce cette ces
+son sa ses leur""".split())
+
+def _stem(w):
+    for suf in ("ing", "ed", "es", "s", "e"):
+        if w.endswith(suf) and len(w) - len(suf) >= 4:
+            return w[:-len(suf)]
+    return w
+
+def _content_words(q, ignored=frozenset()):
+    return {_stem(w) for w in re.findall(r"[\w'’.-]+", (q or "").lower())
+            if w not in _STOPWORDS and len(w) > 2 and w not in ignored}
+
+def _is_duplicate(words, other_words):
+    shared = len(words & other_words)
+    return shared >= QA_DUPLICATE_MIN_SHARED and shared / max(1, min(len(words), len(other_words))) >= QA_DUPLICATE_OVERLAP
+
+def filter_quality_qa(qa, published_questions=None, podcast=None):
+    """Garde les QA_MAX_PER_EPISODE meilleures questions notees >= QA_MIN_SCORE, jamais d'orpheline,
+    jamais de doublon (d'une question deja publiee pour ce podcast ou d'une autre question retenue
+    pour cet episode). Une question sans score (ancien format) n'est ecartee que si elle est
+    orpheline ou doublon."""
+    podcast = podcast or {}
+    # Le nom du podcast / de l'animateur revient dans beaucoup de questions legitimes : il ne doit
+    # pas compter comme mot-cle commun.
+    ignored = frozenset(w.lower() for w in re.findall(r"[\w'’.-]+", f"{podcast.get('podcast_name', '')} {podcast.get('host_name', '')}"))
+    known = [(q, _content_words(q, ignored)) for q in (published_questions or [])]
+
+    candidates, rejected = [], []
     for item in qa:
         q = item.get("q", "")
         score = item.get("score")
@@ -440,11 +477,21 @@ def filter_quality_qa(qa):
         elif isinstance(score, (int, float)) and score < QA_MIN_SCORE:
             rejected.append((q, f"score {score}"))
         else:
+            candidates.append(item)
+    candidates.sort(key=lambda it: it.get("score") if isinstance(it.get("score"), (int, float)) else 0, reverse=True)
+
+    kept = []
+    for item in candidates:
+        q = item.get("q", "")
+        words = _content_words(q, ignored)
+        twin = next((kq for kq, kw in known if _is_duplicate(words, kw)), None)
+        if twin:
+            rejected.append((q, f"doublon de « {twin[:60]} »"))
+        elif len(kept) >= QA_MAX_PER_EPISODE:
+            rejected.append((q, f"hors top {QA_MAX_PER_EPISODE}"))
+        else:
             kept.append(item)
-    kept.sort(key=lambda it: it.get("score") if isinstance(it.get("score"), (int, float)) else 0, reverse=True)
-    for item in kept[QA_MAX_PER_EPISODE:]:
-        rejected.append((item.get("q", ""), f"hors top {QA_MAX_PER_EPISODE}"))
-    kept = kept[:QA_MAX_PER_EPISODE]
+            known.append((q, words))
     for q, why in rejected:
         log(f"  Question ecartee ({why}) : {q[:90]}")
     for item in kept:
@@ -648,7 +695,7 @@ def mine_next_episode(podcast, registry, rss_url):
         finally:
             shutil.rmtree(tmpdir, ignore_errors=True)
 
-        qa = filter_quality_qa(qa)
+        qa = filter_quality_qa(qa, [p.get("question", "") for p in registry.get("published", [])], podcast)
         if not qa:
             log("Aucune question assez forte dans cet épisode — épisode ignoré.")
             registry["known_episode_guids"].append(ep["guid"])
