@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Diagnostic SEO Listenly</title>
+<meta name="description" content="Pourquoi les impressions Google de listenly.fr ont chuté en septembre 2026, et quoi faire.">
+<style>
+:root{--bg:#fbfaf7;--card:#ffffff;--ink:#1d1d1b;--muted:#6b6a65;--line:#e6e3dc;--accent:#5b3fd6;--accent-soft:#ece8fb;--good:#1f7a4d;--bad:#b3261e;--bar:#b9b3a6;--bar-hi:#5b3fd6;--bar-lo:#d98b7e}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#161615;--card:#1f1f1d;--ink:#eeece6;--muted:#a3a097;--line:#34332f;--accent:#a996ff;--accent-soft:#2a2544;--good:#6fcf97;--bad:#f28b82;--bar:#55524b;--bar-hi:#a996ff;--bar-lo:#d98b7e}}
+:root[data-theme="dark"]{--bg:#161615;--card:#1f1f1d;--ink:#eeece6;--muted:#a3a097;--line:#34332f;--accent:#a996ff;--accent-soft:#2a2544;--good:#6fcf97;--bad:#f28b82;--bar:#55524b;--bar-hi:#a996ff;--bar-lo:#d98b7e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+main{max-width:820px;margin:0 auto;padding:40px 16px 80px}
+h1{font-size:2rem;line-height:1.2;margin:0 0 8px}
+h2{font-size:1.3rem;margin:48px 0 12px;padding-top:12px;border-top:1px solid var(--line)}
+.meta{color:var(--muted);font-size:.92rem}
+.verdict{background:var(--accent-soft);border-left:4px solid var(--accent);padding:16px 20px;border-radius:8px;margin:24px 0;font-size:1.05rem}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:20px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.kpi b{display:block;font-size:1.6rem;line-height:1.2}
+.kpi span{color:var(--muted);font-size:.85rem}
+.bad{color:var(--bad)}.good{color:var(--good)}
+figure{margin:20px 0;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
+figcaption{color:var(--muted);font-size:.85rem;margin-top:8px}
+svg{width:100%;height:auto;display:block}
+.bar{fill:var(--bar)}.bar.hi{fill:var(--bar-hi)}.bar.lo{fill:var(--bar-lo)}
+.axis{stroke:var(--line)}.mark{stroke:var(--muted);stroke-dasharray:3 3}
+.val{font-size:10px;fill:var(--ink);text-anchor:middle}
+.lab{font-size:9px;fill:var(--muted);text-anchor:middle}
+.note{font-size:10px;fill:var(--muted)}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.93rem;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+ol.reco{padding-left:0;list-style:none;counter-reset:r}
+ol.reco li{counter-increment:r;position:relative;padding:12px 0 12px 44px;border-bottom:1px solid var(--line)}
+ol.reco li::before{content:counter(r);position:absolute;left:0;top:12px;width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--bg);font-weight:700;display:flex;align-items:center;justify-content:center}
+.small{font-size:.88rem;color:var(--muted)}
+code{background:var(--accent-soft);padding:1px 5px;border-radius:4px;font-size:.9em}
+</style>
+</head>
+<body>
+<main>
+<p class="meta">listenly.fr · Moteur trafic · analyse du 24 septembre 2026</p>
+<h1>Pourquoi les impressions Google ont chuté</h1>
+<p class="meta">Sources : exports Search Console (Performances 3 mois, Couverture de l'indexation) et historique du dépôt <code>listenlygeo</code>.</p>
+
+<div class="verdict"><strong>En bref :</strong> la chute ne vient pas de l'arrêt des podcasts connus. Elle arrive quand le moteur accélère la production (~1&nbsp;000 fiches en deux semaines début septembre). Google a alors jugé ces pages peu utiles et a freiné l'ensemble du site. Il ne vient même plus lire la plupart des nouvelles pages.</div>
+
+<div class="kpis">
+ <div class="kpi"><b>43</b><span>clics en 3 mois (tout le site)</span></div>
+ <div class="kpi"><b class="bad">470 → 3</b><span>impressions / semaine, du pic d'août à fin septembre</span></div>
+ <div class="kpi"><b>~2&nbsp;600</b><span>fiches question publiées, en anglais</span></div>
+ <div class="kpi"><b class="bad">1&nbsp;561</b><span>pages « Détectées, non indexées »</span></div>
+</div>
+
+<h2>1. La chronologie</h2>
+<figure>
+<svg viewBox="0 0 660 270" role="img" aria-label="Impressions Google par semaine, juin à septembre 2026">
+<g transform="translate(0,30)"><line class="axis" x1="24" y1="190" x2="650" y2="190"/>
+<rect class="bar" x="30" y="186.9" width="30" height="3.1" rx="3"/><text class="val" x="45" y="181.9">9</text><text class="lab" x="45" y="206">22/06</text><rect class="bar" x="74" y="185.6" width="30" height="4.4" rx="3"/><text class="val" x="89" y="180.6">13</text><text class="lab" x="89" y="206">29/06</text><rect class="bar" x="118" y="185.9" width="30" height="4.1" rx="3"/><text class="val" x="133" y="180.9">12</text><text class="lab" x="133" y="206">06/07</text><rect class="bar" x="162" y="178.1" width="30" height="11.9" rx="3"/><text class="val" x="177" y="173.1">35</text><text class="lab" x="177" y="206">13/07</text><rect class="bar" x="206" y="179.1" width="30" height="10.9" rx="3"/><text class="val" x="221" y="174.1">32</text><text class="lab" x="221" y="206">20/07</text><rect class="bar" x="250" y="179.1" width="30" height="10.9" rx="3"/><text class="val" x="265" y="174.1">32</text><text class="lab" x="265" y="206">27/07</text><rect class="bar" x="294" y="176.0" width="30" height="14.0" rx="3"/><text class="val" x="309" y="171.0">41</text><text class="lab" x="309" y="206">03/08</text><rect class="bar hi" x="338" y="30.0" width="30" height="160.0" rx="3"/><text class="val" x="353" y="25.0">470</text><text class="lab" x="353" y="206">10/08</text><rect class="bar hi" x="382" y="71.9" width="30" height="118.1" rx="3"/><text class="val" x="397" y="66.9">347</text><text class="lab" x="397" y="206">17/08</text><rect class="bar hi" x="426" y="57.9" width="30" height="132.1" rx="3"/><text class="val" x="441" y="52.9">388</text><text class="lab" x="441" y="206">24/08</text><rect class="bar lo" x="470" y="145.4" width="30" height="44.6" rx="3"/><text class="val" x="485" y="140.4">131</text><text class="lab" x="485" y="206">31/08</text><rect class="bar lo" x="514" y="183.9" width="30" height="6.1" rx="3"/><text class="val" x="529" y="178.9">18</text><text class="lab" x="529" y="206">07/09</text><rect class="bar lo" x="558" y="188.6" width="30" height="1.4" rx="3"/><text class="val" x="573" y="183.6">4</text><text class="lab" x="573" y="206">14/09</text><rect class="bar lo" x="602" y="189.0" width="30" height="1.0" rx="3"/><text class="val" x="617" y="184.0">3</text><text class="lab" x="617" y="206">21/09</text>
+</g><line class="mark" x1="419" y1="12" x2="419" y2="220"/>
+<text class="note" x="414" y="16" text-anchor="end">24/08 : pause de 8 podcasts connus</text>
+<line class="mark" x1="463" y1="30" x2="463" y2="220"/>
+<text class="note" x="468" y="34" text-anchor="start">1er → 15/09 : ~1 000 fiches créées</text>
+<text class="lab" x="340" y="264">semaine commençant le…</text>
+</svg>
+<figcaption>Impressions Google par semaine (tout le site). En violet, le pic d'août ; en rouge, la chute.</figcaption>
+</figure>
+<div class="table-wrap"><table>
+<tr><th>Période</th><th>Impressions / semaine</th><th>Fiches créées par le moteur</th></tr>
+<tr><td>Juillet</td><td>~30</td><td>quelques-unes</td></tr>
+<tr><td>10 → 30 août</td><td><strong>350 à 470</strong> (pic)</td><td>~250 puis ~560</td></tr>
+<tr><td>Semaine du 31 août</td><td>131</td><td><strong>~1&nbsp;000</strong> (1er → 15 sept.)</td></tr>
+<tr><td>Septembre</td><td class="bad"><strong>18, puis 4, puis 3</strong></td><td>~860 de plus ; le tableau de bord en prévoit 104 par jour</td></tr>
+</table></div>
+
+<h2>2. Pourquoi ce ne sont pas les podcasts connus</h2>
+<ul>
+<li>Le <strong>24 août</strong>, 8 gros podcasts ont été mis en pause (This American Life, The Rest Is History, Dateline NBC, Wait Wait… Don't Tell Me!, Pod Save America…). Mais leurs pages <strong>existent toujours</strong>, et elles ont perdu leurs impressions en même temps que tout le reste.</li>
+<li>De nouveaux podcasts très connus ont été ajoutés en septembre : <strong>Freakonomics, My First Million, Acquired, Masters of Scale, a16z, Business Wars</strong>. Résultat : <strong>0 impression</strong> pour chacun.</li>
+</ul>
+<p>Ce qui a changé, c'est le regard de Google sur le site, pas le choix des podcasts.</p>
+
+<h2>3. Ce qui s'est passé côté Google</h2>
+<p>C'est un schéma classique pour un site jeune qui publie beaucoup de pages générées par IA :</p>
+<ol>
+<li><strong>Août, la « lune de miel »</strong> : Google teste les nouvelles pages en les montrant un peu.</li>
+<li><strong>Septembre, le jugement</strong> : les pages étaient en position ~26-34, avec un taux de clic quasi nul (<strong>16 clics sur 1&nbsp;255 impressions</strong> pour toute la partie <code>/podcast-btb/</code>). Google a conclu que ces pages apportent peu et a baissé tout le lot.</li>
+<li><strong>Il arrête même de venir</strong> : 1&nbsp;561 pages « Détectées, actuellement non indexées ». Google connaît ces pages mais ne les lit plus, faute d'autorité ou de confiance dans le site.</li>
+</ol>
+<p><strong>Ce qui aggrave la situation :</strong></p>
+<ul>
+<li><strong>~2&nbsp;600 pages en anglais sur un site .fr</strong> en français, sans section anglaise propre (pas de <code>/en/</code>, pas de hreflang).</li>
+<li><strong>0 backlink</strong> (le tableau de bord l'affiche).</li>
+<li><strong>Beaucoup de changements de structure autour du 1er septembre</strong> : redirections 301 des pages index, noindex sur 40 catégories, nouveau sitemap. C'est utile, mais tout est arrivé pendant la chute.</li>
+<li>Couverture : 80 pages « Explorées, non indexées » (validation en échec), 31 pages en 404, 3 en noindex.</li>
+</ul>
+
+<h2>4. Où se trouve votre vraie valeur</h2>
+<div class="table-wrap"><table>
+<tr><th>Signal</th><th>Chiffre</th></tr>
+<tr><td>Page d'accueil</td><td class="good"><strong>22 des 43 clics</strong>, 19&nbsp;% de taux de clic (requête « listenly »)</td></tr>
+<tr><td>France</td><td class="good"><strong>9,5&nbsp;%</strong> de taux de clic</td></tr>
+<tr><td>États-Unis</td><td>1&nbsp;% de taux de clic, malgré 2,5× plus d'impressions</td></tr>
+<tr><td>Requêtes françaises qui remontent</td><td>podcast juridique, podcast RH, podcast corporate, podcast B2B, annuaire podcast, podcast immobilier</td></tr>
+<tr><td>Requête anglaise n°1</td><td>« the daily podcast » : 154 impressions, position 34, 0 clic</td></tr>
+</table></div>
+<p>Le trafic anglais sur les podcasts américains ne mène pas à vos clients. Le français B2B, oui.</p>
+
+<h2>5. Recommandations</h2>
+<ol class="reco">
+<li><strong>Laisser le moteur en pause</strong>, ou le limiter à 5-10 fiches par jour au lieu de 104. Chaque page en plus alourdit une file de 1&nbsp;561 pages que Google n'explore déjà pas.</li>
+<li><strong>Faire le tri</strong> : mettre en noindex ou supprimer les fiches faibles (aucune impression, contenu court, doublons) pour ne garder que les meilleures.</li>
+<li><strong>Recentrer sur le français B2B</strong> : des pages en français sur les requêtes qui marchent déjà (podcast RH, juridique, B2B, corporate, immobilier).</li>
+<li><strong>Si l'anglais reste</strong>, l'isoler dans une section <code>/en/</code> avec hreflang.</li>
+<li><strong>Obtenir des backlinks</strong>, même peu : podcasts clients, annuaires, partenaires.</li>
+<li><strong>Corriger les 31 pages en 404</strong> et relancer la validation des pages « Explorées, non indexées ».</li>
+<li><strong>À vérifier dans Search Console</strong> : Paramètres → Statistiques sur l'exploration, et Sécurité et actions manuelles, pour exclure un problème technique global.</li>
+</ol>
+
+<p class="small">Limite de l'analyse : le site en ligne n'a pas pu être consulté pendant l'analyse (accès réseau bloqué). Tout s'appuie sur les exports Search Console du 24/09/2026 et sur le contenu du dépôt.</p>
+</main>
+</body>
+</html>
