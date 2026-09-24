@@ -410,6 +410,47 @@ INBOX_CONSUMED_DIR = f"{INBOX_DIR}/consumed"
 
 def log(msg): print(f"[qa-btb:{SLUG}] {msg}", flush=True)
 
+# --- Filtre qualite des questions (24/09/2026) ---
+# Diagnostic Search Console de septembre : la majorite des fiches portaient sur des questions
+# generiques ou orphelines ("How many episodes did the podcast reach before closing?") que
+# personne ne recherche. Chaque question extraite porte desormais un "score" (0-10) donne par
+# l'extraction ; on ne garde que les meilleures, et jamais une question orpheline.
+QA_MIN_SCORE           = int(os.environ.get("QA_MIN_SCORE", "7") or "7")
+QA_MAX_PER_EPISODE     = int(os.environ.get("QA_MAX_PER_EPISODE", "3") or "3")
+MAX_EPISODES_MINED_PER_RUN = int(os.environ.get("MAX_EPISODES_MINED_PER_RUN", "2") or "2")
+
+ORPHAN_QUESTION_RE = re.compile(
+    r"\b(the|this|that)\s+(podcast|show|episode|guest|host|speaker|interviewee|founder|company|firm|brand|author)\b"
+    r"|\b(le|ce|cet|cette|l')\s*(podcast|émission|emission|épisode|episode|invité|invitée|invite|animateur|animatrice|entreprise|marque)\b",
+    re.IGNORECASE,
+)
+
+def is_orphan_question(q):
+    return bool(ORPHAN_QUESTION_RE.search(q or ""))
+
+def filter_quality_qa(qa):
+    """Garde les QA_MAX_PER_EPISODE meilleures questions notees >= QA_MIN_SCORE, jamais d'orpheline.
+    Une question sans score (ancien format) n'est ecartee que si elle est orpheline."""
+    kept, rejected = [], []
+    for item in qa:
+        q = item.get("q", "")
+        score = item.get("score")
+        if is_orphan_question(q):
+            rejected.append((q, "orpheline"))
+        elif isinstance(score, (int, float)) and score < QA_MIN_SCORE:
+            rejected.append((q, f"score {score}"))
+        else:
+            kept.append(item)
+    kept.sort(key=lambda it: it.get("score") if isinstance(it.get("score"), (int, float)) else 0, reverse=True)
+    for item in kept[QA_MAX_PER_EPISODE:]:
+        rejected.append((item.get("q", ""), f"hors top {QA_MAX_PER_EPISODE}"))
+    kept = kept[:QA_MAX_PER_EPISODE]
+    for q, why in rejected:
+        log(f"  Question ecartee ({why}) : {q[:90]}")
+    for item in kept:
+        log(f"  Question retenue (score {item.get('score', '?')}) : {item.get('q', '')[:90]}")
+    return kept
+
 # --- Modules réutilisés tels quels (pas de duplication de logique) ---
 _podcast_mod = None
 _episode_mod = None
@@ -566,7 +607,11 @@ def mine_next_episode(podcast, registry, rss_url):
         log("Aucun nouvel épisode disponible dans le flux — stock de questions épuisé, rien à publier ce run.")
         return False
 
+    mined_count = 0
     for ep in candidates:
+        if mined_count >= MAX_EPISODES_MINED_PER_RUN:
+            log(f"{mined_count} épisode(s) miné(s) sans question assez forte — arrêt pour ce run (limite de coût).")
+            return False
         if not ep.get("audio_url"):
             log(f"Épisode sans audio, ignoré : {ep['title'][:60]}")
             registry["known_episode_guids"].append(ep["guid"])
@@ -576,6 +621,7 @@ def mine_next_episode(podcast, registry, rss_url):
             return False
 
         log(f"Mining épisode : {ep['title']}")
+        mined_count += 1
         tmpdir = tempfile.mkdtemp(prefix="qa_audio_")
         try:
             audio_path = os.path.join(tmpdir, "episode.mp3")
@@ -602,8 +648,9 @@ def mine_next_episode(podcast, registry, rss_url):
         finally:
             shutil.rmtree(tmpdir, ignore_errors=True)
 
+        qa = filter_quality_qa(qa)
         if not qa:
-            log("Aucune question réelle extraite — épisode ignoré.")
+            log("Aucune question assez forte dans cet épisode — épisode ignoré.")
             registry["known_episode_guids"].append(ep["guid"])
             continue
 
@@ -1061,6 +1108,13 @@ def main():
         sys.exit(1)
 
     registry = load_registry()
+
+    # Le stock peut contenir des questions extraites avant le filtre qualite : on retire les orphelines.
+    stock_before = len(registry["pending_qa"])
+    registry["pending_qa"] = [it for it in registry["pending_qa"] if not is_orphan_question(it.get("q", ""))]
+    if len(registry["pending_qa"]) < stock_before:
+        log(f"{stock_before - len(registry['pending_qa'])} question(s) orpheline(s) retirée(s) du stock.")
+        save_registry(registry)
 
     if not registry["pending_qa"]:
         mined = try_load_from_inbox(registry)
