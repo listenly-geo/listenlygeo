@@ -2,8 +2,9 @@ name: Podcast BTB Trafic — Génération quotidienne (tous podcasts)
 
 on:
   workflow_dispatch: {}
-  schedule:
-    - cron: '0 */3 * * *'   # toutes les 3h — chaque podcast n'est reellement traite qu'une fois/jour (skip si deja fait), les autres passages sont juste des verifications rapides sans cout
+  # schedule DESACTIVE (mis en pause le 23/09/2026 sur demande) -- decommenter pour reactiver :
+  # schedule:
+  #   - cron: '0 */3 * * *'   # toutes les 3h — chaque podcast n'est reellement traite qu'une fois/jour (skip si deja fait), les autres passages sont juste des verifications rapides sans cout
 
 permissions:
   contents: write
