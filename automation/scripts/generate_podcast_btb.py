@@ -1012,6 +1012,72 @@ def build_sitemap_quality(urls):
         f.write(xml)
     log(f"Sitemap qualite regenere : {len(quality_urls)} URL(s) (sur {len(urls)} au total)")
 
+    build_split_sitemaps(quality_urls)
+
+def _htaccess_noindex_files():
+    """Noms de fichiers mis en noindex par en-tete X-Robots-Tag dans .htaccess (pages categorie
+    fines) : invisibles pour _has_noindex_meta(), il faut les exclure a part."""
+    try:
+        with open(f"{PAGES_DIR}/.htaccess", encoding="utf-8") as f:
+            content = f.read()
+    except OSError:
+        return set()
+    names = set()
+    for block in re.finditer(r'<FilesMatch "\^\(([^)]*)\)\\\.html\$">\s*Header set X-Robots-Tag "noindex', content):
+        names |= {f"{n}.html" for n in block.group(1).split("|")}
+    return names
+
+def build_split_sitemaps(quality_urls):
+    """Sitemaps separes par type de page (24/09/2026) + un index qui les regroupe.
+    Objectif : Search Console affiche le taux d'indexation PAR sitemap, ce qui donne directement
+    l'indicateur de pilotage du moteur (hubs N1 indexes vs fiches question indexees).
+    - sitemap-hubs.xml      : fiches podcast N1 (<slug>-podcast.html), priorite 1.0
+    - sitemap-questions.xml : fiches question (questions/<slug>/...)
+    - sitemap-autres.xml    : accueil du catalogue, categories, episodes...
+    - sitemap-index-podcast-btb.xml : index des trois, a soumettre dans Search Console."""
+    excluded = _htaccess_noindex_files()
+    groups = {"hubs": [], "questions": [], "autres": []}
+    for url, mtime, priority in quality_urls:
+        rel_path = url.replace("https://listenly.fr/podcast-btb/", "")
+        fname = rel_path.rsplit("/", 1)[-1]
+        if rel_path.startswith("categorie/") and fname in excluded:
+            continue
+        if "/" not in rel_path and fname.endswith("-podcast.html"):
+            groups["hubs"].append((url, mtime, "1.0"))
+        elif rel_path.startswith("questions/"):
+            groups["questions"].append((url, mtime, "0.7"))
+        else:
+            groups["autres"].append((url, mtime, priority))
+
+    today = datetime.date.today().isoformat()
+    index_entries = []
+    for name, entries_list in groups.items():
+        entries = "\n".join(
+            f'  <url>\n    <loc>{u}</loc>\n    <lastmod>{m}</lastmod>\n    <priority>{p}</priority>\n  </url>'
+            for u, m, p in sorted(entries_list)
+        )
+        xml = (
+            '<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+            f'{entries}\n'
+            '</urlset>\n'
+        )
+        with open(f"{PAGES_DIR}/sitemap-{name}.xml", "w", encoding="utf-8") as f:
+            f.write(xml)
+        last = max((m for _, m, _ in entries_list), default=today)
+        index_entries.append(
+            f'  <sitemap>\n    <loc>https://listenly.fr/podcast-btb/sitemap-{name}.xml</loc>\n    <lastmod>{last}</lastmod>\n  </sitemap>'
+        )
+    index_xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "\n".join(index_entries) + "\n"
+        '</sitemapindex>\n'
+    )
+    with open(f"{PAGES_DIR}/sitemap-index-podcast-btb.xml", "w", encoding="utf-8") as f:
+        f.write(index_xml)
+    log("Sitemaps separes regeneres : " + ", ".join(f"{k} {len(v)}" for k, v in groups.items()))
+
 def build_llms_txt():
     """Genere pages/podcast-btb/llms.txt (convention llms.txt) — resume structure
     pour les crawlers IA. Se met a jour a chaque generation, comme le sitemap."""
