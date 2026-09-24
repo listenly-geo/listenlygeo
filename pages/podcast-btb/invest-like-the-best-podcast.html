@@ -373,60 +373,40 @@ footer a { text-decoration: underline; color: #bbb; }
 
 
 
+
 <!-- QUESTIONS_COVERED_START -->
 <style>
-.qc-wrap { margin-top:48px; padding-top:32px; border-top:1px solid #ececec; }
-.qc-title { font-size:21px; font-weight:800; margin:0 0 4px; color:#0a0a0a; }
-.qc-sub { font-size:13px; color:#888; margin:0 0 20px; }
-.qc-list { display:flex; flex-direction:column; gap:10px; }
-.qc-item { display:block; padding:16px 20px; border:1px solid #ececec; border-radius:12px;
-  text-decoration:none; color:inherit; background:#fafafa; transition:border-color .15s, box-shadow .15s, background .15s; }
-.qc-item:hover { border-color:#c9c9c9; background:#fff; box-shadow:0 3px 12px rgba(0,0,0,.06); }
-.qc-q { font-weight:700; font-size:15px; color:#111; line-height:1.4; margin-bottom:5px; }
-.qc-meta { font-size:12px; color:#999; }
+.hx-wrap { margin:32px 0 40px; padding-top:28px; border-top:1px solid #ececec; }
+.hx-title { font-size:22px; font-weight:800; margin:0 0 4px; color:#0a0a0a; }
+.hx-stats { font-size:13px; color:#777; margin:0 0 16px; }
+.hx-tools { position:sticky; top:0; background:#fff; padding:10px 0 8px; z-index:5; }
+.hx-search { width:100%; box-sizing:border-box; padding:12px 16px; font-size:16px; border:1px solid #e2e2e2; border-radius:12px; background:#fafafa; }
+.hx-chips { display:flex; gap:8px; overflow-x:auto; padding:10px 0 2px; }
+.hx-chip { white-space:nowrap; font-size:12px; color:#333; text-decoration:none; background:#f4f4f4; border:1px solid #e6e6e6; border-radius:999px; padding:5px 11px; }
+.hx-chip span { color:#999; }
+.hx-empty { font-size:14px; color:#888; }
+.hx-ep { font-size:17px; font-weight:800; color:#111; margin:26px 0 10px; line-height:1.35; }
+.hx-qa { border:1px solid #ececec; background:#fafafa; border-radius:12px; padding:16px 18px; margin:0 0 10px; }
+.hx-q { font-size:16px; font-weight:700; color:#111; line-height:1.4; margin:0 0 6px; }
+.hx-a { font-size:15px; line-height:1.6; color:#333; margin:0 0 10px; }
+.hx-foot { display:flex; flex-wrap:wrap; gap:14px; align-items:center; font-size:13px; }
+.hx-listen { font-weight:700; text-decoration:none; color:#1f5fbf; background:#eaf1fd; padding:5px 12px; border-radius:999px; }
+.hx-more { color:#777; }
+.hx-hidden { display:none; }
 </style>
-<div class="questions-covered qc-wrap">
-  <h2 class="qc-title">Questions covered</h2>
-  <p class="qc-sub">9 questions explored from this podcast</p>
-  <div class="qc-list">
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/what-is-the-core-business-model-and-technical-offering-of-a-token-fact.html">
-    <div class="qc-q">What is the core business model and technical offering of a token factory API service?</div>
-    <div class="qc-meta">2026-09-24 · Ex-NVIDIA Engineer: Why AI Is About to Get 1000x Cheaper</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/what-does-the-competitive-ai-landscape-reveal-about-the-concentration-.html">
-    <div class="qc-q">What does the competitive AI landscape reveal about the concentration risk of frontier model development?</div>
-    <div class="qc-meta">2026-09-23 · She Knows the 250 People Building AI. Here's What They Actually Believe.</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/how-should-venture-investors-evaluate-whether-they-have-sufficient-dom.html">
-    <div class="qc-q">How should venture investors evaluate whether they have sufficient domain expertise before committing to research-intensive technology bets?</div>
-    <div class="qc-meta">2026-09-22 · She Knows the 250 People Building AI. Here's What They Actually Believe.</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/what-makes-tony-zhao-and-cheng-chi-s-approach-to-robotics-generalizati.html">
-    <div class="qc-q">What makes Tony Zhao and Cheng Chi's approach to robotics generalization and data collection particularly innovative?</div>
-    <div class="qc-meta">2026-09-21 · She Knows the 250 People Building AI. Here's What They Actually Believe.</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/what-regulatory-and-infrastructure-barriers-are-preventing-rapid-scali.html">
-    <div class="qc-q">What regulatory and infrastructure barriers are preventing rapid scaling of compute capacity for AI development?</div>
-    <div class="qc-meta">2026-09-20 · She Knows the 250 People Building AI. Here's What They Actually Believe.</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/what-psychological-challenges-do-frontier-ai-researchers-face-when-wor.html">
-    <div class="qc-q">What psychological challenges do frontier AI researchers face when working at scale in compute-intensive environments?</div>
-    <div class="qc-meta">2026-09-19 · She Knows the 250 People Building AI. Here's What They Actually Believe.</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/what-concerns-do-investors-have-about-research-heavy-ai-companies-when.html">
-    <div class="qc-q">What concerns do investors have about research-heavy AI companies when assessing capability and impact?</div>
-    <div class="qc-meta">2026-09-18 · She Knows the 250 People Building AI. Here's What They Actually Believe.</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/how-should-venture-investors-balance-conviction-based-decision-making-.html">
-    <div class="qc-q">How should venture investors balance conviction-based decision-making with seeking external validation on investment theses?</div>
-    <div class="qc-meta">2026-09-17 · She Knows the 250 People Building AI. Here's What They Actually Believe.</div>
-  </a>
-  <a class="qc-item" href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/what-decision-making-framework-should-investors-use-when-evaluating-ai.html">
-    <div class="qc-q">What decision-making framework should investors use when evaluating AI companies in a period of rapid technological change?</div>
-    <div class="qc-meta">2026-09-16 · She Knows the 250 People Building AI. Here's What They Actually Believe.</div>
-  </a>
-  </div>
+<div class="questions-covered hx-wrap" id="answers">
+  <h2 class="hx-title">Answers from this podcast</h2>
+  <p class="hx-stats">8 questions answered · 1 episode indexed</p>
+  
+  <section class="hx-episode"><h3 class="hx-ep" id="ep-she-knows-the-250-people-building-ai-here-s-what-they-actually-believe">She Knows the 250 People Building AI. Here&#x27;s What They Actually Believe.</h3><article class="hx-qa" id="what-does-the-competitive-ai-landscape-reveal-about-the-concentration-"><h3 class="hx-q">What does the competitive AI landscape reveal about the concentration risk of frontier model development?</h3><p class="hx-a">Sarah believes in a great person theory of history and rejects the narrative that one or two labs will consume the entire economy. While she acknowledges…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/invest-like-the-best">▶ Listen to this moment</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/what-does-the-competitive-ai-landscape-reveal-about-the-concentration-.html">Full answer →</a></div></article><article class="hx-qa" id="how-should-venture-investors-evaluate-whether-they-have-sufficient-dom"><h3 class="hx-q">How should venture investors evaluate whether they have sufficient domain expertise before committing to research-intensive technology bets?</h3><p class="hx-a">Sarah argues that if an investor doesn&#x27;t have grounded intuition on the bet itself, they cannot confidently rate it as 8 or 9 on conviction. She cites her…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/invest-like-the-best">▶ Listen to this moment · 27:06</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/how-should-venture-investors-evaluate-whether-they-have-sufficient-dom.html">Full answer →</a></div></article><article class="hx-qa" id="what-makes-tony-zhao-and-cheng-chi-s-approach-to-robotics-generalizati"><h3 class="hx-q">What makes Tony Zhao and Cheng Chi&#x27;s approach to robotics generalization and data collection particularly innovative?</h3><p class="hx-a">Sarah credits Tony Zhao and Cheng Chi at Sunday Robotics with contributing more interesting ideas in robotics over the last four years than most…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/invest-like-the-best">▶ Listen to this moment · 20:06</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/what-makes-tony-zhao-and-cheng-chi-s-approach-to-robotics-generalizati.html">Full answer →</a></div></article><article class="hx-qa" id="what-regulatory-and-infrastructure-barriers-are-preventing-rapid-scali"><h3 class="hx-q">What regulatory and infrastructure barriers are preventing rapid scaling of compute capacity for AI development?</h3><p class="hx-a">Sarah identifies compute availability and energy supply as critical constraints over the next five to ten years. She spoke with a hyperscaler infrastructure…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/invest-like-the-best">▶ Listen to this moment · 15:48</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/what-regulatory-and-infrastructure-barriers-are-preventing-rapid-scali.html">Full answer →</a></div></article><article class="hx-qa" id="what-psychological-challenges-do-frontier-ai-researchers-face-when-wor"><h3 class="hx-q">What psychological challenges do frontier AI researchers face when working at scale in compute-intensive environments?</h3><p class="hx-a">Sarah observes that many researchers feel disempowered by the massive scale and compute requirements of frontier labs. A large contingent believes either…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/invest-like-the-best">▶ Listen to this moment · 12:54</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/what-psychological-challenges-do-frontier-ai-researchers-face-when-wor.html">Full answer →</a></div></article><article class="hx-qa" id="what-concerns-do-investors-have-about-research-heavy-ai-companies-when"><h3 class="hx-q">What concerns do investors have about research-heavy AI companies when assessing capability and impact?</h3><p class="hx-a">Sarah expresses concern that many investors are making large-scale research bets without fundamental intuition or a grounded point of view on the business…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/invest-like-the-best">▶ Listen to this moment · 18:48</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/what-concerns-do-investors-have-about-research-heavy-ai-companies-when.html">Full answer →</a></div></article><article class="hx-qa" id="how-should-venture-investors-balance-conviction-based-decision-making-"><h3 class="hx-q">How should venture investors balance conviction-based decision-making with seeking external validation on investment theses?</h3><p class="hx-a">Sarah describes her process as starting with instinctive conviction on people and ideas, immediately rating them 8 or 9, then spending days to weeks…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/invest-like-the-best">▶ Listen to this moment · 24:00</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/how-should-venture-investors-balance-conviction-based-decision-making-.html">Full answer →</a></div></article><article class="hx-qa" id="what-decision-making-framework-should-investors-use-when-evaluating-ai"><h3 class="hx-q">What decision-making framework should investors use when evaluating AI companies in a period of rapid technological change?</h3><p class="hx-a">Sarah emphasizes taking a very specific view of what is now possible, then determining what is valuable within what is possible, and identifying who is…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://listenly.fr/podcast/show/invest-like-the-best">▶ Listen to this moment · 8:00</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/invest-like-the-best/what-decision-making-framework-should-investors-use-when-evaluating-ai.html">Full answer →</a></div></article></section>
 </div>
+<script>
+(function(){var i=document.querySelector('.hx-search');if(!i)return;var e=document.querySelector('.hx-empty');
+i.addEventListener('input',function(){var v=i.value.toLowerCase().trim(),any=false;
+document.querySelectorAll('.hx-qa').forEach(function(a){var ok=!v||a.textContent.toLowerCase().indexOf(v)>-1;a.classList.toggle('hx-hidden',!ok);if(ok)any=true;});
+document.querySelectorAll('.hx-episode').forEach(function(s){s.classList.toggle('hx-hidden',!s.querySelector('.hx-qa:not(.hx-hidden)'));});
+if(e)e.hidden=any;});})();
+</script>
 <!-- QUESTIONS_COVERED_END -->
 </main>
 

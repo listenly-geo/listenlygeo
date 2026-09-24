@@ -914,6 +914,17 @@ def build_sitemap():
     """
     records = load_data()
     podcast_dates = {r["slug"]: r.get("date", "") for r in records}
+    # Hub-index (24/09/2026) : la fiche N1 change a chaque question ajoutee -> lastmod = date de
+    # la derniere question publiee (sinon Google ne voit jamais que le hub s'est enrichi).
+    for slug in list(podcast_dates):
+        reg_file = f"{PAGES_DIR}/questions/{slug}/_qa_registry.json"
+        if os.path.exists(reg_file):
+            try:
+                with open(reg_file, encoding="utf-8") as f:
+                    dates = [p.get("added_date", "") for p in json.load(f).get("published", [])]
+                podcast_dates[slug] = max([podcast_dates[slug]] + [d for d in dates if d])
+            except (json.JSONDecodeError, OSError):
+                pass
     episode_dates = {}
     episodes_root = f"{PAGES_DIR}/episodes"
     if os.path.isdir(episodes_root):

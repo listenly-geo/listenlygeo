@@ -415,6 +415,7 @@ def log(msg): print(f"[qa-btb:{SLUG}] {msg}", flush=True)
 # generiques ou orphelines ("How many episodes did the podcast reach before closing?") que
 # personne ne recherche. Chaque question extraite porte desormais un "score" (0-10) donne par
 # l'extraction ; on ne garde que les meilleures, et jamais une question orpheline.
+FICHE_NOINDEX = os.environ.get("FICHE_NOINDEX", "true").strip().lower() != "false"
 QA_MIN_SCORE           = int(os.environ.get("QA_MIN_SCORE", "7") or "7")
 QA_MAX_PER_EPISODE     = int(os.environ.get("QA_MAX_PER_EPISODE", "3") or "3")
 MAX_EPISODES_MINED_PER_RUN = int(os.environ.get("MAX_EPISODES_MINED_PER_RUN", "2") or "2")
@@ -1030,46 +1031,16 @@ def render_questions_block(podcast, published):
 
 
 def update_n1_questions_block(podcast, published):
-    """Injecte/met a jour le bloc 'Questions couvertes' dans la fiche N1 sur disque, entre des
-    marqueurs HTML.
-
-    Fix du 01/09/2026 : la version precedente inserait toujours avant </body>, ce qui plagait
-    le bloc APRES la fermeture du conteneur principal (<main class="wrapper">, max-width 720px
-    centre) -- rendu casse (plein largeur, colle a gauche, grand vide avant). Desormais :
-    1) retire d'abord tout bloc existant, peu importe sa position actuelle (auto-repare les
-       fiches deja mal positionnees, comme un bloc jadis insere avant </body>) ;
-    2) reinsere le bloc juste avant </main> (a l'interieur du conteneur principal, coherent
-       visuellement avec le reste de la fiche) ; si absent, retente </body> en dernier recours."""
+    """Met a jour la fiche N1 en mode hub-index (24/09/2026) : chaque question publiee y
+    figure avec sa reponse courte, son moment dans l'episode, une ancre et un CTA d'ecoute.
+    Voir automation/scripts/hub_index.py (placement, exclusions, marqueurs)."""
     n1_path = "{pages_dir}/{slug}-podcast.html".format(pages_dir=PAGES_DIR, slug=SLUG)
     if not os.path.exists(n1_path):
-        log("AVERTISSEMENT : fiche N1 introuvable (" + n1_path + ") — bloc questions non mis à jour.")
+        log("AVERTISSEMENT : fiche N1 introuvable (" + n1_path + ") — hub-index non mis à jour.")
         return
-    with open(n1_path, encoding="utf-8") as f:
-        n1_html = f.read()
-
-    start_marker = "<!-- QUESTIONS_COVERED_START -->"
-    end_marker = "<!-- QUESTIONS_COVERED_END -->"
-
-    # Retire un bloc existant quelle que soit sa position actuelle, avant de le reinserer au
-    # bon endroit -- gere aussi bien une premiere insertion qu'une migration/reparation.
-    if start_marker in n1_html and end_marker in n1_html:
-        pre = n1_html.split(start_marker)[0]
-        post = n1_html.split(end_marker)[1]
-        n1_html = pre + post
-
-    block = render_questions_block(podcast, published)
-    insertion = start_marker + block + end_marker
-    if "</main>" in n1_html:
-        new_html = n1_html.replace("</main>", insertion + "\n</main>", 1)
-    elif "</body>" in n1_html:
-        new_html = n1_html.replace("</body>", insertion + "\n</body>", 1)
-    else:
-        new_html = n1_html + insertion
-
-    with open(n1_path, "w", encoding="utf-8") as f:
-        f.write(new_html)
-    log("Bloc 'Questions couvertes' mis à jour sur la fiche N1 (dans le conteneur principal).")
-
+    hub = _load_module("hub_index.py")
+    if hub.apply_hub_index(n1_path, podcast, published):
+        log("Hub-index mis à jour sur la fiche N1.")
 
 def _unused_render_questions_index(podcast, published):
     language = podcast.get("language", "fr")
@@ -1233,9 +1204,19 @@ def main():
     if "</head>" in html_out:
         html_out = html_out.replace("</head>", plausible_script + "</head>", 1)
 
+    # Mode hub-index (24/09/2026) : les nouvelles fiches sont generees en noindex, follow --
+    # c'est la fiche N1 (hub) qui porte le referencement de toutes les questions. Les fiches
+    # restent accessibles depuis le hub (« Reponse complete ») et pourront etre repassees en
+    # index plus tard en retirant simplement la balise. FICHE_NOINDEX=false pour desactiver.
+    if FICHE_NOINDEX:
+        if re.search(r'<meta[^>]*name="robots"', html_out):
+            html_out = re.sub(r'(<meta[^>]*name="robots"[^>]*content=")[^"]*(")', r"\1noindex, follow\2", html_out, count=1)
+        else:
+            html_out = re.sub(r"(<head[^>]*>)", r'\1\n<meta name="robots" content="noindex, follow">', html_out, count=1)
+
     with open(out_file, "w", encoding="utf-8") as f:
         f.write(html_out)
-    log(f"✓ Fiche question écrite : {out_file}")
+    log(f"✓ Fiche question écrite : {out_file}" + (" (noindex, mode hub-index)" if FICHE_NOINDEX else ""))
 
     answer_snippet = question["r"].strip()
     if len(answer_snippet) > 160:
@@ -1245,6 +1226,7 @@ def main():
         "slug": q_slug, "question": question["q"], "url": q_url,
         "source_episode_title": ep["title"], "source_episode_guid": ep["guid"],
         "added_date": today, "answer_snippet": answer_snippet,
+        "start_seconds": question.get("start_seconds") or 0, "noindex": FICHE_NOINDEX,
     })
     if not registry["pending_qa"]:
         registry["current_episode"] = None
