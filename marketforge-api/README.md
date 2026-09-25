@@ -5,7 +5,13 @@ L'API ne génère rien elle-même. Elle **déclenche le moteur trafic existant**
 `generate_qa_fiches_btb.py`) et **lit ce qu'il a produit** (`pages/podcast-btb/questions/<slug>/_qa_registry.json`)
 pour alimenter le dashboard. Les fiches sont publiées sur `https://listenly.fr/podcast-btb/`.
 
-Seul le type `podcast` est traité ; les autres types sont enregistrés en `coming_soon`.
+Sources traitées : podcast (RSS), vidéo et webinar (YouTube, Vimeo, .mp4 — yt-dlp + transcription du moteur),
+article et site web (texte de la page, rendu JavaScript si besoin), document (PDF). Les sources non-podcast passent
+par `automation/scripts/marketforge_run.py`, qui réutilise le moteur sans le modifier. Un client sans podcast obtient
+un hub entreprise (`<slug>-podcast.html`, décrit comme entreprise, JSON-LD Organization).
+
+Prompts Bolt à coller dans l'ordre : `BOLT.md` (branchement), `BOLT-2.md` (abonnement, factures, visibilité),
+`BOLT-3.md` (toutes les sources).
 
 | Route | Rôle |
 |---|---|
