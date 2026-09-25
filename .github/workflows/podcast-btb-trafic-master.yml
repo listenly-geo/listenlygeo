@@ -3,9 +3,9 @@ name: Podcast BTB Trafic — Génération quotidienne (tous podcasts)
 on:
   workflow_dispatch: {}
   # Relance du 24/09/2026 en mode hub-index (fiches question en noindex, hubs N1 enrichis).
-  # Pour remettre en pause : commenter les deux lignes schedule ci-dessous.
-  schedule:
-    - cron: '0 */3 * * *'   # toutes les 3h — chaque podcast n'est reellement traite qu'une fois/jour (skip si deja fait), les autres passages sont juste des verifications rapides sans cout
+  # Remis en pause le 25/09/2026 sur demande. Pour reactiver : decommenter les deux lignes schedule ci-dessous.
+  # schedule:
+  #   - cron: '0 */3 * * *'   # toutes les 3h — chaque podcast n'est reellement traite qu'une fois/jour (skip si deja fait), les autres passages sont juste des verifications rapides sans cout
 
 permissions:
   contents: write
