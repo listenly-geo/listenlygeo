@@ -728,6 +728,18 @@ def _gsc_pages() -> dict:
     return json.loads(base64.b64decode(body["content"]))
 
 
+def _by_week(dates) -> list[dict]:
+    """Nombre de pages publiées par semaine (lundi de la semaine, ISO), en ordre chronologique."""
+    counts: dict[str, int] = {}
+    for d in dates:
+        if not d:
+            continue
+        day = datetime.fromisoformat(d).date()
+        monday = (day - timedelta(days=day.weekday())).isoformat()
+        counts[monday] = counts.get(monday, 0) + 1
+    return [{"week": w, "count": counts[w]} for w in sorted(counts)]
+
+
 @app.get("/api/visibility/{client_id}")
 def visibility(client_id: str, authorization: str | None = Header(default=None)):
     """Clics / impressions Google (28 derniers jours) de chaque page publiée du client."""
@@ -746,12 +758,16 @@ def visibility(client_id: str, authorization: str | None = Header(default=None))
                           "indexable": not p.get("noindex", False), "published_at": p.get("added_date")})
     for p in pages:
         st = stats.get(p["url"], {})
-        p.update(clicks=st.get("clicks", 0), impressions=st.get("impressions", 0), position=st.get("position"))
+        p.update(clicks=st.get("clicks", 0), impressions=st.get("impressions", 0), position=st.get("position"),
+                 queries=st.get("queries", []))
     return {
         "period_start": gsc.get("period_start"),
         "period_end": gsc.get("period_end"),
         "updated_at": gsc.get("fetched_at"),
         "clicks": sum(p["clicks"] for p in pages),
         "impressions": sum(p["impressions"] for p in pages),
+        "published_by_week": _by_week(p.get("published_at") for p in pages),
+        "top_queries": sorted((q | {"page": p["title"]} for p in pages for q in p["queries"]),
+                              key=lambda q: -q["impressions"])[:10],
         "pages": pages,
     }

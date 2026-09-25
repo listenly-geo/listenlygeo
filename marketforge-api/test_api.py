@@ -47,7 +47,8 @@ class FakeGitHub:
             return SimpleNamespace(status_code=200, json=lambda: {"content": content})
         if path.endswith("gsc_pages.json"):
             content = base64.b64encode(json.dumps({"period_start": "2026-08-26", "period_end": "2026-09-22", "fetched_at": "x",
-                "pages": {"https://listenly.fr/podcast-btb/questions/x/q.html": {"clicks": 4, "impressions": 90, "position": 6.2}}}).encode()).decode()
+                "pages": {"https://listenly.fr/podcast-btb/questions/x/q.html": {"clicks": 4, "impressions": 90, "position": 6.2,
+                          "queries": [{"query": "meilleur crm pme", "clicks": 3, "impressions": 70, "position": 5.1}]}}}).encode()).decode()
             return SimpleNamespace(status_code=200, json=lambda: {"content": content})
         if path.endswith("-podcast.html"):
             return SimpleNamespace(status_code=200 if self.engine_output else 404, json=lambda: {})
@@ -142,6 +143,10 @@ def test_visibility(env):
     assert v["clicks"] == 4 and v["impressions"] == 90
     assert [p["kind"] for p in v["pages"]] == ["hub", "question"]
     assert v["pages"][1]["position"] == 6.2
+    assert v["pages"][1]["queries"][0]["query"] == "meilleur crm pme"
+    assert v["published_by_week"] == [{"week": "2026-09-21", "count": 1}]
+    assert v["top_queries"][0] == {"query": "meilleur crm pme", "clicks": 3, "impressions": 70, "position": 5.1,
+                                   "page": "Quel CRM choisir ?"}
 
 
 def test_auth(env, monkeypatch):
