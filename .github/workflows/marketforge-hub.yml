@@ -69,6 +69,12 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Outils d'extraction (vidéos, PDF, sites en JavaScript)
+        if: inputs.hub_name != '' || inputs.sources_json != '[]'
+        run: |
+          pip install -q yt-dlp pypdf playwright
+          python -m playwright install --with-deps chromium
+
       - name: Hub entreprise si absent (client sans podcast)
         if: inputs.hub_name != ''
         env:
@@ -110,8 +116,6 @@ jobs:
             sleep 10
           done
 
-      - name: Outils d'extraction (vidéos, PDF)
-        run: pip install -q yt-dlp pypdf
 
       - name: Fiches question (sources + podcast)
         env:

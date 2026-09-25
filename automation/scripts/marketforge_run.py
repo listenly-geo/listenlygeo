@@ -159,15 +159,42 @@ def fetch(url, max_bytes=20_000_000):
         return resp.read(max_bytes), resp.headers.get("Content-Type", "")
 
 
+def _readable(raw_text):
+    lines = [re.sub(r"\s+", " ", l).strip() for l in raw_text.split("\n")]
+    return "\n".join(l for l in lines if len(l) > 40)  # écarte menus, boutons, mentions courtes
+
+
+def rendered_text(url):
+    """Page rendue par un vrai navigateur, pour les sites construits en JavaScript (Bolt, Wix…)."""
+    from playwright.sync_api import sync_playwright
+    with sync_playwright() as p:
+        browser = p.chromium.launch(executable_path=os.environ.get("MF_CHROMIUM_PATH") or None)
+        try:
+            page = browser.new_page()
+            page.goto(url, wait_until="networkidle", timeout=60000)
+            page.wait_for_timeout(1500)
+            for sel in ("script", "style", "nav", "header", "footer", "aside", "form", "noscript"):
+                page.evaluate(f"document.querySelectorAll('{sel}').forEach(e => e.remove())")
+            return page.title(), page.inner_text("body")
+        finally:
+            browser.close()
+
+
 def page_text(url):
     raw, ctype = fetch(url)
     if "pdf" in ctype.lower() or url.lower().split("?")[0].endswith(".pdf"):
         return pdf_text(raw, url)
     p = _TextExtractor()
     p.feed(raw.decode("utf-8", errors="replace"))
-    lines = [re.sub(r"\s+", " ", l).strip() for l in "".join(p.parts).split("\n")]
-    text = "\n".join(l for l in lines if len(l) > 40)  # écarte menus, boutons, mentions courtes
+    text = _readable("".join(p.parts))
     title = html.unescape((p.og_title or p.title).strip()) or url
+    if len(text) < 300:
+        try:
+            r_title, r_text = rendered_text(url)
+            log(f"Page rendue en JavaScript : {len(text)} → {len(_readable(r_text))} caractères lisibles.")
+            text, title = _readable(r_text), (r_title.strip() or title)
+        except Exception as e:
+            log(f"Rendu navigateur impossible ({type(e).__name__}: {str(e)[:200]}).")
     return title, text
 
 
