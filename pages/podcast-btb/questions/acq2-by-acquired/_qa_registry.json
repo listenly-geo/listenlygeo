@@ -3,83 +3,9 @@
     "7f3f7da9-894a-44b5-9e2c-59272598de58",
     "df161aed-f867-49e5-b4af-73e75cb5e030"
   ],
-  "current_episode": {
-    "guid": "df161aed-f867-49e5-b4af-73e75cb5e030",
-    "title": "How to Live in Everyone Else's Future (with Shopify CEO Tobi Lütke)",
-    "pubdate": "Thu, 18 Sep 2025 12:35:56 -0700",
-    "audio_url": "https://pdst.fm/e/media.transistor.fm/3f79e387/da1cd2b2.mp3"
-  },
-  "context": {
-    "guest": {
-      "prenom": "Tobi",
-      "nom": "Lütke",
-      "titre": "Founder and CEO",
-      "entreprise": "Shopify",
-      "titre_secondaire": "",
-      "entreprise_secondaire": "",
-      "bio_context": "Tobi Lütke is the founder and CEO of Shopify, which went public in 2015 at a valuation of less than $1.5 billion and is now worth nearly $200 billion with approximately $10 billion in annual revenue. He is described as an incredibly unique thinker who has navigated the company through significant platform shifts, including the company's dramatic stock fluctuations from a 20x revenue multiple before COVID to 70x during COVID, then back down after, and now recovering to near all-time highs based on strong business fundamentals."
-    },
-    "real_quote": "It is a privilege of a lifetime to be part of another platform shift.",
-    "key_stats": [
-      "Shopify went public in 2015 for less than $1.5 billion",
-      "Shopify is now worth nearly $200 billion",
-      "Shopify is doing about $10 billion a year in revenue",
-      "Stock trading at 20x revenue multiple before COVID",
-      "Stock reached 70x revenue multiple during COVID",
-      "Meta Quest VR device costs approximately $299"
-    ],
-    "entities": [
-      "Shopify",
-      "ChatGPT",
-      "Linux",
-      "Windows",
-      "OS X",
-      "PhoneGap",
-      "Xamarin",
-      "HTML5",
-      "Facebook",
-      "GPT-3.5",
-      "Meta Quest",
-      "IKEA",
-      "Neuromancer",
-      "Snow Crash",
-      "Job Simulator",
-      "Turing test"
-    ],
-    "transcript_excerpt": "Hello, Acquired listeners. Since we did our episode on Shopify six years ago, they have turned into a giant public company. They went public in 2015 for less than $1.5 billion. Very cute by today's standards. They're worth nearly $200 billion now and doing about $10 billion a year in revenue. We've gotten to know Toby and the team pretty well since then, and Toby is an incredibly unique thinker. We were originally thinking, let's do an ACQ2 episode on Shopify's recent developments, sort of everything that's happened since, which ended up turning more into a philosophical conversation about the state of computing, how AI changes everything, and what's possible to build in the future because of AI. Yeah. We also got into some of the more insane moments for Toby as a CEO over the past few years, like when the company almost became a meme stock, going from trading around a 20x revenue multiple before COVID up to 70x, then crashing back down after COVID and Zerb. Today, though, they're nearly back at an all-time high, but this time because the business and the revenues are actually doing great, not because of a COVID and Zerb-fueled bet on the future. Yes. So please enjoy our conversation with the founder and CEO of Shopify, Toby Lutke. Where have you spent a disproportionate amount of your mental cycles in the last month? It is a privilege of a lifetime to be part of another platform shift. And man, like it's just every single time I think I have my head wrapped around it, it's like it's remarkable how quickly one normalizes to completely futuristic new things appearing. We are all kind of like, yeah, I guess I can just paste this into chat GPT and like ask it questions about it. I'm still hung up on like there's software that no one wrote and I have to interview it to figure out its capability. So my time is like really just interviewing like these new models are coming out for their capabilities and just trying to figure out how to make them idealized, nonjudgmental teachers for people. They keep getting better and how to create structure around judging new models for their capabilities, figuring out where the edges are of what they can do right now, but also make it so that I can very quickly retest any new model coming against those edges to figure out if we've crested another. Do you have your own personal test harnesses built to try to understand capabilities? That's exactly it. This is what I'm describing, but you're nailing it. I have no, have like a Toby eval. It's like literally a folder of prompts with expected and judged results. And I'm like, I run it against every model. Like at some point I'm like, yes, I have these chats and I have these standard questions. And then I sort of make decisions based on this. I can write code that does this for me and run this against every model. And like, it's just like, it's funny how you're thinking it was while engaging with these tools, right? Like this is like not how I would have approached this before, but like speaking with a lot of machine learning experts, this is how they have been doing this. These ideas of building evals, they're called, right? Like that's not a term to most people and it's sort of a niche product of the machine learning world because it's essentially just batch jobs which just try the same thing over and over again and then judge the results. Yeah, I know that there's unit tests. Exactly. So, yeah, exactly. So unit tests were around and were kind of a revolution in the early 2000s, end of 90s. I remember when people sort of proposed automated unit tests as a thing. And I talked with you before about my wonderful meister where I did my apprenticeship with at Siemens. And he always said, like, you have two years to develop software after you start. And afterwards, it's like someone pulls cement into it, right? Like you're never going to change it again. And that was true in the 90s. That's how people thought about software. Software engineering was like c"
-  },
-  "pending_qa": [
-    {
-      "q": "What role should platform abstractions play in software architecture?",
-      "r": "Good abstractions should raise the floor — making a minimum quality level accessible — without lowering the ceiling that limits how good something can ultimately become. Lossy abstractions that pretend a system is simpler than it actually is constrain what builders can create on top; operating systems like Windows, Linux, and OS X are examples of abstractions that raise the floor significantly without constraining the ceiling, a property Lütke believes e-commerce platforms should also achieve.",
-      "start_seconds": 540,
-      "end_seconds": 900
-    },
-    {
-      "q": "How can AI help merchants achieve their vision for their businesses?",
-      "r": "Shopify is increasingly asking merchants what their goals are and using AI to help them achieve them. With AI, the company can now action previously inactionable information — for example, a rug company tripled their European sales by using AI tools to change product images from Malibu beach houses to Parisian apartments without a new photo shoot, something that would have been technically impossible three years ago but is now straightforward.",
-      "start_seconds": 960,
-      "end_seconds": 1110
-    },
-    {
-      "q": "Why did the tech community largely overlook the moment AI systems passed the Turing test?",
-      "r": "The Turing test was passed by AI systems like GPT-3.5 without widespread celebration or recognition because the entire tech community was focused on whether this represented a path to Artificial General Intelligence rather than appreciating the achievement itself. Humans are incredibly good at moving the goalpost and adjusting to new circumstances; we normalize extraordinary technologies remarkably quickly, and the community's attention had already shifted to the next future milestone.",
-      "start_seconds": 1200,
-      "end_seconds": 1350
-    },
-    {
-      "q": "What is the current state of consumer AR and VR technology adoption?",
-      "r": "Augmented reality glasses can be purchased next week, and VR devices like Meta Quest are available at approximately $299 and widely used for applications ranging from fitness workouts to racing simulator preparation. These technologies have folded into the ambient world and are taken for granted, despite being remarkable devices that were once purely speculative.",
-      "start_seconds": 1380,
-      "end_seconds": 1500
-    },
-    {
-      "q": "How should leaders design for technological futures they cannot fully predict?",
-      "r": "Leaders should live in everyone else's relative future by staying on the cutting edge of emerging technologies and design choices — for example, by running beta software and adopting new UI paradigms early. This approach ensures that products are designed for the device and context as it will be experienced by users in the future, not as it exists today, which is the biggest job a CEO can do for their company and customers.",
-      "start_seconds": 280,
-      "end_seconds": 450
-    }
-  ],
+  "current_episode": null,
+  "context": null,
+  "pending_qa": [],
   "published": [
     {
       "slug": "how-did-a-reporter-launch-a-daily-email-newsletter-in-2001-over-15-yea",

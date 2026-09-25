@@ -201,7 +201,13 @@ def apply_hub_index(n1_path, podcast, published):
         original = f.read()
     page = original
     if START_MARKER in page and END_MARKER in page:
-        page = page.split(START_MARKER)[0] + page.split(END_MARKER, 1)[1]
+        pre = page.split(START_MARKER)[0]
+        post = page.split(END_MARKER, 1)[1]
+        # Le bloc est toujours insere suivi d'un saut de ligne : on le retire avec lui, pour qu'une
+        # reecriture a contenu identique laisse la page strictement inchangee.
+        if post.startswith("\n"):
+            post = post[1:]
+        page = pre.rstrip("\n") + "\n" + post if pre.endswith("\n") else pre + post
 
     entries = visible_entries(published)
     if not entries:
@@ -210,7 +216,7 @@ def apply_hub_index(n1_path, podcast, published):
         block = START_MARKER + render_hub_index(podcast, published) + END_MARKER
         cta = re.search(r'<div class="cta-row">.*?</div>', page, flags=re.DOTALL)
         if len(entries) >= HUB_TOP_THRESHOLD and cta:
-            new = page[:cta.end()] + "\n" + block + page[cta.end():]
+            new = page[:cta.end()] + "\n" + block + "\n" + page[cta.end():].lstrip("\n")
         elif "</main>" in page:
             new = page.replace("</main>", block + "\n</main>", 1)
         elif "</body>" in page:
