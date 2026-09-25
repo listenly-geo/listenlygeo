@@ -34,7 +34,6 @@ SITE_URL = os.environ.get("GSC_SITE_URL", "sc-domain:listenly.fr")  # propriete 
 PATH_FILTER = os.environ.get("GSC_PATH_FILTER", "/podcast-btb/")
 DAYS = int(os.environ.get("GSC_DAYS", "180"))  # large historique : la selection de periode (7/30/90j) se fait cote navigateur, sans re-fetch
 OUTPUT_FILE = "pages/podcast-btb/data/gsc_stats.json"
-PAGES_OUTPUT_FILE = "pages/podcast-btb/data/gsc_pages.json"
 
 SCOPE = "https://www.googleapis.com/auth/webmasters.readonly"
 TOKEN_URL = "https://oauth2.googleapis.com/token"
@@ -199,33 +198,6 @@ def main():
         json.dump(output, f, ensure_ascii=False, indent=2)
 
     log(f"Termine : {clicks_total} clics, {impressions_total} impressions sur {len(daily)} jour(s) -> {OUTPUT_FILE}")
-
-    # Ventilation par page (25/09/2026) pour le dashboard client Marketforge (API
-    # marketforge-api, route /api/visibility). Fichier separe : gsc_stats.json et ses
-    # consommateurs restent inchanges. Echec non bloquant.
-    pages_start = end_date - datetime.timedelta(days=27)
-    try:
-        page_rows = query_search_analytics(
-            access_token, pages_start.isoformat(), end_date.isoformat(), ["page"]
-        ).get("rows", [])
-        pages = {
-            r["keys"][0]: {
-                "clicks": int(r.get("clicks", 0)),
-                "impressions": int(r.get("impressions", 0)),
-                "position": round(float(r.get("position", 0)), 1),
-            }
-            for r in page_rows
-        }
-        with open(PAGES_OUTPUT_FILE, "w", encoding="utf-8") as f:
-            json.dump({
-                "period_start": pages_start.isoformat(),
-                "period_end": end_date.isoformat(),
-                "fetched_at": output["fetched_at"],
-                "pages": pages,
-            }, f, ensure_ascii=False, indent=2)
-        log(f"Stats par page : {len(pages)} page(s) -> {PAGES_OUTPUT_FILE}")
-    except urllib.error.HTTPError as e:
-        log(f"AVERTISSEMENT : stats par page impossibles ({e.code}) — gsc_stats.json reste valide.")
 
 
 if __name__ == "__main__":
