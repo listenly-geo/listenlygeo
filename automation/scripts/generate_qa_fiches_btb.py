@@ -426,8 +426,29 @@ ORPHAN_QUESTION_RE = re.compile(
     re.IGNORECASE,
 )
 
+# Elargi le 25/09/2026 : l'ancien stock laissait passer des sujets anonymes introduits par un
+# article indefini (« a growing pet care business », « a newly launched real estate software
+# platform », « AI agents like this »). Ces formes ne sont jugees orphelines que si la question ne
+# contient aucun nom propre (« …the Oasis Senior Advisors franchise over a home care company »
+# reste valable).
+VAGUE_SUBJECT_RE = re.compile(
+    r"\b(an?)\s+(?:[\w'’-]+\s+){0,5}?(company|business|firm|brand|founder|entrepreneur|startup|platform|organi[sz]ation|"
+    r"creator|restaurant|team|agency|podcaster|executive|professional|manufacturer|contractor|broker|investor|husband|wife|region|captain)\b"
+    r"|\b(une?)\s+(?:[\w'’-]+\s+){0,4}?(entreprise|société|marque|fondateur|fondatrice|startup|plateforme|région)\b",
+    re.IGNORECASE,
+)
+_ACRONYMS = {"AI", "IA", "CEO", "CFO", "CMO", "COO", "CTO", "US", "U.S.", "UK", "EU", "B2B", "B2C", "SaaS", "HR", "RH", "IT", "ROI", "KPI", "ESOP", "LLC", "PME"}
+
+def _has_proper_noun(q):
+    words = re.findall(r"[\w'’.&-]+", q or "")
+    return any(w[:1].isupper() and w not in _ACRONYMS and not w.isupper() for w in words[1:]) or \
+        any(w.isupper() and len(w) > 1 and w not in _ACRONYMS for w in words[1:])
+
 def is_orphan_question(q):
-    return bool(ORPHAN_QUESTION_RE.search(q or ""))
+    q = q or ""
+    if ORPHAN_QUESTION_RE.search(q) or re.search(r"\blike this\b", q, re.IGNORECASE):
+        return True
+    return bool(VAGUE_SUBJECT_RE.search(q)) and not _has_proper_noun(q)
 
 # --- Anti-doublon (24/09/2026) ---
 # Sur les 14 pages refusees par Google, deux avaient une fiche soeur sur le meme sujet
