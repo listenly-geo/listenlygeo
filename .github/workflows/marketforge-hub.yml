@@ -1,0 +1,139 @@
+name: Marketforge Hub — client (déclenché par l'API)
+
+# Déclenché uniquement par l'API Marketforge (workflow_dispatch). Réutilise tel quel le
+# moteur trafic : fiche podcast N1 (hub) si absente, puis N fiches question via
+# generate_qa_fiches_btb.py. Pas de cron : les clients Hub ne sont PAS ajoutés au run
+# groupé quotidien (run_all_qa_podcasts.py ne découvre que les podcast-btb-qa-<slug>.yml).
+
+run-name: "marketforge ${{ inputs.podcast_slug }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      podcast_slug:
+        description: 'Slug du podcast (calculé par l API depuis le titre du flux RSS)'
+        required: true
+        type: string
+      rss_url:
+        description: 'URL du flux RSS'
+        required: true
+        type: string
+      cta_url:
+        description: 'Cible du bouton des fiches (site du client)'
+        required: true
+        type: string
+      podcast_url:
+        description: 'Lien Spotify/plateforme (optionnel, auto-détecté dans le RSS sinon)'
+        required: false
+        type: string
+        default: ''
+      language:
+        description: 'Langue des fiches'
+        required: false
+        type: choice
+        default: fr
+        options:
+          - fr
+          - en
+      max_fiches:
+        description: 'Nombre max de fiches question pour ce run (1 à 5)'
+        required: false
+        type: string
+        default: '3'
+
+concurrency:
+  group: marketforge-${{ inputs.podcast_slug }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  hub:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fiche podcast N1 (hub) si absente
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RSS_URL: ${{ inputs.rss_url }}
+          PODCAST_URL: ${{ inputs.podcast_url }}
+          LISTENLY_URL: ${{ inputs.cta_url }}
+          PODCAST_SLUG: ${{ inputs.podcast_slug }}
+          LANGUAGE: ${{ inputs.language }}
+          EPISODE_CTA_TARGET: listenly
+        run: |
+          if [ -z "$PODCAST_URL" ]; then unset PODCAST_URL; fi
+          python automation/scripts/generate_podcast_btb.py || {
+            # Pas de lien Spotify dans le RSS : on retombe sur le flux lui-même pour le sameAs.
+            echo "Nouvel essai avec PODCAST_URL=RSS_URL"
+            PODCAST_URL="$RSS_URL" python automation/scripts/generate_podcast_btb.py
+          }
+          python automation/scripts/rebuild_dashboard.py || true
+
+      - name: Installer ffmpeg (compression audio Whisper)
+        run: |
+          export DEBIAN_FRONTEND=noninteractive
+          for i in 1 2 3 4 5; do
+            sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg && break
+            sleep 10
+          done
+
+      - name: Fiches question
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PODCAST_SLUG: ${{ inputs.podcast_slug }}
+          RSS_URL: ${{ inputs.rss_url }}
+          LANGUAGE_OVERRIDE: ${{ inputs.language }}
+          MAX_FICHES: ${{ inputs.max_fiches }}
+        run: |
+          n=$(printf '%s' "$MAX_FICHES" | tr -cd '0-9'); n=${n:-3}
+          [ "$n" -gt 5 ] && n=5; [ "$n" -lt 1 ] && n=1
+          for i in $(seq 1 "$n"); do
+            echo "--- fiche $i/$n ---"
+            python automation/scripts/generate_qa_fiches_btb.py || break
+          done
+
+      - name: Commit fiches
+        if: always()
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: marketforge hub ${{ inputs.podcast_slug }}"
+            git fetch origin main
+            if ! git rebase origin/main; then
+              echo "::error::Conflit lors du rebase - abandon pour ne pas corrompre le depot."
+              git rebase --abort
+              exit 1
+            fi
+            if grep -rq "^<<<<<<< \|^=======$\|^>>>>>>> " pages/podcast-btb/ 2>/dev/null; then
+              echo "::error::Marqueurs de conflit detectes apres rebase - abandon."
+              exit 1
+            fi
+            git push
+          fi
+
+      - name: Deploy FTP
+        if: always()
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
