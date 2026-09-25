@@ -15,7 +15,7 @@ on:
         required: true
         type: string
       rss_url:
-        description: 'URL du flux RSS'
+        description: 'URL du flux RSS (podcast) ; pour un hub entreprise, URL du site'
         required: true
         type: string
       cta_url:
@@ -40,6 +40,16 @@ on:
         required: false
         type: string
         default: '3'
+      sources_json:
+        description: 'Sources non-podcast [{"type":"video|webinar|article|document|website","value":"https://..."}]'
+        required: false
+        type: string
+        default: '[]'
+      hub_name:
+        description: 'Nom de l entreprise : si renseigné, hub entreprise (client sans podcast)'
+        required: false
+        type: string
+        default: ''
 
 concurrency:
   group: marketforge-${{ inputs.podcast_slug }}
@@ -59,7 +69,22 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Hub entreprise si absent (client sans podcast)
+        if: inputs.hub_name != ''
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PODCAST_SLUG: ${{ inputs.podcast_slug }}
+          HUB_NAME: ${{ inputs.hub_name }}
+          CTA_URL: ${{ inputs.cta_url }}
+          SOURCES_JSON: ${{ inputs.sources_json }}
+          LANGUAGE: ${{ inputs.language }}
+          EPISODE_CTA_TARGET: listenly
+        run: |
+          python automation/scripts/marketforge_run.py hub
+          python automation/scripts/rebuild_dashboard.py || true
+
       - name: Fiche podcast N1 (hub) si absente
+        if: inputs.hub_name == ''
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           RSS_URL: ${{ inputs.rss_url }}
@@ -85,7 +110,10 @@ jobs:
             sleep 10
           done
 
-      - name: Fiches question
+      - name: Outils d'extraction (vidéos, PDF)
+        run: pip install -q yt-dlp pypdf
+
+      - name: Fiches question (sources + podcast)
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -94,20 +122,15 @@ jobs:
           RSS_URL: ${{ inputs.rss_url }}
           LANGUAGE_OVERRIDE: ${{ inputs.language }}
           MAX_FICHES: ${{ inputs.max_fiches }}
-        run: |
-          n=$(printf '%s' "$MAX_FICHES" | tr -cd '0-9'); n=${n:-3}
-          [ "$n" -gt 5 ] && n=5; [ "$n" -lt 1 ] && n=1
-          for i in $(seq 1 "$n"); do
-            echo "--- fiche $i/$n ---"
-            python automation/scripts/generate_qa_fiches_btb.py || break
-          done
+          SOURCES_JSON: ${{ inputs.sources_json }}
+        run: python automation/scripts/marketforge_run.py fiches
 
       - name: Commit fiches
         if: always()
         run: |
           git config user.name  "listenly-bot"
           git config user.email "bot@listenly.fr"
-          git add pages/podcast-btb/
+          git add pages/podcast-btb/ automation/inbox/ || git add pages/podcast-btb/
           if git diff --staged --quiet; then
             echo "Rien de nouveau."
           else
@@ -118,7 +141,7 @@ jobs:
               git rebase --abort
               exit 1
             fi
-            if grep -rq "^<<<<<<< \|^=======$\|^>>>>>>> " pages/podcast-btb/ 2>/dev/null; then
+            if grep -rq "^<<<<<<< \|^=======$\|^>>>>>>> " pages/podcast-btb/ automation/inbox/ 2>/dev/null; then
               echo "::error::Marqueurs de conflit detectes apres rebase - abandon."
               exit 1
             fi

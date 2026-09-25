@@ -5,7 +5,7 @@ listenly-geo/listenlygeo (workflow marketforge-hub.yml -> generate_podcast_btb.p
 generate_qa_fiches_btb.py) et lit ce qu'il a produit pour alimenter le dashboard.
 
 Stockage : un fichier JSON par client dans DATA_DIR.
-Seul le type de source "podcast" est traité ; les autres sont enregistrés comme "coming_soon".
+Sources traitées : podcast (RSS), vidéo, webinar, article, document (PDF), site web.
 """
 
 import base64
@@ -58,7 +58,6 @@ APP_URL = os.getenv("APP_URL", "https://marketforge.fr").rstrip("/")
 ACTIVE_STATUSES = {"active", "trialing"}
 
 SourceType = Literal["website", "podcast", "video", "document", "webinar", "article"]
-SUPPORTED_TYPES = {"podcast"}
 Strategy = Literal["hub", "site", "both"]
 
 app = FastAPI(title="Marketforge AI Visibility Hub API")
@@ -274,22 +273,34 @@ def health():
     }
 
 
+SOURCE_HINTS = {
+    "podcast": "l'URL du flux RSS",
+    "video": "le lien de la vidéo (YouTube, Vimeo ou fichier .mp4)",
+    "webinar": "le lien du replay (YouTube, Vimeo ou fichier .mp4)",
+    "article": "le lien de l'article",
+    "document": "le lien du PDF",
+    "website": "l'adresse du site",
+}
+
+
+def _source_guid(url: str) -> str:
+    """Identique à marketforge_run.source_guid (identifiant de la source dans le moteur)."""
+    return "mf-" + hashlib.sha1(url.strip().encode()).hexdigest()[:16]
+
+
 @app.post("/api/onboarding/sources")
 def add_source(body: SourceIn, authorization: str | None = Header(default=None)):
     cid = _authorize(body.client_id, authorization)
     value = body.value.strip()
-    source = {
-        "type": body.type,
-        "value": value,
-        "supported": body.type in SUPPORTED_TYPES,
-        "status": "pending" if body.type in SUPPORTED_TYPES else "coming_soon",
-    }
+    if not value.startswith(("http://", "https://")):
+        raise HTTPException(status_code=422, detail=f"Indiquez {SOURCE_HINTS[body.type]} (commençant par https://)")
+    source = {"type": body.type, "value": value, "supported": True, "status": "pending"}
     if body.type == "podcast":
-        if not value.startswith(("http://", "https://")):
-            raise HTTPException(status_code=422, detail="Pour un podcast, indiquez l'URL du flux RSS")
         source["title"] = _read_podcast_title(value)
         source["slug"] = slugify(source["title"])
         source["hub_url"] = f"{PUBLIC_BASE}/{source['slug']}-podcast.html"
+    else:
+        source["guid"] = _source_guid(value)
 
     def apply(d):
         if not any(s["type"] == body.type and s["value"] == value for s in d["sources"]):
@@ -313,14 +324,43 @@ def _global_runs_today() -> list[str]:
     return [r for r in runs if r.startswith(today)]
 
 
+def _company_name(client: dict) -> tuple[str, str]:
+    """(nom, slug) du hub entreprise, déduits du site (ou du domaine de l'email)."""
+    site = next((s["value"] for s in client["sources"] if s["type"] == "website"), "")
+    domain = re.sub(r"^www\.", "", re.sub(r"^https?://", "", site).split("/")[0]) or client["client_id"].split("@")[1]
+    stem = domain.rsplit(".", 1)[0]
+    return stem.replace("-", " ").replace(".", " ").title(), slugify(stem)
+
+
+def _hubs(client: dict) -> list[dict]:
+    """Pages hub du client : une par podcast ; les autres sources rejoignent le premier
+    podcast, ou un hub entreprise si le client n'a pas de podcast."""
+    podcasts = [s for s in client["sources"] if s["type"] == "podcast"]
+    others = [s for s in client["sources"] if s["type"] != "podcast"]
+    website = next((s["value"] for s in client["sources"] if s["type"] == "website"), "")
+    hubs = [{
+        "slug": p["slug"], "title": p["title"], "hub_url": p["hub_url"], "kind": "podcast",
+        "rss_url": p["value"], "cta_url": website or p["value"], "hub_name": "",
+        "sources": others if i == 0 else [],
+    } for i, p in enumerate(podcasts)]
+    if not hubs and others:
+        name, slug = _company_name(client)
+        cta = website or others[0]["value"]
+        hubs.append({
+            "slug": slug, "title": name, "hub_url": f"{PUBLIC_BASE}/{slug}-podcast.html", "kind": "company",
+            "rss_url": cta, "cta_url": cta, "hub_name": name, "sources": others,
+        })
+    return hubs
+
+
 @app.post("/api/run/{client_id}")
 def run(client_id: str, authorization: str | None = Header(default=None)):
     cid = _authorize(client_id, authorization)
     with _lock:
         data = _load(cid)
-        podcasts = [s for s in data["sources"] if s["type"] == "podcast"]
-        if not podcasts:
-            raise HTTPException(status_code=400, detail="Aucune source traitable (seuls les podcasts le sont pour l'instant)")
+        hubs = _hubs(data)
+        if not hubs:
+            raise HTTPException(status_code=400, detail="Ajoutez au moins une source (podcast, vidéo, article…)")
 
         allowed, fiches = _run_allowance(data)
         if not allowed:
@@ -333,18 +373,19 @@ def run(client_id: str, authorization: str | None = Header(default=None)):
                 return {"ok": True, "status": "already_started", "last_run_at": data["runs"][-1]}
 
         today_runs = _global_runs_today()
-        if len(today_runs) + len(podcasts) > MAX_RUNS_PER_DAY:
+        if len(today_runs) + len(hubs) > MAX_RUNS_PER_DAY:
             raise HTTPException(status_code=429, detail="Limite quotidienne d'analyses atteinte, réessayez demain")
 
-        website = next((s["value"] for s in data["sources"] if s["type"] == "website" and s["value"]), "")
-        for src in podcasts:
+        for hub in hubs:
             r = _gh("POST", f"/actions/workflows/{WORKFLOW_FILE}/dispatches", json={
                 "ref": "main",
                 "inputs": {
-                    "podcast_slug": src["slug"],
-                    "rss_url": src["value"],
-                    "cta_url": website or src["value"],
+                    "podcast_slug": hub["slug"],
+                    "rss_url": hub["rss_url"],
+                    "cta_url": hub["cta_url"],
                     "max_fiches": str(fiches),
+                    "sources_json": json.dumps([{"type": s["type"], "value": s["value"]} for s in hub["sources"]]),
+                    "hub_name": hub["hub_name"],
                 },
             })
             if r.status_code not in (200, 204):
@@ -355,44 +396,91 @@ def run(client_id: str, authorization: str | None = Header(default=None)):
         _save(data)
         _cache.clear()
         p = DATA_DIR / "_runs_log.json"
-        p.write_text(json.dumps(today_runs + [now.isoformat()] * len(podcasts)))
+        p.write_text(json.dumps(today_runs + [now.isoformat()] * len(hubs)))
     return {"ok": True, "status": "running"}
 
 
+def _inbox_files(slug: str) -> set[str]:
+    """Sources déjà extraites par le moteur (fichiers de l'inbox, en attente ou consommés)."""
+    names = set()
+    for sub in ("", "/consumed"):
+        code, body = _gh_get_json(f"/contents/automation/inbox/moteur-trafic-transcripts/{slug}{sub}", ref="main")
+        if code == 200 and isinstance(body, list):
+            names |= {f["name"].removesuffix(".json") for f in body if f.get("name", "").endswith(".json")}
+    return names
+
+
+def _hub_run_status(client: dict, slug: str) -> tuple[str, dict | None]:
+    run = _latest_run(slug) if client["runs"] else None
+    status = _run_status(run)
+    # Juste après le dispatch, GitHub met quelques secondes à créer le run.
+    if status != "running" and client["runs"]:
+        started = datetime.fromisoformat(client["runs"][-1])
+        if datetime.now(timezone.utc) - started < timedelta(minutes=2) and (
+            run is None or run["created_at"] < client["runs"][-1][:19] + "Z"
+        ):
+            status = "running"
+    return (status if client["runs"] else "pending"), run
+
+
 def _collect(client: dict) -> dict:
-    """Assemble l'état réel de chaque podcast à partir du dépôt du moteur."""
-    sources, opportunities = [], []
-    statuses = []
-    for s in client["sources"]:
-        s = dict(s)
-        if s["type"] == "podcast":
-            run = _latest_run(s["slug"]) if client["runs"] else None
-            status = _run_status(run)
-            # Juste après le dispatch, GitHub met quelques secondes à créer le run.
-            if status != "running" and client["runs"]:
-                started = datetime.fromisoformat(client["runs"][-1])
-                if datetime.now(timezone.utc) - started < timedelta(minutes=2) and (
-                    run is None or run["created_at"] < client["runs"][-1][:19] + "Z"
-                ):
-                    status = "running"
-            reg = _registry(s["slug"]) or {"pending_qa": [], "published": []}
-            s["status"] = status if client["runs"] else "pending"
-            s["hub_online"] = _hub_exists(s["slug"])
-            s["run_url"] = run["html_url"] if run else None
-            for p in reg.get("published", []):
-                opportunities.append({
-                    "question": p["question"], "answer": p.get("answer_snippet", ""), "url": p["url"],
-                    "published": True, "episode_title": p.get("source_episode_title", ""),
-                    "added_date": p.get("added_date"), "podcast": s.get("title"),
-                })
-            for q in reg.get("pending_qa", []):
-                opportunities.append({
-                    "question": q.get("q", ""), "answer": q.get("r", ""), "url": None,
-                    "published": False, "episode_title": (reg.get("current_episode") or {}).get("title", ""),
-                    "added_date": None, "podcast": s.get("title"),
-                })
-            statuses.append(s["status"])
-        sources.append(s)
+    """Assemble l'état réel de chaque hub et de chaque source à partir du dépôt du moteur."""
+    by_value = {s["value"]: dict(s) for s in client["sources"]}
+    opportunities, statuses, hubs_out = [], [], []
+    for hub in _hubs(client):
+        status, run = _hub_run_status(client, hub["slug"])
+        reg = _registry(hub["slug"]) or {"pending_qa": [], "published": [], "known_episode_guids": []}
+        online = _hub_exists(hub["slug"])
+        statuses.append(status)
+        hubs_out.append({"title": hub["title"], "url": hub["hub_url"], "online": online, "kind": hub["kind"]})
+        guid_to_src = {s["guid"]: by_value[s["value"]] for s in hub["sources"] if s.get("guid")}
+
+        if hub["kind"] == "podcast":
+            src = by_value[hub["rss_url"]]
+            src.update(status=status, hub_online=online, run_url=run["html_url"] if run else None, questions=0)
+
+        extracted = _inbox_files(hub["slug"]) | set(reg.get("known_episode_guids", [])) if guid_to_src else set()
+        for guid, src in guid_to_src.items():
+            src["questions"] = 0
+            if guid in extracted:
+                src["status"] = "done"
+            elif status == "running":
+                src["status"] = "running"
+            else:
+                src["status"] = "queued" if client["runs"] else "pending"
+
+        def source_of(guid=None, url=None):
+            if guid in guid_to_src:
+                return guid_to_src[guid]
+            if url and url in by_value:
+                return by_value[url]
+            return by_value.get(hub["rss_url"]) if hub["kind"] == "podcast" else None
+
+        for p in reg.get("published", []):
+            src = source_of(guid=p.get("source_episode_guid"))
+            if src is not None:
+                src["questions"] = src.get("questions", 0) + 1
+            opportunities.append({
+                "question": p["question"], "answer": p.get("answer_snippet", ""), "url": p["url"],
+                "published": True, "episode_title": p.get("source_episode_title", ""),
+                "added_date": p.get("added_date"), "podcast": hub["title"],
+                "source_type": (src or {}).get("type", "podcast"),
+            })
+        for q in reg.get("pending_qa", []):
+            src = source_of(url=q.get("source_url"))
+            if src is not None:
+                src["questions"] = src.get("questions", 0) + 1
+            opportunities.append({
+                "question": q.get("q", ""), "answer": q.get("r", ""), "url": None,
+                "published": False,
+                "episode_title": q.get("source_title") or (reg.get("current_episode") or {}).get("title", ""),
+                "added_date": None, "podcast": hub["title"], "source_type": q.get("source_kind", "podcast"),
+            })
+
+    sources = list(by_value.values())
+    for s in sources:
+        # Source extraite mais sans aucune question exploitable (contenu trop court, vidéo inaccessible…)
+        s["empty"] = s.get("status") == "done" and s.get("questions", 0) == 0 and s["type"] != "podcast"
 
     if "running" in statuses:
         status = "running"
@@ -402,7 +490,7 @@ def _collect(client: dict) -> dict:
         status = "done"
     else:
         status = "idle"
-    return {"sources": sources, "opportunities": opportunities, "status": status}
+    return {"sources": sources, "opportunities": opportunities, "status": status, "hubs": hubs_out}
 
 
 @app.get("/api/dashboard/{client_id}")
@@ -412,15 +500,15 @@ def dashboard(client_id: str, authorization: str | None = Header(default=None)):
         client = _load(cid)
     state = _collect(client)
     published = [o for o in state["opportunities"] if o["published"]]
-    hubs = [s for s in state["sources"] if s.get("hub_online")]
+    online = [h for h in state["hubs"] if h["online"]]
     return {
         "sources_connected": len(client["sources"]),
         "opportunities_found": len(state["opportunities"]),
-        "resources_published": len(published) + len(hubs),
+        "resources_published": len(published) + len(online),
         "strategy": client["strategy"],
         "status": state["status"],
         "last_run_at": client["runs"][-1] if client["runs"] else None,
-        "hub_urls": [s["hub_url"] for s in hubs],
+        "hub_urls": [h["url"] for h in online],
         "sources": state["sources"],
     }
 
@@ -649,12 +737,10 @@ def visibility(client_id: str, authorization: str | None = Header(default=None))
     gsc = _gsc_pages()
     stats = gsc.get("pages", {})
     pages = []
-    for s in client["sources"]:
-        if s.get("type") != "podcast":
-            continue
-        if _hub_exists(s["slug"]):
-            pages.append({"url": s["hub_url"], "title": f"Page hub — {s.get('title', '')}", "kind": "hub", "indexable": True})
-        reg = _registry(s["slug"]) or {}
+    for hub in _hubs(client):
+        if _hub_exists(hub["slug"]):
+            pages.append({"url": hub["hub_url"], "title": f"Page hub — {hub['title']}", "kind": "hub", "indexable": True})
+        reg = _registry(hub["slug"]) or {}
         for p in reg.get("published", []):
             pages.append({"url": p["url"], "title": p["question"], "kind": "question",
                           "indexable": not p.get("noindex", False), "published_at": p.get("added_date")})
