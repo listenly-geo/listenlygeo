@@ -274,8 +274,12 @@ def cmd_hub():
     try:
         _, about = page_text(cta)
     except Exception as e:
-        log(f"Site injoignable ({e}) — description minimale.")
+        log(f"Site injoignable ({e}).")
         about = ""
+    if len(about) < 300:
+        # Site vide ou rendu en JavaScript : sans texte réel, la page hub serait inventée.
+        log(f"ERREUR : le site {cta} ne fournit que {len(about)} caractères de texte lisible — page hub non créée.")
+        sys.exit(1)
     os.environ["PODCAST_RAW_INFO"] = (
         f"Nom du podcast : {name}\n\nType : page hub des contenus experts de l'entreprise {name} (ce n'est pas un podcast)\n"
         f"Site : {cta}\n\nPrésentation (texte réel du site) :\n{about[:6000]}"
