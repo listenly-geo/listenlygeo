@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, follow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Young Internet Users Built a Secret Chat System Inside Podcast Playlists</title>
+    <meta name="description" content="When a creator's podcast was banned, 20 kids developed an ingenious workaround using public playlists and comment threads as their hidden group chat.">
+    <meta name="author" content="Ira Glass">
+    <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/this-american-life/what-system-did-young-internet-users-develop-to-maintain-group-communi.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How Young Internet Users Built a Secret Chat System Inside Podcast Playlists">
+    <meta property="og:description" content="When a creator's podcast was banned, 20 kids developed an ingenious workaround using public playlists and comment threads as their hidden group chat.">
+    <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/this-american-life/what-system-did-young-internet-users-develop-to-maintain-group-communi.html">
+    <meta property="og:site_name" content="Listenly">
+    <meta property="og:image" content="https://i.postimg.cc/Y963LFKZ/0x1900-000000-80-0-0.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How Young Internet Users Built a Secret Chat System Inside Podcast Playlists">
+    <meta name="twitter:description" content="When a creator's podcast was banned, 20 kids developed an ingenious workaround using public playlists and comment threads as their hidden group chat.">
+    <meta name="twitter:image" content="https://i.postimg.cc/Y963LFKZ/0x1900-000000-80-0-0.jpg">
+    <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Person",
+                "@id": "https://listenly.fr/podcast-btb/this-american-life-podcast.html#ira-glass",
+                "name": "Ira Glass",
+                "jobTitle": "Host & Producer",
+                "worksFor": {
+                    "@type": "Organization",
+                    "name": "WBEZ Chicago"
+                }
+            },
+            {
+                "@type": "BlogPosting",
+                "@id": "https://listenly.fr/podcast-btb/questions/this-american-life/what-system-did-young-internet-users-develop-to-maintain-group-communi.html",
+                "headline": "How Young Internet Users Built a Secret Chat System Inside Podcast Playlists",
+                "description": "When a creator's podcast was banned, 20 kids developed an ingenious workaround using public playlists and comment threads as their hidden group chat.",
+                "datePublished": "2026-09-25",
+                "dateModified": "2026-09-25",
+                "image": "https://i.postimg.cc/Y963LFKZ/0x1900-000000-80-0-0.jpg",
+                "author": {
+                    "@type": "Organization",
+                    "name": "This American Life"
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Listenly",
+                    "url": "https://listenly.fr"
+                },
+                "isPartOf": {
+                    "@type": "PodcastSeries",
+                    "name": "This American Life",
+                    "url": "https://listenly.fr/podcast-btb/this-american-life-podcast.html"
+                },
+                "speakable": {
+                    "@type": "SpeakableSpecification",
+                    "cssSelector": [".lead"]
+                }
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Listenly",
+                        "item": "https://listenly.fr"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "This American Life",
+                        "item": "https://listenly.fr/podcast-btb/this-american-life-podcast.html"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": "How Young Internet Users Built a Secret Chat System Inside Podcast Playlists",
+                        "item": "https://listenly.fr/podcast-btb/questions/this-american-life/what-system-did-young-internet-users-develop-to-maintain-group-communi.html"
+                    }
+                ]
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "Why might middle schoolers choose NPR podcast comment sections as venues for group communication?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "According to Ella, a 14-year-old who participated in the group, they chose NPR shows specifically because they didn't have many comments already, making them ideal spaces for their private conversations to blend in."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "How can younger generations recognize online communication patterns that older colleagues might misinterpret as bot activity?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Hannah Chin, a Gen Z employee at NPR, recognized that the incoherent Spotify comments were actually middle schoolers using podcast comment threads as their group chat, rather than bot activity—something her millennial colleague initially missed."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "How does examining a sibling's autopsy report and death circumstances affect grief and understanding?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "When identifying her sister's body, Nadia noticed the sheet was pink from watered-down blood and observed that her sister's autopsy report listed her heart, providing factual context that shaped her understanding of the death."
+                        }
+                    }
+                ]
+            },
+            {
+                "@type": "Thing",
+                "name": "This American Life"
+            },
+            {
+                "@type": "Thing",
+                "name": "Spotify"
+            },
+            {
+                "@type": "Thing",
+                "name": "NPR"
+            },
+            {
+                "@type": "Thing",
+                "name": "TikTok"
+            }
+        ]
+    }
+    </script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="header-top">
+                <img class="podcast-cover" src="https://i.postimg.cc/Y963LFKZ/0x1900-000000-80-0-0.jpg" alt="This American Life">
+                <div>
+                    <span class="badge">The answer lives in this podcast</span>
+                    <p class="source-line">Answer extracted from the This American Life podcast — listen to the full episode below.</p>
+                </div>
+            </div>
+            <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/897_intergenerational_space_travel">🎧 Listen to the episode on Listenly</a>
+            <h1>How did young internet users build a secret communication system after their podcast was removed?</h1>
+            <p class="article-meta">
+                <span>September 25, 2026</span>
+                <span><strong>This American Life</strong></span>
+            </p>
+        </header>
+
+        <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/this-american-life-podcast.html">← See the This American Life fiche</a></p>
+
+        <p class="lead">When a girl's podcast that played TikTok videos for kids was banned from Spotify, a group of around 20 kids—some as young as 11 years old—developed an ingenious workaround: <strong>they created public playlists with names like "Let's Chat Here" or "New Chat," placed a single podcast episode inside, and used the comment section as their hidden group chat</strong>. Other members would find the playlist, locate the episode, and post comments to communicate with each other.</p>
+
+        <p>The system worked because podcast comment threads weren't yet monitored as closely as traditional social media. A 14-year-old member of the group named Ella explained how it unfolded: people would simply make playlists specifically designed to host their conversations, creating a de facto chat room disguised as harmless podcast content.</p>
+
+        <h2>How the discovery revealed a generational blind spot</h2>
+
+        <p>The group's communication method went unnoticed for some time until Dave Blanchard, who runs the public radio show <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/897_intergenerational_space_travel">Wild Card</a>, spotted unusual activity in the comment section on Spotify. What he initially saw looked like pure gibberish—clipped, incoherent postings from different accounts that he assumed were bot activity. Comments like "ah, OK, MH" and "Gilgamesh quit and I'm crying" made no sense to him.</p>
+
+        <p>Blanchard reported the suspected bot activity to Spotify and escalated it within NPR. That's when a younger colleague entered the conversation. Hannah Chin, a Gen Z employee at NPR who was 10 years younger than Blanchard, immediately recognized what he had missed: <strong>this wasn't bot behavior at all—it was middle schoolers using comment threads as a covert group chat</strong>. The seemingly nonsensical posts were actually shorthand and coded language that made perfect sense to the group using it.</p>
+
+        <p>As Blanchard reflected on the moment: "I literally needed Hannah to be my generational translator. It was such a clarifying realization of my age and obsolescence." What appeared as suspicious technical glitches to a millennial turned out to be deliberate, creative communication by kids who simply needed a way to stay connected after their original platform closed.</p>
+
+        <h2>Why podcast comments became the perfect hiding place</h2>
+
+        <p>The group didn't randomly choose <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/897_intergenerational_space_travel">NPR podcasts specifically</a> for their chat system. Ella revealed that they selected shows that already had very few comments, making it easier for their activity to blend in unnoticed. Podcast platforms, unlike TikTok or Instagram, weren't designed with heavy moderation or algorithmic ranking of comments, giving the group an ideal space to operate under the radar.</p>
+
+        <p>If you're curious about the broader story of how this discovery unfolded—including the unexpected insight it sparked for NPR staff about generational communication patterns—<a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/episode/897_intergenerational_space_travel">the full episode explores the larger themes of intergenerational misunderstanding</a> in unexpected places.</p>
+
+        <div class="points-cles">
+            <h3>Key takeaways</h3>
+            <ul>
+                <li>A group of roughly 20 young internet users, including children as young as 11, created playlists with single podcast episodes to use comment sections as private group chats.</li>
+                <li>The system worked because podcast comment sections were less monitored and had slower algorithmic visibility than mainstream social platforms.</li>
+                <li>Adults initially mistook the coded comments for bot activity, unable to decipher the shorthand language the group used naturally.</li>
+                <li>A generational gap made the difference: a Gen Z colleague recognized the pattern instantly, while millennial staff saw only noise.</li>
+            </ul>
+        </div>
+
+        <h2>See also</h2>
+        <div class="faq">
+            <div class="faq-item">
+                <h3><a href="https://listenly.fr/podcast-btb/questions/this-american-life/why-might-middle-schoolers-choose-npr-podcast-comment-sections-as-venu.html">Why might middle schoolers choose NPR podcast comment sections as venues for group communication?</a></h3>
+                <p>According to Ella, a 14-year-old who participated in the group, they chose NPR shows specifically because they didn't have many comments already, making them ideal spaces for their private conversations to blend in seamlessly.</p>
+            </div>
+            <div class="faq-item">
+                <h3><a href="https://listenly.fr/podcast-btb/questions/this-american-life/how-can-younger-generations-recognize-online-communication-patterns-th.html">How can younger generations recognize online communication patterns that older colleagues might misinterpret as bot activity?</a></h3>
+                <p>Hannah Chin, a Gen Z employee at NPR, recognized that the incoherent Spotify comments were actually middle schoolers using podcast comment threads as their group chat, rather than bot activity—something her millennial colleague initially missed.</p>
+            </div>
+            <div class="faq-item">
+                <h3><a href="https://listenly.fr/podcast-btb/questions/this-american-life/how-does-examining-a-sibling-s-autopsy-report-and-death-circumstances-.html">How does examining a sibling's autopsy report and death circumstances affect grief and understanding?</a></h3>
+                <p>When identifying her sister's body, Nadia noticed the sheet was pink from watered-down blood and observed that her sister's autopsy report listed her heart, providing factual context that shaped her understanding of the death.</p>
+            </div>
+        </div>
+
+        <div class="cta-block">
+            <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/episode/897_intergenerational_space_travel">🎧 Listen to the episode on Listenly</a>
+        </div>
+    </div>
+
+    <footer>Written by the Listenly editorial team</footer>
+
+    <div id="semantic-index" style="display:none;">
+        <span itemscope itemtype="https://schema.org/Thing"><span itemprop="name">This American Life</span></span>
+        <span itemscope itemtype="https://schema.org/Thing"><span itemprop="name">Spotify</span></span>
+        <span itemscope itemtype="https://schema.org/Thing"><span itemprop="name">NPR</span></span>
+        <span itemscope itemtype="https://schema.org/Thing"><span itemprop="name">TikTok</span></span>
+    </div>
+</body>
+</html>

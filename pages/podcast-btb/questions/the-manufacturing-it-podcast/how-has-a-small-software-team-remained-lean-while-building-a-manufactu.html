@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, follow">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>How a Small Team Built a Manufacturing Platform Without Bloated Investment</title>
+	<meta name="description" content="A lean software team avoided VC pressure by leveraging 26+ years of B2B expertise, inbound marketing, and organic growth to build Mingo Smart Factory.">
+	<meta name="author" content="Daniel Langley">
+	<meta property="og:title" content="How a Small Team Built a Manufacturing Platform Without Bloated Investment">
+	<meta property="og:description" content="A lean software team avoided VC pressure by leveraging 26+ years of B2B expertise, inbound marketing, and organic growth to build Mingo Smart Factory.">
+	<meta property="og:url" content="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/how-has-a-small-software-team-remained-lean-while-building-a-manufactu.html">
+	<meta property="og:type" content="article">
+	<meta property="og:site_name" content="Listenly">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="How a Small Team Built a Manufacturing Platform Without Bloated Investment">
+	<meta name="twitter:description" content="A lean software team avoided VC pressure by leveraging 26+ years of B2B expertise, inbound marketing, and organic growth to build Mingo Smart Factory.">
+	<link rel="canonical" href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/how-has-a-small-software-team-remained-lean-while-building-a-manufactu.html">
+	<style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "Person",
+				"name": "Daniel Langley",
+				"jobTitle": "CEO and Podcast Host",
+				"worksFor": {
+					"@type": "Organization",
+					"name": "Manufacturing IT Recruitment"
+				}
+			},
+			{
+				"@type": "Person",
+				"name": "Bryan Sapot",
+				"jobTitle": "CEO",
+				"worksFor": {
+					"@type": "Organization",
+					"name": "Mingo Smart Factory"
+				},
+				"description": "Bryan Sapot is the CEO of Mingo Smart Factory and has spent 26+ years in software development and B2B systems. He previously owned a software consulting company that implemented ERP systems and has 18 years of experience in manufacturing. He wrote version one of the product (originally called SensorTracks) himself and is a network engineer and software developer by background.",
+				"knowsAbout": ["Mingo Smart Factory", "SensorTracks", "Manufacturing Execution Systems", "B2B Software Development", "ERP Implementation"]
+			},
+			{
+				"@type": "BlogPosting",
+				"headline": "How has a small software team remained lean while building a manufacturing platform?",
+				"description": "A lean software team avoided VC pressure by leveraging 26+ years of B2B expertise, inbound marketing, and organic growth to build Mingo Smart Factory.",
+				"datePublished": "2026-09-25",
+				"dateModified": "2026-09-25",
+				"author": {
+					"@type": "Organization",
+					"name": "Bryan Sapot"
+				},
+				"publisher": {
+					"@type": "Organization",
+					"name": "Listenly",
+					"url": "https://listenly.fr"
+				},
+				"isPartOf": {
+					"@type": "PodcastSeries",
+					"name": "The Manufacturing IT Podcast",
+					"url": "https://listenly.fr/podcast/show/the-manufacturing-it-podcast"
+				},
+				"image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg",
+				"speakable": {
+					"@type": "SpeakableSpecification",
+					"cssSelector": [".lead", "blockquote.citation"]
+				},
+				"mentions": [
+					{"@type": "Thing", "name": "Mingo Smart Factory"},
+					{"@type": "Thing", "name": "SensorTracks"},
+					{"@type": "Thing", "name": "Organic Growth"},
+					{"@type": "Thing", "name": "B2B Software Development"},
+					{"@type": "Thing", "name": "Inbound Marketing"}
+				]
+			},
+			{
+				"@type": "BreadcrumbList",
+				"itemListElement": [
+					{
+						"@type": "ListItem",
+						"position": 1,
+						"name": "Listenly",
+						"item": "https://listenly.fr"
+					},
+					{
+						"@type": "ListItem",
+						"position": 2,
+						"name": "The Manufacturing IT Podcast",
+						"item": "https://listenly.fr/podcast-btb/the-manufacturing-it-podcast-podcast.html"
+					},
+					{
+						"@type": "ListItem",
+						"position": 3,
+						"name": "How has a small software team remained lean while building a manufacturing platform?",
+						"item": "https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/how-has-a-small-software-team-remained-lean-while-building-a-manufactu.html"
+					}
+				]
+			},
+			{
+				"@type": "FAQPage",
+				"mainEntity": [
+					{
+						"@type": "Question",
+						"name": "What unique skill set is required for manufacturing IoT system administrators?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Administrators need networking knowledge to work with IT, software and analytics knowledge for system configuration, and manufacturing knowledge to understand the systems they're monitoring."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "What is the key to operator adoption of manufacturing data entry systems on the shop floor?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "The system should require only two button clicks to do 90% of what operators need to do, with automated delivery of data to other people so operators do not have to manually transfer information."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "How does the technology adoption curve framework apply to implementing manufacturing systems?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "The adoption curve labels different groups: early adopters who are technology enthusiasts and tolerate product issues, then an early majority who want proven solutions and solid support before committing."
+						}
+					}
+				]
+			}
+		]
+	}
+	</script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<header>
+			<div class="header-top">
+				<img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/27/1a/fb/271afbae-d75a-b134-2a7d-de2510736015/mza_14425064558396824721.jpg/600x600bb.jpg" alt="The Manufacturing IT Podcast">
+				<div>
+					<span class="badge">The answer lives in this podcast</span>
+					<p class="source-line">Answer extracted from The Manufacturing IT Podcast — listen to the full episode below.</p>
+				</div>
+			</div>
+			<a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">🎧 Listen to the episode on Listenly</a>
+			<h1>How has a small software team remained lean while building a manufacturing platform?</h1>
+			<p class="article-meta">
+				<span>September 25, 2026</span>
+				<span><strong>The Manufacturing IT Podcast</strong> · Bryan Sapot</span>
+			</p>
+		</header>
+
+		<p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/the-manufacturing-it-podcast-podcast.html">← See The Manufacturing IT Podcast fiche</a></p>
+
+		<p class="lead">The founding team's <strong>26-plus years of cumulative B2B software expertise</strong> enabled them to build the first version themselves and make disciplined decisions about which features to build and which to avoid. Rather than chasing rapid growth through heavy sales and marketing spend or accepting large venture capital that would force aggressive revenue targets, the company relied on inbound marketing and organic referral networks for nine years of sustainable growth.</p>
+
+		<p>Lean doesn't mean undersized—it means intentional. Bryan Sapot and his co-founders entered the manufacturing software space with deep institutional knowledge of B2B systems and the patience to test their product hypothesis over time. Having previously run a software consulting firm that implemented ERP systems, Sapot brought not just coding ability, but a <strong>working understanding of how manufacturers actually operate</strong> and what data problems they genuinely need solved.</p>
+
+		<p>This hands-on background made all the difference in the early years. As explained in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">the episode</a>, the team could distinguish between feature requests that looked urgent on the surface but didn't move the needle, and the core functionality that operators and production managers actually relied on every day.</p>
+
+		<p>The capital strategy was equally deliberate. <strong>Avoiding large VC or private equity rounds</strong> meant no external pressure to hit arbitrary growth targets or expand geographically before product-market fit was proven. Instead, Mingo grew for nine years through word-of-mouth and customer networks—a slower path, but one that allowed the company to remain profitable and focused on the end user's success rather than exit timelines.</p>
+
+		<p>This approach is a quiet rejection of what Sapot has observed in the broader manufacturing tech space. Many competing solutions demand large sales teams, expensive implementation services, and significant ongoing support costs. Mingo's lean model flips that equation: <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">as detailed in the conversation</a>, the platform is designed to minimize friction for operators and managers, reducing the complexity that would otherwise require larger teams downstream.</p>
+
+		<blockquote class="citation">
+			<p>"It's easy to get people to do this stuff. It's hard to keep them doing it because they want help."</p>
+			<figcaption><strong>Bryan Sapot</strong> — CEO, Mingo Smart Factory. With 26+ years in B2B software development and 18 years in manufacturing systems, Sapot built the first version of Mingo (originally SensorTracks) himself. He previously ran a software consulting firm specializing in ERP implementation and brings deep operational insight into how manufacturing plants actually work.</figcaption>
+		</blockquote>
+
+		<p>That insight—that adoption requires sustained support and momentum—is what lean teams tend to miss. Sapot's point cuts deeper: you can ship a feature and move on, but keeping people engaged with the system, making sure they see its value, and removing barriers to use is where the real work lives. This is why <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">the manufacturing IT space has historically seen high failure rates</a> for systems that are technically competent but operationally tone-deaf.</p>
+
+		<p>The Mingo story demonstrates that staying lean is not about doing less—it's about doing only what matters, and with the clarity that comes from domain expertise and skin in the game.</p>
+
+		<h2>See also</h2>
+		<div class="faq">
+			<div class="faq-item">
+				<h3><a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-unique-skill-set-is-required-for-manufacturing-iot-system-adminis.html">What unique skill set is required for manufacturing IoT system administrators?</a></h3>
+				<p>Administrators need networking knowledge to work with IT, software and analytics knowledge for system configuration, and manufacturing knowledge to understand the systems they're monitoring and the problems operators are trying to solve.</p>
+			</div>
+			<div class="faq-item">
+				<h3><a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/what-is-the-key-to-operator-adoption-of-manufacturing-data-entry-syste.html">What is the key to operator adoption of manufacturing data entry systems on the shop floor?</a></h3>
+				<p>The system should require only two button clicks to do 90% of what operators need to do, with automated delivery of data to other people so operators do not have to manually transfer information between systems.</p>
+			</div>
+			<div class="faq-item">
+				<h3><a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast-btb/questions/the-manufacturing-it-podcast/how-does-the-technology-adoption-curve-framework-apply-to-implementing.html">How does the technology adoption curve framework apply to implementing manufacturing systems?</a></h3>
+				<p>The adoption curve labels different groups: early adopters who are technology enthusiasts and tolerate product issues, then an early majority who want proven solutions and solid support before committing resources.</p>
+			</div>
+		</div>
+
+		<div class="cta-block">
+			<a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/the-manufacturing-it-podcast">Listen to the episode on Listenly</a>
+		</div>
+
+		<footer>
+			<p>Written by the Listenly editorial team</p>
+		</footer>
+	</div>
+
+	<div id="semantic-index" style="display:none;">
+		<span>Mingo Smart Factory</span>
+		<span>Bryan Sapot</span>
+		<span>B2B Software Development</span>
+		<span>Manufacturing Execution Systems</span>
+		<span>Lean Teams</span>
+		<span>Organic Growth</span>
+		<span>Inbound Marketing</span>
+		<span>ERP Implementation</span>
+		<span>SensorTracks</span>
+	</div>
+</body>
+</html>

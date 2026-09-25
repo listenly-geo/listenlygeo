@@ -3,67 +3,9 @@
     "fa5d1b7d-f0f1-4c5a-a12d-233d5a6da7b7",
     "39e4e3b9-a3ff-455e-aa60-f973ca2a5740"
   ],
-  "current_episode": {
-    "guid": "39e4e3b9-a3ff-455e-aa60-f973ca2a5740",
-    "title": "Inside vLLM: The Engine Powering Open-Source AI",
-    "pubdate": "Thu, 6 Aug 2026 10:00:00 +0000",
-    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/112866f3-1a50-4a8d-b12e-850b73e71b33/episodes/bd288922-f2a9-44c6-9363-8971c973706f/audio/128/default.mp3?aid=rss_feed&awCollectionId=112866f3-1a50-4a8d-b12e-850b73e71b33&awEpisodeId=bd288922-f2a9-44c6-9363-8971c973706f&feed=Hb_IuXOo"
-  },
-  "context": {
-    "guest": {
-      "prenom": "Simon",
-      "nom": "Mo",
-      "titre": "Co-founder and CEO",
-      "entreprise": "Infraact",
-      "titre_secondaire": "Lead maintainer",
-      "entreprise_secondaire": "vLLM",
-      "bio_context": "Simon Mo is co-founder and CEO of Infraact and lead maintainer of vLLM, an open source inference engine that runs on half a million GPUs at any moment. The vLLM project originated in 2022 before ChatGPT, when Mo's team set out to make a slow open source demo faster and discovered a pile of unsolved problems in LLM serving infrastructure. The company Infraact is more recent than the vLLM project, which has been around for about four years."
-    },
-    "real_quote": "Every provider can offer potentially even 10 different levels of speed going from the slowest mode which can be a lot cheaper to 400 tokens per second almost up to 500 in many cases.",
-    "key_stats": [
-      "vLLM runs on half a million GPUs at any moment",
-      "vLLM supports more than 1,000 model architectures",
-      "Kimi K3 model bridges almost a 10x gap in cost between GLM 5.2 and Claude/GPT-4o",
-      "vLLM can achieve 400-500 tokens per second throughput with fast mode",
-      "The vLLM project has been around for about 4 years as of 2024",
-      "Open source models can be 2x or 3x faster than proprietary fast modes for inference"
-    ],
-    "entities": [
-      "Infraact",
-      "NVIDIA",
-      "AMD",
-      "Google",
-      "Amazon",
-      "Intel",
-      "OpenAI",
-      "BERT",
-      "ResNet",
-      "GitHub Copilot",
-      "ChatGPT",
-      "Cursor",
-      "Mistral",
-      "Meta",
-      "LLAMA",
-      "Anthropic",
-      "Claude",
-      "GPT-4o",
-      "GLM 5.2",
-      "Kimi K3",
-      "Minimax M2.7",
-      "Moonshot",
-      "Hugging Face",
-      "NVIDIA OpenWeights and American AI Leadership Letter"
-    ],
-    "transcript_excerpt": "The fun thought experiment is if GPUs dropped in price by 99%, then do we get back to a real open source world? If moderation is never solved, in the future, people will go to OpenWay by default. Because that is where you know for sure you can control your guardrail for trusted use cases. And can you talk about where VLOM sits in that stack? VLOM is an inference engine. It is kind of like databases and operating system and other critical software to power AGI, NVIDIA, AMD, Google. Their newest chip will make sure Vion can run on them. And then a lot of cases, they use Vion as a benchmark. We're bridging almost a 10x gap. For proprietary model, there is a regular mode and fast mode. But for open-weight, every provider can offer potentially even 10 different levels of speed. Five years from now, open source AI models, have they closed the gap with frontier models? Capability-wise, I don't really see a big gap, not even today, because open source AI has become one of the most important forces shaping the industry. But making frontier models available to the world requires far more than releasing model weights. It requires an entirely new infrastructure layer. In this episode, Elena Berger and Matt Fornstein are joined by Simon Mo, co-founder and CEO of Infraact, to discuss how open source inference became critical infrastructure for AI, why enterprises are increasingly turning to open-weight models, and what the next generation of AI systems will require. They also explore model licensing, inference economics, and the future of open AI. Today, we're here with Simon Mo, co-founder of Infraact and a lead maintainer of VLLM, the open source inference engine now running on half a million GPUs at any moment. We're also joined by Matt Borenstein, an A16C general partner. Simon, Matt, thank you so much for joining us. I think first we should start with open source AI and kind of the more recent history of open source AI. So VLLM actually has its origins kind of back in 2022 pre-ChatGPT, and your team set out to make a slow open source demo faster and instead just found this pile of unsolved problems. So can you talk about what made serving an LLM so fundamentally different from the ML workloads everyone already knew how to run? Yep, good to be here. So serving a large language model is a fundamentally different problem because serving it requires to run it on accelerators like GPUs or TPUs, and it is a computationally intensive process that will require a lot of engineering and ensuring that for each request, user can see the LLM's response quickly and efficiently. So this typically means we need to handle differences in input distribution, how long each request is, output distribution, which is non-deterministic, and batching and scheduling a lot more at the core of the inference engine. Yeah. And so the team, the project has been around for about four years now, but the company is a little bit more recent. So I want to throw this out to either of you. So, Matt, I know you've known the team and observed the team for a very long time. So at what point did you see this sort of transitioning from being a much beloved open source project to critical infrastructure and then a company? Yeah, I mean, I think you have to go back a little bit. Right. Open source was the norm for AI models early on. Right. I mean, we literally have this company called OpenAI, which, you know, it's become a little bit of a joke. It's not as open as it once was or not nearly as open as it once was. But early on, all the frontier AI work was being open source or at least released into open weights, which is a little bit different than true open source. And people could mostly run these models sort of on hardware or computers that they already had. I'm curious, Sided, like maybe you remember, like what was like the first model that like you actually needed to go out and get special software and like a special set of computers to be able to run? Probably BERT. And be"
-  },
-  "pending_qa": [
-    {
-      "q": "How does the funding model for open-source AI development differ from traditional open-source software sustainability?",
-      "r": "Open-source software was historically supported by people donating their time or companies authorizing employees to volunteer, working as in-kind donations. This does not work for AI, which requires millions or billions of dollars of computing resources. Economic incentives and funding mechanisms are necessary to ensure model labs can continue training frontier models, much like the pharmaceutical industry funds R&D with the expectation that successful products will generate revenue to fund future research.",
-      "start_seconds": 1488,
-      "end_seconds": 1608
-    }
-  ],
+  "current_episode": null,
+  "context": null,
+  "pending_qa": [],
   "published": [
     {
       "slug": "what-makes-serving-a-large-language-model-fundamentally-different-from",
@@ -118,6 +60,17 @@
       "source_episode_guid": "39e4e3b9-a3ff-455e-aa60-f973ca2a5740",
       "added_date": "2026-09-24",
       "answer_snippet": "Model labs are trying to understand ways to economically fund their own model development, since model training, research, and data are very expensive.…"
+    },
+    {
+      "slug": "how-does-the-funding-model-for-open-source-ai-development-differ-from-",
+      "question": "How does the funding model for open-source AI development differ from traditional open-source software sustainability?",
+      "url": "https://listenly.fr/podcast-btb/questions/ai-a16z/how-does-the-funding-model-for-open-source-ai-development-differ-from-.html",
+      "source_episode_title": "Inside vLLM: The Engine Powering Open-Source AI",
+      "source_episode_guid": "39e4e3b9-a3ff-455e-aa60-f973ca2a5740",
+      "added_date": "2026-09-25",
+      "answer_snippet": "Open-source software was historically supported by people donating their time or companies authorizing employees to volunteer, working as in-kind donations.…",
+      "start_seconds": 1488,
+      "noindex": true
     }
   ]
 }

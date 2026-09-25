@@ -53,12 +53,6 @@
   },
   "pending_qa": [
     {
-      "q": "How do modern SNARKs relate to interactive proofs and why is the SumCheck protocol central to current SNARK design?",
-      "r": "Modern SNARKs combine interactive proofs with commitment schemes. Justin Thaler explains that the GKR protocol from 2008 uses the SumCheck protocol as a subroutine, and these interactive proofs are essentially half of a SNARK. By combining them with cryptographic commitments, the result is the SNARKs with the fastest provers today. Thaler predicts that SNARKs using the SumCheck protocol at the core will eventually transform how digital infrastructure handles trust, as the prover speed is the key bottleneck keeping SNARKs from widespread adoption.",
-      "start_seconds": 1140,
-      "end_seconds": 1320
-    },
-    {
       "q": "What unexpected connection emerged between random self-reducibility and interactive proofs for hard computational problems?",
       "r": "Nisan discovered that Richard Lipton's proof of random self-reducibility for the permanent function could lead to an interactive proof. Initially Nisan could not believe Lipton's result because he knew that random self-reducibility could imply an interactive proof, yet the permanent is a notoriously difficult function. Upon closer inspection, he realized Lipton's approach worked because Lipton handled multiple instances rather than just one, enabling an interactive proof for this extremely hard problem.",
       "start_seconds": 1374,
@@ -110,6 +104,17 @@
       "source_episode_guid": "587902a4-5ca1-4cf1-8d1b-1752f104581e",
       "added_date": "2026-09-24",
       "answer_snippet": "The LFKN paper from 1990-1992 established an efficient interactive proof for SharpSAT using the SumCheck protocol and demonstrated remarkable foresight. As…"
+    },
+    {
+      "slug": "how-do-modern-snarks-relate-to-interactive-proofs-and-why-is-the-sumch",
+      "question": "How do modern SNARKs relate to interactive proofs and why is the SumCheck protocol central to current SNARK design?",
+      "url": "https://listenly.fr/podcast-btb/questions/a16z-crypto-show/how-do-modern-snarks-relate-to-interactive-proofs-and-why-is-the-sumch.html",
+      "source_episode_title": "The 'Useless' Theory Behind Modern SNARKs (ft. Gödel Prize Winner Noam Nisan)",
+      "source_episode_guid": "587902a4-5ca1-4cf1-8d1b-1752f104581e",
+      "added_date": "2026-09-25",
+      "answer_snippet": "Modern SNARKs combine interactive proofs with commitment schemes. Justin Thaler explains that the GKR protocol from 2008 uses the SumCheck protocol as a…",
+      "start_seconds": 1140,
+      "noindex": true
     }
   ]
 }

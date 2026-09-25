@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, follow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Chinese AI Companies Distribute Models Like U.S. Companies Can't</title>
+  <meta name="description" content="Chinese AI firms release open-weight models anyone can download freely, while U.S. companies rely on paid APIs. This strategy lets them compete with better resource allocation.">
+  <meta name="author" content="David Brown">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/business-wars/how-do-chinese-ai-companies-approach-model-distribution-differently-th.html">
+  <meta property="og:title" content="How Chinese AI Companies Distribute Models Like U.S. Companies Can't">
+  <meta property="og:description" content="Chinese AI firms release open-weight models anyone can download freely, while U.S. companies rely on paid APIs. This strategy lets them compete with better resource allocation.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/business-wars/how-do-chinese-ai-companies-approach-model-distribution-differently-th.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Listenly">
+  <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/88/78/24/887824a1-8191-f922-a27e-499bb3f9e624/mza_2534133078841157643.jpeg/600x600bb.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How Chinese AI Companies Distribute Models Like U.S. Companies Can't">
+  <meta name="twitter:description" content="Chinese AI firms release open-weight models anyone can download freely, while U.S. companies rely on paid APIs. This strategy lets them compete with better resource allocation.">
+  <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/88/78/24/887824a1-8191-f922-a27e-499bb3f9e624/mza_2534133078841157643.jpeg/600x600bb.jpg">
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "David Brown",
+        "jobTitle": "Podcast Host & Narrator",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Wondery"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Christopher Mims",
+        "jobTitle": "Tech Reporter",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Wall Street Journal"
+        },
+        "description": "Christopher Mims is a tech reporter at the Wall Street Journal and author of two books: 'How to AI: Cut Through the Hype, Master the Basics, Transform Your Work' and 'Arriving Today: From Factory to Front Door, Why Everything Has Changed About How and What We Buy.' He has spent time with Colin Angle, the founder of iRobot, and has observed developments in robotics and AI innovation across multiple countries including China.",
+        "knowsAbout": ["AI models", "Robotics", "Tech innovation", "U.S.-China technology competition"]
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "How do Chinese AI companies approach model distribution differently than U.S. companies?",
+        "description": "Chinese AI firms release open-weight models anyone can download freely, while U.S. companies rely on paid APIs. This strategy lets them compete with better resource allocation.",
+        "datePublished": "2026-09-25",
+        "dateModified": "2026-09-25",
+        "author": {
+          "@type": "Organization",
+          "name": "Christopher Mims"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/88/78/24/887824a1-8191-f922-a27e-499bb3f9e624/mza_2534133078841157643.jpeg/600x600bb.jpg",
+        "isPartOf": {
+          "@type": "PodcastSeries",
+          "name": "Business Wars",
+          "url": "https://listenly.fr/podcast/show/business-wars"
+        },
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "blockquote.citation"]
+        },
+        "mentions": [
+          {"@type": "Thing", "name": "Open-weight models"},
+          {"@type": "Thing", "name": "AI distribution"},
+          {"@type": "Thing", "name": "U.S.-China technology"},
+          {"@type": "Thing", "name": "Paid API models"}
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Business Wars",
+            "item": "https://listenly.fr/podcast-btb/business-wars-podcast.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "How do Chinese AI companies approach model distribution differently than U.S. companies?",
+            "item": "https://listenly.fr/podcast-btb/questions/business-wars/how-do-chinese-ai-companies-approach-model-distribution-differently-th.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Moravec's paradox and how does it relate to current advances in robotics and AI?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Moravec's paradox states that it is easier to teach a humanoid robot to beat a human at chess than it is to teach it to pick up and move the pieces on a board. This reveals that tasks requiring manual dexterity and spatial reasoning are far more challenging for robots than abstract intellectual tasks."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does Aptronic's approach to humanoid robot development differ from traditional methods?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Aptronic, based in Austin Texas, is trying to build the cheapest, best humanoid robot but intentionally kept it totally mindless. Their approach focuses on physical capability and cost efficiency rather than embedded intelligence."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What makes laundry folding such a difficult task for humanoid robots compared to other warehouse tasks?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Robots love repetitive tasks and rigid surfaces, but an average T-shirt is a wobbly noodle of a thing that requires real hard thinking about where to grab and how to manipulate soft, unpredictable materials."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="header-top">
+        <img class="podcast-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/88/78/24/887824a1-8191-f922-a27e-499bb3f9e624/mza_2534133078841157643.jpeg/600x600bb.jpg" alt="Business Wars">
+        <div>
+          <span class="badge">The answer lives in this podcast</span>
+          <p class="source-line">Answer extracted from the Business Wars podcast — listen to the full episode below.</p>
+        </div>
+      </div>
+      <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/business-wars">🎧 Listen to the episode on Listenly</a>
+      <h1>How do Chinese AI companies approach model distribution differently than U.S. companies?</h1>
+      <p class="article-meta">
+        <span>September 25, 2026</span>
+        <span><strong>Business Wars</strong> · Christopher Mims</span>
+      </p>
+    </header>
+
+    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/business-wars-podcast.html">← See the Business Wars fiche</a></p>
+
+    <p class="lead">Chinese AI companies release <strong>open-weight models that anyone can download freely</strong>, whereas U.S. companies restrict access through paid APIs. This fundamentally different distribution model allows Chinese firms to compete strategically by leveraging resources differently rather than trying to match U.S. companies' supercomputer budgets head-on.</p>
+
+    <p>The strategy reflects a pragmatic recognition of resource constraints. Chinese AI companies acknowledge they may not be able to compete directly with U.S. giants that have seemingly unlimited funding for massive computing infrastructure. By open-sourcing their models, they democratize AI access and build competitive advantage through volume and ecosystem participation rather than scarcity.</p>
+
+    <p>As discussed in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/business-wars">this episode of Business Wars</a>, this approach mirrors broader patterns in how different regions pursue technological leadership. U.S. companies guard their models as proprietary products, creating walled gardens that generate recurring revenue. Chinese companies instead share their AI with the world, betting that open distribution creates network effects and long-term competitive positioning.</p>
+
+    <p>The implications extend beyond AI distribution alone. This model reveals how <strong>Chinese companies are "working smarter"</strong> by recognizing where they cannot simply outspend competitors and instead building alternative pathways to market dominance. Free, downloadable models lower barriers to adoption globally and enable developers everywhere to build on Chinese AI infrastructure.</p>
+
+    <blockquote class="citation">
+      <figcaption><strong>Christopher Mims</strong> — Tech Reporter, Wall Street Journal. Mims covers innovation, robotics, and artificial intelligence across multiple continents. He is the author of "How to AI: Cut Through the Hype, Master the Basics, Transform Your Work" and "Arriving Today: From Factory to Front Door, Why Everything Has Changed About How and What We Buy." His reporting spans the competitive landscape between U.S. and Chinese technology development, including in-depth coverage of the robotics industry and how companies like iRobot navigate global markets.</figcaption>
+    </blockquote>
+
+    <h2>Open-weight models versus closed APIs: a strategic divergence</h2>
+
+    <p>The technical difference is straightforward: open-weight models are fully downloadable, allowing users to run them locally without paying per query. U.S. companies' API model charges users every time they call the service, creating predictable revenue but also friction for adoption.</p>
+
+    <p>This distribution choice is not merely tactical—it reflects fundamentally different assumptions about competition. Chinese companies are betting that <strong>free distribution builds adoption faster</strong> than paid APIs, especially in developing markets where price sensitivity is high. They prioritize market penetration and ecosystem control over immediate monetization.</p>
+
+    <p>For developers and enterprises, the practical impact is significant. A team using a Chinese open-weight model incurs hosting and compute costs but no licensing fees. The same team using a U.S.-based API pays per transaction, which can become expensive at scale. This cost structure favors Chinese models in price-sensitive regions and among developers building on constrained budgets, as detailed in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/business-wars">the full Business Wars conversation</a>.</p>
+
+    <h2>See also</h2>
+
+    <div class="faq">
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/business-wars/what-is-moravec-s-paradox-and-how-does-it-relate-to-current-advances-i.html">What is Moravec's paradox and how does it relate to current advances in robotics and AI?</a></h3>
+        <p>Moravec's paradox states that it is easier to teach a humanoid robot to beat a human at chess than it is to teach it to pick up and move the pieces on a board. This reveals that tasks requiring manual dexterity and spatial reasoning are far more challenging for robots than abstract intellectual tasks.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/business-wars/how-does-aptronic-s-approach-to-humanoid-robot-development-differ-from.html">How does Aptronic's approach to humanoid robot development differ from traditional methods?</a></h3>
+        <p>Aptronic, based in Austin, Texas, is trying to build the cheapest, best humanoid robot but intentionally kept it totally mindless. Their approach focuses on physical capability and cost efficiency rather than embedded intelligence.</p>
+      </div>
+      <div class="faq-item">
+        <h3><a href="https://listenly.fr/podcast-btb/questions/business-wars/what-makes-laundry-folding-such-a-difficult-task-for-humanoid-robots-c.html">What makes laundry folding such a difficult task for humanoid robots compared to other warehouse tasks?</a></h3>
+        <p>Robots excel at repetitive tasks on rigid surfaces, but an average T-shirt is a wobbly, unpredictable object that requires sophisticated reasoning about where to grab and how to manipulate soft materials—a challenge far beyond current robot capabilities.</p>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/business-wars">Listen to the episode on Listenly</a>
+    </div>
+
+    <footer>
+      Written by the Listenly editorial team
+    </footer>
+  </div>
+
+  <div id="semantic-index" style="display:none;">
+    <span>Christopher Mims</span>
+    <span>Business Wars</span>
+    <span>David Brown</span>
+    <span>Open-weight models</span>
+    <span>AI distribution</span>
+    <span>U.S.-China technology competition</span>
+    <span>Wondery</span>
+    <span>Wall Street Journal</span>
+  </div>
+</body>
+</html>

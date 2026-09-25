@@ -50,12 +50,6 @@
   },
   "pending_qa": [
     {
-      "q": "How has the cost and nature of software production changed with AI-generated code?",
-      "r": "Code used to be the most expensive thing to produce, but now with AI, a lot of code that glues together infrastructure can be treated as a first draft rather than a final product. This is extremely healthy because it allows rapid iteration, though really good code for critical systems still requires the same careful approach as before.",
-      "start_seconds": 480,
-      "end_seconds": 540
-    },
-    {
       "q": "What role should platform abstractions play in software architecture?",
       "r": "Good abstractions should raise the floor — making a minimum quality level accessible — without lowering the ceiling that limits how good something can ultimately become. Lossy abstractions that pretend a system is simpler than it actually is constrain what builders can create on top; operating systems like Windows, Linux, and OS X are examples of abstractions that raise the floor significantly without constraining the ceiling, a property Lütke believes e-commerce platforms should also achieve.",
       "start_seconds": 540,
@@ -167,6 +161,17 @@
       "source_episode_guid": "df161aed-f867-49e5-b4af-73e75cb5e030",
       "added_date": "2026-09-24",
       "answer_snippet": "Tobi Lütke spends significant time interviewing new AI models to understand their capabilities, building personal test harnesses called 'evals' —…"
+    },
+    {
+      "slug": "how-has-the-cost-and-nature-of-software-production-changed-with-ai-gen",
+      "question": "How has the cost and nature of software production changed with AI-generated code?",
+      "url": "https://listenly.fr/podcast-btb/questions/acq2-by-acquired/how-has-the-cost-and-nature-of-software-production-changed-with-ai-gen.html",
+      "source_episode_title": "How to Live in Everyone Else's Future (with Shopify CEO Tobi Lütke)",
+      "source_episode_guid": "df161aed-f867-49e5-b4af-73e75cb5e030",
+      "added_date": "2026-09-25",
+      "answer_snippet": "Code used to be the most expensive thing to produce, but now with AI, a lot of code that glues together infrastructure can be treated as a first draft…",
+      "start_seconds": 480,
+      "noindex": true
     }
   ]
 }
