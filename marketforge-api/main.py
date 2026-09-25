@@ -22,7 +22,8 @@ from typing import Literal
 
 import feedparser
 import httpx
-from fastapi import FastAPI, HTTPException
+import stripe
+from fastapi import FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
@@ -41,6 +42,20 @@ PUBLIC_BASE = "https://listenly.fr/podcast-btb"
 FICHES_PER_RUN = int(os.getenv("FICHES_PER_RUN", "3"))
 MIN_HOURS_BETWEEN_RUNS = float(os.getenv("MIN_HOURS_BETWEEN_RUNS", "12"))
 MAX_RUNS_PER_DAY = int(os.getenv("MAX_RUNS_PER_DAY", "10"))
+
+# Connexion (optionnelle) : si SUPABASE_URL est défini, chaque appel doit porter le jeton
+# Supabase de l'utilisateur, et l'email du jeton doit correspondre au client_id.
+SUPABASE_URL = os.getenv("SUPABASE_URL", "").rstrip("/")
+SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY", "")
+
+# Paiement (optionnel) : actif dès que STRIPE_SECRET_KEY est défini.
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "")
+STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
+STRIPE_PRICES = json.loads(os.getenv("STRIPE_PRICES", "{}") or "{}")  # {"starter": "price_...", "pro": "price_..."}
+PLAN_FICHES = json.loads(os.getenv("PLAN_FICHES", '{"starter": 3, "pro": 5}'))
+FREE_RUNS = int(os.getenv("FREE_RUNS", "1"))
+APP_URL = os.getenv("APP_URL", "https://marketforge.fr").rstrip("/")
+ACTIVE_STATUSES = {"active", "trialing"}
 
 SourceType = Literal["website", "podcast", "video", "document", "webinar", "article"]
 SUPPORTED_TYPES = {"podcast"}
@@ -102,6 +117,44 @@ def _update(client_id: str, fn) -> dict:
         fn(data)
         _save(data)
         return data
+
+
+# ---------------------------------------------------------------- connexion
+
+_auth_cache: dict[str, tuple[datetime, str]] = {}
+
+
+def _email_from_token(token: str) -> str:
+    """Vérifie le jeton auprès de Supabase (GET /auth/v1/user) et renvoie l'email."""
+    now = datetime.now(timezone.utc)
+    hit = _auth_cache.get(token)
+    if hit and (now - hit[0]).total_seconds() < 60:
+        return hit[1]
+    try:
+        r = httpx.get(f"{SUPABASE_URL}/auth/v1/user", timeout=10,
+                      headers={"Authorization": f"Bearer {token}", "apikey": SUPABASE_ANON_KEY})
+    except httpx.HTTPError:
+        raise HTTPException(status_code=503, detail="Service de connexion injoignable")
+    if r.status_code != 200 or not r.json().get("email"):
+        raise HTTPException(status_code=401, detail="Session expirée : reconnectez-vous")
+    email = r.json()["email"].strip().lower()
+    _auth_cache[token] = (now, email)
+    return email
+
+
+def _authorize(client_id: str, authorization: str | None, required: bool = False) -> str:
+    """Renvoie le client_id normalisé. Si la connexion est configurée (SUPABASE_URL),
+    le jeton doit appartenir à ce client. `required` : refuse aussi quand elle ne l'est pas."""
+    cid = _normalize_client_id(client_id)
+    if not SUPABASE_URL:
+        if required:
+            raise HTTPException(status_code=401, detail="Connexion requise (non configurée sur le serveur)")
+        return cid
+    if not authorization or not authorization.lower().startswith("bearer "):
+        raise HTTPException(status_code=401, detail="Connexion requise")
+    if _email_from_token(authorization.split(" ", 1)[1].strip()) != cid:
+        raise HTTPException(status_code=403, detail="Accès refusé")
+    return cid
 
 
 # ---------------------------------------------------------------- moteur (GitHub)
@@ -213,12 +266,17 @@ class StrategyIn(BaseModel):
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "engine_configured": bool(GITHUB_TOKEN)}
+    return {
+        "status": "ok",
+        "engine_configured": bool(GITHUB_TOKEN),
+        "auth_configured": bool(SUPABASE_URL),
+        "billing_configured": bool(STRIPE_SECRET_KEY and STRIPE_WEBHOOK_SECRET and STRIPE_PRICES),
+    }
 
 
 @app.post("/api/onboarding/sources")
-def add_source(body: SourceIn):
-    cid = _normalize_client_id(body.client_id)
+def add_source(body: SourceIn, authorization: str | None = Header(default=None)):
+    cid = _authorize(body.client_id, authorization)
     value = body.value.strip()
     source = {
         "type": body.type,
@@ -242,8 +300,8 @@ def add_source(body: SourceIn):
 
 
 @app.post("/api/onboarding/strategy")
-def set_strategy(body: StrategyIn):
-    cid = _normalize_client_id(body.client_id)
+def set_strategy(body: StrategyIn, authorization: str | None = Header(default=None)):
+    cid = _authorize(body.client_id, authorization)
     _update(cid, lambda d: d.update(strategy=body.strategy))
     return {"ok": True, "strategy": body.strategy}
 
@@ -256,13 +314,17 @@ def _global_runs_today() -> list[str]:
 
 
 @app.post("/api/run/{client_id}")
-def run(client_id: str):
-    cid = _normalize_client_id(client_id)
+def run(client_id: str, authorization: str | None = Header(default=None)):
+    cid = _authorize(client_id, authorization)
     with _lock:
         data = _load(cid)
         podcasts = [s for s in data["sources"] if s["type"] == "podcast"]
         if not podcasts:
             raise HTTPException(status_code=400, detail="Aucune source traitable (seuls les podcasts le sont pour l'instant)")
+
+        allowed, fiches = _run_allowance(data)
+        if not allowed:
+            raise HTTPException(status_code=402, detail="Votre analyse gratuite a été utilisée : choisissez un abonnement pour continuer")
 
         now = datetime.now(timezone.utc)
         if data["runs"]:
@@ -282,7 +344,7 @@ def run(client_id: str):
                     "podcast_slug": src["slug"],
                     "rss_url": src["value"],
                     "cta_url": website or src["value"],
-                    "max_fiches": str(FICHES_PER_RUN),
+                    "max_fiches": str(fiches),
                 },
             })
             if r.status_code not in (200, 204):
@@ -344,8 +406,8 @@ def _collect(client: dict) -> dict:
 
 
 @app.get("/api/dashboard/{client_id}")
-def dashboard(client_id: str):
-    cid = _normalize_client_id(client_id)
+def dashboard(client_id: str, authorization: str | None = Header(default=None)):
+    cid = _authorize(client_id, authorization)
     with _lock:
         client = _load(cid)
     state = _collect(client)
@@ -364,8 +426,246 @@ def dashboard(client_id: str):
 
 
 @app.get("/api/opportunities/{client_id}")
-def opportunities(client_id: str):
-    cid = _normalize_client_id(client_id)
+def opportunities(client_id: str, authorization: str | None = Header(default=None)):
+    cid = _authorize(client_id, authorization)
     with _lock:
         client = _load(cid)
     return {"opportunities": _collect(client)["opportunities"]}
+
+
+# ---------------------------------------------------------------- paiement (Stripe)
+
+def _stripe() -> stripe.StripeClient:
+    if not STRIPE_SECRET_KEY:
+        raise HTTPException(status_code=503, detail="Paiement non configuré sur le serveur")
+    return stripe.StripeClient(STRIPE_SECRET_KEY)
+
+
+def _plain(obj):
+    """Objets Stripe -> dict (le SDK 15 n'expose plus .get() sur ses objets)."""
+    return obj.to_dict() if hasattr(obj, "to_dict") else obj
+
+
+def _billing_active() -> bool:
+    return bool(STRIPE_SECRET_KEY)
+
+
+def _run_allowance(client: dict) -> tuple[bool, int]:
+    """(autorisé ?, nombre de fiches). Sans Stripe configuré : tout est autorisé (phase de test)."""
+    if not _billing_active():
+        return True, FICHES_PER_RUN
+    billing = client.get("billing") or {}
+    if billing.get("status") in ACTIVE_STATUSES:
+        return True, int(PLAN_FICHES.get(billing.get("plan"), FICHES_PER_RUN))
+    return len(client["runs"]) < FREE_RUNS, FICHES_PER_RUN
+
+
+def _customers() -> dict:
+    p = DATA_DIR / "_stripe_customers.json"
+    return json.loads(p.read_text()) if p.exists() else {}
+
+
+def _plan_for_price(price_id: str) -> str | None:
+    return next((plan for plan, pid in STRIPE_PRICES.items() if pid == price_id), None)
+
+
+_prices_cache: dict = {}
+
+
+@app.get("/api/billing/plans")
+def billing_plans():
+    """Plans affichables (montants lus chez Stripe, pour ne jamais les dupliquer dans Bolt)."""
+    if not _billing_active():
+        return {"enabled": False, "plans": []}
+    if not _prices_cache.get("plans") or (datetime.now(timezone.utc) - _prices_cache["at"]).total_seconds() > 3600:
+        sc, plans = _stripe(), []
+        for plan, price_id in STRIPE_PRICES.items():
+            price = _plain(sc.v1.prices.retrieve(price_id, {"expand": ["product"]}))
+            recurring = price.get("recurring") or {}
+            plans.append({
+                "plan": plan,
+                "name": price["product"]["name"],
+                "amount": (price.get("unit_amount") or 0) / 100,
+                "currency": price["currency"],
+                "interval": recurring.get("interval"),
+                "fiches_per_run": int(PLAN_FICHES.get(plan, FICHES_PER_RUN)),
+            })
+        _prices_cache.update(plans=plans, at=datetime.now(timezone.utc))
+    return {"enabled": True, "plans": _prices_cache["plans"]}
+
+
+class CheckoutIn(BaseModel):
+    client_id: str
+    plan: str
+
+
+@app.post("/api/billing/checkout")
+def billing_checkout(body: CheckoutIn, authorization: str | None = Header(default=None)):
+    cid = _authorize(body.client_id, authorization)
+    price_id = STRIPE_PRICES.get(body.plan)
+    if not price_id:
+        raise HTTPException(status_code=422, detail="Plan inconnu")
+    with _lock:
+        billing = _load(cid).get("billing") or {}
+    params = {
+        "mode": "subscription",
+        "line_items": [{"price": price_id, "quantity": 1}],
+        "client_reference_id": cid,
+        "metadata": {"client_id": cid},
+        "subscription_data": {"metadata": {"client_id": cid}},
+        "allow_promotion_codes": True,
+        "billing_address_collection": "required",
+        "tax_id_collection": {"enabled": True},  # numéro de TVA sur les factures B2B
+        "success_url": f"{APP_URL}/app/billing?status=success",
+        "cancel_url": f"{APP_URL}/app/billing?status=cancel",
+    }
+    if billing.get("customer_id"):
+        params["customer"] = billing["customer_id"]
+        params["customer_update"] = {"address": "auto", "name": "auto"}
+    else:
+        params["customer_email"] = cid
+    session = _plain(_stripe().v1.checkout.sessions.create(params))
+    return {"url": session["url"]}
+
+
+@app.post("/api/billing/portal")
+def billing_portal(body: dict, authorization: str | None = Header(default=None)):
+    """Portail Stripe (carte bancaire, résiliation, factures). Connexion obligatoire."""
+    cid = _authorize(str(body.get("client_id", "")), authorization, required=True)
+    with _lock:
+        customer_id = (_load(cid).get("billing") or {}).get("customer_id")
+    if not customer_id:
+        raise HTTPException(status_code=404, detail="Aucun abonnement pour ce compte")
+    session = _plain(_stripe().v1.billing_portal.sessions.create(
+        {"customer": customer_id, "return_url": f"{APP_URL}/app/billing"}))
+    return {"url": session["url"]}
+
+
+@app.get("/api/billing/{client_id}")
+def billing_status(client_id: str, authorization: str | None = Header(default=None)):
+    cid = _authorize(client_id, authorization)
+    with _lock:
+        client = _load(cid)
+    billing = client.get("billing") or {}
+    allowed, _ = _run_allowance(client)
+    return {
+        "enabled": _billing_active(),
+        "plan": billing.get("plan"),
+        "status": billing.get("status"),
+        "active": billing.get("status") in ACTIVE_STATUSES,
+        "renews_at": billing.get("current_period_end"),
+        "cancel_at_period_end": billing.get("cancel_at_period_end", False),
+        "free_runs_left": max(0, FREE_RUNS - len(client["runs"])) if _billing_active() else None,
+        "can_run": allowed,
+    }
+
+
+@app.get("/api/billing/{client_id}/invoices")
+def billing_invoices(client_id: str, authorization: str | None = Header(default=None)):
+    """Historique des factures. Connexion obligatoire (données de facturation)."""
+    cid = _authorize(client_id, authorization, required=True)
+    with _lock:
+        customer_id = (_load(cid).get("billing") or {}).get("customer_id")
+    if not customer_id:
+        return {"invoices": []}
+    invoices = _plain(_stripe().v1.invoices.list({"customer": customer_id, "limit": 24}))
+    return {"invoices": [
+        {
+            "number": inv.get("number"),
+            "date": datetime.fromtimestamp(inv["created"], timezone.utc).date().isoformat(),
+            "amount": (inv.get("amount_paid") or inv.get("amount_due") or 0) / 100,
+            "currency": inv.get("currency"),
+            "status": inv.get("status"),
+            "pdf_url": inv.get("invoice_pdf"),
+            "url": inv.get("hosted_invoice_url"),
+        }
+        for inv in invoices["data"] if inv.get("status") != "draft"
+    ]}
+
+
+def _apply_subscription(sub: dict) -> None:
+    cid = (sub.get("metadata") or {}).get("client_id") or _customers().get(sub.get("customer"))
+    if not cid:
+        log.warning("Abonnement %s sans client connu", sub.get("id"))
+        return
+    items = (sub.get("items") or {}).get("data") or []
+    price_id = items[0]["price"]["id"] if items else None
+    period_end = sub.get("current_period_end") or (items[0].get("current_period_end") if items else None)
+
+    def apply(d):
+        d["billing"] = {
+            **(d.get("billing") or {}),
+            "customer_id": sub.get("customer"),
+            "subscription_id": sub.get("id"),
+            "status": sub.get("status"),
+            "plan": _plan_for_price(price_id) or (d.get("billing") or {}).get("plan"),
+            "current_period_end": datetime.fromtimestamp(period_end, timezone.utc).date().isoformat() if period_end else None,
+            "cancel_at_period_end": bool(sub.get("cancel_at_period_end")),
+        }
+    _update(_normalize_client_id(cid), apply)
+
+
+@app.post("/api/billing/webhook")
+async def billing_webhook(request: Request, stripe_signature: str | None = Header(default=None)):
+    if not STRIPE_WEBHOOK_SECRET:
+        raise HTTPException(status_code=503, detail="Webhook non configuré")
+    payload = await request.body()
+    try:
+        event = stripe.Webhook.construct_event(payload, stripe_signature, STRIPE_WEBHOOK_SECRET)
+    except (ValueError, stripe.SignatureVerificationError):
+        raise HTTPException(status_code=400, detail="Signature invalide")
+    event = _plain(event)
+    obj = event["data"]["object"]
+    kind = event["type"]
+    if kind == "checkout.session.completed" and obj.get("client_reference_id"):
+        cid = _normalize_client_id(obj["client_reference_id"])
+        with _lock:
+            customers = _customers()
+            customers[obj["customer"]] = cid
+            (DATA_DIR / "_stripe_customers.json").write_text(json.dumps(customers))
+        _update(cid, lambda d: d.update(billing={**(d.get("billing") or {}), "customer_id": obj["customer"]}))
+        if obj.get("subscription"):
+            _apply_subscription(_plain(_stripe().v1.subscriptions.retrieve(obj["subscription"])))
+    elif kind in ("customer.subscription.created", "customer.subscription.updated", "customer.subscription.deleted"):
+        _apply_subscription(obj)
+    return {"received": True}
+
+
+# ---------------------------------------------------------------- visibilité (Search Console)
+
+def _gsc_pages() -> dict:
+    code, body = _gh_get_json("/contents/pages/podcast-btb/data/gsc_pages.json", ref="main")
+    if code != 200 or not body.get("content"):
+        return {}
+    return json.loads(base64.b64decode(body["content"]))
+
+
+@app.get("/api/visibility/{client_id}")
+def visibility(client_id: str, authorization: str | None = Header(default=None)):
+    """Clics / impressions Google (28 derniers jours) de chaque page publiée du client."""
+    cid = _authorize(client_id, authorization)
+    with _lock:
+        client = _load(cid)
+    gsc = _gsc_pages()
+    stats = gsc.get("pages", {})
+    pages = []
+    for s in client["sources"]:
+        if s.get("type") != "podcast":
+            continue
+        if _hub_exists(s["slug"]):
+            pages.append({"url": s["hub_url"], "title": f"Page hub — {s.get('title', '')}", "kind": "hub", "indexable": True})
+        reg = _registry(s["slug"]) or {}
+        for p in reg.get("published", []):
+            pages.append({"url": p["url"], "title": p["question"], "kind": "question",
+                          "indexable": not p.get("noindex", False), "published_at": p.get("added_date")})
+    for p in pages:
+        st = stats.get(p["url"], {})
+        p.update(clicks=st.get("clicks", 0), impressions=st.get("impressions", 0), position=st.get("position"))
+    return {
+        "period_start": gsc.get("period_start"),
+        "period_end": gsc.get("period_end"),
+        "updated_at": gsc.get("fetched_at"),
+        "clicks": sum(p["clicks"] for p in pages),
+        "impressions": sum(p["impressions"] for p in pages),
+        "pages": pages,
+    }
