@@ -1,6 +1,6 @@
 # Prompt à coller dans Bolt.ai
 
-Remplace `https://TON-API.up.railway.app` par l'URL Railway, puis colle tout le bloc ci-dessous dans le chat Bolt.
+Colle tout le bloc ci-dessous dans le chat Bolt.
 
 ---
 
@@ -10,7 +10,7 @@ Connecte le dashboard à mon API backend. Ne change pas le design existant, ajou
 Crée `src/lib/api.ts` :
 
 ```ts
-export const API_URL = "https://TON-API.up.railway.app";
+export const API_URL = "https://listenlygeo-production.up.railway.app";
 
 // client_id = email de l'utilisateur connecté, en minuscules
 export function getClientId(userEmail: string) {
@@ -69,7 +69,7 @@ Sur le bouton final (« Lancer l'analyse ») : si au moins une source Podcast a 
 - Au-dessus des cartes, un bandeau d'état selon `status` :
   - `running` : spinner + « Nous écoutons vos épisodes et rédigeons vos premières fiches… (10 à 20 minutes, vous pouvez fermer cette page) »
   - `done` : « ✓ {opportunities_found} questions trouvées, {resources_published} pages publiées »
-  - `error` : « L'analyse n'a pas abouti. Notre équipe a été prévenue et relancera le traitement. »
+  - `error` : « L'analyse n'a pas abouti. Vérifiez l'URL de votre flux RSS ou contactez-nous. »
   - `idle` sans source : garde la carte actuelle « Configurez votre AI Hub »
 - Sous les compteurs, affiche la liste `sources`. Pour chaque source : son type (et `title` pour un podcast), puis un badge vert « Analysé » si `status === "done"`, bleu « En cours » si `status === "running"` ou `"pending"`, rouge « Erreur » si `status === "error"`, gris « Bientôt disponible » si `status === "coming_soon"`. Si aucune source n'est un podcast, affiche : « Seuls les podcasts sont analysés pour l'instant. Ajoutez votre flux RSS pour voir vos premières questions. »
 

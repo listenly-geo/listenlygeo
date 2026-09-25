@@ -89,6 +89,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           PODCAST_SLUG: ${{ inputs.podcast_slug }}
           RSS_URL: ${{ inputs.rss_url }}
           LANGUAGE_OVERRIDE: ${{ inputs.language }}
