@@ -1,6 +1,6 @@
 # Prompt à coller dans Bolt.ai
 
-Remplace `https://TON-API.up.railway.app` par l'URL Railway, puis colle tout le bloc ci-dessous dans le chat Bolt.
+Colle tout le bloc ci-dessous dans le chat Bolt.
 
 ---
 
@@ -10,7 +10,7 @@ Connecte le dashboard à mon API backend. Ne change pas le design existant, ajou
 Crée `src/lib/api.ts` :
 
 ```ts
-export const API_URL = "https://TON-API.up.railway.app";
+export const API_URL = "https://listenlygeo-production.up.railway.app";
 
 // client_id = email de l'utilisateur connecté, en minuscules
 export function getClientId(userEmail: string) {
