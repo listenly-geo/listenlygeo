@@ -69,7 +69,7 @@ Sur le bouton final (« Lancer l'analyse ») : si au moins une source Podcast a 
 - Au-dessus des cartes, un bandeau d'état selon `status` :
   - `running` : spinner + « Nous écoutons vos épisodes et rédigeons vos premières fiches… (10 à 20 minutes, vous pouvez fermer cette page) »
   - `done` : « ✓ {opportunities_found} questions trouvées, {resources_published} pages publiées »
-  - `error` : « L'analyse n'a pas abouti. Notre équipe a été prévenue et relancera le traitement. »
+  - `error` : « L'analyse n'a pas abouti. Vérifiez l'URL de votre flux RSS ou contactez-nous. »
   - `idle` sans source : garde la carte actuelle « Configurez votre AI Hub »
 - Sous les compteurs, affiche la liste `sources`. Pour chaque source : son type (et `title` pour un podcast), puis un badge vert « Analysé » si `status === "done"`, bleu « En cours » si `status === "running"` ou `"pending"`, rouge « Erreur » si `status === "error"`, gris « Bientôt disponible » si `status === "coming_soon"`. Si aucune source n'est un podcast, affiche : « Seuls les podcasts sont analysés pour l'instant. Ajoutez votre flux RSS pour voir vos premières questions. »
 
