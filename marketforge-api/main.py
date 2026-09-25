@@ -10,6 +10,7 @@ Sources traitées : podcast (RSS), vidéo, webinar, article, document (PDF), sit
 
 import base64
 import hashlib
+import hmac
 import json
 import logging
 import os
@@ -55,6 +56,11 @@ STRIPE_PRICES = json.loads(os.getenv("STRIPE_PRICES", "{}") or "{}")  # {"starte
 PLAN_FICHES = json.loads(os.getenv("PLAN_FICHES", '{"starter": 3, "pro": 5}'))
 FREE_RUNS = int(os.getenv("FREE_RUNS", "1"))
 APP_URL = os.getenv("APP_URL", "https://marketforge.fr").rstrip("/")
+
+# Administration : pause générale. Accès par jeton Supabase d'un email de ADMIN_EMAILS,
+# ou par l'en-tête X-Admin-Key égal à ADMIN_KEY.
+ADMIN_EMAILS = {e.strip().lower() for e in os.getenv("ADMIN_EMAILS", "admin@marketforge.fr").split(",") if e.strip()}
+ADMIN_KEY = os.getenv("ADMIN_KEY", "")
 ACTIVE_STATUSES = {"active", "trialing"}
 
 SourceType = Literal["website", "podcast", "video", "document", "webinar", "article"]
@@ -362,6 +368,11 @@ def run(client_id: str, authorization: str | None = Header(default=None)):
         if not hubs:
             raise HTTPException(status_code=400, detail="Ajoutez au moins une source (podcast, vidéo, article…)")
 
+        if _system_paused():
+            raise HTTPException(status_code=423, detail="Les analyses sont momentanément suspendues. Réessayez plus tard.")
+        if data.get("paused"):
+            raise HTTPException(status_code=423, detail="Vos analyses sont en pause : réactivez-les pour en lancer une nouvelle.")
+
         allowed, fiches = _run_allowance(data)
         if not allowed:
             raise HTTPException(status_code=402, detail="Votre analyse gratuite a été utilisée : choisissez un abonnement pour continuer")
@@ -493,6 +504,72 @@ def _collect(client: dict) -> dict:
     return {"sources": sources, "opportunities": opportunities, "status": status, "hubs": hubs_out}
 
 
+# ---------------------------------------------------------------- pause
+
+def _pause_file() -> Path:
+    return DATA_DIR / "_system_pause.json"
+
+
+def _system_paused() -> bool:
+    f = _pause_file()
+    return f.exists() and json.loads(f.read_text()).get("paused", False)
+
+
+def _cancel_runs(slugs: set[str] | None = None) -> int:
+    """Annule les runs du moteur en cours (tous, ou ceux des slugs donnés). Renvoie le nombre annulé."""
+    cancelled = 0
+    for state in ("in_progress", "queued"):
+        r = _gh("GET", f"/actions/workflows/{WORKFLOW_FILE}/runs", params={"status": state, "per_page": 100})
+        if r.status_code != 200:
+            continue
+        for run in r.json().get("workflow_runs", []):
+            slug = run.get("display_title", "").removeprefix("marketforge ")
+            if slugs is None or slug in slugs:
+                if _gh("POST", f"/actions/runs/{run['id']}/cancel").status_code in (202, 204):
+                    cancelled += 1
+    _cache.clear()
+    return cancelled
+
+
+class PauseIn(BaseModel):
+    paused: bool
+    client_id: str = ""
+
+
+@app.post("/api/pause/{client_id}")
+def pause_client(client_id: str, body: PauseIn, authorization: str | None = Header(default=None)):
+    """Met en pause (ou réactive) les analyses d'un client. La pause arrête aussi l'analyse en cours."""
+    cid = _authorize(client_id, authorization)
+    data = _update(cid, lambda d: d.update(paused=body.paused, paused_at=datetime.now(timezone.utc).isoformat()))
+    cancelled = _cancel_runs({h["slug"] for h in _hubs(data)}) if body.paused and data["runs"] else 0
+    return {"ok": True, "paused": body.paused, "cancelled_runs": cancelled}
+
+
+def _require_admin(authorization: str | None, admin_key: str | None) -> None:
+    if ADMIN_KEY and admin_key and hmac.compare_digest(admin_key, ADMIN_KEY):
+        return
+    if SUPABASE_URL and authorization and authorization.lower().startswith("bearer "):
+        if _email_from_token(authorization.split(" ", 1)[1].strip()) in ADMIN_EMAILS:
+            return
+    raise HTTPException(status_code=403, detail="Réservé à l'administrateur")
+
+
+@app.get("/api/admin/pause")
+def system_pause_status():
+    return {"paused": _system_paused()}
+
+
+@app.post("/api/admin/pause")
+def system_pause(body: PauseIn, authorization: str | None = Header(default=None),
+                 x_admin_key: str | None = Header(default=None)):
+    """Interrupteur général : bloque toute nouvelle analyse et arrête celles en cours."""
+    _require_admin(authorization, x_admin_key)
+    _pause_file().write_text(json.dumps({"paused": body.paused, "at": datetime.now(timezone.utc).isoformat()}))
+    cancelled = _cancel_runs() if body.paused else 0
+    log.warning("Pause générale : %s (%d run(s) annulé(s))", body.paused, cancelled)
+    return {"ok": True, "paused": body.paused, "cancelled_runs": cancelled}
+
+
 @app.get("/api/dashboard/{client_id}")
 def dashboard(client_id: str, authorization: str | None = Header(default=None)):
     cid = _authorize(client_id, authorization)
@@ -508,6 +585,8 @@ def dashboard(client_id: str, authorization: str | None = Header(default=None)):
         "strategy": client["strategy"],
         "status": state["status"],
         "last_run_at": client["runs"][-1] if client["runs"] else None,
+        "paused": bool(client.get("paused")),
+        "system_paused": _system_paused(),
         "hub_urls": [h["url"] for h in online],
         "sources": state["sources"],
     }

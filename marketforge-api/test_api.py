@@ -26,17 +26,25 @@ class FakeGitHub:
         self.engine_output = False
         self.registry = REGISTRY
         self.inbox = []
+        self.cancelled = []
 
     def request(self, method, url, **kw):
         path = url.split("/repos/listenly-geo/listenlygeo", 1)[1]
         if method == "POST" and path.endswith("/dispatches"):
             self.dispatches.append(kw["json"])
-            self.run = {"display_title": f"marketforge {kw['json']['inputs']['podcast_slug']}",
+            self.run = {"id": 1, "display_title": f"marketforge {kw['json']['inputs']['podcast_slug']}",
                         "status": "in_progress", "conclusion": None,
                         "created_at": "2099-01-01T00:00:00Z", "html_url": "https://gh/run/1"}
             return SimpleNamespace(status_code=204, text="")
+        if method == "POST" and path.endswith("/cancel"):
+            self.cancelled.append(path)
+            if self.run:
+                self.run.update(status="completed", conclusion="cancelled")
+            return SimpleNamespace(status_code=202, text="")
         if path.endswith("/runs"):
-            return SimpleNamespace(status_code=200, json=lambda: {"workflow_runs": [self.run] if self.run else []})
+            status = (kw.get("params") or {}).get("status")
+            runs = [self.run] if self.run and (not status or self.run["status"] == status) else []
+            return SimpleNamespace(status_code=200, json=lambda: {"workflow_runs": runs})
         if "/automation/inbox/" in path:
             names = [{"name": f"{g}.json"} for g in self.inbox] if not path.endswith("/consumed") else []
             return SimpleNamespace(status_code=200 if self.inbox else 404, json=lambda: names)
@@ -280,3 +288,36 @@ def test_company_hub_with_sources(env):
     assert by["document"]["status"] == "queued"                                   # au prochain run
     assert d["opportunities_found"] == 2 and d["resources_published"] == 2       # 1 fiche + le hub
     assert d["hub_urls"] == ["https://listenly.fr/podcast-btb/agence-exemple-podcast.html"]
+
+
+def test_pause(env, monkeypatch):
+    c, gh = env
+    cid = "admin@marketforge.fr"
+    c.post("/api/onboarding/sources", json={"client_id": cid, "type": "podcast", "value": "https://feed/rss"})
+    assert c.post(f"/api/run/{cid}").status_code == 200
+
+    # Pause client : l'analyse en cours est annulée, aucune nouvelle ne part
+    r = c.post(f"/api/pause/{cid}", json={"paused": True}).json()
+    assert r["paused"] and r["cancelled_runs"] == 1
+    d = c.get(f"/api/dashboard/{cid}").json()
+    assert d["paused"] is True and d["system_paused"] is False
+    data = main._load(cid); data["runs"] = ["2000-01-01T00:00:00+00:00"]; main._save(data)
+    assert c.post(f"/api/run/{cid}").status_code == 423
+    c.post(f"/api/pause/{cid}", json={"paused": False})
+    assert c.post(f"/api/run/{cid}").status_code == 200
+
+    # Pause générale : réservée à l'admin
+    monkeypatch.setattr(main, "ADMIN_KEY", "secret-admin")
+    assert c.post("/api/admin/pause", json={"paused": True}).status_code == 403
+    assert c.post("/api/admin/pause", json={"paused": True}, headers={"X-Admin-Key": "faux"}).status_code == 403
+    r = c.post("/api/admin/pause", json={"paused": True}, headers={"X-Admin-Key": "secret-admin"}).json()
+    assert r["paused"] and r["cancelled_runs"] == 1
+    assert c.get("/api/admin/pause").json() == {"paused": True}
+    data = main._load(cid); data["runs"] = ["2000-01-01T00:00:00+00:00"]; main._save(data)
+    assert c.post(f"/api/run/{cid}").status_code == 423
+    assert c.get(f"/api/dashboard/{cid}").json()["system_paused"] is True
+
+    # Via connexion Supabase d'un email administrateur
+    monkeypatch.setattr(main, "SUPABASE_URL", "https://sb.example")
+    r = c.post("/api/admin/pause", json={"paused": False}, headers={"Authorization": "Bearer tok-admin"})
+    assert r.status_code == 200 and c.get("/api/admin/pause").json() == {"paused": False}

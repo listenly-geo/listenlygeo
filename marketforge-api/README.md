@@ -11,7 +11,7 @@ par `automation/scripts/marketforge_run.py`, qui réutilise le moteur sans le mo
 un hub entreprise (`<slug>-podcast.html`, décrit comme entreprise, JSON-LD Organization).
 
 Prompts Bolt à coller dans l'ordre : `BOLT.md` (branchement), `BOLT-2.md` (abonnement, factures, visibilité),
-`BOLT-3.md` (toutes les sources).
+`BOLT-3.md` (toutes les sources), `BOLT-4.md` (suivi data), `BOLT-5.md` (pause client et pause générale).
 
 | Route | Rôle |
 |---|---|
@@ -21,6 +21,8 @@ Prompts Bolt à coller dans l'ordre : `BOLT.md` (branchement), `BOLT-2.md` (abon
 | `POST /api/run/{client_id}` | Déclenche le moteur (1 run / 12 h / client, 10 runs / jour max) |
 | `GET /api/dashboard/{client_id}` | Compteurs réels + `status` (idle/running/done/error) + `sources` + `hub_urls` |
 | `GET /api/opportunities/{client_id}` | Questions extraites (publiées ou en file d'attente) |
+| `POST /api/pause/{client_id}` `{paused}` | Pause/reprise des analyses d'un client (annule l'analyse en cours) |
+| `GET/POST /api/admin/pause` `{paused}` | Pause générale (en-tête `X-Admin-Key` = `ADMIN_KEY`) : bloque tout et annule les runs en cours |
 
 `client_id` = email de connexion de l'utilisateur (normalisé en minuscules).
 
