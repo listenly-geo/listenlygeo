@@ -24,6 +24,8 @@ class FakeGitHub:
         self.dispatches = []
         self.run = None
         self.engine_output = False
+        self.registry = REGISTRY
+        self.inbox = []
 
     def request(self, method, url, **kw):
         path = url.split("/repos/listenly-geo/listenlygeo", 1)[1]
@@ -35,10 +37,13 @@ class FakeGitHub:
             return SimpleNamespace(status_code=204, text="")
         if path.endswith("/runs"):
             return SimpleNamespace(status_code=200, json=lambda: {"workflow_runs": [self.run] if self.run else []})
+        if "/automation/inbox/" in path:
+            names = [{"name": f"{g}.json"} for g in self.inbox] if not path.endswith("/consumed") else []
+            return SimpleNamespace(status_code=200 if self.inbox else 404, json=lambda: names)
         if path.endswith("_qa_registry.json"):
             if not self.engine_output:
                 return SimpleNamespace(status_code=404, json=lambda: {})
-            content = base64.b64encode(json.dumps(REGISTRY).encode()).decode()
+            content = base64.b64encode(json.dumps(self.registry).encode()).decode()
             return SimpleNamespace(status_code=200, json=lambda: {"content": content})
         if path.endswith("gsc_pages.json"):
             content = base64.b64encode(json.dumps({"period_start": "2026-08-26", "period_end": "2026-09-22", "fetched_at": "x",
@@ -78,24 +83,25 @@ def test_flow(env):
     assert src["hub_url"] == "https://listenly.fr/podcast-btb/le-podcast-de-l-immo-ete-podcast.html"
     c.post("/api/onboarding/sources", json={"client_id": cid, "type": "podcast", "value": "https://feed/rss"})
     c.post("/api/onboarding/sources", json={"client_id": cid, "type": "website", "value": "https://client.fr"})
-    c.post("/api/onboarding/sources", json={"client_id": cid, "type": "video"})
+    assert c.post("/api/onboarding/sources", json={"client_id": cid, "type": "video"}).status_code == 422
     assert c.post("/api/onboarding/sources", json={"client_id": cid, "type": "podcast", "value": "pas une url"}).status_code == 422
     assert c.post("/api/onboarding/strategy", json={"client_id": cid, "strategy": "hub"}).status_code == 200
 
     d = c.get(f"/api/dashboard/{cid}").json()
-    assert d["status"] == "idle" and d["sources_connected"] == 3 and d["opportunities_found"] == 0
+    assert d["status"] == "idle" and d["sources_connected"] == 2 and d["opportunities_found"] == 0
 
     assert c.post(f"/api/run/{cid}").json()["status"] == "running"
     inputs = gh.dispatches[0]["inputs"]
     assert inputs == {"podcast_slug": "le-podcast-de-l-immo-ete", "rss_url": "https://feed/rss",
-                      "cta_url": "https://client.fr", "max_fiches": "3"}
+                      "cta_url": "https://client.fr", "max_fiches": "3", "hub_name": "",
+                      "sources_json": json.dumps([{"type": "website", "value": "https://client.fr"}])}
     # Relance immédiate : pas de second dispatch (garde-fou coût)
     assert c.post(f"/api/run/{cid}").json()["status"] == "already_started"
     assert len(gh.dispatches) == 1
 
     d = c.get(f"/api/dashboard/{cid}").json()
     assert d["status"] == "running"
-    assert [s["status"] for s in d["sources"]] == ["running", "coming_soon", "coming_soon"]
+    assert [s["status"] for s in d["sources"]] == ["running", "running"]
 
     gh.run.update(status="completed", conclusion="success")
     gh.engine_output = True
@@ -233,3 +239,39 @@ def test_billing(env, monkeypatch):
     inv = c.get(f"/api/billing/{cid}/invoices", headers=h).json()["invoices"]
     assert inv[0]["number"] == "MF-001" and inv[0]["amount"] == 49.0
     assert c.post("/api/billing/portal", json={"client_id": cid}, headers=h).json()["url"].startswith("https://billing")
+
+
+def test_company_hub_with_sources(env):
+    """Client sans podcast : hub entreprise, sources suivies une par une."""
+    c, gh = env
+    cid = "contact@agence-exemple.fr"
+    for t, v in [("website", "https://www.agence-exemple.fr"), ("video", "https://youtu.be/abc"),
+                 ("article", "https://www.agence-exemple.fr/blog/estimer"), ("document", "https://x.fr/guide.pdf")]:
+        assert c.post("/api/onboarding/sources", json={"client_id": cid, "type": t, "value": v}).status_code == 200
+    assert c.post(f"/api/run/{cid}").status_code == 200
+    inputs = gh.dispatches[0]["inputs"]
+    assert inputs["podcast_slug"] == "agence-exemple" and inputs["hub_name"] == "Agence Exemple"
+    assert inputs["cta_url"] == inputs["rss_url"] == "https://www.agence-exemple.fr"
+    assert [s["type"] for s in json.loads(inputs["sources_json"])] == ["website", "video", "article", "document"]
+
+    # Fin du run : vidéo et article extraits, document pas encore (limite par run), 1 fiche publiée depuis l'article
+    gh.run.update(status="completed", conclusion="success")
+    guid = main._source_guid
+    gh.inbox = [guid("https://youtu.be/abc"), guid("https://www.agence-exemple.fr/blog/estimer")]
+    gh.engine_output = True
+    gh.registry = {
+        "known_episode_guids": [], "current_episode": None,
+        "published": [{"question": "Comment estimer un bien à Lyon ?", "answer_snippet": "Par comparaison.",
+                       "url": "https://listenly.fr/podcast-btb/questions/agence-exemple/q.html",
+                       "source_episode_title": "Estimer son bien", "source_episode_guid": guid("https://www.agence-exemple.fr/blog/estimer")}],
+        "pending_qa": [{"q": "Quand vendre ?", "r": "Au printemps.", "source_kind": "article",
+                        "source_url": "https://www.agence-exemple.fr/blog/estimer", "source_title": "Estimer son bien"}],
+    }
+    main._cache.clear()
+    d = c.get(f"/api/dashboard/{cid}").json()
+    by = {s["type"]: s for s in d["sources"]}
+    assert by["article"]["status"] == "done" and by["article"]["questions"] == 2
+    assert by["video"]["status"] == "done" and by["video"]["empty"] is True       # extraite, 0 question
+    assert by["document"]["status"] == "queued"                                   # au prochain run
+    assert d["opportunities_found"] == 2 and d["resources_published"] == 2       # 1 fiche + le hub
+    assert d["hub_urls"] == ["https://listenly.fr/podcast-btb/agence-exemple-podcast.html"]
