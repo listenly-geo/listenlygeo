@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta name="robots" content="noindex, follow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibilité numérique : les trois niveaux de conformité et ce que AA implique réellement</title>
+    <meta name="description" content="Le niveau AA en accessibilité numérique impose que sites et applications soient utilisables par tous les systèmes d'assistance : clavier, lecteurs d'écran et braille.">
+    <meta name="author" content="Anaïs Baumgarten">
+    <meta property="og:title" content="Accessibilité numérique : les trois niveaux de conformité et ce que AA implique réellement">
+    <meta property="og:description" content="Le niveau AA en accessibilité numérique impose que sites et applications soient utilisables par tous les systèmes d'assistance : clavier, lecteurs d'écran et braille.">
+    <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/slow-marketing-le-podcast-des-cmo-a-impact/quels-sont-les-trois-niveaux-de-conformite-en-accessibilite-numerique-.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Listenly">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Accessibilité numérique : les trois niveaux de conformité et ce que AA implique réellement">
+    <meta name="twitter:description" content="Le niveau AA en accessibilité numérique impose que sites et applications soient utilisables par tous les systèmes d'assistance : clavier, lecteurs d'écran et braille.">
+    <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/slow-marketing-le-podcast-des-cmo-a-impact/quels-sont-les-trois-niveaux-de-conformite-en-accessibilite-numerique-.html">
+    <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
+.wrapper { max-width: 680px; margin: 0 auto; padding: 56px 20px 64px; }
+header { margin-bottom: 36px; }
+.header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.podcast-cover { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; flex-shrink: 0; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #777; background: #f3f3f3; border-radius: 20px; padding: 5px 13px; margin: 0; }
+.source-line { font-size: 13.5px; color: #888; margin: 5px 0 0; line-height: 1.5; }
+.top-cta-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #2e8bd6;
+  border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); font-size: 13.5px; font-weight: 600;
+  padding: 8px 18px; border-radius: 20px; text-decoration: none; margin: 18px 0 4px; }
+.top-cta-btn:hover { background: color-mix(in srgb, #2e8bd6 6%, white); }
+h1 { font-size: clamp(25px, 4vw, 33px); font-weight: 700; line-height: 1.32; color: #111; margin-bottom: 16px; }
+.article-meta { font-size: 13.5px; color: #999; }
+.article-meta span { margin-right: 14px; }
+.article-meta strong { color: #666; }
+.breadcrumb { font-size: 12px; color: #aaa; margin: 14px 0 0; }
+.breadcrumb a { color: #aaa; text-decoration: none; border-bottom: 1px solid #e5e5e5; }
+.lead { font-size: 18px; line-height: 1.7; color: #2a2a2a; font-weight: 400; margin: 32px 0 30px; }
+h2 { font-size: 20px; font-weight: 700; color: #111; margin: 40px 0 14px; }
+p { margin-bottom: 20px; color: #2a2a2a; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 600; }
+.definition-box { background: #fafafa; border-radius: 10px; padding: 18px 22px; margin: 28px 0; font-size: 15px; color: #444; }
+blockquote.citation { border-left: 2px solid #e0e0e0; padding: 2px 0 2px 22px; margin: 36px 0; }
+blockquote.citation p { font-size: 17.5px; font-style: italic; color: #333; line-height: 1.65; margin-bottom: 10px; }
+blockquote.citation figcaption { font-size: 13.5px; color: #999; font-style: normal; line-height: 1.6; }
+blockquote.citation figcaption strong { color: #666; }
+.points-cles { background: #fafafa; border-radius: 10px; padding: 26px 28px; margin: 36px 0; }
+.points-cles h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 14px; }
+.points-cles ul { list-style: none; padding: 0; }
+.points-cles ul li { position: relative; padding-left: 20px; margin-bottom: 11px; color: #333; font-size: 15.5px; }
+.points-cles ul li::before { content: "–"; position: absolute; left: 0; color: #aaa; font-weight: 700; }
+.faq { margin: 40px 0; }
+.faq h2 { margin-bottom: 20px; }
+.faq-item { border-top: 1px solid #f0f0f0; padding: 20px 0; }
+.faq-item:last-child { border-bottom: 1px solid #f0f0f0; }
+.faq-item h3 { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 8px; }
+.faq-item h3 a { color: inherit; text-decoration: none; }
+.faq-item p { font-size: 15px; color: #555; margin: 0; }
+.cta-block { background: #f7f8fa; border-radius: 14px; padding: 30px 30px; margin: 44px 0 8px; text-align: center; }
+.cta-block .cta-btn { display: inline-block; background: #2e8bd6; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 12px 28px; border-radius: 8px; text-decoration: none; margin-top: 6px; }
+footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; font-size: 12.5px; color: #bbb; text-align: center; }
+@media (max-width: 600px) {
+  .wrapper { padding: 40px 20px 48px; }
+  .cta-block { padding: 24px 20px; }
+  .points-cles { padding: 22px 20px; }
+}</style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Person",
+                "name": "Anaïs Baumgarten",
+                "jobTitle": "Autrice et Fondatrice",
+                "worksFor": {
+                    "@type": "Organization",
+                    "name": "Slow Marketing"
+                }
+            },
+            {
+                "@type": "Person",
+                "name": "Arnaud Poffé",
+                "jobTitle": "Lead Designer et Accessibility Conscientious",
+                "worksFor": {
+                    "@type": "Organization",
+                    "name": "Smile"
+                },
+                "description": "Arnaud Poffé est UX ergonome et Lead Designer chez Smile, spécialisé en accessibilité numérique. Il possède une formation en développement front-end qui lui permet de maîtriser à la fois le design et les aspects techniques de l'accessibilité. Il a participé à la certification WCAG 2.2 du site de la STIB (réseau de transport bruxellois) en tant que designer principal, coordonnant une équipe pluridisciplinaire pour mettre en conformité la plateforme avec les standards d'accessibilité.",
+                "knowsAbout": ["Smile", "STIB", "WCAG 2.2", "VoiceOver", "Jaws"]
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "Quels sont les trois niveaux de conformité en accessibilité numérique et qu'est-ce que le niveau AA implique concrètement ?",
+                "description": "Le niveau AA en accessibilité numérique impose que sites et applications soient utilisables par tous les systèmes d'assistance : clavier, lecteurs d'écran et braille.",
+                "author": {
+                    "@type": "Organization",
+                    "name": "Arnaud Poffé"
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Listenly",
+                    "url": "https://listenly.fr"
+                },
+                "isPartOf": {
+                    "@type": "PodcastSeries",
+                    "name": "Slow Marketing - Le podcast des CMO à impact",
+                    "url": "https://feed.ausha.co/aKpWGhNJ8jDr"
+                },
+                "datePublished": "2026-09-25",
+                "dateModified": "2026-09-25",
+                "image": "https://image.ausha.co/gCu93L9K8DRoeDk1dEUOoO2h0StWbB3HAot3k4lL_1400x1400.jpeg?t=1705078234",
+                "speakable": {
+                    "@type": "SpeakableSpecification",
+                    "cssSelector": [".lead", "blockquote.citation"]
+                }
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Listenly",
+                        "item": "https://listenly.fr"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Slow Marketing - Le podcast des CMO à impact",
+                        "item": "https://listenly.fr/podcast-btb/slow-marketing-le-podcast-des-cmo-a-impact-podcast.html"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": "Quels sont les trois niveaux de conformité en accessibilité numérique et qu'est-ce que le niveau AA implique concrètement ?",
+                        "item": "https://listenly.fr/podcast-btb/questions/slow-marketing-le-podcast-des-cmo-a-impact/quels-sont-les-trois-niveaux-de-conformite-en-accessibilite-numerique-.html"
+                    }
+                ]
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "Qu'est-ce que la certification WCAG 2.2 et quel est le principal défi pour mettre en conformité un site web comme celui de la STIB ?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "La WCAG 2.2 est le standard d'accessibilité international qui définit 55 critères d'accessibilité. Pour la STIB, un service public, le défi principal a été de former les équipes à parler le même langage et à coordonner une approche pluridisciplinaire pour mettre en conformité la plateforme."
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+    </script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="header-top">
+                <img class="podcast-cover" src="https://image.ausha.co/gCu93L9K8DRoeDk1dEUOoO2h0StWbB3HAot3k4lL_1400x1400.jpeg?t=1705078234" alt="Slow Marketing - Le podcast des CMO à impact">
+                <div>
+                    <span class="badge">La réponse se trouve dans ce podcast</span>
+                    <p class="source-line">Réponse extraite du podcast Slow Marketing - Le podcast des CMO à impact — écoute l'épisode complet ci-dessous.</p>
+                </div>
+            </div>
+            <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://feed.ausha.co/aKpWGhNJ8jDr">🎧 Écouter l'épisode sur Listenly</a>
+            <h1>Quels sont les trois niveaux de conformité en accessibilité numérique et qu'est-ce que le niveau AA implique concrètement ?</h1>
+        </header>
+
+        <p class="article-meta"><span>25 septembre 2026</span> · <span><strong>Slow Marketing - Le podcast des CMO à impact</strong> · Arnaud Poffé</span></p>
+
+        <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/slow-marketing-le-podcast-des-cmo-a-impact-podcast.html">← Voir la fiche Slow Marketing - Le podcast des CMO à impact</a></p>
+
+        <p class="lead">L'accessibilité numérique repose sur trois niveaux de conformité : A (standards de base), AA (double A, destiné aux déficiences variées), et AAA (triple A, expérience optimisée). <strong>Le niveau AA impose que le site ou l'application soit utilisable par tous les systèmes d'assistance</strong> : navigation au clavier avec la touche Tab, lecteurs d'écran comme VoiceOver sur Apple ou Jaws sur Windows, et lecteurs braille.</p>
+
+        <h2>Les trois niveaux : une échelle progressive d'inclusion</h2>
+
+        <p>Le niveau A couvre les critères fondamentaux — c'est l'utilisation des bons standards de base. Le niveau AA va bien au-delà : il <strong>prend en considération tous les types de déficience</strong> et impose une approche inclusive dès la conception. Le niveau AAA, enfin, vise une expérience véritablement optimisée pour les utilisateurs en situation de handicap, mais c'est souvent un objectif plus ambitieux et coûteux à atteindre.</p>
+
+        <p>Selon Arnaud Poffé, comme l'explique dans <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://feed.ausha.co/aKpWGhNJ8jDr">cet épisode du podcast</a>, la distinction entre ces niveaux n'est pas académique — elle définit le périmètre réel de votre engagement envers l'accessibilité.</p>
+
+        <h2>Le niveau AA : l'interopérabilité avec les technologies d'assistance</h2>
+
+        <p>Le niveau AA est <strong>le standard minimal pour garantir une véritable accessibilité</strong>. Concrètement, cela signifie que votre site ou application doit fonctionner sans friction avec tous les outils que les personnes en situation de handicap utilisent au quotidien.</p>
+
+        <p>La navigation au clavier, via la touche Tab, est un exemple fondamental : un utilisateur moteur qui ne peut pas utiliser la souris doit pouvoir accéder à tous les éléments interactifs et les activer. Les lecteurs d'écran — VoiceOver sur macOS et iOS, ou Jaws sur Windows — doivent recevoir des informations sémantiques claires et complètes pour restituer le contenu de manière cohérente. Les lecteurs braille complètent cette chaîne d'accessibilité en convertissant le texte pour les utilisateurs malvoyants ou aveugles.</p>
+
+        <p>Arnaud Poffé souligne que <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://feed.ausha.co/aKpWGhNJ8jDr">l'accessibilité est 50% design et 50% code</a> — une part cruciale dépend de la façon dont le designer structure l'interface, mais l'autre moitié repose sur le développeur qui doit implémenter correctement les attributs ARIA, les balises sémantiques HTML et la logique d'interaction.</p>
+
+        <blockquote class="citation">
+            <p>"L'accessibilité, c'est 50% de design et 50% de code. Il y a une partie qui va se passer en design et il y a une partie qui va se passer en code."</p>
+            <figcaption><strong>Arnaud Poffé</strong> — Lead Designer et Accessibility Conscientious chez Smile. UX ergonome spécialisé en accessibilité numérique, il maîtrise tant les aspects design que le développement front-end. Il a piloté la certification WCAG 2.2 du site de la STIB (Société de Transports Intercommunaux Bruxellois), coordonnant une équipe pluridisciplinaire pour garantir la conformité de cette plateforme de service public.</figcaption>
+        </blockquote>
+
+        <p>Cette répartition souligne pourquoi le niveau AA exige une collaboration étroite. Le designer doit anticiper l'accessibilité dès le début — structure logique de l'information, contraste des couleurs, dimensions cliquables — et le développeur doit veiller à ce que le code respecte les normes, en particulier la <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://feed.ausha.co/aKpWGhNJ8jDr">WCAG 2.2 et ses 55 critères</a> qui définissent le standard international.</p>
+
+        <p>Obtenir et maintenir le niveau AA n'est pas une tâche ponctuelle, mais une culture permanente : audits réguliers, tests avec des utilisateurs en situation de handicap, formation des équipes et mise à jour continue face à l'évolution des technologies d'assistance.</p>
+
+        <h2>Voir aussi</h2>
+
+        <div class="faq">
+            <div class="faq-item">
+                <h3><a href="https://listenly.fr/podcast-btb/questions/slow-marketing-le-podcast-des-cmo-a-impact/qu-est-ce-que-la-certification-wcag-2-2-et-quel-est-le-principal-defi-.html">Qu'est-ce que la certification WCAG 2.2 et quel est le principal défi pour mettre en conformité un site web comme celui de la STIB ?</a></h3>
+                <p>La WCAG 2.2 est le standard d'accessibilité international qui définit 55 critères. Pour la STIB, un service public, le défi principal a été de former les équipes à parler le même langage et à coordonner une approche pluridisciplinaire pour mettre en conformité la plateforme.</p>
+            </div>
+        </div>
+
+        <div class="points-cles">
+            <h3>Points clés à retenir</h3>
+            <ul>
+                <li>Les trois niveaux d'accessibilité (A, AA, AAA) définissent un périmètre croissant d'inclusion, du strict minimum jusqu'à l'expérience optimisée.</li>
+                <li>Le niveau AA impose la compatibilité totale avec les systèmes d'assistance : clavier, lecteurs d'écran (VoiceOver, Jaws) et lecteurs braille.</li>
+                <li>L'accessibilité est un travail partagé : 50% design, 50% code — une collaboration entre designers et développeurs est indispensable.</li>
+                <li>Le standard WCAG 2.2 formalise 55 critères pour atteindre et maintenir le niveau AA, exigeant une audit et formation permanentes.</li>
+            </ul>
+        </div>
+
+        <div class="cta-block">
+            <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://feed.ausha.co/aKpWGhNJ8jDr">Écouter l'épisode sur Listenly</a>
+        </div>
+
+        <footer>
+            <p>Fiche rédigée par l'équipe éditoriale Listenly</p>
+        </footer>
+    </div>
+
+    <div id="semantic-index" style="display:none;">
+        <span>Arnaud Poffé</span>
+        <span>Smile</span>
+        <span>WCAG 2.2</span>
+        <span>STIB</span>
+        <span>VoiceOver</span>
+        <span>Jaws</span>
+        <span>Accessibilité numérique</span>
+        <span>Slow Marketing - Le podcast des CMO à impact</span>
+    </div>
+</body>
+</html>

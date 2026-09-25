@@ -315,7 +315,41 @@ footer a { text-decoration: underline; color: #bbb; }
         <footer>
             <p>© Slow Marketing — Slow Marketing · <a href="https://listenly.fr" style="color: #999; text-decoration: underline;">Analyse structurée par Listenly</a></p>
         </footer>
-    </main>
+    <!-- QUESTIONS_COVERED_START -->
+<style>
+.hx-wrap { margin:32px 0 40px; padding-top:28px; border-top:1px solid #ececec; }
+.hx-title { font-size:22px; font-weight:800; margin:0 0 4px; color:#0a0a0a; }
+.hx-stats { font-size:13px; color:#777; margin:0 0 16px; }
+.hx-tools { position:sticky; top:0; background:#fff; padding:10px 0 8px; z-index:5; }
+.hx-search { width:100%; box-sizing:border-box; padding:12px 16px; font-size:16px; border:1px solid #e2e2e2; border-radius:12px; background:#fafafa; }
+.hx-chips { display:flex; gap:8px; overflow-x:auto; padding:10px 0 2px; }
+.hx-chip { white-space:nowrap; font-size:12px; color:#333; text-decoration:none; background:#f4f4f4; border:1px solid #e6e6e6; border-radius:999px; padding:5px 11px; }
+.hx-chip span { color:#999; }
+.hx-empty { font-size:14px; color:#888; }
+.hx-ep { font-size:17px; font-weight:800; color:#111; margin:26px 0 10px; line-height:1.35; }
+.hx-qa { border:1px solid #ececec; background:#fafafa; border-radius:12px; padding:16px 18px; margin:0 0 10px; }
+.hx-q { font-size:16px; font-weight:700; color:#111; line-height:1.4; margin:0 0 6px; }
+.hx-a { font-size:15px; line-height:1.6; color:#333; margin:0 0 10px; }
+.hx-foot { display:flex; flex-wrap:wrap; gap:14px; align-items:center; font-size:13px; }
+.hx-listen { font-weight:700; text-decoration:none; color:#1f5fbf; background:#eaf1fd; padding:5px 12px; border-radius:999px; }
+.hx-more { color:#777; }
+.hx-hidden { display:none; }
+</style>
+<div class="questions-covered hx-wrap" id="answers">
+  <h2 class="hx-title">Les réponses de ce podcast</h2>
+  <p class="hx-stats">3 questions répondues · 1 épisode indexé</p>
+  
+  <section class="hx-episode"><h3 class="hx-ep" id="ep-rediff-52-rendre-le-web-accessible-toutes-et-tous-les-cl-s-d-une-ux-in">[REDIFF] #52 - Rendre le web accessible à toutes et tous : les clés d’une UX inclusive avec Arnaud Poffé</h3><article class="hx-qa" id="qu-est-ce-que-la-certification-wcag-2-2-et-quel-est-le-principal-d-fi-"><h3 class="hx-q">Qu&#x27;est-ce que la certification WCAG 2.2 et quel est le principal défi pour mettre en conformité un site web comme celui de la STIB ?</h3><p class="hx-a">La WCAG 2.2 est le standard d&#x27;accessibilité international. Pour la STIB, un service public, le défi principal a été de former les équipes à parler le même…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://feed.ausha.co/aKpWGhNJ8jDr">▶ Écouter ce moment · 8:00</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/slow-marketing-le-podcast-des-cmo-a-impact/qu-est-ce-que-la-certification-wcag-2-2-et-quel-est-le-principal-defi-.html">Réponse complète →</a></div></article><article class="hx-qa" id="quels-sont-les-trois-niveaux-de-conformit-en-accessibilit-num-rique-et"><h3 class="hx-q">Quels sont les trois niveaux de conformité en accessibilité numérique et qu&#x27;est-ce que le niveau AA implique concrètement ?</h3><p class="hx-a">Il y a trois niveaux : le niveau A (utilisation des bons standards), le niveau AA (double A, qui prend en considération tous les types de déficience) et le…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://feed.ausha.co/aKpWGhNJ8jDr">▶ Écouter ce moment · 5:20</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/slow-marketing-le-podcast-des-cmo-a-impact/quels-sont-les-trois-niveaux-de-conformite-en-accessibilite-numerique-.html">Réponse complète →</a></div></article><article class="hx-qa" id="comment-l-accessibilit-num-rique-b-n-ficie-t-elle-aussi-aux-personnes-"><h3 class="hx-q">Comment l&#x27;accessibilité numérique bénéficie-t-elle aussi aux personnes sans handicap permanent ?</h3><p class="hx-a">L&#x27;accessibilité ne touche pas que les personnes handicapées. Il existe des déficiences situationnelles ou temporelles : se casser un bras pendant six…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="https://feed.ausha.co/aKpWGhNJ8jDr">▶ Écouter ce moment · 5:18</a><a class="hx-more" href="https://listenly.fr/podcast-btb/questions/slow-marketing-le-podcast-des-cmo-a-impact/comment-l-accessibilite-numerique-beneficie-t-elle-aussi-aux-personnes.html">Réponse complète →</a></div></article></section>
+</div>
+<script>
+(function(){var i=document.querySelector('.hx-search');if(!i)return;var e=document.querySelector('.hx-empty');
+i.addEventListener('input',function(){var v=i.value.toLowerCase().trim(),any=false;
+document.querySelectorAll('.hx-qa').forEach(function(a){var ok=!v||a.textContent.toLowerCase().indexOf(v)>-1;a.classList.toggle('hx-hidden',!ok);if(ok)any=true;});
+document.querySelectorAll('.hx-episode').forEach(function(s){s.classList.toggle('hx-hidden',!s.querySelector('.hx-qa:not(.hx-hidden)'));});
+if(e)e.hidden=any;});})();
+</script>
+<!-- QUESTIONS_COVERED_END -->
+</main>
     <div id="semantic-index" style="display:none;">
         <p>Entity: Slow Marketing - Le podcast des CMO à impact</p>
         <p>Entity: Anaïs Baumgarten</p>
