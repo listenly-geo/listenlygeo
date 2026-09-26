@@ -1,0 +1,93 @@
+name: Podcast BTB — Prospect N1 (générique, sans cron)
+
+# Génère UNIQUEMENT une fiche N1 (présentation statique du podcast) pour un
+# prospect de prospection commerciale (MarketForge). Contrairement aux
+# workflows par-podcast existants (podcast-btb-<slug>.yml), celui-ci :
+#   - ne crée AUCUN cron/schedule (pas de N2 automatique) ;
+#   - est générique et pilotable par inputs, réutilisable pour tous les
+#     prospects sans créer un fichier de workflow par podcast ;
+#   - sert de preuve concrète dans le mail de premier contact — la fiche N2
+#     (Q&A) reste strictement manuelle, déclenchée séparément uniquement
+#     après une réponse positive du prospect.
+#
+# LISTENLY_URL : pour un prospect qui n'a pas encore de page-annuaire
+# Listenly existante, la fiche N1 elle-même sert de présence Listenly — le
+# lien est donc auto-construit vers la fiche qu'on génère (self-référence),
+# jamais inventé vers une page qui n'existe pas.
+
+on:
+  workflow_dispatch:
+    inputs:
+      podcast_slug:
+        description: 'Slug du podcast (ex: marketing-spark) — utilisé pour le nom de fichier et l URL finale'
+        required: true
+        type: string
+      rss_url:
+        description: 'URL du flux RSS du podcast'
+        required: true
+        type: string
+      podcast_url:
+        description: 'Lien Spotify/plateforme réelle (optionnel — sinon auto-détecté depuis le RSS)'
+        required: false
+        type: string
+      accent_color:
+        description: 'Couleur d accent (hex)'
+        required: false
+        type: string
+        default: '#2e8bd6'
+      language:
+        description: 'Langue de la fiche'
+        required: false
+        type: choice
+        default: en
+        options:
+          - en
+          - fr
+
+jobs:
+  prospect-n1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Génération fiche N1 (prospect — pas de N2)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RSS_URL: ${{ inputs.rss_url }}
+          PODCAST_URL: ${{ inputs.podcast_url }}
+          PODCAST_SLUG: ${{ inputs.podcast_slug }}
+          LISTENLY_URL: https://listenly.fr/podcast-btb/${{ inputs.podcast_slug }}-podcast.html
+          ACCENT_COLOR: ${{ inputs.accent_color }}
+          LANGUAGE: ${{ inputs.language }}
+          EPISODE_CTA_TARGET: listenly
+        run: python automation/scripts/generate_podcast_btb.py
+
+      - name: Commit fiche
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git pull --rebase --autostash origin main
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: prospect N1 ${{ inputs.podcast_slug }}"
+            git push
+          fi
+
+      - name: Deploy FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
