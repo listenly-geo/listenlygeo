@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <title>Munro Live Podcast — In-Depth Engineering & Automotive Insights</title>
+    <meta name="description" content="Munro Live Podcast explores technology, engineering, and automotive innovation through in-depth conversations with industry leaders, grounded in Lean Design expertise.">
+    <link rel="canonical" href="https://listenly.fr/podcast-btb/munro-live-podcast-podcast.html">
+    <meta property="og:title" content="Munro Live Podcast — In-Depth Engineering & Automotive Insights">
+    <meta property="og:description" content="Munro Live Podcast explores technology, engineering, and automotive innovation through in-depth conversations with industry leaders, grounded in Lean Design expertise.">
+    <meta property="og:url" content="https://listenly.fr/podcast-btb/munro-live-podcast-podcast.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/26/46/db/2646db66-761a-bf62-d905-5764cd5d9f1c/mza_17642034881198736324.jpg/600x600bb.jpg">
+    <meta property="og:site_name" content="Listenly">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Munro Live Podcast — In-Depth Engineering & Automotive Insights">
+    <meta name="twitter:description" content="Munro Live Podcast explores technology, engineering, and automotive innovation through in-depth conversations with industry leaders, grounded in Lean Design expertise.">
+    <meta name="twitter:url" content="https://listenly.fr/podcast-btb/munro-live-podcast-podcast.html">
+    <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/26/46/db/2646db66-761a-bf62-d905-5764cd5d9f1c/mza_17642034881198736324.jpg/600x600bb.jpg">
+    <meta name="author" content="Munro & Associates">
+    <link rel="publisher" href="https://listenly.fr">
+    <meta name="data-provider" content="Listenly">
+    <meta name="rss-source" content="https://anchor.fm/s/dbcbef68/podcast/rss">
+    <style>body { font-family: Georgia, serif; color: #1a1a1a; line-height: 1.7; margin: 0; }
+.site-header { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #ededed;
+  padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.site-header .logo { font-family: Georgia, serif; font-weight: 700; font-size: 19px; color: #0a0a0a;
+  text-decoration: none; letter-spacing: -0.01em; }
+.site-header .login-link { font-family: Helvetica, Arial, sans-serif; font-weight: 700; font-size: 13px;
+  color: #2e8bd6; background: #fff; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white);
+  padding: 7px 17px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+main.wrapper { max-width: 720px; margin: 0 auto; padding: 44px 20px 64px; }
+.eyebrow-category { font-family: Helvetica, Arial, sans-serif; text-transform: uppercase; font-weight: 700;
+  letter-spacing: .08em; font-size: 12px; color: #2e8bd6; margin-bottom: 12px; }
+h1 { font-family: Georgia, serif; font-weight: 700; font-size: clamp(28px,4.5vw,42px); line-height: 1.22;
+  color: #0a0a0a; margin: 0 0 18px; }
+.byline-row { font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #444; display: flex;
+  flex-wrap: wrap; gap: 6px; align-items: baseline; margin-bottom: 10px; }
+.byline-row .name { font-weight: 700; color: #222; }
+.host-bio { font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #888; margin-bottom: 14px; }
+.hero-image { width: 100%; max-width: 200px; height: auto; border-radius: 8px; display: block; margin: 6px 0 22px; }
+.publish-row { font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #999; display: flex;
+  flex-wrap: wrap; gap: 10px; align-items: center; padding: 14px 0; border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed; margin: 6px 0 30px; }
+.cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.cta-listen { background: #fff; color: #2e8bd6; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white);
+  font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 19px;
+  border-radius: 999px; text-decoration: none; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 700; }
+.divider { border-top: 1px solid #ededed; }
+.lead-label { font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #2e8bd6; }
+.lead { font-family: Georgia, serif; font-size: 19.5px; line-height: 1.65; font-style: italic;
+  border-left: 2px solid color-mix(in srgb, #2e8bd6 55%, white); padding-left: 20px; color: #2a2a2a; margin: 16px 0 30px; }
+.key-facts-label { font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #2e8bd6; margin-bottom: 14px; padding-top: 26px; border-top: 1px solid #ededed; }
+.key-facts { list-style: none; padding: 0; }
+.key-facts li { font-family: Georgia, serif; font-size: 17.5px; line-height: 1.7; color: #2a2a2a; padding-left: 20px;
+  margin-bottom: 14px; position: relative; }
+.key-facts li::before { content: "–"; position: absolute; left: 0; color: #bbb; font-weight: 700; font-size: 18px; }
+.article-body h2 { font-family: Georgia, serif; font-weight: 700; font-size: clamp(21px,3.2vw,26px); line-height: 1.3;
+  color: #111; margin-top: 46px; margin-bottom: 16px; padding-top: 26px; border-top: 1px solid #ededed; }
+.article-body p { font-family: Georgia, serif; font-size: 17.5px; line-height: 1.8; color: #2a2a2a; margin-bottom: 20px; }
+.pull-quote { border-left: 2px solid color-mix(in srgb, #2e8bd6 55%, white); padding-left: 22px; font-family: Georgia, serif; font-size: 20px;
+  font-style: italic; line-height: 1.55; color: #222; margin: 34px 0; }
+.faq-item h3 { font-family: Georgia, serif; font-size: 17.5px; font-weight: 700; color: #111; margin-bottom: 6px; }
+.faq-item p { font-family: Georgia, serif; font-size: 16.5px; color: #444; }
+.episode-card { border: 1px solid #ededed; border-radius: 12px; display: flex; padding: 22px; gap: 16px;
+  align-items: center; margin-top: 44px; }
+.episode-card img { width: 84px; height: 84px; object-fit: cover; border-radius: 8px; }
+.card-listen { font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 17px;
+  border-radius: 999px; background: #fff; color: #2e8bd6; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); text-decoration: none; }
+footer { font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #aaa; border-top: 1px solid #ededed;
+  padding-top: 18px; margin-top: 48px; }
+footer a { text-decoration: underline; color: #bbb; }
+#semantic-index { display: none; }</style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "Munro Live Podcast",
+          "description": "The Munro Live Podcast brings the Munro Live YouTube team into a more in-depth, conversational format. Drawing on their expertise in Lean Design, Munro & Associates explore the latest in technology, engineering, and automotive, offering practical insights grounded in real-world experience.",
+          "url": "https://listenly.fr/podcast-btb/munro-live-podcast-podcast.html",
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://listenly.fr/podcast-btb/munro-live-podcast-podcast.html"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Munro & Associates",
+            "jobTitle": "Engineering & Automotive Experts"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Listenly",
+            "url": "https://listenly.fr"
+          },
+          "isPartOf": {
+            "@type": "PodcastSeries",
+            "@id": "https://listenly.fr/podcast/show/munro-live-podcast"
+          },
+          "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".lead", ".key-facts"]
+          },
+          "datePublished": "2026-09-27"
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What engineering and design principles are featured across Munro Live episodes?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Munro Live applies Lean Design methodology to analyze real-world engineering challenges in automotive, motorcycles, boats, and emerging technologies. Episodes focus on cost optimization, systems integration, and the practical decisions that shape product development, from EV architecture to suspension systems and motor design."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Which industries and technologies are covered in the podcast?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The podcast examines automotive manufacturers (Lucid, Malibu Boats), component suppliers (Pirelli, FUCHS, Magna), emerging mobility solutions (Kodiak AI, Swisspod, ClearMotion), and adjacent sectors including motorcycles (Ducati) and space technology (SpaceX). Coverage spans electric vehicles, tire innovation, permanent magnet motors, and autonomous systems."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Who should listen to this podcast?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Engineers, product managers, automotive executives, supply chain professionals, and innovation leaders benefit from the technical depth and business context. Entrepreneurs and investors tracking EV technology, autonomous systems, and component innovation will find actionable frameworks grounded in industry expertise."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What distinguishes this format from Munro Live's YouTube content?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The podcast deepens conversations beyond video analysis. Listeners gain extended discussion of design tradeoffs, strategic challenges, and the human decisions behind engineering choices, delivered in a conversational format that reveals layers of insight from CEOs and technical leaders."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "PodcastSeries",
+          "name": "Munro Live Podcast",
+          "description": "The Munro Live Podcast brings the Munro Live YouTube team into a more in-depth, conversational format. Drawing on their expertise in Lean Design, Munro & Associates explore the latest in technology, engineering, and automotive, offering practical insights grounded in real-world experience.",
+          "url": "https://podcasts.apple.com/us/podcast/munro-live-podcast/id1684262560?uo=4",
+          "sameAs": [
+            "https://podcasts.apple.com/us/podcast/munro-live-podcast/id1684262560?uo=4",
+            "https://listenly.fr/podcast/show/munro-live-podcast"
+          ]
+        },
+        {
+          "@type": "Person",
+          "name": "Munro & Associates",
+          "jobTitle": "Engineering & Automotive Experts",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Munro & Associates"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Listenly",
+              "item": "https://listenly.fr"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Tech & Cybersécurité",
+              "item": "https://listenly.fr/podcasts/tech-cybersecurite"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Munro Live Podcast",
+              "item": "https://listenly.fr/podcast-btb/munro-live-podcast-podcast.html"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Listenly",
+      "item": "https://listenly.fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Podcasts B2B",
+      "item": "https://listenly.fr/podcast-btb/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Cybersécurité",
+      "item": "https://listenly.fr/podcast-btb/categorie/cybersecurite.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Munro Live Podcast",
+      "item": "https://listenly.fr/podcast-btb/munro-live-podcast-podcast.html"
+    }
+  ]
+}
+</script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+    <header class="site-header">
+        <a class="logo" href="https://listenly.fr/">Listenly</a>
+        <a class="login-link" href="https://listenly.fr/userAuth">Log in</a>
+    </header>
+
+    <main class="wrapper">
+        <p class="eyebrow-category">Podcast · Tech & Cybersécurité</p>
+
+        <h1>Munro Live Podcast</h1>
+
+        <div class="byline-row">
+            <p>By <span class="name">Munro & Associates</span>, Engineering & Automotive Experts at Munro & Associates</p>
+        </div>
+        <p class="host-bio">Munro & Associates brings three decades of automotive and engineering expertise, recognized across industry for Lean Design methodology applied to real-world manufacturing and product development.</p>
+
+        <img class="hero-image" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/26/46/db/2646db66-761a-bf62-d905-5764cd5d9f1c/mza_17642034881198736324.jpg/600x600bb.jpg" alt="Munro Live Podcast">
+
+        <div class="publish-row">
+            ⏱ 8 min read · Readable by ChatGPT, Gemini, Claude
+        </div>
+
+        <div class="cta-row">
+            <a class="cta-listen plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/munro-live-podcast">▶ Listen to the podcast</a>
+        </div>
+
+        <div class="lead-label">What Munro Live Podcast covers</div>
+        <p class="lead">Munro Live Podcast translates engineering complexity into business insight through extended conversations with automotive CEOs and technology leaders. Each episode decodes the Lean Design decisions that separate competitive advantage from commodity production. The podcast moves beyond surface-level product analysis to expose the cost engineering, systems integration, and strategic tradeoffs that define how modern vehicles and advanced technologies actually get built.</p>
+
+        <div class="key-facts-label">Key facts</div>
+        <ul class="key-facts">
+            <li>Episodes feature CEOs and technical leaders from Lucid, Ducati, Pirelli, Magna, and emerging mobility companies including Kodiak AI and Swisspod Technologies</li>
+            <li>Lean Design methodology forms the analytical framework, examining cost optimization and engineering decisions across automotive, motorcycles, boats, and advanced technology sectors</li>
+            <li>Conversation format allows deeper exploration of systems thinking—how EV architecture, suspension innovation, and permanent magnet motor design connect to business outcomes</li>
+            <li>Episodes cover technology spanning electric vehicle strategy, tire innovation, autonomous freight, active suspension systems, and lubricant chemistry impacting vehicle performance</li>
+        </ul>
+
+        <p>Discover all <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/munro-live-podcast">episodes of Munro Live Podcast</a> on your preferred platform.</p>
+
+        <hr class="divider">
+
+        <h2>What this podcast really covers</h2>
+        <p>Munro Live Podcast operates at the intersection of engineering depth and business strategy. Rather than reviewing finished products, episodes investigate the design choices, cost pressures, and technical innovations that shaped them. Episodes with Lucid explore midsize EV architecture and the systems-level decisions required to compete at lower price points. The Ducati episode examines 100 years of manufacturing heritage meeting modern supply chain realities. Conversations with Pirelli, FUCHS, and component suppliers reveal how material science and chemical engineering drive competitive differentiation in unsexy but mission-critical categories.</p>
+        <p>The podcast also tracks emerging technology frontiers. Interviews with Kodiak AI and Swisspod Technologies—the latter founded by a SpaceX Hyperloop competition winner—expose how autonomous systems and advanced mobility solutions transition from concept to commercial viability. Episodes on ClearMotion's active suspension and AML's permanent magnet motors demonstrate that innovation in automotive increasingly happens at the systems level rather than in single components, reflecting a fundamental shift in how engineers approach product development.</p>
+
+        <h2>Who this podcast is essential for</h2>
+        <p><strong>Automotive and engineering leaders</strong> use Munro Live episodes as a strategic listening tool. Product managers, chief engineers, and R&D executives gain frameworks for understanding competitor decisions, supply chain leverage points, and emerging technology adoption patterns directly from the executives making those choices.</p>
+        <p><strong>Supply chain and manufacturing professionals</strong> find actionable intelligence about how tier-one suppliers navigate cost pressure, technological disruption, and the shift to electrification. Episodes with component manufacturers reveal which capabilities drive premium positioning and which are commoditizing.</p>
+        <p><strong>Investors and entrepreneurs</strong> tracking automotive innovation use the podcast to validate market narratives and test due diligence assumptions. Interviews with founders and CEOs expose the technical reality behind EV valuations, autonomous technology timelines, and emerging subsystem innovation.</p>
+
+        <h2>What the episodes really reveal</h2>
+        <p>A consistent pattern emerges across Munro Live episodes: the competitive advantage in modern automotive lies not in individual components but in systems integration. The Magna episode on corporate R&D, titled "Why EV Development is No Longer About Parts—It's About Systems," articulates this theme explicitly. Whether discussing Lucid's cost engineering strategy, ClearMotion's active suspension architecture, or how Kodiak AI integrates perception and autonomy for freight, the underlying insight remains unchanged: manufacturers must orchestrate dozens of subsystems, each optimized for cost and performance, into a coherent whole.</p>
+        <p>A second pattern reflects the reality of technology adoption timelines. Pirelli's discussion of tire innovation, FUCHS's analysis of lubricant chemistry, and AML's permanent magnet motor development all demonstrate that breakthrough capabilities take years from laboratory to production volume. Leaders discussing their roadmaps reveal not revolutionary leaps but iterative refinement constrained by manufacturing scale, supply chain availability, and regulatory certification.</p>
+        <p>The third pattern—perhaps most valuable for strategists—involves the tension between performance and cost. Lucid's midsize strategy, Malibu Boats' design process, and Ducati's century-long manufacturing history all converge on the same challenge: how to deliver customer-visible quality while navigating relentless cost pressure. Munro's Lean Design lens proves particularly valuable here, as guests translate strategic intent into the specific engineering and manufacturing decisions that enable competitive positioning.</p>
+
+        <h2>What this changes in practice</h2>
+        <p>For engineering organizations, Munro Live episodes shift the conversation from "How do we innovate?" to "How do we orchestrate systems innovation under cost constraint?" This distinction matters operationally. Teams that internalize the systems-integration framework emerging from these conversations make different capital allocation decisions, different build-versus-buy choices, and different supplier partnership decisions.</p>
+        <p>For supply chain and procurement teams, the podcast surfaces a crucial insight: component suppliers who understand their role within the customer's systems architecture create stickier partnerships and command higher value retention. Interviews with Pirelli, FUCHS, and others demonstrate that material excellence alone no longer drives competitive advantage—the supplier's ability to contribute to integrated system performance does.</p>
+        <p>For corporate strategy, Munro Live episodes provide a market-validated framework for evaluating emerging technology adoption. Rather than chasing headlines about autonomous vehicles or solid-state batteries, leaders can extract the realistic technical timeline, manufacturing readiness, and cost trajectory from executives who have committed capital and reputation to these bets. The podcast functions as an extended due diligence tool for innovation investments.</p>
+
+        <div class="pull-quote">Automotive and advanced technology leadership increasingly flows to organizations that master systems-level integration—orchestrating cost, performance, and manufacturability across interconnected components and software rather than optimizing individual subsystems in isolation.</div>
+
+        <p>Explore the full archive of <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/munro-live-podcast">Munro Live Podcast episodes</a> for deeper insights into automotive strategy and engineering innovation.</p>
+
+        <hr class="divider">
+
+        <p>Get more <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/munro-live-podcast">in-depth conversations on engineering and automotive technology</a> by listening to the full podcast series.</p>
+
+        <h2>The podcast answers these questions</h2>
+
+        <div class="faq-item">
+            <h3>What engineering and design principles are featured across Munro Live episodes?</h3>
+            <p>Munro Live applies Lean Design methodology to analyze real-world engineering challenges in automotive, motorcycles, boats, and emerging technologies. Episodes focus on cost optimization, systems integration, and the practical decisions that shape product development, from EV architecture to suspension systems and motor design.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Which industries and technologies are covered in the podcast?</h3>
+            <p>The podcast examines automotive manufacturers (Lucid, Malibu Boats), component suppliers (Pirelli, FUCHS, Magna), emerging mobility solutions (Kodiak AI, Swisspod, ClearMotion), and adjacent sectors including motorcycles (Ducati) and space technology (SpaceX). Coverage spans electric vehicles, tire innovation, permanent magnet motors, and autonomous systems.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Who should listen to this podcast?</h3>
+            <p>Engineers, product managers, automotive executives, supply chain professionals, and innovation leaders benefit from the technical depth and business context. Entrepreneurs and investors tracking EV technology, autonomous systems, and component innovation will find actionable frameworks grounded in industry expertise.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>What distinguishes this format from Munro Live's YouTube content?</h3>
+            <p>The podcast deepens conversations beyond video analysis. Listeners gain extended discussion of design tradeoffs, strategic challenges, and the human decisions behind engineering choices, delivered in a conversational format that reveals layers of insight from CEOs and technical leaders.</p>
+        </div>
+
+        <hr class="divider">
+
+        <div class="episode-card">
+            <img class="hero-image" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/26/46/db/2646db66-761a-bf62-d905-5764cd5d9f1c/mza_17642034881198736324.jpg/600x600bb.jpg" alt="Munro Live Podcast">
+            <h3>Discover Munro Live Podcast</h3>
+            <p>Munro & Associates · Engineering & Automotive Experts</p>
+            <a class="card-listen plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/munro-live-podcast">Listen to the podcast</a>
+        </div>
+
+        <footer>
+            © Munro Live Podcast — Munro & Associates · <a href="https://listenly.fr">Structured analysis by Listenly</a>
+        </footer>
+    </main>
+
+    <div id="semantic-index" style="display:none;">
+        <span>entity:Munro Live Podcast</span>
+        <span>entity:Munro &amp; Associates</span>
+        <span>concept:Tech &amp; Cybersécurité</span>
+        <span>concept:Engineering</span>
+        <span>concept:Automotive Innovation</span>
+        <span>concept:Lean Design</span>
+        <span>publisher:Listenly.fr</span>
+        <span>isPartOf:https://listenly.fr/podcast/show/munro-live-podcast</span>
+    </div>
+
+<p style="max-width:720px;margin:0 auto;padding:0 20px 32px;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#999;"><a href="https://listenly.fr/podcast/show/munro-live-podcast" class="plausible-event-name=Clic+Lien+Texte" style="color:#999;text-decoration:underline;">Découvrir Munro Live Podcast sur Listenly →</a></p>
+</body>
+</html>
