@@ -57,25 +57,18 @@ var MFE_DEFAULTS = [
 // ---------- Messages (modifiables dans l'onglet Reglages, cles MFE_MSG_*) ----------
 // Style : court, a la premiere personne, une seule question, texte brut (pas de gras, pas d'emoji).
 // Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}
-var MFE_MSG_VERSION = '3';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
+var MFE_MSG_VERSION = '4';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
 var MFE_FIRST_MAIL = [
   'Hi {NAME},',
   '',
-  "I'm Etienne, founder of Listenly, a search engine that turns podcast expertise into direct answers people can discover through search.",
+  "I'm Etienne, founder of Listenly, a search engine that turns podcast expertise into answers people find on Google and AI tools like ChatGPT.",
   '',
-  "We're currently expanding the podcasts indexed on the platform, and we recently added {PODCAST} to Listenly.",
+  'We recently added {PODCAST}, and while indexing it I noticed your episodes hold a lot of expertise that could bring your company far more visibility.',
   '',
-  'You can see it here:',
-  '{LISTENLY}',
-  '',
-  'The reason I\'m reaching out is that while indexing your podcast, I noticed something interesting: your episodes already contain a lot of valuable expertise that could generate much more visibility for your company.',
-  '',
-  "We've built a system that turns this existing podcast content into permanent visibility across Google and AI search tools like ChatGPT, Gemini and Google AI.",
-  '',
-  'I actually created a first example for {PODCAST} so you can see what this could look like:',
+  "Here's the page I built for the show:",
   '{URL}',
   '',
-  'Quick question: are you currently doing anything with each episode after it goes live to turn that expertise into organic visibility for the company?',
+  'Quick question: are you doing anything with each episode after it goes live to turn that expertise into organic visibility?',
   '',
   'Best,',
   'Etienne'
@@ -84,16 +77,16 @@ var MFE_MSG_DEFAULTS = [
   ['MFE_MSG_OBJET', '{PODCAST} on Listenly',
    'MarketForge Engine — objet du 1er mail. {PODCAST} = nom du podcast.'],
   ['MFE_MSG_FICHE', MFE_FIRST_MAIL,
-   'MarketForge Engine — 1er mail. Variables : {NAME} (hote, sinon "{PODCAST} team") {PODCAST} {LISTENLY} (page Listenly) {URL} (exemple / fiche N1) {BOOKING} {OPTOUT}.'],
+   'MarketForge Engine — 1er mail. Variables : {NAME} (hote, sinon "{PODCAST} team") {PODCAST} {URL} (fiche N1 du podcast) {BOOKING} {OPTOUT}.'],
   ['MFE_MSG_REPONSES', MFE_FIRST_MAIL,
    'MarketForge Engine — 1er mail quand des reponses ont ete extraites (meme modele par defaut).'],
   ['MFE_MSG_RELANCE', [
     'Hi {NAME},',
     '',
-    'Just following up on my note about {PODCAST}. The example I put together for you is here:',
+    'Following up on {PODCAST}. Your page is here:',
     '{URL}',
     '',
-    "If turning each episode into organic visibility for the company is on your radar, I'd be happy to walk you through it in 15 minutes: {BOOKING}",
+    "Happy to show you in 15 minutes how this can work for every new episode: {BOOKING}",
     '',
     'Best,',
     'Etienne'
