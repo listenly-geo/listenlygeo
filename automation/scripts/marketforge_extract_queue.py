@@ -35,7 +35,7 @@ DEFAULT_EPISODE_MINUTES = 60  # si itunes:duration absent du flux
 INBOX_ROOT = "automation/inbox/moteur-trafic-transcripts"  # stock lu par generate_qa_fiches_btb.py
 INBOX_TRANSCRIPT_MAX = 20000
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from rss_contact import extract_contact_email, fetch_contact_email  # noqa: E402
+from rss_contact import extract_contact_email, fetch_contact_email, check_email  # noqa: E402
 import hub_index  # noqa: E402
 
 DRY_RUN = os.environ.get("DRY_RUN", "").strip() in ("1", "true", "yes")
@@ -275,6 +275,26 @@ def main():
         p = podcasts.get(slug) or {}
         state["host_name"] = state.get("host_name") or p.get("host_name", "")
         state["listenly_url"] = state.get("listenly_url") or p.get("listenly_url", "")
+    # Anti-rebond : re-verifie aussi les contacts deja prets (email d'hebergeur, boite technique,
+    # domaine sans serveur mail) -> on retente le flux RSS pour une meilleure adresse, sinon sans_email.
+    rejetes = 0
+    for slug, state in queue["podcasts"].items():
+        if state["status"] != "contact" or not state.get("email") or state.get("email_ok"):
+            continue
+        why = check_email(state["email"])
+        if not why:
+            state["email_ok"] = True
+            continue
+        podcast = podcasts.get(slug) or {}
+        better = fetch_contact_email(podcast["rss_url"]) if podcast.get("rss_url") else ""
+        if better and better != state["email"] and not check_email(better):
+            log(f"Email remplace pour {slug} : {state['email']} -> {better} ({why})")
+            state["email"], state["email_ok"] = better, True
+            continue
+        log(f"Email rejete pour {slug} : {state['email']} ({why})")
+        state["email_rejete"] = f"{state['email']} ({why})"
+        state["email"], state["proof_url"], state["status"] = "", "", "sans_email"
+        rejetes += 1
     for slug, state in queue["podcasts"].items():
         if state["status"] != "en_attente" or extraction_auto or slug in extraire:
             continue
@@ -284,7 +304,13 @@ def main():
         state["podcast_name"] = state.get("podcast_name") or podcast.get("podcast_name", "")
         state["fiche_url"] = state.get("fiche_url") or podcast.get("fiche_url", "")
         email = state.get("email") or (fetch_contact_email(podcast["rss_url"]) if podcast.get("rss_url") else "")
+        why = check_email(email) if email else ""
+        if why:
+            log(f"Email rejete pour {slug} : {email} ({why})")
+            state["email_rejete"] = f"{email} ({why})"
+            email, rejetes = "", rejetes + 1
         state["email"] = email
+        state["email_ok"] = bool(email)
         if email:
             state["proof_url"] = state.get("proof_url") or build_proof_url(config, podcast)
             state["proof_date"] = state.get("proof_date") or TODAY
@@ -294,7 +320,9 @@ def main():
             state["status"] = "sans_email"
             sans_email += 1
     journal["contacts"] = journal.get("contacts", 0) + contacts
-    log(f"Mode contact : {contacts} contact(s) pret(s) (fiche N1 + email), {sans_email} sans email.")
+    journal["emails_rejetes"] = journal.get("emails_rejetes", 0) + rejetes
+    log(f"Mode contact : {contacts} contact(s) pret(s) (fiche N1 + email), {sans_email} sans email, "
+        f"{rejetes} email(s) rejete(s) (anti-rebond).")
 
     order = sorted(
         (s for s, st in queue["podcasts"].items()

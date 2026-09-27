@@ -153,6 +153,7 @@ function mfeImport_(sh, podcasts) {
   Object.keys(podcasts).forEach(function (slug) {
     var p = podcasts[slug];
     if (known[slug] || !p.email || !p.proof_url) return;
+    if (mfeEmailProblem_(p.email)) return;   // anti-rebond : jamais importe si l'adresse est douteuse
     var n = p.moments_count || 0;
     // Jamais de double contact : email deja present dans l'onglet Prospection (ancienne machine)
     var dejaVu = prospection && prospection.createTextFinder(p.email).matchCase(false).findNext();
@@ -193,6 +194,12 @@ function mfeSend_(sh, cfg, force) {
   var sent = 0;
   rows.forEach(function (r) {
     if (sent >= budget || r.values[6] !== 'Pret') return;
+    var why = mfeEmailProblem_(r.values[2]);   // anti-rebond : verifie l'adresse juste avant l'envoi
+    if (why) {
+      sh.getRange(r.row, 7).setValue('Email invalide');
+      sh.getRange(r.row, 12).setValue('Non envoye (anti-rebond) : ' + why);
+      return;
+    }
     var d = mfeDraft_(r.values);
     try {
       var threadId = mfeMail_(r.values[2], d[0], d[1]);
@@ -234,6 +241,7 @@ function mfeCheckReplies_(sh) {
     var bounce = msgs.some(function (m) { return /mailer-daemon|postmaster/i.test(m.getFrom()); });
     if (bounce) {  // mail bloque / adresse invalide : jamais de relance
       sh.getRange(r.row, 7).setValue('Rebond');
+      mfeRememberBounce_(r.values[2]);
       sh.getRange(r.row, 12).setValue('Bloque ou refuse par le serveur du destinataire');
       mfeBounceGuard_(sh);
       return;
@@ -246,14 +254,71 @@ function mfeCheckReplies_(sh) {
   return n;
 }
 
-// Trop de rebonds recents -> pause de l'envoi (protege la reputation du domaine)
+// ---------- Anti-rebond : verification de l'adresse avant chaque envoi ----------
+var MFE_BLOCKED_DOMAINS = ['anchor.fm', 'spotify.com', 'spreaker.com', 'libsyn.com', 'megaphone.fm', 'buzzsprout.com',
+  'podbean.com', 'simplecast.com', 'transistor.fm', 'captivate.fm', 'acast.com', 'omny.fm', 'omnystudio.com',
+  'soundcloud.com', 'iheart.com', 'iheartmedia.com', 'audioboom.com', 'redcircle.com', 'art19.com', 'pinecast.com',
+  'blubrry.com', 'podcastics.com', 'ausha.co', 'podomatic.com', 'castos.com', 'fireside.fm', 'podigee.com',
+  'riverside.fm', 'zencast.fm', 'whooshkaa.com', 'example.com', 'example.org', 'test.com', 'domain.com', 'email.com'];
+var MFE_BLOCKED_LOCAL = /^(no-?reply|do-?not-?reply|noreply\d*|feeds?|rss|bounces?|postmaster|mailer-daemon|abuse|dmca|copyright|unsubscribe|privacy|legal|billing|invoices?|accounting|applepodcasts?|itunes|podcasts?\d+(\+.*)?)$/;
+
+// '' si l'adresse est envoyable, sinon la raison
+function mfeEmailProblem_(email) {
+  email = String(email || '').trim().toLowerCase();
+  if (!/^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$/.test(email)) return 'format invalide';
+  var local = email.split('@')[0], domain = email.split('@')[1];
+  for (var i = 0; i < MFE_BLOCKED_DOMAINS.length; i++) {
+    var d = MFE_BLOCKED_DOMAINS[i];
+    if (domain === d || domain.slice(-d.length - 1) === '.' + d) return 'adresse d\'hebergeur (' + domain + ')';
+  }
+  if (MFE_BLOCKED_LOCAL.test(local.split('+')[0]) || MFE_BLOCKED_LOCAL.test(local)) return 'boite technique (' + local + '@)';
+  var bounced = JSON.parse(PropertiesService.getScriptProperties().getProperty('MFE_BOUNCED_DOMAINS') || '{}');
+  var perso = /^(gmail|googlemail|yahoo|outlook|hotmail|live|icloud|me|aol|proton|protonmail)\./;
+  if (bounced[domain] && !perso.test(domain)) return 'domaine deja en rebond (' + domain + ')';
+  if (!mfeDomainAcceptsMail_(domain)) return 'domaine sans serveur mail (' + domain + ')';
+  return '';
+}
+
+// Le domaine a-t-il un serveur mail (MX, a defaut une IP) ? DNS-over-HTTPS Google, cache 6 h. Doute -> oui.
+function mfeDomainAcceptsMail_(domain) {
+  var cache = CacheService.getScriptCache(), key = 'mx_' + domain, hit = cache.get(key);
+  if (hit) return hit === '1';
+  var ok = true;
+  try {
+    var types = ['MX', 'A'];
+    for (var i = 0; i < types.length; i++) {
+      var res = UrlFetchApp.fetch('https://dns.google/resolve?name=' + encodeURIComponent(domain) + '&type=' + types[i], { muteHttpExceptions: true });
+      if (res.getResponseCode() !== 200) { ok = true; break; }
+      var d = JSON.parse(res.getContentText());
+      if (d.Status === 3) { ok = false; break; }                       // le domaine n'existe pas
+      if ((d.Answer || []).some(function (a) { return a.type === 15 || a.type === 1; })) { ok = true; break; }
+      ok = false;
+    }
+  } catch (e) { ok = true; }
+  cache.put(key, ok ? '1' : '0', 21600);
+  return ok;
+}
+
+// Memorise les domaines qui ont rebondi (on n'y renvoie plus rien, sauf messageries perso)
+function mfeRememberBounce_(email) {
+  var domain = String(email || '').toLowerCase().split('@')[1];
+  if (!domain) return;
+  var props = PropertiesService.getScriptProperties();
+  var bounced = JSON.parse(props.getProperty('MFE_BOUNCED_DOMAINS') || '{}');
+  bounced[domain] = new Date().toISOString().slice(0, 10);
+  props.setProperty('MFE_BOUNCED_DOMAINS', JSON.stringify(bounced));
+}
+
+// Trop de rebonds recents -> pause de l'envoi (protege la reputation du domaine).
+// Regle : sur 3 jours, pause si rebonds >= MFE_MAX_REBONDS ET taux de rebond > 3 % des envois.
 function mfeBounceGuard_(sh) {
   var max = parseInt(mfeReadSettings_().MFE_MAX_REBONDS, 10) || 3;
   var since = Date.now() - 3 * 86400000;
-  var n = mfeRows_(sh).filter(function (r) {
-    return r.values[6] === 'Rebond' && r.values[7] && new Date(r.values[7]).getTime() > since;
-  }).length;
-  if (n < max) return;
+  var recent = mfeRows_(sh).filter(function (r) { return r.values[7] && new Date(r.values[7]).getTime() > since; });
+  var n = recent.filter(function (r) { return r.values[6] === 'Rebond'; }).length;
+  var rate = recent.length ? n / recent.length : 0;
+  Logger.log('Rebonds 3 jours : %s / %s envois (%s %)', n, recent.length, Math.round(rate * 1000) / 10);
+  if (n < max || rate <= 0.03) return;
   var reg = mfeReglagesSheet_(), vals = reg.getRange(1, 1, reg.getLastRow(), 1).getValues();
   for (var i = 0; i < vals.length; i++) if (String(vals[i][0]).trim() === 'MFE_ENVOI_AUTO') reg.getRange(i + 1, 2).setValue('FALSE');
   Logger.log('PAUSE AUTO : %s rebonds en 3 jours -> MFE_ENVOI_AUTO = FALSE', n);

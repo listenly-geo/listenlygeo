@@ -126,6 +126,8 @@ def main():
         sent_total, rep_total = ps.get("sent_total", 0), ps.get("replies_total", 0)
         stt = ps.get("status", {})
         bounces = stt.get("Rebond", 0)
+        bounce_rate = f"{bounces / sent_total * 100:.1f}".replace(".", ",") if sent_total else "0"
+        rejected = stt.get("Email invalide", 0) + sum(1 for p in qp.values() if p.get("email_rejete"))
         sent_today = sbd.get(today.isoformat(), 0)
         rep_rate = f"{rep_total / sent_total * 100:.1f}".replace(".", ",") if sent_total else "0"
         pmax = max([sbd.get(d.isoformat(), 0) for d in days14] + [1])
@@ -156,7 +158,8 @@ def main():
     <div class="card stack">
       <div><span>Statut</span>{envoi}</div>
       <div><span>Plafond d'envois / jour</span><b>{e(ps.get("max_envois_jour") or "—")}</b></div>
-      <div><span>Rebonds</span><b>{fr_num(bounces)}</b></div>
+      <div><span>Rebonds</span><b>{fr_num(bounces)} <small class="muted">({bounce_rate} % — objectif &lt; 3 %)</small></b></div>
+      <div><span>Adresses écartées (anti-rebond)</span><b>{fr_num(rejected)}</b></div>
       <div><span>Déjà contactés (ancienne prospection)</span><b>{fr_num(stt.get("Deja en prospection", 0))}</b></div>
       <div><span>Prospects dans le Sheet</span><b>{fr_num(ps.get("total", 0))}</b></div>
     </div>
