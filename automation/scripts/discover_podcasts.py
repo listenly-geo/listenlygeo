@@ -27,6 +27,8 @@ Sortie :
 
 import os, sys, json, re, time
 import urllib.request, urllib.error, urllib.parse
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from rss_contact import fetch_contact_email  # noqa: E402
 
 API_KEY = os.environ["ANTHROPIC_API_KEY"]
 MODEL = "claude-haiku-4-5-20251001"
@@ -278,6 +280,7 @@ def create_candidate_issue(record):
         f"**Genre :** {record['genre']}\n"
         f"**Épisodes :** {record['track_count']}\n"
         f"**Langue détectée :** {record['detected_language']}\n"
+        f"**Email :** {record.get('contact_email') or '(aucun dans le RSS)'}\n"
         f"**Flux RSS :** `{record['feed_url']}`\n"
         f"**Fiche iTunes :** {record['collection_view_url']}\n"
         f"**Image de couverture :** {record['cover_image']}\n\n"
@@ -495,6 +498,10 @@ def main():
                 (r.get("description") or r.get("collectionCensoredName") or "")[:800],
             ])
             record["suggested_category"], record["suggested_tags"] = suggest_category_and_tags(tagging_text)
+            # Email de contact lu dans le flux RSS (itunes:owner/itunes:email...) -- MarketForge
+            # Engine, 27/09/2026. Simple lecture du RSS, aucun cout API.
+            record["contact_email"] = fetch_contact_email(record["feed_url"]) if record["feed_url"] else ""
+            log(f"  Email : {record['contact_email'] or '(aucun dans le RSS)'}")
         seen_candidates[r.get("feedUrl", "")] = record
         if record["verdict"] == "ONBOARD":
             onboard_list.append(record)

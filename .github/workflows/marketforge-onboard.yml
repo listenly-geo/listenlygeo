@@ -1,0 +1,124 @@
+name: MarketForge Engine — Onboarding auto (Listenly SQL + fiche N1)
+
+# Declenchement :
+#  - label "approved" pose sur une issue candidate (depuis GitHub, mobile ou le generateur)
+#  - ou manuel (numeros d'issues ou "all")
+# Etapes : fiche Listenly via SQL (api/podcast-show-import.php) -> fiche N1 -> issue fermee.
+# La fiche N1 entre ensuite toute seule dans la file d'extraction.
+
+on:
+  issues:
+    types: [labeled]
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'onboard | describe (structure de la table) | deploy_api (envoie le PHP sur le serveur)'
+        required: true
+        default: 'onboard'
+      issue_numbers:
+        description: 'Numeros separes par virgule, ou "all" (candidats labellises approved)'
+        required: false
+        default: 'all'
+      mode:
+        description: 'insert | dry_run'
+        required: false
+        default: 'insert'
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: marketforge-onboard
+  cancel-in-progress: false
+
+jobs:
+  deploy-api:
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'deploy_api'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy FTP de server/api -> /listenly.fr/api/
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./server/api/
+          server-dir: /listenly.fr/api/
+          state-name: .ftp-deploy-sync-state-marketforge.json
+
+  describe:
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'describe'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Structure de _c_p_shows + mapping detecte
+        env:
+          SECRET: ${{ secrets.KNOWLEDGE_IMPORT_SECRET }}
+        run: |
+          curl -sS -X POST "https://listenly.fr/api/podcast-show-import.php" \
+            -H "Content-Type: application/json" -H "X-Import-Secret: $SECRET" \
+            -d '{"mode":"describe"}' | tee describe.json
+          echo '## Structure _c_p_shows' >> "$GITHUB_STEP_SUMMARY"
+          echo '```json' >> "$GITHUB_STEP_SUMMARY"
+          cat describe.json >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+  onboard:
+    if: >-
+      (github.event_name == 'issues' && github.event.label.name == 'approved'
+        && contains(github.event.issue.labels.*.name, 'candidate'))
+      || (github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'onboard')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Onboarding (Listenly SQL + fiche N1)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          KNOWLEDGE_IMPORT_SECRET: ${{ secrets.KNOWLEDGE_IMPORT_SECRET }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          ISSUE_NUMBERS: ${{ github.event.issue.number || github.event.inputs.issue_numbers }}
+          SHOW_IMPORT_MODE: ${{ github.event.inputs.mode || 'insert' }}
+        run: python automation/scripts/onboard_from_issue.py
+
+      - name: Regenerer le dashboard
+        if: github.event.inputs.mode != 'dry_run'
+        run: python automation/scripts/rebuild_dashboard.py || true
+
+      - name: Commit fiches N1
+        if: always() && github.event.inputs.mode != 'dry_run'
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: MarketForge Engine — onboarding N1"
+            for i in 1 2 3 4 5; do
+              git fetch origin main
+              git rebase origin/main && git push && break
+              git rebase --abort 2>/dev/null || true
+              sleep $((RANDOM % 15 + 5))
+            done
+          fi
+
+      - name: Deploy FTP
+        if: always() && github.event.inputs.mode != 'dry_run'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
