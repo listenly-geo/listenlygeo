@@ -1,7 +1,7 @@
 /**
  * MarketForge Engine — branchement Google Sheet + mail (27/09/2026)
  *
- * A coller dans le projet Apps Script du Sheet "Prospection MarketForge Podcasts B2B"
+ * A coller dans le projet Apps Script du Sheet de prospection podcasts (1b53cWGiz6iOuakpotw_Ck4bQBeIMJa3hfq5gP2mFiT4)
  * (Extensions > Apps Script > + > Script > nommer "MarketForgeEngine"), sans toucher aux autres fichiers.
  *
  * Ce que ca fait, chaque jour :
@@ -174,7 +174,7 @@ function mfeSettings_(sh) {
 }
 
 function mfeSheet_() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet() || SpreadsheetApp.openById('1d4FhAzRAV43um-lWkpu8VO_fTPLVsd4Mx4oNEelecxg');
+  var ss = SpreadsheetApp.getActiveSpreadsheet() || SpreadsheetApp.openById('1b53cWGiz6iOuakpotw_Ck4bQBeIMJa3hfq5gP2mFiT4');
   var sh = ss.getSheetByName(MFE.SHEET);
   if (sh) return sh;
   sh = ss.insertSheet(MFE.SHEET);
