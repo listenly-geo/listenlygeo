@@ -119,9 +119,16 @@ function show_url($seo) { return 'https://listenly.fr/podcast/show/' . $seo; }
 // --- Deja present ? (meme flux RSS ou meme titre) -> on renvoie l'existant, jamais de doublon ---
 $pk = null;
 foreach ($cols as $name => $c) { if ($c['Key'] === 'PRI') { $pk = $name; break; } }
-$sel = 'SELECT ' . ($pk ? "`$pk` AS id, " : '') . "`{$map['seo_url']}` AS seo_url FROM `" . TABLE . "` WHERE `{$map['rss_url']}` = :rss OR `{$map['title']}` = :title LIMIT 1";
+// Anti-doublon elargi (27/09/2026, apres le doublon "rock-your-money-rock-your-life-2") : meme RSS,
+// meme titre, meme seo_url de base, ou meme code (titre sans ponctuation), comme l'admin les ecrit.
+$dedupBase = slugify($title);
+$dedupCode = str_replace('-', '', $dedupBase);
+$where = ["`{$map['rss_url']}` = :rss", "`{$map['title']}` = :title", "`{$map['seo_url']}` = :base", "LOWER(`{$map['title']}`) = :tslug"];
+$args = [':rss' => $rss, ':title' => $title, ':base' => $dedupBase, ':tslug' => $dedupBase];
+if (isset($cols['code'])) { $where[] = '`code` = :code'; $args[':code'] = $dedupCode; }
+$sel = 'SELECT ' . ($pk ? "`$pk` AS id, " : '') . "`{$map['seo_url']}` AS seo_url FROM `" . TABLE . "` WHERE " . implode(' OR ', $where) . ' LIMIT 1';
 $st = $pdo->prepare($sel);
-$st->execute([':rss' => $rss, ':title' => $title]);
+$st->execute($args);
 if ($row = $st->fetch(PDO::FETCH_ASSOC)) {
     out(200, ['ok' => true, 'created' => false, 'id' => $row['id'] ?? null, 'seo_url' => $row['seo_url'], 'listenly_url' => show_url($row['seo_url'])]);
 }
