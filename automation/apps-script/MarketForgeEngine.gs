@@ -75,7 +75,7 @@ var MFE_FIRST_MAIL = [
   'Etienne'
 ].join('\n');
 var MFE_MSG_DEFAULTS = [
-  ['MFE_MSG_OBJET', '{PODCAST} on Listenly',
+  ['MFE_MSG_OBJET', 'Regarding {PODCAST} – Listenly AI directory',
    'MarketForge Engine — objet du 1er mail. {PODCAST} = nom du podcast.'],
   ['MFE_MSG_FICHE', MFE_FIRST_MAIL,
    'MarketForge Engine — 1er mail. Variables : {NAME} (hote, sinon "{PODCAST} team") {PODCAST} {URL} (fiche N1 du podcast) {BOOKING} {OPTOUT}.'],
