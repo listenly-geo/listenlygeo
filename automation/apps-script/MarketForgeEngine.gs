@@ -97,14 +97,14 @@ var MFE_MSG_DEFAULTS = [
   ].join('\n'), 'MarketForge Engine — relance (J+MFE_RELANCE_JOURS), dans le meme fil.'],
   ['MFE_MSG_SIGNATURE', '',
    'MarketForge Engine — lignes ajoutees automatiquement a la fin du 1er mail ET de la relance (ex. lien LinkedIn). Vide = rien. Gmail n\'ajoute PAS la signature Workspace aux mails envoyes par script.'],
-  ['MFE_SIG_HTML', 'FALSE', 'Signature riche (photo + liens) en bas des mails. TRUE = activee. Garder FALSE si la delivrabilite baisse.'],
+  ['MFE_SIG_HTML', 'TRUE', 'Signature riche (photo + liens) en bas des mails. TRUE = activee. Garder FALSE si la delivrabilite baisse.'],
   ['MFE_SIG_PHOTO', 'https://listenly.fr/podcast-btb/assets/etienne-cugnet.jpg', 'Signature riche — URL publique de ta photo (carree, ~200x200). Vide = pas de photo.'],
   ['MFE_SIG_NOM', 'Etienne Cugnet', 'Signature riche — nom.'],
   ['MFE_SIG_TITRE', 'Founder, Listenly & Marketforge', 'Signature riche — titre / entreprise.'],
   ['MFE_SIG_ACCROCHE', 'Turning B2B podcasts into Google & AI visibility', 'Signature riche — une ligne "qui je suis". Vide = rien.'],
   ['MFE_SIG_EMAIL', 'etienne.cugnet@marketforge.fr', 'Signature riche — email affiche.'],
-  ['MFE_SIG_SITE', 'listenly.fr', 'Signature riche — site (sans https). Vide = rien.'],
-  ['MFE_SIG_LINKEDIN', '', 'Signature riche — URL complete du profil LinkedIn. Vide = rien.'],
+  ['MFE_SIG_SITE', 'Marketforge|https://marketforge.fr/', 'Signature riche — site : "Texte affiche|URL" (ou juste l\'URL). Vide = rien.'],
+  ['MFE_SIG_LINKEDIN', 'https://www.linkedin.com/in/etienne-cugnet-709032399/', 'Signature riche — URL complete du profil LinkedIn. Vide = rien.'],
   ['MFE_SIG_TEL', '', 'Signature riche — telephone. Vide = rien.'],
   ['MFE_MSG_OPTOUT', "If this isn't relevant, just let me know and I won't reach out again.",
    'MarketForge Engine — phrase inseree a la place de {OPTOUT} (si utilisee dans un texte).'],
@@ -414,7 +414,7 @@ function mfeWithSignature_(body) {
   else if (c.html) {
     lines.push('--', c.nom + (c.titre ? ' | ' + c.titre : ''));
     if (c.accroche) lines.push(c.accroche);
-    lines.push([c.email, c.site, c.tel].filter(String).join(' | '));
+    lines.push([c.email, c.site.split('|').pop().trim(), c.tel].filter(String).join(' | '));
     if (c.linkedin) lines.push(c.linkedin);
   }
   return lines.length ? body + '\n\n' + lines.join('\n') : body;
@@ -431,7 +431,11 @@ function mfeSignatureHtml_() {
   var link = function (href, label) { return '<a href="' + mfeEsc_(href) + '" style="color:#1a56db;text-decoration:none">' + mfeEsc_(label) + '</a>'; };
   var contact = [];
   if (c.email) contact.push(link('mailto:' + c.email, c.email));
-  if (c.site) contact.push(link('https://' + c.site.replace(/^https?:\/\//, ''), c.site.replace(/^https?:\/\//, '')));
+  if (c.site) {
+    var sp = c.site.split('|'), label = sp.length > 1 ? sp[0].trim() : sp[0].replace(/^https?:\/\//, '').replace(/\/$/, '');
+    var url = (sp.length > 1 ? sp[1] : sp[0]).trim();
+    contact.push(link(/^https?:/.test(url) ? url : 'https://' + url, label));
+  }
   if (c.tel) contact.push(mfeEsc_(c.tel));
   var photo = c.photo ? '<td style="padding-right:14px;vertical-align:top"><img src="' + mfeEsc_(c.photo) +
       '" width="64" height="64" alt="' + mfeEsc_(c.nom) + '" style="border-radius:50%;display:block;width:64px;height:64px"></td>' : '';
