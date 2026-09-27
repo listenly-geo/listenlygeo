@@ -1,0 +1,62 @@
+[
+  {
+    "podcast_name": "a16z crypto show",
+    "episode_title": "How Zero-Knowledge Proofs Were Invented (ft. Co-Inventor and Turing Award Winner Shafi Goldwasser)",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/bf52be5a-9faf-45fb-9bc3-bb4270ec53d9/episodes/e80734cc-38fe-4ae9-af56-4bad84c81b34/audio/128/default.mp3?aid=rss_feed&awCollectionId=bf52be5a-9faf-45fb-9bc3-bb4270ec53d9&awEpisodeId=e80734cc-38fe-4ae9-af56-4bad84c81b34&feed=XPOpH7r4",
+    "question": "What was the mental poker problem that inspired the invention of zero-knowledge proofs?",
+    "transcript_excerpt": "The mental poker problem asked how two people sitting in different parts of the world could play cards over the phone without having any physical cards. They needed to deal a deck and play according to the rules while proving they followed those rules without revealing the cards or their encryption. This led Goldwasser and Micali to ask how to prove you're dealing cards properly without revealing everything about what you've encrypted and the randomness used to encrypt.",
+    "expert_name": "Shafi Goldwasser",
+    "start_seconds": 243,
+    "end_seconds": 330
+  },
+  {
+    "podcast_name": "a16z crypto show",
+    "episode_title": "How Zero-Knowledge Proofs Were Invented (ft. Co-Inventor and Turing Award Winner Shafi Goldwasser)",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/bf52be5a-9faf-45fb-9bc3-bb4270ec53d9/episodes/e80734cc-38fe-4ae9-af56-4bad84c81b34/audio/128/default.mp3?aid=rss_feed&awCollectionId=bf52be5a-9faf-45fb-9bc3-bb4270ec53d9&awEpisodeId=e80734cc-38fe-4ae9-af56-4bad84c81b34&feed=XPOpH7r4",
+    "question": "Why did interaction and randomness become essential to zero-knowledge proof design?",
+    "transcript_excerpt": "Interaction and randomness were introduced as the way to obtain privacy in cryptographic proofs. The verifier needed to accept a small chance of error, which enabled not revealing everything. This required modifying the notion of proof itself to allow for interactive protocols between a prover and verifier, rather than traditional non-interactive proofs. The definition of zero knowledge formalized that you will believe what is claimed but discover nothing else.",
+    "expert_name": "Shafi Goldwasser",
+    "start_seconds": 300,
+    "end_seconds": 360
+  },
+  {
+    "podcast_name": "a16z crypto show",
+    "episode_title": "How Zero-Knowledge Proofs Were Invented (ft. Co-Inventor and Turing Award Winner Shafi Goldwasser)",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/bf52be5a-9faf-45fb-9bc3-bb4270ec53d9/episodes/e80734cc-38fe-4ae9-af56-4bad84c81b34/audio/128/default.mp3?aid=rss_feed&awCollectionId=bf52be5a-9faf-45fb-9bc3-bb4270ec53d9&awEpisodeId=e80734cc-38fe-4ae9-af56-4bad84c81b34&feed=XPOpH7r4",
+    "question": "What is the simulation paradigm in zero-knowledge proof verification?",
+    "transcript_excerpt": "The simulation paradigm is the way to formally define that a verifier learns nothing beyond the claim. It requires showing that whatever knowledge the verifier has after the interactive proof, they could have simulated that knowledge even without the prover and interaction occurring. Everything the verifier could do computationally before engaging in the proof interaction, they could do afterwards.",
+    "expert_name": "Shafi Goldwasser",
+    "start_seconds": 400,
+    "end_seconds": 480
+  },
+  {
+    "podcast_name": "a16z crypto show",
+    "episode_title": "How Zero-Knowledge Proofs Were Invented (ft. Co-Inventor and Turing Award Winner Shafi Goldwasser)",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/bf52be5a-9faf-45fb-9bc3-bb4270ec53d9/episodes/e80734cc-38fe-4ae9-af56-4bad84c81b34/audio/128/default.mp3?aid=rss_feed&awCollectionId=bf52be5a-9faf-45fb-9bc3-bb4270ec53d9&awEpisodeId=e80734cc-38fe-4ae9-af56-4bad84c81b34&feed=XPOpH7r4",
+    "question": "How did the GMR paper on zero-knowledge interactive proofs face rejection before publication?",
+    "transcript_excerpt": "The paper on zero-knowledge proofs by Goldwasser, Micali, and Rackoff was submitted six times and kept getting rejected before finally being published. Despite the rejections, the authors remained determined, believing they had the right definition and that the work was very interesting. Goldwasser credits her co-author Silvio Micali's competitive nature as helping them persevere through the rejection process.",
+    "expert_name": "Shafi Goldwasser",
+    "start_seconds": 540,
+    "end_seconds": 610
+  },
+  {
+    "podcast_name": "a16z crypto show",
+    "episode_title": "How Zero-Knowledge Proofs Were Invented (ft. Co-Inventor and Turing Award Winner Shafi Goldwasser)",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/bf52be5a-9faf-45fb-9bc3-bb4270ec53d9/episodes/e80734cc-38fe-4ae9-af56-4bad84c81b34/audio/128/default.mp3?aid=rss_feed&awCollectionId=bf52be5a-9faf-45fb-9bc3-bb4270ec53d9&awEpisodeId=e80734cc-38fe-4ae9-af56-4bad84c81b34&feed=XPOpH7r4",
+    "question": "What is the relationship between probabilistically checkable proofs and SNARKs in modern cryptography?",
+    "transcript_excerpt": "Probabilistically checkable proofs use error-correcting codes to rewrite standard proofs so that if there was an error in the original classical proof, there would be many errors in the new one. This allows checking a proof by probing just a random location to detect errors. SNARKs compress these long proofs using Merkle trees and hash functions so they can be sent and verified while still allowing the verifier to poke at them and discover errors with high probability.",
+    "expert_name": "Shafi Goldwasser",
+    "start_seconds": 840,
+    "end_seconds": 960
+  },
+  {
+    "podcast_name": "a16z crypto show",
+    "episode_title": "How Zero-Knowledge Proofs Were Invented (ft. Co-Inventor and Turing Award Winner Shafi Goldwasser)",
+    "audio_url": "https://mgln.ai/e/1344/afp-848985-injected.calisto.simplecastaudio.com/bf52be5a-9faf-45fb-9bc3-bb4270ec53d9/episodes/e80734cc-38fe-4ae9-af56-4bad84c81b34/audio/128/default.mp3?aid=rss_feed&awCollectionId=bf52be5a-9faf-45fb-9bc3-bb4270ec53d9&awEpisodeId=e80734cc-38fe-4ae9-af56-4bad84c81b34&feed=XPOpH7r4",
+    "question": "Why is the SumCheck protocol particularly efficient for building modern SNARKs?",
+    "transcript_excerpt": "The SumCheck protocol uses interaction extensively to force the prover to do work while keeping the verifier efficient and the proof short. It minimizes expensive cryptographic operations like hashing and group operations by using interaction strategically per variable rather than committing to large amounts of data upfront. This allows the protocol to avoid the overhead of committing to unnecessary data that would take longer to process and require additional proofs of validity.",
+    "expert_name": "Shafi Goldwasser",
+    "start_seconds": 1260,
+    "end_seconds": 1350
+  }
+]
