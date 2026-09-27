@@ -121,6 +121,7 @@ def stats():
     with open(STATS_FILE, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
         f.write("\n")
+    print(f"::notice title=Prospection::{out['sent_total']} envoye(s), {out['replies_total']} reponse(s), {out['total']} prospect(s) dans le Sheet")
     log(f"Suivi prospection : {out['sent_total']} envoye(s), {out['replies_total']} reponse(s), statuts {status}")
 
 
@@ -160,3 +161,4 @@ if __name__ == "__main__":
         {"pull": pull, "push": push, "stats": stats}[sys.argv[1]]()
     except Exception as e:  # ne bloque jamais le run
         log(f"AVERTISSEMENT : pont Sheet en echec ({e})")
+        print(f"::warning title=Pont Sheet ({sys.argv[1]})::{str(e)[:300]}")
