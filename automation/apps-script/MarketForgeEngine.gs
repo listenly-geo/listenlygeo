@@ -58,7 +58,7 @@ var MFE_DEFAULTS = [
 // ---------- Messages (modifiables dans l'onglet Reglages, cles MFE_MSG_*) ----------
 // Style : court, a la premiere personne, une seule question, texte brut (pas de gras, pas d'emoji).
 // Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}
-var MFE_MSG_VERSION = '6';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
+var MFE_MSG_VERSION = '7';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
 var MFE_FIRST_MAIL = [
   'Hi {NAME},',
   '',
@@ -87,10 +87,10 @@ var MFE_MSG_DEFAULTS = [
   ['MFE_MSG_RELANCE', [
     'Hi {NAME},',
     '',
-    'Following up on {PODCAST}. Your page is here:',
-    '{URL}',
+    'Just following up regarding {PODCAST} \u2014 we recently added it to Listenly to help improve its visibility across Google and AI search.',
     '',
-    "Happy to show you in 15 minutes how this can work for every new episode: {BOOKING}",
+    'Could you confirm that everything on the profile looks correct?',
+    '{URL}',
     '',
     'Best,',
     'Etienne'
