@@ -26,7 +26,7 @@ var MFE = {
   QUEUE_URL: 'https://raw.githubusercontent.com/listenly-geo/listenlygeo/main/automation/marketforge_engine/queue.json',
   SHEET: 'MarketForge Engine',
   FROM: 'etienne.cugnet@marketforge.fr',           // utilise si c'est un alias Gmail du compte qui execute le script
-  NAME: 'Etienne | MarketForge',
+  NAME: 'Etienne Cugnet',
   BOOKING: 'https://cal.com/etienne-marketforge/podcast-distribution-strategy-call',
   HEADER_ROW: 6,                                    // ligne 6 = en-tetes (reglages : onglet Reglages)
   REGLAGES: 'Réglages',
@@ -54,29 +54,64 @@ var MFE_DEFAULTS = [
   ['MFE_RELANCE_JOURS', '4', 'MarketForge Engine — relance unique apres N jours sans reponse (0 = pas de relance).'],
 ];
 
-var MFE_SUBJECT = '{{podcast}} is now listed on Listenly';
-// Mail sans extraction : la preuve = la fiche du podcast sur Listenly
-var MFE_BODY_FICHE =
-  'Hi,\n\n' +
-  'Quick heads-up: {{podcast}} has just been added to Listenly, a B2B podcast directory built so AI assistants ' +
-  '(ChatGPT, Perplexity, Google AI Overviews) can find and recommend expert podcasts.\n\n' +
-  'Your page is already live:\n{{proof}}\n\n' +
-  "It's free. If you'd like to see how {{podcast}} can get more listeners and inbound from AI search, " +
-  'happy to walk you through it in 15 minutes: {{booking}}\n\n' +
-  'Best,\nEtienne\nMarketForge';
-// Mail avec extraction (reponses indexees)
-var MFE_BODY =
-  'Hi,\n\n' +
-  'Quick heads-up: {{podcast}} has just been added to Listenly, a podcast directory built so AI assistants ' +
-  '(ChatGPT, Perplexity, Google AI Overviews) can find and cite real podcast expertise.\n\n' +
-  'We went one step further and indexed actual answers from your recent episodes, each linked to the exact ' +
-  'moment it is said:\n{{proof}}\n\n' +
-  "It's free and already live. If you'd like to see how this can bring {{podcast}} more listeners and inbound " +
-  'from AI search, happy to walk you through it in 15 minutes: {{booking}}\n\n' +
-  'Best,\nEtienne\nMarketForge';
-var MFE_FOLLOWUP =
-  'Hi,\n\nJust bumping this in case it got buried. The {{podcast}} page is live here: {{proof}}\n\n' +
-  'Worth a quick 15-min call? {{booking}}\n\nBest,\nEtienne';
+// ---------- Messages (modifiables dans l'onglet Reglages, cles MFE_MSG_*) ----------
+// Style : court, a la premiere personne, une seule question, texte brut (pas de gras, pas d'emoji).
+// Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}
+var MFE_MSG_DEFAULTS = [
+  ['MFE_MSG_OBJET', 'Quick question about {PODCAST}',
+   'MarketForge Engine — objet du 1er mail. {PODCAST} = nom du podcast.'],
+  ['MFE_MSG_FICHE', [
+    'Hi {PODCAST} team,',
+    '',
+    "I'm Etienne, I run Listenly, a directory of B2B podcasts built for the way people now find shows: by asking ChatGPT, Perplexity or Google's AI for expert advice.",
+    '',
+    "I've just added {PODCAST} and put together a page for the show: {URL}",
+    '',
+    "It's free and it stays up. I'm curious though: is getting discovered through AI search something you're thinking about for the show?",
+    '',
+    '{OPTOUT}',
+    '',
+    'Best,',
+    'Etienne Cugnet',
+    'Listenly'
+  ].join('\n'), 'MarketForge Engine — 1er mail (fiche du podcast). Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}.'],
+  ['MFE_MSG_REPONSES', [
+    'Hi {PODCAST} team,',
+    '',
+    "I'm Etienne, I run Listenly, a directory of B2B podcasts built for the way people now find shows: by asking ChatGPT, Perplexity or Google's AI for expert advice.",
+    '',
+    "I've just added {PODCAST}, and I also indexed a few answers from your recent episodes, each linked to the exact minute it's said, so AI tools can quote your guests: {URL}",
+    '',
+    "It's free and it stays up. I'm curious though: is getting discovered through AI search something you're thinking about for the show?",
+    '',
+    '{OPTOUT}',
+    '',
+    'Best,',
+    'Etienne Cugnet',
+    'Listenly'
+  ].join('\n'), 'MarketForge Engine — 1er mail quand des reponses ont ete extraites.'],
+  ['MFE_MSG_RELANCE', [
+    'Hi {PODCAST} team,',
+    '',
+    'Just floating this back up. Your Listenly page is live here: {URL}',
+    '',
+    "If AI search is on your radar, I'd be happy to show you in 15 minutes what's already bringing new listeners to similar shows: {BOOKING}",
+    '',
+    'If not, no worries at all.',
+    '',
+    'Best,',
+    'Etienne'
+  ].join('\n'), 'MarketForge Engine — relance (J+MFE_RELANCE_JOURS), dans le meme fil.'],
+  ['MFE_MSG_OPTOUT', "If this isn't relevant, just let me know and I won't reach out again.",
+   'MarketForge Engine — phrase de desinscription inseree a la place de {OPTOUT}.'],
+];
+
+function mfeMsg_(key) {
+  var v = mfeReadSettings_()[key];
+  if (v != null && String(v).trim()) return String(v);
+  for (var i = 0; i < MFE_MSG_DEFAULTS.length; i++) if (MFE_MSG_DEFAULTS[i][0] === key) return MFE_MSG_DEFAULTS[i][1];
+  return '';
+}
 
 function installer() {
   var sh = mfeSheet_();
@@ -167,10 +202,9 @@ function mfeSend_(sh, cfg, force) {
   var sent = 0;
   rows.forEach(function (r) {
     if (sent >= budget || r.values[6] !== 'Pret') return;
-    var v = mfeVars_(r.values);
-    var body = Number(r.values[4]) > 0 ? MFE_BODY : MFE_BODY_FICHE;
+    var d = mfeDraft_(r.values);
     try {
-      var threadId = mfeMail_(r.values[2], mfeFill_(MFE_SUBJECT, v), mfeFill_(body, v));
+      var threadId = mfeMail_(r.values[2], d[0], d[1]);
       sh.getRange(r.row, 7, 1, 5).setValues([['Envoye', new Date(), '', '', threadId]]);
       sent++;
     } catch (e) {
@@ -189,9 +223,8 @@ function mfeSendTest_(sh, to) {
   mfeRows_(sh).forEach(function (r) {
     var kind = Number(r.values[4]) > 0 ? 'reponses' : 'fiche';
     if (done[kind] || r.values[6] !== 'Pret') return;
-    var v = mfeVars_(r.values);
-    GmailApp.sendEmail(to, '[TEST] ' + mfeFill_(MFE_SUBJECT, v),
-      '(Mail qui partirait a : ' + r.values[2] + ')\n\n' + mfeFill_(kind === 'reponses' ? MFE_BODY : MFE_BODY_FICHE, v), mfeFromOpts_());
+    var d = mfeDraft_(r.values);
+    GmailApp.sendEmail(to, '[TEST] ' + d[0], '(Mail qui partirait a : ' + r.values[2] + ')\n\n' + d[1], mfeFromOpts_());
     done[kind] = true; n++;
   });
   props.setProperty('MFE_TEST_DONE', to);
@@ -220,7 +253,7 @@ function mfeFollowUp_(sh, days) {
     if (r.values[6] !== 'Envoye' || !r.values[7] || new Date(r.values[7]).getTime() > limit || !r.values[10]) return;
     var thread = GmailApp.getThreadById(r.values[10]);
     if (!thread) return;
-    thread.replyAll(mfeFill_(MFE_FOLLOWUP, mfeVars_(r.values)), mfeFromOpts_());
+    thread.replyAll(mfeFill_(mfeMsg_('MFE_MSG_RELANCE'), mfeVars_(r.values)), mfeFromOpts_());
     sh.getRange(r.row, 7).setValue('Relance');
     sh.getRange(r.row, 9).setValue(new Date());
     n++;
@@ -238,17 +271,24 @@ function mfeMail_(to, subject, body) {
 }
 
 function mfeFromOpts_() {
-  var opts = { name: MFE.NAME };
+  var opts = { name: MFE.NAME, replyTo: MFE.FROM };
   if (GmailApp.getAliases().indexOf(MFE.FROM) !== -1) opts.from = MFE.FROM;
   return opts;
 }
 
 function mfeVars_(values) {
-  return { podcast: values[1], proof: values[3], booking: MFE.BOOKING };
+  return { PODCAST: values[1], URL: values[3], BOOKING: MFE.BOOKING, OPTOUT: mfeMsg_('MFE_MSG_OPTOUT') };
 }
 
 function mfeFill_(tpl, v) {
-  return tpl.replace(/\{\{(\w+)\}\}/g, function (_, k) { return v[k] != null ? v[k] : ''; });
+  return String(tpl).replace(/\{(\w+)\}/g, function (m, k) { return v[k] != null ? v[k] : m; })
+    .replace(/\n{3,}/g, '\n\n').trim();
+}
+
+function mfeDraft_(values) {  // [objet, corps] du 1er mail
+  var v = mfeVars_(values);
+  var body = Number(values[4]) > 0 ? mfeMsg_('MFE_MSG_REPONSES') : mfeMsg_('MFE_MSG_FICHE');
+  return [mfeFill_(mfeMsg_('MFE_MSG_OBJET'), v), mfeFill_(body, v)];
 }
 
 function mfeRows_(sh) {
@@ -279,7 +319,7 @@ function mfeReadSettings_() {
 function mfeEnsureSettings_() {
   var sh = mfeReglagesSheet_();
   var have = mfeReadSettings_();
-  var missing = MFE_DEFAULTS.filter(function (d) { return !(d[0] in have); });
+  var missing = MFE_DEFAULTS.concat(MFE_MSG_DEFAULTS).filter(function (d) { return !(d[0] in have); });
   if (missing.length) sh.getRange(sh.getLastRow() + 1, 1, missing.length, 3).setValues(missing);
 }
 
@@ -470,10 +510,12 @@ function mfeMenuTest() {
   var moi = Session.getEffectiveUser().getEmail();
   var sh = mfeSheet_(), rows = mfeRows_(sh);
   var exemple = rows.length ? rows[0].values : ['', 'Test Podcast', '', 'https://listenly.fr/podcast-btb/a16z-crypto-show-podcast.html', 0];
-  var v = mfeVars_(exemple);
-  GmailApp.sendEmail(moi, '[TEST] ' + mfeFill_(MFE_SUBJECT, v), mfeFill_(MFE_BODY_FICHE, v), mfeFromOpts_());
-  GmailApp.sendEmail(moi, '[TEST] ' + mfeFill_(MFE_SUBJECT, v) + ' (version avec reponses)', mfeFill_(MFE_BODY, v), mfeFromOpts_());
-  mfeAlert_('2 mails test envoyes a ' + moi + ' (version fiche + version avec reponses). Expediteur : ' + (mfeFromOpts_().from || moi));
+  mfeEnsureSettings_();
+  var v = mfeVars_(exemple), objet = mfeFill_(mfeMsg_('MFE_MSG_OBJET'), v);
+  GmailApp.sendEmail(moi, '[TEST 1/3 - premier mail] ' + objet, mfeFill_(mfeMsg_('MFE_MSG_FICHE'), v), mfeFromOpts_());
+  GmailApp.sendEmail(moi, '[TEST 2/3 - avec reponses] ' + objet, mfeFill_(mfeMsg_('MFE_MSG_REPONSES'), v), mfeFromOpts_());
+  GmailApp.sendEmail(moi, '[TEST 3/3 - relance] Re: ' + objet, mfeFill_(mfeMsg_('MFE_MSG_RELANCE'), v), mfeFromOpts_());
+  mfeAlert_('3 mails test envoyes a ' + moi + '. Textes modifiables dans Reglages (lignes MFE_MSG_*). Expediteur : ' + (mfeFromOpts_().from || moi));
 }
 
 function mfeMenuTestLimite() {
