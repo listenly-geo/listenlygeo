@@ -50,6 +50,7 @@ var MFE_DEFAULTS = [
   ['MFE_MAX_ENVOIS_JOUR', '1500', 'MarketForge Engine — plafond absolu de premiers mails par jour (limite Google Workspace : 1500).'],
   ['MFE_MONTEE_PROGRESSIVE', 'TRUE', 'MarketForge Engine — TRUE = 30/j la 1re semaine, 80, 150, 300, 500, 1000 puis plafond (protege la delivrabilite).'],
   ['MFE_HEURES_ENVOI', '8-19', 'MarketForge Engine — plage horaire d\'envoi (heure du script), mails repartis sur la plage.'],
+  ['MFE_EMAIL_TEST', '', 'MarketForge Engine — MODE TEST : si une adresse est saisie ici, TOUS les mails partent vers elle (objet prefixe [TEST]) et les prospects restent "Pret". Vider la case pour passer en reel.'],
   ['MFE_RELANCE_JOURS', '4', 'MarketForge Engine — relance unique apres N jours sans reponse (0 = pas de relance).'],
 ];
 
@@ -99,6 +100,10 @@ function marketforgeEngineQuotidien() {
   var sh = mfeSheet_();
   var cfg = mfeSettings_();
   var added = mfeImport_(sh, null);
+  if (cfg.EMAIL_TEST) {  // mode test : ne touche ni aux statuts ni au quota
+    Logger.log('MODE TEST : %s mail(s) test envoye(s) a %s', mfeSendTest_(sh, cfg.EMAIL_TEST), cfg.EMAIL_TEST);
+    return;
+  }
   var sent = cfg.ENVOI_AUTO ? mfeSend_(sh, cfg) : 0;
   var replies = mfeCheckReplies_(sh);
   var relances = (cfg.ENVOI_AUTO && cfg.RELANCE_JOURS > 0) ? mfeFollowUp_(sh, cfg.RELANCE_JOURS) : 0;
@@ -169,6 +174,23 @@ function mfeSend_(sh, cfg) {
     }
   });
   return sent;
+}
+
+// Mode test : 1 exemplaire de chaque type de mail (fiche seule / avec reponses) vers l'adresse test
+function mfeSendTest_(sh, to) {
+  var props = PropertiesService.getScriptProperties();
+  if (props.getProperty('MFE_TEST_DONE') === to) return 0;   // une seule fois par adresse test
+  var n = 0, done = {};
+  mfeRows_(sh).forEach(function (r) {
+    var kind = Number(r.values[4]) > 0 ? 'reponses' : 'fiche';
+    if (done[kind] || r.values[6] !== 'Pret') return;
+    var v = mfeVars_(r.values);
+    GmailApp.sendEmail(to, '[TEST] ' + mfeFill_(MFE_SUBJECT, v),
+      '(Mail qui partirait a : ' + r.values[2] + ')\n\n' + mfeFill_(kind === 'reponses' ? MFE_BODY : MFE_BODY_FICHE, v), mfeFromOpts_());
+    done[kind] = true; n++;
+  });
+  props.setProperty('MFE_TEST_DONE', to);
+  return n;
 }
 
 // ---------- 3. Reponses + relance ----------
@@ -275,6 +297,7 @@ function mfeSettings_() {
     H_START: parseInt(String(cfg.MFE_HEURES_ENVOI || '8-19').split('-')[0], 10) || 8,
     H_END: parseInt(String(cfg.MFE_HEURES_ENVOI || '8-19').split('-')[1], 10) || 19,
     RELANCE_JOURS: parseInt(cfg.MFE_RELANCE_JOURS, 10) || 0,
+    EMAIL_TEST: String(cfg.MFE_EMAIL_TEST || '').trim(),
   };
 }
 
