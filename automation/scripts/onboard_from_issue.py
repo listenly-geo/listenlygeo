@@ -17,7 +17,7 @@ Variables :
 import os, sys, re, json, subprocess, urllib.request, urllib.error
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from rss_contact import fetch_contact_email  # noqa: E402
+from rss_contact import fetch_channel_info  # noqa: E402
 
 REPO = os.environ.get("GITHUB_REPOSITORY", "listenly-geo/listenlygeo")
 GH_TOKEN = os.environ.get("GH_TOKEN", "").strip()
@@ -77,7 +77,7 @@ def create_listenly_show(c):
     payload = {"mode": MODE, "podcast": {
         "title": c["podcast_name"], "rss_url": c["feed_url"], "cover_image": c["cover_image"],
         "author": c["artist_name"], "email": c["email"], "language": c["language"],
-        "description": c["reason"]}}
+        "description": c.get("description", "")}}
     req = urllib.request.Request(IMPORT_URL, data=json.dumps(payload).encode(), method="POST",
                                  headers={"Content-Type": "application/json", "X-Import-Secret": SECRET,
                                           "User-Agent": "ListenlyGEO/1.0"})
@@ -126,8 +126,9 @@ def main():
         log(f"### #{c['issue_number']} {c['podcast_name']}")
         if not c["feed_url"]:
             failed.append(c["issue_number"]); log("Pas de flux RSS dans l'issue — ignore."); continue
-        if not c["email"]:
-            c["email"] = fetch_contact_email(c["feed_url"])
+        info = fetch_channel_info(c["feed_url"])
+        c["email"] = c["email"] or info["email"]
+        c["description"] = info["description"]  # description publique du RSS (jamais la raison interne)
 
         res = create_listenly_show(c)
         log(f"Listenly : {json.dumps(res, ensure_ascii=False)[:400]}")

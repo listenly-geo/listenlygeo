@@ -57,3 +57,24 @@ def fetch_contact_email(rss_url, timeout=20):
             return extract_contact_email(resp.read())
     except Exception:
         return ""
+
+
+def fetch_channel_info(rss_url, timeout=20):
+    """Email + description publique du podcast (channel description / itunes:summary), texte brut."""
+    try:
+        req = urllib.request.Request(rss_url, headers={
+            "User-Agent": "Mozilla/5.0 (compatible; ListenlyGEO/1.0; +https://listenly.fr)"})
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            xml_bytes = resp.read()
+    except Exception:
+        return {"email": "", "description": ""}
+    desc = ""
+    try:
+        channel = ET.fromstring(xml_bytes).find("channel")
+        if channel is not None:
+            desc = channel.findtext("description") or channel.findtext(f"{ITUNES}summary") or ""
+    except ET.ParseError:
+        pass
+    desc = re.sub(r"<[^>]+>", " ", desc)
+    desc = re.sub(r"\s+", " ", desc).strip()[:2000]
+    return {"email": extract_contact_email(xml_bytes), "description": desc}
