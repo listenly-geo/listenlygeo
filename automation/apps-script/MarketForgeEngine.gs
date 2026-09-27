@@ -95,6 +95,8 @@ var MFE_MSG_DEFAULTS = [
     'Best,',
     'Etienne'
   ].join('\n'), 'MarketForge Engine — relance (J+MFE_RELANCE_JOURS), dans le meme fil.'],
+  ['MFE_MSG_SIGNATURE', '',
+   'MarketForge Engine — lignes ajoutees automatiquement a la fin du 1er mail ET de la relance (ex. lien LinkedIn). Vide = rien. Gmail n\'ajoute PAS la signature Workspace aux mails envoyes par script.'],
   ['MFE_MSG_OPTOUT', "If this isn't relevant, just let me know and I won't reach out again.",
    'MarketForge Engine — phrase inseree a la place de {OPTOUT} (si utilisee dans un texte).'],
 ];
@@ -333,7 +335,7 @@ function mfeFollowUp_(sh, days) {
     if (r.values[6] !== 'Envoye' || !r.values[7] || new Date(r.values[7]).getTime() > limit || !r.values[10]) return;
     var thread = GmailApp.getThreadById(r.values[10]);
     if (!thread) return;
-    thread.replyAll(mfeFill_(mfeMsg_('MFE_MSG_RELANCE'), mfeVars_(r.values)), mfeFromOpts_());
+    thread.replyAll(mfeWithSignature_(mfeFill_(mfeMsg_('MFE_MSG_RELANCE'), mfeVars_(r.values))), mfeFromOpts_());
     sh.getRange(r.row, 7).setValue('Relance');
     sh.getRange(r.row, 9).setValue(new Date());
     n++;
@@ -385,10 +387,16 @@ function mfeFill_(tpl, v) {
     .replace(/\n{3,}/g, '\n\n').trim();
 }
 
+// Signature (onglet Reglages, MFE_MSG_SIGNATURE) ajoutee en bas du mail, texte brut (meilleure delivrabilite)
+function mfeWithSignature_(body) {
+  var sig = String(mfeReadSettings_().MFE_MSG_SIGNATURE || '').trim();
+  return sig ? body + '\n' + sig : body;
+}
+
 function mfeDraft_(values) {  // [objet, corps] du 1er mail
   var v = mfeVars_(values);
   var body = Number(values[4]) > 0 ? mfeMsg_('MFE_MSG_REPONSES') : mfeMsg_('MFE_MSG_FICHE');
-  return [mfeFill_(mfeMsg_('MFE_MSG_OBJET'), v), mfeFill_(body, v)];
+  return [mfeFill_(mfeMsg_('MFE_MSG_OBJET'), v), mfeWithSignature_(mfeFill_(body, v))];
 }
 
 function mfeRows_(sh) {
@@ -620,9 +628,9 @@ function mfeMenuTest() {
   var exemple = rows.length ? rows[0].values : ['', 'Test Podcast', '', 'https://listenly.fr/podcast-btb/a16z-crypto-show-podcast.html', 0];
   mfeEnsureSettings_();
   var v = mfeVars_(exemple), objet = mfeFill_(mfeMsg_('MFE_MSG_OBJET'), v);
-  GmailApp.sendEmail(moi, '[TEST 1/3 - premier mail] ' + objet, mfeFill_(mfeMsg_('MFE_MSG_FICHE'), v), mfeFromOpts_());
-  GmailApp.sendEmail(moi, '[TEST 2/3 - avec reponses] ' + objet, mfeFill_(mfeMsg_('MFE_MSG_REPONSES'), v), mfeFromOpts_());
-  GmailApp.sendEmail(moi, '[TEST 3/3 - relance] Re: ' + objet, mfeFill_(mfeMsg_('MFE_MSG_RELANCE'), v), mfeFromOpts_());
+  GmailApp.sendEmail(moi, '[TEST 1/3 - premier mail] ' + objet, mfeWithSignature_(mfeFill_(mfeMsg_('MFE_MSG_FICHE'), v)), mfeFromOpts_());
+  GmailApp.sendEmail(moi, '[TEST 2/3 - avec reponses] ' + objet, mfeWithSignature_(mfeFill_(mfeMsg_('MFE_MSG_REPONSES'), v)), mfeFromOpts_());
+  GmailApp.sendEmail(moi, '[TEST 3/3 - relance] Re: ' + objet, mfeWithSignature_(mfeFill_(mfeMsg_('MFE_MSG_RELANCE'), v)), mfeFromOpts_());
   mfeAlert_('3 mails test envoyes a ' + moi + '. Textes modifiables dans Reglages (lignes MFE_MSG_*). Expediteur : ' + (mfeFromOpts_().from || moi));
 }
 
