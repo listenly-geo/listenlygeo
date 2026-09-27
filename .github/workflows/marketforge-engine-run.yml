@@ -1,0 +1,124 @@
+name: MarketForge Engine — RUN COMPLET (découverte → Listenly + N1 → extraction)
+
+# Un seul lancement fait tout, dans l'ordre :
+#  1. Decouverte de podcasts (iTunes + qualification GEO + email RSS) -> issues candidates
+#  2. Onboarding automatique : fiche Listenly (SQL) + fiche N1 -> issues fermees
+#  3. Extraction du jour (file d'attente, budget config.json) -> hub N1 + Knowledge Search + stock inbox
+#  4. Commit + mise en ligne FTP
+# Reglages : automation/marketforge_engine/config.json (pause, debits, onboarding_auto).
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '17 5 * * *'   # tous les jours ~7h17 (Paris)
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: marketforge-engine-run
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Lire config.json
+        id: cfg
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          c = json.load(open("automation/marketforge_engine/config.json"))
+          print(f"pause={'true' if c.get('pause') else 'false'}")
+          print(f"discover_max={int(c.get('decouverte_max_par_jour', 5))}")
+          print(f"onboard_auto={'true' if c.get('onboarding_auto', True) else 'false'}")
+          print(f"onboard_max={int(c.get('onboarding_max_par_jour', 5))}")
+          PY
+          cat "$GITHUB_OUTPUT"
+
+      - name: Installer ffmpeg
+        if: steps.cfg.outputs.pause != 'true'
+        run: |
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            export DEBIAN_FRONTEND=noninteractive
+            for i in 1 2 3 4 5; do
+              sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg && break
+              sleep 10
+            done
+          fi
+
+      - name: 1. Decouverte
+        if: steps.cfg.outputs.pause != 'true' && steps.cfg.outputs.discover_max != '0'
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DISCOVERY_MAX_QUALIFY: ${{ steps.cfg.outputs.discover_max }}
+          DISCOVERY_COUNTRIES: us
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python automation/scripts/discover_podcasts.py
+
+      - name: 2. Onboarding auto (Listenly SQL + fiche N1)
+        if: steps.cfg.outputs.pause != 'true' && steps.cfg.outputs.onboard_auto == 'true'
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          KNOWLEDGE_IMPORT_SECRET: ${{ secrets.KNOWLEDGE_IMPORT_SECRET }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          ISSUE_NUMBERS: auto
+          SHOW_IMPORT_MODE: insert
+          MAX_ONBOARD: ${{ steps.cfg.outputs.onboard_max }}
+        run: |
+          python automation/scripts/onboard_from_issue.py
+          python automation/scripts/rebuild_dashboard.py || true
+
+      - name: 3. Extraction du jour
+        if: steps.cfg.outputs.pause != 'true'
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          KNOWLEDGE_IMPORT_SECRET: ${{ secrets.KNOWLEDGE_IMPORT_SECRET }}
+        run: python automation/scripts/marketforge_extract_queue.py
+
+      - name: 4. Commit
+        if: always() && steps.cfg.outputs.pause != 'true'
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git add automation/data/ automation/marketforge_engine/ automation/inbox/moteur-trafic-transcripts/ pages/podcast-btb/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: MarketForge Engine — run complet du jour"
+            for i in 1 2 3 4 5; do
+              git fetch origin main
+              git rebase origin/main && git push && break
+              git rebase --abort 2>/dev/null || true
+              sleep $((RANDOM % 15 + 5))
+            done
+          fi
+
+      - name: 5. Mise en ligne FTP
+        if: always() && steps.cfg.outputs.pause != 'true'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep

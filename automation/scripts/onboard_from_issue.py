@@ -10,7 +10,8 @@ Remplace les etapes manuelles du generateur HTML : lien Listenly admin + YAML + 
 
 Variables :
   ANTHROPIC_API_KEY, KNOWLEDGE_IMPORT_SECRET, GH_TOKEN, GITHUB_REPOSITORY
-  ISSUE_NUMBERS     : "12,15" ou "all" (tous les candidats ouverts labellises "approved")
+  ISSUE_NUMBERS     : "12,15" | "all" (candidats labellises "approved") | "auto" (TOUS les candidats ouverts,
+                      mode automatique du run complet MarketForge Engine)
   SHOW_IMPORT_MODE  : insert (defaut) | dry_run  (dry_run : rien n'est cree, ni fiche ni issue fermee)
   MAX_ONBOARD       : plafond par run (defaut 10)
 """
@@ -115,6 +116,8 @@ def main():
     wanted = (os.environ.get("ISSUE_NUMBERS") or "all").strip()
     if wanted == "all":
         issues = gh("GET", "/issues?labels=candidate,approved&state=open&per_page=100")
+    elif wanted == "auto":
+        issues = gh("GET", "/issues?labels=candidate&state=open&per_page=100&sort=created&direction=asc")
     else:
         issues = [gh("GET", f"/issues/{n.strip()}") for n in wanted.split(",") if n.strip()]
     issues = [i for i in issues if not i.get("pull_request") and i.get("state") == "open"][:MAX_ONBOARD]

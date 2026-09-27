@@ -14,8 +14,8 @@ on:
         description: 'true = planifie seulement, aucune extraction ni commit'
         required: false
         default: 'false'
-  schedule:
-    - cron: '17 5 * * *'   # tous les jours ~7h17 (Paris)
+  # Pas de schedule ici : l'extraction quotidienne tourne dans le run complet
+  # (marketforge-engine-run.yml). Ce workflow reste pour un lancement manuel isole.
 
 permissions:
   contents: write

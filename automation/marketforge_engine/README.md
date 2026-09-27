@@ -1,4 +1,10 @@
-# MarketForge Engine — extraction
+# MarketForge Engine
+
+**Run complet automatique** : `marketforge-engine-run.yml` (tous les jours ~7h17, ou bouton Run workflow)
+= découverte → onboarding auto (fiche Listenly SQL + N1) → extraction → commit → FTP.
+`onboarding_auto: false` pour repasser en validation manuelle (label `approved`).
+
+# Détail : extraction
 
 Chaîne : découverte (`discover-podcasts.yml`) → fiche N1 (générateur) → **extraction ici** → hub knowledge → mail (Apps Script).
 
@@ -6,6 +12,8 @@ Chaîne : découverte (`discover-podcasts.yml`) → fiche N1 (générateur) → 
 | Clé | Rôle |
 |---|---|
 | `pause` | `true` = tout s'arrête |
+| `decouverte_max_par_jour` | candidats qualifiés par run (coût Claude) |
+| `onboarding_auto` / `onboarding_max_par_jour` | fiches Listenly + N1 créées automatiquement par run |
 | `episodes_par_jour` | débit quotidien (épisodes transcrits/jour, tous podcasts confondus) |
 | `episodes_par_podcast` | profondeur par prospect |
 | `minutes_audio_max_jour` | garde-fou coût Whisper |

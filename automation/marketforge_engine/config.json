@@ -1,6 +1,9 @@
 {
-  "_aide": "Robinet du MarketForge Engine. Modifie ces valeurs (directement sur GitHub) : pris en compte au prochain run. pause=true coupe tout.",
+  "_aide": "Robinet du MarketForge Engine (run complet quotidien : decouverte -> onboarding Listenly+N1 -> extraction). Modifie ces valeurs directement sur GitHub : pris en compte au prochain run. pause=true coupe tout.",
   "pause": false,
+  "decouverte_max_par_jour": 5,
+  "onboarding_auto": true,
+  "onboarding_max_par_jour": 1,
   "episodes_par_jour": 10,
   "episodes_par_podcast": 3,
   "minutes_audio_max_jour": 600,
