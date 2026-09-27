@@ -88,8 +88,12 @@ function installer() {
   Logger.log('SECRET du pont GitHub : %s  -> ajoute "?secret=%s" a la fin de l\'URL de l\'application web.',
              props.getProperty('MFE_SECRET'), props.getProperty('MFE_SECRET'));
   ScriptApp.getProjectTriggers().forEach(function (t) {
-    if (t.getHandlerFunction() === 'marketforgeEngineQuotidien') ScriptApp.deleteTrigger(t);
+    var f = t.getHandlerFunction();
+    if (f === 'marketforgeEngineQuotidien' || f === 'mfeOnOpen') ScriptApp.deleteTrigger(t);
   });
+  // Menu "MarketForge Engine" : declencheur d'ouverture installable (ne remplace pas l'onOpen existant)
+  ScriptApp.newTrigger('mfeOnOpen').forSpreadsheet(mfeSS_()).onOpen().create();
+  mfeOnOpen();
   // Toutes les heures : les prospects arrivent dans le tableau au plus 1 h apres chaque run GitHub
   // (instantanement si le pont application web est branche). Le plafond d'envois reste journalier.
   ScriptApp.newTrigger('marketforgeEngineQuotidien').timeBased().everyHours(1).create();
@@ -146,9 +150,9 @@ function mfeDailyCap_(cfg) {
   return Math.min(cfg.MAX_ENVOIS_JOUR, week < steps.length ? steps[week] : cfg.MAX_ENVOIS_JOUR);
 }
 
-function mfeSend_(sh, cfg) {
+function mfeSend_(sh, cfg, force) {
   var now = new Date(), h = now.getHours();
-  if (h < cfg.H_START || h >= cfg.H_END) return 0;          // hors plage horaire
+  if (!force && (h < cfg.H_START || h >= cfg.H_END)) return 0;   // hors plage horaire
   var daily = mfeDailyCap_(cfg);
   var today = now.toDateString();
   var rows = mfeRows_(sh);
@@ -159,6 +163,7 @@ function mfeSend_(sh, cfg) {
   var span = cfg.H_END - cfg.H_START;
   var allowedSoFar = Math.ceil(daily * (h - cfg.H_START + 1) / span);
   var budget = Math.max(0, Math.min(daily, allowedSoFar) - sentToday);
+  if (force) budget = force === true ? Math.max(0, daily - sentToday) : Math.min(force, Math.max(0, daily - sentToday));
   var sent = 0;
   rows.forEach(function (r) {
     if (sent >= budget || r.values[6] !== 'Pret') return;
@@ -380,4 +385,129 @@ function mfeSheet_() {
   sh.getRange(MFE.HEADER_ROW, 1, 1, MFE.COLS.length).setValues([MFE.COLS]).setFontWeight('bold').setBackground('#eef3fd');
   sh.setFrozenRows(MFE.HEADER_ROW);
   return sh;
+}
+
+
+// =====================================================================
+// MENU "MarketForge Engine" — pilotage manuel (comme la machine SaaS)
+// =====================================================================
+var MFE_REPO = 'listenly-geo/listenlygeo';
+var MFE_WORKFLOW = 'marketforge-engine-run.yml';
+
+function mfeOnOpen() {
+  var ui = mfeUi_();
+  if (!ui) return;
+  ui.createMenu('MarketForge Engine')
+    .addItem('🚀 Lancer le moteur maintenant (podcasts + fiches + emails)', 'mfeMenuLancerMoteur')
+    .addItem('📊 Voir l’état du moteur (dernier run)', 'mfeMenuEtatMoteur')
+    .addSeparator()
+    .addItem('Importer les nouveaux contacts maintenant', 'mfeMenuImporter')
+    .addItem('Envoyer un test (à moi)', 'mfeMenuTest')
+    .addItem('Test limité (3 vrais e-mails maintenant)', 'mfeMenuTestLimite')
+    .addItem('Traiter la file maintenant (envoi hors horaires)', 'mfeMenuTraiter')
+    .addItem('Vérifier réponses + relances maintenant', 'mfeMenuRelances')
+    .addSeparator()
+    .addItem('Activer l’automatique (toutes les heures)', 'installer')
+    .addItem('Créer / réparer les réglages MFE_*', 'mfeMenuReglages')
+    .addItem('Enregistrer le token GitHub', 'mfeMenuToken')
+    .addSeparator()
+    .addItem('Désactiver l’envoi automatique', 'mfeMenuDesactiver')
+    .addToUi();
+}
+
+function mfeUi_() { try { return SpreadsheetApp.getUi(); } catch (e) { return null; } }
+function mfeAlert_(msg) { var ui = mfeUi_(); if (ui) ui.alert('MarketForge Engine', msg, ui.ButtonSet.OK); Logger.log(msg); }
+function mfeConfirm_(msg) {
+  var ui = mfeUi_();
+  return !ui || ui.alert('MarketForge Engine', msg, ui.ButtonSet.YES_NO) === ui.Button.YES;
+}
+
+function mfeMenuToken() {
+  var ui = mfeUi_();
+  var r = ui.prompt('Token GitHub', 'Colle un token GitHub (fine-grained, repo listenly-geo/listenlygeo, permission Actions : Read and write). Stocke dans le script, jamais dans le tableau.', ui.ButtonSet.OK_CANCEL);
+  if (r.getSelectedButton() !== ui.Button.OK || !r.getResponseText().trim()) return;
+  PropertiesService.getScriptProperties().setProperty('MFE_GH_TOKEN', r.getResponseText().trim());
+  mfeAlert_('Token enregistre. Le bouton "Lancer le moteur maintenant" est actif.');
+}
+
+function mfeMenuLancerMoteur() {
+  var token = PropertiesService.getScriptProperties().getProperty('MFE_GH_TOKEN');
+  if (!token) { mfeAlert_('Enregistre d’abord le token GitHub (menu MarketForge Engine > Enregistrer le token GitHub).'); return; }
+  if (!mfeConfirm_('Lancer maintenant un run complet : decouverte de podcasts, fiches Listenly + N1, emails. ~15-30 min. Les contacts arriveront ensuite ici automatiquement. Continuer ?')) return;
+  var res = UrlFetchApp.fetch('https://api.github.com/repos/' + MFE_REPO + '/actions/workflows/' + MFE_WORKFLOW + '/dispatches', {
+    method: 'post', contentType: 'application/json', muteHttpExceptions: true,
+    headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json' },
+    payload: JSON.stringify({ ref: 'main' })
+  });
+  var ok = res.getResponseCode() === 204;
+  mfeAlert_(ok ? '🚀 Moteur lance. Suis-le avec "Voir l’etat du moteur".' : 'Echec du lancement (HTTP ' + res.getResponseCode() + ') : ' + res.getContentText().slice(0, 200));
+}
+
+function mfeMenuEtatMoteur() {
+  var get = function (url) { return JSON.parse(UrlFetchApp.fetch(url, { muteHttpExceptions: true }).getContentText()); };
+  var run = (get('https://api.github.com/repos/' + MFE_REPO + '/actions/workflows/' + MFE_WORKFLOW + '/runs?per_page=1').workflow_runs || [])[0];
+  if (!run) { mfeAlert_('Aucun run trouve.'); return; }
+  var etat = run.status === 'completed' ? (run.conclusion === 'success' ? '✅ termine' : '❌ ' + run.conclusion) : '⏳ en cours';
+  var lignes = ['Dernier run : ' + etat + ' (' + Utilities.formatDate(new Date(run.created_at), Session.getScriptTimeZone(), 'dd/MM HH:mm') + ')'];
+  if (run.status === 'completed') {
+    var job = (get(run.jobs_url).jobs || [])[0];
+    if (job) (get('https://api.github.com/repos/' + MFE_REPO + '/check-runs/' + job.id + '/annotations') || []).forEach(function (a) {
+      if (a.title) lignes.push('• ' + a.title + ' : ' + a.message.slice(0, 400));
+    });
+  }
+  var sh = mfeSheet_(), st = {};
+  mfeRows_(sh).forEach(function (r) { st[r.values[6]] = (st[r.values[6]] || 0) + 1; });
+  lignes.push('', 'Contacts dans l’onglet : ' + JSON.stringify(st));
+  mfeAlert_(lignes.join('\n'));
+}
+
+function mfeMenuImporter() {
+  var n = mfeImport_(mfeSheet_(), null);
+  mfeAlert_(n + ' nouveau(x) contact(s) importe(s).');
+}
+
+function mfeMenuTest() {
+  var moi = Session.getEffectiveUser().getEmail();
+  var sh = mfeSheet_(), rows = mfeRows_(sh);
+  var exemple = rows.length ? rows[0].values : ['', 'Test Podcast', '', 'https://listenly.fr/podcast-btb/a16z-crypto-show-podcast.html', 0];
+  var v = mfeVars_(exemple);
+  GmailApp.sendEmail(moi, '[TEST] ' + mfeFill_(MFE_SUBJECT, v), mfeFill_(MFE_BODY_FICHE, v), mfeFromOpts_());
+  GmailApp.sendEmail(moi, '[TEST] ' + mfeFill_(MFE_SUBJECT, v) + ' (version avec reponses)', mfeFill_(MFE_BODY, v), mfeFromOpts_());
+  mfeAlert_('2 mails test envoyes a ' + moi + ' (version fiche + version avec reponses). Expediteur : ' + (mfeFromOpts_().from || moi));
+}
+
+function mfeMenuTestLimite() {
+  if (!mfeConfirm_('Envoyer MAINTENANT jusqu’a 3 VRAIS e-mails aux premiers contacts "Pret" (hors horaires) ?')) return;
+  var sh = mfeSheet_();
+  mfeImport_(sh, null);
+  var n = mfeSend_(sh, mfeSettings_(), 3);
+  mfeAlert_(n + ' e-mail(s) reel(s) envoye(s). Verifie la colonne Statut et tes "Envoyes".');
+}
+
+function mfeMenuTraiter() {
+  var cfg = mfeSettings_();
+  if (!mfeConfirm_('Importer les contacts puis envoyer maintenant, dans la limite du jour (' + mfeDailyCap_(cfg) + ' mails), meme hors horaires ?')) return;
+  var sh = mfeSheet_();
+  var added = mfeImport_(sh, null);
+  var sent = mfeSend_(sh, cfg, true);
+  mfeAlert_(added + ' contact(s) importe(s), ' + sent + ' e-mail(s) envoye(s).');
+}
+
+function mfeMenuRelances() {
+  var sh = mfeSheet_(), cfg = mfeSettings_();
+  var rep = mfeCheckReplies_(sh);
+  var rel = cfg.RELANCE_JOURS > 0 ? mfeFollowUp_(sh, cfg.RELANCE_JOURS) : 0;
+  mfeAlert_(rep + ' nouvelle(s) reponse(s), ' + rel + ' relance(s) envoyee(s).');
+}
+
+function mfeMenuReglages() {
+  mfeEnsureSettings_();
+  mfeAlert_('Reglages MFE_* verifies dans l’onglet Reglages.');
+}
+
+function mfeMenuDesactiver() {
+  ScriptApp.getProjectTriggers().forEach(function (t) {
+    if (t.getHandlerFunction() === 'marketforgeEngineQuotidien') ScriptApp.deleteTrigger(t);
+  });
+  mfeAlert_('Envoi automatique desactive (le menu reste disponible). Pour reactiver : "Activer l’automatique".');
 }
