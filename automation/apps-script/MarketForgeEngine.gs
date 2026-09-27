@@ -98,7 +98,7 @@ var MFE_MSG_DEFAULTS = [
   ['MFE_MSG_SIGNATURE', '',
    'MarketForge Engine — lignes ajoutees automatiquement a la fin du 1er mail ET de la relance (ex. lien LinkedIn). Vide = rien. Gmail n\'ajoute PAS la signature Workspace aux mails envoyes par script.'],
   ['MFE_SIG_HTML', 'FALSE', 'Signature riche (photo + liens) en bas des mails. TRUE = activee. Garder FALSE si la delivrabilite baisse.'],
-  ['MFE_SIG_PHOTO', '', 'Signature riche — URL publique de ta photo (carree, ~200x200). Vide = pas de photo.'],
+  ['MFE_SIG_PHOTO', 'https://listenly.fr/podcast-btb/assets/etienne-cugnet.jpg', 'Signature riche — URL publique de ta photo (carree, ~200x200). Vide = pas de photo.'],
   ['MFE_SIG_NOM', 'Etienne Cugnet', 'Signature riche — nom.'],
   ['MFE_SIG_TITRE', 'Founder, Listenly & Marketforge', 'Signature riche — titre / entreprise.'],
   ['MFE_SIG_ACCROCHE', 'Turning B2B podcasts into Google & AI visibility', 'Signature riche — une ligne "qui je suis". Vide = rien.'],
