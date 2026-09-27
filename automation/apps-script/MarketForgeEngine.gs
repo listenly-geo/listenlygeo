@@ -359,7 +359,7 @@ function mfeFromOpts_() {
 // "Hi Tom Bevington" si l'hote ressemble a une personne, sinon "Hi a16z crypto team" / "Hi {PODCAST} team"
 function mfeName_(host, podcast) {
   host = String(host || '').trim();
-  var corporate = /\b(podcast|media|inc|llc|ltd|team|studio|studios|network|group|the|and|co|company|agency|productions?|radio|news|show|hq)\b|&|\d/i;
+  var corporate = /\b(podcast|media|inc|llc|ltd|team|studio|studios|network|group|the|and|co|company|agency|productions?|radio|news|show|hq|talks?|air|county|city|welle|horowitz|capital|partners|ventures|digital|labs?|consulting|training|institute|association|foundation|university|college|club|collective|academy|leadership|magazine|journal|press|publishing|tv|fm|live|daily|weekly|global|international|solutions|systems|advisors?|associates|editorial|reporters|producers|business|marketing|finance|energy|real|estate|insider|brief|review|books?|stories|world|america|europe|asia|japan|africa|official|channel|pod|cast|hub|lab|works|works)\b|&|\d/i;
   var words = host.split(/\s+/);
   if (host && words.length >= 2 && words.length <= 3 && !corporate.test(host) &&
       words.every(function (w) { return /^[A-ZÀ-Ý][a-zà-ÿ'’.-]+$/.test(w); })) return words[0];  // prenom seul : "Hi Greg,"
