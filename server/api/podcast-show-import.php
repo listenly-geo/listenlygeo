@@ -74,7 +74,7 @@ $CANDIDATES = [
     'seo_url'     => ['seo_url', 'slug'],
     'rss_url'     => ['rss', 'rss_url', 'feed', 'feed_url', 'url_rss'],
     'description' => ['description', 'desc', 'summary', 'content'],
-    'cover_image' => ['image', 'cover', 'cover_image', 'picture', 'thumbnail', 'artwork'],
+    'cover_image' => ['image', 'cover_image', 'picture', 'thumbnail', 'artwork'],  // cover_id = id media BOF, pas une URL : non rempli
     'language'    => ['lang', 'language', 'lang_id'],
     'author'      => ['author', 'artist', 'owner_name'],
     'email'       => ['email', 'owner_email'],
@@ -142,6 +142,19 @@ foreach (['description', 'cover_image', 'author', 'email', 'website', 'language'
         if (!$isNum) $values[$map[$f]] = mb_substr((string)$p[$f], 0, 60000);
     }
 }
+// La description BOF est au format Editor.js ({"time":..,"blocks":[...]}), pas du texte brut.
+if (isset($map['description'], $values[$map['description']])) {
+    $values[$map['description']] = json_encode([
+        'time' => (int) round(microtime(true) * 1000),
+        'blocks' => [['type' => 'paragraph', 'data' => ['text' => htmlspecialchars($values[$map['description']], ENT_QUOTES)]]],
+        'version' => '2.28.2',
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+}
+// Valeurs BOF connues (vues sur une fiche creee par l'admin) : rss_generate=1 -> le lecteur RSS du
+// CMS importe les episodes ; creator_id=1 comme l'admin ; dates d'ajout/sortie.
+$BOF_DEFAULTS = ['rss_generate' => 1, 'creator_id' => 1, 'time_add' => date('Y-m-d H:i:s'), 'time_release' => date('Y-m-d H:i:s'),
+                 'external_addresses' => '[]', 'translations' => '[]', 'seo_data' => '[]', 'price_setting' => '{"disable_subs":false}'];
+foreach ($BOF_DEFAULTS as $k => $v) { if (isset($cols[$k]) && !isset($values[$k])) $values[$k] = $v; }
 // Colonnes NOT NULL sans valeur par defaut : valeur neutre selon le type
 $filled = [];
 foreach ($cols as $name => $c) {
