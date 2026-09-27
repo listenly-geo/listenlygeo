@@ -1,0 +1,71 @@
+name: Hub — Regroupement des fiches question (sans casser l'indexation)
+
+# Chaque jour : inspecte l'etat d'indexation reel (API Search Console, quota ~2000/j),
+# puis redirige (301) vers leur hub N1 les fiches question sures selon la phase
+# (automation/data/consolidation_config.json), regenere sitemaps + hubs et met en ligne.
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '37 3 * * *'
+  push:
+    branches: [main]
+    paths: ['automation/data/consolidation-run-now.txt', 'automation/data/consolidation_config.json']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hub-consolidation
+  cancel-in-progress: false
+
+jobs:
+  consolidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 1. Etat d'indexation reel (Search Console)
+        continue-on-error: true
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: python automation/scripts/hub_consolidation.py inspect
+
+      - name: 2. Regroupement selon la phase + sitemaps
+        run: python automation/scripts/hub_consolidation.py apply
+
+      - name: 3. Hubs mis a jour
+        run: python automation/scripts/rebuild_hubs.py
+
+      - name: 4. Commit
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git add pages/podcast-btb/
+          if git diff --staged --quiet; then echo "Rien de nouveau."; exit 0; fi
+          git commit -q -m "Auto: regroupement fiches question -> hubs"
+          ok=0
+          for i in 1 2 3 4 5; do
+            if git pull -q --rebase --autostash origin main && git push -q; then ok=1; break; fi
+            git rebase --abort 2>/dev/null || true
+            sleep $((RANDOM % 15 + 5))
+          done
+          [ "$ok" = "1" ] || { echo "::error title=Commit::push impossible"; exit 1; }
+
+      - name: 5. Mise en ligne (redirections .htaccess + sitemaps + hubs)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep

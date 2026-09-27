@@ -899,6 +899,20 @@ def _has_noindex_meta(path):
     except OSError:
         return False
 
+_CONSOLIDATED_CACHE = None
+
+def _consolidated_paths():
+    """Fiches question regroupees dans leur hub N1 (redirigees en 301, voir
+    automation/scripts/hub_consolidation.py) : jamais dans les sitemaps."""
+    global _CONSOLIDATED_CACHE
+    if _CONSOLIDATED_CACHE is None:
+        try:
+            with open(f"{PAGES_DIR}/data/consolidated_questions.json", encoding="utf-8") as f:
+                _CONSOLIDATED_CACHE = set(json.load(f).get("paths", []))
+        except (OSError, ValueError):
+            _CONSOLIDATED_CACHE = set()
+    return _CONSOLIDATED_CACHE
+
 def build_sitemap():
     """Scanne tout /pages/podcast-btb/ et régénère un sitemap XML à jour.
     Appelée par generate_podcast_btb.py ET generate_episode_fiches_btb.py
@@ -955,6 +969,8 @@ def build_sitemap():
             if _has_noindex_meta(full_path):
                 continue  # une page noindex n'a rien a faire dans un sitemap (signal contradictoire pour Google)
             rel_path = os.path.relpath(full_path, PAGES_DIR).replace(os.sep, "/")
+            if rel_path in _consolidated_paths():
+                continue  # fiche question regroupee dans son hub (redirection 301) -- hub_consolidation.py
             url = f"https://listenly.fr/podcast-btb/{rel_path}"
 
             slug_from_fname = fname[:-len("-podcast.html")] if fname.endswith("-podcast.html") else None

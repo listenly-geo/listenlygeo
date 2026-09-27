@@ -152,6 +152,14 @@ def merge_extracted(slug, published):
     return list(published) + extra
 
 
+def consolidated_urls():
+    try:
+        with open(f"{PAGES_DIR}/data/consolidated_questions.json", encoding="utf-8") as f:
+            return {"https://listenly.fr/podcast-btb/" + x for x in json.load(f).get("paths", [])}
+    except (OSError, ValueError):
+        return set()
+
+
 def visible_entries(published):
     excluded = load_excluded_urls()
     return [p for p in published if p.get("url", "").replace("https://listenly.fr", "") not in excluded]
@@ -160,7 +168,8 @@ def visible_entries(published):
 def render_hub_index(podcast, published):
     lang = "en" if podcast.get("language") == "en" else "fr"
     t = STRINGS[lang]
-    entries = visible_entries(published)
+    merged = consolidated_urls()
+    entries = [dict(p, url="") if p.get("url") in merged else p for p in visible_entries(published)]
     stamps = load_timestamps(podcast["slug"])
     target = listen_url(podcast)
 
