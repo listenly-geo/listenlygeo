@@ -271,6 +271,10 @@ def main():
     extraction_auto = bool(config.get("extraction_auto", False))
     extraire = set(config.get("extraire") or [])
     contacts, sans_email = 0, 0
+    for slug, state in queue["podcasts"].items():  # infos pour personnaliser le mail
+        p = podcasts.get(slug) or {}
+        state["host_name"] = state.get("host_name") or p.get("host_name", "")
+        state["listenly_url"] = state.get("listenly_url") or p.get("listenly_url", "")
     for slug, state in queue["podcasts"].items():
         if state["status"] != "en_attente" or extraction_auto or slug in extraire:
             continue

@@ -34,7 +34,7 @@ var MFE = {
   HISTO_COLS: ['Date', 'Decouverts', 'Onboardes (fiche Listenly + N1)', 'Dont fiches Listenly creees',
                'Podcasts onboardes', 'Episodes extraits', 'Minutes audio', 'Q/R extraites', 'Echecs onboarding', 'Run GitHub'],
   COLS: ['Slug', 'Podcast', 'Email', 'Preuve (fiche N1)', 'Q/R extraites', 'Ajoute le', 'Statut',
-         'Envoye le', 'Relance le', 'Reponse', 'Thread ID', 'Notes'],
+         'Envoye le', 'Relance le', 'Reponse', 'Thread ID', 'Notes', 'Page Listenly', 'Hote'],
 };
 
 var MFE_DEFAULTS = [
@@ -57,53 +57,49 @@ var MFE_DEFAULTS = [
 // ---------- Messages (modifiables dans l'onglet Reglages, cles MFE_MSG_*) ----------
 // Style : court, a la premiere personne, une seule question, texte brut (pas de gras, pas d'emoji).
 // Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}
+var MFE_MSG_VERSION = '3';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
+var MFE_FIRST_MAIL = [
+  'Hi {NAME},',
+  '',
+  "I'm Etienne, founder of Listenly, a search engine that turns podcast expertise into direct answers people can discover through search.",
+  '',
+  "We're currently expanding the podcasts indexed on the platform, and we recently added {PODCAST} to Listenly.",
+  '',
+  'You can see it here:',
+  '{LISTENLY}',
+  '',
+  'The reason I\'m reaching out is that while indexing your podcast, I noticed something interesting: your episodes already contain a lot of valuable expertise that could generate much more visibility for your company.',
+  '',
+  "We've built a system that turns this existing podcast content into permanent visibility across Google and AI search tools like ChatGPT, Gemini and Google AI.",
+  '',
+  'I actually created a first example for {PODCAST} so you can see what this could look like:',
+  '{URL}',
+  '',
+  'Quick question: are you currently doing anything with each episode after it goes live to turn that expertise into organic visibility for the company?',
+  '',
+  'Best,',
+  'Etienne'
+].join('\n');
 var MFE_MSG_DEFAULTS = [
-  ['MFE_MSG_OBJET', 'Quick question about {PODCAST}',
+  ['MFE_MSG_OBJET', '{PODCAST} on Listenly',
    'MarketForge Engine — objet du 1er mail. {PODCAST} = nom du podcast.'],
-  ['MFE_MSG_FICHE', [
-    'Hi {PODCAST} team,',
-    '',
-    "I'm Etienne, I run Listenly, a directory of B2B podcasts built for the way people now find shows: by asking ChatGPT, Perplexity or Google's AI for expert advice.",
-    '',
-    "I've just added {PODCAST} and put together a page for the show: {URL}",
-    '',
-    "It's free and it stays up. I'm curious though: is getting discovered through AI search something you're thinking about for the show?",
-    '',
-    '{OPTOUT}',
-    '',
-    'Best,',
-    'Etienne Cugnet',
-    'Listenly'
-  ].join('\n'), 'MarketForge Engine — 1er mail (fiche du podcast). Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}.'],
-  ['MFE_MSG_REPONSES', [
-    'Hi {PODCAST} team,',
-    '',
-    "I'm Etienne, I run Listenly, a directory of B2B podcasts built for the way people now find shows: by asking ChatGPT, Perplexity or Google's AI for expert advice.",
-    '',
-    "I've just added {PODCAST}, and I also indexed a few answers from your recent episodes, each linked to the exact minute it's said, so AI tools can quote your guests: {URL}",
-    '',
-    "It's free and it stays up. I'm curious though: is getting discovered through AI search something you're thinking about for the show?",
-    '',
-    '{OPTOUT}',
-    '',
-    'Best,',
-    'Etienne Cugnet',
-    'Listenly'
-  ].join('\n'), 'MarketForge Engine — 1er mail quand des reponses ont ete extraites.'],
+  ['MFE_MSG_FICHE', MFE_FIRST_MAIL,
+   'MarketForge Engine — 1er mail. Variables : {NAME} (hote, sinon "{PODCAST} team") {PODCAST} {LISTENLY} (page Listenly) {URL} (exemple / fiche N1) {BOOKING} {OPTOUT}.'],
+  ['MFE_MSG_REPONSES', MFE_FIRST_MAIL,
+   'MarketForge Engine — 1er mail quand des reponses ont ete extraites (meme modele par defaut).'],
   ['MFE_MSG_RELANCE', [
-    'Hi {PODCAST} team,',
+    'Hi {NAME},',
     '',
-    'Just floating this back up. Your Listenly page is live here: {URL}',
+    'Just following up on my note about {PODCAST}. The example I put together for you is here:',
+    '{URL}',
     '',
-    "If AI search is on your radar, I'd be happy to show you in 15 minutes what's already bringing new listeners to similar shows: {BOOKING}",
-    '',
-    'If not, no worries at all.',
+    "If turning each episode into organic visibility for the company is on your radar, I'd be happy to walk you through it in 15 minutes: {BOOKING}",
     '',
     'Best,',
     'Etienne'
   ].join('\n'), 'MarketForge Engine — relance (J+MFE_RELANCE_JOURS), dans le meme fil.'],
   ['MFE_MSG_OPTOUT', "If this isn't relevant, just let me know and I won't reach out again.",
-   'MarketForge Engine — phrase de desinscription inseree a la place de {OPTOUT}.'],
+   'MarketForge Engine — phrase inseree a la place de {OPTOUT} (si utilisee dans un texte).'],
 ];
 
 function mfeMsg_(key) {
@@ -167,7 +163,8 @@ function mfeImport_(sh, podcasts) {
     // Jamais de double contact : email deja present dans l'onglet Prospection (ancienne machine)
     var dejaVu = prospection && prospection.createTextFinder(p.email).matchCase(false).findNext();
     rows.push([slug, p.podcast_name || slug, p.email, p.proof_url + (n > 0 ? '#answers' : ''), n,
-               new Date(), dejaVu ? 'Deja en prospection' : 'Pret', '', '', '', '', '']);
+               new Date(), dejaVu ? 'Deja en prospection' : 'Pret', '', '', '', '', '',
+               p.listenly_url || '', p.host_name || '']);
   });
   if (rows.length) sh.getRange(sh.getLastRow() + 1, 1, rows.length, MFE.COLS.length).setValues(rows);
   return rows.length;
@@ -276,8 +273,20 @@ function mfeFromOpts_() {
   return opts;
 }
 
+// "Hi Tom Bevington" si l'hote ressemble a une personne, sinon "Hi a16z crypto team" / "Hi {PODCAST} team"
+function mfeName_(host, podcast) {
+  host = String(host || '').trim();
+  var corporate = /\b(podcast|media|inc|llc|ltd|team|studio|studios|network|group|the|and|co|company|agency|productions?|radio|news|show|hq)\b|&|\d/i;
+  var words = host.split(/\s+/);
+  if (host && words.length >= 2 && words.length <= 3 && !corporate.test(host) &&
+      words.every(function (w) { return /^[A-ZÀ-Ý][a-zà-ÿ'’.-]+$/.test(w); })) return host;
+  if (host && /\bteam\b/i.test(host)) return host;
+  return (podcast || 'there') + ' team';
+}
+
 function mfeVars_(values) {
-  return { PODCAST: values[1], URL: values[3], BOOKING: MFE.BOOKING, OPTOUT: mfeMsg_('MFE_MSG_OPTOUT') };
+  return { PODCAST: values[1], URL: values[3], LISTENLY: values[12] || values[3],
+           NAME: mfeName_(values[13], values[1]), BOOKING: MFE.BOOKING, OPTOUT: mfeMsg_('MFE_MSG_OPTOUT') };
 }
 
 function mfeFill_(tpl, v) {
@@ -321,6 +330,14 @@ function mfeEnsureSettings_() {
   var have = mfeReadSettings_();
   var missing = MFE_DEFAULTS.concat(MFE_MSG_DEFAULTS).filter(function (d) { return !(d[0] in have); });
   if (missing.length) sh.getRange(sh.getLastRow() + 1, 1, missing.length, 3).setValues(missing);
+  var props = PropertiesService.getScriptProperties();
+  if (props.getProperty('MFE_MSG_V') !== MFE_MSG_VERSION) {   // nouveaux textes par defaut -> Reglages
+    var vals = sh.getRange(1, 1, sh.getLastRow(), 1).getValues();
+    MFE_MSG_DEFAULTS.forEach(function (d) {
+      for (var i = 0; i < vals.length; i++) if (String(vals[i][0]).trim() === d[0]) sh.getRange(i + 1, 2, 1, 2).setValues([[d[1], d[2]]]);
+    });
+    props.setProperty('MFE_MSG_V', MFE_MSG_VERSION);
+  }
 }
 
 function mfeMigrateOldSettings_(sh) {
