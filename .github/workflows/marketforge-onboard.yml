@@ -12,17 +12,26 @@ on:
   workflow_dispatch:
     inputs:
       action:
-        description: 'onboard | describe (structure de la table) | deploy_api (envoie le PHP sur le serveur)'
+        description: 'deploy_api = envoie le PHP sur le serveur | describe = structure de la table | onboard = onboarder des candidats'
         required: true
-        default: 'onboard'
+        type: choice
+        options:
+          - deploy_api
+          - describe
+          - onboard
+        default: deploy_api
       issue_numbers:
         description: 'Numeros separes par virgule, ou "all" (candidats labellises approved)'
         required: false
         default: 'all'
       mode:
-        description: 'insert | dry_run'
+        description: 'dry_run = test sans rien ecrire | insert = reel'
         required: false
-        default: 'insert'
+        type: choice
+        options:
+          - dry_run
+          - insert
+        default: dry_run
 
 permissions:
   contents: write
