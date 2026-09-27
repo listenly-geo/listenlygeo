@@ -51,6 +51,7 @@ var MFE_DEFAULTS = [
   ['MFE_MONTEE_PROGRESSIVE', 'TRUE', 'MarketForge Engine — TRUE = 30/j la 1re semaine, 80, 150, 300, 500, 1000 puis plafond (protege la delivrabilite).'],
   ['MFE_HEURES_ENVOI', '8-19', 'MarketForge Engine — plage horaire d\'envoi (heure du script), mails repartis sur la plage.'],
   ['MFE_EMAIL_TEST', '', 'MarketForge Engine — MODE TEST : si une adresse est saisie ici, TOUS les mails partent vers elle (objet prefixe [TEST]) et les prospects restent "Pret". Vider la case pour passer en reel.'],
+  ['MFE_MAX_REBONDS', '3', 'MarketForge Engine — au-dela de N mails bloques/rebonds sur 3 jours, l\'envoi automatique se met en pause (MFE_ENVOI_AUTO passe a FALSE).'],
   ['MFE_RELANCE_JOURS', '4', 'MarketForge Engine — relance unique apres N jours sans reponse (0 = pas de relance).'],
 ];
 
@@ -229,12 +230,33 @@ function mfeCheckReplies_(sh) {
     if (!threadId || (status !== 'Envoye' && status !== 'Relance')) return;
     var thread = GmailApp.getThreadById(threadId);
     if (!thread) return;
-    var fromThem = thread.getMessages().some(function (m) {
+    var msgs = thread.getMessages();
+    var bounce = msgs.some(function (m) { return /mailer-daemon|postmaster/i.test(m.getFrom()); });
+    if (bounce) {  // mail bloque / adresse invalide : jamais de relance
+      sh.getRange(r.row, 7).setValue('Rebond');
+      sh.getRange(r.row, 12).setValue('Bloque ou refuse par le serveur du destinataire');
+      mfeBounceGuard_(sh);
+      return;
+    }
+    var fromThem = msgs.some(function (m) {
       return m.getFrom().toLowerCase().indexOf(String(r.values[2]).toLowerCase()) !== -1;
     });
     if (fromThem) { sh.getRange(r.row, 7).setValue('Repondu'); sh.getRange(r.row, 10).setValue(new Date()); n++; }
   });
   return n;
+}
+
+// Trop de rebonds recents -> pause de l'envoi (protege la reputation du domaine)
+function mfeBounceGuard_(sh) {
+  var max = parseInt(mfeReadSettings_().MFE_MAX_REBONDS, 10) || 3;
+  var since = Date.now() - 3 * 86400000;
+  var n = mfeRows_(sh).filter(function (r) {
+    return r.values[6] === 'Rebond' && r.values[7] && new Date(r.values[7]).getTime() > since;
+  }).length;
+  if (n < max) return;
+  var reg = mfeReglagesSheet_(), vals = reg.getRange(1, 1, reg.getLastRow(), 1).getValues();
+  for (var i = 0; i < vals.length; i++) if (String(vals[i][0]).trim() === 'MFE_ENVOI_AUTO') reg.getRange(i + 1, 2).setValue('FALSE');
+  Logger.log('PAUSE AUTO : %s rebonds en 3 jours -> MFE_ENVOI_AUTO = FALSE', n);
 }
 
 function mfeFollowUp_(sh, days) {
@@ -277,9 +299,17 @@ function mfeName_(host, podcast) {
   return (podcast || 'there') + ' team';
 }
 
+// "BriteVibe Podcast: Live Brite, Live Bold..." -> "BriteVibe Podcast"
+function mfeShortName_(name) {
+  var full = String(name || '').trim();
+  var cut = full.split(/\s*[:|–—]\s*|\s+-\s+|\s*\(/)[0].trim();
+  if (cut.length < 3) cut = full;
+  return cut.length > 60 ? cut.slice(0, 60).replace(/\s+\S*$/, '') : cut;
+}
+
 function mfeVars_(values) {
-  return { PODCAST: values[1], URL: values[3], LISTENLY: values[12] || values[3],
-           NAME: mfeName_(values[13], values[1]), BOOKING: MFE.BOOKING, OPTOUT: mfeMsg_('MFE_MSG_OPTOUT') };
+  return { PODCAST: mfeShortName_(values[1]), URL: values[3], LISTENLY: values[12] || values[3],
+           NAME: mfeName_(values[13], mfeShortName_(values[1])), BOOKING: MFE.BOOKING, OPTOUT: mfeMsg_('MFE_MSG_OPTOUT') };
 }
 
 function mfeFill_(tpl, v) {
