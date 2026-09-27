@@ -58,24 +58,23 @@ var MFE_DEFAULTS = [
 // ---------- Messages (modifiables dans l'onglet Reglages, cles MFE_MSG_*) ----------
 // Style : court, a la premiere personne, une seule question, texte brut (pas de gras, pas d'emoji).
 // Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}
-var MFE_MSG_VERSION = '7';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
+var MFE_MSG_VERSION = '8';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
 var MFE_FIRST_MAIL = [
   'Hi {NAME},',
   '',
   'I\u2019m Etienne, founder of Marketforge, a content repurposing agency.',
   '',
-  'I\u2019m reaching out because I referenced your podcast {PODCAST} on Listenly, our directory designed to help podcasts gain visibility across Google and AI search engines.',
+  'I\u2019m reaching out because I referenced your podcast **{PODCAST}** on **Listenly**, our directory designed to help podcasts gain visibility across Google and AI search engines.',
   '',
   'Here is your profile to review:',
   '{URL}',
   '',
-  'On average, a podcast episode contains 15+ answers your prospects are already searching for on Google and AI \u2014 content that can be turned into ongoing visibility without producing anything new or changing your current strategy.',
+  'On average, a podcast episode contains **15+ answers your prospects are already searching for** on Google and AI \u2014 content that can be turned into ongoing visibility **without producing anything new** or changing your current strategy.',
   '',
-  'I\u2019d be curious to know: is your content flow already helping grow your company\u2019s visibility on Google and AI?',
+  'I\u2019d be curious to know: **is your content flow already helping grow your company\u2019s visibility on Google and AI?**',
   '',
   'Best,',
-  'Etienne Cugnet',
-  'Founder, Listenly / Marketforge'
+  'Etienne'
 ].join('\n');
 var MFE_MSG_DEFAULTS = [
   ['MFE_MSG_OBJET', 'Regarding {PODCAST} – Listenly AI directory',
@@ -89,7 +88,7 @@ var MFE_MSG_DEFAULTS = [
     '',
     'Just following up regarding {PODCAST} \u2014 we recently added it to Listenly to help improve its visibility across Google and AI search.',
     '',
-    'Could you confirm that everything on the profile looks correct?',
+    '**Could you confirm that everything on the profile looks correct?**',
     '{URL}',
     '',
     'Best,',
@@ -409,6 +408,7 @@ function mfeSigCfg_() {
 
 // Version texte (toujours envoyee : c'est ce que lisent les filtres anti-spam et certains clients mail)
 function mfeWithSignature_(body) {
+  body = String(body).replace(/\*\*(.+?)\*\*/g, '$1');   // version texte : sans les ** du gras
   var c = mfeSigCfg_(), lines = [];
   if (c.texte) lines.push(c.texte);
   else if (c.html) {
@@ -422,8 +422,12 @@ function mfeWithSignature_(body) {
 
 function mfeEsc_(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
+// **texte** = gras ; les URL deviennent des liens cliquables
 function mfeTextToHtml_(body) {
-  return mfeEsc_(body).replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" style="color:#1a56db">$1</a>').replace(/\n/g, '<br>');
+  return mfeEsc_(body)
+    .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" style="color:#1a56db">$1</a>')
+    .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
+    .replace(/\n/g, '<br>');
 }
 
 function mfeSignatureHtml_() {
@@ -451,11 +455,11 @@ function mfeSignatureHtml_() {
 
 // Options d'envoi : expediteur + version HTML avec signature riche si MFE_SIG_HTML = TRUE
 function mfeSendOpts_(bodySansSignature) {
-  var opts = mfeFromOpts_();
-  if (mfeSigCfg_().html) {
-    opts.htmlBody = '<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#222">' +
-      mfeTextToHtml_(bodySansSignature) + '</div>' + mfeSignatureHtml_();
-  }
+  // Toujours une version HTML (gras + liens) ; signature riche si MFE_SIG_HTML = TRUE, sinon signature texte
+  var opts = mfeFromOpts_(), c = mfeSigCfg_();
+  var sig = c.html ? mfeSignatureHtml_() : (c.texte ? '<br><br>' + mfeTextToHtml_(c.texte) : '');
+  opts.htmlBody = '<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#222">' +
+    mfeTextToHtml_(bodySansSignature) + '</div>' + sig;
   return opts;
 }
 
