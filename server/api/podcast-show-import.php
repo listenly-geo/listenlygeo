@@ -131,7 +131,23 @@ $base = slugify($title); $seo = $base; $i = 2;
 $chk = $pdo->prepare("SELECT COUNT(*) FROM `" . TABLE . "` WHERE `{$map['seo_url']}` = :s");
 while (true) { $chk->execute([':s' => $seo]); if (!$chk->fetchColumn()) break; $seo = $base . '-' . $i++; }
 
-$values = [
+// hash (md5 32 hex) et code (slug sans tirets) : UNIQUE NOT NULL, meme format que l'admin
+// (ex. hash 103b00e9..., code thegoaldiggerpodcast pour seo_url the-goal-digger-podcast).
+$extra = [];
+if (isset($cols['hash'])) {
+    $h = $pdo->prepare("SELECT COUNT(*) FROM `" . TABLE . "` WHERE `hash` = :h");
+    do { $hash = md5(random_bytes(16)); $h->execute([':h' => $hash]); } while ($h->fetchColumn());
+    $extra['hash'] = $hash;
+}
+if (isset($cols['code'])) {
+    $cbase = substr(str_replace('-', '', $base), 0, 140) ?: 'podcast';
+    $code = $cbase; $j = 2;
+    $cc = $pdo->prepare("SELECT COUNT(*) FROM `" . TABLE . "` WHERE `code` = :c");
+    while (true) { $cc->execute([':c' => $code]); if (!$cc->fetchColumn()) break; $code = $cbase . $j++; }
+    $extra['code'] = $code;
+}
+
+$values = $extra + [
     $map['title'] => $title,
     $map['seo_url'] => $seo,
     $map['rss_url'] => $rss,
