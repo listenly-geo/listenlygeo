@@ -57,18 +57,18 @@ var MFE_DEFAULTS = [
 // ---------- Messages (modifiables dans l'onglet Reglages, cles MFE_MSG_*) ----------
 // Style : court, a la premiere personne, une seule question, texte brut (pas de gras, pas d'emoji).
 // Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}
-var MFE_MSG_VERSION = '4';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
+var MFE_MSG_VERSION = '5';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
 var MFE_FIRST_MAIL = [
   'Hi {NAME},',
   '',
   "I'm Etienne, founder of Listenly, a search engine that turns podcast expertise into answers people find on Google and AI tools like ChatGPT.",
   '',
-  'We recently added {PODCAST}, and while indexing it I noticed your episodes hold a lot of expertise that could bring your company far more visibility.',
-  '',
-  "Here's the page I built for the show:",
+  'We recently added {PODCAST} to Listenly. Here is the page I built for the show:',
   '{URL}',
   '',
-  'Quick question: are you doing anything with each episode after it goes live to turn that expertise into organic visibility?',
+  'Each of your episodes answers around 15 questions your prospects are already typing into Google and ChatGPT.',
+  '',
+  'Quick question: are you turning those answers into visibility for your company today, or does that expertise stay locked in the audio?',
   '',
   'Best,',
   'Etienne'
