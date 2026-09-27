@@ -29,3 +29,11 @@ et n'envoyer que si `podcasts[slug].proof_url` est rempli.
 
 Aucune fiche question HTML n'est générée ; l'extraction réutilise `generate_episode_fiches_btb.py`
 (Whisper → `extract_real_qa` → `save_knowledge_moments` → import DB).
+
+## Onboarding automatique (remplace lien Listenly admin + YAML + run)
+1. Découverte → issue `candidate` (avec email).
+2. Tu valides : bouton **✅ Valider** du générateur, ou label `approved` sur l'issue.
+3. `marketforge-onboard.yml` : fiche Listenly créée en SQL (`server/api/podcast-show-import.php`, table `_c_p_shows`, sans doublon RSS/titre) → fiche N1 (`generate_podcast_btb.py`) → issue commentée + fermée.
+4. La fiche N1 entre seule dans la file d'extraction.
+
+Mise en service (une fois) : Actions → workflow → `deploy_api`, puis `describe` (vérifier le mapping des colonnes), puis `onboard` en `dry_run`.

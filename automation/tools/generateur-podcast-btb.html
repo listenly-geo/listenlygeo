@@ -70,6 +70,7 @@
     <div id="candidatePagination" style="display:flex;gap:8px;align-items:center;margin-top:6px;"></div>
     <p class="note" id="candidateReason" style="min-height:14px"></p>
     <div style="display:flex;gap:10px;align-items:center;margin-top:8px;">
+      <button type="button" class="btn-copy" style="white-space:nowrap;height:34px;background:#e3f6ea;color:#1a7a4c;" onclick="approveCurrentCandidate()">✅ Valider (onboarding auto : Listenly + N1)</button>
       <button type="button" class="btn-copy" style="white-space:nowrap;height:34px;background:#fde8e8;" onclick="rejectCurrentCandidate()">❌ Pas intéressant (ferme l'issue)</button>
       <a href="#" onclick="cachedGhToken=null;document.getElementById('rejectStatus').textContent='Token oublié — sera redemandé au prochain clic.';return false;" class="note" style="white-space:nowrap;">changer de token</a>
     </div>
@@ -563,6 +564,33 @@ window.addEventListener('DOMContentLoaded', loadDiscoveryCandidates);
 // chaque candidat rejete tout en respectant la meme contrainte "jamais stocke" que le reste
 // de l'outil (voir commentaire plus haut sur localStorage peu fiable en file://).
 var cachedGhToken = null;
+// MarketForge Engine (27/09/2026) : pose le label "approved" sur l'issue -> le workflow
+// marketforge-onboard.yml cree la fiche Listenly (SQL) + la fiche N1 et ferme l'issue.
+// Plus de lien Listenly admin, plus de YAML a copier, plus de run a lancer.
+function approveCurrentCandidate(){
+  var idx = document.getElementById('f_candidate').value;
+  var statusEl = document.getElementById('rejectStatus');
+  if(idx === ''){ statusEl.textContent = 'Choisis d\'abord un candidat dans la liste.'; return; }
+  var c = discoveryCandidates[idx];
+  if(!c || !c.issue_number){ statusEl.textContent = 'Candidat invalide (pas de numero d\'issue).'; return; }
+  if(!cachedGhToken){
+    cachedGhToken = window.prompt('Colle ton token GitHub (permission Issues: write) — demande une seule fois par session, jamais enregistre.');
+    if(!cachedGhToken){ statusEl.textContent = 'Validation annulee (token requis).'; return; }
+  }
+  statusEl.textContent = 'Validation de #' + c.issue_number + '...';
+  fetch('https://api.github.com/repos/listenly-geo/listenlygeo/issues/' + c.issue_number + '/labels', {
+    method: 'POST',
+    headers: {'Accept':'application/vnd.github+json','Authorization':'Bearer ' + cachedGhToken,'Content-Type':'application/json'},
+    body: JSON.stringify({labels: ['approved']})
+  }).then(function(r){
+    if(!r.ok){ if(r.status === 401 || r.status === 403){ cachedGhToken = null; } throw new Error('HTTP ' + r.status); }
+    discoveryCandidates.splice(idx, 1);
+    document.getElementById('candidateReason').textContent = '';
+    statusEl.innerHTML = '✓ "' + c.podcast_name.replace(/</g,'&lt;') + '" validé — onboarding automatique lancé (~3-5 min). <a href="https://github.com/listenly-geo/listenlygeo/actions/workflows/marketforge-onboard.yml" target="_blank" rel="noopener">Suivre le run →</a>';
+    renderCandidatePage();
+  }).catch(function(e){ statusEl.textContent = 'Erreur : ' + e.message; });
+}
+
 function rejectCurrentCandidate(){
   var idx = document.getElementById('f_candidate').value;
   var statusEl = document.getElementById('rejectStatus');
