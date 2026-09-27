@@ -58,21 +58,24 @@ var MFE_DEFAULTS = [
 // ---------- Messages (modifiables dans l'onglet Reglages, cles MFE_MSG_*) ----------
 // Style : court, a la premiere personne, une seule question, texte brut (pas de gras, pas d'emoji).
 // Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}
-var MFE_MSG_VERSION = '5';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
+var MFE_MSG_VERSION = '6';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
 var MFE_FIRST_MAIL = [
   'Hi {NAME},',
   '',
-  "I'm Etienne, founder of Listenly, a search engine that turns podcast expertise into answers people find on Google and AI tools like ChatGPT.",
+  'I\u2019m Etienne, founder of Marketforge, a content repurposing agency.',
   '',
-  'We recently added {PODCAST} to Listenly. Here is the page I built for the show:',
+  'I\u2019m reaching out because I referenced your podcast {PODCAST} on Listenly, our directory designed to help podcasts gain visibility across Google and AI search engines.',
+  '',
+  'Here is your profile to review:',
   '{URL}',
   '',
-  'Each of your episodes answers around 15 questions your prospects are already typing into Google and ChatGPT.',
+  'On average, a podcast episode contains 15+ answers your prospects are already searching for on Google and AI \u2014 content that can be turned into ongoing visibility without producing anything new or changing your current strategy.',
   '',
-  'Quick question: are you turning those answers into visibility for your company today, or does that expertise stay locked in the audio?',
+  'I\u2019d be curious to know: is your content flow already helping grow your company\u2019s visibility on Google and AI?',
   '',
   'Best,',
-  'Etienne'
+  'Etienne Cugnet',
+  'Founder, Listenly / Marketforge'
 ].join('\n');
 var MFE_MSG_DEFAULTS = [
   ['MFE_MSG_OBJET', 'Regarding {PODCAST} – Listenly AI directory',
@@ -359,7 +362,7 @@ function mfeName_(host, podcast) {
   var corporate = /\b(podcast|media|inc|llc|ltd|team|studio|studios|network|group|the|and|co|company|agency|productions?|radio|news|show|hq)\b|&|\d/i;
   var words = host.split(/\s+/);
   if (host && words.length >= 2 && words.length <= 3 && !corporate.test(host) &&
-      words.every(function (w) { return /^[A-ZÀ-Ý][a-zà-ÿ'’.-]+$/.test(w); })) return host;
+      words.every(function (w) { return /^[A-ZÀ-Ý][a-zà-ÿ'’.-]+$/.test(w); })) return words[0];  // prenom seul : "Hi Greg,"
   if (host && /\bteam\b/i.test(host)) return host;
   return (podcast || 'there') + ' team';
 }
@@ -373,7 +376,7 @@ function mfeShortName_(name) {
 }
 
 function mfeVars_(values) {
-  return { PODCAST: mfeShortName_(values[1]), URL: values[3], LISTENLY: values[12] || values[3],
+  return { PODCAST: mfeShortName_(values[1]), URL: values[3], LINK: values[3], LISTENLY: values[12] || values[3],
            NAME: mfeName_(values[13], mfeShortName_(values[1])), BOOKING: MFE.BOOKING, OPTOUT: mfeMsg_('MFE_MSG_OPTOUT') };
 }
 
