@@ -12,7 +12,7 @@ Chaîne : découverte (`discover-podcasts.yml`) → fiche N1 (générateur) → 
 | `questions_max_par_episode` | plafond Q/R extraites par épisode (6 par défaut, identique au moteur trafic) |
 | `entree_auto_depuis_date` | tout podcast de `podcasts.json` créé depuis cette date entre dans la file |
 | `ajouter_manuellement` / `exclure` | forcer / bannir des slugs |
-| `proof_url_template` | lien preuve envoyé dans le mail (`{slug}`, `{podcast_name}`, `{podcast_name_url}`) |
+| `proof_url_template` | lien preuve envoyé dans le mail (`{fiche_url}` = fiche N1 du podcast, par défaut ; aussi `{slug}`, `{podcast_name}`, `{podcast_name_url}`) |
 
 ## État : `queue.json`
 Par podcast : `status` (`en_attente` → `en_cours` → `extrait`), `episodes_done`, `moments_count`, `proof_url`.
