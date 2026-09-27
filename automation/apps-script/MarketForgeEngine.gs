@@ -97,6 +97,15 @@ var MFE_MSG_DEFAULTS = [
   ].join('\n'), 'MarketForge Engine — relance (J+MFE_RELANCE_JOURS), dans le meme fil.'],
   ['MFE_MSG_SIGNATURE', '',
    'MarketForge Engine — lignes ajoutees automatiquement a la fin du 1er mail ET de la relance (ex. lien LinkedIn). Vide = rien. Gmail n\'ajoute PAS la signature Workspace aux mails envoyes par script.'],
+  ['MFE_SIG_HTML', 'FALSE', 'Signature riche (photo + liens) en bas des mails. TRUE = activee. Garder FALSE si la delivrabilite baisse.'],
+  ['MFE_SIG_PHOTO', '', 'Signature riche — URL publique de ta photo (carree, ~200x200). Vide = pas de photo.'],
+  ['MFE_SIG_NOM', 'Etienne Cugnet', 'Signature riche — nom.'],
+  ['MFE_SIG_TITRE', 'Founder, Listenly & Marketforge', 'Signature riche — titre / entreprise.'],
+  ['MFE_SIG_ACCROCHE', 'Turning B2B podcasts into Google & AI visibility', 'Signature riche — une ligne "qui je suis". Vide = rien.'],
+  ['MFE_SIG_EMAIL', 'etienne.cugnet@marketforge.fr', 'Signature riche — email affiche.'],
+  ['MFE_SIG_SITE', 'listenly.fr', 'Signature riche — site (sans https). Vide = rien.'],
+  ['MFE_SIG_LINKEDIN', '', 'Signature riche — URL complete du profil LinkedIn. Vide = rien.'],
+  ['MFE_SIG_TEL', '', 'Signature riche — telephone. Vide = rien.'],
   ['MFE_MSG_OPTOUT', "If this isn't relevant, just let me know and I won't reach out again.",
    'MarketForge Engine — phrase inseree a la place de {OPTOUT} (si utilisee dans un texte).'],
 ];
@@ -227,7 +236,8 @@ function mfeSendTest_(sh, to) {
     var kind = Number(r.values[4]) > 0 ? 'reponses' : 'fiche';
     if (done[kind] || r.values[6] !== 'Pret') return;
     var d = mfeDraft_(r.values);
-    GmailApp.sendEmail(to, '[TEST] ' + d[0], '(Mail qui partirait a : ' + r.values[2] + ')\n\n' + d[1], mfeFromOpts_());
+    var tb = '(Mail qui partirait a : ' + r.values[2] + ')\n\n' + d[1];
+    GmailApp.sendEmail(to, '[TEST] ' + d[0], mfeWithSignature_(tb), mfeSendOpts_(tb));
     done[kind] = true; n++;
   });
   props.setProperty('MFE_TEST_DONE', to);
@@ -335,7 +345,8 @@ function mfeFollowUp_(sh, days) {
     if (r.values[6] !== 'Envoye' || !r.values[7] || new Date(r.values[7]).getTime() > limit || !r.values[10]) return;
     var thread = GmailApp.getThreadById(r.values[10]);
     if (!thread) return;
-    thread.replyAll(mfeWithSignature_(mfeFill_(mfeMsg_('MFE_MSG_RELANCE'), mfeVars_(r.values))), mfeFromOpts_());
+    var rel = mfeFill_(mfeMsg_('MFE_MSG_RELANCE'), mfeVars_(r.values));
+    thread.replyAll(mfeWithSignature_(rel), mfeSendOpts_(rel));
     sh.getRange(r.row, 7).setValue('Relance');
     sh.getRange(r.row, 9).setValue(new Date());
     n++;
@@ -345,8 +356,7 @@ function mfeFollowUp_(sh, days) {
 
 // ---------- Utilitaires ----------
 function mfeMail_(to, subject, body) {
-  var opts = mfeFromOpts_();
-  GmailApp.sendEmail(to, subject, body, opts);
+  GmailApp.sendEmail(to, subject, mfeWithSignature_(body), mfeSendOpts_(body));
   Utilities.sleep(1500);
   var threads = GmailApp.search('to:' + to + ' subject:"' + subject.replace(/"/g, '') + '" in:sent', 0, 1);
   return threads.length ? threads[0].getId() : '';
@@ -387,16 +397,68 @@ function mfeFill_(tpl, v) {
     .replace(/\n{3,}/g, '\n\n').trim();
 }
 
-// Signature (onglet Reglages, MFE_MSG_SIGNATURE) ajoutee en bas du mail, texte brut (meilleure delivrabilite)
+// ---------- Signature ----------
+// Gmail n'ajoute PAS la signature Workspace aux mails envoyes par script : elle est geree ici.
+function mfeSigCfg_() {
+  var r = mfeReadSettings_();
+  var g = function (k) { return String(r[k] == null ? '' : r[k]).trim(); };
+  return { html: g('MFE_SIG_HTML').toUpperCase() === 'TRUE', photo: g('MFE_SIG_PHOTO'), nom: g('MFE_SIG_NOM'),
+           titre: g('MFE_SIG_TITRE'), accroche: g('MFE_SIG_ACCROCHE'), email: g('MFE_SIG_EMAIL'),
+           site: g('MFE_SIG_SITE'), linkedin: g('MFE_SIG_LINKEDIN'), tel: g('MFE_SIG_TEL'), texte: g('MFE_MSG_SIGNATURE') };
+}
+
+// Version texte (toujours envoyee : c'est ce que lisent les filtres anti-spam et certains clients mail)
 function mfeWithSignature_(body) {
-  var sig = String(mfeReadSettings_().MFE_MSG_SIGNATURE || '').trim();
-  return sig ? body + '\n' + sig : body;
+  var c = mfeSigCfg_(), lines = [];
+  if (c.texte) lines.push(c.texte);
+  else if (c.html) {
+    lines.push('--', c.nom + (c.titre ? ' | ' + c.titre : ''));
+    if (c.accroche) lines.push(c.accroche);
+    lines.push([c.email, c.site, c.tel].filter(String).join(' | '));
+    if (c.linkedin) lines.push(c.linkedin);
+  }
+  return lines.length ? body + '\n\n' + lines.join('\n') : body;
+}
+
+function mfeEsc_(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+function mfeTextToHtml_(body) {
+  return mfeEsc_(body).replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" style="color:#1a56db">$1</a>').replace(/\n/g, '<br>');
+}
+
+function mfeSignatureHtml_() {
+  var c = mfeSigCfg_();
+  var link = function (href, label) { return '<a href="' + mfeEsc_(href) + '" style="color:#1a56db;text-decoration:none">' + mfeEsc_(label) + '</a>'; };
+  var contact = [];
+  if (c.email) contact.push(link('mailto:' + c.email, c.email));
+  if (c.site) contact.push(link('https://' + c.site.replace(/^https?:\/\//, ''), c.site.replace(/^https?:\/\//, '')));
+  if (c.tel) contact.push(mfeEsc_(c.tel));
+  var photo = c.photo ? '<td style="padding-right:14px;vertical-align:top"><img src="' + mfeEsc_(c.photo) +
+      '" width="64" height="64" alt="' + mfeEsc_(c.nom) + '" style="border-radius:50%;display:block;width:64px;height:64px"></td>' : '';
+  return '<table cellpadding="0" cellspacing="0" style="margin-top:18px;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.45;color:#333">' +
+    '<tr>' + photo + '<td style="vertical-align:top;border-left:2px solid #1a56db;padding-left:12px">' +
+    '<div style="font-weight:bold;font-size:14px;color:#111">' + mfeEsc_(c.nom) + '</div>' +
+    (c.titre ? '<div style="color:#555">' + mfeEsc_(c.titre) + '</div>' : '') +
+    (c.accroche ? '<div style="color:#777;font-size:12px;margin-top:2px">' + mfeEsc_(c.accroche) + '</div>' : '') +
+    (contact.length ? '<div style="margin-top:6px">' + contact.join(' &nbsp;·&nbsp; ') + '</div>' : '') +
+    (c.linkedin ? '<div style="margin-top:2px">' + link(c.linkedin, 'LinkedIn') + '</div>' : '') +
+    '</td></tr></table>';
+}
+
+// Options d'envoi : expediteur + version HTML avec signature riche si MFE_SIG_HTML = TRUE
+function mfeSendOpts_(bodySansSignature) {
+  var opts = mfeFromOpts_();
+  if (mfeSigCfg_().html) {
+    opts.htmlBody = '<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#222">' +
+      mfeTextToHtml_(bodySansSignature) + '</div>' + mfeSignatureHtml_();
+  }
+  return opts;
 }
 
 function mfeDraft_(values) {  // [objet, corps] du 1er mail
   var v = mfeVars_(values);
   var body = Number(values[4]) > 0 ? mfeMsg_('MFE_MSG_REPONSES') : mfeMsg_('MFE_MSG_FICHE');
-  return [mfeFill_(mfeMsg_('MFE_MSG_OBJET'), v), mfeWithSignature_(mfeFill_(body, v))];
+  return [mfeFill_(mfeMsg_('MFE_MSG_OBJET'), v), mfeFill_(body, v)];
 }
 
 function mfeRows_(sh) {
@@ -628,9 +690,12 @@ function mfeMenuTest() {
   var exemple = rows.length ? rows[0].values : ['', 'Test Podcast', '', 'https://listenly.fr/podcast-btb/a16z-crypto-show-podcast.html', 0];
   mfeEnsureSettings_();
   var v = mfeVars_(exemple), objet = mfeFill_(mfeMsg_('MFE_MSG_OBJET'), v);
-  GmailApp.sendEmail(moi, '[TEST 1/3 - premier mail] ' + objet, mfeWithSignature_(mfeFill_(mfeMsg_('MFE_MSG_FICHE'), v)), mfeFromOpts_());
-  GmailApp.sendEmail(moi, '[TEST 2/3 - avec reponses] ' + objet, mfeWithSignature_(mfeFill_(mfeMsg_('MFE_MSG_REPONSES'), v)), mfeFromOpts_());
-  GmailApp.sendEmail(moi, '[TEST 3/3 - relance] Re: ' + objet, mfeWithSignature_(mfeFill_(mfeMsg_('MFE_MSG_RELANCE'), v)), mfeFromOpts_());
+  var t_MFE_MSG_FICHE = mfeFill_(mfeMsg_('MFE_MSG_FICHE'), v);
+  GmailApp.sendEmail(moi, '[TEST 1/3 - premier mail] ' + objet, mfeWithSignature_(t_MFE_MSG_FICHE), mfeSendOpts_(t_MFE_MSG_FICHE));
+  var t_MFE_MSG_REPONSES = mfeFill_(mfeMsg_('MFE_MSG_REPONSES'), v);
+  GmailApp.sendEmail(moi, '[TEST 2/3 - avec reponses] ' + objet, mfeWithSignature_(t_MFE_MSG_REPONSES), mfeSendOpts_(t_MFE_MSG_REPONSES));
+  var t_MFE_MSG_RELANCE = mfeFill_(mfeMsg_('MFE_MSG_RELANCE'), v);
+  GmailApp.sendEmail(moi, '[TEST 3/3 - relance] Re: ' + objet, mfeWithSignature_(t_MFE_MSG_RELANCE), mfeSendOpts_(t_MFE_MSG_RELANCE));
   mfeAlert_('3 mails test envoyes a ' + moi + '. Textes modifiables dans Reglages (lignes MFE_MSG_*). Expediteur : ' + (mfeFromOpts_().from || moi));
 }
 
