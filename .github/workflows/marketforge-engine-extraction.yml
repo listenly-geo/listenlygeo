@@ -1,0 +1,76 @@
+name: MarketForge Engine — Extraction quotidienne (file d'attente)
+
+# Extraction pure (pas de fiche question) : Whisper -> vraies Q/R -> hub knowledge.
+# Debit pilote par automation/marketforge_engine/config.json.
+
+on:
+  workflow_dispatch:
+    inputs:
+      episodes_par_jour:
+        description: 'Surcharge ponctuelle du debit (vide = valeur de config.json)'
+        required: false
+        default: ''
+      dry_run:
+        description: 'true = planifie seulement, aucune extraction ni commit'
+        required: false
+        default: 'false'
+  schedule:
+    - cron: '17 5 * * *'   # tous les jours ~7h17 (Paris)
+
+permissions:
+  contents: write
+
+concurrency:
+  group: marketforge-engine-extraction
+  cancel-in-progress: false
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installer ffmpeg
+        run: |
+          if command -v ffmpeg >/dev/null 2>&1; then
+            echo "ffmpeg deja present"
+          else
+            export DEBIAN_FRONTEND=noninteractive
+            for i in 1 2 3 4 5; do
+              sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg && break
+              sleep 10
+            done
+          fi
+
+      - name: Extraire selon la file et le budget du jour
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          KNOWLEDGE_IMPORT_SECRET: ${{ secrets.KNOWLEDGE_IMPORT_SECRET }}
+          EPISODES_PAR_JOUR: ${{ github.event.inputs.episodes_par_jour }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+        run: python automation/scripts/marketforge_extract_queue.py
+
+      - name: Commit file d'attente + knowledge moments
+        if: always() && github.event.inputs.dry_run != 'true'
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git add automation/marketforge_engine/ pages/podcast-btb/data/knowledge_moments/
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Auto: MarketForge Engine — extraction du jour"
+            for i in 1 2 3 4 5; do
+              git fetch origin main
+              git rebase origin/main && git push && break
+              git rebase --abort 2>/dev/null || true
+              sleep $((RANDOM % 15 + 5))
+            done
+          fi
