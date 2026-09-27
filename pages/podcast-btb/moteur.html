@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>MarketForge Engine</title>
+<style>
+:root {
+  --bg:#f5f5f7; --card:#ffffff; --ink:#1d1d1f; --ink2:#6e6e73; --ink3:#86868b;
+  --line:#e5e5ea; --accent:#0071e3; --accent-soft:#e8f1fc; --track:#f0f0f3;
+  --ok:#1f7a3a; --ok-soft:#e6f4ea; --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#000; --card:#1c1c1e; --ink:#f5f5f7; --ink2:#a1a1a6; --ink3:#8e8e93;
+    --line:#2c2c2e; --accent:#2997ff; --accent-soft:#0a2a4a; --track:#2c2c2e;
+    --ok:#30d158; --ok-soft:#0f2e19; --shadow:none; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink);
+  font:15px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Helvetica Neue",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased; }
+.wrap { max-width:1080px; margin:0 auto; padding:56px 24px 80px; }
+header { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:36px; }
+.eyebrow { color:var(--ink3); font-size:13px; font-weight:600; letter-spacing:.02em; margin:0 0 6px; }
+h1 { font-size:44px; line-height:1.05; letter-spacing:-.025em; margin:0; font-weight:700; }
+.sub { color:var(--ink2); margin:10px 0 0; font-size:17px; }
+.state { display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; padding:7px 14px;
+  border-radius:999px; background:var(--card); box-shadow:var(--shadow); border:1px solid var(--line); }
+.state i { width:8px; height:8px; border-radius:50%; background:var(--ink3); }
+.state.on i { background:#34c759; box-shadow:0 0 0 4px rgba(52,199,89,.18); }
+h2 { font-size:22px; letter-spacing:-.015em; margin:48px 0 16px; font-weight:650; }
+.grid { display:grid; gap:16px; grid-template-columns:repeat(4,1fr); }
+.card { background:var(--card); border-radius:20px; padding:22px 24px; box-shadow:var(--shadow); border:1px solid var(--line); }
+.kpi .label { color:var(--ink2); font-size:13px; font-weight:500; }
+.kpi .value { font-size:40px; font-weight:700; letter-spacing:-.03em; margin-top:6px; font-variant-numeric:tabular-nums; }
+.kpi .hint { color:var(--ink3); font-size:13px; margin-top:2px; }
+.two { display:grid; gap:16px; grid-template-columns:1.6fr 1fr; }
+.chart-head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:18px; }
+.chart-head b { font-size:15px; } .chart-head span { color:var(--ink3); font-size:13px; }
+.bars { display:flex; gap:6px; height:180px; align-items:stretch; }
+.bar-col { flex:1; display:flex; flex-direction:column; position:relative; outline:none; cursor:default; }
+.bar-track { flex:1; display:flex; align-items:flex-end; border-bottom:1px solid var(--line); }
+.bar { width:100%; background:var(--accent); opacity:.35; border-radius:4px 4px 0 0; transition:opacity .15s; }
+.bar.today { opacity:1; }
+.bar-col:hover .bar, .bar-col:focus .bar { opacity:1; }
+.bar-x { text-align:center; font-size:11px; color:var(--ink3); margin-top:6px; font-variant-numeric:tabular-nums; }
+.tip { position:absolute; bottom:calc(100% - 8px); left:50%; transform:translateX(-50%); white-space:nowrap;
+  background:var(--ink); color:var(--bg); font-size:12px; padding:5px 9px; border-radius:8px; opacity:0;
+  pointer-events:none; transition:opacity .12s; z-index:2; }
+.bar-col:hover .tip, .bar-col:focus .tip { opacity:1; }
+.stack > div { display:flex; justify-content:space-between; padding:13px 0; border-bottom:1px solid var(--line); }
+.stack > div:last-child { border-bottom:0; }
+.stack span { color:var(--ink2); } .stack b { font-variant-numeric:tabular-nums; }
+.progress { height:8px; background:var(--track); border-radius:99px; overflow:hidden; margin:14px 0 6px; }
+.progress > div { height:100%; background:var(--accent); border-radius:99px; }
+.muted { color:var(--ink3); }
+ul.rank { list-style:none; margin:0; padding:0; }
+ul.rank li { display:flex; justify-content:space-between; gap:12px; padding:11px 0; border-bottom:1px solid var(--line); }
+ul.rank li:last-child { border-bottom:0; }
+ul.rank a { color:var(--ink); text-decoration:none; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+ul.rank a:hover { color:var(--accent); }
+.num { font-variant-numeric:tabular-nums; font-weight:600; white-space:nowrap; } .num small { color:var(--ink3); font-weight:400; }
+.list { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+.item { display:flex; align-items:center; gap:14px; padding:12px 14px; background:var(--card); border-radius:16px;
+  border:1px solid var(--line); text-decoration:none; color:var(--ink); transition:transform .15s, box-shadow .15s; min-width:0; }
+.item:hover { transform:translateY(-1px); box-shadow:var(--shadow); }
+.item img, .item .ph { width:48px; height:48px; border-radius:10px; object-fit:cover; flex:none; background:var(--track); }
+.meta { flex:1; min-width:0; }
+.meta .t { font-weight:600; font-size:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.meta .s { color:var(--ink3); font-size:12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.pill { font-size:11px; font-weight:600; padding:4px 9px; border-radius:99px; background:var(--track); color:var(--ink2); white-space:nowrap; }
+.pill.ok { background:var(--ok-soft); color:var(--ok); }
+footer { margin-top:56px; color:var(--ink3); font-size:12px; text-align:center; }
+footer a { color:var(--ink2); }
+@media (max-width:860px) {
+  .grid { grid-template-columns:repeat(2,1fr); } .two, .list { grid-template-columns:1fr; }
+  h1 { font-size:34px; } .wrap { padding:32px 16px 60px; } .kpi .value { font-size:32px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <p class="eyebrow">MarketForge Engine · Listenly</p>
+      <h1>Tableau de bord</h1>
+      <p class="sub">Fiches hub, prospects et visibilité Google — mis à jour le 27 sept. à 21:01.</p>
+    </div>
+    <span class="state on"><i></i>En marche</span>
+  </header>
+
+  <div class="grid">
+    <div class="card kpi"><div class="label">Fiches hub</div><div class="value">217</div><div class="hint">au total</div></div>
+    <div class="card kpi"><div class="label">Créées aujourd'hui</div><div class="value">43</div><div class="hint">27 sept.</div></div>
+    <div class="card kpi"><div class="label">Rythme</div><div class="value">7</div><div class="hint">fiches / jour (7 derniers jours)</div></div>
+    <div class="card kpi"><div class="label">Prospects avec email</div><div class="value">51</div><div class="hint">+51 aujourd'hui</div></div>
+  </div>
+
+  <h2>Production</h2>
+  <div class="two">
+    <div class="card">
+      <div class="chart-head"><b>Fiches hub créées par jour</b><span>14 derniers jours</span></div>
+      <div class="bars" role="img" aria-label="Fiches hub créées par jour sur 14 jours"><div class="bar-col" tabindex="0" aria-label="lun. 14 sept. : 0 fiche"><div class="tip">lun. 14 sept. : 0 fiche</div><div class="bar-track"><div class="bar" style="height:0%"></div></div><div class="bar-x">14</div></div><div class="bar-col" tabindex="0" aria-label="mar. 15 sept. : 0 fiche"><div class="tip">mar. 15 sept. : 0 fiche</div><div class="bar-track"><div class="bar" style="height:0%"></div></div><div class="bar-x">15</div></div><div class="bar-col" tabindex="0" aria-label="mer. 16 sept. : 3 fiches"><div class="tip">mer. 16 sept. : 3 fiches</div><div class="bar-track"><div class="bar" style="height:7%"></div></div><div class="bar-x">16</div></div><div class="bar-col" tabindex="0" aria-label="jeu. 17 sept. : 3 fiches"><div class="tip">jeu. 17 sept. : 3 fiches</div><div class="bar-track"><div class="bar" style="height:7%"></div></div><div class="bar-x">17</div></div><div class="bar-col" tabindex="0" aria-label="ven. 18 sept. : 2 fiches"><div class="tip">ven. 18 sept. : 2 fiches</div><div class="bar-track"><div class="bar" style="height:5%"></div></div><div class="bar-x">18</div></div><div class="bar-col" tabindex="0" aria-label="sam. 19 sept. : 2 fiches"><div class="tip">sam. 19 sept. : 2 fiches</div><div class="bar-track"><div class="bar" style="height:5%"></div></div><div class="bar-x">19</div></div><div class="bar-col" tabindex="0" aria-label="dim. 20 sept. : 4 fiches"><div class="tip">dim. 20 sept. : 4 fiches</div><div class="bar-track"><div class="bar" style="height:9%"></div></div><div class="bar-x">20</div></div><div class="bar-col" tabindex="0" aria-label="lun. 21 sept. : 3 fiches"><div class="tip">lun. 21 sept. : 3 fiches</div><div class="bar-track"><div class="bar" style="height:7%"></div></div><div class="bar-x">21</div></div><div class="bar-col" tabindex="0" aria-label="mar. 22 sept. : 3 fiches"><div class="tip">mar. 22 sept. : 3 fiches</div><div class="bar-track"><div class="bar" style="height:7%"></div></div><div class="bar-x">22</div></div><div class="bar-col" tabindex="0" aria-label="mer. 23 sept. : 1 fiche"><div class="tip">mer. 23 sept. : 1 fiche</div><div class="bar-track"><div class="bar" style="height:2%"></div></div><div class="bar-x">23</div></div><div class="bar-col" tabindex="0" aria-label="jeu. 24 sept. : 0 fiche"><div class="tip">jeu. 24 sept. : 0 fiche</div><div class="bar-track"><div class="bar" style="height:0%"></div></div><div class="bar-x">24</div></div><div class="bar-col" tabindex="0" aria-label="ven. 25 sept. : 2 fiches"><div class="tip">ven. 25 sept. : 2 fiches</div><div class="bar-track"><div class="bar" style="height:5%"></div></div><div class="bar-x">25</div></div><div class="bar-col" tabindex="0" aria-label="sam. 26 sept. : 0 fiche"><div class="tip">sam. 26 sept. : 0 fiche</div><div class="bar-track"><div class="bar" style="height:0%"></div></div><div class="bar-x">26</div></div><div class="bar-col" tabindex="0" aria-label="dim. 27 sept. : 43 fiches"><div class="tip">dim. 27 sept. : 43 fiches</div><div class="bar-track"><div class="bar today" style="height:100%"></div></div><div class="bar-x">27</div></div></div>
+    </div>
+    <div class="card stack">
+      <div><span>Podcasts suivis par le moteur</span><b>73</b></div>
+      <div><span>Email trouvé</span><b>51</b></div>
+      <div><span>Sans email</span><b>21</b></div>
+      <div><span>Taux d'email trouvé</span><b>70 %</b></div>
+      <div><span>Découverte par passage</span><b>15 max</b></div>
+    </div>
+  </div>
+
+  <h2>Regroupement dans les hubs</h2>
+  <div class="two">
+    <div class="card">
+      <div class="chart-head"><b>Anciennes fiches question regroupées</b><span>Phase 1</span></div>
+      <div class="kpi"><div class="value">0 <span class="muted" style="font-size:20px;font-weight:500">/ 2 735</span></div></div>
+      <div class="progress"><div style="width:0%"></div></div>
+      <div class="muted" style="font-size:13px">0 % redirigées vers le hub de leur podcast · 2 735 encore en ligne</div>
+    </div>
+    <div class="card stack">
+      <div><span>Vérifiées dans Search Console</span><b>0</b></div>
+      <div><span>Indexées par Google</span><b>0</b></div>
+      <div><span>Gardées (ont des impressions)</span><b>0</b></div>
+    </div>
+  </div>
+
+  <h2>Visibilité Google des hubs</h2>
+  <div class="two">
+    <div class="card">
+      <div class="chart-head"><b>Hubs les plus vus</b><span>36 impressions · période Search Console</span></div>
+      <ul class="rank"><li><a href="https://listenly.fr/podcast-btb/the-daily-podcast-podcast.html" target="_blank" rel="noopener">The Daily</a><span class="num">10 <small>impr.</small></span></li><li><a href="https://listenly.fr/podcast-btb/this-american-life-podcast.html" target="_blank" rel="noopener">This American Life</a><span class="num">7 <small>impr.</small></span></li><li><a href="https://listenly.fr/podcast-btb/up-first-from-npr-podcast.html" target="_blank" rel="noopener">Up First from NPR</a><span class="num">4 <small>impr.</small></span></li><li><a href="https://listenly.fr/podcast-btb/how-i-built-this-with-guy-raz-podcast.html" target="_blank" rel="noopener">How I Built This with Guy Raz</a><span class="num">4 <small>impr.</small></span></li><li><a href="https://listenly.fr/podcast-btb/how-i-invest-with-david-weisburd-podcast.html" target="_blank" rel="noopener">How I Invest with David Weisburd</a><span class="num">2 <small>impr.</small></span></li><li><a href="https://listenly.fr/podcast-btb/executive-wins-podcast-podcast.html" target="_blank" rel="noopener">Executive Wins Podcast</a><span class="num">2 <small>impr.</small></span></li></ul>
+    </div>
+    <div class="card stack">
+      <div><span>Hubs visibles dans Google</span><b>13</b></div>
+      <div><span>Impressions des hubs</span><b>36</b></div>
+      <div><span>Clics des hubs</span><b>0</b></div>
+    </div>
+  </div>
+
+  <h2>Dernières fiches hub</h2>
+  <div class="list"><a class="item" href="https://listenly.fr/podcast-btb/the-construction-leadership-podcast-exec-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/e3/b4/88/e3b48854-67f7-5c88-62bf-a1d7c8d1290f/mza_12359237618106747477.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">The Construction Leadership Podcast: Executive Strategies to Build Elite Teams &amp; Consistently Deliver On-Time, Under Budget</div><div class="s">Business &amp; Entrepreneuriat · 27 sept.</div></div><span class="pill ok">Email trouvé</span></a><a class="item" href="https://listenly.fr/podcast-btb/semiconductor-engineering-daily-a-workfo-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/b0/92/26/b0922656-0551-8bcc-006f-a8d0e48f6a03/mza_3051812637289315999.png/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">Semiconductor Engineering Daily: A Workforce Development B2B Podcast</div><div class="s">Cybersécurité · 27 sept.</div></div><span class="pill">Sans email</span></a><a class="item" href="https://listenly.fr/podcast-btb/freight-agent-insider-podcast-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/25/3b/2f/253b2f36-2ba5-2cdf-3b14-9eb051214108/mza_13854250261250166200.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">Freight Agent Insider Podcast</div><div class="s">Business &amp; Entrepreneuriat · 27 sept.</div></div><span class="pill ok">Email trouvé</span></a><a class="item" href="https://listenly.fr/podcast-btb/clean-energy-pod-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/ba/43/ab/ba43ab3b-6b0c-d348-9f5d-fa5b8a2e0d0c/mza_8477696732094222515.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">Clean Energy Pod</div><div class="s">RSE &amp; Impact · 27 sept.</div></div><span class="pill ok">Email trouvé</span></a><a class="item" href="https://listenly.fr/podcast-btb/automotive-engineering-daily-a-workforce-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/20/db/44/20db4423-0067-5e06-df9a-f255fac3e4e1/mza_366525521644197393.png/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">Automotive Engineering Daily: Workforce Development B2B Podcast</div><div class="s">RH &amp; Management · 27 sept.</div></div><span class="pill">Sans email</span></a><a class="item" href="https://listenly.fr/podcast-btb/industrial-edge-the-factory-automation-p-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/09/3e/a1/093ea1d9-0f3a-ceec-c50a-5f98c9a74cbb/mza_4230680935720893350.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">Industrial Edge: The Factory Automation Podcast</div><div class="s">Business &amp; Entrepreneuriat · 27 sept.</div></div><span class="pill">Sans email</span></a><a class="item" href="https://listenly.fr/podcast-btb/connecting-industry-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/b6/89/22/b68922b6-3ea7-c195-5946-487b86b55e83/mza_4398086534261823638.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">Connecting Industry</div><div class="s">Business &amp; Entrepreneuriat · 27 sept.</div></div><span class="pill">Sans email</span></a><a class="item" href="https://listenly.fr/podcast-btb/commercial-real-estate-101-podcast-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts124/v4/bb/ab/1d/bbab1d8c-e115-ff51-7707-4cfa43e72eb7/mza_11255622178140290013.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">Commercial Real Estate 101 Podcast</div><div class="s">Immobilier · 27 sept.</div></div><span class="pill ok">Email trouvé</span></a><a class="item" href="https://listenly.fr/podcast-btb/the-business-development-podcast-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/ca/8e/7c/ca8e7cfd-76a8-3007-9b2e-4616313c35f1/mza_6206875475175354202.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">The Business Development Podcast</div><div class="s">Business &amp; Entrepreneuriat · 27 sept.</div></div><span class="pill">Sans email</span></a><a class="item" href="https://listenly.fr/podcast-btb/ignited-striking-industrial-automation-c-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/5d/43/ec/5d43ecf5-b449-0885-5f32-8cabf997f665/mza_10706651241601991448.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">Ignited: Striking Industrial Automation Conversations</div><div class="s">Cybersécurité · 27 sept.</div></div><span class="pill">Sans email</span></a><a class="item" href="https://listenly.fr/podcast-btb/how-to-cut-it-in-the-hairdressing-indust-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/5b/ea/be/5beabe41-9bad-eb24-b5cd-8f0ef6d9a387/mza_9003790280725016315.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">How To Cut It in the Hairdressing Industry</div><div class="s">Business &amp; Entrepreneuriat · 27 sept.</div></div><span class="pill ok">Email trouvé</span></a><a class="item" href="https://listenly.fr/podcast-btb/l-i-n-k-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/e8/d6/bb/e8d6bb8e-3ea4-5f60-dc28-83e3a0f0268f/mza_2503133313414285183.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">L.I.N.K.</div><div class="s">Business &amp; Entrepreneuriat · 27 sept.</div></div><span class="pill ok">Email trouvé</span></a><a class="item" href="https://listenly.fr/podcast-btb/manufacturing-leadership-an-oil-and-gas-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts123/v4/81/04/1b/81041bdc-c350-2d5a-f9cc-d345890f7f50/mza_8701636443905818096.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">Manufacturing Leadership: An Oil and Gas Podcast</div><div class="s">Business &amp; Entrepreneuriat · 27 sept.</div></div><span class="pill ok">Email trouvé</span></a><a class="item" href="https://listenly.fr/podcast-btb/sweat-capital-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/b3/53/a0/b353a0a0-827c-3f1f-d3aa-f01f5c530103/mza_841690798601352339.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">Sweat Capital</div><div class="s">Business &amp; Entrepreneuriat · 27 sept.</div></div><span class="pill ok">Email trouvé</span></a><a class="item" href="https://listenly.fr/podcast-btb/the-preconstruction-podcast-commercial-c-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts125/v4/84/5f/28/845f282c-7a9c-fa4f-64ad-9444efdc28da/mza_2659288900105561716.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">The Preconstruction Podcast - Commercial Construction</div><div class="s">Business &amp; Entrepreneuriat · 27 sept.</div></div><span class="pill ok">Email trouvé</span></a><a class="item" href="https://listenly.fr/podcast-btb/mornings-with-joel-commercial-real-estat-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/6f/10/ce/6f10ce93-4098-d2d9-4b86-3557dc2c8b2b/mza_4470467652579035286.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">Mornings with Joel: Commercial Real Estate Podcast</div><div class="s">Immobilier · 27 sept.</div></div><span class="pill">Sans email</span></a><a class="item" href="https://listenly.fr/podcast-btb/real-estate-marketing-implementation-pod-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/09/5d/0e/095d0e81-4d5d-5d43-9c56-8f56c4a52127/mza_8427527762251895566.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">Real Estate Marketing Implementation Podcast (The REmarketing Podcast)</div><div class="s">Immobilier · 27 sept.</div></div><span class="pill">Sans email</span></a><a class="item" href="https://listenly.fr/podcast-btb/the-fence-industry-podcast-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/1c/68/aa/1c68aa08-325d-9875-9768-3c3d365d186b/mza_5357037613829305043.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">The Fence Industry Podcast</div><div class="s">Business &amp; Entrepreneuriat · 27 sept.</div></div><span class="pill ok">Email trouvé</span></a><a class="item" href="https://listenly.fr/podcast-btb/forward-thinking-the-freight-logistics-s-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/c5/95/2b/c5952bc3-bb32-3d34-0e68-a8dc1032a4b1/mza_14785193587713468787.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">Forward Thinking - The Freight, Logistics &amp; Supply Chain Podcast</div><div class="s">Business &amp; Entrepreneuriat · 27 sept.</div></div><span class="pill ok">Email trouvé</span></a><a class="item" href="https://listenly.fr/podcast-btb/executive-edge-podcast-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/b6/61/27/b661271b-2de0-c15e-c31f-0ed49c8685b7/mza_8654412428750676423.png/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">Executive Edge Podcast</div><div class="s">Business &amp; Entrepreneuriat · 27 sept.</div></div><span class="pill">Sans email</span></a><a class="item" href="https://listenly.fr/podcast-btb/smartermarkets-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/2f/65/00/2f6500f1-19fb-dd7e-b9e4-1d1fe5a8a1ea/mza_16123449496076147934.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">SmarterMarkets™</div><div class="s">Finance &amp; Patrimoine · 27 sept.</div></div><span class="pill">Sans email</span></a><a class="item" href="https://listenly.fr/podcast-btb/find-your-freedom-the-best-entrepreneurs-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts123/v4/77/81/a1/7781a115-4d20-f931-d08b-b8ec8a1f4cdb/mza_16666210610058064450.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">Find your Freedom - The Best Entrepreneurship Podcast</div><div class="s">Business &amp; Entrepreneuriat · 27 sept.</div></div><span class="pill ok">Email trouvé</span></a><a class="item" href="https://listenly.fr/podcast-btb/munro-live-podcast-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/26/46/db/2646db66-761a-bf62-d905-5764cd5d9f1c/mza_17642034881198736324.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">Munro Live Podcast</div><div class="s">Cybersécurité · 27 sept.</div></div><span class="pill ok">Email trouvé</span></a><a class="item" href="https://listenly.fr/podcast-btb/famous-nobodies-podcast-podcast.html" target="_blank" rel="noopener"><img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/50/e6/ca/50e6cac7-64f6-f94e-0bf5-0248ecf10006/mza_3807284430126967567.jpg/600x600bb.jpg" alt="" loading="lazy"><div class="meta"><div class="t">Famous Nobodies Podcast</div><div class="s">Business &amp; Entrepreneuriat · 27 sept.</div></div><span class="pill ok">Email trouvé</span></a></div>
+
+  <footer>Généré automatiquement à chaque passage du moteur · <a href="index.html">Annuaire des podcasts</a></footer>
+</div>
+</body>
+</html>

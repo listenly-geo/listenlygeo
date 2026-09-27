@@ -40,7 +40,9 @@ jobs:
         run: python automation/scripts/hub_consolidation.py apply
 
       - name: 3. Hubs mis a jour
-        run: python automation/scripts/rebuild_hubs.py
+        run: |
+          python automation/scripts/rebuild_hubs.py
+          python automation/scripts/build_engine_dashboard.py || true
 
       - name: 4. Commit
         run: |

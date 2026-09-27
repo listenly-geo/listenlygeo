@@ -112,6 +112,11 @@ jobs:
           MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
         run: python automation/scripts/sheet_bridge.py push
 
+      - name: Tableau de bord (moteur.html)
+        if: always()
+        continue-on-error: true
+        run: python automation/scripts/build_engine_dashboard.py
+
       - name: 4. Commit
         if: always() && steps.cfg.outputs.pause != 'true'
         run: |
