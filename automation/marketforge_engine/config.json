@@ -1,17 +1,17 @@
 {
-  "_aide": "Robinet du MarketForge Engine (run complet quotidien : decouverte -> onboarding Listenly+N1 -> extraction). Modifie ces valeurs directement sur GitHub : pris en compte au prochain run. pause=true coupe tout.",
+  "_aide": "Robinet du MarketForge Engine. Chaque run (plusieurs par jour) : decouverte -> fiche Listenly + N1 -> email -> contact. decouverte_max_par_jour / onboarding_max_par_jour s'appliquent PAR RUN. extraction_auto=false : pas de transcription, sauf pour les slugs listes dans 'extraire' (ex. prospects qui ont repondu). pause=true coupe tout.",
   "pause": false,
-  "decouverte_max_par_jour": 5,
+  "decouverte_max_par_jour": 15,
   "onboarding_auto": true,
-  "onboarding_max_par_jour": 1,
+  "onboarding_max_par_jour": 15,
+  "extraction_auto": false,
+  "extraire": [],
   "episodes_par_jour": 10,
   "episodes_par_podcast": 3,
   "minutes_audio_max_jour": 600,
   "questions_max_par_episode": 6,
   "entree_auto_depuis_date": "2026-09-27",
-  "ajouter_manuellement": [
-    "conpulse-the-construction-podcast-by-pal"
-  ],
+  "ajouter_manuellement": [],
   "exclure": [],
   "proof_url_template": "{fiche_url}"
 }

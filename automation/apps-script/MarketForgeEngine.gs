@@ -39,18 +39,31 @@ var MFE = {
 
 var MFE_DEFAULTS = [
   ['MFE_PAUSE', 'FALSE', 'MarketForge Engine — TRUE = tout le moteur GitHub s\'arrete (decouverte, onboarding, extraction).'],
-  ['MFE_DECOUVERTE_MAX_JOUR', '5', 'MarketForge Engine — podcasts qualifies par jour (cout Claude).'],
+  ['MFE_DECOUVERTE_MAX_JOUR', '15', 'MarketForge Engine — podcasts qualifies PAR RUN (plusieurs runs/jour, cout Claude).'],
   ['MFE_ONBOARDING_AUTO', 'TRUE', 'MarketForge Engine — TRUE = fiche Listenly + N1 creees automatiquement. FALSE = validation manuelle (label approved).'],
-  ['MFE_ONBOARDING_MAX_JOUR', '1', 'MarketForge Engine — fiches Listenly + N1 creees par jour.'],
+  ['MFE_ONBOARDING_MAX_JOUR', '15', 'MarketForge Engine — fiches Listenly + N1 creees PAR RUN.'],
+  ['MFE_EXTRACTION_AUTO', 'FALSE', 'MarketForge Engine — TRUE = transcrit + extrait les Q/R de chaque podcast (cher). FALSE = fiche N1 + email seulement.'],
   ['MFE_EPISODES_PAR_JOUR', '10', 'MarketForge Engine — episodes transcrits par jour (cout Whisper + Claude).'],
   ['MFE_EPISODES_PAR_PODCAST', '3', 'MarketForge Engine — profondeur d\'extraction par podcast.'],
   ['MFE_MINUTES_AUDIO_MAX_JOUR', '600', 'MarketForge Engine — garde-fou minutes audio par jour.'],
-  ['MFE_ENVOI_AUTO', 'FALSE', 'MarketForge Engine — TRUE = envoie les mails preuve automatiquement. FALSE = prepare seulement (statut "Pret").'],
-  ['MFE_MAX_ENVOIS_JOUR', '20', 'MarketForge Engine — plafond de premiers mails par jour.'],
+  ['MFE_ENVOI_AUTO', 'TRUE', 'MarketForge Engine — TRUE = envoie les mails automatiquement. FALSE = prepare seulement (statut "Pret").'],
+  ['MFE_MAX_ENVOIS_JOUR', '1500', 'MarketForge Engine — plafond absolu de premiers mails par jour (limite Google Workspace : 1500).'],
+  ['MFE_MONTEE_PROGRESSIVE', 'TRUE', 'MarketForge Engine — TRUE = 30/j la 1re semaine, 80, 150, 300, 500, 1000 puis plafond (protege la delivrabilite).'],
+  ['MFE_HEURES_ENVOI', '8-19', 'MarketForge Engine — plage horaire d\'envoi (heure du script), mails repartis sur la plage.'],
   ['MFE_RELANCE_JOURS', '4', 'MarketForge Engine — relance unique apres N jours sans reponse (0 = pas de relance).'],
 ];
 
-var MFE_SUBJECT = '{{podcast}} is now indexed on Listenly';
+var MFE_SUBJECT = '{{podcast}} is now listed on Listenly';
+// Mail sans extraction : la preuve = la fiche du podcast sur Listenly
+var MFE_BODY_FICHE =
+  'Hi,\n\n' +
+  'Quick heads-up: {{podcast}} has just been added to Listenly, a B2B podcast directory built so AI assistants ' +
+  '(ChatGPT, Perplexity, Google AI Overviews) can find and recommend expert podcasts.\n\n' +
+  'Your page is already live:\n{{proof}}\n\n' +
+  "It's free. If you'd like to see how {{podcast}} can get more listeners and inbound from AI search, " +
+  'happy to walk you through it in 15 minutes: {{booking}}\n\n' +
+  'Best,\nEtienne\nMarketForge';
+// Mail avec extraction (reponses indexees)
 var MFE_BODY =
   'Hi,\n\n' +
   'Quick heads-up: {{podcast}} has just been added to Listenly, a podcast directory built so AI assistants ' +
@@ -61,7 +74,7 @@ var MFE_BODY =
   'from AI search, happy to walk you through it in 15 minutes: {{booking}}\n\n' +
   'Best,\nEtienne\nMarketForge';
 var MFE_FOLLOWUP =
-  'Hi,\n\nJust bumping this in case it got buried. The {{podcast}} answers page is live here: {{proof}}\n\n' +
+  'Hi,\n\nJust bumping this in case it got buried. The {{podcast}} page is live here: {{proof}}\n\n' +
   'Worth a quick 15-min call? {{booking}}\n\nBest,\nEtienne';
 
 function installer() {
@@ -86,7 +99,7 @@ function marketforgeEngineQuotidien() {
   var sh = mfeSheet_();
   var cfg = mfeSettings_();
   var added = mfeImport_(sh, null);
-  var sent = cfg.ENVOI_AUTO ? mfeSend_(sh, cfg.MAX_ENVOIS_JOUR) : 0;
+  var sent = cfg.ENVOI_AUTO ? mfeSend_(sh, cfg) : 0;
   var replies = mfeCheckReplies_(sh);
   var relances = (cfg.ENVOI_AUTO && cfg.RELANCE_JOURS > 0) ? mfeFollowUp_(sh, cfg.RELANCE_JOURS) : 0;
   Logger.log('MarketForge Engine : %s ajoute(s), %s envoye(s), %s reponse(s), %s relance(s)', added, sent, replies, relances);
@@ -102,27 +115,52 @@ function mfeImport_(sh, podcasts) {
   var known = {};
   mfeRows_(sh).forEach(function (r) { known[r.values[0]] = true; });
   var rows = [];
+  var prospection = mfeSS_().getSheetByName('Prospection');
   Object.keys(podcasts).forEach(function (slug) {
     var p = podcasts[slug];
-    if (known[slug] || !p.email || !p.proof_url || !(p.moments_count > 0)) return;
-    rows.push([slug, p.podcast_name || slug, p.email, p.proof_url + '#answers', p.moments_count,
-               new Date(), 'Pret', '', '', '', '', '']);
+    if (known[slug] || !p.email || !p.proof_url) return;
+    var n = p.moments_count || 0;
+    // Jamais de double contact : email deja present dans l'onglet Prospection (ancienne machine)
+    var dejaVu = prospection && prospection.createTextFinder(p.email).matchCase(false).findNext();
+    rows.push([slug, p.podcast_name || slug, p.email, p.proof_url + (n > 0 ? '#answers' : ''), n,
+               new Date(), dejaVu ? 'Deja en prospection' : 'Pret', '', '', '', '', '']);
   });
   if (rows.length) sh.getRange(sh.getLastRow() + 1, 1, rows.length, MFE.COLS.length).setValues(rows);
   return rows.length;
 }
 
 // ---------- 2. Premier mail ----------
-function mfeSend_(sh, max) {
-  var today = new Date().toDateString();
-  var sent = mfeRows_(sh).filter(function (r) {
+// Plafond du jour selon la montee progressive (semaines depuis le 1er envoi)
+function mfeDailyCap_(cfg) {
+  if (!cfg.MONTEE) return cfg.MAX_ENVOIS_JOUR;
+  var props = PropertiesService.getScriptProperties();
+  var start = props.getProperty('MFE_START');
+  if (!start) { start = String(Date.now()); props.setProperty('MFE_START', start); }
+  var week = Math.floor((Date.now() - Number(start)) / (7 * 86400000));
+  var steps = [30, 80, 150, 300, 500, 1000];
+  return Math.min(cfg.MAX_ENVOIS_JOUR, week < steps.length ? steps[week] : cfg.MAX_ENVOIS_JOUR);
+}
+
+function mfeSend_(sh, cfg) {
+  var now = new Date(), h = now.getHours();
+  if (h < cfg.H_START || h >= cfg.H_END) return 0;          // hors plage horaire
+  var daily = mfeDailyCap_(cfg);
+  var today = now.toDateString();
+  var rows = mfeRows_(sh);
+  var sentToday = rows.filter(function (r) {
     return r.values[7] && new Date(r.values[7]).toDateString() === today;
-  }).length;  // deja envoyes aujourd'hui (le script tourne toutes les heures)
-  mfeRows_(sh).forEach(function (r) {
-    if (sent >= max || r.values[6] !== 'Pret') return;
+  }).length;
+  // Repartition sur la plage : a l'heure h, on ne depasse pas la part proportionnelle du jour
+  var span = cfg.H_END - cfg.H_START;
+  var allowedSoFar = Math.ceil(daily * (h - cfg.H_START + 1) / span);
+  var budget = Math.max(0, Math.min(daily, allowedSoFar) - sentToday);
+  var sent = 0;
+  rows.forEach(function (r) {
+    if (sent >= budget || r.values[6] !== 'Pret') return;
     var v = mfeVars_(r.values);
+    var body = Number(r.values[4]) > 0 ? MFE_BODY : MFE_BODY_FICHE;
     try {
-      var threadId = mfeMail_(r.values[2], mfeFill_(MFE_SUBJECT, v), mfeFill_(MFE_BODY, v));
+      var threadId = mfeMail_(r.values[2], mfeFill_(MFE_SUBJECT, v), mfeFill_(body, v));
       sh.getRange(r.row, 7, 1, 5).setValues([['Envoye', new Date(), '', '', threadId]]);
       sent++;
     } catch (e) {
@@ -232,7 +270,10 @@ function mfeSettings_() {
   var cfg = mfeReadSettings_();
   return {
     ENVOI_AUTO: String(cfg.MFE_ENVOI_AUTO).toUpperCase() === 'TRUE',
-    MAX_ENVOIS_JOUR: parseInt(cfg.MFE_MAX_ENVOIS_JOUR, 10) || 20,
+    MAX_ENVOIS_JOUR: Math.min(parseInt(cfg.MFE_MAX_ENVOIS_JOUR, 10) || 30, 1500),
+    MONTEE: String(cfg.MFE_MONTEE_PROGRESSIVE).toUpperCase() !== 'FALSE',
+    H_START: parseInt(String(cfg.MFE_HEURES_ENVOI || '8-19').split('-')[0], 10) || 8,
+    H_END: parseInt(String(cfg.MFE_HEURES_ENVOI || '8-19').split('-')[1], 10) || 19,
     RELANCE_JOURS: parseInt(cfg.MFE_RELANCE_JOURS, 10) || 0,
   };
 }

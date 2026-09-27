@@ -35,7 +35,7 @@ DEFAULT_EPISODE_MINUTES = 60  # si itunes:duration absent du flux
 INBOX_ROOT = "automation/inbox/moteur-trafic-transcripts"  # stock lu par generate_qa_fiches_btb.py
 INBOX_TRANSCRIPT_MAX = 20000
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from rss_contact import extract_contact_email  # noqa: E402
+from rss_contact import extract_contact_email, fetch_contact_email  # noqa: E402
 import hub_index  # noqa: E402
 
 DRY_RUN = os.environ.get("DRY_RUN", "").strip() in ("1", "true", "yes")
@@ -264,8 +264,38 @@ def main():
 
     log(f"Budget du jour : {journal['episodes']}/{eps_per_day} episodes, {journal['minutes']}/{minutes_max} min deja consommes.")
 
+    # --- Mode CONTACT (27/09/2026) : fiche N1 + email -> pret pour le mail, sans extraction ---
+    # L'extraction (Whisper + Claude) n'est faite que si extraction_auto=true, ou pour les slugs
+    # listes dans "extraire" (ex. prospects qui ont repondu). Tous les autres passent directement
+    # en statut "contact" avec leur fiche N1 comme preuve.
+    extraction_auto = bool(config.get("extraction_auto", False))
+    extraire = set(config.get("extraire") or [])
+    contacts, sans_email = 0, 0
+    for slug, state in queue["podcasts"].items():
+        if state["status"] != "en_attente" or extraction_auto or slug in extraire:
+            continue
+        podcast = podcasts.get(slug)
+        if not podcast:
+            state["status"] = "erreur"; state["last_error"] = "absent de podcasts.json"; continue
+        state["podcast_name"] = state.get("podcast_name") or podcast.get("podcast_name", "")
+        state["fiche_url"] = state.get("fiche_url") or podcast.get("fiche_url", "")
+        email = state.get("email") or (fetch_contact_email(podcast["rss_url"]) if podcast.get("rss_url") else "")
+        state["email"] = email
+        if email:
+            state["proof_url"] = state.get("proof_url") or build_proof_url(config, podcast)
+            state["proof_date"] = state.get("proof_date") or TODAY
+            state["status"] = "contact"
+            contacts += 1
+        else:
+            state["status"] = "sans_email"
+            sans_email += 1
+    journal["contacts"] = journal.get("contacts", 0) + contacts
+    log(f"Mode contact : {contacts} contact(s) pret(s) (fiche N1 + email), {sans_email} sans email.")
+
     order = sorted(
-        (s for s, st in queue["podcasts"].items() if st["status"] in ("en_attente", "en_cours")),
+        (s for s, st in queue["podcasts"].items()
+         if (extraction_auto and st["status"] in ("en_attente", "en_cours"))
+         or (s in extraire and st["status"] in ("en_attente", "en_cours", "contact", "sans_email"))),
         key=lambda s: (queue["podcasts"][s]["status"] != "en_cours", queue["podcasts"][s]["added"], s),
     )
     log(f"{len(order)} podcast(s) dans la file active.")

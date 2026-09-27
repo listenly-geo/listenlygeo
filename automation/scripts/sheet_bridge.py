@@ -21,6 +21,7 @@ KEYS = {
     "MFE_DECOUVERTE_MAX_JOUR": "decouverte_max_par_jour",
     "MFE_ONBOARDING_AUTO": "onboarding_auto",
     "MFE_ONBOARDING_MAX_JOUR": "onboarding_max_par_jour",
+    "MFE_EXTRACTION_AUTO": "extraction_auto",
     "MFE_EPISODES_PAR_JOUR": "episodes_par_jour",
     "MFE_EPISODES_PAR_PODCAST": "episodes_par_podcast",
     "MFE_MINUTES_AUDIO_MAX_JOUR": "minutes_audio_max_jour",
@@ -51,7 +52,7 @@ def call(params=None, payload=None):
 
 
 def convert(key, value):
-    if key in ("pause", "onboarding_auto"):
+    if key in ("pause", "onboarding_auto", "extraction_auto"):
         return str(value).strip().upper() in ("TRUE", "VRAI", "1", "OUI", "YES")
     try:
         return int(float(value))
