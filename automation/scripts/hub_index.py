@@ -102,6 +102,56 @@ def listen_url(podcast):
     return podcast.get("podcast_url") or url or "https://listenly.fr"
 
 
+ENGINE_QUEUE = "automation/marketforge_engine/queue.json"
+
+
+def engine_slugs():
+    """Podcasts suivis par le MarketForge Engine (extraction pure, sans fiche question)."""
+    try:
+        with open(ENGINE_QUEUE, encoding="utf-8") as f:
+            return set(json.load(f).get("podcasts", {}).keys())
+    except (OSError, ValueError):
+        return set()
+
+
+def _snippet(text, limit=360):
+    text = re.sub(r"\s+", " ", text or "").strip()
+    if len(text) <= limit:
+        return text
+    return text[:limit].rsplit(" ", 1)[0].rstrip(",;:") + "…"
+
+
+def merge_extracted(slug, published):
+    """MarketForge Engine (27/09/2026) : pour les podcasts de la file d'extraction, le hub affiche
+    aussi les Q/R extraites (knowledge moments) qui n'ont pas encore de fiche question. Quand une
+    fiche est publiee plus tard pour la meme question, c'est l'entree publiee (avec son lien
+    « Reponse complete ») qui prend le relais. Sans effet pour les autres podcasts."""
+    if slug not in engine_slugs():
+        return published
+    known = {_norm(p.get("question")) for p in published}
+    extra = []
+    for path in sorted(glob.glob(f"{KNOWLEDGE_DIR}/{glob.escape(slug)}--*.json")):
+        try:
+            with open(path, encoding="utf-8") as f:
+                moments = json.load(f)
+        except (OSError, ValueError):
+            continue
+        for m in moments if isinstance(moments, list) else []:
+            q = (m.get("question") or "").strip()
+            if not q or _norm(q) in known or not m.get("transcript_excerpt"):
+                continue
+            known.add(_norm(q))
+            extra.append({
+                "question": q,
+                "answer_snippet": _snippet(m.get("transcript_excerpt")),
+                "source_episode_title": m.get("episode_title") or "",
+                "start_seconds": m.get("start_seconds") or 0,
+                "url": "",
+                "added_date": "",
+            })
+    return list(published) + extra
+
+
 def visible_entries(published):
     excluded = load_excluded_urls()
     return [p for p in published if p.get("url", "").replace("https://listenly.fr", "") not in excluded]
@@ -140,8 +190,8 @@ def render_hub_index(podcast, published):
                 + (f'<p class="hx-a">{answer}</p>' if answer else "")
                 + '<div class="hx-foot">'
                 f'<a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="{_E(target)}">{listen_label}</a>'
-                f'<a class="hx-more" href="{_E(p.get("url", ""))}">{t["full"]}</a>'
-                "</div></article>"
+                + (f'<a class="hx-more" href="{_E(p.get("url", ""))}">{t["full"]}</a>' if p.get("url") else "")
+                + "</div></article>"
             )
         heading = f'<h3 class="hx-ep" id="{ep_anchor}">{_E(ep_title)}</h3>' if ep_title else ""
         sections.append(f'<section class="hx-episode">{heading}{"".join(cards)}</section>')
@@ -195,6 +245,7 @@ if(e)e.hidden=any;}});}})();
 
 def apply_hub_index(n1_path, podcast, published):
     """Remplace (ou insere) le bloc hub-index dans la fiche N1. Renvoie True si la page a change."""
+    published = merge_extracted(podcast.get("slug", ""), published)
     if not os.path.exists(n1_path):
         return False
     with open(n1_path, encoding="utf-8") as f:

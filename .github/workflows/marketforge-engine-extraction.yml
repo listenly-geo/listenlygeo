@@ -62,7 +62,7 @@ jobs:
         run: |
           git config user.name  "listenly-bot"
           git config user.email "bot@listenly.fr"
-          git add automation/marketforge_engine/ pages/podcast-btb/data/knowledge_moments/
+          git add automation/marketforge_engine/ automation/inbox/moteur-trafic-transcripts/ pages/podcast-btb/
           if git diff --staged --quiet; then
             echo "Rien de nouveau."
           else
@@ -74,3 +74,17 @@ jobs:
               sleep $((RANDOM % 15 + 5))
             done
           fi
+
+      - name: Deploy FTP (hubs N1 mis a jour = preuve du mail)
+        if: always() && github.event.inputs.dry_run != 'true'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep

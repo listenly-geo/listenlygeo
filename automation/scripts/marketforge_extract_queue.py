@@ -22,7 +22,7 @@ Entree dans la file :
 Variables : ANTHROPIC_API_KEY, GROQ_API_KEY (ou OPENAI_API_KEY), KNOWLEDGE_IMPORT_SECRET
 Optionnelles : EPISODES_PAR_JOUR (surcharge ponctuelle), DRY_RUN=1 (planifie sans rien extraire)
 """
-import os, sys, json, datetime, tempfile, shutil, urllib.parse, importlib.util
+import os, sys, json, datetime, hashlib, tempfile, shutil, urllib.parse, importlib.util
 import xml.etree.ElementTree as ET
 
 ENGINE_DIR = "automation/marketforge_engine"
@@ -32,6 +32,12 @@ PAGES_DIR = "pages/podcast-btb"
 PODCASTS_FILE = f"{PAGES_DIR}/data/podcasts.json"
 QUESTIONS_DIR = f"{PAGES_DIR}/questions"
 DEFAULT_EPISODE_MINUTES = 60  # si itunes:duration absent du flux
+INBOX_ROOT = "automation/inbox/moteur-trafic-transcripts"  # stock lu par generate_qa_fiches_btb.py
+INBOX_TRANSCRIPT_MAX = 20000
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from rss_contact import extract_contact_email  # noqa: E402
+import hub_index  # noqa: E402
+
 DRY_RUN = os.environ.get("DRY_RUN", "").strip() in ("1", "true", "yes")
 TODAY = datetime.date.today().isoformat()
 
@@ -113,7 +119,7 @@ def read_rss(url):
         pass
     for ep in episodes:
         ep["minutes"] = durations.get(ep["title"]) or DEFAULT_EPISODE_MINUTES
-    return episodes
+    return episodes, extract_contact_email(xml_bytes)
 
 
 def already_mined_guids(slug):
@@ -140,6 +146,9 @@ def sync_queue(queue, config, podcasts):
                 "added": TODAY,
                 "episodes_done": [],
                 "moments_count": 0,
+                "podcast_name": p.get("podcast_name", ""),
+                "fiche_url": p.get("fiche_url", ""),
+                "email": "",
                 "proof_url": "",
                 "last_error": "",
             }
@@ -165,6 +174,42 @@ def build_proof_url(config, podcast):
     )
 
 
+def save_inbox_stock(podcast, ep, transcript, guest, qa, quote, stats, entities):
+    """Stock complet pour la future machine a fiches : meme format que l'inbox deja consommee par
+    generate_qa_fiches_btb.py (try_load_from_inbox). Activer le moteur trafic sur ce podcast
+    suffira a generer les fiches, sans re-transcrire (dedoublonnage par episode_guid)."""
+    inbox = f"{INBOX_ROOT}/{podcast['slug']}"
+    os.makedirs(inbox, exist_ok=True)
+    guid = ep.get("guid") or ep.get("title", "")
+    payload = {
+        "episode_guid": guid,
+        "source_kind": "marketforge_engine",
+        "source_url": ep.get("audio_url", ""),
+        "episode_title": ep.get("title", ""),
+        "pubdate": ep.get("pubdate", ""),
+        "real_qa": qa,
+        "guest": guest or {},
+        "real_quote": quote or "",
+        "key_stats": stats or [],
+        "entities": entities or [],
+        "transcript_full": (transcript or "")[:INBOX_TRANSCRIPT_MAX],
+        "extracted_date": TODAY,
+    }
+    name = "mfe-" + hashlib.sha1(guid.encode("utf-8")).hexdigest()[:16] + ".json"
+    save_json(os.path.join(inbox, name), payload)
+
+
+def refresh_hub(podcast):
+    """Met a jour le bloc « Les reponses de ce podcast » de la fiche N1 (preuve du mail)."""
+    reg = load_json(f"{QUESTIONS_DIR}/{podcast['slug']}/_qa_registry.json", {})
+    n1_path = f"{PAGES_DIR}/{podcast['slug']}-podcast.html"
+    try:
+        return hub_index.apply_hub_index(n1_path, podcast, reg.get("published", []))
+    except Exception as e:
+        log(f"AVERTISSEMENT hub N1 non mis a jour ({e})")
+        return False
+
+
 def extract_episode(podcast, ep):
     """Pipeline existant, sans generation de fiche. Retourne le nombre de Q/R ecrites."""
     m = emod()
@@ -180,10 +225,11 @@ def extract_episode(podcast, ep):
         if not transcript:
             log("Transcription vide — episode ignore.")
             return 0
-        guest, qa, _quote, _stats, _entities = m.extract_real_qa(transcript, ep, podcast, segments)
+        guest, qa, quote, stats, entities = m.extract_real_qa(transcript, ep, podcast, segments)
         if not qa:
             return 0
         m.save_knowledge_moments(podcast, ep, guest, qa)  # JSON + push base Listenly (hub)
+        save_inbox_stock(podcast, ep, transcript, guest, qa, quote, stats, entities)
         return len(qa)
     finally:
         shutil.rmtree(tmpdir, ignore_errors=True)
@@ -200,6 +246,8 @@ def main():
     queue.setdefault("journal", {})
     podcasts = {p["slug"]: p for p in load_json(PODCASTS_FILE, []) if p.get("slug")}
     sync_queue(queue, config, list(podcasts.values()))
+    if not DRY_RUN:
+        save_json(QUEUE_FILE, queue)  # le hub N1 lit la file pour savoir quels podcasts enrichir
 
     eps_per_day = int(os.environ.get("EPISODES_PAR_JOUR") or config.get("episodes_par_jour", 10))
     eps_per_podcast = int(config.get("episodes_par_podcast", 3))
@@ -234,7 +282,11 @@ def main():
         remaining = eps_per_podcast - len(state["episodes_done"])
         log(f"### {slug} ({len(state['episodes_done'])}/{eps_per_podcast} episodes extraits)")
         try:
-            episodes = read_rss(podcast["rss_url"])
+            episodes, email = read_rss(podcast["rss_url"])
+            if email and not state.get("email"):
+                state["email"] = email
+            state.setdefault("podcast_name", podcast.get("podcast_name", ""))
+            state.setdefault("fiche_url", podcast.get("fiche_url", ""))
         except Exception as e:
             state["last_error"] = f"RSS illisible : {e}"[:200]
             log(f"ERREUR RSS ({e}) — podcast saute ce run.")
@@ -274,9 +326,16 @@ def main():
         left = [e for e in todo if e["guid"] not in state["episodes_done"]]
         if len(state["episodes_done"]) >= eps_per_podcast or not left:
             state["status"] = "extrait"
-        if state["moments_count"] > 0 and not state["proof_url"]:
-            state["proof_url"] = build_proof_url(config, podcast)
-            state["proof_date"] = TODAY
+        if state["moments_count"] > 0 and not DRY_RUN:
+            if refresh_hub(podcast):
+                log("Hub N1 mis a jour avec les reponses extraites.")
+            if not state["proof_url"]:
+                state["proof_url"] = build_proof_url(config, podcast)
+                state["proof_date"] = TODAY
+        if not state.get("email"):
+            state["status_email"] = "sans_email"
+        else:
+            state.pop("status_email", None)
 
     if DRY_RUN:
         log("DRY_RUN : aucun fichier modifie.")
