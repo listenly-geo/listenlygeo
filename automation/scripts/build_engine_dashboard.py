@@ -305,8 +305,8 @@ footer a {{ color:var(--ink2); }}
       <div class="muted" style="font-size:13px">{pct_done} % redirigées vers le hub de leur podcast · {fr_num(remaining)} encore en ligne</div>
     </div>
     <div class="card stack">
-      <div><span>Vérifiées dans Search Console</span><b>{fr_num(inspected)}</b></div>
-      <div><span>Indexées par Google</span><b>{fr_num(indexed)}</b></div>
+      <div><span>Fiches question vérifiées dans Search Console</span><b>{fr_num(inspected)} / {fr_num(q_total)}</b></div>
+      <div><span>Dont indexées (protégées)</span><b>{fr_num(indexed)}</b></div>
       <div><span>Gardées (ont des impressions)</span><b>{fr_num(with_imp)}</b></div>
     </div>
   </div>
