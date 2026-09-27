@@ -9,6 +9,9 @@ name: MarketForge Engine — RUN COMPLET (découverte → Listenly + N1 → extr
 
 on:
   workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: ['automation/marketforge_engine/run-now.txt']   # lancement a distance (modifier ce fichier)
   schedule:
     - cron: '17 5 * * *'   # tous les jours ~7h17 (Paris)
 
