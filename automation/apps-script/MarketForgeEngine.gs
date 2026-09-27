@@ -12,7 +12,14 @@
  *     a J+RELANCE_JOURS s'il n'y a pas eu de reponse.
  *
  * Premiere utilisation : executer une fois installer() (cree l'onglet + le declencheur quotidien 9h).
- * Reglages : en haut de l'onglet "MarketForge Engine" (ENVOI_AUTO, MAX_ENVOIS_JOUR...).
+ * Reglages : TOUT se pilote depuis l'onglet "Reglages" (cles MFE_*) : mails ET moteur GitHub
+ * (pause, decouverte, onboarding, extraction). Le run GitHub lit ces valeurs chaque matin.
+ *
+ * Pont GitHub (application web) : Deployer > Nouveau deploiement > Application web
+ * (Executer en tant que : Moi / Acces : Tout le monde). L'URL + ?secret=... (affiche par
+ * installer() dans le journal) va dans le secret GitHub MFE_SHEET_URL.
+ * GitHub y lit les reglages (GET action=config) et y ecrit son compte-rendu (POST action=report) :
+ * onglet "Historique Engine" + lignes de l'onglet "MarketForge Engine".
  */
 
 var MFE = {
@@ -21,15 +28,26 @@ var MFE = {
   FROM: 'etienne.cugnet@marketforge.fr',           // utilise si c'est un alias Gmail du compte qui execute le script
   NAME: 'Etienne | MarketForge',
   BOOKING: 'https://cal.com/etienne-marketforge/podcast-distribution-strategy-call',
-  HEADER_ROW: 6,                                    // lignes 1-4 = reglages, ligne 6 = en-tetes
+  HEADER_ROW: 6,                                    // ligne 6 = en-tetes (reglages : onglet Reglages)
+  REGLAGES: 'Réglages',
+  HISTO: 'Historique Engine',
+  HISTO_COLS: ['Date', 'Decouverts', 'Onboardes (fiche Listenly + N1)', 'Dont fiches Listenly creees',
+               'Podcasts onboardes', 'Episodes extraits', 'Minutes audio', 'Q/R extraites', 'Echecs onboarding', 'Run GitHub'],
   COLS: ['Slug', 'Podcast', 'Email', 'Preuve (fiche N1)', 'Q/R extraites', 'Ajoute le', 'Statut',
          'Envoye le', 'Relance le', 'Reponse', 'Thread ID', 'Notes'],
 };
 
 var MFE_DEFAULTS = [
-  ['ENVOI_AUTO', 'FALSE', 'TRUE = envoie les mails automatiquement. FALSE = prepare seulement (statut "Pret").'],
-  ['MAX_ENVOIS_JOUR', '20', 'Plafond de premiers mails par jour.'],
-  ['RELANCE_JOURS', '4', 'Relance unique apres N jours sans reponse (0 = pas de relance).'],
+  ['MFE_PAUSE', 'FALSE', 'MarketForge Engine — TRUE = tout le moteur GitHub s\'arrete (decouverte, onboarding, extraction).'],
+  ['MFE_DECOUVERTE_MAX_JOUR', '5', 'MarketForge Engine — podcasts qualifies par jour (cout Claude).'],
+  ['MFE_ONBOARDING_AUTO', 'TRUE', 'MarketForge Engine — TRUE = fiche Listenly + N1 creees automatiquement. FALSE = validation manuelle (label approved).'],
+  ['MFE_ONBOARDING_MAX_JOUR', '1', 'MarketForge Engine — fiches Listenly + N1 creees par jour.'],
+  ['MFE_EPISODES_PAR_JOUR', '10', 'MarketForge Engine — episodes transcrits par jour (cout Whisper + Claude).'],
+  ['MFE_EPISODES_PAR_PODCAST', '3', 'MarketForge Engine — profondeur d\'extraction par podcast.'],
+  ['MFE_MINUTES_AUDIO_MAX_JOUR', '600', 'MarketForge Engine — garde-fou minutes audio par jour.'],
+  ['MFE_ENVOI_AUTO', 'FALSE', 'MarketForge Engine — TRUE = envoie les mails preuve automatiquement. FALSE = prepare seulement (statut "Pret").'],
+  ['MFE_MAX_ENVOIS_JOUR', '20', 'MarketForge Engine — plafond de premiers mails par jour.'],
+  ['MFE_RELANCE_JOURS', '4', 'MarketForge Engine — relance unique apres N jours sans reponse (0 = pas de relance).'],
 ];
 
 var MFE_SUBJECT = '{{podcast}} is now indexed on Listenly';
@@ -47,7 +65,14 @@ var MFE_FOLLOWUP =
   'Worth a quick 15-min call? {{booking}}\n\nBest,\nEtienne';
 
 function installer() {
-  mfeSheet_();
+  var sh = mfeSheet_();
+  mfeMigrateOldSettings_(sh);
+  mfeEnsureSettings_();
+  mfeHisto_();
+  var props = PropertiesService.getScriptProperties();
+  if (!props.getProperty('MFE_SECRET')) props.setProperty('MFE_SECRET', Utilities.getUuid().replace(/-/g, ''));
+  Logger.log('SECRET du pont GitHub : %s  -> ajoute "?secret=%s" a la fin de l\'URL de l\'application web.',
+             props.getProperty('MFE_SECRET'), props.getProperty('MFE_SECRET'));
   ScriptApp.getProjectTriggers().forEach(function (t) {
     if (t.getHandlerFunction() === 'marketforgeEngineQuotidien') ScriptApp.deleteTrigger(t);
   });
@@ -57,8 +82,8 @@ function installer() {
 
 function marketforgeEngineQuotidien() {
   var sh = mfeSheet_();
-  var cfg = mfeSettings_(sh);
-  var added = mfeImport_(sh);
+  var cfg = mfeSettings_();
+  var added = mfeImport_(sh, null);
   var sent = cfg.ENVOI_AUTO ? mfeSend_(sh, cfg.MAX_ENVOIS_JOUR) : 0;
   var replies = mfeCheckReplies_(sh);
   var relances = (cfg.ENVOI_AUTO && cfg.RELANCE_JOURS > 0) ? mfeFollowUp_(sh, cfg.RELANCE_JOURS) : 0;
@@ -66,10 +91,12 @@ function marketforgeEngineQuotidien() {
 }
 
 // ---------- 1. Import depuis queue.json ----------
-function mfeImport_(sh) {
-  var res = UrlFetchApp.fetch(MFE.QUEUE_URL + '?t=' + Date.now(), { muteHttpExceptions: true });
-  if (res.getResponseCode() !== 200) throw new Error('queue.json illisible : HTTP ' + res.getResponseCode());
-  var podcasts = (JSON.parse(res.getContentText()).podcasts) || {};
+function mfeImport_(sh, podcasts) {
+  if (!podcasts) {
+    var res = UrlFetchApp.fetch(MFE.QUEUE_URL + '?t=' + Date.now(), { muteHttpExceptions: true });
+    if (res.getResponseCode() !== 200) throw new Error('queue.json illisible : HTTP ' + res.getResponseCode());
+    podcasts = (JSON.parse(res.getContentText()).podcasts) || {};
+  }
   var known = {};
   mfeRows_(sh).forEach(function (r) { known[r.values[0]] = true; });
   var rows = [];
@@ -162,24 +189,125 @@ function mfeRows_(sh) {
     .filter(function (r) { return r.values[0]; });
 }
 
-function mfeSettings_(sh) {
-  var vals = sh.getRange(2, 1, MFE_DEFAULTS.length, 2).getValues();
-  var cfg = {};
-  vals.forEach(function (r) { cfg[r[0]] = r[1]; });
+// ---------- Reglages (onglet Reglages, cles MFE_*) ----------
+function mfeReglagesSheet_() {
+  var ss = mfeSS_();
+  return ss.getSheetByName(MFE.REGLAGES) || ss.getSheetByName('Reglages') || ss.insertSheet(MFE.REGLAGES);
+}
+
+function mfeReadSettings_() {
+  var sh = mfeReglagesSheet_();
+  var out = {};
+  if (sh.getLastRow() < 1) return out;
+  sh.getRange(1, 1, sh.getLastRow(), 2).getValues().forEach(function (r) {
+    var k = String(r[0]).trim();
+    if (k.indexOf('MFE_') === 0) out[k] = r[1];
+  });
+  return out;
+}
+
+function mfeEnsureSettings_() {
+  var sh = mfeReglagesSheet_();
+  var have = mfeReadSettings_();
+  var missing = MFE_DEFAULTS.filter(function (d) { return !(d[0] in have); });
+  if (missing.length) sh.getRange(sh.getLastRow() + 1, 1, missing.length, 3).setValues(missing);
+}
+
+function mfeMigrateOldSettings_(sh) {
+  // v1 : reglages en haut de l'onglet MarketForge Engine -> deplaces dans Reglages
+  if (String(sh.getRange(2, 1).getValue()) !== 'ENVOI_AUTO') return;
+  var old = {};
+  sh.getRange(2, 1, 3, 2).getValues().forEach(function (r) { old['MFE_' + r[0]] = String(r[1]); });
+  MFE_DEFAULTS.forEach(function (d) { if (old[d[0]] != null) d[1] = old[d[0]]; });
+  sh.getRange(1, 1, 4, 3).clearContent();
+  sh.getRange(1, 1).setValue('Reglages : onglet "Réglages", cles MFE_*').setFontWeight('bold');
+}
+
+function mfeSettings_() {
+  var cfg = mfeReadSettings_();
   return {
-    ENVOI_AUTO: String(cfg.ENVOI_AUTO).toUpperCase() === 'TRUE',
-    MAX_ENVOIS_JOUR: parseInt(cfg.MAX_ENVOIS_JOUR, 10) || 20,
-    RELANCE_JOURS: parseInt(cfg.RELANCE_JOURS, 10) || 0,
+    ENVOI_AUTO: String(cfg.MFE_ENVOI_AUTO).toUpperCase() === 'TRUE',
+    MAX_ENVOIS_JOUR: parseInt(cfg.MFE_MAX_ENVOIS_JOUR, 10) || 20,
+    RELANCE_JOURS: parseInt(cfg.MFE_RELANCE_JOURS, 10) || 0,
   };
 }
 
+// ---------- Pont GitHub (application web) ----------
+function mfeAuth_(secret) {
+  var s = PropertiesService.getScriptProperties().getProperty('MFE_SECRET');
+  return s && secret === s;
+}
+
+function mfeJson_(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+}
+
+function doGet(e) {
+  var p = (e && e.parameter) || {};
+  if (!mfeAuth_(p.secret)) return mfeJson_({ ok: false, error: 'secret invalide' });
+  if (p.action === 'config') return mfeJson_({ ok: true, reglages: mfeReadSettings_() });
+  if (p.action === 'status') {
+    var sh = mfeSheet_();
+    var rows = mfeRows_(sh).map(function (r) {
+      var o = {}; MFE.COLS.forEach(function (c, i) { o[c] = r.values[i]; }); return o;
+    });
+    var histo = mfeHisto_();
+    var last = histo.getLastRow() > 1 ? histo.getRange(2, 1, Math.min(histo.getLastRow() - 1, 14), MFE.HISTO_COLS.length).getValues() : [];
+    return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last });
+  }
+  return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
+}
+
+function doPost(e) {
+  var body = {};
+  try { body = JSON.parse(e.postData.contents); } catch (err) { return mfeJson_({ ok: false, error: 'JSON invalide' }); }
+  var p = (e && e.parameter) || {};
+  if (!mfeAuth_(p.secret || body.secret)) return mfeJson_({ ok: false, error: 'secret invalide' });
+  if (body.action !== 'report') return mfeJson_({ ok: false, error: 'action inconnue (report)' });
+
+  var lock = LockService.getScriptLock(); lock.waitLock(30000);
+  try {
+    var ob = body.onboarded || [], ex = body.extraction_jour || {};
+    mfeHisto_().insertRowBefore(2);
+    mfeHisto_().getRange(2, 1, 1, MFE.HISTO_COLS.length).setValues([[
+      body.date || new Date(), body.decouverts || 0, ob.length,
+      ob.filter(function (o) { return o.listenly_created; }).length,
+      ob.map(function (o) { return o.podcast_name; }).join(', '),
+      ex.episodes || 0, ex.minutes || 0, ex.moments || 0,
+      (body.onboard_echecs || []).join(', '), body.run_url || '']]);
+    var podcasts = {};
+    (body.podcasts || []).forEach(function (x) { podcasts[x.slug] = x; });
+    var sh = mfeSheet_();
+    var added = mfeImport_(sh, podcasts);
+    // met a jour le nombre de Q/R des lignes deja presentes
+    mfeRows_(sh).forEach(function (r) {
+      var x = podcasts[r.values[0]];
+      if (x && x.moments_count !== r.values[4]) sh.getRange(r.row, 5).setValue(x.moments_count);
+    });
+    return mfeJson_({ ok: true, lignes_ajoutees: added });
+  } finally { lock.releaseLock(); }
+}
+
+function mfeHisto_() {
+  var ss = mfeSS_();
+  var sh = ss.getSheetByName(MFE.HISTO);
+  if (sh) return sh;
+  sh = ss.insertSheet(MFE.HISTO);
+  sh.getRange(1, 1, 1, MFE.HISTO_COLS.length).setValues([MFE.HISTO_COLS]).setFontWeight('bold').setBackground('#eef3fd');
+  sh.setFrozenRows(1);
+  return sh;
+}
+
+function mfeSS_() {
+  return SpreadsheetApp.getActiveSpreadsheet() || SpreadsheetApp.openById('1b53cWGiz6iOuakpotw_Ck4bQBeIMJa3hfq5gP2mFiT4');
+}
+
 function mfeSheet_() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet() || SpreadsheetApp.openById('1b53cWGiz6iOuakpotw_Ck4bQBeIMJa3hfq5gP2mFiT4');
+  var ss = mfeSS_();
   var sh = ss.getSheetByName(MFE.SHEET);
   if (sh) return sh;
   sh = ss.insertSheet(MFE.SHEET);
-  sh.getRange(1, 1).setValue('REGLAGES MarketForge Engine').setFontWeight('bold');
-  sh.getRange(2, 1, MFE_DEFAULTS.length, 3).setValues(MFE_DEFAULTS);
+  sh.getRange(1, 1).setValue('Reglages : onglet "Réglages", cles MFE_*').setFontWeight('bold');
   sh.getRange(MFE.HEADER_ROW, 1, 1, MFE.COLS.length).setValues([MFE.COLS]).setFontWeight('bold').setBackground('#eef3fd');
   sh.setFrozenRows(MFE.HEADER_ROW);
   return sh;

@@ -123,7 +123,7 @@ def main():
     issues = [i for i in issues if not i.get("pull_request") and i.get("state") == "open"][:MAX_ONBOARD]
     log(f"{len(issues)} candidat(s) a onboarder (mode {MODE}).")
 
-    done, failed = [], []
+    done, failed, report = [], [], []
     for issue in issues:
         c = parse_issue(issue)
         log(f"### #{c['issue_number']} {c['podcast_name']}")
@@ -157,8 +157,14 @@ def main():
         gh("POST", f"/issues/{c['issue_number']}/labels", {"labels": ["onboarded"]})
         gh("PATCH", f"/issues/{c['issue_number']}", {"state": "closed", "state_reason": "completed"})
         done.append(slug)
+        report.append({"slug": slug, "podcast_name": c["podcast_name"], "email": c["email"],
+                       "listenly_url": listenly_url, "listenly_created": bool(res.get("created")),
+                       "fiche_url": f"https://listenly.fr/podcast-btb/{slug}-podcast.html"})
 
     log(f"Termine : {len(done)} onboarde(s) {done}, {len(failed)} echec(s) {failed}.")
+    if MODE == "insert":  # lu par sheet_bridge.py pour le compte-rendu envoye au Google Sheet
+        with open("automation/marketforge_engine/last_onboard.json", "w", encoding="utf-8") as f:
+            json.dump({"onboarded": report, "failed_issues": failed}, f, ensure_ascii=False, indent=2)
     if failed and not done:
         sys.exit(1)
 

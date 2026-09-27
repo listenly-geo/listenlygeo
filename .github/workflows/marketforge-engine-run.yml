@@ -31,6 +31,12 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: 0. Reglages depuis le Google Sheet (onglet Reglages, cles MFE_*)
+        continue-on-error: true
+        env:
+          MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
+        run: python automation/scripts/sheet_bridge.py pull
+
       - name: Lire config.json
         id: cfg
         run: |
@@ -64,7 +70,11 @@ jobs:
           DISCOVERY_COUNTRIES: us
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-        run: python automation/scripts/discover_podcasts.py
+        run: |
+          set -o pipefail
+          python automation/scripts/discover_podcasts.py | tee discovery.log
+          n=$(grep -oE '\(([0-9]+) nouvelle' discovery.log | grep -oE '[0-9]+' | tail -1)
+          echo "DISCOVERED_COUNT=${n:-0}" >> "$GITHUB_ENV"
 
       - name: 2. Onboarding auto (Listenly SQL + fiche N1)
         if: steps.cfg.outputs.pause != 'true' && steps.cfg.outputs.onboard_auto == 'true'
@@ -90,6 +100,13 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           KNOWLEDGE_IMPORT_SECRET: ${{ secrets.KNOWLEDGE_IMPORT_SECRET }}
         run: python automation/scripts/marketforge_extract_queue.py
+
+      - name: Compte-rendu vers le Google Sheet
+        if: always() && steps.cfg.outputs.pause != 'true'
+        continue-on-error: true
+        env:
+          MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
+        run: python automation/scripts/sheet_bridge.py push
 
       - name: 4. Commit
         if: always() && steps.cfg.outputs.pause != 'true'
