@@ -98,7 +98,11 @@ def generate_n1(c, listenly_url, slug):
         "EPISODE_CTA_TARGET": "listenly",
     })
     env.pop("PODCAST_RAW_INFO", None)
-    return subprocess.run([sys.executable, "automation/scripts/generate_podcast_btb.py"], env=env).returncode == 0
+    # Correctif 27/09/2026 : sur un run planifie (schedule), generate_podcast_btb.py voyait le fichier
+    # .cron-paused et sortait sans rien faire (code 0) -> fiches Listenly creees sans fiche N1.
+    env["GITHUB_EVENT_NAME"] = "workflow_dispatch"
+    ok = subprocess.run([sys.executable, "automation/scripts/generate_podcast_btb.py"], env=env).returncode == 0
+    return ok and os.path.exists(f"pages/podcast-btb/{slug}-podcast.html")  # verification reelle
 
 
 def existing_slugs():
@@ -118,6 +122,14 @@ def main():
         issues = gh("GET", "/issues?labels=candidate,approved&state=open&per_page=100")
     elif wanted == "auto":
         issues = gh("GET", "/issues?labels=candidate&state=open&per_page=100&sort=created&direction=asc")
+        # Auto-reparation : issues fermees "onboarded" dont la fiche N1 n'existe pas (run rate)
+        slugs = existing_slugs()
+        for i in gh("GET", "/issues?labels=onboarded&state=closed&per_page=50&sort=updated&direction=desc"):
+            name = re.sub(r"^🎙️\s*", "", i.get("title", "")).strip()
+            if slugify(name) not in slugs and not os.path.exists(f"pages/podcast-btb/{slugify(name)}-podcast.html"):
+                i["state"] = "open"  # retraite (Listenly deja cree -> anti-doublon, seule la N1 est generee)
+                issues.insert(0, i)
+                log(f"Reparation : fiche N1 manquante pour '{name}' (issue #{i['number']}).")
     else:
         issues = [gh("GET", f"/issues/{n.strip()}") for n in wanted.split(",") if n.strip()]
     issues = [i for i in issues if not i.get("pull_request") and i.get("state") == "open"]
