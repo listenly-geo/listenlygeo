@@ -119,6 +119,53 @@ def main():
             f'<div class="meta"><div class="t">{e(p.get("podcast_name"))}</div>'
             f'<div class="s">{e(p.get("categorie"))} · {dd}</div></div>{badge}</a>')
 
+    # --- Prospection (chiffres agreges du Google Sheet, via sheet_bridge.py stats) ---
+    ps = load("automation/marketforge_engine/prospection_stats.json", None)
+    if ps:
+        sbd, rbd = ps.get("sent_by_day", {}), ps.get("replies_by_day", {})
+        sent_total, rep_total = ps.get("sent_total", 0), ps.get("replies_total", 0)
+        stt = ps.get("status", {})
+        bounces = stt.get("Rebond", 0)
+        sent_today = sbd.get(today.isoformat(), 0)
+        rep_rate = f"{rep_total / sent_total * 100:.1f}".replace(".", ",") if sent_total else "0"
+        pmax = max([sbd.get(d.isoformat(), 0) for d in days14] + [1])
+        pbars = []
+        for d in days14:
+            v, r = sbd.get(d.isoformat(), 0), rbd.get(d.isoformat(), 0)
+            h = max(2, round(v / pmax * 100)) if v else 0
+            label = f"{DAYS[d.weekday()]} {fr_date(d)} : {v} envoi{'s' if v > 1 else ''}, {r} réponse{'s' if r > 1 else ''}"
+            pbars.append(
+                f'<div class="bar-col" tabindex="0" aria-label="{e(label)}"><div class="tip">{e(label)}</div>'
+                f'<div class="bar-track"><div class="bar{" today" if d == today else ""}" style="height:{h}%"></div></div>'
+                f'<div class="bar-x">{d.day}</div></div>')
+        envoi = ('<span class="pill ok">Envoi automatique actif</span>' if ps.get("envoi_auto")
+                 else '<span class="pill">Envoi automatique en pause</span>')
+        prospection_html = f"""
+  <h2>Prospection</h2>
+  <div class="grid">
+    <div class="card kpi"><div class="label">Emails envoyés</div><div class="value">{fr_num(sent_total)}</div><div class="hint">+{sent_today} aujourd'hui</div></div>
+    <div class="card kpi"><div class="label">Relances</div><div class="value">{fr_num(ps.get("followups_total", 0))}</div><div class="hint">J+4 sans réponse</div></div>
+    <div class="card kpi"><div class="label">Réponses</div><div class="value">{fr_num(rep_total)}</div><div class="hint">taux de réponse {rep_rate} %</div></div>
+    <div class="card kpi"><div class="label">Prêts à envoyer</div><div class="value">{fr_num(stt.get("Pret", 0))}</div><div class="hint">dans le Google Sheet</div></div>
+  </div>
+  <div class="two" style="margin-top:16px">
+    <div class="card">
+      <div class="chart-head"><b>Emails envoyés par jour</b><span>14 derniers jours</span></div>
+      <div class="bars" role="img" aria-label="Emails envoyés par jour sur 14 jours">{''.join(pbars)}</div>
+    </div>
+    <div class="card stack">
+      <div><span>Statut</span>{envoi}</div>
+      <div><span>Plafond d'envois / jour</span><b>{e(ps.get("max_envois_jour") or "—")}</b></div>
+      <div><span>Rebonds</span><b>{fr_num(bounces)}</b></div>
+      <div><span>Déjà contactés (ancienne prospection)</span><b>{fr_num(stt.get("Deja en prospection", 0))}</b></div>
+      <div><span>Prospects dans le Sheet</span><b>{fr_num(ps.get("total", 0))}</b></div>
+    </div>
+  </div>"""
+    else:
+        prospection_html = """
+  <h2>Prospection</h2>
+  <div class="card muted">Le suivi des envois apparaîtra ici dès le prochain passage du moteur (lien Google Sheet → GitHub).</div>"""
+
     running = not config.get("pause")
     pill = ('<span class="state on"><i></i>En marche</span>' if running
             else '<span class="state off"><i></i>En pause</span>')
@@ -221,6 +268,8 @@ footer a {{ color:var(--ink2); }}
     <div class="card kpi"><div class="label">Rythme</div><div class="value">{round(last7 / 7)}</div><div class="hint">fiches / jour (7 derniers jours)</div></div>
     <div class="card kpi"><div class="label">Prospects avec email</div><div class="value">{fr_num(with_email)}</div><div class="hint">+{today_contacts} aujourd'hui</div></div>
   </div>
+
+{prospection_html}
 
   <h2>Production</h2>
   <div class="two">

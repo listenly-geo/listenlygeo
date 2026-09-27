@@ -4,6 +4,9 @@ Pont GitHub <-> Google Sheet de prospection (MarketForge Engine).
 
   python sheet_bridge.py pull   : lit les reglages MFE_* de l'onglet Reglages -> config.json
   python sheet_bridge.py push   : envoie le compte-rendu du run (onboarding + file + journal) au Sheet
+  python sheet_bridge.py stats  : lit le suivi prospection (envois, relances, reponses, rebonds) ->
+                                  automation/marketforge_engine/prospection_stats.json (chiffres agreges
+                                  uniquement, jamais d'email : le depot est public) -> tableau de bord
 
 Secret GitHub : MFE_SHEET_URL = URL de l'application web Apps Script, AVEC ?secret=... a la fin.
 Sans ce secret, le script ne fait rien (le systeme continue avec config.json).
@@ -78,6 +81,49 @@ def pull():
     log("Reglages du Sheet appliques : " + (", ".join(changed) if changed else "aucun changement"))
 
 
+STATS_FILE = "automation/marketforge_engine/prospection_stats.json"
+
+
+def stats():
+    res = call({"action": "status"})
+    if not res.get("ok"):
+        raise RuntimeError(res)
+    rows = res.get("prospects", [])
+    day = lambda v: str(v or "")[:10] if str(v or "")[:4].isdigit() else ""
+    status = {}
+    sent_by_day, replies_by_day, followups_by_day = {}, {}, {}
+    for r in rows:
+        st = str(r.get("Statut") or "?")
+        status[st] = status.get(st, 0) + 1
+        d = day(r.get("Envoye le"))
+        if d:
+            sent_by_day[d] = sent_by_day.get(d, 0) + 1
+        d = day(r.get("Reponse"))
+        if d:
+            replies_by_day[d] = replies_by_day.get(d, 0) + 1
+        d = day(r.get("Relance le"))
+        if d:
+            followups_by_day[d] = followups_by_day.get(d, 0) + 1
+    reg = res.get("reglages", {})
+    out = {
+        "updated": datetime.datetime.utcnow().isoformat(timespec="minutes"),
+        "total": len(rows),
+        "status": status,
+        "sent_total": sum(sent_by_day.values()),
+        "replies_total": sum(replies_by_day.values()),
+        "followups_total": sum(followups_by_day.values()),
+        "sent_by_day": dict(sorted(sent_by_day.items())[-60:]),
+        "replies_by_day": dict(sorted(replies_by_day.items())[-60:]),
+        "followups_by_day": dict(sorted(followups_by_day.items())[-60:]),
+        "envoi_auto": str(reg.get("MFE_ENVOI_AUTO", "")).upper() == "TRUE",
+        "max_envois_jour": reg.get("MFE_MAX_ENVOIS_JOUR", ""),
+    }
+    with open(STATS_FILE, "w", encoding="utf-8") as f:
+        json.dump(out, f, ensure_ascii=False, indent=1)
+        f.write("\n")
+    log(f"Suivi prospection : {out['sent_total']} envoye(s), {out['replies_total']} reponse(s), statuts {status}")
+
+
 def push():
     queue = load(QUEUE_FILE, {"podcasts": {}, "journal": {}})
     onboard = load(ONBOARD_FILE, {"onboarded": [], "failed_issues": []})
@@ -111,6 +157,6 @@ if __name__ == "__main__":
         log("MFE_SHEET_URL absent — pont Sheet desactive, rien a faire.")
         sys.exit(0)
     try:
-        {"pull": pull, "push": push}[sys.argv[1]]()
+        {"pull": pull, "push": push, "stats": stats}[sys.argv[1]]()
     except Exception as e:  # ne bloque jamais le run
         log(f"AVERTISSEMENT : pont Sheet en echec ({e})")
