@@ -4,7 +4,7 @@
  * A coller dans le projet Apps Script du Sheet de prospection podcasts (1b53cWGiz6iOuakpotw_Ck4bQBeIMJa3hfq5gP2mFiT4)
  * (Extensions > Apps Script > + > Script > nommer "MarketForgeEngine"), sans toucher aux autres fichiers.
  *
- * Ce que ca fait, chaque jour :
+ * Ce que ca fait, toutes les heures :
  *  1. Lit la file du MarketForge Engine sur GitHub (queue.json).
  *  2. Ajoute dans l'onglet "MarketForge Engine" chaque podcast qui a un email ET une preuve
  *     (fiche N1 avec ses reponses extraites). Jamais de doublon.
@@ -76,7 +76,9 @@ function installer() {
   ScriptApp.getProjectTriggers().forEach(function (t) {
     if (t.getHandlerFunction() === 'marketforgeEngineQuotidien') ScriptApp.deleteTrigger(t);
   });
-  ScriptApp.newTrigger('marketforgeEngineQuotidien').timeBased().everyDays(1).atHour(9).create();
+  // Toutes les heures : les prospects arrivent dans le tableau au plus 1 h apres chaque run GitHub
+  // (instantanement si le pont application web est branche). Le plafond d'envois reste journalier.
+  ScriptApp.newTrigger('marketforgeEngineQuotidien').timeBased().everyHours(1).create();
   marketforgeEngineQuotidien();
 }
 
@@ -112,7 +114,10 @@ function mfeImport_(sh, podcasts) {
 
 // ---------- 2. Premier mail ----------
 function mfeSend_(sh, max) {
-  var sent = 0;
+  var today = new Date().toDateString();
+  var sent = mfeRows_(sh).filter(function (r) {
+    return r.values[7] && new Date(r.values[7]).toDateString() === today;
+  }).length;  // deja envoyes aujourd'hui (le script tourne toutes les heures)
   mfeRows_(sh).forEach(function (r) {
     if (sent >= max || r.values[6] !== 'Pret') return;
     var v = mfeVars_(r.values);
