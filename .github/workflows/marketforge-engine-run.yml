@@ -113,18 +113,42 @@ jobs:
         run: |
           git config user.name  "listenly-bot"
           git config user.email "bot@listenly.fr"
+          rm -f discovery.log
           git add automation/data/ automation/marketforge_engine/ automation/inbox/moteur-trafic-transcripts/ pages/podcast-btb/
           if git diff --staged --quiet; then
-            echo "Rien de nouveau."
-          else
-            git commit -m "Auto: MarketForge Engine — run complet du jour"
-            for i in 1 2 3 4 5; do
-              git fetch origin main
-              git rebase origin/main && git push && break
-              git rebase --abort 2>/dev/null || true
-              sleep $((RANDOM % 15 + 5))
-            done
+            echo "::notice title=Commit::Rien de nouveau a enregistrer."
+            exit 0
           fi
+          git commit -q -m "Auto: MarketForge Engine — run complet du jour"
+          ok=0
+          for i in 1 2 3 4 5; do
+            if git pull -q --rebase --autostash origin main && git push -q; then ok=1; break; fi
+            git rebase --abort 2>/dev/null || true
+            sleep $((RANDOM % 15 + 5))
+          done
+          if [ "$ok" != "1" ]; then
+            echo "::error title=Commit::Push impossible apres 5 essais. Etat : $(git status --short | head -8 | tr '\n' ' ')"
+            exit 1
+          fi
+          echo "::notice title=Commit::Enregistre sur main ($(git rev-parse --short HEAD))."
+
+      - name: Bilan du run (annotations)
+        if: always() && steps.cfg.outputs.pause != 'true'
+        run: |
+          python - <<'PY'
+          import json, datetime
+          def load(p, d):
+              try: return json.load(open(p, encoding="utf-8"))
+              except Exception: return d
+          ob = load("automation/marketforge_engine/last_onboard.json", {})
+          q = load("automation/marketforge_engine/queue.json", {})
+          j = q.get("journal", {}).get(datetime.date.today().isoformat(), {})
+          names = ", ".join(o.get("podcast_name", "") + (" (Listenly cree)" if o.get("listenly_created") else " (Listenly existant)") for o in ob.get("onboarded", []))
+          print(f"::notice title=Onboarding::{len(ob.get('onboarded', []))} onboarde(s) : {names or 'aucun'} | echecs : {ob.get('failed_issues', [])}")
+          print(f"::notice title=Extraction::{j.get('episodes', 0)} episode(s), {j.get('minutes', 0)} min, {j.get('moments', 0)} Q/R | file : " +
+                ", ".join(f"{s}={p.get('status')}/{p.get('moments_count', 0)}QR/{'email' if p.get('email') else 'sans email'}" for s, p in q.get("podcasts", {}).items()))
+          PY
+          echo "::notice title=Decouverte::${DISCOVERED_COUNT:-0} nouvelle(s) issue(s) candidate(s)."
 
       - name: 5. Mise en ligne FTP
         if: always() && steps.cfg.outputs.pause != 'true'

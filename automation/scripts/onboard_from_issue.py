@@ -120,12 +120,18 @@ def main():
         issues = gh("GET", "/issues?labels=candidate&state=open&per_page=100&sort=created&direction=asc")
     else:
         issues = [gh("GET", f"/issues/{n.strip()}") for n in wanted.split(",") if n.strip()]
-    issues = [i for i in issues if not i.get("pull_request") and i.get("state") == "open"][:MAX_ONBOARD]
-    log(f"{len(issues)} candidat(s) a onboarder (mode {MODE}).")
+    issues = [i for i in issues if not i.get("pull_request") and i.get("state") == "open"]
+    log(f"{len(issues)} candidat(s) ouvert(s), plafond {MAX_ONBOARD} nouvelle(s) fiche(s) (mode {MODE}).")
 
     done, failed, report = [], [], []
+    new_count = 0
     for issue in issues:
         c = parse_issue(issue)
+        already = slugify(c["podcast_name"]) in existing_slugs()
+        # Deja onboarde avant (fiche N1 existante, issue restee ouverte) : on le rattache a la file
+        # et on ferme l'issue, sans consommer le quota du jour (aucun cout Claude).
+        if not already and new_count >= MAX_ONBOARD:
+            continue
         log(f"### #{c['issue_number']} {c['podcast_name']}")
         if not c["feed_url"]:
             failed.append(c["issue_number"]); log("Pas de flux RSS dans l'issue — ignore."); continue
@@ -142,6 +148,8 @@ def main():
         listenly_url = res["listenly_url"]
 
         slug = slugify(c["podcast_name"])
+        if not already:
+            new_count += 1
         if slug in existing_slugs():
             log(f"Fiche N1 '{slug}' deja presente — pas de regeneration.")
         elif not generate_n1(c, listenly_url, slug):

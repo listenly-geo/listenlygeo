@@ -132,6 +132,8 @@ def already_mined_guids(slug):
 def sync_queue(queue, config, podcasts):
     since = config.get("entree_auto_depuis_date") or TODAY
     manual = set(config.get("ajouter_manuellement") or [])
+    # Podcasts onboardes par le run (y compris fiches N1 plus anciennes rattachees au moteur)
+    manual |= {o.get("slug") for o in load_json(f"{ENGINE_DIR}/last_onboard.json", {}).get("onboarded", []) if o.get("slug")}
     excluded = set(config.get("exclure") or [])
     added = []
     for p in podcasts:
