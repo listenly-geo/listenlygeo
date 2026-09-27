@@ -25,6 +25,10 @@ header { display:flex; align-items:flex-end; justify-content:space-between; gap:
 .eyebrow { color:var(--ink3); font-size:13px; font-weight:600; letter-spacing:.02em; margin:0 0 6px; }
 h1 { font-size:44px; line-height:1.05; letter-spacing:-.025em; margin:0; font-weight:700; }
 .sub { color:var(--ink2); margin:10px 0 0; font-size:17px; }
+.actions { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.btn { display:inline-flex; align-items:center; font-size:13px; font-weight:600; padding:8px 16px; border-radius:999px;
+  background:var(--accent); color:#fff; text-decoration:none; transition:opacity .15s; }
+.btn:hover { opacity:.85; }
 .state { display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; padding:7px 14px;
   border-radius:999px; background:var(--card); box-shadow:var(--shadow); border:1px solid var(--line); }
 .state i { width:8px; height:8px; border-radius:50%; background:var(--ink3); }
@@ -85,9 +89,12 @@ footer a { color:var(--ink2); }
     <div>
       <p class="eyebrow">MarketForge Engine · Listenly</p>
       <h1>Tableau de bord</h1>
-      <p class="sub">Fiches hub, prospects et visibilité Google — mis à jour le 28 sept. à 00:28.</p>
+      <p class="sub">Fiches hub, prospects et visibilité Google — mis à jour le 28 sept. à 00:43.</p>
     </div>
-    <span class="state on"><i></i>En marche</span>
+    <div class="actions">
+      <a class="btn" href="https://docs.google.com/spreadsheets/d/1b53cWGiz6iOuakpotw_Ck4bQBeIMJa3hfq5gP2mFiT4/edit" target="_blank" rel="noopener">Ouvrir le Google Sheet ↗</a>
+      <span class="state on"><i></i>En marche</span>
+    </div>
   </header>
 
   <div class="grid">

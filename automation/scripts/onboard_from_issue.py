@@ -105,6 +105,19 @@ def generate_n1(c, listenly_url, slug):
     return ok and os.path.exists(f"pages/podcast-btb/{slug}-podcast.html")  # verification reelle
 
 
+def _norm_rss(u):
+    return (u or "").strip().rstrip("/").lower().replace("http://", "https://")
+
+
+def existing_by_rss():
+    """flux RSS -> slug deja existant (anti-doublon : meme podcast sous un autre nom)."""
+    try:
+        with open(PODCASTS_FILE, encoding="utf-8") as f:
+            return {_norm_rss(p.get("rss_url")): p["slug"] for p in json.load(f) if p.get("rss_url")}
+    except (OSError, ValueError):
+        return {}
+
+
 def existing_slugs():
     try:
         with open(PODCASTS_FILE, encoding="utf-8") as f:
@@ -139,7 +152,8 @@ def main():
     new_count = 0
     for issue in issues:
         c = parse_issue(issue)
-        already = slugify(c["podcast_name"]) in existing_slugs()
+        rss_slug = existing_by_rss().get(_norm_rss(c["feed_url"]))
+        already = slugify(c["podcast_name"]) in existing_slugs() or bool(rss_slug)
         # Deja onboarde avant (fiche N1 existante, issue restee ouverte) : on le rattache a la file
         # et on ferme l'issue, sans consommer le quota du jour (aucun cout Claude).
         if not already and new_count >= MAX_ONBOARD:
@@ -159,7 +173,7 @@ def main():
             continue
         listenly_url = res["listenly_url"]
 
-        slug = slugify(c["podcast_name"])
+        slug = rss_slug or slugify(c["podcast_name"])   # meme flux RSS -> on reutilise la fiche existante
         if not already:
             new_count += 1
         if slug in existing_slugs():
