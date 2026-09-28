@@ -1,0 +1,69 @@
+name: Rafraîchir le dashboard (sans toucher au moteur)
+
+# Bouton "Run workflow" pour voir une mise a jour du dashboard tout de suite, sans attendre
+# le prochain run planifie (toutes les 4h). Ne fait QUE : lire le Google Sheet de prospection,
+# regenerer moteur.html, publier. Ne touche JAMAIS a la decouverte, l'onboarding, l'extraction,
+# ni a config.json — aucun podcast cree, aucun mail envoye.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: marketforge-engine-run
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Suivi prospection du Sheet + tableau de bord (moteur.html)
+        env:
+          MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
+        run: |
+          python automation/scripts/sheet_bridge.py stats
+          python automation/scripts/build_engine_dashboard.py
+
+      - name: Commit
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git add automation/marketforge_engine/prospection_stats.json pages/podcast-btb/moteur.html
+          if git diff --staged --quiet; then
+            echo "::notice title=Commit::Rien de nouveau a enregistrer."
+            exit 0
+          fi
+          git commit -q -m "Auto: rafraichissement dashboard"
+          ok=0
+          for i in 1 2 3 4 5; do
+            if git pull -q --rebase --autostash origin main && git push -q; then ok=1; break; fi
+            git rebase --abort 2>/dev/null || true
+            sleep $((RANDOM % 10 + 3))
+          done
+          if [ "$ok" != "1" ]; then
+            echo "::error title=Commit::Push impossible apres 5 essais."
+            exit 1
+          fi
+          echo "::notice title=Commit::Enregistre sur main ($(git rev-parse --short HEAD))."
+
+      - name: Mise en ligne FTP (moteur.html)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
