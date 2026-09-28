@@ -58,9 +58,5 @@ jobs:
           curl -sS -X POST https://listenly.fr/api/grep-search.php \
             -H "Content-Type: application/json" \
             -H "X-Import-Secret: $SECRET" \
-            -d "$(python3 -c '
-import json, os
-subdirs = [s.strip() for s in os.environ.get("SUBDIRS", "").split(",") if s.strip()]
-print(json.dumps({"pattern": os.environ["PATTERN"], "subdirs": subdirs, "max_results": 100}))
-')" \
+            -d "$(python3 -c 'import json,os; subdirs=[s.strip() for s in os.environ.get("SUBDIRS","").split(",") if s.strip()]; print(json.dumps({"pattern": os.environ["PATTERN"], "subdirs": subdirs, "max_results": 100}))')" \
             | python3 -m json.tool
