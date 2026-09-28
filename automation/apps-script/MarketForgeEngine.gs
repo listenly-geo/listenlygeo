@@ -252,7 +252,12 @@ function mfeCheckReplies_(sh) {
     var thread = GmailApp.getThreadById(threadId);
     if (!thread) return;
     var msgs = thread.getMessages();
-    var bounce = msgs.some(function (m) { return /mailer-daemon|postmaster/i.test(m.getFrom()); });
+    // Rebond = avis d'echec DEFINITIF (pas les avis "Delay" / probleme temporaire, Gmail reessaie seul)
+    var bounce = msgs.some(function (m) {
+      if (!/mailer-daemon|postmaster|mail delivery/i.test(m.getFrom())) return false;
+      var txt = m.getSubject() + ' ' + m.getPlainBody().slice(0, 600);
+      return !/\(Delay\)|delayed|temporaire|temporary|will retry|vont \u00eatre effectu/i.test(txt);
+    });
     if (bounce) {  // mail bloque / adresse invalide : jamais de relance
       sh.getRange(r.row, 7).setValue('Rebond');
       mfeRememberBounce_(r.values[2]);
@@ -273,7 +278,7 @@ var MFE_BLOCKED_DOMAINS = ['anchor.fm', 'spotify.com', 'spreaker.com', 'libsyn.c
   'podbean.com', 'simplecast.com', 'transistor.fm', 'captivate.fm', 'acast.com', 'omny.fm', 'omnystudio.com',
   'soundcloud.com', 'iheart.com', 'iheartmedia.com', 'audioboom.com', 'redcircle.com', 'art19.com', 'pinecast.com',
   'blubrry.com', 'podcastics.com', 'ausha.co', 'podomatic.com', 'castos.com', 'fireside.fm', 'podigee.com',
-  'riverside.fm', 'zencast.fm', 'whooshkaa.com', 'example.com', 'example.org', 'test.com', 'domain.com', 'email.com'];
+  'riverside.fm', 'zencast.fm', 'whooshkaa.com', 'appbind.com', 'rss.com', 'podcastpage.io', 'example.com', 'example.org', 'test.com', 'domain.com', 'email.com'];
 var MFE_BLOCKED_LOCAL = /^(no-?reply|do-?not-?reply|noreply\d*|feeds?|rss|bounces?|postmaster|mailer-daemon|abuse|dmca|copyright|unsubscribe|privacy|legal|billing|invoices?|accounting|applepodcasts?|itunes|podcasts?\d+(\+.*)?)$/;
 
 // '' si l'adresse est envoyable, sinon la raison
@@ -286,6 +291,7 @@ function mfeEmailProblem_(email) {
     if (domain === d || domain.slice(-d.length - 1) === '.' + d) return 'adresse d\'hebergeur (' + domain + ')';
   }
   if (MFE_BLOCKED_LOCAL.test(local.split('+')[0]) || MFE_BLOCKED_LOCAL.test(local)) return 'boite technique (' + local + '@)';
+  if (/(anchor|libsyn|audioboom|spreaker|megaphone|buzzsprout|podbean|simplecast|soundcloud|acast|omny|redcircle)/.test(local)) return 'adresse de plateforme (' + local + '@)';
   var bounced = JSON.parse(PropertiesService.getScriptProperties().getProperty('MFE_BOUNCED_DOMAINS') || '{}');
   var perso = /^(gmail|googlemail|yahoo|outlook|hotmail|live|icloud|me|aol|proton|protonmail)\./;
   if (bounced[domain] && !perso.test(domain)) return 'domaine deja en rebond (' + domain + ')';

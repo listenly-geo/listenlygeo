@@ -91,13 +91,15 @@ def stats():
     rows = res.get("prospects", [])
     day = lambda v: str(v or "")[:10] if str(v or "")[:4].isdigit() else ""
     status = {}
-    sent_by_day, replies_by_day, followups_by_day = {}, {}, {}
+    sent_by_day, replies_by_day, followups_by_day, bounces_by_day = {}, {}, {}, {}
     for r in rows:
         st = str(r.get("Statut") or "?")
         status[st] = status.get(st, 0) + 1
         d = day(r.get("Envoye le"))
         if d:
             sent_by_day[d] = sent_by_day.get(d, 0) + 1
+            if st == "Rebond":
+                bounces_by_day[d] = bounces_by_day.get(d, 0) + 1
         d = day(r.get("Reponse"))
         if d:
             replies_by_day[d] = replies_by_day.get(d, 0) + 1
@@ -139,6 +141,7 @@ def stats():
         "sent_by_day": dict(sorted(sent_by_day.items())[-60:]),
         "replies_by_day": dict(sorted(replies_by_day.items())[-60:]),
         "followups_by_day": dict(sorted(followups_by_day.items())[-60:]),
+        "bounces_by_day": dict(sorted(bounces_by_day.items())[-60:]),
         "envoi_auto": str(reg.get("MFE_ENVOI_AUTO", "")).upper() == "TRUE",
         "max_envois_jour": reg.get("MFE_MAX_ENVOIS_JOUR", ""),
         "heures_envoi": reg.get("MFE_HEURES_ENVOI", ""),

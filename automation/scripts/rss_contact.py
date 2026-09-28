@@ -24,6 +24,7 @@ BLOCKED_DOMAINS = (
     "omnystudio.com", "soundcloud.com", "iheart.com", "iheartmedia.com", "audioboom.com", "redcircle.com",
     "art19.com", "pinecast.com", "blubrry.com", "podcastics.com", "ausha.co", "podomatic.com",
     "castos.com", "fireside.fm", "podigee.com", "riverside.fm", "zencast.fm", "whooshkaa.com",
+    "appbind.com", "rss.com", "podcastpage.io",
     "example.com", "example.org", "test.com", "domain.com", "email.com",
 )
 # Boites techniques : jamais lues par un humain.
@@ -43,6 +44,8 @@ def email_problem(email):
         return f"adresse d'hebergeur ({domain})"
     if BLOCKED_LOCAL.match(local.split("+")[0]) or BLOCKED_LOCAL.match(local):
         return f"boite technique ({local}@)"
+    if re.search(r"(anchor|libsyn|audioboom|spreaker|megaphone|buzzsprout|podbean|simplecast|soundcloud|acast|omny|redcircle)", local):
+        return f"adresse de plateforme ({local}@)"
     return ""
 
 
