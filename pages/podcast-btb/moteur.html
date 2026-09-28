@@ -75,6 +75,15 @@ ul.rank a:hover { color:var(--accent); }
 .meta .s { color:var(--ink3); font-size:12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .pill { font-size:11px; font-weight:600; padding:4px 9px; border-radius:99px; background:var(--track); color:var(--ink2); white-space:nowrap; }
 .pill.ok { background:var(--ok-soft); color:var(--ok); }
+.pill.warn { background:#fdecea; color:#a3271d; }
+@media (prefers-color-scheme: dark) { .pill.warn { background:#3a1a17; color:#ff6b5b; } }
+table.track { width:100%; border-collapse:collapse; font-size:14px; }
+table.track th { text-align:left; font-size:12px; font-weight:600; color:var(--ink3); text-transform:uppercase;
+  letter-spacing:.03em; padding:14px 24px; border-bottom:1px solid var(--line); }
+table.track td { padding:13px 24px; border-bottom:1px solid var(--line); vertical-align:middle; }
+table.track tr:last-child td { border-bottom:0; }
+table.track td.t1 { font-weight:600; max-width:260px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+table.track td.t3 { color:var(--ink2); }
 footer { margin-top:56px; color:var(--ink3); font-size:12px; text-align:center; }
 footer a { color:var(--ink2); }
 @media (max-width:860px) {
@@ -89,7 +98,7 @@ footer a { color:var(--ink2); }
     <div>
       <p class="eyebrow">MarketForge Engine · Listenly</p>
       <h1>Tableau de bord</h1>
-      <p class="sub">Fiches hub, prospects et visibilité Google — mis à jour le 28 sept. à 07:43.</p>
+      <p class="sub">Fiches hub, prospects et visibilité Google — mis à jour le 28 sept. à 09:21.</p>
     </div>
     <div class="actions">
       <a class="btn" href="https://docs.google.com/spreadsheets/d/1b53cWGiz6iOuakpotw_Ck4bQBeIMJa3hfq5gP2mFiT4/edit" target="_blank" rel="noopener">Ouvrir le Google Sheet ↗</a>
@@ -126,6 +135,10 @@ footer a { color:var(--ink2); }
       <div><span>Prospects dans le Sheet</span><b>87</b></div>
     </div>
   </div>
+
+
+  <h2>Où ça en est</h2>
+  <div class="card muted">Le détail par prospect apparaîtra ici dès le prochain passage du moteur.</div>
 
   <h2>Production</h2>
   <div class="two">

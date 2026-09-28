@@ -119,6 +119,52 @@ def main():
             f'<div class="meta"><div class="t">{e(p.get("podcast_name"))}</div>'
             f'<div class="s">{e(p.get("categorie"))} · {dd}</div></div>{badge}</a>')
 
+    # --- Avancement par prospect (colonne "ou ca en est", claire) ---
+    STATUT_PILL = {
+        "Repondu": "ok", "Envoye": "", "Relance": "", "Pret": "",
+        "Rebond": "warn", "Email invalide": "warn", "Erreur": "warn", "Deja en prospection": "",
+    }
+    STATUT_LABEL = {
+        "Pret": "Prêt", "Envoye": "Envoyé", "Relance": "Relancé", "Repondu": "Répondu",
+        "Rebond": "Bloqué", "Email invalide": "Email invalide", "Erreur": "Erreur d'envoi",
+        "Deja en prospection": "Déjà contacté",
+    }
+
+    def fmt_dt(v):
+        v = str(v or "").strip()
+        if len(v) < 10 or not v[:4].isdigit():
+            return ""
+        try:
+            d = datetime.datetime.fromisoformat(v.replace("Z", "+00:00"))
+            if d.tzinfo:
+                d = d.astimezone(datetime.timezone(datetime.timedelta(hours=2))).replace(tzinfo=None)
+            return f"{fr_date(d.date())} à {d:%H:%M}" if (d.hour or d.minute) else fr_date(d.date())
+        except ValueError:
+            return v[:10]
+
+    def advancement(r, envoi_auto, heures):
+        st = r.get("statut", "")
+        if st == "Repondu":
+            return f"Répondu le {fmt_dt(r.get('reponse')) or '—'}"
+        if st == "Rebond":
+            return "Bloqué — adresse invalide, aucune relance ne partira"
+        if st == "Email invalide":
+            return "Écarté avant envoi — adresse invalide"
+        if st == "Erreur":
+            return "Erreur technique à l'envoi — sera retentée"
+        if st == "Relance":
+            return f"Relancé le {fmt_dt(r.get('relance_le')) or '—'} · en attente de réponse"
+        if st == "Envoye":
+            return f"Envoyé le {fmt_dt(r.get('envoye_le')) or '—'} · en attente de réponse"
+        if st == "Deja en prospection":
+            return "Déjà contacté par une prospection précédente"
+        if st == "Pret":
+            return (f"Prêt · envoi automatique en pause (rien ne part)" if not envoi_auto
+                    else f"Prêt · partira au prochain passage du moteur ({heures}h, plage horaire)")
+        return st or "—"
+
+    prospect_table_html = ""
+
     # --- Prospection (chiffres agreges du Google Sheet, via sheet_bridge.py stats) ---
     ps = load("automation/marketforge_engine/prospection_stats.json", None)
     if ps:
@@ -142,6 +188,28 @@ def main():
                 f'<div class="bar-x">{d.day}</div></div>')
         envoi = ('<span class="pill ok">Envoi automatique actif</span>' if ps.get("envoi_auto")
                  else '<span class="pill">Envoi automatique en pause</span>')
+
+        # --- Tableau "ou ca en est" par prospect ---
+        heures = ps.get("heures_envoi") or "8-19"
+        prow = []
+        for r in ps.get("prospects", [])[:60]:
+            st = r.get("statut", "")
+            pill_kind = STATUT_PILL.get(st, "")
+            pill = f'<span class="pill{" " + pill_kind if pill_kind else ""}">{e(STATUT_LABEL.get(st, st or "—"))}</span>'
+            prow.append(
+                f'<tr><td class="t1">{e(r.get("podcast") or r.get("slug"))}</td>'
+                f'<td>{pill}</td><td class="t3">{e(advancement(r, ps.get("envoi_auto"), heures))}</td></tr>')
+        prospect_table_html = f"""
+  <h2>Où ça en est</h2>
+  <div class="card" style="padding:0;overflow:hidden">
+    <table class="track">
+      <thead><tr><th>Podcast</th><th>Statut</th><th>Avancement</th></tr></thead>
+      <tbody>{''.join(prow) or '<tr><td colspan="3" class="muted" style="padding:16px 24px">Rien a afficher pour le moment.</td></tr>'}</tbody>
+    </table>
+  </div>""" if prow else """
+  <h2>Où ça en est</h2>
+  <div class="card muted">Le détail par prospect apparaîtra ici dès le prochain passage du moteur.</div>"""
+
         prospection_html = f"""
   <h2>Prospection</h2>
   <div class="grid">
@@ -250,6 +318,15 @@ ul.rank a:hover {{ color:var(--accent); }}
 .meta .s {{ color:var(--ink3); font-size:12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }}
 .pill {{ font-size:11px; font-weight:600; padding:4px 9px; border-radius:99px; background:var(--track); color:var(--ink2); white-space:nowrap; }}
 .pill.ok {{ background:var(--ok-soft); color:var(--ok); }}
+.pill.warn {{ background:#fdecea; color:#a3271d; }}
+@media (prefers-color-scheme: dark) {{ .pill.warn {{ background:#3a1a17; color:#ff6b5b; }} }}
+table.track {{ width:100%; border-collapse:collapse; font-size:14px; }}
+table.track th {{ text-align:left; font-size:12px; font-weight:600; color:var(--ink3); text-transform:uppercase;
+  letter-spacing:.03em; padding:14px 24px; border-bottom:1px solid var(--line); }}
+table.track td {{ padding:13px 24px; border-bottom:1px solid var(--line); vertical-align:middle; }}
+table.track tr:last-child td {{ border-bottom:0; }}
+table.track td.t1 {{ font-weight:600; max-width:260px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }}
+table.track td.t3 {{ color:var(--ink2); }}
 footer {{ margin-top:56px; color:var(--ink3); font-size:12px; text-align:center; }}
 footer a {{ color:var(--ink2); }}
 @media (max-width:860px) {{
@@ -280,6 +357,8 @@ footer a {{ color:var(--ink2); }}
   </div>
 
 {prospection_html}
+
+{prospect_table_html}
 
   <h2>Production</h2>
   <div class="two">
