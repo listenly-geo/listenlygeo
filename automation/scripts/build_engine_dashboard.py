@@ -9,6 +9,7 @@ import os, json, html, datetime, collections
 
 PAGES = "pages/podcast-btb"
 OUT = f"{PAGES}/moteur.html"
+UNIVERS_PODCASTS = 3_200_000  # taille du marche vise (podcasts B2B dans le monde) - a ajuster si besoin
 
 
 def load(p, d):
@@ -277,6 +278,11 @@ h1 {{ font-size:44px; line-height:1.05; letter-spacing:-.025em; margin:0; font-w
 .state i {{ width:8px; height:8px; border-radius:50%; background:var(--ink3); }}
 .state.on i {{ background:#34c759; box-shadow:0 0 0 4px rgba(52,199,89,.18); }}
 h2 {{ font-size:22px; letter-spacing:-.015em; margin:48px 0 16px; font-weight:650; }}
+.hero {{ text-align:center; padding:28px 24px 32px; }}
+.hero-num {{ font-size:96px; line-height:1; font-weight:800; letter-spacing:-.03em; font-variant-numeric:tabular-nums; }}
+.hero-den {{ font-size:40px; font-weight:600; color:var(--ink3); }}
+.hero-label {{ margin-top:10px; color:var(--ink2); font-size:16px; font-weight:500; }}
+@media (max-width:860px) {{ .hero-num {{ font-size:64px; }} .hero-den {{ font-size:28px; }} }}
 .grid {{ display:grid; gap:16px; grid-template-columns:repeat(4,1fr); }}
 .card {{ background:var(--card); border-radius:20px; padding:22px 24px; box-shadow:var(--shadow); border:1px solid var(--line); }}
 .kpi .label {{ color:var(--ink2); font-size:13px; font-weight:500; }}
@@ -349,11 +355,9 @@ footer a {{ color:var(--ink2); }}
     </div>
   </header>
 
-  <div class="grid">
-    <div class="card kpi"><div class="label">Fiches hub</div><div class="value">{fr_num(total)}</div><div class="hint">au total</div></div>
-    <div class="card kpi"><div class="label">Créées aujourd'hui</div><div class="value">{fr_num(today_n)}</div><div class="hint">{fr_date(today)}</div></div>
-    <div class="card kpi"><div class="label">Rythme</div><div class="value">{round(last7 / 7)}</div><div class="hint">fiches / jour (7 derniers jours)</div></div>
-    <div class="card kpi"><div class="label">Prospects avec email</div><div class="value">{fr_num(with_email)}</div><div class="hint">+{today_contacts} aujourd'hui</div></div>
+  <div class="hero">
+    <div class="hero-num">{fr_num(total)}<span class="hero-den"> / {f"{UNIVERS_PODCASTS / 1_000_000:.1f}".replace(".", ",")} M</span></div>
+    <div class="hero-label">podcasts référencés</div>
   </div>
 
 {prospection_html}

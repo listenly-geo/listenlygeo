@@ -34,6 +34,11 @@ h1 { font-size:44px; line-height:1.05; letter-spacing:-.025em; margin:0; font-we
 .state i { width:8px; height:8px; border-radius:50%; background:var(--ink3); }
 .state.on i { background:#34c759; box-shadow:0 0 0 4px rgba(52,199,89,.18); }
 h2 { font-size:22px; letter-spacing:-.015em; margin:48px 0 16px; font-weight:650; }
+.hero { text-align:center; padding:28px 24px 32px; }
+.hero-num { font-size:96px; line-height:1; font-weight:800; letter-spacing:-.03em; font-variant-numeric:tabular-nums; }
+.hero-den { font-size:40px; font-weight:600; color:var(--ink3); }
+.hero-label { margin-top:10px; color:var(--ink2); font-size:16px; font-weight:500; }
+@media (max-width:860px) { .hero-num { font-size:64px; } .hero-den { font-size:28px; } }
 .grid { display:grid; gap:16px; grid-template-columns:repeat(4,1fr); }
 .card { background:var(--card); border-radius:20px; padding:22px 24px; box-shadow:var(--shadow); border:1px solid var(--line); }
 .kpi .label { color:var(--ink2); font-size:13px; font-weight:500; }
@@ -98,7 +103,7 @@ footer a { color:var(--ink2); }
     <div>
       <p class="eyebrow">MarketForge Engine · Listenly</p>
       <h1>Tableau de bord</h1>
-      <p class="sub">Fiches hub, prospects et visibilité Google — mis à jour le 28 sept. à 09:21.</p>
+      <p class="sub">Fiches hub, prospects et visibilité Google — mis à jour le 28 sept. à 09:27.</p>
     </div>
     <div class="actions">
       <a class="btn" href="https://docs.google.com/spreadsheets/d/1b53cWGiz6iOuakpotw_Ck4bQBeIMJa3hfq5gP2mFiT4/edit" target="_blank" rel="noopener">Ouvrir le Google Sheet ↗</a>
@@ -106,11 +111,9 @@ footer a { color:var(--ink2); }
     </div>
   </header>
 
-  <div class="grid">
-    <div class="card kpi"><div class="label">Fiches hub</div><div class="value">279</div><div class="hint">au total</div></div>
-    <div class="card kpi"><div class="label">Créées aujourd'hui</div><div class="value">12</div><div class="hint">28 sept.</div></div>
-    <div class="card kpi"><div class="label">Rythme</div><div class="value">16</div><div class="hint">fiches / jour (7 derniers jours)</div></div>
-    <div class="card kpi"><div class="label">Prospects avec email</div><div class="value">87</div><div class="hint">+10 aujourd'hui</div></div>
+  <div class="hero">
+    <div class="hero-num">279<span class="hero-den"> / 3,2 M</span></div>
+    <div class="hero-label">podcasts référencés</div>
   </div>
 
 
