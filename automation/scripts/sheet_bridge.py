@@ -105,6 +105,13 @@ def stats():
         if d:
             followups_by_day[d] = followups_by_day.get(d, 0) + 1
     reg = res.get("reglages", {})
+    # Position dans la file d'envoi (ordre du Sheet = ordre reellement suivi par mfeSend_) :
+    # sert au tableau de bord pour estimer l'heure d'envoi des prospects "Pret".
+    queue_rank, n = {}, 0
+    for r in rows:
+        if str(r.get("Statut")) == "Pret":
+            n += 1
+            queue_rank[r.get("Slug")] = n
     # Detail par prospect pour le tableau de bord (JAMAIS l'email ni le thread : le depot est public).
     # Trie par date la plus recente (relance > envoi > ajout) en tete.
     prospect_rows = sorted(rows, key=lambda r: str(r.get("Relance le") or r.get("Envoye le") or r.get("Ajoute le") or ""), reverse=True)
@@ -117,6 +124,8 @@ def stats():
             "envoye_le": r.get("Envoye le", ""),
             "relance_le": r.get("Relance le", ""),
             "reponse": r.get("Reponse", ""),
+            "fiche_url": r.get("Preuve (fiche N1)") or r.get("Page Listenly") or "",
+            "queue_rank": queue_rank.get(r.get("Slug")),
         }
         for r in prospect_rows[:300]
     ]
@@ -133,6 +142,8 @@ def stats():
         "envoi_auto": str(reg.get("MFE_ENVOI_AUTO", "")).upper() == "TRUE",
         "max_envois_jour": reg.get("MFE_MAX_ENVOIS_JOUR", ""),
         "heures_envoi": reg.get("MFE_HEURES_ENVOI", ""),
+        "cap_jour_effectif": res.get("cap_jour_effectif"),
+        "envoyes_aujourdhui": res.get("envoyes_aujourdhui"),
         "prospects": detail,
     }
     with open(STATS_FILE, "w", encoding="utf-8") as f:

@@ -553,7 +553,15 @@ function doGet(e) {
     });
     var histo = mfeHisto_();
     var last = histo.getLastRow() > 1 ? histo.getRange(2, 1, Math.min(histo.getLastRow() - 1, 14), MFE.HISTO_COLS.length).getValues() : [];
-    return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last });
+    // Expose le plafond du jour (montee progressive) et le nombre deja envoye aujourd'hui,
+    // pour que le tableau de bord puisse estimer l'heure d'envoi des prospects "Pret".
+    var cfg = mfeSettings_();
+    var today = new Date().toDateString();
+    var sentToday = mfeRows_(sh).filter(function (r) {
+      return r.values[7] && new Date(r.values[7]).toDateString() === today;
+    }).length;
+    return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }

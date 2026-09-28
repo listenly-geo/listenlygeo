@@ -5,7 +5,7 @@ Genere pages/podcast-btb/moteur.html (noindex) a chaque run du moteur et de la c
 
   python automation/scripts/build_engine_dashboard.py
 """
-import os, json, html, datetime, collections
+import os, json, html, datetime, collections, math
 
 PAGES = "pages/podcast-btb"
 OUT = f"{PAGES}/moteur.html"
@@ -143,7 +143,21 @@ def main():
         except ValueError:
             return v[:10]
 
-    def advancement(r, envoi_auto, heures):
+    def eta_hour(rank, cap, sent_today, h_start, h_end):
+        """Heure estimee d'envoi d'un prospect 'Pret', selon la meme repartition que mfeSend_
+        (mfeDailyCap_ cote Apps Script) : proportion du plafond du jour deja ouverte a chaque heure."""
+        span = h_end - h_start
+        if not cap or span <= 0 or rank is None:
+            return None
+        position = sent_today + rank  # position cumulee dans les envois du jour
+        if position > cap:
+            return None  # ne partira pas aujourd'hui (au-dela du plafond du jour)
+        for h in range(h_start, h_end):
+            if math.ceil(cap * (h - h_start + 1) / span) >= position:
+                return h
+        return h_end - 1
+
+    def advancement(r, envoi_auto, heures, cap=None, sent_today=None):
         st = r.get("statut", "")
         if st == "Repondu":
             return f"Répondu le {fmt_dt(r.get('reponse')) or '—'}"
@@ -160,8 +174,19 @@ def main():
         if st == "Deja en prospection":
             return "Déjà contacté par une prospection précédente"
         if st == "Pret":
-            return (f"Prêt · envoi automatique en pause (rien ne part)" if not envoi_auto
-                    else f"Prêt · partira au prochain passage du moteur ({heures}h, plage horaire)")
+            if not envoi_auto:
+                return "Prêt · envoi automatique en pause (rien ne part)"
+            try:
+                h_start, h_end = (int(x) for x in str(heures).split("-"))
+            except ValueError:
+                h_start, h_end = 8, 19
+            eta = eta_hour(r.get("queue_rank"), cap, sent_today, h_start, h_end) if cap else None
+            if eta is None:
+                return (f"Prêt · partira au prochain passage du moteur ({heures}h, plage horaire)" if not cap
+                        else "Prêt · au-delà du plafond du jour, partira un jour prochain")
+            if eta <= now.hour:
+                return f"Prêt · devrait partir dans l'heure (créneau ~{eta}h)"
+            return f"Prêt · prévu aujourd'hui vers {eta}h"
         return st or "—"
 
     prospect_table_html = ""
@@ -192,14 +217,21 @@ def main():
 
         # --- Tableau "ou ca en est" par prospect ---
         heures = ps.get("heures_envoi") or "8-19"
+        cap_jour = ps.get("cap_jour_effectif")
+        sent_today_eff = ps.get("envoyes_aujourdhui") or 0
         prow = []
         for r in ps.get("prospects", [])[:60]:
             st = r.get("statut", "")
             pill_kind = STATUT_PILL.get(st, "")
             pill = f'<span class="pill{" " + pill_kind if pill_kind else ""}">{e(STATUT_LABEL.get(st, st or "—"))}</span>'
+            adv = advancement(r, ps.get("envoi_auto"), heures, cap_jour, sent_today_eff)
+            url = r.get("fiche_url") or ""
+            name = e(r.get("podcast") or r.get("slug"))
+            name_cell = f'<a href="{e(url)}" target="_blank" rel="noopener">{name}</a>' if url else name
+            onclick = f" onclick=\"window.open('{e(url)}','_blank')\" style=\"cursor:pointer\"" if url else ""
             prow.append(
-                f'<tr><td class="t1">{e(r.get("podcast") or r.get("slug"))}</td>'
-                f'<td>{pill}</td><td class="t3">{e(advancement(r, ps.get("envoi_auto"), heures))}</td></tr>')
+                f'<tr{onclick}><td class="t1">{name_cell}</td>'
+                f'<td>{pill}</td><td class="t3">{e(adv)}</td></tr>')
         prospect_table_html = f"""
   <h2>Où ça en est</h2>
   <div class="card" style="padding:0;overflow:hidden">
@@ -332,7 +364,10 @@ table.track th {{ text-align:left; font-size:12px; font-weight:600; color:var(--
 table.track td {{ padding:13px 24px; border-bottom:1px solid var(--line); vertical-align:middle; }}
 table.track tr:last-child td {{ border-bottom:0; }}
 table.track td.t1 {{ font-weight:600; max-width:260px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }}
+table.track td.t1 a {{ color:inherit; text-decoration:none; }}
+table.track td.t1 a:hover {{ color:var(--accent); text-decoration:underline; }}
 table.track td.t3 {{ color:var(--ink2); }}
+table.track tbody tr:hover {{ background:var(--track); }}
 footer {{ margin-top:56px; color:var(--ink3); font-size:12px; text-align:center; }}
 footer a {{ color:var(--ink2); }}
 @media (max-width:860px) {{
