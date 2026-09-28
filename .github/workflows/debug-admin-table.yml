@@ -20,11 +20,15 @@ on:
         required: false
         default: ""
       pattern:
-        description: "grep uniquement : texte a chercher (insensible a la casse)"
+        description: "grep uniquement : texte a chercher (insensible a la casse) - laisser vide pour lire un fichier"
         required: false
         default: ""
       subdirs:
         description: "grep uniquement : sous-dossiers separes par virgule (vide = toute la racine)"
+        required: false
+        default: ""
+      file:
+        description: "grep uniquement : chemin d'un fichier .php a LIRE en entier (remplace pattern/subdirs si rempli)"
         required: false
         default: ""
 
@@ -54,9 +58,10 @@ jobs:
           SECRET: ${{ secrets.KNOWLEDGE_IMPORT_SECRET }}
           PATTERN: ${{ github.event.inputs.pattern }}
           SUBDIRS: ${{ github.event.inputs.subdirs }}
+          FILE: ${{ github.event.inputs.file }}
         run: |
           curl -sS -X POST https://listenly.fr/api/grep-search.php \
             -H "Content-Type: application/json" \
             -H "X-Import-Secret: $SECRET" \
-            -d "$(python3 -c 'import json,os; subdirs=[s.strip() for s in os.environ.get("SUBDIRS","").split(",") if s.strip()]; print(json.dumps({"pattern": os.environ["PATTERN"], "subdirs": subdirs, "max_results": 100}))')" \
+            -d "$(python3 -c 'import json,os; f=os.environ.get("FILE","").strip(); subdirs=[s.strip() for s in os.environ.get("SUBDIRS","").split(",") if s.strip()]; body={"mode":"read","file":f} if f else {"pattern": os.environ["PATTERN"], "subdirs": subdirs, "max_results": 100}; print(json.dumps(body))')" \
             | python3 -m json.tool

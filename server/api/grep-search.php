@@ -9,6 +9,8 @@
  *   {"pattern": "time_scrap", "subdirs": ["api","app"], "max_results": 60}
  *   subdirs vide/absent = toute la racine du site. Recherche insensible a la casse, texte simple
  *   (pas de regex), fichiers *.php uniquement. Racine fixee en dur (pas de path traversal possible).
+ *   {"mode": "read", "file": "debug/rss_cron_only.php"}  -> contenu complet d'UN fichier PHP (lecture
+ *   seule, chemin resolu et verifie a l'interieur de la racine, .. interdit).
  */
 
 header('Content-Type: application/json; charset=utf-8');
@@ -47,6 +49,18 @@ if ($secret === '' || !hash_equals($secret, $_SERVER['HTTP_X_IMPORT_SECRET'] ?? 
 const ROOT = '/home/cuet0006/listenly.fr';   // racine fixe : jamais fournie par l'appelant
 
 $input = json_decode(file_get_contents('php://input'), true) ?: [];
+
+if (($input['mode'] ?? '') === 'read') {
+    $rel = ltrim((string) ($input['file'] ?? ''), '/');
+    if ($rel === '' || strpos($rel, '..') !== false) out(400, ['ok' => false, 'error' => 'file invalide']);
+    $full = ROOT . '/' . $rel;
+    $real = realpath($full);
+    if (!$real || strpos($real, realpath(ROOT) . DIRECTORY_SEPARATOR) !== 0) out(404, ['ok' => false, 'error' => 'fichier introuvable']);
+    if (strtolower(pathinfo($real, PATHINFO_EXTENSION)) !== 'php') out(400, ['ok' => false, 'error' => 'seuls les .php sont lisibles']);
+    $content = file_get_contents($real);
+    out(200, ['ok' => true, 'file' => $rel, 'size' => strlen($content), 'content' => $content]);
+}
+
 $pattern = (string) ($input['pattern'] ?? '');
 if ($pattern === '') out(400, ['ok' => false, 'error' => 'pattern requis']);
 $subdirs = $input['subdirs'] ?? [];
