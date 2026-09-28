@@ -160,6 +160,103 @@ def consolidated_urls():
         return set()
 
 
+FULL_ANSWERS_FILE = f"{PAGES_DIR}/data/consolidated_full_answers.json"
+_SKIP_PARA_PREFIXES = ("← ", "see the ", "listen to the episode", "written by the listenly",
+                       "écouter", "écrit par l'équipe listenly")
+
+
+def _load_full_answers():
+    try:
+        with open(FULL_ANSWERS_FILE, encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return {}
+
+
+def _save_full_answers(cache):
+    with open(FULL_ANSWERS_FILE, "w", encoding="utf-8") as f:
+        json.dump(cache, f, ensure_ascii=False, indent=1)
+        f.write("\n")
+
+
+def _strip_balanced_divs(body, class_pattern):
+    """Retire les <div class="...class_pattern...">...</div> en comptant les <div>/</div>
+    imbriques (ex. source-badge contient un div.avatar) -- un simple .*?</div> non-greedy
+    s'arreterait au premier sous-div ferme et laisserait fuir le reste du bloc."""
+    open_re = re.compile(r"<div[^>]*class=[\"'][^\"']*(?:" + class_pattern + r")[^\"']*[\"'][^>]*>", re.IGNORECASE)
+    tag_re = re.compile(r"<(/?)div\b[^>]*>", re.IGNORECASE)
+    out, pos = [], 0
+    while True:
+        m = open_re.search(body, pos)
+        if not m:
+            out.append(body[pos:])
+            break
+        out.append(body[pos:m.start()])
+        depth, end_pos = 1, len(body)
+        for tm in tag_re.finditer(body, m.end()):
+            depth += -1 if tm.group(1) else 1
+            if depth == 0:
+                end_pos = tm.end()
+                break
+        pos = end_pos
+    return "".join(out)
+
+
+def extract_full_answer_paragraphs(rel_path, question=""):
+    """Recupere le vrai contenu (paragraphes, sous-titres, citation, key takeaways) de la
+    fiche question standalone avant qu'elle ne soit 301-ee vers le hub (29/09/2026) --
+    sinon la question consolidee ne laisse dans le hub que l'extrait de 160 caracteres
+    (answer_snippet), sans aucun moyen d'en lire la reponse complete. Le HTML de chaque
+    fiche est genere librement par Claude (pas de template fixe), donc extraction robuste
+    par nettoyage plutot que par selecteurs de classes precis."""
+    path = f"{PAGES_DIR}/{rel_path}"
+    try:
+        with open(path, encoding="utf-8") as f:
+            src = f.read()
+    except OSError:
+        return None
+    m = re.search(r"<body[^>]*>(.*)</body>", src, re.DOTALL | re.IGNORECASE)
+    if not m:
+        return None
+    body = m.group(1)
+    body = re.sub(r"<header\b.*?</header>", "", body, flags=re.DOTALL | re.IGNORECASE)
+    body = re.sub(r"<div[^>]*\bid=[\"']semantic-index[\"'].*?</div>", "", body, flags=re.DOTALL | re.IGNORECASE)
+    body = re.sub(r"<(script|style)\b.*?</\1>", "", body, flags=re.DOTALL | re.IGNORECASE)
+    # bloc "See also / Voir aussi" (liens + teasers vers D'AUTRES questions) present sur la
+    # quasi-totalite des fiches -- tout ce qui suit ce titre n'est jamais la reponse a CETTE
+    # question, donc on tronque le corps a cet endroit plutot que de le laisser fuiter.
+    m_sa = re.search(r"<h2\b[^>]*>\s*(?:see also|voir aussi)\s*</h2>", body, re.IGNORECASE)
+    if m_sa:
+        body = body[:m_sa.start()]
+    # variantes sans <header> propre (badge/breadcrumb/date directement dans le body) :
+    # metadata de navigation, pas de la reponse -- a retirer avant le decoupage en paragraphes.
+    body = _strip_balanced_divs(body, "source-badge|header-top")
+    body = re.sub(r"<(?:p|div)[^>]*class=[\"'][^\"']*(?:breadcrumb|article-meta|meta-line|page-footer)[^\"']*[\"'][^>]*>.*?</(?:p|div)>",
+                  "", body, flags=re.DOTALL | re.IGNORECASE)
+    body = re.sub(r"<!--.*?-->", "", body, flags=re.DOTALL)
+    # le <h1> ne fait que reformuler la question (parfois mot pour mot, parfois paraphrase) --
+    # deja affichee comme titre de la carte (h3), donc toujours retire plutot que deduplique
+    # au texte pres (les deux formulations different trop souvent pour un match exact fiable).
+    body = re.sub(r"<h1\b.*?</h1>", "", body, flags=re.DOTALL | re.IGNORECASE)
+    body = re.sub(r"</(p|h2|h3|h4|li|blockquote|figcaption)>", "\x00", body, flags=re.IGNORECASE)
+    body = re.sub(r"<br\s*/?>", "\x00", body, flags=re.IGNORECASE)
+    text = re.sub(r"<[^>]+>", " ", body)
+    text = html.unescape(text)
+    q_norm = re.sub(r"\s+", " ", question or "").strip().lower()
+    out = []
+    for chunk in text.split("\x00"):
+        p = re.sub(r"\s+", " ", chunk).strip()
+        if len(p) < 20:
+            continue
+        low = p.lower()
+        if low.startswith(_SKIP_PARA_PREFIXES) or "listen to the episode" in low[:40]:
+            continue
+        if q_norm and low.rstrip("?. ") == q_norm.rstrip("?. "):
+            continue  # h1 qui repete la question -- deja affichee comme titre de la carte
+        out.append(p)
+    return out or None
+
+
 def visible_entries(published):
     excluded = load_excluded_urls()
     return [p for p in published if p.get("url", "").replace("https://listenly.fr", "") not in excluded]
@@ -169,7 +266,26 @@ def render_hub_index(podcast, published):
     lang = "en" if podcast.get("language") == "en" else "fr"
     t = STRINGS[lang]
     merged = consolidated_urls()
-    entries = [dict(p, url="") if p.get("url") in merged else p for p in visible_entries(published)]
+    full_cache = _load_full_answers()
+    cache_dirty = False
+
+    def _expand(p):
+        if p.get("url") not in merged:
+            return p
+        rel_path = p["url"].replace("https://listenly.fr/podcast-btb/", "")
+        nonlocal cache_dirty
+        if rel_path not in full_cache:
+            paras = extract_full_answer_paragraphs(rel_path, p.get("question", ""))
+            full_cache[rel_path] = paras or []
+            cache_dirty = True
+        d = dict(p, url="")
+        if full_cache.get(rel_path):
+            d["full_paragraphs"] = full_cache[rel_path]
+        return d
+
+    entries = [_expand(p) for p in visible_entries(published)]
+    if cache_dirty:
+        _save_full_answers(full_cache)
     stamps = load_timestamps(podcast["slug"])
     target = listen_url(podcast)
 
@@ -192,11 +308,18 @@ def render_hub_index(podcast, published):
             seconds = p.get("start_seconds") or stamps.get(_norm(p.get("question")))
             when = _fmt_time(seconds)
             listen_label = t["listen"] + (f" · {when}" if when else "")
-            answer = _E(re.sub(r"\s+", " ", p.get("answer_snippet") or "").strip())
+            full_paras = p.get("full_paragraphs")
+            if full_paras:
+                # Question consolidee (301 vers le hub) : la reponse complete recuperee de
+                # l'ancienne fiche remplace l'extrait tronque, sinon le contenu est perdu.
+                answer_html = "".join(f'<p class="hx-a">{_E(para)}</p>' for para in full_paras)
+            else:
+                answer = _E(re.sub(r"\s+", " ", p.get("answer_snippet") or "").strip())
+                answer_html = f'<p class="hx-a">{answer}</p>' if answer else ""
             cards.append(
                 f'<article class="hx-qa" id="{q_anchor}">'
                 f'<h3 class="hx-q">{_E(p.get("question", ""))}</h3>'
-                + (f'<p class="hx-a">{answer}</p>' if answer else "")
+                + answer_html
                 + '<div class="hx-foot">'
                 f'<a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="{_E(target)}">{listen_label}</a>'
                 + (f'<a class="hx-more" href="{_E(p.get("url", ""))}">{t["full"]}</a>' if p.get("url") else "")
