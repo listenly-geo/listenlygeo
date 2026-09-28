@@ -15,13 +15,14 @@ on:
   workflow_dispatch:
     inputs:
       action:
-        description: 'deploy_api = envoie le PHP sur le serveur | describe = structure de la table | onboard = onboarder des candidats'
+        description: 'deploy_api = envoie le PHP sur le serveur | describe = structure de la table | onboard = onboarder des candidats | backfill_rss = rattraper les flux RSS manquants dans le lecteur'
         required: true
         type: choice
         options:
           - deploy_api
           - describe
           - onboard
+          - backfill_rss
         default: deploy_api
       issue_numbers:
         description: 'Numeros separes par virgule, ou "all" (candidats labellises approved)'
@@ -75,6 +76,20 @@ jobs:
           echo '```json' >> "$GITHUB_STEP_SUMMARY"
           cat describe.json >> "$GITHUB_STEP_SUMMARY"
           echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+  backfill-rss:
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'backfill_rss'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Rattraper les flux RSS manquants dans le lecteur Listenly
+        env:
+          KNOWLEDGE_IMPORT_SECRET: ${{ secrets.KNOWLEDGE_IMPORT_SECRET }}
+          DRY_RUN: ${{ github.event.inputs.mode == 'dry_run' && '1' || '0' }}
+        run: python automation/scripts/backfill_rss_readers.py
 
   onboard:
     if: >-

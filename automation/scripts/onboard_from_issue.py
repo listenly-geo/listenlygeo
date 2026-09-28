@@ -24,6 +24,7 @@ REPO = os.environ.get("GITHUB_REPOSITORY", "listenly-geo/listenlygeo")
 GH_TOKEN = os.environ.get("GH_TOKEN", "").strip()
 SECRET = os.environ.get("KNOWLEDGE_IMPORT_SECRET", "").strip()
 IMPORT_URL = os.environ.get("SHOW_IMPORT_URL", "https://listenly.fr/api/podcast-show-import.php")
+RSS_READER_URL = os.environ.get("RSS_READER_URL", "https://listenly.fr/api/rss-reader-register.php")
 MODE = (os.environ.get("SHOW_IMPORT_MODE") or "insert").strip()
 MAX_ONBOARD = int(os.environ.get("MAX_ONBOARD") or "10")
 PODCASTS_FILE = "pages/podcast-btb/data/podcasts.json"
@@ -87,6 +88,25 @@ def create_listenly_show(c):
             return json.loads(r.read().decode())
     except urllib.error.HTTPError as e:
         return {"ok": False, "error": f"HTTP {e.code} : {e.read().decode(errors='ignore')[:300]}"}
+
+
+def register_rss_reader(feed_url):
+    """Sans cette ligne, la fiche Listenly existe mais ses episodes ne sont jamais scrapes
+    (le lecteur RSS de l'admin, table _c_p_rss_readers, ne connait le flux que si on l'y ajoute)."""
+    if MODE != "insert" or not feed_url:
+        return
+    req = urllib.request.Request(
+        RSS_READER_URL, data=json.dumps({"mode": "insert", "link": feed_url}).encode(), method="POST",
+        headers={"Content-Type": "application/json", "X-Import-Secret": SECRET, "User-Agent": "ListenlyGEO/1.0"})
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            res = json.loads(r.read().decode())
+    except urllib.error.HTTPError as e:
+        res = {"ok": False, "error": f"HTTP {e.code} : {e.read().decode(errors='ignore')[:300]}"}
+    except urllib.error.URLError as e:
+        res = {"ok": False, "error": str(e)}
+    log(f"Lecteur RSS : {json.dumps(res, ensure_ascii=False)[:200]}")
+    return res
 
 
 def generate_n1(c, listenly_url, slug):
@@ -171,6 +191,7 @@ def main():
             failed.append(c["issue_number"]); continue
         if MODE != "insert":
             continue
+        register_rss_reader(c["feed_url"])
         listenly_url = res["listenly_url"]
 
         slug = rss_slug or slugify(c["podcast_name"])   # meme flux RSS -> on reutilise la fiche existante
