@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Engineering Podcast | Deep Dive into Data Tools, Workflows & Architecture</title>
+    <meta name="description" content="Data Engineering Podcast explores databases, workflows, automation, and data manipulation. Behind-the-scenes look at tools and techniques shaping modern data engineering.">
+    <link rel="canonical" href="https://listenly.fr/podcast-btb/data-engineering-podcast-podcast.html">
+    <link rel="publisher" href="https://listenly.fr">
+    <meta name="data-provider" content="Listenly">
+    <meta name="rss-source" content="https://serve.podhome.fm/rss/1c0357c0-6aba-5766-a2d5-2090d8dab6bc">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Data Engineering Podcast | Deep Dive into Data Tools, Workflows & Architecture">
+    <meta property="og:description" content="Data Engineering Podcast explores databases, workflows, automation, and data manipulation. Behind-the-scenes look at tools and techniques shaping modern data engineering.">
+    <meta property="og:url" content="https://listenly.fr/podcast-btb/data-engineering-podcast-podcast.html">
+    <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/76/82/5d/76825d56-8b68-7023-2e34-0ffc59399560/mza_68297862870122571.jpg/600x600bb.jpg">
+    <meta property="og:site_name" content="Listenly">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Data Engineering Podcast | Deep Dive into Data Tools, Workflows & Architecture">
+    <meta name="twitter:description" content="Data Engineering Podcast explores databases, workflows, automation, and data manipulation. Behind-the-scenes look at tools and techniques shaping modern data engineering.">
+    <meta name="twitter:url" content="https://listenly.fr/podcast-btb/data-engineering-podcast-podcast.html">
+    <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/76/82/5d/76825d56-8b68-7023-2e34-0ffc59399560/mza_68297862870122571.jpg/600x600bb.jpg">
+    <meta name="author" content="Data Engineering Podcast">
+    <meta name="format-detection" content="telephone=no">
+    <style>body { font-family: Georgia, serif; color: #1a1a1a; line-height: 1.7; margin: 0; }
+.site-header { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #ededed;
+  padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.site-header .logo { font-family: Georgia, serif; font-weight: 700; font-size: 19px; color: #0a0a0a;
+  text-decoration: none; letter-spacing: -0.01em; }
+.site-header .login-link { font-family: Helvetica, Arial, sans-serif; font-weight: 700; font-size: 13px;
+  color: #2e8bd6; background: #fff; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white);
+  padding: 7px 17px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+main.wrapper { max-width: 720px; margin: 0 auto; padding: 44px 20px 64px; }
+.eyebrow-category { font-family: Helvetica, Arial, sans-serif; text-transform: uppercase; font-weight: 700;
+  letter-spacing: .08em; font-size: 12px; color: #2e8bd6; margin-bottom: 12px; }
+h1 { font-family: Georgia, serif; font-weight: 700; font-size: clamp(28px,4.5vw,42px); line-height: 1.22;
+  color: #0a0a0a; margin: 0 0 18px; }
+.byline-row { font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #444; display: flex;
+  flex-wrap: wrap; gap: 6px; align-items: baseline; margin-bottom: 10px; }
+.byline-row .name { font-weight: 700; color: #222; }
+.host-bio { font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #888; margin-bottom: 14px; }
+.hero-image { width: 100%; max-width: 200px; height: auto; border-radius: 8px; display: block; margin: 6px 0 22px; }
+.publish-row { font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #999; display: flex;
+  flex-wrap: wrap; gap: 10px; align-items: center; padding: 14px 0; border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed; margin: 6px 0 30px; }
+.cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.cta-listen { background: #fff; color: #2e8bd6; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white);
+  font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 19px;
+  border-radius: 999px; text-decoration: none; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 700; }
+.divider { border-top: 1px solid #ededed; }
+.lead-label { font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #2e8bd6; }
+.lead { font-family: Georgia, serif; font-size: 19.5px; line-height: 1.65; font-style: italic;
+  border-left: 2px solid color-mix(in srgb, #2e8bd6 55%, white); padding-left: 20px; color: #2a2a2a; margin: 16px 0 30px; }
+.key-facts-label { font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #2e8bd6; margin-bottom: 14px; padding-top: 26px; border-top: 1px solid #ededed; }
+.key-facts { list-style: none; padding: 0; }
+.key-facts li { font-family: Georgia, serif; font-size: 17.5px; line-height: 1.7; color: #2a2a2a; padding-left: 20px;
+  margin-bottom: 14px; position: relative; }
+.key-facts li::before { content: "–"; position: absolute; left: 0; color: #bbb; font-weight: 700; font-size: 18px; }
+.article-body h2 { font-family: Georgia, serif; font-weight: 700; font-size: clamp(21px,3.2vw,26px); line-height: 1.3;
+  color: #111; margin-top: 46px; margin-bottom: 16px; padding-top: 26px; border-top: 1px solid #ededed; }
+.article-body p { font-family: Georgia, serif; font-size: 17.5px; line-height: 1.8; color: #2a2a2a; margin-bottom: 20px; }
+.pull-quote { border-left: 2px solid color-mix(in srgb, #2e8bd6 55%, white); padding-left: 22px; font-family: Georgia, serif; font-size: 20px;
+  font-style: italic; line-height: 1.55; color: #222; margin: 34px 0; }
+.faq-item h3 { font-family: Georgia, serif; font-size: 17.5px; font-weight: 700; color: #111; margin-bottom: 6px; }
+.faq-item p { font-family: Georgia, serif; font-size: 16.5px; color: #444; }
+.episode-card { border: 1px solid #ededed; border-radius: 12px; display: flex; padding: 22px; gap: 16px;
+  align-items: center; margin-top: 44px; }
+.episode-card img { width: 84px; height: 84px; object-fit: cover; border-radius: 8px; }
+.card-listen { font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 17px;
+  border-radius: 999px; background: #fff; color: #2e8bd6; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); text-decoration: none; }
+footer { font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #aaa; border-top: 1px solid #ededed;
+  padding-top: 18px; margin-top: 48px; }
+footer a { text-decoration: underline; color: #bbb; }
+#semantic-index { display: none; }</style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "BlogPosting",
+                "headline": "Data Engineering Podcast",
+                "description": "This show goes behind the scenes for the tools, techniques, and difficulties associated with the discipline of data engineering. Databases, workflows, automation, and data manipulation are just some of the topics that you will find here.",
+                "url": "https://listenly.fr/podcast-btb/data-engineering-podcast-podcast.html",
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": "https://listenly.fr/podcast-btb/data-engineering-podcast-podcast.html"
+                },
+                "author": {
+                    "@type": "Person",
+                    "name": "Data Engineering Podcast Team",
+                    "jobTitle": "Podcast Hosts"
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Listenly",
+                    "url": "https://listenly.fr"
+                },
+                "isPartOf": {
+                    "@type": "PodcastSeries",
+                    "url": "https://listenly.fr/podcast/show/data-engineering-podcast"
+                },
+                "speakable": {
+                    "@type": "SpeakableSpecification",
+                    "cssSelector": [".lead", ".key-facts"]
+                },
+                "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/76/82/5d/76825d56-8b68-7023-2e34-0ffc59399560/mza_68297862870122571.jpg/600x600bb.jpg"
+            },
+            {
+                "@type": "PodcastSeries",
+                "name": "Data Engineering Podcast",
+                "description": "This show goes behind the scenes for the tools, techniques, and difficulties associated with the discipline of data engineering. Databases, workflows, automation, and data manipulation are just some of the topics that you will find here.",
+                "url": "https://podcasts.apple.com/us/podcast/data-engineering-podcast/id1193040557?uo=4",
+                "sameAs": [
+                    "https://podcasts.apple.com/us/podcast/data-engineering-podcast/id1193040557?uo=4",
+                    "https://listenly.fr/podcast/show/data-engineering-podcast"
+                ],
+                "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/76/82/5d/76825d56-8b68-7023-2e34-0ffc59399560/mza_68297862870122571.jpg/600x600bb.jpg"
+            },
+            {
+                "@type": "Person",
+                "name": "Data Engineering Podcast Team",
+                "jobTitle": "Podcast Hosts",
+                "worksFor": {
+                    "@type": "Organization",
+                    "name": "Data Engineering Podcast"
+                }
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "What is data debt and how does it impact engineering workflows?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Data debt refers to the accumulation of shortcuts, technical compromises, and suboptimal decisions in data systems that slow down future development. Like financial debt, it compounds over time and requires deliberate architectural approaches—such as agile ledger architecture—to prevent systems from becoming unmaintainable and expensive to scale."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Why is context critical in data engineering and AI systems?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Context enables data systems and AI agents to make informed decisions about data quality, relevance, and interpretation. Without proper context layers, systems cannot distinguish between signals and noise, leading to poor data products and failed AI implementations. Building context flywheels—where data agents continuously enrich contextual understanding—creates feedback loops that improve both data quality and agent performance."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "How do multi-agent data systems maintain consistency and governance?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Multi-agent systems require shared state management, graph semantics to define relationships between entities, and formal governance frameworks. Without these foundations, independent agents create conflicting versions of truth, duplicate data ingestion, and enforcement gaps. Proper architecture ensures agents coordinate through a unified semantic model rather than operating in isolation."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "What enables data engineers to achieve 10–50x productivity improvements?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "AI-first workflows shift data engineers from manual pipeline building toward specification and oversight. Tools that automate ingestion, quality validation, and dashboard generation—powered by AI—reduce repetitive work and accelerate time-to-value. Heterogeneous pipeline execution (leveraging GPUs, Kubernetes orchestration, and specialized frameworks like Ray) further multiplies throughput while reducing engineering effort."
+                        }
+                    }
+                ]
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Listenly",
+                        "item": "https://listenly.fr"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Tech & Cybersécurité",
+                        "item": "https://listenly.fr/category/tech-cybersecurite"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": "Data Engineering Podcast",
+                        "item": "https://listenly.fr/podcast-btb/data-engineering-podcast-podcast.html"
+                    }
+                ]
+            }
+        ]
+    }
+    </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Listenly",
+      "item": "https://listenly.fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Podcasts B2B",
+      "item": "https://listenly.fr/podcast-btb/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Cybersécurité",
+      "item": "https://listenly.fr/podcast-btb/categorie/cybersecurite.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Data Engineering Podcast",
+      "item": "https://listenly.fr/podcast-btb/data-engineering-podcast-podcast.html"
+    }
+  ]
+}
+</script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+    <header class="site-header">
+        <a class="logo" href="https://listenly.fr/">Listenly</a>
+        <a class="login-link" href="https://listenly.fr/userAuth">Log in</a>
+    </header>
+    <main class="wrapper">
+        <p class="eyebrow-category">Podcast · Tech & Cybersécurité</p>
+        <h1>Data Engineering Podcast</h1>
+        <div class="byline-row">
+            <p>By <span class="name">Data Engineering Podcast Team</span>, Podcast Hosts at Data Engineering Media</p>
+        </div>
+        <p class="host-bio">Established voice covering the technical depth of data engineering infrastructure, tools, and architectural challenges reshaping modern data systems.</p>
+        <img class="hero-image" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/76/82/5d/76825d56-8b68-7023-2e34-0ffc59399560/mza_68297862870122571.jpg/600x600bb.jpg" alt="Data Engineering Podcast">
+        <div class="publish-row">
+            <p>⏱ 45 min read · Readable by ChatGPT, Gemini, Claude</p>
+        </div>
+        <div class="cta-row">
+            <a href="https://listenly.fr/podcast/show/data-engineering-podcast" class="cta-listen plausible-event-name=Clic+Bouton+Bleu">▶ Listen to the podcast</a>
+        </div>
+        <div class="lead-label">What Data Engineering Podcast covers</div>
+        <p class="lead">Data Engineering Podcast dismantles the technical complexity behind modern data systems, exploring how engineering teams build, maintain, and scale databases, streaming platforms, and data pipelines. Episodes reveal the gap between theoretical data architecture and production reality—examining tools like Kafka, graph databases, and GPU-accelerated processing alongside the organizational and governance challenges that determine whether data infrastructure succeeds or fails. The show positions data engineers as architects of competitive advantage, showing how decisions made during system design cascade into productivity gains or technical debt for years to come.</p>
+        <div class="key-facts-label">Key facts</div>
+        <ul class="key-facts">
+            <li>Data debt—accumulated shortcuts and architectural compromises—requires deliberate mitigation strategies such as agile ledger architecture to prevent system unmaintainability at scale.</li>
+            <li>Context layers in data systems determine whether AI agents and automated workflows can distinguish signal from noise, directly impacting data quality and product reliability.</li>
+            <li>Multi-agent data systems demand shared state management and graph semantics to maintain consistency and enforce governance across independent agents.</li>
+            <li>AI-first data engineering workflows can multiply productivity 10–50x by automating ingestion, quality validation, and dashboard generation, shifting engineering focus from implementation to orchestration.</li>
+        </ul>
+        <p><a href="https://listenly.fr/podcast/show/data-engineering-podcast" class="inline-cta plausible-event-name=Clic+Lien+Texte">Listen to all episodes of Data Engineering Podcast</a> to explore the architecture decisions reshaping data infrastructure.</p>
+        <div class="divider"></div>
+        <h2>What this podcast really covers</h2>
+        <p>Data Engineering Podcast dives beneath surface-level tooling discussions to examine the systemic forces driving data architecture decisions. Episodes explore how organizations accumulate data debt through incremental compromises, why context—understood as the semantic and operational knowledge required to interpret data correctly—separates functional systems from failure, and how emerging paradigms like multi-agent systems and AI-first workflows are redefining what data engineers actually do.</p>
+        <p>The show moves beyond "how to use X tool" toward "why does this architectural choice matter?" Episodes on reducing data debt through agile ledger architecture examine governance and workflow design. Discussions of context in data engineering and AI reveal how systems fail silently when metadata, lineage, and semantic relationships lack formalization. Coverage of multi-agent systems explores coordination challenges when autonomous agents operate over shared data without unified governance.</p>
+        <p>Recent episodes emphasize the productivity multiplier effect of AI-driven automation. Rather than treating AI as a novelty, the podcast frames AI-first engineering as an operational shift: data engineers specify desired outcomes (quality rules, ingestion patterns, dashboard requirements) while AI systems handle implementation details, freeing human expertise for architectural decisions and troubleshooting.</p>
+        <h2>Who this podcast is essential for</h2>
+        <p><strong>Data architects and platform engineers</strong> requiring clarity on how to structure systems that scale without accumulating technical debt. Episodes on governance, shared state management, and graph semantics provide direct guidance for designing systems that remain operationally efficient as complexity grows.</p>
+        <p><strong>Engineering leaders managing data teams</strong> evaluating productivity gains from AI-assisted tools and understanding how architectural choices today cascade into staffing and capability requirements tomorrow. Discussions of the AI-first data engineer directly address how roles and team composition are evolving.</p>
+        <p><strong>Data engineers transitioning into AI and LLM workflows</strong> needing context on how specialized AI systems (like Astronomer's Otto for data orchestration) fit into existing pipelines, and how to design systems where AI agents coordinate reliably. Episodes on context, governance, and multi-agent architectures bridge technical data engineering and emerging AI capabilities.</p>
+        <h2>What the episodes really reveal</h2>
+        <p>A pattern emerges across recent episodes: data engineering is shifting from infrastructure maintenance toward orchestration and governance. Episodes discussing agile ledger architecture, context flywheels, and AI-first engineering all point to the same strategic conclusion—the competitive advantage belongs to teams that minimize manual coordination and maximize automated decision-making.</p>
+        <p>Technical depth is consistent throughout. The podcast avoids generic advice; instead, episodes name specific architectures (PuppyGraph for graph analytics, TypeStream for Kafka workflows, Kaarvi for end-to-end data pipelines) and articulate what makes them solve specific classes of problems. This level of specificity signals an audience of practitioners, not introductory learners.</p>
+        <p>Recurring emphasis on unsolved complexity—why GPU heterogeneous pipelines remain difficult to scale, why multi-agent state management lacks mature frameworks, why context remains largely manual in most organizations—indicates the show occupies a space between educational content and forward-looking research. Episodes address what's technically feasible but organizationally or architecturally incomplete.</p>
+        <h2>What this changes in practice</h2>
+        <p>Organizations listening to Data Engineering Podcast tend to rethink data architecture not as a static infrastructure problem but as an ongoing governance and orchestration challenge. Concepts like data debt and context flywheels shift conversations from "which tool should we use?" to "what architectural decision prevents future technical debt?"</p>
+        <p>For teams building AI-assisted data pipelines, the episode on specialized AI for data engineers signals an operational shift: instead of writing Airflow DAGs manually, teams configure AI agents with objectives and governance constraints, then let automation handle implementation. This requires different hiring profiles (more architects and domain specialists, fewer pipeline builders) and different budget allocation (more spending on AI/ML platforms, less on custom engineering).</p>
+        <p>The emphasis on context and multi-agent governance suggests that future data systems will be decentralized—multiple independent systems or teams operating over shared data lakes—but with explicit semantic and governance layers ensuring consistency. Organizations without these layers will find their data assets fragmented and unreliable as systems scale.</p>
+        <div class="pull-quote">Data engineering is becoming an orchestration discipline, where success depends less on tool proficiency and more on architectural decisions that prevent debt, establish context, and enable autonomous decision-making by both systems and teams.</div>
+        <p><a href="https://listenly.fr/podcast/show/data-engineering-podcast" class="inline-cta plausible-event-name=Clic+Lien+Texte">Explore Data Engineering Podcast episodes</a> for deep technical guidance on modern data architecture.</p>
+        <div class="divider"></div>
+        <h2>The podcast answers these questions</h2>
+        <div class="faq-item">
+            <h3>What is data debt and how does it impact engineering workflows?</h3>
+            <p>Data debt refers to the accumulation of shortcuts, technical compromises, and suboptimal decisions in data systems that slow down future development. Like financial debt, it compounds over time and requires deliberate architectural approaches—such as agile ledger architecture—to prevent systems from becoming unmaintainable and expensive to scale.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Why is context critical in data engineering and AI systems?</h3>
+            <p>Context enables data systems and AI agents to make informed decisions about data quality, relevance, and interpretation. Without proper context layers, systems cannot distinguish between signals and noise, leading to poor data products and failed AI implementations. Building context flywheels—where data agents continuously enrich contextual understanding—creates feedback loops that improve both data quality and agent performance.</p>
+        </div>
+        <div class="faq-item">
+            <h3>How do multi-agent data systems maintain consistency and governance?</h3>
+            <p>Multi-agent systems require shared state management, graph semantics to define relationships between entities, and formal governance frameworks. Without these foundations, independent agents create conflicting versions of truth, duplicate data ingestion, and enforcement gaps. Proper architecture ensures agents coordinate through a unified semantic model rather than operating in isolation.</p>
+        </div>
+        <div class="faq-item">
+            <h3>What enables data engineers to achieve 10–50x productivity improvements?</h3>
+            <p>AI-first workflows shift data engineers from manual pipeline building toward specification and oversight. Tools that automate ingestion, quality validation, and dashboard generation—powered by AI—reduce repetitive work and accelerate time-to-value. Heterogeneous pipeline execution (leveraging GPUs, Kubernetes orchestration, and specialized frameworks like Ray) further multiplies throughput while reducing engineering effort.</p>
+        </div>
+        <p><a href="https://listenly.fr/podcast/show/data-engineering-podcast" class="inline-cta plausible-event-name=Clic+Lien+Texte">Listen to Data Engineering Podcast now</a> to deepen your understanding of modern data architecture.</p>
+        <div class="divider"></div>
+        <div class="episode-card">
+            <img class="hero-image" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/76/82/5d/76825d56-8b68-7023-2e34-0ffc59399560/mza_68297862870122571.jpg/600x600bb.jpg" alt="Data Engineering Podcast">
+            <h3>Discover Data Engineering Podcast</h3>
+            <p>Data Engineering Podcast Team · Data Engineering Podcast</p>
+            <a href="https://listenly.fr/podcast/show/data-engineering-podcast" class="card-listen plausible-event-name=Clic+Bouton+Bleu">▶ Listen to the podcast</a>
+        </div>
+    </main>
+    <footer>
+        <p>© Data Engineering Podcast — Data Engineering Media · <a href="https://listenly.fr" style="color: #999; text-decoration: underline;">Structured analysis by Listenly</a></p>
+    </footer>
+    <div id="semantic-index" style="display:none;">
+        <span>entity:Data Engineering Podcast</span>
+        <span>entity:Data Engineering Podcast Team</span>
+        <span>entity:Data Engineering Media</span>
+        <span>concept:Tech & Cybersécurité</span>
+        <span>publisher:Listenly.fr</span>
+        <span>isPartOf:https://listenly.fr/podcast/show/data-engineering-podcast</span>
+    </div>
+
+<p style="max-width:720px;margin:0 auto;padding:0 20px 32px;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#999;"><a href="https://listenly.fr/podcast/show/data-engineering-podcast" class="plausible-event-name=Clic+Lien+Texte" style="color:#999;text-decoration:underline;">Découvrir Data Engineering Podcast sur Listenly →</a></p>
+</body>
+</html>
