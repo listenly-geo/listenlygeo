@@ -63,6 +63,17 @@ if ($mode === 'list') {
     out(200, ['ok' => true, 'tables' => $allTables]);
 }
 
+// Nombre de lecteurs RSS actifs encore en attente de leur premier scrap ou en retard
+// (meme condition que le selecteur time_to_scrap de object_rss_reader.php)
+if ($mode === 'rss_pending') {
+    $n = (int) $pdo->query(
+        "SELECT COUNT(*) FROM `_c_p_rss_readers` WHERE `active` = 1 " .
+        "AND (`time_scrap` IS NULL OR `time_scrap` < SUBDATE(NOW(), INTERVAL `time_interval` HOUR))"
+    )->fetchColumn();
+    $total = (int) $pdo->query("SELECT COUNT(*) FROM `_c_p_rss_readers` WHERE `active` = 1")->fetchColumn();
+    out(200, ['ok' => true, 'pending' => $n, 'total_actifs' => $total]);
+}
+
 if ($mode !== 'describe') out(400, ['ok' => false, 'error' => 'mode inconnu (list|describe)']);
 
 $table = $input['table'] ?? '';
