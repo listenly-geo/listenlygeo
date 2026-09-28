@@ -76,7 +76,7 @@ jobs:
               echo "Termine : plus aucun flux en attente."
               break
             fi
-            curl -sS --max-time 170 "https://listenly.fr/debug/rss_cron_only.php"
+            curl -sS --max-time 280 "https://listenly.fr/debug/rss_cron_only.php" || echo "(appel echoue/trop lent, on continue avec le suivant)"
             echo ""
           done
 
