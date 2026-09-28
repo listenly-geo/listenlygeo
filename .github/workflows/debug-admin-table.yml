@@ -55,7 +55,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Appeler debug/rss_cron_only.php (traite jusqu'a 2 flux en attente)
-        run: curl -sS --max-time 60 "https://listenly.fr/debug/rss_cron_only.php"
+        run: curl -sS --max-time 170 "https://listenly.fr/debug/rss_cron_only.php"
 
   grep:
     if: github.event.inputs.tool == 'grep'
