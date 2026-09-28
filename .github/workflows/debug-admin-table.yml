@@ -1,0 +1,29 @@
+name: Debug — decrire une table admin Listenly (diagnostic manuel)
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "list (toutes les tables _c_p_%) ou describe"
+        required: false
+        default: "list"
+      table:
+        description: "nom exact de la table (mode=describe uniquement)"
+        required: false
+        default: ""
+
+jobs:
+  describe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Interroger admin-table-describe.php
+        env:
+          SECRET: ${{ secrets.KNOWLEDGE_IMPORT_SECRET }}
+          MODE: ${{ github.event.inputs.mode }}
+          TABLE: ${{ github.event.inputs.table }}
+        run: |
+          curl -sS -X POST https://listenly.fr/api/admin-table-describe.php \
+            -H "Content-Type: application/json" \
+            -H "X-Import-Secret: $SECRET" \
+            -d "$(python3 -c 'import json,os; print(json.dumps({"mode": os.environ["MODE"], "table": os.environ["TABLE"]}))')" \
+            | python3 -m json.tool
