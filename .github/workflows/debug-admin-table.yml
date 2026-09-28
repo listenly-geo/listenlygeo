@@ -1,19 +1,36 @@
-name: Debug — decrire une table admin Listenly (diagnostic manuel)
+name: Debug — decrire une table admin Listenly / grep serveur (diagnostic manuel)
 
 on:
   workflow_dispatch:
     inputs:
+      tool:
+        description: "table = decrire une table _c_p_% | grep = recherche recursive (equivalent grep -R)"
+        required: true
+        type: choice
+        options:
+          - table
+          - grep
+        default: table
       mode:
-        description: "list (toutes les tables _c_p_%) ou describe"
+        description: "table uniquement : list (toutes les tables _c_p_%) ou describe"
         required: false
         default: "list"
       table:
-        description: "nom exact de la table (mode=describe uniquement)"
+        description: "table uniquement : nom exact de la table (mode=describe)"
+        required: false
+        default: ""
+      pattern:
+        description: "grep uniquement : texte a chercher (insensible a la casse)"
+        required: false
+        default: ""
+      subdirs:
+        description: "grep uniquement : sous-dossiers separes par virgule (vide = toute la racine)"
         required: false
         default: ""
 
 jobs:
-  describe:
+  table:
+    if: github.event.inputs.tool == 'table'
     runs-on: ubuntu-latest
     steps:
       - name: Interroger admin-table-describe.php
@@ -26,4 +43,24 @@ jobs:
             -H "Content-Type: application/json" \
             -H "X-Import-Secret: $SECRET" \
             -d "$(python3 -c 'import json,os; print(json.dumps({"mode": os.environ["MODE"], "table": os.environ["TABLE"]}))')" \
+            | python3 -m json.tool
+
+  grep:
+    if: github.event.inputs.tool == 'grep'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Interroger grep-search.php
+        env:
+          SECRET: ${{ secrets.KNOWLEDGE_IMPORT_SECRET }}
+          PATTERN: ${{ github.event.inputs.pattern }}
+          SUBDIRS: ${{ github.event.inputs.subdirs }}
+        run: |
+          curl -sS -X POST https://listenly.fr/api/grep-search.php \
+            -H "Content-Type: application/json" \
+            -H "X-Import-Secret: $SECRET" \
+            -d "$(python3 -c '
+import json, os
+subdirs = [s.strip() for s in os.environ.get("SUBDIRS", "").split(",") if s.strip()]
+print(json.dumps({"pattern": os.environ["PATTERN"], "subdirs": subdirs, "max_results": 100}))
+')" \
             | python3 -m json.tool
