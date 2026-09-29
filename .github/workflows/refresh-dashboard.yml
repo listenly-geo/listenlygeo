@@ -7,6 +7,9 @@ name: Rafraîchir le dashboard (sans toucher au moteur)
 
 on:
   workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: ['automation/marketforge_engine/refresh-now.txt']
 
 permissions:
   contents: write
