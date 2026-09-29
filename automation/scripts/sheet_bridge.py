@@ -28,6 +28,7 @@ KEYS = {
     "MFE_EPISODES_PAR_JOUR": "episodes_par_jour",
     "MFE_EPISODES_PAR_PODCAST": "episodes_par_podcast",
     "MFE_MINUTES_AUDIO_MAX_JOUR": "minutes_audio_max_jour",
+    "MFE_EXTRACTION_APRES_JOURS": "extraction_apres_jours",
 }
 
 

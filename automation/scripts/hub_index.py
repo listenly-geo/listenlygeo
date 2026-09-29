@@ -114,6 +114,47 @@ def engine_slugs():
         return set()
 
 
+PROSPECT_STATS = "automation/marketforge_engine/prospection_stats.json"
+ENGINE_CONFIG = "automation/marketforge_engine/config.json"
+
+
+def _prospects():
+    """slug -> (statut, date du 1er envoi 'YYYY-MM-DD') d'apres le suivi du Google Sheet."""
+    try:
+        with open(PROSPECT_STATS, encoding="utf-8") as f:
+            rows = json.load(f).get("prospects") or []
+    except (OSError, ValueError):
+        return {}
+    return {r.get("slug"): (r.get("statut") or "", str(r.get("envoye_le") or "")[:10]) for r in rows if r.get("slug")}
+
+
+def extraction_allowed(slug, queue_status="", today=None, delay=None):
+    """Regle 29/09/2026 : 0 question cote prospect. L'extraction (et l'affichage des Q/R sur le hub)
+    ne demarre que 7 jours apres le 1er mail sans reponse. Jamais pour un prospect qui a repondu
+    (Etienne gere lui-meme). Immediate pour les podcasts qui ne seront jamais contactes
+    (sans email, email invalide / risque, rebond, deja en prospection)."""
+    import datetime as _dt
+    if delay is None:
+        try:
+            with open(ENGINE_CONFIG, encoding="utf-8") as f:
+                delay = int(json.load(f).get("extraction_apres_jours", 7))
+        except (OSError, ValueError, TypeError):
+            delay = 7
+    today = today or _dt.date.today()
+    rec = _prospects().get(slug)
+    if rec:
+        statut, sent = rec
+        if statut in ("Repondu", "Pret"):
+            return False
+        if statut in ("Envoye", "Relance"):
+            try:
+                return bool(sent) and _dt.date.fromisoformat(sent) <= today - _dt.timedelta(days=delay)
+            except ValueError:
+                return False
+        return True   # Rebond, Email invalide, Email risque, Deja en prospection...
+    return queue_status == "sans_email"
+
+
 def _snippet(text, limit=360):
     text = re.sub(r"\s+", " ", text or "").strip()
     if len(text) <= limit:
@@ -128,6 +169,8 @@ def merge_extracted(slug, published):
     « Reponse complete ») qui prend le relais. Sans effet pour les autres podcasts."""
     if slug not in engine_slugs():
         return published
+    if slug in _prospects() and not extraction_allowed(slug):
+        return published   # prospect en cours : 0 question extraite affichee (ne pas l'embrouiller)
     known = {_norm(p.get("question")) for p in published}
     extra = []
     for path in sorted(glob.glob(f"{KNOWLEDGE_DIR}/{glob.escape(slug)}--*.json")):

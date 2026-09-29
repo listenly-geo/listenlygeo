@@ -324,11 +324,18 @@ def main():
     log(f"Mode contact : {contacts} contact(s) pret(s) (fiche N1 + email), {sans_email} sans email, "
         f"{rejetes} email(s) rejete(s) (anti-rebond).")
 
+    # Extraction differee (29/09/2026) : 0 question cote prospect ; demarre 7 jours apres le 1er mail
+    # sans reponse, tout de suite pour les podcasts jamais contactables. Voir hub_index.extraction_allowed.
+    differee = int(config.get("extraction_apres_jours", 7) or 0) > 0
+    gsc = load_json(f"{PAGES_DIR}/data/gsc_pages.json", {}).get("pages", {})
+    imp = {u.rsplit("/", 1)[-1].replace("-podcast.html", ""): v.get("impressions", 0) for u, v in gsc.items()}
     order = sorted(
         (s for s, st in queue["podcasts"].items()
          if (extraction_auto and st["status"] in ("en_attente", "en_cours"))
-         or (s in extraire and st["status"] in ("en_attente", "en_cours", "contact", "sans_email"))),
-        key=lambda s: (queue["podcasts"][s]["status"] != "en_cours", queue["podcasts"][s]["added"], s),
+         or (s in extraire and st["status"] in ("en_attente", "en_cours", "contact", "sans_email"))
+         or (differee and st["status"] in ("contact", "sans_email", "en_cours")
+             and hub_index.extraction_allowed(s, st["status"]))),
+        key=lambda s: (queue["podcasts"][s]["status"] != "en_cours", -imp.get(s, 0), queue["podcasts"][s]["added"], s),
     )
     log(f"{len(order)} podcast(s) dans la file active.")
 
