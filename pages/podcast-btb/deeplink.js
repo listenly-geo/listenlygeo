@@ -46,6 +46,7 @@
       '.dl-mini .dl-name{font-size:14.5px;-webkit-line-clamp:1}',
       '.dl-mini .dl-link{flex:none;font-size:13px;font-weight:500;color:#2997FF;text-decoration:none;white-space:nowrap}',
       '.dl-mini .dl-link:hover{opacity:.75}',
+      '.pb-art .dl-art{width:100%;height:100%;object-fit:cover;border-radius:10px;display:block}',
       '@media (max-width:560px){.dl-tile{flex-wrap:wrap}.dl-cover{width:72px;height:72px}.dl-btn{width:100%;text-align:center}.dl-mini .dl-cover{width:46px;height:46px}}'
     ].join('\n');
     var st = document.createElement('style');
@@ -122,6 +123,30 @@
       card.insertBefore(mini, card.firstChild);
     });
   }
+  // Pochette du podcast dans le lecteur en barre, pour TOUTE lecture (recherche ou lien profond) ;
+  // sans pochette connue : l'icone d'origine reste.
+  function setPlayerCover(cover) {
+    var art = document.querySelector('.pb-art');
+    if (!art) return;
+    var old = art.querySelector('.dl-art');
+    if (old) old.remove();
+    var sv = art.querySelector('svg');
+    cover = safeImage(cover);
+    if (!cover) { if (sv) sv.style.display = ''; return; }
+    var im = new Image();
+    im.className = 'dl-art'; im.alt = ''; im.referrerPolicy = 'no-referrer';
+    im.onload = function () { if (sv) sv.style.display = 'none'; art.appendChild(im); };
+    im.src = cover;
+  }
+  var originalPlay = window.playAnswer;
+  window.playAnswer = function (r) {
+    var out = originalPlay.apply(this, arguments);
+    getCovers().then(function (map) {
+      var info = map[r && r.podcast];
+      setPlayerCover((info && info.c) || (r && r.cover) || '');
+    });
+    return out;
+  };
   injectStyles();
   var originalRender = window.renderResults;
   window.renderResults = function (results) {
@@ -145,7 +170,8 @@
         episode: e.e,
         audio_url: e.u,
         start_seconds: e.ap ? 0 : (e.t || 0),
-        episode_url: safeListenly(e.l) || safeListenly(d.show)
+        episode_url: safeListenly(e.l) || safeListenly(d.show),
+        cover: d.cover || ''
       };
       if (typeof stopPlaceholderCycle === 'function') stopPlaceholderCycle();
       var hero = document.querySelector('.hero');
@@ -161,14 +187,6 @@
         resultsWrap.appendChild(back);
       }
       playAnswer(r, null);
-      // pochette du podcast dans le lecteur en barre (a la place de l'icone generique)
-      var art = document.querySelector('.pb-art'), cov = safeImage(d.cover);
-      if (art && cov) {
-        var im = new Image();
-        im.src = cov; im.alt = ''; im.referrerPolicy = 'no-referrer';
-        im.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:10px;display:block';
-        im.onload = function () { var sv = art.querySelector('svg'); if (sv) sv.style.display = 'none'; art.appendChild(im); };
-      }
       try { if (window.plausible) window.plausible('Moment Lien Hub'); } catch (err) {}
       var top = resultsWrap.getBoundingClientRect().top;
       if (top > window.innerHeight * 0.55) resultsWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
