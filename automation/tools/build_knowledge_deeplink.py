@@ -17,6 +17,7 @@ import re, os
 SRC = "automation/tools/knowledge-search-source.html"
 OUT_ECOUTER = "pages/podcast-btb/ecouter.html"
 OUT_CONCEPT = "automation/tools/knowledge-search-deeplink.html"
+OUT_HOME = "automation/tools/listenly-homepage-deeplink.html"   # meme page, canonical = page d'accueil https://listenly.fr/
 
 DEEPLINK_JS = r"""
   // ---------- Lien profond depuis les hubs N1 : ?p=<podcast>&m=<moment> ----------
@@ -79,6 +80,13 @@ def build():
     ecouter = ecouter.replace("<title>Listenly — Knowledge Search: Find the Exact Podcast Answer to Any Question</title>",
                               "<title>Listen to the answer — Listenly</title>", 1)
 
+    home = concept.replace('<link rel="canonical" href="https://listenly.fr/knowledge-search">',
+                           '<link rel="canonical" href="https://listenly.fr/">')
+    home = home.replace('<meta property="og:url" content="https://listenly.fr/knowledge-search">',
+                        '<meta property="og:url" content="https://listenly.fr/">')
+    assert 'href="https://listenly.fr/">' in home and "knowledge-search" not in re.sub(r"<!--.*?-->", "", home)
+    with open(OUT_HOME, "w", encoding="utf-8") as f:
+        f.write(home)
     with open(OUT_CONCEPT, "w", encoding="utf-8") as f:
         f.write(concept)
     with open(OUT_ECOUTER, "w", encoding="utf-8") as f:
