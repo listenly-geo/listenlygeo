@@ -1,0 +1,38 @@
+name: Mise en ligne rapide des pages (sans toucher au moteur)
+
+# Envoie sur le serveur ce qui est deja commite dans pages/podcast-btb/ (differences uniquement).
+# Declenchement : "Run workflow" ou modification de automation/marketforge_engine/deploy-now.txt.
+# Ne lance ni decouverte, ni onboarding, ni extraction : c'est juste la mise en ligne.
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: ['automation/marketforge_engine/deploy-now.txt']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Mise en ligne FTP (pages/podcast-btb -> /listenly.fr/podcast-btb/)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/
+          server-dir: /listenly.fr/podcast-btb/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
