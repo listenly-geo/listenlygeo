@@ -913,6 +913,23 @@ def _consolidated_paths():
             _CONSOLIDATED_CACHE = set()
     return _CONSOLIDATED_CACHE
 
+def _protected_question_paths():
+    """Fiches question a garder dans le sitemap (29/09/2026) : celles que Google connait deja
+    (indexees) ou qui ont eu des impressions. Toutes les autres sortent du sitemap pour que Google
+    se concentre sur les fiches N1 (hubs). Les pages restent en ligne. None = pas de donnees -> on garde tout."""
+    try:
+        with open(f"{PAGES_DIR}/data/gsc_index_status.json", encoding="utf-8") as f:
+            st = json.load(f)
+    except (OSError, ValueError):
+        return None
+    keep = {p for p, v in (st.get("impressions") or {}).items() if v.get("impressions", 0) > 0}
+    for p, v in (st.get("urls") or {}).items():
+        cov = (v.get("coverage") or "").lower()
+        if v.get("verdict") == "PASS" or ("indexed" in cov and "not indexed" not in cov):
+            keep.add(p)
+    return keep
+
+
 def build_sitemap():
     """Scanne tout /pages/podcast-btb/ et régénère un sitemap XML à jour.
     Appelée par generate_podcast_btb.py ET generate_episode_fiches_btb.py
@@ -939,6 +956,15 @@ def build_sitemap():
                 podcast_dates[slug] = max([podcast_dates[slug]] + [d for d in dates if d])
             except (json.JSONDecodeError, OSError):
                 pass
+    # Extraction du moteur (29/09/2026) : chaque vague de questions met aussi a jour la date du hub
+    try:
+        with open("automation/marketforge_engine/queue.json", encoding="utf-8") as f:
+            for slug, st in (json.load(f).get("podcasts") or {}).items():
+                d = st.get("last_extract_date") or ""
+                if d and slug in podcast_dates:
+                    podcast_dates[slug] = max(podcast_dates[slug] or "", d)
+    except (OSError, ValueError):
+        pass
     episode_dates = {}
     episodes_root = f"{PAGES_DIR}/episodes"
     if os.path.isdir(episodes_root):
@@ -957,6 +983,7 @@ def build_sitemap():
                 except (json.JSONDecodeError, OSError):
                     pass
 
+    protected_q = _protected_question_paths()
     urls = []
     for root, dirs, files in os.walk(PAGES_DIR):
         dirs[:] = [d for d in dirs if d != "data"]
@@ -971,6 +998,9 @@ def build_sitemap():
             rel_path = os.path.relpath(full_path, PAGES_DIR).replace(os.sep, "/")
             if rel_path in _consolidated_paths():
                 continue  # fiche question regroupee dans son hub (redirection 301) -- hub_consolidation.py
+            if protected_q is not None and rel_path.startswith("questions/") and fname != "index.html" \
+                    and rel_path not in protected_q:
+                continue  # fiche question non indexee / sans impression : hors sitemap (les hubs d'abord)
             url = f"https://listenly.fr/podcast-btb/{rel_path}"
 
             slug_from_fname = fname[:-len("-podcast.html")] if fname.endswith("-podcast.html") else None
