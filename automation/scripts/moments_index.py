@@ -44,6 +44,14 @@ def page_url(slug, mid):
 _cache = {}
 
 
+def invalidate(slug=None):
+    """A appeler apres l'ecriture d'un nouveau fichier de moments dans le meme processus."""
+    if slug is None:
+        _cache.clear()
+    else:
+        _cache.pop(slug, None)
+
+
 def load_moments(slug):
     """Knowledge moments d'un podcast (fichiers <slug>--<episode>.json), avec audio."""
     if slug in _cache:

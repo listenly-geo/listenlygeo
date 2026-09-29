@@ -57,6 +57,11 @@ jobs:
           DRY_RUN: ${{ github.event.inputs.dry_run }}
         run: python automation/scripts/marketforge_extract_queue.py
 
+      - name: Lecteur de moments (index + adresses d'episodes)
+        if: always() && github.event.inputs.dry_run != 'true'
+        continue-on-error: true
+        run: python automation/scripts/moments_index.py
+
       - name: Commit file d'attente + knowledge moments
         if: always() && github.event.inputs.dry_run != 'true'
         run: |

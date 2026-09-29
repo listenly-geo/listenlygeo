@@ -206,7 +206,13 @@ def refresh_hub(podcast):
     reg = load_json(f"{QUESTIONS_DIR}/{podcast['slug']}/_qa_registry.json", {})
     n1_path = f"{PAGES_DIR}/{podcast['slug']}-podcast.html"
     try:
-        return hub_index.apply_hub_index(n1_path, podcast, reg.get("published", []))
+        # Lecteur de moments : les nouvelles questions doivent ouvrir ecouter.html au bon moment.
+        # Cache vide (un episode vient d'etre ecrit) + index du podcast reecrit avec le hub.
+        import moments_index
+        moments_index.invalidate(podcast["slug"])
+        ok = hub_index.apply_hub_index(n1_path, podcast, reg.get("published", []))
+        moments_index.build_index(podcast, moments_index.load_json(moments_index.EP_URLS_FILE, {}))
+        return ok
     except Exception as e:
         log(f"AVERTISSEMENT hub N1 non mis a jour ({e})")
         return False
