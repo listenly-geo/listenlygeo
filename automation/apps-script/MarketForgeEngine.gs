@@ -98,6 +98,9 @@ var MFE_MSG_DEFAULTS = [
    'MarketForge Engine — lignes ajoutees automatiquement a la fin du 1er mail ET de la relance (ex. lien LinkedIn). Vide = rien. Gmail n\'ajoute PAS la signature Workspace aux mails envoyes par script.'],
   ['MFE_VERIF_CLE', '', 'Cle API MyEmailVerifier (verification des boites mail avant envoi). Vide = verification desactivee.'],
   ['MFE_VERIF_RISQUES', 'FALSE', 'Verification des emails : TRUE = envoie aussi aux adresses "Catch All" (domaine qui accepte tout, non verifiable). FALSE = uniquement les adresses confirmees (plus sur).'],
+  ['MFE_RAPPORT', 'QUOTIDIEN', 'Rapport par email (HTML) : QUOTIDIEN (1 par jour a MFE_RAPPORT_HEURE), HORAIRE (chaque heure de 8h a 20h) ou OFF.'],
+  ['MFE_RAPPORT_HEURE', '20', 'Heure d\'envoi du rapport quotidien (0-23).'],
+  ['MFE_RAPPORT_EMAIL', '', 'Destinataire du rapport. Vide = toi (compte qui execute le script).'],
   ['MFE_SIG_HTML', 'TRUE', 'Signature riche (photo + liens) en bas des mails. TRUE = activee. Garder FALSE si la delivrabilite baisse.'],
   ['MFE_SIG_PHOTO', 'https://listenly.fr/podcast-btb/assets/etienne-cugnet.jpg', 'Signature riche — URL publique de ta photo (carree, ~200x200). Vide = pas de photo.'],
   ['MFE_SIG_NOM', 'Etienne Cugnet', 'Signature riche — nom.'],
@@ -152,6 +155,7 @@ function marketforgeEngineQuotidien() {
   var replies = mfeCheckReplies_(sh);
   var relances = (cfg.ENVOI_AUTO && cfg.RELANCE_JOURS > 0) ? mfeFollowUp_(sh, cfg.RELANCE_JOURS) : 0;
   Logger.log('MarketForge Engine : %s ajoute(s), %s envoye(s), %s reponse(s), %s relance(s)', added, sent, replies, relances);
+  try { mfeRapportSiPrevu_(); } catch (e) { Logger.log('Rapport : %s', e); }
 }
 
 // ---------- 1. Import depuis queue.json ----------
@@ -691,6 +695,7 @@ function mfeOnOpen() {
     .addItem('📊 Voir l’état du moteur (dernier run)', 'mfeMenuEtatMoteur')
     .addSeparator()
     .addItem('Importer les nouveaux contacts maintenant', 'mfeMenuImporter')
+    .addItem('📊 Recevoir le rapport maintenant', 'mfeMenuRapport')
     .addItem('Envoyer un test (à moi)', 'mfeMenuTest')
     .addItem('Test limité (3 vrais e-mails maintenant)', 'mfeMenuTestLimite')
     .addItem('Traiter la file maintenant (envoi hors horaires)', 'mfeMenuTraiter')
@@ -805,4 +810,147 @@ function mfeMenuDesactiver() {
     if (t.getHandlerFunction() === 'marketforgeEngineQuotidien') ScriptApp.deleteTrigger(t);
   });
   mfeAlert_('Envoi automatique desactive (le menu reste disponible). Pour reactiver : "Activer l’automatique".');
+}
+
+// ======================================================================
+// RAPPORT EMAIL (HTML, style epure) : referencement + nouvelles fiches + prospection
+// Declenche par le passage horaire (aucun declencheur a installer). Reglages : MFE_RAPPORT*.
+// ======================================================================
+var MFE_RAW = 'https://raw.githubusercontent.com/listenly-geo/listenlygeo/main/';
+
+function mfeRapportSiPrevu_() {
+  var r = mfeReadSettings_(), mode = String(r.MFE_RAPPORT || 'QUOTIDIEN').toUpperCase().trim();
+  if (mode === 'OFF') return;
+  var now = new Date(), h = now.getHours(), props = PropertiesService.getScriptProperties();
+  var dayKey = Utilities.formatDate(now, Session.getScriptTimeZone(), 'yyyy-MM-dd');
+  if (mode === 'HORAIRE') {
+    if (h < 8 || h > 20) return;
+    var hourKey = dayKey + ' ' + h;
+    if (props.getProperty('MFE_RAPPORT_LAST') === hourKey) return;
+    mfeEnvoyerRapport_('horaire');
+    props.setProperty('MFE_RAPPORT_LAST', hourKey);
+  } else {
+    var heure = parseInt(r.MFE_RAPPORT_HEURE, 10); if (isNaN(heure)) heure = 20;
+    if (h < heure || props.getProperty('MFE_RAPPORT_LAST') === dayKey) return;
+    mfeEnvoyerRapport_('quotidien');
+    props.setProperty('MFE_RAPPORT_LAST', dayKey);
+  }
+}
+
+function mfeMenuRapport() {
+  var to = mfeEnvoyerRapport_('manuel');
+  mfeAlert_('Rapport envoye a ' + to + '.');
+}
+
+function mfeFetchJson_(path, fallback) {
+  try {
+    var res = UrlFetchApp.fetch(MFE_RAW + path + '?t=' + Date.now(), { muteHttpExceptions: true });
+    return res.getResponseCode() === 200 ? JSON.parse(res.getContentText()) : fallback;
+  } catch (e) { return fallback; }
+}
+
+function mfeEnvoyerRapport_(mode) {
+  var tz = Session.getScriptTimeZone(), now = new Date();
+  var today = Utilities.formatDate(now, tz, 'yyyy-MM-dd');
+  var d7 = Utilities.formatDate(new Date(now.getTime() - 6 * 86400000), tz, 'yyyy-MM-dd');
+  var props = PropertiesService.getScriptProperties();
+
+  // ---- Donnees GitHub (fiches, Google) ----
+  var podcasts = mfeFetchJson_('pages/podcast-btb/data/podcasts.json', []);
+  var cons = mfeFetchJson_('pages/podcast-btb/data/consolidated_questions.json', { paths: [] });
+  var idx = mfeFetchJson_('pages/podcast-btb/data/gsc_index_status.json', { urls: {}, impressions: {} });
+  var gp = (mfeFetchJson_('pages/podcast-btb/data/gsc_pages.json', { pages: {} }).pages) || {};
+  var total = podcasts.length;
+  var todayList = podcasts.filter(function (p) { return String(p.date || '').slice(0, 10) === today; });
+  var week = podcasts.filter(function (p) { return String(p.date || '').slice(0, 10) >= d7; }).length;
+  var nouvelles;
+  if (mode === 'horaire') {   // depuis le dernier rapport
+    var prev = parseInt(props.getProperty('MFE_RAPPORT_COUNT') || String(total), 10);
+    nouvelles = podcasts.slice(Math.min(prev, total));
+  } else nouvelles = todayList;
+  props.setProperty('MFE_RAPPORT_COUNT', String(total));
+
+  var urls = idx.urls || {}, inspected = 0, indexed = 0;
+  Object.keys(urls).forEach(function (k) { inspected++; if (urls[k].verdict === 'PASS') indexed++; });
+  var regroup = (cons.paths || []).length;
+  var hubs = Object.keys(gp).filter(function (u) { return /-podcast\.html$/.test(u) && u.indexOf('/questions/') === -1; })
+    .map(function (u) { return { url: u, imp: gp[u].impressions || 0, clicks: gp[u].clicks || 0 }; })
+    .sort(function (a, b) { return b.imp - a.imp; });
+  var hubImp = hubs.reduce(function (a, x) { return a + x.imp; }, 0);
+  var names = {}; podcasts.forEach(function (p) { names[p.fiche_url] = p.podcast_name; });
+
+  // ---- Prospection (onglet MarketForge Engine) ----
+  var rows = mfeRows_(mfeSheet_()), st = {}, sentToday = 0, sentTotal = 0, relToday = 0, repList = [], repToday = [];
+  var isToday = function (v) { return v && Utilities.formatDate(new Date(v), tz, 'yyyy-MM-dd') === today; };
+  rows.forEach(function (r) {
+    var s = String(r.values[6] || '?'); st[s] = (st[s] || 0) + 1;
+    if (r.values[7]) { sentTotal++; if (isToday(r.values[7])) sentToday++; }
+    if (isToday(r.values[8])) relToday++;
+    if (s === 'Repondu') { repList.push(r.values[1]); if (isToday(r.values[9])) repToday.push(r.values[1]); }
+  });
+  var cfg = mfeSettings_(), cap = mfeDailyCap_(cfg), bounces = st['Rebond'] || 0;
+
+  // ---- Succes (motivation) ----
+  var wins = [];
+  if (repToday.length) wins.push('💬 <b>' + repToday.length + ' nouvelle' + (repToday.length > 1 ? 's' : '') + ' réponse' + (repToday.length > 1 ? 's' : '') + '</b> aujourd\'hui : ' + mfeEsc_(repToday.join(', ')) + ' — va vite répondre !');
+  if (todayList.length) wins.push('🚀 <b>' + todayList.length + ' nouvelles fiches</b> mises en ligne aujourd\'hui, visibles par Google et les IA.');
+  if (sentToday) wins.push('📬 <b>' + sentToday + ' podcasts</b> ont découvert leur fiche dans leur boîte mail aujourd\'hui.');
+  if (hubs.length && hubs[0].imp) wins.push('🏆 Ton hub le plus vu : <b>' + mfeEsc_(names[hubs[0].url] || hubs[0].url) + '</b> (' + hubs[0].imp + ' impressions Google).');
+  if (regroup) wins.push('🧹 <b>' + regroup + ' anciennes fiches</b> regroupées dans leur hub — le site gagne en force.');
+  if (repList.length) wins.push('🔥 <b>' + repList.length + ' podcast' + (repList.length > 1 ? 's' : '') + ' en conversation</b> au total. Chaque réponse = une vente possible à 1 500 € + 500 €/mois.');
+  if (!wins.length) wins.push('⚙️ La machine tourne : découverte, fiches et envois se font tout seuls.');
+
+  // ---- HTML ----
+  var C = 'font-family:-apple-system,BlinkMacSystemFont,\'Helvetica Neue\',Arial,sans-serif;';
+  var card = function (inner) { return '<div style="background:#fff;border-radius:18px;padding:22px 24px;margin:0 0 16px;border:1px solid #e5e5ea">' + inner + '</div>'; };
+  var h2 = function (t) { return '<div style="font-size:19px;font-weight:700;color:#1d1d1f;margin:0 0 14px">' + t + '</div>'; };
+  var kpis = function (arr) {
+    return '<table width="100%" cellpadding="0" cellspacing="0"><tr>' + arr.map(function (k) {
+      return '<td style="padding:4px 6px 4px 0;vertical-align:top"><div style="background:#f5f5f7;border-radius:14px;padding:12px 14px">' +
+        '<div style="font-size:12px;color:#6e6e73">' + k[0] + '</div><div style="font-size:26px;font-weight:700;color:#1d1d1f;letter-spacing:-.5px">' + k[1] + '</div>' +
+        (k[2] ? '<div style="font-size:11px;color:#86868b">' + k[2] + '</div>' : '') + '</div></td>';
+    }).join('') + '</tr></table>';
+  };
+  var line = function (a, b) { return '<tr><td style="padding:8px 0;border-bottom:1px solid #f0f0f3;color:#6e6e73;font-size:14px">' + a + '</td><td style="padding:8px 0;border-bottom:1px solid #f0f0f3;text-align:right;font-weight:600;font-size:14px;color:#1d1d1f">' + b + '</td></tr>'; };
+
+  var ficheItems = nouvelles.slice(0, 40).map(function (p) {
+    return '<tr><td style="padding:7px 0;border-bottom:1px solid #f0f0f3;font-size:14px"><a href="' + mfeEsc_(p.fiche_url) + '" style="color:#0071e3;text-decoration:none;font-weight:600">' +
+      mfeEsc_(p.podcast_name) + '</a><div style="font-size:12px;color:#86868b">' + mfeEsc_(p.categorie || '') + '</div></td></tr>';
+  }).join('');
+  if (nouvelles.length > 40) ficheItems += '<tr><td style="padding:8px 0;font-size:13px;color:#86868b">… et ' + (nouvelles.length - 40) + ' autres (voir le tableau de bord)</td></tr>';
+  if (!ficheItems) ficheItems = '<tr><td style="padding:8px 0;font-size:14px;color:#86868b">Pas de nouvelle fiche ' + (mode === 'horaire' ? 'depuis le dernier rapport' : 'aujourd\'hui') + ' pour l\'instant.</td></tr>';
+
+  var jourFr = Utilities.formatDate(now, tz, 'dd/MM/yyyy');
+  var html = '<div style="background:#f5f5f7;padding:28px 12px;' + C + '"><div style="max-width:620px;margin:0 auto">' +
+    '<div style="font-size:12px;font-weight:600;color:#86868b;margin:0 0 4px">MarketForge Engine · Listenly</div>' +
+    '<div style="font-size:30px;font-weight:700;color:#1d1d1f;letter-spacing:-.6px;margin:0 0 4px">Ton rapport ' + (mode === 'horaire' ? 'de ' + Utilities.formatDate(now, tz, "HH'h'") : 'du jour') + ' ✨</div>' +
+    '<div style="font-size:15px;color:#6e6e73;margin:0 0 20px">' + jourFr + '</div>' +
+    card(h2('🎉 Les succès') + wins.map(function (w) { return '<div style="font-size:15px;line-height:1.5;color:#1d1d1f;margin:0 0 10px">' + w + '</div>'; }).join('')) +
+    card(h2('📈 Le référencement avance') +
+      kpis([['Fiches hub', total, 'au total'], ['Aujourd\'hui', '+' + todayList.length, 'nouvelles'], ['Rythme', Math.round(week / 7), 'fiches / jour']]) +
+      '<table width="100%" cellpadding="0" cellspacing="0" style="margin-top:12px">' +
+      line('Hubs visibles dans Google', hubs.length) + line('Impressions des hubs (Search Console)', hubImp) +
+      line('Anciennes fiches regroupées dans les hubs', regroup) + line('Fiches question vérifiées / indexées (protégées)', inspected + ' / ' + indexed) + '</table>') +
+    card(h2('🆕 Nouvelles fiches' + (nouvelles.length ? ' (' + nouvelles.length + ')' : '')) + '<table width="100%" cellpadding="0" cellspacing="0">' + ficheItems + '</table>') +
+    card(h2('📬 La prospection') +
+      kpis([['Envoyés aujourd\'hui', sentToday, 'sur ' + cap + ' prévus'], ['Réponses', repList.length, 'au total'], ['Prêts', st['Pret'] || 0, 'à contacter']]) +
+      '<table width="100%" cellpadding="0" cellspacing="0" style="margin-top:12px">' +
+      line('Envoi automatique', cfg.ENVOI_AUTO ? '🟢 actif' : '⏸️ en pause') + line('Emails envoyés au total', sentTotal) +
+      line('Relances envoyées aujourd\'hui', relToday) +
+      line('Rebonds', bounces + (sentTotal ? ' (' + (Math.round(bounces / sentTotal * 1000) / 10) + ' %)' : '')) +
+      line('Adresses écartées (anti-rebond)', (st['Email invalide'] || 0) + (st['Email risque'] || 0)) +
+      (repList.length ? line('En conversation', mfeEsc_(repList.join(', '))) : '') + '</table>') +
+    '<div style="text-align:center;margin:22px 0 8px">' +
+    '<a href="https://listenly.fr/podcast-btb/moteur.html" style="display:inline-block;background:#0071e3;color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:11px 20px;border-radius:999px;margin:4px">Tableau de bord</a> ' +
+    '<a href="' + mfeSS_().getUrl() + '" style="display:inline-block;background:#1d1d1f;color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:11px 20px;border-radius:999px;margin:4px">Google Sheet</a></div>' +
+    '<div style="text-align:center;font-size:11px;color:#86868b;margin-top:10px">Rapport ' + mode + ' · réglages MFE_RAPPORT dans l\'onglet Réglages</div>' +
+    '</div></div>';
+
+  var to = String(mfeReadSettings_().MFE_RAPPORT_EMAIL || '').trim() || Session.getEffectiveUser().getEmail();
+  var subject = (repToday.length ? '💬 ' : '📊 ') + 'MarketForge — ' + (mode === 'horaire' ? Utilities.formatDate(now, tz, "HH'h'") : jourFr) +
+    ' · +' + todayList.length + ' fiches · ' + sentToday + ' envois' + (repList.length ? ' · ' + repList.length + ' réponse' + (repList.length > 1 ? 's' : '') : '');
+  var plain = 'Rapport MarketForge Engine ' + jourFr + '\nFiches hub : ' + total + ' (+' + todayList.length + ')\nEnvoyes aujourd\'hui : ' + sentToday + '\nReponses : ' + repList.length +
+    '\nTableau de bord : https://listenly.fr/podcast-btb/moteur.html';
+  GmailApp.sendEmail(to, subject, plain, { htmlBody: html, name: 'MarketForge Engine' });
+  return to;
 }
