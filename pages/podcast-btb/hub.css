@@ -1,0 +1,63 @@
+/* Style "Apple" des fiches N1 (29/09/2026) — charge apres les styles de la page (pages/podcast-btb/hub_style.json). */
+html body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Helvetica,Arial,sans-serif;color:#1d1d1f;background:#fff;-webkit-font-smoothing:antialiased;line-height:1.55}
+html body .site-header{background:rgba(255,255,255,.82);-webkit-backdrop-filter:saturate(180%) blur(18px);backdrop-filter:saturate(180%) blur(18px);border-bottom:1px solid rgba(0,0,0,.08)}
+html body .site-header .logo{font-family:inherit;font-weight:700;letter-spacing:-.02em}
+html body main.wrapper{max-width:760px;padding:36px 20px 72px}
+html body .eyebrow-category{font-family:inherit;color:#0071e3;font-size:12.5px;letter-spacing:.06em}
+html body h1{font-family:inherit;font-weight:700;font-size:clamp(32px,5.2vw,48px);letter-spacing:-.03em;line-height:1.1;color:#1d1d1f;margin-bottom:14px}
+html body .byline-row{display:block;font-family:inherit;font-size:15px;color:#424245;margin-bottom:8px}
+html body .host-bio{font-family:inherit;font-size:14.5px;line-height:1.5;color:#6e6e73;margin-bottom:14px}
+/* pochette compacte a droite du titre : les questions remontent */
+html body main.wrapper{position:relative}
+html body .hero-image{position:absolute;top:36px;right:20px;width:104px;max-width:104px;height:104px;object-fit:cover;border-radius:22%;margin:0;box-shadow:0 6px 18px rgba(0,0,0,.16)}
+html body .eyebrow-category,html body h1,html body .byline-row,html body .host-bio{padding-right:124px}
+html body .publish-row{font-family:inherit;font-size:13px;color:#86868b;border:0;padding:0;margin:0 0 14px}
+html body .cta-row{margin:0 0 6px}
+html body .cta-listen,html body .card-listen{font-family:inherit;background:#0071e3;font-weight:600;font-size:15px;padding:11px 22px;border-radius:999px}
+html body .cta-listen:hover,html body .card-listen:hover{background:#0077ed}
+/* bloc de questions */
+html body .hx-wrap{margin:26px 0 44px;padding-top:0;border-top:0}
+html body .hx-title{font-size:28px;font-weight:700;letter-spacing:-.025em;color:#1d1d1f}
+html body .hx-stats{font-size:14px;color:#86868b;margin-bottom:14px}
+html body .hx-tools{background:#fff;box-shadow:0 8px 12px -10px rgba(0,0,0,.18);top:57px;padding:10px 0 8px}
+html body .hx-search{font-family:inherit;font-size:17px;padding:13px 20px;border:0;border-radius:999px;background:#f2f2f4}
+html body .hx-search:focus{outline:2px solid #0071e3;background:#fff}
+html body .hx-chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:8px;padding:12px 0 2px}
+html body .hx-chips::-webkit-scrollbar{display:none}
+html body .hx-chip{font-size:13px;color:#1d1d1f;background:#f2f2f4;border:0;padding:7px 13px;max-width:260px;overflow:hidden;text-overflow:ellipsis;flex:none}
+html body .hx-chip span{color:#86868b}
+html body .hx-ep{font-size:15px;font-weight:600;color:#86868b;letter-spacing:.01em;margin:30px 0 12px}
+html body .hx-qa{background:#fff;border:0;border-radius:20px;padding:22px 24px;margin:0 0 14px;box-shadow:0 1px 2px rgba(0,0,0,.05),0 6px 22px rgba(0,0,0,.07)}
+html body .hx-q{font-size:19px;font-weight:650;letter-spacing:-.015em;line-height:1.3;color:#1d1d1f;margin-bottom:8px}
+html body .hx-a{font-size:16.5px;line-height:1.55;color:#424245;margin-bottom:14px}
+html body .hx-foot{gap:16px}
+html body .hx-listen{font-size:14.5px;font-weight:600;color:#fff;background:#0071e3;padding:9px 18px;border-radius:999px}
+html body .hx-listen:hover{background:#0077ed}
+html body .hx-more{color:#0071e3;text-decoration:none;font-size:14px}
+html body .hx-more:hover{text-decoration:underline}
+html body .hx-showall{display:block;width:100%;margin:8px 0 0;padding:15px;font:600 16px/1 inherit;font-family:inherit;color:#0071e3;background:#f2f2f4;border:0;border-radius:999px;cursor:pointer}
+html body .hx-showall:hover{background:#e8e8ed}
+html body .hx-collapsed .hx-extra{display:none}
+/* contenu editorial */
+html body .lead-label,html body .key-facts-label{font-family:inherit;color:#86868b;border-top:0;padding-top:12px}
+html body .lead{font-family:inherit;font-style:normal;font-size:19px;line-height:1.6;color:#1d1d1f;background:#f5f5f7;border-left:0;border-radius:20px;padding:24px 26px;margin:12px 0 26px}
+html body .key-facts li{font-family:inherit;font-size:17px;line-height:1.6;color:#1d1d1f;padding-left:24px;margin-bottom:12px}
+html body .key-facts li::before{color:#0071e3}
+html body .article-body h2,html body .faq-section h2{font-family:inherit;font-weight:700;letter-spacing:-.025em;border-top:0;padding-top:0;margin-top:48px}
+html body .article-body p,html body .faq-item p{font-family:inherit;font-size:17px;line-height:1.7;color:#1d1d1f}
+html body .faq-item h3{font-family:inherit;font-size:18px;letter-spacing:-.01em}
+html body .pull-quote{font-family:inherit;font-style:normal;border-left:3px solid #0071e3;font-size:20px}
+html body .episode-card{border:0;border-radius:20px;background:#f5f5f7;padding:20px}
+html body .episode-card img{border-radius:16px}
+html body .episode-card-title{font-family:inherit}
+html body .divider{border-top-color:rgba(0,0,0,.08)}
+html body footer{border-top-color:rgba(0,0,0,.08)}
+@media (max-width:560px){
+ html body main.wrapper{padding:24px 16px 56px}
+ html body .hero-image{top:24px;right:16px;width:72px;max-width:72px;height:72px}
+ html body .eyebrow-category,html body h1,html body .byline-row,html body .host-bio{padding-right:0}
+ html body h1{padding-right:88px}
+ html body .hx-qa{padding:18px 18px;border-radius:18px}
+ html body .hx-q{font-size:18px}
+ html body .hx-tools{top:53px}
+}

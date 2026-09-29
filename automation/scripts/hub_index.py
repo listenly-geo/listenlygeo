@@ -44,6 +44,7 @@ STRINGS = {
         "listen": "▶ Écouter ce moment",
         "listen_ep": "▶ Écouter l'épisode",
         "full": "Réponse complète →",
+        "show_all": "Voir les {n} réponses",
         "none": "Aucune réponse ne correspond à cette recherche.",
     },
     "en": {
@@ -53,6 +54,7 @@ STRINGS = {
         "listen": "▶ Listen to this moment",
         "listen_ep": "▶ Listen to the episode",
         "full": "Full answer →",
+        "show_all": "Show all {n} answers",
         "none": "No answer matches this search.",
     },
 }
@@ -309,12 +311,29 @@ def extract_full_answer_paragraphs(rel_path, question=""):
     return out or None
 
 
+STYLE_CONFIG = "pages/podcast-btb/hub_style.json"   # {"slugs": [...]} ou {"slugs": "*"} : fiches au style Apple (29/09/2026)
+STYLE_LINK = '<link rel="stylesheet" href="/podcast-btb/hub.css?v=1" id="hub-style">'
+HUB_VISIBLE = 10          # questions visibles avant "Show all" (style Apple)
+
+
+def apple_enabled(n1_path):
+    try:
+        with open(STYLE_CONFIG, encoding="utf-8") as f:
+            slugs = json.load(f).get("slugs", [])
+    except (OSError, ValueError):
+        return False
+    base = os.path.basename(n1_path)
+    if base.endswith("-podcast.html"):
+        base = base[:-len("-podcast.html")]
+    return slugs == "*" or base in slugs
+
+
 def visible_entries(published):
     excluded = load_excluded_urls()
     return [p for p in published if p.get("url", "").replace("https://listenly.fr", "") not in excluded]
 
 
-def render_hub_index(podcast, published):
+def render_hub_index(podcast, published, apple=False):
     lang = "en" if podcast.get("language") == "en" else "fr"
     t = STRINGS[lang]
     merged = consolidated_urls()
@@ -352,6 +371,8 @@ def render_hub_index(podcast, published):
 
     sections = []
     chips = []
+    collapse = apple and n > HUB_VISIBLE + 2
+    shown = 0
     for ep_title, items in episodes.items():
         ep_anchor = "ep-" + _anchor(ep_title, used)
         chips.append(f'<a class="hx-chip" href="#{ep_anchor}">{_E(ep_title[:70])} <span>{len(items)}</span></a>')
@@ -375,8 +396,10 @@ def render_hub_index(podcast, published):
             else:
                 answer = _E(re.sub(r"\s+", " ", p.get("answer_snippet") or "").strip())
                 answer_html = f'<p class="hx-a">{answer}</p>' if answer else ""
+            shown += 1
+            extra = " hx-extra" if collapse and shown > HUB_VISIBLE else ""
             cards.append(
-                f'<article class="hx-qa" id="{q_anchor}">'
+                f'<article class="hx-qa{extra}" id="{q_anchor}">'
                 f'<h3 class="hx-q">{_E(p.get("question", ""))}</h3>'
                 + answer_html
                 + '<div class="hx-foot">'
@@ -385,7 +408,8 @@ def render_hub_index(podcast, published):
                 + "</div></article>"
             )
         heading = f'<h3 class="hx-ep" id="{ep_anchor}">{_E(ep_title)}</h3>' if ep_title else ""
-        sections.append(f'<section class="hx-episode">{heading}{"".join(cards)}</section>')
+        ep_extra = " hx-extra" if collapse and shown - len(items) >= HUB_VISIBLE else ""
+        sections.append(f'<section class="hx-episode{ep_extra}">{heading}{"".join(cards)}</section>')
 
     plural = lambda k: "s" if k > 1 else ""
     stats = t["stats"].format(n=n, s=plural(n), e=e, es=plural(e))
@@ -398,6 +422,13 @@ def render_hub_index(podcast, published):
             + f'<p class="hx-empty" hidden>{t["none"]}</p></div>'
         )
 
+    apple_js = """(function(){var w=document.getElementById('answers'),b=document.getElementById('hx-showall');
+function open(){if(w)w.classList.remove('hx-collapsed');if(b)b.style.display='none';}
+if(b)b.addEventListener('click',open);
+document.querySelectorAll('.hx-chip').forEach(function(c){c.addEventListener('click',open);});
+if(location.hash&&document.querySelector('.hx-extra'+location.hash))open();})();
+""" if apple else ""
+    apple_input = "if(i.value.trim()){var w=document.getElementById('answers');if(w)w.classList.remove('hx-collapsed');var b=document.getElementById('hx-showall');if(b)b.style.display='none';}" if apple else ""
     return f"""
 <style>
 .hx-wrap {{ margin:32px 0 40px; padding-top:28px; border-top:1px solid #ececec; }}
@@ -418,15 +449,15 @@ def render_hub_index(podcast, published):
 .hx-more {{ color:#777; }}
 .hx-hidden {{ display:none; }}
 </style>
-<div class="questions-covered hx-wrap" id="answers">
+<div class="questions-covered hx-wrap{" hx-collapsed" if collapse else ""}" id="answers">
   <h2 class="hx-title">{t["title"]}</h2>
   <p class="hx-stats">{stats}</p>
   {search}
-  {"".join(sections)}
+  {"".join(sections)}{f'<button type="button" class="hx-showall" id="hx-showall">{_E(t["show_all"].format(n=n))}</button>' if collapse else ""}
 </div>
 <script>
-(function(){{var i=document.querySelector('.hx-search');if(!i)return;var e=document.querySelector('.hx-empty');
-i.addEventListener('input',function(){{var v=i.value.toLowerCase().trim(),any=false;
+{apple_js}(function(){{var i=document.querySelector('.hx-search');if(!i)return;var e=document.querySelector('.hx-empty');
+i.addEventListener('input',function(){{{apple_input}var v=i.value.toLowerCase().trim(),any=false;
 document.querySelectorAll('.hx-qa').forEach(function(a){{var ok=!v||a.textContent.toLowerCase().indexOf(v)>-1;a.classList.toggle('hx-hidden',!ok);if(ok)any=true;}});
 document.querySelectorAll('.hx-episode').forEach(function(s){{s.classList.toggle('hx-hidden',!s.querySelector('.hx-qa:not(.hx-hidden)'));}});
 if(e)e.hidden=any;}});}})();
@@ -455,7 +486,7 @@ def apply_hub_index(n1_path, podcast, published):
     if not entries:
         new = page
     else:
-        block = START_MARKER + render_hub_index(podcast, published) + END_MARKER
+        block = START_MARKER + render_hub_index(podcast, published, apple_enabled(n1_path)) + END_MARKER
         cta = re.search(r'<div class="cta-row">.*?</div>', page, flags=re.DOTALL)
         if len(entries) >= HUB_TOP_THRESHOLD and cta:
             new = page[:cta.end()] + "\n" + block + "\n" + page[cta.end():].lstrip("\n")
@@ -465,6 +496,10 @@ def apply_hub_index(n1_path, podcast, published):
             new = page.replace("</body>", block + "\n</body>", 1)
         else:
             new = page + block
+    # feuille de style commune (style Apple) : lien place en fin de <head>, apres les styles de la page
+    new = re.sub(r'\n?<link rel="stylesheet" href="/podcast-btb/hub\.css[^>]*id="hub-style">', "", new)
+    if entries and apple_enabled(n1_path) and "</head>" in new:
+        new = new.replace("</head>", STYLE_LINK + "\n</head>", 1)
     if new == original:
         return False
     with open(n1_path, "w", encoding="utf-8") as f:
