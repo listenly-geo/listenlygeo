@@ -28,10 +28,16 @@ def main():
     queue = hc.load(QUEUE, {"podcasts": {}})
     status = hc.load(STATUS, {})
     today = datetime.date.today().isoformat()
-    todo = [s for s, st in queue.get("podcasts", {}).items()
-            if not st.get("episodes_done") and st.get("status") in ("en_attente", "contact", "sans_email", "en_cours")
-            and not status.get(s, {}).get("indexed_on")
-            and status.get(s, {}).get("date") != today]
+    two_days = (datetime.date.today() - datetime.timedelta(days=2)).isoformat()
+    podcasts = hc.load("pages/podcast-btb/data/podcasts.json", [])
+    prospects = {p.get("slug"): p.get("statut") for p in (hc.load("automation/marketforge_engine/prospection_stats.json", {}).get("prospects") or [])}
+    waiting = {s for s, st in queue.get("podcasts", {}).items()
+               if not st.get("episodes_done") and st.get("status") in ("en_attente", "contact", "sans_email", "en_cours")}
+    # tous les hubs : ceux qui attendent leurs questions d'abord, puis les prospects, puis les plus recents
+    rank = lambda p: (p["slug"] not in waiting, p["slug"] not in prospects, "".join(chr(255 - ord(c)) for c in (p.get("date") or "")[:10]))
+    todo = [p["slug"] for p in sorted((p for p in podcasts if p.get("slug")), key=rank)
+            if not status.get(p["slug"], {}).get("indexed_on")
+            and (status.get(p["slug"], {}).get("date") or "") < two_days]
     log(f"{len(todo)} fiche(s) N1 a verifier, {min(len(todo), MAX_PER_RUN)} ce run.")
     if not todo:
         return
