@@ -41,6 +41,13 @@ RewriteRule ^ogd6etwxpdgr-podcast\.html$ /podcast-btb/de-la-cave-au-grenier-podc
 RewriteRule ^the\s+retreat\s+leaders\s+podcast-podcast\.html$ /podcast-btb/the-retreat-leaders-podcast-podcast.html [R=301,L]
 RewriteRule ^questions/the\s+retreat\s+leaders\s+podcast/(.*)$ /podcast-btb/questions/the-retreat-leaders-podcast/$1 [R=301,L]
 
+# Lien profond hubs -> accueil : toujours la derniere version de deeplink.js (protege : sans effet si mod_headers absent)
+<IfModule mod_headers.c>
+<FilesMatch "^deeplink\.js$">
+Header set Cache-Control "no-cache"
+</FilesMatch>
+</IfModule>
+
 # BEGIN hub-consolidation (genere par hub_consolidation.py)
 # Fiches question regroupees dans le hub N1 de leur podcast (redirection permanente).
 RewriteEngine On

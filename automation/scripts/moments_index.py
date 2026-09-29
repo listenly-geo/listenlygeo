@@ -226,6 +226,7 @@ def build_index(podcast, ep_urls):
     save_json(f"{INDEX_DIR}/{slug}.json", {
         "podcast": podcast.get("podcast_name", slug), "slug": slug,
         "hub": f"/podcast-btb/{slug}-podcast.html", "show": podcast.get("listenly_url", ""),
+        "cover": podcast.get("cover_image", ""),
         "entries": entries,
     }, compact=True)
     return len(entries)
