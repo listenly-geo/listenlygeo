@@ -232,6 +232,24 @@ def build_index(podcast, ep_urls):
     return len(entries)
 
 
+COVERS_FILE = f"{PAGES_DIR}/data/podcast_covers.json"
+
+
+def build_covers(podcasts):
+    """Carte nom de podcast -> pochette / page Listenly / hub, pour les vignettes des resultats de recherche.
+    La recherche renvoie podcast_name (meme source que podcasts.json) : aucune modification du serveur."""
+    out = {}
+    for p in podcasts:
+        if not (p.get("cover_image") or p.get("listenly_url")):
+            continue
+        if not os.path.exists(f"{INDEX_DIR}/{p['slug']}.json"):
+            continue   # seuls les podcasts consultables par la recherche
+        out[p["podcast_name"]] = {"c": p.get("cover_image", ""), "s": p.get("listenly_url", ""),
+                                  "h": f"/podcast-btb/{p['slug']}-podcast.html"}
+    save_json(COVERS_FILE, out, compact=True)
+    return len(out)
+
+
 def main():
     podcasts = load_json(PODCASTS_FILE, [])
     ep_urls = load_json(EP_URLS_FILE, {})
@@ -246,8 +264,9 @@ def main():
         if n:
             files += 1
             entries += n
+    covers = build_covers(podcasts)
     known = sum(1 for v in ep_urls.values() for r in v.values() if r.get("u"))
-    msg = (f"{entries} moment(s) dans {files} podcast(s) | adresses d'episodes Listenly connues : {known} "
+    msg = (f"{entries} moment(s) dans {files} podcast(s), {covers} pochette(s) | adresses d'episodes Listenly connues : {known} "
            f"(+{seeded} depuis les fiches, +{found} via le service ; {max(todo - calls, 0)} restantes)")
     print(f"[moments] {msg}")
     print(f"::notice title=Lecteur de moments::{msg}")
