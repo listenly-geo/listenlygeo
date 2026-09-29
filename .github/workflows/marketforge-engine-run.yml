@@ -101,6 +101,10 @@ jobs:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
         run: python automation/scripts/hub_index_check.py
 
+      - name: Veille indexation Google (releve + alerte)
+        continue-on-error: true
+        run: python automation/scripts/seo_watch.py
+
       - name: 3. Extraction du jour
         if: steps.cfg.outputs.pause != 'true'
         continue-on-error: true

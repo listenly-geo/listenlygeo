@@ -53,6 +53,10 @@ jobs:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
         run: python automation/scripts/hub_index_check.py
 
+      - name: Veille indexation Google (releve + alerte)
+        continue-on-error: true
+        run: python automation/scripts/seo_watch.py
+
       - name: Extraire selon la file et le budget du jour
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
