@@ -312,7 +312,7 @@ def extract_full_answer_paragraphs(rel_path, question=""):
 
 
 STYLE_CONFIG = "pages/podcast-btb/hub_style.json"   # {"slugs": [...]} ou {"slugs": "*"} : fiches au style Apple (29/09/2026)
-STYLE_LINK = '<link rel="stylesheet" href="/podcast-btb/hub.css?v=1" id="hub-style">'
+STYLE_LINK = '<link rel="stylesheet" href="/podcast-btb/hub.css?v=2" id="hub-style">'
 HUB_VISIBLE = 10          # questions visibles avant "Show all" (style Apple)
 
 
