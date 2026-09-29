@@ -335,13 +335,41 @@ def main():
     differee = int(config.get("extraction_apres_jours", 7) or 0) > 0
     gsc = load_json(f"{PAGES_DIR}/data/gsc_pages.json", {}).get("pages", {})
     imp = {u.rsplit("/", 1)[-1].replace("-podcast.html", ""): v.get("impressions", 0) for u, v in gsc.items()}
+    # Vagues (29/09/2026) : une vague = episodes_par_podcast episodes ; vagues suivantes espacees d'au moins
+    # espacement_vagues_jours (Google revient sur une page qui s'enrichit regulierement). vagues_max=1 : comportement inchange.
+    waves_max = int(config.get("vagues_max", 1) or 1)
+    gap_days = int(config.get("espacement_vagues_jours", 7) or 7)
+    today_d = datetime.date.fromisoformat(TODAY)
+
+    def next_wave_due(st):
+        if st["status"] != "extrait" or st.get("wave", 1) >= waves_max:
+            return False
+        last = st.get("last_extract_date") or st.get("added") or TODAY
+        try:
+            return (today_d - datetime.date.fromisoformat(last)).days >= gap_days
+        except ValueError:
+            return False
+
+    for s_, st_ in queue["podcasts"].items():
+        if next_wave_due(st_):
+            st_["status"] = "en_cours"
+            st_["wave_target"] = len(st_["episodes_done"]) + eps_per_podcast
+            log(f"Vague {st_.get('wave', 1) + 1} pour {s_} ({gap_days} jours apres la precedente).")
+
+    def tier(s):
+        st = queue["podcasts"][s]
+        if not st["episodes_done"]:
+            return 0          # hub a 0 question : premiere vague en priorite
+        if st["status"] == "en_cours" and st.get("wave", 0) == 0:
+            return 1          # premiere vague commencee : on la finit
+        return 2              # vagues suivantes : d'abord les hubs avec impressions
     order = sorted(
         (s for s, st in queue["podcasts"].items()
          if (extraction_auto and st["status"] in ("en_attente", "en_cours"))
          or (s in extraire and st["status"] in ("en_attente", "en_cours", "contact", "sans_email"))
          or (differee and st["status"] in ("contact", "sans_email", "en_cours")
              and hub_index.extraction_allowed(s, st["status"]))),
-        key=lambda s: (queue["podcasts"][s]["status"] != "en_cours", -imp.get(s, 0), queue["podcasts"][s]["added"], s),
+        key=lambda s: (tier(s), -imp.get(s, 0), queue["podcasts"][s]["added"], s),
     )
     log(f"{len(order)} podcast(s) dans la file active.")
 
@@ -356,8 +384,9 @@ def main():
             state["last_error"] = "absent de podcasts.json"
             continue
 
-        remaining = eps_per_podcast - len(state["episodes_done"])
-        log(f"### {slug} ({len(state['episodes_done'])}/{eps_per_podcast} episodes extraits)")
+        wave_target = state.get("wave_target", eps_per_podcast)
+        remaining = wave_target - len(state["episodes_done"])
+        log(f"### {slug} ({len(state['episodes_done'])}/{wave_target} episodes extraits)")
         try:
             episodes, email = read_rss(podcast["rss_url"])
             if email and not state.get("email"):
@@ -393,6 +422,7 @@ def main():
                     state["last_error"] = str(e)[:200]
                     log(f"ECHEC extraction ({e}) — episode marque traite pour ne pas boucler dessus.")
             state["episodes_done"].append(ep["guid"])
+            state["last_extract_date"] = TODAY
             state["moments_count"] += n
             state["status"] = "en_cours"
             journal["episodes"] += 1
@@ -401,8 +431,9 @@ def main():
             log(f"  -> {n} Q/R ajoutee(s) au hub.")
 
         left = [e for e in todo if e["guid"] not in state["episodes_done"]]
-        if len(state["episodes_done"]) >= eps_per_podcast or not left:
+        if len(state["episodes_done"]) >= wave_target or not left:
             state["status"] = "extrait"
+            state["wave"] = max(state.get("wave", 0), 0) + (1 if state.get("wave", 0) < waves_max else 0)
         if state["moments_count"] > 0 and not DRY_RUN:
             if refresh_hub(podcast):
                 log("Hub N1 mis a jour avec les reponses extraites.")
