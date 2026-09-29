@@ -112,6 +112,11 @@ jobs:
           MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
         run: python automation/scripts/sheet_bridge.py push
 
+      - name: Lecteur de moments (index des questions + adresses d'episodes Listenly)
+        if: always()
+        continue-on-error: true
+        run: python automation/scripts/moments_index.py
+
       - name: Tableau de bord (moteur.html) + suivi prospection du Sheet
         if: always()
         continue-on-error: true

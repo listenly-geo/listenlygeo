@@ -18,13 +18,17 @@ PAGES_DIR = hub_index.PAGES_DIR
 def main():
     with open(f"{PAGES_DIR}/data/podcasts.json", encoding="utf-8") as f:
         records = json.load(f)
+    engine = hub_index.engine_slugs()
     changed = skipped = 0
     for podcast in records:
         reg_path = f"{PAGES_DIR}/questions/{podcast['slug']}/_qa_registry.json"
-        if not os.path.exists(reg_path):
+        if os.path.exists(reg_path):
+            with open(reg_path, encoding="utf-8") as f:
+                published = json.load(f).get("published", [])
+        elif podcast["slug"] in engine:   # podcast du moteur : questions extraites, sans ancienne fiche question
+            published = []
+        else:
             continue
-        with open(reg_path, encoding="utf-8") as f:
-            published = json.load(f).get("published", [])
         n1_path = f"{PAGES_DIR}/{podcast['slug']}-podcast.html"
         if hub_index.apply_hub_index(n1_path, podcast, published):
             changed += 1

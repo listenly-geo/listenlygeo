@@ -21,6 +21,13 @@ ne sont pas reprises dans le hub.
 """
 
 import os, re, json, glob, html
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+try:
+    import moments_index as mi   # lien question -> lecteur au bon moment (ecouter.html)
+except Exception:                # jamais bloquant : sans lui, le bouton renvoie vers la fiche podcast Listenly
+    mi = None
 
 PAGES_DIR = "pages/podcast-btb"
 KNOWLEDGE_DIR = f"{PAGES_DIR}/data/knowledge_moments"
@@ -35,6 +42,7 @@ STRINGS = {
         "stats": "{n} question{s} répondue{s} · {e} épisode{es} indexé{es}",
         "search": "Rechercher parmi les {n} réponses de ce podcast…",
         "listen": "▶ Écouter ce moment",
+        "listen_ep": "▶ Écouter l'épisode",
         "full": "Réponse complète →",
         "none": "Aucune réponse ne correspond à cette recherche.",
     },
@@ -43,6 +51,7 @@ STRINGS = {
         "stats": "{n} question{s} answered · {e} episode{es} indexed",
         "search": "Search the {n} answers in this podcast…",
         "listen": "▶ Listen to this moment",
+        "listen_ep": "▶ Listen to the episode",
         "full": "Full answer →",
         "none": "No answer matches this search.",
     },
@@ -331,6 +340,7 @@ def render_hub_index(podcast, published):
         _save_full_answers(full_cache)
     stamps = load_timestamps(podcast["slug"])
     target = listen_url(podcast)
+    moment_lk = mi.lookup(podcast["slug"]) if mi else None
 
     episodes = {}
     for p in sorted(entries, key=lambda x: x.get("added_date", ""), reverse=True):
@@ -351,6 +361,12 @@ def render_hub_index(podcast, published):
             seconds = p.get("start_seconds") or stamps.get(_norm(p.get("question")))
             when = _fmt_time(seconds)
             listen_label = t["listen"] + (f" · {when}" if when else "")
+            href = target
+            res = mi.resolve_entry(podcast["slug"], p.get("question"), p.get("source_episode_title"), moment_lk) if mi else None
+            if res:   # lecteur integre au bon moment (29/09/2026) ; approx = episode connu, horodatage inconnu
+                href = mi.page_url(podcast["slug"], res[0])
+                if res[1]:
+                    listen_label = t["listen_ep"]
             full_paras = p.get("full_paragraphs")
             if full_paras:
                 # Question consolidee (301 vers le hub) : la reponse complete recuperee de
@@ -364,7 +380,7 @@ def render_hub_index(podcast, published):
                 f'<h3 class="hx-q">{_E(p.get("question", ""))}</h3>'
                 + answer_html
                 + '<div class="hx-foot">'
-                f'<a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="{_E(target)}">{listen_label}</a>'
+                f'<a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="{_E(href)}">{listen_label}</a>'
                 + (f'<a class="hx-more" href="{_E(p.get("url", ""))}">{t["full"]}</a>' if p.get("url") else "")
                 + "</div></article>"
             )

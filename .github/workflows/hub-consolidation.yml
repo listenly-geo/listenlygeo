@@ -41,6 +41,7 @@ jobs:
 
       - name: 3. Hubs mis a jour
         run: |
+          python automation/scripts/moments_index.py --no-resolve
           python automation/scripts/rebuild_hubs.py
           python automation/scripts/build_engine_dashboard.py || true
 
