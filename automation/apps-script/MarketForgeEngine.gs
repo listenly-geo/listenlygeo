@@ -96,6 +96,7 @@ var MFE_MSG_DEFAULTS = [
   ].join('\n'), 'MarketForge Engine — relance (J+MFE_RELANCE_JOURS), dans le meme fil.'],
   ['MFE_MSG_SIGNATURE', '',
    'MarketForge Engine — lignes ajoutees automatiquement a la fin du 1er mail ET de la relance (ex. lien LinkedIn). Vide = rien. Gmail n\'ajoute PAS la signature Workspace aux mails envoyes par script.'],
+  ['MFE_VERIF_RISQUES', 'FALSE', 'Verification MillionVerifier : TRUE = envoie aussi aux adresses "catch_all" (domaine qui accepte tout, non verifiable). FALSE = uniquement les adresses confirmees (plus sur).'],
   ['MFE_SIG_HTML', 'TRUE', 'Signature riche (photo + liens) en bas des mails. TRUE = activee. Garder FALSE si la delivrabilite baisse.'],
   ['MFE_SIG_PHOTO', 'https://listenly.fr/podcast-btb/assets/etienne-cugnet.jpg', 'Signature riche — URL publique de ta photo (carree, ~200x200). Vide = pas de photo.'],
   ['MFE_SIG_NOM', 'Etienne Cugnet', 'Signature riche — nom.'],
@@ -213,6 +214,12 @@ function mfeSend_(sh, cfg, force) {
       sh.getRange(r.row, 12).setValue('Non envoye (anti-rebond) : ' + why);
       return;
     }
+    var verif = mfeVerifyMailbox_(r.values[2]);   // boite mail reellement existante ? (MillionVerifier)
+    if (verif.stop) {
+      sh.getRange(r.row, 7).setValue(verif.status);
+      sh.getRange(r.row, 12).setValue('Non envoye (verification) : ' + verif.why);
+      return;
+    }
     var d = mfeDraft_(r.values);
     try {
       var threadId = mfeMail_(r.values[2], d[0], d[1]);
@@ -297,6 +304,45 @@ function mfeEmailProblem_(email) {
   if (bounced[domain] && !perso.test(domain)) return 'domaine deja en rebond (' + domain + ')';
   if (!mfeDomainAcceptsMail_(domain)) return 'domaine sans serveur mail (' + domain + ')';
   return '';
+}
+
+// ---------- Verification de la boite mail (MillionVerifier, API temps reel) ----------
+// Cle stockee dans le script (menu > Enregistrer la cle MillionVerifier), jamais dans le tableau.
+// Resultats : ok -> envoi | invalid / disposable -> "Email invalide" | catch_all / unknown -> "Email risque"
+// (envoye seulement si MFE_VERIF_RISQUES = TRUE). Sans cle, ou si l'API ne repond pas : regles seules (pas de blocage).
+function mfeVerifyMailbox_(email) {
+  var key = PropertiesService.getScriptProperties().getProperty('MFE_MV_KEY');
+  if (!key) return { stop: false };
+  email = String(email).trim().toLowerCase();
+  var cache = CacheService.getScriptCache(), ck = 'mv_' + Utilities.base64EncodeWebSafe(email).slice(0, 200);
+  var res = cache.get(ck);
+  if (!res) {
+    try {
+      var r = UrlFetchApp.fetch('https://api.millionverifier.com/api/v3/?api=' + encodeURIComponent(key) +
+        '&email=' + encodeURIComponent(email) + '&timeout=10', { muteHttpExceptions: true });
+      var d = JSON.parse(r.getContentText() || '{}');
+      if (d.error) { Logger.log('MillionVerifier : %s', d.error); return { stop: false }; }
+      res = String(d.result || 'unknown');
+      if (d.credits != null) PropertiesService.getScriptProperties().setProperty('MFE_MV_CREDITS', String(d.credits));
+      cache.put(ck, res, 21600);
+    } catch (e) { Logger.log('MillionVerifier indisponible : %s', e); return { stop: false }; }
+  }
+  if (res === 'ok') return { stop: false };
+  if (res === 'invalid' || res === 'disposable') return { stop: true, status: 'Email invalide', why: 'boite inexistante (' + res + ')' };
+  var risques = String(mfeReadSettings_().MFE_VERIF_RISQUES).toUpperCase() === 'TRUE';
+  if (risques && res === 'catch_all') return { stop: false };
+  return { stop: true, status: 'Email risque', why: 'non verifiable (' + res + ')' };
+}
+
+function mfeMenuVerifKey() {
+  var ui = mfeUi_();
+  var r = ui.prompt('Cle API MillionVerifier', 'Colle ta cle API (millionverifier.com > API). Stockee dans le script, jamais dans le tableau. Laisser vide + OK = desactiver la verification.', ui.ButtonSet.OK_CANCEL);
+  if (r.getSelectedButton() !== ui.Button.OK) return;
+  var k = r.getResponseText().trim(), props = PropertiesService.getScriptProperties();
+  if (!k) { props.deleteProperty('MFE_MV_KEY'); mfeAlert_('Verification MillionVerifier desactivee.'); return; }
+  props.setProperty('MFE_MV_KEY', k);
+  var test = UrlFetchApp.fetch('https://api.millionverifier.com/api/v3/credits?api=' + encodeURIComponent(k), { muteHttpExceptions: true }).getContentText();
+  mfeAlert_('Cle enregistree. Reponse MillionVerifier : ' + test.slice(0, 200) + '\nChaque adresse est desormais verifiee juste avant l\'envoi.');
 }
 
 // Le domaine a-t-il un serveur mail (MX, a defaut une IP) ? DNS-over-HTTPS Google, cache 6 h. Doute -> oui.
@@ -650,6 +696,7 @@ function mfeOnOpen() {
     .addItem('Activer l’automatique (toutes les heures)', 'installer')
     .addItem('Créer / réparer les réglages MFE_*', 'mfeMenuReglages')
     .addItem('Enregistrer le token GitHub', 'mfeMenuToken')
+    .addItem('Enregistrer la clé MillionVerifier (vérification des emails)', 'mfeMenuVerifKey')
     .addSeparator()
     .addItem('Désactiver l’envoi automatique', 'mfeMenuDesactiver')
     .addToUi();
