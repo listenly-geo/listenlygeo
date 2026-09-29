@@ -141,8 +141,6 @@
   var originalPlay = window.playAnswer;
   window.playAnswer = function (r) {
     var out = originalPlay.apply(this, arguments);
-    window.__dlCurrent = r;
-    try { document.dispatchEvent(new CustomEvent('dl:play', { detail: r })); } catch (err) {}
     getCovers().then(function (map) {
       var info = map[r && r.podcast];
       setPlayerCover((info && info.c) || (r && r.cover) || '');
@@ -156,11 +154,6 @@
     if (window.__dlSkipTiles) return;
     getCovers().then(function (map) { decorateResults(results, map); });
   };
-
-  // Panneau du lecteur (moments cles, recap, vitesse, partage) : fichier separe, sans effet sur le reste s'il est absent
-  var pp = document.createElement('script');
-  pp.src = '/podcast-btb/player-panel.js?v=1'; pp.async = true;
-  document.head.appendChild(pp);
 
   // ---------- Lien profond depuis un hub : ?p=<podcast>&m=<moment> ----------
   if (!slug || !mid) return;

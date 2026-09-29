@@ -43,7 +43,7 @@ RewriteRule ^questions/the\s+retreat\s+leaders\s+podcast/(.*)$ /podcast-btb/ques
 
 # Lien profond hubs -> accueil : toujours la derniere version de deeplink.js (protege : sans effet si mod_headers absent)
 <IfModule mod_headers.c>
-<FilesMatch "^deeplink\.js$">
+<FilesMatch "^(deeplink|player-panel)\.js$">
 Header set Cache-Control "no-cache"
 </FilesMatch>
 </IfModule>
