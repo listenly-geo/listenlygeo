@@ -6,7 +6,7 @@ Lit les donnees du depot (podcasts.json, regroupement, Search Console, prospecti
   python automation/scripts/daily_report.py [sortie.html]
 Ecrit le HTML et affiche l'objet du mail sur la 1re ligne de stdout (envoye ensuite par Gmail).
 """
-import sys, json, html, datetime
+import sys, json, html, datetime, urllib.parse
 
 PAGES = "pages/podcast-btb"
 
@@ -67,9 +67,12 @@ def main(out):
         cand = (cand[off:] + cand[:off])[:10]
     inspected_hubs = sum(1 for v in hub_status.values() if v.get("date"))
     indexed_hubs = sum(1 for v in hub_status.values() if v.get("indexed_on"))
+    GSC = "https://search.google.com/u/1/search-console/inspect?resource_id=sc-domain%3Alistenly.fr"
     submit_rows = "".join(
-        f'<tr><td style="padding:7px 0;border-bottom:1px solid #f0f0f3;font-size:13px"><a href="{e(p["fiche_url"])}" style="color:#0071e3;text-decoration:none;word-break:break-all">'
-        f'{e(p["fiche_url"])}</a><div style="font-size:12px;color:#86868b">{e(p.get("podcast_name"))}'
+        f'<tr><td style="padding:8px 0;border-bottom:1px solid #f0f0f3;font-size:13px">'
+        f'<a href="{e(GSC)}&amp;id={urllib.parse.quote(p["fiche_url"], safe="")}" style="display:inline-block;background:#0071e3;color:#fff;text-decoration:none;font-weight:600;font-size:12px;padding:5px 12px;border-radius:999px;float:right;margin-left:8px">Inspecter →</a>'
+        f'<a href="{e(p["fiche_url"])}" style="color:#1d1d1f;text-decoration:none;word-break:break-all">{e(p["fiche_url"])}</a>'
+        f'<div style="font-size:12px;color:#86868b">{e(p.get("podcast_name"))}'
         f'{" · prospect" if order_st.get(pstat.get(p["slug"]), 2) < 2 else ""}</div></td></tr>' for p in cand) \
         or '<tr><td style="padding:8px 0;font-size:14px;color:#86868b">Toutes les fiches vérifiées sont indexées 🎉</td></tr>'
 
@@ -127,7 +130,8 @@ def main(out):
                + line("Anciennes fiches regroupées dans les hubs", regroup)
                + line("Fiches question vérifiées / indexées (protégées)", f"{inspected} / {indexed}") + "</table>")
         + card(h2("🔗 10 fiches N1 à envoyer à Google")
-               + '<div style="font-size:13px;color:#6e6e73;margin:0 0 8px;line-height:1.5">Search Console → colle l\'adresse dans « Inspecter l\'URL » → <b>Demander une indexation</b> (environ 2 minutes pour les 10).'
+               + '<div style="font-size:13px;color:#6e6e73;margin:0 0 8px;line-height:1.5">Clique sur <b>Inspecter →</b> (ou colle l\'adresse dans la barre de la Search Console), puis <b>Demander une indexation</b>. Environ 2 minutes pour les 10.'
+                 f'<br><a href="{GSC}" style="color:#0071e3;font-weight:600;text-decoration:none">Ouvrir la barre « Inspecter l\'URL » de la Search Console →</a>'
                  f'<br>Fiches N1 confirmées indexées : <b>{indexed_hubs}</b> sur {inspected_hubs} vérifiées.</div>'
                + f'<table width="100%" cellpadding="0" cellspacing="0">{submit_rows}</table>')
         + card(h2(f"🆕 Nouvelles fiches ({len(new)})") + f'<table width="100%" cellpadding="0" cellspacing="0">{items}</table>')
