@@ -47,6 +47,12 @@ jobs:
             done
           fi
 
+      - name: Fiches N1 indexees par Google ? (Search Console)
+        continue-on-error: true
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: python automation/scripts/hub_index_check.py
+
       - name: Extraire selon la file et le budget du jour
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

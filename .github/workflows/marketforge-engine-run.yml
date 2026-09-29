@@ -95,6 +95,12 @@ jobs:
           python automation/scripts/onboard_from_issue.py
           python automation/scripts/rebuild_dashboard.py || true
 
+      - name: Fiches N1 indexees par Google ? (Search Console)
+        continue-on-error: true
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: python automation/scripts/hub_index_check.py
+
       - name: 3. Extraction du jour
         if: steps.cfg.outputs.pause != 'true'
         continue-on-error: true

@@ -356,6 +356,21 @@ def main():
             st_["wave_target"] = len(st_["episodes_done"]) + eps_per_podcast
             log(f"Vague {st_.get('wave', 1) + 1} pour {s_} ({gap_days} jours apres la precedente).")
 
+    # "Indexee d'abord" (29/09/2026) : la 1re vague d'une fiche ne demarre qu'une fois la fiche N1 indexee par Google
+    # (data/gsc_hub_status.json, ecrit par hub_index_check.py) ou, garde-fou, apres delai_indexation_max_jours.
+    hub_status = load_json(f"{PAGES_DIR}/data/gsc_hub_status.json", {})
+    max_wait = int(config.get("delai_indexation_max_jours", 21) or 0)
+
+    def hub_ready(s, st):
+        if st["episodes_done"] or not max_wait:
+            return True
+        if hub_status.get(s, {}).get("indexed_on"):
+            return True
+        try:
+            return (today_d - datetime.date.fromisoformat(st.get("added") or TODAY)).days >= max_wait
+        except ValueError:
+            return True
+
     def tier(s):
         st = queue["podcasts"][s]
         if not st["episodes_done"]:
@@ -365,10 +380,11 @@ def main():
         return 2              # vagues suivantes : d'abord les hubs avec impressions
     order = sorted(
         (s for s, st in queue["podcasts"].items()
-         if (extraction_auto and st["status"] in ("en_attente", "en_cours"))
-         or (s in extraire and st["status"] in ("en_attente", "en_cours", "contact", "sans_email"))
-         or (differee and st["status"] in ("contact", "sans_email", "en_cours")
-             and hub_index.extraction_allowed(s, st["status"]))),
+         if hub_ready(s, st) and (
+             (extraction_auto and st["status"] in ("en_attente", "en_cours"))
+             or (s in extraire and st["status"] in ("en_attente", "en_cours", "contact", "sans_email"))
+             or (differee and st["status"] in ("contact", "sans_email", "en_cours")
+                 and hub_index.extraction_allowed(s, st["status"])))),
         key=lambda s: (tier(s), -imp.get(s, 0), queue["podcasts"][s]["added"], s),
     )
     log(f"{len(order)} podcast(s) dans la file active.")
