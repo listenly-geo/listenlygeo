@@ -25,7 +25,7 @@ INDEX_DIR = f"{PAGES_DIR}/data/moments"
 EP_URLS_FILE = f"{PAGES_DIR}/data/listenly_episode_urls.json"
 PODCASTS_FILE = f"{PAGES_DIR}/data/podcasts.json"
 EPISODE_URL_API = "https://listenly.fr/api/get-episode-url.php"
-PLAYER_PAGE = "/podcast-btb/ecouter.html"
+PLAYER_PAGE = "/"   # page d accueil Listenly (recherche + lecteur en barre, lien profond) ; repli : /podcast-btb/ecouter.html
 RETRY_NEGATIVE_DAYS = 14
 
 
