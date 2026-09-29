@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="robots" content="noindex, follow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Listen to the answer — Listenly</title>
+<title>Listenly — Knowledge Search: Find the Exact Podcast Answer to Any Question</title>
 <meta name="description" content="Ask any question and Listenly finds the exact moment an expert answers it in a podcast — search human expertise, hear the source, go straight to the answer.">
+<link rel="canonical" href="https://listenly.fr/knowledge-search">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23000'/%3E%3Crect x='6' y='9' width='2.5' height='6' rx='1' fill='%23fff'/%3E%3Crect x='11' y='6' width='2.5' height='12' rx='1' fill='%23fff'/%3E%3Crect x='16' y='9' width='2.5' height='6' rx='1' fill='%23fff'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Listenly — Knowledge Search">
 <meta property="og:description" content="Ask any question and Listenly finds the exact moment an expert answers it in a podcast.">
+<meta property="og:url" content="https://listenly.fr/knowledge-search">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Listenly — Knowledge Search">
 <meta name="twitter:description" content="Ask any question and Listenly finds the exact moment an expert answers it in a podcast.">
@@ -878,49 +879,6 @@
     e.preventDefault();
     runSearch(input.value);
   });
-
-  // ---------- Lien profond depuis les hubs N1 : ?p=<podcast>&m=<moment> ----------
-  // Ouvre la reponse (carte + lien "Episode page") ET lance le lecteur au bon moment, comme un clic
-  // sur "Listen at". Donnees : /podcast-btb/data/moments/<podcast>.json (ecrit par le moteur a chaque
-  // nouvelle extraction). Sans parametres, la page se comporte exactement comme avant.
-  (function deepLink(){
-    const params = new URLSearchParams(location.search);
-    const slug = (params.get('p') || '').replace(/[^a-z0-9\-]/gi, '');
-    const mid = (params.get('m') || '').replace(/[^a-f0-9]/gi, '');
-    if (!slug || !mid) return;
-    fetch('/podcast-btb/data/moments/' + slug + '.json', { cache: 'no-cache' })
-      .then(r => { if (!r.ok) throw new Error('missing'); return r.json(); })
-      .then(d => {
-        const e = d.entries && d.entries[mid];
-        if (!e) return;
-        const safe = u => /^https:\/\/listenly\.fr\//.test(u || '') ? u : '';
-        const r = {
-          question: e.q,
-          excerpt: (e.ap ? 'The exact moment is not available for this answer, so the episode plays from the start. ' : '') + (e.a || ''),
-          expert: e.x || '',
-          podcast: d.podcast,
-          episode: e.e,
-          audio_url: e.u,
-          start_seconds: e.ap ? 0 : (e.t || 0),
-          episode_url: safe(e.l) || safe(d.show)
-        };
-        stopPlaceholderCycle();
-        document.querySelector('.hero').style.paddingTop = '7vh';
-        renderResults([r]);
-        if (d.hub) {
-          const back = document.createElement('a');
-          back.href = d.hub;
-          back.textContent = '← All answers from ' + d.podcast;
-          back.style.cssText = 'display:block;text-align:center;color:#86868B;font-size:13.5px;text-decoration:none;margin-top:6px;';
-          resultsWrap.appendChild(back);
-        }
-        playAnswer(r, null);
-        try { if (window.plausible) window.plausible('Moment Lien Hub'); } catch (err) {}
-        const top = resultsWrap.getBoundingClientRect().top;
-        if (top > window.innerHeight * 0.55) resultsWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      })
-      .catch(() => {});
-  })();
 </script>
 </body>
 </html>
