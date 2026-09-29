@@ -96,6 +96,7 @@ var MFE_MSG_DEFAULTS = [
   ].join('\n'), 'MarketForge Engine — relance (J+MFE_RELANCE_JOURS), dans le meme fil.'],
   ['MFE_MSG_SIGNATURE', '',
    'MarketForge Engine — lignes ajoutees automatiquement a la fin du 1er mail ET de la relance (ex. lien LinkedIn). Vide = rien. Gmail n\'ajoute PAS la signature Workspace aux mails envoyes par script.'],
+  ['MFE_VERIF_CLE', '', 'Cle API MyEmailVerifier (verification des boites mail avant envoi). Vide = verification desactivee.'],
   ['MFE_VERIF_RISQUES', 'FALSE', 'Verification des emails : TRUE = envoie aussi aux adresses "Catch All" (domaine qui accepte tout, non verifiable). FALSE = uniquement les adresses confirmees (plus sur).'],
   ['MFE_SIG_HTML', 'TRUE', 'Signature riche (photo + liens) en bas des mails. TRUE = activee. Garder FALSE si la delivrabilite baisse.'],
   ['MFE_SIG_PHOTO', 'https://listenly.fr/podcast-btb/assets/etienne-cugnet.jpg', 'Signature riche — URL publique de ta photo (carree, ~200x200). Vide = pas de photo.'],
@@ -312,7 +313,8 @@ function mfeEmailProblem_(email) {
 // -> "Email risque" (Catch All envoye seulement si MFE_VERIF_RISQUES = TRUE).
 // Sans cle, quota epuise ou API indisponible : regles seules (aucun blocage de l'envoi).
 function mfeVerifyMailbox_(email) {
-  var key = PropertiesService.getScriptProperties().getProperty('MFE_MEV_KEY');
+  var key = PropertiesService.getScriptProperties().getProperty('MFE_MEV_KEY') ||
+            String(mfeReadSettings_().MFE_VERIF_CLE || '').trim();   // menu (prioritaire) ou onglet Reglages
   if (!key) return { stop: false };
   email = String(email).trim().toLowerCase();
   var cache = CacheService.getScriptCache(), ck = 'mev_' + Utilities.base64EncodeWebSafe(email).slice(0, 200);
