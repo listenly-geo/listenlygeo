@@ -11,7 +11,7 @@
   {
    "id": "opt-01",
    "section": "Ciblage",
-   "texte": "Filtre « podcasts d'entreprise B2B » : fin des gros podcasts et des créateurs indépendants, qui ne répondaient pas. Premier run avec ce filtre lancé le 30/09 (résultats à vérifier).",
+   "texte": "Filtre « podcasts d'entreprise B2B » : fin des gros podcasts et des créateurs indépendants, qui ne répondaient pas. Vérifié au run de 15h19 le 30/09 : 16 nouveaux candidats, dont 15 onboardés avec un email professionnel.",
    "date": "30/09/2026",
    "statut": "valide",
    "version": "V1.1"
@@ -79,6 +79,14 @@
    "date": "30/09/2026",
    "statut": "valide",
    "version": "V1.1"
+  },
+  {
+   "id": "opt-33",
+   "section": "Envoi et délivrabilité",
+   "version": "V1.1",
+   "texte": "Redéployer l'application web du script (Déployer > Gérer les déploiements > Modifier > Nouvelle version) : sans ça, le ranking de la Synthèse, ce journal et les réglages automatiques ne se mettent pas à jour. À faire par toi.",
+   "date": "—",
+   "statut": "a_faire"
   },
   {
    "id": "opt-10",
@@ -244,7 +252,7 @@
    "id": "opt-30",
    "section": "Ciblage",
    "version": "V1.1",
-   "texte": "Pré-filtre gratuit avant la qualification : seuls les podcasts avec un email professionnel (pas Gmail, pas hébergeur) sont qualifiés, donc tous les podcasts retenus sont joignables.",
+   "texte": "Pré-filtre gratuit avant la qualification : seuls les podcasts avec un email professionnel (pas Gmail, pas hébergeur) sont qualifiés, donc tous les podcasts retenus sont joignables. Résultat du 30/09 : 16 candidats par run au lieu de 2.",
    "date": "30/09/2026",
    "statut": "en_cours"
   },
@@ -252,7 +260,7 @@
    "id": "opt-31",
    "section": "Ciblage",
    "version": "V1.1",
-   "texte": "Onboarding sécurisé : un podcast en échec est étiqueté et ignoré, les échecs ne consomment plus le quota, les podcasts sans email sont classés, les emails professionnels passent en premier. Quota porté à 30 par run.",
+   "texte": "Onboarding sécurisé : un podcast en échec est étiqueté et ignoré (1 seul échec au run de 15h19 au lieu de 8 répétés), les échecs ne consomment plus le quota, les podcasts sans email sont classés, les emails professionnels passent en premier. Quota porté à 30 par run.",
    "date": "30/09/2026",
    "statut": "en_cours"
   },
@@ -263,6 +271,14 @@
    "texte": "Recherche élargie : 100 résultats par requête au lieu de 25 et environ 240 mots-clés en rotation (80 par run), pour renouveler le stock de podcasts chaque jour.",
    "date": "30/09/2026",
    "statut": "en_cours"
+  },
+  {
+   "id": "opt-34",
+   "section": "À FAIRE",
+   "version": "—",
+   "texte": "À décider : 5 des 15 nouveaux podcasts (33 %) n'ont pas reçu de mail car leur adresse est « non vérifiable » (serveur qui accepte tout). Les autoriser ferait passer le rendement de 60 % à environ 90 %, avec un peu plus de risque de rebond.",
+   "date": "—",
+   "statut": "a_faire"
   }
  ]
 }
