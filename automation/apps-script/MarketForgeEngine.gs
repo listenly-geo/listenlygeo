@@ -60,32 +60,31 @@ var MFE_DEFAULTS = [
 // ---------- Messages (modifiables dans l'onglet Reglages, cles MFE_MSG_*) ----------
 // Style : court, a la premiere personne, une seule question, texte brut (pas de gras, pas d'emoji).
 // Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}
-var MFE_MSG_VERSION = '10';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
+var MFE_MSG_VERSION = '11';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
 var MFE_FIRST_MAIL = [
   'Bonjour {NAME},',
   '',
-  'Je vous contacte car j’ai référencé **{PODCAST}** sur Listenly, notre annuaire pensé pour les IA, afin qu’il puisse être cité par **ChatGPT, Gemini ou Claude** lorsqu’un dirigeant recherche des informations sur **{THEMATIQUE}**.',
+  'Je vous contacte car j\u2019ai r\u00e9f\u00e9renc\u00e9 votre podcast {PODCAST} sur notre annuaire Listenly pour le rendre **visible dans les r\u00e9ponses de ChatGPT, Gemini et Claude**',
   '',
-  'Voici la fiche à valider avant indexation :',
+  'Voici la fiche \u00e0 valider avant indexation :',
   '{URL}',
   '',
-  '**Comment ça fonctionne ?**',
+  '**Comment \u00e7a fonctionne ?**',
   '',
-  '• En moyenne, un épisode de podcast contient **15+ requêtes** que vos prospects qualifié recherchent déjà sur Google et les IA ..',
+  'En moyenne, un \u00e9pisode de podcast contient **15+ requ\u00eates** que vos prospects qualifi\u00e9s recherchent d\u00e9j\u00e0 sur Google et les IA',
   '',
-  '• **Mais elles sont invisibles à cause du format audio ou vidéo.**',
+  'Mais elles __sont invisibles \u00e0 cause du format audio ou vid\u00e9o__',
   '',
-  '• Un flux de contenu régulier ( podcast ,webinaire, youtube ) peut donc maintenant être __transformé en visibilité et trafic direct vers l’entreprise__.',
-  'Sans pour autant créer plus de contenu ni changer de stratégie.',
+  'Un flux de contenu r\u00e9gulier (podcast, webinaire, YouTube) **peut donc maintenant \u00eatre transform\u00e9 en visibilit\u00e9 et trafic direct vers l\u2019entreprise**, sans cr\u00e9er plus de contenu ni changer de strat\u00e9gie',
   '',
   '{CTA}',
   '',
-  'Bien à vous,',
+  'Bien \u00e0 vous,',
   'Etienne'
 ].join('\n');
 // CTA retenu (30/09/2026) : la variante A = video audit de 2 minutes. Les cles MFE_CTA_B / _C / _D restent vides :
 // pour retester d'autres CTA plus tard, il suffit de les remplir dans Reglages (le test A/B repartit alors les envois).
-var MFE_CTA_A = 'Si le sujet vous intéresse, je peux vous partager une **vidéo audit de 2 minutes** pour tester par vous-même le potentiel de votre flux de contenu.';
+var MFE_CTA_A = 'Si le sujet vous int\u00e9resse, je peux vous partager une **vid\u00e9o audit de 2 minutes** pour tester par vous-m\u00eame le potentiel de votre flux de contenu';
 var MFE_MSG_DEFAULTS = [
   ['MFE_MSG_OBJET', 'Fiche Listenly à valider – {PODCAST}',
    'MarketForge Engine — objet du 1er mail. {PODCAST} = nom du podcast.'],
@@ -538,11 +537,15 @@ function mfeEsc_(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt
 
 // **texte** = gras ; les URL deviennent des liens cliquables
 function mfeTextToHtml_(body) {
-  return mfeEsc_(body)
-    .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" style="color:#1a56db">$1</a>')
-    .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
-    .replace(/__(.+?)__/g, '<u>$1</u>')
-    .replace(/\n/g, '<br>');
+  // Un paragraphe (<p>) par bloc separe d'une ligne vide ; lien affiche sans https:// ni #ancre ; **gras** ; __souligne__
+  return mfeEsc_(body).split(/\n{2,}/).map(function (p) {
+    p = p.replace(/(https?:\/\/[^\s<]+)/g, function (u) {
+      return '<a href="' + u + '" style="color:#1a56db">' + u.replace(/^https?:\/\//, '').replace(/#.*$/, '') + '</a>';
+    }).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
+      .replace(/__(.+?)__/g, '<u>$1</u>')
+      .replace(/\n/g, '<br>');
+    return '<p style="margin:0 0 14px">' + p + '</p>';
+  }).join('');
 }
 
 function mfeSignatureHtml_() {
@@ -573,7 +576,7 @@ function mfeSendOpts_(bodySansSignature) {
   // Toujours une version HTML (gras + liens) ; signature riche si MFE_SIG_HTML = TRUE, sinon signature texte
   var opts = mfeFromOpts_(), c = mfeSigCfg_();
   var sig = c.html ? mfeSignatureHtml_() : (c.texte ? '<br><br>' + mfeTextToHtml_(c.texte) : '');
-  opts.htmlBody = '<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#222">' +
+  opts.htmlBody = '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#202124">' +
     mfeTextToHtml_(bodySansSignature) + '</div>' + sig;
   return opts;
 }
