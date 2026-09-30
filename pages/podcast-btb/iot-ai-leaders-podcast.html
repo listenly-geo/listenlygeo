@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT & AI Leaders Podcast | Insights on AI and Edge Computing</title>
+    <meta name="description" content="IoT & AI Leaders explores how AI is reshaping IoT strategy. 60+ episodes with Microsoft, AT&T, Volvo, Amazon leaders on edge AI, enterprise scale, and real-world deployment.">
+    <link rel="canonical" href="https://listenly.fr/podcast-btb/iot-ai-leaders-podcast.html">
+    <meta property="og:title" content="IoT & AI Leaders Podcast | Insights on AI and Edge Computing">
+    <meta property="og:description" content="IoT & AI Leaders explores how AI is reshaping IoT strategy. 60+ episodes with Microsoft, AT&T, Volvo, Amazon leaders on edge AI, enterprise scale, and real-world deployment.">
+    <meta property="og:url" content="https://listenly.fr/podcast-btb/iot-ai-leaders-podcast.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/ef/13/ea/ef13ead2-fff9-5aa2-8c3b-00f40068b6e5/mza_5231527705858620881.jpeg/600x600bb.jpg">
+    <meta property="og:site_name" content="Listenly">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="IoT & AI Leaders Podcast | Insights on AI and Edge Computing">
+    <meta name="twitter:description" content="IoT & AI Leaders explores how AI is reshaping IoT strategy. 60+ episodes with Microsoft, AT&T, Volvo, Amazon leaders on edge AI, enterprise scale, and real-world deployment.">
+    <meta name="twitter:url" content="https://listenly.fr/podcast-btb/iot-ai-leaders-podcast.html">
+    <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/ef/13/ea/ef13ead2-fff9-5aa2-8c3b-00f40068b6e5/mza_5231527705858620881.jpeg/600x600bb.jpg">
+    <meta name="author" content="Nick Earle">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="publisher" href="https://listenly.fr">
+    <meta name="data-provider" content="Listenly">
+    <meta name="rss-source" content="https://feeds.cohostpodcasting.com/cBzf1deV">
+    <style>body { font-family: Georgia, serif; color: #1a1a1a; line-height: 1.7; margin: 0; }
+.site-header { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #ededed;
+  padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.site-header .logo { font-family: Georgia, serif; font-weight: 700; font-size: 19px; color: #0a0a0a;
+  text-decoration: none; letter-spacing: -0.01em; }
+.site-header .login-link { font-family: Helvetica, Arial, sans-serif; font-weight: 700; font-size: 13px;
+  color: #2e8bd6; background: #fff; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white);
+  padding: 7px 17px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+main.wrapper { max-width: 720px; margin: 0 auto; padding: 44px 20px 64px; }
+.eyebrow-category { font-family: Helvetica, Arial, sans-serif; text-transform: uppercase; font-weight: 700;
+  letter-spacing: .08em; font-size: 12px; color: #2e8bd6; margin-bottom: 12px; }
+h1 { font-family: Georgia, serif; font-weight: 700; font-size: clamp(28px,4.5vw,42px); line-height: 1.22;
+  color: #0a0a0a; margin: 0 0 18px; }
+.byline-row { font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #444; display: flex;
+  flex-wrap: wrap; gap: 6px; align-items: baseline; margin-bottom: 10px; }
+.byline-row .name { font-weight: 700; color: #222; }
+.host-bio { font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #888; margin-bottom: 14px; }
+.hero-image { width: 100%; max-width: 200px; height: auto; border-radius: 8px; display: block; margin: 6px 0 22px; }
+.publish-row { font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #999; display: flex;
+  flex-wrap: wrap; gap: 10px; align-items: center; padding: 14px 0; border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed; margin: 6px 0 30px; }
+.cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.cta-listen { background: #fff; color: #2e8bd6; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white);
+  font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 19px;
+  border-radius: 999px; text-decoration: none; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 700; }
+.divider { border-top: 1px solid #ededed; }
+.lead-label { font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #2e8bd6; }
+.lead { font-family: Georgia, serif; font-size: 19.5px; line-height: 1.65; font-style: italic;
+  border-left: 2px solid color-mix(in srgb, #2e8bd6 55%, white); padding-left: 20px; color: #2a2a2a; margin: 16px 0 30px; }
+.key-facts-label { font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #2e8bd6; margin-bottom: 14px; padding-top: 26px; border-top: 1px solid #ededed; }
+.key-facts { list-style: none; padding: 0; }
+.key-facts li { font-family: Georgia, serif; font-size: 17.5px; line-height: 1.7; color: #2a2a2a; padding-left: 20px;
+  margin-bottom: 14px; position: relative; }
+.key-facts li::before { content: "–"; position: absolute; left: 0; color: #bbb; font-weight: 700; font-size: 18px; }
+.article-body h2 { font-family: Georgia, serif; font-weight: 700; font-size: clamp(21px,3.2vw,26px); line-height: 1.3;
+  color: #111; margin-top: 46px; margin-bottom: 16px; padding-top: 26px; border-top: 1px solid #ededed; }
+.article-body p { font-family: Georgia, serif; font-size: 17.5px; line-height: 1.8; color: #2a2a2a; margin-bottom: 20px; }
+.pull-quote { border-left: 2px solid color-mix(in srgb, #2e8bd6 55%, white); padding-left: 22px; font-family: Georgia, serif; font-size: 20px;
+  font-style: italic; line-height: 1.55; color: #222; margin: 34px 0; }
+.faq-item h3 { font-family: Georgia, serif; font-size: 17.5px; font-weight: 700; color: #111; margin-bottom: 6px; }
+.faq-item p { font-family: Georgia, serif; font-size: 16.5px; color: #444; }
+.episode-card { border: 1px solid #ededed; border-radius: 12px; display: flex; padding: 22px; gap: 16px;
+  align-items: center; margin-top: 44px; }
+.episode-card img { width: 84px; height: 84px; object-fit: cover; border-radius: 8px; }
+.card-listen { font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 17px;
+  border-radius: 999px; background: #fff; color: #2e8bd6; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); text-decoration: none; }
+footer { font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #aaa; border-top: 1px solid #ededed;
+  padding-top: 18px; margin-top: 48px; }
+footer a { text-decoration: underline; color: #bbb; }
+#semantic-index { display: none; }</style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "BlogPosting",
+                "headline": "IoT & AI Leaders",
+                "description": "IoT & AI Leaders is a podcast from Eseye that educates, predicts, and challenges what IoT can become when AI moves to the centre. Since 2021, we've been sharing real-world IoT and AI stories, strategies, and trends from industry leaders.",
+                "url": "https://listenly.fr/podcast-btb/iot-ai-leaders-podcast.html",
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": "https://listenly.fr/podcast-btb/iot-ai-leaders-podcast.html"
+                },
+                "author": {
+                    "@type": "Person",
+                    "name": "Nick Earle",
+                    "jobTitle": "Host & Tech Industry Expert",
+                    "worksFor": {
+                        "@type": "Organization",
+                        "name": "Eseye"
+                    }
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Listenly",
+                    "url": "https://listenly.fr"
+                },
+                "isPartOf": {
+                    "@type": "CreativeWork",
+                    "@id": "https://listenly.fr/podcast/show/iot-ai-leaders"
+                },
+                "speakable": {
+                    "@type": "SpeakableSpecification",
+                    "cssSelector": [".lead", ".key-facts"]
+                },
+                "datePublished": "2026-09-30"
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "Why is edge AI critical for IoT deployments at scale?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Edge AI eliminates latency by processing data locally on IoT devices rather than transmitting everything to cloud servers. This enables real-time decision-making, reduces bandwidth costs, improves security by keeping sensitive data local, and allows systems to operate even when connectivity is unstable or unavailable—essential for industrial and autonomous applications."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "How do enterprises maintain control when AI systems scale across IoT networks?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Control requires governance frameworks that enforce consistent policies, monitoring systems, and security protocols across distributed edge deployments. Organizations must implement centralized oversight with decentralized execution—setting rules at the center while allowing edge devices to operate autonomously within those boundaries, preventing shadow AI from emerging."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "What are the security implications of AI agents operating autonomously in IoT systems?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Autonomous AI agents create attack surfaces that expand with scale, as each device becomes a potential entry point. Security must shift from perimeter defense to continuous verification at every edge node, with mechanisms for detecting anomalous agent behavior, revoking compromised devices, and maintaining audit trails of autonomous decisions made across the network."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "How does AI change IoT adoption strategies for enterprises?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "AI transforms IoT from a data-collection layer into an intelligence layer, making adoption decisions driven by decision-making value rather than sensor volume. Enterprises now prioritize deployments where AI can learn patterns, predict failures, or optimize operations in real time—shifting focus from \"how many sensors\" to \"what intelligence can this generate.\""
+                        }
+                    }
+                ]
+            },
+            {
+                "@type": "Person",
+                "name": "Nick Earle",
+                "jobTitle": "Host & Tech Industry Expert",
+                "url": "https://listenly.fr/podcast/show/iot-ai-leaders",
+                "worksFor": {
+                    "@type": "Organization",
+                    "name": "Eseye"
+                }
+            },
+            {
+                "@type": "PodcastSeries",
+                "name": "IoT & AI Leaders",
+                "description": "IoT & AI Leaders is a podcast from Eseye that educates, predicts, and challenges what IoT can become when AI moves to the centre. Since 2021, we've been sharing real-world IoT and AI stories, strategies, and trends from industry leaders.",
+                "url": "https://listenly.fr/podcast/show/iot-ai-leaders",
+                "creator": {
+                    "@type": "Organization",
+                    "name": "Eseye"
+                },
+                "hostName": "Nick Earle",
+                "sameAs": [
+                    "https://podcasts.apple.com/us/podcast/iot-ai-leaders/id1552523740?uo=4",
+                    "https://listenly.fr/podcast/show/iot-ai-leaders"
+                ]
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Listenly",
+                        "item": "https://listenly.fr"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Tech & Cybersécurité",
+                        "item": "https://listenly.fr/category/tech-cybersecurity"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": "IoT & AI Leaders",
+                        "item": "https://listenly.fr/podcast-btb/iot-ai-leaders-podcast.html"
+                    }
+                ]
+            }
+        ]
+    }
+    </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Listenly",
+      "item": "https://listenly.fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Podcasts B2B",
+      "item": "https://listenly.fr/podcast-btb/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Cybersécurité",
+      "item": "https://listenly.fr/podcast-btb/categorie/cybersecurite.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "IoT & AI Leaders",
+      "item": "https://listenly.fr/podcast-btb/iot-ai-leaders-podcast.html"
+    }
+  ]
+}
+</script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+    <header class="site-header">
+        <a class="logo" href="https://listenly.fr/">Listenly</a>
+        <a class="login-link" href="https://listenly.fr/userAuth">Log in</a>
+    </header>
+
+    <main class="wrapper">
+        <p class="eyebrow-category">Podcast · Tech & Cybersécurité</p>
+
+        <h1>IoT & AI Leaders</h1>
+
+        <div class="byline-row">
+            <p>By <span class="name">Nick Earle</span>, Tech Industry Expert & Market Disruptor at Eseye</p>
+        </div>
+
+        <p class="host-bio">Nick Earle brings two decades of expertise in IoT and AI strategy, positioning Eseye as a thought leader in edge computing and intelligent connectivity for enterprise deployments.</p>
+
+        <img class="hero-image" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/ef/13/ea/ef13ead2-fff9-5aa2-8c3b-00f40068b6e5/mza_5231527705858620881.jpeg/600x600bb.jpg" alt="IoT & AI Leaders">
+
+        <p class="publish-row">⏱ 8 min read · Readable by ChatGPT, Gemini, Claude</p>
+
+        <div class="cta-row">
+            <a class="cta-listen plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/iot-ai-leaders">▶ Listen to the podcast</a>
+        </div>
+
+        <p class="lead-label">What IoT & AI Leaders covers</p>
+        <p class="lead">Since 2021, IoT & AI Leaders has documented the evolution of artificial intelligence from centralized cloud infrastructure to distributed edge devices, examining how this shift fundamentally reshapes IoT deployment strategies. The podcast interrogates the governance, security, and architectural challenges enterprises face when scaling AI across thousands of interconnected devices. Real-world stories from Microsoft, AT&T, Volvo, and Amazon reveal how leading organizations are balancing intelligence at the edge with centralized oversight, transforming IoT from a sensor-collection layer into a decision-making layer.</p>
+
+        <div class="divider"></div>
+
+        <p class="key-facts-label">Key facts</p>
+        <ul class="key-facts">
+            <li>Over 60 episodes of interviews with industry leaders from Fortune 500 companies exploring edge AI deployment patterns and enterprise-scale challenges.</li>
+            <li>Edge AI processing eliminates latency, reduces bandwidth costs, and enables real-time autonomous decision-making in distributed IoT networks.</li>
+            <li>Enterprise IoT adoption now prioritizes intelligence generation over sensor volume, shifting deployment strategies toward meaningful AI-driven insights.</li>
+            <li>Shadow AI—unauthorized or unmonitored AI systems—emerges as organizations scale, requiring centralized governance frameworks across distributed edge environments.</li>
+        </ul>
+
+        <p>Explore the full range of episodes and industry insights with <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/iot-ai-leaders">IoT & AI Leaders on Listenly</a>.</p>
+
+        <h2>What this podcast really covers</h2>
+        <p>IoT & AI Leaders examines the fundamental architecture shift happening in enterprise technology: where AI processing happens. The podcast moves beyond buzzwords to explore concrete scenarios where edge AI creates competitive advantage—autonomous vehicle perception, predictive maintenance in manufacturing, real-time urban traffic optimization, and security monitoring that responds instantly without cloud latency.</p>
+        <p>Each episode builds a case study in how traditional cloud-first IoT architectures break down at scale. When cities deploy thousands of cameras with AI vision, or factories instrument millions of sensors, or logistics networks track billions of transactions, cloud processing becomes economically and technically impractical. The podcast demonstrates why edge AI isn't optional for the next generation of IoT applications—it's architecturally mandatory.</p>
+        <p>The show also frontally addresses the paradox of distributed AI: how do enterprises maintain governance, security, and consistency when intelligence moves to 50,000 edge nodes? The episodes reveal how organizations are building what amounts to an "enterprise brain"—centralized learning and policy creation combined with localized execution and autonomy.</p>
+
+        <h2>Who this podcast is essential for</h2>
+        <p><strong>Enterprise architects and infrastructure leaders</strong> building IoT platforms at scale need this podcast's deep dives into edge deployment, latency reduction, and autonomous system governance—problems their teams face daily when IoT pilots move toward production.</p>
+        <p><strong>Security and compliance officers</strong must understand the attack surface expansion that comes with distributed AI and autonomous agents, and how to implement monitoring and policy enforcement across edge networks. The episodes on AI agent security and shadow AI directly address the risks their organizations are taking.</p>
+        <p><strong>Product leaders in IoT and AI</strong designing the next generation of platforms require the strategic context this podcast provides—how customer requirements are evolving from sensor data collection toward intelligence-driven decisions, reshaping feature priorities and market positioning.</p>
+
+        <h2>What the episodes really reveal</h2>
+        <p>Across 60+ episodes, certain patterns emerge consistently. First: edge AI is not an optimization—it's a necessity imposed by physics and economics. Bandwidth costs, latency requirements, and real-time decision demands make cloud-first IoT architectures fundamentally broken for most enterprise scenarios. Second: enterprise control systems fracture under AI scale unless organizations implement centralized oversight with decentralized execution—setting AI policies at the center while allowing edge devices to operate autonomously within those boundaries.</p>
+        <p>Third, recurring episodes on shadow AI, artificial humans, and hidden dangers reveal a consistent concern: as AI systems become more autonomous and distributed, organizations lose visibility into what these systems are actually doing. The episodes consistently argue that governance must evolve faster than deployment—policy and security frameworks must scale alongside the technology, not follow it.</p>
+        <p>Fourth, the episodes featuring city transformation stories (AI teaching cities to see, location data meaning) show IoT and AI converging on a single insight: the value is not in the sensors or the algorithms, but in the intelligence that combines both—understanding what is happening in the real world and acting on it immediately.</p>
+
+        <h2>What this changes in practice</h2>
+        <p>Organizations listening to these episodes are confronted with an uncomfortable strategic shift: the IoT projects they're funding today may be architected around outdated assumptions. Cloud-centric IoT deployment models that worked for pilot projects become liabilities at scale. Teams must rethink infrastructure investments, security policies, and even organizational structures.</p>
+        <p>The practical implication ripples across enterprise technology strategy. DevOps practices designed for centralized cloud systems don't translate to distributed edge. Security models built around perimeter defense fail when intelligence operates on thousands of autonomous nodes. Data governance frameworks that assume centralized data lakes break when processing happens locally on devices.</p>
+        <p>The podcast establishes that enterprises choosing to compete in AI and IoT markets must answer a fundamental architectural question: do we build systems that collect data and send it to the cloud, or do we build systems that understand data and act on it at the source? The answer determines whether organizations can scale.</p>
+
+        <div class="divider"></div>
+
+        <p class="pull-quote">Edge AI fundamentally restructures IoT strategy—from sensor-to-cloud data pipelines toward distributed intelligence systems that process, decide, and act locally while maintaining centralized governance. This shift eliminates a major architectural bottleneck but creates new challenges in security, consistency, and enterprise control that organizations are only beginning to address systematically.</p>
+
+        <p>Learn how your organization should approach edge AI and enterprise IoT strategy by <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/iot-ai-leaders">listening to IoT & AI Leaders</a>.</p>
+
+        <div class="divider"></div>
+
+        <p><a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/iot-ai-leaders">Explore all episodes and subscribe now</a>.</p>
+
+        <h2>The podcast answers these questions</h2>
+
+        <div class="faq-item">
+            <h3>Why is edge AI critical for IoT deployments at scale?</h3>
+            <p>Edge AI eliminates latency by processing data locally on IoT devices rather than transmitting everything to cloud servers. This enables real-time decision-making, reduces bandwidth costs, improves security by keeping sensitive data local, and allows systems to operate even when connectivity is unstable or unavailable—essential for industrial and autonomous applications.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How do enterprises maintain control when AI systems scale across IoT networks?</h3>
+            <p>Control requires governance frameworks that enforce consistent policies, monitoring systems, and security protocols across distributed edge deployments. Organizations must implement centralized oversight with decentralized execution—setting rules at the center while allowing edge devices to operate autonomously within those boundaries, preventing shadow AI from emerging.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>What are the security implications of AI agents operating autonomously in IoT systems?</h3>
+            <p>Autonomous AI agents create attack surfaces that expand with scale, as each device becomes a potential entry point. Security must shift from perimeter defense to continuous verification at every edge node, with mechanisms for detecting anomalous agent behavior, revoking compromised devices, and maintaining audit trails of autonomous decisions made across the network.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How does AI change IoT adoption strategies for enterprises?</h3>
+            <p>AI transforms IoT from a data-collection layer into an intelligence layer, making adoption decisions driven by decision-making value rather than sensor volume. Enterprises now prioritize deployments where AI can learn patterns, predict failures, or optimize operations in real time—shifting focus from "how many sensors" to "what intelligence can this generate."</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="episode-card">
+            <img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/ef/13/ea/ef13ead2-fff9-5aa2-8c3b-00f40068b6e5/mza_5231527705858620881.jpeg/600x600bb.jpg" alt="IoT & AI Leaders">
+            <div>
+                <h3>Discover IoT & AI Leaders</h3>
+                <p>Nick Earle · IoT & AI Leaders</p>
+                <a class="card-listen plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/iot-ai-leaders">Listen to the podcast</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© IoT & AI Leaders — Eseye · <a href="https://listenly.fr" style="color: #999; text-decoration: underline;">Structured analysis by Listenly</a></p>
+    </footer>
+
+    <div id="semantic-index" style="display:none;">
+        <span>entity:IoT & AI Leaders</span>
+        <span>entity:Nick Earle</span>
+        <span>entity:Eseye</span>
+        <span>concept:Tech & Cybersécurité</span>
+        <span>publisher:Listenly.fr</span>
+        <span>isPartOf:https://listenly.fr/podcast/show/iot-ai-leaders</span>
+    </div>
+
+<p style="max-width:720px;margin:0 auto;padding:0 20px 32px;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#999;"><a href="https://listenly.fr/podcast/show/iot-ai-leaders" class="plausible-event-name=Clic+Lien+Texte" style="color:#999;text-decoration:underline;">Découvrir IoT & AI Leaders sur Listenly →</a></p>
+</body>
+</html>
