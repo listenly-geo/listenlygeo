@@ -40,13 +40,27 @@ def main():
         "questions_indexed": sum(1 for v in q.get("urls", {}).values()
                                  if v.get("verdict") == "PASS" or "submitted and indexed" in (v.get("coverage") or "").lower()),
     }
+    # 10 fiches N1 a soumettre a Google aujourd'hui : les plus recentes, CONFIRMEES non indexees par l'inspection
+    # (jamais une fiche non verifiee), et pas deja proposees un jour precedent. Recalcule a chaque run du jour.
+    podcasts = load(f"{D}/podcasts.json", [])
+    listed = {s_: d_ for s_, d_ in (state.get("listed") or {}).items() if d_ != today}
+    recent = datetime.date.today() - datetime.timedelta(days=30)
+    cand = [p for p in podcasts if p.get("slug") in hub and hub[p["slug"]].get("date")
+            and not hub[p["slug"]].get("indexed_on") and p["slug"] not in listed and p.get("fiche_url")]
+    cand.sort(key=lambda p: (str(p.get("date", ""))[:10], p["slug"]), reverse=True)
+    pick = cand[:10]
+    for p_ in pick:
+        listed[p_["slug"]] = today
+    state["listed"] = listed
+    state["submit"] = {"date": today, "urls": [{"url": p_["fiche_url"], "name": p_.get("podcast_name", ""),
+                                                 "created": str(p_.get("date", ""))[:10]} for p_ in pick]}
     prev = state["history"][-1] if state["history"] else None
     new_idx = [s for s in indexed if s not in set(state.get("indexed_slugs", []))]
     if prev is None:
         new_idx = []           # 1er releve : simple base de comparaison, pas d'alerte
     lines = []
     if new_idx:
-        lines.append(f"{len(new_idx)} fiche(s) N1 nouvellement indexée(s) par Google : " + ", ".join(names.get(s) or s for s in new_idx[:15])
+        lines.append(f"{len(new_idx)} fiche(s) N1 détectée(s) indexée(s) par Google (vérifiées aujourd’hui, pas forcément indexées aujourd’hui) : " + ", ".join(names.get(s) or s for s in new_idx[:15])
                      + (" …" if len(new_idx) > 15 else ""))
     if prev:
         for k, label in (("hubs_with_impressions", "hubs qui apparaissent dans Google"), ("hub_clicks", "clics sur les hubs")):

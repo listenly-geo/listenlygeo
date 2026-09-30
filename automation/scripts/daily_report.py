@@ -56,25 +56,23 @@ def main(out):
     rep_total = ps.get("replies_total", len(rep_all))
     rel_today = (ps.get("followups_by_day") or {}).get(today, 0)
 
-    # 10 fiches N1 a soumettre a Google aujourd'hui (Inspection de l'URL > Demander l'indexation, manuel, ~10/jour)
+    # 10 fiches N1 a soumettre a Google aujourd'hui : calculees par seo_watch.py (nouvelles fiches, confirmees non indexees)
     hub_status = load(f"{PAGES}/data/gsc_hub_status.json", {})
-    pstat = {p.get("slug"): p.get("statut") for p in (ps.get("prospects") or [])}
-    order_st = {"Envoye": 0, "Relance": 0, "Pret": 1}
-    cand = [p for p in podcasts if p.get("slug") and p.get("fiche_url") and not hub_status.get(p["slug"], {}).get("indexed_on")]
-    cand.sort(key=lambda p: (order_st.get(pstat.get(p["slug"]), 2), "".join(chr(255 - ord(c)) for c in str(p.get("date", ""))[:10])))
-    if len(cand) > 10:
-        off = (now.date().toordinal() * 10) % len(cand)
-        cand = (cand[off:] + cand[:off])[:10]
+    watch = load(f"{PAGES}/data/seo_watch.json", {})
+    sub = watch.get("submit") or {}
+    cand = sub.get("urls") or []
+    pstat = {}
+    order_st = {}
     inspected_hubs = sum(1 for v in hub_status.values() if v.get("date"))
     indexed_hubs = sum(1 for v in hub_status.values() if v.get("indexed_on"))
     GSC = "https://search.google.com/u/1/search-console/inspect?resource_id=sc-domain%3Alistenly.fr"
+    GSC = "https://search.google.com/u/1/search-console/inspect?resource_id=sc-domain%3Alistenly.fr"
     submit_rows = "".join(
         f'<tr><td style="padding:8px 0;border-bottom:1px solid #f0f0f3;font-size:13px">'
-        f'<a href="{e(GSC)}&amp;id={urllib.parse.quote(p["fiche_url"], safe="")}" style="display:inline-block;background:#0071e3;color:#fff;text-decoration:none;font-weight:600;font-size:12px;padding:5px 12px;border-radius:999px;float:right;margin-left:8px">Inspecter →</a>'
-        f'<a href="{e(p["fiche_url"])}" style="color:#1d1d1f;text-decoration:none;word-break:break-all">{e(p["fiche_url"])}</a>'
-        f'<div style="font-size:12px;color:#86868b">{e(p.get("podcast_name"))}'
-        f'{" · prospect" if order_st.get(pstat.get(p["slug"]), 2) < 2 else ""}</div></td></tr>' for p in cand) \
-        or '<tr><td style="padding:8px 0;font-size:14px;color:#86868b">Toutes les fiches vérifiées sont indexées 🎉</td></tr>'
+        f'<a href="{e(GSC)}&amp;id={urllib.parse.quote(c["url"], safe="")}" style="display:inline-block;background:#0071e3;color:#fff;text-decoration:none;font-weight:600;font-size:12px;padding:5px 12px;border-radius:999px;float:right;margin-left:8px">Inspecter →</a>'
+        f'<a href="{e(c["url"])}" style="color:#1d1d1f;text-decoration:none;word-break:break-all">{e(c["url"])}</a>'
+        f'<div style="font-size:12px;color:#86868b">{e(c.get("name"))} · créée le {e(c.get("created"))}</div></td></tr>' for c in cand) \
+        or '<tr><td style="padding:8px 0;font-size:14px;color:#86868b">Aucune nouvelle fiche non indexée à soumettre pour le moment 🎉</td></tr>'
 
     wins = []
     if rep_today:

@@ -34,7 +34,8 @@ def main():
     waiting = {s for s, st in queue.get("podcasts", {}).items()
                if not st.get("episodes_done") and st.get("status") in ("en_attente", "contact", "sans_email", "en_cours")}
     # tous les hubs : ceux qui attendent leurs questions d'abord, puis les prospects, puis les plus recents
-    rank = lambda p: (p["slug"] not in waiting, p["slug"] not in prospects, "".join(chr(255 - ord(c)) for c in (p.get("date") or "")[:10]))
+    # les plus recentes d'abord (ce sont elles qu'on soumet a Google), puis celles qui attendent leurs questions, puis les prospects
+    rank = lambda p: ("".join(chr(255 - ord(c)) for c in (p.get("date") or "")[:10]), p["slug"] not in waiting, p["slug"] not in prospects)
     todo = [p["slug"] for p in sorted((p for p in podcasts if p.get("slug")), key=rank)
             if not status.get(p["slug"], {}).get("indexed_on")
             and (status.get(p["slug"], {}).get("date") or "") < two_days]
