@@ -28,7 +28,8 @@ Sortie :
 import os, sys, json, re, time, random
 import urllib.request, urllib.error, urllib.parse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from rss_contact import fetch_contact_email  # noqa: E402
+from rss_contact import fetch_contact_email, check_email  # noqa: E402
+from concurrent.futures import ThreadPoolExecutor  # noqa: E402
 
 API_KEY = os.environ["ANTHROPIC_API_KEY"]
 MODEL = "claude-haiku-4-5-20251001"
@@ -130,7 +131,7 @@ def suggest_category_and_tags(text):
     return best_category, top_tags
 
 
-def itunes_search(term, country, limit=25, max_retries=3):
+def itunes_search(term, country, limit=100, max_retries=3):
     url = (
         "https://itunes.apple.com/search?"
         + urllib.parse.urlencode({"term": term, "media": "podcast", "limit": limit, "country": country})
@@ -304,6 +305,27 @@ def create_candidate_issue(record):
         return False
 
 
+FREE_MAIL = ("gmail.com", "googlemail.com", "yahoo.com", "yahoo.co.uk", "hotmail.com", "hotmail.co.uk", "outlook.com",
+             "live.com", "msn.com", "icloud.com", "me.com", "mac.com", "aol.com", "protonmail.com", "proton.me", "gmx.com", "mail.com")
+ALLOW_FREEMAIL = os.environ.get("DISCOVERY_ALLOW_FREEMAIL", "0") == "1"
+
+
+def email_gate(feed_url):
+    """(email, raison_du_refus). Gratuit (lit le RSS). Objectif 30/09/2026 : ne qualifier (cout Claude) et
+    n'onboarder que des podcasts JOIGNABLES par une adresse professionnelle -- une adresse Gmail/Outlook est
+    presque toujours un createur independant, pas un podcast d'entreprise."""
+    email = fetch_contact_email(feed_url) if feed_url else ""
+    if not email:
+        return "", "pas d'email dans le RSS"
+    why = check_email(email)
+    if why:
+        return email, f"email inexploitable ({why})"
+    dom = email.rsplit("@", 1)[1].lower()
+    if not ALLOW_FREEMAIL and dom in FREE_MAIL:
+        return email, f"email personnel ({dom}) : pas un podcast d'entreprise"
+    return email, ""
+
+
 def extract_json(text):
     text = re.sub(r"^```json\s*", "", text.strip())
     text = re.sub(r"^```\s*", "", text)
@@ -328,7 +350,10 @@ def main():
     if not keywords:
         log(f"ERREUR : aucun mot-cle charge depuis {KEYWORDS_FILE}")
         sys.exit(1)
-    log(f"{len(keywords)} mots-cles charges, {len(COUNTRIES)} pays cibles.")
+    per_run = int(os.environ.get("DISCOVERY_KEYWORDS_PER_RUN", "80"))
+    if len(keywords) > per_run:
+        keywords = random.sample(keywords, per_run)   # chaque run explore d'autres requetes : pool renouvele
+    log(f"{len(keywords)} mots-cles utilises sur ce run, {len(COUNTRIES)} pays cibles.")
 
     existing_podcasts = load_json(PODCASTS_FILE, [])
     existing_names = {normalize_name(p.get("podcast_name", "")) for p in existing_podcasts}
@@ -422,14 +447,43 @@ def main():
     default_w = (sum(known_w) / len(known_w)) if known_w else 1.0
     live = {s: max(weights.get(s, default_w), 0.01) for s in sector_kws}
     per_sector = {}
-    while len(to_qualify) < MAX_QUALIFY and live:
-        sec = random.choices(list(live), weights=list(live.values()))[0]
-        cand = draw(sec)
-        if cand is None:
-            live.pop(sec)
-            continue
-        to_qualify.append(cand)
-        per_sector[sec] = per_sector.get(sec, 0) + 1
+    pre_email = {}          # feed_url -> email deja lu (evite un 2e appel RSS)
+    refus = {}              # raison -> nombre (pre-filtre gratuit)
+    MAX_PRECHECK = int(os.environ.get("DISCOVERY_MAX_PRECHECK", "400"))
+    prechecked = 0
+    while len(to_qualify) < MAX_QUALIFY and live and prechecked < MAX_PRECHECK:
+        batch = []
+        while len(batch) < max(3 * (MAX_QUALIFY - len(to_qualify)), 20) and live:
+            sec = random.choices(list(live), weights=list(live.values()))[0]
+            cand = draw(sec)
+            if cand is None:
+                live.pop(sec)
+                continue
+            batch.append((sec, cand))
+        if not batch:
+            break
+        with ThreadPoolExecutor(8) as ex:
+            gates = list(ex.map(lambda sc: email_gate(sc[1].get("feedUrl", "")), batch))
+        for (sec, cand), (email, why) in zip(batch, gates):
+            prechecked += 1
+            feed = cand.get("feedUrl", "")
+            if why:
+                key = re.sub(r"\s*\(.*", "", why)
+                refus[key] = refus.get(key, 0) + 1
+                seen_candidates[feed] = {
+                    "podcast_name": cand.get("collectionName", ""), "artist_name": cand.get("artistName", ""),
+                    "feed_url": feed, "genre": cand.get("primaryGenreName", ""), "verdict": "REJECT",
+                    "reason": "Pre-filtre RSS : " + why, "detected_language": "",
+                    "checked_date": __import__("datetime").date.today().isoformat(),
+                    "secteur": kw_sector.get(kw_of_feed.get(feed, ""), ""),
+                }
+                continue
+            pre_email[feed] = email
+            if len(to_qualify) < MAX_QUALIFY:
+                to_qualify.append(cand)
+                per_sector[sec] = per_sector.get(sec, 0) + 1
+    log(f"Pre-filtre RSS gratuit : {prechecked} podcasts verifies, {len(to_qualify)} joignables retenus pour qualification, "
+        f"refuses : {refus or 'aucun'}")
     log("Ciblage adaptatif -- repartition des candidats qualifies : " +
         (", ".join(f"{k} {v}" for k, v in sorted(per_sector.items(), key=lambda t: -t[1])) or "aucun"))
 
@@ -489,7 +543,7 @@ def main():
             record["suggested_category"], record["suggested_tags"] = suggest_category_and_tags(tagging_text)
             # Email de contact lu dans le flux RSS (itunes:owner/itunes:email...) -- MarketForge
             # Engine, 27/09/2026. Simple lecture du RSS, aucun cout API.
-            record["contact_email"] = fetch_contact_email(record["feed_url"]) if record["feed_url"] else ""
+            record["contact_email"] = pre_email.get(record["feed_url"]) or (fetch_contact_email(record["feed_url"]) if record["feed_url"] else "")
             log(f"  Email : {record['contact_email'] or '(aucun dans le RSS)'}")
         seen_candidates[r.get("feedUrl", "")] = record
         if record["verdict"] == "ONBOARD":

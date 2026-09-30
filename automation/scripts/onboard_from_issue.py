@@ -27,6 +27,8 @@ IMPORT_URL = os.environ.get("SHOW_IMPORT_URL", "https://listenly.fr/api/podcast-
 RSS_READER_URL = os.environ.get("RSS_READER_URL", "https://listenly.fr/api/rss-reader-register.php")
 MODE = (os.environ.get("SHOW_IMPORT_MODE") or "insert").strip()
 MAX_ONBOARD = int(os.environ.get("MAX_ONBOARD") or "10")
+REQUIRE_EMAIL = os.environ.get("ONBOARD_REQUIRE_EMAIL", "1") == "1"   # sans email = inutile pour la prospection
+FREE_MAIL = ("gmail.com", "googlemail.com", "yahoo.com", "hotmail.com", "outlook.com", "live.com", "icloud.com", "me.com", "aol.com")
 PODCASTS_FILE = "pages/podcast-btb/data/podcasts.json"
 
 
@@ -146,6 +148,16 @@ def existing_slugs():
         return set()
 
 
+def mark_failed(number, reason):
+    """Un echec ne doit pas bloquer la file a chaque run : on etiquette l'issue, elle est ignoree ensuite."""
+    try:
+        gh("POST", f"/issues/{number}/labels", {"labels": ["onboard-failed"]})
+        gh("POST", f"/issues/{number}/comments", {"body": f"⚠️ Onboarding automatique en échec : {reason}\n\n"
+                                                   f"Ignoré aux prochains runs. Pour réessayer : retirer le label `onboard-failed`."})
+    except Exception as e:  # ne jamais bloquer le run
+        log(f"(etiquetage de l'echec impossible : {e})")
+
+
 def main():
     if not SECRET or not GH_TOKEN:
         log("ERREUR : KNOWLEDGE_IMPORT_SECRET et GH_TOKEN requis.")
@@ -166,6 +178,14 @@ def main():
     else:
         issues = [gh("GET", f"/issues/{n.strip()}") for n in wanted.split(",") if n.strip()]
     issues = [i for i in issues if not i.get("pull_request") and i.get("state") == "open"]
+    if wanted == "auto":
+        skipped = [i for i in issues if any(l.get("name") == "onboard-failed" for l in i.get("labels", []))]
+        issues = [i for i in issues if i not in skipped]
+        def prio(i):  # email professionnel d'abord, puis email personnel, puis sans email
+            e = parse_issue(i)["email"]
+            return 2 if not e else (1 if e.rsplit("@", 1)[-1].lower() in FREE_MAIL else 0)
+        issues.sort(key=prio)   # tri stable : ordre de creation conserve dans chaque groupe
+        log(f"{len(skipped)} candidat(s) en echec ignore(s) (label onboard-failed).")
     log(f"{len(issues)} candidat(s) ouvert(s), plafond {MAX_ONBOARD} nouvelle(s) fiche(s) (mode {MODE}).")
 
     done, failed, report = [], [], []
@@ -180,27 +200,32 @@ def main():
             continue
         log(f"### #{c['issue_number']} {c['podcast_name']}")
         if not c["feed_url"]:
-            failed.append(c["issue_number"]); log("Pas de flux RSS dans l'issue — ignore."); continue
+            failed.append(c["issue_number"]); mark_failed(c["issue_number"], "pas de flux RSS dans l'issue"); log("Pas de flux RSS dans l'issue — ignore."); continue
         info = fetch_channel_info(c["feed_url"])
         c["email"] = c["email"] or info["email"]
+        if REQUIRE_EMAIL and not already and not c["email"]:
+            # Pas d'email : aucun interet pour la prospection, on ne consomme ni quota ni cout, on classe l'issue.
+            gh("POST", f"/issues/{c['issue_number']}/labels", {"labels": ["sans-email"]})
+            gh("PATCH", f"/issues/{c['issue_number']}", {"state": "closed", "state_reason": "not_planned"})
+            log("Sans email — issue classee (label sans-email)."); continue
         c["description"] = info["description"]  # description publique du RSS (jamais la raison interne)
 
         res = create_listenly_show(c)
         log(f"Listenly : {json.dumps(res, ensure_ascii=False)[:400]}")
         if not res.get("ok"):
-            failed.append(c["issue_number"]); continue
+            failed.append(c["issue_number"]); mark_failed(c["issue_number"], "creation de la fiche Listenly refusee"); continue
         if MODE != "insert":
             continue
         register_rss_reader(c["feed_url"])
         listenly_url = res["listenly_url"]
 
         slug = rss_slug or slugify(c["podcast_name"])   # meme flux RSS -> on reutilise la fiche existante
-        if not already:
-            new_count += 1
         if slug in existing_slugs():
             log(f"Fiche N1 '{slug}' deja presente — pas de regeneration.")
         elif not generate_n1(c, listenly_url, slug):
-            failed.append(c["issue_number"]); log("ECHEC generation N1."); continue
+            failed.append(c["issue_number"]); mark_failed(c["issue_number"], "generation de la fiche N1 en echec"); log("ECHEC generation N1."); continue
+        if not already:
+            new_count += 1   # seuls les onboardings REUSSIS consomment le quota du run
 
         created = "creee" if res.get("created") else "deja existante"
         gh("POST", f"/issues/{c['issue_number']}/comments", {"body": (
