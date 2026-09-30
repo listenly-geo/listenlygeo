@@ -35,7 +35,7 @@ var MFE = {
   HISTO_COLS: ['Date', 'Decouverts', 'Onboardes (fiche Listenly + N1)', 'Dont fiches Listenly creees',
                'Podcasts onboardes', 'Episodes extraits', 'Minutes audio', 'Q/R extraites', 'Echecs onboarding', 'Run GitHub'],
   COLS: ['Slug', 'Podcast', 'Email', 'Preuve (fiche N1)', 'Q/R extraites', 'Ajoute le', 'Statut',
-         'Envoye le', 'Relance le', 'Reponse', 'Thread ID', 'Notes', 'Page Listenly', 'Hote', 'Variante CTA'],
+         'Envoye le', 'Relance le', 'Reponse', 'Thread ID', 'Notes', 'Page Listenly', 'Hote', 'Variante CTA', 'Thematique'],
 };
 
 var MFE_DEFAULTS = [
@@ -60,49 +60,53 @@ var MFE_DEFAULTS = [
 // ---------- Messages (modifiables dans l'onglet Reglages, cles MFE_MSG_*) ----------
 // Style : court, a la premiere personne, une seule question, texte brut (pas de gras, pas d'emoji).
 // Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}
-var MFE_MSG_VERSION = '9';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
+var MFE_MSG_VERSION = '10';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
 var MFE_FIRST_MAIL = [
-  'Hi {NAME},',
+  'Bonjour {NAME},',
   '',
-  'I’m Etienne from Marketforge. I’ve just listed {PODCAST} on Listenly, a directory that turns podcast episodes into answers Google and AI assistants like ChatGPT can quote.',
+  'Je vous contacte car j’ai référencé **{PODCAST}** sur Listenly, notre annuaire pensé pour les IA, afin qu’il puisse être cité par **ChatGPT, Gemini ou Claude** lorsqu’un dirigeant recherche des informations sur **{THEMATIQUE}**.',
   '',
-  'Your page is live:',
+  'Voici la fiche à valider avant indexation :',
   '{URL}',
   '',
-  'Every B2B episode holds 15+ precise answers your buyers already search for. Locked inside the audio, nobody finds them. As text, they bring you visitors who have never heard the show — without recording anything new.',
+  '**Comment ça fonctionne ?**',
+  '',
+  '• En moyenne, un épisode de podcast contient **15+ requêtes** que vos prospects qualifié recherchent déjà sur Google et les IA ..',
+  '',
+  '• **Mais elles sont invisibles à cause du format audio ou vidéo.**',
+  '',
+  '• Un flux de contenu régulier ( podcast ,webinaire, youtube ) peut donc maintenant être __transformé en visibilité et trafic direct vers l’entreprise__.',
+  'Sans pour autant créer plus de contenu ni changer de stratégie.',
   '',
   '{CTA}',
   '',
-  'Etienne',
-  '',
-  'P.S. {OPTOUT}'
+  'Bien à vous,',
+  'Etienne'
 ].join('\n');
-// Variantes du CTA (test A/B) : chaque prospect en recoit une seule, choisie automatiquement.
-// La variante envoyee est notee dans la colonne "Variante CTA" du Sheet ; ab_optimizer.py mesure laquelle marche le mieux.
-var MFE_CTA_A = 'Quick question: is {PODCAST} already bringing you leads from Google or ChatGPT?';
-var MFE_CTA_B = 'If it helps, I can send you the 5 questions from your latest episode that people are most likely to search for. Just reply “yes” and I’ll send them over.';
-var MFE_CTA_C = 'Want to see what your episodes could rank for? Here is my calendar for a 15-minute walkthrough: {BOOKING}';
+// CTA retenu (30/09/2026) : la variante A = video audit de 2 minutes. Les cles MFE_CTA_B / _C / _D restent vides :
+// pour retester d'autres CTA plus tard, il suffit de les remplir dans Reglages (le test A/B repartit alors les envois).
+var MFE_CTA_A = 'Si le sujet vous intéresse, je peux vous partager une **vidéo audit de 2 minutes** pour tester par vous-même le potentiel de votre flux de contenu.';
 var MFE_MSG_DEFAULTS = [
-  ['MFE_MSG_OBJET', 'Regarding {PODCAST} – Listenly AI directory',
+  ['MFE_MSG_OBJET', 'Fiche Listenly à valider – {PODCAST}',
    'MarketForge Engine — objet du 1er mail. {PODCAST} = nom du podcast.'],
   ['MFE_MSG_FICHE', MFE_FIRST_MAIL,
    'MarketForge Engine — 1er mail. Variables : {NAME} (hote, sinon "{PODCAST} team") {PODCAST} {URL} (fiche N1 du podcast) {BOOKING} {OPTOUT}.'],
   ['MFE_MSG_REPONSES', MFE_FIRST_MAIL,
    'MarketForge Engine — 1er mail quand des reponses ont ete extraites (meme modele par defaut).'],
   ['MFE_MSG_RELANCE', [
-    'Hi {NAME},',
+    'Bonjour {NAME},',
     '',
-    'Just following up regarding {PODCAST} \u2014 we recently added it to Listenly to help improve its visibility across Google and AI search.',
+    'Je me permets de revenir vers vous au sujet de **{PODCAST}**, r\u00e9f\u00e9renc\u00e9 sur Listenly pour \u00eatre cit\u00e9 par ChatGPT, Gemini ou Claude.',
     '',
-    '**Could you confirm that everything on the profile looks correct?**',
+    '**Pouvez-vous me confirmer que la fiche est correcte ?**',
     '{URL}',
     '',
-    'Best,',
+    'Bien \u00e0 vous,',
     'Etienne'
   ].join('\n'), 'MarketForge Engine — relance (J+MFE_RELANCE_JOURS), dans le meme fil.'],
-  ['MFE_CTA_A', MFE_CTA_A, 'Test A/B — CTA variante A (question ouverte). Vide = variante desactivee. Variables : {PODCAST} {BOOKING}.'],
-  ['MFE_CTA_B', MFE_CTA_B, 'Test A/B — CTA variante B (livrable gratuit : 5 questions). Vide = variante desactivee.'],
-  ['MFE_CTA_C', MFE_CTA_C, 'Test A/B — CTA variante C (rendez-vous 15 min). Vide = variante desactivee.'],
+  ['MFE_CTA_A', MFE_CTA_A, 'CTA du mail (variante A) : video audit de 2 minutes. Variables : {PODCAST} {BOOKING}. Test A/B : remplir aussi MFE_CTA_B / _C / _D pour tester d\'autres CTA (vide = variante desactivee).'],
+  ['MFE_CTA_B', '', 'Test A/B — CTA variante B (vide = desactivee).'],
+  ['MFE_CTA_C', '', 'Test A/B — CTA variante C (vide = desactivee).'],
   ['MFE_MSG_SIGNATURE', '',
    'MarketForge Engine — lignes ajoutees automatiquement a la fin du 1er mail ET de la relance (ex. lien LinkedIn). Vide = rien. Gmail n\'ajoute PAS la signature Workspace aux mails envoyes par script.'],
   ['MFE_VERIF_CLE', '', 'Cle API MyEmailVerifier (verification des boites mail avant envoi). Vide = verification desactivee.'],
@@ -210,7 +214,7 @@ function mfeImport_(sh, podcasts) {
     var dejaVu = prospection && prospection.createTextFinder(p.email).matchCase(false).findNext();
     rows.push([slug, p.podcast_name || slug, p.email, p.proof_url + (n > 0 ? '#answers' : ''), n,
                new Date(), dejaVu ? 'Deja en prospection' : 'Pret', '', '', '', '', '',
-               p.listenly_url || '', p.host_name || '', '']);
+               p.listenly_url || '', p.host_name || '', '', p.thematique || '']);
   });
   if (rows.length) sh.getRange(sh.getLastRow() + 1, 1, rows.length, MFE.COLS.length).setValues(rows);
   return rows.length;
@@ -484,7 +488,7 @@ function mfeName_(host, podcast) {
   if (host && words.length >= 2 && words.length <= 3 && !corporate.test(host) &&
       words.every(function (w) { return /^[A-ZÀ-Ý][a-zà-ÿ'’.-]+$/.test(w); })) return words[0];  // prenom seul : "Hi Greg,"
   if (host && /\bteam\b/i.test(host)) return host;
-  return (podcast || 'there') + ' team';
+  return 'l\u2019\u00e9quipe ' + (podcast || '');
 }
 
 // "BriteVibe Podcast: Live Brite, Live Bold..." -> "BriteVibe Podcast"
@@ -497,6 +501,7 @@ function mfeShortName_(name) {
 
 function mfeVars_(values) {
   return { PODCAST: mfeShortName_(values[1]), URL: values[3], LINK: values[3], LISTENLY: values[12] || values[3],
+           THEMATIQUE: String(values[15] || '').trim() || 'votre secteur',
            NAME: mfeName_(values[13], mfeShortName_(values[1])), BOOKING: MFE.BOOKING, OPTOUT: mfeMsg_('MFE_MSG_OPTOUT') };
 }
 
@@ -517,7 +522,7 @@ function mfeSigCfg_() {
 
 // Version texte (toujours envoyee : c'est ce que lisent les filtres anti-spam et certains clients mail)
 function mfeWithSignature_(body) {
-  body = String(body).replace(/\*\*(.+?)\*\*/g, '$1');   // version texte : sans les ** du gras
+  body = String(body).replace(/\*\*(.+?)\*\*/g, '$1').replace(/__(.+?)__/g, '$1');   // version texte : sans les ** (gras) ni __ (souligne)
   var c = mfeSigCfg_(), lines = [];
   if (c.texte) lines.push(c.texte);
   else if (c.html) {
@@ -536,6 +541,7 @@ function mfeTextToHtml_(body) {
   return mfeEsc_(body)
     .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" style="color:#1a56db">$1</a>')
     .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
+    .replace(/__(.+?)__/g, '<u>$1</u>')
     .replace(/\n/g, '<br>');
 }
 
@@ -587,7 +593,7 @@ function mfeAbPlan_(rows, cfg) {
   var variants = ['A'];
   if (cfg.AB_ACTIF) {
     var st = mfeReadSettings_();
-    variants = ['A', 'B', 'C', 'D'].filter(function (k) { return ('MFE_CTA_' + k) in st ? String(st['MFE_CTA_' + k]).trim() !== '' : k !== 'D'; });
+    variants = ['A', 'B', 'C', 'D'].filter(function (k) { return ('MFE_CTA_' + k) in st ? String(st['MFE_CTA_' + k]).trim() !== '' : k === 'A'; });
     if (!variants.length) variants = ['A'];
   }
   var weights = {};
@@ -746,6 +752,7 @@ function doPost(e) {
     mfeRows_(sh).forEach(function (r) {
       var x = podcasts[r.values[0]];
       if (x && x.moments_count !== r.values[4]) sh.getRange(r.row, 5).setValue(x.moments_count);
+      if (x && x.thematique && !r.values[15]) sh.getRange(r.row, 16).setValue(x.thematique);
     });
     return mfeJson_({ ok: true, lignes_ajoutees: added });
   } finally { lock.releaseLock(); }

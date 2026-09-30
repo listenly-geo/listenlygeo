@@ -20,9 +20,8 @@ CONFIG = "automation/marketforge_engine/config.json"
 OUT = "automation/marketforge_engine/ab_test.json"
 
 LABELS = {
-    "A": "Question ouverte (leads Google / ChatGPT ?)",
-    "B": "Livrable gratuit (5 questions de leur dernier episode)",
-    "C": "Rendez-vous de 15 min (lien agenda)",
+    "A": "Video audit de 2 minutes (CTA retenu)",
+    # Pour retester d'autres CTA : ajouter ici "B": "...", puis remplir MFE_CTA_B dans l'onglet Reglages du Sheet.
 }
 MIN_ENVOIS = 30        # envois par variante avant d'adapter la repartition
 MIN_VERDICT = 100      # envois par variante avant de declarer un gagnant
@@ -77,7 +76,9 @@ def main():
         phase = "adaptation (plus d'envois pour les meilleures variantes)"
 
     best = max(keys, key=lambda k: p_best[k])
-    if min(v[k]["envoye"] for k in keys) >= MIN_VERDICT and p_best[best] >= PROBA_GAGNANT:
+    if len(keys) == 1:
+        verdict = f"un seul CTA actif ({LABELS[keys[0]]}) : aucune comparaison en cours"
+    elif min(v[k]["envoye"] for k in keys) >= MIN_VERDICT and p_best[best] >= PROBA_GAGNANT:
         verdict = f"gagnant : variante {best} ({LABELS[best]})"
     else:
         total = sum(v[k]["envoye"] for k in keys)

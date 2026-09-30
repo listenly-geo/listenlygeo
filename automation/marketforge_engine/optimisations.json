@@ -4,7 +4,7 @@
   "Ciblage",
   "Envoi et délivrabilité",
   "Mesure",
-  "Mail et test A/B",
+  "Mail et CTA",
   "À faire"
  ],
  "items": [
@@ -67,7 +67,7 @@
   {
    "id": "opt-09",
    "section": "Envoi et délivrabilité",
-   "texte": "Coller le nouveau script dans Apps Script et lancer installer() une fois : active la cadence, le ranking automatique, ce journal automatique, le nouveau mail avec test A/B et le filtre anti-réponses automatiques. À faire par toi.",
+   "texte": "Coller le nouveau script dans Apps Script et lancer installer() une fois : active la cadence, le ranking automatique, ce journal automatique, le nouveau mail (corps, CTA, thématique, relance) et le filtre anti-réponses automatiques. À faire par toi.",
    "date": "—",
    "statut": "a_faire"
   },
@@ -150,31 +150,59 @@
   },
   {
    "id": "opt-21",
-   "section": "Mail et test A/B",
-   "texte": "Nouveau corps du mail : plus court, centré sur le bénéfice pour le podcast (15+ réponses que leurs clients cherchent déjà), page Listenly mise en avant, mention de désinscription en P.S. Actif après le collage du script.",
+   "section": "Mail et CTA",
+   "texte": "Nouveau corps du mail, en français, validé par toi le 30/09 : accroche « annuaire pensé pour les IA… cité par ChatGPT, Gemini ou Claude », la fiche, explication en 3 puces (gras et soulignement), thématique du podcast insérée automatiquement. Actif après le collage du script.",
    "date": "30/09/2026",
    "statut": "en_cours"
   },
   {
    "id": "opt-22",
-   "section": "Mail et test A/B",
-   "texte": "Test A/B du CTA : 3 variantes en alternance (A question ouverte, B livrable gratuit de 5 questions, C rendez-vous de 15 min). Chaque mail note sa variante dans le Sheet (colonne Variante CTA).",
+   "section": "Mail et CTA",
+   "texte": "CTA retenu : proposition de vidéo audit de 2 minutes. Le mécanisme de test A/B reste en place : remplir MFE_CTA_B ou MFE_CTA_C dans Réglages suffit pour comparer d'autres CTA plus tard.",
    "date": "30/09/2026",
    "statut": "en_cours"
   },
   {
    "id": "opt-23",
-   "section": "Mail et test A/B",
-   "texte": "Mesure du test A/B : taux de vraies réponses par variante, chance d'être la meilleure ; la répartition s'adapte après 30 envois par variante, gagnant déclaré à 100 envois par variante et 95 % de chances. Résumé dans la Synthèse (ligne 46).",
+   "section": "Mail et CTA",
+   "texte": "Mesure A/B (vraies réponses par variante, chance d'être la meilleure) prête ; elle ne compare rien tant qu'un seul CTA est actif. Résumé dans la Synthèse (ligne 46).",
    "date": "30/09/2026",
    "statut": "en_cours"
   },
   {
    "id": "opt-24",
-   "section": "Mail et test A/B",
-   "texte": "Tenir la promesse de la variante B : quand quelqu'un répond « yes », lui envoyer les 5 questions de son dernier épisode (extraction à lancer pour ce podcast).",
+   "section": "Mail et CTA",
+   "texte": "Produire la vidéo audit de 2 minutes promise dans le mail : elle doit exister avant de reprendre l'envoi.",
    "date": "—",
    "statut": "a_faire"
+  },
+  {
+   "id": "opt-25",
+   "section": "Mail et CTA",
+   "texte": "Thématique automatique de chaque podcast (rédigée par Claude, ex. « l'immobilier commercial »), insérée dans la phrase d'introduction du mail.",
+   "date": "30/09/2026",
+   "statut": "en_cours"
+  },
+  {
+   "id": "opt-26",
+   "section": "Mail et CTA",
+   "texte": "Objet du mail et relance à J+4 réécrits en français, pour rester cohérents avec le premier mail.",
+   "date": "30/09/2026",
+   "statut": "en_cours"
+  },
+  {
+   "id": "opt-27",
+   "section": "Mail et CTA",
+   "texte": "Langue du mail : le texte est en français alors que les podcasts ciblés sont anglophones. À trancher : traduire le mail ou cibler des podcasts français.",
+   "date": "—",
+   "statut": "a_faire"
+  },
+  {
+   "id": "opt-28",
+   "section": "Envoi et délivrabilité",
+   "texte": "Envoi automatique mis en pause à ta demande le 30/09, le temps des modifications du mail. À reprendre quand le script est recollé et la vidéo prête.",
+   "date": "30/09/2026",
+   "statut": "en_cours"
   }
  ]
 }

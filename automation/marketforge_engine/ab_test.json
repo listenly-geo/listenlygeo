@@ -1,42 +1,20 @@
 {
- "updated": "2026-09-30T09:02",
+ "updated": "2026-09-30T10:11",
  "phase": "exploration (repartition egale)",
- "verdict": "trop tot pour conclure (0 envois avec variante ; il en faut au moins 100 par variante et 95 % de chances)",
+ "verdict": "un seul CTA actif (Video audit de 2 minutes (CTA retenu)) : aucune comparaison en cours",
  "weights": {
-  "A": 0.3333,
-  "B": 0.3333,
-  "C": 0.3333
+  "A": 1.0
  },
  "variants": {
   "A": {
-   "label": "Question ouverte (leads Google / ChatGPT ?)",
+   "label": "Video audit de 2 minutes (CTA retenu)",
    "envoye": 0,
    "rebond": 0,
    "reponse": 0,
    "delivres": 0,
    "taux_pct": null,
-   "chance_meilleure_pct": 33.5,
-   "part_envois_pct": 33.3
-  },
-  "B": {
-   "label": "Livrable gratuit (5 questions de leur dernier episode)",
-   "envoye": 0,
-   "rebond": 0,
-   "reponse": 0,
-   "delivres": 0,
-   "taux_pct": null,
-   "chance_meilleure_pct": 33.1,
-   "part_envois_pct": 33.3
-  },
-  "C": {
-   "label": "Rendez-vous de 15 min (lien agenda)",
-   "envoye": 0,
-   "rebond": 0,
-   "reponse": 0,
-   "delivres": 0,
-   "taux_pct": null,
-   "chance_meilleure_pct": 33.4,
-   "part_envois_pct": 33.3
+   "chance_meilleure_pct": 100.0,
+   "part_envois_pct": 100.0
   }
  }
 }

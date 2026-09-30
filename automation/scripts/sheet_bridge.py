@@ -168,6 +168,7 @@ def push():
          "status": p.get("status", ""), "moments_count": p.get("moments_count", 0),
          "proof_url": p.get("proof_url", ""), "fiche_url": p.get("fiche_url", ""),
          "host_name": p.get("host_name", ""), "listenly_url": p.get("listenly_url", ""),
+         "thematique": p.get("thematique", ""),
          "last_error": p.get("last_error", "")}
         for s, p in queue.get("podcasts", {}).items()
     ]

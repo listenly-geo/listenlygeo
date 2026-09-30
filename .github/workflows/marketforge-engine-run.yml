@@ -126,6 +126,13 @@ jobs:
           KNOWLEDGE_IMPORT_SECRET: ${{ secrets.KNOWLEDGE_IMPORT_SECRET }}
         run: python automation/scripts/marketforge_extract_queue.py
 
+      - name: Thematique de chaque podcast (pour le mail)
+        if: steps.cfg.outputs.pause != 'true'
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python automation/scripts/fill_thematique.py
+
       - name: Compte-rendu vers le Google Sheet
         if: always() && steps.cfg.outputs.pause != 'true'
         continue-on-error: true
