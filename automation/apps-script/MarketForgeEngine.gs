@@ -60,47 +60,47 @@ var MFE_DEFAULTS = [
 // ---------- Messages (modifiables dans l'onglet Reglages, cles MFE_MSG_*) ----------
 // Style : court, a la premiere personne, une seule question, texte brut (pas de gras, pas d'emoji).
 // Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}
-var MFE_MSG_VERSION = '11';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
+var MFE_MSG_VERSION = '12';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
 var MFE_FIRST_MAIL = [
-  'Bonjour {NAME},',
+  'Hi {NAME},',
   '',
-  'Je vous contacte car j\u2019ai r\u00e9f\u00e9renc\u00e9 votre podcast {PODCAST} sur notre annuaire Listenly pour le rendre **visible dans les r\u00e9ponses de ChatGPT, Gemini et Claude**',
+  'I\u2019m reaching out **because I\u2019ve listed your podcast {PODCAST} on our Listenly directory to make it visible in ChatGPT, Gemini and Claude answers**',
   '',
-  'Voici la fiche \u00e0 valider avant indexation :',
+  'Here is the page to validate before indexing:',
   '{URL}',
   '',
-  '**Comment \u00e7a fonctionne ?**',
+  '**How does it work?**',
   '',
-  'En moyenne, un \u00e9pisode de podcast contient **15+ requ\u00eates** que vos prospects qualifi\u00e9s recherchent d\u00e9j\u00e0 sur Google et les IA',
+  'On average, a podcast episode contains **15+ queries** that your qualified prospects are already searching for on Google and AI',
   '',
-  'Mais elles __sont invisibles \u00e0 cause du format audio ou vid\u00e9o__',
+  'But they __are invisible because of the audio or video format__',
   '',
-  'Un flux de contenu r\u00e9gulier (podcast, webinaire, YouTube) **peut donc maintenant \u00eatre transform\u00e9 en visibilit\u00e9 et trafic direct vers l\u2019entreprise**, sans cr\u00e9er plus de contenu ni changer de strat\u00e9gie',
+  'A regular content flow (podcast, webinar, YouTube) **can now be turned into visibility and direct traffic to your company**, without creating more content or changing your strategy',
   '',
   '{CTA}',
   '',
-  'Bien \u00e0 vous,',
+  'Best,',
   'Etienne'
 ].join('\n');
 // CTA retenu (30/09/2026) : la variante A = video audit de 2 minutes. Les cles MFE_CTA_B / _C / _D restent vides :
 // pour retester d'autres CTA plus tard, il suffit de les remplir dans Reglages (le test A/B repartit alors les envois).
-var MFE_CTA_A = 'Si le sujet vous int\u00e9resse, je peux vous partager une **vid\u00e9o audit de 2 minutes** pour tester par vous-m\u00eame le potentiel de votre flux de contenu';
+var MFE_CTA_A = 'If the topic interests you, I can share a **2-minute audit video** so you can test the potential of your content flow yourself';
 var MFE_MSG_DEFAULTS = [
-  ['MFE_MSG_OBJET', 'Fiche Listenly à valider – {PODCAST}',
+  ['MFE_MSG_OBJET', '{PODCAST} \u2013 Listenly page to validate',
    'MarketForge Engine — objet du 1er mail. {PODCAST} = nom du podcast.'],
   ['MFE_MSG_FICHE', MFE_FIRST_MAIL,
    'MarketForge Engine — 1er mail. Variables : {NAME} (hote, sinon "{PODCAST} team") {PODCAST} {URL} (fiche N1 du podcast) {BOOKING} {OPTOUT}.'],
   ['MFE_MSG_REPONSES', MFE_FIRST_MAIL,
    'MarketForge Engine — 1er mail quand des reponses ont ete extraites (meme modele par defaut).'],
   ['MFE_MSG_RELANCE', [
-    'Bonjour {NAME},',
+    'Hi {NAME},',
     '',
-    'Je me permets de revenir vers vous au sujet de **{PODCAST}**, r\u00e9f\u00e9renc\u00e9 sur Listenly pour \u00eatre cit\u00e9 par ChatGPT, Gemini ou Claude.',
+    'Just following up on **{PODCAST}**, listed on Listenly to be cited by ChatGPT, Gemini and Claude',
     '',
-    '**Pouvez-vous me confirmer que la fiche est correcte ?**',
+    '**Could you confirm the page looks right?**',
     '{URL}',
     '',
-    'Bien \u00e0 vous,',
+    'Best,',
     'Etienne'
   ].join('\n'), 'MarketForge Engine — relance (J+MFE_RELANCE_JOURS), dans le meme fil.'],
   ['MFE_CTA_A', MFE_CTA_A, 'CTA du mail (variante A) : video audit de 2 minutes. Variables : {PODCAST} {BOOKING}. Test A/B : remplir aussi MFE_CTA_B / _C / _D pour tester d\'autres CTA (vide = variante desactivee).'],
@@ -487,7 +487,7 @@ function mfeName_(host, podcast) {
   if (host && words.length >= 2 && words.length <= 3 && !corporate.test(host) &&
       words.every(function (w) { return /^[A-ZÀ-Ý][a-zà-ÿ'’.-]+$/.test(w); })) return words[0];  // prenom seul : "Hi Greg,"
   if (host && /\bteam\b/i.test(host)) return host;
-  return 'l\u2019\u00e9quipe ' + (podcast || '');
+  return (podcast || 'there') + ' team';
 }
 
 // "BriteVibe Podcast: Live Brite, Live Bold..." -> "BriteVibe Podcast"
@@ -500,7 +500,7 @@ function mfeShortName_(name) {
 
 function mfeVars_(values) {
   return { PODCAST: mfeShortName_(values[1]), URL: values[3], LINK: values[3], LISTENLY: values[12] || values[3],
-           THEMATIQUE: String(values[15] || '').trim() || 'votre secteur',
+           THEMATIQUE: String(values[15] || '').trim() || 'your industry',
            NAME: mfeName_(values[13], mfeShortName_(values[1])), BOOKING: MFE.BOOKING, OPTOUT: mfeMsg_('MFE_MSG_OPTOUT') };
 }
 
