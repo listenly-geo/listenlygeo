@@ -64,6 +64,15 @@ jobs:
             done
           fi
 
+      - name: 0b. Ciblage adaptatif (poids par secteur selon les retours reels)
+        if: steps.cfg.outputs.pause != 'true'
+        continue-on-error: true
+        env:
+          MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
+        run: |
+          python automation/scripts/targeting_optimizer.py
+          python automation/scripts/sheet_bridge.py tendances
+
       - name: 1. Decouverte
         if: steps.cfg.outputs.pause != 'true' && steps.cfg.outputs.discover_max != '0'
         continue-on-error: true

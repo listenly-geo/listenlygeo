@@ -25,7 +25,7 @@ Sortie :
   - Resume lisible sur stdout et dans $GITHUB_STEP_SUMMARY si present
 """
 
-import os, sys, json, re, time
+import os, sys, json, re, time, random
 import urllib.request, urllib.error, urllib.parse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from rss_contact import fetch_contact_email  # noqa: E402
@@ -48,6 +48,8 @@ MAX_QUALIFY = int(os.environ.get("DISCOVERY_MAX_QUALIFY", "10"))
 KEYWORDS_FILE = os.environ.get(
     "DISCOVERY_KEYWORDS_FILE", "automation/data/discovery_keywords.json"
 )
+GROUPS_FILE = "automation/data/discovery_keyword_groups.json"   # secteur -> mots-cles (ciblage adaptatif)
+TARGETING_FILE = "automation/marketforge_engine/targeting.json"  # poids par secteur (targeting_optimizer.py)
 PODCASTS_FILE = "pages/podcast-btb/data/podcasts.json"
 PAUSED_FILE = "pages/podcast-btb/data/paused_podcasts.json"
 # Historique permanent (01/09/2026) : seul fichier qui accumule pour toujours, utilise
@@ -320,7 +322,9 @@ def write_summary(md):
 
 
 def main():
-    keywords = load_json(KEYWORDS_FILE, [])
+    groups = load_json(GROUPS_FILE, {})
+    kw_sector = {kw: sec for sec, kws in groups.items() for kw in kws}
+    keywords = list(kw_sector) or load_json(KEYWORDS_FILE, [])
     if not keywords:
         log(f"ERREUR : aucun mot-cle charge depuis {KEYWORDS_FILE}")
         sys.exit(1)
@@ -352,6 +356,7 @@ def main():
     # --- 2) Filtrage grossier : deja onboarde, deja pausé, deja traite, heuristiques ---
     # Regroupe par mot-cle d'origine (proxy de secteur/categorie) plutot qu'en liste plate.
     by_keyword = {}
+    kw_of_feed = {feed: kw for feed, (_r, kw) in raw_results.items()}
     total_new = 0
     for feed_url, (r, kw) in raw_results.items():
         name = r.get("collectionName", "")
@@ -389,66 +394,44 @@ def main():
     # Un quota EXPLICITE est desormais reserve a ce groupe en premier, avant le round-robin
     # general, pour garantir qu'il s'exprime vraiment a chaque run plutot que de rester
     # theorique.
-    KNOWN_KEYWORDS = {
-        "top business podcast", "best entrepreneurship podcast", "top CEO interview podcast",
-        "famous business podcast", "best leadership podcast", "top startup podcast",
-        "well known entrepreneur podcast", "top rated business podcast",
-        "My First Million podcast", "How I Built This podcast", "Masters of Scale podcast",
-        "The Prof G Pod", "Acquired podcast", "Invest Like the Best podcast",
-        "The Tim Ferriss Show", "a16z podcast", "20VC podcast", "The Twenty Minute VC",
-        "Business Wars podcast", "The Founders podcast", "Planet Money podcast",
-        "Freakonomics Radio", "The Indicator podcast", "Marketplace podcast",
-        "StartUp podcast Gimlet", "The GaryVee Audio Experience",
-        "Marketing School podcast", "The Marketing Millennials", "Duct Tape Marketing podcast",
-        "Real Estate Rockstars podcast", "BiggerPockets Real Estate Podcast",
-        "HR Happy Hour podcast", "Work Life with Adam Grant",
-        "Supply Chain Now podcast", "The Logistics of Logistics podcast",
-        "Sales Gravy podcast", "The Advanced Selling Podcast",
-        "Coaching for Leaders podcast", "The Leadership Podcast",
-        "Chad and Cheese podcast", "The SaaS Podcast", "This Week in Startups",
-    }
-    # Fix du 09/09/2026 (demande directe) : 100% du budget reserve aux podcasts connus/etablis
-    # -- la niche B2B (chemin A) n'est plus recherchee par defaut sur ce mode, uniquement les
-    # podcasts business connus deja identifies (chemin B). Reste ajustable via env var si besoin
-    # de revenir a un mix (ex: 0.4 pour 40% connu / 60% niche comme avant).
-    KNOWN_QUOTA_RATIO = float(os.environ.get("DISCOVERY_KNOWN_RATIO", "1.0"))
-    known_quota = max(1, round(MAX_QUALIFY * KNOWN_QUOTA_RATIO))
+    # Ciblage ADAPTATIF (30/09/2026) : le budget de qualification est reparti entre secteurs selon
+    # les poids calcules par targeting_optimizer.py (retours reels : emails joignables, rebonds,
+    # reponses). Tirage pondere => les secteurs qui repondent recoivent plus de budget, les autres
+    # gardent un plancher d'exploration. Sans poids connus : repartition uniforme.
+    weights = (load_json(TARGETING_FILE, {}) or {}).get("weights", {})
     MAX_PER_KEYWORD = 2
-
-    to_qualify = []
+    sector_kws = {}
+    for kw in by_keyword:
+        sector_kws.setdefault(kw_sector.get(kw, "Autre"), []).append(kw)
     taken_per_keyword = {}
+    to_qualify = []
 
-    # Passe 1 : remplir le quota "connus" en priorite, round-robin entre EUX seulement.
-    known_pools = [(kw, pool) for kw, pool in by_keyword.items() if kw in KNOWN_KEYWORDS]
-    progress = True
-    while len(to_qualify) < known_quota and progress:
-        progress = False
-        for kw, pool in known_pools:
-            if not pool or taken_per_keyword.get(kw, 0) >= MAX_PER_KEYWORD:
-                continue
-            to_qualify.append(pool.pop(0))
-            taken_per_keyword[kw] = taken_per_keyword.get(kw, 0) + 1
-            progress = True
-            if len(to_qualify) >= known_quota:
-                break
-    log(f"Quota 'podcasts connus' : {len(to_qualify)}/{known_quota} candidats reserves avant le round-robin general.")
+    def draw(sector):
+        """1 candidat du secteur (tourniquet entre ses mots-cles, plafond par mot-cle)."""
+        kws = sector_kws.get(sector, [])
+        for _ in range(len(kws)):
+            kw = kws.pop(0)
+            kws.append(kw)
+            pool = by_keyword.get(kw)
+            if pool and taken_per_keyword.get(kw, 0) < MAX_PER_KEYWORD:
+                taken_per_keyword[kw] = taken_per_keyword.get(kw, 0) + 1
+                return pool.pop(0)
+        return None
 
-    # Passe 2 : round-robin general (comme avant) sur TOUS les mots-cles, y compris les
-    # "connus" restants, pour completer jusqu'a MAX_QUALIFY.
-    keyword_pools = list(by_keyword.items())
-    progress = True
-    while len(to_qualify) < MAX_QUALIFY and progress:
-        progress = False
-        for kw, pool in keyword_pools:
-            if not pool:
-                continue
-            if taken_per_keyword.get(kw, 0) >= MAX_PER_KEYWORD:
-                continue
-            to_qualify.append(pool.pop(0))
-            taken_per_keyword[kw] = taken_per_keyword.get(kw, 0) + 1
-            progress = True
-            if len(to_qualify) >= MAX_QUALIFY:
-                break
+    known_w = [w for w in weights.values() if w > 0]
+    default_w = (sum(known_w) / len(known_w)) if known_w else 1.0
+    live = {s: max(weights.get(s, default_w), 0.01) for s in sector_kws}
+    per_sector = {}
+    while len(to_qualify) < MAX_QUALIFY and live:
+        sec = random.choices(list(live), weights=list(live.values()))[0]
+        cand = draw(sec)
+        if cand is None:
+            live.pop(sec)
+            continue
+        to_qualify.append(cand)
+        per_sector[sec] = per_sector.get(sec, 0) + 1
+    log("Ciblage adaptatif -- repartition des candidats qualifies : " +
+        (", ".join(f"{k} {v}" for k, v in sorted(per_sector.items(), key=lambda t: -t[1])) or "aucun"))
 
     new_candidates = to_qualify  # conserve pour compatibilite avec le resume plus bas
     if total_new > MAX_QUALIFY:
@@ -496,6 +479,7 @@ def main():
             "verdict": verdict,
             "reason": reason,
             "checked_date": __import__("datetime").date.today().isoformat(),
+            "secteur": kw_sector.get(kw_of_feed.get(r.get("feedUrl", "")), ""),
         }
         if record["verdict"] == "ONBOARD":
             tagging_text = " ".join([

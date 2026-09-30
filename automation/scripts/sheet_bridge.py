@@ -185,12 +185,27 @@ def push():
     log(f"Compte-rendu envoye au Sheet : {res}")
 
 
+def tendances():
+    """Envoie le classement des secteurs (targeting.json) vers l'onglet Synthese du Sheet."""
+    t = load("automation/marketforge_engine/targeting.json", {})
+    if not t.get("ranking"):
+        log("targeting.json vide -- rien a envoyer.")
+        return
+    rows = [[r["rang"], r["secteur"], r.get("poids_pct"), r.get("delta_pts", 0), r.get("tendance", ""),
+             r.get("onboarde", 0), r.get("joignable", 0), r.get("envoye", 0), r.get("rebond", 0),
+             r.get("reponse", 0), r.get("taux_reponse")] for r in t["ranking"]]
+    res = call(payload={"action": "tendances", "updated": t.get("updated", ""),
+                        "envois_total": t.get("envois_total", 0), "reponses_total": t.get("reponses_total", 0),
+                        "rows": rows})
+    log(f"Classement des tendances envoye a la Synthese : {res}")
+
+
 if __name__ == "__main__":
     if not URL:
         log("MFE_SHEET_URL absent — pont Sheet desactive, rien a faire.")
         sys.exit(0)
     try:
-        {"pull": pull, "push": push, "stats": stats}[sys.argv[1]]()
+        {"pull": pull, "push": push, "stats": stats, "tendances": tendances}[sys.argv[1]]()
     except Exception as e:  # ne bloque jamais le run
         log(f"AVERTISSEMENT : pont Sheet en echec ({e})")
         print(f"::warning title=Pont Sheet ({sys.argv[1]})::{str(e)[:300]}")

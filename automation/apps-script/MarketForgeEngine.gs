@@ -301,8 +301,16 @@ function mfeCheckReplies_(sh) {
       mfeBounceGuard_(sh);
       return;
     }
+    // Reponse HUMAINE seulement : on ignore les reponses automatiques (absence, accuse de reception)
+    var firstSent = null;
+    msgs.forEach(function (m) { if (!firstSent && !/mailer-daemon|postmaster/i.test(m.getFrom()) && m.getFrom().toLowerCase().indexOf(String(r.values[2]).toLowerCase()) === -1) firstSent = m; });
     var fromThem = msgs.some(function (m) {
-      return m.getFrom().toLowerCase().indexOf(String(r.values[2]).toLowerCase()) !== -1;
+      if (m.getFrom().toLowerCase().indexOf(String(r.values[2]).toLowerCase()) === -1) return false;
+      var subj = m.getSubject() || '', head = m.getPlainBody().slice(0, 300);
+      if (/automatic reply|auto-?reply|autoreply|out of office|r\u00e9ponse automatique|absence|away from/i.test(subj)) return false;
+      if (/^\s*(hi there!?\s*)?(thank(s| you) (so much )?for (reaching|contacting|your (email|message))|this is an automated|this is an auto)/i.test(head)) return false;
+      if (firstSent && (m.getDate().getTime() - firstSent.getDate().getTime()) < 120000) return false;   // repond en moins de 2 min = robot
+      return true;
     });
     if (fromThem) { sh.getRange(r.row, 7).setValue('Repondu'); sh.getRange(r.row, 10).setValue(new Date()); n++; }
   });
@@ -654,7 +662,8 @@ function doPost(e) {
   try { body = JSON.parse(e.postData.contents); } catch (err) { return mfeJson_({ ok: false, error: 'JSON invalide' }); }
   var p = (e && e.parameter) || {};
   if (!mfeAuth_(p.secret || body.secret)) return mfeJson_({ ok: false, error: 'secret invalide' });
-  if (body.action !== 'report') return mfeJson_({ ok: false, error: 'action inconnue (report)' });
+  if (body.action === 'tendances') return mfeTendances_(body);
+  if (body.action !== 'report') return mfeJson_({ ok: false, error: 'action inconnue (report, tendances)' });
 
   var lock = LockService.getScriptLock(); lock.waitLock(30000);
   try {
@@ -677,6 +686,33 @@ function doPost(e) {
     });
     return mfeJson_({ ok: true, lignes_ajoutees: added });
   } finally { lock.releaseLock(); }
+}
+
+// Classement des secteurs (ciblage adaptatif) -> section a droite de l'onglet Synthese (colonnes I a S)
+function mfeTendances_(body) {
+  var ss = mfeSS_();
+  var sh = ss.getSheetByName('Synthèse') || ss.getSheetByName('Synthese');
+  if (!sh) return mfeJson_({ ok: false, error: 'onglet Synthese introuvable' });
+  var rows = body.rows || [];
+  var head = ['#', 'Secteur', 'Poids ciblage %', 'Variation (pts)', 'Tendance', 'Podcasts onboardes',
+              'Joignables (email)', 'Envoyes', 'Rebonds', 'Reponses', 'Taux reponse %'];
+  var col = 9, top = 3, width = head.length;   // colonne I, ligne 3
+  sh.getRange(top, col, 40, width).clearContent().clearFormat();
+  sh.getRange(top, col).setValue('Ranking des tendances — secteurs ciblés (mis à jour ' + (body.updated || '') + ')')
+    .setFontWeight('bold').setFontSize(12);
+  sh.getRange(top + 1, col, 1, width).setValues([head]).setFontWeight('bold').setFontColor('#ffffff')
+    .setBackground('#0e7c86').setWrap(true).setVerticalAlignment('middle');
+  if (rows.length) {
+    sh.getRange(top + 2, col, rows.length, width).setValues(rows);
+    sh.getRange(top + 2, col + 2, rows.length, 1).setNumberFormat('0.0');
+    sh.getRange(top + 2, col + 3, rows.length, 1).setNumberFormat('+0.0;-0.0;0.0');
+  }
+  var note = top + 3 + rows.length;
+  sh.getRange(note, col).setValue('Envois : ' + (body.envois_total || 0) + ' · Réponses réelles : ' + (body.reponses_total || 0) +
+    ' · Le poids répartit le budget de découverte : plus un secteur répond, plus il est ciblé (plancher d\'exploration conservé).')
+    .setFontStyle('italic').setFontColor('#666666');
+  sh.setColumnWidth(col + 1, 210);
+  return mfeJson_({ ok: true, lignes: rows.length });
 }
 
 function mfeHisto_() {
