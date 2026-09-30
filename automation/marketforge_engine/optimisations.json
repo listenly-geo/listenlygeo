@@ -1,5 +1,5 @@
 {
- "_aide": "Journal des optimisations du MarketForge Engine. Source unique : ce fichier alimente l'onglet 'Optimisations' du Sheet (sheet_bridge.py optimisations, a chaque run). Statuts : valide | en_cours | a_faire. Ajouter une ligne a CHAQUE optimisation ; passer en 'valide' quand le resultat est verifie.",
+ "_aide": "Journal des optimisations du MarketForge Engine. Source unique : ce fichier alimente l'onglet 'Optimisations' du Sheet (sheet_bridge.py optimisations, a chaque run). Statuts : valide (valide par Etienne) | en_cours | a_faire. Champ version : V1.0, V1.1... (lot de mise en ligne). Ajouter une ligne a CHAQUE optimisation ; passer en 'valide' quand le resultat est verifie.",
  "sections": [
   "Ciblage",
   "Envoi et délivrabilité",
@@ -13,196 +13,224 @@
    "section": "Ciblage",
    "texte": "Filtre « podcasts d'entreprise B2B » : fin des gros podcasts et des créateurs indépendants, qui ne répondaient pas. Premier run avec ce filtre lancé le 30/09 (résultats à vérifier).",
    "date": "30/09/2026",
-   "statut": "en_cours"
+   "statut": "valide",
+   "version": "V1.1"
   },
   {
    "id": "opt-02",
    "section": "Ciblage",
    "texte": "Nouveaux mots-clés de recherche : 58 requêtes réparties en 14 secteurs (logiciel, cybersécurité, logistique, immobilier, juridique…).",
    "date": "30/09/2026",
-   "statut": "en_cours"
+   "statut": "valide",
+   "version": "V1.1"
   },
   {
    "id": "opt-03",
    "section": "Ciblage",
    "texte": "Ciblage adaptatif : le budget de recherche suit les résultats réels de chaque secteur (emails joignables, rebonds, vraies réponses). Poids quasi égaux tant qu'il n'y a aucune réponse.",
    "date": "30/09/2026",
-   "statut": "en_cours"
+   "statut": "valide",
+   "version": "V1.1"
   },
   {
    "id": "opt-04",
    "section": "Ciblage",
    "texte": "Ranking des tendances dans l'onglet Synthèse (colonnes I à S). Mise à jour automatique dès que le script Apps Script est recollé.",
    "date": "30/09/2026",
-   "statut": "en_cours"
+   "statut": "en_cours",
+   "version": "V1.1"
   },
   {
    "id": "opt-05",
    "section": "Envoi et délivrabilité",
    "texte": "Anti-rebond : vérification de chaque adresse avant l'envoi, domaines d'hébergeurs et adresses techniques bloqués, pause automatique si trop de rebonds.",
    "date": "27/09/2026",
-   "statut": "valide"
+   "statut": "valide",
+   "version": "V1.0"
   },
   {
    "id": "opt-06",
    "section": "Envoi et délivrabilité",
    "texte": "Montée progressive du volume (44 mails par jour la 1re semaine, puis 80, 150, 300…) pour protéger le domaine marketforge.fr.",
    "date": "27/09/2026",
-   "statut": "valide"
+   "statut": "valide",
+   "version": "V1.0"
   },
   {
    "id": "opt-07",
    "section": "Envoi et délivrabilité",
    "texte": "Relance unique 4 jours après le premier mail, sans réponse.",
    "date": "27/09/2026",
-   "statut": "valide"
+   "statut": "valide",
+   "version": "V1.0"
   },
   {
    "id": "opt-08",
    "section": "Envoi et délivrabilité",
    "texte": "Cadence : 1 mail toutes les 15 minutes de 8h à 19h (au lieu d'une rafale à chaque heure). Code prêt sur GitHub, pas encore actif.",
    "date": "30/09/2026",
-   "statut": "en_cours"
+   "statut": "en_cours",
+   "version": "V1.1"
   },
   {
    "id": "opt-09",
    "section": "Envoi et délivrabilité",
    "texte": "Coller le nouveau script dans Apps Script et lancer installer() une fois : active la cadence, le ranking automatique, ce journal automatique, le nouveau mail (corps, CTA, thématique, relance) et le filtre anti-réponses automatiques. À faire par toi.",
    "date": "—",
-   "statut": "a_faire"
+   "statut": "a_faire",
+   "version": "—"
   },
   {
    "id": "opt-10",
    "section": "Envoi et délivrabilité",
    "texte": "Test de délivrabilité : mail test vers une boîte Gmail et une boîte Outlook (boîte principale ou spam ?) + Google Postmaster Tools.",
    "date": "—",
-   "statut": "a_faire"
+   "statut": "a_faire",
+   "version": "—"
   },
   {
    "id": "opt-11",
    "section": "Mesure",
    "texte": "Réponses automatiques (absence, accusé de réception) exclues du comptage côté moteur : 0 vraie réponse sur 73 envois au 30/09.",
    "date": "30/09/2026",
-   "statut": "valide"
+   "statut": "valide",
+   "version": "V1.1"
   },
   {
    "id": "opt-12",
    "section": "Mesure",
    "texte": "Même filtre dans Apps Script : détection des réponses automatiques (objet, texte type, réponse en moins de 2 minutes). Inclus dans le script à recoller.",
    "date": "30/09/2026",
-   "statut": "en_cours"
+   "statut": "en_cours",
+   "version": "V1.1"
   },
   {
    "id": "opt-13",
    "section": "Mesure",
    "texte": "Journal des optimisations automatique : cet onglet se remplit tout seul depuis le fichier optimisations.json du dépôt, à chaque run (dès que le script Apps Script est recollé).",
    "date": "30/09/2026",
-   "statut": "en_cours"
+   "statut": "en_cours",
+   "version": "V1.1"
   },
   {
    "id": "opt-15",
    "section": "À faire",
    "texte": "Mettre en pause les 64 prospects « Prêts » de l'ancienne sélection (dont de gros podcasts) pour n'envoyer que du B2B ciblé.",
    "date": "—",
-   "statut": "a_faire"
+   "statut": "a_faire",
+   "version": "—"
   },
   {
    "id": "opt-16",
    "section": "À faire",
    "texte": "Second canal : LinkedIn vers les décideurs, pour aller plus vite que le mail seul.",
    "date": "—",
-   "statut": "a_faire"
+   "statut": "a_faire",
+   "version": "—"
   },
   {
    "id": "opt-17",
    "section": "À faire",
    "texte": "Autorité : vérifier l'indexation Google des fiches Listenly et leur présence dans les réponses des IA.",
    "date": "—",
-   "statut": "a_faire"
+   "statut": "a_faire",
+   "version": "—"
   },
   {
    "id": "opt-18",
    "section": "À faire",
    "texte": "Onboarding : 8 échecs répétés à chaque run (issues 125, 127, 129, 198, 211, 214, 230, 255) à diagnostiquer.",
    "date": "—",
-   "statut": "a_faire"
+   "statut": "a_faire",
+   "version": "—"
   },
   {
    "id": "opt-19",
    "section": "À faire",
    "texte": "Extraction : mêmes 15 épisodes et 79 Q/R à chaque run, elle semble ne plus avancer.",
    "date": "—",
-   "statut": "a_faire"
+   "statut": "a_faire",
+   "version": "—"
   },
   {
    "id": "opt-20",
    "section": "À faire",
    "texte": "Renouveler le jeton GitHub « listenly-claude » avant son expiration (vers le 06/10/2026), sinon l'accès de Claude s'arrête.",
    "date": "06/10/2026",
-   "statut": "a_faire"
+   "statut": "a_faire",
+   "version": "—"
   },
   {
    "id": "opt-21",
    "section": "À faire",
    "texte": "Nettoyer les cases #REF! de l'onglet Synthèse (ancien onglet « Taxonomie Podcasts B2B » supprimé).",
    "date": "—",
-   "statut": "a_faire"
+   "statut": "a_faire",
+   "version": "—"
   },
   {
    "id": "opt-21",
    "section": "Mail et CTA",
    "texte": "Nouveau corps du mail, en français, validé par toi le 30/09 (version 8) : intro courte « Je vous contacte car j'ai référencé votre podcast… visible dans les réponses de ChatGPT, Gemini et Claude », lien de la fiche, explication en 3 phrases sans puces, gras et soulignement ciblés, signature conservée. Actif après le collage du script.",
    "date": "30/09/2026",
-   "statut": "en_cours"
+   "statut": "valide",
+   "version": "V1.1"
   },
   {
    "id": "opt-22",
    "section": "Mail et CTA",
    "texte": "CTA retenu : proposition de vidéo audit de 2 minutes. Le mécanisme de test A/B reste en place : remplir MFE_CTA_B ou MFE_CTA_C dans Réglages suffit pour comparer d'autres CTA plus tard.",
    "date": "30/09/2026",
-   "statut": "en_cours"
+   "statut": "valide",
+   "version": "V1.1"
   },
   {
    "id": "opt-23",
    "section": "Mail et CTA",
    "texte": "Mesure A/B (vraies réponses par variante, chance d'être la meilleure) prête ; elle ne compare rien tant qu'un seul CTA est actif. Résumé dans la Synthèse (ligne 46).",
    "date": "30/09/2026",
-   "statut": "en_cours"
+   "statut": "en_cours",
+   "version": "V1.1"
   },
   {
    "id": "opt-24",
    "section": "Mail et CTA",
    "texte": "Produire la vidéo audit de 2 minutes promise dans le mail : elle doit exister avant de reprendre l'envoi.",
    "date": "—",
-   "statut": "a_faire"
+   "statut": "a_faire",
+   "version": "—"
   },
   {
    "id": "opt-25",
    "section": "Mail et CTA",
    "texte": "Thématique automatique de chaque podcast (rédigée par Claude) : prête mais en réserve, elle n'apparaît plus dans le mail depuis l'intro courte.",
    "date": "30/09/2026",
-   "statut": "en_cours"
+   "statut": "en_cours",
+   "version": "V1.1"
   },
   {
    "id": "opt-26",
    "section": "Mail et CTA",
    "texte": "Objet du mail et relance à J+4 réécrits en français, pour rester cohérents avec le premier mail.",
    "date": "30/09/2026",
-   "statut": "en_cours"
+   "statut": "en_cours",
+   "version": "V1.1"
   },
   {
    "id": "opt-27",
    "section": "Mail et CTA",
    "texte": "Langue du mail : le texte est en français alors que les podcasts ciblés sont anglophones. À trancher : traduire le mail ou cibler des podcasts français.",
    "date": "—",
-   "statut": "a_faire"
+   "statut": "a_faire",
+   "version": "—"
   },
   {
    "id": "opt-28",
    "section": "Envoi et délivrabilité",
    "texte": "Envoi automatique mis en pause à ta demande le 30/09, le temps des modifications du mail. À reprendre quand le script est recollé et la vidéo prête.",
    "date": "30/09/2026",
-   "statut": "en_cours"
+   "statut": "en_cours",
+   "version": "V1.1"
   }
  ]
 }

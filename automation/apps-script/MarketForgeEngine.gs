@@ -723,7 +723,7 @@ function doGet(e) {
       return r.values[7] && new Date(r.values[7]).toDateString() === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, script_version: 12 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -801,25 +801,26 @@ function mfeTendances_(body) {
   return mfeJson_({ ok: true, lignes: rows.length });
 }
 
-// Journal des optimisations -> onglet 'Optimisations' (colonnes A a C, a partir de la ligne 5).
-// Les liste deroulante / couleurs de la colonne Statut sont conservees (seuls contenu + mise en forme des lignes sont reecrits).
+// Journal des optimisations -> onglet 'Optimisations' (colonnes A a D : Version, Optimisation, Date, Statut ; a partir de la ligne 5).
+// La liste deroulante / les couleurs de la colonne Statut sont conservees (seuls contenu + mise en forme des lignes sont reecrits).
 function mfeOptimisations_(body) {
   var sh = mfeSS_().getSheetByName('Optimisations');
   if (!sh) return mfeJson_({ ok: false, error: 'onglet Optimisations introuvable' });
   var rows = body.rows || [];
   var first = 5;
-  sh.getRange(first, 1, 80, 3).clearContent().clearFormat();
-  sh.getRange(2, 1).setValue('\u2705 Valid\u00e9   \u00b7   \u26a0\ufe0f En cours / \u00e0 surveiller   \u00b7   \u274c Pas encore fait   \u2014   derni\u00e8re mise \u00e0 jour : ' + (body.updated || ''));
-  var values = rows.map(function (r) { return r.section ? [String(r.section).toUpperCase(), '', ''] : [r.texte, r.date, r.statut]; });
+  sh.getRange(first, 1, 80, 4).clearContent().clearFormat();
+  sh.getRange(2, 2).setValue('\u2705 Valid\u00e9   \u00b7   \u26a0\ufe0f En cours / \u00e0 surveiller   \u00b7   \u274c Pas encore fait   \u2014   derni\u00e8re mise \u00e0 jour : ' + (body.updated || ''));
+  var values = rows.map(function (r) { return r.section ? ['', String(r.section).toUpperCase(), '', ''] : [r.version || '\u2014', r.texte, r.date, r.statut]; });
   if (values.length) {
-    var rng = sh.getRange(first, 1, values.length, 3);
+    var rng = sh.getRange(first, 1, values.length, 4);
     rng.setValues(values).setWrap(true).setVerticalAlignment('middle').setFontSize(11);
-    sh.getRange(first, 2, values.length, 2).setHorizontalAlignment('center');
+    sh.getRange(first, 1, values.length, 1).setHorizontalAlignment('center').setFontWeight('bold').setFontColor('#0e5966');
+    sh.getRange(first, 3, values.length, 2).setHorizontalAlignment('center');
     rng.setBorder(null, null, true, null, null, true, '#e0e0e0', SpreadsheetApp.BorderStyle.SOLID);
     rows.forEach(function (r, i) {
-      if (r.section) sh.getRange(first + i, 1, 1, 3).setBackground('#e6f2f5').setFontWeight('bold').setFontColor('#0e5966');
+      if (r.section) sh.getRange(first + i, 1, 1, 4).setBackground('#e6f2f5').setFontWeight('bold').setFontColor('#0e5966');
     });
-    sh.getRange(first, 3, values.length, 1).setDataValidation(SpreadsheetApp.newDataValidation()
+    sh.getRange(first, 4, values.length, 1).setDataValidation(SpreadsheetApp.newDataValidation()
       .requireValueInList(['\u2705 Valid\u00e9', '\u26a0\ufe0f En cours', '\u274c Pas encore fait'], true).setAllowInvalid(true).build());
   }
   return mfeJson_({ ok: true, lignes: rows.length });

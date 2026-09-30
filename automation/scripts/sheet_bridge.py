@@ -214,13 +214,20 @@ def optimisations():
     if not items:
         log("optimisations.json vide -- rien a envoyer.")
         return
+    try:
+        if int(call({"action": "status"}).get("script_version", 0)) < 12:
+            log("Script Apps Script a recoller (colonne Version du journal) : journal des optimisations non envoye pour ne rien ecraser.")
+            return
+    except Exception as e:
+        log(f"Version du script Apps Script illisible ({e}) : journal non envoye.")
+        return
     label = {"valide": "\u2705 Valid\u00e9", "en_cours": "\u26a0\ufe0f En cours", "a_faire": "\u274c Pas encore fait"}
     rows = []
     for sec in j.get("sections", []):
         rows.append({"section": sec})
         for it in items:
             if it.get("section") == sec:
-                rows.append({"texte": it["texte"], "date": it.get("date", "\u2014"),
+                rows.append({"version": it.get("version", "\u2014"), "texte": it["texte"], "date": it.get("date", "\u2014"),
                              "statut": label.get(it.get("statut"), label["a_faire"])})
     res = call(payload={"action": "optimisations", "updated": datetime.date.today().strftime("%d/%m/%Y"), "rows": rows})
     log(f"Journal des optimisations envoye au Sheet : {res}")
