@@ -315,6 +315,17 @@ function mfeCheckReplies_(sh) {
       var txt = m.getSubject() + ' ' + m.getPlainBody().slice(0, 600);
       return !/\(Delay\)|delayed|temporaire|temporary|will retry|vont \u00eatre effectu/i.test(txt);
     });
+    // Avis de RETARD (probleme temporaire, Gmail reessaie seul) : on n'insiste pas. Adresse marquee "Email instable",
+    // jamais relancee (une relance = une tentative de plus vers une adresse qui ne repond pas).
+    var delayed = msgs.some(function (m) {
+      return /mailer-daemon|postmaster|mail delivery/i.test(m.getFrom());
+    });
+    if (!bounce && delayed) {
+      sh.getRange(r.row, 7).setValue('Email instable');
+      mfeRememberBounce_(r.values[2]);
+      sh.getRange(r.row, 12).setValue('Avis de retard de livraison : pas de relance, adresse ecartee');
+      return;
+    }
     if (bounce) {  // mail bloque / adresse invalide : jamais de relance
       sh.getRange(r.row, 7).setValue('Rebond');
       mfeRememberBounce_(r.values[2]);
@@ -456,6 +467,12 @@ function mfeFollowUp_(sh, days) {
     if (r.values[6] !== 'Envoye' || !r.values[7] || new Date(r.values[7]).getTime() > limit || !r.values[10]) return;
     var thread = GmailApp.getThreadById(r.values[10]);
     if (!thread) return;
+    // Securite : jamais de relance si un avis d'echec ou de retard est deja arrive dans le fil
+    if (thread.getMessages().some(function (m) { return /mailer-daemon|postmaster|mail delivery/i.test(m.getFrom()); })) {
+      sh.getRange(r.row, 7).setValue('Email instable');
+      sh.getRange(r.row, 12).setValue('Avis de livraison recu : pas de relance');
+      return;
+    }
     var rel = mfeFill_(mfeMsg_('MFE_MSG_RELANCE'), mfeVars_(r.values));
     thread.replyAll(mfeWithSignature_(rel), mfeSendOpts_(rel));
     sh.getRange(r.row, 7).setValue('Relance');
