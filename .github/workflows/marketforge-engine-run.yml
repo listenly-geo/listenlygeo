@@ -71,6 +71,7 @@ jobs:
           MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
         run: |
           python automation/scripts/targeting_optimizer.py
+          python automation/scripts/ab_optimizer.py
           python automation/scripts/sheet_bridge.py tendances
           python automation/scripts/sheet_bridge.py optimisations
 

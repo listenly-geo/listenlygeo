@@ -24,6 +24,7 @@
 
 var MFE = {
   QUEUE_URL: 'https://raw.githubusercontent.com/listenly-geo/listenlygeo/main/automation/marketforge_engine/queue.json',
+  AB_URL: 'https://raw.githubusercontent.com/listenly-geo/listenlygeo/main/automation/marketforge_engine/ab_test.json',
   SHEET: 'MarketForge Engine',
   FROM: 'etienne.cugnet@marketforge.fr',           // utilise si c'est un alias Gmail du compte qui execute le script
   NAME: 'Etienne Cugnet',
@@ -34,7 +35,7 @@ var MFE = {
   HISTO_COLS: ['Date', 'Decouverts', 'Onboardes (fiche Listenly + N1)', 'Dont fiches Listenly creees',
                'Podcasts onboardes', 'Episodes extraits', 'Minutes audio', 'Q/R extraites', 'Echecs onboarding', 'Run GitHub'],
   COLS: ['Slug', 'Podcast', 'Email', 'Preuve (fiche N1)', 'Q/R extraites', 'Ajoute le', 'Statut',
-         'Envoye le', 'Relance le', 'Reponse', 'Thread ID', 'Notes', 'Page Listenly', 'Hote'],
+         'Envoye le', 'Relance le', 'Reponse', 'Thread ID', 'Notes', 'Page Listenly', 'Hote', 'Variante CTA'],
 };
 
 var MFE_DEFAULTS = [
@@ -52,30 +53,35 @@ var MFE_DEFAULTS = [
   ['MFE_HEURES_ENVOI', '8-19', 'MarketForge Engine — plage horaire d\'envoi (heure du script), mails repartis sur la plage.'],
   ['MFE_EMAIL_TEST', '', 'MarketForge Engine — MODE TEST : si une adresse est saisie ici, TOUS les mails partent vers elle (objet prefixe [TEST]) et les prospects restent "Pret". Vider la case pour passer en reel.'],
   ['MFE_MAX_REBONDS', '3', 'MarketForge Engine — au-dela de N mails bloques/rebonds sur 3 jours, l\'envoi automatique se met en pause (MFE_ENVOI_AUTO passe a FALSE).'],
+  ['MFE_AB_ACTIF', 'TRUE', 'MarketForge Engine — TRUE = test A/B du CTA (chaque mail recoit une variante, la repartition suit les resultats). FALSE = toujours la variante A.'],
   ['MFE_RELANCE_JOURS', '4', 'MarketForge Engine — relance unique apres N jours sans reponse (0 = pas de relance).'],
 ];
 
 // ---------- Messages (modifiables dans l'onglet Reglages, cles MFE_MSG_*) ----------
 // Style : court, a la premiere personne, une seule question, texte brut (pas de gras, pas d'emoji).
 // Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}
-var MFE_MSG_VERSION = '8';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
+var MFE_MSG_VERSION = '9';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
 var MFE_FIRST_MAIL = [
   'Hi {NAME},',
   '',
-  'I\u2019m Etienne, founder of Marketforge, a content repurposing agency.',
+  'I’m Etienne from Marketforge. I’ve just listed {PODCAST} on Listenly, a directory that turns podcast episodes into answers Google and AI assistants like ChatGPT can quote.',
   '',
-  'I\u2019m reaching out because I referenced your podcast **{PODCAST}** on **Listenly**, our directory designed to help podcasts gain visibility across Google and AI search engines.',
-  '',
-  'Here is your profile to review:',
+  'Your page is live:',
   '{URL}',
   '',
-  'On average, a podcast episode contains **15+ answers your prospects are already searching for** on Google and AI \u2014 content that can be turned into ongoing visibility **without producing anything new** or changing your current strategy.',
+  'Every B2B episode holds 15+ precise answers your buyers already search for. Locked inside the audio, nobody finds them. As text, they bring you visitors who have never heard the show — without recording anything new.',
   '',
-  'I\u2019d be curious to know: **is your content flow already helping grow your company\u2019s visibility on Google and AI?**',
+  '{CTA}',
   '',
-  'Best,',
-  'Etienne'
+  'Etienne',
+  '',
+  'P.S. {OPTOUT}'
 ].join('\n');
+// Variantes du CTA (test A/B) : chaque prospect en recoit une seule, choisie automatiquement.
+// La variante envoyee est notee dans la colonne "Variante CTA" du Sheet ; ab_optimizer.py mesure laquelle marche le mieux.
+var MFE_CTA_A = 'Quick question: is {PODCAST} already bringing you leads from Google or ChatGPT?';
+var MFE_CTA_B = 'If it helps, I can send you the 5 questions from your latest episode that people are most likely to search for. Just reply “yes” and I’ll send them over.';
+var MFE_CTA_C = 'Want to see what your episodes could rank for? Here is my calendar for a 15-minute walkthrough: {BOOKING}';
 var MFE_MSG_DEFAULTS = [
   ['MFE_MSG_OBJET', 'Regarding {PODCAST} – Listenly AI directory',
    'MarketForge Engine — objet du 1er mail. {PODCAST} = nom du podcast.'],
@@ -94,6 +100,9 @@ var MFE_MSG_DEFAULTS = [
     'Best,',
     'Etienne'
   ].join('\n'), 'MarketForge Engine — relance (J+MFE_RELANCE_JOURS), dans le meme fil.'],
+  ['MFE_CTA_A', MFE_CTA_A, 'Test A/B — CTA variante A (question ouverte). Vide = variante desactivee. Variables : {PODCAST} {BOOKING}.'],
+  ['MFE_CTA_B', MFE_CTA_B, 'Test A/B — CTA variante B (livrable gratuit : 5 questions). Vide = variante desactivee.'],
+  ['MFE_CTA_C', MFE_CTA_C, 'Test A/B — CTA variante C (rendez-vous 15 min). Vide = variante desactivee.'],
   ['MFE_MSG_SIGNATURE', '',
    'MarketForge Engine — lignes ajoutees automatiquement a la fin du 1er mail ET de la relance (ex. lien LinkedIn). Vide = rien. Gmail n\'ajoute PAS la signature Workspace aux mails envoyes par script.'],
   ['MFE_VERIF_CLE', '', 'Cle API MyEmailVerifier (verification des boites mail avant envoi). Vide = verification desactivee.'],
@@ -123,6 +132,7 @@ function mfeMsg_(key) {
 
 function installer() {
   var sh = mfeSheet_();
+  sh.getRange(MFE.HEADER_ROW, 1, 1, MFE.COLS.length).setValues([MFE.COLS]).setFontWeight('bold').setBackground('#eef3fd');   // ajoute la colonne Variante CTA
   mfeMigrateOldSettings_(sh);
   mfeEnsureSettings_();
   mfeHisto_();
@@ -200,7 +210,7 @@ function mfeImport_(sh, podcasts) {
     var dejaVu = prospection && prospection.createTextFinder(p.email).matchCase(false).findNext();
     rows.push([slug, p.podcast_name || slug, p.email, p.proof_url + (n > 0 ? '#answers' : ''), n,
                new Date(), dejaVu ? 'Deja en prospection' : 'Pret', '', '', '', '', '',
-               p.listenly_url || '', p.host_name || '']);
+               p.listenly_url || '', p.host_name || '', '']);
   });
   if (rows.length) sh.getRange(sh.getLastRow() + 1, 1, rows.length, MFE.COLS.length).setValues(rows);
   return rows.length;
@@ -235,6 +245,7 @@ function mfeSend_(sh, cfg, force) {
   var budget = Math.max(0, Math.min(daily, allowedSoFar) - sentToday);
   if (force) budget = force === true ? Math.max(0, daily - sentToday) : Math.min(force, Math.max(0, daily - sentToday));
   var sent = 0;
+  var ab = mfeAbPlan_(rows, cfg);
   rows.forEach(function (r) {
     if (sent >= budget || r.values[6] !== 'Pret') return;
     var why = mfeEmailProblem_(r.values[2]);   // anti-rebond : verifie l'adresse juste avant l'envoi
@@ -249,10 +260,13 @@ function mfeSend_(sh, cfg, force) {
       sh.getRange(r.row, 12).setValue('Non envoye (verification) : ' + verif.why);
       return;
     }
-    var d = mfeDraft_(r.values);
+    var variant = mfeAbPick_(ab);
+    var d = mfeDraft_(r.values, variant);
     try {
       var threadId = mfeMail_(r.values[2], d[0], d[1]);
       sh.getRange(r.row, 7, 1, 5).setValues([['Envoye', new Date(), '', '', threadId]]);
+      sh.getRange(r.row, 15).setValue(variant);
+      ab.counts[variant]++; ab.total++;
       sent++;
     } catch (e) {
       sh.getRange(r.row, 7).setValue('Erreur');
@@ -266,14 +280,18 @@ function mfeSend_(sh, cfg, force) {
 function mfeSendTest_(sh, to) {
   var props = PropertiesService.getScriptProperties();
   if (props.getProperty('MFE_TEST_DONE') === to) return 0;   // une seule fois par adresse test
-  var n = 0, done = {};
+  var n = 0, done = {}, variants = ['A', 'B', 'C'];
   mfeRows_(sh).forEach(function (r) {
     var kind = Number(r.values[4]) > 0 ? 'reponses' : 'fiche';
     if (done[kind] || r.values[6] !== 'Pret') return;
-    var d = mfeDraft_(r.values);
-    var tb = '(Mail qui partirait a : ' + r.values[2] + ')\n\n' + d[1];
-    GmailApp.sendEmail(to, '[TEST] ' + d[0], mfeWithSignature_(tb), mfeSendOpts_(tb));
-    done[kind] = true; n++;
+    variants.forEach(function (vr) {
+      if (!mfeMsg_('MFE_CTA_' + vr)) return;
+      var d = mfeDraft_(r.values, vr);
+      var tb = '(Mail qui partirait a : ' + r.values[2] + ' \u2014 variante CTA ' + vr + ')\n\n' + d[1];
+      GmailApp.sendEmail(to, '[TEST ' + vr + '] ' + d[0], mfeWithSignature_(tb), mfeSendOpts_(tb));
+      n++;
+    });
+    done[kind] = true;
   });
   props.setProperty('MFE_TEST_DONE', to);
   return n;
@@ -554,10 +572,53 @@ function mfeSendOpts_(bodySansSignature) {
   return opts;
 }
 
-function mfeDraft_(values) {  // [objet, corps] du 1er mail
+function mfeDraft_(values, variant) {  // [objet, corps, variante] du 1er mail
   var v = mfeVars_(values);
+  variant = variant || 'A';
+  v.CTA = mfeFill_(mfeMsg_('MFE_CTA_' + variant) || mfeMsg_('MFE_CTA_A'), v);
   var body = Number(values[4]) > 0 ? mfeMsg_('MFE_MSG_REPONSES') : mfeMsg_('MFE_MSG_FICHE');
-  return [mfeFill_(mfeMsg_('MFE_MSG_OBJET'), v), mfeFill_(body, v)];
+  return [mfeFill_(mfeMsg_('MFE_MSG_OBJET'), v), mfeFill_(body, v), variant];
+}
+
+// ---------- Test A/B du CTA ----------
+// Variantes actives = cles MFE_CTA_A, _B, _C, _D non vides. Repartition : poids publies par ab_optimizer.py
+// (ab_test.json sur GitHub) ; sans poids, repartition egale. Choix = variante la plus en retard sur sa part.
+function mfeAbPlan_(rows, cfg) {
+  var variants = ['A'];
+  if (cfg.AB_ACTIF) {
+    var st = mfeReadSettings_();
+    variants = ['A', 'B', 'C', 'D'].filter(function (k) { return ('MFE_CTA_' + k) in st ? String(st['MFE_CTA_' + k]).trim() !== '' : k !== 'D'; });
+    if (!variants.length) variants = ['A'];
+  }
+  var weights = {};
+  try {
+    var cache = CacheService.getScriptCache(), raw = cache.get('MFE_AB');
+    if (!raw) {
+      var res = UrlFetchApp.fetch(MFE.AB_URL + '?t=' + Date.now(), { muteHttpExceptions: true });
+      if (res.getResponseCode() === 200) { raw = res.getContentText(); cache.put('MFE_AB', raw, 600); }
+    }
+    if (raw) weights = JSON.parse(raw).weights || {};
+  } catch (e) { Logger.log('ab_test.json illisible : %s', e); }
+  var sum = 0;
+  variants.forEach(function (k) { sum += (weights[k] > 0 ? weights[k] : 0); });
+  var w = {};
+  variants.forEach(function (k) { w[k] = sum > 0 ? (weights[k] > 0 ? weights[k] : 0) / sum : 1 / variants.length; });
+  var counts = {}, total = 0;
+  variants.forEach(function (k) { counts[k] = 0; });
+  rows.forEach(function (r) {
+    var vr = String(r.values[14] || '');
+    if (vr && counts[vr] != null) { counts[vr]++; total++; }
+  });
+  return { variants: variants, weights: w, counts: counts, total: total };
+}
+
+function mfeAbPick_(ab) {
+  var best = ab.variants[0], bestGap = -1e9;
+  ab.variants.forEach(function (k) {
+    var gap = ab.weights[k] * (ab.total + 1) - ab.counts[k];
+    if (gap > bestGap) { bestGap = gap; best = k; }
+  });
+  return best;
 }
 
 function mfeRows_(sh) {
@@ -620,6 +681,7 @@ function mfeSettings_() {
     H_END: parseInt(String(cfg.MFE_HEURES_ENVOI || '8-19').split('-')[1], 10) || 19,
     RELANCE_JOURS: parseInt(cfg.MFE_RELANCE_JOURS, 10) || 0,
     EMAIL_TEST: String(cfg.MFE_EMAIL_TEST || '').trim(),
+    AB_ACTIF: String(cfg.MFE_AB_ACTIF).toUpperCase() !== 'FALSE',
   };
 }
 
@@ -713,6 +775,19 @@ function mfeTendances_(body) {
     ' · Le poids répartit le budget de découverte : plus un secteur répond, plus il est ciblé (plancher d\'exploration conservé).')
     .setFontStyle('italic').setFontColor('#666666');
   sh.setColumnWidth(col + 1, 210);
+  // Bloc "Test A/B du CTA" sous le classement des secteurs (ligne 46)
+  var ab = body.ab;
+  if (ab && ab.rows) {
+    var t2 = 46, h2 = ['Variante', 'Type de CTA', 'Envoyes', 'Rebonds', 'Reponses', 'Taux reponse %', 'Chance d\'etre la meilleure %', 'Part des envois %'];
+    sh.getRange(t2, col, 20, width).clearContent().clearFormat();
+    sh.getRange(t2, col).setValue('Test A/B du CTA (appel \u00e0 l\'action du mail)').setFontWeight('bold').setFontSize(12);
+    sh.getRange(t2 + 1, col, 1, h2.length).setValues([h2]).setFontWeight('bold').setFontColor('#ffffff')
+      .setBackground('#0e7c86').setWrap(true).setVerticalAlignment('middle');
+    if (ab.rows.length) sh.getRange(t2 + 2, col, ab.rows.length, h2.length).setValues(ab.rows);
+    sh.getRange(t2 + 3 + ab.rows.length, col).setValue('Verdict : ' + (ab.verdict || '')).setFontWeight('bold');
+    sh.getRange(t2 + 4 + ab.rows.length, col).setValue('Mis \u00e0 jour ' + (ab.updated || '') + ' \u00b7 La part des envois suit les r\u00e9sultats une fois 30 envois atteints par variante.')
+      .setFontStyle('italic').setFontColor('#666666');
+  }
   return mfeJson_({ ok: true, lignes: rows.length });
 }
 
@@ -851,15 +926,20 @@ function mfeMenuTest() {
   var sh = mfeSheet_(), rows = mfeRows_(sh);
   var exemple = rows.length ? rows[0].values : ['', 'Test Podcast', '', 'https://listenly.fr/podcast-btb/a16z-crypto-show-podcast.html', 0];
   mfeEnsureSettings_();
+  var n = 0;
+  ['A', 'B', 'C'].forEach(function (vr) {
+    if (!mfeMsg_('MFE_CTA_' + vr)) return;
+    var d = mfeDraft_(exemple, vr);
+    GmailApp.sendEmail(moi, '[TEST ' + vr + ' - premier mail] ' + d[0], mfeWithSignature_(d[1]), mfeSendOpts_(d[1]));
+    n++;
+  });
   var v = mfeVars_(exemple), objet = mfeFill_(mfeMsg_('MFE_MSG_OBJET'), v);
-  var t_MFE_MSG_FICHE = mfeFill_(mfeMsg_('MFE_MSG_FICHE'), v);
-  GmailApp.sendEmail(moi, '[TEST 1/3 - premier mail] ' + objet, mfeWithSignature_(t_MFE_MSG_FICHE), mfeSendOpts_(t_MFE_MSG_FICHE));
-  var t_MFE_MSG_REPONSES = mfeFill_(mfeMsg_('MFE_MSG_REPONSES'), v);
-  GmailApp.sendEmail(moi, '[TEST 2/3 - avec reponses] ' + objet, mfeWithSignature_(t_MFE_MSG_REPONSES), mfeSendOpts_(t_MFE_MSG_REPONSES));
-  var t_MFE_MSG_RELANCE = mfeFill_(mfeMsg_('MFE_MSG_RELANCE'), v);
-  GmailApp.sendEmail(moi, '[TEST 3/3 - relance] Re: ' + objet, mfeWithSignature_(t_MFE_MSG_RELANCE), mfeSendOpts_(t_MFE_MSG_RELANCE));
-  mfeAlert_('3 mails test envoyes a ' + moi + '. Textes modifiables dans Reglages (lignes MFE_MSG_*). Expediteur : ' + (mfeFromOpts_().from || moi));
+  var rel = mfeFill_(mfeMsg_('MFE_MSG_RELANCE'), v);
+  GmailApp.sendEmail(moi, '[TEST relance] Re: ' + objet, mfeWithSignature_(rel), mfeSendOpts_(rel));
+  n++;
+  mfeAlert_(n + ' mails test envoyes a ' + moi + ' (1 par variante de CTA + la relance). Textes modifiables dans Reglages (MFE_MSG_*, MFE_CTA_*). Expediteur : ' + (mfeFromOpts_().from || moi));
 }
+
 
 function mfeMenuTestLimite() {
   if (!mfeConfirm_('Envoyer MAINTENANT jusqu’a 3 VRAIS e-mails aux premiers contacts "Pret" (hors horaires) ?')) return;

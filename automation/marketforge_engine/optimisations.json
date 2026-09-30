@@ -4,6 +4,7 @@
   "Ciblage",
   "Envoi et délivrabilité",
   "Mesure",
+  "Mail et test A/B",
   "À faire"
  ],
  "items": [
@@ -66,7 +67,7 @@
   {
    "id": "opt-09",
    "section": "Envoi et délivrabilité",
-   "texte": "Coller le nouveau script dans Apps Script et lancer installer() une fois : active la cadence, le ranking automatique, ce journal automatique et le filtre anti-réponses automatiques. À faire par toi.",
+   "texte": "Coller le nouveau script dans Apps Script et lancer installer() une fois : active la cadence, le ranking automatique, ce journal automatique, le nouveau mail avec test A/B et le filtre anti-réponses automatiques. À faire par toi.",
    "date": "—",
    "statut": "a_faire"
   },
@@ -97,13 +98,6 @@
    "texte": "Journal des optimisations automatique : cet onglet se remplit tout seul depuis le fichier optimisations.json du dépôt, à chaque run (dès que le script Apps Script est recollé).",
    "date": "30/09/2026",
    "statut": "en_cours"
-  },
-  {
-   "id": "opt-14",
-   "section": "À faire",
-   "texte": "Réécrire le mail : accroche sur une vraie question tirée de leur épisode, lien de rendez-vous direct, ton plus court.",
-   "date": "—",
-   "statut": "a_faire"
   },
   {
    "id": "opt-15",
@@ -151,6 +145,34 @@
    "id": "opt-21",
    "section": "À faire",
    "texte": "Nettoyer les cases #REF! de l'onglet Synthèse (ancien onglet « Taxonomie Podcasts B2B » supprimé).",
+   "date": "—",
+   "statut": "a_faire"
+  },
+  {
+   "id": "opt-21",
+   "section": "Mail et test A/B",
+   "texte": "Nouveau corps du mail : plus court, centré sur le bénéfice pour le podcast (15+ réponses que leurs clients cherchent déjà), page Listenly mise en avant, mention de désinscription en P.S. Actif après le collage du script.",
+   "date": "30/09/2026",
+   "statut": "en_cours"
+  },
+  {
+   "id": "opt-22",
+   "section": "Mail et test A/B",
+   "texte": "Test A/B du CTA : 3 variantes en alternance (A question ouverte, B livrable gratuit de 5 questions, C rendez-vous de 15 min). Chaque mail note sa variante dans le Sheet (colonne Variante CTA).",
+   "date": "30/09/2026",
+   "statut": "en_cours"
+  },
+  {
+   "id": "opt-23",
+   "section": "Mail et test A/B",
+   "texte": "Mesure du test A/B : taux de vraies réponses par variante, chance d'être la meilleure ; la répartition s'adapte après 30 envois par variante, gagnant déclaré à 100 envois par variante et 95 % de chances. Résumé dans la Synthèse (ligne 46).",
+   "date": "30/09/2026",
+   "statut": "en_cours"
+  },
+  {
+   "id": "opt-24",
+   "section": "Mail et test A/B",
+   "texte": "Tenir la promesse de la variante B : quand quelqu'un répond « yes », lui envoyer les 5 questions de son dernier épisode (extraction à lancer pour ce podcast).",
    "date": "—",
    "statut": "a_faire"
   }

@@ -129,6 +129,7 @@ def stats():
             "reponse": r.get("Reponse", ""),
             "fiche_url": r.get("Preuve (fiche N1)") or r.get("Page Listenly") or "",
             "queue_rank": queue_rank.get(r.get("Slug")),
+            "variante": r.get("Variante CTA", ""),
         }
         for r in prospect_rows[:300]
     ]
@@ -194,9 +195,14 @@ def tendances():
     rows = [[r["rang"], r["secteur"], r.get("poids_pct"), r.get("delta_pts", 0), r.get("tendance", ""),
              r.get("onboarde", 0), r.get("joignable", 0), r.get("envoye", 0), r.get("rebond", 0),
              r.get("reponse", 0), r.get("taux_reponse")] for r in t["ranking"]]
+    ab = load("automation/marketforge_engine/ab_test.json", {})
+    ab_rows = [[k, d.get("label", ""), d.get("envoye", 0), d.get("rebond", 0), d.get("reponse", 0),
+                d.get("taux_pct") if d.get("taux_pct") is not None else "", d.get("chance_meilleure_pct", 0),
+                d.get("part_envois_pct", 0)] for k, d in (ab.get("variants") or {}).items()]
     res = call(payload={"action": "tendances", "updated": t.get("updated", ""),
                         "envois_total": t.get("envois_total", 0), "reponses_total": t.get("reponses_total", 0),
-                        "rows": rows})
+                        "rows": rows,
+                        "ab": {"rows": ab_rows, "verdict": ab.get("verdict", ""), "updated": ab.get("updated", "")} if ab_rows else None})
     log(f"Classement des tendances envoye a la Synthese : {res}")
 
 
