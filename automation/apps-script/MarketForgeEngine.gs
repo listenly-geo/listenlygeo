@@ -48,7 +48,7 @@ var MFE_DEFAULTS = [
   ['MFE_MINUTES_AUDIO_MAX_JOUR', '600', 'MarketForge Engine — garde-fou minutes audio par jour.'],
   ['MFE_ENVOI_AUTO', 'TRUE', 'MarketForge Engine — TRUE = envoie les mails automatiquement. FALSE = prepare seulement (statut "Pret").'],
   ['MFE_MAX_ENVOIS_JOUR', '1500', 'MarketForge Engine — plafond absolu de premiers mails par jour (limite Google Workspace : 1500).'],
-  ['MFE_MONTEE_PROGRESSIVE', 'TRUE', 'MarketForge Engine — TRUE = 30/j la 1re semaine, 80, 150, 300, 500, 1000 puis plafond (protege la delivrabilite).'],
+  ['MFE_MONTEE_PROGRESSIVE', 'TRUE', 'MarketForge Engine — TRUE = 44/j la 1re semaine (1 mail / 15 min), 80, 150, 300, 500, 1000 puis plafond (protege la delivrabilite).'],
   ['MFE_HEURES_ENVOI', '8-19', 'MarketForge Engine — plage horaire d\'envoi (heure du script), mails repartis sur la plage.'],
   ['MFE_EMAIL_TEST', '', 'MarketForge Engine — MODE TEST : si une adresse est saisie ici, TOUS les mails partent vers elle (objet prefixe [TEST]) et les prospects restent "Pret". Vider la case pour passer en reel.'],
   ['MFE_MAX_REBONDS', '3', 'MarketForge Engine — au-dela de N mails bloques/rebonds sur 3 jours, l\'envoi automatique se met en pause (MFE_ENVOI_AUTO passe a FALSE).'],
@@ -132,7 +132,7 @@ function installer() {
              props.getProperty('MFE_SECRET'), props.getProperty('MFE_SECRET'));
   ScriptApp.getProjectTriggers().forEach(function (t) {
     var f = t.getHandlerFunction();
-    if (f === 'marketforgeEngineQuotidien' || f === 'mfeOnOpen') ScriptApp.deleteTrigger(t);
+    if (f === 'marketforgeEngineQuotidien' || f === 'marketforgeEngineEnvoi' || f === 'mfeOnOpen') ScriptApp.deleteTrigger(t);
   });
   // Menu "MarketForge Engine" : declencheur d'ouverture installable (ne remplace pas l'onOpen existant)
   ScriptApp.newTrigger('mfeOnOpen').forSpreadsheet(mfeSS_()).onOpen().create();
@@ -140,10 +140,32 @@ function installer() {
   // Toutes les heures : les prospects arrivent dans le tableau au plus 1 h apres chaque run GitHub
   // (instantanement si le pont application web est branche). Le plafond d'envois reste journalier.
   ScriptApp.newTrigger('marketforgeEngineQuotidien').timeBased().everyHours(1).create();
+  // Envoi seul, toutes les 15 min : 1 mail par creneau (au lieu d'une rafale a chaque heure pleine)
+  ScriptApp.newTrigger('marketforgeEngineEnvoi').timeBased().everyMinutes(15).create();
   marketforgeEngineQuotidien();
 }
 
+// Envoi cadence : appele toutes les 15 min. Ne fait QUE l'envoi des premiers mails
+// (le plafond du jour est reparti par creneaux de 15 min sur la plage horaire).
+function marketforgeEngineEnvoi() {
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(30000)) return;   // le traitement horaire tourne : ce creneau sera rattrape au suivant
+  try {
+    var cfg = mfeSettings_();
+    if (!cfg.ENVOI_AUTO || cfg.EMAIL_TEST) return;
+    mfeSend_(mfeSheet_(), cfg);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
 function marketforgeEngineQuotidien() {
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(60000)) return;
+  try { mfeQuotidien_(); } finally { lock.releaseLock(); }
+}
+
+function mfeQuotidien_() {
   var sh = mfeSheet_();
   var cfg = mfeSettings_();
   var added = mfeImport_(sh, null);
@@ -151,7 +173,7 @@ function marketforgeEngineQuotidien() {
     Logger.log('MODE TEST : %s mail(s) test envoye(s) a %s', mfeSendTest_(sh, cfg.EMAIL_TEST), cfg.EMAIL_TEST);
     return;
   }
-  var sent = cfg.ENVOI_AUTO ? mfeSend_(sh, cfg) : 0;
+  var sent = 0;   // l'envoi des premiers mails est fait par marketforgeEngineEnvoi (toutes les 15 min)
   var replies = mfeCheckReplies_(sh);
   var relances = (cfg.ENVOI_AUTO && cfg.RELANCE_JOURS > 0) ? mfeFollowUp_(sh, cfg.RELANCE_JOURS) : 0;
   Logger.log('MarketForge Engine : %s ajoute(s), %s envoye(s), %s reponse(s), %s relance(s)', added, sent, replies, relances);
@@ -192,12 +214,12 @@ function mfeDailyCap_(cfg) {
   var start = props.getProperty('MFE_START');
   if (!start) { start = String(Date.now()); props.setProperty('MFE_START', start); }
   var week = Math.floor((Date.now() - Number(start)) / (7 * 86400000));
-  var steps = [30, 80, 150, 300, 500, 1000];
+  var steps = [44, 80, 150, 300, 500, 1000];   // 44/j = 1 mail toutes les 15 min sur 8h-19h
   return Math.min(cfg.MAX_ENVOIS_JOUR, week < steps.length ? steps[week] : cfg.MAX_ENVOIS_JOUR);
 }
 
 function mfeSend_(sh, cfg, force) {
-  var now = new Date(), h = now.getHours();
+  var now = new Date(), h = now.getHours(), min = now.getMinutes();
   if (!force && (h < cfg.H_START || h >= cfg.H_END)) return 0;   // hors plage horaire
   var daily = mfeDailyCap_(cfg);
   var today = now.toDateString();
@@ -206,8 +228,10 @@ function mfeSend_(sh, cfg, force) {
     return r.values[7] && new Date(r.values[7]).toDateString() === today;
   }).length;
   // Repartition sur la plage : a l'heure h, on ne depasse pas la part proportionnelle du jour
-  var span = cfg.H_END - cfg.H_START;
-  var allowedSoFar = Math.ceil(daily * (h - cfg.H_START + 1) / span);
+  // (creneaux de 15 min : a 44/j, exactement 1 mail par quart d'heure)
+  var slots = (cfg.H_END - cfg.H_START) * 4;
+  var slot = (h - cfg.H_START) * 4 + Math.floor(min / 15) + 1;
+  var allowedSoFar = Math.ceil(daily * slot / slots);
   var budget = Math.max(0, Math.min(daily, allowedSoFar) - sentToday);
   if (force) budget = force === true ? Math.max(0, daily - sentToday) : Math.min(force, Math.max(0, daily - sentToday));
   var sent = 0;
@@ -701,7 +725,7 @@ function mfeOnOpen() {
     .addItem('Traiter la file maintenant (envoi hors horaires)', 'mfeMenuTraiter')
     .addItem('Vérifier réponses + relances maintenant', 'mfeMenuRelances')
     .addSeparator()
-    .addItem('Activer l’automatique (toutes les heures)', 'installer')
+    .addItem('Activer l’automatique (envoi toutes les 15 min)', 'installer')
     .addItem('Créer / réparer les réglages MFE_*', 'mfeMenuReglages')
     .addItem('Enregistrer le token GitHub', 'mfeMenuToken')
     .addItem('Enregistrer la clé MyEmailVerifier (vérification des emails)', 'mfeMenuVerifKey')
@@ -807,7 +831,7 @@ function mfeMenuReglages() {
 
 function mfeMenuDesactiver() {
   ScriptApp.getProjectTriggers().forEach(function (t) {
-    if (t.getHandlerFunction() === 'marketforgeEngineQuotidien') ScriptApp.deleteTrigger(t);
+    if (t.getHandlerFunction() === 'marketforgeEngineQuotidien' || t.getHandlerFunction() === 'marketforgeEngineEnvoi') ScriptApp.deleteTrigger(t);
   });
   mfeAlert_('Envoi automatique desactive (le menu reste disponible). Pour reactiver : "Activer l’automatique".');
 }
