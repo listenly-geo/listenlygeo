@@ -663,6 +663,7 @@ function doPost(e) {
   var p = (e && e.parameter) || {};
   if (!mfeAuth_(p.secret || body.secret)) return mfeJson_({ ok: false, error: 'secret invalide' });
   if (body.action === 'tendances') return mfeTendances_(body);
+  if (body.action === 'optimisations') return mfeOptimisations_(body);
   if (body.action !== 'report') return mfeJson_({ ok: false, error: 'action inconnue (report, tendances)' });
 
   var lock = LockService.getScriptLock(); lock.waitLock(30000);
@@ -712,6 +713,30 @@ function mfeTendances_(body) {
     ' · Le poids répartit le budget de découverte : plus un secteur répond, plus il est ciblé (plancher d\'exploration conservé).')
     .setFontStyle('italic').setFontColor('#666666');
   sh.setColumnWidth(col + 1, 210);
+  return mfeJson_({ ok: true, lignes: rows.length });
+}
+
+// Journal des optimisations -> onglet 'Optimisations' (colonnes A a C, a partir de la ligne 5).
+// Les liste deroulante / couleurs de la colonne Statut sont conservees (seuls contenu + mise en forme des lignes sont reecrits).
+function mfeOptimisations_(body) {
+  var sh = mfeSS_().getSheetByName('Optimisations');
+  if (!sh) return mfeJson_({ ok: false, error: 'onglet Optimisations introuvable' });
+  var rows = body.rows || [];
+  var first = 5;
+  sh.getRange(first, 1, 80, 3).clearContent().clearFormat();
+  sh.getRange(2, 1).setValue('\u2705 Valid\u00e9   \u00b7   \u26a0\ufe0f En cours / \u00e0 surveiller   \u00b7   \u274c Pas encore fait   \u2014   derni\u00e8re mise \u00e0 jour : ' + (body.updated || ''));
+  var values = rows.map(function (r) { return r.section ? [String(r.section).toUpperCase(), '', ''] : [r.texte, r.date, r.statut]; });
+  if (values.length) {
+    var rng = sh.getRange(first, 1, values.length, 3);
+    rng.setValues(values).setWrap(true).setVerticalAlignment('middle').setFontSize(11);
+    sh.getRange(first, 2, values.length, 2).setHorizontalAlignment('center');
+    rng.setBorder(null, null, true, null, null, true, '#e0e0e0', SpreadsheetApp.BorderStyle.SOLID);
+    rows.forEach(function (r, i) {
+      if (r.section) sh.getRange(first + i, 1, 1, 3).setBackground('#e6f2f5').setFontWeight('bold').setFontColor('#0e5966');
+    });
+    sh.getRange(first, 3, values.length, 1).setDataValidation(SpreadsheetApp.newDataValidation()
+      .requireValueInList(['\u2705 Valid\u00e9', '\u26a0\ufe0f En cours', '\u274c Pas encore fait'], true).setAllowInvalid(true).build());
+  }
   return mfeJson_({ ok: true, lignes: rows.length });
 }
 

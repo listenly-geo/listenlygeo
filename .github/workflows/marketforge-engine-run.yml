@@ -72,6 +72,7 @@ jobs:
         run: |
           python automation/scripts/targeting_optimizer.py
           python automation/scripts/sheet_bridge.py tendances
+          python automation/scripts/sheet_bridge.py optimisations
 
       - name: 1. Decouverte
         if: steps.cfg.outputs.pause != 'true' && steps.cfg.outputs.discover_max != '0'

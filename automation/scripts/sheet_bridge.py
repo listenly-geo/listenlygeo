@@ -200,12 +200,31 @@ def tendances():
     log(f"Classement des tendances envoye a la Synthese : {res}")
 
 
+def optimisations():
+    """Envoie le journal des optimisations (optimisations.json) vers l'onglet 'Optimisations' du Sheet."""
+    j = load("automation/marketforge_engine/optimisations.json", {})
+    items = j.get("items", [])
+    if not items:
+        log("optimisations.json vide -- rien a envoyer.")
+        return
+    label = {"valide": "\u2705 Valid\u00e9", "en_cours": "\u26a0\ufe0f En cours", "a_faire": "\u274c Pas encore fait"}
+    rows = []
+    for sec in j.get("sections", []):
+        rows.append({"section": sec})
+        for it in items:
+            if it.get("section") == sec:
+                rows.append({"texte": it["texte"], "date": it.get("date", "\u2014"),
+                             "statut": label.get(it.get("statut"), label["a_faire"])})
+    res = call(payload={"action": "optimisations", "updated": datetime.date.today().strftime("%d/%m/%Y"), "rows": rows})
+    log(f"Journal des optimisations envoye au Sheet : {res}")
+
+
 if __name__ == "__main__":
     if not URL:
         log("MFE_SHEET_URL absent — pont Sheet desactive, rien a faire.")
         sys.exit(0)
     try:
-        {"pull": pull, "push": push, "stats": stats, "tendances": tendances}[sys.argv[1]]()
+        {"pull": pull, "push": push, "stats": stats, "tendances": tendances, "optimisations": optimisations}[sys.argv[1]]()
     except Exception as e:  # ne bloque jamais le run
         log(f"AVERTISSEMENT : pont Sheet en echec ({e})")
         print(f"::warning title=Pont Sheet ({sys.argv[1]})::{str(e)[:300]}")
