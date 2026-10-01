@@ -17,6 +17,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: pip install -q google-auth requests
+      - name: Secrets clasp disponibles (noms seulement, jamais les valeurs)
+        env:
+          C1: ${{ secrets.CLASPRC_JSON }}
+          C2: ${{ secrets.CLASPRC }}
+          C3: ${{ secrets.CLASP_RC }}
+          C4: ${{ secrets.CLASP_CREDENTIALS }}
+          C5: ${{ secrets.CLASP_TOKEN }}
+          C6: ${{ secrets.APPS_SCRIPT_CLASPRC }}
+          C7: ${{ secrets.CLASPRC_JSON_B64 }}
+        run: |
+          for n in 1 2 3 4 5 6 7; do v="C$n"; [ -n "${!v}" ] && echo "::notice title=Secret clasp::present: variante $n"; done
+          echo "verification des secrets clasp terminee"
       - name: Lecture / déploiement
         env:
           SA_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
