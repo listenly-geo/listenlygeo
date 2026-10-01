@@ -19,6 +19,17 @@ LABEL = {"extrait": "Prospect : questions extraites", "en_attente": "Prospect : 
 ORDER = {"extrait": 0, "en_attente": 1, "contact": 2}
 
 
+def rank_key(slug, date, queue_status, coverage=""):
+    """Cle de tri partagee avec seo_watch.py (liste quotidienne des 10 N1). Plus petit = plus prioritaire.
+    Les N1 deja explorees mais refusees par Google passent en dernier (inutile de les redemander telles quelles)."""
+    refused = 1 if (coverage or "").startswith("Crawled") else 0
+    if queue_status in ORDER:
+        return (refused, 1, ORDER[queue_status], date, slug)
+    if date and date < CUTOFF:
+        return (refused, 2, 0, date, slug)
+    return (refused, 3, 0, date, slug)
+
+
 def main():
     pods = hc.load(f"{D}/podcasts.json", [])
     st = hc.load(f"{D}/gsc_hub_status.json", {})

@@ -47,7 +47,15 @@ def main():
     recent = datetime.date.today() - datetime.timedelta(days=30)
     cand = [p for p in podcasts if p.get("slug") in hub and hub[p["slug"]].get("date")
             and not hub[p["slug"]].get("indexed_on") and p["slug"] not in listed and p.get("fiche_url")]
-    cand.sort(key=lambda p: (str(p.get("date", ""))[:10], p["slug"]), reverse=True)
+    # 01/10/2026 : ordre de priorite = prospects d'abord (extraits > en attente > deja contactes), puis N1 anciennes
+    # jamais explorees, puis le reste (les plus anciennes d'abord) ; les refusees par Google en dernier.
+    try:
+        import n1_priority as _np
+        _q = load("automation/marketforge_engine/queue.json", {"podcasts": {}}).get("podcasts", {})
+        cand.sort(key=lambda p: _np.rank_key(p["slug"], str(p.get("date", ""))[:10], _q.get(p["slug"], {}).get("status", ""),
+                                             hub[p["slug"]].get("coverage", "")))
+    except Exception:  # noqa: BLE001  (garde-fou : ancien tri si le module de priorite est indisponible)
+        cand.sort(key=lambda p: (str(p.get("date", ""))[:10], p["slug"]), reverse=True)
     pick = cand[:10]
     for p_ in pick:
         listed[p_["slug"]] = today

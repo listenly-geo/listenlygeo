@@ -7,6 +7,8 @@
 # decouverte/indexee par Google vers la fiche N1, pour transferer son
 # autorite au lieu de la perdre (evite les 404 sur des URLs deja crawlees).
 RewriteEngine On
+# 01/10/2026 : page orpheline (aucune fiche correspondante), Google la signalait en echec -> 410 (retiree definitivement)
+RewriteRule ^ogd6etwxpdgr-podcast\.html$ - [G,L]
 RewriteRule ^questions/([^/]+)/index\.html$ /podcast-btb/$1-podcast.html [R=301,L]
 
 # Ajout du 08/09/2026 : meme logique pour les anciennes pages index par episode
