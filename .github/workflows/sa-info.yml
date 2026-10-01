@@ -19,4 +19,5 @@ jobs:
           d = json.loads(os.environ["SA"])
           print("client_email =", d.get("client_email"))
           print("project_id   =", d.get("project_id"))
+          print("::notice title=SA::email=%s project=%s" % (d.get("client_email"), d.get("project_id")))
           PY
