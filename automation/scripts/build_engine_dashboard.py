@@ -65,13 +65,26 @@ def main():
             f'<div class="bar-track"><div class="bar{" today" if d == today else ""}" style="height:{h}%"></div></div>'
             f'<div class="bar-x">{d.day}</div></div>')
 
-    # --- Prospects ---
-    qp = queue.get("podcasts", {})
-    st = collections.Counter(p.get("status") for p in qp.values())
-    with_email = sum(1 for p in qp.values() if p.get("email"))
-    no_email = st.get("sans_email", 0)
-    email_rate = round(with_email / len(qp) * 100) if qp else 0
-    today_contacts = sum(1 for p in qp.values() if p.get("email") and p.get("added") == today.isoformat())
+    # --- Indexation Google des fiches hub (statut Search Console, releve par le moteur) ---
+    hub_status = load(f"{PAGES}/data/gsc_hub_status.json", {})
+    hub_idx = sum(1 for v in hub_status.values() if v.get("indexed_on"))
+    hub_refused = sum(1 for v in hub_status.values() if str(v.get("coverage", "")).startswith("Crawled"))
+    hub_unknown = sum(1 for v in hub_status.values() if "unknown" in str(v.get("coverage", "")).lower())
+    hub_checked = sum(1 for v in hub_status.values() if v.get("date"))
+    hub_pct = round(hub_idx / total * 100) if total else 0
+    cohorts = collections.OrderedDict()
+    for p in sorted(podcasts, key=lambda p: str(p.get("date", ""))):
+        m = str(p.get("date", ""))[:7]
+        if not m:
+            continue
+        c = cohorts.setdefault(m, [0, 0])
+        c[0] += 1
+        c[1] += 1 if hub_status.get(p.get("slug"), {}).get("indexed_on") else 0
+    MOIS = {"01": "janv.", "02": "févr.", "03": "mars", "04": "avr.", "05": "mai", "06": "juin", "07": "juil.",
+            "08": "août", "09": "sept.", "10": "oct.", "11": "nov.", "12": "déc."}
+    cohort_rows = "".join(
+        f'<div><span>Créées en {MOIS.get(m[5:], m[5:])} {m[:4]} ({fr_num(n)})</span><b>{fr_num(i)} indexées · {round(i / n * 100)} %</b></div>'
+        for m, (n, i) in list(cohorts.items())[-4:])
 
     # --- Regroupement Google ---
     redirected = len(consolidated.get("paths", []))
@@ -103,13 +116,6 @@ def main():
     recent = sorted(podcasts, key=lambda p: str(p.get("date", "")), reverse=True)[:24]
     cards = []
     for p in recent:
-        q = qp.get(p.get("slug"), {})
-        if q.get("email"):
-            badge = '<span class="pill ok">Email trouvé</span>'
-        elif q:
-            badge = '<span class="pill">Sans email</span>'
-        else:
-            badge = ''
         try:
             dd = fr_date(datetime.date.fromisoformat(str(p.get("date"))[:10]))
         except ValueError:
@@ -118,163 +124,7 @@ def main():
         cards.append(
             f'<a class="item" href="{e(p.get("fiche_url"))}" target="_blank" rel="noopener">{cover}'
             f'<div class="meta"><div class="t">{e(p.get("podcast_name"))}</div>'
-            f'<div class="s">{e(p.get("categorie"))} · {dd}</div></div>{badge}</a>')
-
-    # --- Avancement par prospect (colonne "ou ca en est", claire) ---
-    STATUT_PILL = {
-        "Repondu": "ok", "Envoye": "", "Relance": "", "Pret": "",
-        "Rebond": "warn", "Email invalide": "warn", "Erreur": "warn", "Deja en prospection": "",
-    }
-    STATUT_LABEL = {
-        "Pret": "Prêt", "Envoye": "Envoyé", "Relance": "Relancé", "Repondu": "Répondu",
-        "Rebond": "Bloqué", "Email invalide": "Email invalide", "Erreur": "Erreur d'envoi",
-        "Deja en prospection": "Déjà contacté",
-    }
-
-    def fmt_dt(v):
-        v = str(v or "").strip()
-        if len(v) < 10 or not v[:4].isdigit():
-            return ""
-        try:
-            d = datetime.datetime.fromisoformat(v.replace("Z", "+00:00"))
-            if d.tzinfo:
-                d = d.astimezone(datetime.timezone(datetime.timedelta(hours=2))).replace(tzinfo=None)
-            return f"{fr_date(d.date())} à {d:%H:%M}" if (d.hour or d.minute) else fr_date(d.date())
-        except ValueError:
-            return v[:10]
-
-    def eta_hour(rank, cap, sent_today, h_start, h_end):
-        """Heure estimee d'envoi d'un prospect 'Pret', selon la meme repartition que mfeSend_
-        (mfeDailyCap_ cote Apps Script) : proportion du plafond du jour deja ouverte a chaque heure."""
-        span = h_end - h_start
-        if not cap or span <= 0 or rank is None:
-            return None
-        position = sent_today + rank  # position cumulee dans les envois du jour
-        if position > cap:
-            return None  # ne partira pas aujourd'hui (au-dela du plafond du jour)
-        for h in range(h_start, h_end):
-            if math.ceil(cap * (h - h_start + 1) / span) >= position:
-                return h
-        return h_end - 1
-
-    def advancement(r, envoi_auto, heures, cap=None, sent_today=None):
-        st = r.get("statut", "")
-        if st == "Repondu":
-            return f"Répondu le {fmt_dt(r.get('reponse')) or '—'}"
-        if st == "Rebond":
-            return "Bloqué — adresse invalide, aucune relance ne partira"
-        if st == "Email invalide":
-            return "Écarté avant envoi — adresse invalide"
-        if st == "Erreur":
-            return "Erreur technique à l'envoi — sera retentée"
-        if st == "Relance":
-            return f"Relancé le {fmt_dt(r.get('relance_le')) or '—'} · en attente de réponse"
-        if st == "Envoye":
-            return f"Envoyé le {fmt_dt(r.get('envoye_le')) or '—'} · en attente de réponse"
-        if st == "Deja en prospection":
-            return "Déjà contacté par une prospection précédente"
-        if st == "Pret":
-            if not envoi_auto:
-                return "Prêt · envoi automatique en pause (rien ne part)"
-            try:
-                h_start, h_end = (int(x) for x in str(heures).split("-"))
-            except ValueError:
-                h_start, h_end = 8, 19
-            eta = eta_hour(r.get("queue_rank"), cap, sent_today, h_start, h_end) if cap else None
-            if eta is None:
-                return (f"Prêt · partira au prochain passage du moteur ({heures}h, plage horaire)" if not cap
-                        else "Prêt · au-delà du plafond du jour, partira un jour prochain")
-            if eta <= now.hour:
-                return f"Prêt · devrait partir dans l'heure (créneau ~{eta}h)"
-            return f"Prêt · prévu aujourd'hui vers {eta}h"
-        return st or "—"
-
-    prospect_table_html = ""
-
-    # --- Prospection (chiffres agreges du Google Sheet, via sheet_bridge.py stats) ---
-    ps = load("automation/marketforge_engine/prospection_stats.json", None)
-    if ps:
-        sbd, rbd = ps.get("sent_by_day", {}), ps.get("replies_by_day", {})
-        sent_total, rep_total = ps.get("sent_total", 0), ps.get("replies_total", 0)
-        stt = ps.get("status", {})
-        bounces = stt.get("Rebond", 0)
-        bounce_rate = f"{bounces / sent_total * 100:.1f}".replace(".", ",") if sent_total else "0"
-        # Taux depuis l'anti-rebond (28/09/2026) : le lot du 27/09 partait avant les DNS + filtres
-        bbd = ps.get("bounces_by_day", {})
-        s_new = sum(v for d, v in sbd.items() if d >= "2026-09-28")
-        b_new = sum(v for d, v in bbd.items() if d >= "2026-09-28")
-        bounce_rate_new = f"{b_new / s_new * 100:.1f}".replace(".", ",") if s_new else "0"
-        rejected = stt.get("Email invalide", 0) + sum(1 for p in qp.values() if p.get("email_rejete"))
-        sent_today = sbd.get(today.isoformat(), 0)
-        rep_rate = f"{rep_total / sent_total * 100:.1f}".replace(".", ",") if sent_total else "0"
-        pmax = max([sbd.get(d.isoformat(), 0) for d in days14] + [1])
-        pbars = []
-        for d in days14:
-            v, r = sbd.get(d.isoformat(), 0), rbd.get(d.isoformat(), 0)
-            h = max(2, round(v / pmax * 100)) if v else 0
-            label = f"{DAYS[d.weekday()]} {fr_date(d)} : {v} envoi{'s' if v > 1 else ''}, {r} réponse{'s' if r > 1 else ''}"
-            pbars.append(
-                f'<div class="bar-col" tabindex="0" aria-label="{e(label)}"><div class="tip">{e(label)}</div>'
-                f'<div class="bar-track"><div class="bar{" today" if d == today else ""}" style="height:{h}%"></div></div>'
-                f'<div class="bar-x">{d.day}</div></div>')
-        envoi = ('<span class="pill ok">Envoi automatique actif</span>' if ps.get("envoi_auto")
-                 else '<span class="pill">Envoi automatique en pause</span>')
-
-        # --- Tableau "ou ca en est" par prospect ---
-        heures = ps.get("heures_envoi") or "8-19"
-        cap_jour = ps.get("cap_jour_effectif")
-        sent_today_eff = ps.get("envoyes_aujourdhui") or 0
-        prow = []
-        for r in ps.get("prospects", [])[:60]:
-            st = r.get("statut", "")
-            pill_kind = STATUT_PILL.get(st, "")
-            pill = f'<span class="pill{" " + pill_kind if pill_kind else ""}">{e(STATUT_LABEL.get(st, st or "—"))}</span>'
-            adv = advancement(r, ps.get("envoi_auto"), heures, cap_jour, sent_today_eff)
-            url = r.get("fiche_url") or ""
-            name = e(r.get("podcast") or r.get("slug"))
-            name_cell = f'<a href="{e(url)}" target="_blank" rel="noopener">{name}</a>' if url else name
-            onclick = f" onclick=\"window.open('{e(url)}','_blank')\" style=\"cursor:pointer\"" if url else ""
-            prow.append(
-                f'<tr{onclick}><td class="t1">{name_cell}</td>'
-                f'<td>{pill}</td><td class="t3">{e(adv)}</td></tr>')
-        prospect_table_html = f"""
-  <h2>Où ça en est</h2>
-  <div class="card" style="padding:0;overflow:hidden">
-    <table class="track">
-      <thead><tr><th>Podcast</th><th>Statut</th><th>Avancement</th></tr></thead>
-      <tbody>{''.join(prow) or '<tr><td colspan="3" class="muted" style="padding:16px 24px">Rien a afficher pour le moment.</td></tr>'}</tbody>
-    </table>
-  </div>""" if prow else """
-  <h2>Où ça en est</h2>
-  <div class="card muted">Le détail par prospect apparaîtra ici dès le prochain passage du moteur.</div>"""
-
-        prospection_html = f"""
-  <h2>Prospection</h2>
-  <div class="grid">
-    <div class="card kpi"><div class="label">Emails envoyés</div><div class="value">{fr_num(sent_total)}</div><div class="hint">+{sent_today} aujourd'hui</div></div>
-    <div class="card kpi"><div class="label">Relances</div><div class="value">{fr_num(ps.get("followups_total", 0))}</div><div class="hint">J+4 sans réponse</div></div>
-    <div class="card kpi"><div class="label">Réponses</div><div class="value">{fr_num(rep_total)}</div><div class="hint">taux de réponse {rep_rate} %</div></div>
-    <div class="card kpi"><div class="label">Prêts à envoyer</div><div class="value">{fr_num(stt.get("Pret", 0))}</div><div class="hint">dans le Google Sheet</div></div>
-  </div>
-  <div class="two" style="margin-top:16px">
-    <div class="card">
-      <div class="chart-head"><b>Emails envoyés par jour</b><span>14 derniers jours</span></div>
-      <div class="bars" role="img" aria-label="Emails envoyés par jour sur 14 jours">{''.join(pbars)}</div>
-    </div>
-    <div class="card stack">
-      <div><span>Statut</span>{envoi}</div>
-      <div><span>Plafond d'envois / jour</span><b>{e(ps.get("max_envois_jour") or "—")}</b></div>
-      <div><span>Taux de rebond depuis l'anti-rebond (28/09)</span><b>{bounce_rate_new} % <small class="muted">({b_new}/{s_new} — objectif &lt; 3 %)</small></b></div>
-      <div><span>Rebonds au total (dont lot du 27/09 avant correctifs)</span><b>{fr_num(bounces)} <small class="muted">({bounce_rate} %)</small></b></div>
-      <div><span>Adresses écartées (anti-rebond)</span><b>{fr_num(rejected)}</b></div>
-      <div><span>Déjà contactés (ancienne prospection)</span><b>{fr_num(stt.get("Deja en prospection", 0))}</b></div>
-      <div><span>Prospects dans le Sheet</span><b>{fr_num(ps.get("total", 0))}</b></div>
-    </div>
-  </div>"""
-    else:
-        prospection_html = """
-  <h2>Prospection</h2>
-  <div class="card muted">Le suivi des envois apparaîtra ici dès le prochain passage du moteur (lien Google Sheet → GitHub).</div>"""
+            f'<div class="s">{e(p.get("categorie"))} · {dd}</div></div></a>')
 
     running = not config.get("pause")
     pill = ('<span class="state on"><i></i>En marche</span>' if running
@@ -286,7 +136,7 @@ def main():
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>MarketForge Engine</title>
+<title>Moteur trafic</title>
 <style>
 :root {{
   --bg:#f5f5f7; --card:#ffffff; --ink:#1d1d1f; --ink2:#6e6e73; --ink3:#86868b;
@@ -386,9 +236,9 @@ footer a {{ color:var(--ink2); }}
 <div class="wrap">
   <header>
     <div>
-      <p class="eyebrow">MarketForge Engine · Listenly</p>
+      <p class="eyebrow">Moteur trafic · Listenly</p>
       <h1>Tableau de bord</h1>
-      <p class="sub">Fiches hub, prospects et visibilité Google — mis à jour le {fr_date(today)} à {now:%H:%M}.</p>
+      <p class="sub">Fiches hub et visibilité Google — mis à jour le {fr_date(today)} à {now:%H:%M}.</p>
     </div>
     <div class="actions">
       <a class="btn" href="https://docs.google.com/spreadsheets/d/1b53cWGiz6iOuakpotw_Ck4bQBeIMJa3hfq5gP2mFiT4/edit" target="_blank" rel="noopener">Ouvrir le Google Sheet ↗</a>
@@ -401,9 +251,19 @@ footer a {{ color:var(--ink2); }}
     <div class="hero-label">podcasts référencés</div>
   </div>
 
-{prospection_html}
-
-{prospect_table_html}
+  <h2>Indexation Google des fiches hub</h2>
+  <div class="two">
+    <div class="card">
+      <div class="chart-head"><b>Fiches hub indexées par Google</b><span>Statut Search Console</span></div>
+      <div class="kpi"><div class="value">{fr_num(hub_idx)} <span class="muted" style="font-size:20px;font-weight:500">/ {fr_num(total)}</span></div></div>
+      <div class="progress"><div style="width:{hub_pct}%"></div></div>
+      <div class="muted" style="font-size:13px">{hub_pct} % des fiches hub sont dans Google · {fr_num(hub_unknown)} encore inconnues de Google · {fr_num(hub_refused)} explorées mais refusées</div>
+    </div>
+    <div class="card stack">
+      <div><span>Fiches hub vérifiées dans Search Console</span><b>{fr_num(hub_checked)} / {fr_num(total)}</b></div>
+      {cohort_rows}
+    </div>
+  </div>
 
   <h2>Production</h2>
   <div class="two">
@@ -412,10 +272,9 @@ footer a {{ color:var(--ink2); }}
       <div class="bars" role="img" aria-label="Fiches hub créées par jour sur 14 jours">{''.join(bars)}</div>
     </div>
     <div class="card stack">
-      <div><span>Podcasts suivis par le moteur</span><b>{fr_num(len(qp))}</b></div>
-      <div><span>Email trouvé</span><b>{fr_num(with_email)}</b></div>
-      <div><span>Sans email</span><b>{fr_num(no_email)}</b></div>
-      <div><span>Taux d'email trouvé</span><b>{email_rate} %</b></div>
+      <div><span>Fiches hub au total</span><b>{fr_num(total)}</b></div>
+      <div><span>Créées aujourd'hui</span><b>{fr_num(today_n)}</b></div>
+      <div><span>Créées ces 7 derniers jours</span><b>{fr_num(last7)}</b></div>
       <div><span>Découverte par passage</span><b>{config.get("decouverte_max_par_jour", "—")} max</b></div>
     </div>
   </div>
@@ -458,7 +317,7 @@ footer a {{ color:var(--ink2); }}
 """
     with open(OUT, "w", encoding="utf-8") as f:
         f.write(doc)
-    print(f"[engine-dashboard] {OUT} : {total} hubs, {today_n} aujourd'hui, {with_email} prospects avec email.")
+    print(f"[engine-dashboard] {OUT} : {total} hubs, {today_n} aujourd'hui, {hub_idx} indexées.")
 
 
 if __name__ == "__main__":
