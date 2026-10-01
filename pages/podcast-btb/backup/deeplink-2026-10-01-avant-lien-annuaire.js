@@ -200,23 +200,3 @@
     })
     .catch(function () {});
 })();
-
-// Lien discret vers l'annuaire des podcasts (chemin crawlable pour Google vers les fiches N1) -- 01/10/2026
-(function () {
-  try {
-    if (location.pathname !== '/' && location.pathname !== '/index.html') return;
-    function add() {
-      if (document.getElementById('dl-annuaire')) return;
-      var p = document.createElement('p');
-      p.id = 'dl-annuaire';
-      p.style.cssText = 'text-align:center;margin:28px 16px 20px;font:13px/1.4 -apple-system,Helvetica,Arial,sans-serif;';
-      var a = document.createElement('a');
-      a.href = '/podcast-btb/index.html';
-      a.textContent = 'B2B podcast directory — browse all podcasts';
-      a.style.cssText = 'color:#86868B;text-decoration:underline;';
-      p.appendChild(a);
-      document.body.appendChild(p);
-    }
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', add); else add();
-  } catch (e) {}
-})();

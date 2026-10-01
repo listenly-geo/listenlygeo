@@ -391,6 +391,38 @@
    "texte": "Maillage interne : chaque fiche N1 reçoit 6 liens « podcasts similaires » vers d'autres hubs de sa catégorie, et la page d'index liste les 30 derniers hubs ajoutés. Google peut ainsi atteindre chaque hub par des liens, pas seulement par le sitemap. Les 77 hubs déjà indexés ou visibles dans Google ne sont pas touchés. Actif à chaque run.",
    "date": "01/10/2026",
    "statut": "en_cours"
+  },
+  {
+   "id": "opt-39",
+   "section": "Mesure",
+   "version": "V1.2",
+   "texte": "Compteur de backlinks réel : chaque jour, le moteur regarde si les podcasts contactés ont posé un lien vers listenly.fr (notes d'épisodes ou site). Le chiffre apparaît dans le rapport du soir et dans la veille Google (avant : 0 codé en dur, rien n'était mesuré).",
+   "date": "01/10/2026",
+   "statut": "en_cours"
+  },
+  {
+   "id": "opt-40",
+   "section": "Mail et CTA",
+   "version": "V1.2",
+   "texte": "Relance à J+4 : ajout d'une demande douce de lien (« un lien vers la page depuis votre site ou vos notes d'épisodes l'aiderait à être indexée »). Le 1er mail reste inchangé pour ne pas baisser le taux de réponse.",
+   "date": "01/10/2026",
+   "statut": "en_cours"
+  },
+  {
+   "id": "opt-41",
+   "section": "Mesure",
+   "version": "V1.2",
+   "texte": "Suivi du trafic venant des IA (ChatGPT, Perplexity, Gemini, Claude…) via Plausible, ajouté au rapport du soir. Code prêt ; s'active dès que la clé API Plausible est ajoutée dans les secrets GitHub (PLAUSIBLE_API_KEY).",
+   "date": "01/10/2026",
+   "statut": "a_faire"
+  },
+  {
+   "id": "opt-42",
+   "section": "Mesure",
+   "version": "V1.2",
+   "texte": "Lien discret « annuaire des podcasts » ajouté en bas de la page d'accueil listenly.fr (via le script déjà installé) : Google a enfin un chemin depuis le site principal vers les fiches N1. Sauvegarde du script avant modification.",
+   "date": "01/10/2026",
+   "statut": "en_cours"
   }
  ]
 }

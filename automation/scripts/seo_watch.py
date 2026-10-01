@@ -40,6 +40,12 @@ def main():
         "questions_indexed": sum(1 for v in q.get("urls", {}).values()
                                  if v.get("verdict") == "PASS" or "submitted and indexed" in (v.get("coverage") or "").lower()),
     }
+    bl = load(f"{D}/backlinks.json", {})
+    ai = load(f"{D}/ai_traffic.json", {})
+    snap["backlinks"] = bl.get("total", 0)
+    if ai:
+        snap["ai_visitors_7d"] = ai.get("ai_visitors_7d", 0)
+        snap["visitors_7d"] = ai.get("visitors_7d", 0)
     # 10 fiches N1 a soumettre a Google aujourd'hui : les plus recentes, CONFIRMEES non indexees par l'inspection
     # (jamais une fiche non verifiee), et pas deja proposees un jour precedent. Recalcule a chaque run du jour.
     podcasts = load(f"{D}/podcasts.json", [])
@@ -76,6 +82,11 @@ def main():
                 lines.append(f"{label} : {prev.get(k, 0)} → {snap[k]}")
         if snap["hub_impressions"] >= prev.get("hub_impressions", 0) * 1.25 and snap["hub_impressions"] - prev.get("hub_impressions", 0) >= 20:
             lines.append(f"impressions des hubs : {prev.get('hub_impressions', 0)} → {snap['hub_impressions']}")
+    if prev:
+        if snap["backlinks"] > prev.get("backlinks", 0):
+            lines.append(f"backlinks vers listenly.fr : {prev.get('backlinks', 0)} → {snap['backlinks']}")
+        if snap.get("ai_visitors_7d", 0) > prev.get("ai_visitors_7d", 0):
+            lines.append(f"visiteurs venant des IA (7 jours) : {prev.get('ai_visitors_7d', 0)} → {snap['ai_visitors_7d']}")
     if lines:
         state["alert"] = {"id": today, "lines": lines, "snapshot": snap}
     if state["history"] and state["history"][-1]["date"] == today:

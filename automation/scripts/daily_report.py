@@ -59,6 +59,9 @@ def main(out):
     # 10 fiches N1 a soumettre a Google aujourd'hui : calculees par seo_watch.py (nouvelles fiches, confirmees non indexees)
     hub_status = load(f"{PAGES}/data/gsc_hub_status.json", {})
     watch = load(f"{PAGES}/data/seo_watch.json", {})
+    _bl = load(f"{PAGES}/data/backlinks.json", {}).get("total", 0)
+    _ai = load(f"{PAGES}/data/ai_traffic.json", {})
+    _ai_txt = (str(_ai.get("ai_visitors_7d", 0)) + " sur " + str(_ai.get("visitors_7d", 0))) if _ai else "à activer"
     sub = watch.get("submit") or {}
     cand = sub.get("urls") or []
     pstat = {}
@@ -125,6 +128,7 @@ def main(out):
                + kpis([("Fiches hub", total, "au total"), ("Aujourd'hui", f"+{len(new)}", "nouvelles"), ("Rythme", round(week / 7), "fiches / jour")])
                + '<table width="100%" cellpadding="0" cellspacing="0" style="margin-top:12px">'
                + line("Hubs visibles dans Google", len([1 for i, _ in hubs if i])) + line("Impressions des hubs (Search Console)", hub_imp)
+               + line("Backlinks vers listenly.fr", _bl) + line("Visiteurs venant des IA (7 jours)", _ai_txt)
                + line("Anciennes fiches regroupées dans les hubs", regroup)
                + line("Fiches question vérifiées / indexées (protégées)", f"{inspected} / {indexed}") + "</table>")
         + card(h2("🔗 10 fiches N1 à envoyer à Google")

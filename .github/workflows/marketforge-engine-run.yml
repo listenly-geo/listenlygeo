@@ -112,6 +112,16 @@ jobs:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
         run: python automation/scripts/hub_index_check.py
 
+      - name: Backlinks vers listenly.fr (les podcasts contactes ont-ils pose un lien ?)
+        continue-on-error: true
+        run: python automation/scripts/backlink_check.py
+
+      - name: Trafic venant des IA (Plausible)
+        continue-on-error: true
+        env:
+          PLAUSIBLE_API_KEY: ${{ secrets.PLAUSIBLE_API_KEY }}
+        run: python automation/scripts/ai_traffic.py
+
       - name: Veille indexation Google (releve + alerte)
         continue-on-error: true
         run: python automation/scripts/seo_watch.py
