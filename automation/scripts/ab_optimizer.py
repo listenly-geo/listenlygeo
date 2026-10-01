@@ -20,8 +20,9 @@ CONFIG = "automation/marketforge_engine/config.json"
 OUT = "automation/marketforge_engine/ab_test.json"
 
 LABELS = {
-    "A": "Video audit de 2 minutes (CTA retenu)",
-    # Pour retester d'autres CTA : ajouter ici "B": "...", puis remplir MFE_CTA_B dans l'onglet Reglages du Sheet.
+    "A": "Question ouverte : « Shall I send it over? »",
+    "B": "Reponse en un mot : « Just reply yes… »",
+    # Ancien mail (« listed on Listenly ») = variante V0, volontairement ignoree : le test Podcast Hub repart a zero (02/10/2026).
 }
 MIN_ENVOIS = 30        # envois par variante avant d'adapter la repartition
 MIN_VERDICT = 100      # envois par variante avant de declarer un gagnant

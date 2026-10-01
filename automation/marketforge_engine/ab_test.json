@@ -1,20 +1,31 @@
 {
- "updated": "2026-10-01T15:29",
- "phase": "adaptation (plus d'envois pour les meilleures variantes)",
- "verdict": "un seul CTA actif (Video audit de 2 minutes (CTA retenu)) : aucune comparaison en cours",
+ "updated": "2026-10-01T20:18",
+ "phase": "exploration (repartition egale)",
+ "verdict": "trop tot pour conclure (68 envois avec variante ; il en faut au moins 100 par variante et 95 % de chances)",
  "weights": {
-  "A": 1.0
+  "A": 0.5,
+  "B": 0.5
  },
  "variants": {
   "A": {
-   "label": "Video audit de 2 minutes (CTA retenu)",
-   "envoye": 53,
-   "rebond": 3,
+   "label": "Question ouverte : « Shall I send it over? »",
+   "envoye": 68,
+   "rebond": 4,
    "reponse": 0,
-   "delivres": 50,
+   "delivres": 64,
    "taux_pct": 0.0,
-   "chance_meilleure_pct": 100.0,
-   "part_envois_pct": 100.0
+   "chance_meilleure_pct": 23.9,
+   "part_envois_pct": 50.0
+  },
+  "B": {
+   "label": "Reponse en un mot : « Just reply yes… »",
+   "envoye": 0,
+   "rebond": 0,
+   "reponse": 0,
+   "delivres": 0,
+   "taux_pct": null,
+   "chance_meilleure_pct": 76.0,
+   "part_envois_pct": 50.0
   }
  }
 }
