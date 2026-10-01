@@ -1,0 +1,45 @@
+name: Diagnostic — fiches N1 non indexees (Search Console, lecture seule)
+
+# A la demande : inspecte en detail (API URL Inspection) les fiches N1 anciennes que Google n'indexe pas
+# et ecrit pages/podcast-btb/data/gsc_hub_diagnostic.json. Ne modifie ni page ni sitemap, aucune mise en ligne.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hub-index-diagnostic
+  cancel-in-progress: false
+
+jobs:
+  diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Diagnostic Search Console
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: python automation/scripts/hub_index_diagnostic.py
+
+      - name: Commit du resultat
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git add pages/podcast-btb/data/gsc_hub_diagnostic.json
+          if git diff --staged --quiet; then echo "Rien de nouveau."; exit 0; fi
+          git commit -q -m "Auto: diagnostic fiches N1 non indexees"
+          ok=0
+          for i in 1 2 3 4 5; do
+            if git pull -q --rebase --autostash origin main && git push -q; then ok=1; break; fi
+            git rebase --abort 2>/dev/null || true
+            sleep $((RANDOM % 15 + 5))
+          done
+          [ "$ok" = "1" ] || { echo "::error title=Commit::push impossible"; exit 1; }
