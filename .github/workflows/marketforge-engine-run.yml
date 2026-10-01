@@ -133,6 +133,10 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python automation/scripts/fill_thematique.py
 
+      - name: Maillage interne des hubs (podcasts similaires + derniers ajoutes)
+        continue-on-error: true
+        run: python automation/scripts/hub_related.py
+
       - name: Compte-rendu vers le Google Sheet
         if: always() && steps.cfg.outputs.pause != 'true'
         continue-on-error: true
