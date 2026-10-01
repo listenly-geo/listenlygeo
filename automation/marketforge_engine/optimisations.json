@@ -343,6 +343,38 @@
    "texte": "Nettoyage : la page orpheline ogd6etwxpdgr-podcast.html (en échec dans Google, sans fiche correspondante) est déclarée supprimée définitivement (410), et la page de test pages/test.html est retirée du site.",
    "date": "01/10/2026",
    "statut": "en_cours"
+  },
+  {
+   "id": "opt-43",
+   "section": "Ciblage",
+   "version": "V1.2",
+   "texte": "Recherche augmentée le 01/10 : 58 podcasts qualifiés par run au lieu de 45 (+29 %). Raison : le dernier run n'a mis en ligne que 9 fiches sur un quota de 30 et il ne reste que 23 contacts prêts pour 44 envois par jour ; le manque vient de la recherche, pas de l'onboarding. Effet attendu : environ 30 % de fiches et de contacts en plus par run, pour tenir les 44 envois quotidiens.",
+   "date": "01/10/2026",
+   "statut": "en_cours"
+  },
+  {
+   "id": "opt-44",
+   "section": "À faire",
+   "version": "V1.2",
+   "texte": "Anomalie délivrabilité : 3 rebonds sur 44 envois le 01/10 (6,8 %) et 12 rebonds sur 152 au total (7,9 %), au-dessus du seuil de 3 %. À vérifier dans l'Apps Script : la vérification des adresses avant envoi. Tant que ce taux n'est pas sous 3 %, ne pas autoriser les adresses « non vérifiables » (opt-34).",
+   "date": "01/10/2026",
+   "statut": "a_faire"
+  },
+  {
+   "id": "opt-45",
+   "section": "À faire",
+   "version": "V1.2",
+   "texte": "Anomalie extraction : 0 épisode transcrit le 01/10 alors que l'extraction a été réactivée (opt-36) et que 92 fiches N1 sont indexées. Peut être normal (premiers mails du 27/09, la règle des 7 jours ne joue qu'à partir du 04/10), mais le cas « hub indexé » aurait dû en déclencher. À vérifier dans le code au prochain run.",
+   "date": "01/10/2026",
+   "statut": "a_faire"
+  },
+  {
+   "id": "opt-46",
+   "section": "À faire",
+   "version": "V1.2",
+   "texte": "Anomalie planification : GitHub n'a lancé que 2 des 6 runs prévus le 01/10 (06h01 et 15h28 UTC ; un 3e lancé à la main à 12h57). Le moteur tourne donc à environ un tiers de son rythme prévu, ce qui limite les nouveaux contacts. Piste : décaler l'horaire des runs hors des minutes chargées ou ajouter un déclencheur de secours. Pas de relance ce soir : dernier run il y a environ 2 h.",
+   "date": "01/10/2026",
+   "statut": "a_faire"
   }
  ]
 }
