@@ -1,41 +1,417 @@
 {
- "updated": "2026-10-01T13:13",
+ "updated": "2026-10-01T17:47",
  "total": 286,
  "status": {
-  "Envoye": 125,
-  "Rebond": 11,
+  "Relance": 16,
+  "Rebond": 12,
+  "Envoye": 122,
   "Repondu": 1,
   "Email invalide": 16,
   "Email risque": 39,
   "En pause (ancienne selection)": 56,
-  "Pret": 38
+  "Email instable": 1,
+  "Pret": 23
  },
- "sent_total": 137,
+ "sent_total": 152,
  "replies_total": 1,
- "followups_total": 0,
+ "followups_total": 16,
  "sent_by_day": {
   "2026-09-27": 23,
   "2026-09-28": 20,
   "2026-09-29": 30,
   "2026-09-30": 35,
-  "2026-10-01": 29
+  "2026-10-01": 44
  },
  "replies_by_day": {
   "2026-09-28": 1
  },
- "followups_by_day": {},
+ "followups_by_day": {
+  "2026-10-01": 16
+ },
  "bounces_by_day": {
   "2026-09-27": 7,
   "2026-09-28": 1,
   "2026-09-30": 1,
-  "2026-10-01": 2
+  "2026-10-01": 3
  },
  "envoi_auto": true,
  "max_envois_jour": 1500,
  "heures_envoi": "8-19",
  "cap_jour_effectif": 44,
- "envoyes_aujourdhui": 29,
+ "envoyes_aujourdhui": 44,
  "prospects": [
+  {
+   "slug": "freakonomics-radio",
+   "podcast": "Freakonomics Radio",
+   "statut": "Relance",
+   "ajoute_le": "2026-09-27T12:27:46.385Z",
+   "envoye_le": "2026-09-27T17:19:23.079Z",
+   "relance_le": "2026-10-01T17:27:48.257Z",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/freakonomics-radio-podcast.html",
+   "queue_rank": null,
+   "variante": ""
+  },
+  {
+   "slug": "japan-s-top-business-interviews-podcast",
+   "podcast": "Japan's Top Business Interviews Podcast",
+   "statut": "Relance",
+   "ajoute_le": "2026-09-27T12:27:46.231Z",
+   "envoye_le": "2026-09-27T17:19:19.660Z",
+   "relance_le": "2026-10-01T17:27:44.525Z",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/japan-s-top-business-interviews-podcast-podcast.html",
+   "queue_rank": null,
+   "variante": ""
+  },
+  {
+   "slug": "business-wars",
+   "podcast": "Business Wars",
+   "statut": "Relance",
+   "ajoute_le": "2026-09-27T12:27:46.035Z",
+   "envoye_le": "2026-09-27T17:19:16.679Z",
+   "relance_le": "2026-10-01T17:27:41.597Z",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/business-wars-podcast.html",
+   "queue_rank": null,
+   "variante": ""
+  },
+  {
+   "slug": "joy-work-from-kearney",
+   "podcast": "Joy@Work from Kearney",
+   "statut": "Envoye",
+   "ajoute_le": "2026-09-30T21:24:39.024Z",
+   "envoye_le": "2026-10-01T16:48:23.726Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/joy-work-from-kearney-podcast.html",
+   "queue_rank": null,
+   "variante": "A"
+  },
+  {
+   "slug": "build-what-s-next-digital-product-perspe",
+   "podcast": "Build What's Next: Digital Product Perspectives",
+   "statut": "Envoye",
+   "ajoute_le": "2026-09-30T21:24:38.707Z",
+   "envoye_le": "2026-10-01T16:33:10.481Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/build-what-s-next-digital-product-perspe-podcast.html",
+   "queue_rank": null,
+   "variante": "A"
+  },
+  {
+   "slug": "planet-new-jersey",
+   "podcast": "Planet New Jersey",
+   "statut": "Envoye",
+   "ajoute_le": "2026-09-30T21:24:38.320Z",
+   "envoye_le": "2026-10-01T16:18:12.929Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/planet-new-jersey-podcast.html",
+   "queue_rank": null,
+   "variante": "A"
+  },
+  {
+   "slug": "the-next-imperative",
+   "podcast": "The Next Imperative",
+   "statut": "Envoye",
+   "ajoute_le": "2026-09-30T21:24:37.928Z",
+   "envoye_le": "2026-10-01T16:03:13.640Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/the-next-imperative-podcast.html",
+   "queue_rank": null,
+   "variante": "A"
+  },
+  {
+   "slug": "inter-dev-b2b-digital-marketing-podcast",
+   "podcast": "Inter-Dev B2B Digital Marketing Podcast",
+   "statut": "Envoye",
+   "ajoute_le": "2026-09-30T21:24:37.594Z",
+   "envoye_le": "2026-10-01T15:48:11.930Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/inter-dev-b2b-digital-marketing-podcast-podcast.html",
+   "queue_rank": null,
+   "variante": "A"
+  },
+  {
+   "slug": "the-epam-continuum-podcast-network",
+   "podcast": "The EPAM Continuum Podcast Network",
+   "statut": "Envoye",
+   "ajoute_le": "2026-09-30T21:24:36.764Z",
+   "envoye_le": "2026-10-01T15:33:12.024Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/the-epam-continuum-podcast-network-podcast.html",
+   "queue_rank": null,
+   "variante": "A"
+  },
+  {
+   "slug": "isf-podcast",
+   "podcast": "ISF Podcast",
+   "statut": "Envoye",
+   "ajoute_le": "2026-09-30T21:24:36.460Z",
+   "envoye_le": "2026-10-01T15:18:10.686Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/isf-podcast-podcast.html",
+   "queue_rank": null,
+   "variante": "A"
+  },
+  {
+   "slug": "today-s-market-explained-with-brian-kasa",
+   "podcast": "Today's Market Explained with Brian Kasal",
+   "statut": "Envoye",
+   "ajoute_le": "2026-09-30T21:24:36.158Z",
+   "envoye_le": "2026-10-01T15:03:26.563Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/today-s-market-explained-with-brian-kasa-podcast.html",
+   "queue_rank": null,
+   "variante": "A"
+  },
+  {
+   "slug": "the-yield",
+   "podcast": "The Yield",
+   "statut": "Rebond",
+   "ajoute_le": "2026-09-30T21:24:35.803Z",
+   "envoye_le": "2026-10-01T14:48:12.092Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/the-yield-podcast.html",
+   "queue_rank": null,
+   "variante": "A"
+  },
+  {
+   "slug": "tech-leaders-intel",
+   "podcast": "Tech Leaders Intel",
+   "statut": "Envoye",
+   "ajoute_le": "2026-09-30T21:24:35.429Z",
+   "envoye_le": "2026-10-01T14:33:13.076Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/tech-leaders-intel-podcast.html",
+   "queue_rank": null,
+   "variante": "A"
+  },
+  {
+   "slug": "talent-acquisition-leaders-podcast-recru",
+   "podcast": "Talent Acquisition Leaders Podcast - Recruiting, Staffing, Human Resources",
+   "statut": "Envoye",
+   "ajoute_le": "2026-09-30T21:24:35.060Z",
+   "envoye_le": "2026-10-01T14:18:11.227Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/talent-acquisition-leaders-podcast-recru-podcast.html",
+   "queue_rank": null,
+   "variante": "A"
+  },
+  {
+   "slug": "iot-ai-leaders",
+   "podcast": "IoT & AI Leaders",
+   "statut": "Envoye",
+   "ajoute_le": "2026-09-30T21:24:34.756Z",
+   "envoye_le": "2026-10-01T14:03:12.813Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/iot-ai-leaders-podcast.html",
+   "queue_rank": null,
+   "variante": "A"
+  },
+  {
+   "slug": "the-distribution-by-juniper-square",
+   "podcast": "The Distribution by Juniper Square",
+   "statut": "Envoye",
+   "ajoute_le": "2026-09-30T21:24:34.402Z",
+   "envoye_le": "2026-10-01T13:48:18.733Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/the-distribution-by-juniper-square-podcast.html",
+   "queue_rank": null,
+   "variante": "A"
+  },
+  {
+   "slug": "cvm-stories",
+   "podcast": "CVM Stories",
+   "statut": "Envoye",
+   "ajoute_le": "2026-09-30T21:24:34.067Z",
+   "envoye_le": "2026-10-01T13:33:11.028Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/cvm-stories-podcast.html",
+   "queue_rank": null,
+   "variante": "A"
+  },
+  {
+   "slug": "founders",
+   "podcast": "Founders",
+   "statut": "Relance",
+   "ajoute_le": "2026-09-27T12:27:45.882Z",
+   "envoye_le": "2026-09-27T12:34:38.221Z",
+   "relance_le": "2026-10-01T13:29:23.967Z",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/founders-podcast.html",
+   "queue_rank": null,
+   "variante": ""
+  },
+  {
+   "slug": "the-mastering-commercial-real-estate-pod",
+   "podcast": "The Mastering Commercial Real Estate Podcast",
+   "statut": "Relance",
+   "ajoute_le": "2026-09-27T12:27:45.558Z",
+   "envoye_le": "2026-09-27T12:34:30.944Z",
+   "relance_le": "2026-10-01T13:29:20.196Z",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/the-mastering-commercial-real-estate-pod-podcast.html",
+   "queue_rank": null,
+   "variante": ""
+  },
+  {
+   "slug": "bulkloads-podcast",
+   "podcast": "Bulkloads Podcast",
+   "statut": "Relance",
+   "ajoute_le": "2026-09-27T12:27:45.351Z",
+   "envoye_le": "2026-09-27T12:34:27.538Z",
+   "relance_le": "2026-10-01T13:29:14.387Z",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/bulkloads-podcast-podcast.html",
+   "queue_rank": null,
+   "variante": ""
+  },
+  {
+   "slug": "restaurant-influencers",
+   "podcast": "Restaurant Influencers",
+   "statut": "Relance",
+   "ajoute_le": "2026-09-27T12:27:45.154Z",
+   "envoye_le": "2026-09-27T12:34:23.997Z",
+   "relance_le": "2026-10-01T13:29:08.703Z",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/restaurant-influencers-podcast.html",
+   "queue_rank": null,
+   "variante": ""
+  },
+  {
+   "slug": "masters-of-scale",
+   "podcast": "Masters of Scale",
+   "statut": "Relance",
+   "ajoute_le": "2026-09-27T12:27:45.000Z",
+   "envoye_le": "2026-09-27T12:34:19.633Z",
+   "relance_le": "2026-10-01T13:29:03.203Z",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/masters-of-scale-podcast.html",
+   "queue_rank": null,
+   "variante": ""
+  },
+  {
+   "slug": "powerline-podcast",
+   "podcast": "Powerline Podcast",
+   "statut": "Relance",
+   "ajoute_le": "2026-09-27T12:27:44.612Z",
+   "envoye_le": "2026-09-27T12:34:12.810Z",
+   "relance_le": "2026-10-01T13:28:57.226Z",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/powerline-podcast-podcast.html",
+   "queue_rank": null,
+   "variante": ""
+  },
+  {
+   "slug": "the-best-of-the-brutal-truth-about-b2b-s",
+   "podcast": "The Best of the Brutal Truth about B2B Sales & Selling",
+   "statut": "Relance",
+   "ajoute_le": "2026-09-27T12:27:44.427Z",
+   "envoye_le": "2026-09-27T12:34:09.339Z",
+   "relance_le": "2026-10-01T13:28:52.268Z",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/the-best-of-the-brutal-truth-about-b2b-s-podcast.html",
+   "queue_rank": null,
+   "variante": ""
+  },
+  {
+   "slug": "the-bob-lefsetz-podcast",
+   "podcast": "The Bob Lefsetz Podcast",
+   "statut": "Relance",
+   "ajoute_le": "2026-09-27T12:27:44.087Z",
+   "envoye_le": "2026-09-27T12:34:02.507Z",
+   "relance_le": "2026-10-01T13:28:47.371Z",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/the-bob-lefsetz-podcast-podcast.html",
+   "queue_rank": null,
+   "variante": ""
+  },
+  {
+   "slug": "the-freightfa-brief-podcast",
+   "podcast": "The FreightFA Brief Podcast",
+   "statut": "Relance",
+   "ajoute_le": "2026-09-27T12:27:43.701Z",
+   "envoye_le": "2026-09-27T12:33:53.980Z",
+   "relance_le": "2026-10-01T13:28:42.864Z",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/the-freightfa-brief-podcast-podcast.html",
+   "queue_rank": null,
+   "variante": ""
+  },
+  {
+   "slug": "the-namibia-oil-and-gas-podcast",
+   "podcast": "The Namibia Oil and Gas Podcast",
+   "statut": "Relance",
+   "ajoute_le": "2026-09-27T12:27:43.492Z",
+   "envoye_le": "2026-09-27T12:33:50.489Z",
+   "relance_le": "2026-10-01T13:28:37.528Z",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/the-namibia-oil-and-gas-podcast-podcast.html",
+   "queue_rank": null,
+   "variante": ""
+  },
+  {
+   "slug": "the-crexi-commercial-real-estate-podcast",
+   "podcast": "The Crexi Commercial Real Estate Podcast",
+   "statut": "Relance",
+   "ajoute_le": "2026-09-27T12:27:42.782Z",
+   "envoye_le": "2026-09-27T12:33:43.403Z",
+   "relance_le": "2026-10-01T13:28:33.351Z",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/the-crexi-commercial-real-estate-podcast-podcast.html",
+   "queue_rank": null,
+   "variante": ""
+  },
+  {
+   "slug": "16-minutes-news-by-a16z",
+   "podcast": "16 Minutes News by a16z",
+   "statut": "Relance",
+   "ajoute_le": "2026-09-27T11:58:33.414Z",
+   "envoye_le": "2026-09-27T12:33:36.250Z",
+   "relance_le": "2026-10-01T13:28:28.558Z",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/16-minutes-news-by-a16z-podcast.html#answers",
+   "queue_rank": null,
+   "variante": ""
+  },
+  {
+   "slug": "a16z-crypto-show",
+   "podcast": "a16z crypto show",
+   "statut": "Relance",
+   "ajoute_le": "2026-09-27T11:58:33.042Z",
+   "envoye_le": "2026-09-27T12:33:28.900Z",
+   "relance_le": "2026-10-01T13:28:23.463Z",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/a16z-crypto-show-podcast.html#answers",
+   "queue_rank": null,
+   "variante": ""
+  },
+  {
+   "slug": "rise-inside",
+   "podcast": "RISE Inside",
+   "statut": "Envoye",
+   "ajoute_le": "2026-09-30T16:50:47.419Z",
+   "envoye_le": "2026-10-01T13:18:15.839Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/rise-inside-podcast.html",
+   "queue_rank": null,
+   "variante": "A"
+  },
   {
    "slug": "gbs-corp-smart-business-solutions",
    "podcast": "GBS Corp - Smart Business Solutions",
@@ -369,7 +745,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/two-irish-guys-discussing-software-podcast.html",
-   "queue_rank": 38,
+   "queue_rank": 23,
    "variante": ""
   },
   {
@@ -381,7 +757,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/attributed-a-podcast-by-dreamdata-podcast.html",
-   "queue_rank": 37,
+   "queue_rank": 22,
    "variante": ""
   },
   {
@@ -393,7 +769,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/repod-podcast.html",
-   "queue_rank": 36,
+   "queue_rank": 21,
    "variante": ""
   },
   {
@@ -405,7 +781,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/b-atomic-airwaves-podcast.html",
-   "queue_rank": 35,
+   "queue_rank": 20,
    "variante": ""
   },
   {
@@ -417,7 +793,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/providend-s-money-wisdom-podcast.html",
-   "queue_rank": 34,
+   "queue_rank": 19,
    "variante": ""
   },
   {
@@ -429,7 +805,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/grow-your-law-firm-podcast.html",
-   "queue_rank": 33,
+   "queue_rank": 18,
    "variante": ""
   },
   {
@@ -441,7 +817,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/the-next-cmo-podcast.html",
-   "queue_rank": 32,
+   "queue_rank": 17,
    "variante": ""
   },
   {
@@ -453,7 +829,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/medtech-business-academy-podcast.html",
-   "queue_rank": 31,
+   "queue_rank": 16,
    "variante": ""
   },
   {
@@ -465,7 +841,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/the-new-skool-podcast.html",
-   "queue_rank": 30,
+   "queue_rank": 15,
    "variante": ""
   },
   {
@@ -477,7 +853,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/speak-your-way-to-cash-podcast.html",
-   "queue_rank": 29,
+   "queue_rank": 14,
    "variante": ""
   },
   {
@@ -489,7 +865,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/contractor-success-map-with-randal-dehar-podcast.html",
-   "queue_rank": 28,
+   "queue_rank": 13,
    "variante": ""
   },
   {
@@ -501,7 +877,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/multifamily-investor-nation-podcast.html",
-   "queue_rank": 27,
+   "queue_rank": 12,
    "variante": ""
   },
   {
@@ -537,7 +913,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/founder-friendly-venture-capital-startup-podcast.html",
-   "queue_rank": 26,
+   "queue_rank": 11,
    "variante": ""
   },
   {
@@ -549,7 +925,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/value-hive-podcast-podcast.html",
-   "queue_rank": 25,
+   "queue_rank": 10,
    "variante": ""
   },
   {
@@ -561,7 +937,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/women-in-utilities-podcast.html",
-   "queue_rank": 24,
+   "queue_rank": 9,
    "variante": ""
   },
   {
@@ -573,7 +949,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/rising-tide-podcast.html",
-   "queue_rank": 23,
+   "queue_rank": 8,
    "variante": ""
   },
   {
@@ -585,7 +961,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/how-to-acquire-podcast-podcast.html",
-   "queue_rank": 22,
+   "queue_rank": 7,
    "variante": ""
   },
   {
@@ -597,7 +973,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/manufacturing-talk-radio-podcast.html",
-   "queue_rank": 21,
+   "queue_rank": 6,
    "variante": ""
   },
   {
@@ -609,7 +985,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/digital-chemical-playbook-podcast.html",
-   "queue_rank": 20,
+   "queue_rank": 5,
    "variante": ""
   },
   {
@@ -621,7 +997,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/the-rethink-mining-podcast-podcast.html",
-   "queue_rank": 19,
+   "queue_rank": 4,
    "variante": ""
   },
   {
@@ -633,7 +1009,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/additive-manufacturing-podcast.html",
-   "queue_rank": 18,
+   "queue_rank": 3,
    "variante": ""
   },
   {
@@ -645,7 +1021,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/agency-life-podcast.html",
-   "queue_rank": 17,
+   "queue_rank": 2,
    "variante": ""
   },
   {
@@ -657,186 +1033,6 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/to-the-point-home-services-vip-room-podc-podcast.html",
-   "queue_rank": 16,
-   "variante": ""
-  },
-  {
-   "slug": "joy-work-from-kearney",
-   "podcast": "Joy@Work from Kearney",
-   "statut": "Pret",
-   "ajoute_le": "2026-09-30T21:24:39.024Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/joy-work-from-kearney-podcast.html",
-   "queue_rank": 15,
-   "variante": ""
-  },
-  {
-   "slug": "build-what-s-next-digital-product-perspe",
-   "podcast": "Build What's Next: Digital Product Perspectives",
-   "statut": "Pret",
-   "ajoute_le": "2026-09-30T21:24:38.707Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/build-what-s-next-digital-product-perspe-podcast.html",
-   "queue_rank": 14,
-   "variante": ""
-  },
-  {
-   "slug": "planet-new-jersey",
-   "podcast": "Planet New Jersey",
-   "statut": "Pret",
-   "ajoute_le": "2026-09-30T21:24:38.320Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/planet-new-jersey-podcast.html",
-   "queue_rank": 13,
-   "variante": ""
-  },
-  {
-   "slug": "the-next-imperative",
-   "podcast": "The Next Imperative",
-   "statut": "Pret",
-   "ajoute_le": "2026-09-30T21:24:37.928Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/the-next-imperative-podcast.html",
-   "queue_rank": 12,
-   "variante": ""
-  },
-  {
-   "slug": "inter-dev-b2b-digital-marketing-podcast",
-   "podcast": "Inter-Dev B2B Digital Marketing Podcast",
-   "statut": "Pret",
-   "ajoute_le": "2026-09-30T21:24:37.594Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/inter-dev-b2b-digital-marketing-podcast-podcast.html",
-   "queue_rank": 11,
-   "variante": ""
-  },
-  {
-   "slug": "the-epam-continuum-podcast-network",
-   "podcast": "The EPAM Continuum Podcast Network",
-   "statut": "Pret",
-   "ajoute_le": "2026-09-30T21:24:36.764Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/the-epam-continuum-podcast-network-podcast.html",
-   "queue_rank": 10,
-   "variante": ""
-  },
-  {
-   "slug": "isf-podcast",
-   "podcast": "ISF Podcast",
-   "statut": "Pret",
-   "ajoute_le": "2026-09-30T21:24:36.460Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/isf-podcast-podcast.html",
-   "queue_rank": 9,
-   "variante": ""
-  },
-  {
-   "slug": "today-s-market-explained-with-brian-kasa",
-   "podcast": "Today's Market Explained with Brian Kasal",
-   "statut": "Pret",
-   "ajoute_le": "2026-09-30T21:24:36.158Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/today-s-market-explained-with-brian-kasa-podcast.html",
-   "queue_rank": 8,
-   "variante": ""
-  },
-  {
-   "slug": "the-yield",
-   "podcast": "The Yield",
-   "statut": "Pret",
-   "ajoute_le": "2026-09-30T21:24:35.803Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/the-yield-podcast.html",
-   "queue_rank": 7,
-   "variante": ""
-  },
-  {
-   "slug": "tech-leaders-intel",
-   "podcast": "Tech Leaders Intel",
-   "statut": "Pret",
-   "ajoute_le": "2026-09-30T21:24:35.429Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/tech-leaders-intel-podcast.html",
-   "queue_rank": 6,
-   "variante": ""
-  },
-  {
-   "slug": "talent-acquisition-leaders-podcast-recru",
-   "podcast": "Talent Acquisition Leaders Podcast - Recruiting, Staffing, Human Resources",
-   "statut": "Pret",
-   "ajoute_le": "2026-09-30T21:24:35.060Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/talent-acquisition-leaders-podcast-recru-podcast.html",
-   "queue_rank": 5,
-   "variante": ""
-  },
-  {
-   "slug": "iot-ai-leaders",
-   "podcast": "IoT & AI Leaders",
-   "statut": "Pret",
-   "ajoute_le": "2026-09-30T21:24:34.756Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/iot-ai-leaders-podcast.html",
-   "queue_rank": 4,
-   "variante": ""
-  },
-  {
-   "slug": "the-distribution-by-juniper-square",
-   "podcast": "The Distribution by Juniper Square",
-   "statut": "Pret",
-   "ajoute_le": "2026-09-30T21:24:34.402Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/the-distribution-by-juniper-square-podcast.html",
-   "queue_rank": 3,
-   "variante": ""
-  },
-  {
-   "slug": "cvm-stories",
-   "podcast": "CVM Stories",
-   "statut": "Pret",
-   "ajoute_le": "2026-09-30T21:24:34.067Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/cvm-stories-podcast.html",
-   "queue_rank": 2,
-   "variante": ""
-  },
-  {
-   "slug": "rise-inside",
-   "podcast": "RISE Inside",
-   "statut": "Pret",
-   "ajoute_le": "2026-09-30T16:50:47.419Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/rise-inside-podcast.html",
    "queue_rank": 1,
    "variante": ""
   },
@@ -1239,7 +1435,7 @@
   {
    "slug": "rev-it-up-with-jess-tiffany",
    "podcast": "Rev It Up with Jess Tiffany",
-   "statut": "Envoye",
+   "statut": "Email instable",
    "ajoute_le": "2026-09-30T13:51:42.839Z",
    "envoye_le": "2026-09-30T14:03:44.431Z",
    "relance_le": "",
@@ -3169,42 +3365,6 @@
    "variante": ""
   },
   {
-   "slug": "freakonomics-radio",
-   "podcast": "Freakonomics Radio",
-   "statut": "Envoye",
-   "ajoute_le": "2026-09-27T12:27:46.385Z",
-   "envoye_le": "2026-09-27T17:19:23.079Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/freakonomics-radio-podcast.html",
-   "queue_rank": null,
-   "variante": ""
-  },
-  {
-   "slug": "japan-s-top-business-interviews-podcast",
-   "podcast": "Japan's Top Business Interviews Podcast",
-   "statut": "Envoye",
-   "ajoute_le": "2026-09-27T12:27:46.231Z",
-   "envoye_le": "2026-09-27T17:19:19.660Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/japan-s-top-business-interviews-podcast-podcast.html",
-   "queue_rank": null,
-   "variante": ""
-  },
-  {
-   "slug": "business-wars",
-   "podcast": "Business Wars",
-   "statut": "Envoye",
-   "ajoute_le": "2026-09-27T12:27:46.035Z",
-   "envoye_le": "2026-09-27T17:19:16.679Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/business-wars-podcast.html",
-   "queue_rank": null,
-   "variante": ""
-  },
-  {
    "slug": "famous-nobodies-podcast",
    "podcast": "Famous Nobodies Podcast",
    "statut": "Email invalide",
@@ -3213,18 +3373,6 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/famous-nobodies-podcast-podcast.html",
-   "queue_rank": null,
-   "variante": ""
-  },
-  {
-   "slug": "founders",
-   "podcast": "Founders",
-   "statut": "Envoye",
-   "ajoute_le": "2026-09-27T12:27:45.882Z",
-   "envoye_le": "2026-09-27T12:34:38.221Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/founders-podcast.html",
    "queue_rank": null,
    "variante": ""
   },
@@ -3241,54 +3389,6 @@
    "variante": ""
   },
   {
-   "slug": "the-mastering-commercial-real-estate-pod",
-   "podcast": "The Mastering Commercial Real Estate Podcast",
-   "statut": "Envoye",
-   "ajoute_le": "2026-09-27T12:27:45.558Z",
-   "envoye_le": "2026-09-27T12:34:30.944Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/the-mastering-commercial-real-estate-pod-podcast.html",
-   "queue_rank": null,
-   "variante": ""
-  },
-  {
-   "slug": "bulkloads-podcast",
-   "podcast": "Bulkloads Podcast",
-   "statut": "Envoye",
-   "ajoute_le": "2026-09-27T12:27:45.351Z",
-   "envoye_le": "2026-09-27T12:34:27.538Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/bulkloads-podcast-podcast.html",
-   "queue_rank": null,
-   "variante": ""
-  },
-  {
-   "slug": "restaurant-influencers",
-   "podcast": "Restaurant Influencers",
-   "statut": "Envoye",
-   "ajoute_le": "2026-09-27T12:27:45.154Z",
-   "envoye_le": "2026-09-27T12:34:23.997Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/restaurant-influencers-podcast.html",
-   "queue_rank": null,
-   "variante": ""
-  },
-  {
-   "slug": "masters-of-scale",
-   "podcast": "Masters of Scale",
-   "statut": "Envoye",
-   "ajoute_le": "2026-09-27T12:27:45.000Z",
-   "envoye_le": "2026-09-27T12:34:19.633Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/masters-of-scale-podcast.html",
-   "queue_rank": null,
-   "variante": ""
-  },
-  {
    "slug": "invest-like-the-best",
    "podcast": "Invest Like The Best",
    "statut": "Rebond",
@@ -3297,30 +3397,6 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/invest-like-the-best-podcast.html",
-   "queue_rank": null,
-   "variante": ""
-  },
-  {
-   "slug": "powerline-podcast",
-   "podcast": "Powerline Podcast",
-   "statut": "Envoye",
-   "ajoute_le": "2026-09-27T12:27:44.612Z",
-   "envoye_le": "2026-09-27T12:34:12.810Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/powerline-podcast-podcast.html",
-   "queue_rank": null,
-   "variante": ""
-  },
-  {
-   "slug": "the-best-of-the-brutal-truth-about-b2b-s",
-   "podcast": "The Best of the Brutal Truth about B2B Sales & Selling",
-   "statut": "Envoye",
-   "ajoute_le": "2026-09-27T12:27:44.427Z",
-   "envoye_le": "2026-09-27T12:34:09.339Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/the-best-of-the-brutal-truth-about-b2b-s-podcast.html",
    "queue_rank": null,
    "variante": ""
   },
@@ -3337,18 +3413,6 @@
    "variante": ""
   },
   {
-   "slug": "the-bob-lefsetz-podcast",
-   "podcast": "The Bob Lefsetz Podcast",
-   "statut": "Envoye",
-   "ajoute_le": "2026-09-27T12:27:44.087Z",
-   "envoye_le": "2026-09-27T12:34:02.507Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/the-bob-lefsetz-podcast-podcast.html",
-   "queue_rank": null,
-   "variante": ""
-  },
-  {
    "slug": "sorry-we-re-closed-with-pat-light",
    "podcast": "Sorry, We're Closed with Pat Light",
    "statut": "Rebond",
@@ -3357,30 +3421,6 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/sorry-we-re-closed-with-pat-light-podcast.html",
-   "queue_rank": null,
-   "variante": ""
-  },
-  {
-   "slug": "the-freightfa-brief-podcast",
-   "podcast": "The FreightFA Brief Podcast",
-   "statut": "Envoye",
-   "ajoute_le": "2026-09-27T12:27:43.701Z",
-   "envoye_le": "2026-09-27T12:33:53.980Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/the-freightfa-brief-podcast-podcast.html",
-   "queue_rank": null,
-   "variante": ""
-  },
-  {
-   "slug": "the-namibia-oil-and-gas-podcast",
-   "podcast": "The Namibia Oil and Gas Podcast",
-   "statut": "Envoye",
-   "ajoute_le": "2026-09-27T12:27:43.492Z",
-   "envoye_le": "2026-09-27T12:33:50.489Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/the-namibia-oil-and-gas-podcast-podcast.html",
    "queue_rank": null,
    "variante": ""
   },
@@ -3397,18 +3437,6 @@
    "variante": ""
   },
   {
-   "slug": "the-crexi-commercial-real-estate-podcast",
-   "podcast": "The Crexi Commercial Real Estate Podcast",
-   "statut": "Envoye",
-   "ajoute_le": "2026-09-27T12:27:42.782Z",
-   "envoye_le": "2026-09-27T12:33:43.403Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/the-crexi-commercial-real-estate-podcast-podcast.html",
-   "queue_rank": null,
-   "variante": ""
-  },
-  {
    "slug": "conpulse-the-construction-podcast-by-pal",
    "podcast": "ConPulse - The Construction Podcast",
    "statut": "Rebond",
@@ -3421,18 +3449,6 @@
    "variante": ""
   },
   {
-   "slug": "16-minutes-news-by-a16z",
-   "podcast": "16 Minutes News by a16z",
-   "statut": "Envoye",
-   "ajoute_le": "2026-09-27T11:58:33.414Z",
-   "envoye_le": "2026-09-27T12:33:36.250Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/16-minutes-news-by-a16z-podcast.html#answers",
-   "queue_rank": null,
-   "variante": ""
-  },
-  {
    "slug": "agoracom-small-cap-ceo-interviews",
    "podcast": "AGORACOM Small Cap CEO Interviews",
    "statut": "Rebond",
@@ -3441,18 +3457,6 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/agoracom-small-cap-ceo-interviews-podcast.html#answers",
-   "queue_rank": null,
-   "variante": ""
-  },
-  {
-   "slug": "a16z-crypto-show",
-   "podcast": "a16z crypto show",
-   "statut": "Envoye",
-   "ajoute_le": "2026-09-27T11:58:33.042Z",
-   "envoye_le": "2026-09-27T12:33:28.900Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/a16z-crypto-show-podcast.html#answers",
    "queue_rank": null,
    "variante": ""
   },
