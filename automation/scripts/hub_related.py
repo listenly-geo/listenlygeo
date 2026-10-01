@@ -69,10 +69,21 @@ def block(rec, picks):
         f'{html.escape(r["podcast_name"])}</a></li>'
         for r in picks
     )
+    url = rec["fiche_url"]
+    code = (f'<a href="{url}"><img src="https://listenly.fr/podcast-btb/assets/featured-on-listenly.svg" '
+            f'alt="{html.escape(rec["podcast_name"], quote=True)} featured on Listenly" width="200" height="44"></a>')
+    badge_title = "Ajoutez ce badge à votre site" if fr else "Add this badge to your site"
+    badge_sub = "Copiez-collez le code ci-dessous dans votre site ou vos notes d'épisodes." if fr else "Copy and paste the code below into your website or show notes."
+    badge = (f'<div style="margin-top:18px;padding-top:14px;border-top:1px solid #eee;">'
+             f'<p style="margin:0 0 8px;font-weight:600;color:#555;">{badge_title}</p>'
+             f'<img src="/podcast-btb/assets/featured-on-listenly.svg" alt="Featured on Listenly" width="200" height="44" style="display:block;margin:0 0 8px;">'
+             f'<p style="margin:0 0 6px;">{badge_sub}</p>'
+             f'<textarea readonly rows="3" onclick="this.select()" style="width:100%;box-sizing:border-box;font:12px monospace;color:#555;'
+             f'border:1px solid #ddd;border-radius:8px;padding:8px;">{html.escape(code)}</textarea></div>')
     return (f'{BEGIN}\n<nav aria-label="{title}" style="max-width:720px;margin:0 auto;padding:0 20px 24px;'
             f'font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#777;">'
             f'<p style="margin:0 0 6px;font-weight:600;color:#555;">{title}</p>'
-            f'<ul style="margin:0;padding-left:18px;">{items}</ul></nav>\n{END}\n')
+            f'<ul style="margin:0;padding-left:18px;">{items}</ul>{badge}</nav>\n{END}\n')
 
 
 def inject(path, blk, begin, end, anchors):
