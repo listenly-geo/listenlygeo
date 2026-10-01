@@ -297,14 +297,6 @@
    "statut": "en_cours"
   },
   {
-   "id": "opt-37",
-   "section": "Mail et CTA",
-   "version": "V1.2",
-   "texte": "CTA remplacé le 01/10 : fin de la promesse d'une vidéo inexistante. Nouveau CTA = audit de 2 minutes fait par le prospect lui-même (outil MarketForge sur Bolt). Provisoire : « répondez audit » ; le lien direct remplacera cette phrase dès qu'il est vérifié.",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
    "id": "opt-38",
    "section": "Mesure",
    "version": "V1.2",
@@ -385,7 +377,7 @@
    "statut": "en_cours"
   },
   {
-   "id": "opt-38",
+   "id": "opt-56",
    "section": "Mesure",
    "version": "V1.2",
    "texte": "Maillage interne : chaque fiche N1 reçoit 6 liens « podcasts similaires » vers d'autres hubs de sa catégorie, et la page d'index liste les 30 derniers hubs ajoutés. Google peut ainsi atteindre chaque hub par des liens, pas seulement par le sitemap. Les 77 hubs déjà indexés ou visibles dans Google ne sont pas touchés. Actif à chaque run.",
@@ -393,23 +385,15 @@
    "statut": "en_cours"
   },
   {
-   "id": "opt-39",
+   "id": "opt-57",
    "section": "Mesure",
    "version": "V1.2",
-   "texte": "Compteur de backlinks réel : chaque jour, le moteur regarde si les podcasts contactés ont posé un lien vers listenly.fr (notes d'épisodes ou site). Le chiffre apparaît dans le rapport du soir et dans la veille Google (avant : 0 codé en dur, rien n'était mesuré).",
+   "texte": "Compteur de backlinks réel : chaque jour, le moteur regarde si les podcasts contactés ont posé un lien vers listenly.fr (notes d'épisodes ou site). Le chiffre apparaît dans le rapport du soir (avant : 0 codé en dur). Avec le Podcast Hub, la source principale de backlinks sera le lien « Explore more expert answers » de chaque Hub installé.",
    "date": "01/10/2026",
    "statut": "en_cours"
   },
   {
-   "id": "opt-40",
-   "section": "Mail et CTA",
-   "version": "V1.2",
-   "texte": "Relance à J+4 : ajout d'une demande douce de lien (« un lien vers la page depuis votre site ou vos notes d'épisodes l'aiderait à être indexée »). Le 1er mail reste inchangé pour ne pas baisser le taux de réponse.",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-41",
+   "id": "opt-58",
    "section": "Mesure",
    "version": "V1.2",
    "texte": "Suivi du trafic venant des IA (ChatGPT, Perplexity, Gemini, Claude…) via Plausible, ajouté au rapport du soir. Code prêt ; s'active dès que la clé API Plausible est ajoutée dans les secrets GitHub (PLAUSIBLE_API_KEY).",
@@ -417,7 +401,7 @@
    "statut": "a_faire"
   },
   {
-   "id": "opt-42",
+   "id": "opt-59",
    "section": "Mesure",
    "version": "V1.2",
    "texte": "Lien discret « annuaire des podcasts » ajouté en bas de la page d'accueil listenly.fr (via le script déjà installé) : Google a enfin un chemin depuis le site principal vers les fiches N1. Sauvegarde du script avant modification.",
@@ -425,10 +409,10 @@
    "statut": "en_cours"
   },
   {
-   "id": "opt-43",
+   "id": "opt-60",
    "section": "Mail et CTA",
    "version": "V1.2",
-   "texte": "Badge « Featured on Listenly » à copier-coller en bas de chaque fiche N1 (code prêt, lien direct vers la fiche du podcast). La relance à J+4 le mentionne. C'est le moyen simple et propre d'obtenir de vrais backlinks vers les hubs, sans lien caché. Les hubs déjà indexés ne sont pas modifiés pour l'instant.",
+   "texte": "Badge « Featured on Listenly » à copier-coller en bas de chaque fiche N1 (lien direct vers la fiche du podcast), sans lien caché. Le nouveau mail 1 ne contient plus de lien : le badge sert quand le prospect ouvre sa fiche (après réponse ou visite). Les hubs déjà indexés ne sont pas modifiés.",
    "date": "01/10/2026",
    "statut": "en_cours"
   },
