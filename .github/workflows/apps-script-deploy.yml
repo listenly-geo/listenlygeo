@@ -1,0 +1,31 @@
+name: Apps Script — lecture / déploiement de MarketForgeEngine.gs
+
+# Lancement à distance : modifier automation/apps-script/deploy-script-now.txt
+# (1re ligne : "dry" = lecture seule, "deploy" = remplace le code dans l'Apps Script).
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: ['automation/apps-script/deploy-script-now.txt']
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q google-auth requests
+      - name: Lecture / déploiement
+        env:
+          SA_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: |
+          MODE=$(head -n1 automation/apps-script/deploy-script-now.txt | tr -d '[:space:]')
+          [ "$MODE" = "deploy" ] && export APPS_SCRIPT_MODE=deploy || export APPS_SCRIPT_MODE=dry
+          python3 automation/scripts/apps_script_deploy.py
+      - name: Sauvegarde du projet lu
+        run: |
+          git config user.name "marketforge-bot"; git config user.email "bot@listenly.fr"
+          git add automation/apps-script/backup || true
+          git diff --cached --quiet || (git commit -m "Apps Script: sauvegarde du projet lu" && git pull -q --rebase && git push -q)
