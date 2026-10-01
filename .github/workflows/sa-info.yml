@@ -1,0 +1,22 @@
+name: Service account — infos non secretes (email + projet)
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: ['automation/apps-script/sa-info-now.txt']
+
+jobs:
+  info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Afficher l'email et le projet du compte de service (jamais la cle)
+        env:
+          SA: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          d = json.loads(os.environ["SA"])
+          print("client_email =", d.get("client_email"))
+          print("project_id   =", d.get("project_id"))
+          PY
