@@ -55,6 +55,7 @@ var MFE_DEFAULTS = [
   ['MFE_MAX_REBONDS', '3', 'MarketForge Engine — au-dela de N mails bloques/rebonds sur 3 jours, l\'envoi automatique se met en pause (MFE_ENVOI_AUTO passe a FALSE).'],
   ['MFE_AB_ACTIF', 'TRUE', 'MarketForge Engine — TRUE = test A/B du CTA (chaque mail recoit une variante, la repartition suit les resultats). FALSE = toujours la variante A.'],
   ['MFE_RELANCE_JOURS', '4', 'MarketForge Engine — relance unique apres N jours sans reponse (0 = pas de relance).'],
+  ['MFE_RELANCE_DEPUIS', '02/10/2026', 'MarketForge Engine — les relances ne concernent que les prospects dont le 1er mail est parti a partir de cette date (JJ/MM/AAAA). Les prospects de l\'ancien mail ne sont jamais relances. Vide = tous.'],
 ];
 
 // ---------- Messages (modifiables dans l'onglet Reglages, cles MFE_MSG_*) ----------
@@ -463,8 +464,16 @@ function mfeBounceGuard_(sh) {
 
 function mfeFollowUp_(sh, days) {
   var n = 0, limit = Date.now() - days * 86400000;
+  // Relances reservees aux prospects dont le 1er mail est parti a partir de MFE_RELANCE_DEPUIS (JJ/MM/AAAA)
+  var since = null, depuis = mfeReadSettings_().MFE_RELANCE_DEPUIS;
+  if (depuis instanceof Date) since = new Date(depuis.getFullYear(), depuis.getMonth(), depuis.getDate()).getTime();
+  else {
+    var m = String(depuis || '').trim().match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if (m) since = new Date(+m[3], +m[2] - 1, +m[1]).getTime();
+  }
   mfeRows_(sh).forEach(function (r) {
     if (r.values[6] !== 'Envoye' || !r.values[7] || new Date(r.values[7]).getTime() > limit || !r.values[10]) return;
+    if (since && new Date(r.values[7]).getTime() < since) return;
     var thread = GmailApp.getThreadById(r.values[10]);
     if (!thread) return;
     // Securite : jamais de relance si un avis d'echec ou de retard est deja arrive dans le fil
