@@ -2,16 +2,15 @@
 """
 Deploiement de MarketForgeEngine.gs dans l'Apps Script lie au Sheet (01/10/2026).
 
-Utilise le compte de service (secret GSC_SERVICE_ACCOUNT_JSON) via l'API Apps Script.
-Prerequis cote Etienne : Sheet partage au compte de service (Editeur) + API Apps Script activee dans le projet Cloud
-+ ID du script dans automation/apps-script/script_id.txt.
+Utilise la connexion clasp d'Etienne (secret CLASPRC_JSON) via l'API Apps Script (les comptes de service sont refuses : HTTP 403).
+Prerequis : ID du script dans automation/apps-script/script_id.txt.
 
 Mode DRY (defaut) : lit le projet, sauvegarde l'existant dans automation/apps-script/backup/, compare, n'ecrit rien.
 Mode DEPLOY (env APPS_SCRIPT_MODE=deploy) : remplace le fichier de code, conserve appsscript.json et les autres fichiers.
 """
 import os, sys, json, hashlib, datetime
 import requests
-from google.oauth2 import service_account
+from google.oauth2.credentials import Credentials as UserCreds
 from google.auth.transport.requests import Request
 
 BASE = "automation/apps-script"
@@ -19,11 +18,31 @@ SRC = f"{BASE}/MarketForgeEngine.gs"
 SCOPES = ["https://www.googleapis.com/auth/script.projects"]
 
 
+def get_creds():
+    """Connexion clasp d'Etienne (secret CLASPRC_JSON) : acces utilisateur, le seul que l'API Apps Script accepte."""
+    raw = os.environ.get("CLASPRC_JSON", "").strip()
+    if not raw:
+        print("::error title=Apps Script::secret CLASPRC_JSON absent")
+        sys.exit(1)
+    rc = json.loads(raw)
+    tok = (rc.get("tokens") or {}).get("default") or {}
+    if tok.get("refresh_token"):
+        cid, sec, rt = tok["client_id"], tok["client_secret"], tok["refresh_token"]
+    else:  # ancien format de clasp
+        t0 = rc.get("token") or {}
+        o = rc.get("oauth2ClientSettings") or {}
+        cid, sec, rt = o.get("clientId"), o.get("clientSecret"), t0.get("refresh_token")
+    if not (cid and sec and rt):
+        print("::error title=Apps Script::format CLASPRC_JSON inattendu (client/refresh_token manquants)")
+        sys.exit(1)
+    creds = UserCreds(None, refresh_token=rt, token_uri="https://oauth2.googleapis.com/token", client_id=cid, client_secret=sec)
+    creds.refresh(Request())
+    return creds
+
+
 def main():
     sid = open(f"{BASE}/script_id.txt").read().strip()
-    info = json.loads(os.environ["SA_JSON"])
-    creds = service_account.Credentials.from_service_account_info(info, scopes=SCOPES)
-    creds.refresh(Request())
+    creds = get_creds()
     H = {"Authorization": f"Bearer {creds.token}"}
     url = f"https://script.googleapis.com/v1/projects/{sid}/content"
     r = requests.get(url, headers=H, timeout=60)

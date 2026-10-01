@@ -31,7 +31,7 @@ jobs:
           echo "verification des secrets clasp terminee"
       - name: Lecture / déploiement
         env:
-          SA_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+          CLASPRC_JSON: ${{ secrets.CLASPRC_JSON }}
         run: |
           MODE=$(head -n1 automation/apps-script/deploy-script-now.txt | tr -d '[:space:]')
           [ "$MODE" = "deploy" ] && export APPS_SCRIPT_MODE=deploy || export APPS_SCRIPT_MODE=dry
