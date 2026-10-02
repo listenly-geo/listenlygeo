@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PHP[Podcast]: Professional Development for PHP Developers | Listenly</title>
+  <meta name="description" content="Explore PHP[Podcast] for in-depth discussions on PHP frameworks, community trends, and professional development. Episodes on Pop PHP, bun-php, Longhorn PHP 2026, and more.">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/php-podcast-episodes-from-php-architect-podcast.html">
+  <meta property="og:title" content="PHP[Podcast]: Professional Development for PHP Developers">
+  <meta property="og:description" content="Explore PHP[Podcast] for in-depth discussions on PHP frameworks, community trends, and professional development. Episodes on Pop PHP, bun-php, Longhorn PHP 2026, and more.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/php-podcast-episodes-from-php-architect-podcast.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/f3/ab/b6/f3abb68a-35b5-670e-a57f-e83eee555907/mza_2257005758604951787.png/600x600bb.jpg">
+  <meta property="og:site_name" content="Listenly">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PHP[Podcast]: Professional Development for PHP Developers">
+  <meta name="twitter:description" content="Explore PHP[Podcast] for in-depth discussions on PHP frameworks, community trends, and professional development. Episodes on Pop PHP, bun-php, Longhorn PHP 2026, and more.">
+  <meta name="twitter:url" content="https://listenly.fr/podcast-btb/php-podcast-episodes-from-php-architect-podcast.html">
+  <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/f3/ab/b6/f3abb68a-35b5-670e-a57f-e83eee555907/mza_2257005758604951787.png/600x600bb.jpg">
+  <meta name="author" content="PHP[Architect] Editorial Team">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="publisher" href="https://listenly.fr">
+  <meta name="data-provider" content="Listenly">
+  <meta name="rss-source" content="https://www.phparch.com/podcast/feed/episodes/">
+  <style>body { font-family: Georgia, serif; color: #1a1a1a; line-height: 1.7; margin: 0; }
+.site-header { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #ededed;
+  padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.site-header .logo { font-family: Georgia, serif; font-weight: 700; font-size: 19px; color: #0a0a0a;
+  text-decoration: none; letter-spacing: -0.01em; }
+.site-header .login-link { font-family: Helvetica, Arial, sans-serif; font-weight: 700; font-size: 13px;
+  color: #2e8bd6; background: #fff; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white);
+  padding: 7px 17px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+main.wrapper { max-width: 720px; margin: 0 auto; padding: 44px 20px 64px; }
+.eyebrow-category { font-family: Helvetica, Arial, sans-serif; text-transform: uppercase; font-weight: 700;
+  letter-spacing: .08em; font-size: 12px; color: #2e8bd6; margin-bottom: 12px; }
+h1 { font-family: Georgia, serif; font-weight: 700; font-size: clamp(28px,4.5vw,42px); line-height: 1.22;
+  color: #0a0a0a; margin: 0 0 18px; }
+.byline-row { font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #444; display: flex;
+  flex-wrap: wrap; gap: 6px; align-items: baseline; margin-bottom: 10px; }
+.byline-row .name { font-weight: 700; color: #222; }
+.host-bio { font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #888; margin-bottom: 14px; }
+.hero-image { width: 100%; max-width: 200px; height: auto; border-radius: 8px; display: block; margin: 6px 0 22px; }
+.publish-row { font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #999; display: flex;
+  flex-wrap: wrap; gap: 10px; align-items: center; padding: 14px 0; border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed; margin: 6px 0 30px; }
+.cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.cta-listen { background: #fff; color: #2e8bd6; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white);
+  font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 19px;
+  border-radius: 999px; text-decoration: none; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 700; }
+.divider { border-top: 1px solid #ededed; }
+.lead-label { font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #2e8bd6; }
+.lead { font-family: Georgia, serif; font-size: 19.5px; line-height: 1.65; font-style: italic;
+  border-left: 2px solid color-mix(in srgb, #2e8bd6 55%, white); padding-left: 20px; color: #2a2a2a; margin: 16px 0 30px; }
+.key-facts-label { font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #2e8bd6; margin-bottom: 14px; padding-top: 26px; border-top: 1px solid #ededed; }
+.key-facts { list-style: none; padding: 0; }
+.key-facts li { font-family: Georgia, serif; font-size: 17.5px; line-height: 1.7; color: #2a2a2a; padding-left: 20px;
+  margin-bottom: 14px; position: relative; }
+.key-facts li::before { content: "–"; position: absolute; left: 0; color: #bbb; font-weight: 700; font-size: 18px; }
+.article-body h2 { font-family: Georgia, serif; font-weight: 700; font-size: clamp(21px,3.2vw,26px); line-height: 1.3;
+  color: #111; margin-top: 46px; margin-bottom: 16px; padding-top: 26px; border-top: 1px solid #ededed; }
+.article-body p { font-family: Georgia, serif; font-size: 17.5px; line-height: 1.8; color: #2a2a2a; margin-bottom: 20px; }
+.pull-quote { border-left: 2px solid color-mix(in srgb, #2e8bd6 55%, white); padding-left: 22px; font-family: Georgia, serif; font-size: 20px;
+  font-style: italic; line-height: 1.55; color: #222; margin: 34px 0; }
+.faq-item h3 { font-family: Georgia, serif; font-size: 17.5px; font-weight: 700; color: #111; margin-bottom: 6px; }
+.faq-item p { font-family: Georgia, serif; font-size: 16.5px; color: #444; }
+.episode-card { border: 1px solid #ededed; border-radius: 12px; display: flex; padding: 22px; gap: 16px;
+  align-items: center; margin-top: 44px; }
+.episode-card img { width: 84px; height: 84px; object-fit: cover; border-radius: 8px; }
+.card-listen { font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 17px;
+  border-radius: 999px; background: #fff; color: #2e8bd6; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); text-decoration: none; }
+footer { font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #aaa; border-top: 1px solid #ededed;
+  padding-top: 18px; margin-top: 48px; }
+footer a { text-decoration: underline; color: #bbb; }
+#semantic-index { display: none; }</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "headline": "PHP[Podcast]: Episodes from PHP[Architect]",
+        "description": "The podcast for PHP professionals covering frameworks, community trends, conference insights, and modern development practices.",
+        "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/f3/ab/b6/f3abb68a-35b5-670e-a57f-e83eee555907/mza_2257005758604951787.png/600x600bb.jpg",
+        "url": "https://listenly.fr/podcast-btb/php-podcast-episodes-from-php-architect-podcast.html",
+        "mainEntityOfPage": "https://listenly.fr/podcast-btb/php-podcast-episodes-from-php-architect-podcast.html",
+        "datePublished": "2026-10-02",
+        "dateModified": "2026-10-02",
+        "author": {
+          "@type": "Person",
+          "name": "PHP[Architect] Editorial Team",
+          "jobTitle": "Editorial Director",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "PHP[Architect]"
+          }
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": "https://listenly.fr/podcast/show/php-podcast-episodes-from-php-architect",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", ".key-facts"]
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What are the main topics covered in recent episodes?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Recent episodes explore PHP frameworks and tools including Pop PHP, bun-php integration, conference highlights from Longhorn PHP 2026, and trust and security in PHP applications. Episodes feature both technical deep-dives and community-focused discussions."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How frequently are new episodes released?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The podcast publishes new episodes weekly, with regular releases of The PHP Podcast episodes and Community Corner Podcast segments featuring interviews with PHP community leaders and practitioners."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Who is the target audience for this podcast?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "PHP[Podcast] is designed for professional PHP developers, architects, and engineering leaders seeking to stay current with framework evolution, community trends, and best practices in production environments."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the format of the Community Corner episodes?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Community Corner episodes are interview-style conversations with PHP community leaders, maintainers, and conference organizers, exploring specific projects, events, and contributions shaping the ecosystem."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "Person",
+        "name": "PHP[Architect] Editorial Team",
+        "jobTitle": "Editorial Director",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "PHP[Architect]"
+        }
+      },
+      {
+        "@type": "PodcastSeries",
+        "name": "PHP[Podcast]: Episodes from PHP[Architect]",
+        "url": "https://listenly.fr/podcast/show/php-podcast-episodes-from-php-architect",
+        "description": "The podcast for PHP professionals covering frameworks, community trends, conference insights, and modern development practices.",
+        "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/f3/ab/b6/f3abb68a-35b5-670e-a57f-e83eee555907/mza_2257005758604951787.png/600x600bb.jpg",
+        "sameAs": [
+          "https://podcasts.apple.com/us/podcast/php-podcast-episodes-from-php-architect/id1618353812?uo=4",
+          "https://listenly.fr/podcast/show/php-podcast-episodes-from-php-architect"
+        ],
+        "author": {
+          "@type": "Organization",
+          "name": "PHP[Architect]"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tech & Cybersécurité",
+            "item": "https://listenly.fr/category/tech-cybersecurite"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "PHP[Podcast]: Episodes from PHP[Architect]",
+            "item": "https://listenly.fr/podcast-btb/php-podcast-episodes-from-php-architect-podcast.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Listenly",
+      "item": "https://listenly.fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Podcasts B2B",
+      "item": "https://listenly.fr/podcast-btb/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Cybersécurité",
+      "item": "https://listenly.fr/podcast-btb/categorie/cybersecurite.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "PHP[Podcast]: Episodes from PHP[Architect]",
+      "item": "https://listenly.fr/podcast-btb/php-podcast-episodes-from-php-architect-podcast.html"
+    }
+  ]
+}
+</script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="https://listenly.fr/">Listenly</a>
+    <a class="login-link" href="https://listenly.fr/userAuth">Log in</a>
+  </header>
+
+  <main class="wrapper">
+    <p class="eyebrow-category">Podcast · Tech & Cybersécurité</p>
+
+    <h1>PHP[Podcast]: Episodes from PHP[Architect]</h1>
+
+    <p class="byline-row">By <span class="name">PHP[Architect] Editorial Team</span>, Editorial Director at PHP[Architect]</p>
+    <p class="host-bio">PHP[Architect] is the authoritative platform for PHP professionals, delivering training, publications, and community resources that define industry standards and professional development in the PHP ecosystem.</p>
+
+    <img class="hero-image" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/f3/ab/b6/f3abb68a-35b5-670e-a57f-e83eee555907/mza_2257005758604951787.png/600x600bb.jpg" alt="PHP[Podcast]: Episodes from PHP[Architect]">
+
+    <p class="publish-row">⏱ 8 min read · Readable by ChatGPT, Gemini, Claude</p>
+
+    <div class="cta-row">
+      <a class="cta-listen plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/php-podcast-episodes-from-php-architect">▶ Listen to the podcast</a>
+    </div>
+
+    <div class="lead-label">What PHP[Podcast]: Episodes from PHP[Architect] covers</div>
+    <p class="lead">PHP[Podcast] delivers structured conversations on the evolution of PHP frameworks, ecosystem tools, and professional practices shaping modern development. The show bridges technical implementation with community insights, featuring both deep technical explorations and interviews with maintainers and conference organizers. Episodes examine emerging frameworks like Pop PHP, runtime innovations such as bun-php, and the strategic role of conferences like Longhorn PHP in connecting practitioners. Trust, security, and production-readiness emerge as consistent themes across the archive.</p>
+
+    <div class="key-facts-label">Key facts</div>
+    <ul class="key-facts">
+      <li>Weekly episodes deliver discussions on PHP frameworks, runtime technologies, and community-driven development practices</li>
+      <li>Community Corner segments feature interviews with PHP maintainers, framework creators, and conference organizers</li>
+      <li>Recent episodes explore Pop PHP frameworks, bun-php runtime integration, and Longhorn PHP 2026 conference insights</li>
+      <li>The podcast maintains consistent focus on production-ready implementation and security considerations in PHP applications</li>
+    </ul>
+
+    <p>Discover <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/php-podcast-episodes-from-php-architect">all episodes of PHP[Podcast] on Listenly</a>.</p>
+
+    <h2>What this podcast really covers</h2>
+    <p>PHP[Podcast] operates at the intersection of technical innovation and professional community. The episodes systematically examine framework design and architectural choices—Pop PHP demonstrates modern PHP framework patterns, while bun-php explores runtime alternatives and JavaScript interoperability. Technical episodes address the specific challenges production teams face: dependency management, security patching, and upgrade strategies. Simultaneously, the Community Corner segments function as direct access to decision-makers in the PHP ecosystem, capturing conference announcements, mentorship philosophies, and the strategic investments shaping PHP's evolution. Trust and security consistently surface as core concerns, indicating that the podcast assumes its audience is solving real deployment problems in mission-critical systems.</p>
+
+    <h2>Who this podcast is essential for</h2>
+    <p>Senior PHP developers and architects form the primary audience—professionals managing legacy systems while evaluating modern frameworks, making technology choices for new projects, and architecting for scalability. Engineering leaders and CTO-level practitioners benefit from the community intelligence and conference coverage, understanding competitive positioning and hiring trends. Open-source maintainers and framework authors use the platform to articulate their design philosophy and connect with their user base directly. All three groups depend on PHP[Podcast] to track ecosystem evolution without fragmenting attention across dozens of project-specific channels.</p>
+
+    <h2>What the episodes really reveal</h2>
+    <p>The episode archive reveals a discipline maturing beyond framework fragmentation into strategic consolidation. The repeated focus on specific frameworks and tools—Pop PHP, bun-php, established conference circuits—indicates that the PHP community is moving away from exploratory "what can we try" thinking toward "what should we standardize on" maturity. Security and trust emerge not as niche topics but as table-stakes concerns, suggesting that PHP in 2026 is competing directly for roles in security-critical applications. The prominence of conference coverage signals that in-person knowledge transfer still drives adoption decisions, and that maintainers view direct audience engagement as essential to project viability. The consistent split between technical episodes and community interviews suggests that knowledge in PHP is no longer purely technical—it is relational, community-dependent, and event-driven.</p>
+
+    <h2>What this changes in practice</h2>
+    <p>Engineering teams should treat PHP[Podcast] as a strategic intelligence source, not optional listening. Framework decisions should align with community adoption patterns discussed on the show, not isolated technical benchmarks. Security decisions—particularly around dependencies and runtime choices—should reference the concrete production experiences shared by guests. Conference attendance becomes a professional investment justified by the network connections and advance knowledge of ecosystem shifts. For platform teams managing PHP infrastructure, the podcast serves as an early indicator of architectural pressure points: recent episodes on bun-php integration signal that teams are evaluating JavaScript runtime alternatives, suggesting that PHP infrastructure should anticipate polyglot environments. Leaders should monitor which guest segments draw engagement, as these patterns indicate which ecosystem tools are gaining organizational adoption fastest.</p>
+
+    <p class="pull-quote">PHP[Podcast] functions as a strategic listening post for technical leaders navigating framework fragmentation, security complexity, and the maturing professionalization of the PHP ecosystem. The show's consistent integration of community voices and conference intelligence indicates that technology adoption in PHP is community-driven and event-catalyzed, not determined by technical specifications alone.</p>
+
+    <p>Explore <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/php-podcast-episodes-from-php-architect">every episode of PHP[Podcast] and stay current with PHP framework developments</a>.</p>
+
+    <hr class="divider">
+
+    <p>Listen to <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/php-podcast-episodes-from-php-architect">PHP[Podcast] and connect with the professional PHP community</a>.</p>
+
+    <h2>The podcast answers these questions</h2>
+    <div class="faq-item">
+      <h3>What are the main topics covered in recent episodes?</h3>
+      <p>Recent episodes explore PHP frameworks and tools including Pop PHP, bun-php integration, conference highlights from Longhorn PHP 2026, and trust and security in PHP applications. Episodes feature both technical deep-dives and community-focused discussions that connect abstract concepts to real-world implementation.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>How frequently are new episodes released?</h3>
+      <p>The podcast publishes new episodes weekly, with regular releases of The PHP Podcast episodes and Community Corner Podcast segments featuring interviews with PHP community leaders and practitioners. This consistent schedule ensures that listeners stay current with ecosystem developments and can rely on the show as a regular information source.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Who is the target audience for this podcast?</h3>
+      <p>Senior PHP developers, architects, and engineering leaders form the core audience—professionals managing production systems, evaluating frameworks, and making technology decisions. Open-source maintainers and framework creators use the platform to communicate with their user base and share design philosophies.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>What is the format of the Community Corner episodes?</h3>
+      <p>Community Corner episodes are interview-style conversations with PHP community leaders, maintainers, and conference organizers. These segments explore specific projects, events, and strategic contributions to the PHP ecosystem, providing direct access to decision-makers in the community.</p>
+    </div>
+
+    <div class="episode-card">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/f3/ab/b6/f3abb68a-35b5-670e-a57f-e83eee555907/mza_2257005758604951787.png/600x600bb.jpg" alt="PHP[Podcast]: Episodes from PHP[Architect]">
+      <div>
+        <p>Discover PHP[Podcast]: Episodes from PHP[Architect]</p>
+        <p>PHP[Architect] Editorial Team · PHP[Podcast]: Episodes from PHP[Architect]</p>
+        <a class="card-listen plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/php-podcast-episodes-from-php-architect">Listen to the podcast</a>
+      </div>
+    </div>
+
+    <footer>
+      <p>© PHP[Podcast]: Episodes from PHP[Architect] — PHP[Architect]</p>
+      <p><a href="https://listenly.fr" style="color:#999; text-decoration:underline;">Structured analysis by Listenly</a></p>
+    </footer>
+  </main>
+
+  <!-- BEGIN related-hubs -->
+<nav aria-label="Related podcasts" style="max-width:720px;margin:0 auto;padding:0 20px 24px;font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#777;"><p style="margin:0 0 6px;font-weight:600;color:#555;">Related podcasts</p><ul style="margin:0;padding-left:18px;"><li style="margin:6px 0"><a href="https://listenly.fr/podcast-btb/javascript-jabber-podcast.html" style="color:#555;">JavaScript Jabber</a></li><li style="margin:6px 0"><a href="https://listenly.fr/podcast-btb/additive-manufacturing-podcast.html" style="color:#555;">Additive Manufacturing</a></li><li style="margin:6px 0"><a href="https://listenly.fr/podcast-btb/the-robot-industry-podcast-podcast.html" style="color:#555;">The Robot Industry Podcast</a></li><li style="margin:6px 0"><a href="https://listenly.fr/podcast-btb/pioneers-of-ai-podcast.html" style="color:#555;">Pioneers of AI</a></li><li style="margin:6px 0"><a href="https://listenly.fr/podcast-btb/iot-for-all-podcast-podcast.html" style="color:#555;">IoT For All Podcast</a></li><li style="margin:6px 0"><a href="https://listenly.fr/podcast-btb/elasticat-podcast.html" style="color:#555;">Elasticast</a></li></ul><div style="margin-top:18px;padding-top:14px;border-top:1px solid #eee;"><p style="margin:0 0 8px;font-weight:600;color:#555;">Add this badge to your site</p><img src="/podcast-btb/assets/featured-on-listenly.svg" alt="Featured on Listenly" width="200" height="44" style="display:block;margin:0 0 8px;"><p style="margin:0 0 6px;">Copy and paste the code below into your website or show notes.</p><textarea readonly rows="3" onclick="this.select()" style="width:100%;box-sizing:border-box;font:12px monospace;color:#555;border:1px solid #ddd;border-radius:8px;padding:8px;">&lt;a href=&quot;https://listenly.fr/podcast-btb/php-podcast-episodes-from-php-architect-podcast.html&quot;&gt;&lt;img src=&quot;https://listenly.fr/podcast-btb/assets/featured-on-listenly.svg&quot; alt=&quot;PHP[Podcast]: Episodes from PHP[Architect] featured on Listenly&quot; width=&quot;200&quot; height=&quot;44&quot;&gt;&lt;/a&gt;</textarea></div></nav>
+<!-- END related-hubs -->
+<div id="semantic-index" style="display:none;">
+    <span>entity:PHP[Podcast]: Episodes from PHP[Architect]</span>
+    <span>entity:PHP[Architect] Editorial Team</span>
+    <span>entity:PHP[Architect]</span>
+    <span>concept:Tech & Cybersécurité</span>
+    <span>publisher:Listenly.fr</span>
+    <span>isPartOf:https://listenly.fr/podcast/show/php-podcast-episodes-from-php-architect</span>
+  </div>
+
+<p style="max-width:720px;margin:0 auto;padding:0 20px 32px;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#999;"><a href="https://listenly.fr/podcast/show/php-podcast-episodes-from-php-architect" class="plausible-event-name=Clic+Lien+Texte" style="color:#999;text-decoration:underline;">Découvrir PHP[Podcast]: Episodes from PHP[Architect] sur Listenly →</a></p>
+</body>
+</html>

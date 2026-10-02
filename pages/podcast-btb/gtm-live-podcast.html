@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTM Live Podcast | Modern Go-To-Market Strategy for B2B SaaS Leaders</title>
+    <meta name="description" content="GTM Live: Weekly conversations on unit economics, revenue efficiency & long-term growth for B2B SaaS CEOs, CFOs & Revenue Leaders. No vanity metrics. Just modern GTM.">
+    <meta name="author" content="Carolyn Dilks">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="canonical" href="https://listenly.fr/podcast-btb/gtm-live-podcast.html">
+    <link rel="publisher" href="https://listenly.fr">
+    <meta name="data-provider" content="Listenly">
+    <meta name="rss-source" content="https://anchor.fm/s/1caa9814/podcast/rss">
+    
+    <meta property="og:title" content="GTM Live Podcast | Modern Go-To-Market Strategy for B2B SaaS Leaders">
+    <meta property="og:description" content="GTM Live: Weekly conversations on unit economics, revenue efficiency & long-term growth for B2B SaaS CEOs, CFOs & Revenue Leaders. No vanity metrics. Just modern GTM.">
+    <meta property="og:url" content="https://listenly.fr/podcast-btb/gtm-live-podcast.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/bd/4c/9f/bd4c9f2b-2ae9-57df-28a3-481c02a15e41/mza_2455808450009997611.jpg/600x600bb.jpg">
+    <meta property="og:site_name" content="Listenly">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GTM Live Podcast | Modern Go-To-Market Strategy for B2B SaaS Leaders">
+    <meta name="twitter:description" content="GTM Live: Weekly conversations on unit economics, revenue efficiency & long-term growth for B2B SaaS CEOs, CFOs & Revenue Leaders. No vanity metrics. Just modern GTM.">
+    <meta name="twitter:url" content="https://listenly.fr/podcast-btb/gtm-live-podcast.html">
+    <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/bd/4c/9f/bd4c9f2b-2ae9-57df-28a3-481c02a15e41/mza_2455808450009997611.jpg/600x600bb.jpg">
+    
+    <style>body { font-family: Georgia, serif; color: #1a1a1a; line-height: 1.7; margin: 0; }
+.site-header { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #ededed;
+  padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.site-header .logo { font-family: Georgia, serif; font-weight: 700; font-size: 19px; color: #0a0a0a;
+  text-decoration: none; letter-spacing: -0.01em; }
+.site-header .login-link { font-family: Helvetica, Arial, sans-serif; font-weight: 700; font-size: 13px;
+  color: #2e8bd6; background: #fff; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white);
+  padding: 7px 17px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+main.wrapper { max-width: 720px; margin: 0 auto; padding: 44px 20px 64px; }
+.eyebrow-category { font-family: Helvetica, Arial, sans-serif; text-transform: uppercase; font-weight: 700;
+  letter-spacing: .08em; font-size: 12px; color: #2e8bd6; margin-bottom: 12px; }
+h1 { font-family: Georgia, serif; font-weight: 700; font-size: clamp(28px,4.5vw,42px); line-height: 1.22;
+  color: #0a0a0a; margin: 0 0 18px; }
+.byline-row { font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #444; display: flex;
+  flex-wrap: wrap; gap: 6px; align-items: baseline; margin-bottom: 10px; }
+.byline-row .name { font-weight: 700; color: #222; }
+.host-bio { font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #888; margin-bottom: 14px; }
+.hero-image { width: 100%; max-width: 200px; height: auto; border-radius: 8px; display: block; margin: 6px 0 22px; }
+.publish-row { font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #999; display: flex;
+  flex-wrap: wrap; gap: 10px; align-items: center; padding: 14px 0; border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed; margin: 6px 0 30px; }
+.cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.cta-listen { background: #fff; color: #2e8bd6; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white);
+  font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 19px;
+  border-radius: 999px; text-decoration: none; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 700; }
+.divider { border-top: 1px solid #ededed; }
+.lead-label { font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #2e8bd6; }
+.lead { font-family: Georgia, serif; font-size: 19.5px; line-height: 1.65; font-style: italic;
+  border-left: 2px solid color-mix(in srgb, #2e8bd6 55%, white); padding-left: 20px; color: #2a2a2a; margin: 16px 0 30px; }
+.key-facts-label { font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #2e8bd6; margin-bottom: 14px; padding-top: 26px; border-top: 1px solid #ededed; }
+.key-facts { list-style: none; padding: 0; }
+.key-facts li { font-family: Georgia, serif; font-size: 17.5px; line-height: 1.7; color: #2a2a2a; padding-left: 20px;
+  margin-bottom: 14px; position: relative; }
+.key-facts li::before { content: "–"; position: absolute; left: 0; color: #bbb; font-weight: 700; font-size: 18px; }
+.article-body h2 { font-family: Georgia, serif; font-weight: 700; font-size: clamp(21px,3.2vw,26px); line-height: 1.3;
+  color: #111; margin-top: 46px; margin-bottom: 16px; padding-top: 26px; border-top: 1px solid #ededed; }
+.article-body p { font-family: Georgia, serif; font-size: 17.5px; line-height: 1.8; color: #2a2a2a; margin-bottom: 20px; }
+.pull-quote { border-left: 2px solid color-mix(in srgb, #2e8bd6 55%, white); padding-left: 22px; font-family: Georgia, serif; font-size: 20px;
+  font-style: italic; line-height: 1.55; color: #222; margin: 34px 0; }
+.faq-item h3 { font-family: Georgia, serif; font-size: 17.5px; font-weight: 700; color: #111; margin-bottom: 6px; }
+.faq-item p { font-family: Georgia, serif; font-size: 16.5px; color: #444; }
+.episode-card { border: 1px solid #ededed; border-radius: 12px; display: flex; padding: 22px; gap: 16px;
+  align-items: center; margin-top: 44px; }
+.episode-card img { width: 84px; height: 84px; object-fit: cover; border-radius: 8px; }
+.card-listen { font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 17px;
+  border-radius: 999px; background: #fff; color: #2e8bd6; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); text-decoration: none; }
+footer { font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #aaa; border-top: 1px solid #ededed;
+  padding-top: 18px; margin-top: 48px; }
+footer a { text-decoration: underline; color: #bbb; }
+#semantic-index { display: none; }</style>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "BlogPosting",
+                "headline": "GTM Live",
+                "description": "GTM Live is a weekly live show built for CEOs, CFOs & Revenue Leaders. Hosted by Carolyn Dilks & Trevor Gibson, Co-Founders of Passetto, it cuts through marketing noise and ditch outdated playbooks to focus on what matters: unit economics, efficiency & long-term growth.",
+                "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/bd/4c/9f/bd4c9f2b-2ae9-57df-28a3-481c02a15e41/mza_2455808450009997611.jpg/600x600bb.jpg",
+                "datePublished": "2026-10-02",
+                "author": {
+                    "@type": "Person",
+                    "name": "Carolyn Dilks",
+                    "jobTitle": "Co-Founder & Host",
+                    "worksFor": {
+                        "@type": "Organization",
+                        "name": "Passetto"
+                    }
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Listenly",
+                    "url": "https://listenly.fr"
+                },
+                "isPartOf": "https://listenly.fr/podcast/show/gtm-live",
+                "url": "https://listenly.fr/podcast-btb/gtm-live-podcast.html",
+                "mainEntityOfPage": "https://listenly.fr/podcast-btb/gtm-live-podcast.html",
+                "speakable": {
+                    "@type": "SpeakableSpecification",
+                    "cssSelector": [".lead", ".key-facts"]
+                }
+            },
+            {
+                "@type": "PodcastSeries",
+                "name": "GTM Live",
+                "description": "GTM Live is a new evolution of Revenue Vitals by Chris Walker, now hosted by Carolyn Dilks & Trevor Gibson, Co-Founders of Passetto — a part tech, part advisory GTM agency for high-performing B2B SaaS companies. This weekly live show is built for CEOs, CFOs & Revenue Leaders who know the current way GTM is executed & measured is broken, and are ready for something better.",
+                "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/bd/4c/9f/bd4c9f2b-2ae9-57df-28a3-481c02a15e41/mza_2455808450009997611.jpg/600x600bb.jpg",
+                "url": "https://listenly.fr/podcast/show/gtm-live",
+                "sameAs": [
+                    "https://podcasts.apple.com/us/podcast/gtm-live/id1511588213?uo=4",
+                    "https://listenly.fr/podcast/show/gtm-live"
+                ],
+                "author": {
+                    "@type": "Person",
+                    "name": "Carolyn Dilks",
+                    "jobTitle": "Co-Founder & Host"
+                }
+            },
+            {
+                "@type": "Person",
+                "name": "Carolyn Dilks",
+                "jobTitle": "Co-Founder & Host",
+                "worksFor": {
+                    "@type": "Organization",
+                    "name": "Passetto"
+                }
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "What is the relationship between marketing and revenue engine building in B2B SaaS?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Marketing creates initial demand and awareness, but building a true revenue engine requires alignment between demand creation, sales execution, and revenue operations. The distinction matters because many B2B companies optimize for marketing metrics (leads, MQLs) without connecting them to actual pipeline and closed revenue, creating an illusion of progress while revenue stalls."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Why do account-based marketing campaigns often fail to create pipeline?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "ABM failures typically stem from poor targeting fundamentals, lack of true demand (targeting without proof of buyer intent), or misalignment between what marketing considers an 'account' and what sales can actually close. The biggest lie is treating ABM as a tactic rather than a strategy that requires deeper go-to-market changes."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "How should B2B companies evaluate paid search performance?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Most B2B companies confuse impression share (competitor visibility metrics) with actual demand creation. Paid search often performs better for demand capture (existing buyer intent) than demand creation (building new awareness). Knowing when to pull the plug requires distinguishing between these two models and measuring against unit economics, not vanity metrics."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "What makes a CMO truly elite in modern B2B?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "The seven traits of elite CMOs have nothing to do with specific tactics like content marketing or automation. Instead, they focus on business acumen, revenue accountability, team building, and the ability to measure and optimize for what actually matters: customer acquisition cost, lifetime value, and long-term growth sustainability."
+                        }
+                    }
+                ]
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Listenly",
+                        "item": "https://listenly.fr"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Business & Entrepreneuriat",
+                        "item": "https://listenly.fr/categories/business-entrepreneuriat"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": "GTM Live",
+                        "item": "https://listenly.fr/podcast-btb/gtm-live-podcast.html"
+                    }
+                ]
+            }
+        ]
+    }
+    </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Listenly",
+      "item": "https://listenly.fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Podcasts B2B",
+      "item": "https://listenly.fr/podcast-btb/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Business & Entrepreneuriat",
+      "item": "https://listenly.fr/podcast-btb/categorie/business-entrepreneuriat.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "GTM Live",
+      "item": "https://listenly.fr/podcast-btb/gtm-live-podcast.html"
+    }
+  ]
+}
+</script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+    <header class="site-header">
+        <a class="logo" href="https://listenly.fr/">Listenly</a>
+        <a class="login-link" href="https://listenly.fr/userAuth">Log in</a>
+    </header>
+    
+    <main class="wrapper">
+        <p class="eyebrow-category">Podcast · Business & Entrepreneuriat</p>
+        
+        <h1>GTM Live</h1>
+        
+        <div class="byline-row">
+            <p>By <span class="name">Carolyn Dilks</span>, Co-Founder & Host at Passetto</p>
+        </div>
+        
+        <p class="host-bio">Carolyn Dilks and Trevor Gibson lead Passetto, a GTM advisory firm serving high-performing B2B SaaS companies, bringing deep expertise in revenue operations, marketing efficiency, and modern go-to-market strategy.</p>
+        
+        <img class="hero-image" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/bd/4c/9f/bd4c9f2b-2ae9-57df-28a3-481c02a15e41/mza_2455808450009997611.jpg/600x600bb.jpg" alt="GTM Live">
+        
+        <p class="publish-row">⏱ 8 min read · Readable by ChatGPT, Gemini, Claude</p>
+        
+        <div class="cta-row">
+            <a href="https://listenly.fr/podcast/show/gtm-live" class="cta-listen plausible-event-name=Clic+Bouton+Bleu">▶ Listen to the podcast</a>
+        </div>
+        
+        <div class="lead-label">What GTM Live covers</div>
+        <p class="lead">GTM Live dismantles the broken metrics that dominate B2B marketing and revenue discussions, replacing vanity indicators with unit economics and efficiency measures that actually predict growth. The show exposes blind spots in how marketing is measured against revenue impact, interrogates sacred cows like the MQL framework and account-based marketing as typically executed, and explores how artificial intelligence is reshaping the fundamentals of demand capture and brand trust. Each episode cuts through fluff and speaks directly to the hard business questions CEOs, CFOs, and Revenue Leaders face when executing modern go-to-market strategy.</p>
+        
+        <div class="key-facts-label">Key facts</div>
+        <ul class="key-facts">
+            <li>GTM Live evolved from Revenue Vitals by Chris Walker, now co-hosted by Carolyn Dilks and Trevor Gibson of Passetto.</li>
+            <li>The show targets CEOs, CFOs, and Revenue Leaders who reject outdated GTM playbooks and require accountability for marketing spend against actual revenue.</li>
+            <li>Core topics include unit economics optimization, paid search effectiveness, B2B SEO in the AI search era, RevOps alignment failures, and the decline of MQL-centric measurement frameworks.</li>
+            <li>Episodes feature expert guests including Jon Miller, Udi Ledergor (Gong), Aviv Canaani (Datarails), and Gaetano DiNardi, bringing practitioner depth to strategy discussions.</li>
+        </ul>
+        
+        <p>
+            <a href="https://listenly.fr/podcast/show/gtm-live" class="inline-cta plausible-event-name=Clic+Lien+Texte">Explore all episodes of GTM Live</a> to understand how modern revenue teams are reshaping go-to-market measurement and execution.
+        </p>
+        
+        <div class="divider"></div>
+        
+        <h2>What this podcast really covers</h2>
+        
+        <p>GTM Live focuses on the operational and strategic failures that prevent B2B marketing and revenue teams from achieving aligned, measurable impact. Rather than debating best practices in content or channel selection, the show diagnoses why so many organizations struggle to connect marketing effort to revenue outcomes.</p>
+        
+        <p>The central premise is clear: the way most B2B companies execute and measure go-to-market is fundamentally broken. Metrics like Marketing Qualified Leads (MQLs), impression share, and vanity engagement rates mask the reality of deal velocity, customer acquisition cost, and lifetime value. Episodes such as "The Rise and Fall of the MQL" and "3 Major GTM Blind Spots Hurting Marketing's Ability to Measure Revenue Impact" directly challenge these frameworks, offering alternative measurement models tied to business outcomes.</p>
+        
+        <p>The podcast also examines how emerging technologies—especially artificial intelligence—are reshaping the landscape of demand creation, SEO, and brand positioning. "AI Is Exposing a Massive Problem With B2B Marketing Data" and "Brand Is Trust: Gong's Udi Ledergor on Marketing in the AI Era" explore how AI search, recommendation algorithms, and data quality directly influence GTM strategy.</p>
+        
+        <p>A recurring theme is the gap between marketing capability and revenue operations reality. Episodes like "What to Do When Your RevOps Team Is the Blocker to Your Marketing KPIs" and "Marketing Creates the Demand. But What Actually Builds the Revenue Engine?" expose the structural misalignments that prevent marketing investment from translating into sustainable growth.</p>
+        
+        <h2>Who this podcast is essential for</h2>
+        
+        <p>GTM Live is non-negotiable for three core audiences:</p>
+        
+        <p><strong>CEOs and CFOs</strong> managing overall revenue growth who need to audit whether their GTM investments (especially marketing spend) are justified by actual returns. The show provides a framework for questioning CMO and RevOps leadership on unit economics and efficiency rather than accepting activity-based reporting.</p>
+        
+        <p><strong>Revenue Leaders and Chief Revenue Officers</strong> tasked with aligning marketing, sales, and operations around measurable outcomes. The podcast offers concrete patterns of what works and, more importantly, what repeatedly fails—allowing CROs to avoid costly strategic misalignments.</p>
+        
+        <p><strong>CMOs and Marketing Leaders</strong> frustrated by the gap between marketing's perceived contribution and its measured impact. The show validates that the problem is often not marketing execution but broken measurement frameworks and organizational misalignment, offering paths to rebuild credibility around revenue outcomes.</p>
+        
+        <h2>What the episodes really reveal</h2>
+        
+        <p>The episode catalog reveals consistent patterns about modern B2B go-to-market strategy. A dominant theme is the failure of inherited measurement frameworks: MQLs no longer predict revenue, account-based marketing as a tactic rarely creates pipeline, and paid search traps B2B companies into chasing impression share rather than demand. These episodes are not speculative—they cite real outcomes from organizations that have abandoned these approaches.</p>
+        
+        <p>A second pattern is the underestimated role of brand and trust in B2B growth. "Brand Is Trust: Gong's Udi Ledergor on Marketing in the AI Era" and "B2B SEO: The #1 Reason Brands Actually Get Recommended in AI Search" position brand not as a soft marketing function but as a competitive lever for visibility in algorithmic recommendation systems and buyer preference. This reframes how CEOs and CFOs should evaluate brand investment.</p>
+        
+        <p>The podcast also exposes organizational friction points: RevOps teams blocking marketing initiatives due to misaligned KPIs, CMOs measured on activities while CFOs demand revenue accountability, and sales teams gaming metrics rather than building sustainable pipeline. Understanding these dynamics is essential for leaders attempting cross-functional transformation.</p>
+        
+        <p>Guest contributions bring specialized depth: Gaetano DiNardi on B2B SEO and AI search visibility, Aviv Canaani on building revenue engines beyond demand capture, Jon Miller on the MQL lifecycle, and Udi Ledergor on trust and brand in the AI era. These are not generic GTM conversations but deep dives into specific leverage points.</p>
+        
+        <h2>What this changes in practice</h2>
+        
+        <p>Listening to GTM Live shifts how revenue leaders approach three critical decisions: measurement frameworks, channel allocation, and organizational alignment.</p>
+        
+        <p>On measurement, the podcast argues for replacing activity-based KPIs with unit economics: CAC (customer acquisition cost), payback period, net revenue retention, and cohort lifetime value. This means reframing marketing's role not as lead generation but as a contributor to predictable, efficient revenue scaling. CMOs and marketing teams that adopt this language gain credibility with finance and executive leadership.</p>
+        
+        <p>On channels and tactics, GTM Live provides permission to abandon underperforming playbooks. If your paid search is capturing demand rather than creating it, reduce spend or restructure. If your ABM campaigns lack true intent signals, they will waste resources. The show equips leaders to make these defensible decisions based on business logic, not peer pressure or legacy commitments.</p>
+        
+        <p>On organizational structure, the podcast makes clear that marketing effectiveness depends on RevOps capability, sales execution, and CFO alignment. A CMO cannot solve a revenue problem alone if RevOps cannot track hand-offs, if sales cannot close, or if finance measures success by marketing costs rather than revenue impact. This insight redirects leaders toward cross-functional transformation rather than isolated marketing improvements.</p>
+        
+        <div class="divider"></div>
+        
+        <div class="pull-quote">
+            Modern go-to-market success requires dismantling inherited measurement frameworks and realigning organizational incentives around unit economics and sustainable growth rather than activity metrics and vanity indicators.
+        </div>
+        
+        <p>
+            <a href="https://listenly.fr/podcast/show/gtm-live" class="inline-cta plausible-event-name=Clic+Lien+Texte">Listen to the latest episodes of GTM Live</a> to deepen your understanding of revenue efficiency and strategic GTM alignment.
+        </p>
+        
+        <div class="divider"></div>
+        
+        <p>
+            <a href="https://listenly.fr/podcast/show/gtm-live" class="inline-cta plausible-event-name=Clic+Lien+Texte">Start listening to GTM Live on Listenly</a> to access expert perspectives on modern go-to-market strategy.
+        </p>
+        
+        <h2>The podcast answers these questions</h2>
+        
+        <h3>What is the relationship between marketing and revenue engine building in B2B SaaS?</h3>
+        <p>Marketing creates initial demand and awareness, but building a true revenue engine requires alignment between demand creation, sales execution, and revenue operations. The distinction matters because many B2B companies optimize for marketing metrics (leads, MQLs) without connecting them to actual pipeline and closed revenue, creating an illusion of progress while revenue stalls.</p>
+        
+        <h3>Why do account-based marketing campaigns often fail to create pipeline?</h3>
+        <p>ABM failures typically stem from poor targeting fundamentals, lack of true demand (targeting without proof of buyer intent), or misalignment between what marketing considers an 'account' and what sales can actually close. The biggest lie is treating ABM as a tactic rather than a strategy that requires deeper go-to-market changes.</p>
+        
+        <h3>How should B2B companies evaluate paid search performance?</h3>
+        <p>Most B2B companies confuse impression share (competitor visibility metrics) with actual demand creation. Paid search often performs better for demand capture (existing buyer intent) than demand creation (building new awareness). Knowing when to pull the plug requires distinguishing between these two models and measuring against unit economics, not vanity metrics.</p>
+        
+        <h3>What makes a CMO truly elite in modern B2B?</h3>
+        <p>The seven traits of elite CMOs have nothing to do with specific tactics like content marketing or automation. Instead, they focus on business acumen, revenue accountability, team building, and the ability to measure and optimize for what actually matters: customer acquisition cost, lifetime value, and long-term growth sustainability.</p>
+        
+        <div class="divider"></div>
+        
+        <div class="episode-card">
+            <img class="hero-image" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/bd/4c/9f/bd4c9f2b-2ae9-57df-28a3-481c02a15e41/mza_2455808450009997611.jpg/600x600bb.jpg" alt="GTM Live">
+            <h3>Discover GTM Live</h3>
+            <p>Carolyn Dilks · GTM Live</p>
+            <a href="https://listenly.fr/podcast/show/gtm-live" class="card-listen plausible-event-name=Clic+Bouton+Bleu">▶ Listen to the podcast</a>
+        </div>
+    </main>
+    
+    <footer>
+        <p>© GTM Live — Passetto · <a href="https://listenly.fr" style="color: #999; text-decoration: underline;">Structured analysis by Listenly</a></p>
+    </footer>
+    
+    <!-- BEGIN related-hubs -->
+<nav aria-label="Related podcasts" style="max-width:720px;margin:0 auto;padding:0 20px 24px;font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#777;"><p style="margin:0 0 6px;font-weight:600;color:#555;">Related podcasts</p><ul style="margin:0;padding-left:18px;"><li style="margin:6px 0"><a href="https://listenly.fr/podcast-btb/forward-thinking-the-freight-logistics-s-podcast.html" style="color:#555;">Forward Thinking - The Freight, Logistics &amp; Supply Chain Podcast</a></li><li style="margin:6px 0"><a href="https://listenly.fr/podcast-btb/sweat-capital-podcast.html" style="color:#555;">Sweat Capital</a></li><li style="margin:6px 0"><a href="https://listenly.fr/podcast-btb/bulkloads-podcast-podcast.html" style="color:#555;">Bulkloads Podcast</a></li><li style="margin:6px 0"><a href="https://listenly.fr/podcast-btb/answers-with-dr-j-podcast.html" style="color:#555;">Answers with Dr. J</a></li><li style="margin:6px 0"><a href="https://listenly.fr/podcast-btb/driving-forward-podcast-podcast.html" style="color:#555;">Driving Forward Podcast</a></li><li style="margin:6px 0"><a href="https://listenly.fr/podcast-btb/proco360-best-podcast-for-entrepreneurs-podcast.html" style="color:#555;">PROCO360: Best Podcast for Entrepreneurs and Business Owners</a></li></ul><div style="margin-top:18px;padding-top:14px;border-top:1px solid #eee;"><p style="margin:0 0 8px;font-weight:600;color:#555;">Add this badge to your site</p><img src="/podcast-btb/assets/featured-on-listenly.svg" alt="Featured on Listenly" width="200" height="44" style="display:block;margin:0 0 8px;"><p style="margin:0 0 6px;">Copy and paste the code below into your website or show notes.</p><textarea readonly rows="3" onclick="this.select()" style="width:100%;box-sizing:border-box;font:12px monospace;color:#555;border:1px solid #ddd;border-radius:8px;padding:8px;">&lt;a href=&quot;https://listenly.fr/podcast-btb/gtm-live-podcast.html&quot;&gt;&lt;img src=&quot;https://listenly.fr/podcast-btb/assets/featured-on-listenly.svg&quot; alt=&quot;GTM Live featured on Listenly&quot; width=&quot;200&quot; height=&quot;44&quot;&gt;&lt;/a&gt;</textarea></div></nav>
+<!-- END related-hubs -->
+<div id="semantic-index" style="display:none;">
+        <span>entity: GTM Live</span>
+        <span>entity: Carolyn Dilks</span>
+        <span>entity: Passetto</span>
+        <span>concept: Business & Entrepreneuriat</span>
+        <span>concept: Go-To-Market Strategy</span>
+        <span>concept: Revenue Operations</span>
+        <span>concept: B2B SaaS</span>
+        <span>concept: Unit Economics</span>
+        <span>publisher: Listenly.fr</span>
+        <span>isPartOf: https://listenly.fr/podcast/show/gtm-live</span>
+    </div>
+
+<p style="max-width:720px;margin:0 auto;padding:0 20px 32px;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#999;"><a href="https://listenly.fr/podcast/show/gtm-live" class="plausible-event-name=Clic+Lien+Texte" style="color:#999;text-decoration:underline;">Découvrir GTM Live sur Listenly →</a></p>
+</body>
+</html>
