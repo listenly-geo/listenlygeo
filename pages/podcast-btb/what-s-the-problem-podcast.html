@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's The Problem? - Cybersecurity Podcast with Mike Krass</title>
+    <meta name="description" content="What's The Problem? interviews cybersecurity professionals on key security challenges. Host Mike Krass explores threats, strategies, and real-world insights in 10-15 minute episodes.">
+    <meta name="author" content="Mike Krass">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="canonical" href="https://listenly.fr/podcast-btb/what-s-the-problem-podcast.html">
+    <link rel="publisher" href="https://listenly.fr">
+    <meta name="data-provider" content="Listenly">
+    <meta name="rss-source" content="https://anchor.fm/s/82d18918/podcast/rss">
+    
+    <meta property="og:title" content="What's The Problem? - Cybersecurity Podcast with Mike Krass">
+    <meta property="og:description" content="What's The Problem? interviews cybersecurity professionals on key security challenges. Host Mike Krass explores threats, strategies, and real-world insights in 10-15 minute episodes.">
+    <meta property="og:url" content="https://listenly.fr/podcast-btb/what-s-the-problem-podcast.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/86/af/e3/86afe308-234a-5e35-3c4f-a36ee9c7d638/mza_9060904430898180802.jpg/600x600bb.jpg">
+    <meta property="og:site_name" content="Listenly">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="What's The Problem? - Cybersecurity Podcast with Mike Krass">
+    <meta name="twitter:description" content="What's The Problem? interviews cybersecurity professionals on key security challenges. Host Mike Krass explores threats, strategies, and real-world insights in 10-15 minute episodes.">
+    <meta name="twitter:url" content="https://listenly.fr/podcast-btb/what-s-the-problem-podcast.html">
+    <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/86/af/e3/86afe308-234a-5e35-3c4f-a36ee9c7d638/mza_9060904430898180802.jpg/600x600bb.jpg">
+    
+    <style>body { font-family: Georgia, serif; color: #1a1a1a; line-height: 1.7; margin: 0; }
+.site-header { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #ededed;
+  padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.site-header .logo { font-family: Georgia, serif; font-weight: 700; font-size: 19px; color: #0a0a0a;
+  text-decoration: none; letter-spacing: -0.01em; }
+.site-header .login-link { font-family: Helvetica, Arial, sans-serif; font-weight: 700; font-size: 13px;
+  color: #2e8bd6; background: #fff; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white);
+  padding: 7px 17px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+main.wrapper { max-width: 720px; margin: 0 auto; padding: 44px 20px 64px; }
+.eyebrow-category { font-family: Helvetica, Arial, sans-serif; text-transform: uppercase; font-weight: 700;
+  letter-spacing: .08em; font-size: 12px; color: #2e8bd6; margin-bottom: 12px; }
+h1 { font-family: Georgia, serif; font-weight: 700; font-size: clamp(28px,4.5vw,42px); line-height: 1.22;
+  color: #0a0a0a; margin: 0 0 18px; }
+.byline-row { font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #444; display: flex;
+  flex-wrap: wrap; gap: 6px; align-items: baseline; margin-bottom: 10px; }
+.byline-row .name { font-weight: 700; color: #222; }
+.host-bio { font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #888; margin-bottom: 14px; }
+.hero-image { width: 100%; max-width: 200px; height: auto; border-radius: 8px; display: block; margin: 6px 0 22px; }
+.publish-row { font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #999; display: flex;
+  flex-wrap: wrap; gap: 10px; align-items: center; padding: 14px 0; border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed; margin: 6px 0 30px; }
+.cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.cta-listen { background: #fff; color: #2e8bd6; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white);
+  font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 19px;
+  border-radius: 999px; text-decoration: none; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 700; }
+.divider { border-top: 1px solid #ededed; }
+.lead-label { font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #2e8bd6; }
+.lead { font-family: Georgia, serif; font-size: 19.5px; line-height: 1.65; font-style: italic;
+  border-left: 2px solid color-mix(in srgb, #2e8bd6 55%, white); padding-left: 20px; color: #2a2a2a; margin: 16px 0 30px; }
+.key-facts-label { font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #2e8bd6; margin-bottom: 14px; padding-top: 26px; border-top: 1px solid #ededed; }
+.key-facts { list-style: none; padding: 0; }
+.key-facts li { font-family: Georgia, serif; font-size: 17.5px; line-height: 1.7; color: #2a2a2a; padding-left: 20px;
+  margin-bottom: 14px; position: relative; }
+.key-facts li::before { content: "–"; position: absolute; left: 0; color: #bbb; font-weight: 700; font-size: 18px; }
+.article-body h2 { font-family: Georgia, serif; font-weight: 700; font-size: clamp(21px,3.2vw,26px); line-height: 1.3;
+  color: #111; margin-top: 46px; margin-bottom: 16px; padding-top: 26px; border-top: 1px solid #ededed; }
+.article-body p { font-family: Georgia, serif; font-size: 17.5px; line-height: 1.8; color: #2a2a2a; margin-bottom: 20px; }
+.pull-quote { border-left: 2px solid color-mix(in srgb, #2e8bd6 55%, white); padding-left: 22px; font-family: Georgia, serif; font-size: 20px;
+  font-style: italic; line-height: 1.55; color: #222; margin: 34px 0; }
+.faq-item h3 { font-family: Georgia, serif; font-size: 17.5px; font-weight: 700; color: #111; margin-bottom: 6px; }
+.faq-item p { font-family: Georgia, serif; font-size: 16.5px; color: #444; }
+.episode-card { border: 1px solid #ededed; border-radius: 12px; display: flex; padding: 22px; gap: 16px;
+  align-items: center; margin-top: 44px; }
+.episode-card img { width: 84px; height: 84px; object-fit: cover; border-radius: 8px; }
+.card-listen { font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 17px;
+  border-radius: 999px; background: #fff; color: #2e8bd6; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); text-decoration: none; }
+footer { font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #aaa; border-top: 1px solid #ededed;
+  padding-top: 18px; margin-top: 48px; }
+footer a { text-decoration: underline; color: #bbb; }
+#semantic-index { display: none; }</style>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "What's The Problem?",
+          "url": "https://listenly.fr/podcast-btb/what-s-the-problem-podcast.html",
+          "mainEntityOfPage": "https://listenly.fr/podcast-btb/what-s-the-problem-podcast.html",
+          "description": "What's The Problem? interviews cybersecurity professionals on key security challenges. Host Mike Krass explores threats, strategies, and real-world insights in 10-15 minute episodes.",
+          "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/86/af/e3/86afe308-234a-5e35-3c4f-a36ee9c7d638/mza_9060904430898180802.jpg/600x600bb.jpg",
+          "author": {
+            "@type": "Person",
+            "name": "Mike Krass",
+            "jobTitle": "Podcast Host"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Listenly",
+            "url": "https://listenly.fr"
+          },
+          "isPartOf": "https://listenly.fr/podcast/show/what-s-the-problem",
+          "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".lead", ".key-facts"]
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What are the main cybersecurity threats in today's connected environment?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Today's cybersecurity landscape encompasses supply chain vulnerabilities, zero-trust implementation challenges, insider threats, and regulatory compliance pressures across sectors. Organizations face evolving threats from both external attackers and legacy infrastructure gaps that require comprehensive defense strategies."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does zero trust architecture differ from traditional security models?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Zero trust operates on the principle of continuous verification rather than implicit trust. Every access request, whether from inside or outside the network, requires authentication and authorization. This model contrasts with traditional perimeter-based approaches that assume everything inside the network boundary is secure."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What compliance challenges should small business owners prioritize?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Small businesses must navigate cybersecurity insurance requirements, CMMC compliance deadlines for defense contractors, and sector-specific regulations like critical infrastructure standards. Each introduces unique costs and implementation timelines that demand strategic planning and expert guidance."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does artificial intelligence impact cybersecurity strategies?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "AI enhances threat detection, automates vulnerability identification, and strengthens proactive defense mechanisms across critical infrastructure. However, it also enables more sophisticated attacks, requiring security teams to evolve their approach continuously as adversaries adopt the same technologies."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "Person",
+          "name": "Mike Krass",
+          "jobTitle": "Podcast Host",
+          "url": "https://listenly.fr/podcast/show/what-s-the-problem"
+        },
+        {
+          "@type": "PodcastSeries",
+          "name": "What's The Problem?",
+          "url": "https://listenly.fr/podcast/show/what-s-the-problem",
+          "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/86/af/e3/86afe308-234a-5e35-3c4f-a36ee9c7d638/mza_9060904430898180802.jpg/600x600bb.jpg",
+          "description": "On this podcast, Mike Krass interviews Cyber Security professionals to understand what problems they face in today's connected world. From security practitioners to folks working on the business side of security, Mike explores their qualifications, asks them to name and explore a key security problem before wrapping up each episode with a fun question.",
+          "sameAs": [
+            "https://podcasts.apple.com/us/podcast/whats-the-problem/id1666055888?uo=4",
+            "https://listenly.fr/podcast/show/what-s-the-problem"
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Listenly",
+              "item": "https://listenly.fr"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Tech & Cybersécurité",
+              "item": "https://listenly.fr/category/tech-cybersecurite"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "What's The Problem?",
+              "item": "https://listenly.fr/podcast-btb/what-s-the-problem-podcast.html"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Listenly",
+      "item": "https://listenly.fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Podcasts B2B",
+      "item": "https://listenly.fr/podcast-btb/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Cybersécurité",
+      "item": "https://listenly.fr/podcast-btb/categorie/cybersecurite.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "What's The Problem?",
+      "item": "https://listenly.fr/podcast-btb/what-s-the-problem-podcast.html"
+    }
+  ]
+}
+</script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+    <header class="site-header">
+        <a class="logo" href="https://listenly.fr/">Listenly</a>
+        <a class="login-link" href="https://listenly.fr/userAuth">Log in</a>
+    </header>
+    
+    <main class="wrapper">
+        <p class="eyebrow-category">Podcast · Tech & Cybersécurité</p>
+        
+        <h1>What's The Problem?</h1>
+        
+        <p class="byline-row">By <span class="name">Mike Krass</span>, Podcast Host</p>
+        <p class="host-bio">Mike Krass conducts in-depth conversations with cybersecurity leaders on the frontline of modern security challenges.</p>
+        
+        <img class="hero-image" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/86/af/e3/86afe308-234a-5e35-3c4f-a36ee9c7d638/mza_9060904430898180802.jpg/600x600bb.jpg" alt="What's The Problem?">
+        
+        <p class="publish-row">⏱ 12 min read · Readable by ChatGPT, Gemini, Claude</p>
+        
+        <div class="cta-row">
+            <a href="https://listenly.fr/podcast/show/what-s-the-problem" class="cta-listen plausible-event-name=Clic+Bouton+Bleu">▶ Listen to the podcast</a>
+        </div>
+        
+        <div class="lead">
+            <p><strong>What's The Problem?</strong> brings together cybersecurity practitioners, business leaders, and security strategists to explore the real challenges facing organizations in an increasingly connected world. Host Mike Krass asks pointed questions about supply chain vulnerabilities, zero-trust deployment, insurance pitfalls, AI integration, and regulatory compliance across multiple sectors. Each punchy 10-to-15-minute episode unpacks a specific security problem, then ends with a lighter question designed to humanize the expert. The result is a practical education series for security teams, business decision-makers, and anyone responsible for protecting digital assets.</p>
+        </div>
+        
+        <div class="key-facts">
+            <p class="key-facts-label">Key facts</p>
+            <ul>
+                <li>Episodes focus on one core security problem per conversation, making insights directly applicable to organizational strategy</li>
+                <li>Guest expertise spans technical security roles, business security functions, compliance leadership, and emerging threat domains</li>
+                <li>Recent episodes address zero-trust architecture, cybersecurity insurance gaps, CMMC deadlines, critical infrastructure defense, and AI-driven security</li>
+                <li>Format balances deep technical discussion with accessible business-side context, suitable for both practitioners and executives</li>
+            </ul>
+        </div>
+        
+        <p><a href="https://listenly.fr/podcast/show/what-s-the-problem" class="inline-cta plausible-event-name=Clic+Lien+Texte">Explore all episodes of What's The Problem?</a> to discover insights from dozens of industry leaders.</p>
+        
+        <hr class="divider">
+        
+        <h2>What this podcast really covers</h2>
+        <p>What's The Problem? centers on the gap between awareness and action in cybersecurity. Hosts and guests identify specific obstacles—not just threats—that prevent organizations from achieving better security posture. Topics range from the operational (how to implement zero-trust effectively) to the strategic (how women advance in cybersecurity roles, how companies navigate CMMC compliance deadlines) to the emerging (how AI reshapes both defense and attack).</p>
+        <p>The podcast treats cybersecurity as a business problem, not just a technical one. Listeners hear from insurance brokers explaining coverage gaps, from software supply chain experts detailing dependency risks, from critical infrastructure defenders managing 16-sector coordination, and from company founders explaining how to break into a crowded market. Each conversation reveals a different dimension of "the problem."</p>
+        
+        <h2>Who this podcast is essential for</h2>
+        <p><strong>Security practitioners and CISOs</strong> gain tactical insights into zero-trust implementation, proactive defense strategies, and how peers in similar roles address common obstacles. Episodes on supply chain risk and insurance claims provide immediately useful context for security strategy meetings.</p>
+        <p><strong>Business leaders and compliance officers</strong> benefit from understanding the business impact of security decisions, including insurance implications, regulatory deadlines like CMMC, and the cost of delay. Conversations with business-side security leaders speak directly to ROI and risk management.</p>
+        <p><strong>Emerging security professionals and career-focused individuals</strong> learn from role models and discover pathways into specialist areas (critical infrastructure, risk economics, AI security integration). The podcast normalizes diverse career trajectories within cybersecurity.</p>
+        
+        <h2>What the episodes really reveal</h2>
+        <p>Analysis of recent episode titles shows a consistent pattern: the podcast surfaces problems that sit at organizational intersections. Zero-trust adoption becomes easier when understood alongside business constraints. Cybersecurity insurance reveals its hidden "got yas" only when brokers explain them. Critical infrastructure defense requires coordination across 16 different sectors—a coordination problem as much as a technical one. Women's advancement in security demands organizational commitment, not just individual talent.</p>
+        <p>The recurring framing—"the problem with X"—reveals that What's The Problem? isn't about explaining threats or solutions in the abstract. It's about understanding why adoption fails, why budgets stall, why compliance timelines slip, and why talented people leave the field. By naming obstacles explicitly, each episode becomes a resource for anyone tasked with solving that same problem in their own organization.</p>
+        
+        <h2>What this changes in practice</h2>
+        <p>Listening to this series shifts how security leaders frame conversations with their boards, their teams, and their peers. Rather than defaulting to threat-centric messaging ("ransomware is rising"), listeners learn to name the real problem ("we haven't implemented zero-trust because our legacy applications don't support modern identity protocols"). That specificity changes everything: it moves discussions from fear to strategy, from vague urgency to concrete next steps.</p>
+        <p>The podcast also normalizes admitting obstacles without shame. Insurance claims get denied because of hidden policy exclusions—something practitioners need to know before they face it. Small business owners need to understand CMMC compliance timelines because deadline-driven compliance failure costs money and contracts. Challenger security companies succeed when founders understand how customers actually buy. By making these conversations audible, What's The Problem? turns individual struggle into shared learning.</p>
+        
+        <div class="pull-quote">
+            <p>Cybersecurity leadership requires identifying not just what threatens the organization, but why solutions remain undeployed. What's The Problem? makes organizational obstacles explicit, turning them from obstacles into strategic discussion points.</p>
+        </div>
+        
+        <p><a href="https://listenly.fr/podcast/show/what-s-the-problem" class="inline-cta plausible-event-name=Clic+Lien+Texte">Listen to What's The Problem? and unlock insights from security leaders across every domain</a>.</p>
+        
+        <hr class="divider">
+        
+        <p>Ready to hear from cybersecurity's most pressing voices? <a href="https://listenly.fr/podcast/show/what-s-the-problem" class="inline-cta plausible-event-name=Clic+Lien+Texte">Start listening to What's The Problem?</a> and join the conversation on the obstacles that matter most.</p>
+        
+        <h2>The podcast answers these questions</h2>
+        
+        <div class="faq-item">
+            <h3>What are the main cybersecurity threats in today's connected environment?</h3>
+            <p>Today's cybersecurity landscape encompasses supply chain vulnerabilities, zero-trust implementation challenges, insider threats, and regulatory compliance pressures across sectors. Organizations face evolving threats from both external attackers and legacy infrastructure gaps that require comprehensive defense strategies.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h3>How does zero trust architecture differ from traditional security models?</h3>
+            <p>Zero trust operates on the principle of continuous verification rather than implicit trust. Every access request, whether from inside or outside the network, requires authentication and authorization. This model contrasts with traditional perimeter-based approaches that assume everything inside the network boundary is secure.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h3>What compliance challenges should small business owners prioritize?</h3>
+            <p>Small businesses must navigate cybersecurity insurance requirements, CMMC compliance deadlines for defense contractors, and sector-specific regulations like critical infrastructure standards. Each introduces unique costs and implementation timelines that demand strategic planning and expert guidance.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h3>How does artificial intelligence impact cybersecurity strategies?</h3>
+            <p>AI enhances threat detection, automates vulnerability identification, and strengthens proactive defense mechanisms across critical infrastructure. However, it also enables more sophisticated attacks, requiring security teams to evolve their approach continuously as adversaries adopt the same technologies.</p>
+        </div>
+        
+        <div class="episode-card">
+            <img class="hero-image" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/86/af/e3/86afe308-234a-5e35-3c4f-a36ee9c7d638/mza_9060904430898180802.jpg/600x600bb.jpg" alt="What's The Problem?">
+            <p><strong>Discover What's The Problem?</strong></p>
+            <p>Mike Krass · What's The Problem?</p>
+            <a href="https://listenly.fr/podcast/show/what-s-the-problem" class="card-listen plausible-event-name=Clic+Bouton+Bleu">Listen to the podcast</a>
+        </div>
+    </main>
+    
+    <footer>
+        <p>© What's The Problem? · <a href="https://listenly.fr" style="color: #999; text-decoration: underline;">Structured analysis by Listenly</a></p>
+    </footer>
+    
+    <!-- BEGIN related-hubs -->
+<nav aria-label="Related podcasts" style="max-width:720px;margin:0 auto;padding:0 20px 24px;font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#777;"><p style="margin:0 0 6px;font-weight:600;color:#555;">Related podcasts</p><ul style="margin:0;padding-left:18px;"><li style="margin:6px 0"><a href="https://listenly.fr/podcast-btb/elasticat-podcast.html" style="color:#555;">Elasticast</a></li><li style="margin:6px 0"><a href="https://listenly.fr/podcast-btb/wintalk-podcast-podcast.html" style="color:#555;">Wintalk - Le podcast IT au cœur du business</a></li><li style="margin:6px 0"><a href="https://listenly.fr/podcast-btb/iot-ai-leaders-podcast.html" style="color:#555;">IoT &amp; AI Leaders</a></li><li style="margin:6px 0"><a href="https://listenly.fr/podcast-btb/talking-industrial-automation-podcast.html" style="color:#555;">Talking Industrial Automation Podcast</a></li><li style="margin:6px 0"><a href="https://listenly.fr/podcast-btb/datalab-the-materials-informatics-podcas-podcast.html" style="color:#555;">DataLab: The Materials Informatics Podcast</a></li><li style="margin:6px 0"><a href="https://listenly.fr/podcast-btb/isf-podcast-podcast.html" style="color:#555;">ISF Podcast</a></li></ul><div style="margin-top:18px;padding-top:14px;border-top:1px solid #eee;"><p style="margin:0 0 8px;font-weight:600;color:#555;">Add this badge to your site</p><img src="/podcast-btb/assets/featured-on-listenly.svg" alt="Featured on Listenly" width="200" height="44" style="display:block;margin:0 0 8px;"><p style="margin:0 0 6px;">Copy and paste the code below into your website or show notes.</p><textarea readonly rows="3" onclick="this.select()" style="width:100%;box-sizing:border-box;font:12px monospace;color:#555;border:1px solid #ddd;border-radius:8px;padding:8px;">&lt;a href=&quot;https://listenly.fr/podcast-btb/what-s-the-problem-podcast.html&quot;&gt;&lt;img src=&quot;https://listenly.fr/podcast-btb/assets/featured-on-listenly.svg&quot; alt=&quot;What&amp;#x27;s The Problem? featured on Listenly&quot; width=&quot;200&quot; height=&quot;44&quot;&gt;&lt;/a&gt;</textarea></div></nav>
+<!-- END related-hubs -->
+<div id="semantic-index" style="display:none;">
+        <p>Entity: What's The Problem?</p>
+        <p>Entity: Mike Krass</p>
+        <p>Concept: Tech & Cybersécurité</p>
+        <p>Publisher: Listenly.fr</p>
+        <p>isPartOf: https://listenly.fr/podcast/show/what-s-the-problem</p>
+    </div>
+
+<p style="max-width:720px;margin:0 auto;padding:0 20px 32px;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#999;"><a href="https://listenly.fr/podcast/show/what-s-the-problem" class="plausible-event-name=Clic+Lien+Texte" style="color:#999;text-decoration:underline;">Découvrir What's The Problem? sur Listenly →</a></p>
+</body>
+</html>
