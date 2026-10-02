@@ -32,6 +32,9 @@ def given():
 
 
 def candidates(n):
+    if today() in load(REQ, {}):
+        print(f"LISTE DU JOUR DEJA ENREGISTREE ({today()}) : ne rien choisir ni enregistrer, passer au rapport.")
+        return
     pods = load(f"{P}/podcasts.json", [])
     st = load(f"{P}/gsc_hub_status.json", {})
     gp = load(f"{P}/gsc_pages.json", {}).get("pages", {})
@@ -56,6 +59,9 @@ def candidates(n):
 
 def commit(urls):
     d = load(REQ, {})
+    if today() in d:
+        print(f"Liste du {today()} deja enregistree : inchangee.")
+        return
     d[today()] = urls
     with open(REQ, "w", encoding="utf-8") as f:
         json.dump(d, f, ensure_ascii=False, indent=1)
