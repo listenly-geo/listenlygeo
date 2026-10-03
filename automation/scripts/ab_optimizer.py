@@ -20,10 +20,15 @@ CONFIG = "automation/marketforge_engine/config.json"
 OUT = "automation/marketforge_engine/ab_test.json"
 
 LABELS = {
-    "A": "Question ouverte : « Shall I send it over? »",
-    "B": "Reponse en un mot : « Just reply yes… »",
-    # Ancien mail (« listed on Listenly ») = variante V0, volontairement ignoree : le test Podcast Hub repart a zero (02/10/2026).
+    "A": "Podcast Hub ou Spotify : « keep Spotify as the destination? »",
+    "B": "Podcast Hub ou Spotify : « redirect it to Spotify for now? »",
+    "C": "Spotify d'abord : « Should we send it to Spotify, or… Podcast Hub? »",
+    "D": "Question directe : « Do you have a Podcast Hub where we can send this audience? »",
+    "E": "Question courte : « Do you already have a Podcast Hub to receive it? »",
+    # Anciens mails (« listed on Listenly », puis test Shall I send it over / Just reply yes) : ignores. Le test A-E repart a zero.
 }
+DEPUIS = "2026-10-04"   # seuls les envois a partir de cette date (nouveau mail, CTA A-E) comptent
+REPLIES = "automation/marketforge_engine/replies.json"
 MIN_ENVOIS = 30        # envois par variante avant d'adapter la repartition
 MIN_VERDICT = 100      # envois par variante avant de declarer un gagnant
 PROBA_GAGNANT = 0.95
@@ -43,12 +48,18 @@ def load(path, default):
 def main():
     stats = load(STATS, {})
     ignored = set(load(CONFIG, {}).get("reponses_automatiques_ignorees", []))
-    v = {k: {"envoye": 0, "rebond": 0, "reponse": 0} for k in LABELS}
+    classes_by_podcast = {}
+    for r in load(REPLIES, []):
+        classes_by_podcast[str(r.get("podcast") or "").strip().lower()] = r.get("classe") or ""
+    v = {k: {"envoye": 0, "rebond": 0, "reponse": 0, "classes": {}} for k in LABELS}
     for p in stats.get("prospects", []):
         k = str(p.get("variante") or "").strip()
-        if k not in v or not p.get("envoye_le"):
+        if k not in v or not p.get("envoye_le") or str(p.get("envoye_le"))[:10] < DEPUIS:
             continue
         v[k]["envoye"] += 1
+        cl = classes_by_podcast.get(str(p.get("podcast") or "").strip().lower())
+        if cl:   # positive / neutre / refus / auto (replies.json)
+            v[k]["classes"][cl] = v[k]["classes"].get(cl, 0) + 1
         if p.get("statut") == "Rebond":
             v[k]["rebond"] += 1
         if p.get("statut") == "Repondu" and p.get("slug") not in ignored:
