@@ -180,4 +180,10 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    rc = main()
+    try:   # reflexion de la machine : blocages + pourquoi pas encore de client (ne casse jamais le run)
+        import funnel_diagnostic
+        funnel_diagnostic.run()
+    except Exception as e:
+        print(f"[reflexion] ignoree : {e}")
+    sys.exit(rc)
