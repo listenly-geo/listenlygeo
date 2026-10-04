@@ -580,9 +580,17 @@
    "id": "opt-74",
    "section": "Ciblage",
    "version": "V2.2",
-   "texte": "PIVOT LISTENLY-FIRST (04/10/2026) : modification de onboard_from_issue.py pour bloquer la création de fiches N1 (page HTML hub) et réactiver l'extraction de questions à la place. Nouveau flow : (1) créer fiche Listenly, (2) ajouter entrée minimale à podcasts.json, (3) générer 1-2 fiches Q/R d'épisodes (generate_episode_fiches_btb.py MAX_EPISODES=2 avec USE_TRANSCRIPT=true) via transcription + extraction Claude. Le Hub devient la destination de vente (BRIDGE/SALE), pas l'outil de découverte initial. Les fiches N1 existantes et indexées restent en place (pas de suppression).",
+   "texte": "PIVOT LISTENLY-FIRST (04/10/2026 décision) : modification de onboard_from_issue.py pour bloquer la création de fiches N1 (page HTML hub) et réactiver l'extraction de questions à la place. Nouveau flow : (1) créer fiche Listenly, (2) ajouter entrée minimale à podcasts.json, (3) générer 1-2 fiches Q/R d'épisodes (generate_episode_fiches_btb.py MAX_EPISODES=2 avec USE_TRANSCRIPT=true) via transcription + extraction Claude. Le Hub devient la destination de vente (BRIDGE/SALE), pas l'outil de découverte initial. Les fiches N1 existantes et indexées restent en place (pas de suppression).",
    "date": "04/10/2026",
-   "statut": "en_cours"
+   "statut": "valide"
+  },
+  {
+   "id": "opt-75",
+   "section": "Ciblage",
+   "version": "V2.2",
+   "texte": "PIVOT DB-ONLY finalisé (04/10/2026 execution) : simplification radicale de onboard_from_issue.py. Suppression de add_podcast_to_json(), generate_episode_fiches(), existing_by_rss(), existing_slugs() et podcasts.json. Flux final : create_listenly_show() + register_rss_reader() seuls. Listenly scrape + extrait Q/R AUTOMATIQUEMENT dans sa DB, aucune page HTML ni entry JSON générée. Report structure simplifiée : slug, podcast_name, email, listenly_url, listenly_created, rss_registered. Cette simplification confirme que le système est devenu entièrement DB-first (Listenly gère tout).",
+   "date": "04/10/2026",
+   "statut": "valide"
   }
  ]
 }
