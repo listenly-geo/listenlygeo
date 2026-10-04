@@ -591,6 +591,14 @@
    "texte": "PIVOT DB-ONLY finalisé (04/10/2026 execution) : simplification radicale de onboard_from_issue.py. Suppression de add_podcast_to_json(), generate_episode_fiches(), existing_by_rss(), existing_slugs() et podcasts.json. Flux final : create_listenly_show() + register_rss_reader() seuls. Listenly scrape + extrait Q/R AUTOMATIQUEMENT dans sa DB, aucune page HTML ni entry JSON générée. Report structure simplifiée : slug, podcast_name, email, listenly_url, listenly_created, rss_registered. Cette simplification confirme que le système est devenu entièrement DB-first (Listenly gère tout).",
    "date": "04/10/2026",
    "statut": "valide"
+  },
+  {
+   "id": "opt-76",
+   "section": "Mail et CTA",
+   "version": "V2.3",
+   "texte": "Nouvelle séquence email Listenly (04/10/2026) : mail 1 « Regarding your podcast | {podcast} » (Listenly = premier moteur de recherche IA dédié aux podcasts, question unique « link ou Podcast Hub ? », gras et souligné ciblés) et relance en 3 textes courts dans le même fil. Seule la relance 1 est branchée au calendrier actuel (J+4, inchangé) ; les relances 2 et 3 sont prêtes mais pas planifiées, en attente de ta validation du calendrier. Le test A/B du CTA n'a plus d'objet (plus de CTA dans le mail). Envois non réactivés tant que tu n'as pas validé le test.",
+   "date": "04/10/2026",
+   "statut": "en_cours"
   }
  ]
 }

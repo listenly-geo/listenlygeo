@@ -61,17 +61,17 @@ var MFE_DEFAULTS = [
 // ---------- Messages (modifiables dans l'onglet Reglages, cles MFE_MSG_*) ----------
 // Style : court, a la premiere personne, une seule question, texte brut (pas de gras, pas d'emoji).
 // Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}
-var MFE_MSG_VERSION = '13';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
+var MFE_MSG_VERSION = '14';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
 var MFE_FIRST_MAIL = [
-  'Hi {{podcast_name}} team,',
+  'Hi {PODCAST} team,',
   '',
   'I\'m Etienne, Founder of Listenly, the **first AI search engine dedicated to podcasts.**',
   '',
   'Our system turns every question answered in your podcast into a **searchable answer on Listenly**, optimized to be discovered by **ChatGPT, Gemini and AI search engines.**',
   '',
-  'We\'re currently indexing {{podcast_name}}.',
+  'We\'re currently indexing **{PODCAST}**.',
   '',
-  'Do you already have a link or Podcast Hub where we should redirect people who discover your answers?',
+  'Do you already have a link or Podcast Hub where we should redirect __people who discover your answers?__',
   '',
   'Best,',
   'Etienne'
@@ -86,43 +86,43 @@ var MFE_CTAS = {
 };
 var MFE_AB_KEYS = ['A', 'B', 'C', 'D', 'E'];
 var MFE_AB_DEPUIS = new Date(2026, 9, 4).getTime();   // seuls les envois a partir du 04/10/2026 (nouveau mail) comptent dans le test A-E
-var MFE_MSG_RESET = ['MFE_MSG_FICHE', 'MFE_MSG_REPONSES', 'MFE_CTA_A', 'MFE_CTA_B', 'MFE_CTA_C', 'MFE_CTA_D', 'MFE_CTA_E'];   // v13 : seuls ces textes sont reecrits dans Reglages (le reste est conserve)
+var MFE_MSG_RESET = ['MFE_MSG_OBJET', 'MFE_MSG_FICHE', 'MFE_MSG_REPONSES', 'MFE_MSG_RELANCE', 'MFE_MSG_RELANCE_2', 'MFE_MSG_RELANCE_3', 'MFE_CTA_A', 'MFE_CTA_B', 'MFE_CTA_C', 'MFE_CTA_D', 'MFE_CTA_E'];   // v13 : seuls ces textes sont reecrits dans Reglages (le reste est conserve)
 var MFE_MSG_DEFAULTS = [
-  ['MFE_MSG_OBJET', 'Regarding your podcast | {{podcast_name}}',
-   'MarketForge Engine — objet du 1er mail. {{podcast_name}} = nom du podcast.'],
+  ['MFE_MSG_OBJET', 'Regarding your podcast | {PODCAST}',
+   'MarketForge Engine — objet du 1er mail. {PODCAST} = nom du podcast.'],
   ['MFE_MSG_FICHE', MFE_FIRST_MAIL,
    'MarketForge Engine — 1er mail. Variables : {NAME} (hote, sinon "{PODCAST} team") {PODCAST} {URL} (fiche N1 du podcast) {BOOKING} {OPTOUT}.'],
   ['MFE_MSG_REPONSES', MFE_FIRST_MAIL,
    'MarketForge Engine — 1er mail quand des reponses ont ete extraites (meme modele par defaut).'],
-  ['MFE_MSG_RELANCE_1', [
-    'Hi {{first_name}},',
+  ['MFE_MSG_RELANCE', [
+    'Hi {NAME},',
     '',
-    'Just following up regarding {{podcast_name}}.',
+    'Just following up regarding {PODCAST}.',
     'We\'re moving forward with its indexing on Listenly.',
     'Do you have a link or Podcast Hub you\'d like us to use?',
     '',
     'Best,',
     'Etienne'
-  ].join('\n'), 'MarketForge Engine — relance 1 (J+MFE_RELANCE_JOURS)'],
+  ].join('\n'), 'MarketForge Engine — relance 1 (J+MFE_RELANCE_JOURS), dans le meme fil. Variables : {NAME} {PODCAST}.'],
   ['MFE_MSG_RELANCE_2', [
-    'Hi {{first_name}},',
+    'Hi {NAME},',
     '',
-    'Quick follow-up before we finalize {{podcast_name}} on Listenly.',
+    'Quick follow-up before we finalize {PODCAST} on Listenly.',
     'Where should we redirect people who discover your answers?',
     '',
     'Best,',
     'Etienne'
-  ].join('\n'), 'MarketForge Engine — relance 2 (J+2*MFE_RELANCE_JOURS)'],
+  ].join('\n'), 'MarketForge Engine — relance 2 (TEXTE PRET, PAS ENCORE PLANIFIE : a brancher quand le calendrier est valide).'],
   ['MFE_MSG_RELANCE_3', [
-    'Hi {{first_name}},',
+    'Hi {NAME},',
     '',
-    'Last message from me regarding {{podcast_name}}.',
+    'Last message from me regarding {PODCAST}.',
     'If useful, I can simply use your current podcast page for the redirect.',
     'Or, if you don\'t have a dedicated Podcast Hub yet, let me know.',
     '',
     'Best,',
     'Etienne'
-  ].join('\n'), 'MarketForge Engine — relance 3 (J+3*MFE_RELANCE_JOURS)'],
+  ].join('\n'), 'MarketForge Engine — derniere relance (TEXTE PRET, PAS ENCORE PLANIFIE : a brancher quand le calendrier est valide).'],
   ['MFE_CTA_A', MFE_CTAS.A, 'Test A/B — CTA variante A (texte brut ; vide = variante desactivee).'],
   ['MFE_CTA_B', MFE_CTAS.B, 'Test A/B — CTA variante B (texte brut ; vide = variante desactivee).'],
   ['MFE_CTA_C', MFE_CTAS.C, 'Test A/B — CTA variante C (texte brut ; vide = variante desactivee).'],
@@ -304,8 +304,8 @@ function mfeSend_(sh, cfg, force) {
 // Mode test : 1 exemplaire de chaque type de mail (fiche seule / avec reponses) vers l'adresse test
 function mfeSendTest_(sh, to) {
   var props = PropertiesService.getScriptProperties();
-  if (props.getProperty('MFE_TEST_DONE') === to) return 0;   // une seule fois par adresse test
-  var n = 0, done = {}, variants = MFE_AB_KEYS;
+  if (props.getProperty('MFE_TEST_DONE') === to + '|' + MFE_MSG_VERSION) return 0;   // une seule fois par adresse test et par version des textes
+  var n = 0, done = {}, variants = ['A'];
   mfeRows_(sh).forEach(function (r) {
     var kind = Number(r.values[4]) > 0 ? 'reponses' : 'fiche';
     if (done[kind] || r.values[6] !== 'Pret') return;
@@ -318,7 +318,7 @@ function mfeSendTest_(sh, to) {
     });
     done[kind] = true;
   });
-  props.setProperty('MFE_TEST_DONE', to);
+  props.setProperty('MFE_TEST_DONE', to + '|' + MFE_MSG_VERSION);
   return n;
 }
 
@@ -988,8 +988,7 @@ function mfeMenuTest() {
   var exemple = rows.length ? rows[0].values : ['', 'Test Podcast', '', 'https://listenly.fr/podcast-btb/a16z-crypto-show-podcast.html', 0];
   mfeEnsureSettings_();
   var n = 0;
-  MFE_AB_KEYS.forEach(function (vr) {
-    if (!mfeMsg_('MFE_CTA_' + vr)) return;
+  ['A'].forEach(function (vr) {
     var d = mfeDraft_(exemple, vr);
     GmailApp.sendEmail(moi, '[TEST ' + vr + ' - premier mail] ' + d[0], mfeWithSignature_(d[1]), mfeSendOpts_(d[1]));
     n++;
