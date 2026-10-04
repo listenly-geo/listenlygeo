@@ -1,0 +1,15 @@
+{
+  "date": "04/10/2026",
+  "goulot": "Message / proposition : 0 réponse humaine sur ~180 mails délivrés depuis le 27/09 (dont 0 sur 44 mails du test A/B des 02-03/10). Le moteur est en pause depuis le 03/10 (MFE_PAUSE=TRUE, envoi auto=FALSE) : 0 envoi aujourd'hui.",
+  "synthese": [
+    "Depuis le 27/09, 196 premiers mails sont partis et 16 relances. Les 5 réponses reçues sont toutes automatiques (absences, contacts partis) : aucun prospect n'a encore répondu oui ou non.",
+    "Le test A/B (A et B, 22 envois chacun les 02 et 03/10) n'a produit aucune réponse : impossible de départager les variantes, le volume est 5 fois trop faible.",
+    "Point d'alerte : 3 rebonds sur ces 44 mails (6,8 %), au-dessus du seuil de 4 %. Ils ne sont pas encore marqués « Rebond » dans le Sheet car le moteur est en pause.",
+    "Aujourd'hui, aucun envoi : le moteur a été mis en pause pour basculer sur la nouvelle séquence « Regarding your podcast » (sans CTA A/B), qui attend ta validation."
+  ],
+  "plan": [
+    "Valider (ou corriger) le nouveau mail « Regarding your podcast » puis relancer l'envoi (MFE_PAUSE=FALSE, MFE_ENVOI_AUTO=TRUE) à ~40 mails/jour, nominatifs d'abord.",
+    "Décider du sort du test A/B : le nouveau mail n'a plus de CTA variable, donc soit on arrête le test, soit on teste l'objet (une seule variable).",
+    "Marquer les 3 rebonds récents (fasteasyaccounting.com, teamwork.com, podsquad.fm) et vérifier que les relances J+4 des 06-07/10 partent bien malgré la pause."
+  ]
+}
