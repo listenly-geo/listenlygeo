@@ -575,6 +575,14 @@
    "texte": "Nouveau mail de prospection : format court et très simple (présentation d'Etienne, lien vers la page Listenly du podcast, question « Where would you like us to redirect this qualified traffic? »). Gras uniquement sur le nom du podcast et « Listenly.fr, The First AI directory for podcast », souligné uniquement sur « you like us to redirect this qualified traffic? ». Test A/B du CTA étendu à 5 variantes (A à E, toutes autour de « avez-vous déjà un Podcast Hub ou faut-il envoyer vers Spotify ? »), réparties à parts égales ; chaque envoi note sa variante, et les réponses sont comptées (et classées positive / neutre / refus / auto) par variante à partir du 04/10. Les anciens mails ne comptent pas dans cette comparaison.",
    "date": "03/10/2026",
    "statut": "en_cours"
+  },
+  {
+   "id": "opt-74",
+   "section": "Ciblage",
+   "version": "V2.2",
+   "texte": "PIVOT LISTENLY-FIRST (04/10/2026) : modification de onboard_from_issue.py pour bloquer la création de fiches N1 (page HTML hub) et réactiver l'extraction de questions à la place. Nouveau flow : (1) créer fiche Listenly, (2) ajouter entrée minimale à podcasts.json, (3) générer 1-2 fiches Q/R d'épisodes (generate_episode_fiches_btb.py MAX_EPISODES=2 avec USE_TRANSCRIPT=true) via transcription + extraction Claude. Le Hub devient la destination de vente (BRIDGE/SALE), pas l'outil de découverte initial. Les fiches N1 existantes et indexées restent en place (pas de suppression).",
+   "date": "04/10/2026",
+   "statut": "en_cours"
   }
  ]
 }

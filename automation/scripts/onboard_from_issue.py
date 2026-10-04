@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """
-MarketForge Engine — onboarding automatique d'un candidat (issue GitHub "candidate") :
+MarketForge Engine — onboarding automatique d'un candidat (issue GitHub "candidate") — PIVOT LISTENLY-FIRST (04/10/2026):
   1. cree la fiche podcast sur Listenly (SQL via api/podcast-show-import.php) -> lien Listenly
-  2. genere la fiche N1 (generate_podcast_btb.py, inchange) -> podcasts.json
-  3. commente + ferme l'issue (label "onboarded")
-La fiche N1 entre ensuite toute seule dans la file d'extraction (marketforge_extract_queue.py).
+  2. ajoute l'entree podcast a podcasts.json (SANS creer la fiche N1 HTML)
+  3. genere 1-2 fiches Q/R d'episodes (generate_episode_fiches_btb.py avec MAX_EPISODES=2)
+  4. commente + ferme l'issue (label "onboarded")
+Les fiches Q/R entrent dans la strategie Listenly-first : on montre la presence Listenly au prospect,
+pas le Hub. Le Hub devient la destination / conversion-layer, relance par relance.
 
 Remplace les etapes manuelles du generateur HTML : lien Listenly admin + YAML + run.
 
@@ -14,8 +16,11 @@ Variables :
                       mode automatique du run complet MarketForge Engine)
   SHOW_IMPORT_MODE  : insert (defaut) | dry_run  (dry_run : rien n'est cree, ni fiche ni issue fermee)
   MAX_ONBOARD       : plafond par run (defaut 10)
+  GROQ_API_KEY      : (requis) transcription Whisper via Groq pour les fiches Q/R
+  OPENAI_API_KEY    : (optionnel) fallback si Groq indisponible
 """
 import os, sys, re, json, subprocess, urllib.request, urllib.error
+import datetime
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from rss_contact import fetch_channel_info  # noqa: E402
@@ -111,20 +116,82 @@ def register_rss_reader(feed_url):
     return res
 
 
-def generate_n1(c, listenly_url, slug):
+def add_podcast_to_json(c, listenly_url, slug):
+    """Ajoute une entree minimale a podcasts.json pour que generate_episode_fiches_btb.py puisse fonctionner.
+    PIVOT 04/10/2026 : on ne cree PAS la fiche N1 HTML, on crée l'entree podcast pour les fiches Q/R.
+    """
+    try:
+        with open(PODCASTS_FILE, encoding="utf-8") as f:
+            podcasts = json.load(f)
+    except (OSError, ValueError):
+        podcasts = []
+
+    # Verifier que le podcast n'existe pas deja
+    if any(p["slug"] == slug for p in podcasts):
+        log(f"Podcast '{slug}' deja present dans podcasts.json — pas d'ajout.")
+        return True
+
+    # Entree minimale pour generate_episode_fiches_btb.py
+    entry = {
+        "slug": slug,
+        "podcast_name": c["podcast_name"],
+        "rss_url": c["feed_url"],
+        "listenly_url": listenly_url,
+        "cover_image": c["cover_image"],
+        "podcast_url": c["apple_url"],
+        "language": c["language"] if c["language"] in ("fr", "en") else "en",
+        "date": datetime.datetime.utcnow().isoformat()[:10],
+        # NOTE : pas de categorie/punchline/host_* (generes par generate_podcast_btb.py en V1)
+        # Ces champs seront enrichis progressivement par generate_episode_fiches_btb.py si besoin
+    }
+    podcasts.append(entry)
+
+    with open(PODCASTS_FILE, "w", encoding="utf-8") as f:
+        json.dump(podcasts, f, ensure_ascii=False, indent=2)
+
+    log(f"Podcast '{slug}' ajoute a podcasts.json (entree minimale Listenly-first).")
+    return True
+
+
+def generate_episode_fiches(c, slug):
+    """Appelle generate_episode_fiches_btb.py pour generer 1-2 fiches Q/R initiales.
+    PIVOT 04/10/2026 : au lieu de generer la N1 HTML, on genere les fiches d'episodes Q/R
+    qui constituent la presence Listenly (fiches questions/reponses a partir des transcripts).
+    """
     env = dict(os.environ)
     env.update({
-        "RSS_URL": c["feed_url"], "PODCAST_URL": c["apple_url"], "LISTENLY_URL": listenly_url,
-        "COVER_IMAGE": c["cover_image"], "PODCAST_SLUG": slug, "ACCENT_COLOR": "#2e8bd6",
-        "LANGUAGE": c["language"] if c["language"] in ("fr", "en") else "en",
-        "EPISODE_CTA_TARGET": "listenly",
+        "PODCAST_SLUG": slug,
+        "MAX_EPISODES": "2",  # generer 1-2 fiches d'episodes au depart
+        "USE_TRANSCRIPT": "true",  # forcer transcription + extraction questions reelles
     })
     env.pop("PODCAST_RAW_INFO", None)
-    # Correctif 27/09/2026 : sur un run planifie (schedule), generate_podcast_btb.py voyait le fichier
-    # .cron-paused et sortait sans rien faire (code 0) -> fiches Listenly creees sans fiche N1.
     env["GITHUB_EVENT_NAME"] = "workflow_dispatch"
-    ok = subprocess.run([sys.executable, "automation/scripts/generate_podcast_btb.py"], env=env).returncode == 0
-    return ok and os.path.exists(f"pages/podcast-btb/{slug}-podcast.html")  # verification reelle
+
+    ok = subprocess.run([sys.executable, "automation/scripts/generate_episode_fiches_btb.py"], env=env).returncode == 0
+    if ok:
+        log(f"Fiches Q/R generees (generate_episode_fiches_btb.py MAX_EPISODES=2).")
+    else:
+        log(f"⚠️ Generation des fiches Q/R en echec (fallback silencieux : titres/descriptions seuls au prochain run).")
+    return ok
+
+
+# --- ARCHIVE 04/10/2026 : generate_n1 (creation fiche N1 HTML) mise en pause ---
+# def generate_n1(c, listenly_url, slug):
+#     """PIVOT 04/10/2026 : MISE EN PAUSE. Etait : genere la fiche N1 (page HTML hub).
+#     Strategie Listenly-first : on ne cree PAS le Hub a l'onboarding, on le montre seulement
+#     quand le prospect a dit oui a Listenly (etape BRIDGE/SALE du funnel).
+#     """
+#     env = dict(os.environ)
+#     env.update({
+#         "RSS_URL": c["feed_url"], "PODCAST_URL": c["apple_url"], "LISTENLY_URL": listenly_url,
+#         "COVER_IMAGE": c["cover_image"], "PODCAST_SLUG": slug, "ACCENT_COLOR": "#2e8bd6",
+#         "LANGUAGE": c["language"] if c["language"] in ("fr", "en") else "en",
+#         "EPISODE_CTA_TARGET": "listenly",
+#     })
+#     env.pop("PODCAST_RAW_INFO", None)
+#     env["GITHUB_EVENT_NAME"] = "workflow_dispatch"
+#     ok = subprocess.run([sys.executable, "automation/scripts/generate_podcast_btb.py"], env=env).returncode == 0
+#     return ok and os.path.exists(f"pages/podcast-btb/{slug}-podcast.html")
 
 
 def _norm_rss(u):
@@ -220,26 +287,33 @@ def main():
         listenly_url = res["listenly_url"]
 
         slug = rss_slug or slugify(c["podcast_name"])   # meme flux RSS -> on reutilise la fiche existante
+
+        # PIVOT 04/10/2026 LISTENLY-FIRST : remplacer generate_n1 par add_podcast_to_json + generate_episode_fiches
         if slug in existing_slugs():
-            log(f"Fiche N1 '{slug}' deja presente — pas de regeneration.")
-        elif not generate_n1(c, listenly_url, slug):
-            failed.append(c["issue_number"]); mark_failed(c["issue_number"], "generation de la fiche N1 en echec"); log("ECHEC generation N1."); continue
+            log(f"Podcast '{slug}' deja present dans podcasts.json.")
+        elif not add_podcast_to_json(c, listenly_url, slug):
+            failed.append(c["issue_number"]); mark_failed(c["issue_number"], "ajout a podcasts.json en echec"); log("ECHEC ajout podcasts.json."); continue
+
+        # Generer 1-2 fiches Q/R (au lieu de generer la fiche N1 HTML)
+        generate_episode_fiches(c, slug)  # continue meme en echec (fallback au titre/desc seuls)
+
         if not already:
             new_count += 1   # seuls les onboardings REUSSIS consomment le quota du run
 
         created = "creee" if res.get("created") else "deja existante"
         gh("POST", f"/issues/{c['issue_number']}/comments", {"body": (
-            f"✅ Onboardé automatiquement (MarketForge Engine)\n\n"
+            f"✅ Onboardé automatiquement (MarketForge Engine) — PIVOT LISTENLY-FIRST\n\n"
             f"- Fiche Listenly ({created}) : {listenly_url}\n"
-            f"- Fiche N1 : https://listenly.fr/podcast-btb/{slug}-podcast.html\n"
+            f"- Fiches Q/R (episodes) : generees via generate_episode_fiches_btb.py (MAX_EPISODES=2)\n"
             f"- Email : {c['email'] or '(aucun)'}\n\n"
+            f"NOTE 04/10/2026 : fiche N1 HTML mise en pause (nouvelle strategie : montrer Listenly d'abord, Hub apres).\n"
             f"Entre automatiquement dans la file d'extraction.")})
         gh("POST", f"/issues/{c['issue_number']}/labels", {"labels": ["onboarded"]})
         gh("PATCH", f"/issues/{c['issue_number']}", {"state": "closed", "state_reason": "completed"})
         done.append(slug)
         report.append({"slug": slug, "podcast_name": c["podcast_name"], "email": c["email"],
                        "listenly_url": listenly_url, "listenly_created": bool(res.get("created")),
-                       "fiche_url": f"https://listenly.fr/podcast-btb/{slug}-podcast.html"})
+                       "listenly_presence": "Q/R fiches generees (generate_episode_fiches_btb.py)"})
 
     log(f"Termine : {len(done)} onboarde(s) {done}, {len(failed)} echec(s) {failed}.")
     if MODE == "insert":  # lu par sheet_bridge.py pour le compte-rendu envoye au Google Sheet
