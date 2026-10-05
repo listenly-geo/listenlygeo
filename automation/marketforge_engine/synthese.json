@@ -1,15 +1,15 @@
 {
-  "date": "04/10/2026",
-  "goulot": "Message / proposition : 0 réponse humaine sur ~180 mails délivrés depuis le 27/09 (dont 0 sur 44 mails du test A/B des 02-03/10). Le moteur est en pause depuis le 03/10 (MFE_PAUSE=TRUE, envoi auto=FALSE) : 0 envoi aujourd'hui.",
+  "date": "05/10/2026",
+  "goulot": "Aucun envoi depuis le 03/10 (envoi auto coupé) : 0 mail prospect aujourd'hui, donc 0 nouvelle donnée. Sur ~180 mails délivrés depuis le 27/09, toujours 0 réponse humaine. Le nouveau mail 1 (opt-89) et le test A/B à 5 variantes Spotify / Podcast Hub sont prêts mais n'ont encore rien envoyé.",
   "synthese": [
-    "Depuis le 27/09, 196 premiers mails sont partis et 16 relances. Les 5 réponses reçues sont toutes automatiques (absences, contacts partis) : aucun prospect n'a encore répondu oui ou non.",
-    "Le test A/B (A et B, 22 envois chacun les 02 et 03/10) n'a produit aucune réponse : impossible de départager les variantes, le volume est 5 fois trop faible.",
-    "Point d'alerte : 3 rebonds sur ces 44 mails (6,8 %), au-dessus du seuil de 4 %. Ils ne sont pas encore marqués « Rebond » dans le Sheet car le moteur est en pause.",
-    "Aujourd'hui, aucun envoi : le moteur a été mis en pause pour basculer sur la nouvelle séquence « Regarding your podcast » (sans CTA A/B), qui attend ta validation."
+    "Aujourd'hui, aucun mail n'est parti vers un prospect : seuls des mails de test ont été envoyés à ta propre adresse pour valider le nouveau mail 1.",
+    "Aucune nouvelle réponse depuis hier. Le total reste 196 premiers mails, 16 relances, 4 réponses automatiques et 0 réponse humaine (ni oui, ni non).",
+    "Le moteur a repris le travail de fond : 7 épisodes transcrits (278 min, ~2,70 $). Le nouveau mail affiche une vraie question tirée du podcast et il est prêt à partir.",
+    "Le test A/B a changé : il compare désormais 5 questions de fin (A à E, 20 % chacune) au lieu de A 70 % / B, C, D 10 %. Il reste à 0 envoi."
   ],
   "plan": [
-    "Valider (ou corriger) le nouveau mail « Regarding your podcast » puis relancer l'envoi (MFE_PAUSE=FALSE, MFE_ENVOI_AUTO=TRUE) à ~40 mails/jour, nominatifs d'abord.",
-    "Décider du sort du test A/B : le nouveau mail n'a plus de CTA variable, donc soit on arrête le test, soit on teste l'objet (une seule variable).",
-    "Marquer les 3 rebonds récents (fasteasyaccounting.com, teamwork.com, podsquad.fm) et vérifier que les relances J+4 des 06-07/10 partent bien malgré la pause."
+    "Valider le nouveau mail 1 (tests reçus aujourd'hui) puis rallumer l'envoi auto (MFE_ENVOI_AUTO=TRUE) à environ 40 mails par jour, en commençant par les contacts nominatifs.",
+    "Renouveler le token GitHub « listenly-claude », qui expire le 06/10 : sans lui les runs automatiques s'arrêtent.",
+    "Marquer en « Rebond » les 2 adresses mortes encore notées « Envoyé » (unravelingsuccess@podsquad.fm, jess@mnudigital.com) avant de relancer les envois."
   ]
 }
