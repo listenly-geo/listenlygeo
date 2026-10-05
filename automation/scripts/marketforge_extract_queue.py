@@ -372,6 +372,12 @@ def main():
         except ValueError:
             return True
 
+    def added_ord(st):
+        try:
+            return datetime.date.fromisoformat(st.get("added") or TODAY).toordinal()
+        except ValueError:
+            return 0
+
     def tier(s):
         st = queue["podcasts"][s]
         if not st["episodes_done"]:
@@ -386,7 +392,7 @@ def main():
              or (s in extraire and st["status"] in ("en_attente", "en_cours", "contact", "sans_email"))
              or (differee and st["status"] in ("contact", "sans_email", "en_cours")
                  and hub_index.extraction_allowed(s, st["status"])))),
-        key=lambda s: (tier(s), -imp.get(s, 0), queue["podcasts"][s]["added"], s),
+        key=lambda s: (tier(s), -added_ord(queue["podcasts"][s]), -imp.get(s, 0), s),   # 05/10 : les plus RECENTS d'abord (nouveaux podcasts a contacter)
     )
     log(f"{len(order)} podcast(s) dans la file active.")
 
