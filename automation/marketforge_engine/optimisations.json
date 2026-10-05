@@ -1,724 +1,732 @@
 {
- "_aide": "Journal des optimisations du MarketForge Engine. Source unique : ce fichier alimente l'onglet 'Optimisations' du Sheet (sheet_bridge.py optimisations, a chaque run). Statuts : valide (valide par Etienne) | en_cours | a_faire. Champ version : V1.0, V1.1... (lot de mise en ligne). Ajouter une ligne a CHAQUE optimisation ; passer en 'valide' quand le resultat est verifie.",
- "sections": [
-  "Ciblage",
-  "Envoi et délivrabilité",
-  "Mesure",
-  "Mail et CTA",
-  "À faire",
-  {
-   "id": "opt-78",
-   "section": "Mail et preuve",
-   "version": "V2.4",
-   "texte": "Séquence de 3 relances dans le même fil : J+4, J+8 et J+12 après le 1er mail, avec les nouveaux textes (gras et souligné précis). Chaque relance montre une vraie question du podcast et son lien Listenly au bon moment. Aucune relance si le prospect a répondu, rebondi ou est en email instable ; jamais deux relances rapprochées. Objet du 1er mail : « Regarding {PODCAST} | Listenly indexing ». Les relances gardent l'objet du fil (Re: …).",
-   "date": "05/10/2026",
-   "statut": "en_cours"
-  }
- ],
- "items": [
-  {
-   "id": "opt-01",
-   "section": "Ciblage",
-   "texte": "Filtre « podcasts d'entreprise B2B » : fin des gros podcasts et des créateurs indépendants, qui ne répondaient pas. Vérifié au run de 15h19 le 30/09 : 16 nouveaux candidats, dont 15 onboardés avec un email professionnel.",
-   "date": "30/09/2026",
-   "statut": "valide",
-   "version": "V1.1"
-  },
-  {
-   "id": "opt-02",
-   "section": "Ciblage",
-   "texte": "Nouveaux mots-clés de recherche : 58 requêtes réparties en 14 secteurs (logiciel, cybersécurité, logistique, immobilier, juridique…).",
-   "date": "30/09/2026",
-   "statut": "valide",
-   "version": "V1.1"
-  },
-  {
-   "id": "opt-03",
-   "section": "Ciblage",
-   "texte": "Ciblage adaptatif : le budget de recherche suit les résultats réels de chaque secteur (emails joignables, rebonds, vraies réponses). Poids quasi égaux tant qu'il n'y a aucune réponse.",
-   "date": "30/09/2026",
-   "statut": "valide",
-   "version": "V1.1"
-  },
-  {
-   "id": "opt-04",
-   "section": "Ciblage",
-   "texte": "Ranking des tendances dans l'onglet Synthèse (colonnes I à S) : mise à jour automatique à chaque run, vérifiée le 30/09.",
-   "date": "30/09/2026",
-   "statut": "valide",
-   "version": "V1.1"
-  },
-  {
-   "id": "opt-05",
-   "section": "Envoi et délivrabilité",
-   "texte": "Anti-rebond : vérification de chaque adresse avant l'envoi, domaines d'hébergeurs et adresses techniques bloqués, pause automatique si trop de rebonds.",
-   "date": "27/09/2026",
-   "statut": "valide",
-   "version": "V1.0"
-  },
-  {
-   "id": "opt-06",
-   "section": "Envoi et délivrabilité",
-   "texte": "Montée progressive du volume (44 mails par jour la 1re semaine, puis 80, 150, 300…) pour protéger le domaine marketforge.fr.",
-   "date": "27/09/2026",
-   "statut": "valide",
-   "version": "V1.0"
-  },
-  {
-   "id": "opt-07",
-   "section": "Envoi et délivrabilité",
-   "texte": "Relance unique 4 jours après le premier mail, sans réponse.",
-   "date": "27/09/2026",
-   "statut": "valide",
-   "version": "V1.0"
-  },
-  {
-   "id": "opt-08",
-   "section": "Envoi et délivrabilité",
-   "texte": "Cadence : 1 mail toutes les 15 minutes de 8h à 19h (au lieu d'une rafale à chaque heure), active depuis le 30/09.",
-   "date": "30/09/2026",
-   "statut": "valide",
-   "version": "V1.1"
-  },
-  {
-   "id": "opt-09",
-   "section": "Envoi et délivrabilité",
-   "texte": "Nouveau script collé et installé par toi le 30/09 : cadence, ranking automatique, journal automatique, mail en anglais et filtre anti-réponses automatiques.",
-   "date": "30/09/2026",
-   "statut": "valide",
-   "version": "V1.1"
-  },
-  {
-   "id": "opt-33",
-   "section": "Envoi et délivrabilité",
-   "version": "V1.1",
-   "texte": "Application web du script redéployée par toi le 30/09 (version 10) : le ranking de la Synthèse se met à jour tout seul (vérifié au run de 18h15).",
-   "date": "30/09/2026",
-   "statut": "valide"
-  },
-  {
-   "id": "opt-10",
-   "section": "Envoi et délivrabilité",
-   "texte": "Test de délivrabilité : mail test vers une boîte Gmail et une boîte Outlook (boîte principale ou spam ?) + Google Postmaster Tools.",
-   "date": "—",
-   "statut": "a_faire",
-   "version": "—"
-  },
-  {
-   "id": "opt-11",
-   "section": "Mesure",
-   "texte": "Réponses automatiques (absence, accusé de réception) exclues du comptage côté moteur : 0 vraie réponse sur 73 envois au 30/09.",
-   "date": "30/09/2026",
-   "statut": "valide",
-   "version": "V1.1"
-  },
-  {
-   "id": "opt-12",
-   "section": "Mesure",
-   "texte": "Même filtre dans Apps Script : détection des réponses automatiques (objet, texte type, réponse en moins de 2 minutes). Inclus dans le script à recoller.",
-   "date": "30/09/2026",
-   "statut": "en_cours",
-   "version": "V1.1"
-  },
-  {
-   "id": "opt-13",
-   "section": "Mesure",
-   "texte": "Journal des optimisations automatique : cet onglet se remplit tout seul depuis le fichier optimisations.json du dépôt, à chaque run (dès que le script Apps Script est recollé).",
-   "date": "30/09/2026",
-   "statut": "en_cours",
-   "version": "V1.1"
-  },
-  {
-   "id": "opt-15",
-   "section": "À faire",
-   "texte": "Ancienne sélection mise en pause le 30/09 : les 56 prospects « Prêts » de l'ancienne sélection (dont de gros podcasts) ne partent plus, la nouvelle vague passe en premier. Pour les réactiver, remettre leur statut à « Pret » dans le Sheet.",
-   "date": "30/09/2026",
-   "statut": "valide",
-   "version": "V1.1"
-  },
-  {
-   "id": "opt-16",
-   "section": "À faire",
-   "texte": "Second canal : LinkedIn vers les décideurs, pour aller plus vite que le mail seul.",
-   "date": "—",
-   "statut": "a_faire",
-   "version": "—"
-  },
-  {
-   "id": "opt-17",
-   "section": "À faire",
-   "texte": "Autorité : vérifier l'indexation Google des fiches Listenly et leur présence dans les réponses des IA.",
-   "date": "—",
-   "statut": "a_faire",
-   "version": "—"
-  },
-  {
-   "id": "opt-18",
-   "section": "À faire",
-   "texte": "Onboarding : les 8 échecs répétés (dont 7 podcasts sans email) bloquaient la file à chaque run. Corrigé le 30/09 : à vérifier au prochain run.",
-   "date": "30/09/2026",
-   "statut": "en_cours",
-   "version": "V1.1"
-  },
-  {
-   "id": "opt-19",
-   "section": "À faire",
-   "texte": "Extraction : mêmes 15 épisodes et 79 Q/R à chaque run, elle semble ne plus avancer.",
-   "date": "—",
-   "statut": "a_faire",
-   "version": "—"
-  },
-  {
-   "id": "opt-20",
-   "section": "À faire",
-   "texte": "Renouveler le jeton GitHub « listenly-claude » avant son expiration (vers le 06/10/2026), sinon l'accès de Claude s'arrête.",
-   "date": "06/10/2026",
-   "statut": "a_faire",
-   "version": "—"
-  },
-  {
-   "id": "opt-21",
-   "section": "À faire",
-   "texte": "Nettoyer les cases #REF! de l'onglet Synthèse (ancien onglet « Taxonomie Podcasts B2B » supprimé).",
-   "date": "—",
-   "statut": "a_faire",
-   "version": "—"
-  },
-  {
-   "id": "opt-61",
-   "section": "Mail et CTA",
-   "texte": "Nouveau corps du mail, en anglais, validé par toi le 30/09 (version 8) : intro courte « I'm reaching out because I've listed your podcast… visible in ChatGPT, Gemini and Claude answers » en gras, lien de la fiche, explication en 3 phrases sans puces, gras et soulignement ciblés, signature conservée. Actif après le collage du script.",
-   "date": "30/09/2026",
-   "statut": "valide",
-   "version": "V1.1"
-  },
-  {
-   "id": "opt-22",
-   "section": "Mail et CTA",
-   "texte": "CTA retenu : proposition de vidéo audit de 2 minutes. Le mécanisme de test A/B reste en place : remplir MFE_CTA_B ou MFE_CTA_C dans Réglages suffit pour comparer d'autres CTA plus tard.",
-   "date": "30/09/2026",
-   "statut": "valide",
-   "version": "V1.1"
-  },
-  {
-   "id": "opt-23",
-   "section": "Mail et CTA",
-   "texte": "Mesure A/B (vraies réponses par variante, chance d'être la meilleure) prête ; elle ne compare rien tant qu'un seul CTA est actif. Résumé dans la Synthèse (ligne 46).",
-   "date": "30/09/2026",
-   "statut": "en_cours",
-   "version": "V1.1"
-  },
-  {
-   "id": "opt-24",
-   "section": "Mail et CTA",
-   "texte": "Vidéo audit abandonnée (décision 01/10) : le CTA propose à la place l'audit de 2 minutes en autonomie sur l'outil Bolt/MarketForge, à envoyer sur réponse « audit » en attendant le lien public vérifié.",
-   "date": "01/10/2026",
-   "statut": "valide",
-   "version": "—"
-  },
-  {
-   "id": "opt-25",
-   "section": "Mail et CTA",
-   "texte": "Thématique automatique de chaque podcast (rédigée par Claude) : prête mais en réserve, elle n'apparaît plus dans le mail depuis l'intro courte.",
-   "date": "30/09/2026",
-   "statut": "en_cours",
-   "version": "V1.1"
-  },
-  {
-   "id": "opt-26",
-   "section": "Mail et CTA",
-   "texte": "Objet du mail et relance à J+4 réécrits en anglais, pour rester cohérents avec le premier mail.",
-   "date": "30/09/2026",
-   "statut": "en_cours",
-   "version": "V1.1"
-  },
-  {
-   "id": "opt-27",
-   "section": "Mail et CTA",
-   "texte": "Langue du mail : anglais (décision du 30/09), cohérent avec les podcasts ciblés, tous anglophones. Le français est abandonné.",
-   "date": "30/09/2026",
-   "statut": "valide",
-   "version": "V1.1"
-  },
-  {
-   "id": "opt-28",
-   "section": "Envoi et délivrabilité",
-   "texte": "Envoi automatique repris le 30/09 avec le nouveau mail en anglais (1 mail toutes les 15 minutes, 44 par jour) ; clé de vérification des adresses remise dans les réglages.",
-   "date": "30/09/2026",
-   "statut": "valide",
-   "version": "V1.1"
-  },
-  {
-   "id": "opt-29",
-   "section": "Ciblage",
-   "version": "V1.1",
-   "texte": "Budget de recherche triplé le 30/09 : 45 podcasts qualifiés par run au lieu de 15, pour alimenter les 44 envois par jour (le filtre B2B laisse passer environ 1 podcast sur 8).",
-   "date": "30/09/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-30",
-   "section": "Ciblage",
-   "version": "V1.1",
-   "texte": "Pré-filtre gratuit avant la qualification : seuls les podcasts avec un email professionnel (pas Gmail, pas hébergeur) sont qualifiés, donc tous les podcasts retenus sont joignables. Résultat du 30/09 : 16 candidats par run au lieu de 2.",
-   "date": "30/09/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-31",
-   "section": "Ciblage",
-   "version": "V1.1",
-   "texte": "Onboarding sécurisé : un podcast en échec est étiqueté et ignoré (1 seul échec au run de 15h19 au lieu de 8 répétés), les échecs ne consomment plus le quota, les podcasts sans email sont classés, les emails professionnels passent en premier. Quota porté à 30 par run.",
-   "date": "30/09/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-32",
-   "section": "Ciblage",
-   "version": "V1.1",
-   "texte": "Recherche élargie : 100 résultats par requête au lieu de 25 et environ 240 mots-clés en rotation (80 par run), pour renouveler le stock de podcasts chaque jour.",
-   "date": "30/09/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-34",
-   "section": "À faire",
-   "version": "—",
-   "texte": "À décider : 5 des 15 nouveaux podcasts (33 %) n'ont pas reçu de mail car leur adresse est « non vérifiable » (serveur qui accepte tout). Les autoriser ferait passer le rendement de 60 % à environ 90 %, avec un peu plus de risque de rebond.",
-   "date": "—",
-   "statut": "a_faire"
-  },
-  {
-   "id": "opt-35",
-   "section": "Envoi et délivrabilité",
-   "version": "V1.1",
-   "texte": "Adresse instable : dès qu'un avis de retard ou d'échec de livraison arrive, l'adresse est marquée « Email instable » et n'est plus jamais relancée (plus de tentatives répétées vers une adresse qui ne répond pas). Actif après le collage du script.",
-   "date": "30/09/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-36",
-   "section": "Mesure",
-   "version": "V1.2",
-   "texte": "Extraction des questions réactivée le 01/10 (MFE_EXTRACTION_AUTO passé à TRUE dans Réglages) : elle était à l'arrêt, 0 épisode traité ce jour. Règles inchangées : hub indexé par Google d'abord, puis 7 jours après le 1er mail sans réponse. À vérifier au prochain run : des épisodes transcrits.",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-38",
-   "section": "Mesure",
-   "version": "V1.2",
-   "texte": "Diagnostic détaillé des fiches N1 que Google n'indexe pas : pour chaque fiche ancienne bloquée (et 20 fiches indexées pour comparer), on relève la dernière visite de Google, la page qu'il juge canonique, les pages qui la relient et le sitemap d'origine. Lecture seule, rien n'est modifié sur le site.",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-39",
-   "section": "Mesure",
-   "version": "V1.2",
-   "texte": "Liste de priorité pour l'indexation Google : les fiches N1 non indexées classées par ordre (podcasts déjà contactés ou en attente de mail d'abord, puis les fiches anciennes jamais visitées par Google). À soumettre à la main dans Search Console, 10 à 20 par jour. Constat : 266 podcasts déjà contactés ont une fiche non indexée.",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-40",
-   "section": "Mesure",
-   "version": "V1.2",
-   "texte": "Rythme de création des fiches N1 maintenu (pas de pause) : la création sert à prospecter. Point de décision le 15/10 : si moins de 10 % des fiches de septembre sont indexées, on ralentit la création ; au-dessus de 20 %, on continue.",
-   "date": "01/10/2026",
-   "statut": "a_faire"
-  },
-  {
-   "id": "opt-41",
-   "section": "Mesure",
-   "version": "V1.2",
-   "texte": "Les 10 fiches N1 à envoyer à Google chaque jour (rapport quotidien) suivent maintenant l'ordre de priorité : d'abord les podcasts dont les questions sont extraites, puis ceux en attente de mail, puis ceux déjà contactés, ensuite les fiches anciennes jamais visitées par Google. Avant, c'étaient simplement les plus récentes.",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-42",
-   "section": "Mesure",
-   "version": "V1.2",
-   "texte": "Nettoyage : la page orpheline ogd6etwxpdgr-podcast.html (en échec dans Google, sans fiche correspondante) est déclarée supprimée définitivement (410), et la page de test pages/test.html est retirée du site.",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-43",
-   "section": "Ciblage",
-   "version": "V1.2",
-   "texte": "Recherche augmentée le 01/10 : 58 podcasts qualifiés par run au lieu de 45 (+29 %). Raison : le dernier run n'a mis en ligne que 9 fiches sur un quota de 30 et il ne reste que 23 contacts prêts pour 44 envois par jour ; le manque vient de la recherche, pas de l'onboarding. Effet attendu : environ 30 % de fiches et de contacts en plus par run, pour tenir les 44 envois quotidiens.",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-44",
-   "section": "À faire",
-   "version": "V1.2",
-   "texte": "Anomalie délivrabilité : 3 rebonds sur 44 envois le 01/10 (6,8 %) et 12 rebonds sur 152 au total (7,9 %), au-dessus du seuil de 3 %. À vérifier dans l'Apps Script : la vérification des adresses avant envoi. Tant que ce taux n'est pas sous 3 %, ne pas autoriser les adresses « non vérifiables » (opt-34).",
-   "date": "01/10/2026",
-   "statut": "a_faire"
-  },
-  {
-   "id": "opt-45",
-   "section": "À faire",
-   "version": "V1.2",
-   "texte": "Anomalie extraction : 0 épisode transcrit le 01/10 alors que l'extraction a été réactivée (opt-36) et que 92 fiches N1 sont indexées. Peut être normal (premiers mails du 27/09, la règle des 7 jours ne joue qu'à partir du 04/10), mais le cas « hub indexé » aurait dû en déclencher. À vérifier dans le code au prochain run.",
-   "date": "01/10/2026",
-   "statut": "a_faire"
-  },
-  {
-   "id": "opt-46",
-   "section": "À faire",
-   "version": "V1.2",
-   "texte": "Anomalie planification : GitHub n'a lancé que 2 des 6 runs prévus le 01/10 (06h01 et 15h28 UTC ; un 3e lancé à la main à 12h57). Le moteur tourne donc à environ un tiers de son rythme prévu, ce qui limite les nouveaux contacts. Piste : décaler l'horaire des runs hors des minutes chargées ou ajouter un déclencheur de secours. Pas de relance ce soir : dernier run il y a environ 2 h.",
-   "date": "01/10/2026",
-   "statut": "a_faire"
-  },
-  {
-   "id": "opt-47",
-   "section": "Mesure",
-   "version": "V1.2",
-   "texte": "Page moteur.html recentrée sur le moteur trafic : plus de partie prospection, mails ni emails trouvés. Elle montre le nombre de fiches hub indexées par Google (92 sur 525, avec le taux par mois de création), la production, le regroupement dans les hubs, la visibilité Google des hubs et les dernières fiches créées.",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-56",
-   "section": "Mesure",
-   "version": "V1.2",
-   "texte": "Maillage interne : chaque fiche N1 reçoit 6 liens « podcasts similaires » vers d'autres hubs de sa catégorie, et la page d'index liste les 30 derniers hubs ajoutés. Google peut ainsi atteindre chaque hub par des liens, pas seulement par le sitemap. Les 77 hubs déjà indexés ou visibles dans Google ne sont pas touchés. Actif à chaque run.",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-57",
-   "section": "Mesure",
-   "version": "V1.2",
-   "texte": "Compteur de backlinks réel : chaque jour, le moteur regarde si les podcasts contactés ont posé un lien vers listenly.fr (notes d'épisodes ou site). Le chiffre apparaît dans le rapport du soir (avant : 0 codé en dur). Avec le Podcast Hub, la source principale de backlinks sera le lien « Explore more expert answers » de chaque Hub installé.",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-58",
-   "section": "Mesure",
-   "version": "V1.2",
-   "texte": "Suivi du trafic venant des IA (ChatGPT, Perplexity, Gemini, Claude…) via Plausible, ajouté au rapport du soir. Code prêt ; s'active dès que la clé API Plausible est ajoutée dans les secrets GitHub (PLAUSIBLE_API_KEY).",
-   "date": "01/10/2026",
-   "statut": "a_faire"
-  },
-  {
-   "id": "opt-59",
-   "section": "Mesure",
-   "version": "V1.2",
-   "texte": "Lien discret « annuaire des podcasts » ajouté en bas de la page d'accueil listenly.fr (via le script déjà installé) : Google a enfin un chemin depuis le site principal vers les fiches N1. Sauvegarde du script avant modification.",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-60",
-   "section": "Mail et CTA",
-   "version": "V1.2",
-   "texte": "Badge « Featured on Listenly » à copier-coller en bas de chaque fiche N1 (lien direct vers la fiche du podcast), sans lien caché. Le nouveau mail 1 ne contient plus de lien : le badge sert quand le prospect ouvre sa fiche (après réponse ou visite). Les hubs déjà indexés ne sont pas modifiés.",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-48",
-   "section": "Mail et CTA",
-   "version": "V2.0",
-   "texte": "Nouveau mail en anglais (décision du 01/10) : on vend un Podcast Hub. Il explique le manque (podcast dépendant de Spotify/Apple, pas cité par Google et les IA, pas de capture de leads), les 3 bénéfices (branding, visibilité, conversion) et propose de construire une première version sans engagement, sans lien d'aperçu. En ligne dans Réglages ; premiers envois le 02/10 à 8h. Remplace l'ancien mail « listé sur Listenly ».",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-49",
-   "section": "Ciblage",
-   "version": "V2.0",
-   "texte": "Nouveau positionnement (décision du 01/10) : le produit vendu est un Podcast Hub brandé ; la priorité est la qualité des prospects et de la conversion, pas le volume brut. Détail dans CLAUDE.md.",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-50",
-   "section": "Envoi et délivrabilité",
-   "version": "V2.0",
-   "texte": "Relances annulées pour les prospects de l'ancien mail (« listé sur Listenly ») : décision du 01/10, on part uniquement sur le nouveau mail Podcast Hub. En attendant, les relances sont coupées (réglage à 0).",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-51",
-   "section": "À faire",
-   "version": "V2.0",
-   "texte": "Recoller le script Apps Script mis à jour (nouveau réglage « relances seulement depuis le 02/10/2026 »), puis remettre MFE_RELANCE_JOURS à 4 dans Réglages. À faire avant le 06/10 : les premières relances du nouveau mail partent ce jour-là.",
-   "date": "01/10/2026",
-   "statut": "a_faire"
-  },
-  {
-   "id": "opt-52",
-   "section": "À faire",
-   "version": "V2.0",
-   "texte": "Hub V1 brandé généré à la réponse du prospect : couleurs et logo du podcast, cover, description, épisodes, lecteur, questions/réponses, CTA de conversion, lien d'aperçu à lui envoyer.",
-   "date": "01/10/2026",
-   "statut": "a_faire"
-  },
-  {
-   "id": "opt-53",
-   "section": "À faire",
-   "version": "V2.0",
-   "texte": "Lien de paiement intégré (environ 500 $ d'installation) envoyé avec le Hub V1 ; outil à confirmer avec Etienne (Stripe proposé).",
-   "date": "01/10/2026",
-   "statut": "a_faire"
-  },
-  {
-   "id": "opt-54",
-   "section": "À faire",
-   "version": "V2.0",
-   "texte": "Suivi des réponses : repérer les réponses positives (« send it »), les V1 envoyées, les paiements, et les afficher dans le rapport du soir.",
-   "date": "01/10/2026",
-   "statut": "a_faire"
-  },
-  {
-   "id": "opt-55",
-   "section": "À faire",
-   "version": "V2.0",
-   "texte": "CTA de recherche dans chaque Hub : sous chaque question, un lien utile vers Listenly (« Explore more expert answers »), sans « Powered by » artificiels.",
-   "date": "01/10/2026",
-   "statut": "a_faire"
-  },
-  {
-   "id": "opt-62",
-   "section": "Mail et CTA",
-   "version": "V2.0",
-   "texte": "Objet du mail 1 changé le 01/10 : plus d'objet commercial (« A Podcast Hub for … ») mais une prise de contact neutre qui donne envie d'ouvrir : « Referencing of {PODCAST} | getting in touch ». Effet attendu : meilleur taux d'ouverture et de réponse (à mesurer à partir des envois du 02/10).",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-63",
-   "section": "Mail et CTA",
-   "version": "V2.0",
-   "texte": "Lien de la fiche Listenly remis dans le mail 1 (« I recently added your podcast … : [lien] »). Il avait disparu avec la réécriture Podcast Hub : sans lui, la phrase n'avait aucune preuve. Ce n'est pas un lien d'aperçu du Hub (qui reste interdit tant que la V1 n'existe pas), c'est la fiche réelle déjà en ligne.",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-64",
-   "section": "Mail et CTA",
-   "version": "V2.0",
-   "texte": "Mail 1 : le lien de la fiche est maintenant introduit par une phrase « Here is the link: » et placé seul sur sa propre ligne, pour qu'il soit bien visible et cliquable. Test envoyé le 01/10 à Etienne.",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-65",
-   "section": "Mail et CTA",
-   "version": "V2.0",
-   "texte": "Test A/B du CTA lancé pour obtenir des « oui » : A = « I can build a first version… Shall I send it over? » contre B = « Just reply yes and I'll send you a first version… » (réponse en un mot). Répartition 50/50 dès le 02/10. Les anciens envois (ancien mail) sont écartés des statistiques (variante V0) pour que la comparaison soit propre. Verdict à partir de 100 envois par variante.",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-66",
-   "section": "Mail et CTA",
-   "version": "V2.0",
-   "texte": "Mise à jour automatique du script d'envoi (Apps Script) depuis GitHub, en service depuis le 01/10 : plus besoin de coller le code à la main. Premier déploiement fait : les relances ne concernent que les prospects du nouveau mail (filtre depuis le 02/10), relance réactivée à J+4 (premières relances le 06/10).",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-67",
-   "section": "Mesure",
-   "version": "V2.0",
-   "texte": "Nouveau rapport du soir par mail, orienté marketing : 1) ce qui a été fait, 2) ce que disent les données (test A/B, délivrabilité, OUI / non / réponses automatiques), 3) ce qui a été optimisé, 4) synthèse et plan du lendemain. Ajout d'un budget API estimé (transcription, extraction, vérification d'emails) avec un onglet « Budget API » dans le Sheet. Chaque réponse est classée (OUI / non / automatique) pour compter les vrais OUI.",
-   "date": "01/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-68",
-   "section": "Mesure",
-   "version": "V2.0",
-   "texte": "Deux rapports du soir séparés : 19h00 « Fiches & Google » (fiches créées, indexation, les 10 fiches du jour à faire indexer avec liens) et 19h45 « Rapport marketing » (prospection uniquement : résultats, ce qui marche ou non, 3 apprentissages max, stratégie de demain, à garder / à arrêter / à tester). Les listes de fiches déjà proposées sont conservées pour ne jamais les redonner.",
-   "date": "02/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-69",
-   "section": "Mesure",
-   "version": "V2.0",
-   "texte": "Relance du moteur : 0 mail envoyé le 03/10. Cause : MFE_EXTRACTION_AUTO passé à TRUE le 01/10, les nouveaux podcasts restaient en attente de transcription au lieu de passer en contact (0 contact les 02 et 03/10, 115 bloqués, stock « Prêt » vide). Remis à FALSE (Sheet + config).",
-   "date": "03/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-70",
-   "section": "Mesure",
-   "version": "V2.0",
-   "texte": "Mail : retrait de « page for validation before indexation » (devenu « Your page: {URL} »). L'engagement vers le Hub passe uniquement par le CTA. Corps du mail et CTA A/B/C/D inchangés par ailleurs ; autres optimisations en attente de données.",
-   "date": "03/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-71",
-   "section": "Ciblage",
-   "version": "V2.0",
-   "texte": "Test multi-niches Hub : 6 nouveaux secteurs ajoutés à la découverte (Cabinets d'avocats, Experts-comptables & patrimoine, Coachs & consultants B2B, Agences de services, Santé libérale, Formateurs & programmes), répartition égale au départ. L'optimiseur ajuste ensuite les poids selon les retours ; point de lecture vendredi 10/10.",
-   "date": "03/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-72",
-   "section": "Mesure",
-   "version": "V2.0",
-   "texte": "Réflexion automatique de la machine : à chaque run, elle détecte seule où le funnel Hub bloque (contacts, envois, rebonds, réponses non classées) et explique pourquoi il n'y a pas encore de client, avec actions proposées. Résultat dans reflexion.md.",
-   "date": "03/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-73",
-   "section": "Mail et CTA",
-   "version": "V2.1",
-   "texte": "Nouveau mail de prospection : format court et très simple (présentation d'Etienne, lien vers la page Listenly du podcast, question « Where would you like us to redirect this qualified traffic? »). Gras uniquement sur le nom du podcast et « Listenly.fr, The First AI directory for podcast », souligné uniquement sur « you like us to redirect this qualified traffic? ». Test A/B du CTA étendu à 5 variantes (A à E, toutes autour de « avez-vous déjà un Podcast Hub ou faut-il envoyer vers Spotify ? »), réparties à parts égales ; chaque envoi note sa variante, et les réponses sont comptées (et classées positive / neutre / refus / auto) par variante à partir du 04/10. Les anciens mails ne comptent pas dans cette comparaison.",
-   "date": "03/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-74",
-   "section": "Ciblage",
-   "version": "V2.2",
-   "texte": "PIVOT LISTENLY-FIRST (04/10/2026 décision) : modification de onboard_from_issue.py pour bloquer la création de fiches N1 (page HTML hub) et réactiver l'extraction de questions à la place. Nouveau flow : (1) créer fiche Listenly, (2) ajouter entrée minimale à podcasts.json, (3) générer 1-2 fiches Q/R d'épisodes (generate_episode_fiches_btb.py MAX_EPISODES=2 avec USE_TRANSCRIPT=true) via transcription + extraction Claude. Le Hub devient la destination de vente (BRIDGE/SALE), pas l'outil de découverte initial. Les fiches N1 existantes et indexées restent en place (pas de suppression).",
-   "date": "04/10/2026",
-   "statut": "valide"
-  },
-  {
-   "id": "opt-75",
-   "section": "Ciblage",
-   "version": "V2.2",
-   "texte": "PIVOT DB-ONLY finalisé (04/10/2026 execution) : simplification radicale de onboard_from_issue.py. Suppression de add_podcast_to_json(), generate_episode_fiches(), existing_by_rss(), existing_slugs() et podcasts.json. Flux final : create_listenly_show() + register_rss_reader() seuls. Listenly scrape + extrait Q/R AUTOMATIQUEMENT dans sa DB, aucune page HTML ni entry JSON générée. Report structure simplifiée : slug, podcast_name, email, listenly_url, listenly_created, rss_registered. Cette simplification confirme que le système est devenu entièrement DB-first (Listenly gère tout).",
-   "date": "04/10/2026",
-   "statut": "valide"
-  },
-  {
-   "id": "opt-76",
-   "section": "Mail et CTA",
-   "version": "V2.3",
-   "texte": "Nouvelle séquence email Listenly (04/10/2026) : mail 1 « Regarding your podcast | {podcast} » (Listenly = premier moteur de recherche IA dédié aux podcasts, question unique « link ou Podcast Hub ? », gras et souligné ciblés) et relance en 3 textes courts dans le même fil. Seule la relance 1 est branchée au calendrier actuel (J+4, inchangé) ; les relances 2 et 3 sont prêtes mais pas planifiées, en attente de ta validation du calendrier. Le test A/B du CTA n'a plus d'objet (plus de CTA dans le mail). Envois non réactivés tant que tu n'as pas validé le test.",
-   "date": "04/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-77",
-   "section": "Mail et preuve",
-   "version": "V2.4",
-   "texte": "Nouveau template email (05/10/2026) : positionnement Listenly comme « first AI search engine dedicated to B2B podcasts » + lien de preuve concret vers un moment du dernier épisode (question + timestamp). Lien au format https://listenly.fr/?p={slug}&m={moment_id} qui ouvre Listenly avec le lecteur au bon moment. Colonnes ajoutées au Sheet : « Dernier épisode Q » et « Dernier épisode Moment ID » (remplies par enrichissement ultérieur depuis moments.json ou API Listenly). Premier mail envoie lien générique (podcast sur Listenly) ; relance 1 (J+4) enrichie avec question si disponible.",
-   "date": "05/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-79",
-   "section": "Mail et preuve",
-   "version": "V2.4",
-   "texte": "Preuve automatique dans les mails : après la transcription, le moteur choisit une question claire pour un décideur B2B (avec horodatage exact) et l'écrit dans le Sheet avec son identifiant. Le mail 1 et les 3 relances affichent le lien https://listenly.fr/?p=<podcast>&m=<moment> qui ouvre Listenly et lance le lecteur au bon moment. Sans question disponible, le mail part avec le lien général du podcast.",
-   "date": "05/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-80",
-   "section": "Ciblage et extraction",
-   "version": "V2.4",
-   "texte": "Transcription immédiate : un nouveau podcast n'attend plus l'indexation Google de sa fiche (ni 21 jours) avant la transcription de son 1er épisode. Dès qu'un podcast est trouvé avec son email, 1 épisode est transcrit, la question et le lien Listenly vont dans le Sheet, et le mail est rédigé avec cet exemple.",
-   "date": "05/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-81",
-   "section": "Ciblage et extraction",
-   "version": "V2.4",
-   "texte": "Correction d'un blocage depuis le 04/10 : un podcast enregistré dans Listenly n'entrait pas dans la liste lue par la transcription, donc il n'était jamais transcrit et n'arrivait jamais dans le Sheet. Désormais chaque nouveau podcast est ajouté à cette liste dès l'enregistrement, puis transcrit (1 épisode) dans le même run. Les 4 podcasts du 05/10 (Adtech Design and Development Leaders, Find My Catalyst Podcast, Bundy Group Insights, Lead with Legacy) sont rattrapés. Le lien de preuve du Sheet pointe vers la page Listenly du podcast.",
-   "date": "05/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-82",
-   "section": "Ciblage et extraction",
-   "version": "V2.4",
-   "texte": "Le mail 1 affiche maintenant la vraie question tirée d'un épisode du podcast contacté, juste au-dessus du lien Listenly qui ouvre l'épisode au bon moment (avant, seul le lien apparaissait).",
-   "date": "05/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-83",
-   "section": "Envoi",
-   "version": "V2.4",
-   "texte": "Mise en route du moteur complet : une passe toutes les 15 minutes (au lieu de 4 h), plafond de 50 podcasts transcrits (donc 50 mails préparés) par jour, envoi automatique activé. Les enregistrements de fin de run sont aussi sécurisés (8 essais, priorité aux résultats du run) pour ne plus perdre de résultats.",
-   "date": "05/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-84",
-   "section": "Ciblage et extraction",
-   "version": "V2.4",
-   "texte": "Les 4 étapes de suivi des fiches N1 (indexation Google, backlinks, trafic IA, veille) sont désactivées : il n'y a plus de fiche N1, elles ralentissaient le run avant la transcription. La transcription passe directement après l'onboarding.",
-   "date": "05/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-85",
-   "section": "Ciblage et extraction",
-   "version": "V2.4",
-   "texte": "La transcription traite d'abord les podcasts les plus récemment ajoutés (les nouveaux à contacter) avant les anciens déjà contactés, qui consommaient tout le budget du jour.",
-   "date": "05/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-86",
-   "section": "Ciblage et extraction",
-   "version": "V2.4",
-   "texte": "Chaque passage du moteur transcrit au maximum 4 épisodes (au lieu de tout le budget du jour d'un coup). Les runs deviennent courts (environ 10 minutes) et les podcasts arrivent dans le Sheet au fur et à mesure.",
-   "date": "05/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-87",
-   "section": "Mail et preuve",
-   "version": "V2.4",
-   "texte": "La question montrée dans le mail est maintenant filtrée : elle doit venir du podcast contacté, parler d'un sujet de décideur B2B et coller à sa thématique. Les questions hors sujet (sport, divertissement, santé grand public) sont écartées ; s'il n'y en a aucune de valable, le podcast n'est pas envoyé avec un exemple faux.",
-   "date": "05/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-88",
-   "section": "Mesure",
-   "version": "V2.4",
-   "texte": "Les tests de mail se pilotent maintenant depuis le chat, sans cliquer dans le Sheet : envoi à Etienne du mail 1 et des 3 relances, et envoi de 1 à 3 vrais mails (ou d'un seul podcast ciblé) avec confirmation obligatoire. Nouveau menu « Test limité (1 vrai e-mail) ».",
-   "date": "05/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-89",
-   "section": "Mail et preuve",
-   "version": "V2.4",
-   "texte": "Nouveau mail 1 (J0) : texte validé par Etienne, mis en forme comme un mail personnel Gmail — gras sur la présentation de Listenly et sur la question Spotify / Podcast Hub, souligné sur l'indexation, question de l'épisode en italique, et lien cliquable « Now discoverable by executives searching for this topic » (en bleu #1155CC, sans afficher l'adresse) qui ouvre la question au bon moment. Un prospect sans question réelle n'est plus envoyé.",
-   "date": "05/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-90",
-   "section": "Mail et preuve",
-   "version": "V2.4",
-   "texte": "Nouvelle signature des mails, plus corporate : photo, un seul trait bleu vertical, nom, rôle, promesse « We Turn Your Podcast Into Growth », fin trait gris, email et « → Connect on LinkedIn ». Le lien Marketforge séparé est retiré.",
-   "date": "05/10/2026",
-   "statut": "en_cours"
-  },
-  {
-   "id": "opt-91",
-   "section": "Ciblage et extraction",
-   "version": "V2.4",
-   "texte": "Les 102 prospects prêts mais jamais contactés (sélection du 03/10) sont ajoutés à la liste d'extraction : le moteur transcrit 1 épisode chacun, après les nouveaux podcasts, pour leur fournir une vraie question avant le mail 1. En cas d'échec sur un nouveau podcast, le moteur passe aux suivants.",
-   "date": "05/10/2026",
-   "statut": "en_cours"
-  }
- ]
+  "_aide": "Journal des optimisations du MarketForge Engine. Source unique : ce fichier alimente l'onglet 'Optimisations' du Sheet (sheet_bridge.py optimisations, a chaque run). Statuts : valide (valide par Etienne) | en_cours | a_faire. Champ version : V1.0, V1.1... (lot de mise en ligne). Ajouter une ligne a CHAQUE optimisation ; passer en 'valide' quand le resultat est verifie.",
+  "sections": [
+    "Ciblage",
+    "Envoi et délivrabilité",
+    "Mesure",
+    "Mail et CTA",
+    "À faire",
+    {
+      "id": "opt-78",
+      "section": "Mail et preuve",
+      "version": "V2.4",
+      "texte": "Séquence de 3 relances dans le même fil : J+4, J+8 et J+12 après le 1er mail, avec les nouveaux textes (gras et souligné précis). Chaque relance montre une vraie question du podcast et son lien Listenly au bon moment. Aucune relance si le prospect a répondu, rebondi ou est en email instable ; jamais deux relances rapprochées. Objet du 1er mail : « Regarding {PODCAST} | Listenly indexing ». Les relances gardent l'objet du fil (Re: …).",
+      "date": "05/10/2026",
+      "statut": "en_cours"
+    }
+  ],
+  "items": [
+    {
+      "id": "opt-01",
+      "section": "Ciblage",
+      "texte": "Filtre « podcasts d'entreprise B2B » : fin des gros podcasts et des créateurs indépendants, qui ne répondaient pas. Vérifié au run de 15h19 le 30/09 : 16 nouveaux candidats, dont 15 onboardés avec un email professionnel.",
+      "date": "30/09/2026",
+      "statut": "valide",
+      "version": "V1.1"
+    },
+    {
+      "id": "opt-02",
+      "section": "Ciblage",
+      "texte": "Nouveaux mots-clés de recherche : 58 requêtes réparties en 14 secteurs (logiciel, cybersécurité, logistique, immobilier, juridique…).",
+      "date": "30/09/2026",
+      "statut": "valide",
+      "version": "V1.1"
+    },
+    {
+      "id": "opt-03",
+      "section": "Ciblage",
+      "texte": "Ciblage adaptatif : le budget de recherche suit les résultats réels de chaque secteur (emails joignables, rebonds, vraies réponses). Poids quasi égaux tant qu'il n'y a aucune réponse.",
+      "date": "30/09/2026",
+      "statut": "valide",
+      "version": "V1.1"
+    },
+    {
+      "id": "opt-04",
+      "section": "Ciblage",
+      "texte": "Ranking des tendances dans l'onglet Synthèse (colonnes I à S) : mise à jour automatique à chaque run, vérifiée le 30/09.",
+      "date": "30/09/2026",
+      "statut": "valide",
+      "version": "V1.1"
+    },
+    {
+      "id": "opt-05",
+      "section": "Envoi et délivrabilité",
+      "texte": "Anti-rebond : vérification de chaque adresse avant l'envoi, domaines d'hébergeurs et adresses techniques bloqués, pause automatique si trop de rebonds.",
+      "date": "27/09/2026",
+      "statut": "valide",
+      "version": "V1.0"
+    },
+    {
+      "id": "opt-06",
+      "section": "Envoi et délivrabilité",
+      "texte": "Montée progressive du volume (44 mails par jour la 1re semaine, puis 80, 150, 300…) pour protéger le domaine marketforge.fr.",
+      "date": "27/09/2026",
+      "statut": "valide",
+      "version": "V1.0"
+    },
+    {
+      "id": "opt-07",
+      "section": "Envoi et délivrabilité",
+      "texte": "Relance unique 4 jours après le premier mail, sans réponse.",
+      "date": "27/09/2026",
+      "statut": "valide",
+      "version": "V1.0"
+    },
+    {
+      "id": "opt-08",
+      "section": "Envoi et délivrabilité",
+      "texte": "Cadence : 1 mail toutes les 15 minutes de 8h à 19h (au lieu d'une rafale à chaque heure), active depuis le 30/09.",
+      "date": "30/09/2026",
+      "statut": "valide",
+      "version": "V1.1"
+    },
+    {
+      "id": "opt-09",
+      "section": "Envoi et délivrabilité",
+      "texte": "Nouveau script collé et installé par toi le 30/09 : cadence, ranking automatique, journal automatique, mail en anglais et filtre anti-réponses automatiques.",
+      "date": "30/09/2026",
+      "statut": "valide",
+      "version": "V1.1"
+    },
+    {
+      "id": "opt-33",
+      "section": "Envoi et délivrabilité",
+      "version": "V1.1",
+      "texte": "Application web du script redéployée par toi le 30/09 (version 10) : le ranking de la Synthèse se met à jour tout seul (vérifié au run de 18h15).",
+      "date": "30/09/2026",
+      "statut": "valide"
+    },
+    {
+      "id": "opt-10",
+      "section": "Envoi et délivrabilité",
+      "texte": "Test de délivrabilité : mail test vers une boîte Gmail et une boîte Outlook (boîte principale ou spam ?) + Google Postmaster Tools.",
+      "date": "—",
+      "statut": "a_faire",
+      "version": "—"
+    },
+    {
+      "id": "opt-11",
+      "section": "Mesure",
+      "texte": "Réponses automatiques (absence, accusé de réception) exclues du comptage côté moteur : 0 vraie réponse sur 73 envois au 30/09.",
+      "date": "30/09/2026",
+      "statut": "valide",
+      "version": "V1.1"
+    },
+    {
+      "id": "opt-12",
+      "section": "Mesure",
+      "texte": "Même filtre dans Apps Script : détection des réponses automatiques (objet, texte type, réponse en moins de 2 minutes). Inclus dans le script à recoller.",
+      "date": "30/09/2026",
+      "statut": "en_cours",
+      "version": "V1.1"
+    },
+    {
+      "id": "opt-13",
+      "section": "Mesure",
+      "texte": "Journal des optimisations automatique : cet onglet se remplit tout seul depuis le fichier optimisations.json du dépôt, à chaque run (dès que le script Apps Script est recollé).",
+      "date": "30/09/2026",
+      "statut": "en_cours",
+      "version": "V1.1"
+    },
+    {
+      "id": "opt-15",
+      "section": "À faire",
+      "texte": "Ancienne sélection mise en pause le 30/09 : les 56 prospects « Prêts » de l'ancienne sélection (dont de gros podcasts) ne partent plus, la nouvelle vague passe en premier. Pour les réactiver, remettre leur statut à « Pret » dans le Sheet.",
+      "date": "30/09/2026",
+      "statut": "valide",
+      "version": "V1.1"
+    },
+    {
+      "id": "opt-16",
+      "section": "À faire",
+      "texte": "Second canal : LinkedIn vers les décideurs, pour aller plus vite que le mail seul.",
+      "date": "—",
+      "statut": "a_faire",
+      "version": "—"
+    },
+    {
+      "id": "opt-17",
+      "section": "À faire",
+      "texte": "Autorité : vérifier l'indexation Google des fiches Listenly et leur présence dans les réponses des IA.",
+      "date": "—",
+      "statut": "a_faire",
+      "version": "—"
+    },
+    {
+      "id": "opt-18",
+      "section": "À faire",
+      "texte": "Onboarding : les 8 échecs répétés (dont 7 podcasts sans email) bloquaient la file à chaque run. Corrigé le 30/09 : à vérifier au prochain run.",
+      "date": "30/09/2026",
+      "statut": "en_cours",
+      "version": "V1.1"
+    },
+    {
+      "id": "opt-19",
+      "section": "À faire",
+      "texte": "Extraction : mêmes 15 épisodes et 79 Q/R à chaque run, elle semble ne plus avancer.",
+      "date": "—",
+      "statut": "a_faire",
+      "version": "—"
+    },
+    {
+      "id": "opt-20",
+      "section": "À faire",
+      "texte": "Renouveler le jeton GitHub « listenly-claude » avant son expiration (vers le 06/10/2026), sinon l'accès de Claude s'arrête.",
+      "date": "06/10/2026",
+      "statut": "a_faire",
+      "version": "—"
+    },
+    {
+      "id": "opt-21",
+      "section": "À faire",
+      "texte": "Nettoyer les cases #REF! de l'onglet Synthèse (ancien onglet « Taxonomie Podcasts B2B » supprimé).",
+      "date": "—",
+      "statut": "a_faire",
+      "version": "—"
+    },
+    {
+      "id": "opt-61",
+      "section": "Mail et CTA",
+      "texte": "Nouveau corps du mail, en anglais, validé par toi le 30/09 (version 8) : intro courte « I'm reaching out because I've listed your podcast… visible in ChatGPT, Gemini and Claude answers » en gras, lien de la fiche, explication en 3 phrases sans puces, gras et soulignement ciblés, signature conservée. Actif après le collage du script.",
+      "date": "30/09/2026",
+      "statut": "valide",
+      "version": "V1.1"
+    },
+    {
+      "id": "opt-22",
+      "section": "Mail et CTA",
+      "texte": "CTA retenu : proposition de vidéo audit de 2 minutes. Le mécanisme de test A/B reste en place : remplir MFE_CTA_B ou MFE_CTA_C dans Réglages suffit pour comparer d'autres CTA plus tard.",
+      "date": "30/09/2026",
+      "statut": "valide",
+      "version": "V1.1"
+    },
+    {
+      "id": "opt-23",
+      "section": "Mail et CTA",
+      "texte": "Mesure A/B (vraies réponses par variante, chance d'être la meilleure) prête ; elle ne compare rien tant qu'un seul CTA est actif. Résumé dans la Synthèse (ligne 46).",
+      "date": "30/09/2026",
+      "statut": "en_cours",
+      "version": "V1.1"
+    },
+    {
+      "id": "opt-24",
+      "section": "Mail et CTA",
+      "texte": "Vidéo audit abandonnée (décision 01/10) : le CTA propose à la place l'audit de 2 minutes en autonomie sur l'outil Bolt/MarketForge, à envoyer sur réponse « audit » en attendant le lien public vérifié.",
+      "date": "01/10/2026",
+      "statut": "valide",
+      "version": "—"
+    },
+    {
+      "id": "opt-25",
+      "section": "Mail et CTA",
+      "texte": "Thématique automatique de chaque podcast (rédigée par Claude) : prête mais en réserve, elle n'apparaît plus dans le mail depuis l'intro courte.",
+      "date": "30/09/2026",
+      "statut": "en_cours",
+      "version": "V1.1"
+    },
+    {
+      "id": "opt-26",
+      "section": "Mail et CTA",
+      "texte": "Objet du mail et relance à J+4 réécrits en anglais, pour rester cohérents avec le premier mail.",
+      "date": "30/09/2026",
+      "statut": "en_cours",
+      "version": "V1.1"
+    },
+    {
+      "id": "opt-27",
+      "section": "Mail et CTA",
+      "texte": "Langue du mail : anglais (décision du 30/09), cohérent avec les podcasts ciblés, tous anglophones. Le français est abandonné.",
+      "date": "30/09/2026",
+      "statut": "valide",
+      "version": "V1.1"
+    },
+    {
+      "id": "opt-28",
+      "section": "Envoi et délivrabilité",
+      "texte": "Envoi automatique repris le 30/09 avec le nouveau mail en anglais (1 mail toutes les 15 minutes, 44 par jour) ; clé de vérification des adresses remise dans les réglages.",
+      "date": "30/09/2026",
+      "statut": "valide",
+      "version": "V1.1"
+    },
+    {
+      "id": "opt-29",
+      "section": "Ciblage",
+      "version": "V1.1",
+      "texte": "Budget de recherche triplé le 30/09 : 45 podcasts qualifiés par run au lieu de 15, pour alimenter les 44 envois par jour (le filtre B2B laisse passer environ 1 podcast sur 8).",
+      "date": "30/09/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-30",
+      "section": "Ciblage",
+      "version": "V1.1",
+      "texte": "Pré-filtre gratuit avant la qualification : seuls les podcasts avec un email professionnel (pas Gmail, pas hébergeur) sont qualifiés, donc tous les podcasts retenus sont joignables. Résultat du 30/09 : 16 candidats par run au lieu de 2.",
+      "date": "30/09/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-31",
+      "section": "Ciblage",
+      "version": "V1.1",
+      "texte": "Onboarding sécurisé : un podcast en échec est étiqueté et ignoré (1 seul échec au run de 15h19 au lieu de 8 répétés), les échecs ne consomment plus le quota, les podcasts sans email sont classés, les emails professionnels passent en premier. Quota porté à 30 par run.",
+      "date": "30/09/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-32",
+      "section": "Ciblage",
+      "version": "V1.1",
+      "texte": "Recherche élargie : 100 résultats par requête au lieu de 25 et environ 240 mots-clés en rotation (80 par run), pour renouveler le stock de podcasts chaque jour.",
+      "date": "30/09/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-34",
+      "section": "À faire",
+      "version": "—",
+      "texte": "À décider : 5 des 15 nouveaux podcasts (33 %) n'ont pas reçu de mail car leur adresse est « non vérifiable » (serveur qui accepte tout). Les autoriser ferait passer le rendement de 60 % à environ 90 %, avec un peu plus de risque de rebond.",
+      "date": "—",
+      "statut": "a_faire"
+    },
+    {
+      "id": "opt-35",
+      "section": "Envoi et délivrabilité",
+      "version": "V1.1",
+      "texte": "Adresse instable : dès qu'un avis de retard ou d'échec de livraison arrive, l'adresse est marquée « Email instable » et n'est plus jamais relancée (plus de tentatives répétées vers une adresse qui ne répond pas). Actif après le collage du script.",
+      "date": "30/09/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-36",
+      "section": "Mesure",
+      "version": "V1.2",
+      "texte": "Extraction des questions réactivée le 01/10 (MFE_EXTRACTION_AUTO passé à TRUE dans Réglages) : elle était à l'arrêt, 0 épisode traité ce jour. Règles inchangées : hub indexé par Google d'abord, puis 7 jours après le 1er mail sans réponse. À vérifier au prochain run : des épisodes transcrits.",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-38",
+      "section": "Mesure",
+      "version": "V1.2",
+      "texte": "Diagnostic détaillé des fiches N1 que Google n'indexe pas : pour chaque fiche ancienne bloquée (et 20 fiches indexées pour comparer), on relève la dernière visite de Google, la page qu'il juge canonique, les pages qui la relient et le sitemap d'origine. Lecture seule, rien n'est modifié sur le site.",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-39",
+      "section": "Mesure",
+      "version": "V1.2",
+      "texte": "Liste de priorité pour l'indexation Google : les fiches N1 non indexées classées par ordre (podcasts déjà contactés ou en attente de mail d'abord, puis les fiches anciennes jamais visitées par Google). À soumettre à la main dans Search Console, 10 à 20 par jour. Constat : 266 podcasts déjà contactés ont une fiche non indexée.",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-40",
+      "section": "Mesure",
+      "version": "V1.2",
+      "texte": "Rythme de création des fiches N1 maintenu (pas de pause) : la création sert à prospecter. Point de décision le 15/10 : si moins de 10 % des fiches de septembre sont indexées, on ralentit la création ; au-dessus de 20 %, on continue.",
+      "date": "01/10/2026",
+      "statut": "a_faire"
+    },
+    {
+      "id": "opt-41",
+      "section": "Mesure",
+      "version": "V1.2",
+      "texte": "Les 10 fiches N1 à envoyer à Google chaque jour (rapport quotidien) suivent maintenant l'ordre de priorité : d'abord les podcasts dont les questions sont extraites, puis ceux en attente de mail, puis ceux déjà contactés, ensuite les fiches anciennes jamais visitées par Google. Avant, c'étaient simplement les plus récentes.",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-42",
+      "section": "Mesure",
+      "version": "V1.2",
+      "texte": "Nettoyage : la page orpheline ogd6etwxpdgr-podcast.html (en échec dans Google, sans fiche correspondante) est déclarée supprimée définitivement (410), et la page de test pages/test.html est retirée du site.",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-43",
+      "section": "Ciblage",
+      "version": "V1.2",
+      "texte": "Recherche augmentée le 01/10 : 58 podcasts qualifiés par run au lieu de 45 (+29 %). Raison : le dernier run n'a mis en ligne que 9 fiches sur un quota de 30 et il ne reste que 23 contacts prêts pour 44 envois par jour ; le manque vient de la recherche, pas de l'onboarding. Effet attendu : environ 30 % de fiches et de contacts en plus par run, pour tenir les 44 envois quotidiens.",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-44",
+      "section": "À faire",
+      "version": "V1.2",
+      "texte": "Anomalie délivrabilité : 3 rebonds sur 44 envois le 01/10 (6,8 %) et 12 rebonds sur 152 au total (7,9 %), au-dessus du seuil de 3 %. À vérifier dans l'Apps Script : la vérification des adresses avant envoi. Tant que ce taux n'est pas sous 3 %, ne pas autoriser les adresses « non vérifiables » (opt-34).",
+      "date": "01/10/2026",
+      "statut": "a_faire"
+    },
+    {
+      "id": "opt-45",
+      "section": "À faire",
+      "version": "V1.2",
+      "texte": "Anomalie extraction : 0 épisode transcrit le 01/10 alors que l'extraction a été réactivée (opt-36) et que 92 fiches N1 sont indexées. Peut être normal (premiers mails du 27/09, la règle des 7 jours ne joue qu'à partir du 04/10), mais le cas « hub indexé » aurait dû en déclencher. À vérifier dans le code au prochain run.",
+      "date": "01/10/2026",
+      "statut": "a_faire"
+    },
+    {
+      "id": "opt-46",
+      "section": "À faire",
+      "version": "V1.2",
+      "texte": "Anomalie planification : GitHub n'a lancé que 2 des 6 runs prévus le 01/10 (06h01 et 15h28 UTC ; un 3e lancé à la main à 12h57). Le moteur tourne donc à environ un tiers de son rythme prévu, ce qui limite les nouveaux contacts. Piste : décaler l'horaire des runs hors des minutes chargées ou ajouter un déclencheur de secours. Pas de relance ce soir : dernier run il y a environ 2 h.",
+      "date": "01/10/2026",
+      "statut": "a_faire"
+    },
+    {
+      "id": "opt-47",
+      "section": "Mesure",
+      "version": "V1.2",
+      "texte": "Page moteur.html recentrée sur le moteur trafic : plus de partie prospection, mails ni emails trouvés. Elle montre le nombre de fiches hub indexées par Google (92 sur 525, avec le taux par mois de création), la production, le regroupement dans les hubs, la visibilité Google des hubs et les dernières fiches créées.",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-56",
+      "section": "Mesure",
+      "version": "V1.2",
+      "texte": "Maillage interne : chaque fiche N1 reçoit 6 liens « podcasts similaires » vers d'autres hubs de sa catégorie, et la page d'index liste les 30 derniers hubs ajoutés. Google peut ainsi atteindre chaque hub par des liens, pas seulement par le sitemap. Les 77 hubs déjà indexés ou visibles dans Google ne sont pas touchés. Actif à chaque run.",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-57",
+      "section": "Mesure",
+      "version": "V1.2",
+      "texte": "Compteur de backlinks réel : chaque jour, le moteur regarde si les podcasts contactés ont posé un lien vers listenly.fr (notes d'épisodes ou site). Le chiffre apparaît dans le rapport du soir (avant : 0 codé en dur). Avec le Podcast Hub, la source principale de backlinks sera le lien « Explore more expert answers » de chaque Hub installé.",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-58",
+      "section": "Mesure",
+      "version": "V1.2",
+      "texte": "Suivi du trafic venant des IA (ChatGPT, Perplexity, Gemini, Claude…) via Plausible, ajouté au rapport du soir. Code prêt ; s'active dès que la clé API Plausible est ajoutée dans les secrets GitHub (PLAUSIBLE_API_KEY).",
+      "date": "01/10/2026",
+      "statut": "a_faire"
+    },
+    {
+      "id": "opt-59",
+      "section": "Mesure",
+      "version": "V1.2",
+      "texte": "Lien discret « annuaire des podcasts » ajouté en bas de la page d'accueil listenly.fr (via le script déjà installé) : Google a enfin un chemin depuis le site principal vers les fiches N1. Sauvegarde du script avant modification.",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-60",
+      "section": "Mail et CTA",
+      "version": "V1.2",
+      "texte": "Badge « Featured on Listenly » à copier-coller en bas de chaque fiche N1 (lien direct vers la fiche du podcast), sans lien caché. Le nouveau mail 1 ne contient plus de lien : le badge sert quand le prospect ouvre sa fiche (après réponse ou visite). Les hubs déjà indexés ne sont pas modifiés.",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-48",
+      "section": "Mail et CTA",
+      "version": "V2.0",
+      "texte": "Nouveau mail en anglais (décision du 01/10) : on vend un Podcast Hub. Il explique le manque (podcast dépendant de Spotify/Apple, pas cité par Google et les IA, pas de capture de leads), les 3 bénéfices (branding, visibilité, conversion) et propose de construire une première version sans engagement, sans lien d'aperçu. En ligne dans Réglages ; premiers envois le 02/10 à 8h. Remplace l'ancien mail « listé sur Listenly ».",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-49",
+      "section": "Ciblage",
+      "version": "V2.0",
+      "texte": "Nouveau positionnement (décision du 01/10) : le produit vendu est un Podcast Hub brandé ; la priorité est la qualité des prospects et de la conversion, pas le volume brut. Détail dans CLAUDE.md.",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-50",
+      "section": "Envoi et délivrabilité",
+      "version": "V2.0",
+      "texte": "Relances annulées pour les prospects de l'ancien mail (« listé sur Listenly ») : décision du 01/10, on part uniquement sur le nouveau mail Podcast Hub. En attendant, les relances sont coupées (réglage à 0).",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-51",
+      "section": "À faire",
+      "version": "V2.0",
+      "texte": "Recoller le script Apps Script mis à jour (nouveau réglage « relances seulement depuis le 02/10/2026 »), puis remettre MFE_RELANCE_JOURS à 4 dans Réglages. À faire avant le 06/10 : les premières relances du nouveau mail partent ce jour-là.",
+      "date": "01/10/2026",
+      "statut": "a_faire"
+    },
+    {
+      "id": "opt-52",
+      "section": "À faire",
+      "version": "V2.0",
+      "texte": "Hub V1 brandé généré à la réponse du prospect : couleurs et logo du podcast, cover, description, épisodes, lecteur, questions/réponses, CTA de conversion, lien d'aperçu à lui envoyer.",
+      "date": "01/10/2026",
+      "statut": "a_faire"
+    },
+    {
+      "id": "opt-53",
+      "section": "À faire",
+      "version": "V2.0",
+      "texte": "Lien de paiement intégré (environ 500 $ d'installation) envoyé avec le Hub V1 ; outil à confirmer avec Etienne (Stripe proposé).",
+      "date": "01/10/2026",
+      "statut": "a_faire"
+    },
+    {
+      "id": "opt-54",
+      "section": "À faire",
+      "version": "V2.0",
+      "texte": "Suivi des réponses : repérer les réponses positives (« send it »), les V1 envoyées, les paiements, et les afficher dans le rapport du soir.",
+      "date": "01/10/2026",
+      "statut": "a_faire"
+    },
+    {
+      "id": "opt-55",
+      "section": "À faire",
+      "version": "V2.0",
+      "texte": "CTA de recherche dans chaque Hub : sous chaque question, un lien utile vers Listenly (« Explore more expert answers »), sans « Powered by » artificiels.",
+      "date": "01/10/2026",
+      "statut": "a_faire"
+    },
+    {
+      "id": "opt-62",
+      "section": "Mail et CTA",
+      "version": "V2.0",
+      "texte": "Objet du mail 1 changé le 01/10 : plus d'objet commercial (« A Podcast Hub for … ») mais une prise de contact neutre qui donne envie d'ouvrir : « Referencing of {PODCAST} | getting in touch ». Effet attendu : meilleur taux d'ouverture et de réponse (à mesurer à partir des envois du 02/10).",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-63",
+      "section": "Mail et CTA",
+      "version": "V2.0",
+      "texte": "Lien de la fiche Listenly remis dans le mail 1 (« I recently added your podcast … : [lien] »). Il avait disparu avec la réécriture Podcast Hub : sans lui, la phrase n'avait aucune preuve. Ce n'est pas un lien d'aperçu du Hub (qui reste interdit tant que la V1 n'existe pas), c'est la fiche réelle déjà en ligne.",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-64",
+      "section": "Mail et CTA",
+      "version": "V2.0",
+      "texte": "Mail 1 : le lien de la fiche est maintenant introduit par une phrase « Here is the link: » et placé seul sur sa propre ligne, pour qu'il soit bien visible et cliquable. Test envoyé le 01/10 à Etienne.",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-65",
+      "section": "Mail et CTA",
+      "version": "V2.0",
+      "texte": "Test A/B du CTA lancé pour obtenir des « oui » : A = « I can build a first version… Shall I send it over? » contre B = « Just reply yes and I'll send you a first version… » (réponse en un mot). Répartition 50/50 dès le 02/10. Les anciens envois (ancien mail) sont écartés des statistiques (variante V0) pour que la comparaison soit propre. Verdict à partir de 100 envois par variante.",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-66",
+      "section": "Mail et CTA",
+      "version": "V2.0",
+      "texte": "Mise à jour automatique du script d'envoi (Apps Script) depuis GitHub, en service depuis le 01/10 : plus besoin de coller le code à la main. Premier déploiement fait : les relances ne concernent que les prospects du nouveau mail (filtre depuis le 02/10), relance réactivée à J+4 (premières relances le 06/10).",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-67",
+      "section": "Mesure",
+      "version": "V2.0",
+      "texte": "Nouveau rapport du soir par mail, orienté marketing : 1) ce qui a été fait, 2) ce que disent les données (test A/B, délivrabilité, OUI / non / réponses automatiques), 3) ce qui a été optimisé, 4) synthèse et plan du lendemain. Ajout d'un budget API estimé (transcription, extraction, vérification d'emails) avec un onglet « Budget API » dans le Sheet. Chaque réponse est classée (OUI / non / automatique) pour compter les vrais OUI.",
+      "date": "01/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-68",
+      "section": "Mesure",
+      "version": "V2.0",
+      "texte": "Deux rapports du soir séparés : 19h00 « Fiches & Google » (fiches créées, indexation, les 10 fiches du jour à faire indexer avec liens) et 19h45 « Rapport marketing » (prospection uniquement : résultats, ce qui marche ou non, 3 apprentissages max, stratégie de demain, à garder / à arrêter / à tester). Les listes de fiches déjà proposées sont conservées pour ne jamais les redonner.",
+      "date": "02/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-69",
+      "section": "Mesure",
+      "version": "V2.0",
+      "texte": "Relance du moteur : 0 mail envoyé le 03/10. Cause : MFE_EXTRACTION_AUTO passé à TRUE le 01/10, les nouveaux podcasts restaient en attente de transcription au lieu de passer en contact (0 contact les 02 et 03/10, 115 bloqués, stock « Prêt » vide). Remis à FALSE (Sheet + config).",
+      "date": "03/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-70",
+      "section": "Mesure",
+      "version": "V2.0",
+      "texte": "Mail : retrait de « page for validation before indexation » (devenu « Your page: {URL} »). L'engagement vers le Hub passe uniquement par le CTA. Corps du mail et CTA A/B/C/D inchangés par ailleurs ; autres optimisations en attente de données.",
+      "date": "03/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-71",
+      "section": "Ciblage",
+      "version": "V2.0",
+      "texte": "Test multi-niches Hub : 6 nouveaux secteurs ajoutés à la découverte (Cabinets d'avocats, Experts-comptables & patrimoine, Coachs & consultants B2B, Agences de services, Santé libérale, Formateurs & programmes), répartition égale au départ. L'optimiseur ajuste ensuite les poids selon les retours ; point de lecture vendredi 10/10.",
+      "date": "03/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-72",
+      "section": "Mesure",
+      "version": "V2.0",
+      "texte": "Réflexion automatique de la machine : à chaque run, elle détecte seule où le funnel Hub bloque (contacts, envois, rebonds, réponses non classées) et explique pourquoi il n'y a pas encore de client, avec actions proposées. Résultat dans reflexion.md.",
+      "date": "03/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-73",
+      "section": "Mail et CTA",
+      "version": "V2.1",
+      "texte": "Nouveau mail de prospection : format court et très simple (présentation d'Etienne, lien vers la page Listenly du podcast, question « Where would you like us to redirect this qualified traffic? »). Gras uniquement sur le nom du podcast et « Listenly.fr, The First AI directory for podcast », souligné uniquement sur « you like us to redirect this qualified traffic? ». Test A/B du CTA étendu à 5 variantes (A à E, toutes autour de « avez-vous déjà un Podcast Hub ou faut-il envoyer vers Spotify ? »), réparties à parts égales ; chaque envoi note sa variante, et les réponses sont comptées (et classées positive / neutre / refus / auto) par variante à partir du 04/10. Les anciens mails ne comptent pas dans cette comparaison.",
+      "date": "03/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-74",
+      "section": "Ciblage",
+      "version": "V2.2",
+      "texte": "PIVOT LISTENLY-FIRST (04/10/2026 décision) : modification de onboard_from_issue.py pour bloquer la création de fiches N1 (page HTML hub) et réactiver l'extraction de questions à la place. Nouveau flow : (1) créer fiche Listenly, (2) ajouter entrée minimale à podcasts.json, (3) générer 1-2 fiches Q/R d'épisodes (generate_episode_fiches_btb.py MAX_EPISODES=2 avec USE_TRANSCRIPT=true) via transcription + extraction Claude. Le Hub devient la destination de vente (BRIDGE/SALE), pas l'outil de découverte initial. Les fiches N1 existantes et indexées restent en place (pas de suppression).",
+      "date": "04/10/2026",
+      "statut": "valide"
+    },
+    {
+      "id": "opt-75",
+      "section": "Ciblage",
+      "version": "V2.2",
+      "texte": "PIVOT DB-ONLY finalisé (04/10/2026 execution) : simplification radicale de onboard_from_issue.py. Suppression de add_podcast_to_json(), generate_episode_fiches(), existing_by_rss(), existing_slugs() et podcasts.json. Flux final : create_listenly_show() + register_rss_reader() seuls. Listenly scrape + extrait Q/R AUTOMATIQUEMENT dans sa DB, aucune page HTML ni entry JSON générée. Report structure simplifiée : slug, podcast_name, email, listenly_url, listenly_created, rss_registered. Cette simplification confirme que le système est devenu entièrement DB-first (Listenly gère tout).",
+      "date": "04/10/2026",
+      "statut": "valide"
+    },
+    {
+      "id": "opt-76",
+      "section": "Mail et CTA",
+      "version": "V2.3",
+      "texte": "Nouvelle séquence email Listenly (04/10/2026) : mail 1 « Regarding your podcast | {podcast} » (Listenly = premier moteur de recherche IA dédié aux podcasts, question unique « link ou Podcast Hub ? », gras et souligné ciblés) et relance en 3 textes courts dans le même fil. Seule la relance 1 est branchée au calendrier actuel (J+4, inchangé) ; les relances 2 et 3 sont prêtes mais pas planifiées, en attente de ta validation du calendrier. Le test A/B du CTA n'a plus d'objet (plus de CTA dans le mail). Envois non réactivés tant que tu n'as pas validé le test.",
+      "date": "04/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-77",
+      "section": "Mail et preuve",
+      "version": "V2.4",
+      "texte": "Nouveau template email (05/10/2026) : positionnement Listenly comme « first AI search engine dedicated to B2B podcasts » + lien de preuve concret vers un moment du dernier épisode (question + timestamp). Lien au format https://listenly.fr/?p={slug}&m={moment_id} qui ouvre Listenly avec le lecteur au bon moment. Colonnes ajoutées au Sheet : « Dernier épisode Q » et « Dernier épisode Moment ID » (remplies par enrichissement ultérieur depuis moments.json ou API Listenly). Premier mail envoie lien générique (podcast sur Listenly) ; relance 1 (J+4) enrichie avec question si disponible.",
+      "date": "05/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-79",
+      "section": "Mail et preuve",
+      "version": "V2.4",
+      "texte": "Preuve automatique dans les mails : après la transcription, le moteur choisit une question claire pour un décideur B2B (avec horodatage exact) et l'écrit dans le Sheet avec son identifiant. Le mail 1 et les 3 relances affichent le lien https://listenly.fr/?p=<podcast>&m=<moment> qui ouvre Listenly et lance le lecteur au bon moment. Sans question disponible, le mail part avec le lien général du podcast.",
+      "date": "05/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-80",
+      "section": "Ciblage et extraction",
+      "version": "V2.4",
+      "texte": "Transcription immédiate : un nouveau podcast n'attend plus l'indexation Google de sa fiche (ni 21 jours) avant la transcription de son 1er épisode. Dès qu'un podcast est trouvé avec son email, 1 épisode est transcrit, la question et le lien Listenly vont dans le Sheet, et le mail est rédigé avec cet exemple.",
+      "date": "05/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-81",
+      "section": "Ciblage et extraction",
+      "version": "V2.4",
+      "texte": "Correction d'un blocage depuis le 04/10 : un podcast enregistré dans Listenly n'entrait pas dans la liste lue par la transcription, donc il n'était jamais transcrit et n'arrivait jamais dans le Sheet. Désormais chaque nouveau podcast est ajouté à cette liste dès l'enregistrement, puis transcrit (1 épisode) dans le même run. Les 4 podcasts du 05/10 (Adtech Design and Development Leaders, Find My Catalyst Podcast, Bundy Group Insights, Lead with Legacy) sont rattrapés. Le lien de preuve du Sheet pointe vers la page Listenly du podcast.",
+      "date": "05/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-82",
+      "section": "Ciblage et extraction",
+      "version": "V2.4",
+      "texte": "Le mail 1 affiche maintenant la vraie question tirée d'un épisode du podcast contacté, juste au-dessus du lien Listenly qui ouvre l'épisode au bon moment (avant, seul le lien apparaissait).",
+      "date": "05/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-83",
+      "section": "Envoi",
+      "version": "V2.4",
+      "texte": "Mise en route du moteur complet : une passe toutes les 15 minutes (au lieu de 4 h), plafond de 50 podcasts transcrits (donc 50 mails préparés) par jour, envoi automatique activé. Les enregistrements de fin de run sont aussi sécurisés (8 essais, priorité aux résultats du run) pour ne plus perdre de résultats.",
+      "date": "05/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-84",
+      "section": "Ciblage et extraction",
+      "version": "V2.4",
+      "texte": "Les 4 étapes de suivi des fiches N1 (indexation Google, backlinks, trafic IA, veille) sont désactivées : il n'y a plus de fiche N1, elles ralentissaient le run avant la transcription. La transcription passe directement après l'onboarding.",
+      "date": "05/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-85",
+      "section": "Ciblage et extraction",
+      "version": "V2.4",
+      "texte": "La transcription traite d'abord les podcasts les plus récemment ajoutés (les nouveaux à contacter) avant les anciens déjà contactés, qui consommaient tout le budget du jour.",
+      "date": "05/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-86",
+      "section": "Ciblage et extraction",
+      "version": "V2.4",
+      "texte": "Chaque passage du moteur transcrit au maximum 4 épisodes (au lieu de tout le budget du jour d'un coup). Les runs deviennent courts (environ 10 minutes) et les podcasts arrivent dans le Sheet au fur et à mesure.",
+      "date": "05/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-87",
+      "section": "Mail et preuve",
+      "version": "V2.4",
+      "texte": "La question montrée dans le mail est maintenant filtrée : elle doit venir du podcast contacté, parler d'un sujet de décideur B2B et coller à sa thématique. Les questions hors sujet (sport, divertissement, santé grand public) sont écartées ; s'il n'y en a aucune de valable, le podcast n'est pas envoyé avec un exemple faux.",
+      "date": "05/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-88",
+      "section": "Mesure",
+      "version": "V2.4",
+      "texte": "Les tests de mail se pilotent maintenant depuis le chat, sans cliquer dans le Sheet : envoi à Etienne du mail 1 et des 3 relances, et envoi de 1 à 3 vrais mails (ou d'un seul podcast ciblé) avec confirmation obligatoire. Nouveau menu « Test limité (1 vrai e-mail) ».",
+      "date": "05/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-89",
+      "section": "Mail et preuve",
+      "version": "V2.4",
+      "texte": "Nouveau mail 1 (J0) : texte validé par Etienne, mis en forme comme un mail personnel Gmail — gras sur la présentation de Listenly et sur la question Spotify / Podcast Hub, souligné sur l'indexation, question de l'épisode en italique, et lien cliquable « Now discoverable by executives searching for this topic » (en bleu #1155CC, sans afficher l'adresse) qui ouvre la question au bon moment. Un prospect sans question réelle n'est plus envoyé.",
+      "date": "05/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-90",
+      "section": "Mail et preuve",
+      "version": "V2.4",
+      "texte": "Nouvelle signature des mails, plus corporate : photo, un seul trait bleu vertical, nom, rôle, promesse « We Turn Your Podcast Into Growth », fin trait gris, email et « → Connect on LinkedIn ». Le lien Marketforge séparé est retiré.",
+      "date": "05/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-91",
+      "section": "Ciblage et extraction",
+      "version": "V2.4",
+      "texte": "Les 102 prospects prêts mais jamais contactés (sélection du 03/10) sont ajoutés à la liste d'extraction : le moteur transcrit 1 épisode chacun, après les nouveaux podcasts, pour leur fournir une vraie question avant le mail 1. En cas d'échec sur un nouveau podcast, le moteur passe aux suivants.",
+      "date": "05/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-92",
+      "section": "Mesure",
+      "version": "V2.4",
+      "texte": "Nouvel onglet « Suivi prospection » dans le Google Sheet : une page claire, mise à jour toute seule, avec les compteurs (à envoyer, mail 1, relances 1/2/3, répondus, rebonds) et la liste des podcasts avec leur statut en couleur, la date du mail 1, de la dernière relance, la prochaine relance, la question envoyée et le lien.",
+      "date": "05/10/2026",
+      "statut": "en_cours"
+    }
+  ]
 }
