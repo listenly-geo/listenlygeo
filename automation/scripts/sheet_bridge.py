@@ -175,7 +175,7 @@ def push():
             return "", ""
         try:
             moments_index.invalidate(slug)
-            q, mid = moments_index.best_proof(slug) or ("", "")
+            q, mid = moments_index.best_proof(slug, p.get("thematique", "")) or ("", "")
             return q, mid
         except Exception as e:
             log(f"(preuve {slug} : {e})")

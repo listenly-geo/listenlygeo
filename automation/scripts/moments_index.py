@@ -93,7 +93,11 @@ def resolve_entry(slug, question, episode_title, lk=None):
 _Q_START = re.compile(r"^(how|what|why|when|which|should|can|does|do|is|are|where)\b", re.I)
 
 
-def best_proof(slug):
+_OFFTOPIC = re.compile(r"\b(nhl|nba|nfl|mlb|stanley cup|playoffs?|hockey|football|soccer|basketball|baseball|coyotes|overtime|habs|lightning|game \\d|goalie|quarterback|touchdown|movie|film|celebrity|recipe|weather|malaria|vaccine|dating|zodiac)\b", re.I)
+_BUSINESS = re.compile(r"\b(business|company|companies|leader|leaders|leadership|customers?|clients?|revenue|growth|strategy|strategic|market|sales|marketing|valuation|hiring|operations?|investment|investors?|ai|data|technology|infrastructure|cost|profit|brand|management|decisions?|teams?|executives?|founders?|startups?|compliance|risk|supply chain|pricing)\b", re.I)
+
+
+def best_proof(slug, thematique=""):
     """(question, moment_id) = la meilleure question du podcast pour la preuve du mail, ou None.
     Lien final : https://listenly.fr/?p=<slug>&m=<moment_id> (ouvre Listenly + lecteur a l'horodatage exact).
     Choix : question claire et concrete pour un decideur B2B, avec horodatage exact (start_seconds > 0),
@@ -106,7 +110,19 @@ def best_proof(slug):
         n = len(q)
         if n < 40 or n > 150 or not q.endswith("?"):
             continue
+        if _OFFTOPIC.search(q):
+            continue                                                   # hors sujet B2B (sport, divertissement, sante grand public...)
         score = 10
+        biz = len(_BUSINESS.findall(q))
+        score += min(3.0, 1.5 * biz)                                   # vocabulaire de decideur B2B
+        words = {w for w in re.findall(r"[a-zà-ÿ]{5,}", (thematique or "").lower())}
+        if words:
+            themed = sum(1 for w in words if w[:5] in q.lower())
+            score += min(3.0, 1.5 * themed)                            # colle a la thematique du podcast
+        else:
+            themed = 0
+        if biz + themed == 0:
+            continue                                                   # ni B2B ni thematique : pas une bonne preuve
         if _Q_START.match(q):
             score += 3
         score -= abs(n - 90) / 30.0                                   # ideal : ~90 caracteres
