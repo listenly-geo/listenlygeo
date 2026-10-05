@@ -654,25 +654,26 @@ function mfeTextToHtml_(body) {
 }
 
 function mfeSignatureHtml_() {
+  // Signature B2B premium (05/10/2026) : photo | 1 trait bleu vertical | nom, role, promesse, fin trait gris, email, LinkedIn.
+  // Photo, nom, role, promesse, email et LinkedIn viennent des reglages MFE_SIG_* (aucune URL en dur). Tableau = compatible Gmail.
   var c = mfeSigCfg_();
-  var link = function (href, label) { return '<a href="' + mfeEsc_(href) + '" style="color:#1a56db;text-decoration:none">' + mfeEsc_(label) + '</a>'; };
-  var contact = [];
-  if (c.email) contact.push(link('mailto:' + c.email, c.email));
-  if (c.site) {
-    var sp = c.site.split('|'), label = sp.length > 1 ? sp[0].trim() : sp[0].replace(/^https?:\/\//, '').replace(/\/$/, '');
-    var url = (sp.length > 1 ? sp[1] : sp[0]).trim();
-    contact.push(link(/^https?:/.test(url) ? url : 'https://' + url, label));
-  }
-  if (c.tel) contact.push(mfeEsc_(c.tel));
-  var photo = c.photo ? '<td style="padding-right:14px;vertical-align:top"><img src="' + mfeEsc_(c.photo) +
-      '" width="64" height="64" alt="' + mfeEsc_(c.nom) + '" style="border-radius:50%;display:block;width:64px;height:64px"></td>' : '';
-  return '<table cellpadding="0" cellspacing="0" style="margin-top:18px;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.45;color:#333">' +
-    '<tr>' + photo + '<td style="vertical-align:top;border-left:2px solid #1a56db;padding-left:12px">' +
-    '<div style="font-weight:bold;font-size:14px;color:#111">' + mfeEsc_(c.nom) + '</div>' +
-    (c.titre ? '<div style="color:#555">' + mfeEsc_(c.titre) + '</div>' : '') +
-    (c.accroche ? '<div style="color:#777;font-size:12px;margin-top:2px">' + mfeEsc_(c.accroche) + '</div>' : '') +
-    (contact.length ? '<div style="margin-top:6px">' + contact.join(' &nbsp;·&nbsp; ') + '</div>' : '') +
-    (c.linkedin ? '<div style="margin-top:2px">' + link(c.linkedin, 'LinkedIn') + '</div>' : '') +
+  var promesse = c.accroche || 'We Turn Your Podcast Into Growth';
+  var photo = c.photo ? '<td style="vertical-align:middle;padding-right:18px;">' +
+      '<img src="' + mfeEsc_(c.photo) + '" alt="' + mfeEsc_(c.nom) + '" width="105" height="105" ' +
+      'style="display:block;width:105px;height:105px;border-radius:50%;object-fit:cover;border:0;"></td>' : '';
+  var email = c.email ? '<div style="font-size:13px;line-height:20px;"><a href="mailto:' + mfeEsc_(c.email) +
+      '" style="color:#555555;text-decoration:none;">' + mfeEsc_(c.email) + '</a></div>' : '';
+  var linkedin = c.linkedin ? '<div style="font-size:13px;line-height:20px;margin-top:1px;"><a href="' + mfeEsc_(c.linkedin) +
+      '" style="color:#1155CC;text-decoration:none;font-weight:600;">\u2192 Connect on LinkedIn</a></div>' : '';
+  return '<table cellpadding="0" cellspacing="0" border="0" style="margin-top:18px;font-family:Arial,Helvetica,sans-serif;color:#222222;"><tr>' +
+    photo +
+    '<td style="width:2px;background:#1a73e8;font-size:1px;line-height:1px;">&nbsp;</td>' +
+    '<td style="vertical-align:middle;padding-left:18px;">' +
+    '<div style="font-size:17px;line-height:22px;font-weight:700;color:#111111;">' + mfeEsc_(c.nom) + '</div>' +
+    (c.titre ? '<div style="font-size:14px;line-height:20px;color:#555555;margin-top:2px;">' + mfeEsc_(c.titre) + '</div>' : '') +
+    '<div style="font-size:13px;line-height:19px;font-weight:600;color:#333333;margin-top:7px;">' + mfeEsc_(promesse) + '</div>' +
+    '<div style="width:34px;border-top:1px solid #d8d8d8;margin:8px 0 6px 0;"></div>' +
+    email + linkedin +
     '</td></tr></table>';
 }
 
