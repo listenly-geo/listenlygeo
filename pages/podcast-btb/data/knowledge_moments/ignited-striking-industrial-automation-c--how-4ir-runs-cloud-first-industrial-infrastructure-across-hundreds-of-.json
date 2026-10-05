@@ -1,0 +1,62 @@
+[
+  {
+    "podcast_name": "Ignited: Striking Industrial Automation Conversations",
+    "episode_title": "How 4IR Runs Cloud-First Industrial Infrastructure Across Hundreds of Sites",
+    "audio_url": "https://mcdn.podbean.com/mf/web/zbz6mvbsgcqwvi9m/IGNITED-Ep-18-James-Burnand-4iR.mp3",
+    "question": "How does FactoryStack manage cloud-first Ignition infrastructure across hundreds of industrial sites?",
+    "transcript_excerpt": "FactoryStack manages infrastructure through a central management plane containing declarative code, telemetry, alerting and monitoring, connected to deployment pipelines across customer tenants or 4IR-hosted endpoints. For a customer with 200 facilities, the architecture runs hundreds of databases and Ignition gateways in their Azure tenant, with each site containing an Ignition Edge node collecting data from controllers and OPC servers via MQTT Sparkplug, transmitting to central cloud instances.",
+    "expert_name": "James Bernand",
+    "start_seconds": 20,
+    "end_seconds": 240
+  },
+  {
+    "podcast_name": "Ignited: Striking Industrial Automation Conversations",
+    "episode_title": "How 4IR Runs Cloud-First Industrial Infrastructure Across Hundreds of Sites",
+    "audio_url": "https://mcdn.podbean.com/mf/web/zbz6mvbsgcqwvi9m/IGNITED-Ep-18-James-Burnand-4iR.mp3",
+    "question": "What data loss prevention methods does 4IR use when cloud connectivity drops in hybrid Ignition deployments?",
+    "transcript_excerpt": "4IR uses Ignition Edge, store-and-forward capabilities, and MQTT Sparkplug specifically because of its ability to handle store-and-forward, ensuring data is not lost when Internet connection, SD-WAN or other infrastructure between cloud and facility experiences outages or issues.",
+    "expert_name": "James Bernand",
+    "start_seconds": 457,
+    "end_seconds": 510
+  },
+  {
+    "podcast_name": "Ignited: Striking Industrial Automation Conversations",
+    "episode_title": "How 4IR Runs Cloud-First Industrial Infrastructure Across Hundreds of Sites",
+    "audio_url": "https://mcdn.podbean.com/mf/web/zbz6mvbsgcqwvi9m/IGNITED-Ep-18-James-Burnand-4iR.mp3",
+    "question": "How does 4IR enable rapid Ignition infrastructure scaling using infrastructure as code and Kubernetes?",
+    "transcript_excerpt": "4IR uses Kubernetes as a declarative infrastructure-as-code system to deploy and manage Ignition environments at scale. Spinning up new services, databases, or gateways involves making code changes and pushing them to the environment, allowing the infrastructure-as-code tool to match the definition to the system. Multiple non-production and production environments enable regression testing before production deployment.",
+    "expert_name": "James Bernand",
+    "start_seconds": 543,
+    "end_seconds": 640
+  },
+  {
+    "podcast_name": "Ignited: Striking Industrial Automation Conversations",
+    "episode_title": "How 4IR Runs Cloud-First Industrial Infrastructure Across Hundreds of Sites",
+    "audio_url": "https://mcdn.podbean.com/mf/web/zbz6mvbsgcqwvi9m/IGNITED-Ep-18-James-Burnand-4iR.mp3",
+    "question": "What observability capabilities does 4IR use to proactively detect Ignition system issues before customers notice them?",
+    "transcript_excerpt": "4IR captures hundreds of thousands of data points from operated systems and uses synthetic probes to check externally whether applications respond on expected ports, allowing identification of whether problems are infrastructure-related or network-related. Based on years of operational experience, 4IR determines what alerts to trigger and when to act, often fixing issues before customers detect problems.",
+    "expert_name": "James Bernand",
+    "start_seconds": 721,
+    "end_seconds": 805
+  },
+  {
+    "podcast_name": "Ignited: Striking Industrial Automation Conversations",
+    "episode_title": "How 4IR Runs Cloud-First Industrial Infrastructure Across Hundreds of Sites",
+    "audio_url": "https://mcdn.podbean.com/mf/web/zbz6mvbsgcqwvi9m/IGNITED-Ep-18-James-Burnand-4iR.mp3",
+    "question": "How does 4IR manage Ignition development and production environment separation to prevent citizen developer changes from impacting operations?",
+    "transcript_excerpt": "4IR implements different security models for production versus development systems, granting appropriate access while maintaining sandbox environments that give developers connectivity they need without affecting production. Pre-negotiating boundaries and understanding security models supports the balance between experimentation and operational stability.",
+    "expert_name": "James Bernand",
+    "start_seconds": 940,
+    "end_seconds": 1000
+  },
+  {
+    "podcast_name": "Ignited: Striking Industrial Automation Conversations",
+    "episode_title": "How 4IR Runs Cloud-First Industrial Infrastructure Across Hundreds of Sites",
+    "audio_url": "https://mcdn.podbean.com/mf/web/zbz6mvbsgcqwvi9m/IGNITED-Ep-18-James-Burnand-4iR.mp3",
+    "question": "What on-premises Kubernetes deployment option has 4IR developed as an alternative to cloud-only Ignition infrastructure?",
+    "transcript_excerpt": "In the last year and a half, 4IR built a full on-premises Kubernetes-based high availability deployment capability designed to mimic cloud capabilities including composable architectures, multi-node high availability, automated deployment pipelines, and automated telemetry and observability, with nodes running within facility walls for hybrid cloud deployments.",
+    "expert_name": "James Bernand",
+    "start_seconds": 1515,
+    "end_seconds": 1605
+  }
+]
