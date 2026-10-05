@@ -1,13 +1,13 @@
-# Reflexion du MarketForge Engine (2026-10-05T18:13 UTC)
+# Reflexion du MarketForge Engine (2026-10-05T18:58 UTC)
 **Statut : BLOQUE**
 
 ## Funnel
-- podcasts en file : 492
-- contacts prets a mailer : 389
-- bloques en attente : 2
+- podcasts en file : 493
+- contacts prets a mailer : 388
+- bloques en attente : 0
 - sans email : 68
 - prospects dans sheet : 300
-- statut pret : 102
+- statut pret : 108
 - mails envoyes : 196
 - relances : 16
 - rebonds total : 4
@@ -18,7 +18,6 @@
 - paiements hub : 0
 
 ## Blocages
-- envoi_auto=false : le Sheet prepare mais n'envoie plus (pause auto rebonds ? reglage MFE_ENVOI_AUTO).
 - Envois sous 50 % du plafond (80/j) alors que des prospects sont prets : Apps Script arrete ou plage horaire/quota en cause.
 - Reponses non classees (positive / neutre / refus) : impossible de savoir si le funnel marche. Ajouter le champ 'classe' dans replies.json.
 

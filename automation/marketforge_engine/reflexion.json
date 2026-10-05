@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-05T18:13",
+ "updated": "2026-10-05T18:58",
  "statut": "BLOQUE",
  "funnel": {
-  "podcasts_en_file": 492,
-  "contacts_prets_a_mailer": 389,
-  "bloques_en_attente": 2,
+  "podcasts_en_file": 493,
+  "contacts_prets_a_mailer": 388,
+  "bloques_en_attente": 0,
   "sans_email": 68,
   "prospects_dans_sheet": 300,
-  "statut_pret": 102,
+  "statut_pret": 108,
   "mails_envoyes": 196,
   "relances": 16,
   "rebonds_total": 4,
@@ -18,7 +18,6 @@
   "paiements_hub": 0
  },
  "blocages": [
-  "envoi_auto=false : le Sheet prepare mais n'envoie plus (pause auto rebonds ? reglage MFE_ENVOI_AUTO).",
   "Envois sous 50 % du plafond (80/j) alors que des prospects sont prets : Apps Script arrete ou plage horaire/quota en cause.",
   "Reponses non classees (positive / neutre / refus) : impossible de savoir si le funnel marche. Ajouter le champ 'classe' dans replies.json."
  ],
