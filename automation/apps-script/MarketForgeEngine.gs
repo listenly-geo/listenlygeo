@@ -279,7 +279,7 @@ function mfeDailyCap_(cfg) {
   return Math.min(cfg.MAX_ENVOIS_JOUR, week < steps.length ? steps[week] : cfg.MAX_ENVOIS_JOUR);
 }
 
-function mfeSend_(sh, cfg, force) {
+function mfeSend_(sh, cfg, force, onlySlug) {   // onlySlug (optionnel) : n'envoie qu'a ce podcast
   var now = new Date(), h = now.getHours(), min = now.getMinutes();
   if (!force && (h < cfg.H_START || h >= cfg.H_END)) return 0;   // hors plage horaire
   var daily = mfeDailyCap_(cfg);
@@ -299,6 +299,7 @@ function mfeSend_(sh, cfg, force) {
   var ab = mfeAbPlan_(rows, cfg);
   rows.forEach(function (r) {
     if (sent >= budget || r.values[6] !== 'Pret') return;
+    if (onlySlug && r.values[0] !== onlySlug) return;
     var why = mfeEmailProblem_(r.values[2]);   // anti-rebond : verifie l'adresse juste avant l'envoi
     if (why) {
       sh.getRange(r.row, 7).setValue('Email invalide');
@@ -831,6 +832,7 @@ function doPost(e) {
   if (!mfeAuth_(p.secret || body.secret)) return mfeJson_({ ok: false, error: 'secret invalide' });
   if (body.action === 'tendances') return mfeTendances_(body);
   if (body.action === 'optimisations') return mfeOptimisations_(body);
+  if (body.action === 'cmd') return mfeCmd_(body);
   if (body.action !== 'report') return mfeJson_({ ok: false, error: 'action inconnue (report, tendances)' });
 
   var lock = LockService.getScriptLock(); lock.waitLock(30000);
@@ -968,6 +970,7 @@ function mfeOnOpen() {
     .addItem('Importer les nouveaux contacts maintenant', 'mfeMenuImporter')
     .addItem('📊 Recevoir le rapport maintenant', 'mfeMenuRapport')
     .addItem('Envoyer un test (à moi)', 'mfeMenuTest')
+    .addItem('Test limité (1 vrai e-mail maintenant)', 'mfeMenuTest1')
     .addItem('Test limité (3 vrais e-mails maintenant)', 'mfeMenuTestLimite')
     .addItem('Traiter la file maintenant (envoi hors horaires)', 'mfeMenuTraiter')
     .addItem('Vérifier réponses + relances maintenant', 'mfeMenuRelances')
@@ -1050,6 +1053,49 @@ function mfeMenuTest() {
   mfeAlert_(n + ' mails test envoyes a ' + moi + ' (1 par variante de CTA + la relance). Textes modifiables dans Reglages (MFE_MSG_*, MFE_CTA_*). Expediteur : ' + (mfeFromOpts_().from || moi));
 }
 
+
+// ---------- Commandes de test pilotables a distance (GitHub -> web app, protegees par le secret) ----------
+// test_me   : envoie a TOI le mail 1 + les 3 relances (exemple = podcast "slug" ou 1re ligne Pret avec question)
+// test_real : envoie de VRAIS mails (n = 1 a 3, optionnel slug = un seul podcast), seulement si confirm = true
+function mfeCmd_(body) {
+  var lock = LockService.getScriptLock(); lock.waitLock(30000);
+  try {
+    var sh = mfeSheet_(), cmd = String(body.cmd || ''), slug = String(body.slug || '');
+    if (cmd === 'test_me') {
+      var moi = Session.getEffectiveUser().getEmail(), ex = null;
+      mfeEnsureSettings_();
+      mfeRows_(sh).forEach(function (r) {
+        if (ex) return;
+        if (slug ? r.values[0] === slug : (r.values[6] === 'Pret' && r.values[16] && r.values[17])) ex = r.values;
+      });
+      if (!ex) return mfeJson_({ ok: false, error: 'aucune ligne trouvee (Pret avec question)' });
+      var d = mfeDraft_(ex, 'A');
+      GmailApp.sendEmail(moi, '[TEST mail 1] ' + d[0], mfeWithSignature_(d[1]), mfeSendOpts_(d[1]));
+      var v = mfeVars_(ex), objet = mfeFill_(mfeMsg_('MFE_MSG_OBJET'), v), n = 1;
+      ['MFE_MSG_RELANCE', 'MFE_MSG_RELANCE_2', 'MFE_MSG_RELANCE_3'].forEach(function (k, i) {
+        var t = mfeFill_(mfeMsg_(k), v);
+        GmailApp.sendEmail(moi, '[TEST relance ' + (i + 1) + '] Re: ' + objet, mfeWithSignature_(t), mfeSendOpts_(t));
+        n++;
+      });
+      return mfeJson_({ ok: true, cmd: cmd, mails_envoyes_a_toi: n, podcast: ex[1], slug: ex[0], question: ex[16] || '', moment_id: ex[17] || '' });
+    }
+    if (cmd === 'test_real') {
+      if (body.confirm !== true) return mfeJson_({ ok: false, error: 'confirm=true requis (envoi de vrais mails)' });
+      var nb = Math.max(1, Math.min(Number(body.n) || 1, 3));
+      var sent = mfeSend_(sh, mfeSettings_(), nb, slug);
+      return mfeJson_({ ok: true, cmd: cmd, demandes: nb, envoyes: sent, slug: slug });
+    }
+    return mfeJson_({ ok: false, error: 'cmd inconnue (test_me | test_real)' });
+  } finally { lock.releaseLock(); }
+}
+
+// Menu : 1 seul vrai e-mail
+function mfeMenuTest1() {
+  if (!mfeConfirm_('Envoyer MAINTENANT 1 VRAI e-mail au premier contact "Pret" (hors horaires) ?')) return;
+  var sh = mfeSheet_();
+  var n = mfeSend_(sh, mfeSettings_(), 1);
+  mfeAlert_(n + ' e-mail reel envoye. Verifie la colonne Statut et tes "Envoyes".');
+}
 
 function mfeMenuTestLimite() {
   if (!mfeConfirm_('Envoyer MAINTENANT jusqu’a 3 VRAIS e-mails aux premiers contacts "Pret" (hors horaires) ?')) return;

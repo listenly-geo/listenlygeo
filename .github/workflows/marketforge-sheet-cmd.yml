@@ -1,0 +1,46 @@
+name: MarketForge — Commande de test (Sheet / mails)
+
+# Pilote les fonctions de test d'Apps Script depuis le chat (pas besoin de cliquer dans le menu du Sheet).
+#  test_me   : envoie a Etienne le mail 1 + les 3 relances (exemple : slug donne, sinon 1re ligne Pret avec question)
+#  test_real : envoie de VRAIS mails (n = 1 a 3, slug optionnel pour viser UN seul podcast) -> confirm doit etre true
+
+on:
+  workflow_dispatch:
+    inputs:
+      cmd:
+        description: 'test_me ou test_real'
+        required: true
+        default: 'test_me'
+      slug:
+        description: 'Podcast vise (optionnel)'
+        required: false
+        default: ''
+      n:
+        description: 'Nombre de vrais mails (1 a 3)'
+        required: false
+        default: '1'
+      confirm:
+        description: 'true = autorise l envoi de vrais mails'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: read
+
+jobs:
+  cmd:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Commande
+        env:
+          MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
+          MFE_CMD: ${{ github.event.inputs.cmd }}
+          MFE_SLUG: ${{ github.event.inputs.slug }}
+          MFE_N: ${{ github.event.inputs.n }}
+          MFE_CONFIRM: ${{ github.event.inputs.confirm }}
+        run: python automation/scripts/sheet_bridge.py cmd

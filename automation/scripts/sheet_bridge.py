@@ -253,12 +253,23 @@ def optimisations():
     log(f"Journal des optimisations envoye au Sheet : {res}")
 
 
+def cmd():
+    """Commande de test pilotee depuis GitHub (workflow marketforge-sheet-cmd) : MFE_CMD, MFE_SLUG, MFE_N, MFE_CONFIRM."""
+    payload = {"action": "cmd", "cmd": os.environ.get("MFE_CMD", ""), "slug": os.environ.get("MFE_SLUG", ""),
+               "n": int(os.environ.get("MFE_N") or 1), "confirm": os.environ.get("MFE_CONFIRM", "") == "true"}
+    res = call(payload=payload)
+    log(f"Commande {payload['cmd']} : {res}")
+    print(f"::notice title=Commande Sheet::{json.dumps(res, ensure_ascii=False)[:900]}")
+    if not res.get("ok"):
+        sys.exit(1)
+
+
 if __name__ == "__main__":
     if not URL:
         log("MFE_SHEET_URL absent — pont Sheet desactive, rien a faire.")
         sys.exit(0)
     try:
-        {"pull": pull, "push": push, "stats": stats, "tendances": tendances, "optimisations": optimisations}[sys.argv[1]]()
+        {"pull": pull, "push": push, "stats": stats, "tendances": tendances, "optimisations": optimisations, "cmd": cmd}[sys.argv[1]]()
     except Exception as e:  # ne bloque jamais le run
         log(f"AVERTISSEMENT : pont Sheet en echec ({e})")
         print(f"::warning title=Pont Sheet ({sys.argv[1]})::{str(e)[:300]}")
