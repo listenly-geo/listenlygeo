@@ -396,9 +396,14 @@ def main():
     )
     log(f"{len(order)} podcast(s) dans la file active.")
 
+    run_max = int(config.get("episodes_par_run", 4) or 0)   # 05/10 : runs courts (passe toutes les 15 min) -> les resultats arrivent vite dans le Sheet
+    run_start = journal["episodes"]
     for slug in order:
         if journal["episodes"] >= eps_per_day or journal["minutes"] >= minutes_max:
             log("Budget du jour atteint — la suite reprend au prochain run.")
+            break
+        if run_max and journal["episodes"] - run_start >= run_max:
+            log(f"Plafond du run atteint ({run_max} episodes) — la suite reprend au prochain passage.")
             break
         state = queue["podcasts"][slug]
         podcast = podcasts.get(slug)
