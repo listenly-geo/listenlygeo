@@ -217,7 +217,8 @@ def main():
         done.append(slug)
         report.append({"slug": slug, "podcast_name": c["podcast_name"], "email": c["email"],
                        "listenly_url": listenly_url, "listenly_created": bool(res.get("created")),
-                       "rss_registered": True})
+                       "rss_registered": True, "latest_episode_question": None, "latest_episode_moment_id": None,
+                       "host_name": c.get("artist_name", ""), "thematique": ""})
 
     log(f"Termine : {len(done)} onboarde(s) {done}, {len(failed)} echec(s) {failed}.")
     if MODE == "insert":  # lu par sheet_bridge.py pour le compte-rendu envoye au Google Sheet

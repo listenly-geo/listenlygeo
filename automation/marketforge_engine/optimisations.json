@@ -599,6 +599,14 @@
    "texte": "Nouvelle séquence email Listenly (04/10/2026) : mail 1 « Regarding your podcast | {podcast} » (Listenly = premier moteur de recherche IA dédié aux podcasts, question unique « link ou Podcast Hub ? », gras et souligné ciblés) et relance en 3 textes courts dans le même fil. Seule la relance 1 est branchée au calendrier actuel (J+4, inchangé) ; les relances 2 et 3 sont prêtes mais pas planifiées, en attente de ta validation du calendrier. Le test A/B du CTA n'a plus d'objet (plus de CTA dans le mail). Envois non réactivés tant que tu n'as pas validé le test.",
    "date": "04/10/2026",
    "statut": "en_cours"
+  },
+  {
+   "id": "opt-77",
+   "section": "Mail et preuve",
+   "version": "V2.4",
+   "texte": "Nouveau template email (05/10/2026) : positionnement Listenly comme « first AI search engine dedicated to B2B podcasts » + lien de preuve concret vers un moment du dernier épisode (question + timestamp). Lien au format https://listenly.fr/?p={slug}&m={moment_id} qui ouvre Listenly avec le lecteur au bon moment. Colonnes ajoutées au Sheet : « Dernier épisode Q » et « Dernier épisode Moment ID » (remplies par enrichissement ultérieur depuis moments.json ou API Listenly). Premier mail envoie lien générique (podcast sur Listenly) ; relance 1 (J+4) enrichie avec question si disponible.",
+   "date": "05/10/2026",
+   "statut": "en_cours"
   }
  ]
 }

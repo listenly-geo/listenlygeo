@@ -35,7 +35,8 @@ var MFE = {
   HISTO_COLS: ['Date', 'Decouverts', 'Onboardes (fiche Listenly + N1)', 'Dont fiches Listenly creees',
                'Podcasts onboardes', 'Episodes extraits', 'Minutes audio', 'Q/R extraites', 'Echecs onboarding', 'Run GitHub'],
   COLS: ['Slug', 'Podcast', 'Email', 'Preuve (fiche N1)', 'Q/R extraites', 'Ajoute le', 'Statut',
-         'Envoye le', 'Relance le', 'Reponse', 'Thread ID', 'Notes', 'Page Listenly', 'Hote', 'Variante CTA', 'Thematique'],
+         'Envoye le', 'Relance le', 'Reponse', 'Thread ID', 'Notes', 'Page Listenly', 'Hote', 'Variante CTA', 'Thematique',
+         'Dernier épisode Q', 'Dernier épisode Moment ID'],
 };
 
 var MFE_DEFAULTS = [
@@ -61,17 +62,17 @@ var MFE_DEFAULTS = [
 // ---------- Messages (modifiables dans l'onglet Reglages, cles MFE_MSG_*) ----------
 // Style : court, a la premiere personne, une seule question, texte brut (pas de gras, pas d'emoji).
 // Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}
-var MFE_MSG_VERSION = '14';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
+var MFE_MSG_VERSION = '15';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
 var MFE_FIRST_MAIL = [
-  'Hi {PODCAST} team,',
+  'Hello,',
   '',
-  'I\'m Etienne, Founder of Listenly, the **first AI search engine dedicated to podcasts.**',
+  'I\'m Etienne, founder of **Listenly, the first AI search engine dedicated to B2B podcasts**.',
   '',
-  'Our system turns every question answered in your podcast into a **searchable answer on Listenly**, optimized to be discovered by **ChatGPT, Gemini and AI search engines.**',
+  'We currently index the questions and answers contained in B2B podcasts so they can appear in responses from **ChatGPT, Gemini and Claude**.',
   '',
-  'We\'re currently indexing **{PODCAST}**.',
+  'Here is one example already being searched on Google, but <u>still invisible because of the audio format</u>: {QUERY_LINK}',
   '',
-  'Do you already have a link or Podcast Hub where we should redirect __people who discover your answers?__',
+  '**Where would you like us to send the executives who discover you through these queries?**',
   '',
   'Best,',
   'Etienne'
@@ -235,7 +236,8 @@ function mfeImport_(sh, podcasts) {
     var dejaVu = prospection && prospection.createTextFinder(p.email).matchCase(false).findNext();
     rows.push([slug, p.podcast_name || slug, p.email, p.proof_url + (n > 0 ? '#answers' : ''), n,
                new Date(), dejaVu ? 'Deja en prospection' : 'Pret', '', '', '', '', '',
-               p.listenly_url || '', p.host_name || '', '', p.thematique || '']);
+               p.listenly_url || '', p.host_name || '', '', p.thematique || '',
+               p.latest_episode_question || '', p.latest_episode_moment_id || '']);
   });
   if (rows.length) sh.getRange(sh.getLastRow() + 1, 1, rows.length, MFE.COLS.length).setValues(rows);
   return rows.length;
@@ -546,8 +548,14 @@ function mfeShortName_(name) {
 }
 
 function mfeVars_(values) {
+  // QUERY_LINK : lien Listenly avec moment ID si disponible (dernier épisode question + moment ID aux colonnes 16, 17)
+  // Sinon : lien générique vers la page Listenly du podcast
+  var queryLink = 'https://listenly.fr/podcast/show/' + values[0];  // par défaut : page du podcast
+  if (values[16] && values[17]) {  // si question + moment_id disponibles
+    queryLink = 'https://listenly.fr/?p=' + values[0] + '&m=' + values[17];
+  }
   return { PODCAST: mfeShortName_(values[1]), URL: values[3], LINK: values[3], LISTENLY: values[12] || values[3],
-           THEMATIQUE: String(values[15] || '').trim() || 'your industry',
+           QUERY_LINK: queryLink, THEMATIQUE: String(values[15] || '').trim() || 'your industry',
            NAME: mfeName_(values[13], mfeShortName_(values[1])), BOOKING: MFE.BOOKING, OPTOUT: mfeMsg_('MFE_MSG_OPTOUT') };
 }
 
