@@ -111,7 +111,39 @@ def register_rss_reader(feed_url):
     return res
 
 
-# ARCHIVE 04/10/2026 : add_podcast_to_json, generate_episode_fiches, generate_n1 - DB-ONLY strategy
+PODCASTS_FILE = "pages/podcast-btb/data/podcasts.json"
+
+
+def add_podcast_to_json(c, listenly_url, slug):
+    """05/10/2026 : entree minimale dans podcasts.json = la liste que lit la file de transcription
+    (marketforge_extract_queue.py -> sync_queue). Sans cette ligne, un podcast onboarde n'est JAMAIS transcrit
+    et n'arrive jamais dans le Sheet. Aucune page HTML n'est creee."""
+    try:
+        with open(PODCASTS_FILE, encoding="utf-8") as f:
+            podcasts = json.load(f)
+    except (OSError, ValueError):
+        podcasts = []
+    if any(p.get("slug") == slug for p in podcasts):
+        log(f"Podcast '{slug}' deja present dans podcasts.json.")
+        return True
+    podcasts.append({
+        "slug": slug,
+        "podcast_name": c["podcast_name"],
+        "rss_url": c["feed_url"],
+        "listenly_url": listenly_url,
+        "cover_image": c["cover_image"],
+        "podcast_url": c.get("apple_url", ""),
+        "host_name": c.get("artist_name", ""),
+        "language": c["language"] if c["language"] in ("fr", "en") else "en",
+        "date": datetime.datetime.utcnow().isoformat()[:10],
+    })
+    with open(PODCASTS_FILE, "w", encoding="utf-8") as f:
+        json.dump(podcasts, f, ensure_ascii=False, indent=2)
+    log(f"Podcast '{slug}' ajoute a podcasts.json (file de transcription).")
+    return True
+
+
+# ARCHIVE 04/10/2026 : generate_episode_fiches, generate_n1 - DB-ONLY strategy
 # Listenly scrape + extrait Q/R automatiquement dans sa DB. Aucune page HTML ou entry JSON generee.
 # Voir git log pour l'historique complet.
 
@@ -200,8 +232,8 @@ def main():
         listenly_url = res["listenly_url"]
         slug = slugify(c["podcast_name"])
 
-        # PIVOT 04/10/2026 DB-ONLY : Listenly scrape + extrait Q/R automatiquement
-        # Aucune fonction supplementaire a appeler (add_podcast_to_json, generate_episode_fiches archivees)
+        # DB-ONLY : pas de page HTML, mais le podcast DOIT entrer dans podcasts.json pour etre transcrit
+        add_podcast_to_json(c, listenly_url, slug)
         new_count += 1
 
         created = "creee" if res.get("created") else "deja existante"

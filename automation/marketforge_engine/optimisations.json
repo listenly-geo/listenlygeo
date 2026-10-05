@@ -631,6 +631,14 @@
    "texte": "Transcription immédiate : un nouveau podcast n'attend plus l'indexation Google de sa fiche (ni 21 jours) avant la transcription de son 1er épisode. Dès qu'un podcast est trouvé avec son email, 1 épisode est transcrit, la question et le lien Listenly vont dans le Sheet, et le mail est rédigé avec cet exemple.",
    "date": "05/10/2026",
    "statut": "en_cours"
+  },
+  {
+   "id": "opt-81",
+   "section": "Ciblage et extraction",
+   "version": "V2.4",
+   "texte": "Correction d'un blocage depuis le 04/10 : un podcast enregistré dans Listenly n'entrait pas dans la liste lue par la transcription, donc il n'était jamais transcrit et n'arrivait jamais dans le Sheet. Désormais chaque nouveau podcast est ajouté à cette liste dès l'enregistrement, puis transcrit (1 épisode) dans le même run. Les 4 podcasts du 05/10 (Adtech Design and Development Leaders, Find My Catalyst Podcast, Bundy Group Insights, Lead with Legacy) sont rattrapés. Le lien de preuve du Sheet pointe vers la page Listenly du podcast.",
+   "date": "05/10/2026",
+   "statut": "en_cours"
   }
  ]
 }
