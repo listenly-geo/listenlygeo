@@ -62,7 +62,7 @@ var MFE_DEFAULTS = [
 // ---------- Messages (modifiables dans l'onglet Reglages, cles MFE_MSG_*) ----------
 // Style : court, a la premiere personne, une seule question, texte brut (pas de gras, pas d'emoji).
 // Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}
-var MFE_MSG_VERSION = '16';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
+var MFE_MSG_VERSION = '17';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
 var MFE_FIRST_MAIL = [
   'Hello,',
   '',
@@ -70,7 +70,9 @@ var MFE_FIRST_MAIL = [
   '',
   'We currently index the questions and answers contained in B2B podcasts so they can appear in responses from **ChatGPT, Gemini and Claude**.',
   '',
-  'Here is one example already being searched on Google, but <u>still invisible because of the audio format</u>: {QUERY_LINK}',
+  'Here is one example already being searched on Google, but <u>still invisible because of the audio format</u>:',
+  '',
+  '{QUERY_BLOCK}',
   '',
   '**Where would you like us to send the executives who discover you through these queries?**',
   '',
