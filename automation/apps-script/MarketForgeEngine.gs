@@ -34,6 +34,7 @@ var MFE = {
   HISTO: 'Historique Engine',
   HISTO_COLS: ['Date', 'Decouverts', 'Onboardes (fiche Listenly + N1)', 'Dont fiches Listenly creees',
                'Podcasts onboardes', 'Episodes extraits', 'Minutes audio', 'Q/R extraites', 'Echecs onboarding', 'Run GitHub'],
+  CONTACT_COLS: ['Score priorite (0-100)', 'Decideur trouve (nom)', 'Poste', 'Email decideur', 'Source', 'Fiabilite'],   // v22 : module "Qui contacter" (colonnes S a X, jamais utilisees pour l'envoi)
   COLS: ['Slug', 'Podcast', 'Email', 'Preuve (fiche N1)', 'Q/R extraites', 'Ajoute le', 'Statut',
          'Envoye le', 'Relance le', 'Reponse', 'Thread ID', 'Notes', 'Page Listenly', 'Hote', 'Variante CTA', 'Thematique',
          'Dernier épisode Q', 'Dernier épisode Moment ID'],
@@ -173,10 +174,39 @@ function mfeMsg_(key) {
   return '';
 }
 
+// ---------- Module "Qui contacter" (v22) : ecrit uniquement les colonnes S a X (apres les 18 colonnes du moteur) ----------
+function mfeContactHeaders_(sh) {
+  sh.getRange(MFE.HEADER_ROW, MFE.COLS.length + 1, 1, MFE.CONTACT_COLS.length).setValues([MFE.CONTACT_COLS]).setFontWeight('bold').setBackground('#e8f5ee');
+}
+function mfeContacts_(body) {
+  var lock = LockService.getScriptLock(); lock.waitLock(30000);
+  try {
+    var sh = mfeSheet_();
+    mfeContactHeaders_(sh);
+    var bySlug = {};
+    (body.rows || []).forEach(function (x) { if (x && x.slug) bySlug[x.slug] = x; });
+    var n = 0, c0 = MFE.COLS.length + 1, first = MFE.HEADER_ROW + 1, last = sh.getLastRow();
+    if (last >= first) {
+      var slugs = sh.getRange(first, 1, last - first + 1, 1).getValues();
+      var blk = sh.getRange(first, c0, last - first + 1, MFE.CONTACT_COLS.length), cur = blk.getValues();   // une seule lecture / une seule ecriture
+      var keys = ['score', 'nom', 'poste', 'email', 'source', 'fiabilite'];
+      slugs.forEach(function (sl, i) {
+        var x = bySlug[sl[0]];
+        if (!x) return;
+        keys.forEach(function (k, j) { if (x[k] !== undefined && x[k] !== null) cur[i][j] = x[k]; });   // ne remplace que les champs recus
+        n++;
+      });
+      blk.setValues(cur);
+    }
+    return mfeJson_({ ok: true, mis_a_jour: n, recus: (body.rows || []).length });
+  } finally { lock.releaseLock(); }
+}
+
 function installer() {
   var sh = mfeSheet_();
   sh.getRange(MFE.HEADER_ROW, 1, 1, MFE.COLS.length).setValues([MFE.COLS]).setFontWeight('bold').setBackground('#eef3fd');   // ajoute la colonne Variante CTA
-  sh.getRange(MFE.HEADER_ROW, MFE.COLS.length + 1, 1, 5).clearContent().clearFormat();   // nettoie les en-tetes en trop (ancienne v16 a 20 colonnes)
+  sh.getRange(MFE.HEADER_ROW, MFE.COLS.length + MFE.CONTACT_COLS.length + 1, 1, 5).clearContent().clearFormat();   // nettoie les en-tetes en trop (ancienne v16 a 20 colonnes)
+  mfeContactHeaders_(sh);
   mfeMigrateOldSettings_(sh);
   mfeEnsureSettings_();
   mfeHisto_();
@@ -840,7 +870,7 @@ function doGet(e) {
       return r.values[7] && new Date(r.values[7]).toDateString() === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, script_version: 12 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, script_version: 22 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -853,6 +883,7 @@ function doPost(e) {
   if (body.action === 'tendances') return mfeTendances_(body);
   if (body.action === 'optimisations') return mfeOptimisations_(body);
   if (body.action === 'cmd') return mfeCmd_(body);
+  if (body.action === 'contacts') return mfeContacts_(body);
   if (body.action !== 'report') return mfeJson_({ ok: false, error: 'action inconnue (report, tendances)' });
 
   var lock = LockService.getScriptLock(); lock.waitLock(30000);

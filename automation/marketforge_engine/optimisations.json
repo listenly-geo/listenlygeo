@@ -743,6 +743,30 @@
       "texte": "Nouvelles relances (J+4 bénéfice, J+8 perte/contrôle, J+12 urgence sans lien) avec le texte exact validé, lien de la vraie question + moment de l'épisode (bleu, sans souligné) et salutation propre : « Hello Prénom, » si le prénom est fiable, sinon « Hello, ». Les relances partent dans le même fil Gmail que le mail 1 ; sans question + moment, les relances 1 et 2 ne partent pas.",
       "date": "05/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-95",
+      "section": "Ciblage et extraction",
+      "version": "V2.5",
+      "texte": "Nouveau module « Qui contacter », séparé du moteur d'envoi (si il s'arrête, les envois continuent) : chaque nuit il cherche le fondateur ou le responsable marketing / contenu / podcast de chaque prospect sur le site de son entreprise, sans jamais inventer de nom ni d'adresse. Résultats dans de nouvelles colonnes du Sheet (S à X), l'envoi n'est pas modifié.",
+      "date": "05/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-96",
+      "section": "Ciblage et extraction",
+      "version": "V2.5",
+      "texte": "Score de priorité de 0 à 100 pour chaque prospect (entreprise B2B, contenu extrait, question prête, décideur identifié, thème business) pour savoir qui contacter en premier. Première étape : le score sert à trier, il ne bloque aucun envoi.",
+      "date": "05/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-97",
+      "section": "Ciblage et extraction",
+      "version": "V2.5",
+      "texte": "Prévu ensuite : test comparé sur un petit groupe (mail adressé au fondateur par son prénom contre mail actuel), puis tableau « qui répond » pour que la machine ajuste sa cible toute seule.",
+      "date": "05/10/2026",
+      "statut": "a_faire"
     }
   ]
 }
