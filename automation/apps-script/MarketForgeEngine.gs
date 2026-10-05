@@ -62,19 +62,19 @@ var MFE_DEFAULTS = [
 // ---------- Messages (modifiables dans l'onglet Reglages, cles MFE_MSG_*) ----------
 // Style : court, a la premiere personne, une seule question, texte brut (pas de gras, pas d'emoji).
 // Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}
-var MFE_MSG_VERSION = '17';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
+var MFE_MSG_VERSION = '18';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
 var MFE_FIRST_MAIL = [
   'Hello,',
   '',
-  'I\'m Etienne, founder of **Listenly, the first AI search engine dedicated to B2B podcasts**.',
+  'I\'m Etienne, founder of <strong>Listenly, the first AI search engine dedicated to B2B podcasts.</strong>',
   '',
-  'We currently index the questions and answers contained in B2B podcasts so they can appear in responses from **ChatGPT, Gemini and Claude**.',
+  'We currently <u>index the questions and answers contained in all B2B podcasts</u> so they can appear in responses from <strong>ChatGPT, Gemini and Claude.</strong>',
   '',
-  'Here is one example already being searched on Google, but <u>still invisible because of the audio format</u>:',
+  'For example, one query from your latest episode:<br><br><em>{QUERY}</em>',
+  '\u2192 <a href="{QUERY_LINK}">Now discoverable by executives searching for this topic</a>',
   '',
-  '{QUERY_BLOCK}',
-  '',
-  '**Where would you like us to send the executives who discover you through these queries?**',
+  'Where would you like us to redirect this traffic?',
+  '<strong>Have you got a Spotify page or a dedicated Podcast Hub?</strong>',
   '',
   'Best,',
   'Etienne'
@@ -300,6 +300,7 @@ function mfeSend_(sh, cfg, force, onlySlug) {   // onlySlug (optionnel) : n'envo
   rows.forEach(function (r) {
     if (sent >= budget || r.values[6] !== 'Pret') return;
     if (onlySlug && r.values[0] !== onlySlug) return;
+    if (!r.values[16]) return;   // pas de question reelle du podcast -> pas de mail (l'exemple est obligatoire)
     var why = mfeEmailProblem_(r.values[2]);   // anti-rebond : verifie l'adresse juste avant l'envoi
     if (why) {
       sh.getRange(r.row, 7).setValue('Email invalide');
@@ -591,7 +592,7 @@ function mfeVars_(values) {
   var question = String(values[16] || '').trim();
   var queryBlock = (question && values[17]) ? question + '\n→ ' + queryLink : queryLink;
   return { PODCAST: mfeShortName_(values[1]), URL: values[3], LINK: values[3], LISTENLY: values[12] || values[3],
-           QUERY_LINK: queryLink, QUERY_BLOCK: queryBlock, THEMATIQUE: String(values[15] || '').trim() || 'your industry',
+           QUERY_LINK: queryLink, QUERY_BLOCK: queryBlock, QUERY: question, THEMATIQUE: String(values[15] || '').trim() || 'your industry',
            NAME: mfeName_(values[13], mfeShortName_(values[1])), BOOKING: MFE.BOOKING, OPTOUT: mfeMsg_('MFE_MSG_OPTOUT') };
 }
 
@@ -612,8 +613,9 @@ function mfeSigCfg_() {
 
 // Version texte (toujours envoyee : c'est ce que lisent les filtres anti-spam et certains clients mail)
 function mfeWithSignature_(body) {
-  body = String(body).replace(/\*\*(.+?)\*\*/g, '$1').replace(/__(.+?)__/g, '$1')   // version texte : sans les ** / __ ni les balises <strong> <u> <b>
-    .replace(/<\/?(strong|b|u)>/gi, '');
+  body = String(body).replace(/\*\*(.+?)\*\*/g, '$1').replace(/__(.+?)__/g, '$1')   // version texte : sans les ** / __ ni les balises <strong> <u> <em> <b>
+    .replace(/<a href="([^"]+)"[^>]*>(.+?)<\/a>/g, '$2 : $1').replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/?(strong|b|u|em)>/gi, '');
   var c = mfeSigCfg_(), lines = [];
   if (c.texte) lines.push(c.texte);
   else if (c.html) {
@@ -630,14 +632,23 @@ function mfeEsc_(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt
 // **texte** = gras ; les URL deviennent des liens cliquables
 function mfeTextToHtml_(body) {
   // Un paragraphe (<p>) par bloc separe d'une ligne vide ; lien affiche sans https:// ni #ancre ; **gras** ; __souligne__
+  // Balises acceptees dans les textes (le texte est echappe avant) : <strong> <b> <u> <em> <br> et <a href="URL">texte</a>
   return mfeEsc_(body).split(/\n{2,}/).map(function (p) {
+    var anchors = [];   // les <a href> des textes sont mis de cote : l'URL n'est jamais affichee, le texte du lien est cliquable
+    p = p.replace(/&lt;a href=&quot;(https?:\/\/.+?)&quot;&gt;(.+?)&lt;\/a&gt;/g, function (m, u, t) {
+      anchors.push('<a href="' + u + '" style="color:#1155CC;text-decoration:none;">' + t + '</a>');
+      return '\u0001' + (anchors.length - 1) + '\u0001';
+    });
     p = p.replace(/(https?:\/\/[^\s<]+)/g, function (u) {
       return '<a href="' + u + '" style="color:#1a56db">' + u.replace(/^https?:\/\//, '').replace(/#.*$/, '') + '</a>';
     }).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
       .replace(/__(.+?)__/g, '<u>$1</u>')
-      .replace(/&lt;(strong|b)&gt;(.+?)&lt;\/(strong|b)&gt;/g, '<strong>$2</strong>')   // <strong> / <u> ecrits dans les textes (le texte est echappe avant)
+      .replace(/&lt;(strong|b)&gt;(.+?)&lt;\/(strong|b)&gt;/g, '<strong>$2</strong>')   // <strong> / <u> / <em> ecrits dans les textes
       .replace(/&lt;u&gt;(.+?)&lt;\/u&gt;/g, '<u>$1</u>')
-      .replace(/\n/g, '<br>');
+      .replace(/&lt;em&gt;(.+?)&lt;\/em&gt;/g, '<em>$1</em>')
+      .replace(/&lt;br&gt;/g, '<br>')
+      .replace(/\n/g, '<br>')
+      .replace(/\u0001(\d+)\u0001/g, function (m, k) { return anchors[Number(k)]; });
     return '<p style="margin:0 0 14px">' + p + '</p>';
   }).join('');
 }
