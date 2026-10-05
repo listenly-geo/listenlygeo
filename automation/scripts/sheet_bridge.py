@@ -163,15 +163,35 @@ def push():
     onboard = load(ONBOARD_FILE, {"onboarded": [], "failed_issues": []})
     today = datetime.date.today().isoformat()
     journal = queue.get("journal", {}).get(today, {"episodes": 0, "minutes": 0, "moments": 0})
-    podcasts = [
-        {"slug": s, "podcast_name": p.get("podcast_name", s), "email": p.get("email", ""),
-         "status": p.get("status", ""), "moments_count": p.get("moments_count", 0),
-         "proof_url": p.get("proof_url", ""), "fiche_url": p.get("fiche_url", ""),
-         "host_name": p.get("host_name", ""), "listenly_url": p.get("listenly_url", ""),
-         "thematique": p.get("thematique", ""),
-         "last_error": p.get("last_error", "")}
-        for s, p in queue.get("podcasts", {}).items()
-    ]
+    try:   # preuve du mail : une vraie question + son moment exact (lien https://listenly.fr/?p=<slug>&m=<id>)
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import moments_index
+    except Exception as e:   # jamais bloquant : sans preuve, le mail part avec le lien general
+        moments_index = None
+        log(f"(moments_index indisponible : {e})")
+
+    def proof(slug, p):
+        if not moments_index or not p.get("moments_count"):
+            return "", ""
+        try:
+            moments_index.invalidate(slug)
+            q, mid = moments_index.best_proof(slug) or ("", "")
+            return q, mid
+        except Exception as e:
+            log(f"(preuve {slug} : {e})")
+            return "", ""
+
+    podcasts = []
+    for s, p in queue.get("podcasts", {}).items():
+        q, mid = proof(s, p)
+        podcasts.append(
+            {"slug": s, "podcast_name": p.get("podcast_name", s), "email": p.get("email", ""),
+             "status": p.get("status", ""), "moments_count": p.get("moments_count", 0),
+             "proof_url": p.get("proof_url", ""), "fiche_url": p.get("fiche_url", ""),
+             "host_name": p.get("host_name", ""), "listenly_url": p.get("listenly_url", ""),
+             "thematique": p.get("thematique", ""),
+             "latest_episode_question": q, "latest_episode_moment_id": mid,
+             "last_error": p.get("last_error", "")})
     payload = {
         "action": "report",
         "date": datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),

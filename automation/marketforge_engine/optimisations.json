@@ -615,6 +615,14 @@
    "texte": "Nouveau template email (05/10/2026) : positionnement Listenly comme « first AI search engine dedicated to B2B podcasts » + lien de preuve concret vers un moment du dernier épisode (question + timestamp). Lien au format https://listenly.fr/?p={slug}&m={moment_id} qui ouvre Listenly avec le lecteur au bon moment. Colonnes ajoutées au Sheet : « Dernier épisode Q » et « Dernier épisode Moment ID » (remplies par enrichissement ultérieur depuis moments.json ou API Listenly). Premier mail envoie lien générique (podcast sur Listenly) ; relance 1 (J+4) enrichie avec question si disponible.",
    "date": "05/10/2026",
    "statut": "en_cours"
+  },
+  {
+   "id": "opt-79",
+   "section": "Mail et preuve",
+   "version": "V2.4",
+   "texte": "Preuve automatique dans les mails : après la transcription, le moteur choisit une question claire pour un décideur B2B (avec horodatage exact) et l'écrit dans le Sheet avec son identifiant. Le mail 1 et les 3 relances affichent le lien https://listenly.fr/?p=<podcast>&m=<moment> qui ouvre Listenly et lance le lecteur au bon moment. Sans question disponible, le mail part avec le lien général du podcast.",
+   "date": "05/10/2026",
+   "statut": "en_cours"
   }
  ]
 }

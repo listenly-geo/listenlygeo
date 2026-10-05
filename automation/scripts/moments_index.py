@@ -90,6 +90,34 @@ def resolve_entry(slug, question, episode_title, lk=None):
     return None
 
 
+_Q_START = re.compile(r"^(how|what|why|when|which|should|can|does|do|is|are|where)\b", re.I)
+
+
+def best_proof(slug):
+    """(question, moment_id) = la meilleure question du podcast pour la preuve du mail, ou None.
+    Lien final : https://listenly.fr/?p=<slug>&m=<moment_id> (ouvre Listenly + lecteur a l'horodatage exact).
+    Choix : question claire et concrete pour un decideur B2B, avec horodatage exact (start_seconds > 0),
+    ni trop courte ni trop longue, sans nom propre en cours de phrase, sans chiffres/annees."""
+    best, best_score = None, -1
+    for m in load_moments(slug):
+        q = (m.get("question") or "").strip()
+        if not q or int(m.get("start_seconds") or 0) <= 0:
+            continue
+        n = len(q)
+        if n < 40 or n > 150 or not q.endswith("?"):
+            continue
+        score = 10
+        if _Q_START.match(q):
+            score += 3
+        score -= abs(n - 90) / 30.0                                   # ideal : ~90 caracteres
+        score -= 1.5 * len(re.findall(r"(?<=[a-z,] )[A-Z][a-z]+", q))    # noms propres au milieu de phrase
+        if re.search(r"\d", q):
+            score -= 2
+        if score > best_score:
+            best, best_score = (q, moment_id(slug, q)), score
+    return best
+
+
 # ---------------------------------------------------------------------------------------------
 # Adresses d'episodes Listenly
 # ---------------------------------------------------------------------------------------------

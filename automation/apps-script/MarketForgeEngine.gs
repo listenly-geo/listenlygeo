@@ -850,6 +850,10 @@ function doPost(e) {
       var x = podcasts[r.values[0]];
       if (x && x.moments_count !== r.values[4]) sh.getRange(r.row, 5).setValue(x.moments_count);
       if (x && x.thematique && !r.values[15]) sh.getRange(r.row, 16).setValue(x.thematique);
+      // preuve du mail : question + moment exact (colonnes 17-18), seulement si le 1er mail n'est pas encore parti
+      if (x && x.latest_episode_question && x.latest_episode_moment_id && !r.values[7] && !r.values[16]) {
+        sh.getRange(r.row, 17, 1, 2).setValues([[x.latest_episode_question, x.latest_episode_moment_id]]);
+      }
     });
     return mfeJson_({ ok: true, lignes_ajoutees: added });
   } finally { lock.releaseLock(); }
