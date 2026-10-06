@@ -1,15 +1,15 @@
 {
-  "date": "05/10/2026",
-  "goulot": "Aucun envoi depuis le 03/10 (envoi auto coupé) : 0 mail prospect aujourd'hui, donc 0 nouvelle donnée. Sur ~180 mails délivrés depuis le 27/09, toujours 0 réponse humaine. Le nouveau mail 1 (opt-89) et le test A/B à 5 variantes Spotify / Podcast Hub sont prêts mais n'ont encore rien envoyé.",
+  "date": "06/10/2026",
+  "goulot": "Les envois ont repris avec le nouveau mail 1 (24 mails, test A/B à 5 variantes A–E) mais rien n'a encore eu le temps de répondre : 0 réponse humaine. Le vrai frein est le volume : 24 envois sur un plafond de 80/jour, alors que 87 prospects sont « Prêts ». Au rythme actuel, il faudra environ 3 semaines pour avoir 100 envois par variante.",
   "synthese": [
-    "Aujourd'hui, aucun mail n'est parti vers un prospect : seuls des mails de test ont été envoyés à ta propre adresse pour valider le nouveau mail 1.",
-    "Aucune nouvelle réponse depuis hier. Le total reste 196 premiers mails, 16 relances, 4 réponses automatiques et 0 réponse humaine (ni oui, ni non).",
-    "Le moteur a repris le travail de fond : 7 épisodes transcrits (278 min, ~2,70 $). Le nouveau mail affiche une vraie question tirée du podcast et il est prêt à partir.",
-    "Le test A/B a changé : il compare désormais 5 questions de fin (A à E, 20 % chacune) au lieu de A 70 % / B, C, D 10 %. Il reste à 0 envoi."
+    "Aujourd'hui, 24 nouveaux mails sont partis vers des podcasts B2B avec le nouveau texte (Listenly + vraie question tirée de l'épisode + question Spotify / Podcast Hub), répartis à parts égales entre 5 variantes de question finale.",
+    "Aucune réponse humaine pour l'instant, ce qui est normal : les mails ont moins de 12 heures. Aucune réponse non plus sur l'ancien mail (196 envois, 0 réponse humaine en 10 jours).",
+    "1 adresse est revenue en erreur (craig@roguestartups.com, adresse inexistante), soit 4,2 % de rebond : juste au-dessus du seuil d'alerte de 4 %, mais sur un seul cas.",
+    "Le ciblage est bon : 18 des 24 mails du jour vont à une personne nommée (75 %), dans des podcasts d'entreprise (santé, juridique, supply chain, ventes, assurance)."
   ],
   "plan": [
-    "Valider le nouveau mail 1 (tests reçus aujourd'hui) puis rallumer l'envoi auto (MFE_ENVOI_AUTO=TRUE) à environ 40 mails par jour, en commençant par les contacts nominatifs.",
-    "Renouveler le token GitHub « listenly-claude », qui expire le 06/10 : sans lui les runs automatiques s'arrêtent.",
-    "Marquer en « Rebond » les 2 adresses mortes encore notées « Envoyé » (unravelingsuccess@podsquad.fm, jess@mnudigital.com) avant de relancer les envois."
+    "Renouveler le token GitHub « listenly-claude » : il a expiré aujourd'hui à 13h12 (les runs du moteur tournent encore, mais certains workflows échouent).",
+    "Décider du volume : passer de ~24 à 50–80 mails par jour pour que le test A/B donne une réponse en moins de 2 semaines (décision Etienne, non appliquée).",
+    "Marquer craig@roguestartups.com en « Rebond » et laisser tourner le test A/B sans rien changer au message."
   ]
 }
