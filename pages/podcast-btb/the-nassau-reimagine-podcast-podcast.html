@@ -340,7 +340,41 @@ footer a { text-decoration: underline; color: #bbb; }
       <p>Publisher: Listenly.fr</p>
       <p>isPartOf: https://listenly.fr/podcast/show/the-nassau-reimagine-podcast</p>
     </div>
-  </main>
+  <!-- QUESTIONS_COVERED_START -->
+<style>
+.hx-wrap { margin:32px 0 40px; padding-top:28px; border-top:1px solid #ececec; }
+.hx-title { font-size:22px; font-weight:800; margin:0 0 4px; color:#0a0a0a; }
+.hx-stats { font-size:13px; color:#777; margin:0 0 16px; }
+.hx-tools { position:sticky; top:0; background:#fff; padding:10px 0 8px; z-index:5; }
+.hx-search { width:100%; box-sizing:border-box; padding:12px 16px; font-size:16px; border:1px solid #e2e2e2; border-radius:12px; background:#fafafa; }
+.hx-chips { display:flex; gap:8px; overflow-x:auto; padding:10px 0 2px; }
+.hx-chip { white-space:nowrap; font-size:12px; color:#333; text-decoration:none; background:#f4f4f4; border:1px solid #e6e6e6; border-radius:999px; padding:5px 11px; }
+.hx-chip span { color:#999; }
+.hx-empty { font-size:14px; color:#888; }
+.hx-ep { font-size:17px; font-weight:800; color:#111; margin:26px 0 10px; line-height:1.35; }
+.hx-qa { border:1px solid #ececec; background:#fafafa; border-radius:12px; padding:16px 18px; margin:0 0 10px; }
+.hx-q { font-size:16px; font-weight:700; color:#111; line-height:1.4; margin:0 0 6px; }
+.hx-a { font-size:15px; line-height:1.6; color:#333; margin:0 0 10px; }
+.hx-foot { display:flex; flex-wrap:wrap; gap:14px; align-items:center; font-size:13px; }
+.hx-listen { font-weight:700; text-decoration:none; color:#1f5fbf; background:#eaf1fd; padding:5px 12px; border-radius:999px; }
+.hx-more { color:#777; }
+.hx-hidden { display:none; }
+</style>
+<div class="questions-covered hx-wrap" id="answers">
+  <h2 class="hx-title">Answers from this podcast</h2>
+  <p class="hx-stats">5 questions answered · 1 episode indexed</p>
+  
+  <section class="hx-episode"><h3 class="hx-ep" id="ep-143-building-what-s-next-how-hartford-interns-are-shaping-the-future">143 - Building What&#x27;s Next: How Hartford Interns are Shaping the Future</h3><article class="hx-qa" id="how-many-interns-and-young-professionals-attended-the-hype-intern-mixe"><h3 class="hx-q">How many interns and young professionals attended the Hype Intern Mixer in Hartford?</h3><p class="hx-a">More than 180 interns and young professionals from companies across the Hartford region gathered on Nassau&#x27;s courtyard for the Hype Intern Mixer, one of the area&#x27;s largest intern networking events, hosted in partnership with the Metro Hartford Alliance and Hype (Hartford Young Professionals and Entrepreneurs).</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/?p=the-nassau-reimagine-podcast&amp;m=90ea2e431b">▶ Listen to this moment · 0:10</a></div></article><article class="hx-qa" id="what-is-the-travelers-promise-and-how-do-interns-at-travelers-incorpor"><h3 class="hx-q">What is the Travelers Promise and how do interns at Travelers incorporate it into their work?</h3><p class="hx-a">Tracy Rose, an internal comms intern at Travelers, mentioned learning about the Travelers Promise and how to incorporate it in editorial and communications work, including editing and proofreading tasks.</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/?p=the-nassau-reimagine-podcast&amp;m=40c4ca4ae6">▶ Listen to this moment · 4:22</a></div></article><article class="hx-qa" id="what-is-the-data-science-leadership-and-development-program-at-travele"><h3 class="hx-q">What is the Data Science Leadership and Development Program at Travelers?</h3><p class="hx-a">Alex is a summer intern at Travelers in the Data Science Leadership and Development Program, recently finished with a doctorate degree and is transitioning into a new career at the company.</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/?p=the-nassau-reimagine-podcast&amp;m=34f18545c2">▶ Listen to this moment · 5:15</a></div></article><article class="hx-qa" id="what-does-nassau-financial-group-s-service-team-do-regarding-insurance"><h3 class="hx-q">What does Nassau Financial Group&#x27;s service team do regarding insurance policies?</h3><p class="hx-a">Cameron Hurley, a service intern at Nassau Financial Group, looks at policies and works on rehabilitating them, applying mathematical knowledge from university to real-world insurance settings.</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/?p=the-nassau-reimagine-podcast&amp;m=4fc3a433f9">▶ Listen to this moment · 8:08</a></div></article><article class="hx-qa" id="what-is-the-primary-focus-of-brian-thomas-s-cybersecurity-internship-a"><h3 class="hx-q">What is the primary focus of Brian Thomas&#x27;s cybersecurity internship at Talcott Financial Group?</h3><p class="hx-a">Brian Thomas is a cybersecurity intern at Talcott Financial Group focused on being immersed in AI security, specifically dealing with how to secure AI systems and keep data safe from threat actors using AI.</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/?p=the-nassau-reimagine-podcast&amp;m=db1602b92d">▶ Listen to this moment · 6:47</a></div></article></section>
+</div>
+<script>
+(function(){var i=document.querySelector('.hx-search');if(!i)return;var e=document.querySelector('.hx-empty');
+i.addEventListener('input',function(){var v=i.value.toLowerCase().trim(),any=false;
+document.querySelectorAll('.hx-qa').forEach(function(a){var ok=!v||a.textContent.toLowerCase().indexOf(v)>-1;a.classList.toggle('hx-hidden',!ok);if(ok)any=true;});
+document.querySelectorAll('.hx-episode').forEach(function(s){s.classList.toggle('hx-hidden',!s.querySelector('.hx-qa:not(.hx-hidden)'));});
+if(e)e.hidden=any;});})();
+</script>
+<!-- QUESTIONS_COVERED_END -->
+</main>
 
 <p style="max-width:720px;margin:0 auto;padding:0 20px 32px;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#999;"><a href="https://listenly.fr/podcast/show/the-nassau-reimagine-podcast" class="plausible-event-name=Clic+Lien+Texte" style="color:#999;text-decoration:underline;">Découvrir The Nassau Reimagine Podcast sur Listenly →</a></p>
 </body>
