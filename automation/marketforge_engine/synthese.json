@@ -1,15 +1,15 @@
 {
-  "date": "06/10/2026",
-  "goulot": "Les envois ont repris avec le nouveau mail 1 (24 mails, test A/B à 5 variantes A–E) mais rien n'a encore eu le temps de répondre : 0 réponse humaine. Le vrai frein est le volume : 24 envois sur un plafond de 80/jour, alors que 87 prospects sont « Prêts ». Au rythme actuel, il faudra environ 3 semaines pour avoir 100 envois par variante.",
+  "date": "07/10/2026",
+  "goulot": "La machine est aveugle sur le nouveau mail : les 50 mails envoyés depuis le 06/10 n'ont pas d'identifiant de conversation Gmail enregistré dans le Sheet. Conséquence : elle ne voit ni les réponses, ni les rebonds (2 rebonds réels non marqués), et les relances J+4 prévues à partir du 10/10 ne partiront pas.",
   "synthese": [
-    "Aujourd'hui, 24 nouveaux mails sont partis vers des podcasts B2B avec le nouveau texte (Listenly + vraie question tirée de l'épisode + question Spotify / Podcast Hub), répartis à parts égales entre 5 variantes de question finale.",
-    "Aucune réponse humaine pour l'instant, ce qui est normal : les mails ont moins de 12 heures. Aucune réponse non plus sur l'ancien mail (196 envois, 0 réponse humaine en 10 jours).",
-    "1 adresse est revenue en erreur (craig@roguestartups.com, adresse inexistante), soit 4,2 % de rebond : juste au-dessus du seuil d'alerte de 4 %, mais sur un seul cas.",
-    "Le ciblage est bon : 18 des 24 mails du jour vont à une personne nommée (75 %), dans des podcasts d'entreprise (santé, juridique, supply chain, ventes, assurance)."
+    "Aujourd'hui, 23 nouveaux mails sont partis (27 hier), soit 50 envois du nouveau mail en 2 jours, répartis à égalité : 10 par variante A, B, C, D et E.",
+    "Aucune réponse humaine pour l'instant : les mails ont entre 4 heures et 1 jour et demi, c'est trop tôt pour juger.",
+    "2 adresses sont revenues en erreur (craig@roguestartups.com hier, marketing@lodestonetruenorth.com ce matin), soit 4 % de rebond : pile au seuil d'alerte. Le Sheet ne les a pas marquées « Rebond ».",
+    "Le ciblage reste bon : environ 2 mails sur 3 vont à une personne nommée, dans des podcasts d'entreprise (santé, juridique, finance, supply chain, marketing B2B)."
   ],
   "plan": [
-    "Renouveler le token GitHub « listenly-claude » : il a expiré aujourd'hui à 13h12 (les runs du moteur tournent encore, mais certains workflows échouent).",
-    "Décider du volume : passer de ~24 à 50–80 mails par jour pour que le test A/B donne une réponse en moins de 2 semaines (décision Etienne, non appliquée).",
-    "Marquer craig@roguestartups.com en « Rebond » et laisser tourner le test A/B sans rien changer au message."
+    "Corriger l'enregistrement de l'identifiant Gmail au moment de l'envoi (et rattraper les 50 lignes déjà envoyées) avant le 10/10, sinon aucune relance ni réponse ne sera suivie (décision Etienne, non appliqué).",
+    "Marquer « Rebond » craig@roguestartups.com et marketing@lodestonetruenorth.com dans le Sheet.",
+    "Ne rien changer au message ni aux variantes : laisser le test A/B accumuler des envois (50/jour)."
   ]
 }
