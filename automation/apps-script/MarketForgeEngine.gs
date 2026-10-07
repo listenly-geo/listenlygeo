@@ -1130,13 +1130,27 @@ function mfeCmd_(body) {
       });
       return mfeJson_({ ok: true, cmd: cmd, mails_envoyes_a_toi: n, podcast: ex[1], slug: ex[0], question: ex[16] || '', moment_id: ex[17] || '' });
     }
+    if (cmd === 'test_to') {   // test de delivrabilite : vrai mail 1 (meme texte, meme signature, meme expediteur) envoye UNIQUEMENT a une adresse mail-tester.com
+      var to = String(body.to || '').trim();
+      if (!/^[a-z0-9._-]+@(srv\d+\.)?mail-tester\.com$/i.test(to)) return mfeJson_({ ok: false, error: 'adresse refusee : seules les adresses mail-tester.com sont autorisees' });
+      mfeEnsureSettings_();
+      var ex2 = null;
+      mfeRows_(sh).forEach(function (r) {
+        if (ex2) return;
+        if (slug ? r.values[0] === slug : (r.values[6] === 'Pret' && r.values[16] && r.values[17])) ex2 = r.values;
+      });
+      if (!ex2) return mfeJson_({ ok: false, error: 'aucune ligne trouvee (Pret avec question)' });
+      var d2 = mfeDraft_(ex2, 'A');
+      GmailApp.sendEmail(to, d2[0], mfeWithSignature_(d2[1]), mfeSendOpts_(d2[1]));
+      return mfeJson_({ ok: true, cmd: cmd, envoye_a: to, objet: d2[0], podcast: ex2[1] });
+    }
     if (cmd === 'test_real') {
       if (body.confirm !== true) return mfeJson_({ ok: false, error: 'confirm=true requis (envoi de vrais mails)' });
       var nb = Math.max(1, Math.min(Number(body.n) || 1, 3));
       var sent = mfeSend_(sh, mfeSettings_(), nb, slug);
       return mfeJson_({ ok: true, cmd: cmd, demandes: nb, envoyes: sent, slug: slug });
     }
-    return mfeJson_({ ok: false, error: 'cmd inconnue (test_me | test_real)' });
+    return mfeJson_({ ok: false, error: 'cmd inconnue (test_me | test_to | test_real)' });
   } finally { lock.releaseLock(); }
 }
 

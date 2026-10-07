@@ -19,6 +19,10 @@ on:
         description: 'Nombre de vrais mails (1 a 3)'
         required: false
         default: '1'
+      to:
+        description: 'test_to : adresse mail-tester.com (test de delivrabilite)'
+        required: false
+        default: ''
       confirm:
         description: 'true = autorise l envoi de vrais mails'
         required: false
@@ -43,4 +47,5 @@ jobs:
           MFE_SLUG: ${{ github.event.inputs.slug }}
           MFE_N: ${{ github.event.inputs.n }}
           MFE_CONFIRM: ${{ github.event.inputs.confirm }}
+          MFE_TO: ${{ github.event.inputs.to }}
         run: python automation/scripts/sheet_bridge.py cmd

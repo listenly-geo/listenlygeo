@@ -256,7 +256,8 @@ def optimisations():
 def cmd():
     """Commande de test pilotee depuis GitHub (workflow marketforge-sheet-cmd) : MFE_CMD, MFE_SLUG, MFE_N, MFE_CONFIRM."""
     payload = {"action": "cmd", "cmd": os.environ.get("MFE_CMD", ""), "slug": os.environ.get("MFE_SLUG", ""),
-               "n": int(os.environ.get("MFE_N") or 1), "confirm": os.environ.get("MFE_CONFIRM", "") == "true"}
+               "n": int(os.environ.get("MFE_N") or 1), "confirm": os.environ.get("MFE_CONFIRM", "") == "true",
+               "to": os.environ.get("MFE_TO", "")}
     res = call(payload=payload)
     log(f"Commande {payload['cmd']} : {res}")
     print(f"::notice title=Commande Sheet::{json.dumps(res, ensure_ascii=False)[:900]}")
