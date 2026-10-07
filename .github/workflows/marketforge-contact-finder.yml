@@ -48,7 +48,14 @@ jobs:
           CONTACT_MAX: ${{ github.event.inputs.max || '40' }}
           CONTACT_VERIFY: ${{ github.event.inputs.verify || '1' }}
           CONTACT_VERIF_MAX: '30'
-        run: python automation/scripts/contact_finder.py
+        run: |
+          set +e
+          python automation/scripts/contact_finder.py 2>&1 | tee /tmp/contact_finder.log
+          code=${PIPESTATUS[0]}
+          # resume lisible via les annotations de la verification (aucun nom ni e-mail dans ces lignes)
+          tail -n 40 /tmp/contact_finder.log | cut -c1-220 | while IFS= read -r l; do echo "::notice title=Qui contacter::$l"; done
+          if [ "$code" != "0" ]; then echo "::error title=Qui contacter::le module s'est arrete (code $code)"; fi
+          exit 0
       - name: Commit de l'etat (dates, scores, aucun nom ni email)
         if: always()
         run: |
