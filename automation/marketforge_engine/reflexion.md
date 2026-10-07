@@ -1,9 +1,9 @@
-# Reflexion du MarketForge Engine (2026-10-07T13:46 UTC)
+# Reflexion du MarketForge Engine (2026-10-07T19:16 UTC)
 **Statut : BLOQUE**
 
 ## Funnel
 - podcasts en file : 497
-- contacts prets a mailer : 344
+- contacts prets a mailer : 340
 - bloques en attente : 0
 - sans email : 68
 - prospects dans sheet : 300
@@ -19,6 +19,7 @@
 
 ## Blocages
 - Envois sous 50 % du plafond (80/j) alors que des prospects sont prets : Apps Script arrete ou plage horaire/quota en cause.
+- Statistiques non rafraichies depuis plus de 8 h (2026-10-07T06:33) : bridge Sheet ou Apps Script a l'arret.
 - Reponses non classees (positive / neutre / refus) : impossible de savoir si le funnel marche. Ajouter le champ 'classe' dans replies.json.
 
 ## Pourquoi pas encore de client
