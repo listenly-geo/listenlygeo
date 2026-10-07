@@ -791,6 +791,22 @@
       "texte": "Plus de prospects prêts chaque jour : le moteur prépare désormais jusqu'à 25 épisodes par passage au lieu de 4 (environ 20 par jour avant, objectif 50). Les envois restent étalés sur la journée (8h-19h) pour protéger la réputation de la boîte d'envoi.",
       "date": "07/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-101",
+      "section": "Ciblage",
+      "version": "V2.6",
+      "texte": "« Qui contacter » cherche maintenant l'adresse du dirigeant en cascade : adresse écrite sur le site, sinon adresse déduite du nom (prénom@ puis prénom.nom@) puis confirmée par MyEmailVerifier. Une adresse n'est gardée que si elle est confirmée ; les domaines qui acceptent tout sont écartés. L'animateur du podcast sert de candidat de repli. Aucun mail n'est envoyé par ce module.",
+      "date": "07/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-102",
+      "section": "Envoi",
+      "version": "V2.6",
+      "texte": "Nouvel interrupteur « Envoi au dirigeant » (éteint) : quand il sera allumé, une partie des prospects (50 % par défaut) recevra le 1er mail directement à l'adresse vérifiée du dirigeant, seul destinataire ; l'autre partie sert de témoin (adresse habituelle) pour comparer les réponses. L'adresse d'origine est gardée dans le Sheet et les réponses, rebonds et relances suivent l'adresse réellement utilisée.",
+      "date": "07/10/2026",
+      "statut": "a_faire"
     }
   ]
 }

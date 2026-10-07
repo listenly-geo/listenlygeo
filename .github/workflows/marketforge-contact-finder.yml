@@ -2,6 +2,7 @@ name: MarketForge — Qui contacter (decideur + score)
 
 # Module separe du moteur d'envoi : cherche le fondateur / responsable marketing de chaque prospect "Pret"
 # et calcule un score de priorite. Ecrit UNIQUEMENT les colonnes S a X du Sheet (jamais A a R).
+# V2.6 : deduit puis verifie l'adresse du dirigeant (jamais ecrite sans confirmation "Valid"). Aucun mail n'est envoye par ce module.
 # Si ce module plante, la machine d'envoi continue normalement (aucun lien entre les deux).
 
 on:
@@ -15,6 +16,10 @@ on:
         description: 'Nombre max de prospects recherches'
         required: false
         default: '40'
+      verify:
+        description: '1 = deduit puis verifie les adresses des dirigeants (MyEmailVerifier, script Google v24 requis) ; 0 = noms seulement'
+        required: false
+        default: '1'
   schedule:
     - cron: '30 1 * * *'   # chaque nuit (01h30 UTC)
 
@@ -41,6 +46,8 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           CONTACT_DRY: ${{ github.event.inputs.dry }}
           CONTACT_MAX: ${{ github.event.inputs.max || '40' }}
+          CONTACT_VERIFY: ${{ github.event.inputs.verify || '1' }}
+          CONTACT_VERIF_MAX: '30'
         run: python automation/scripts/contact_finder.py
       - name: Commit de l'etat (dates, scores, aucun nom ni email)
         if: always()

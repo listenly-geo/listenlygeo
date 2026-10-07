@@ -34,7 +34,7 @@ var MFE = {
   HISTO: 'Historique Engine',
   HISTO_COLS: ['Date', 'Decouverts', 'Onboardes (fiche Listenly + N1)', 'Dont fiches Listenly creees',
                'Podcasts onboardes', 'Episodes extraits', 'Minutes audio', 'Q/R extraites', 'Echecs onboarding', 'Run GitHub'],
-  CONTACT_COLS: ['Score priorite (0-100)', 'Decideur trouve (nom)', 'Poste', 'Email decideur', 'Source', 'Fiabilite'],   // v22 : module "Qui contacter" (colonnes S a X, jamais utilisees pour l'envoi)
+  CONTACT_COLS: ['Score priorite (0-100)', 'Decideur trouve (nom)', 'Poste', 'Email decideur', 'Source', 'Fiabilite', 'Contact du flux (origine)'],   // v22 : module "Qui contacter" (S a X ecrites par GitHub) ; v24 : Y = adresse d'origine quand le mail est parti au dirigeant (ecrite a l'envoi, jamais par GitHub)
   COLS: ['Slug', 'Podcast', 'Email', 'Preuve (fiche N1)', 'Q/R extraites', 'Ajoute le', 'Statut',
          'Envoye le', 'Relance le', 'Reponse', 'Thread ID', 'Notes', 'Page Listenly', 'Hote', 'Variante CTA', 'Thematique',
          'Dernier épisode Q', 'Dernier épisode Moment ID'],
@@ -56,6 +56,9 @@ var MFE_DEFAULTS = [
   ['MFE_EMAIL_TEST', '', 'MarketForge Engine — MODE TEST : si une adresse est saisie ici, TOUS les mails partent vers elle (objet prefixe [TEST]) et les prospects restent "Pret". Vider la case pour passer en reel.'],
   ['MFE_MAX_REBONDS', '3', 'MarketForge Engine — au-dela de N mails bloques/rebonds sur 3 jours, l\'envoi automatique se met en pause (MFE_ENVOI_AUTO passe a FALSE).'],
   ['MFE_AB_ACTIF', 'TRUE', 'MarketForge Engine — TRUE = test A/B du CTA (chaque mail recoit une variante, la repartition suit les resultats). FALSE = toujours la variante A.'],
+  ['MFE_ENVOI_DIRIGEANT', 'FALSE', 'Qui contacter (v24) — TRUE = quand une adresse de dirigeant VERIFIEE existe (colonnes S-X), le 1er mail part a ce dirigeant (seul destinataire) pour une part des prospects (voir MFE_DIRIGEANT_PART), l\'autre part sert de temoin. FALSE = comportement habituel (adresse du flux RSS).'],
+  ['MFE_DIRIGEANT_PART', '50', 'Qui contacter (v24) — pourcentage des prospects (avec adresse de dirigeant verifiee) qui recoivent le mail au dirigeant ; le reste = temoin (adresse du flux) pour comparer les reponses.'],
+  ['MFE_VERIF_DIRIGEANT_MAX_JOUR', '40', 'Qui contacter (v24) — plafond de verifications MyEmailVerifier PAR JOUR pour la recherche d\'adresses de dirigeants (le quota gratuit est partage avec la verification avant envoi).'],
   ['MFE_RELANCE_JOURS', '4', 'MarketForge Engine — relance unique apres N jours sans reponse (0 = pas de relance).'],
   ['MFE_RELANCE_DEPUIS', '02/10/2026', 'MarketForge Engine — les relances ne concernent que les prospects dont le 1er mail est parti a partir de cette date (JJ/MM/AAAA). Les prospects de l\'ancien mail ne sont jamais relances. Vide = tous.'],
 ];
@@ -188,8 +191,8 @@ function mfeContacts_(body) {
     var n = 0, c0 = MFE.COLS.length + 1, first = MFE.HEADER_ROW + 1, last = sh.getLastRow();
     if (last >= first) {
       var slugs = sh.getRange(first, 1, last - first + 1, 1).getValues();
-      var blk = sh.getRange(first, c0, last - first + 1, MFE.CONTACT_COLS.length), cur = blk.getValues();   // une seule lecture / une seule ecriture
       var keys = ['score', 'nom', 'poste', 'email', 'source', 'fiabilite'];
+      var blk = sh.getRange(first, c0, last - first + 1, keys.length), cur = blk.getValues();   // v24 : 6 colonnes seulement (la colonne Y est ecrite a l'envoi)   // une seule lecture / une seule ecriture
       slugs.forEach(function (sl, i) {
         var x = bySlug[sl[0]];
         if (!x) return;
@@ -303,6 +306,20 @@ function mfeDailyCap_(cfg) {
   return Math.min(cfg.MAX_ENVOIS_JOUR, week < steps.length ? steps[week] : cfg.MAX_ENVOIS_JOUR);
 }
 
+// v24 : adresse de dirigeant utilisable pour ce prospect, ou null. Conditions : interrupteur allume (verifie par l'appelant), colonnes S-X
+// renseignees avec une fiabilite "Verifiee..." (MyEmailVerifier) ou "Haute..." (ecrite sur le site), adresse differente du contact du flux,
+// et prospect dans la part test (MFE_DIRIGEANT_PART %, repartition stable par slug). Les autres = temoin (adresse du flux).
+function mfeLeaderPick_(sh, r, cfg) {
+  var v = sh.getRange(r.row, MFE.COLS.length + 1, 1, 6).getValues()[0];   // S a X
+  var nom = String(v[1] || '').trim(), poste = String(v[2] || '').trim(), email = String(v[3] || '').trim().toLowerCase(), fiab = String(v[5] || '');
+  if (!email || !nom || !/^(verifiee|haute)/i.test(fiab)) return null;
+  if (email === String(r.values[2] || '').trim().toLowerCase()) return null;
+  var slug = String(r.values[0] || ''), h = 0;
+  for (var i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) % 1000;
+  if ((h % 100) >= cfg.DIRIGEANT_PART) return null;
+  return { to: email, nom: nom, poste: poste };
+}
+
 function mfeSend_(sh, cfg, force, onlySlug) {   // onlySlug (optionnel) : n'envoie qu'a ce podcast
   var now = new Date(), h = now.getHours(), min = now.getMinutes();
   if (!force && (h < cfg.H_START || h >= cfg.H_END)) return 0;   // hors plage horaire
@@ -325,24 +342,45 @@ function mfeSend_(sh, cfg, force, onlySlug) {   // onlySlug (optionnel) : n'envo
     if (sent >= budget || r.values[6] !== 'Pret') return;
     if (onlySlug && r.values[0] !== onlySlug) return;
     if (!r.values[16]) return;   // pas de question reelle du podcast -> pas de mail (l'exemple est obligatoire)
-    var why = mfeEmailProblem_(r.values[2]);   // anti-rebond : verifie l'adresse juste avant l'envoi
-    if (why) {
-      sh.getRange(r.row, 7).setValue('Email invalide');
-      sh.getRange(r.row, 12).setValue('Non envoye (anti-rebond) : ' + why);
-      return;
+    // v24 : adresse de DIRIGEANT verifiee (module Qui contacter) -> seul destinataire, pour une part des prospects. Interrupteur
+    // MFE_ENVOI_DIRIGEANT eteint par defaut : le comportement ci-dessous est alors strictement celui d'avant.
+    var to = r.values[2], leader = null;
+    if (cfg.DIRIGEANT) {
+      try { leader = mfeLeaderPick_(sh, r, cfg); } catch (e) { leader = null; }
+      if (leader) {
+        var lwhy = mfeEmailProblem_(leader.to), lverif = lwhy ? { stop: true } : mfeVerifyMailbox_(leader.to);
+        if (lwhy || lverif.stop) leader = null;   // adresse du dirigeant refusee -> on garde le contact du flux
+        else to = leader.to;
+      }
     }
-    var verif = mfeVerifyMailbox_(r.values[2]);   // boite mail reellement existante ? (MyEmailVerifier)
-    if (verif.stop) {
-      sh.getRange(r.row, 7).setValue(verif.status);
-      sh.getRange(r.row, 12).setValue('Non envoye (verification) : ' + verif.why);
-      return;
+    if (!leader) {
+      var why = mfeEmailProblem_(r.values[2]);   // anti-rebond : verifie l'adresse juste avant l'envoi
+      if (why) {
+        sh.getRange(r.row, 7).setValue('Email invalide');
+        sh.getRange(r.row, 12).setValue('Non envoye (anti-rebond) : ' + why);
+        return;
+      }
+      var verif = mfeVerifyMailbox_(r.values[2]);   // boite mail reellement existante ? (MyEmailVerifier)
+      if (verif.stop) {
+        sh.getRange(r.row, 7).setValue(verif.status);
+        sh.getRange(r.row, 12).setValue('Non envoye (verification) : ' + verif.why);
+        return;
+      }
     }
     var variant = mfeAbPick_(ab);
-    var d = mfeDraft_(r.values, variant);
+    var vals = r.values;
+    if (leader) { vals = r.values.slice(); vals[2] = leader.to; vals[13] = leader.nom; }   // prenom du dirigeant pour les relances
+    var d = mfeDraft_(vals, variant);
     try {
-      var threadId = mfeMail_(r.values[2], d[0], d[1]);
+      var threadId = mfeMail_(to, d[0], d[1]);
       sh.getRange(r.row, 7, 1, 5).setValues([['Envoye', new Date(), '', '', threadId]]);
       sh.getRange(r.row, 15).setValue(variant);
+      if (leader) {   // l'adresse reellement utilisee devient celle de la ligne (reponses, rebonds, relances la suivent) ; l'origine est gardee en colonne Y
+        sh.getRange(r.row, 3).setValue(leader.to);
+        sh.getRange(r.row, 14).setValue(leader.nom);
+        sh.getRange(r.row, MFE.COLS.length + 7).setValue(r.values[2]);
+        sh.getRange(r.row, 12).setValue('Envoye au dirigeant (' + (leader.poste || 'poste inconnu') + ') ; contact du flux d\'origine : colonne Y');
+      }
       ab.counts[variant]++; ab.total++;
       sent++;
     } catch (e) {
@@ -454,10 +492,12 @@ function mfeEmailProblem_(email) {
 // Status : Valid -> envoi | Invalid ou domaine jetable -> "Email invalide" | Catch All / Unknown / Grey-listed
 // -> "Email risque" (Catch All envoye seulement si MFE_VERIF_RISQUES = TRUE).
 // Sans cle, quota epuise ou API indisponible : regles seules (aucun blocage de l'envoi).
-function mfeVerifyMailbox_(email) {
+// Statut brut MyEmailVerifier (minuscules, sans espace) : valid | invalid | catchall | unknown | greylisted | disposable
+// ou '' (pas de cle / API indisponible). Cache 6 h, partage avec la verification avant envoi.
+function mfeVerifyStatus_(email) {
   var key = PropertiesService.getScriptProperties().getProperty('MFE_MEV_KEY') ||
             String(mfeReadSettings_().MFE_VERIF_CLE || '').trim();   // menu (prioritaire) ou onglet Reglages
-  if (!key) return { stop: false };
+  if (!key) return '';
   email = String(email).trim().toLowerCase();
   var cache = CacheService.getScriptCache(), ck = 'mev_' + Utilities.base64EncodeWebSafe(email).slice(0, 200);
   var st = cache.get(ck);
@@ -466,17 +506,49 @@ function mfeVerifyMailbox_(email) {
       var r = UrlFetchApp.fetch('https://api.myemailverifier.com/api/validate_single.php?apikey=' + encodeURIComponent(key) +
         '&email=' + encodeURIComponent(email), { muteHttpExceptions: true });
       var d = JSON.parse(r.getContentText() || '{}');
-      if (!d.Status) { Logger.log('MyEmailVerifier : %s', r.getContentText().slice(0, 200)); return { stop: false }; }
+      if (!d.Status) { Logger.log('MyEmailVerifier : %s', r.getContentText().slice(0, 200)); return ''; }
       st = String(d.Status).toLowerCase().replace(/[\s_-]+/g, '');
       if (String(d.Disposable_Domain).toLowerCase() === 'true') st = 'disposable';
       cache.put(ck, st, 21600);
-    } catch (e) { Logger.log('MyEmailVerifier indisponible : %s', e); return { stop: false }; }
+    } catch (e) { Logger.log('MyEmailVerifier indisponible : %s', e); return ''; }
   }
+  return st;
+}
+
+function mfeVerifyMailbox_(email) {
+  var st = mfeVerifyStatus_(email);
+  if (!st) return { stop: false };   // sans cle, quota epuise ou API indisponible : regles seules (aucun blocage de l'envoi)
   if (st === 'valid') return { stop: false };
   if (st === 'invalid' || st === 'disposable') return { stop: true, status: 'Email invalide', why: 'boite inexistante (' + st + ')' };
   var risques = String(mfeReadSettings_().MFE_VERIF_RISQUES).toUpperCase() === 'TRUE';
   if (risques && st === 'catchall') return { stop: false };
   return { stop: true, status: 'Email risque', why: 'non verifiable (' + st + ')' };
+}
+
+// ---------- v24 : action web "verify" (module Qui contacter) ----------
+// body.emails = liste d'adresses (50 max). Reponse : { ok, results: { adresse: statut }, restant }.
+// Plafond quotidien MFE_VERIF_DIRIGEANT_MAX_JOUR (defaut 40) pour ne pas vider le quota gratuit utilise avant chaque envoi.
+// Statuts : valid | invalid | catchall | unknown | greylisted | disposable | refuse (regles internes) | quota | indisponible.
+function mfeVerifyAction_(body) {
+  var list = (body.emails || []).map(function (e) { return String(e || '').trim().toLowerCase(); }).filter(String).slice(0, 50);
+  var props = PropertiesService.getScriptProperties();
+  var today = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd');
+  var cnt = JSON.parse(props.getProperty('MFE_VERIF_DIRIGEANT_JOUR') || '{}');
+  if (cnt.d !== today) cnt = { d: today, n: 0 };
+  var max = parseInt(mfeReadSettings_().MFE_VERIF_DIRIGEANT_MAX_JOUR, 10) || 40;
+  var out = {};
+  list.forEach(function (email) {
+    var why = '';
+    try { why = mfeEmailProblem_(email); } catch (e) { why = ''; }
+    if (why) { out[email] = 'refuse'; return; }
+    if (cnt.n >= max) { out[email] = 'quota'; return; }
+    var st = mfeVerifyStatus_(email);
+    if (!st) { out[email] = 'indisponible'; return; }
+    cnt.n++;
+    out[email] = st;
+  });
+  props.setProperty('MFE_VERIF_DIRIGEANT_JOUR', JSON.stringify(cnt));
+  return mfeJson_({ ok: true, results: out, restant: Math.max(0, max - cnt.n) });
 }
 
 function mfeMenuVerifKey() {
@@ -838,6 +910,8 @@ function mfeSettings_() {
     RELANCE_JOURS: parseInt(cfg.MFE_RELANCE_JOURS, 10) || 0,
     EMAIL_TEST: String(cfg.MFE_EMAIL_TEST || '').trim(),
     AB_ACTIF: String(cfg.MFE_AB_ACTIF).toUpperCase() !== 'FALSE',
+    DIRIGEANT: String(cfg.MFE_ENVOI_DIRIGEANT).toUpperCase() === 'TRUE',   // v24 : eteint par defaut
+    DIRIGEANT_PART: Math.max(0, Math.min(100, isNaN(parseInt(cfg.MFE_DIRIGEANT_PART, 10)) ? 50 : parseInt(cfg.MFE_DIRIGEANT_PART, 10))),
   };
 }
 
@@ -870,7 +944,7 @@ function doGet(e) {
       return r.values[7] && new Date(r.values[7]).toDateString() === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, script_version: 22 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, script_version: 24 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -884,6 +958,7 @@ function doPost(e) {
   if (body.action === 'optimisations') return mfeOptimisations_(body);
   if (body.action === 'cmd') return mfeCmd_(body);
   if (body.action === 'contacts') return mfeContacts_(body);
+  if (body.action === 'verify') return mfeVerifyAction_(body);
   if (body.action !== 'report') return mfeJson_({ ok: false, error: 'action inconnue (report, tendances)' });
 
   var lock = LockService.getScriptLock(); lock.waitLock(30000);
