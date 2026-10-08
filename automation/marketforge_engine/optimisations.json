@@ -831,6 +831,14 @@
       "texte": "Quand Google renvoie une erreur passagère (404 ou panne courte) entre le moteur et le Google Sheet, le moteur réessaie jusqu'à 4 fois au lieu d'abandonner. La vérification d'adresses réessaie aussi jusqu'à 3 fois quand le script Google répond de travers.",
       "date": "08/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-106",
+      "section": "Ciblage",
+      "version": "V2.6",
+      "texte": "Le module « Qui contacter » se lance maintenant automatiquement après chaque passage du moteur principal, en traitant d'abord les prospects dont la question est prête (ceux qui vont partir). Il écrit seulement ses propres colonnes ; l'envoi au dirigeant reste éteint tant que les noms ne sont pas contrôlés.",
+      "date": "08/10/2026",
+      "statut": "en_cours"
     }
   ]
 }

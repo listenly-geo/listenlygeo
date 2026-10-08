@@ -453,8 +453,8 @@ def main():
 
     todo = [p for p in prospects if p.get("Statut") == "Pret" and old_enough(p["Slug"])]
     # d'abord ceux ou un decideur avait deja ete nomme (meilleur rendement), puis ceux qui ont une question prete
-    todo.sort(key=lambda p: (0 if (state.get(p["Slug"]) or {}).get("trouve") else 1,
-                             0 if (p.get("Dernier épisode Q") and p.get("Dernier épisode Moment ID")) else 1))
+    todo.sort(key=lambda p: (0 if (p.get("Dernier épisode Q") and p.get("Dernier épisode Moment ID")) else 1,   # question prete = va partir bientot
+                             0 if (state.get(p["Slug"]) or {}).get("trouve") else 1))
     todo = todo[:MAX_RUN]
     log(f"{len(todo)} prospects a rechercher ce passage")
 

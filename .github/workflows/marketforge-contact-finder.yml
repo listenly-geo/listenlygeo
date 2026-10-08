@@ -22,6 +22,9 @@ on:
         default: '1'
   schedule:
     - cron: '30 1 * * *'   # chaque nuit (01h30 UTC)
+  workflow_run:            # apres chaque passage du moteur principal (sans lien : un echec ici n'arrete rien)
+    workflows: ["MarketForge Engine — RUN COMPLET (découverte → Listenly + N1 → email → contact)"]
+    types: [completed]
 
 permissions:
   contents: write
@@ -45,7 +48,7 @@ jobs:
           MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           CONTACT_DRY: ${{ github.event.inputs.dry }}
-          CONTACT_MAX: ${{ github.event.inputs.max || '40' }}
+          CONTACT_MAX: ${{ github.event.inputs.max || '25' }}
           CONTACT_VERIFY: ${{ github.event.inputs.verify || '1' }}
           CONTACT_VERIF_MAX: '60'
         run: |
