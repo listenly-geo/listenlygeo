@@ -22,7 +22,7 @@ Variables : MFE_SHEET_URL, ANTHROPIC_API_KEY, CONTACT_MAX (defaut 40), CONTACT_D
 CONTACT_VERIFY (0 = ne verifie rien, defaut 1), CONTACT_VERIF_MAX (verifications par passage, defaut 30),
 CONTACT_VERIF_PAR_PODCAST (defaut 4), CONTACT_HOST (0 = n'utilise pas l'animateur comme candidat, defaut 1)
 """
-import os, re, sys, json, datetime, unicodedata, collections, urllib.request, urllib.parse
+import os, re, sys, time, json, datetime, unicodedata, collections, urllib.request, urllib.parse
 from urllib.parse import urlparse, urljoin
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -34,7 +34,7 @@ PODCASTS_FILE = "pages/podcast-btb/data/podcasts.json"
 MAX_RUN = int(os.environ.get("CONTACT_MAX", "40") or 40)
 DRY = os.environ.get("CONTACT_DRY", "") == "1"
 REFRESH_DAYS = 30
-ALGO_VERSION = 2   # 2 = cascade d'adresses (V2.6) : les prospects traites avec l'ancienne version sont refaits
+ALGO_VERSION = 3   # 2 = cascade d'adresses (V2.6) : les prospects traites avec l'ancienne version sont refaits
 VERIFY = os.environ.get("CONTACT_VERIFY", "1") != "0"
 VERIF_MAX = int(os.environ.get("CONTACT_VERIF_MAX", "30") or 30)
 VERIF_PAR_PODCAST = int(os.environ.get("CONTACT_VERIF_PAR_PODCAST", "4") or 4)
@@ -167,20 +167,25 @@ VERIF_RAISON = ""   # derniere cause d'indisponibilite (sans adresse ni cle), po
 
 def verify_email(email):
     """Statut MyEmailVerifier via le script Google : valid | invalid | catchall | unknown | greylisted | disposable | refuse |
-    quota | indisponible. 'indisponible' si le script n'est pas en v24 ou si la cle manque."""
+    quota | indisponible. Reessaie jusqu'a 3 fois si le script repond de travers (reponse passagere de Google)."""
     global VERIF_RAISON
-    try:
-        r = sheet_bridge.call(payload={"action": "verify", "emails": [email]})
-    except Exception as e:
-        VERIF_RAISON = ("appel impossible : " + type(e).__name__ + " " + str(e))[:90]
-        return "indisponible"
-    if not isinstance(r, dict) or not r.get("ok"):
-        VERIF_RAISON = ("reponse du script : " + str(r).replace(email, "<adresse>"))[:120]
-        return "indisponible"
-    st = str((r.get("results") or {}).get(email, "indisponible"))
-    if st == "indisponible":
-        VERIF_RAISON = "script joint, mais MyEmailVerifier sans reponse exploitable (cle, credits ou autorisation)"
-    return st
+    st = "indisponible"
+    for attempt in range(3):
+        try:
+            r = sheet_bridge.call(payload={"action": "verify", "emails": [email]})
+        except Exception as e:
+            VERIF_RAISON = ("appel impossible : " + type(e).__name__ + " " + str(e))[:90]
+        else:
+            if isinstance(r, dict) and r.get("ok"):
+                st = str((r.get("results") or {}).get(email, "indisponible"))
+                if st != "indisponible":
+                    return st
+                VERIF_RAISON = "script joint, mais MyEmailVerifier sans reponse exploitable (cle, credits ou autorisation)"
+            else:
+                VERIF_RAISON = ("reponse du script : " + str(r).replace(email, "<adresse>"))[:120]
+        if attempt < 2:
+            time.sleep(3 * (attempt + 1))
+    return "indisponible"
 
 
 def site_for(slug, prospect, pods):
