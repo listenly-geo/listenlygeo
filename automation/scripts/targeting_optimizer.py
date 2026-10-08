@@ -178,7 +178,22 @@ def main():
                 for k, v in (table or {}).items() if v.get("tries", 0) >= min_tries]
         rows.sort(key=lambda r: (-r["taux_pct"], -r["testes"]))
         return rows
-    data = {"mots_cles": rank_table(gs.get("mots_cles"), 5), "caracteristiques": rank_table(gs.get("attributs"), 8),
+    # CRENEAUX D'ENVOI (heure de New York, jour de semaine) : envois et reponses reelles, tires de la date d'envoi complete du Sheet
+    from zoneinfo import ZoneInfo
+    ny = ZoneInfo("America/New_York")
+    slots = {"heure": {}, "jour": {}}
+    for p in stats.get("prospects", []):
+        iso = p.get("envoye_le") or ""
+        try:
+            dt = datetime.datetime.fromisoformat(iso.replace("Z", "+00:00")).astimezone(ny)
+        except ValueError:
+            continue
+        rep = 1 if (p.get("statut") == "Repondu" and p.get("slug") not in ignored) else 0
+        for kind, key in (("heure", f"{dt.hour:02d}h"), ("jour", ["lun", "mar", "mer", "jeu", "ven", "sam", "dim"][dt.weekday()])):
+            c = slots[kind].setdefault(key, {"envoyes": 0, "reponses": 0})
+            c["envoyes"] += 1
+            c["reponses"] += rep
+    data = {"creneaux_new_york": slots, "mots_cles": rank_table(gs.get("mots_cles"), 5), "caracteristiques": rank_table(gs.get("attributs"), 8),
             "postes_trouves": gs.get("postes", {})}
 
     out = {"updated": datetime.datetime.utcnow().isoformat(timespec="minutes"),
