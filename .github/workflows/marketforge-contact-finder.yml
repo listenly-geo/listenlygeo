@@ -47,7 +47,7 @@ jobs:
           CONTACT_DRY: ${{ github.event.inputs.dry }}
           CONTACT_MAX: ${{ github.event.inputs.max || '40' }}
           CONTACT_VERIFY: ${{ github.event.inputs.verify || '1' }}
-          CONTACT_VERIF_MAX: '30'
+          CONTACT_VERIF_MAX: '60'
         run: |
           set +e
           python automation/scripts/contact_finder.py 2>&1 | tee /tmp/contact_finder.log
