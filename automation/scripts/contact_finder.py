@@ -243,6 +243,47 @@ def ask_claude(podcast, host_hint, texts):
         return []
 
 
+INBOX_ROOT = "automation/inbox/moteur-trafic-transcripts"
+
+
+def intro_text(slug, n=2800):
+    """Debut de la transcription d'un episode deja extrait (la, l'animateur se presente)."""
+    d = os.path.join(INBOX_ROOT, slug)
+    try:
+        files = sorted(f for f in os.listdir(d) if f.endswith(".json"))
+    except OSError:
+        return ""
+    for f in files[:3]:
+        t = (load(os.path.join(d, f), {}).get("transcript_full") or "").strip()
+        if len(t) > 300:
+            return t[:n]
+    return ""
+
+
+def host_from_transcript(podcast, slug):
+    """Nom complet de l'animateur, dit a voix haute dans l'intro d'un episode. '' si aucun nom complet clair."""
+    key = os.environ.get("ANTHROPIC_API_KEY", "")
+    intro = intro_text(slug)
+    if not key or not intro:
+        return ""
+    prompt = (f"Podcast : {podcast}. Voici le debut de la transcription d'un episode.\n"
+              "Qui est l'ANIMATEUR principal (celui qui presente l'emission) ? Reponds uniquement si son NOM COMPLET (prenom et nom) "
+              "est prononce dans ce texte (ex. \"I'm Jane Doe\", \"this is John Smith\"). N'invente rien, ne devine pas a partir du nom du "
+              "podcast, ignore les invites. Reponds en JSON strict : {\"host\":\"\"} (chaine vide si pas sur).\n\n" + intro)
+    body = json.dumps({"model": MODEL, "max_tokens": 80, "messages": [{"role": "user", "content": prompt}]}).encode()
+    req = urllib.request.Request("https://api.anthropic.com/v1/messages", data=body, method="POST", headers={
+        "x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=40) as r:
+            out = json.loads(r.read().decode())
+        m = re.search(r"\{.*\}", "".join(b.get("text", "") for b in out.get("content", [])), re.S)
+        h = str((json.loads(m.group(0)) if m else {}).get("host") or "").strip()
+        return h if person_like(h) else ""
+    except Exception as e:
+        log(f"  claude (animateur): {e}")
+        return ""
+
+
 def find_contact(slug, prospect, pods, ctx):
     """Cascade : 1) e-mail ecrit sur le site, 2) adresse deduite puis confirmee 'Valid', 3) rien (le mail part comme avant).
     ctx : {"state": dict, "verif_left": int, "verif_ok": bool, "stats": dict} (compteurs partages entre prospects)."""
@@ -254,10 +295,7 @@ def find_contact(slug, prospect, pods, ctx):
     if not base:
         result["fiabilite"] = "Pas de site d'entreprise trouve"
         return result, ""
-    pages = fetch_site(base)
-    if not pages:
-        result["fiabilite"] = "Site inaccessible"
-        return result, base
+    pages = fetch_site(base)   # peut etre vide : l'animateur (transcription, flux) suffit pour deduire une adresse
     dom = domain_of(base)
     mdom = mail_domain(dom)
     # emails ecrits sur le site (meme domaine uniquement)
@@ -271,18 +309,25 @@ def find_contact(slug, prospect, pods, ctx):
     people = [p for p in people if isinstance(p, dict) and len((p.get("name") or "").split()) >= 2 and role_rank(p.get("role")) < 9]
     people.sort(key=lambda p: role_rank(p.get("role")))
     # candidat de repli : l'animateur du podcast (poste non confirme), seulement s'il ressemble a une personne et n'est pas deja dans la liste
+    if USE_HOST:
+        th = host_from_transcript(prospect.get("Podcast", ""), slug)
+        tp = name_parts(th) if th else None
+        if tp and not any((name_parts(p.get("name")) or ("", ""))[1] == tp[1] for p in people):
+            people.append({"name": th, "role": "Animateur du podcast (nom entendu dans l'episode)", "email": "", "page": "", "_host": True, "_transcript": True})
     if USE_HOST and person_like(host_raw):
         hp = name_parts(host_raw)
         if hp and not any((name_parts(p.get("name")) or ("", ""))[1] == hp[1] for p in people):
             people.append({"name": host_raw, "role": "Animateur du podcast (poste non confirme)", "email": "", "page": "", "_host": True})
     if not people:
         stats["sans_nom"] += 1
-        result["fiabilite"] = "Aucun decideur nomme sur le site"
+        result["fiabilite"] = "Aucun nom trouve (site, transcription, flux)"
         return result, base
     stats["noms"] += 1
     first_person = people[0]
     if first_person.get("_host"):
         stats["animateur_seul"] += 1
+        if first_person.get("_transcript"):
+            stats["nom_transcription"] += 1
     result.update({"nom": first_person["name"].strip(), "poste": (first_person.get("role") or "").strip()[:80], "source": base})
     dates = dt_today()
     dcache = ctx["state"].setdefault("_domaines", {})
