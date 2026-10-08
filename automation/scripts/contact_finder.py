@@ -34,7 +34,7 @@ PODCASTS_FILE = "pages/podcast-btb/data/podcasts.json"
 MAX_RUN = int(os.environ.get("CONTACT_MAX", "40") or 40)
 DRY = os.environ.get("CONTACT_DRY", "") == "1"
 REFRESH_DAYS = 30
-ALGO_VERSION = 3   # 2 = cascade d'adresses (V2.6) : les prospects traites avec l'ancienne version sont refaits
+ALGO_VERSION = 4   # 2 = cascade d'adresses (V2.6) : les prospects traites avec l'ancienne version sont refaits
 VERIFY = os.environ.get("CONTACT_VERIFY", "1") != "0"
 VERIF_MAX = int(os.environ.get("CONTACT_VERIF_MAX", "30") or 30)
 VERIF_PAR_PODCAST = int(os.environ.get("CONTACT_VERIF_PAR_PODCAST", "4") or 4)
@@ -483,6 +483,8 @@ def main():
             st = state.setdefault(slug, {})
             st.update({"v": ALGO_VERSION, "date": today.isoformat(), "trouve": bool(res["nom"]), "email_trouve": bool(res["email"]),
                        "verifie": bool(res.get("verifie")), "rang": rank})
+            if "verification indisponible" in res.get("fiabilite", ""):
+                st["v"] = 0   # verification coupee (quota ou panne) : ce prospect sera refait au prochain passage, pas dans 30 jours
         rows[slug] = {"slug": slug, **{k: res[k] for k in ("nom", "poste", "email", "source", "fiabilite")}}
         found += 1 if res["nom"] else 0
         # jamais de nom ni d'adresse dans les journaux (publics) : seulement le type de resultat
