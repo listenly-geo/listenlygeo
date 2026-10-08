@@ -289,6 +289,16 @@ def host_from_transcript(podcast, slug):
         return ""
 
 
+def plausible_person(name, mdom):
+    """Garde-fou : refuse un 'nom' qui est en fait la societe (ex. 'UniSuper UniSuper', nom = nom de domaine)."""
+    parts = name_parts(name)
+    if not parts:
+        return False
+    f, l = parts
+    label = re.sub(r"[^a-z]", "", (mdom or "").split(".")[0].lower())
+    return f != l and f != label and l != label
+
+
 def find_contact(slug, prospect, pods, ctx):
     """Cascade : 1) e-mail ecrit sur le site, 2) adresse deduite puis confirmee 'Valid', 3) rien (le mail part comme avant).
     ctx : {"state": dict, "verif_left": int, "verif_ok": bool, "stats": dict} (compteurs partages entre prospects)."""
@@ -317,9 +327,9 @@ def find_contact(slug, prospect, pods, ctx):
     if USE_HOST:
         th = host_from_transcript(prospect.get("Podcast", ""), slug)
         tp = name_parts(th) if th else None
-        if tp and not any((name_parts(p.get("name")) or ("", ""))[1] == tp[1] for p in people):
+        if tp and plausible_person(th, mail_domain(domain_of(base))) and not any((name_parts(p.get("name")) or ("", ""))[1] == tp[1] for p in people):
             people.append({"name": th, "role": "Animateur du podcast (nom entendu dans l'episode)", "email": "", "page": "", "_host": True, "_transcript": True})
-    if USE_HOST and person_like(host_raw):
+    if USE_HOST and person_like(host_raw) and plausible_person(host_raw, mail_domain(domain_of(base))):
         hp = name_parts(host_raw)
         if hp and not any((name_parts(p.get("name")) or ("", ""))[1] == hp[1] for p in people):
             people.append({"name": host_raw, "role": "Animateur du podcast (poste non confirme)", "email": "", "page": "", "_host": True})
