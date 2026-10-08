@@ -1,0 +1,62 @@
+[
+  {
+    "podcast_name": "TechONTAPPodcast",
+    "episode_title": "Episode 414 - ONTAP Networking Updates - Fall 2026",
+    "audio_url": "https://feeds.soundcloud.com/stream/2401739484-techontap_podcast-ep414-ontap-networking-fall2026.mp3",
+    "question": "What are the main use cases for VLANs in ONTAP networking environments?",
+    "transcript_excerpt": "VLANs are primarily used for security purposes and separation of broadcast domains. They create independent layer two domains that do not talk to each other natively, requiring traffic to pass through a layer three device or router. VLANs limit the scope of broadcasts like ARP, ensuring that broadcast traffic only reaches clients with a need to know, and act as security domains or vault gardens within which specific applications or tenants operate without natively impacting other data traffic.",
+    "expert_name": "Richard Schefferniger",
+    "start_seconds": 180,
+    "end_seconds": 246
+  },
+  {
+    "podcast_name": "TechONTAPPodcast",
+    "episode_title": "Episode 414 - ONTAP Networking Updates - Fall 2026",
+    "audio_url": "https://feeds.soundcloud.com/stream/2401739484-techontap_podcast-ep414-ontap-networking-fall2026.mp3",
+    "question": "How do IP spaces enable secure multi-tenancy in ONTAP systems?",
+    "transcript_excerpt": "IP spaces, also known as VRF (virtual forwarding and routing), segregate clients at both layer two and layer three, preventing misconfiguration errors and unauthorized access. With IP spaces, shifting a volume from one SVM to another requires multiple properly executed commands rather than a single mistype, significantly reducing the likelihood of accidental exposure. Additionally, overlapping IP addresses can exist across different IP spaces without routing conflicts, ensuring traffic destined for specific tenants is routed only through proper ports and VLANs.",
+    "expert_name": "Richard Schefferniger",
+    "start_seconds": 522,
+    "end_seconds": 792
+  },
+  {
+    "podcast_name": "TechONTAPPodcast",
+    "episode_title": "Episode 414 - ONTAP Networking Updates - Fall 2026",
+    "audio_url": "https://feeds.soundcloud.com/stream/2401739484-techontap_podcast-ep414-ontap-networking-fall2026.mp3",
+    "question": "What TCP optimizations does ONTAP 9.19 provide for remote workers accessing SMB home shares?",
+    "transcript_excerpt": "ONTAP 9.19 introduced a new TCP stack specifically optimized for the public internet, VPN, and Wi-Fi scenarios that remote workers face. This new stack delivers dramatic performance improvements—a factor of three to four improvement, sometimes even higher—compared to the classical TCP implementation. However, it is more CPU intensive and less effective for campus or high-speed networking, which is why it is not deployed as the default but rather should be considered for specific environments via IP spaces.",
+    "expert_name": "Richard Schefferniger",
+    "start_seconds": 1098,
+    "end_seconds": 1222
+  },
+  {
+    "podcast_name": "TechONTAPPodcast",
+    "episode_title": "Episode 414 - ONTAP Networking Updates - Fall 2026",
+    "audio_url": "https://feeds.soundcloud.com/stream/2401739484-techontap_podcast-ep414-ontap-networking-fall2026.mp3",
+    "question": "How does the bandwidth delay product optimization apply to long-distance SnapMirror replication in ONTAP?",
+    "transcript_excerpt": "For long-distance asynchronous SnapMirror deployments, TCP must be tuned with a receive window scaled to the bandwidth times latency. For example, with 100 milliseconds latency and a 10 gigabit link (1.2 gigabytes per second), the receive window requires 125 megabytes to fully utilize the link. This large pre-allocated memory for TCP sessions can degrade system performance if applied globally, which is why dedicating an IP space for long-distance replication—as recommended in SnapMirror best practices—allows independent optimization without impacting local client access or buffer cache.",
+    "expert_name": "Richard Schefferniger",
+    "start_seconds": 858,
+    "end_seconds": 978
+  },
+  {
+    "podcast_name": "TechONTAPPodcast",
+    "episode_title": "Episode 414 - ONTAP Networking Updates - Fall 2026",
+    "audio_url": "https://feeds.soundcloud.com/stream/2401739484-techontap_podcast-ep414-ontap-networking-fall2026.mp3",
+    "question": "What is the CFM protocol and how does it improve broadcast domain detection in ONTAP?",
+    "transcript_excerpt": "ONTAP switched from ARP broadcasts to the IEEE standard CFM (Connectivity Fault Management) protocol for detecting broadcast domain reachability because ARP became unreliable with overlay networks like VXLAN. CFM is a broadcast protocol designed specifically for administrative and maintenance purposes. Member ports send CFM broadcasts approximately every 10 minutes, and if a port fails to receive three consecutive broadcasts over about half an hour, ONTAP flags that the broadcast domain no longer has full reachability, which has implications for failover groups.",
+    "expert_name": "Richard Schefferniger",
+    "start_seconds": 1386,
+    "end_seconds": 1560
+  },
+  {
+    "podcast_name": "TechONTAPPodcast",
+    "episode_title": "Episode 414 - ONTAP Networking Updates - Fall 2026",
+    "audio_url": "https://feeds.soundcloud.com/stream/2401739484-techontap_podcast-ep414-ontap-networking-fall2026.mp3",
+    "question": "How do failover groups work within broadcast domains to ensure performance during link failures?",
+    "transcript_excerpt": "Failover groups are constructs within a given broadcast domain that designate a subset of ports eligible to host a specific IP address. When a link fails or logical connectivity is lost, the IP address can move within the failover group to a port that still has proper connectivity to the network. This prevents situations such as a 100 gigabit interface failing over to a one gigabit interface, which would degrade performance. Failover groups leverage broadcast domain information to ensure graceful IP mobility.",
+    "expert_name": "Richard Schefferniger",
+    "start_seconds": 1368,
+    "end_seconds": 1452
+  }
+]
