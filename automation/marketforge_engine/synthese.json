@@ -1,15 +1,15 @@
 {
-  "date": "07/10/2026",
-  "goulot": "La machine est aveugle sur le nouveau mail : les 50 mails envoyés depuis le 06/10 n'ont pas d'identifiant de conversation Gmail enregistré dans le Sheet. Conséquence : elle ne voit ni les réponses, ni les rebonds (2 rebonds réels non marqués), et les relances J+4 prévues à partir du 10/10 ne partiront pas.",
+  "date": "08/10/2026",
+  "goulot": "Le test A/B ne teste rien : les 5 variantes (A à E) reçoivent exactement la même question finale (« Have you got a Spotify page or a dedicated Podcast Hub? »), car le modèle de mail du Sheet ne contient pas l'emplacement {CTA}. Les 76 envois du nouveau mail ne permettent donc de comparer aucune formulation. S'y ajoute un moteur toujours aveugle aux réponses : le premier « oui » de ce matin n'est pas enregistré dans le Sheet.",
   "synthese": [
-    "Aujourd'hui, 23 nouveaux mails sont partis (27 hier), soit 50 envois du nouveau mail en 2 jours, répartis à égalité : 10 par variante A, B, C, D et E.",
-    "Aucune réponse humaine pour l'instant : les mails ont entre 4 heures et 1 jour et demi, c'est trop tôt pour juger.",
-    "2 adresses sont revenues en erreur (craig@roguestartups.com hier, marketing@lodestonetruenorth.com ce matin), soit 4 % de rebond : pile au seuil d'alerte. Le Sheet ne les a pas marquées « Rebond ».",
-    "Le ciblage reste bon : environ 2 mails sur 3 vont à une personne nommée, dans des podcasts d'entreprise (santé, juridique, finance, supply chain, marketing B2B)."
+    "Aujourd'hui, 26 nouveaux mails sont partis (23 hier, 27 avant-hier) : 76 envois du nouveau mail en 3 jours.",
+    "Première réponse positive : Eric Smith (ComplianceCow, podcast Security & GRC Decoded) a répondu 3 minutes après réception « Interesting. Yes we do » et a donné sa page podcast. C'est une piste chaude à transformer en Hub V1.",
+    "Taux de réponse du nouveau mail : 1 sur 74 mails livrés (1,4 %), contre 0,4 % pour l'ancien mail. Trop tôt pour conclure, mais c'est dans la fourchette normale.",
+    "Rebonds : 2 adresses définitivement refusées et 1 en échec temporaire (faute de frappe dans le domaine « propertymangement.com »), soit 2,6 à 3,9 % : sous le seuil d'alerte de 4 %, mais limite."
   ],
   "plan": [
-    "Corriger l'enregistrement de l'identifiant Gmail au moment de l'envoi (et rattraper les 50 lignes déjà envoyées) avant le 10/10, sinon aucune relance ni réponse ne sera suivie (décision Etienne, non appliqué).",
-    "Marquer « Rebond » craig@roguestartups.com et marketing@lodestonetruenorth.com dans le Sheet.",
-    "Ne rien changer au message ni aux variantes : laisser le test A/B accumuler des envois (50/jour)."
+    "Répondre à Eric Smith (ComplianceCow) dès demain matin avec la proposition de Hub V1 construit à partir de ses épisodes (décision Etienne, non envoyé par la machine).",
+    "Ajouter l'emplacement {CTA} dans le modèle de mail (onglet Réglages) pour que le test A/B fonctionne réellement (décision Etienne, non appliqué).",
+    "Marquer « Rebond » craig@roguestartups.com, marketing@lodestonetruenorth.com et matt.speer@propertymangement.com dans le Sheet, et corriger l'enregistrement de l'identifiant Gmail avant les relances du 10/10."
   ]
 }
