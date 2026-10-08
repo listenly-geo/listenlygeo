@@ -139,14 +139,16 @@ def fetch_channel_info(rss_url, timeout=20):
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             xml_bytes = resp.read()
     except Exception:
-        return {"email": "", "description": ""}
+        return {"email": "", "description": "", "link": ""}
     desc = ""
+    link = ""
     try:
         channel = ET.fromstring(xml_bytes).find("channel")
         if channel is not None:
             desc = channel.findtext("description") or channel.findtext(f"{ITUNES}summary") or ""
+            link = (channel.findtext("link") or "").strip()
     except ET.ParseError:
         pass
     desc = re.sub(r"<[^>]+>", " ", desc)
     desc = re.sub(r"\s+", " ", desc).strip()[:2000]
-    return {"email": extract_contact_email(xml_bytes), "description": desc}
+    return {"email": extract_contact_email(xml_bytes), "description": desc, "link": link}

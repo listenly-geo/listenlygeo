@@ -29,6 +29,8 @@ import os, sys, json, re, time, random
 import urllib.request, urllib.error, urllib.parse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from rss_contact import fetch_contact_email, check_email  # noqa: E402
+import collections  # noqa: E402
+import contact_finder  # noqa: E402  (filtre dirigeant d'entree, 08/10/2026)
 from concurrent.futures import ThreadPoolExecutor  # noqa: E402
 
 API_KEY = os.environ["ANTHROPIC_API_KEY"]
@@ -451,7 +453,15 @@ def main():
     refus = {}              # raison -> nombre (pre-filtre gratuit)
     MAX_PRECHECK = int(os.environ.get("DISCOVERY_MAX_PRECHECK", "400"))
     prechecked = 0
-    while len(to_qualify) < MAX_QUALIFY and live and prechecked < MAX_PRECHECK:
+    # FILTRE DIRIGEANT (08/10/2026) : un podcast n'est qualifie / onboarde / extrait que si un dirigeant JOIGNABLE (adresse ecrite
+    # sur son site ou confirmee 'valid') existe deja. Les extractions (cout) ne partent plus sur des prospects sans dirigeant.
+    GATE_ON = os.environ.get("DISCOVERY_LEADER_GATE", "1") == "1"
+    GATE_MAX = int(os.environ.get("DISCOVERY_GATE_MAX", "12") or 12)
+    gate_ctx = {"state": {}, "verif_left": int(os.environ.get("DISCOVERY_GATE_VERIF_MAX", "24") or 24), "verif_ok": True,
+                "stats": collections.defaultdict(int), "par_podcast": 2}
+    gate_tries = gate_ok = 0
+    gate_stop = False
+    while len(to_qualify) < MAX_QUALIFY and live and prechecked < MAX_PRECHECK and not gate_stop:
         batch = []
         while len(batch) < max(3 * (MAX_QUALIFY - len(to_qualify)), 20) and live:
             sec = random.choices(list(live), weights=list(live.values()))[0]
@@ -478,10 +488,39 @@ def main():
                     "secteur": kw_sector.get(kw_of_feed.get(feed, ""), ""),
                 }
                 continue
+            if len(to_qualify) >= MAX_QUALIFY:
+                continue
+            if GATE_ON:
+                if gate_tries >= GATE_MAX or gate_ctx["verif_left"] <= 0:
+                    gate_stop = True
+                    break
+                gate_tries += 1
+                try:
+                    g_ok, g_why = contact_finder.leader_gate(cand.get("collectionName", ""), cand.get("artistName", ""), feed, email, gate_ctx)
+                except Exception as e:
+                    log(f"  filtre dirigeant : erreur {type(e).__name__} (candidat ignore ce run)")
+                    continue
+                if not gate_ctx["verif_ok"] and not g_ok:
+                    log("  filtre dirigeant : verification MyEmailVerifier indisponible -> arret du filtre sur ce run (rien n'est ecarte)")
+                    gate_stop = True
+                    break
+                if not g_ok:
+                    refus["aucun dirigeant joignable"] = refus.get("aucun dirigeant joignable", 0) + 1
+                    seen_candidates[feed] = {
+                        "podcast_name": cand.get("collectionName", ""), "artist_name": cand.get("artistName", ""),
+                        "feed_url": feed, "genre": cand.get("primaryGenreName", ""), "verdict": "REJECT",
+                        "reason": "Filtre dirigeant : " + re.sub(r"\s*\(\d{2}/\d{2}/\d{4}\)|\s*le \d{4}-\d{2}-\d{2}", "", g_why)[:120],
+                        "detected_language": "", "checked_date": __import__("datetime").date.today().isoformat(),
+                        "secteur": kw_sector.get(kw_of_feed.get(feed, ""), ""), "gate": "dirigeant",
+                    }
+                    continue
+                gate_ok += 1
             pre_email[feed] = email
-            if len(to_qualify) < MAX_QUALIFY:
-                to_qualify.append(cand)
-                per_sector[sec] = per_sector.get(sec, 0) + 1
+            to_qualify.append(cand)
+            per_sector[sec] = per_sector.get(sec, 0) + 1
+    if GATE_ON:
+        log(f"Filtre dirigeant : {gate_tries} podcasts testes, {gate_ok} avec dirigeant joignable, "
+            f"{gate_ctx['verif_left']} verifications restantes sur ce run, detail {dict(gate_ctx['stats'])}")
     log(f"Pre-filtre RSS gratuit : {prechecked} podcasts verifies, {len(to_qualify)} joignables retenus pour qualification, "
         f"refuses : {refus or 'aucun'}")
     log("Ciblage adaptatif -- repartition des candidats qualifies : " +

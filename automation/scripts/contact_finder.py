@@ -201,6 +201,8 @@ def site_for(slug, prospect, pods):
     if rec.get("rss_url"):   # le flux RSS donne parfois le lien du site
         try:
             info = fetch_channel_info(rec["rss_url"])
+            if info.get("link") and corporate_domain(domain_of(info["link"])):   # <link> du flux = site du podcast
+                return "https://" + domain_of(info["link"])
             m = re.search(r"https?://[^\s\"'<>]+", info.get("description", ""))
             if m and corporate_domain(domain_of(m.group(0))):
                 return "https://" + domain_of(m.group(0))
@@ -365,7 +367,7 @@ def find_contact(slug, prospect, pods, ctx):
                 stats["domaines_attrape_tout"] += 1
             continue
         for addr in candidate_addresses(name, mdom):
-            if tested >= VERIF_PAR_PODCAST or ctx["verif_left"] <= 0 or not ctx["verif_ok"]:
+            if tested >= ctx.get("par_podcast", VERIF_PAR_PODCAST) or ctx["verif_left"] <= 0 or not ctx["verif_ok"]:
                 break
             tested += 1
             ctx["verif_left"] -= 1
@@ -397,6 +399,21 @@ def find_contact(slug, prospect, pods, ctx):
     else:
         result["fiabilite"] = "Nom + poste trouves, e-mail non confirme (" + dates + ")"
     return result, base
+
+
+def leader_gate(name, artist, feed_url, feed_email, ctx):
+    """FILTRE D'ENTREE (08/10/2026) : avant toute fiche Listenly / extraction (couteuses), ce podcast a-t-il un dirigeant JOIGNABLE ?
+    Reponse : (ok, raison). ok = une adresse ecrite sur le site de l'entreprise OU confirmee 'valid' par MyEmailVerifier, differente
+    de l'adresse du flux. Aucune adresse n'est ecrite ni journalisee. ctx : meme format que find_contact (compteurs partages)."""
+    slug = "gate-" + re.sub(r"[^a-z0-9]+", "-", (name or "").lower()).strip("-")[:60]
+    pods = {slug: {"slug": slug, "rss_url": feed_url, "host_name": artist or ""}}
+    prospect = {"Podcast": name, "Email": feed_email or "", "Hote": ""}
+    ctx.setdefault("par_podcast", 2)
+    res, _ = find_contact(slug, prospect, pods, ctx)
+    em = (res.get("email") or "").lower()
+    if em and em != (feed_email or "").lower():
+        return True, "dirigeant joignable (" + ("ecrit sur le site" if res.get("ecrit_site") else "verifie") + ")"
+    return False, res.get("fiabilite") or "aucun dirigeant joignable"
 
 
 def _recent(iso, days=30):
