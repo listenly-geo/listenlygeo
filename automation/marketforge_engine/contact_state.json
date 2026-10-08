@@ -18,16 +18,17 @@
   "detail": {
    "animateur_seul": 1,
    "ecrit_site": 1,
-   "noms": 19,
-   "sans_nom": 15,
+   "noms": 20,
+   "sans_nom": 14,
    "statut_indisponible": 1,
-   "testees": 1
+   "statut_invalid": 2,
+   "testees": 3
   },
-  "ecriture_sheet": false,
-  "noms": 19,
-  "raison_indispo": "reponse du script : {'ok': False, 'error': 'action inconnue (config | status)'}",
+  "ecriture_sheet": true,
+  "noms": 20,
+  "raison_indispo": "appel impossible : HTTPError HTTP Error 404: Not Found",
   "traites": 40,
-  "verifications": 1
+  "verifications": 3
  },
  "a-podcast-about-leadership": {
   "score": 55
@@ -42,11 +43,13 @@
   "score": 55
  },
  "accreditation-conversations": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 1,
   "score": 78,
-  "trouve": true
+  "trouve": true,
+  "v": 2,
+  "verifie": false
  },
  "additive-manufacturing": {
   "score": 30
@@ -149,7 +152,7 @@
   "date": "2026-10-07",
   "email_trouve": false,
   "rang": 9,
-  "score": 55,
+  "score": 78,
   "trouve": false
  },
  "beyondcore": {
@@ -382,7 +385,7 @@
   "date": "2026-10-07",
   "email_trouve": false,
   "rang": 9,
-  "score": 55,
+  "score": 78,
   "trouve": false
  },
  "form-structure": {
@@ -397,7 +400,9 @@
  "founders": {
   "score": 55
  },
- "franchise-marketing-systems-your-one-sto": {},
+ "franchise-marketing-systems-your-one-sto": {
+  "score": 63
+ },
  "freakonomics-radio": {
   "score": 55
  },
@@ -457,7 +462,7 @@
   "date": "2026-10-07",
   "email_trouve": false,
   "rang": 1,
-  "score": 70,
+  "score": 93,
   "trouve": true
  },
  "hospital-matters-from-the-minnesota-hosp": {
@@ -470,7 +475,7 @@
   "score": 30
  },
  "hr-benecast": {
-  "score": 55
+  "score": 78
  },
  "ideas-to-innovation": {
   "score": 55
@@ -514,7 +519,7 @@
   "date": "2026-10-07",
   "email_trouve": false,
   "rang": 1,
-  "score": 70,
+  "score": 93,
   "trouve": true
  },
  "invest-like-the-best": {
@@ -554,7 +559,7 @@
   "date": "2026-10-07",
   "email_trouve": false,
   "rang": 9,
-  "score": 55,
+  "score": 78,
   "trouve": false
  },
  "kainexus-continuous-improvement-leadersh": {
@@ -567,7 +572,7 @@
   "score": 55
  },
  "latitude-navigating-business-culture": {
-  "score": 55
+  "score": 78
  },
  "lead-girl-lead-leadership-for-women-in-n": {
   "score": 30
@@ -580,13 +585,13 @@
   "trouve": true
  },
  "leaders-of-b2b-podcast-interviews-on-bus": {
-  "score": 78
+  "score": 85
  },
  "legal-innovation-spotlight": {
   "date": "2026-10-07",
   "email_trouve": false,
   "rang": 9,
-  "score": 55,
+  "score": 78,
   "trouve": false
  },
  "life-in-the-cloud": {
@@ -617,7 +622,7 @@
   "score": 30
  },
  "market-leaders-podcast": {
-  "score": 55
+  "score": 78
  },
  "marketscale-radio": {
   "score": 55
@@ -638,11 +643,13 @@
   "score": 55
  },
  "migrate-your-money": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 1,
-  "score": 70,
-  "trouve": true
+  "score": 78,
+  "trouve": true,
+  "v": 2,
+  "verifie": false
  },
  "mining-minds": {
   "score": 30
@@ -651,15 +658,17 @@
   "date": "2026-10-05",
   "email_trouve": false,
   "rang": 1,
-  "score": 70,
+  "score": 93,
   "trouve": true
  },
  "modern-comms": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 1,
-  "score": 70,
-  "trouve": true
+  "score": 93,
+  "trouve": true,
+  "v": 2,
+  "verifie": false
  },
  "moneycontrol-podcast": {
   "score": 55
@@ -671,11 +680,13 @@
   "score": 55
  },
  "new-home-insights-podcast": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 9,
-  "score": 55,
-  "trouve": false
+  "score": 78,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "not-your-ceo-s-insights": {
   "score": 55
@@ -709,11 +720,13 @@
   "score": 55
  },
  "php-podcast-episodes-from-php-architect": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 9,
-  "score": 55,
-  "trouve": false
+  "score": 78,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "pioneers-and-pathfinders": {
   "score": 78
@@ -731,16 +744,26 @@
   "score": 55
  },
  "plugged-in-the-energy-news-podcast": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 9,
-  "score": 55,
-  "trouve": false
+  "score": 78,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "podbiz-where-s-the-money-in-podcasting": {
   "score": 30
  },
- "ponderings-from-the-perch": {},
+ "ponderings-from-the-perch": {
+  "date": "2026-10-08",
+  "email_trouve": false,
+  "rang": 1,
+  "score": 78,
+  "trouve": true,
+  "v": 2,
+  "verifie": false
+ },
  "powerline-podcast": {
   "score": 55
  },
@@ -764,7 +787,13 @@
   "score": 55
  },
  "random-but-memorable": {
-  "score": 55
+  "date": "2026-10-08",
+  "email_trouve": false,
+  "rang": 1,
+  "score": 93,
+  "trouve": true,
+  "v": 2,
+  "verifie": false
  },
  "rapid-response": {
   "score": 55
@@ -788,7 +817,13 @@
   "score": 63
  },
  "rec-tech-the-recruiting-technology-podca": {
-  "score": 55
+  "date": "2026-10-08",
+  "email_trouve": false,
+  "rang": 1,
+  "score": 93,
+  "trouve": true,
+  "v": 2,
+  "verifie": false
  },
  "renew-s-renewables-going-mainstream-podc": {
   "score": 30
@@ -809,7 +844,13 @@
   "score": 55
  },
  "rev-up-accelerating-your-growth": {
-  "score": 55
+  "date": "2026-10-08",
+  "email_trouve": false,
+  "rang": 9,
+  "score": 78,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "revenue-builders": {
   "score": 78
@@ -839,7 +880,7 @@
   "date": "2026-10-05",
   "email_trouve": true,
   "rang": 1,
-  "score": 78,
+  "score": 83,
   "trouve": true
  },
  "sales-top-to-bottom-podcast": {
@@ -852,7 +893,7 @@
   "date": "2026-10-07",
   "email_trouve": false,
   "rang": 1,
-  "score": 70,
+  "score": 93,
   "trouve": true
  },
  "selling-on-giants-the-ecommerce-marketpl": {
@@ -862,7 +903,7 @@
   "date": "2026-10-07",
   "email_trouve": false,
   "rang": 1,
-  "score": 70,
+  "score": 93,
   "trouve": true
  },
  "should-this-exist": {
@@ -884,11 +925,13 @@
   "score": 55
  },
  "spinning-values": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 1,
-  "score": 70,
-  "trouve": true
+  "score": 93,
+  "trouve": true,
+  "v": 2,
+  "verifie": false
  },
  "spotlight-on-procurement": {
   "score": 55
@@ -897,14 +940,26 @@
   "date": "2026-10-05",
   "email_trouve": false,
   "rang": 1,
-  "score": 70,
+  "score": 93,
   "trouve": true
  },
  "storydriven-marketing-the-b2b-brand-stor": {
-  "score": 55
+  "date": "2026-10-08",
+  "email_trouve": false,
+  "rang": 9,
+  "score": 78,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "super-informed-radio": {
-  "score": 55
+  "date": "2026-10-08",
+  "email_trouve": false,
+  "rang": 9,
+  "score": 78,
+  "trouve": true,
+  "v": 2,
+  "verifie": false
  },
  "supply-chain-moves-official-move-supply": {
   "score": 55
@@ -916,11 +971,13 @@
   "score": 30
  },
  "sync-or-swim-the-multifamily-growth-show": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 1,
-  "score": 70,
-  "trouve": true
+  "score": 78,
+  "trouve": true,
+  "v": 2,
+  "verifie": false
  },
  "tailwind-marketing": {
   "score": 55
@@ -947,13 +1004,19 @@
   "score": 55
  },
  "technically-legal-a-legal-technology-and": {
-  "score": 55
+  "date": "2026-10-08",
+  "email_trouve": false,
+  "rang": 9,
+  "score": 78,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "techontappodcast": {
   "date": "2026-10-05",
   "email_trouve": false,
   "rang": 9,
-  "score": 55,
+  "score": 63,
   "trouve": false
  },
  "terri-talks-podcast-let-s-talk": {
@@ -1005,7 +1068,13 @@
   "score": 55
  },
  "the-bookkeepers-podcast": {
-  "score": 55
+  "date": "2026-10-08",
+  "email_trouve": false,
+  "rang": 9,
+  "score": 78,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "the-boom-real-estate-podcast": {
   "score": 55
@@ -1023,7 +1092,13 @@
   "score": 55
  },
  "the-content-cocktail-hour": {
-  "score": 55
+  "date": "2026-10-08",
+  "email_trouve": false,
+  "rang": 1,
+  "score": 93,
+  "trouve": true,
+  "v": 2,
+  "verifie": false
  },
  "the-corner-series": {
   "score": 63
@@ -1032,7 +1107,13 @@
   "score": 55
  },
  "the-cro-spotlight-podcast": {
-  "score": 55
+  "date": "2026-10-08",
+  "email_trouve": false,
+  "rang": 1,
+  "score": 93,
+  "trouve": true,
+  "v": 2,
+  "verifie": false
  },
  "the-dentist-money-show-financial-plannin": {
   "score": 55
@@ -1105,11 +1186,13 @@
   "score": 55
  },
  "the-insurance-coffee-house-with-nick-hoa": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 1,
   "score": 70,
-  "trouve": true
+  "trouve": true,
+  "v": 2,
+  "verifie": false
  },
  "the-intangible-brand": {
   "score": 55
@@ -1139,7 +1222,7 @@
   "date": "2026-10-07",
   "email_trouve": false,
   "rang": 9,
-  "score": 55,
+  "score": 78,
   "trouve": false
  },
  "the-loco-experience": {
@@ -1149,7 +1232,7 @@
   "date": "2026-10-07",
   "email_trouve": false,
   "rang": 1,
-  "score": 70,
+  "score": 93,
   "trouve": true
  },
  "the-managementos-podcast-scale-without-s": {
@@ -1201,11 +1284,13 @@
   "score": 78
  },
  "the-payroll-podcast": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": true,
   "rang": 1,
-  "score": 70,
-  "trouve": true
+  "score": 75,
+  "trouve": true,
+  "v": 2,
+  "verifie": false
  },
  "the-preconstruction-podcast-commercial-c": {
   "score": 30
@@ -1214,37 +1299,55 @@
   "score": 55
  },
  "the-prompt": {
-  "score": 55
+  "date": "2026-10-08",
+  "email_trouve": false,
+  "rang": 1,
+  "score": 93,
+  "trouve": true,
+  "v": 2,
+  "verifie": false
  },
  "the-property-couch": {
   "score": 55
  },
  "the-public-works-hot-seat-podcast": {
-  "score": 45
+  "date": "2026-10-08",
+  "email_trouve": false,
+  "rang": 9,
+  "score": 68,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "the-rag-company-podcast": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 9,
-  "score": 55,
-  "trouve": false
+  "score": 78,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "the-realtor-roundtable": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 9,
-  "score": 55,
-  "trouve": false
+  "score": 78,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "the-rethink-mining-podcast": {
   "score": 20
  },
  "the-rev-up": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 9,
-  "score": 55,
-  "trouve": false
+  "score": 78,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "the-road-to-autonomy": {
   "score": 78
@@ -1262,11 +1365,13 @@
   "score": 55
  },
  "the-sales-compensation-show": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 9,
-  "score": 45,
-  "trouve": false
+  "score": 68,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "the-secret-to-success-with-antonio-t-smi": {
   "score": 55
@@ -1275,11 +1380,13 @@
   "score": 55
  },
  "the-staffing-ring": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 9,
-  "score": 45,
-  "trouve": false
+  "score": 68,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "the-strategy-and-leadership-podcast-with": {
   "score": 55
@@ -1306,38 +1413,50 @@
   "score": 78
  },
  "the-vurge": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 9,
-  "score": 45,
-  "trouve": false
+  "score": 68,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "the-wealth-exchange": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 1,
-  "score": 70,
-  "trouve": true
+  "score": 93,
+  "trouve": true,
+  "v": 2,
+  "verifie": false
  },
  "the-wholesale-change-show": {
   "date": "2026-10-07",
   "email_trouve": false,
   "rang": 1,
-  "score": 70,
+  "score": 93,
   "trouve": true
  },
  "the-yield": {
   "score": 55
  },
  "this-week-at-method": {
-  "score": 55
+  "date": "2026-10-08",
+  "email_trouve": false,
+  "rang": 9,
+  "score": 78,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "tip-of-the-law": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 1,
-  "score": 70,
-  "trouve": true
+  "score": 78,
+  "trouve": true,
+  "v": 2,
+  "verifie": false
  },
  "to-the-point-home-services-vip-room-podc": {
   "score": 55
@@ -1373,10 +1492,22 @@
   "score": 55
  },
  "treccast": {
-  "score": 55
+  "date": "2026-10-08",
+  "email_trouve": false,
+  "rang": 9,
+  "score": 78,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "treestuff-live-arboriculture-talk": {
-  "score": 55
+  "date": "2026-10-08",
+  "email_trouve": false,
+  "rang": 9,
+  "score": 78,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "trend-detection-podcast": {
   "score": 55
@@ -1385,14 +1516,22 @@
   "score": 55
  },
  "trucking-for-millennials": {
-  "score": 55
+  "date": "2026-10-08",
+  "email_trouve": false,
+  "rang": 9,
+  "score": 78,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "trucking-matters-from-reliance-partners": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 1,
-  "score": 70,
-  "trouve": true
+  "score": 93,
+  "trouve": true,
+  "v": 2,
+  "verifie": false
  },
  "two-irish-guys-discussing-software": {
   "score": 55
@@ -1419,7 +1558,13 @@
   "score": 55
  },
  "vivlio-health-improving-the-medical-reco": {
-  "score": 55
+  "date": "2026-10-08",
+  "email_trouve": false,
+  "rang": 9,
+  "score": 78,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "wbsrocks-scaling-growth-with-ai-enterpri": {
   "score": 55
@@ -1431,11 +1576,13 @@
   "score": 55
  },
  "what-s-the-problem": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 1,
-  "score": 60,
-  "trouve": true
+  "score": 83,
+  "trouve": true,
+  "v": 2,
+  "verifie": false
  },
  "what-s-the-use-commercial-real-estate-to": {
   "score": 45
@@ -1444,14 +1591,22 @@
   "score": 55
  },
  "win-win-an-entrepreneurial-community": {
-  "score": 55
+  "date": "2026-10-08",
+  "email_trouve": false,
+  "rang": 1,
+  "score": 93,
+  "trouve": true,
+  "v": 2,
+  "verifie": false
  },
  "wise-content-creates-wealth": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 9,
-  "score": 55,
-  "trouve": false
+  "score": 78,
+  "trouve": false,
+  "v": 2,
+  "verifie": false
  },
  "wmyt-what-makes-you-tick-tech-leaders-ca": {
   "score": 55
@@ -1463,11 +1618,13 @@
   "score": 55
  },
  "workplace-stories-by-redthread-research": {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "email_trouve": false,
   "rang": 1,
-  "score": 70,
-  "trouve": true
+  "score": 93,
+  "trouve": true,
+  "v": 2,
+  "verifie": false
  },
  "write-with-influence": {
   "score": 55
