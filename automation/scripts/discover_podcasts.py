@@ -462,7 +462,7 @@ def main():
     gate_state = load_json(GATE_FILE, {})
     _today = __import__("datetime").date.today().isoformat()
     if gate_state.get("date") != _today:
-        gate_state = {"date": _today, "used": 0, "tries": 0, "ok": 0}
+        gate_state = {"date": _today, "used": 0, "tries": 0, "ok": 0, "secteurs": gate_state.get("secteurs", {})}
     gate_day_left = int(os.environ.get("DISCOVERY_GATE_JOUR", "120") or 120) - int(gate_state.get("used", 0))
     gate_run_cap = max(0, min(int(os.environ.get("DISCOVERY_GATE_VERIF_MAX", "16") or 16), gate_day_left))
     if GATE_ON and gate_run_cap <= 0:
@@ -514,6 +514,9 @@ def main():
                     log("  filtre dirigeant : verification MyEmailVerifier indisponible -> arret du filtre sur ce run (rien n'est ecarte)")
                     gate_stop = True
                     break
+                _sec = gate_state.setdefault("secteurs", {}).setdefault(sec, {"tries": 0, "ok": 0})   # cumul par secteur : nourrit l'optimiseur de ciblage
+                _sec["tries"] += 1
+                _sec["ok"] += 1 if g_ok else 0
                 if not g_ok:
                     refus["aucun dirigeant joignable"] = refus.get("aucun dirigeant joignable", 0) + 1
                     seen_candidates[feed] = {
