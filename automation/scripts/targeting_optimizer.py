@@ -169,10 +169,22 @@ def main():
         r["rang"] = i
         r["score"] = round(r["score"], 5)
 
+    # DATA d'apprentissage du filtre dirigeant : mots-cles et caracteristiques qui donnent (ou non) un dirigeant joignable
+    gs = load(GATE, {}) or {}
+
+    def rank_table(table, min_tries):
+        rows = [{"nom": k, "testes": v.get("tries", 0), "trouves": v.get("ok", 0),
+                 "taux_pct": round(100.0 * v.get("ok", 0) / v["tries"], 1)}
+                for k, v in (table or {}).items() if v.get("tries", 0) >= min_tries]
+        rows.sort(key=lambda r: (-r["taux_pct"], -r["testes"]))
+        return rows
+    data = {"mots_cles": rank_table(gs.get("mots_cles"), 5), "caracteristiques": rank_table(gs.get("attributs"), 8),
+            "postes_trouves": gs.get("postes", {})}
+
     out = {"updated": datetime.datetime.utcnow().isoformat(timespec="minutes"),
            "envois_total": tot_sent, "reponses_total": tot_rep,
            "taux_reponse_global_pct": round(100 * tot_rep / tot_sent, 1) if tot_sent else None,
-           "dirigeants_testes": g_tries, "dirigeants_trouves": g_ok,
+           "dirigeants_testes": g_tries, "dirigeants_trouves": g_ok, "data_apprentissage": data,
            "weights": weights, "ranking": ranking}
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
@@ -186,6 +198,10 @@ def main():
         print(f"[ciblage] #{r['rang']} {r['secteur']}: poids {r['poids_pct']}% | "
               f"{r['envoye']} env., {r['reponse']} rep., {r['rebond']} rebonds, "
               f"{r['dirigeant_trouves']}/{r['dirigeant_testes']} dirigeants joignables | {r['tendance']}")
+    for lab, rows in (("mots-cles", data["mots_cles"]), ("caracteristiques", data["caracteristiques"])):
+        if rows:
+            print(f"[ciblage] meilleurs {lab} : " + ", ".join(f"{r['nom']} {r['taux_pct']}% ({r['trouves']}/{r['testes']})" for r in rows[:5]))
+            print(f"[ciblage] moins bons {lab} : " + ", ".join(f"{r['nom']} {r['taux_pct']}% ({r['trouves']}/{r['testes']})" for r in rows[-3:]))
     top = ", ".join(f"{r['secteur']} {r['poids_pct']}%" for r in ranking[:3] if r["poids_pct"] is not None)
     print(f"::notice title=Ciblage::{tot_rep} reponse(s) / {tot_sent} envois | budget : {top}")
 
