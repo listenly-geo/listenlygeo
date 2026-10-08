@@ -11,7 +11,7 @@ Pont GitHub <-> Google Sheet de prospection (MarketForge Engine).
 Secret GitHub : MFE_SHEET_URL = URL de l'application web Apps Script, AVEC ?secret=... a la fin.
 Sans ce secret, le script ne fait rien (le systeme continue avec config.json).
 """
-import os, sys, json, datetime, urllib.request, urllib.parse
+import time, os, sys, json, datetime, urllib.request, urllib.parse, urllib.error
 
 URL = os.environ.get("MFE_SHEET_URL", "").strip()
 CONFIG_FILE = "automation/marketforge_engine/config.json"
@@ -51,8 +51,21 @@ def call(params=None, payload=None):
     data = json.dumps(payload).encode() if payload is not None else None
     req = urllib.request.Request(url, data=data, method="POST" if data else "GET",
                                  headers={"Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=60) as r:  # suit la redirection googleusercontent
-        return json.loads(r.read().decode())
+    last = None
+    for attempt in range(4):   # Google renvoie parfois un 404/5xx passager : on reessaie (une requete refusee n'a rien execute)
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:  # suit la redirection googleusercontent
+                return json.loads(r.read().decode())
+        except urllib.error.HTTPError as e:
+            last = e
+            if e.code not in (404, 429, 500, 502, 503, 504) or attempt == 3:
+                raise
+        except (urllib.error.URLError, TimeoutError) as e:
+            last = e
+            if attempt == 3:
+                raise
+        time.sleep(4 * (attempt + 1))
+    raise last
 
 
 def convert(key, value):

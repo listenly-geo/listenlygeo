@@ -823,6 +823,14 @@
       "texte": "Pour trouver la personne qui dirige un podcast, le module écoute désormais l'introduction d'un épisode déjà transcrit (l'animateur y dit son nom), puis utilise le nom du flux RSS, sans dépendre du site du podcast. L'adresse n'est retenue que si elle est confirmée valide.",
       "date": "08/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-105",
+      "section": "Fiabilité",
+      "version": "V2.6",
+      "texte": "Quand Google renvoie une erreur passagère (404 ou panne courte) entre le moteur et le Google Sheet, le moteur réessaie jusqu'à 4 fois au lieu d'abandonner.",
+      "date": "08/10/2026",
+      "statut": "en_cours"
     }
   ]
 }
