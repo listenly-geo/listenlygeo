@@ -11,24 +11,40 @@
  "909exec": {
   "score": 55
  },
- "_domaines": {},
+ "_domaines": {
+  "alphai.com": {
+   "date": "2026-10-08",
+   "statut": "catchall"
+  },
+  "mikethomasmedia.com": {
+   "date": "2026-10-08",
+   "statut": "catchall"
+  },
+  "surus.io": {
+   "date": "2026-10-08",
+   "statut": "ok"
+  }
+ },
  "_resume": {
   "adresses_utilisables": 1,
   "date": "2026-10-08",
   "detail": {
-   "animateur_seul": 1,
-   "ecrit_site": 1,
-   "noms": 20,
-   "sans_nom": 14,
+   "animateur_seul": 2,
+   "domaines_attrape_tout": 2,
+   "nom_transcription": 2,
+   "noms": 5,
+   "sans_nom": 9,
+   "statut_catchall": 2,
    "statut_indisponible": 1,
-   "statut_invalid": 2,
-   "testees": 3
+   "statut_valid": 1,
+   "testees": 4,
+   "verifiees": 1
   },
-  "ecriture_sheet": true,
-  "noms": 20,
-  "raison_indispo": "appel impossible : HTTPError HTTP Error 404: Not Found",
-  "traites": 40,
-  "verifications": 3
+  "ecriture_sheet": false,
+  "noms": 5,
+  "raison_indispo": "reponse du script : {'ok': False, 'error': 'action inconnue (config | status)'}",
+  "traites": 14,
+  "verifications": 4
  },
  "a-podcast-about-leadership": {
   "score": 55
