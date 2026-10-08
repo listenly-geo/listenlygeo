@@ -85,6 +85,9 @@ jobs:
           DISCOVERY_KNOWN_RATIO: '0.2'   # 80 % podcasts B2B de niche (repondent plus que les gros medias)
           MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}   # filtre dirigeant (08/10/2026) : verification MyEmailVerifier via le script Google
           DISCOVERY_LEADER_GATE: '1'
+          DISCOVERY_GATE_JOUR: '150'       # verifications MyEmailVerifier du filtre par jour (~30 dirigeants/jour)
+          DISCOVERY_GATE_MAX: '30'         # podcasts examines par passage
+          DISCOVERY_GATE_VERIF_MAX: '40'   # verifications max par passage
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
