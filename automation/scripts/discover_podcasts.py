@@ -457,7 +457,17 @@ def main():
     # sur son site ou confirmee 'valid') existe deja. Les extractions (cout) ne partent plus sur des prospects sans dirigeant.
     GATE_ON = os.environ.get("DISCOVERY_LEADER_GATE", "1") == "1"
     GATE_MAX = int(os.environ.get("DISCOVERY_GATE_MAX", "12") or 12)
-    gate_ctx = {"state": {}, "verif_left": int(os.environ.get("DISCOVERY_GATE_VERIF_MAX", "24") or 24), "verif_ok": True,
+    # Budget JOURNALIER de verifications du filtre (le quota MyEmailVerifier est partage avec l'envoi : ne jamais le vider)
+    GATE_FILE = "automation/marketforge_engine/gate_state.json"
+    gate_state = load_json(GATE_FILE, {})
+    _today = __import__("datetime").date.today().isoformat()
+    if gate_state.get("date") != _today:
+        gate_state = {"date": _today, "used": 0, "tries": 0, "ok": 0}
+    gate_day_left = int(os.environ.get("DISCOVERY_GATE_JOUR", "120") or 120) - int(gate_state.get("used", 0))
+    gate_run_cap = max(0, min(int(os.environ.get("DISCOVERY_GATE_VERIF_MAX", "16") or 16), gate_day_left))
+    if GATE_ON and gate_run_cap <= 0:
+        log("Filtre dirigeant : budget de verifications du jour atteint -> aucune nouvelle decouverte ce run.")
+    gate_ctx = {"state": {}, "verif_left": gate_run_cap, "verif_ok": True,
                 "stats": collections.defaultdict(int), "par_podcast": 2}
     gate_tries = gate_ok = 0
     gate_stop = False
@@ -519,6 +529,14 @@ def main():
             to_qualify.append(cand)
             per_sector[sec] = per_sector.get(sec, 0) + 1
     if GATE_ON:
+        gate_state["used"] = int(gate_state.get("used", 0)) + (gate_run_cap - gate_ctx["verif_left"])
+        gate_state["tries"] = int(gate_state.get("tries", 0)) + gate_tries
+        gate_state["ok"] = int(gate_state.get("ok", 0)) + gate_ok
+        try:
+            with open(GATE_FILE, "w", encoding="utf-8") as f:
+                json.dump(gate_state, f, indent=1)
+        except OSError:
+            pass
         log(f"Filtre dirigeant : {gate_tries} podcasts testes, {gate_ok} avec dirigeant joignable, "
             f"{gate_ctx['verif_left']} verifications restantes sur ce run, detail {dict(gate_ctx['stats'])}")
     log(f"Pre-filtre RSS gratuit : {prechecked} podcasts verifies, {len(to_qualify)} joignables retenus pour qualification, "
