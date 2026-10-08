@@ -162,16 +162,25 @@ def candidate_addresses(name, dom):
     return out
 
 
+VERIF_RAISON = ""   # derniere cause d'indisponibilite (sans adresse ni cle), pour le resume
+
+
 def verify_email(email):
     """Statut MyEmailVerifier via le script Google : valid | invalid | catchall | unknown | greylisted | disposable | refuse |
     quota | indisponible. 'indisponible' si le script n'est pas en v24 ou si la cle manque."""
+    global VERIF_RAISON
     try:
         r = sheet_bridge.call(payload={"action": "verify", "emails": [email]})
-    except Exception:
+    except Exception as e:
+        VERIF_RAISON = ("appel impossible : " + type(e).__name__ + " " + str(e))[:90]
         return "indisponible"
     if not isinstance(r, dict) or not r.get("ok"):
+        VERIF_RAISON = ("reponse du script : " + str(r).replace(email, "<adresse>"))[:120]
         return "indisponible"
-    return str((r.get("results") or {}).get(email, "indisponible"))
+    st = str((r.get("results") or {}).get(email, "indisponible"))
+    if st == "indisponible":
+        VERIF_RAISON = "script joint, mais MyEmailVerifier sans reponse exploitable (cle, credits ou autorisation)"
+    return st
 
 
 def site_for(slug, prospect, pods):
@@ -420,9 +429,9 @@ def main():
         log(f"  {slug}: {'adresse ' + ('verifiee' if res.get('verifie') else 'ecrite sur le site') if res['email'] else ('nom trouve, pas d adresse' if res['nom'] else res['fiabilite'])}")
     emails_ok = sum(1 for r in rows.values() if r["email"])
     state["_resume"] = {"date": today.isoformat(), "traites": len(todo), "noms": found, "adresses_utilisables": emails_ok,
-                        "verifications": VERIF_MAX - ctx["verif_left"] if VERIFY else 0, "detail": dict(stats),
+                        "verifications": VERIF_MAX - ctx["verif_left"] if VERIFY else 0, "detail": dict(stats), "raison_indispo": VERIF_RAISON,
                         "ecriture_sheet": not DRY}
-    log(f"RESUME : {len(todo)} traites, {found} avec un nom, {emails_ok} avec une adresse utilisable, detail {dict(stats)}")
+    log(f"RESUME : {len(todo)} traites, {found} avec un nom, {emails_ok} avec une adresse utilisable, detail {dict(stats)}" + (f" | verification indisponible : {VERIF_RAISON}" if VERIF_RAISON else ""))
 
     # scores : recalcules pour tous (sans reseau) ; on n'envoie que ce qui a change
     push = {}
