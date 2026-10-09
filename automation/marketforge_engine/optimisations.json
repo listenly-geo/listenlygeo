@@ -911,6 +911,14 @@
       "texte": "Le moteur se relance maintenant tout seul à la fin d'un passage tant qu'il reste du budget du jour (vérifications de dirigeants ou épisodes à analyser), car la planification GitHub ne lançait que 4 à 6 passages par jour. Découverte et onboarding passent à 8 par passage.",
       "date": "09/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-115",
+      "section": "Mesure",
+      "version": "V2.7",
+      "texte": "Correction d'un bug d'extraction : quand le modèle renvoyait ses questions sous une forme inattendue, l'épisode était perdu (erreur 'list object has no attribute get'). C'est ce qui avait vidé l'extraction de deux prospects à dirigeant (The Payroll Podcast, Form & Structure).",
+      "date": "09/10/2026",
+      "statut": "en_cours"
     }
   ]
 }

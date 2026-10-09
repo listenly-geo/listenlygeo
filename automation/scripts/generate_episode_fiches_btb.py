@@ -288,6 +288,11 @@ def extract_real_qa(transcript, ep, podcast, segments=None):
     if idx > 0:
         raw = raw[idx:]
     data = json.loads(raw)
+    if isinstance(data, list):   # 09/10/2026 : le modele renvoie parfois un tableau JSON au lieu d'un objet ('list' object has no attribute 'get')
+        if data and all(isinstance(x, dict) and ("q" in x or "r" in x) for x in data):
+            data = {"qa": data}
+        else:
+            data = next((x for x in data if isinstance(x, dict)), {})
     guest = data.get("guest", {}) or {}
     qa = data.get("qa", []) or []
     real_quote = (data.get("real_quote") or "").strip()
