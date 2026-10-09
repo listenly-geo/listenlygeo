@@ -1,0 +1,62 @@
+[
+  {
+    "podcast_name": "Inoxoft Innovation Hub – Voiced by AI",
+    "episode_title": "How to Generate Offline AI Models with WhiteLightning",
+    "audio_url": "https://anchor.fm/s/ffceb1c0/podcast/play/106260456/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-6-31%2F38c7bfb2-eee7-3c9c-5236-e441297233a4.mp3",
+    "question": "What is White Lightning and how does it generate offline AI models from a single prompt?",
+    "transcript_excerpt": "White Lightning is Inixsoft's open-source command-line tool that transforms a task description into a compact, offline text classifier. It uses an LLM to generate synthetic training data during setup, then distills that knowledge into a smaller task-specific model exported as an ONYX binary, typically under 1MB, that runs anywhere without cloud dependency.",
+    "expert_name": null,
+    "start_seconds": 21,
+    "end_seconds": 41
+  },
+  {
+    "podcast_name": "Inoxoft Innovation Hub – Voiced by AI",
+    "episode_title": "How to Generate Offline AI Models with WhiteLightning",
+    "audio_url": "https://anchor.fm/s/ffceb1c0/podcast/play/106260456/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-6-31%2F38c7bfb2-eee7-3c9c-5236-e441297233a4.mp3",
+    "question": "How fast can White Lightning train a text classification model on a standard laptop?",
+    "transcript_excerpt": "A binary classifier is ready in about 10 to 15 minutes on a standard laptop, no GPUs required. The tool automates synthetic data generation, model distillation, and ONYX export in a single workflow, enabling rapid deployment.",
+    "expert_name": null,
+    "start_seconds": 705,
+    "end_seconds": 755
+  },
+  {
+    "podcast_name": "Inoxoft Innovation Hub – Voiced by AI",
+    "episode_title": "How to Generate Offline AI Models with WhiteLightning",
+    "audio_url": "https://anchor.fm/s/ffceb1c0/podcast/play/106260456/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-6-31%2F38c7bfb2-eee7-3c9c-5236-e441297233a4.mp3",
+    "question": "What are the key performance specs of White Lightning-generated models for edge devices?",
+    "transcript_excerpt": "Models process over 2,500 texts per second with sub-millisecond latency on common CPUs, run comfortably on low-power hardware like Raspberry Pi Zero using under 512 kilobits of RAM, and output compact binaries typically under 1MB, making them suitable for embedded systems and IoT devices.",
+    "expert_name": null,
+    "start_seconds": 1860,
+    "end_seconds": 1908
+  },
+  {
+    "podcast_name": "Inoxoft Innovation Hub – Voiced by AI",
+    "episode_title": "How to Generate Offline AI Models with WhiteLightning",
+    "audio_url": "https://anchor.fm/s/ffceb1c0/podcast/play/106260456/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-6-31%2F38c7bfb2-eee7-3c9c-5236-e441297233a4.mp3",
+    "question": "Does White Lightning require a labeled dataset or machine learning expertise to use?",
+    "transcript_excerpt": "No. White Lightning generates synthetic training data based on your task description using a language model, so you don't need an existing labeled dataset. If you're comfortable using the command line and Docker, you can get started with just a simple text prompt describing the problem you want to solve.",
+    "expert_name": null,
+    "start_seconds": 1470,
+    "end_seconds": 1530
+  },
+  {
+    "podcast_name": "Inoxoft Innovation Hub – Voiced by AI",
+    "episode_title": "How to Generate Offline AI Models with WhiteLightning",
+    "audio_url": "https://anchor.fm/s/ffceb1c0/podcast/play/106260456/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-6-31%2F38c7bfb2-eee7-3c9c-5236-e441297233a4.mp3",
+    "question": "What text classification tasks can White Lightning handle in production environments?",
+    "transcript_excerpt": "White Lightning supports binary and multi-class classification for tasks like sentiment analysis, intent detection, spam filtering, content moderation, and routing support tickets. It outputs optimized ONYX models suitable for embedding in production applications across mobile, desktop, web, and edge devices.",
+    "expert_name": null,
+    "start_seconds": 1492,
+    "end_seconds": 1536
+  },
+  {
+    "podcast_name": "Inoxoft Innovation Hub – Voiced by AI",
+    "episode_title": "How to Generate Offline AI Models with WhiteLightning",
+    "audio_url": "https://anchor.fm/s/ffceb1c0/podcast/play/106260456/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-6-31%2F38c7bfb2-eee7-3c9c-5236-e441297233a4.mp3",
+    "question": "What is the licensing model for White Lightning and models it creates?",
+    "transcript_excerpt": "White Lightning is 100% open source under GPL 3.0 license. The models it creates are yours to use freely under the permissive MIT license, even in closed-source commercial projects, with no vendor lock-in or recurring API fees.",
+    "expert_name": null,
+    "start_seconds": 1800,
+    "end_seconds": 1830
+  }
+]
