@@ -1,6 +1,6 @@
 {
- "updated": "2026-10-09T14:11",
- "envois_total": 221,
+ "updated": "2026-10-09T14:14",
+ "envois_total": 222,
  "reponses_total": 0,
  "taux_reponse_global_pct": 0.0,
  "dirigeants_testes": 471,
@@ -8,6 +8,10 @@
  "data_apprentissage": {
   "creneaux_new_york": {
    "heure": {
+    "10h": {
+     "envoyes": 17,
+     "reponses": 0
+    },
     "09h": {
      "envoyes": 14,
      "reponses": 0
@@ -44,10 +48,6 @@
      "envoyes": 18,
      "reponses": 0
     },
-    "10h": {
-     "envoyes": 16,
-     "reponses": 0
-    },
     "13h": {
      "envoyes": 3,
      "reponses": 0
@@ -59,7 +59,7 @@
    },
    "jour": {
     "ven": {
-     "envoyes": 35,
+     "envoyes": 36,
      "reponses": 0
     },
     "jeu": {
@@ -91,10 +91,10 @@
  "weights": {
   "Tech & SaaS": 0.056,
   "Cybersécurité": 0.0488,
-  "Finance & Fintech": 0.0426,
+  "Finance & Fintech": 0.0421,
   "RH & Recrutement": 0.0572,
   "Marketing & Ventes": 0.0628,
-  "Logistique & Supply chain": 0.0284,
+  "Logistique & Supply chain": 0.0285,
   "Construction & Industrie": 0.0264,
   "Énergie": 0.0503,
   "Assurance": 0.0495,
@@ -103,17 +103,17 @@
   "Conseil": 0.0358,
   "Santé": 0.0505,
   "Business général (entreprise)": 0.0406,
-  "Cabinets d'avocats": 0.0584,
-  "Experts-comptables & patrimoine": 0.0619,
-  "Coachs & consultants B2B": 0.0694,
-  "Agences de services": 0.0626,
+  "Cabinets d'avocats": 0.0585,
+  "Experts-comptables & patrimoine": 0.062,
+  "Coachs & consultants B2B": 0.0695,
+  "Agences de services": 0.0627,
   "Santé libérale": 0.0632,
-  "Formateurs & programmes": 0.0292
+  "Formateurs & programmes": 0.0293
  },
  "ranking": [
   {
    "secteur": "Coachs & consultants B2B",
-   "poids_pct": 6.9,
+   "poids_pct": 7.0,
    "delta_pts": 1.8,
    "tendance": "hausse",
    "onboarde": 2,
@@ -193,8 +193,8 @@
   },
   {
    "secteur": "Cabinets d'avocats",
-   "poids_pct": 5.8,
-   "delta_pts": 0.0,
+   "poids_pct": 5.9,
+   "delta_pts": 0.1,
    "tendance": "stable",
    "onboarde": 2,
    "joignable": 2,
@@ -337,12 +337,12 @@
   },
   {
    "secteur": "Finance & Fintech",
-   "poids_pct": 4.3,
-   "delta_pts": -0.0,
+   "poids_pct": 4.2,
+   "delta_pts": -0.1,
    "tendance": "stable",
    "onboarde": 41,
    "joignable": 35,
-   "envoye": 14,
+   "envoye": 15,
    "rebond": 1,
    "reponse": 0,
    "dirigeant_testes": 29,
@@ -401,8 +401,8 @@
   },
   {
    "secteur": "Logistique & Supply chain",
-   "poids_pct": 2.8,
-   "delta_pts": -1.7,
+   "poids_pct": 2.9,
+   "delta_pts": -1.6,
    "tendance": "baisse",
    "onboarde": 17,
    "joignable": 17,
