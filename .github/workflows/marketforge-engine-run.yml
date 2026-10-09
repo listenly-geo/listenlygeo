@@ -253,6 +253,8 @@ jobs:
           eps_left = int(c.get("episodes_par_jour", 50)) - int(j.get("episodes", 0))
           print("oui" if (gate_left > 15 or eps_left > 3) else "non")
           PY
+          # le module Qui contacter ne se declenchait plus apres un run lance par le moteur lui-meme (evenement workflow_run non propage) : on le lance ici
+          gh workflow run marketforge-contact-finder.yml --ref main -R "$GITHUB_REPOSITORY" && echo "::notice title=Qui contacter::module lance apres le run."
           if [ "$(cat /tmp/relance.txt)" = "oui" ]; then
             sleep 90
             gh workflow run marketforge-engine-run.yml --ref main -R "$GITHUB_REPOSITORY"

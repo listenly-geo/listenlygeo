@@ -919,6 +919,14 @@
       "texte": "Correction d'un bug d'extraction : quand le modèle renvoyait ses questions sous une forme inattendue, l'épisode était perdu (erreur 'list object has no attribute get'). C'est ce qui avait vidé l'extraction de deux prospects à dirigeant (The Payroll Podcast, Form & Structure).",
       "date": "09/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-116",
+      "section": "Ciblage",
+      "version": "V2.7",
+      "texte": "Le module « Qui contacter » est maintenant lancé à la fin de chaque passage du moteur (il ne se déclenchait plus quand le moteur se relançait seul). Les nouveaux prospects reçoivent ainsi leur dirigeant et son adresse vérifiée tout de suite, avant l'ouverture de la fenêtre d'envoi.",
+      "date": "09/10/2026",
+      "statut": "en_cours"
     }
   ]
 }
