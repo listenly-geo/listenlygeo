@@ -1,0 +1,62 @@
+[
+  {
+    "podcast_name": "Access Granted",
+    "episode_title": "Ep 16: From POCs to Production: Building a Real GenAI Security Program",
+    "audio_url": "https://anchor.fm/s/fa748290/podcast/play/111986833/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-11-1%2F413550507-44100-2-4424915429d6d.mp3",
+    "question": "What percentage of enterprises surveyed by LaKeira reported comfort with AI application security in production?",
+    "transcript_excerpt": "According to LaKeira's research survey of organizations, only 19% of people in organizations that had already deployed AI applications in production said they are comfortable with security, while over 49% said they are not sure about security. This indicates that security is a major roadblock for successful deployment of AI agents.",
+    "expert_name": "Ken Huang",
+    "start_seconds": 306,
+    "end_seconds": 348
+  },
+  {
+    "podcast_name": "Access Granted",
+    "episode_title": "Ep 16: From POCs to Production: Building a Real GenAI Security Program",
+    "audio_url": "https://anchor.fm/s/fa748290/podcast/play/111986833/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-11-1%2F413550507-44100-2-4424915429d6d.mp3",
+    "question": "What are the top three GenAI risks CISOs should prioritize according to OWASP frameworks?",
+    "transcript_excerpt": "Ken Huang identifies prompt injection as the first risk, which cannot be 100% defended against and is addressed through the OWASP AI Vulnerability Scoring System. The second risk is the wider use of MCP servers in enterprise adoption, which extends LLM capabilities but introduces security risks covered in OWASP and Cloud Security Alliance deliverables. The third is goal manipulation in agent AI, where agents can be socially engineered through goal drift attacks that gradually escalate from initial benign tasks to malicious objectives.",
+    "expert_name": "Ken Huang",
+    "start_seconds": 660,
+    "end_seconds": 960
+  },
+  {
+    "podcast_name": "Access Granted",
+    "episode_title": "Ep 16: From POCs to Production: Building a Real GenAI Security Program",
+    "audio_url": "https://anchor.fm/s/fa748290/podcast/play/111986833/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-11-1%2F413550507-44100-2-4424915429d6d.mp3",
+    "question": "What is OWASP AI Vulnerability Scoring System (AIVSS) and how does it differ from CVSS?",
+    "transcript_excerpt": "AIVSS is an OWASP top-level project designed to measure risks rather than just vulnerabilities, unlike the Common Vulnerability Scoring System (CVSS). While CVSS uses an ordinal number scale from 0 to 10 without scientific justification for increments, AIVSS addresses the non-deterministic nature of AI. The project officially launched in July, released version 0.5 in September, and is working on version 1.0 with contributions from academia, standard organizations like NIST, pharmaceutical companies, and banking institutions.",
+    "expert_name": "Ken Huang",
+    "start_seconds": 1272,
+    "end_seconds": 1428
+  },
+  {
+    "podcast_name": "Access Granted",
+    "episode_title": "Ep 16: From POCs to Production: Building a Real GenAI Security Program",
+    "audio_url": "https://anchor.fm/s/fa748290/podcast/play/111986833/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-11-1%2F413550507-44100-2-4424915429d6d.mp3",
+    "question": "What practical security controls should enterprises implement immediately for GenAI applications?",
+    "transcript_excerpt": "Enterprises must first build a dedicated GenAI security program with established policies, processes, and procedures—not simply adding AI use policy to existing programs. Second, select the model before building applications to avoid accruing security debt. Third, use the AICM (from Cloud Security Alliance) to manage AI components, and follow a minimum framework: AIMF for governance, Maestro framework for threat modeling, AIVSS for measurement, and AICM with RAD for management.",
+    "expert_name": "Ken Huang",
+    "start_seconds": 1130,
+    "end_seconds": 1260
+  },
+  {
+    "podcast_name": "Access Granted",
+    "episode_title": "Ep 16: From POCs to Production: Building a Real GenAI Security Program",
+    "audio_url": "https://anchor.fm/s/fa748290/podcast/play/111986833/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-11-1%2F413550507-44100-2-4424915429d6d.mp3",
+    "question": "How should organizations measure and monitor the effectiveness of their GenAI security programs?",
+    "transcript_excerpt": "Traditional annual or quarterly questionnaire-based assessments are insufficient. Ken Huang recommends continuous diagnostic and monitoring (CDM), similar to the Department of Homeland Security CDM program he worked on at CGI Federal, using sensors to collect real-time data and identify the top 10 security issues for the enterprise. An ideal state involves AI agents in Security Operations Centers (SOCs) performing offensive security for zero-day hunting and defensive security to detect and stop malicious activities, with strong context management and controls.",
+    "expert_name": "Ken Huang",
+    "start_seconds": 1699,
+    "end_seconds": 1890
+  },
+  {
+    "podcast_name": "Access Granted",
+    "episode_title": "Ep 16: From POCs to Production: Building a Real GenAI Security Program",
+    "audio_url": "https://anchor.fm/s/fa748290/podcast/play/111986833/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-11-1%2F413550507-44100-2-4424915429d6d.mp3",
+    "question": "What is goal manipulation in AI agent attacks and how do crescendo attacks work?",
+    "transcript_excerpt": "Goal manipulation involves socially engineering AI agents by gradually shifting their objectives through what is called a crescendo attack. For example, an initial task might be to lock down server ports, but through incremental requests claiming to be security research, an attacker can gradually manipulate the agent to open ports instead. Another variant involves agents exposing environment secrets or connected systems like HashiCorp Vault, and exhaustion loop attacks where agents are asked to repeat tasks, consuming API tokens and causing financial damage.",
+    "expert_name": "Ken Huang",
+    "start_seconds": 840,
+    "end_seconds": 950
+  }
+]
