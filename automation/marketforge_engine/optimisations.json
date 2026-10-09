@@ -895,6 +895,22 @@
       "texte": "Les contacts nommés (prénom.nom@) restent prioritaires sur les adresses génériques (hello@, info@) : la seule réponse positive du nouveau mail vient d'un contact nommé (1 sur 55 contre 0 sur 21 génériques). Le réglage existait déjà dans le Sheet ; il est maintenant aussi écrit dans la configuration du moteur. Signal encore faible, à confirmer.",
       "date": "08/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-113",
+      "section": "Envoi",
+      "version": "V2.7",
+      "texte": "Les prospects dont un dirigeant joignable est trouvé passent en premier pour l'extraction de la question du mail ; si aucune question utilisable n'a été trouvée, un épisode de plus est analysé (3 maximum). Sans question, le mail ne partait pas : c'est ce qui bloquait les premiers envois aux dirigeants.",
+      "date": "09/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-114",
+      "section": "Envoi",
+      "version": "V2.7",
+      "texte": "Le moteur se relance maintenant tout seul à la fin d'un passage tant qu'il reste du budget du jour (vérifications de dirigeants ou épisodes à analyser), car la planification GitHub ne lançait que 4 à 6 passages par jour. Découverte et onboarding passent à 8 par passage.",
+      "date": "09/10/2026",
+      "statut": "en_cours"
     }
   ]
 }

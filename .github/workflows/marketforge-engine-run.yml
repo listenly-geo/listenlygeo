@@ -18,6 +18,7 @@ on:
 permissions:
   contents: write
   issues: write
+  actions: write   # 09/10/2026 : le run se relance seul tant qu'il reste du travail (le cron GitHub ne tourne que 4 a 6 fois par jour)
 
 concurrency:
   group: marketforge-engine-run
@@ -232,3 +233,30 @@ jobs:
             **/.git*
             **/.git*/**
             **/.gitkeep
+
+      - name: 6. Relance automatique (tant qu'il reste du budget du jour)
+        if: always() && steps.cfg.outputs.pause != 'true'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python - <<'PY' > /tmp/relance.txt
+          import json, datetime, os
+          def load(p, d):
+              try: return json.load(open(p, encoding="utf-8"))
+              except Exception: return d
+          me = "automation/marketforge_engine"
+          g = load(f"{me}/gate_state.json", {})
+          c = load(f"{me}/config.json", {})
+          j = load(f"{me}/queue.json", {}).get("journal", {}).get(datetime.date.today().isoformat(), {})
+          gate_left = 150 - (g.get("used", 0) if g.get("date") == datetime.date.today().isoformat() else 0)
+          eps_left = int(c.get("episodes_par_jour", 50)) - int(j.get("episodes", 0))
+          print("oui" if (gate_left > 15 or eps_left > 3) else "non")
+          PY
+          if [ "$(cat /tmp/relance.txt)" = "oui" ]; then
+            sleep 90
+            gh workflow run marketforge-engine-run.yml --ref main -R "$GITHUB_REPOSITORY"
+            echo "::notice title=Relance::budget du jour restant -> nouveau passage lance."
+          else
+            echo "::notice title=Relance::budget du jour epuise -> pas de relance."
+          fi

@@ -357,6 +357,28 @@ def main():
             st_["wave_target"] = len(st_["episodes_done"]) + eps_per_podcast
             log(f"Vague {st_.get('wave', 1) + 1} pour {s_} ({gap_days} jours apres la precedente).")
 
+    # PROSPECTS AVEC DIRIGEANT D'ABORD (09/10/2026) : un prospect dont le dirigeant est trouve mais qui n'a aucune question utilisable
+    # pour le mail (extraction vide ou questions refusees par le filtre de qualite) est reouvert pour 1 episode de plus (3 max),
+    # et passe avant tous les autres : c'est lui qui peut partir au dirigeant.
+    contact_state = load_json("automation/marketforge_engine/contact_state.json", {})
+    leaders = {s_ for s_, v_ in contact_state.items() if isinstance(v_, dict) and v_.get("email_trouve")}
+    try:
+        import moments_index
+    except Exception:
+        moments_index = None
+    for s_ in leaders:
+        st_ = queue["podcasts"].get(s_)
+        if not st_ or st_["status"] != "extrait" or len(st_["episodes_done"]) >= 3 or not moments_index:
+            continue
+        try:
+            has_proof = bool(st_.get("moments_count")) and bool(moments_index.best_proof(s_, st_.get("thematique", "")))
+        except Exception:
+            has_proof = False
+        if not has_proof:
+            st_["status"] = "en_cours"
+            st_["wave_target"] = len(st_["episodes_done"]) + 1
+            log(f"Dirigeant trouve mais aucune question utilisable pour {s_} : 1 episode de plus.")
+
     # "Indexee d'abord" (29/09/2026) : la 1re vague d'une fiche ne demarre qu'une fois la fiche N1 indexee par Google
     # (data/gsc_hub_status.json, ecrit par hub_index_check.py) ou, garde-fou, apres delai_indexation_max_jours.
     hub_status = load_json(f"{PAGES_DIR}/data/gsc_hub_status.json", {})
@@ -380,6 +402,8 @@ def main():
 
     def tier(s):
         st = queue["podcasts"][s]
+        if s in leaders:
+            return -1         # dirigeant joignable trouve : extraction avant tous les autres
         if not st["episodes_done"]:
             return 0          # hub a 0 question : premiere vague en priorite
         if st["status"] == "en_cours" and st.get("wave", 0) == 0:
