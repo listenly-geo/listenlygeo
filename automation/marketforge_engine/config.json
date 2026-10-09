@@ -1,9 +1,9 @@
 {
   "_aide": "Robinet du MarketForge Engine. Chaque run (plusieurs par jour) : decouverte -> fiche Listenly + N1 -> email -> contact. decouverte_max_par_jour / onboarding_max_par_jour s'appliquent PAR RUN. extraction_auto=false : pas de transcription, sauf pour les slugs listes dans 'extraire' (ex. prospects qui ont repondu). pause=true coupe tout.",
   "pause": false,
-  "decouverte_max_par_jour": 1,
+  "decouverte_max_par_jour": 8,
   "onboarding_auto": true,
-  "onboarding_max_par_jour": 1,
+  "onboarding_max_par_jour": 8,
   "extraction_auto": true,
   "extraire": [
     "accreditation-conversations",
