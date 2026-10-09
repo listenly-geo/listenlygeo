@@ -1,15 +1,15 @@
 {
-  "date": "08/10/2026",
-  "goulot": "Le test A/B ne teste rien : les 5 variantes (A à E) reçoivent exactement la même question finale (« Have you got a Spotify page or a dedicated Podcast Hub? »), car le modèle de mail du Sheet ne contient pas l'emplacement {CTA}. Les 76 envois du nouveau mail ne permettent donc de comparer aucune formulation. S'y ajoute un moteur toujours aveugle aux réponses : le premier « oui » de ce matin n'est pas enregistré dans le Sheet.",
+  "date": "09/10/2026",
+  "goulot": "Les réponses ne sont pas traitées : le seul « oui » (Eric Smith, ComplianceCow, 08/10) attend toujours une réponse depuis 36 h, et la redirection d'aujourd'hui (The Payroll Podcast → Josh, agence SDM) n'a pas de suite. En parallèle, le test A/B ne teste toujours rien : les 96 mails du nouveau modèle portent tous la même question finale, car le modèle ne contient pas l'emplacement {CTA}.",
   "synthese": [
-    "Aujourd'hui, 26 nouveaux mails sont partis (23 hier, 27 avant-hier) : 76 envois du nouveau mail en 3 jours.",
-    "Première réponse positive : Eric Smith (ComplianceCow, podcast Security & GRC Decoded) a répondu 3 minutes après réception « Interesting. Yes we do » et a donné sa page podcast. C'est une piste chaude à transformer en Hub V1.",
-    "Taux de réponse du nouveau mail : 1 sur 74 mails livrés (1,4 %), contre 0,4 % pour l'ancien mail. Trop tôt pour conclure, mais c'est dans la fourchette normale.",
-    "Rebonds : 2 adresses définitivement refusées et 1 en échec temporaire (faute de frappe dans le domaine « propertymangement.com »), soit 2,6 à 3,9 % : sous le seuil d'alerte de 4 %, mais limite."
+    "Aujourd'hui, 20 nouveaux mails sont partis, tous à un dirigeant nommé (26 hier, 23 avant-hier) : 96 envois du nouveau mail en 4 jours, sous la base de 30 par jour.",
+    "Deuxième signal d'intérêt : Nick Day, PDG de JGA Recruitment et hôte de The Payroll Podcast, a transféré le mail à son agence (Josh, SDM) en demandant « Can you help with this Josh? » 17 minutes après réception.",
+    "Bilan du nouveau mail : 2 réactions humaines utiles (1 oui, 1 redirection) sur 94 mails livrés, soit 2,1 %, toutes venant de dirigeants nommés ; aucune adresse générique (hello@, podcast@…) n'a répondu.",
+    "Aucun nouveau rebond aujourd'hui ; les deux rebonds définitifs d'hier et l'adresse mal tapée (propertymangement.com) restent à marquer dans le Sheet."
   ],
   "plan": [
-    "Répondre à Eric Smith (ComplianceCow) dès demain matin avec la proposition de Hub V1 construit à partir de ses épisodes (décision Etienne, non envoyé par la machine).",
-    "Ajouter l'emplacement {CTA} dans le modèle de mail (onglet Réglages) pour que le test A/B fonctionne réellement (décision Etienne, non appliqué).",
-    "Marquer « Rebond » craig@roguestartups.com, marketing@lodestonetruenorth.com et matt.speer@propertymangement.com dans le Sheet, et corriger l'enregistrement de l'identifiant Gmail avant les relances du 10/10."
+    "Répondre à Eric Smith (ComplianceCow) avec la proposition de Hub V1 construit à partir de ses épisodes et vers compliancecow.com/podcast (décision Etienne, non envoyé par la machine).",
+    "Répondre à Josh (josh@wearesdm.com, en copie de Nick Day) avec une explication courte du Podcast Hub et la proposition d'une V1 pour The Payroll Podcast (décision Etienne).",
+    "Ajouter l'emplacement {CTA} dans le modèle de mail (onglet Réglages) pour que le test A/B fonctionne enfin, avant les premières relances J+4 de demain (décision Etienne, non appliqué)."
   ]
 }
