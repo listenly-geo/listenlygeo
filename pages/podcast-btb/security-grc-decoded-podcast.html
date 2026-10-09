@@ -337,7 +337,41 @@ footer a { text-decoration: underline; color: #bbb; }
       </div>
       <a href="https://listenly.fr/podcast/show/security-grc-decoded" class="card-listen plausible-event-name=Clic+Bouton+Bleu">▶ Listen to the podcast</a>
     </div>
-  </main>
+  <!-- QUESTIONS_COVERED_START -->
+<style>
+.hx-wrap { margin:32px 0 40px; padding-top:28px; border-top:1px solid #ececec; }
+.hx-title { font-size:22px; font-weight:800; margin:0 0 4px; color:#0a0a0a; }
+.hx-stats { font-size:13px; color:#777; margin:0 0 16px; }
+.hx-tools { position:sticky; top:0; background:#fff; padding:10px 0 8px; z-index:5; }
+.hx-search { width:100%; box-sizing:border-box; padding:12px 16px; font-size:16px; border:1px solid #e2e2e2; border-radius:12px; background:#fafafa; }
+.hx-chips { display:flex; gap:8px; overflow-x:auto; padding:10px 0 2px; }
+.hx-chip { white-space:nowrap; font-size:12px; color:#333; text-decoration:none; background:#f4f4f4; border:1px solid #e6e6e6; border-radius:999px; padding:5px 11px; }
+.hx-chip span { color:#999; }
+.hx-empty { font-size:14px; color:#888; }
+.hx-ep { font-size:17px; font-weight:800; color:#111; margin:26px 0 10px; line-height:1.35; }
+.hx-qa { border:1px solid #ececec; background:#fafafa; border-radius:12px; padding:16px 18px; margin:0 0 10px; }
+.hx-q { font-size:16px; font-weight:700; color:#111; line-height:1.4; margin:0 0 6px; }
+.hx-a { font-size:15px; line-height:1.6; color:#333; margin:0 0 10px; }
+.hx-foot { display:flex; flex-wrap:wrap; gap:14px; align-items:center; font-size:13px; }
+.hx-listen { font-weight:700; text-decoration:none; color:#1f5fbf; background:#eaf1fd; padding:5px 12px; border-radius:999px; }
+.hx-more { color:#777; }
+.hx-hidden { display:none; }
+</style>
+<div class="questions-covered hx-wrap" id="answers">
+  <h2 class="hx-title">Answers from this podcast</h2>
+  <p class="hx-stats">6 questions answered · 1 episode indexed</p>
+  
+  <section class="hx-episode"><h3 class="hx-ep" id="ep-the-agents-ran-all-weekend-they-came-back-with-zero-days-ft-omar-santo">The Agents Ran All Weekend. They Came Back With Zero Days. ft. Omar Santos, Distinguished Engineer, AI Security @ Cisco</h3><article class="hx-qa" id="can-ai-agents-autonomously-find-zero-day-vulnerabilities-in-live-syste"><h3 class="hx-q">Can AI agents autonomously find zero-day vulnerabilities in live systems without human intervention?</h3><p class="hx-a">Yes, AI agents running over weekends can find zero-day vulnerabilities autonomously and return with exploits, mitigations, compensating controls, fixes, unit tests, regression tests, and documentation. However, the process requires multiple layers including sandboxes, harnesses with kill switches, and monitoring because things will go wrong, and these…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/?p=security-grc-decoded&amp;m=6cdee51693">▶ Listen to this moment · 2:34</a></div></article><article class="hx-qa" id="what-is-model-alignment-and-agent-drift-in-agentic-ai-security-systems"><h3 class="hx-q">What is model alignment and agent drift in agentic AI security systems?</h3><p class="hx-a">Model alignment is when a model without proper guardrails deviates from principles it was trained on and will do whatever is necessary to complete a task, even if misaligned. Agent drift occurs because these are non-deterministic environments where models predict the next token and can deviate from the original task in milliseconds or seconds, creating…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/?p=security-grc-decoded&amp;m=3a0cc396fe">▶ Listen to this moment · 4:05</a></div></article><article class="hx-qa" id="how-should-organizations-evaluate-which-ai-models-and-providers-to-use"><h3 class="hx-q">How should organizations evaluate which AI models and providers to use for offensive security tasks?</h3><p class="hx-a">Organizations should define what is &#x27;good enough&#x27; for specific tasks rather than always using frontier models like Mythos. For example, static analysis does not need Mythos—cheaper models like Opus or GPT-4o work better. Companies should create an inventory of approved models and use agents for budget optimization, selecting models based on task completion…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/?p=security-grc-decoded&amp;m=f8f4d2198d">▶ Listen to this moment · 9:00</a></div></article><article class="hx-qa" id="what-are-the-three-modalities-for-evaluating-whether-ai-models-effecti"><h3 class="hx-q">What are the three modalities for evaluating whether AI models effectively find zero-day vulnerabilities?</h3><p class="hx-a">The three modalities are: static analysis to find issues in code repositories, dynamic analysis with truly live system interaction (not traditional DAST), and testing with working exploits as the definition of success. This multi-stage approach feeds results from static analysis into live systems with additional information like previous bug diffs…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/?p=security-grc-decoded&amp;m=7e5beaa142">▶ Listen to this moment · 16:52</a></div></article><article class="hx-qa" id="can-organizations-reduce-vulnerability-whack-a-mole-cycles-by-using-me"><h3 class="hx-q">Can organizations reduce vulnerability whack-a-mole cycles by using memory-safe languages and trusted software repositories?</h3><p class="hx-a">Yes. Organizations should eliminate structural risk by using vetted, lightweight base images like Chainguard or Socket that remove 75% of unnecessary components. They should also establish trusted repositories so AI agents pick approved libraries instead of random internet sources. Additionally, migrating high-vulnerability code to memory-safe languages—for…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/?p=security-grc-decoded&amp;m=b4e8bdc7d0">▶ Listen to this moment · 24:02</a></div></article><article class="hx-qa" id="what-future-capability-beyond-vulnerability-finding-is-the-security-in"><h3 class="hx-q">What future capability beyond vulnerability finding is the security industry exploring with agentic AI at scale?</h3><p class="hx-a">Simulation at scale is a key frontier: simulating future attack patterns daily, such as APT campaigns like Volt Typhoon or Bold Typhoon, to understand immediate future threats. This includes simulating supply chain attacks by compromising libraries in open source and modeling the impact across products, IT applications, and third-party integrations to…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/?p=security-grc-decoded&amp;m=073d4d4dbe">▶ Listen to this moment · 22:40</a></div></article></section>
+</div>
+<script>
+(function(){var i=document.querySelector('.hx-search');if(!i)return;var e=document.querySelector('.hx-empty');
+i.addEventListener('input',function(){var v=i.value.toLowerCase().trim(),any=false;
+document.querySelectorAll('.hx-qa').forEach(function(a){var ok=!v||a.textContent.toLowerCase().indexOf(v)>-1;a.classList.toggle('hx-hidden',!ok);if(ok)any=true;});
+document.querySelectorAll('.hx-episode').forEach(function(s){s.classList.toggle('hx-hidden',!s.querySelector('.hx-qa:not(.hx-hidden)'));});
+if(e)e.hidden=any;});})();
+</script>
+<!-- QUESTIONS_COVERED_END -->
+</main>
 
   <footer style="text-align: center; padding: 3rem 2rem; color: #999; font-size: 0.9rem; border-top: 1px solid #e0e0e0;">
     <p>© Security & GRC Decoded — Raj Krishnamurthy</p>
