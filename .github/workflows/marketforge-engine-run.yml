@@ -86,7 +86,7 @@ jobs:
           DISCOVERY_KNOWN_RATIO: '0.2'   # 80 % podcasts B2B de niche (repondent plus que les gros medias)
           MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}   # filtre dirigeant (08/10/2026) : verification MyEmailVerifier via le script Google
           DISCOVERY_LEADER_GATE: '1'
-          DISCOVERY_GATE_JOUR: '600'       # verifications MyEmailVerifier du filtre par jour (~30 dirigeants/jour)
+          DISCOVERY_GATE_JOUR: '1000'       # verifications MyEmailVerifier du filtre par jour (~30 dirigeants/jour)
           DISCOVERY_GATE_MAX: '45'         # podcasts examines par passage
           DISCOVERY_GATE_VERIF_MAX: '60'   # verifications max par passage
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -249,7 +249,7 @@ jobs:
           g = load(f"{me}/gate_state.json", {})
           c = load(f"{me}/config.json", {})
           j = load(f"{me}/queue.json", {}).get("journal", {}).get(datetime.date.today().isoformat(), {})
-          gate_left = 600 - (g.get("used", 0) if g.get("date") == datetime.date.today().isoformat() else 0)
+          gate_left = 1000 - (g.get("used", 0) if g.get("date") == datetime.date.today().isoformat() else 0)
           eps_left = int(c.get("episodes_par_jour", 50)) - int(j.get("episodes", 0))
           print("oui" if (gate_left > 15 or eps_left > 3) else "non")
           PY
