@@ -1,0 +1,62 @@
+[
+  {
+    "podcast_name": "Let’s Talk Microsoft 365 Copilot Podcast",
+    "episode_title": "Episode 43 - Agent 365 | Discover, Govern & Secure Copilot Agents",
+    "audio_url": "https://anchor.fm/s/10639e264/podcast/play/125005023/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-31%2F430914040-44100-2-f6423f1e63aba.mp3",
+    "question": "What is Microsoft Agent 365 and what are its core functions?",
+    "transcript_excerpt": "Microsoft Agent 365 is a control plane for AI agents across your entire Microsoft 365 tenant, regardless of where they came from. It functions through three core verbs: Observe, which provides a real inventory of every agent in your registry; Govern, which gives you lifecycle controls including ownership, permissions, and usage tracking; and Secure, which extends existing Microsoft security tools like Microsoft Entra, Microsoft Purview, and Microsoft Defender to cover agents the same way they cover employees with data access.",
+    "expert_name": "Scott Ledwan",
+    "start_seconds": 47,
+    "end_seconds": 360
+  },
+  {
+    "podcast_name": "Let’s Talk Microsoft 365 Copilot Podcast",
+    "episode_title": "Episode 43 - Agent 365 | Discover, Govern & Secure Copilot Agents",
+    "audio_url": "https://anchor.fm/s/10639e264/podcast/play/125005023/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-31%2F430914040-44100-2-f6423f1e63aba.mp3",
+    "question": "When did Microsoft Agent 365 become generally available and what licensing prerequisites are required?",
+    "transcript_excerpt": "Microsoft Agent 365 became generally available on May 1st, 2026 for commercial customers. As of August-September 2026, new purchases require your organization to already have Microsoft 365 E5 or equivalent Defender or Purview Security Suites before you get full functionality. The standalone add-on costs $15 per user per month, or it is bundled in the E7 license at $99 per user per month, which also includes E5 licensing and Microsoft 365 Copilot.",
+    "expert_name": "Scott Ledwan",
+    "start_seconds": 378,
+    "end_seconds": 620
+  },
+  {
+    "podcast_name": "Let’s Talk Microsoft 365 Copilot Podcast",
+    "episode_title": "Episode 43 - Agent 365 | Discover, Govern & Secure Copilot Agents",
+    "audio_url": "https://anchor.fm/s/10639e264/podcast/play/125005023/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-31%2F430914040-44100-2-f6423f1e63aba.mp3",
+    "question": "What is the agent registry and how does it categorize agents in Microsoft Agent 365?",
+    "transcript_excerpt": "The agent registry is the inventory foundation of Agent 365 that lists every agent in your organization and sorts them into buckets: Microsoft-built agents, agents built by trusted partners outside your organization, agents built within your own organization and officially published, and individually created shadow agents that people create in Agent Builder and share with coworkers or departments. For each agent, you get ownership information, usage activity, and a running risk signal level pulled across Entra, Defender, and Purview.",
+    "expert_name": "Scott Ledwan",
+    "start_seconds": 900,
+    "end_seconds": 1050
+  },
+  {
+    "podcast_name": "Let’s Talk Microsoft 365 Copilot Podcast",
+    "episode_title": "Episode 43 - Agent 365 | Discover, Govern & Secure Copilot Agents",
+    "audio_url": "https://anchor.fm/s/10639e264/podcast/play/125005023/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-31%2F430914040-44100-2-f6423f1e63aba.mp3",
+    "question": "How does Microsoft Entra Agent ID work and why is it important for governing AI agents?",
+    "transcript_excerpt": "Every agent gets its own identity through an Entra Agent ID, created from an agent identity blueprint that holds credentials and permissions. Each agent identity gets human accountability through distinct roles: a sponsor accountable if something goes wrong, an owner responsible for day-to-day upkeep, and a manager. This matters because you can govern a whole category of agents at once through blueprints and templates the same way you manage employees through security groups or policies. All existing Entra tools like conditional access, risk-based sign-in policies, and access reviews now apply to agent identities as well.",
+    "expert_name": "Scott Ledwan",
+    "start_seconds": 1200,
+    "end_seconds": 1400
+  },
+  {
+    "podcast_name": "Let’s Talk Microsoft 365 Copilot Podcast",
+    "episode_title": "Episode 43 - Agent 365 | Discover, Govern & Secure Copilot Agents",
+    "audio_url": "https://anchor.fm/s/10639e264/podcast/play/125005023/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-31%2F430914040-44100-2-f6423f1e63aba.mp3",
+    "question": "Why was Agent 365 created and what problem does it solve similar to mobile device management?",
+    "transcript_excerpt": "Agent 365 was created because copilot agents have become so easy to build through Copilot Studio and Agent Builder that people across different departments create them without permission or IT oversight, much like smartphones appearing in offices 15 years ago when IT had no visibility into corporate emails on personal devices. The problem is the same shape: agents are being built outside any system IT can easily see or control, connected to SharePoint sites and data sources with security and IT unaware. Agent 365 solves this by providing visibility and control over all agents regardless of where they came from.",
+    "expert_name": "Scott Ledwan",
+    "start_seconds": 90,
+    "end_seconds": 330
+  },
+  {
+    "podcast_name": "Let’s Talk Microsoft 365 Copilot Podcast",
+    "episode_title": "Episode 43 - Agent 365 | Discover, Govern & Secure Copilot Agents",
+    "audio_url": "https://anchor.fm/s/10639e264/podcast/play/125005023/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-31%2F430914040-44100-2-f6423f1e63aba.mp3",
+    "question": "How does Microsoft Purview protect data when agents access it within Agent 365?",
+    "transcript_excerpt": "When an agent touches your data, Purview decides what the agent is allowed to see, working the same way as with Copilot through identity restrictions like security groups and sensitivity labels. If a document is labeled confidential, it is labeled confidential for the agent too. If a data loss prevention policy blocks a human from sharing something, it does the same for agents. Every interaction is logged and auditable through activity monitor or DSBM.",
+    "expert_name": "Scott Ledwan",
+    "start_seconds": 1500,
+    "end_seconds": 1620
+  }
+]
