@@ -1,15 +1,15 @@
 {
-  "date": "09/10/2026",
-  "goulot": "Les réponses ne sont pas traitées : le seul « oui » (Eric Smith, ComplianceCow, 08/10) attend toujours une réponse depuis 36 h, et la redirection d'aujourd'hui (The Payroll Podcast → Josh, agence SDM) n'a pas de suite. En parallèle, le test A/B ne teste toujours rien : les 96 mails du nouveau modèle portent tous la même question finale, car le modèle ne contient pas l'emplacement {CTA}.",
+  "date": "10/10/2026",
+  "goulot": "Les relances ne partent pas : le moteur n'enregistre plus l'identifiant du fil Gmail (colonne « Thread ID » vide sur les 125 mails du nouveau modèle), or la relance J+4 en a besoin. Les 27 prospects du 06/10 auraient dû être relancés aujourd'hui ; 0 relance envoyée. Le même manque explique sans doute que les réponses (oui de ComplianceCow) ne soient pas détectées par le Sheet.",
   "synthese": [
-    "Aujourd'hui, 20 nouveaux mails sont partis, tous à un dirigeant nommé (26 hier, 23 avant-hier) : 96 envois du nouveau mail en 4 jours, sous la base de 30 par jour.",
-    "Deuxième signal d'intérêt : Nick Day, PDG de JGA Recruitment et hôte de The Payroll Podcast, a transféré le mail à son agence (Josh, SDM) en demandant « Can you help with this Josh? » 17 minutes après réception.",
-    "Bilan du nouveau mail : 2 réactions humaines utiles (1 oui, 1 redirection) sur 94 mails livrés, soit 2,1 %, toutes venant de dirigeants nommés ; aucune adresse générique (hello@, podcast@…) n'a répondu.",
-    "Aucun nouveau rebond aujourd'hui ; les deux rebonds définitifs d'hier et l'adresse mal tapée (propertymangement.com) restent à marquer dans le Sheet."
+    "Aujourd'hui, 29 nouveaux mails sont partis (28 à une adresse nominative, 22 à un dirigeant identifié), juste sous la base de 30 ; 125 envois du nouveau mail depuis le 06/10.",
+    "Aucune nouvelle réponse humaine aujourd'hui : seulement un message d'absence (New Ground Financial). Le bilan du nouveau mail reste 2 réactions utiles sur 124 mails livrés (1,6 %) : le oui d'Eric Smith (ComplianceCow) et la redirection de Nick Day (The Payroll Podcast) vers son agence.",
+    "Les deux réactions utiles viennent de dirigeants nommés (2 sur 105) ; les 20 adresses génériques (hello@, marketing@…) n'ont rien donné.",
+    "Le oui d'Eric Smith attend toujours une réponse depuis 2 jours et demi, et Josh (agence de Nick Day) n'a pas été recontacté : c'est la priorité absolue."
   ],
   "plan": [
-    "Répondre à Eric Smith (ComplianceCow) avec la proposition de Hub V1 construit à partir de ses épisodes et vers compliancecow.com/podcast (décision Etienne, non envoyé par la machine).",
-    "Répondre à Josh (josh@wearesdm.com, en copie de Nick Day) avec une explication courte du Podcast Hub et la proposition d'une V1 pour The Payroll Podcast (décision Etienne).",
-    "Ajouter l'emplacement {CTA} dans le modèle de mail (onglet Réglages) pour que le test A/B fonctionne enfin, avant les premières relances J+4 de demain (décision Etienne, non appliqué)."
+    "Répondre aujourd'hui à Eric Smith (ComplianceCow) et à Josh (en copie de Nick Day) avec la proposition de Hub V1 sans engagement (décision Etienne).",
+    "Faire réparer l'enregistrement du « Thread ID » dans le script d'envoi pour débloquer les relances J+4 des 27 prospects du 06/10 et des suivants (décision Etienne).",
+    "Ajouter l'emplacement {CTA} dans le mail 1 : les 5 variantes reçoivent toujours exactement la même question finale, le test A/B ne teste rien (décision Etienne)."
   ]
 }
