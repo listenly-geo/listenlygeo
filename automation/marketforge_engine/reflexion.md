@@ -1,4 +1,4 @@
-# Reflexion du MarketForge Engine (2026-10-10T14:01 UTC)
+# Reflexion du MarketForge Engine (2026-10-10T14:04 UTC)
 **Statut : BLOQUE**
 
 ## Funnel
@@ -7,7 +7,7 @@
 - bloques en attente : 1
 - sans email : 68
 - prospects dans sheet : 300
-- statut pret : 24
+- statut pret : 19
 - mails envoyes : 304
 - relances : 16
 - rebonds total : 3
