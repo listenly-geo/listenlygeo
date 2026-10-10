@@ -61064,5 +61064,62 @@
     "reason": "Ce podcast est une production média mass-media de très haut niveau, pas un podcast d'entreprise B2B. Produit par Proximity Media (fondée par le réalisateur Ryan Coogler de Black Panther), 99% Invisible (podcast célèbre d'architecture/design avec 840+ épisodes), Warner Bros., et distribué par Radiotopia/PRX - il s'agit d'un contenu promotionnel pour le film grand public 'Judas and the Black Messiah'. La forte présence médiatique, les acteurs hollywoodiens, et l'infrastructure de distribution mass-media excluent ce podcast des critères d'onboarding ENTREPRISE.",
     "checked_date": "2026-10-10",
     "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/469a923c/podcast/rss": {
+    "podcast_name": "Berkley Local",
+    "artist_name": "Berkley Local",
+    "feed_url": "https://anchor.fm/s/469a923c/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-10-10",
+    "secteur": "Agences de services"
+  },
+  "https://feeds.soundcloud.com/users/soundcloud:users:231922573/sounds.rss": {
+    "podcast_name": "The ESOP Podcast",
+    "artist_name": "EO Podcast Network",
+    "feed_url": "https://feeds.soundcloud.com/users/soundcloud:users:231922573/sounds.rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-10-10",
+    "secteur": "RH & Recrutement",
+    "gate": "dirigeant"
+  },
+  "https://anchor.fm/s/f7eaa554/podcast/rss": {
+    "podcast_name": "The Automated Lawyer",
+    "artist_name": "The Automated Lawyer",
+    "feed_url": "https://anchor.fm/s/f7eaa554/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "detected_language": "",
+    "checked_date": "2026-10-10",
+    "secteur": "Juridique",
+    "gate": "dirigeant"
+  },
+  "https://anchor.fm/s/e53d9240/podcast/rss": {
+    "podcast_name": "Rhymes with Odd",
+    "artist_name": "Ryan Snaadt",
+    "feed_url": "https://anchor.fm/s/e53d9240/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : email personnel (gmail.com) : pas un podcast d'entreprise",
+    "detected_language": "",
+    "checked_date": "2026-10-10",
+    "secteur": "Immobilier"
+  },
+  "https://feed.podbean.com/albertolidji/feed.xml": {
+    "podcast_name": "Do One Better with Alberto Lidji in Philanthropy, Sustainability and Social Entrepreneurship",
+    "artist_name": "Alberto Lidji",
+    "feed_url": "https://feed.podbean.com/albertolidji/feed.xml",
+    "genre": "Non-Profit",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-10-10",
+    "secteur": "Logistique & Supply chain"
   }
 }
