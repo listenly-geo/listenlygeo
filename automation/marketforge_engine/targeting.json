@@ -1,15 +1,15 @@
 {
- "updated": "2026-10-11T17:54",
- "envois_total": 231,
+ "updated": "2026-10-11T17:57",
+ "envois_total": 233,
  "reponses_total": 0,
  "taux_reponse_global_pct": 0.0,
- "dirigeants_testes": 2314,
+ "dirigeants_testes": 2315,
  "dirigeants_trouves": 299,
  "data_apprentissage": {
   "creneaux_new_york": {
    "heure": {
     "13h": {
-     "envoyes": 8,
+     "envoyes": 10,
      "reponses": 0
     },
     "12h": {
@@ -63,7 +63,7 @@
    },
    "jour": {
     "dim": {
-     "envoyes": 47,
+     "envoyes": 49,
      "reponses": 0
     },
     "sam": {
@@ -93,26 +93,26 @@
   "postes_trouves": {}
  },
  "weights": {
-  "Tech & SaaS": 0.0493,
-  "Cybersécurité": 0.0431,
+  "Tech & SaaS": 0.0492,
+  "Cybersécurité": 0.0432,
   "Finance & Fintech": 0.0472,
-  "RH & Recrutement": 0.0459,
-  "Marketing & Ventes": 0.052,
-  "Logistique & Supply chain": 0.035,
-  "Construction & Industrie": 0.0499,
+  "RH & Recrutement": 0.0454,
+  "Marketing & Ventes": 0.0521,
+  "Logistique & Supply chain": 0.0351,
+  "Construction & Industrie": 0.05,
   "Énergie": 0.0477,
-  "Assurance": 0.0578,
+  "Assurance": 0.0579,
   "Immobilier": 0.0511,
-  "Juridique": 0.0599,
-  "Conseil": 0.03,
-  "Santé": 0.0526,
+  "Juridique": 0.06,
+  "Conseil": 0.0301,
+  "Santé": 0.0519,
   "Business général (entreprise)": 0.037,
-  "Cabinets d'avocats": 0.0519,
-  "Experts-comptables & patrimoine": 0.0638,
-  "Coachs & consultants B2B": 0.059,
-  "Agences de services": 0.0637,
-  "Santé libérale": 0.066,
-  "Formateurs & programmes": 0.0371
+  "Cabinets d'avocats": 0.052,
+  "Experts-comptables & patrimoine": 0.0639,
+  "Coachs & consultants B2B": 0.0591,
+  "Agences de services": 0.0638,
+  "Santé libérale": 0.0662,
+  "Formateurs & programmes": 0.0372
  },
  "ranking": [
   {
@@ -128,7 +128,7 @@
    "dirigeant_testes": 140,
    "dirigeant_trouves": 23,
    "taux_reponse": 0.0,
-   "score": 0.0003,
+   "score": 0.00029,
    "rang": 1
   },
   {
@@ -166,7 +166,7 @@
   {
    "secteur": "Juridique",
    "poids_pct": 6.0,
-   "delta_pts": -0.0,
+   "delta_pts": 0.0,
    "tendance": "stable",
    "onboarde": 22,
    "joignable": 19,
@@ -192,7 +192,7 @@
    "dirigeant_testes": 163,
    "dirigeant_trouves": 24,
    "taux_reponse": 0.0,
-   "score": 0.00026,
+   "score": 0.00025,
    "rang": 5
   },
   {
@@ -212,22 +212,6 @@
    "rang": 6
   },
   {
-   "secteur": "Santé",
-   "poids_pct": 5.3,
-   "delta_pts": 1.0,
-   "tendance": "hausse",
-   "onboarde": 23,
-   "joignable": 23,
-   "envoye": 14,
-   "rebond": 0,
-   "reponse": 0,
-   "dirigeant_testes": 97,
-   "dirigeant_trouves": 14,
-   "taux_reponse": 0.0,
-   "score": 0.00022,
-   "rang": 7
-  },
-  {
    "secteur": "Marketing & Ventes",
    "poids_pct": 5.2,
    "delta_pts": -0.3,
@@ -241,7 +225,7 @@
    "dirigeant_trouves": 18,
    "taux_reponse": 0.0,
    "score": 0.00021,
-   "rang": 8
+   "rang": 7
   },
   {
    "secteur": "Cabinets d'avocats",
@@ -255,6 +239,22 @@
    "reponse": 0,
    "dirigeant_testes": 150,
    "dirigeant_trouves": 17,
+   "taux_reponse": 0.0,
+   "score": 0.00021,
+   "rang": 8
+  },
+  {
+   "secteur": "Santé",
+   "poids_pct": 5.2,
+   "delta_pts": 1.0,
+   "tendance": "stable",
+   "onboarde": 23,
+   "joignable": 23,
+   "envoye": 15,
+   "rebond": 0,
+   "reponse": 0,
+   "dirigeant_testes": 97,
+   "dirigeant_trouves": 14,
    "taux_reponse": 0.0,
    "score": 0.00021,
    "rang": 9
@@ -301,7 +301,7 @@
    "envoye": 16,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 154,
+   "dirigeant_testes": 155,
    "dirigeant_trouves": 21,
    "taux_reponse": 0.0,
    "score": 0.0002,
@@ -341,18 +341,18 @@
   },
   {
    "secteur": "RH & Recrutement",
-   "poids_pct": 4.6,
+   "poids_pct": 4.5,
    "delta_pts": 0.5,
    "tendance": "stable",
    "onboarde": 32,
    "joignable": 28,
-   "envoye": 16,
+   "envoye": 17,
    "rebond": 0,
    "reponse": 0,
    "dirigeant_testes": 131,
    "dirigeant_trouves": 16,
    "taux_reponse": 0.0,
-   "score": 0.00018,
+   "score": 0.00017,
    "rang": 15
   },
   {
@@ -406,7 +406,7 @@
   {
    "secteur": "Logistique & Supply chain",
    "poids_pct": 3.5,
-   "delta_pts": 0.1,
+   "delta_pts": 0.2,
    "tendance": "stable",
    "onboarde": 19,
    "joignable": 19,
