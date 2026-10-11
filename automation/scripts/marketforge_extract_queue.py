@@ -211,8 +211,10 @@ def refresh_hub(podcast):
         # Cache vide (un episode vient d'etre ecrit) + index du podcast reecrit avec le hub.
         import moments_index
         moments_index.invalidate(podcast["slug"])
-        ok = hub_index.apply_hub_index(n1_path, podcast, reg.get("published", []))
+        # 11/10/2026 : l'index des moments est reecrit AVANT le hub (le hub lit les moments pour savoir quelles pages sont assez riches)
         moments_index.build_index(podcast, moments_index.load_json(moments_index.EP_URLS_FILE, {}))
+        moments_index.invalidate(podcast["slug"])
+        ok = hub_index.apply_hub_index(n1_path, podcast, reg.get("published", []))
         return ok
     except Exception as e:
         log(f"AVERTISSEMENT hub N1 non mis a jour ({e})")

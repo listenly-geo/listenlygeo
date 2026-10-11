@@ -29,6 +29,11 @@ try:
 except Exception:                # jamais bloquant : sans lui, le bouton renvoie vers la fiche podcast Listenly
     mi = None
 
+try:
+    import generate_moments_sitemap as _gms   # meme regle de richesse que le sitemap des moments
+except Exception:
+    _gms = None
+
 PAGES_DIR = "pages/podcast-btb"
 KNOWLEDGE_DIR = f"{PAGES_DIR}/data/knowledge_moments"
 NOINDEX_LIST = f"{PAGES_DIR}/data/noindex_fiches.json"
@@ -44,6 +49,7 @@ STRINGS = {
         "listen": "▶ Écouter ce moment",
         "listen_ep": "▶ Écouter l'épisode",
         "full": "Réponse complète →",
+        "read_full": "Lire la réponse complète",
         "show_all": "Voir les {n} réponses",
         "none": "Aucune réponse ne correspond à cette recherche.",
     },
@@ -54,6 +60,7 @@ STRINGS = {
         "listen": "▶ Listen to this moment",
         "listen_ep": "▶ Listen to the episode",
         "full": "Full answer →",
+        "read_full": "Read the full answer",
         "show_all": "Show all {n} answers",
         "none": "No answer matches this search.",
     },
@@ -360,6 +367,14 @@ def render_hub_index(podcast, published, apple=False):
     stamps = load_timestamps(podcast["slug"])
     target = listen_url(podcast)
     moment_lk = mi.lookup(podcast["slug"]) if mi else None
+    # 11/10/2026 : le hub est un sommaire. Quand la page du moment est assez riche pour etre indexee, le titre de la
+    # question devient le lien vers cette page et le hub ne garde qu'un court extrait (la reponse complete vit sur la page du moment).
+    try:
+        with open(f"{PAGES_DIR}/data/moments/{podcast['slug']}.json", encoding="utf-8") as _f:
+            moment_entries = json.load(_f).get("entries") or {}
+        rich_ids = _gms.eligible_ids(moment_entries) if _gms else set()
+    except (OSError, ValueError):
+        moment_entries, rich_ids = {}, set()
 
     episodes = {}
     for p in sorted(entries, key=lambda x: x.get("added_date", ""), reverse=True):
@@ -389,7 +404,30 @@ def render_hub_index(podcast, published, apple=False):
                 if res[1]:
                     listen_label = t["listen_ep"]
             full_paras = p.get("full_paragraphs")
-            if full_paras:
+            rich = bool(res and not res[1] and res[0] in rich_ids)
+            full_text = ""
+            if rich:
+                full_text = " ".join(full_paras) if full_paras else (p.get("answer_snippet") or "")
+                full_text = re.sub(r"\s+", " ", full_text).strip()
+                full_text = re.sub(r"\s+([.,;:!?])", r"\1", full_text)
+                # garde-fou : on ne raccourcit que si la page du moment porte au moins autant de texte que le hub
+                _me = moment_entries.get(res[0], {})
+                _mt = " ".join(_me.get("f") or []) or (_me.get("a") or "")
+                if len(re.sub(r"\s+", " ", _mt)) < 0.8 * len(full_text):
+                    rich = False
+            if rich:
+                short, count = "", 0
+                for sent in re.split(r"(?<=[.!?])\s+(?=[A-Z\u201c\"])", full_text):
+                    short = (short + " " + sent).strip()
+                    count += 1
+                    if count >= 2 or len(short) >= 150:
+                        break
+                if len(short) > 320:
+                    short = short[:317].rsplit(" ", 1)[0].rstrip(",;:") + "…"
+                when_rich = _fmt_time(moment_entries.get(res[0], {}).get("t"))
+                answer_html = (f'<p class="hx-a">{_E(short)}</p>'
+                               f'<p class="hx-rm"><a href="{_E(href)}">{t["read_full"]}' + (f" · {when_rich}" if when_rich else "") + ' →</a></p>')
+            elif full_paras:
                 # Question consolidee (301 vers le hub) : la reponse complete recuperee de
                 # l'ancienne fiche remplace l'extrait tronque, sinon le contenu est perdu.
                 answer_html = "".join(f'<p class="hx-a">{_E(para)}</p>' for para in full_paras)
@@ -400,7 +438,7 @@ def render_hub_index(podcast, published, apple=False):
             extra = " hx-extra" if collapse and shown > HUB_VISIBLE else ""
             cards.append(
                 f'<article class="hx-qa{extra}" id="{q_anchor}">'
-                f'<h3 class="hx-q">{_E(p.get("question", ""))}</h3>'
+                + (f'<h3 class="hx-q"><a href="{_E(href)}">{_E(p.get("question", ""))}</a></h3>' if rich else f'<h3 class="hx-q">{_E(p.get("question", ""))}</h3>')
                 + answer_html
                 + '<div class="hx-foot">'
                 f'<a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="{_E(href)}">{listen_label}</a>'
@@ -442,6 +480,7 @@ if(location.hash&&document.querySelector('.hx-extra'+location.hash))open();})();
 .hx-empty {{ font-size:14px; color:#888; }}
 .hx-ep {{ font-size:17px; font-weight:800; color:#111; margin:26px 0 10px; line-height:1.35; }}
 .hx-qa {{ border:1px solid #ececec; background:#fafafa; border-radius:12px; padding:16px 18px; margin:0 0 10px; }}
+.hx-q a {{ color:inherit; text-decoration:none; }} .hx-q a:hover {{ text-decoration:underline; }} .hx-rm {{ margin:0 0 10px; font-size:14px; }} .hx-rm a {{ color:#0a66c2; text-decoration:none; font-weight:600; }}
 .hx-q {{ font-size:16px; font-weight:700; color:#111; line-height:1.4; margin:0 0 6px; }}
 .hx-a {{ font-size:15px; line-height:1.6; color:#333; margin:0 0 10px; }}
 .hx-foot {{ display:flex; flex-wrap:wrap; gap:14px; align-items:center; font-size:13px; }}
