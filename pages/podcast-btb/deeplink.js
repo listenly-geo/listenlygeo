@@ -18,6 +18,9 @@
   var params = new URLSearchParams(location.search);
   var slug = (params.get('p') || '').replace(/[^a-z0-9\-]/gi, '');
   var mid = (params.get('m') || '').replace(/[^a-f0-9]/gi, '');
+  // Adresse propre d'un moment (11/10/2026) : /podcast-btb/m/<podcast>/<id> (page rendue par m.php)
+  var pathMatch = location.pathname.match(/^\/podcast-btb\/m\/([a-z0-9\-]+)\/([a-f0-9]+)\/?$/i);
+  if (pathMatch) { slug = pathMatch[1]; mid = pathMatch[2]; }
 
   var safeListenly = function (u) { return /^https:\/\/listenly\.fr\//.test(u || '') ? u : ''; };
   var safeImage = function (u) { return /^https:\/\//.test(u || '') ? u : ''; };

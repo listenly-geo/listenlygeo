@@ -247,6 +247,8 @@ def build_index(podcast, ep_urls):
         return (urls.get(norm(title)) or {}).get("u", "")
 
     snippets = {norm(p.get("question")): p.get("answer_snippet") for p in reg.get("published", [])}
+    full = load_full_answers(slug)
+    extras = load_episode_extras(slug)
     for m in moments:
         mid = moment_id(slug, m["question"])
         if mid in entries:
@@ -257,6 +259,21 @@ def build_index(podcast, ep_urls):
             "e": m.get("episode_title") or "", "u": m["audio_url"], "t": int(m.get("start_seconds") or 0),
             "l": ep_link(m.get("episode_title")),
         }
+        e = entries[mid]
+        fa = full.get(norm(m["question"]))
+        if fa:
+            e["f"] = fa[:6]                                   # reponse complete (paragraphes)
+        elif len(m.get("transcript_excerpt") or "") > 650:
+            e["f"] = [_trim(m.get("transcript_excerpt"), 1600)]
+        if int(m.get("end_seconds") or 0) > int(m.get("start_seconds") or 0):
+            e["te"] = int(m.get("end_seconds"))
+        ex = extras.get(norm(m.get("episode_title")))
+        if ex:
+            if ex["rq"]: e["rq"] = ex["rq"][:400]
+            if ex["ks"]: e["ks"] = ex["ks"]
+            if ex["en"]: e["en"] = ex["en"]
+            if ex["g"]: e["x"] = ex["g"]                        # nom de l'invite lu par l'extraction du moteur
+            if ex["gt"]: e["gt"] = ex["gt"]
     for p in reg.get("published", []):   # anciennes fiches : episode connu, horodatage inconnu -> lecture depuis le debut
         q, ep = p.get("question"), p.get("source_episode_title")
         if not q or moment_id(slug, q) in entries or norm(ep) not in eps:
@@ -276,6 +293,52 @@ def build_index(podcast, ep_urls):
         "entries": entries,
     }, compact=True)
     return len(entries)
+
+
+# ---------------------------------------------------------------------------------------------
+# Enrichissement des pages moment (11/10/2026) : reponse complete, chiffres, citation, personnes citees.
+# Sources deja dans le depot (aucun appel IA) : reponses completes des anciennes fiches, extractions du moteur.
+# ---------------------------------------------------------------------------------------------
+FULL_ANSWERS_FILE = f"{PAGES_DIR}/data/consolidated_full_answers.json"
+TRANSCRIPTS_DIR = "automation/inbox/moteur-trafic-transcripts"
+
+
+def load_full_answers(slug):
+    """question normalisee -> paragraphes complets (anciennes fiches consolidees), pour un podcast."""
+    out = {}
+    data = load_json(FULL_ANSWERS_FILE, {})
+    reg = load_json(f"{PAGES_DIR}/questions/{slug}/_qa_registry.json", {})
+    by_slug = {p.get("slug"): p.get("question") for p in reg.get("published", [])}
+    prefix = f"questions/{slug}/"
+    for rel, paras in data.items():
+        if not rel.startswith(prefix) or not paras:
+            continue
+        q = by_slug.get(rel[len(prefix):].rsplit(".", 1)[0])
+        if q:
+            out[norm(q)] = [re.sub(r"\s+", " ", x).strip() for x in paras if x and x.strip()]
+    return out
+
+
+def load_episode_extras(slug):
+    """titre d'episode normalise -> {guest, quote, stats, entities} depuis les extractions du moteur."""
+    out = {}
+    for f in glob.glob(f"{TRANSCRIPTS_DIR}/{slug}/*.json"):
+        d = load_json(f, {})
+        t = norm(d.get("episode_title"))
+        if not t:
+            continue
+        stats = [str(x).strip() for x in (d.get("key_stats") or []) if isinstance(x, (str, int, float)) and str(x).strip()]
+        ents = [str(x).strip() for x in (d.get("entities") or []) if isinstance(x, (str, int, float)) and str(x).strip()]
+        g = d.get("guest")
+        if isinstance(g, dict):
+            name = " ".join(x for x in [str(g.get("prenom") or "").strip(), str(g.get("nom") or "").strip()] if x)
+            role = " at ".join(x for x in [str(g.get("titre") or "").strip(), str(g.get("entreprise") or "").strip()] if x)
+        else:
+            name, role = str(g or "").strip(), ""
+        rq = d.get("real_quote")
+        out[t] = {"g": name, "gt": role, "rq": rq.strip() if isinstance(rq, str) else "",
+                  "ks": stats[:5], "en": ents[:8]}
+    return out
 
 
 COVERS_FILE = f"{PAGES_DIR}/data/podcast_covers.json"

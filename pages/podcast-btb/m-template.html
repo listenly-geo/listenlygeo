@@ -219,30 +219,6 @@
   .search-box button:hover{ opacity: 0.85; }
   .search-box button:disabled{ background: var(--panel-hover); color: var(--ink-soft); cursor: default; opacity: 1; }
 
-  /* ---------- podcast progress (au-dessus du titre) ---------- */
-  .podcast-progress{
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12.5px;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    color: var(--ink-soft);
-    background: var(--panel);
-    border: 1px solid var(--line-soft);
-    border-radius: 999px;
-    padding: 6px 14px;
-    margin-bottom: 22px;
-  }
-  .podcast-progress strong{
-    color: var(--ink);
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-    min-width: 1ch;
-    display: inline-block;
-  }
-  .podcast-progress .goal{ color: var(--ink-soft); }
-
   /* ---------- available questions count ---------- */
   .avail-count{
     margin-top: 28px;
@@ -486,7 +462,6 @@
 <main>
 <section class="hero">
   <div class="hero-content">
-    <div class="podcast-progress" id="podcastProgress"><strong id="podcastProgressNum">0</strong> podcasts indexed <span class="goal">/ 3.2M</span></div>
     <h1>Whatever <span class="circled">your question</span> is, an <span class="underline">expert already answered it</span> in a podcast.</h1>
     <p class="sub">Search human expertise. Hear the source. Go straight to the answer.</p>
 
@@ -507,6 +482,7 @@
 </section>
 
 <div class="results-wrap" id="resultsWrap"><!--MOMENT_CARD--></div>
+<!--MOMENT_FICHE-->
 </main>
 
 <div class="player-bar" id="playerBar">
@@ -548,11 +524,9 @@
 <script>
   const SEARCH_ENDPOINT = 'https://listenly.fr/api/listenly-search.php';
   const COUNT_ENDPOINT = 'https://listenly.fr/api/listenly-count.php';
-  const PODCAST_COUNT_ENDPOINT = 'https://listenly.fr/api/podcast-count.php';
-  // Replis si les endpoints ne sont pas encore deployes / indisponibles --
+  // Repli si l'endpoint n'est pas encore deploye / indisponible --
   // a mettre a jour manuellement de temps en temps en attendant.
   const FALLBACK_COUNT = 2421;
-  const FALLBACK_PODCAST_COUNT = 103;
 
   const form = document.getElementById('searchForm');
   const input = document.getElementById('searchInput');
@@ -591,28 +565,6 @@
     input.addEventListener('input', () => { if (input.value) stopPlaceholderCycle(); });
   }
 
-  // Anime un compteur de 0 jusqu'a targetValue (respecte prefers-reduced-motion :
-  // affiche directement la valeur finale dans ce cas).
-  function animateCount(el, targetValue, duration = 1400){
-    if (reducesMotion) {
-      el.textContent = targetValue.toLocaleString('en-US');
-      return;
-    }
-    const start = performance.now();
-    function tick(now){
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.round(eased * targetValue);
-      el.textContent = current.toLocaleString('en-US');
-      if (progress < 1) {
-        requestAnimationFrame(tick);
-      } else {
-        el.textContent = targetValue.toLocaleString('en-US');
-      }
-    }
-    requestAnimationFrame(tick);
-  }
-
   // Charge le nombre de questions disponibles en direct depuis la base --
   // repli silencieux sur FALLBACK_COUNT si l'endpoint echoue.
   async function loadAvailableCount(){
@@ -631,25 +583,6 @@
     }
   }
   loadAvailableCount();
-
-  // Charge le nombre de podcasts indexes en direct et anime le compteur de 0
-  // jusqu'a cette valeur -- repli (aussi anime) sur FALLBACK_PODCAST_COUNT si
-  // l'endpoint echoue.
-  async function loadPodcastProgress(){
-    const numEl = document.getElementById('podcastProgressNum');
-    try {
-      const res = await fetch(PODCAST_COUNT_ENDPOINT, { cache: 'no-store' });
-      const data = await res.json();
-      if (typeof data.count === 'number') {
-        animateCount(numEl, data.count);
-        return;
-      }
-      throw new Error('no count');
-    } catch (e) {
-      animateCount(numEl, FALLBACK_PODCAST_COUNT);
-    }
-  }
-  loadPodcastProgress();
 
   function fmtTime(s){
     const m = Math.floor(s / 60);
@@ -880,6 +813,6 @@
     runSearch(input.value);
   });
 </script>
-<!--MOMENT_BOOT-->
+  <script src="/podcast-btb/deeplink.js"></script>
 </body>
 </html>

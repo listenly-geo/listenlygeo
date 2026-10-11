@@ -166,7 +166,7 @@
     });
     row.appendChild(seg);
     var share = el('button', 'pp-share', 'Share this moment'); share.type = 'button';
-    var link = (slug && myId) ? 'https://listenly.fr/?p=' + slug + '&m=' + myId : (safeListenly(r.episode_url) || 'https://listenly.fr/');
+    var link = (slug && myId) ? 'https://listenly.fr/podcast-btb/m/' + slug + '/' + myId : (safeListenly(r.episode_url) || 'https://listenly.fr/');
     share.addEventListener('click', function () {
       var done = function () { share.textContent = 'Link copied ✓'; setTimeout(function () { share.textContent = 'Share this moment'; }, 1800); };
       if (navigator.share && /Mobi|Android/i.test(navigator.userAgent)) { navigator.share({ title: r.question, url: link }).catch(function () {}); return; }
