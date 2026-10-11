@@ -1,15 +1,15 @@
 {
-  "date": "10/10/2026",
-  "goulot": "Les relances ne partent pas : le moteur n'enregistre plus l'identifiant du fil Gmail (colonne « Thread ID » vide sur les 125 mails du nouveau modèle), or la relance J+4 en a besoin. Les 27 prospects du 06/10 auraient dû être relancés aujourd'hui ; 0 relance envoyée. Le même manque explique sans doute que les réponses (oui de ComplianceCow) ne soient pas détectées par le Sheet.",
+  "date": "11/10/2026",
+  "goulot": "Le mail envoyé ne correspond toujours ni au test A/B ni à l'offre Podcast Hub : les 5 variantes reçoivent la même question finale (« Have you got a Spotify page or a dedicated Podcast Hub? ») et la proposition « I can build a first version… » n'est pas dans le texte. En parallèle, 0 relance depuis le 06/10 (colonne Thread ID vide sur les 158 mails) et les réponses ne sont pas détectées par le Sheet (ComplianceCow toujours « Envoyé »).",
   "synthese": [
-    "Aujourd'hui, 29 nouveaux mails sont partis (28 à une adresse nominative, 22 à un dirigeant identifié), juste sous la base de 30 ; 125 envois du nouveau mail depuis le 06/10.",
-    "Aucune nouvelle réponse humaine aujourd'hui : seulement un message d'absence (New Ground Financial). Le bilan du nouveau mail reste 2 réactions utiles sur 124 mails livrés (1,6 %) : le oui d'Eric Smith (ComplianceCow) et la redirection de Nick Day (The Payroll Podcast) vers son agence.",
-    "Les deux réactions utiles viennent de dirigeants nommés (2 sur 105) ; les 20 adresses génériques (hello@, marketing@…) n'ont rien donné.",
-    "Le oui d'Eric Smith attend toujours une réponse depuis 2 jours et demi, et Josh (agence de Nick Day) n'a pas été recontacté : c'est la priorité absolue."
+    "Aujourd'hui, 32 nouveaux mails sont partis (31 à une adresse nominative), au-dessus de la base de 30 ; 158 mails du nouveau modèle depuis le 06/10, 1 seul rebond (adresse mal orthographiée).",
+    "Nouveau OUI aujourd'hui : Jonah May (The Rebel Devs, tech) a répondu 8 minutes après l'envoi en donnant son site comme destination. Bilan du nouveau mail : 3 réactions utiles sur 157 mails livrés (1,9 %), 2 oui + 1 redirection, toutes venant d'adresses nominatives.",
+    "Les 21 adresses génériques (hello@, marketing@…) n'ont produit que des réponses automatiques ; le podcast tech/SaaS est le segment qui répond le mieux (2 oui sur 34).",
+    "Aucun des deux oui (ComplianceCow depuis 3 jours, Rebel Devs aujourd'hui) n'a encore reçu la proposition de Hub V1 : c'est là qu'on perd des clients potentiels."
   ],
   "plan": [
-    "Répondre aujourd'hui à Eric Smith (ComplianceCow) et à Josh (en copie de Nick Day) avec la proposition de Hub V1 sans engagement (décision Etienne).",
-    "Faire réparer l'enregistrement du « Thread ID » dans le script d'envoi pour débloquer les relances J+4 des 27 prospects du 06/10 et des suivants (décision Etienne).",
-    "Ajouter l'emplacement {CTA} dans le mail 1 : les 5 variantes reçoivent toujours exactement la même question finale, le test A/B ne teste rien (décision Etienne)."
+    "Répondre ce soir ou demain matin à Eric Smith (ComplianceCow), Jonah May (Rebel Devs) et Josh (agence de The Payroll Podcast) avec la proposition de Hub V1 sans engagement (décision Etienne).",
+    "Faire réparer l'enregistrement du Thread ID pour débloquer les relances (27 prospects du 06/10 et 23 du 07/10 sont déjà en retard) et la détection des réponses (décision Etienne).",
+    "Brancher la variable {CTA} dans le mail 1 pour que le test A/B teste vraiment quelque chose, ou le mettre en pause (décision Etienne)."
   ]
 }
