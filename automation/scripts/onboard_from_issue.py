@@ -148,23 +148,26 @@ def add_podcast_to_json(c, listenly_url, slug):
 # Voir git log pour l'historique complet.
 
 
-# --- ARCHIVE 04/10/2026 : generate_n1 (creation fiche N1 HTML) mise en pause ---
-# def generate_n1(c, listenly_url, slug):
-#     """PIVOT 04/10/2026 : MISE EN PAUSE. Etait : genere la fiche N1 (page HTML hub).
-#     Strategie Listenly-first : on ne cree PAS le Hub a l'onboarding, on le montre seulement
-#     quand le prospect a dit oui a Listenly (etape BRIDGE/SALE du funnel).
-#     """
-#     env = dict(os.environ)
-#     env.update({
-#         "RSS_URL": c["feed_url"], "PODCAST_URL": c["apple_url"], "LISTENLY_URL": listenly_url,
-#         "COVER_IMAGE": c["cover_image"], "PODCAST_SLUG": slug, "ACCENT_COLOR": "#2e8bd6",
-#         "LANGUAGE": c["language"] if c["language"] in ("fr", "en") else "en",
-#         "EPISODE_CTA_TARGET": "listenly",
-#     })
-#     env.pop("PODCAST_RAW_INFO", None)
-#     env["GITHUB_EVENT_NAME"] = "workflow_dispatch"
-#     ok = subprocess.run([sys.executable, "automation/scripts/generate_podcast_btb.py"], env=env).returncode == 0
-#     return ok and os.path.exists(f"pages/podcast-btb/{slug}-podcast.html")
+# --- REACTIVE 11/10/2026 : creation du hub N1 a l'onboarding ---
+# Le hub est la porte d'entree qui fait decouvrir les pages de moments (une par question) et leur transmet de la confiance.
+# Cout : un appel Claude par nouveau podcast, plafonne par MAX_ONBOARD (nouveaux podcasts par run) et par la decouverte du jour.
+def generate_n1(c, listenly_url, slug):
+    """Genere la fiche N1 (page HTML hub) du podcast. Jamais bloquant : en cas d'echec l'onboarding continue."""
+    env = dict(os.environ)
+    env.update({
+        "RSS_URL": c["feed_url"], "PODCAST_URL": c.get("apple_url", ""), "LISTENLY_URL": listenly_url,
+        "COVER_IMAGE": c.get("cover_image", ""), "PODCAST_SLUG": slug, "ACCENT_COLOR": "#2e8bd6",
+        "LANGUAGE": c["language"] if c.get("language") in ("fr", "en") else "en",
+        "EPISODE_CTA_TARGET": "listenly",
+    })
+    env.pop("PODCAST_RAW_INFO", None)
+    env["GITHUB_EVENT_NAME"] = "workflow_dispatch"
+    try:
+        ok = subprocess.run([sys.executable, "automation/scripts/generate_podcast_btb.py"], env=env, timeout=900).returncode == 0
+    except Exception as e:
+        log(f"Hub N1 : echec ({e})")
+        return False
+    return ok and os.path.exists(f"pages/podcast-btb/{slug}-podcast.html")
 
 
 # ARCHIVE 04/10/2026 : existing_by_rss, existing_slugs, _norm_rss - plus utilises (DB-ONLY)
@@ -235,6 +238,9 @@ def main():
         # DB-ONLY : pas de page HTML, mais le podcast DOIT entrer dans podcasts.json pour etre transcrit
         add_podcast_to_json(c, listenly_url, slug)
         new_count += 1
+        # 11/10/2026 : le hub N1 est de nouveau cree (les pages de moments y sont liees, il leur transmet sa force)
+        n1_ok = generate_n1(c, listenly_url, slug)
+        log(f"Hub N1 de '{slug}' : {'cree' if n1_ok else 'NON cree (le podcast reste transcrit)'}")
 
         created = "creee" if res.get("created") else "deja existante"
         gh("POST", f"/issues/{c['issue_number']}/comments", {"body": (
@@ -242,7 +248,7 @@ def main():
             f"- Fiche Listenly ({created}) : {listenly_url}\n"
             f"- Flux RSS enregistre : Listenly scrape + extrait Q/R automatiquement\n"
             f"- Email : {c['email'] or '(aucun)'}\n\n"
-            f"NOTE 04/10/2026 : aucune page HTML generee. Tout dans la DB Listenly.\n"
+            f"Hub N1 : {'cree' if n1_ok else 'non cree'}.\n"
             f"Contact ajoute a la feuille de prospection.")})
         gh("POST", f"/issues/{c['issue_number']}/labels", {"labels": ["onboarded"]})
         gh("PATCH", f"/issues/{c['issue_number']}", {"state": "closed", "state_reason": "completed"})

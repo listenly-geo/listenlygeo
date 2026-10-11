@@ -197,5 +197,5 @@ if ($thin) {
     $tpl = str_replace('</head>', '<meta name="robots" content="noindex,follow"></head>', $tpl);
 }
 header('Content-Type: text/html; charset=utf-8');
-header('Cache-Control: public, max-age=3600');
+header('Cache-Control: public, max-age=300');
 echo $tpl;
