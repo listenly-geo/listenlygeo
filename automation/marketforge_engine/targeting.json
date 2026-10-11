@@ -1,15 +1,15 @@
 {
- "updated": "2026-10-11T13:53",
- "envois_total": 209,
+ "updated": "2026-10-11T13:57",
+ "envois_total": 211,
  "reponses_total": 0,
  "taux_reponse_global_pct": 0.0,
- "dirigeants_testes": 2295,
+ "dirigeants_testes": 2296,
  "dirigeants_trouves": 299,
  "data_apprentissage": {
   "creneaux_new_york": {
    "heure": {
     "09h": {
-     "envoyes": 22,
+     "envoyes": 24,
      "reponses": 0
     },
     "08h": {
@@ -63,7 +63,7 @@
    },
    "jour": {
     "dim": {
-     "envoyes": 25,
+     "envoyes": 27,
      "reponses": 0
     },
     "sam": {
@@ -93,31 +93,31 @@
   "postes_trouves": {}
  },
  "weights": {
-  "Tech & SaaS": 0.0486,
-  "Cybersécurité": 0.0427,
-  "Finance & Fintech": 0.0475,
-  "RH & Recrutement": 0.0469,
-  "Marketing & Ventes": 0.0525,
-  "Logistique & Supply chain": 0.0344,
-  "Construction & Industrie": 0.0506,
-  "Énergie": 0.0475,
-  "Assurance": 0.0599,
-  "Immobilier": 0.0499,
-  "Juridique": 0.0602,
+  "Tech & SaaS": 0.0487,
+  "Cybersécurité": 0.0428,
+  "Finance & Fintech": 0.0476,
+  "RH & Recrutement": 0.047,
+  "Marketing & Ventes": 0.0519,
+  "Logistique & Supply chain": 0.0345,
+  "Construction & Industrie": 0.0507,
+  "Énergie": 0.0476,
+  "Assurance": 0.06,
+  "Immobilier": 0.05,
+  "Juridique": 0.0603,
   "Conseil": 0.0303,
-  "Santé": 0.0514,
-  "Business général (entreprise)": 0.0366,
-  "Cabinets d'avocats": 0.0517,
-  "Experts-comptables & patrimoine": 0.0644,
-  "Coachs & consultants B2B": 0.0611,
-  "Agences de services": 0.0628,
-  "Santé libérale": 0.0644,
-  "Formateurs & programmes": 0.0366
+  "Santé": 0.0515,
+  "Business général (entreprise)": 0.0363,
+  "Cabinets d'avocats": 0.051,
+  "Experts-comptables & patrimoine": 0.0645,
+  "Coachs & consultants B2B": 0.0613,
+  "Agences de services": 0.0629,
+  "Santé libérale": 0.0645,
+  "Formateurs & programmes": 0.0367
  },
  "ranking": [
   {
    "secteur": "Experts-comptables & patrimoine",
-   "poids_pct": 6.4,
+   "poids_pct": 6.5,
    "delta_pts": 0.1,
    "tendance": "stable",
    "onboarde": 10,
@@ -133,7 +133,7 @@
   },
   {
    "secteur": "Santé libérale",
-   "poids_pct": 6.4,
+   "poids_pct": 6.5,
    "delta_pts": -0.9,
    "tendance": "stable",
    "onboarde": 8,
@@ -150,7 +150,7 @@
   {
    "secteur": "Agences de services",
    "poids_pct": 6.3,
-   "delta_pts": -0.2,
+   "delta_pts": -0.1,
    "tendance": "stable",
    "onboarde": 3,
    "joignable": 3,
@@ -192,7 +192,7 @@
    "dirigeant_testes": 105,
    "dirigeant_trouves": 17,
    "taux_reponse": 0.0,
-   "score": 0.0003,
+   "score": 0.00029,
    "rang": 5
   },
   {
@@ -218,30 +218,14 @@
    "tendance": "stable",
    "onboarde": 47,
    "joignable": 45,
-   "envoye": 20,
+   "envoye": 21,
    "rebond": 0,
    "reponse": 0,
    "dirigeant_testes": 106,
    "dirigeant_trouves": 18,
    "taux_reponse": 0.0,
-   "score": 0.00025,
-   "rang": 7
-  },
-  {
-   "secteur": "Cabinets d'avocats",
-   "poids_pct": 5.2,
-   "delta_pts": -1.0,
-   "tendance": "baisse",
-   "onboarde": 8,
-   "joignable": 8,
-   "envoye": 4,
-   "rebond": 0,
-   "reponse": 0,
-   "dirigeant_testes": 149,
-   "dirigeant_trouves": 17,
-   "taux_reponse": 0.0,
    "score": 0.00024,
-   "rang": 8
+   "rang": 7
   },
   {
    "secteur": "Santé",
@@ -257,6 +241,22 @@
    "dirigeant_trouves": 14,
    "taux_reponse": 0.0,
    "score": 0.00024,
+   "rang": 8
+  },
+  {
+   "secteur": "Cabinets d'avocats",
+   "poids_pct": 5.1,
+   "delta_pts": -1.1,
+   "tendance": "baisse",
+   "onboarde": 8,
+   "joignable": 8,
+   "envoye": 5,
+   "rebond": 0,
+   "reponse": 0,
+   "dirigeant_testes": 149,
+   "dirigeant_trouves": 17,
+   "taux_reponse": 0.0,
+   "score": 0.00023,
    "rang": 9
   },
   {
@@ -389,7 +389,7 @@
   },
   {
    "secteur": "Business général (entreprise)",
-   "poids_pct": 3.7,
+   "poids_pct": 3.6,
    "delta_pts": -0.6,
    "tendance": "stable",
    "onboarde": 188,
@@ -397,7 +397,7 @@
    "envoye": 24,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 51,
+   "dirigeant_testes": 52,
    "dirigeant_trouves": 5,
    "taux_reponse": 0.0,
    "score": 0.00014,
@@ -405,7 +405,7 @@
   },
   {
    "secteur": "Logistique & Supply chain",
-   "poids_pct": 3.4,
+   "poids_pct": 3.5,
    "delta_pts": 0.1,
    "tendance": "stable",
    "onboarde": 19,
