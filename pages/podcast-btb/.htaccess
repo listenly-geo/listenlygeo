@@ -7,6 +7,9 @@
 # decouverte/indexee par Google vers la fiche N1, pour transferer son
 # autorite au lieu de la perdre (evite les 404 sur des URLs deja crawlees).
 RewriteEngine On
+
+# Pages "moment" rendues cote serveur (m.php) : /podcast-btb/m/<podcast>/<id> -> reponse + lecteur au bon moment
+RewriteRule ^m/([a-z0-9\-]+)/([a-f0-9]+)/?$ m.php?p=$1&m=$2 [L,QSA]
 # 01/10/2026 : page orpheline (aucune fiche correspondante), Google la signalait en echec -> 410 (retiree definitivement)
 RewriteRule ^ogd6etwxpdgr-podcast\.html$ - [G,L]
 RewriteRule ^questions/([^/]+)/index\.html$ /podcast-btb/$1-podcast.html [R=301,L]

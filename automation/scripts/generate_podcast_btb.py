@@ -1125,6 +1125,11 @@ def build_split_sitemaps(quality_urls):
         index_entries.append(
             f'  <sitemap>\n    <loc>https://listenly.fr/podcast-btb/sitemap-{name}.xml</loc>\n    <lastmod>{last}</lastmod>\n  </sitemap>'
         )
+    # 11/10/2026 : sitemap des pages moment (ecrit par generate_moments_sitemap.py, plafonne par jour)
+    if os.path.exists(f"{PAGES_DIR}/sitemap-moments.xml"):
+        index_entries.append(
+            f'  <sitemap>\n    <loc>https://listenly.fr/podcast-btb/sitemap-moments.xml</loc>\n    <lastmod>{today}</lastmod>\n  </sitemap>'
+        )
     index_xml = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'

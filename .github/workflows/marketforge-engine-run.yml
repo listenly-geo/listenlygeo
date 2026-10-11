@@ -169,6 +169,11 @@ jobs:
         continue-on-error: true
         run: python automation/scripts/moments_index.py
 
+      - name: Sitemap des pages moment (plafonne par jour)
+        if: always() && github.event.inputs.dry_run != 'true'
+        continue-on-error: true
+        run: python automation/scripts/generate_moments_sitemap.py
+
       - name: Tableau de bord (moteur.html) + suivi prospection du Sheet
         if: always()
         continue-on-error: true

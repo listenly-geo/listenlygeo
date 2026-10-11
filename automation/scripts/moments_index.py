@@ -38,7 +38,9 @@ def moment_id(slug, question):
 
 
 def page_url(slug, mid):
-    return f"{PLAYER_PAGE}?p={slug}&m={mid}"
+    # 11/10/2026 : adresse propre, rendue cote serveur par pages/podcast-btb/m.php (titre, canonical, reponse en texte,
+    # lecteur place au bon moment). L'ancienne forme /?p=<slug>&m=<id> continue de fonctionner (deeplink.js).
+    return f"/podcast-btb/m/{slug}/{mid}"
 
 
 _cache = {}
