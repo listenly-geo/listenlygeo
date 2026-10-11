@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-11T16:09",
- "phase": "exploration (repartition egale)",
- "verdict": "trop tot pour conclure (149 envois avec variante ; il en faut au moins 100 par variante et 95 % de chances)",
+ "updated": "2026-10-11T16:12",
+ "phase": "adaptation (plus d'envois pour les meilleures variantes)",
+ "verdict": "trop tot pour conclure (150 envois avec variante ; il en faut au moins 100 par variante et 95 % de chances)",
  "weights": {
-  "A": 0.2,
-  "B": 0.2,
-  "C": 0.2,
-  "D": 0.2,
-  "E": 0.2
+  "A": 0.1995,
+  "B": 0.2009,
+  "C": 0.1989,
+  "D": 0.2005,
+  "E": 0.2001
  },
  "variants": {
   "A": {
@@ -20,7 +20,7 @@
    },
    "delivres": 30,
    "taux_pct": 0.0,
-   "chance_meilleure_pct": 20.0,
+   "chance_meilleure_pct": 19.8,
    "part_envois_pct": 20.0
   },
   "B": {
@@ -31,8 +31,8 @@
    "classes": {},
    "delivres": 30,
    "taux_pct": 0.0,
-   "chance_meilleure_pct": 20.2,
-   "part_envois_pct": 20.0
+   "chance_meilleure_pct": 20.4,
+   "part_envois_pct": 20.1
   },
   "C": {
    "label": "Spotify d'abord : « Should we send it to Spotify, or… Podcast Hub? »",
@@ -42,8 +42,8 @@
    "classes": {},
    "delivres": 30,
    "taux_pct": 0.0,
-   "chance_meilleure_pct": 19.7,
-   "part_envois_pct": 20.0
+   "chance_meilleure_pct": 19.6,
+   "part_envois_pct": 19.9
   },
   "D": {
    "label": "Question directe : « Do you have a Podcast Hub where we can send this audience? »",
@@ -55,20 +55,20 @@
    },
    "delivres": 30,
    "taux_pct": 0.0,
-   "chance_meilleure_pct": 19.8,
-   "part_envois_pct": 20.0
+   "chance_meilleure_pct": 20.2,
+   "part_envois_pct": 20.1
   },
   "E": {
    "label": "Question courte : « Do you already have a Podcast Hub to receive it? »",
-   "envoye": 29,
+   "envoye": 30,
    "rebond": 0,
    "reponse": 0,
    "classes": {
     "oui": 1
    },
-   "delivres": 29,
+   "delivres": 30,
    "taux_pct": 0.0,
-   "chance_meilleure_pct": 20.4,
+   "chance_meilleure_pct": 20.0,
    "part_envois_pct": 20.0
   }
  }
