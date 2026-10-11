@@ -67,12 +67,12 @@ $score = wc($answerText) + wc(implode(' ', $stats)) + wc($quote) + 8 * min(count
 $thin = (wc($answerText) < 25 || $score < 90 || $t <= 0 || $who === '');
 
 $url = 'https://listenly.fr/podcast-btb/m/' . $slug . '/' . $mid;
-$title = $t > 0 ? $q . ' — answer at ' . $ts . ' | Listenly' : $q . ' | Listenly';
+$title = $t > 0 ? $q . ' — answer at ' . $ts . ' | Listenly.fr' : $q . ' | Listenly.fr';
 $desc  = $t > 0 ? $q . ' Answered at ' . $ts . ' in ' . $epi . ' (' . $pod . '). Listen from the exact moment.'
                 : $q . ' Answered in ' . $epi . ' (' . $pod . ').';
 $ans = ['@type' => 'Answer', 'text' => mb_substr($answerText !== '' ? $answerText : $q, 0, 1800), 'url' => $url];
 if ($who !== '') { $ans['author'] = ['@type' => 'Person', 'name' => $who] + ($role !== '' ? ['jobTitle' => $role] : []); }
-$ld = ['@context' => 'https://schema.org', '@type' => 'Question', 'name' => $q, 'url' => $url, 'acceptedAnswer' => $ans,
+$ld = ['@context' => 'https://schema.org', '@type' => 'Question', 'publisher' => ['@type' => 'Organization', 'name' => 'Listenly.fr', 'url' => 'https://listenly.fr/', 'description' => 'Annuaire de podcasts B2B : trouvez le moment exact d\'un épisode où un expert répond à votre question.'], 'name' => $q, 'url' => $url, 'acceptedAnswer' => $ans,
   'about' => ['@type' => 'PodcastEpisode', 'name' => $epi, 'url' => $epUrl,
     'partOfSeries' => ['@type' => 'PodcastSeries', 'name' => $pod, 'url' => $d['show'] ?? '']]];
 if ($ents) { $ld['mentions'] = array_map(function ($n) { return ['@type' => 'Thing', 'name' => $n]; }, array_slice($ents, 0, 8)); }

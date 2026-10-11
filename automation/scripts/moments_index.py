@@ -319,6 +319,26 @@ def load_full_answers(slug):
     return out
 
 
+def _fix_name_from_title(name, title):
+    """Aligne l'orthographe d'un nom d'invite sur celle du titre de l'episode (source officielle, la transcription audio ecrit les noms a l'oreille)."""
+    import difflib
+    words = re.findall(r"[A-Za-zÀ-ÿ'’\-]{3,}", title or "")
+    if not name or not words:
+        return name
+    out = []
+    for part in name.split():
+        best = part
+        if len(part) >= 3:
+            for w in words:
+                if w.lower() == part.lower():
+                    best = w
+                    break
+                if w[0].lower() == part[0].lower() and difflib.SequenceMatcher(None, w.lower(), part.lower()).ratio() >= 0.75:
+                    best = w
+        out.append(best)
+    return " ".join(out)
+
+
 def load_episode_extras(slug):
     """titre d'episode normalise -> {guest, quote, stats, entities} depuis les extractions du moteur."""
     out = {}
@@ -335,6 +355,7 @@ def load_episode_extras(slug):
             role = " at ".join(x for x in [str(g.get("titre") or "").strip(), str(g.get("entreprise") or "").strip()] if x)
         else:
             name, role = str(g or "").strip(), ""
+        name = _fix_name_from_title(name, d.get("episode_title"))
         rq = d.get("real_quote")
         out[t] = {"g": name, "gt": role, "rq": rq.strip() if isinstance(rq, str) else "",
                   "ks": stats[:5], "en": ents[:8]}
