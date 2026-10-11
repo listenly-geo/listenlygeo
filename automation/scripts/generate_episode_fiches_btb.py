@@ -128,6 +128,8 @@ def _atempo_filter_chain(factor):
     parts.append(f"atempo={remaining}")
     return ",".join(parts)
 
+_SPEEDUP_APPLIED = 1.0   # facteur reellement applique a l'audio transcrit (les horaires Whisper sont a rescaler)
+
 def speed_up_audio(src):
     log(f"Acceleration audio x{WHISPER_SPEEDUP_FACTOR} (reduction cout Whisper, sans perte de mots)...")
     out = src.rsplit(".", 1)[0] + "_fast.mp3"
@@ -136,6 +138,8 @@ def speed_up_audio(src):
             ["ffmpeg", "-y", "-i", src, "-filter:a", _atempo_filter_chain(WHISPER_SPEEDUP_FACTOR), "-vn", out],
             check=True, capture_output=True,
         )
+        global _SPEEDUP_APPLIED
+        _SPEEDUP_APPLIED = WHISPER_SPEEDUP_FACTOR
         return out
     except (subprocess.CalledProcessError, FileNotFoundError) as e:
         log(f"AVERTISSEMENT : acceleration audio impossible ({e}) — transcription au rythme normal.")
@@ -183,6 +187,12 @@ def transcribe(audio_path, whisper_lang="fr"):
     # Segments timestampes (liste de {start, end, text}) -- None si le provider ne les a pas
     # renvoyes pour une raison quelconque (fallback silencieux, le texte complet reste dispo).
     segments = result.get("segments")
+    if segments and _SPEEDUP_APPLIED and abs(_SPEEDUP_APPLIED - 1.0) > 1e-6:
+        # audio accelere avant Whisper : les horaires sont dans le temps accelere -> retour au temps reel de l'episode
+        for seg in segments:
+            seg["start"] = float(seg.get("start", 0)) * _SPEEDUP_APPLIED
+            seg["end"] = float(seg.get("end", 0)) * _SPEEDUP_APPLIED
+        log(f"Horaires Whisper remis a l'echelle reelle (x{_SPEEDUP_APPLIED})")
     log(f"Transcription : {len(text)} chars" + (f", {len(segments)} segments timestampes" if segments else ""))
     return text, segments
 
@@ -269,6 +279,54 @@ def build_timestamped_transcript(transcript, segments, max_chars=28000):
     return "\n".join(lines)
 
 
+
+_SNAP_STOP = set("this that with from have they their there which what when your about would could should been were into than then them these those also just like more most some such very much many other only over under again because while where who whom whose will can our out for the and are was but not you all any had has her his its how why one two".split())
+
+def _snap_words(text):
+    return {w for w in re.findall(r"[a-zA-ZÀ-ÿ0-9']{4,}", (text or "").lower()) if w not in _SNAP_STOP}
+
+def snap_to_segments(item, segments, lead_in=2.0):
+    """Recale l'horaire d'une question sur les vrais segments Whisper (11/10/2026).
+    Claude donne un horaire approximatif (souvent arrondi a la minute) ; ici on cherche, autour de cet horaire,
+    le passage du transcript dont les mots ressemblent le plus a la reponse extraite, et on prend le DEBUT REEL
+    du segment (moins `lead_in` secondes pour ne pas couper la phrase). Retourne True si l'horaire a ete recale.
+    Sans correspondance assez nette, l'horaire de Claude est conserve (item inchange)."""
+    if not segments:
+        return False
+    segs = [(float(x.get("start", 0)), float(x.get("end", 0)), (x.get("text") or "").strip()) for x in segments if (x.get("text") or "").strip()]
+    if len(segs) < 3:
+        return False
+    answer = _snap_words((item.get("r") or "") + " " + (item.get("q") or ""))
+    if len(answer) < 6:
+        return False
+    approx = float(item.get("start_seconds") or 0)
+    lo, hi = (approx - 300, approx + 300) if approx > 0 else (0, float("inf"))
+    best, best_i = 0.0, None
+    for i, (st, en, _t) in enumerate(segs):
+        if st < lo or st > hi:
+            continue
+        # fenetre d'environ 30 s a partir de ce segment
+        words, j = set(), i
+        while j < len(segs) and segs[j][0] - st <= 30:
+            words |= _snap_words(segs[j][2]); j += 1
+        score = len(words & answer)
+        if score > best or (score == best and best_i is not None and abs(st - approx) < abs(segs[best_i][0] - approx)):
+            best, best_i = score, i
+    if best_i is None or best < 4 or best < 0.18 * len(answer):
+        return False
+    start = max(0.0, segs[best_i][0] - lead_in)
+    # fin : dernier segment (dans les 4 min qui suivent) qui partage encore au moins 2 mots avec la reponse
+    end = segs[best_i][1]
+    for st, en, tx in segs[best_i:]:
+        if st - segs[best_i][0] > 240:
+            break
+        if len(_snap_words(tx) & answer) >= 2:
+            end = max(end, en)
+    item["start_seconds"] = int(round(start))
+    item["end_seconds"] = int(round(max(end, start + 15)))
+    item["start_exact"] = True
+    return True
+
 def extract_real_qa(transcript, ep, podcast, segments=None):
     log("Extraction identite invite + vraies questions/reponses + citation + stats + entites depuis le transcript...")
     lang_code = podcast.get("language", "fr")
@@ -295,6 +353,15 @@ def extract_real_qa(transcript, ep, podcast, segments=None):
             data = next((x for x in data if isinstance(x, dict)), {})
     guest = data.get("guest", {}) or {}
     qa = data.get("qa", []) or []
+    snapped = 0
+    for item in qa:
+        try:
+            if isinstance(item, dict) and snap_to_segments(item, segments):
+                snapped += 1
+        except Exception as snap_err:   # jamais bloquant : on garde l'horaire de Claude
+            log(f"AVERTISSEMENT recalage horaire : {snap_err}")
+    if qa:
+        log(f"Horaires recales sur les segments Whisper : {snapped}/{len(qa)}")
     real_quote = (data.get("real_quote") or "").strip()
     key_stats = data.get("key_stats", []) or []
     entities_raw = data.get("entities", []) or []
