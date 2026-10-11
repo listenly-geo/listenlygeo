@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-11T16:40",
+ "updated": "2026-10-11T16:43",
  "phase": "adaptation (plus d'envois pour les meilleures variantes)",
- "verdict": "trop tot pour conclure (151 envois avec variante ; il en faut au moins 100 par variante et 95 % de chances)",
+ "verdict": "trop tot pour conclure (153 envois avec variante ; il en faut au moins 100 par variante et 95 % de chances)",
  "weights": {
-  "A": 0.2001,
-  "B": 0.1999,
-  "C": 0.1989,
+  "A": 0.2023,
+  "B": 0.1992,
+  "C": 0.2,
   "D": 0.2002,
-  "E": 0.2008
+  "E": 0.1982
  },
  "variants": {
   "A": {
@@ -20,8 +20,8 @@
    },
    "delivres": 30,
    "taux_pct": 0.0,
-   "chance_meilleure_pct": 20.1,
-   "part_envois_pct": 20.0
+   "chance_meilleure_pct": 20.9,
+   "part_envois_pct": 20.2
   },
   "B": {
    "label": "Podcast Hub ou Spotify : « redirect it to Spotify for now? »",
@@ -31,8 +31,8 @@
    "classes": {},
    "delivres": 31,
    "taux_pct": 0.0,
-   "chance_meilleure_pct": 20.0,
-   "part_envois_pct": 20.0
+   "chance_meilleure_pct": 19.7,
+   "part_envois_pct": 19.9
   },
   "C": {
    "label": "Spotify d'abord : « Should we send it to Spotify, or… Podcast Hub? »",
@@ -42,34 +42,34 @@
    "classes": {},
    "delivres": 30,
    "taux_pct": 0.0,
-   "chance_meilleure_pct": 19.6,
-   "part_envois_pct": 19.9
+   "chance_meilleure_pct": 20.0,
+   "part_envois_pct": 20.0
   },
   "D": {
    "label": "Question directe : « Do you have a Podcast Hub where we can send this audience? »",
-   "envoye": 30,
+   "envoye": 31,
    "rebond": 0,
    "reponse": 0,
    "classes": {
     "redirection": 1
    },
-   "delivres": 30,
+   "delivres": 31,
    "taux_pct": 0.0,
    "chance_meilleure_pct": 20.1,
    "part_envois_pct": 20.0
   },
   "E": {
    "label": "Question courte : « Do you already have a Podcast Hub to receive it? »",
-   "envoye": 30,
+   "envoye": 31,
    "rebond": 0,
    "reponse": 0,
    "classes": {
     "oui": 1
    },
-   "delivres": 30,
+   "delivres": 31,
    "taux_pct": 0.0,
-   "chance_meilleure_pct": 20.3,
-   "part_envois_pct": 20.1
+   "chance_meilleure_pct": 19.3,
+   "part_envois_pct": 19.8
   }
  }
 }
