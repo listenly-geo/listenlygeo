@@ -8,7 +8,13 @@ sys.path.insert(0, "automation/scripts")
 import sheet_bridge
 
 
+def garder_chaine():
+    """La chaine ne s'arrete jamais (meme hors plage, la nuit) : elle se relance seule chaque jour, sans planificateur GitHub."""
+    open(os.environ.get("GITHUB_OUTPUT", "/dev/null"), "a").write("continuer=true\n")
+
+
 def main():
+    garder_chaine()
     now = datetime.datetime.now(ZoneInfo("Europe/Paris"))
     st = sheet_bridge.call({"action": "status"})
     reg = st.get("reglages", {}) or {}
@@ -38,9 +44,6 @@ def main():
         a_envoyer -= n
         if faits == 0:
             break   # plus de ligne "Pret" envoyable
-    # la chaine continue tant qu'on est dans la plage et que le plafond n'est pas atteint
-    if sent < cap and now.hour < h1 - 0:
-        open(os.environ.get("GITHUB_OUTPUT", "/dev/null"), "a").write("continuer=true\n")
 
 
 if __name__ == "__main__":

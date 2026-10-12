@@ -273,20 +273,57 @@ function installer() {
 // (le plafond du jour est reparti par creneaux de 15 min sur la plage horaire).
 function marketforgeEngineEnvoi() {
   var lock = LockService.getScriptLock();
-  if (!lock.tryLock(30000)) return;   // le traitement horaire tourne : ce creneau sera rattrape au suivant
+  if (!lock.tryLock(30000)) { mfeJournalScript_('envoi', 'creneau saute : traitement deja en cours'); return; }
   try {
     var cfg = mfeSettings_();
     if (!cfg.ENVOI_AUTO || cfg.EMAIL_TEST) return;
     mfeSend_(mfeSheet_(), cfg);
+  } catch (e) {
+    mfeJournalScript_('envoi', 'ERREUR : ' + e);
+    throw e;
   } finally {
     lock.releaseLock();
+  }
+}
+
+// Journal visible dans le tableau (onglet cache 'Journal script') : une ligne par incident ou reparation.
+function mfeJournalScript_(etape, texte) {
+  try {
+    var ss = mfeSS_();
+    var sh = ss.getSheetByName('Journal script');
+    if (!sh) { sh = ss.insertSheet('Journal script'); sh.appendRow(['Date', 'Etape', 'Message']); sh.hideSheet(); }
+    sh.appendRow([new Date(), etape, String(texte).slice(0, 500)]);
+    if (sh.getLastRow() > 500) sh.deleteRows(2, 100);
+  } catch (e) { Logger.log('Journal script : %s', e); }
+}
+
+// Garde-fou : verifie que les 2 declencheurs existent et les recree sinon (appele a chaque passage horaire et a l'ouverture du tableau).
+function mfeAssurerDeclencheurs_() {
+  var have = {};
+  ScriptApp.getProjectTriggers().forEach(function (t) { have[t.getHandlerFunction()] = true; });
+  if (!have['marketforgeEngineEnvoi']) {
+    ScriptApp.newTrigger('marketforgeEngineEnvoi').timeBased().everyMinutes(15).create();
+    mfeJournalScript_('garde-fou', 'declencheur Envoi (15 min) absent : recree');
+  }
+  if (!have['marketforgeEngineQuotidien']) {
+    ScriptApp.newTrigger('marketforgeEngineQuotidien').timeBased().everyHours(1).create();
+    mfeJournalScript_('garde-fou', 'declencheur Quotidien (1 h) absent : recree');
   }
 }
 
 function marketforgeEngineQuotidien() {
   var lock = LockService.getScriptLock();
   if (!lock.tryLock(60000)) return;
-  try { mfeQuotidien_(); } finally { lock.releaseLock(); }
+  try {
+    try { mfeAssurerDeclencheurs_(); } catch (e) { Logger.log('Garde-fou : %s', e); }
+    mfeQuotidien_();
+    // Filet : si le declencheur 15 min ne tourne pas, ce passage horaire rattrape les envois du creneau (le plafond par creneau s'applique)
+    var cfg = mfeSettings_();
+    if (cfg.ENVOI_AUTO && !cfg.EMAIL_TEST) mfeSend_(mfeSheet_(), cfg);
+  } catch (e) {
+    mfeJournalScript_('quotidien', 'ERREUR : ' + e);
+    throw e;
+  } finally { lock.releaseLock(); }
 }
 
 function mfeQuotidien_() {
@@ -1000,7 +1037,7 @@ function doGet(e) {
       return r.values[7] && new Date(r.values[7]).toDateString() === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, script_version: 25 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, script_version: 26 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
