@@ -31,18 +31,25 @@ def main():
     run = json.loads(sh(f"gh api repos/{repo}/actions/runs/{run_id}") or "{}")
     jobs = json.loads(sh(f"gh api repos/{repo}/actions/runs/{run_id}/jobs --paginate --jq '{{jobs: .jobs}}'") or "{}").get("jobs", [])
     log = sh(f"gh run view {run_id} --repo {repo} --log")
-    entrees = []
+    # Une etape "continue-on-error" qui echoue est notee "success" par l'API : on repere donc les etapes dont le log contient ##[error].
+    par_etape = {}
+    for l in log.splitlines():
+        p = l.split("\t")
+        if len(p) < 3 or "##[error]" not in p[2]:
+            continue
+        par_etape.setdefault(p[1].strip(), []).append(propre("\t".join(p[2:])))
     for j in jobs:
         for s in j.get("steps", []):
-            if s.get("conclusion") != "failure":
-                continue
-            nom = s["name"]
-            lignes = []
-            for l in log.splitlines():
-                p = l.split("\t")
-                if len(p) >= 3 and p[1].strip() == nom and MOTIFS.search(p[2]) and not BRUIT.search(p[2]):
-                    lignes.append(propre("\t".join(p[2:])))
-            entrees.append({"etape": nom, "messages": lignes[-6:] or ["(echec sans message d'erreur lisible dans le log)"]})
+            if s.get("conclusion") == "failure" and s["name"] not in par_etape:
+                par_etape[s["name"]] = []
+    entrees = []
+    for nom, err in par_etape.items():
+        lignes = list(err)
+        for l in log.splitlines():
+            p = l.split("\t")
+            if len(p) >= 3 and p[1].strip() == nom and MOTIFS.search(p[2]) and not BRUIT.search(p[2]) and "##[error]" not in p[2]:
+                lignes.append(propre("\t".join(p[2:])))
+        entrees.append({"etape": nom, "messages": (lignes[-8:]) or ["(echec sans message d'erreur lisible dans le log)"]})
     if not entrees:
         print("journal : aucun echec dans ce run")
         return

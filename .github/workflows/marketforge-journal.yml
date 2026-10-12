@@ -3,6 +3,11 @@ name: Journal des erreurs MarketForge
 # Se declenche a la fin de chaque workflow MarketForge et note les etapes en echec (avec le message) dans
 # automation/marketforge_engine/journal.json.
 on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'Numero du run a relever (lancement manuel)'
+        required: true
   workflow_run:
     workflows:
       - "Apps Script — lecture / déploiement de MarketForgeEngine.gs"
@@ -31,7 +36,7 @@ jobs:
       - name: Relever les erreurs du run
         env:
           GH_TOKEN: ${{ github.token }}
-          RUN_ID: ${{ github.event.workflow_run.id }}
+          RUN_ID: ${{ github.event.workflow_run.id || github.event.inputs.run_id }}
         run: python3 automation/scripts/journal_erreurs.py
       - name: Enregistrer
         run: |
