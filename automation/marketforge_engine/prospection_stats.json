@@ -1,6 +1,6 @@
 {
- "updated": "2026-10-12T08:47",
- "total": 589,
+ "updated": "2026-10-12T14:22",
+ "total": 590,
  "status": {
   "Clos (ancien mail)": 182,
   "Rebond": 12,
@@ -9,13 +9,14 @@
   "Email risque": 64,
   "En pause (ancienne selection)": 56,
   "Email instable": 1,
-  "Pret": 50,
-  "Envoye": 170,
-  "En pause (pas de dirigeant)": 28,
+  "En pause (pas de dirigeant)": 33,
+  "Envoye": 173,
+  "Pret": 33,
   "En pause (question hors sujet)": 1,
-  "En pause (doublon dirigeant)": 4
+  "En pause (doublon dirigeant)": 7,
+  "En pause (a trier)": 7
  },
- "sent_total": 366,
+ "sent_total": 369,
  "replies_total": 1,
  "followups_total": 16,
  "sent_by_day": {
@@ -31,7 +32,8 @@
   "2026-10-08": 26,
   "2026-10-09": 20,
   "2026-10-10": 30,
-  "2026-10-11": 44
+  "2026-10-11": 44,
+  "2026-10-12": 3
  },
  "replies_by_day": {
   "2026-09-28": 1
@@ -45,12 +47,60 @@
   "2026-09-30": 1,
   "2026-10-01": 3
  },
- "envoi_auto": false,
- "max_envois_jour": 50,
+ "envoi_auto": true,
+ "max_envois_jour": 30,
  "heures_envoi": "14-23",
- "cap_jour_effectif": 50,
- "envoyes_aujourdhui": 0,
+ "cap_jour_effectif": 30,
+ "envoyes_aujourdhui": 3,
  "prospects": [
+  {
+   "slug": "niche-marketing-podcast",
+   "podcast": "Niche Marketing Podcast",
+   "statut": "Pret",
+   "ajoute_le": "2026-10-12T14:21:58.892Z",
+   "envoye_le": "",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast/show/niche-marketing-podcast#answers",
+   "queue_rank": 33,
+   "variante": ""
+  },
+  {
+   "slug": "the-manufacturing-marketer",
+   "podcast": "The Manufacturing Marketer",
+   "statut": "Envoye",
+   "ajoute_le": "2026-10-11T22:53:28.315Z",
+   "envoye_le": "2026-10-12T12:45:49.356Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast/show/the-manufacturing-marketer#answers",
+   "queue_rank": null,
+   "variante": "B"
+  },
+  {
+   "slug": "the-great-indoors",
+   "podcast": "The Great Indoors",
+   "statut": "Envoye",
+   "ajoute_le": "2026-10-11T22:32:36.107Z",
+   "envoye_le": "2026-10-12T12:45:44.269Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast/show/the-great-indoors#answers",
+   "queue_rank": null,
+   "variante": "E"
+  },
+  {
+   "slug": "project-medtech",
+   "podcast": "Project Medtech",
+   "statut": "Envoye",
+   "ajoute_le": "2026-10-11T04:12:50.867Z",
+   "envoye_le": "2026-10-12T12:45:38.765Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast/show/project-medtech#answers",
+   "queue_rank": null,
+   "variante": "A"
+  },
   {
    "slug": "escape-velocity-with-tracey-halvorsen",
    "podcast": "Escape Velocity with Tracey Halvorsen",
@@ -60,7 +110,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/escape-velocity-with-tracey-halvorsen#answers",
-   "queue_rank": 50,
+   "queue_rank": 32,
    "variante": ""
   },
   {
@@ -132,7 +182,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/the-infinite-wealth-podcast#answers",
-   "queue_rank": 49,
+   "queue_rank": 31,
    "variante": ""
   },
   {
@@ -144,7 +194,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/file-notes#answers",
-   "queue_rank": 48,
+   "queue_rank": 30,
    "variante": ""
   },
   {
@@ -156,7 +206,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/inside-the-ai-transformation-ai-operators#answers",
-   "queue_rank": 47,
+   "queue_rank": 29,
    "variante": ""
   },
   {
@@ -168,7 +218,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/wealth-in-yourself#answers",
-   "queue_rank": 46,
+   "queue_rank": 28,
    "variante": ""
   },
   {
@@ -180,7 +230,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/the-new-mainstream-podcast#answers",
-   "queue_rank": 45,
+   "queue_rank": 27,
    "variante": ""
   },
   {
@@ -192,31 +242,31 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/dental-a-team-podcast#answers",
-   "queue_rank": 44,
+   "queue_rank": 26,
    "variante": ""
   },
   {
    "slug": "behind-the-toolbelt",
    "podcast": "Behind the Toolbelt",
-   "statut": "Pret",
+   "statut": "En pause (a trier)",
    "ajoute_le": "2026-10-12T03:08:44.391Z",
    "envoye_le": "",
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/behind-the-toolbelt#answers",
-   "queue_rank": 43,
+   "queue_rank": null,
    "variante": ""
   },
   {
    "slug": "under-oath-revenue-takes-the-stand",
    "podcast": "Under Oath: Revenue Takes The Stand",
-   "statut": "Pret",
+   "statut": "En pause (doublon dirigeant)",
    "ajoute_le": "2026-10-12T03:08:44.319Z",
    "envoye_le": "",
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/under-oath-revenue-takes-the-stand#answers",
-   "queue_rank": 42,
+   "queue_rank": null,
    "variante": ""
   },
   {
@@ -240,7 +290,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/fintrepreneur#answers",
-   "queue_rank": 41,
+   "queue_rank": 25,
    "variante": ""
   },
   {
@@ -252,7 +302,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/talking-too-loud-with-chris-savage#answers",
-   "queue_rank": 40,
+   "queue_rank": 24,
    "variante": ""
   },
   {
@@ -264,7 +314,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/b2baceo-with-ashu-garg#answers",
-   "queue_rank": 39,
+   "queue_rank": 23,
    "variante": ""
   },
   {
@@ -276,7 +326,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/the-cmo-show#answers",
-   "queue_rank": 38,
+   "queue_rank": 22,
    "variante": ""
   },
   {
@@ -300,7 +350,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/crypto-curious#answers",
-   "queue_rank": 37,
+   "queue_rank": 21,
    "variante": ""
   },
   {
@@ -312,19 +362,19 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/voice-is#answers",
-   "queue_rank": 36,
+   "queue_rank": 20,
    "variante": ""
   },
   {
    "slug": "inspiring-tech-leaders-ai-technology-str",
    "podcast": "Inspiring Tech Leaders - AI & Technology Strategy",
-   "statut": "Pret",
+   "statut": "En pause (a trier)",
    "ajoute_le": "2026-10-12T02:07:05.095Z",
    "envoye_le": "",
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/inspiring-tech-leaders-ai-technology-strategy#answers",
-   "queue_rank": 35,
+   "queue_rank": null,
    "variante": ""
   },
   {
@@ -348,7 +398,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/deconstructing-data#answers",
-   "queue_rank": 34,
+   "queue_rank": 19,
    "variante": ""
   },
   {
@@ -360,7 +410,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/the-business-of-strength-podcast#answers",
-   "queue_rank": 33,
+   "queue_rank": 18,
    "variante": ""
   },
   {
@@ -384,7 +434,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/groth-gets-it#answers",
-   "queue_rank": 32,
+   "queue_rank": 17,
    "variante": ""
   },
   {
@@ -396,7 +446,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/l-g-talks-asset-management#answers",
-   "queue_rank": 31,
+   "queue_rank": 16,
    "variante": ""
   },
   {
@@ -408,7 +458,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/parcel-perspectives-with-glenn-gooding#answers",
-   "queue_rank": 30,
+   "queue_rank": 15,
    "variante": ""
   },
   {
@@ -420,7 +470,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/the-lat-chat#answers",
-   "queue_rank": 29,
+   "queue_rank": 14,
    "variante": ""
   },
   {
@@ -438,13 +488,13 @@
   {
    "slug": "exit-rich",
    "podcast": "Exit Rich",
-   "statut": "Pret",
+   "statut": "En pause (a trier)",
    "ajoute_le": "2026-10-12T01:19:23.381Z",
    "envoye_le": "",
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/exit-rich#answers",
-   "queue_rank": 28,
+   "queue_rank": null,
    "variante": ""
   },
   {
@@ -456,7 +506,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/leading-conversations#answers",
-   "queue_rank": 27,
+   "queue_rank": 13,
    "variante": ""
   },
   {
@@ -468,7 +518,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/the-ai-cfo-with-alex-wittenberg#answers",
-   "queue_rank": 26,
+   "queue_rank": 12,
    "variante": ""
   },
   {
@@ -492,7 +542,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/talentbuzz#answers",
-   "queue_rank": 25,
+   "queue_rank": 11,
    "variante": ""
   },
   {
@@ -504,7 +554,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/business-class-lounge-by-searchpilot-hosted-by-will-critchlow#answers",
-   "queue_rank": 24,
+   "queue_rank": 10,
    "variante": ""
   },
   {
@@ -516,43 +566,43 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/wildly-capable-by-novoed#answers",
-   "queue_rank": 23,
+   "queue_rank": 9,
    "variante": ""
   },
   {
    "slug": "the-scoop-a-volvo-construction-equipment",
    "podcast": "The Scoop - A Volvo Construction Equipment Podcast",
-   "statut": "Pret",
+   "statut": "En pause (a trier)",
    "ajoute_le": "2026-10-12T00:12:52.413Z",
    "envoye_le": "",
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/the-scoop-a-volvo-construction-equipment-podcast#answers",
-   "queue_rank": 22,
+   "queue_rank": null,
    "variante": ""
   },
   {
    "slug": "a-brave-new-podcast",
    "podcast": "A Brave New Podcast",
-   "statut": "Pret",
+   "statut": "En pause (a trier)",
    "ajoute_le": "2026-10-11T23:56:41.475Z",
    "envoye_le": "",
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/a-brave-new-podcast#answers",
-   "queue_rank": 21,
+   "queue_rank": null,
    "variante": ""
   },
   {
    "slug": "startups-magazine-the-cereal-entrepreneu",
    "podcast": "Startups Magazine: The Cereal Entrepreneur",
-   "statut": "Pret",
+   "statut": "En pause (a trier)",
    "ajoute_le": "2026-10-11T23:56:41.391Z",
    "envoye_le": "",
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/startups-magazine-the-cereal-entrepreneur#answers",
-   "queue_rank": 20,
+   "queue_rank": null,
    "variante": ""
   },
   {
@@ -564,7 +614,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/fintech-corner#answers",
-   "queue_rank": 19,
+   "queue_rank": 8,
    "variante": ""
   },
   {
@@ -576,7 +626,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/level-up-creators-podcast#answers",
-   "queue_rank": 18,
+   "queue_rank": 7,
    "variante": ""
   },
   {
@@ -588,7 +638,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/the-impatient-entrepreneur#answers",
-   "queue_rank": 17,
+   "queue_rank": 6,
    "variante": ""
   },
   {
@@ -600,7 +650,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/third-fridays#answers",
-   "queue_rank": 16,
+   "queue_rank": 5,
    "variante": ""
   },
   {
@@ -612,7 +662,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/focus-on-brand#answers",
-   "queue_rank": 15,
+   "queue_rank": 4,
    "variante": ""
   },
   {
@@ -624,55 +674,43 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/the-dish-on-health-it#answers",
-   "queue_rank": 14,
+   "queue_rank": 3,
    "variante": ""
   },
   {
    "slug": "snyder-showdown",
    "podcast": "Snyder Showdown",
-   "statut": "Pret",
+   "statut": "En pause (a trier)",
    "ajoute_le": "2026-10-11T23:15:33.185Z",
    "envoye_le": "",
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/snyder-showdown#answers",
-   "queue_rank": 13,
+   "queue_rank": null,
    "variante": ""
   },
   {
    "slug": "the-art-of-marketing-operations",
    "podcast": "The Art of Marketing Operations",
-   "statut": "Pret",
+   "statut": "En pause (doublon dirigeant)",
    "ajoute_le": "2026-10-11T22:53:28.481Z",
    "envoye_le": "",
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/the-art-of-marketing-operations#answers",
-   "queue_rank": 12,
+   "queue_rank": null,
    "variante": ""
   },
   {
    "slug": "mission-to-grow-a-small-business-guide-t",
    "podcast": "Mission to Grow: A Small Business Guide to Cash, Compliance, and the War for Talent",
-   "statut": "Pret",
+   "statut": "En pause (doublon dirigeant)",
    "ajoute_le": "2026-10-11T22:53:28.396Z",
    "envoye_le": "",
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/mission-to-grow-a-small-business-guide-to-cash-compliance-and-the-war-for-talent#answers",
-   "queue_rank": 11,
-   "variante": ""
-  },
-  {
-   "slug": "the-manufacturing-marketer",
-   "podcast": "The Manufacturing Marketer",
-   "statut": "Pret",
-   "ajoute_le": "2026-10-11T22:53:28.315Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast/show/the-manufacturing-marketer#answers",
-   "queue_rank": 10,
+   "queue_rank": null,
    "variante": ""
   },
   {
@@ -685,18 +723,6 @@
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/the-skin-wellness-pro-show#answers",
    "queue_rank": null,
-   "variante": ""
-  },
-  {
-   "slug": "the-great-indoors",
-   "podcast": "The Great Indoors",
-   "statut": "Pret",
-   "ajoute_le": "2026-10-11T22:32:36.107Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast/show/the-great-indoors#answers",
-   "queue_rank": 9,
    "variante": ""
   },
   {
@@ -1240,18 +1266,6 @@
    "variante": ""
   },
   {
-   "slug": "project-medtech",
-   "podcast": "Project Medtech",
-   "statut": "Pret",
-   "ajoute_le": "2026-10-11T04:12:50.867Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast/show/project-medtech#answers",
-   "queue_rank": 8,
-   "variante": ""
-  },
-  {
    "slug": "ai-x-devops-by-facets-cloud",
    "podcast": "AI x DevOps by Facets.cloud",
    "statut": "Email risque",
@@ -1284,7 +1298,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast/show/borderless-executive-live-the-podcast#answers",
-   "queue_rank": 7,
+   "queue_rank": 2,
    "variante": ""
   },
   {
@@ -3336,7 +3350,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/form-structure-podcast.html",
-   "queue_rank": 6,
+   "queue_rank": 1,
    "variante": ""
   },
   {
@@ -3618,37 +3632,25 @@
   {
    "slug": "migrate-your-money",
    "podcast": "Migrate Your Money",
-   "statut": "Pret",
+   "statut": "En pause (pas de dirigeant)",
    "ajoute_le": "2026-10-03T09:57:17.501Z",
    "envoye_le": "",
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/migrate-your-money-podcast.html",
-   "queue_rank": 5,
+   "queue_rank": null,
    "variante": ""
   },
   {
    "slug": "care-anywhere-the-global-health-workforc",
    "podcast": "Care Anywhere: The Global Health Workforce Podcast",
-   "statut": "Pret",
+   "statut": "En pause (pas de dirigeant)",
    "ajoute_le": "2026-10-03T09:57:16.858Z",
    "envoye_le": "",
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/care-anywhere-the-global-health-workforc-podcast.html",
-   "queue_rank": 4,
-   "variante": ""
-  },
-  {
-   "slug": "the-founder-files",
-   "podcast": "The Founder Files",
-   "statut": "Pret",
-   "ajoute_le": "2026-10-03T09:57:16.623Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/the-founder-files-podcast.html",
-   "queue_rank": 3,
+   "queue_rank": null,
    "variante": ""
   }
  ]
