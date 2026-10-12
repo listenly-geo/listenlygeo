@@ -1,49 +1,55 @@
-# 1. Decouverte - run 38224606273
-﻿2026-10-12T08:37:37.9048616Z ##[group]Run set -o pipefail
-2026-10-12T08:37:37.9049030Z ^[[36;1mset -o pipefail^[[0m
-2026-10-12T08:37:37.9049503Z ^[[36;1mpython automation/scripts/discover_podcasts.py | tee discovery.log^[[0m
-2026-10-12T08:37:37.9050135Z ^[[36;1mn=$(grep -oE '\(([0-9]+) nouvelle' discovery.log | grep -oE '[0-9]+' | tail -1)^[[0m
-2026-10-12T08:37:37.9050741Z ^[[36;1mecho "DISCOVERED_COUNT=$***n:-0***" >> "$GITHUB_ENV"^[[0m
-2026-10-12T08:37:37.9114837Z shell: /usr/bin/bash -e ***0***
-2026-10-12T08:37:37.9115188Z env:
-2026-10-12T08:37:37.9115545Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-12T08:37:37.9116253Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-10-12T08:37:37.9116785Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-12T08:37:37.9117286Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-12T08:37:37.9117777Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-12T08:37:37.9118257Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-10-12T08:37:37.9118714Z   EPISODES_PAR_JOUR: 45
-2026-10-12T08:37:37.9119020Z   MFE_TEST_UN: true
-2026-10-12T08:37:37.9119753Z   ANTHROPIC_API_KEY: ***
-2026-10-12T08:37:37.9120088Z   DISCOVERY_MAX_QUALIFY: 1
-2026-10-12T08:37:37.9120408Z   DISCOVERY_COUNTRIES: us
-2026-10-12T08:37:37.9120720Z   DISCOVERY_KNOWN_RATIO: 0.2
-2026-10-12T08:37:37.9121842Z   MFE_SHEET_URL: ***
-2026-10-12T08:37:37.9122145Z   DISCOVERY_LEADER_GATE: 1
-2026-10-12T08:37:37.9122460Z   DISCOVERY_GATE_JOUR: 1000
-2026-10-12T08:37:37.9122779Z   DISCOVERY_GATE_MAX: 45
-2026-10-12T08:37:37.9123095Z   DISCOVERY_GATE_VERIF_MAX: 60
-2026-10-12T08:37:37.9125820Z   GITHUB_TOKEN: ***
-2026-10-12T08:37:37.9126164Z   GITHUB_REPOSITORY: listenly-geo/listenlygeo
-2026-10-12T08:37:37.9126540Z ##[endgroup]
-2026-10-12T08:37:38.0734793Z [discover] 80 mots-cles utilises sur ce run, 1 pays cibles.
-2026-10-12T08:37:58.1108421Z [discover] 4359 podcasts uniques trouves (avant filtrage).
-2026-10-12T08:37:58.1216498Z [discover] 1287 candidats nouveaux (non deja onboardes/pausés/traites), repartis sur 62 mot(s)-cle(s).
-2026-10-12T08:40:41.3585850Z [discover] Filtre dirigeant : 4 podcasts testes, 1 avec dirigeant joignable, 54 verifications restantes sur ce run, detail ***'noms': 4, 'animateur_seul': 2, 'testees': 6, 'statut_valid': 2, 'verifiees': 2, 'statut_invalid': 2, 'statut_unknown': 2***
-2026-10-12T08:40:41.3587946Z [discover] Pre-filtre RSS gratuit : 20 podcasts verifies, 1 joignables retenus pour qualification, refuses : ***'email personnel': 6, 'aucun dirigeant joignable': 3, "pas d'email dans le RSS": 6***
-2026-10-12T08:40:41.3592114Z [discover] Ciblage adaptatif -- repartition des candidats qualifies : Cybersécurité 1
-2026-10-12T08:40:41.3593908Z [discover] Plafonne a 1 candidats sur ce run, repartis entre secteurs (les autres seront vus au prochain passage).
-2026-10-12T08:40:41.3595469Z [discover] Qualification : Total Leo (Video)...
-2026-10-12T08:40:48.7712763Z [discover] Termine : 0 candidats ONBOARD (0 nouvelle(s) issue(s) creee(s)), 1 REJECT.
-2026-10-12T08:40:48.7722929Z ## Decouverte automatique de podcasts — resultats
-2026-10-12T08:40:48.7723348Z
-2026-10-12T08:40:48.7724019Z 4359 podcasts trouves via iTunes Search, 1287 nouveaux (sur 62 secteur(s)/mot(s)-cle(s) distinct(s)), 1 qualifies sur ce run (repartis entre secteurs).
-2026-10-12T08:40:48.7725318Z
-2026-10-12T08:40:48.7725617Z ### Candidats ONBOARD (0)
-2026-10-12T08:40:48.7726049Z
-2026-10-12T08:40:48.7726419Z | Podcast | Editeur | Episodes | Flux RSS | Raison |
-2026-10-12T08:40:48.7727292Z |---|---|---|---|---|
-2026-10-12T08:40:48.7727696Z
-2026-10-12T08:40:48.7727982Z ### Candidats REJECT (1)
-2026-10-12T08:40:48.7728389Z
-2026-10-12T08:40:48.7733948Z - **Total Leo (Video)** — TWiT est un réseau media/podcast grand public de premier plan, pas une entreprise B2B produisant un podcast pour son marketing. Total Leo est un agrégateur de contenu (feed) plutôt qu'un podcast original, et la forte notoriété de TWiT en tant qu
+# 1. Decouverte - run 38225358529
+﻿2026-10-12T08:44:41.1595165Z ##[group]Run set -o pipefail
+2026-10-12T08:44:41.1595521Z ^[[36;1mset -o pipefail^[[0m
+2026-10-12T08:44:41.1595898Z ^[[36;1mpython automation/scripts/discover_podcasts.py | tee discovery.log^[[0m
+2026-10-12T08:44:41.1596407Z ^[[36;1mn=$(grep -oE '\(([0-9]+) nouvelle' discovery.log | grep -oE '[0-9]+' | tail -1)^[[0m
+2026-10-12T08:44:41.1596918Z ^[[36;1mecho "DISCOVERED_COUNT=$***n:-0***" >> "$GITHUB_ENV"^[[0m
+2026-10-12T08:44:41.1653706Z shell: /usr/bin/bash -e ***0***
+2026-10-12T08:44:41.1654003Z env:
+2026-10-12T08:44:41.1654308Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-12T08:44:41.1654912Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-12T08:44:41.1655342Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-12T08:44:41.1655736Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-12T08:44:41.1656110Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-12T08:44:41.1656486Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-12T08:44:41.1656876Z   EPISODES_PAR_JOUR: 45
+2026-10-12T08:44:41.1657140Z   MFE_TEST_UN: true
+2026-10-12T08:44:41.1657736Z   ANTHROPIC_API_KEY: ***
+2026-10-12T08:44:41.1658013Z   DISCOVERY_MAX_QUALIFY: 3
+2026-10-12T08:44:41.1658281Z   DISCOVERY_COUNTRIES: us
+2026-10-12T08:44:41.1658545Z   DISCOVERY_KNOWN_RATIO: 0.2
+2026-10-12T08:44:41.1659241Z   MFE_SHEET_URL: ***
+2026-10-12T08:44:41.1659496Z   DISCOVERY_LEADER_GATE: 1
+2026-10-12T08:44:41.1659915Z   DISCOVERY_GATE_JOUR: 1000
+2026-10-12T08:44:41.1660187Z   DISCOVERY_GATE_MAX: 45
+2026-10-12T08:44:41.1660457Z   DISCOVERY_GATE_VERIF_MAX: 60
+2026-10-12T08:44:41.1662718Z   GITHUB_TOKEN: ***
+2026-10-12T08:44:41.1663017Z   GITHUB_REPOSITORY: listenly-geo/listenlygeo
+2026-10-12T08:44:41.1663346Z ##[endgroup]
+2026-10-12T08:44:41.2521321Z [discover] 80 mots-cles utilises sur ce run, 1 pays cibles.
+2026-10-12T08:45:01.1067037Z [discover] 4532 podcasts uniques trouves (avant filtrage).
+2026-10-12T08:45:01.1165940Z [discover] 1283 candidats nouveaux (non deja onboardes/pausés/traites), repartis sur 70 mot(s)-cle(s).
+2026-10-12T08:46:53.5583102Z [discover] Filtre dirigeant : 13 podcasts testes, 3 avec dirigeant joignable, 54 verifications restantes sur ce run, detail ***'noms': 8, 'ecrit_site': 3, 'testees': 6, 'statut_catchall': 3, 'domaines_attrape_tout': 3, 'animateur_seul': 3, 'statut_invalid': 2, 'statut_va
+2026-10-12T08:46:53.5585204Z [discover] Pre-filtre RSS gratuit : 40 podcasts verifies, 3 joignables retenus pour qualification, refuses : ***'email personnel': 5, "pas d'email dans le RSS": 14, 'aucun dirigeant joignable': 10***
+2026-10-12T08:46:53.5586154Z [discover] Ciblage adaptatif -- repartition des candidats qualifies : Agences de services 1, Juridique 1, Conseil 1
+2026-10-12T08:46:53.5586853Z [discover] Plafonne a 3 candidats sur ce run, repartis entre secteurs (les autres seront vus au prochain passage).
+2026-10-12T08:46:53.5587384Z [discover] Qualification : Niche Marketing Podcast...
+2026-10-12T08:47:00.7488981Z [discover]   Email : [mail]
+2026-10-12T08:47:01.0490600Z [discover] Qualification : "The Data Diva" Talks Privacy Podcast"...
+2026-10-12T08:47:08.1149652Z [discover] Qualification : The School Connect Podcast...
+2026-10-12T08:47:23.3691279Z [discover] Dirigeants confirmes transmis au Sheet : 1 (? enregistres)
+2026-10-12T08:47:23.3691890Z [discover] Termine : 1 candidats ONBOARD (1 nouvelle(s) issue(s) creee(s)), 2 REJECT.
+2026-10-12T08:47:23.3760230Z ## Decouverte automatique de podcasts — resultats
+2026-10-12T08:47:23.3760637Z
+2026-10-12T08:47:23.3761310Z 4532 podcasts trouves via iTunes Search, 1283 nouveaux (sur 70 secteur(s)/mot(s)-cle(s) distinct(s)), 3 qualifies sur ce run (repartis entre secteurs).
+2026-10-12T08:47:23.3762043Z
+2026-10-12T08:47:23.3762219Z ### Candidats ONBOARD (1)
+2026-10-12T08:47:23.3762447Z
+2026-10-12T08:47:23.3762672Z | Podcast | Editeur | Episodes | Flux RSS | Raison |
+2026-10-12T08:47:23.3763179Z |---|---|---|---|---|
+2026-10-12T08:47:23.3765723Z | Niche Marketing Podcast | John Bertino | 36 | `https://rss.libsyn.com/shows/468468/destinations/3963288.xml` | Podcast d'entreprise B2B produit par The Agency Guide (cabinet de conseil en marketing fondé par John Bertino). Contenu niche expert sur strategies marketing 
+2026-10-12T08:47:23.3766966Z
+2026-10-12T08:47:23.3767085Z ### Candidats REJECT (2)
+2026-10-12T08:47:23.3767253Z
+2026-10-12T08:47:23.3768454Z - **"The Data Diva" Talks Privacy Podcast"** — Podcast produit par une consultante indépendante (Debbie Reynolds Consulting LLC), pas par une entreprise B2B. Bien que B2B et expertise pointue, c'est un personal brand / consultancy podcast, pas une production d'entreprise
+2026-10-12T08:47:23.3771200Z - **The School Connect Podcast** — School Connect est une organisation à but non lucratif (nonprofit), pas une entreprise B2B commerciale. Le podcast cible les leaders communautaires et les parents, non un public professionnel B2B avec des besoins métier spécifiques. Ne 
