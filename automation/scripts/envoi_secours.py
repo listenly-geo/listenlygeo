@@ -2,7 +2,7 @@
 """Envoi de secours (12/10/2026) : si le declencheur d'envoi de 15 min d'Apps Script ne tourne pas, GitHub fait partir les mails au meme rythme.
 Memes regles que le script : plage horaire du Sheet, plafond du jour, repartition par creneaux de 15 min, interrupteur MFE_ENVOI_AUTO.
 Aucun doublon possible : le plafond et le compteur du jour sont ceux du Sheet (le script d'envoi refuse de depasser)."""
-import sys, math, datetime, json
+import sys, os, math, datetime, json
 from zoneinfo import ZoneInfo
 sys.path.insert(0, "automation/scripts")
 import sheet_bridge
@@ -25,14 +25,22 @@ def main():
     slots = (h1 - h0) * 4
     slot = (now.hour - h0) * 4 + now.minute // 15 + 1
     allowed = math.ceil(cap * slot / slots)
-    n = min(3, allowed - sent, cap - sent)
-    print(f"envoi secours : {sent} envoyes, {allowed} attendus a ce creneau, plafond {cap} -> {max(n, 0)} a envoyer")
-    if n <= 0:
-        return
-    res = sheet_bridge.call(payload={"action": "cmd", "cmd": "test_real", "slug": "", "n": n, "confirm": True})
-    print(f"::notice title=Envoi de secours::{json.dumps(res, ensure_ascii=False)[:300]}")
-    if not res.get("ok"):
-        sys.exit(1)
+    a_envoyer = min(6, allowed - sent, cap - sent)   # 6 par passage au maximum (rattrapage progressif)
+    print(f"envoi secours : {sent} envoyes, {allowed} attendus a ce creneau, plafond {cap} -> {max(a_envoyer, 0)} a envoyer")
+    while a_envoyer > 0:
+        n = min(3, a_envoyer)
+        res = sheet_bridge.call(payload={"action": "cmd", "cmd": "test_real", "slug": "", "n": n, "confirm": True})
+        print(f"::notice title=Envoi de secours::{json.dumps(res, ensure_ascii=False)[:300]}")
+        if not res.get("ok"):
+            sys.exit(1)
+        faits = int(res.get("envoyes") or 0)
+        sent += faits
+        a_envoyer -= n
+        if faits == 0:
+            break   # plus de ligne "Pret" envoyable
+    # la chaine continue tant qu'on est dans la plage et que le plafond n'est pas atteint
+    if sent < cap and now.hour < h1 - 0:
+        open(os.environ.get("GITHUB_OUTPUT", "/dev/null"), "a").write("continuer=true\n")
 
 
 if __name__ == "__main__":

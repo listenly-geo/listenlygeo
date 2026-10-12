@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: read
+  actions: write
 
 concurrency:
   group: marketforge-envoi-secours
@@ -17,13 +18,21 @@ concurrency:
 jobs:
   envoi:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - name: Envoi cadence
+        id: envoi
         env:
           MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
         run: python automation/scripts/envoi_secours.py
+      - name: "Prochain passage dans 14 min (le cron GitHub n'est pas fiable, la chaine se relance seule)"
+        if: always() && steps.envoi.outputs.continuer == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          sleep 840
+          gh workflow run marketforge-envoi-secours.yml --ref main -R "$GITHUB_REPOSITORY"
