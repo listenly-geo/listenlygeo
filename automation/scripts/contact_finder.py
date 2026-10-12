@@ -406,6 +406,9 @@ def find_contact(slug, prospect, pods, ctx):
     return result, base
 
 
+LEADER_TITLE = re.compile(r"\b(founder|co-?founder|founding|ceo|chief executive|chief [a-z]+ officer|president|owner|proprietor|managing (partner|director|member)|general partner|principal|chairman|chair\b|partner)\b", re.I)
+
+
 def leader_gate(name, artist, feed_url, feed_email, ctx):
     """FILTRE D'ENTREE (08/10/2026) : avant toute fiche Listenly / extraction (couteuses), ce podcast a-t-il un dirigeant JOIGNABLE ?
     Reponse : (ok, raison). ok = une adresse ecrite sur le site de l'entreprise OU confirmee 'valid' par MyEmailVerifier, differente
@@ -417,6 +420,11 @@ def leader_gate(name, artist, feed_url, feed_email, ctx):
     res, _ = find_contact(slug, prospect, pods, ctx)
     ctx["last_res"] = res   # le resultat complet est conserve : le filtre le transmet a la suite du funnel (pas de 2e recherche)
     em = (res.get("email") or "").lower()
+    # QUALITE (12/10/2026) : un vrai dirigeant de l'entreprise (fondateur, CEO, president, associe...), jamais l'animateur seul
+    # ni un poste non dirigeant (manager, producteur...).
+    poste = (res.get("poste") or "")
+    if em and not LEADER_TITLE.search(poste):
+        return False, "poste non dirigeant (" + (poste[:40] or "inconnu") + ")"
     if em and em != (feed_email or "").lower():
         return True, "dirigeant joignable (" + ("ecrit sur le site" if res.get("ecrit_site") else "verifie") + ")"
     return False, res.get("fiabilite") or "aucun dirigeant joignable"

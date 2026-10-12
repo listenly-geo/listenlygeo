@@ -18,7 +18,7 @@ on:
     branches: [main]
     paths: ['automation/marketforge_engine/run-now.txt']   # lancement a distance (modifier ce fichier)
   schedule:
-    - cron: '*/15 * * * *'   # toutes les 15 min (05/10/2026) : flux continu (les plafonds du jour limitent le volume)
+    - cron: '*/30 * * * *'   # 12/10/2026 : toutes les 30 min (avant : 15) ; le stock de prets (40) arrete la production quand il est plein
 
 permissions:
   contents: write
@@ -65,6 +65,23 @@ jobs:
           print("mode test : 1 fiche, 2 episodes max")
           PY
 
+      - name: "Stock de prets (objectif 40 avant 14h, plein = on ne produit plus)"
+        id: stock
+        continue-on-error: true
+        env:
+          MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import sys
+          sys.path.insert(0, "automation/scripts")
+          import sheet_bridge
+          d = sheet_bridge.call({"action": "status"})
+          n = sum(1 for p in d.get("prospects", []) if p.get("Statut") == "Pret")
+          print(f"stock={n}")
+          print(f"full={'true' if n >= 40 else 'false'}")
+          PY
+          cat "$GITHUB_OUTPUT" | grep -E "^(stock|full)="
+
       - name: Lire config.json
         id: cfg
         run: |
@@ -101,7 +118,7 @@ jobs:
           python automation/scripts/sheet_bridge.py optimisations
 
       - name: 1. Decouverte
-        if: steps.cfg.outputs.pause != 'true' && steps.cfg.outputs.discover_max != '0'
+        if: steps.cfg.outputs.pause != 'true' && steps.cfg.outputs.discover_max != '0' && (steps.stock.outputs.full != 'true' || github.event.inputs.test_un == 'true')
         continue-on-error: true
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -110,7 +127,7 @@ jobs:
           DISCOVERY_KNOWN_RATIO: '0.2'   # 80 % podcasts B2B de niche (repondent plus que les gros medias)
           MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}   # filtre dirigeant (08/10/2026) : verification MyEmailVerifier via le script Google
           DISCOVERY_LEADER_GATE: '1'
-          DISCOVERY_GATE_JOUR: '1000'       # verifications MyEmailVerifier du filtre par jour (~30 dirigeants/jour)
+          DISCOVERY_GATE_JOUR: '300'        # 12/10/2026 : verifications du filtre par jour (avant 1000) ; ~6 par dirigeant -> 40 dirigeants
           DISCOVERY_GATE_MAX: '45'         # podcasts examines par passage
           DISCOVERY_GATE_VERIF_MAX: '60'   # verifications max par passage
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -272,6 +289,7 @@ jobs:
         continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FULL: ${{ steps.stock.outputs.full }}
         run: |
           python - <<'PY' > /tmp/relance.txt
           import json, datetime, os
@@ -282,13 +300,13 @@ jobs:
           g = load(f"{me}/gate_state.json", {})
           c = load(f"{me}/config.json", {})
           j = load(f"{me}/queue.json", {}).get("journal", {}).get(datetime.date.today().isoformat(), {})
-          gate_left = 1000 - (g.get("used", 0) if g.get("date") == datetime.date.today().isoformat() else 0)
+          gate_left = 300 - (g.get("used", 0) if g.get("date") == datetime.date.today().isoformat() else 0)
           eps_left = int(c.get("episodes_par_jour", 50)) - int(j.get("episodes", 0))
           print("oui" if (gate_left > 15 or eps_left > 3) else "non")
           PY
           # le module Qui contacter ne se declenchait plus apres un run lance par le moteur lui-meme (evenement workflow_run non propage) : on le lance ici
           gh workflow run marketforge-contact-finder.yml --ref main -R "$GITHUB_REPOSITORY" && echo "::notice title=Qui contacter::module lance apres le run."
-          if [ "$(cat /tmp/relance.txt)" = "oui" ]; then
+          if [ "$(cat /tmp/relance.txt)" = "oui" ] && [ "$FULL" != "true" ]; then
             sleep 90
             gh workflow run marketforge-engine-run.yml --ref main -R "$GITHUB_REPOSITORY"
             echo "::notice title=Relance::budget du jour restant -> nouveau passage lance."

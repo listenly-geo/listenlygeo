@@ -1,0 +1,27 @@
+name: Suivi quotidien 30 mails
+
+# Chaque soir (23h30 Paris) et a la demande : combien de vrais mails sont partis sur l'objectif de 30, stock de prets, erreurs.
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '30 21 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  suivi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Suivi
+        env:
+          MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
+        run: python3 automation/scripts/suivi_quotidien.py
+      - name: Enregistrer
+        run: |
+          git config user.name "marketforge-bot"; git config user.email "bot@listenly.fr"
+          git add automation/marketforge_engine/suivi_quotidien.json || true
+          git diff --cached --quiet || (git commit -q -m "Suivi quotidien" && for i in 1 2 3; do git pull -q --rebase && git push -q && break; sleep 3; done)
