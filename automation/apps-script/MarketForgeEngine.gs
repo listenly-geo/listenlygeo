@@ -58,6 +58,7 @@ var MFE_DEFAULTS = [
   ['MFE_AB_ACTIF', 'TRUE', 'MarketForge Engine — TRUE = test A/B du CTA (chaque mail recoit une variante, la repartition suit les resultats). FALSE = toujours la variante A.'],
   ['MFE_ENVOI_DIRIGEANT', 'FALSE', 'Qui contacter (v24) — TRUE = quand une adresse de dirigeant VERIFIEE existe (colonnes S-X), le 1er mail part a ce dirigeant (seul destinataire) pour une part des prospects (voir MFE_DIRIGEANT_PART), l\'autre part sert de temoin. FALSE = comportement habituel (adresse du flux RSS).'],
   ['MFE_DIRIGEANT_PART', '50', 'Qui contacter (v24) — pourcentage des prospects (avec adresse de dirigeant verifiee) qui recoivent le mail au dirigeant ; le reste = temoin (adresse du flux) pour comparer les reponses.'],
+  ['MFE_DIRIGEANT_SEUL', 'TRUE', 'Qui contacter (v25) — TRUE = AUCUN mail ne part a l\'adresse du flux : sans dirigeant verifie (colonnes S-X) le prospect passe en "En pause (pas de dirigeant)". Un meme dirigeant ne recoit qu\'un seul 1er mail (les autres podcasts passent en "En pause (doublon dirigeant)"). FALSE = ancien comportement.'],
   ['MFE_VERIF_DIRIGEANT_MAX_JOUR', '40', 'Qui contacter (v24) — plafond de verifications MyEmailVerifier PAR JOUR pour la recherche d\'adresses de dirigeants (le quota gratuit est partage avec la verification avant envoi).'],
   ['MFE_RELANCE_JOURS', '4', 'MarketForge Engine — relance unique apres N jours sans reponse (0 = pas de relance).'],
   ['MFE_RELANCE_DEPUIS', '02/10/2026', 'MarketForge Engine — les relances ne concernent que les prospects dont le 1er mail est parti a partir de cette date (JJ/MM/AAAA). Les prospects de l\'ancien mail ne sont jamais relances. Vide = tous.'],
@@ -338,6 +339,11 @@ function mfeSend_(sh, cfg, force, onlySlug) {   // onlySlug (optionnel) : n'envo
   if (force) budget = force === true ? Math.max(0, daily - sentToday) : Math.min(force, Math.max(0, daily - sentToday));
   var sent = 0;
   var ab = mfeAbPlan_(rows, cfg);
+  var usedLeaders = {};   // v25 : adresses deja contactees (un dirigeant = un seul 1er mail)
+  rows.forEach(function (r) {
+    var st0 = r.values[6];
+    if (r.values[2] && (st0 === 'Envoye' || st0 === 'Relance' || st0 === 'Relance 2' || st0 === 'Relance 3' || st0 === 'Repondu')) usedLeaders[String(r.values[2]).toLowerCase()] = true;
+  });
   rows.forEach(function (r) {
     if (sent >= budget || r.values[6] !== 'Pret') return;
     if (onlySlug && r.values[0] !== onlySlug) return;
@@ -351,6 +357,18 @@ function mfeSend_(sh, cfg, force, onlySlug) {   // onlySlug (optionnel) : n'envo
         var lwhy = mfeEmailProblem_(leader.to), lverif = lwhy ? { stop: true } : mfeVerifyMailbox_(leader.to);
         if (lwhy || lverif.stop) leader = null;   // adresse du dirigeant refusee -> on garde le contact du flux
         else to = leader.to;
+      }
+    }
+    if (cfg.DIRIGEANT && cfg.DIRIGEANT_SEUL) {   // v25 : dirigeant seulement, jamais l'adresse du flux
+      if (!leader) {
+        sh.getRange(r.row, 7).setValue('En pause (pas de dirigeant)');
+        sh.getRange(r.row, 12).setValue('Pas envoye : aucun dirigeant avec adresse verifiee (MFE_DIRIGEANT_SEUL)');
+        return;
+      }
+      if (usedLeaders[String(leader.to).toLowerCase()]) {
+        sh.getRange(r.row, 7).setValue('En pause (doublon dirigeant)');
+        sh.getRange(r.row, 12).setValue('Pas envoye : ce dirigeant a deja recu un 1er mail pour un autre podcast');
+        return;
       }
     }
     if (!leader) {
@@ -381,6 +399,7 @@ function mfeSend_(sh, cfg, force, onlySlug) {   // onlySlug (optionnel) : n'envo
         sh.getRange(r.row, MFE.COLS.length + 7).setValue(r.values[2]);
         sh.getRange(r.row, 12).setValue('Envoye au dirigeant (' + (leader.poste || 'poste inconnu') + ') ; contact du flux d\'origine : colonne Y');
       }
+      if (leader) usedLeaders[String(leader.to).toLowerCase()] = true;
       ab.counts[variant]++; ab.total++;
       sent++;
     } catch (e) {
@@ -911,6 +930,7 @@ function mfeSettings_() {
     EMAIL_TEST: String(cfg.MFE_EMAIL_TEST || '').trim(),
     AB_ACTIF: String(cfg.MFE_AB_ACTIF).toUpperCase() !== 'FALSE',
     DIRIGEANT: String(cfg.MFE_ENVOI_DIRIGEANT).toUpperCase() === 'TRUE',   // v24 : eteint par defaut
+    DIRIGEANT_SEUL: String(cfg.MFE_DIRIGEANT_SEUL || 'TRUE').toUpperCase() !== 'FALSE',   // v25
     DIRIGEANT_PART: Math.max(0, Math.min(100, isNaN(parseInt(cfg.MFE_DIRIGEANT_PART, 10)) ? 50 : parseInt(cfg.MFE_DIRIGEANT_PART, 10))),
   };
 }
