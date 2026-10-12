@@ -28,13 +28,13 @@ def main():
     jour = today.strftime("%d/%m/%Y")
     erreurs = [f"{e.get('etape')}" for e in j if str(e.get("date", "")).startswith(jour)]
     ligne = {"date": today.isoformat(), "envoyes": envoyes, "objectif": OBJECTIF,
-             "atteint": envoyes >= OBJECTIF, "stock_prets": pret, "verifs_filtre": verifs,
+             "atteint": envoyes >= OBJECTIF, "stock_prets": pret, "script_envoi_version": d.get("script_version"), "verifs_filtre": verifs,
              "etapes_en_erreur": sorted(set(erreurs))[:10]}
     s = load(f"{ME}/suivi_quotidien.json", {"_aide": "Objectif : 30 vrais mails par jour a des dirigeants. Une ligne par jour.", "jours": []})
     s["jours"] = [x for x in s["jours"] if x.get("date") != ligne["date"]] + [ligne]
     s["jours"] = s["jours"][-60:]
     json.dump(s, open(f"{ME}/suivi_quotidien.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    print(f"suivi : {envoyes}/{OBJECTIF} mails, stock {pret} prets, {verifs} verifications, {len(set(erreurs))} etape(s) en erreur")
+    print(f"suivi : script d'envoi v{d.get('script_version')}, {envoyes}/{OBJECTIF} mails, stock {pret} prets, {verifs} verifications, {len(set(erreurs))} etape(s) en erreur")
 
 
 if __name__ == "__main__":
