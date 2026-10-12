@@ -25,7 +25,7 @@ Sortie :
   - Resume lisible sur stdout et dans $GITHUB_STEP_SUMMARY si present
 """
 
-import os, sys, json, re, time, random
+import os, sys, json, re, time, random, hashlib
 import urllib.request, urllib.error, urllib.parse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from rss_contact import fetch_contact_email, check_email  # noqa: E402
@@ -471,6 +471,11 @@ def main():
                 "stats": collections.defaultdict(int), "par_podcast": 2}
     gate_tries = gate_ok = 0
     gate_stop = False
+    # UN DIRIGEANT = UN SEUL PODCAST (12/10/2026) : controle a l'entree, avant toute fiche. Empreintes sha256, jamais d'adresse en clair.
+    LEADERS_FILE = "automation/marketforge_engine/leaders_utilises.json"
+    _lu = load_json(LEADERS_FILE, {})
+    leaders_used = set(_lu.get("hashes", [])) if isinstance(_lu, dict) else set()
+    leaders_new = set()
     gate_found = {}   # feed -> dirigeant confirme par le filtre (transmis au Sheet : une seule recherche dans tout le funnel)
     while len(to_qualify) < MAX_QUALIFY and live and prechecked < MAX_PRECHECK and not gate_stop:
         batch = []
@@ -528,8 +533,22 @@ def main():
                         "secteur": kw_sector.get(kw_of_feed.get(feed, ""), ""), "gate": "dirigeant",
                     }
                     continue
-                gate_ok += 1
                 _lr = gate_ctx.get("last_res") or {}
+                _h = hashlib.sha256((_lr.get("email") or "").strip().lower().encode()).hexdigest() if _lr.get("email") else ""
+                if _h and _h in leaders_used:
+                    refus["dirigeant deja pris par un autre podcast"] = refus.get("dirigeant deja pris par un autre podcast", 0) + 1
+                    seen_candidates[feed] = {
+                        "podcast_name": cand.get("collectionName", ""), "artist_name": cand.get("artistName", ""),
+                        "feed_url": feed, "genre": cand.get("primaryGenreName", ""), "verdict": "REJECT",
+                        "reason": "Filtre dirigeant : dirigeant deja pris par un autre podcast",
+                        "detected_language": "", "checked_date": __import__("datetime").date.today().isoformat(),
+                        "secteur": kw_sector.get(kw_of_feed.get(feed, ""), ""), "gate": "doublon",
+                    }
+                    continue
+                if _h:
+                    leaders_used.add(_h)
+                    leaders_new.add(_h)
+                gate_ok += 1
                 if _lr.get("email"):
                     gate_found[feed] = {"feed": feed, "nom": _lr.get("nom", ""), "poste": _lr.get("poste", ""), "email": _lr["email"],
                                         "source": _lr.get("source", ""), "fiabilite": _lr.get("fiabilite", ""),
@@ -537,6 +556,12 @@ def main():
             pre_email[feed] = email
             to_qualify.append(cand)
             per_sector[sec] = per_sector.get(sec, 0) + 1
+    if GATE_ON and leaders_new:
+        try:
+            with open(LEADERS_FILE, "w", encoding="utf-8") as f:
+                json.dump({"_aide": _lu.get("_aide", "") if isinstance(_lu, dict) else "", "hashes": sorted(leaders_used)}, f, indent=1)
+        except OSError:
+            pass
     if GATE_ON:
         gate_state["used"] = int(gate_state.get("used", 0)) + (gate_run_cap - gate_ctx["verif_left"])
         gate_state["tries"] = int(gate_state.get("tries", 0)) + gate_tries

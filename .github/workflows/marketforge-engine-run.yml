@@ -8,7 +8,12 @@ name: MarketForge Engine — RUN COMPLET (découverte → Listenly + N1 → emai
 # Reglages : automation/marketforge_engine/config.json (pause, debits, onboarding_auto).
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      test_un:
+        description: 'true = TEST : 1 seul podcast de la decouverte au tableau (pas de relance automatique, plafonds minimaux)'
+        required: false
+        default: 'false'
   push:
     branches: [main]
     paths: ['automation/marketforge_engine/run-now.txt']   # lancement a distance (modifier ce fichier)
@@ -40,6 +45,25 @@ jobs:
         env:
           MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
         run: python automation/scripts/sheet_bridge.py pull
+
+      - name: MODE TEST (1 seul podcast, ignore la pause du Sheet)
+        if: github.event.inputs.test_un == 'true'
+        run: |
+          python - <<'PY'
+          import json, datetime, os
+          p = "automation/marketforge_engine/config.json"
+          c = json.load(open(p, encoding="utf-8"))
+          c.update({"pause": False, "decouverte_max_par_jour": 1, "onboarding_max_par_jour": 1, "onboarding_auto": True,
+                    "extraction_auto": True, "extraire": [], "extraction_apres_jours": 0, "episodes_par_podcast": 1})
+          json.dump(c, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+          try:
+              q = json.load(open("automation/marketforge_engine/queue.json", encoding="utf-8"))
+              deja = int(q.get("journal", {}).get(datetime.date.today().isoformat(), {}).get("episodes", 0))
+          except Exception:
+              deja = 0
+          open(os.environ["GITHUB_ENV"], "a").write(f"EPISODES_PAR_JOUR={deja + 2}\nMFE_TEST_UN=true\n")
+          print("mode test : 1 podcast, 2 episodes max")
+          PY
 
       - name: Lire config.json
         id: cfg
@@ -183,6 +207,10 @@ jobs:
           python automation/scripts/sheet_bridge.py stats
           python automation/scripts/build_engine_dashboard.py
 
+      - name: MODE TEST - ne pas enregistrer la config temporaire
+        if: always() && github.event.inputs.test_un == 'true'
+        run: git checkout -- automation/marketforge_engine/config.json || true
+
       - name: 4. Commit
         if: always() && steps.cfg.outputs.pause != 'true'
         run: |
@@ -240,7 +268,7 @@ jobs:
             **/.gitkeep
 
       - name: 6. Relance automatique (tant qu'il reste du budget du jour)
-        if: always() && steps.cfg.outputs.pause != 'true'
+        if: always() && steps.cfg.outputs.pause != 'true' && github.event.inputs.test_un != 'true'
         continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
