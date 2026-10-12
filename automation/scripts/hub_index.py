@@ -187,8 +187,8 @@ def merge_extracted(slug, published):
     « Reponse complete ») qui prend le relais. Sans effet pour les autres podcasts."""
     if slug not in engine_slugs():
         return published
-    if slug in _prospects() and not extraction_allowed(slug):
-        return published   # prospect en cours : 0 question extraite affichee (ne pas l'embrouiller)
+    # 12/10/2026 (decision d'Etienne) : les questions extraites s'affichent des le depart sur le hub, meme pour un prospect en cours
+    # (le prospect n'a pas acces a la fiche N1, et Google comprend mieux le Hub en voyant ses premieres questions).
     known = {_norm(p.get("question")) for p in published}
     extra = []
     for path in sorted(glob.glob(f"{KNOWLEDGE_DIR}/{glob.escape(slug)}--*.json")):
