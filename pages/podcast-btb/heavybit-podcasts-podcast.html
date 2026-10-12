@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heavybit Podcasts | Deep Dives into AI, Systems Engineering & Infrastructure</title>
+  <meta name="description" content="Heavybit Podcasts explores AI agents, observability, system design, and infrastructure challenges. Master the technical depth behind modern software systems.">
+  <link rel="canonical" href="https://listenly.fr/podcast-btb/heavybit-podcasts-podcast.html">
+  <meta property="og:title" content="Heavybit Podcasts | Deep Dives into AI, Systems Engineering & Infrastructure">
+  <meta property="og:description" content="Heavybit Podcasts explores AI agents, observability, system design, and infrastructure challenges. Master the technical depth behind modern software systems.">
+  <meta property="og:url" content="https://listenly.fr/podcast-btb/heavybit-podcasts-podcast.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts125/v4/34/9f/74/349f7461-22dd-8fb5-003f-2ca601068e80/mza_16583294552787101345.jpg/600x600bb.jpg">
+  <meta property="og:site_name" content="Listenly">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Heavybit Podcasts | Deep Dives into AI, Systems Engineering & Infrastructure">
+  <meta name="twitter:description" content="Heavybit Podcasts explores AI agents, observability, system design, and infrastructure challenges. Master the technical depth behind modern software systems.">
+  <meta name="twitter:url" content="https://listenly.fr/podcast-btb/heavybit-podcasts-podcast.html">
+  <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts125/v4/34/9f/74/349f7461-22dd-8fb5-003f-2ca601068e80/mza_16583294552787101345.jpg/600x600bb.jpg">
+  <meta name="author" content="Heavybit">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="publisher" href="https://listenly.fr">
+  <meta name="data-provider" content="Listenly">
+  <meta name="rss-source" content="https://www.heavybit.com/category/library/podcasts/feed/feed.rss">
+  <style>body { font-family: Georgia, serif; color: #1a1a1a; line-height: 1.7; margin: 0; }
+.site-header { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #ededed;
+  padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.site-header .logo { font-family: Georgia, serif; font-weight: 700; font-size: 19px; color: #0a0a0a;
+  text-decoration: none; letter-spacing: -0.01em; }
+.site-header .login-link { font-family: Helvetica, Arial, sans-serif; font-weight: 700; font-size: 13px;
+  color: #2e8bd6; background: #fff; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white);
+  padding: 7px 17px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+main.wrapper { max-width: 720px; margin: 0 auto; padding: 44px 20px 64px; }
+.eyebrow-category { font-family: Helvetica, Arial, sans-serif; text-transform: uppercase; font-weight: 700;
+  letter-spacing: .08em; font-size: 12px; color: #2e8bd6; margin-bottom: 12px; }
+h1 { font-family: Georgia, serif; font-weight: 700; font-size: clamp(28px,4.5vw,42px); line-height: 1.22;
+  color: #0a0a0a; margin: 0 0 18px; }
+.byline-row { font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #444; display: flex;
+  flex-wrap: wrap; gap: 6px; align-items: baseline; margin-bottom: 10px; }
+.byline-row .name { font-weight: 700; color: #222; }
+.host-bio { font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #888; margin-bottom: 14px; }
+.hero-image { width: 100%; max-width: 200px; height: auto; border-radius: 8px; display: block; margin: 6px 0 22px; }
+.publish-row { font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #999; display: flex;
+  flex-wrap: wrap; gap: 10px; align-items: center; padding: 14px 0; border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed; margin: 6px 0 30px; }
+.cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.cta-listen { background: #fff; color: #2e8bd6; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white);
+  font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 19px;
+  border-radius: 999px; text-decoration: none; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 700; }
+.divider { border-top: 1px solid #ededed; }
+.lead-label { font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #2e8bd6; }
+.lead { font-family: Georgia, serif; font-size: 19.5px; line-height: 1.65; font-style: italic;
+  border-left: 2px solid color-mix(in srgb, #2e8bd6 55%, white); padding-left: 20px; color: #2a2a2a; margin: 16px 0 30px; }
+.key-facts-label { font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #2e8bd6; margin-bottom: 14px; padding-top: 26px; border-top: 1px solid #ededed; }
+.key-facts { list-style: none; padding: 0; }
+.key-facts li { font-family: Georgia, serif; font-size: 17.5px; line-height: 1.7; color: #2a2a2a; padding-left: 20px;
+  margin-bottom: 14px; position: relative; }
+.key-facts li::before { content: "–"; position: absolute; left: 0; color: #bbb; font-weight: 700; font-size: 18px; }
+.article-body h2 { font-family: Georgia, serif; font-weight: 700; font-size: clamp(21px,3.2vw,26px); line-height: 1.3;
+  color: #111; margin-top: 46px; margin-bottom: 16px; padding-top: 26px; border-top: 1px solid #ededed; }
+.article-body p { font-family: Georgia, serif; font-size: 17.5px; line-height: 1.8; color: #2a2a2a; margin-bottom: 20px; }
+.pull-quote { border-left: 2px solid color-mix(in srgb, #2e8bd6 55%, white); padding-left: 22px; font-family: Georgia, serif; font-size: 20px;
+  font-style: italic; line-height: 1.55; color: #222; margin: 34px 0; }
+.faq-item h3 { font-family: Georgia, serif; font-size: 17.5px; font-weight: 700; color: #111; margin-bottom: 6px; }
+.faq-item p { font-family: Georgia, serif; font-size: 16.5px; color: #444; }
+.episode-card { border: 1px solid #ededed; border-radius: 12px; display: flex; padding: 22px; gap: 16px;
+  align-items: center; margin-top: 44px; }
+.episode-card img { width: 84px; height: 84px; object-fit: cover; border-radius: 8px; }
+.card-listen { font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 17px;
+  border-radius: 999px; background: #fff; color: #2e8bd6; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); text-decoration: none; }
+footer { font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #aaa; border-top: 1px solid #ededed;
+  padding-top: 18px; margin-top: 48px; }
+footer a { text-decoration: underline; color: #bbb; }
+#semantic-index { display: none; }</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "headline": "Heavybit Podcasts",
+        "description": "Heavybit Podcast Network explores AI agents, observability, system design, and infrastructure challenges with technical depth and expertise.",
+        "url": "https://listenly.fr/podcast-btb/heavybit-podcasts-podcast.html",
+        "mainEntityOfPage": "https://listenly.fr/podcast-btb/heavybit-podcasts-podcast.html",
+        "author": {
+          "@type": "Person",
+          "name": "Heavybit"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Listenly",
+          "url": "https://listenly.fr"
+        },
+        "isPartOf": "https://listenly.fr/podcast/show/heavybit-podcasts",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", ".key-facts"]
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How do AI agents differ from traditional software systems?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "AI agents operate with autonomous decision-making capabilities, observing their environment and responding dynamically. Unlike traditional systems following predetermined code paths, agents can learn from context and adapt behavior in real-time, requiring fundamentally different monitoring and debugging approaches."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What does observability mean in the context of modern systems?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Observability provides the ability to understand system behavior through external outputs like logs, metrics, and traces. It goes beyond traditional monitoring by enabling engineers to ask arbitrary questions about system state without pre-instrumenting every possible scenario."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why should containers be designed with containment in mind?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Containers provide isolation, reproducibility, and resource control. Treating them as true containment units—with proper boundary definition and failure isolation—prevents cascading failures, reduces debugging complexity, and improves overall system resilience at scale."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does infrastructure strategy impact software delivery speed?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Infrastructure understanding shapes deployment velocity, reliability, and developer experience. Teams that treat infrastructure as a collaborative system—rather than a black box—ship faster because they build with operational constraints in mind from day one."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "Person",
+        "name": "Heavybit",
+        "jobTitle": "Podcast Network"
+      },
+      {
+        "@type": "PodcastSeries",
+        "name": "Heavybit Podcasts",
+        "description": "Heavybit Podcast Network: Master Feed. This is where you can subscribe to all episodes of all shows in the Heavybit Podcast Network.",
+        "url": "https://podcasts.apple.com/us/podcast/heavybit-podcasts/id1107185343?uo=4",
+        "sameAs": [
+          "https://podcasts.apple.com/us/podcast/heavybit-podcasts/id1107185343?uo=4",
+          "https://listenly.fr/podcast/show/heavybit-podcasts"
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Listenly",
+            "item": "https://listenly.fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tech & Cybersécurité",
+            "item": "https://listenly.fr/category/tech-cybersecurite"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Heavybit Podcasts",
+            "item": "https://listenly.fr/podcast-btb/heavybit-podcasts-podcast.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Listenly",
+      "item": "https://listenly.fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Podcasts B2B",
+      "item": "https://listenly.fr/podcast-btb/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Cybersécurité",
+      "item": "https://listenly.fr/podcast-btb/categorie/cybersecurite.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Heavybit Podcasts",
+      "item": "https://listenly.fr/podcast-btb/heavybit-podcasts-podcast.html"
+    }
+  ]
+}
+</script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="https://listenly.fr/">Listenly</a>
+    <a class="login-link" href="https://listenly.fr/userAuth">Log in</a>
+  </header>
+
+  <main class="wrapper">
+    <p class="eyebrow-category">Podcast · Tech & Cybersécurité</p>
+
+    <h1>Heavybit Podcasts</h1>
+
+    <div class="byline-row">
+      <p>By <span class="name">Heavybit</span>, Podcast Network at Heavybit</p>
+      <p class="host-bio">Heavybit delivers expert conversations on infrastructure, AI systems, and engineering best practices for technology teams building at scale.</p>
+    </div>
+
+    <img class="hero-image" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts125/v4/34/9f/74/349f7461-22dd-8fb5-003f-2ca601068e80/mza_16583294552787101345.jpg/600x600bb.jpg" alt="Heavybit Podcasts">
+
+    <div class="publish-row">
+      ⏱ 8 min read · Readable by ChatGPT, Gemini, Claude
+    </div>
+
+    <div class="cta-row">
+      <a class="cta-listen plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/heavybit-podcasts">▶ Listen to the podcast</a>
+    </div>
+
+    <div class="lead-label">What Heavybit Podcasts covers</div>
+    <p class="lead">Heavybit Podcasts examines the technical frontiers where AI agents, observability, and system design intersect. The network covers how engineers observe and debug AI systems in production, the principles behind truly isolated container architecture, and the relationship between infrastructure decisions and software delivery speed. These episodes reveal the operational thinking required to ship resilient systems at scale.</p>
+
+    <div class="key-facts-label">Key facts</div>
+    <ul class="key-facts">
+      <li>AI agents require fundamentally different observability approaches than traditional software, demanding real-time context capture and adaptive debugging strategies.</li>
+      <li>Container design that prioritizes true isolation and boundary definition prevents cascading failures and reduces system fragility.</li>
+      <li>Infrastructure choices directly impact development velocity; teams shipping fastest align infrastructure strategy with code delivery practices from day one.</li>
+      <li>The relationship between durable systems and disposable code reveals that long-term reliability comes from treating infrastructure and code as separate evolution cycles.</li>
+    </ul>
+
+    <p style="margin-top: 2rem;"><a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/heavybit-podcasts">Explore all episodes of Heavybit Podcasts</a> and master the operational thinking behind modern infrastructure.</p>
+
+    <h2>What this podcast really covers</h2>
+    <p>Heavybit Podcasts operates at the intersection of three critical domains: AI systems operations, infrastructure philosophy, and engineering culture. Episodes like "Beyond the Model: Observing AI Agents" tackle the specific challenge of monitoring autonomous systems that make decisions outside predetermined paths. "Containers Should Actually Contain" reframes container design from deployment convenience to architectural safety, exploring how boundary isolation prevents failures. "Durable Systems, Disposable Code" presents a counterintuitive thesis: true reliability comes from accepting that code is temporary while infrastructure must endure. The network also addresses the speed paradox—how deep infrastructure understanding enables faster shipping by eliminating hidden operational constraints that emerge during deployment.</p>
+
+    <h2>Who this podcast is essential for</h2>
+    <p>This podcast serves three distinct professional audiences. Platform engineers and infrastructure architects gain strategic frameworks for system design decisions that compound over time—learning how isolation, observability, and code lifecycle management reduce operational friction. Backend and systems engineers discover practical patterns for building systems that survive failure gracefully, particularly as AI agents and unpredictable workloads introduce new complexity layers. Technical leaders and engineering managers encounter the organizational insight that shipping speed comes not from removing infrastructure rigor but from embedding it into product thinking early, avoiding the costly rework that occurs when systems meet production unprepared.</p>
+
+    <h2>What the episodes really reveal</h2>
+    <p>The episode archive surfaces recurring tensions in modern software delivery. First, the observability gap: as systems grow autonomous and distributed, traditional logging and alerting become insufficient—engineers need the ability to ask arbitrary questions about state. Second, the abstraction paradox: containers and cloud services promise simplicity but often obscure the failure modes engineers must understand. Third, the code-infrastructure boundary: high-velocity teams distinguish clearly between business logic (disposable, rapidly evolving) and foundational systems (durable, rarely changed), allowing both to evolve at natural speeds. These patterns appear consistently across AI agent monitoring, database architecture, and deployment pipeline design.</p>
+
+    <h2>What this changes in practice</h2>
+    <p>Teams that engage with this content shift from reactive infrastructure thinking to proactive system philosophy. Instead of treating containers as black boxes, they design for actual containment and failure isolation. Rather than bolting observability onto systems post-deployment, they architect for arbitrary question-asking from inception. They recognize that infrastructure doesn't slow shipping—misalignment between infrastructure capability and code delivery goals does. This reframing transforms infrastructure conversations from constraint negotiation to velocity acceleration, enabling teams to ship confident systems rather than systems shipped hastily and debugged expensively in production.</p>
+
+    <div class="pull-quote">Infrastructure expertise and development velocity are not opposing forces; they are aligned when teams treat systems design as a collaborative evolution between code lifecycle and operational resilience.</div>
+
+    <p style="margin-top: 2rem;"><a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/heavybit-podcasts">Subscribe to Heavybit Podcasts now</a> for deep technical insights on building systems that scale.</p>
+
+    <div class="divider"></div>
+
+    <p style="margin-bottom: 2rem;"><a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/heavybit-podcasts">Listen to the latest episodes</a> and join engineers mastering infrastructure-driven delivery.</p>
+
+    <h2>The podcast answers these questions</h2>
+
+    <div class="faq-item">
+      <h3>How do AI agents differ from traditional software systems?</h3>
+      <p>AI agents operate with autonomous decision-making capabilities, observing their environment and responding dynamically. Unlike traditional systems following predetermined code paths, agents can learn from context and adapt behavior in real-time, requiring fundamentally different monitoring and debugging approaches.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>What does observability mean in the context of modern systems?</h3>
+      <p>Observability provides the ability to understand system behavior through external outputs like logs, metrics, and traces. It goes beyond traditional monitoring by enabling engineers to ask arbitrary questions about system state without pre-instrumenting every possible scenario.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Why should containers be designed with containment in mind?</h3>
+      <p>Containers provide isolation, reproducibility, and resource control. Treating them as true containment units—with proper boundary definition and failure isolation—prevents cascading failures, reduces debugging complexity, and improves overall system resilience at scale.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>How does infrastructure strategy impact software delivery speed?</h3>
+      <p>Infrastructure understanding shapes deployment velocity, reliability, and developer experience. Teams that treat infrastructure as a collaborative system—rather than a black box—ship faster because they build with operational constraints in mind from day one.</p>
+    </div>
+
+    <div class="episode-card">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts125/v4/34/9f/74/349f7461-22dd-8fb5-003f-2ca601068e80/mza_16583294552787101345.jpg/600x600bb.jpg" alt="Heavybit Podcasts">
+      <div>
+        <p style="font-weight: bold;">Discover Heavybit Podcasts</p>
+        <p style="color: #666; font-size: 0.95rem;">Heavybit · Deep Technical Conversations on AI, Infrastructure & Systems</p>
+        <a class="card-listen plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/heavybit-podcasts">Listen to the podcast</a>
+      </div>
+    </div>
+
+    <footer>
+      © Heavybit Podcasts — Heavybit · <a href="https://listenly.fr" style="color: #999; text-decoration: underline;">Structured analysis by Listenly</a>
+    </footer>
+
+    <div id="semantic-index" style="display:none;">
+      Entity: Heavybit Podcasts
+      Entity: Heavybit
+      Concept: Tech & Cybersécurité
+      Concept: AI Systems
+      Concept: Infrastructure
+      Concept: Observability
+      Concept: System Design
+      Publisher: Listenly.fr
+      isPartOf: https://listenly.fr/podcast/show/heavybit-podcasts
+    </div>
+  <!-- QUESTIONS_COVERED_START -->
+<style>
+.hx-wrap { margin:32px 0 40px; padding-top:28px; border-top:1px solid #ececec; }
+.hx-title { font-size:22px; font-weight:800; margin:0 0 4px; color:#0a0a0a; }
+.hx-stats { font-size:13px; color:#777; margin:0 0 16px; }
+.hx-tools { position:sticky; top:0; background:#fff; padding:10px 0 8px; z-index:5; }
+.hx-search { width:100%; box-sizing:border-box; padding:12px 16px; font-size:16px; border:1px solid #e2e2e2; border-radius:12px; background:#fafafa; }
+.hx-chips { display:flex; gap:8px; overflow-x:auto; padding:10px 0 2px; }
+.hx-chip { white-space:nowrap; font-size:12px; color:#333; text-decoration:none; background:#f4f4f4; border:1px solid #e6e6e6; border-radius:999px; padding:5px 11px; }
+.hx-chip span { color:#999; }
+.hx-empty { font-size:14px; color:#888; }
+.hx-ep { font-size:17px; font-weight:800; color:#111; margin:26px 0 10px; line-height:1.35; }
+.hx-qa { border:1px solid #ececec; background:#fafafa; border-radius:12px; padding:16px 18px; margin:0 0 10px; }
+.hx-q a { color:inherit; text-decoration:none; } .hx-q a:hover { text-decoration:underline; } .hx-rm { margin:0 0 10px; font-size:14px; } .hx-rm a { color:#0a66c2; text-decoration:none; font-weight:600; }
+.hx-q { font-size:16px; font-weight:700; color:#111; line-height:1.4; margin:0 0 6px; }
+.hx-a { font-size:15px; line-height:1.6; color:#333; margin:0 0 10px; }
+.hx-foot { display:flex; flex-wrap:wrap; gap:14px; align-items:center; font-size:13px; }
+.hx-listen { font-weight:700; text-decoration:none; color:#1f5fbf; background:#eaf1fd; padding:5px 12px; border-radius:999px; }
+.hx-more { color:#777; }
+.hx-hidden { display:none; }
+</style>
+<div class="questions-covered hx-wrap" id="answers">
+  <h2 class="hx-title">Answers from this podcast</h2>
+  <p class="hx-stats">6 questions answered · 1 episode indexed</p>
+  
+  <section class="hx-episode"><h3 class="hx-ep" id="ep-ep-44-beyond-the-model-observing-ai-agents-with-mikyo-king">Ep. #44, Beyond the Model: Observing AI Agents with Mikyo King</h3><article class="hx-qa" id="how-does-arize-use-opentelemetry-for-ai-agent-observability"><h3 class="hx-q"><a href="/podcast-btb/m/heavybit-podcasts/e05ec3e8d4">How does Arize use OpenTelemetry for AI agent observability?</a></h3><p class="hx-a">All solutions around agent observability at Arize revolve around open telemetry. OpenTelemetry comes from traditionally the DevOps world, and while it comes with some overhead, it is the most common ground through which agents are able to observe data.</p><p class="hx-rm"><a href="/podcast-btb/m/heavybit-podcasts/e05ec3e8d4">Read the full answer · 3:26 →</a></p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/podcast-btb/m/heavybit-podcasts/e05ec3e8d4">▶ Listen to this moment · 3:26</a></div></article><article class="hx-qa" id="what-is-the-difference-between-open-telemetry-semantics-and-openinfere"><h3 class="hx-q"><a href="/podcast-btb/m/heavybit-podcasts/aeee54f852">What is the difference between Open Telemetry semantics and OpenInference semantics for AI observability?</a></h3><p class="hx-a">OpenTelemetry is a general idea that applications have three primary signals: tracing (hierarchical interactions composed of spans that chain across network boundaries), structured logging, and metrics through Prometheus.</p><p class="hx-rm"><a href="/podcast-btb/m/heavybit-podcasts/aeee54f852">Read the full answer · 5:27 →</a></p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/podcast-btb/m/heavybit-podcasts/aeee54f852">▶ Listen to this moment · 5:27</a></div></article><article class="hx-qa" id="how-should-teams-approach-starting-with-evaluations-for-ai-agents"><h3 class="hx-q"><a href="/podcast-btb/m/heavybit-podcasts/f485282e3c">How should teams approach starting with evaluations for AI agents?</a></h3><p class="hx-a">You don&#x27;t have to start with evals—it depends on how critical what you&#x27;re building is. Evaluations work like layers of Swiss cheese with different layers and levels, and none of them will be perfect, but you want to guarantee that as the frontier shifts or model decisions change your system continues working.</p><p class="hx-rm"><a href="/podcast-btb/m/heavybit-podcasts/f485282e3c">Read the full answer · 13:44 →</a></p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/podcast-btb/m/heavybit-podcasts/f485282e3c">▶ Listen to this moment · 13:44</a></div></article><article class="hx-qa" id="why-did-arize-choose-to-open-source-ai-observability-tooling-instead-o"><h3 class="hx-q"><a href="/podcast-btb/m/heavybit-podcasts/a7bb1ce7d6">Why did Arize choose to open source AI observability tooling instead of building a closed SaaS product?</a></h3><p class="hx-a">The decision to open source predates the LLM boom. At the time, if you were building AI or LLMs, every developer&#x27;s tech stack was open source using tools like Keras and MLflow.</p><p class="hx-rm"><a href="/podcast-btb/m/heavybit-podcasts/a7bb1ce7d6">Read the full answer · 16:01 →</a></p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/podcast-btb/m/heavybit-podcasts/a7bb1ce7d6">▶ Listen to this moment · 16:01</a></div></article><article class="hx-qa" id="what-security-challenges-does-arize-face-when-open-sourcing-ai-agent-o"><h3 class="hx-q"><a href="/podcast-btb/m/heavybit-podcasts/0d23b7f169">What security challenges does Arize face when open sourcing AI agent observability?</a></h3><p class="hx-a">Cybersecurity is a particularly tough challenge. With closed source projects, it&#x27;s harder to identify multi-vector attacks, but with open source it&#x27;s much more likely attackers can figure out those attacks.</p><p class="hx-rm"><a href="/podcast-btb/m/heavybit-podcasts/0d23b7f169">Read the full answer · 19:05 →</a></p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/podcast-btb/m/heavybit-podcasts/0d23b7f169">▶ Listen to this moment · 19:05</a></div></article><article class="hx-qa" id="how-should-open-source-maintainers-handle-pull-requests-from-ai-coding"><h3 class="hx-q"><a href="/podcast-btb/m/heavybit-podcasts/61513ad271">How should open source maintainers handle pull requests from AI coding agents?</a></h3><p class="hx-a">Pull requests used to be valuable for their code, but now the idea is what matters most. If a pull request has a good idea, maintainers should have agency to close it while saying the contribution will inform roadmap decisions even if the code isn&#x27;t taken as-is.</p><p class="hx-rm"><a href="/podcast-btb/m/heavybit-podcasts/61513ad271">Read the full answer · 23:44 →</a></p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/podcast-btb/m/heavybit-podcasts/61513ad271">▶ Listen to this moment · 23:44</a></div></article></section>
+</div>
+<script>
+(function(){var i=document.querySelector('.hx-search');if(!i)return;var e=document.querySelector('.hx-empty');
+i.addEventListener('input',function(){var v=i.value.toLowerCase().trim(),any=false;
+document.querySelectorAll('.hx-qa').forEach(function(a){var ok=!v||a.textContent.toLowerCase().indexOf(v)>-1;a.classList.toggle('hx-hidden',!ok);if(ok)any=true;});
+document.querySelectorAll('.hx-episode').forEach(function(s){s.classList.toggle('hx-hidden',!s.querySelector('.hx-qa:not(.hx-hidden)'));});
+if(e)e.hidden=any;});})();
+</script>
+<!-- QUESTIONS_COVERED_END -->
+</main>
+
+<p style="max-width:720px;margin:0 auto;padding:0 20px 32px;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#999;"><a href="https://listenly.fr/podcast/show/heavybit-podcasts" class="plausible-event-name=Clic+Lien+Texte" style="color:#999;text-decoration:underline;">Découvrir Heavybit Podcasts sur Listenly →</a></p>
+</body>
+</html>
