@@ -1,6 +1,6 @@
 {
- "updated": "2026-10-12T18:07",
- "envois_total": 211,
+ "updated": "2026-10-12T18:10",
+ "envois_total": 212,
  "reponses_total": 0,
  "taux_reponse_global_pct": 0.0,
  "dirigeants_testes": 3193,
@@ -8,6 +8,10 @@
  "data_apprentissage": {
   "creneaux_new_york": {
    "heure": {
+    "14h": {
+     "envoyes": 6,
+     "reponses": 0
+    },
     "13h": {
      "envoyes": 10,
      "reponses": 0
@@ -25,10 +29,6 @@
      "reponses": 0
     },
     "15h": {
-     "envoyes": 5,
-     "reponses": 0
-    },
-    "14h": {
      "envoyes": 5,
      "reponses": 0
     },
@@ -71,7 +71,7 @@
    },
    "jour": {
     "lun": {
-     "envoyes": 20,
+     "envoyes": 21,
      "reponses": 0
     },
     "dim": {
@@ -106,24 +106,24 @@
  },
  "weights": {
   "Tech & SaaS": 0.051,
-  "Cybersécurité": 0.0491,
-  "Finance & Fintech": 0.0536,
-  "RH & Recrutement": 0.0434,
+  "Cybersécurité": 0.0492,
+  "Finance & Fintech": 0.0528,
+  "RH & Recrutement": 0.0435,
   "Marketing & Ventes": 0.0482,
   "Logistique & Supply chain": 0.0356,
   "Construction & Industrie": 0.0485,
-  "Énergie": 0.0455,
-  "Assurance": 0.0547,
-  "Immobilier": 0.0478,
-  "Juridique": 0.0593,
+  "Énergie": 0.0456,
+  "Assurance": 0.0548,
+  "Immobilier": 0.0479,
+  "Juridique": 0.0594,
   "Conseil": 0.0341,
   "Santé": 0.0495,
   "Business général (entreprise)": 0.0467,
-  "Cabinets d'avocats": 0.0497,
-  "Experts-comptables & patrimoine": 0.0649,
+  "Cabinets d'avocats": 0.0498,
+  "Experts-comptables & patrimoine": 0.065,
   "Coachs & consultants B2B": 0.057,
   "Agences de services": 0.0612,
-  "Santé libérale": 0.0529,
+  "Santé libérale": 0.053,
   "Formateurs & programmes": 0.0472
  },
  "ranking": [
@@ -208,22 +208,6 @@
    "rang": 5
   },
   {
-   "secteur": "Finance & Fintech",
-   "poids_pct": 5.4,
-   "delta_pts": 0.8,
-   "tendance": "stable",
-   "onboarde": 50,
-   "joignable": 44,
-   "envoye": 11,
-   "rebond": 0,
-   "reponse": 0,
-   "dirigeant_testes": 178,
-   "dirigeant_trouves": 27,
-   "taux_reponse": 0.0,
-   "score": 0.00027,
-   "rang": 6
-  },
-  {
    "secteur": "Santé libérale",
    "poids_pct": 5.3,
    "delta_pts": -0.7,
@@ -235,6 +219,22 @@
    "reponse": 0,
    "dirigeant_testes": 197,
    "dirigeant_trouves": 28,
+   "taux_reponse": 0.0,
+   "score": 0.00026,
+   "rang": 6
+  },
+  {
+   "secteur": "Finance & Fintech",
+   "poids_pct": 5.3,
+   "delta_pts": 0.7,
+   "tendance": "stable",
+   "onboarde": 50,
+   "joignable": 44,
+   "envoye": 12,
+   "rebond": 0,
+   "reponse": 0,
+   "dirigeant_testes": 178,
+   "dirigeant_trouves": 27,
    "taux_reponse": 0.0,
    "score": 0.00026,
    "rang": 7
@@ -300,7 +300,7 @@
    "dirigeant_testes": 146,
    "dirigeant_trouves": 19,
    "taux_reponse": 0.0,
-   "score": 0.00024,
+   "score": 0.00023,
    "rang": 11
   },
   {
@@ -385,7 +385,7 @@
   },
   {
    "secteur": "Énergie",
-   "poids_pct": 4.5,
+   "poids_pct": 4.6,
    "delta_pts": -0.1,
    "tendance": "stable",
    "onboarde": 20,
