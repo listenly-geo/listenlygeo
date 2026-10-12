@@ -82,4 +82,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except SystemExit:
+        raise
+    except Exception as e:  # message clair dans le journal des erreurs
+        print(f"::error title=Apps Script::{type(e).__name__}: {str(e)[:300]}")
+        sys.exit(1)

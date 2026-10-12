@@ -1,0 +1,40 @@
+name: Journal des erreurs MarketForge
+
+# Se declenche a la fin de chaque workflow MarketForge et note les etapes en echec (avec le message) dans
+# automation/marketforge_engine/journal.json.
+on:
+  workflow_run:
+    workflows:
+      - "Apps Script — lecture / déploiement de MarketForgeEngine.gs"
+      - "MarketForge — Qui contacter (decideur + score)"
+      - "MarketForge Engine — Extraction quotidienne (file d'attente)"
+      - "MarketForge Engine — RUN COMPLET (découverte → Listenly + N1 → email → contact)"
+      - "MarketForge Engine — Onboarding auto (Listenly SQL + fiche N1)"
+      - "MarketForge — Commande de test (Sheet / mails)"
+    types: [completed]
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: marketforge-journal
+  cancel-in-progress: false
+
+jobs:
+  journal:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Relever les erreurs du run
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+        run: python3 automation/scripts/journal_erreurs.py
+      - name: Enregistrer
+        run: |
+          git config user.name "marketforge-bot"; git config user.email "bot@listenly.fr"
+          git add automation/marketforge_engine/journal.json || true
+          git diff --cached --quiet || (git commit -q -m "Journal des erreurs" && for i in 1 2 3; do git pull -q --rebase && git push -q && break; sleep 3; done)
