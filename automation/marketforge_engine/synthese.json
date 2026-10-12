@@ -1,15 +1,15 @@
 {
-  "date": "11/10/2026",
-  "goulot": "Le mail envoyé ne correspond toujours ni au test A/B ni à l'offre Podcast Hub : les 5 variantes reçoivent la même question finale (« Have you got a Spotify page or a dedicated Podcast Hub? ») et la proposition « I can build a first version… » n'est pas dans le texte. En parallèle, 0 relance depuis le 06/10 (colonne Thread ID vide sur les 158 mails) et les réponses ne sont pas détectées par le Sheet (ComplianceCow toujours « Envoyé »).",
+  "date": "12/10/2026",
+  "goulot": "Les 3 prospects intéressés (ComplianceCow depuis 4 jours, The Payroll Podcast depuis 3 jours, The Rebel Devs depuis hier) n'ont toujours pas reçu la proposition de Hub V1, et 0 relance n'est partie depuis le 06/10 (Thread ID vide sur les 190 mails) : 73 prospects ont dépassé J+4 sans relance. Le test A/B reste inopérant : le texte du mail 1 n'a pas de champ {CTA}, toutes les variantes reçoivent la même question.",
   "synthese": [
-    "Aujourd'hui, 32 nouveaux mails sont partis (31 à une adresse nominative), au-dessus de la base de 30 ; 158 mails du nouveau modèle depuis le 06/10, 1 seul rebond (adresse mal orthographiée).",
-    "Nouveau OUI aujourd'hui : Jonah May (The Rebel Devs, tech) a répondu 8 minutes après l'envoi en donnant son site comme destination. Bilan du nouveau mail : 3 réactions utiles sur 157 mails livrés (1,9 %), 2 oui + 1 redirection, toutes venant d'adresses nominatives.",
-    "Les 21 adresses génériques (hello@, marketing@…) n'ont produit que des réponses automatiques ; le podcast tech/SaaS est le segment qui répond le mieux (2 oui sur 34).",
-    "Aucun des deux oui (ComplianceCow depuis 3 jours, Rebel Devs aujourd'hui) n'a encore reçu la proposition de Hub V1 : c'est là qu'on perd des clients potentiels."
+    "Aujourd'hui, 20 mails sont partis (objectif 30 non atteint), tous à des dirigeants vérifiés ; aucune réponse et aucun rebond ce soir.",
+    "Bilan du nouveau mail depuis le 06/10 : 190 envois, 3 réactions humaines utiles (2 oui + 1 redirection), soit 1,6 % ; les 3 viennent d'adresses nominatives (3 sur 151), aucune des 39 adresses génériques n'a répondu humainement.",
+    "Les oui arrivent tous très vite (3 à 17 minutes après l'envoi) et disent la même chose : « voici notre page podcast / notre site ». Les prospects comprennent la question, mais rien ne leur est proposé ensuite.",
+    "Une agence (Proudmouth) a reçu 3 mails pour 3 podcasts différents les 10 et 11/10 ; le blocage des doublons de dirigeant fonctionne depuis aujourd'hui."
   ],
   "plan": [
-    "Répondre ce soir ou demain matin à Eric Smith (ComplianceCow), Jonah May (Rebel Devs) et Josh (agence de The Payroll Podcast) avec la proposition de Hub V1 sans engagement (décision Etienne).",
-    "Faire réparer l'enregistrement du Thread ID pour débloquer les relances (27 prospects du 06/10 et 23 du 07/10 sont déjà en retard) et la détection des réponses (décision Etienne).",
-    "Brancher la variable {CTA} dans le mail 1 pour que le test A/B teste vraiment quelque chose, ou le mettre en pause (décision Etienne)."
+    "Envoyer dès demain matin la proposition de Hub V1 sans engagement à Eric Smith (ComplianceCow), Jonah May (Rebel Devs) et Josh (agence de The Payroll Podcast) — décision Etienne.",
+    "Faire réparer l'enregistrement du Thread ID pour lancer les relances J+4 en retard (73 prospects) avant la J+9 du 15/10 — décision Etienne.",
+    "Ajouter {CTA} dans le texte du mail 1 (MFE_MSG_FICHE et MFE_MSG_REPONSES), sinon couper le test A/B — décision Etienne."
   ]
 }
