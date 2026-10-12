@@ -1,55 +1,25 @@
-# 1. Decouverte - run 38225358529
-﻿2026-10-12T08:44:41.1595165Z ##[group]Run set -o pipefail
-2026-10-12T08:44:41.1595521Z ^[[36;1mset -o pipefail^[[0m
-2026-10-12T08:44:41.1595898Z ^[[36;1mpython automation/scripts/discover_podcasts.py | tee discovery.log^[[0m
-2026-10-12T08:44:41.1596407Z ^[[36;1mn=$(grep -oE '\(([0-9]+) nouvelle' discovery.log | grep -oE '[0-9]+' | tail -1)^[[0m
-2026-10-12T08:44:41.1596918Z ^[[36;1mecho "DISCOVERED_COUNT=$***n:-0***" >> "$GITHUB_ENV"^[[0m
-2026-10-12T08:44:41.1653706Z shell: /usr/bin/bash -e ***0***
-2026-10-12T08:44:41.1654003Z env:
-2026-10-12T08:44:41.1654308Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-12T08:44:41.1654912Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-10-12T08:44:41.1655342Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-12T08:44:41.1655736Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-12T08:44:41.1656110Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-12T08:44:41.1656486Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-10-12T08:44:41.1656876Z   EPISODES_PAR_JOUR: 45
-2026-10-12T08:44:41.1657140Z   MFE_TEST_UN: true
-2026-10-12T08:44:41.1657736Z   ANTHROPIC_API_KEY: ***
-2026-10-12T08:44:41.1658013Z   DISCOVERY_MAX_QUALIFY: 3
-2026-10-12T08:44:41.1658281Z   DISCOVERY_COUNTRIES: us
-2026-10-12T08:44:41.1658545Z   DISCOVERY_KNOWN_RATIO: 0.2
-2026-10-12T08:44:41.1659241Z   MFE_SHEET_URL: ***
-2026-10-12T08:44:41.1659496Z   DISCOVERY_LEADER_GATE: 1
-2026-10-12T08:44:41.1659915Z   DISCOVERY_GATE_JOUR: 1000
-2026-10-12T08:44:41.1660187Z   DISCOVERY_GATE_MAX: 45
-2026-10-12T08:44:41.1660457Z   DISCOVERY_GATE_VERIF_MAX: 60
-2026-10-12T08:44:41.1662718Z   GITHUB_TOKEN: ***
-2026-10-12T08:44:41.1663017Z   GITHUB_REPOSITORY: listenly-geo/listenlygeo
-2026-10-12T08:44:41.1663346Z ##[endgroup]
-2026-10-12T08:44:41.2521321Z [discover] 80 mots-cles utilises sur ce run, 1 pays cibles.
-2026-10-12T08:45:01.1067037Z [discover] 4532 podcasts uniques trouves (avant filtrage).
-2026-10-12T08:45:01.1165940Z [discover] 1283 candidats nouveaux (non deja onboardes/pausés/traites), repartis sur 70 mot(s)-cle(s).
-2026-10-12T08:46:53.5583102Z [discover] Filtre dirigeant : 13 podcasts testes, 3 avec dirigeant joignable, 54 verifications restantes sur ce run, detail ***'noms': 8, 'ecrit_site': 3, 'testees': 6, 'statut_catchall': 3, 'domaines_attrape_tout': 3, 'animateur_seul': 3, 'statut_invalid': 2, 'statut_va
-2026-10-12T08:46:53.5585204Z [discover] Pre-filtre RSS gratuit : 40 podcasts verifies, 3 joignables retenus pour qualification, refuses : ***'email personnel': 5, "pas d'email dans le RSS": 14, 'aucun dirigeant joignable': 10***
-2026-10-12T08:46:53.5586154Z [discover] Ciblage adaptatif -- repartition des candidats qualifies : Agences de services 1, Juridique 1, Conseil 1
-2026-10-12T08:46:53.5586853Z [discover] Plafonne a 3 candidats sur ce run, repartis entre secteurs (les autres seront vus au prochain passage).
-2026-10-12T08:46:53.5587384Z [discover] Qualification : Niche Marketing Podcast...
-2026-10-12T08:47:00.7488981Z [discover]   Email : [mail]
-2026-10-12T08:47:01.0490600Z [discover] Qualification : "The Data Diva" Talks Privacy Podcast"...
-2026-10-12T08:47:08.1149652Z [discover] Qualification : The School Connect Podcast...
-2026-10-12T08:47:23.3691279Z [discover] Dirigeants confirmes transmis au Sheet : 1 (? enregistres)
-2026-10-12T08:47:23.3691890Z [discover] Termine : 1 candidats ONBOARD (1 nouvelle(s) issue(s) creee(s)), 2 REJECT.
-2026-10-12T08:47:23.3760230Z ## Decouverte automatique de podcasts — resultats
-2026-10-12T08:47:23.3760637Z
-2026-10-12T08:47:23.3761310Z 4532 podcasts trouves via iTunes Search, 1283 nouveaux (sur 70 secteur(s)/mot(s)-cle(s) distinct(s)), 3 qualifies sur ce run (repartis entre secteurs).
-2026-10-12T08:47:23.3762043Z
-2026-10-12T08:47:23.3762219Z ### Candidats ONBOARD (1)
-2026-10-12T08:47:23.3762447Z
-2026-10-12T08:47:23.3762672Z | Podcast | Editeur | Episodes | Flux RSS | Raison |
-2026-10-12T08:47:23.3763179Z |---|---|---|---|---|
-2026-10-12T08:47:23.3765723Z | Niche Marketing Podcast | John Bertino | 36 | `https://rss.libsyn.com/shows/468468/destinations/3963288.xml` | Podcast d'entreprise B2B produit par The Agency Guide (cabinet de conseil en marketing fondé par John Bertino). Contenu niche expert sur strategies marketing 
-2026-10-12T08:47:23.3766966Z
-2026-10-12T08:47:23.3767085Z ### Candidats REJECT (2)
-2026-10-12T08:47:23.3767253Z
-2026-10-12T08:47:23.3768454Z - **"The Data Diva" Talks Privacy Podcast"** — Podcast produit par une consultante indépendante (Debbie Reynolds Consulting LLC), pas par une entreprise B2B. Bien que B2B et expertise pointue, c'est un personal brand / consultancy podcast, pas une production d'entreprise
-2026-10-12T08:47:23.3771200Z - **The School Connect Podcast** — School Connect est une organisation à but non lucratif (nonprofit), pas une entreprise B2B commerciale. Le podcast cible les leaders communautaires et les parents, non un public professionnel B2B avec des besoins métier spécifiques. Ne 
+# 3. Extraction - run 38224606273
+﻿2026-10-12T08:40:49.6316289Z ##[group]Run python automation/scripts/marketforge_extract_queue.py
+2026-10-12T08:40:49.6316940Z ^[[36;1mpython automation/scripts/marketforge_extract_queue.py^[[0m
+2026-10-12T08:40:49.6379398Z shell: /usr/bin/bash -e ***0***
+2026-10-12T08:40:49.6379763Z env:
+2026-10-12T08:40:49.6380128Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-12T08:40:49.6380681Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-12T08:40:49.6381516Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-12T08:40:49.6382015Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-12T08:40:49.6382494Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-12T08:40:49.6382982Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-12T08:40:49.6383409Z   EPISODES_PAR_JOUR: 45
+2026-10-12T08:40:49.6383733Z   MFE_TEST_UN: true
+2026-10-12T08:40:49.6384031Z   DISCOVERED_COUNT: 0
+2026-10-12T08:40:49.6384783Z   ANTHROPIC_API_KEY: ***
+2026-10-12T08:40:49.6385269Z   GROQ_API_KEY: ***
+2026-10-12T08:40:49.6386235Z   OPENAI_API_KEY: ***
+2026-10-12T08:40:49.6386645Z   KNOWLEDGE_IMPORT_SECRET: ***
+2026-10-12T08:40:49.6386974Z ##[endgroup]
+2026-10-12T08:40:49.7505404Z [marketforge-engine] Budget du jour : 43/45 episodes, 1439/6000 min deja consommes.
+2026-10-12T08:40:49.7508922Z [marketforge-engine] Mode contact : 0 contact(s) pret(s) (fiche N1 + email), 0 sans email, 0 email(s) rejete(s) (anti-rebond).
+2026-10-12T08:40:49.9619344Z [marketforge-engine] 1 podcast(s) dans la file active.
+2026-10-12T08:40:49.9620603Z [marketforge-engine] ### [jeton] (0/1 episodes extraits)
+2026-10-12T08:40:50.1101935Z [marketforge-engine] ERREUR RSS (HTTP Error 403: Forbidden) — podcast saute ce run.
+2026-10-12T08:40:50.1222645Z [marketforge-engine] Termine. Aujourd'hui : 43 episodes, 1439 min, 229 Q/R. File : ***'extrait': 320, 'contact': 287, 'sans_email': 68, 'en_attente': 1***
