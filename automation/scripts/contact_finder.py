@@ -65,6 +65,11 @@ def load(path, default):
         return default
 
 
+def feed_key(u):
+    """Cle commune filtre / Sheet : le flux RSS sans protocole ni / final."""
+    return re.sub(r"/+$", "", re.sub(r"^https?://", "", (u or "").strip().lower()))
+
+
 def domain_of(url_or_email):
     s = (url_or_email or "").strip().lower()
     if "@" in s:
@@ -410,6 +415,7 @@ def leader_gate(name, artist, feed_url, feed_email, ctx):
     prospect = {"Podcast": name, "Email": feed_email or "", "Hote": ""}
     ctx.setdefault("par_podcast", 2)
     res, _ = find_contact(slug, prospect, pods, ctx)
+    ctx["last_res"] = res   # le resultat complet est conserve : le filtre le transmet a la suite du funnel (pas de 2e recherche)
     em = (res.get("email") or "").lower()
     if em and em != (feed_email or "").lower():
         return True, "dirigeant joignable (" + ("ecrit sur le site" if res.get("ecrit_site") else "verifie") + ")"
@@ -488,10 +494,25 @@ def main():
     stats = collections.defaultdict(int)
     ctx = {"state": state, "verif_left": VERIF_MAX if VERIFY else 0, "verif_ok": VERIFY, "stats": stats}
     rows, found = {}, 0
+    # v25 : dirigeants DEJA confirmes par le filtre d'entree (garde dans un onglet masque du Sheet) -> pas de 2e recherche
+    gate_map = {}
+    try:
+        for g in (sheet_bridge.call(payload={"action": "gate_get"}).get("rows") or []):
+            gate_map[g.get("key")] = g
+    except Exception as e:
+        log(f"dirigeants du filtre indisponibles ({type(e).__name__}) : recherche classique")
     for p in todo:
         slug = p["Slug"]
         try:
-            res, base = find_contact(slug, p, pods, ctx)
+            g = gate_map.get(feed_key((pods.get(slug) or {}).get("rss_url")))
+            if g and g.get("email"):
+                stats["repris_du_filtre"] += 1
+                res = {"nom": g.get("nom") or "", "poste": g.get("poste") or "", "email": g["email"], "source": g.get("source") or "",
+                       "fiabilite": g.get("fiabilite") or "", "verifie": "Verifiee" in (g.get("fiabilite") or ""),
+                       "ecrit_site": "ecrit sur le site" in (g.get("fiabilite") or "")}
+                base = g.get("source") or ""
+            else:
+                res, base = find_contact(slug, p, pods, ctx)
         except Exception as e:  # un site qui plante ne doit jamais arreter le module
             log(f"  {slug}: erreur {type(e).__name__}")
             res, base = {"nom": "", "poste": "", "email": "", "source": "", "fiabilite": "Erreur de recherche", "verifie": False, "ecrit_site": False}, ""

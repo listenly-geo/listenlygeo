@@ -206,6 +206,42 @@ function mfeContacts_(body) {
   } finally { lock.releaseLock(); }
 }
 
+// ---------- v25 : dirigeants confirmes par le filtre d'entree (onglet masque, jamais dans le depot public) ----------
+function mfeFeedKey_(u) { return String(u || '').toLowerCase().replace(/^https?:\/\//, '').replace(/\/+$/, ''); }
+function mfeGateSheet_() {
+  var ss = mfeSS_(), sh = ss.getSheetByName('Dirigeants confirm\u00e9s');
+  if (!sh) {
+    sh = ss.insertSheet('Dirigeants confirm\u00e9s');
+    sh.getRange(1, 1, 1, 8).setValues([['Flux (cle)', 'Nom', 'Poste', 'Email', 'Source', 'Fiabilite', 'Date', 'Podcast']]).setFontWeight('bold');
+    sh.setFrozenRows(1);
+    try { sh.hideSheet(); } catch (e) {}
+  }
+  return sh;
+}
+function mfeGatePut_(body) {
+  var lock = LockService.getScriptLock(); lock.waitLock(30000);
+  try {
+    var sh = mfeGateSheet_(), last = sh.getLastRow(), idx = {};
+    if (last > 1) sh.getRange(2, 1, last - 1, 1).getValues().forEach(function (v, i) { idx[v[0]] = i + 2; });
+    var add = [], n = 0;
+    (body.rows || []).forEach(function (x) {
+      if (!x || !x.feed || !x.email) return;
+      var k = mfeFeedKey_(x.feed), line = [k, x.nom || '', x.poste || '', x.email, x.source || '', x.fiabilite || '', new Date(), x.podcast || ''];
+      if (idx[k]) sh.getRange(idx[k], 1, 1, 8).setValues([line]); else add.push(line);
+      n++;
+    });
+    if (add.length) sh.getRange(sh.getLastRow() + 1, 1, add.length, 8).setValues(add);
+    return mfeJson_({ ok: true, recus: (body.rows || []).length, enregistres: n });
+  } finally { lock.releaseLock(); }
+}
+function mfeGateGet_(body) {
+  var sh = mfeGateSheet_(), last = sh.getLastRow(), rows = [];
+  if (last > 1) sh.getRange(2, 1, last - 1, 8).getValues().forEach(function (v) {
+    if (v[0] && v[3]) rows.push({ key: v[0], nom: v[1], poste: v[2], email: v[3], source: v[4], fiabilite: v[5] });
+  });
+  return mfeJson_({ ok: true, rows: rows });
+}
+
 function installer() {
   var sh = mfeSheet_();
   sh.getRange(MFE.HEADER_ROW, 1, 1, MFE.COLS.length).setValues([MFE.COLS]).setFontWeight('bold').setBackground('#eef3fd');   // ajoute la colonne Variante CTA
@@ -964,7 +1000,7 @@ function doGet(e) {
       return r.values[7] && new Date(r.values[7]).toDateString() === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, script_version: 24 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, script_version: 25 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -978,6 +1014,8 @@ function doPost(e) {
   if (body.action === 'optimisations') return mfeOptimisations_(body);
   if (body.action === 'cmd') return mfeCmd_(body);
   if (body.action === 'contacts') return mfeContacts_(body);
+  if (body.action === 'gate_put') return mfeGatePut_(body);   // v25 : dirigeants confirmes par le filtre d'entree
+  if (body.action === 'gate_get') return mfeGateGet_(body);
   if (body.action === 'verify') return mfeVerifyAction_(body);
   if (body.action !== 'report') return mfeJson_({ ok: false, error: 'action inconnue (report, tendances)' });
 

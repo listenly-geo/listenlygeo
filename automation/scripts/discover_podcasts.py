@@ -471,6 +471,7 @@ def main():
                 "stats": collections.defaultdict(int), "par_podcast": 2}
     gate_tries = gate_ok = 0
     gate_stop = False
+    gate_found = {}   # feed -> dirigeant confirme par le filtre (transmis au Sheet : une seule recherche dans tout le funnel)
     while len(to_qualify) < MAX_QUALIFY and live and prechecked < MAX_PRECHECK and not gate_stop:
         batch = []
         while len(batch) < max(3 * (MAX_QUALIFY - len(to_qualify)), 20) and live:
@@ -528,6 +529,11 @@ def main():
                     }
                     continue
                 gate_ok += 1
+                _lr = gate_ctx.get("last_res") or {}
+                if _lr.get("email"):
+                    gate_found[feed] = {"feed": feed, "nom": _lr.get("nom", ""), "poste": _lr.get("poste", ""), "email": _lr["email"],
+                                        "source": _lr.get("source", ""), "fiabilite": _lr.get("fiabilite", ""),
+                                        "podcast": cand.get("collectionName", "")}
             pre_email[feed] = email
             to_qualify.append(cand)
             per_sector[sec] = per_sector.get(sec, 0) + 1
@@ -633,6 +639,17 @@ def main():
                 if create_candidate_issue(record):
                     created_count += 1
                 time.sleep(0.5)
+
+    # v25 : le dirigeant confirme suit le podcast jusqu'au tableau (onglet masque du Sheet, jamais dans le depot public)
+    try:
+        _push = [gate_found[r["feed_url"]] for r in onboard_list if r["feed_url"] in gate_found]
+        if _push and contact_finder.sheet_bridge.URL:
+            _r = contact_finder.sheet_bridge.call(payload={"action": "gate_put", "rows": _push})
+            log(f"Dirigeants confirmes transmis au Sheet : {len(_push)} ({_r.get('enregistres', '?')} enregistres)")
+        elif _push:
+            log("Dirigeants confirmes non transmis : MFE_SHEET_URL absent")
+    except Exception as e:
+        log(f"Dirigeants confirmes non transmis ({type(e).__name__}) : la recherche classique prendra le relais")
 
     log(f"Termine : {len(onboard_list)} candidats ONBOARD ({created_count} nouvelle(s) issue(s) creee(s)), {len(reject_list)} REJECT.")
 
