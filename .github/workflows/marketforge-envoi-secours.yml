@@ -1,0 +1,29 @@
+name: Envoi de secours (cadence 15 min)
+
+# Filet de securite : fait partir les mails au rythme prevu (30 par jour, 14h-23h Paris) meme si le declencheur d'Apps Script est arrete.
+# Les regles, le plafond du jour et le compteur sont ceux du Sheet : aucun doublon.
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '*/15 12-21 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: marketforge-envoi-secours
+  cancel-in-progress: false
+
+jobs:
+  envoi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Envoi cadence
+        env:
+          MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
+        run: python automation/scripts/envoi_secours.py
