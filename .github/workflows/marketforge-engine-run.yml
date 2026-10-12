@@ -53,7 +53,7 @@ jobs:
           import json, datetime, os
           p = "automation/marketforge_engine/config.json"
           c = json.load(open(p, encoding="utf-8"))
-          c.update({"pause": False, "decouverte_max_par_jour": 1, "onboarding_max_par_jour": 1, "onboarding_auto": True,
+          c.update({"pause": False, "decouverte_max_par_jour": 3, "onboarding_max_par_jour": 1, "onboarding_auto": True,
                     "extraction_auto": True, "extraire": [], "extraction_apres_jours": 0, "episodes_par_podcast": 1})
           json.dump(c, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
           try:
@@ -62,7 +62,7 @@ jobs:
           except Exception:
               deja = 0
           open(os.environ["GITHUB_ENV"], "a").write(f"EPISODES_PAR_JOUR={deja + 2}\nMFE_TEST_UN=true\n")
-          print("mode test : 1 podcast, 2 episodes max")
+          print("mode test : 1 fiche, 2 episodes max")
           PY
 
       - name: Lire config.json
