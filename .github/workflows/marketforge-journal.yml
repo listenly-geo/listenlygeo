@@ -8,6 +8,10 @@ on:
       run_id:
         description: 'Numero du run a relever (lancement manuel)'
         required: true
+      etape:
+        description: 'Optionnel : nom (ou debut) d une etape dont on veut lire le log'
+        required: false
+        default: ''
   workflow_run:
     workflows:
       - "Apps Script — lecture / déploiement de MarketForgeEngine.gs"
@@ -37,9 +41,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_ID: ${{ github.event.workflow_run.id || github.event.inputs.run_id }}
+          ETAPE: ${{ github.event.inputs.etape }}
         run: python3 automation/scripts/journal_erreurs.py
       - name: Enregistrer
         run: |
           git config user.name "marketforge-bot"; git config user.email "bot@listenly.fr"
-          git add automation/marketforge_engine/journal.json || true
+          git add automation/marketforge_engine/journal.json automation/marketforge_engine/journal_log.txt || true
           git diff --cached --quiet || (git commit -q -m "Journal des erreurs" && for i in 1 2 3; do git pull -q --rebase && git push -q && break; sleep 3; done)

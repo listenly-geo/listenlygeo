@@ -50,6 +50,10 @@ def main():
             if len(p) >= 3 and p[1].strip() == nom and MOTIFS.search(p[2]) and not BRUIT.search(p[2]) and "##[error]" not in p[2]:
                 lignes.append(propre("\t".join(p[2:])))
         entrees.append({"etape": nom, "messages": (lignes[-8:]) or ["(echec sans message d'erreur lisible dans le log)"]})
+    demande = os.environ.get("ETAPE", "").strip()
+    if demande:   # lancement manuel : copie le log (nettoye) de l'etape demandee pour que Claude puisse le lire
+        L = [propre("\t".join(l.split("\t")[2:])) for l in log.splitlines() if len(l.split("\t")) >= 3 and demande.lower() in l.split("\t")[1].lower()]
+        open("automation/marketforge_engine/journal_log.txt", "w", encoding="utf-8").write(f"# {demande} - run {run_id}\n" + "\n".join(L[-80:]) + "\n")
     if not entrees:
         print("journal : aucun echec dans ce run")
         return
