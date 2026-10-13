@@ -21,6 +21,12 @@ RAW_INFO     = os.environ.get("PODCAST_RAW_INFO", "")
 SPOTIFY_URL  = os.environ["SPOTIFY_SHOW_URL"]
 IMAGE_URL    = os.environ.get("PODCAST_IMAGE_URL", "")
 LISTENLY_URL = os.environ.get("LISTENLY_SHOW_URL", f"https://listenly.fr/podcast/show/{SLUG}")
+# Destination choisie par le prospect (automation/marketforge_engine/redirections.json : {slug: url}). Sans destination = page Listenly.
+try:
+    _REDIR = json.load(open(os.path.join(os.path.dirname(__file__), "..", "marketforge_engine", "redirections.json"), encoding="utf-8"))
+except Exception:
+    _REDIR = {}
+ACCESS_URL = _REDIR.get(SLUG) or LISTENLY_URL
 PLAUSIBLE    = os.environ.get("PLAUSIBLE_DOMAIN", "listenly.fr")
 MODEL        = "claude-sonnet-4-6"
 PAGES_DIR    = "pages"
@@ -63,21 +69,18 @@ CONTRAINTES TECHNIQUES (respecter EXACTEMENT) :
 1. Script Plausible dans <head> juste après canonical :
    <script defer data-domain="{PLAUSIBLE}" src="https://plausible.io/js/script.tagged-events.js"></script>
 
-2. CTA NIVEAU 1 = LISTENLY — RÈGLE ABSOLUE SANS EXCEPTION.
-   Les 3 boutons principaux (topbar, hero, footer) pointent OBLIGATOIREMENT vers {LISTENLY_URL}
-   href="{LISTENLY_URL}" target="_blank" rel="noopener"
-   Classe Plausible : plausible-event-name=Listenly+Click--{SLUG}
-   Texte bouton hero EXACT : "▶ Écouter le podcast"
-   Texte bouton topbar EXACT : "▶ Écouter le podcast"
-   JAMAIS de lien Spotify dans un bouton CTA de cette page.
-   Le lien Spotify ({SPOTIFY_URL}) peut apparaître dans le JSON-LD PodcastSeries uniquement.
+2. UN SEUL BOUTON D'ACCÈS (modèle du 13/10/2026) — remplace tous les autres liens de redirection.
+   Un seul bouton "▶ Accéder au podcast" (hero), pointe OBLIGATOIREMENT vers {ACCESS_URL}
+   href="{ACCESS_URL}" target="_blank" rel="noopener"
+   Classe Plausible : plausible-event-name=Acces+Podcast--{SLUG}
+   Pas d'autre bouton de redirection (ni topbar, ni footer). Le lien Spotify ({SPOTIFY_URL}) peut apparaître dans le JSON-LD PodcastSeries uniquement.
 
 3. Banderole sous le hero, libellé EXACT :
    "Fiche lisible par les modèles IA :" + badges ChatGPT · Perplexity · Gemini · Google AI · Copilot · Claude
 
 4. Structure obligatoire :
-   - Topbar sticky : logo Listenly cliquable (<a href="https://listenly.fr">) + nom podcast + CTA Listenly
-   - Hero (cover + nom + tagline + pills thématiques + CTA Listenly)
+   - Topbar sticky : logo Listenly cliquable (<a href="https://listenly.fr">) + nom podcast (sans bouton)
+   - Hero (cover + nom + tagline + pills thématiques + bouton « ▶ Accéder au podcast » vers {ACCESS_URL})
    - Banderole IA
    - Section "À propos" : sujet de fond, positionnement
    - Grille "Thématiques explorées" : 6-8 thématiques FIGÉES
@@ -148,7 +151,7 @@ def audit(html):
     if "FAQPage" not in html: issues.append("FAQPage absente")
     if "speakable" not in html: issues.append("speakable absent")
     if "datePublished" not in html: issues.append("datePublished absent")
-    if LISTENLY_URL not in html: issues.append("CTA Listenly absent")
+    if LISTENLY_URL not in html: issues.append("lien Listenly absent")
     if "Fiche lisible par les mod" not in html: issues.append("banderole IA absente")
     return issues
 
