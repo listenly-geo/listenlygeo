@@ -15,6 +15,7 @@ import json
 import logging
 import os
 import re
+import secrets
 import threading
 import unicodedata
 from datetime import datetime, timedelta, timezone
@@ -24,7 +25,7 @@ from typing import Literal
 import feedparser
 import httpx
 import stripe
-from fastapi import FastAPI, Header, HTTPException, Request
+from fastapi import FastAPI, Header, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
@@ -72,7 +73,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         o.strip()
-        for o in os.getenv("CORS_ORIGINS", "https://marketforge.fr,https://www.marketforge.fr").split(",")
+        for o in os.getenv("CORS_ORIGINS", "https://marketforge.fr,https://www.marketforge.fr,https://listenly.fr,https://www.listenly.fr").split(",")
         if o.strip()
     ],
     # Aperçus de l'éditeur Bolt.ai
@@ -647,6 +648,8 @@ def dashboard(client_id: str, authorization: str | None = Header(default=None)):
         "last_run_at": client["runs"][-1] if client["runs"] else None,
         "paused": bool(client.get("paused")),
         "system_paused": _system_paused(),
+        "leads_count": len(client.get("leads", [])),
+        "hub_key": hub_key_for(cid),
         "hub_urls": [h["url"] for h in online],
         "sources": state["sources"],
     }
@@ -910,3 +913,100 @@ def visibility(client_id: str, authorization: str | None = Header(default=None))
                               key=lambda q: -q["impressions"])[:10],
         "pages": pages,
     }
+
+
+# ---------------------------------------------------------------- capture des emails (formulaire du Hub)
+# Chaque Hub a une clé publique opaque (hub_key) : le formulaire public ne révèle jamais l'email du client.
+# Les contacts restent dans les données du client, visibles sur son tableau de bord (et exportables en CSV).
+# Aucun fournisseur d'envoi n'est imposé : l'export CSV ou un webhook pourra alimenter l'outil choisi plus tard.
+LEAD_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+LEAD_MAX_PER_10MIN = int(os.getenv("LEAD_MAX_PER_10MIN", "5"))
+_lead_hits: dict[str, list[float]] = {}
+
+
+class LeadIn(BaseModel):
+    email: str
+    consent: bool
+    source_url: str = ""
+    website: str = ""  # champ piège, invisible pour les humains : doit rester vide
+
+
+def _hub_keys_path() -> Path:
+    return DATA_DIR / "_hub_keys.json"
+
+
+def _read_hub_keys() -> dict:
+    p = _hub_keys_path()
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+
+
+def hub_key_for(client_id: str) -> str:
+    """Renvoie la clé publique du Hub du client, en la créant une seule fois."""
+    with _lock:
+        data = _load(client_id)
+        if data.get("hub_key"):
+            return data["hub_key"]
+        key = secrets.token_urlsafe(16)
+        data["hub_key"] = key
+        _save(data)
+        index = _read_hub_keys()
+        index[key] = client_id
+        _hub_keys_path().write_text(json.dumps(index), encoding="utf-8")
+        return key
+
+
+def _client_for_hub_key(key: str) -> str:
+    cid = _read_hub_keys().get(key)
+    if not cid:
+        raise HTTPException(status_code=404, detail="Hub introuvable")
+    return cid
+
+
+@app.post("/api/leads/{hub_key}")
+def capture_lead(hub_key: str, body: LeadIn, request: Request):
+    cid = _client_for_hub_key(hub_key)
+    if body.website.strip():
+        return {"ok": True}  # robot : on répond sans rien enregistrer
+    email = body.email.strip().lower()
+    if len(email) > 254 or not LEAD_RE.match(email):
+        raise HTTPException(status_code=422, detail="Adresse email invalide")
+    if not body.consent:
+        raise HTTPException(status_code=422, detail="Cochez la case pour être tenu au courant")
+
+    ip = request.client.host if request.client else "inconnu"
+    now = datetime.now(timezone.utc).timestamp()
+    hits = [t for t in _lead_hits.get(ip, []) if now - t < 600]
+    if len(hits) >= LEAD_MAX_PER_10MIN:
+        raise HTTPException(status_code=429, detail="Trop de demandes, réessayez plus tard")
+    _lead_hits[ip] = hits + [now]
+
+    lead = {
+        "email": email,
+        "date": datetime.now(timezone.utc).isoformat(),
+        "source_url": body.source_url[:500],
+    }
+
+    def apply(d):
+        leads = d.setdefault("leads", [])
+        if not any(item["email"] == email for item in leads):
+            leads.append(lead)
+
+    _update(cid, apply)
+    return {"ok": True}
+
+
+@app.get("/api/leads/{client_id}")
+def list_leads(client_id: str, authorization: str | None = Header(default=None)):
+    cid = _authorize(client_id, authorization)
+    with _lock:
+        leads = _load(cid).get("leads", [])
+    return {"count": len(leads), "leads": sorted(leads, key=lambda item: item["date"], reverse=True)}
+
+
+@app.get("/api/leads/{client_id}/export.csv")
+def export_leads(client_id: str, authorization: str | None = Header(default=None)):
+    cid = _authorize(client_id, authorization)
+    with _lock:
+        leads = _load(cid).get("leads", [])
+    lines = ["email;date;source_url"] + [f"{l['email']};{l['date']};{l['source_url']}" for l in leads]
+    return Response("\n".join(lines) + "\n", media_type="text/csv; charset=utf-8")
