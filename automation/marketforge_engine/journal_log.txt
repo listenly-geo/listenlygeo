@@ -1,21 +1,15 @@
-# Commande - run 38361090469
-﻿2026-10-13T07:11:26.7414650Z ##[group]Run python automation/scripts/sheet_bridge.py cmd
-2026-10-13T07:11:26.7415323Z ^[[36;1mpython automation/scripts/sheet_bridge.py cmd^[[0m
-2026-10-13T07:11:26.7698771Z shell: /usr/bin/bash -e {0}
-2026-10-13T07:11:26.7699487Z env:
-2026-10-13T07:11:26.7699858Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-13T07:11:26.7700391Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-10-13T07:11:26.7700910Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-13T07:11:26.7701390Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-13T07:11:26.7701826Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-13T07:11:26.7702266Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-10-13T07:11:26.7703375Z   MFE_SHEET_URL: ***
-2026-10-13T07:11:26.7703663Z   MFE_CMD: ping
-2026-10-13T07:11:26.7777861Z   MFE_SLUG:
-2026-10-13T07:11:26.7778300Z   MFE_N: 1
-2026-10-13T07:11:26.7778554Z   MFE_CONFIRM: false
-2026-10-13T07:11:26.7779171Z   MFE_TO:
-2026-10-13T07:11:26.7779460Z ##[endgroup]
-2026-10-13T07:11:29.3329178Z [sheet-bridge] Commande ping : {'ok': False, 'error': 'cmd inconnue (test_me | test_to | test_real)'}
-2026-10-13T07:11:29.3350368Z ##[notice]{"ok": false, "error": "cmd inconnue (test_me | test_to | test_real)"}
-2026-10-13T07:11:29.3426471Z ##[error]Process completed with exit code 1.
+# Lecture / déploiement - run 38370332168
+﻿2026-10-13T08:36:04.6641847Z ##[group]Run MODE=$(head -n1 automation/apps-script/deploy-script-now.txt | tr -d '[:space:]')
+2026-10-13T08:36:04.6642540Z ^[[36;1mMODE=$(head -n1 automation/apps-script/deploy-script-now.txt | tr -d '[:space:]')^[[0m
+2026-10-13T08:36:04.6643149Z ^[[36;1m[ "$MODE" = "deploy" ] && export APPS_SCRIPT_MODE=deploy || export APPS_SCRIPT_MODE=dry^[[0m
+2026-10-13T08:36:04.6643681Z ^[[36;1mpython3 automation/scripts/apps_script_deploy.py^[[0m
+2026-10-13T08:36:04.6683860Z shell: /usr/bin/bash -e ***0***
+2026-10-13T08:36:04.6684203Z env:
+2026-10-13T08:36:04.6686497Z   CLASPRC_JSON: ***
+2026-10-13T08:36:04.6686779Z ##[endgroup]
+2026-10-13T08:36:06.0496977Z /home/runner/work/listenlygeo/listenlygeo/automation/scripts/apps_script_deploy.py:57: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.
+2026-10-13T08:36:06.0499494Z   stamp = datetime.datetime.utcnow().strftime("%Y%m%d-%H%M")
+2026-10-13T08:36:06.0523224Z [apps-script] fichiers: [('appsscript', 'JSON', 204), ('Code', 'SERVER_JS', 92899)]
+2026-10-13T08:36:06.0524830Z [apps-script] 1 fichier(s) de code ; identique au depot: False
+2026-10-13T08:36:06.0528570Z ##[notice]lecture OK, 2 fichiers, identique=False
+2026-10-13T08:36:06.0531453Z [apps-script] mode DRY : rien d'ecrit
