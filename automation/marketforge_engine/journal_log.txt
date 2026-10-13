@@ -1,15 +1,17 @@
-# Lecture / déploiement - run 38370332168
-﻿2026-10-13T08:36:04.6641847Z ##[group]Run MODE=$(head -n1 automation/apps-script/deploy-script-now.txt | tr -d '[:space:]')
-2026-10-13T08:36:04.6642540Z ^[[36;1mMODE=$(head -n1 automation/apps-script/deploy-script-now.txt | tr -d '[:space:]')^[[0m
-2026-10-13T08:36:04.6643149Z ^[[36;1m[ "$MODE" = "deploy" ] && export APPS_SCRIPT_MODE=deploy || export APPS_SCRIPT_MODE=dry^[[0m
-2026-10-13T08:36:04.6643681Z ^[[36;1mpython3 automation/scripts/apps_script_deploy.py^[[0m
-2026-10-13T08:36:04.6683860Z shell: /usr/bin/bash -e ***0***
-2026-10-13T08:36:04.6684203Z env:
-2026-10-13T08:36:04.6686497Z   CLASPRC_JSON: ***
-2026-10-13T08:36:04.6686779Z ##[endgroup]
-2026-10-13T08:36:06.0496977Z /home/runner/work/listenlygeo/listenlygeo/automation/scripts/apps_script_deploy.py:57: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.
-2026-10-13T08:36:06.0499494Z   stamp = datetime.datetime.utcnow().strftime("%Y%m%d-%H%M")
-2026-10-13T08:36:06.0523224Z [apps-script] fichiers: [('appsscript', 'JSON', 204), ('Code', 'SERVER_JS', 92899)]
-2026-10-13T08:36:06.0524830Z [apps-script] 1 fichier(s) de code ; identique au depot: False
-2026-10-13T08:36:06.0528570Z ##[notice]lecture OK, 2 fichiers, identique=False
-2026-10-13T08:36:06.0531453Z [apps-script] mode DRY : rien d'ecrit
+# Lecture / déploiement - run 38370635773
+﻿2026-10-13T08:38:43.8249041Z ##[group]Run MODE=$(head -n1 automation/apps-script/deploy-script-now.txt | tr -d '[:space:]')
+2026-10-13T08:38:43.8249803Z ^[[36;1mMODE=$(head -n1 automation/apps-script/deploy-script-now.txt | tr -d '[:space:]')^[[0m
+2026-10-13T08:38:43.8250538Z ^[[36;1mcase "$MODE" in deploy|publish) export APPS_SCRIPT_MODE="$MODE";; *) export APPS_SCRIPT_MODE=dry;; esac^[[0m
+2026-10-13T08:38:43.8251166Z ^[[36;1mpython3 automation/scripts/apps_script_deploy.py^[[0m
+2026-10-13T08:38:43.8309881Z shell: /usr/bin/bash -e ***0***
+2026-10-13T08:38:43.8310215Z env:
+2026-10-13T08:38:43.8312689Z   CLASPRC_JSON: ***
+2026-10-13T08:38:43.8312960Z ##[endgroup]
+2026-10-13T08:38:45.3817454Z /home/runner/work/listenlygeo/listenlygeo/automation/scripts/apps_script_deploy.py:87: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.
+2026-10-13T08:38:45.3819111Z   stamp = datetime.datetime.utcnow().strftime("%Y%m%d-%H%M")
+2026-10-13T08:38:49.4291246Z [apps-script] fichiers: [('appsscript', 'JSON', 204), ('Code', 'SERVER_JS', 92899)]
+2026-10-13T08:38:49.4292342Z [apps-script] 1 fichier(s) de code ; identique au depot: False
+2026-10-13T08:38:49.4295159Z ##[notice]lecture OK, 2 fichiers, identique=False
+2026-10-13T08:38:49.4298171Z ##[notice]script mis a jour (6baf9112)
+2026-10-13T08:38:49.4302627Z ##[error]5 deploiement(s) web trouves (1 attendu), version 22 creee mais non branchee
+2026-10-13T08:38:49.4544661Z ##[error]Process completed with exit code 1.
