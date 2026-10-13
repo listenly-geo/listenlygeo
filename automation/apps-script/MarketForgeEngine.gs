@@ -781,10 +781,8 @@ function mfeShortName_(name) {
 function mfeVars_(values) {
   // QUERY_LINK : lien Listenly avec moment ID si disponible (dernier épisode question + moment ID aux colonnes 16, 17)
   // Sinon : lien générique vers la page Listenly du podcast
-  var queryLink = 'https://listenly.fr/podcast/show/' + values[0];  // par défaut : page du podcast
-  if (values[16] && values[17]) {  // si question + moment_id disponibles
-    queryLink = 'https://listenly.fr/?p=' + values[0] + '&m=' + values[17];
-  }
+  // Modele du 13/10/2026 : tous les mails (1er mail et relances) renvoient vers la fiche N1 du podcast (colonne D)
+  var queryLink = String(values[3] || '').trim() || ('https://listenly.fr/podcast/show/' + values[0]);
   // QUERY_BLOCK : la question reelle juste au-dessus du lien Listenly horodate ("question \n-> lien"); sans question, le lien seul
   var question = String(values[16] || '').trim();
   var queryBlock = (question && values[17]) ? question + '\n→ ' + queryLink : queryLink;
@@ -1312,6 +1310,19 @@ function mfeCmd_(body) {
       var d2 = mfeDraft_(ex2, 'A');
       GmailApp.sendEmail(to, d2[0], mfeWithSignature_(d2[1]), mfeSendOpts_(d2[1]));
       return mfeJson_({ ok: true, cmd: cmd, envoye_a: to, objet: d2[0], podcast: ex2[1] });
+    }
+    if (cmd === 'fiches_n1') {   // modele du 13/10/2026 : colonne D = fiche N1 du podcast pour TOUTES les lignes (mails 1 et relances)
+      var podc = {};
+      var resq = UrlFetchApp.fetch(MFE.QUEUE_URL + '?t=' + Date.now(), { muteHttpExceptions: true });
+      if (resq.getResponseCode() !== 200) return mfeJson_({ ok: false, error: 'queue.json illisible HTTP ' + resq.getResponseCode() });
+      podc = (JSON.parse(resq.getContentText()).podcasts) || {};
+      var maj = 0, sans = 0;
+      mfeRows_(sh).forEach(function (r) {
+        var f = podc[r.values[0]] && podc[r.values[0]].fiche_url;
+        if (!f) { sans++; return; }
+        if (String(r.values[3] || '') !== f) { sh.getRange(r.row, 4).setValue(f); maj++; }
+      });
+      return mfeJson_({ ok: true, cmd: cmd, lignes_mises_a_jour: maj, sans_fiche_n1: sans });
     }
     if (cmd === 'test_real') {
       if (body.confirm !== true) return mfeJson_({ ok: false, error: 'confirm=true requis (envoi de vrais mails)' });
