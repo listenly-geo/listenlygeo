@@ -566,6 +566,11 @@ def main():
         gate_state["used"] = int(gate_state.get("used", 0)) + (gate_run_cap - gate_ctx["verif_left"])
         gate_state["tries"] = int(gate_state.get("tries", 0)) + gate_tries
         gate_state["ok"] = int(gate_state.get("ok", 0)) + gate_ok
+        _ce = getattr(contact_finder, "CLAUDE_ERRORS", {})
+        if _ce:   # erreurs de l'API Claude (cle, credit, quota) : cause probable de « Aucun nom trouve » en masse
+            _cum = gate_state.setdefault("claude_erreurs", {})
+            for _k, _n in _ce.items():
+                _cum[_k] = _cum.get(_k, 0) + _n
         try:
             with open(GATE_FILE, "w", encoding="utf-8") as f:
                 json.dump(gate_state, f, indent=1)

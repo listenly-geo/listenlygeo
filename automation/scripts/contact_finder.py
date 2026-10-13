@@ -229,6 +229,9 @@ def fetch_site(base):
     return pages
 
 
+CLAUDE_ERRORS = {}
+
+
 def ask_claude(podcast, host_hint, texts):
     key = os.environ.get("ANTHROPIC_API_KEY", "")
     if not key or not texts:
@@ -251,6 +254,7 @@ def ask_claude(podcast, host_hint, texts):
         m = re.search(r"\{.*\}", txt, re.S)
         return (json.loads(m.group(0)).get("people") or []) if m else []
     except Exception as e:
+        CLAUDE_ERRORS[str(e)[:80]] = CLAUDE_ERRORS.get(str(e)[:80], 0) + 1   # visible dans gate_state.json (diagnostic rendement)
         log(f"  claude: {e}")
         return []
 
