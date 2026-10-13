@@ -328,6 +328,47 @@ def email_gate(feed_url):
     return email, ""
 
 
+# PRE-FILTRE GRATUIT (13/10/2026, decision d'Etienne) : ecarte AVANT le filtre dirigeant (recherche Claude + verifications
+# MyEmailVerifier payantes) les podcasts qui ne passent jamais la qualification B2B.
+# 1) Categories iTunes : liste construite sur l'historique (discovery_seen_history.json, 1705 podcasts qualifies) = categories
+#    avec 0 podcast retenu (ou 1 sur 12+ pour News Commentary). Sports / News / Society & Culture restent autorises (quelques retenus).
+EXCLUDED_GENRES = {
+    "Politics", "Daily News", "News Commentary", "Sports News", "Entertainment News",
+    "Christianity", "Religion & Spirituality", "Spirituality", "Islam", "Judaism", "Buddhism", "Hinduism",
+    "Personal Journals", "Relationships", "Sexuality", "Parenting", "Kids & Family", "Philosophy",
+    "True Crime", "History", "Comedy", "Comedy Interviews", "Improv", "Stand-Up", "Fiction", "Drama", "Science Fiction",
+    "TV & Film", "Film Interviews", "Film Reviews", "Film History", "After Shows", "Arts", "Visual Arts", "Books",
+    "Music Commentary", "Music History", "Music Interviews", "Animation & Manga",
+    "Games", "Video Games", "Hobbies", "Home & Garden", "Places & Travel", "Wilderness", "Nature", "Pets & Animals",
+    "Football", "Soccer", "Baseball", "Basketball", "Hockey", "Volleyball", "Golf", "Rugby", "Cricket", "Tennis",
+    "Wrestling", "Fantasy Sports", "Swimming", "Running",
+}
+_EXCLUDED_GENRES_KEY = {g.replace(" ", "").lower() for g in EXCLUDED_GENRES}
+# 2) Domaines de l'email du flux : ecoles et administrations, hebergeurs et reseaux de podcasts (l'adresse n'est pas celle
+#    d'une entreprise). Les .org ne sont PAS exclus : 14 podcasts retenus viennent d'associations professionnelles (B2B).
+EXCLUDED_TLDS = (".edu", ".gov", ".mil", ".ac.uk", ".gov.uk", ".edu.au", ".gov.au")
+EXCLUDED_DOMAINS = {
+    "anchor.fm", "spotify.com", "buzzsprout.com", "libsyn.com", "podbean.com", "transistor.fm", "simplecast.com",
+    "megaphone.fm", "acast.com", "iheartmedia.com", "audioboom.com", "captivate.fm", "redcircle.com", "spreaker.com",
+    "podcastone.com", "wondery.com", "art19.com", "omnystudio.com", "blubrry.com", "soundcloud.com", "riverside.fm",
+    "pinecast.com", "fireside.fm", "castos.com", "podomatic.com", "sounder.fm", "podigee.com", "ausha.co",
+}
+
+
+def free_reject(cand, email):
+    """Raison du refus ('' = garde). Gratuit : ne lit que les donnees iTunes deja recues et l'email du flux."""
+    genre = (cand.get("primaryGenreName") or "").replace("MZGenre.Podcasts.", "").strip()
+    if genre.replace(" ", "").lower() in _EXCLUDED_GENRES_KEY:   # « MZGenre.Podcasts.TrueCrime » = « True Crime »
+        return f"categorie hors B2B ({genre})"
+    dom = (email or "").rsplit("@", 1)[-1].lower()
+    if dom:
+        if dom.endswith(EXCLUDED_TLDS):
+            return f"email ecole / administration ({dom})"
+        if dom in EXCLUDED_DOMAINS or any(dom.endswith("." + d) for d in EXCLUDED_DOMAINS):
+            return f"email d'hebergeur / reseau de podcasts ({dom})"
+    return ""
+
+
 def extract_json(text):
     text = re.sub(r"^```json\s*", "", text.strip())
     text = re.sub(r"^```\s*", "", text)
@@ -492,6 +533,8 @@ def main():
             gates = list(ex.map(lambda sc: email_gate(sc[1].get("feedUrl", "")), batch))
         for (sec, cand), (email, why) in zip(batch, gates):
             prechecked += 1
+            if not why:
+                why = free_reject(cand, email)
             feed = cand.get("feedUrl", "")
             if why:
                 key = re.sub(r"\s*\(.*", "", why)
