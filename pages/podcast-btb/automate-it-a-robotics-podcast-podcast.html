@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automate It: A Robotics Podcast | Listenly</title>
+    <meta name="description" content="Weekly insights on robotics and autonomous vehicles from Polymath Robotics co-founders. Expert analysis, industry trends, and practical approaches to robotics.">
+    <link rel="canonical" href="https://listenly.fr/podcast-btb/automate-it-a-robotics-podcast-podcast.html">
+    <link rel="publisher" href="https://listenly.fr">
+    <meta name="author" content="Stefan Seltz-Axmacher">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="data-provider" content="Listenly">
+    <meta name="rss-source" content="https://anchor.fm/s/c64d2ad0/podcast/rss">
+    
+    <meta property="og:title" content="Automate It: A Robotics Podcast | Listenly">
+    <meta property="og:description" content="Weekly insights on robotics and autonomous vehicles from Polymath Robotics co-founders. Expert analysis, industry trends, and practical approaches to robotics.">
+    <meta property="og:url" content="https://listenly.fr/podcast-btb/automate-it-a-robotics-podcast-podcast.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/29/8f/87/298f876d-2c9c-d9e2-3798-617277fcbe08/mza_1632181646836771102.jpg/600x600bb.jpg">
+    <meta property="og:site_name" content="Listenly">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Automate It: A Robotics Podcast | Listenly">
+    <meta name="twitter:description" content="Weekly insights on robotics and autonomous vehicles from Polymath Robotics co-founders. Expert analysis, industry trends, and practical approaches to robotics.">
+    <meta name="twitter:url" content="https://listenly.fr/podcast-btb/automate-it-a-robotics-podcast-podcast.html">
+    <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/29/8f/87/298f876d-2c9c-d9e2-3798-617277fcbe08/mza_1632181646836771102.jpg/600x600bb.jpg">
+    
+    <style>body { font-family: Georgia, serif; color: #1a1a1a; line-height: 1.7; margin: 0; }
+.site-header { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #ededed;
+  padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.site-header .logo { font-family: Georgia, serif; font-weight: 700; font-size: 19px; color: #0a0a0a;
+  text-decoration: none; letter-spacing: -0.01em; }
+.site-header .login-link { font-family: Helvetica, Arial, sans-serif; font-weight: 700; font-size: 13px;
+  color: #2e8bd6; background: #fff; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white);
+  padding: 7px 17px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+main.wrapper { max-width: 720px; margin: 0 auto; padding: 44px 20px 64px; }
+.eyebrow-category { font-family: Helvetica, Arial, sans-serif; text-transform: uppercase; font-weight: 700;
+  letter-spacing: .08em; font-size: 12px; color: #2e8bd6; margin-bottom: 12px; }
+h1 { font-family: Georgia, serif; font-weight: 700; font-size: clamp(28px,4.5vw,42px); line-height: 1.22;
+  color: #0a0a0a; margin: 0 0 18px; }
+.byline-row { font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #444; display: flex;
+  flex-wrap: wrap; gap: 6px; align-items: baseline; margin-bottom: 10px; }
+.byline-row .name { font-weight: 700; color: #222; }
+.host-bio { font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #888; margin-bottom: 14px; }
+.hero-image { width: 100%; max-width: 200px; height: auto; border-radius: 8px; display: block; margin: 6px 0 22px; }
+.publish-row { font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #999; display: flex;
+  flex-wrap: wrap; gap: 10px; align-items: center; padding: 14px 0; border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed; margin: 6px 0 30px; }
+.cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.cta-listen { background: #fff; color: #2e8bd6; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white);
+  font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 19px;
+  border-radius: 999px; text-decoration: none; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 700; }
+.divider { border-top: 1px solid #ededed; }
+.lead-label { font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #2e8bd6; }
+.lead { font-family: Georgia, serif; font-size: 19.5px; line-height: 1.65; font-style: italic;
+  border-left: 2px solid color-mix(in srgb, #2e8bd6 55%, white); padding-left: 20px; color: #2a2a2a; margin: 16px 0 30px; }
+.key-facts-label { font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #2e8bd6; margin-bottom: 14px; padding-top: 26px; border-top: 1px solid #ededed; }
+.key-facts { list-style: none; padding: 0; }
+.key-facts li { font-family: Georgia, serif; font-size: 17.5px; line-height: 1.7; color: #2a2a2a; padding-left: 20px;
+  margin-bottom: 14px; position: relative; }
+.key-facts li::before { content: "–"; position: absolute; left: 0; color: #bbb; font-weight: 700; font-size: 18px; }
+.article-body h2 { font-family: Georgia, serif; font-weight: 700; font-size: clamp(21px,3.2vw,26px); line-height: 1.3;
+  color: #111; margin-top: 46px; margin-bottom: 16px; padding-top: 26px; border-top: 1px solid #ededed; }
+.article-body p { font-family: Georgia, serif; font-size: 17.5px; line-height: 1.8; color: #2a2a2a; margin-bottom: 20px; }
+.pull-quote { border-left: 2px solid color-mix(in srgb, #2e8bd6 55%, white); padding-left: 22px; font-family: Georgia, serif; font-size: 20px;
+  font-style: italic; line-height: 1.55; color: #222; margin: 34px 0; }
+.faq-item h3 { font-family: Georgia, serif; font-size: 17.5px; font-weight: 700; color: #111; margin-bottom: 6px; }
+.faq-item p { font-family: Georgia, serif; font-size: 16.5px; color: #444; }
+.episode-card { border: 1px solid #ededed; border-radius: 12px; display: flex; padding: 22px; gap: 16px;
+  align-items: center; margin-top: 44px; }
+.episode-card img { width: 84px; height: 84px; object-fit: cover; border-radius: 8px; }
+.card-listen { font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 17px;
+  border-radius: 999px; background: #fff; color: #2e8bd6; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); text-decoration: none; }
+footer { font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #aaa; border-top: 1px solid #ededed;
+  padding-top: 18px; margin-top: 48px; }
+footer a { text-decoration: underline; color: #bbb; }
+#semantic-index { display: none; }</style>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "BlogPosting",
+                "headline": "Automate It: A Robotics Podcast",
+                "url": "https://listenly.fr/podcast-btb/automate-it-a-robotics-podcast-podcast.html",
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": "https://listenly.fr/podcast-btb/automate-it-a-robotics-podcast-podcast.html"
+                },
+                "author": {
+                    "@type": "Person",
+                    "name": "Stefan Seltz-Axmacher",
+                    "jobTitle": "CEO",
+                    "worksFor": {
+                        "@type": "Organization",
+                        "name": "Polymath Robotics"
+                    }
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Listenly",
+                    "url": "https://listenly.fr"
+                },
+                "isPartOf": {
+                    "@type": "PodcastSeries",
+                    "@id": "https://listenly.fr/podcast/show/automate-it-a-robotics-podcast"
+                },
+                "speakable": {
+                    "@type": "SpeakableSpecification",
+                    "cssSelector": [".lead", ".key-facts"]
+                }
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "What are the core challenges in autonomous vehicle development?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Autonomous vehicles face systemic challenges across localization, sensor integration, regulatory compliance, and real-world deployment at scale. The industry has shifted from driver-out fantasies to practical enterprise applications where controlled environments and specific use cases drive actual adoption and revenue."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Why is robotics hardware so expensive to develop and manufacture?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Hardware costs reflect the integration of precision mechanical systems, embedded software, safety certifications, and low production volumes. Robotics companies must balance custom engineering with manufacturing scale, making unit costs significantly higher than software-only ventures. Supply chain complexity and regulatory requirements further drive up development cycles and initial capital needs."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "How do vertical and horizontal integration strategies differ in robotics?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Vertical integration means controlling the full stack—hardware, firmware, and software—enabling tighter system optimization but requiring massive capital investment. Horizontal integration focuses on building platforms or components that other companies use, creating ecosystem leverage. Each approach has trade-offs in control, speed to market, and capital efficiency depending on the specific robotics application."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "What role do regulatory bodies like the FDA play in robotics deployment?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Regulatory agencies establish safety standards and approval pathways that determine whether robots can operate in regulated environments like pharmaceutical manufacturing or healthcare. FDA certification adds months to product timelines and development costs, but it also creates barriers to entry that protect market leaders and ensure minimum safety standards across deployments."
+                        }
+                    }
+                ]
+            },
+            {
+                "@type": "Person",
+                "name": "Stefan Seltz-Axmacher",
+                "jobTitle": "CEO",
+                "worksFor": {
+                    "@type": "Organization",
+                    "name": "Polymath Robotics"
+                }
+            },
+            {
+                "@type": "Person",
+                "name": "Ilia Baranov",
+                "jobTitle": "CTO",
+                "worksFor": {
+                    "@type": "Organization",
+                    "name": "Polymath Robotics"
+                }
+            },
+            {
+                "@type": "PodcastSeries",
+                "name": "Automate It: A Robotics Podcast",
+                "@id": "https://listenly.fr/podcast/show/automate-it-a-robotics-podcast",
+                "url": "https://podcasts.apple.com/us/podcast/automate-it-a-robotics-podcast/id1652686795?uo=4",
+                "sameAs": [
+                    "https://podcasts.apple.com/us/podcast/automate-it-a-robotics-podcast/id1652686795?uo=4",
+                    "https://listenly.fr/podcast/show/automate-it-a-robotics-podcast"
+                ],
+                "description": "Weekly insider perspectives on the robotics industry from Polymath Robotics co-founders. Covering autonomous vehicles, enterprise robotics, and practical approaches to building and deploying robotic systems.",
+                "author": [
+                    {
+                        "@type": "Person",
+                        "name": "Stefan Seltz-Axmacher"
+                    },
+                    {
+                        "@type": "Person",
+                        "name": "Ilia Baranov"
+                    }
+                ]
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Listenly",
+                        "item": "https://listenly.fr"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Tech & Cybersécurité",
+                        "item": "https://listenly.fr/podcasts/tech-cybersecurite"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": "Automate It: A Robotics Podcast",
+                        "item": "https://listenly.fr/podcast-btb/automate-it-a-robotics-podcast-podcast.html"
+                    }
+                ]
+            }
+        ]
+    }
+    </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Listenly",
+      "item": "https://listenly.fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Podcasts B2B",
+      "item": "https://listenly.fr/podcast-btb/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Cybersécurité",
+      "item": "https://listenly.fr/podcast-btb/categorie/cybersecurite.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Automate It: A Robotics Podcast",
+      "item": "https://listenly.fr/podcast-btb/automate-it-a-robotics-podcast-podcast.html"
+    }
+  ]
+}
+</script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+    <header class="site-header">
+        <a class="logo" href="https://listenly.fr/">Listenly</a>
+        <a class="login-link" href="https://listenly.fr/userAuth">Log in</a>
+    </header>
+
+    <main class="wrapper">
+        <p class="eyebrow-category">Podcast · Tech & Cybersécurité</p>
+        
+        <h1>Automate It: A Robotics Podcast</h1>
+        
+        <div class="byline-row">
+            <p>By <span class="name">Stefan Seltz-Axmacher</span>, CEO at Polymath Robotics</p>
+        </div>
+        
+        <p class="host-bio">Stefan Seltz-Axmacher founded Starsky Robotics, an early autonomous trucking pioneer, and now leads Polymath Robotics as CEO alongside CTO Ilia Baranov, who held leadership roles at Clearpath Robotics and Amazon's home robot division.</p>
+        
+        <img class="hero-image" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/29/8f/87/298f876d-2c9c-d9e2-3798-617277fcbe08/mza_1632181646836771102.jpg/600x600bb.jpg" alt="Automate It: A Robotics Podcast">
+        
+        <div class="publish-row">
+            <p>⏱ 8 min read · Readable by ChatGPT, Gemini, Claude</p>
+        </div>
+        
+        <div class="cta-row">
+            <a class="cta-listen plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/automate-it-a-robotics-podcast">▶ Listen to the podcast</a>
+        </div>
+        
+        <div class="lead-label">What Automate It: A Robotics Podcast covers</div>
+        <div class="lead">
+            <p>Automate It delivers weekly insider analysis on the robotics industry from two founders with direct experience in autonomous vehicles and enterprise robot deployment. The podcast dissects real industry challenges—from localization algorithms to hardware costs, FDA compliance, and vertical integration decisions—with war stories and technical depth that expose both hype and genuine innovation. Episodes balance coverage of breakthrough companies like Digit and Multiply Labs with unflinching assessment of what actually works in production robotics.</p>
+        </div>
+        
+        <div class="key-facts-label">Key facts</div>
+        <ul class="key-facts">
+            <li>Stefan Seltz-Axmacher founded Starsky Robotics, the first autonomous trucking company to operate driverless routes in production, and now leads Polymath Robotics.</li>
+            <li>Co-host Ilia Baranov was employee #10 at Clearpath Robotics, led teams at Amazon's home robot division, and managed the ROS repository after Willow Garage's shutdown.</li>
+            <li>Recent episodes address systemic gaps in enterprise robotics, pulsar-based localization systems, hardware manufacturing economics, and regulatory pathways through the FDA.</li>
+            <li>The podcast prioritizes war stories and technical approaches over promotional content, offering founders and engineers practical frameworks for robotics decisions.</li>
+        </ul>
+        
+        <p>Dive deeper into <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/automate-it-a-robotics-podcast">all episodes of Automate It</a> for industry analysis grounded in real deployment experience.</p>
+        
+        <h2>What this podcast really covers</h2>
+        <p>Automate It moves beyond speculative robotics news to address the engineering and business realities that determine success or failure in the field. Each episode examines specific bottlenecks: Why is driver-out autonomy no longer the industry focus? What makes localization so critical? How do companies actually choose between building everything in-house versus licensing components? The podcast treats these questions with technical rigor, never assuming the audience needs hand-holding on basic concepts.</p>
+        <p>The hosts draw directly from their backgrounds—Starsky's autonomous trucking operations, Clearpath's diverse robotics platforms, Amazon's consumer robot engineering, and custodianship of the ROS ecosystem. This lived experience shapes every conversation, making the podcast a resource for founders, engineers, and investors navigating the same terrain.</p>
+        
+        <h2>Who this podcast is essential for</h2>
+        <p><strong>Robotics founders and CTOs</strong> use Automate It to benchmark their own technical decisions against peer experiences. Discussions on hardware cost structure, integration trade-offs, and regulatory compliance provide direct decision-making frameworks that cut months off strategy cycles.</p>
+        <p><strong>Enterprise robotics procurement teams</strong> listen to understand what manufacturers claim versus what actually delivers in production environments. The podcast explicitly calls out gap between marketing narratives and real-world deployment, making it critical due diligence for companies evaluating robotic solutions.</p>
+        <p><strong>Venture investors in robotics</strong> rely on the hosts' direct exposure to the industry's blind spots—such as the billion-dollar disconnect between what enterprise customers actually need and what startups are building—to improve deal evaluation and post-investment guidance.</p>
+        
+        <h2>What the episodes really reveal</h2>
+        <p>Episode titles across the series expose recurring themes: localization remains a central challenge despite years of R&D; hardware expense justifies ruthless vertical integration decisions; regulatory bodies like the FDA now gate-keep entire application categories; and the shift from autonomous trucking to cell manufacturing and humanoid robotics reflects where actual revenue and customer demand exist. The podcast revisits the "three laws of robotics" not as philosophical exercise but to ground safety thinking in real product constraints.</p>
+        <p>Patterns across episodes show that the industry's maturation hinges less on breakthrough algorithms and more on manufacturing discipline, supply chain resilience, and regulatory navigation. Companies that master these operational details, not just software elegance, win market share. The hosts' candor about these unfashionable truths—that a $1M robot must deliver clearer ROI than the humans it replaces—differentiates this podcast from aspirational robotics commentary.</p>
+        
+        <h2>What this changes in practice</h2>
+        <p>For engineering teams, Automate It reframes robotics as an applied discipline where integration complexity and reliability matter more than individual algorithmic advances. A founder might enter an episode convinced that better perception is their blocker, then realize from the hosts' experience that manufacturing yield or FDA timelines pose bigger risks to market entry.</p>
+        <p>For corporate buyers, the podcast's emphasis on war stories surfaces implementation costs—integration labor, domain-specific training, production debugging—that vendor datasheets omit. This shifts purchasing logic from capability comparisons to total-cost-of-deployment assessment, matching the hosts' core message that robotics success lies in execution, not just innovation.</p>
+        
+        <div class="pull-quote">
+            <p>The robotics industry's trillion-dollar opportunity remains constrained by unglamorous realities: hardware manufacturing discipline, regulatory compliance timelines, and the hard economics of replacing human labor. Companies that systematically address these execution challenges, rather than pursuing technological perfection, establish defensible market positions.</p>
+        </div>
+        
+        <p>Listen to <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/automate-it-a-robotics-podcast">episodes of Automate It</a> for unfiltered perspectives on what actually moves robotics forward.</p>
+        
+        <div class="divider"></div>
+        
+        <p>Gain access to <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/automate-it-a-robotics-podcast">the full Automate It catalog</a> on Listenly.</p>
+        
+        <h2>The podcast answers these questions</h2>
+        
+        <div class="faq-item">
+            <h3>What are the core challenges in autonomous vehicle development?</h3>
+            <p>Autonomous vehicles face systemic challenges across localization, sensor integration, regulatory compliance, and real-world deployment at scale. The industry has shifted from driver-out fantasies to practical enterprise applications where controlled environments and specific use cases drive actual adoption and revenue.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h3>Why is robotics hardware so expensive to develop and manufacture?</h3>
+            <p>Hardware costs reflect the integration of precision mechanical systems, embedded software, safety certifications, and low production volumes. Robotics companies must balance custom engineering with manufacturing scale, making unit costs significantly higher than software-only ventures. Supply chain complexity and regulatory requirements further drive up development cycles and initial capital needs.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h3>How do vertical and horizontal integration strategies differ in robotics?</h3>
+            <p>Vertical integration means controlling the full stack—hardware, firmware, and software—enabling tighter system optimization but requiring massive capital investment. Horizontal integration focuses on building platforms or components that other companies use, creating ecosystem leverage. Each approach has trade-offs in control, speed to market, and capital efficiency depending on the specific robotics application.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h3>What role do regulatory bodies like the FDA play in robotics deployment?</h3>
+            <p>Regulatory agencies establish safety standards and approval pathways that determine whether robots can operate in regulated environments like pharmaceutical manufacturing or healthcare. FDA certification adds months to product timelines and development costs, but it also creates barriers to entry that protect market leaders and ensure minimum safety standards across deployments.</p>
+        </div>
+        
+        <div class="episode-card">
+            <img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/29/8f/87/298f876d-2c9c-d9e2-3798-617277fcbe08/mza_1632181646836771102.jpg/600x600bb.jpg" alt="Automate It: A Robotics Podcast">
+            <div class="card-content">
+                <p class="card-title">Discover Automate It: A Robotics Podcast</p>
+                <p class="card-subtitle">Stefan Seltz-Axmacher · Automate It: A Robotics Podcast</p>
+                <a class="card-listen plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/automate-it-a-robotics-podcast">Listen to the podcast</a>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© Automate It: A Robotics Podcast — Polymath Robotics · <a href="https://listenly.fr">Structured analysis by Listenly</a></p>
+        </footer>
+    <!-- QUESTIONS_COVERED_START -->
+<style>
+.hx-wrap { margin:32px 0 40px; padding-top:28px; border-top:1px solid #ececec; }
+.hx-title { font-size:22px; font-weight:800; margin:0 0 4px; color:#0a0a0a; }
+.hx-stats { font-size:13px; color:#777; margin:0 0 16px; }
+.hx-tools { position:sticky; top:0; background:#fff; padding:10px 0 8px; z-index:5; }
+.hx-search { width:100%; box-sizing:border-box; padding:12px 16px; font-size:16px; border:1px solid #e2e2e2; border-radius:12px; background:#fafafa; }
+.hx-chips { display:flex; gap:8px; overflow-x:auto; padding:10px 0 2px; }
+.hx-chip { white-space:nowrap; font-size:12px; color:#333; text-decoration:none; background:#f4f4f4; border:1px solid #e6e6e6; border-radius:999px; padding:5px 11px; }
+.hx-chip span { color:#999; }
+.hx-empty { font-size:14px; color:#888; }
+.hx-ep { font-size:17px; font-weight:800; color:#111; margin:26px 0 10px; line-height:1.35; }
+.hx-qa { border:1px solid #ececec; background:#fafafa; border-radius:12px; padding:16px 18px; margin:0 0 10px; }
+.hx-q a { color:inherit; text-decoration:none; } .hx-q a:hover { text-decoration:underline; } .hx-rm { margin:0 0 10px; font-size:14px; } .hx-rm a { color:#0a66c2; text-decoration:none; font-weight:600; }
+.hx-q { font-size:16px; font-weight:700; color:#111; line-height:1.4; margin:0 0 6px; }
+.hx-a { font-size:15px; line-height:1.6; color:#333; margin:0 0 10px; }
+.hx-foot { display:flex; flex-wrap:wrap; gap:14px; align-items:center; font-size:13px; }
+.hx-listen { font-weight:700; text-decoration:none; color:#1f5fbf; background:#eaf1fd; padding:5px 12px; border-radius:999px; }
+.hx-more { color:#777; }
+.hx-hidden { display:none; }
+</style>
+<div class="questions-covered hx-wrap" id="answers">
+  <h2 class="hx-title">Answers from this podcast</h2>
+  <p class="hx-stats">2 questions answered · 1 episode indexed</p>
+  
+  <section class="hx-episode"><h3 class="hx-ep" id="ep-ep-66-pulsar-localization-digit-s-digits">Ep 66 - Pulsar Localization &amp; Digit&#x27;s Digits</h3><article class="hx-qa" id="how-does-pulsar-based-localization-work-for-spacecraft-navigation-at-r"><h3 class="hx-q">How does pulsar-based localization work for spacecraft navigation at relativistic speeds?</h3><p class="hx-a">Pulsars pulse at relatively unique and identifiable frequencies, allowing localization within a certain range. If you observe multiple pulsars and know their cosmological positions, you can identify your location. However, optical resolution limits (the Rayleigh limit) constrain accuracy to roughly plus or minus a million kilometers in any direction. At…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/podcast-btb/m/automate-it-a-robotics-podcast/1b9aba616b">▶ Listen to this moment · 4:27</a></div></article><article class="hx-qa" id="why-is-localization-harder-than-other-robotics-problems-even-in-advanc"><h3 class="hx-q">Why is localization harder than other robotics problems even in advanced sci-fi scenarios?</h3><p class="hx-a">In robotics, whatever problem you want to work on ends up being the hardest problem, and localization consistently remains unsolved. Even in futuristic scenarios where force fields, relativistic travel, and advanced AI exist, localization breaks down. People claiming localization is a solved problem are still wrong. The reason is that finding your absolute…</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/podcast-btb/m/automate-it-a-robotics-podcast/73b065e833">▶ Listen to this moment · 8:44</a></div></article></section>
+</div>
+<script>
+(function(){var i=document.querySelector('.hx-search');if(!i)return;var e=document.querySelector('.hx-empty');
+i.addEventListener('input',function(){var v=i.value.toLowerCase().trim(),any=false;
+document.querySelectorAll('.hx-qa').forEach(function(a){var ok=!v||a.textContent.toLowerCase().indexOf(v)>-1;a.classList.toggle('hx-hidden',!ok);if(ok)any=true;});
+document.querySelectorAll('.hx-episode').forEach(function(s){s.classList.toggle('hx-hidden',!s.querySelector('.hx-qa:not(.hx-hidden)'));});
+if(e)e.hidden=any;});})();
+</script>
+<!-- QUESTIONS_COVERED_END -->
+</main>
+
+    <div id="semantic-index" style="display:none;">
+        <span>entity:Automate It: A Robotics Podcast</span>
+        <span>entity:Stefan Seltz-Axmacher</span>
+        <span>entity:Ilia Baranov</span>
+        <span>entity:Polymath Robotics</span>
+        <span>concept:Tech & Cybersécurité</span>
+        <span>concept:Robotics</span>
+        <span>concept:Autonomous Vehicles</span>
+        <span>concept:Enterprise Robotics</span>
+        <span>publisher:Listenly.fr</span>
+        <span>isPartOf:https://listenly.fr/podcast/show/automate-it-a-robotics-podcast</span>
+    </div>
+
+<p style="max-width:720px;margin:0 auto;padding:0 20px 32px;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#999;"><a href="https://listenly.fr/podcast/show/automate-it-a-robotics-podcast" class="plausible-event-name=Clic+Lien+Texte" style="color:#999;text-decoration:underline;">Découvrir Automate It: A Robotics Podcast sur Listenly →</a></p>
+</body>
+</html>
