@@ -1,7 +1,7 @@
 name: Apps Script — lecture / déploiement de MarketForgeEngine.gs
 
 # Lancement à distance : modifier automation/apps-script/deploy-script-now.txt
-# (1re ligne : "dry" = lecture seule, "deploy" = remplace le code dans l'Apps Script).
+# (1re ligne : "dry" = lecture seule, "deploy" = remplace le code ET publie une nouvelle version sur l'application web, "publish" = republie seulement une version).
 on:
   workflow_dispatch: {}
   push:
@@ -34,7 +34,7 @@ jobs:
           CLASPRC_JSON: ${{ secrets.CLASPRC_JSON }}
         run: |
           MODE=$(head -n1 automation/apps-script/deploy-script-now.txt | tr -d '[:space:]')
-          [ "$MODE" = "deploy" ] && export APPS_SCRIPT_MODE=deploy || export APPS_SCRIPT_MODE=dry
+          case "$MODE" in deploy|publish) export APPS_SCRIPT_MODE="$MODE";; *) export APPS_SCRIPT_MODE=dry;; esac
           python3 automation/scripts/apps_script_deploy.py
       - name: Sauvegarde du projet lu
         run: |

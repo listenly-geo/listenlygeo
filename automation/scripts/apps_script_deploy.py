@@ -15,7 +15,7 @@ from google.auth.transport.requests import Request
 
 BASE = "automation/apps-script"
 SRC = f"{BASE}/MarketForgeEngine.gs"
-SCOPES = ["https://www.googleapis.com/auth/script.projects"]
+SCOPES = ["https://www.googleapis.com/auth/script.projects", "https://www.googleapis.com/auth/script.deployments"]
 
 
 def get_creds():
@@ -38,6 +38,36 @@ def get_creds():
     creds = UserCreds(None, refresh_token=rt, token_uri="https://oauth2.googleapis.com/token", client_id=cid, client_secret=sec)
     creds.refresh(Request())
     return creds
+
+
+def publier(sid, H, note=""):
+    """Cree une nouvelle version du projet et la branche sur le deploiement de l'application web (l'URL du pont ne change pas)."""
+    base = f"https://script.googleapis.com/v1/projects/{sid}"
+    stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%d/%m/%Y %H:%M UTC")
+    rv = requests.post(f"{base}/versions", headers={**H, "Content-Type": "application/json"},
+                       data=json.dumps({"description": f"Auto {stamp} {note}".strip()}), timeout=60)
+    if rv.status_code != 200:
+        print(f"::error title=Apps Script::creation de version impossible HTTP {rv.status_code}: {rv.text[:300]}")
+        sys.exit(1)
+    num = rv.json().get("versionNumber")
+    rd = requests.get(f"{base}/deployments", headers=H, timeout=60)
+    if rd.status_code != 200:
+        print(f"::error title=Apps Script::lecture des deploiements impossible HTTP {rd.status_code}: {rd.text[:300]}")
+        sys.exit(1)
+    cibles = [d for d in rd.json().get("deployments", [])
+              if any(e.get("entryPointType") == "WEB_APP" for e in d.get("entryPoints", []))
+              and d.get("deploymentConfig", {}).get("versionNumber")]
+    if len(cibles) != 1:
+        print(f"::error title=Apps Script::{len(cibles)} deploiement(s) web trouves (1 attendu), version {num} creee mais non branchee")
+        sys.exit(1)
+    d = cibles[0]
+    cfg = {"versionNumber": num, "manifestFileName": "appsscript", "description": f"Auto {stamp}"}
+    ru = requests.put(f"{base}/deployments/{d['deploymentId']}", headers={**H, "Content-Type": "application/json"},
+                      data=json.dumps({"deploymentConfig": cfg}), timeout=60)
+    if ru.status_code != 200:
+        print(f"::error title=Apps Script::mise a jour du deploiement impossible HTTP {ru.status_code}: {ru.text[:300]}")
+        sys.exit(1)
+    print(f"::notice title=Apps Script::deploiement web passe a la version {num} (publie)")
 
 
 def main():
@@ -64,8 +94,12 @@ def main():
     print(f"[apps-script] {len(code)} fichier(s) de code ; identique au depot: {same}")
     print(f"::notice title=Apps Script::lecture OK, {len(files)} fichiers, identique={same}")
 
-    if os.environ.get("APPS_SCRIPT_MODE") != "deploy":
+    mode = os.environ.get("APPS_SCRIPT_MODE")
+    if mode not in ("deploy", "publish"):
         print("[apps-script] mode DRY : rien d'ecrit")
+        return
+    if mode == "publish" and same:   # code deja en place : on republie seulement une nouvelle version (test ou retablissement)
+        publier(sid, H, "(republication)")
         return
     if same:
         print("[apps-script] deja a jour")
@@ -79,6 +113,8 @@ def main():
         print(f"::error title=Apps Script::ecriture impossible HTTP {w.status_code}: {w.text[:300]}")
         sys.exit(1)
     print(f"::notice title=Apps Script::script mis a jour ({hashlib.sha1(new_src.encode()).hexdigest()[:8]})")
+    if mode in ("deploy", "publish"):
+        publier(sid, H)   # nouvelle version + branchement sur l'application web : plus aucune action manuelle
 
 
 if __name__ == "__main__":
