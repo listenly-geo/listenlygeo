@@ -596,8 +596,8 @@ function mfeMail2Preview_(sh, row, v) {
   var vars = mfeMail2Vars_(v), corps = mfeFill_(MFE_CTA_MAIL, vars);
   var objet = 'Re: ' + mfeFill_('Regarding {PODCAST} | Listenly indexing', { PODCAST: v[1] });
   GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), '[VALIDATION mail 2] ' + objet,
-    'Pour envoyer ce mail au prospect, ecris VALIDE dans la colonne S de la ligne ' + v[1] + '.\n\n' + corps.replace(/<[^>]+>/g, ''),
-    { htmlBody: mfeWithSignature_(corps), name: 'MarketForge Engine' });
+    'Pour envoyer ce mail au prospect, ecris VALIDE dans la colonne S de la ligne ' + v[1] + '.\n\n' + mfeWithSignature_(corps),
+    mfeSendOpts_(corps));
   sh.getRange(row, MFE_VALIDATION_COL).setValue('APERCU ENVOYE');
 }
 
@@ -1364,7 +1364,7 @@ function mfeCmd_(body) {
     if (cmd === 'mail2_test') {   // test de rendu : mail 2 avec la vraie signature, envoye uniquement a la boite du script
       var tst = mfeFill_(MFE_CTA_MAIL, { DESTINATION_URL: 'https://usingai.example/', DESTINATION_LABEL: 'your website', COUNT: '15' });
       GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), '[TEST mail 2] Re: Regarding Using AI | Listenly indexing',
-        tst.replace(/<[^>]+>/g, ''), { htmlBody: mfeWithSignature_(tst), name: 'MarketForge Engine' });
+        mfeWithSignature_(tst), mfeSendOpts_(tst));
       return mfeJson_({ ok: true, cmd: cmd, envoye_a: Session.getEffectiveUser().getEmail() });
     }
     if (cmd === 'mail2_check') {   // liste les prospects qui ont donne un lien ; envoie l'apercu de validation a Etienne
@@ -1386,7 +1386,7 @@ function mfeCmd_(body) {
       if (Date.now() - new Date(target.values[9]).getTime() < 20 * 60000) return mfeJson_({ ok: false, error: 'moins de 20 minutes depuis la reponse' });
       var vv = mfeMail2Vars_(target.values);
       var html = mfeFill_(MFE_CTA_MAIL, vv);
-      GmailApp.getThreadById(target.values[10]).reply(html.replace(/<[^>]+>/g, ''), { htmlBody: mfeWithSignature_(html), name: 'MarketForge Engine' });
+      GmailApp.getThreadById(target.values[10]).reply(mfeWithSignature_(html), mfeSendOpts_(html));
       sh.getRange(target.row, 7).setValue('Done');
       sh.getRange(target.row, MFE_VALIDATION_COL).setValue('ENVOYE ' + new Date().toISOString());
       return mfeJson_({ ok: true, cmd: cmd, slug: slug, envoye_a: target.values[2] });
