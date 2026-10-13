@@ -353,12 +353,12 @@ function mfeImport_(sh, podcasts) {
   var prospection = mfeSS_().getSheetByName('Prospection');
   Object.keys(podcasts).forEach(function (slug) {
     var p = podcasts[slug];
-    if (known[slug] || !p.email || !p.proof_url) return;
+    if (known[slug] || !p.email || !p.fiche_url) return;   // le lien du mail = la fiche N1 creee pour ce podcast
     if (mfeEmailProblem_(p.email)) return;   // anti-rebond : jamais importe si l'adresse est douteuse
     var n = p.moments_count || 0;
     // Jamais de double contact : email deja present dans l'onglet Prospection (ancienne machine)
     var dejaVu = prospection && prospection.createTextFinder(p.email).matchCase(false).findNext();
-    rows.push([slug, p.podcast_name || slug, p.email, p.proof_url + (n > 0 ? '#answers' : ''), n,
+    rows.push([slug, p.podcast_name || slug, p.email, p.fiche_url, n,
                new Date(), dejaVu ? 'Deja en prospection' : 'Pret', '', '', '', '', '',
                p.listenly_url || '', p.host_name || '', '', p.thematique || '',
                p.latest_episode_question || '', p.latest_episode_moment_id || '']);
