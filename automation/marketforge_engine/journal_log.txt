@@ -1,17 +1,16 @@
-# Lecture / déploiement - run 38370635773
-﻿2026-10-13T08:38:43.8249041Z ##[group]Run MODE=$(head -n1 automation/apps-script/deploy-script-now.txt | tr -d '[:space:]')
-2026-10-13T08:38:43.8249803Z ^[[36;1mMODE=$(head -n1 automation/apps-script/deploy-script-now.txt | tr -d '[:space:]')^[[0m
-2026-10-13T08:38:43.8250538Z ^[[36;1mcase "$MODE" in deploy|publish) export APPS_SCRIPT_MODE="$MODE";; *) export APPS_SCRIPT_MODE=dry;; esac^[[0m
-2026-10-13T08:38:43.8251166Z ^[[36;1mpython3 automation/scripts/apps_script_deploy.py^[[0m
-2026-10-13T08:38:43.8309881Z shell: /usr/bin/bash -e ***0***
-2026-10-13T08:38:43.8310215Z env:
-2026-10-13T08:38:43.8312689Z   CLASPRC_JSON: ***
-2026-10-13T08:38:43.8312960Z ##[endgroup]
-2026-10-13T08:38:45.3817454Z /home/runner/work/listenlygeo/listenlygeo/automation/scripts/apps_script_deploy.py:87: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.
-2026-10-13T08:38:45.3819111Z   stamp = datetime.datetime.utcnow().strftime("%Y%m%d-%H%M")
-2026-10-13T08:38:49.4291246Z [apps-script] fichiers: [('appsscript', 'JSON', 204), ('Code', 'SERVER_JS', 92899)]
-2026-10-13T08:38:49.4292342Z [apps-script] 1 fichier(s) de code ; identique au depot: False
-2026-10-13T08:38:49.4295159Z ##[notice]lecture OK, 2 fichiers, identique=False
-2026-10-13T08:38:49.4298171Z ##[notice]script mis a jour (6baf9112)
-2026-10-13T08:38:49.4302627Z ##[error]5 deploiement(s) web trouves (1 attendu), version 22 creee mais non branchee
-2026-10-13T08:38:49.4544661Z ##[error]Process completed with exit code 1.
+# Lecture / déploiement - run 38370896453
+﻿2026-10-13T08:40:54.3650382Z ##[group]Run MODE=$(head -n1 automation/apps-script/deploy-script-now.txt | tr -d '[:space:]')
+2026-10-13T08:40:54.3651290Z ^[[36;1mMODE=$(head -n1 automation/apps-script/deploy-script-now.txt | tr -d '[:space:]')^[[0m
+2026-10-13T08:40:54.3652042Z ^[[36;1mcase "$MODE" in deploy|publish) export APPS_SCRIPT_MODE="$MODE";; *) export APPS_SCRIPT_MODE=dry;; esac^[[0m
+2026-10-13T08:40:54.3652694Z ^[[36;1mpython3 automation/scripts/apps_script_deploy.py^[[0m
+2026-10-13T08:40:54.3724388Z shell: /usr/bin/bash -e ***0***
+2026-10-13T08:40:54.3724766Z env:
+2026-10-13T08:40:54.3727197Z   CLASPRC_JSON: ***
+2026-10-13T08:40:54.3728065Z   MFE_SHEET_URL: ***
+2026-10-13T08:40:54.3728375Z ##[endgroup]
+2026-10-13T08:40:55.4702718Z /home/runner/work/listenlygeo/listenlygeo/automation/scripts/apps_script_deploy.py:89: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.
+2026-10-13T08:40:55.4704939Z   stamp = datetime.datetime.utcnow().strftime("%Y%m%d-%H%M")
+2026-10-13T08:40:57.5090215Z [apps-script] fichiers: [('appsscript', 'JSON', 204), ('Code', 'SERVER_JS', 92900)]
+2026-10-13T08:40:57.5090922Z [apps-script] 1 fichier(s) de code ; identique au depot: True
+2026-10-13T08:40:57.5094187Z ##[notice]lecture OK, 2 fichiers, identique=True
+2026-10-13T08:40:57.5096316Z ##[notice]deploiement web passe a la version 23 (publie)
