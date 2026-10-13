@@ -67,7 +67,7 @@ var MFE_DEFAULTS = [
 // ---------- Messages (modifiables dans l'onglet Reglages, cles MFE_MSG_*) ----------
 // Style : court, a la premiere personne, une seule question, texte brut (pas de gras, pas d'emoji).
 // Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}
-var MFE_MSG_VERSION = '20';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
+var MFE_MSG_VERSION = '21';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
 var MFE_FIRST_MAIL = [
   '{HELLO}',
   '',
@@ -81,10 +81,7 @@ var MFE_FIRST_MAIL = [
   '<strong>To a Podcast Hub?</strong>',
   '<strong>To a Spotify page?</strong>',
   '',
-  'Best,',
-  'Etienne',
-  '',
-  'Etienne Cugnet \u00b7 Founder, Listenly & MarketForge'
+  'Best,'
 ].join('\n');
 // Test A/B du CTA (03/10/2026) : 5 variantes A-E, une seule par envoi. Texte brut (aucun gras / souligne dans les CTA).
 var MFE_CTAS = {
