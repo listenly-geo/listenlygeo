@@ -67,22 +67,24 @@ var MFE_DEFAULTS = [
 // ---------- Messages (modifiables dans l'onglet Reglages, cles MFE_MSG_*) ----------
 // Style : court, a la premiere personne, une seule question, texte brut (pas de gras, pas d'emoji).
 // Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}
-var MFE_MSG_VERSION = '19';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
+var MFE_MSG_VERSION = '20';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
 var MFE_FIRST_MAIL = [
-  'Hello,',
+  '{HELLO}',
   '',
-  'I\'m Etienne, founder of <strong>Listenly, the first AI search engine dedicated to B2B podcasts.</strong>',
+  'I recently listed the podcast <strong>"{PODCAST}"</strong> on our directory, listenly.fr. It makes the audio expertise of podcasts <u>readable and citable</u> by <strong>Google, ChatGPT and Gemini</strong>.',
   '',
-  'We currently <u>index the questions and answers contained in all B2B podcasts</u> so they can appear in responses from <strong>ChatGPT, Gemini and Claude.</strong>',
+  '\u2192 <a href="{URL}">{URL}</a>',
   '',
-  'For example, one query from your latest episode:<br><br><em>{QUERY}</em>',
-  '\u2192 <a href="{QUERY_LINK}">Now discoverable by executives searching for this topic</a>',
+  'Where should I redirect the traffic of <u>qualified executives</u> who arrive?',
   '',
-  'Where would you like us to redirect this traffic?',
-  '<strong>Have you got a Spotify page or a dedicated Podcast Hub?</strong>',
+  '<strong>To your website?</strong>',
+  '<strong>To a Podcast Hub?</strong>',
+  '<strong>To a Spotify page?</strong>',
   '',
   'Best,',
-  'Etienne'
+  'Etienne',
+  '',
+  'Etienne Cugnet \u00b7 Founder, Listenly & MarketForge'
 ].join('\n');
 // Test A/B du CTA (03/10/2026) : 5 variantes A-E, une seule par envoi. Texte brut (aucun gras / souligne dans les CTA).
 var MFE_CTAS = {
