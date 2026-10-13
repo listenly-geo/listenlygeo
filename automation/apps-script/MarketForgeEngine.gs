@@ -67,7 +67,21 @@ var MFE_DEFAULTS = [
 // ---------- Messages (modifiables dans l'onglet Reglages, cles MFE_MSG_*) ----------
 // Style : court, a la premiere personne, une seule question, texte brut (pas de gras, pas d'emoji).
 // Variables : {PODCAST} {URL} {BOOKING} {OPTOUT}
-var MFE_MSG_VERSION = '21';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
+// Mail 2 (apres reponse du prospect, UNIQUEMENT une fois la fiche N1 redirigee). Pas encore branche : l'envoi automatique n'existe pas encore.
+// Variables : {DESTINATION_URL} (lien donne par le prospect) {DESTINATION_LABEL} (your website / your Podcast Hub / your Spotify page) {COUNT} (questions par episode, calcule par podcast).
+var MFE_CTA_MAIL = [
+  '<strong>Done!</strong> Your episode page now redirects your traffic to <strong>{DESTINATION_URL}</strong>.',
+  '',
+  'Based on our analysis, <strong>each episode of your podcast contains <u>{COUNT}+ questions</u></strong> already searched on <strong>Google, ChatGPT and Gemini</strong> by your audience.',
+  '',
+  'That\'s <u>demand you can capture</u>. You could turn your podcast into a <u>continuous traffic engine</u> that sends visitors to <strong>{DESTINATION_LABEL}</strong>.',
+  '',
+  '<strong>Would you like me to give you access to our 2-minute audit?</strong>',
+  '',
+  'Best,',
+  'Etienne'
+].join('\n');
+var MFE_MSG_VERSION = '22';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
 var MFE_FIRST_MAIL = [
   '{HELLO}',
   '',
