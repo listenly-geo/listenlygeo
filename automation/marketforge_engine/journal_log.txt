@@ -1,20 +1,21 @@
-# Commande - run 38360565257
-﻿2026-10-13T07:06:12.6422398Z ##[group]Run python automation/scripts/sheet_bridge.py cmd
-2026-10-13T07:06:12.6423668Z ^[[36;1mpython automation/scripts/sheet_bridge.py cmd^[[0m
-2026-10-13T07:06:12.6813805Z shell: /usr/bin/bash -e {0}
-2026-10-13T07:06:12.6814806Z env:
-2026-10-13T07:06:12.6815704Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-13T07:06:12.6817089Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-10-13T07:06:12.6818203Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-13T07:06:12.6819252Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-13T07:06:12.6820264Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-13T07:06:12.6821273Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-10-13T07:06:12.6823154Z   MFE_SHEET_URL: ***
-2026-10-13T07:06:12.6823906Z   MFE_CMD: ping
-2026-10-13T07:06:12.6824616Z   MFE_SLUG:
-2026-10-13T07:06:12.6825317Z   MFE_N: 1
-2026-10-13T07:06:12.6825993Z   MFE_CONFIRM: false
-2026-10-13T07:06:12.6826897Z   MFE_TO:
-2026-10-13T07:06:12.6827583Z ##[endgroup]
-2026-10-13T07:06:14.0296358Z [sheet-bridge] AVERTISSEMENT : pont Sheet en echec (Reponse non JSON du pont Apps Script (HTTP 200) : [Error] Error Script function not found: doPost)
-2026-10-13T07:06:14.0321804Z ##[warning]Reponse non JSON du pont Apps Script (HTTP 200) : [Error] Error Script function not found: doPost
+# Commande - run 38361090469
+﻿2026-10-13T07:11:26.7414650Z ##[group]Run python automation/scripts/sheet_bridge.py cmd
+2026-10-13T07:11:26.7415323Z ^[[36;1mpython automation/scripts/sheet_bridge.py cmd^[[0m
+2026-10-13T07:11:26.7698771Z shell: /usr/bin/bash -e {0}
+2026-10-13T07:11:26.7699487Z env:
+2026-10-13T07:11:26.7699858Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T07:11:26.7700391Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-13T07:11:26.7700910Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T07:11:26.7701390Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T07:11:26.7701826Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T07:11:26.7702266Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-13T07:11:26.7703375Z   MFE_SHEET_URL: ***
+2026-10-13T07:11:26.7703663Z   MFE_CMD: ping
+2026-10-13T07:11:26.7777861Z   MFE_SLUG:
+2026-10-13T07:11:26.7778300Z   MFE_N: 1
+2026-10-13T07:11:26.7778554Z   MFE_CONFIRM: false
+2026-10-13T07:11:26.7779171Z   MFE_TO:
+2026-10-13T07:11:26.7779460Z ##[endgroup]
+2026-10-13T07:11:29.3329178Z [sheet-bridge] Commande ping : {'ok': False, 'error': 'cmd inconnue (test_me | test_to | test_real)'}
+2026-10-13T07:11:29.3350368Z ##[notice]{"ok": false, "error": "cmd inconnue (test_me | test_to | test_real)"}
+2026-10-13T07:11:29.3426471Z ##[error]Process completed with exit code 1.
