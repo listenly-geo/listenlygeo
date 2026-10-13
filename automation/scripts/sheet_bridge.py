@@ -55,7 +55,14 @@ def call(params=None, payload=None):
     for attempt in range(4):   # Google renvoie parfois un 404/5xx passager : on reessaie (une requete refusee n'a rien execute)
         try:
             with urllib.request.urlopen(req, timeout=60) as r:  # suit la redirection googleusercontent
-                return json.loads(r.read().decode())
+                body = r.read().decode(errors="replace")
+                try:
+                    return json.loads(body)
+                except ValueError:
+                    import re as _re
+                    txt = _re.sub(r"<[^>]+>", " ", body)
+                    txt = _re.sub(r"\s+", " ", txt).strip()[:300]
+                    raise RuntimeError(f"Reponse non JSON du pont Apps Script (HTTP {r.status}) : {txt}")
         except urllib.error.HTTPError as e:
             last = e
             if e.code not in (404, 429, 500, 502, 503, 504) or attempt == 3:
