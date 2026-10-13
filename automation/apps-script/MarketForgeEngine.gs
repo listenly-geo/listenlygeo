@@ -420,6 +420,7 @@ function mfeSend_(sh, cfg, force, onlySlug) {   // onlySlug (optionnel) : n'envo
     if (sent >= budget || r.values[6] !== 'Pret') return;
     if (onlySlug && r.values[0] !== onlySlug) return;
     if (!r.values[16]) return;   // pas de question reelle du podcast -> pas de mail (l'exemple est obligatoire)
+    if (String(r.values[3] || '').indexOf('/podcast-btb/') < 0) return;   // modele du 13/10/2026 : pas de mail sans fiche N1 du podcast
     // v24 : adresse de DIRIGEANT verifiee (module Qui contacter) -> seul destinataire, pour une part des prospects. Interrupteur
     // MFE_ENVOI_DIRIGEANT eteint par defaut : le comportement ci-dessous est alors strictement celui d'avant.
     var to = r.values[2], leader = null;
@@ -713,6 +714,7 @@ function mfeFollowUp_(sh, days) {
   }
   mfeRows_(sh).forEach(function (r) {
     var st = stages[r.values[6]];
+    if (st && String(r.values[3] || '').indexOf('/podcast-btb/') < 0) return;   // modele du 13/10/2026 : pas de relance sans fiche N1
     if (!st || !r.values[7] || !r.values[10]) return;
     var sentAt = new Date(r.values[7]).getTime();
     if (sentAt > now - st[2] * days * DAY) return;                                            // pas encore l'heure de cette relance
