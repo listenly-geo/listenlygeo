@@ -186,6 +186,9 @@ def main():
     else:
         log("AUDIT OK — tous criteres GEO valides")
 
+    sys.path.insert(0, os.path.dirname(__file__))
+    import access_button
+    html_out = access_button.patch(html_out, SLUG)   # bouton « Accéder au podcast » lit la destination en direct
     with open(OUT_FILE, "w", encoding="utf-8") as f:
         f.write(html_out)
     log(f"✓ Fiche N1 ecrite : {OUT_FILE}")

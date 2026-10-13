@@ -360,5 +360,18 @@ if(e)e.hidden=any;});})();
     </div>
 
 <p style="max-width:720px;margin:0 auto;padding:0 20px 32px;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#999;"><a href="https://listenly.fr/podcast/show/using-ai" class="plausible-event-name=Clic+Lien+Texte" style="color:#999;text-decoration:underline;">Découvrir Using AI sur Listenly →</a></p>
+<script>
+(function(){
+  var slug = "using-ai";
+  fetch("https://raw.githubusercontent.com/listenly-geo/listenlygeo/main/automation/marketforge_engine/redirections.json?t=" + Date.now())
+    .then(function(r){ return r.ok ? r.json() : {}; })
+    .then(function(d){
+      var url = d[slug]; if (!url) return;
+      document.querySelectorAll("a").forEach(function(a){
+        if (/Acc\u00e9der au podcast|\u00c9couter le podcast/.test(a.textContent)) { a.href = url; a.target = "_blank"; a.rel = "noopener"; }
+      });
+    }).catch(function(){});
+})();
+</script>
 </body>
 </html>

@@ -428,7 +428,7 @@ function mfeSend_(sh, cfg, force, onlySlug) {   // onlySlug (optionnel) : n'envo
   var usedLeaders = {};   // v25 : adresses deja contactees (un dirigeant = un seul 1er mail)
   rows.forEach(function (r) {
     var st0 = r.values[6];
-    if (r.values[2] && (st0 === 'Envoye' || st0 === 'Relance' || st0 === 'Relance 2' || st0 === 'Relance 3' || st0 === 'Repondu')) usedLeaders[String(r.values[2]).toLowerCase()] = true;
+    if (r.values[2] && (st0 === 'Envoye' || st0 === 'Relance' || st0 === 'Relance 2' || st0 === 'Relance 3' || st0 === 'Repondu' || st0 === 'Lien recu' || st0 === 'Done')) usedLeaders[String(r.values[2]).toLowerCase()] = true;
   });
   rows.forEach(function (r) {
     if (sent >= budget || r.values[6] !== 'Pret') return;
@@ -562,9 +562,44 @@ function mfeCheckReplies_(sh) {
       if (firstSent && (m.getDate().getTime() - firstSent.getDate().getTime()) < 120000) return false;   // repond en moins de 2 min = robot
       return true;
     });
-    if (fromThem) { sh.getRange(r.row, 7).setValue('Repondu'); sh.getRange(r.row, 10).setValue(new Date()); n++; }
+    if (fromThem) {
+      var lien = mfeLienDuProspect_(msgs, r.values[2]);   // modele du 13/10/2026 : reponse avec un lien = « Lien recu »
+      sh.getRange(r.row, 7).setValue(lien ? 'Lien recu' : 'Repondu');
+      sh.getRange(r.row, 10).setValue(new Date());
+      if (lien) sh.getRange(r.row, 12).setValue('Lien donne : ' + lien);
+      n++;
+    }
   });
   return n;
+}
+
+// Premier lien web envoye par le prospect (hors Listenly, MarketForge, Google)
+function mfeLienDuProspect_(msgs, email) {
+  var from = String(email || '').toLowerCase(), found = null;
+  msgs.forEach(function (m) {
+    if (m.getFrom().toLowerCase().indexOf(from) === -1) return;
+    (m.getPlainBody().match(/https?:\/\/[^\s<>"')\]]+/g) || []).forEach(function (u) {
+      if (!found && !/listenly\.|marketforge\.|google\.|gmail\./i.test(u)) found = u.replace(/[.,;]+$/, '');
+    });
+  });
+  return found;
+}
+
+// Mail 2 (Done + CTA) : prepare, puis envoie seulement apres 20 min ET validation (VALIDE en colonne S)
+var MFE_VALIDATION_COL = 19;   // colonne S (numero de colonne, 1 = A)
+function mfeMail2Vars_(v) {
+  var lien = String(v[11] || '').replace('Lien donne : ', '').trim();
+  return { DESTINATION_URL: lien,
+           DESTINATION_LABEL: /spotify\.com/i.test(lien) ? 'your Spotify page' : 'your website',
+           COUNT: String(v[4] || '') };
+}
+function mfeMail2Preview_(sh, row, v) {
+  var vars = mfeMail2Vars_(v), corps = mfeFill_(MFE_CTA_MAIL, vars);
+  var objet = 'Re: ' + mfeFill_('Regarding {PODCAST} | Listenly indexing', { PODCAST: v[1] });
+  GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), '[VALIDATION mail 2] ' + objet,
+    'Pour envoyer ce mail au prospect, ecris VALIDE dans la colonne S de la ligne ' + v[1] + '.\n\n' + corps.replace(/<[^>]+>/g, ''),
+    { htmlBody: mfeWithSignature_(corps), name: 'MarketForge Engine' });
+  sh.getRange(row, MFE_VALIDATION_COL).setValue('APERCU ENVOYE');
 }
 
 // ---------- Anti-rebond : verification de l'adresse avant chaque envoi ----------
@@ -1326,6 +1361,30 @@ function mfeCmd_(body) {
       var d2 = mfeDraft_(ex2, 'A');
       GmailApp.sendEmail(to, d2[0], mfeWithSignature_(d2[1]), mfeSendOpts_(d2[1]));
       return mfeJson_({ ok: true, cmd: cmd, envoye_a: to, objet: d2[0], podcast: ex2[1] });
+    }
+    if (cmd === 'mail2_check') {   // liste les prospects qui ont donne un lien ; envoie l'apercu de validation a Etienne
+      var lst = [];
+      mfeRows_(sh).forEach(function (r) {
+        if (r.values[6] !== 'Lien recu') return;
+        var mins = r.values[9] ? Math.round((Date.now() - new Date(r.values[9]).getTime()) / 60000) : 0;
+        var lien = String(r.values[11] || '').replace('Lien donne : ', '').trim();
+        if (!String(r.values[MFE_VALIDATION_COL - 1] || '') && lien) mfeMail2Preview_(sh, r.row, r.values);
+        lst.push({ slug: r.values[0], lien: lien, minutes_depuis_reponse: mins, validation: String(r.values[MFE_VALIDATION_COL - 1] || '') });
+      });
+      return mfeJson_({ ok: true, cmd: cmd, prospects: lst });
+    }
+    if (cmd === 'mail2_send') {   // envoie le mail 2 seulement : lien recu, 20 min ecoulees, VALIDE en colonne S
+      var target = null;
+      mfeRows_(sh).forEach(function (r) { if (!target && r.values[0] === slug && r.values[6] === 'Lien recu') target = r; });
+      if (!target) return mfeJson_({ ok: false, error: 'aucune ligne « Lien recu » pour ce podcast' });
+      if (String(target.values[MFE_VALIDATION_COL - 1] || '').trim().toUpperCase() !== 'VALIDE') return mfeJson_({ ok: false, error: 'pas encore VALIDE en colonne S' });
+      if (Date.now() - new Date(target.values[9]).getTime() < 20 * 60000) return mfeJson_({ ok: false, error: 'moins de 20 minutes depuis la reponse' });
+      var vv = mfeMail2Vars_(target.values);
+      var html = mfeFill_(MFE_CTA_MAIL, vv);
+      GmailApp.getThreadById(target.values[10]).reply(html.replace(/<[^>]+>/g, ''), { htmlBody: mfeWithSignature_(html), name: 'MarketForge Engine' });
+      sh.getRange(target.row, 7).setValue('Done');
+      sh.getRange(target.row, MFE_VALIDATION_COL).setValue('ENVOYE ' + new Date().toISOString());
+      return mfeJson_({ ok: true, cmd: cmd, slug: slug, envoye_a: target.values[2] });
     }
     if (cmd === 'fiches_n1') {   // modele du 13/10/2026 : colonne D = fiche N1 du podcast pour TOUTES les lignes (mails 1 et relances)
       var podc = {};
