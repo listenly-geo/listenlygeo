@@ -2,6 +2,18 @@
  "_aide": "Erreurs des workflows MarketForge, la plus recente en premier. Alimente par journal_erreurs.py.",
  "entrees": [
   {
+   "date": "13/10/2026 07:11 UTC",
+   "workflow": "MarketForge — Commande de test (Sheet / mails)",
+   "run": "38361090469",
+   "lien": "https://github.com/listenly-geo/listenlygeo/actions/runs/38361090469",
+   "etape": "Commande",
+   "messages": [
+    "2026-10-13T07:11:29.3426471Z ##[error]Process completed with exit code 1.",
+    "2026-10-13T07:11:29.3329178Z [sheet-bridge] Commande ping : {'ok': False, 'error': 'cmd inconnue (test_me | test_to | test_real)'}",
+    "2026-10-13T07:11:29.3350368Z ##[notice]{\"ok\": false, \"error\": \"cmd inconnue (test_me | test_to | test_real)\"}"
+   ]
+  },
+  {
    "date": "13/10/2026 06:57 UTC",
    "workflow": "Envoi de secours (cadence 15 min)",
    "run": "38357049514",
