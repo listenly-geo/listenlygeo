@@ -1,6 +1,6 @@
 {
- "updated": "2026-10-13T18:05",
- "envois_total": 221,
+ "updated": "2026-10-13T18:09",
+ "envois_total": 222,
  "reponses_total": 0,
  "taux_reponse_global_pct": 0.0,
  "dirigeants_testes": 4328,
@@ -8,6 +8,10 @@
  "data_apprentissage": {
   "creneaux_new_york": {
    "heure": {
+    "14h": {
+     "envoyes": 9,
+     "reponses": 0
+    },
     "13h": {
      "envoyes": 13,
      "reponses": 0
@@ -30,10 +34,6 @@
     },
     "08h": {
      "envoyes": 29,
-     "reponses": 0
-    },
-    "14h": {
-     "envoyes": 8,
      "reponses": 0
     },
     "15h": {
@@ -71,7 +71,7 @@
    },
    "jour": {
     "mar": {
-     "envoyes": 47,
+     "envoyes": 48,
      "reponses": 0
     },
     "lun": {
@@ -106,20 +106,20 @@
  },
  "weights": {
   "Tech & SaaS": 0.0503,
-  "Cybersécurité": 0.0528,
+  "Cybersécurité": 0.0529,
   "Finance & Fintech": 0.0499,
   "RH & Recrutement": 0.0421,
-  "Marketing & Ventes": 0.0451,
-  "Logistique & Supply chain": 0.0464,
+  "Marketing & Ventes": 0.0452,
+  "Logistique & Supply chain": 0.0457,
   "Construction & Industrie": 0.0445,
   "Énergie": 0.0458,
   "Assurance": 0.0502,
-  "Immobilier": 0.0491,
+  "Immobilier": 0.0492,
   "Juridique": 0.0611,
   "Conseil": 0.0329,
   "Santé": 0.0513,
-  "Business général (entreprise)": 0.0509,
-  "Cabinets d'avocats": 0.0499,
+  "Business général (entreprise)": 0.051,
+  "Cabinets d'avocats": 0.05,
   "Experts-comptables & patrimoine": 0.0668,
   "Coachs & consultants B2B": 0.0542,
   "Agences de services": 0.0556,
@@ -188,7 +188,7 @@
    "dirigeant_testes": 296,
    "dirigeant_trouves": 46,
    "taux_reponse": 0.0,
-   "score": 0.00025,
+   "score": 0.00024,
    "rang": 4
   },
   {
@@ -252,7 +252,7 @@
    "dirigeant_testes": 94,
    "dirigeant_trouves": 11,
    "taux_reponse": 0.0,
-   "score": 0.00023,
+   "score": 0.00022,
    "rang": 8
   },
   {
@@ -352,22 +352,6 @@
    "rang": 14
   },
   {
-   "secteur": "Logistique & Supply chain",
-   "poids_pct": 4.6,
-   "delta_pts": 1.1,
-   "tendance": "hausse",
-   "onboarde": 28,
-   "joignable": 28,
-   "envoye": 13,
-   "rebond": 0,
-   "reponse": 0,
-   "dirigeant_testes": 199,
-   "dirigeant_trouves": 24,
-   "taux_reponse": 0.0,
-   "score": 0.0002,
-   "rang": 15
-  },
-  {
    "secteur": "Énergie",
    "poids_pct": 4.6,
    "delta_pts": 0.0,
@@ -379,6 +363,22 @@
    "reponse": 0,
    "dirigeant_testes": 230,
    "dirigeant_trouves": 26,
+   "taux_reponse": 0.0,
+   "score": 0.00019,
+   "rang": 15
+  },
+  {
+   "secteur": "Logistique & Supply chain",
+   "poids_pct": 4.6,
+   "delta_pts": 1.0,
+   "tendance": "stable",
+   "onboarde": 28,
+   "joignable": 28,
+   "envoye": 14,
+   "rebond": 0,
+   "reponse": 0,
+   "dirigeant_testes": 199,
+   "dirigeant_trouves": 24,
    "taux_reponse": 0.0,
    "score": 0.00019,
    "rang": 16
