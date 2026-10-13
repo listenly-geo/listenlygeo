@@ -16,3 +16,8 @@ Listenly peut rester discret dans le mail ; il est le moteur de recherche global
 PRIORITE = QUALITE, pas volume brut ni backlinks. Prospects prioritaires : B2B rattache a une entreprise, domaine proprietaire, catalogue important, actif, contenu expert, responsable marketing/content/podcast/founder identifiable ; a eviter : hobby, sans entreprise, morts, peu d'episodes, divertissement pur.
 METRIQUES : emails envoyes, taux de livraison, taux de reponse, reponses positives (« send it »), V1 envoyees, paiements du setup, passage en abonnement.
 QUESTION UNIQUE : une entreprise B2B paie-t-elle pour que son podcast existant devienne un Hub brande, searchable, exploitable par Google et les IA ?
+
+## Deploiement Apps Script : AUTOMATIQUE (decision du 13/10/2026)
+La connexion clasp d'Etienne est enregistree (secret GitHub CLASPRC_JSON, compte etienne.cugnet@marketforge.fr) : ne JAMAIS lui redemander de coller le code ni de redeployer.
+Pour publier une nouvelle version du script : mettre automation/apps-script/MarketForgeEngine.gs a jour, ecrire `deploy` en 1re ligne de automation/apps-script/deploy-script-now.txt (`publish` = republier sans changer le code, `dry` = lecture seule), commit + push : le workflow « Apps Script — lecture / deploiement » remplace le code, cree une version et la branche sur l'URL du pont.
+Seul cas ou redemander quelque chose : le journal affiche `RefreshError` / `invalid_grant` (jeton revoque) -> refaire `npx.cmd @google/clasp login` et recoller `.clasprc.json` dans CLASPRC_JSON.
