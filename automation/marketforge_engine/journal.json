@@ -2,6 +2,23 @@
  "_aide": "Erreurs des workflows MarketForge, la plus recente en premier. Alimente par journal_erreurs.py.",
  "entrees": [
   {
+   "date": "13/10/2026 07:20 UTC",
+   "workflow": "Envoi de secours (cadence 15 min)",
+   "run": "38359846817",
+   "lien": "https://github.com/listenly-geo/listenlygeo/actions/runs/38359846817",
+   "etape": "Envoi cadence",
+   "messages": [
+    "2026-10-13T07:05:38.7616984Z ##[error]Process completed with exit code 1.",
+    "2026-10-13T07:05:38.7305276Z Traceback (most recent call last):",
+    "2026-10-13T07:05:38.7497568Z     raise JSONDecodeError(\"Expecting value\", s, err.value) from None",
+    "2026-10-13T07:05:38.7498437Z json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+    "2026-10-13T07:05:38.7499323Z During handling of the above exception, another exception occurred:",
+    "2026-10-13T07:05:38.7499990Z Traceback (most recent call last):",
+    "2026-10-13T07:05:38.7505407Z     raise RuntimeError(f\"Reponse non JSON du pont Apps Script (HTTP {r.status}) : {txt}\")",
+    "2026-10-13T07:05:38.7507985Z RuntimeError: Reponse non JSON du pont Apps Script (HTTP 200) : window['ppConfig'] = {productName: '[jeton]', deleteIsEnforced: false , sealIsEnforced: false , heartbeatRate: 0.5 , periodicReportingRateMillis: 60000.0 , disableAllReporting: false };(function(){'use stric"
+   ]
+  },
+  {
    "date": "13/10/2026 07:12 UTC",
    "workflow": "MarketForge — Commande de test (Sheet / mails)",
    "run": "38361090469",
