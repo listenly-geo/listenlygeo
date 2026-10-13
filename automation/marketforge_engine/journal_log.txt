@@ -1,32 +1,20 @@
-# Envoi cadence - run 38357049514
-﻿2026-10-13T06:30:22.2387965Z ##[group]Run python automation/scripts/envoi_secours.py
-2026-10-13T06:30:22.2388617Z ^[[36;1mpython automation/scripts/envoi_secours.py^[[0m
-2026-10-13T06:30:22.2955702Z shell: /usr/bin/bash -e {0}
-2026-10-13T06:30:22.2956238Z env:
-2026-10-13T06:30:22.2956659Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-13T06:30:22.2957302Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-10-13T06:30:22.2957935Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-13T06:30:22.2958524Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-13T06:30:22.2959086Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-10-13T06:30:22.2959658Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-10-13T06:30:22.2961068Z   MFE_SHEET_URL: ***
-2026-10-13T06:30:22.2961408Z ##[endgroup]
-2026-10-13T06:30:25.1735261Z Traceback (most recent call last):
-2026-10-13T06:30:25.1744784Z   File "/home/runner/work/listenlygeo/listenlygeo/automation/scripts/envoi_secours.py", line 50, in <module>
-2026-10-13T06:30:25.1746207Z     main()
-2026-10-13T06:30:25.1747336Z   File "/home/runner/work/listenlygeo/listenlygeo/automation/scripts/envoi_secours.py", line 19, in main
-2026-10-13T06:30:25.1748064Z     st = sheet_bridge.call({"action": "status"})
-2026-10-13T06:30:25.1748388Z          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-2026-10-13T06:30:25.1748945Z   File "/home/runner/work/listenlygeo/listenlygeo/automation/scripts/sheet_bridge.py", line 58, in call
-2026-10-13T06:30:25.1749497Z     return json.loads(r.read().decode())
-2026-10-13T06:30:25.1749795Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-2026-10-13T06:30:25.1750300Z   File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/json/__init__.py", line 346, in loads
-2026-10-13T06:30:25.2061476Z     return _default_decoder.decode(s)
-2026-10-13T06:30:25.2062444Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-2026-10-13T06:30:25.2063918Z   File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/json/decoder.py", line 337, in decode
-2026-10-13T06:30:25.2473444Z     obj, end = self.raw_decode(s, idx=_w(s, 0).end())
-2026-10-13T06:30:25.2474557Z                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-2026-10-13T06:30:25.2476220Z   File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/json/decoder.py", line 355, in raw_decode
-2026-10-13T06:30:25.2478014Z     raise JSONDecodeError("Expecting value", s, err.value) from None
-2026-10-13T06:30:25.2479219Z json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
-2026-10-13T06:30:25.2589047Z ##[error]Process completed with exit code 1.
+# Commande - run 38360304999
+﻿2026-10-13T07:03:40.0770561Z ##[group]Run python automation/scripts/sheet_bridge.py cmd
+2026-10-13T07:03:40.0771135Z ^[[36;1mpython automation/scripts/sheet_bridge.py cmd^[[0m
+2026-10-13T07:03:40.2481368Z shell: /usr/bin/bash -e {0}
+2026-10-13T07:03:40.2481762Z env:
+2026-10-13T07:03:40.2482066Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T07:03:40.2482480Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-13T07:03:40.2482887Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T07:03:40.2483273Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T07:03:40.2483618Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-13T07:03:40.2483970Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-13T07:03:40.2485094Z   MFE_SHEET_URL: ***
+2026-10-13T07:03:40.2485329Z   MFE_CMD: ping
+2026-10-13T07:03:40.2485534Z   MFE_SLUG:
+2026-10-13T07:03:40.2485730Z   MFE_N: 1
+2026-10-13T07:03:40.2544597Z   MFE_CONFIRM: false
+2026-10-13T07:03:40.2544963Z   MFE_TO:
+2026-10-13T07:03:40.2545170Z ##[endgroup]
+2026-10-13T07:03:42.3027853Z [sheet-bridge] AVERTISSEMENT : pont Sheet en echec (Reponse non JSON du pont Apps Script (HTTP 200) : window['ppConfig'] = {productName: '[jeton]', deleteIsEnforced: false , sealIsEnforced: false , heartbeatRate: 0.5 , periodicReportingRateMillis: 60000.0 , disableAllRep
+2026-10-13T07:03:42.3046410Z ##[warning]Reponse non JSON du pont Apps Script (HTTP 200) : window['ppConfig'] = {productName: '[jeton]', deleteIsEnforced: false , sealIsEnforced: false , heartbeatRate: 0.5 , periodicReportingRateMillis: 60000.0 , disableAllReporting: false };(function(){'use strict';
