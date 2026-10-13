@@ -32,6 +32,7 @@ jobs:
       - name: Lecture / déploiement
         env:
           CLASPRC_JSON: ${{ secrets.CLASPRC_JSON }}
+          MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
         run: |
           MODE=$(head -n1 automation/apps-script/deploy-script-now.txt | tr -d '[:space:]')
           case "$MODE" in deploy|publish) export APPS_SCRIPT_MODE="$MODE";; *) export APPS_SCRIPT_MODE=dry;; esac

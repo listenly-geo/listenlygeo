@@ -54,11 +54,13 @@ def publier(sid, H, note=""):
     if rd.status_code != 200:
         print(f"::error title=Apps Script::lecture des deploiements impossible HTTP {rd.status_code}: {rd.text[:300]}")
         sys.exit(1)
-    cibles = [d for d in rd.json().get("deployments", [])
-              if any(e.get("entryPointType") == "WEB_APP" for e in d.get("entryPoints", []))
-              and d.get("deploymentConfig", {}).get("versionNumber")]
+    web = [d for d in rd.json().get("deployments", [])
+           if any(e.get("entryPointType") == "WEB_APP" for e in d.get("entryPoints", []))
+           and d.get("deploymentConfig", {}).get("versionNumber")]
+    pont = os.environ.get("MFE_SHEET_URL", "")   # l'URL du pont contient l'identifiant du deploiement utilise par GitHub (jamais affichee)
+    cibles = [d for d in web if d.get("deploymentId") and d["deploymentId"] in pont]
     if len(cibles) != 1:
-        print(f"::error title=Apps Script::{len(cibles)} deploiement(s) web trouves (1 attendu), version {num} creee mais non branchee")
+        print(f"::error title=Apps Script::{len(web)} deploiement(s) web, {len(cibles)} correspondant a l'URL du pont (1 attendu) : version {num} creee mais non branchee")
         sys.exit(1)
     d = cibles[0]
     cfg = {"versionNumber": num, "manifestFileName": "appsscript", "description": f"Auto {stamp}"}
