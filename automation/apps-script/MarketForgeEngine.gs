@@ -78,8 +78,7 @@ var MFE_CTA_MAIL = [
   '',
   '<strong>Would you like me to give you access to our 2-minute audit?</strong>',
   '',
-  'Best,',
-  'Etienne'
+  'Best,'
 ].join('\n');
 var MFE_MSG_VERSION = '22';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
 var MFE_FIRST_MAIL = [
@@ -1361,6 +1360,12 @@ function mfeCmd_(body) {
       var d2 = mfeDraft_(ex2, 'A');
       GmailApp.sendEmail(to, d2[0], mfeWithSignature_(d2[1]), mfeSendOpts_(d2[1]));
       return mfeJson_({ ok: true, cmd: cmd, envoye_a: to, objet: d2[0], podcast: ex2[1] });
+    }
+    if (cmd === 'mail2_test') {   // test de rendu : mail 2 avec la vraie signature, envoye uniquement a la boite du script
+      var tst = mfeFill_(MFE_CTA_MAIL, { DESTINATION_URL: 'https://usingai.example/', DESTINATION_LABEL: 'your website', COUNT: '15' });
+      GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), '[TEST mail 2] Re: Regarding Using AI | Listenly indexing',
+        tst.replace(/<[^>]+>/g, ''), { htmlBody: mfeWithSignature_(tst), name: 'MarketForge Engine' });
+      return mfeJson_({ ok: true, cmd: cmd, envoye_a: Session.getEffectiveUser().getEmail() });
     }
     if (cmd === 'mail2_check') {   // liste les prospects qui ont donne un lien ; envoie l'apercu de validation a Etienne
       var lst = [];
