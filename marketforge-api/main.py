@@ -172,12 +172,12 @@ def slugify(s: str) -> str:
     return re.sub(r"^-+|-+$", "", s)[:60]
 
 
-def _gh(method: str, path: str, **kw) -> httpx.Response:
+def _gh_at(method: str, full_repo: str, path: str, **kw) -> httpx.Response:
     if not GITHUB_TOKEN:
         raise HTTPException(status_code=503, detail="GITHUB_TOKEN non configuré sur le serveur")
     return httpx.request(
         method,
-        f"https://api.github.com/repos/{GITHUB_REPO}{path}",
+        f"https://api.github.com/repos/{full_repo}{path}",
         headers={
             "Authorization": f"Bearer {GITHUB_TOKEN}",
             "Accept": "application/vnd.github+json",
@@ -186,6 +186,52 @@ def _gh(method: str, path: str, **kw) -> httpx.Response:
         timeout=20,
         **kw,
     )
+
+
+def _gh(method: str, path: str, **kw) -> httpx.Response:
+    return _gh_at(method, GITHUB_REPO, path, **kw)
+
+
+# ---------------------------------------------------------------- dépôt client (modèle GitHub)
+# Mode activé par CLIENT_REPOS_ENABLED=1. Chaque client reçoit son propre dépôt privé,
+# créé à partir du modèle TEMPLATE_REPO ; le moteur tourne dans ce dépôt.
+TEMPLATE_REPO = os.getenv("TEMPLATE_REPO", "listenly-geo/hub-template")
+CLIENT_ORG = os.getenv("CLIENT_ORG", "listenly-geo")
+CLIENT_REPOS_ENABLED = os.getenv("CLIENT_REPOS_ENABLED", "") == "1"
+CLIENT_WORKFLOW = os.getenv("CLIENT_WORKFLOW", "generate-hub.yml")
+
+
+def client_repo_name(slug: str) -> str:
+    return f"hub-{slug}"
+
+
+def ensure_client_repo(data: dict, slug: str) -> str:
+    """Renvoie le dépôt (owner/nom) du hub du client, en le créant à partir du modèle si besoin."""
+    repos = data.setdefault("repos", {})
+    if slug in repos:
+        return repos[slug]
+    name = client_repo_name(slug)
+    full = f"{CLIENT_ORG}/{name}"
+    if _gh_at("GET", full, "").status_code != 200:
+        r = _gh_at("POST", TEMPLATE_REPO, "/generate", json={
+            "owner": CLIENT_ORG, "name": name, "private": True,
+            "description": f"Hub client {slug}",
+        })
+        if r.status_code not in (200, 201):
+            log.error("Création du dépôt client refusée (%s) : %s", r.status_code, r.text[:300])
+            raise HTTPException(status_code=502, detail="Le dépôt de votre Hub n'a pas pu être créé")
+    repos[slug] = full
+    return full
+
+
+def set_client_variables(full_repo: str, variables: dict[str, str]) -> None:
+    """Crée ou met à jour les variables de configuration du dépôt client (RSS_URL, BLOG_NAME…)."""
+    for name, value in variables.items():
+        r = _gh_at("PATCH", full_repo, f"/actions/variables/{name}", json={"name": name, "value": value})
+        if r.status_code == 404:
+            r = _gh_at("POST", full_repo, "/actions/variables", json={"name": name, "value": value})
+        if r.status_code not in (200, 201, 204):
+            raise HTTPException(status_code=502, detail=f"Configuration du Hub impossible ({name})")
 
 
 _cache: dict[str, tuple[datetime, int, object]] = {}
@@ -388,6 +434,20 @@ def run(client_id: str, authorization: str | None = Header(default=None)):
             raise HTTPException(status_code=429, detail="Limite quotidienne d'analyses atteinte, réessayez demain")
 
         for hub in hubs:
+            if CLIENT_REPOS_ENABLED and hub["kind"] == "podcast":
+                full = ensure_client_repo(data, hub["slug"])
+                set_client_variables(full, {
+                    "RSS_URL": hub["rss_url"], "BLOG_NAME": hub["title"],
+                    "COMPANY_NAME": hub["hub_name"] or hub["title"],
+                    "SITE_BASE_URL": hub["cta_url"], "LISTENLY_PODCAST_URL": hub["hub_url"],
+                })
+                r = _gh_at("POST", full, f"/actions/workflows/{CLIENT_WORKFLOW}/dispatches", json={
+                    "ref": "main", "inputs": {"max_episodes": str(fiches)},
+                })
+                if r.status_code not in (200, 204):
+                    log.error("Dispatch client refusé (%s) : %s", r.status_code, r.text[:300])
+                    raise HTTPException(status_code=502, detail="Le moteur de votre Hub n'a pas pu être lancé")
+                continue
             r = _gh("POST", f"/actions/workflows/{WORKFLOW_FILE}/dispatches", json={
                 "ref": "main",
                 "inputs": {
