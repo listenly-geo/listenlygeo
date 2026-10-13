@@ -60,7 +60,9 @@ def call(params=None, payload=None):
                     return json.loads(body)
                 except ValueError:
                     import re as _re
-                    txt = _re.sub(r"<[^>]+>", " ", body)
+                    titre = _re.search(r"<title>(.*?)</title>", body, _re.S | _re.I)
+                    body = _re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", body, flags=_re.S | _re.I)
+                    txt = ("[" + titre.group(1).strip() + "] " if titre else "") + _re.sub(r"<[^>]+>", " ", body)
                     txt = _re.sub(r"\s+", " ", txt).strip()[:300]
                     raise RuntimeError(f"Reponse non JSON du pont Apps Script (HTTP {r.status}) : {txt}")
         except urllib.error.HTTPError as e:
