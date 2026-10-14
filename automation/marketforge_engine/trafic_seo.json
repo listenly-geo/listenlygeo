@@ -1,0 +1,10 @@
+{
+ "_aide": "Leviers du moteur trafic SEO. Modifiables par la tache quotidienne 'Mission trafic SEO' dans les limites ci-dessous ; tout changement est journalise dans optimisations.json.",
+ "moments_par_jour": 30,
+ "moments_par_jour_min": 15,
+ "moments_par_jour_max": 100,
+ "variation_max_par_jour": 15,
+ "priorite_slugs": [],
+ "exclure_slugs": [],
+ "regle_quota": "+15/jour si >=40% des pages ouvertes il y a 7 jours et plus sont indexees ; -15/jour (min 15) si <15% et >=60 pages controlees ; sinon inchange"
+}

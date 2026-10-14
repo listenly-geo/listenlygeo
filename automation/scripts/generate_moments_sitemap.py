@@ -15,7 +15,7 @@ Un moment devenu non eligible est retire du sitemap (jamais d'adresse fine envoy
 Usage : python automation/scripts/generate_moments_sitemap.py
 Variables : MOMENTS_PAR_JOUR (defaut 30)
 """
-import os, json, glob, datetime
+import os, re, json, glob, datetime
 
 PAGES_DIR = "pages/podcast-btb"
 MOMENTS_DIR = f"{PAGES_DIR}/data/moments"
@@ -37,12 +37,17 @@ def answer_text(e):
 
 def eligible_ids(entries):
     """ids des moments dont la page est assez fournie (regle identique a m.php)."""
+    return set(eligible_scores(entries))
+
+
+def eligible_scores(entries):
+    """{id: score de richesse} des moments eligibles (meme regle que m.php)."""
     by_ep = {}
     for i, e in entries.items():
         if (isinstance(e, dict) and int(e.get("t") or 0) > 0 and len((e.get("a") or "").strip()) >= 80
                 and (e.get("q") or "").strip()):
             by_ep.setdefault(e.get("e") or "", []).append(i)
-    ok = set()
+    ok = {}
     for i, e in entries.items():
         if not isinstance(e, dict):
             continue
@@ -52,12 +57,40 @@ def eligible_ids(entries):
         score = wc(ans) + wc(stats) + wc(e.get("rq")) + 8 * min(related, 4)
         if (wc(ans) >= 25 and score >= 90 and int(e.get("t") or 0) > 0 and (e.get("x") or "").strip()
                 and (e.get("u") or "").startswith("http") and (e.get("q") or "").strip()):
-            ok.add(i)
+            ok[i] = score
     return ok
 
 
+def load_cfg():
+    try:
+        return json.load(open("automation/marketforge_engine/trafic_seo.json", encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
+def podcast_impressions():
+    """Impressions Google par podcast (hub + anciennes fiches), pour servir d'abord les podcasts deja visibles."""
+    out = {}
+    for path in ("data/gsc/pages.json",):
+        try:
+            rows = json.load(open(path, encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        for r in rows:
+            u = r.get("page", "")
+            m = re.search(r"/podcast-btb/questions/([^/]+)/", u) or re.search(r"/podcast-btb/([^/]+)-podcast\.html", u)
+            if m:
+                out[m.group(1)] = out.get(m.group(1), 0) + int(r.get("impressions", 0))
+    return out
+
+
 def main():
-    cap = int(os.environ.get("MOMENTS_PAR_JOUR", "30"))
+    cfg = load_cfg()
+    cap = int(os.environ.get("MOMENTS_PAR_JOUR") or cfg.get("moments_par_jour", 30))
+    cap = max(int(cfg.get("moments_par_jour_min", 1)), min(cap, int(cfg.get("moments_par_jour_max", 100))))
+    exclure = set(cfg.get("exclure_slugs") or [])
+    prio = list(cfg.get("priorite_slugs") or [])
+    imp = podcast_impressions()
     today = datetime.date.today().isoformat()
     try:
         state = json.load(open(STATE_FILE, encoding="utf-8"))
@@ -74,14 +107,20 @@ def main():
         except (OSError, json.JSONDecodeError):
             continue
         slug = d.get("slug") or os.path.basename(f)[:-5]
-        good = eligible_ids(d.get("entries") or {})
+        if slug in exclure:
+            continue
+        scores = eligible_scores(d.get("entries") or {})
+        good = set(scores)
         for key in [k for k in released if k.startswith(slug + "/") and k.split("/", 1)[1] not in good]:
             del released[key]            # page devenue trop fine : retiree du sitemap
-        ids = sorted(i for i in good if f"{slug}/{i}" not in released)
+        ids = sorted((i for i in good if f"{slug}/{i}" not in released), key=lambda i: (-scores[i], i))   # les plus riches d'abord
         if ids:
             queues[slug] = ids
 
     added = 0
+    def ordre(sl):   # priorite explicite, puis podcasts deja visibles dans Google (impressions), puis le reste
+        return (0 if sl in prio else 1, prio.index(sl) if sl in prio else 0, -imp.get(sl, 0), sl)
+    queues = dict(sorted(queues.items(), key=lambda kv: ordre(kv[0])))
     while added < quota and queues:   # un moment par podcast a tour de role
         for slug in list(queues):
             if added >= quota:
