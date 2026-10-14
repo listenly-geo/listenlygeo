@@ -34,6 +34,17 @@ RewriteRule ^episodes/([^/]+)/index\.html$ /podcast-btb/$1-podcast.html [R=301,L
   Header set X-Robots-Tag "noindex, follow"
 </FilesMatch>
 
+# Ajout du 14/10/2026 : strategie trafic = seuls les HUB (fiches N1) et les pages "moment"
+# riches (m/<podcast>/<id>) doivent etre indexes. Les pages de test / internes (episodes, categories,
+# accueil, activite, gabarit, tableaux de bord) passent en noindex,follow : elles restent accessibles
+# et gardent leurs liens, mais ne concurrencent plus les pages utiles. Reversible : supprimer ce bloc.
+<IfModule mod_headers.c>
+<IfModule mod_setenvif.c>
+SetEnvIf Request_URI "^/podcast-btb/(episodes/|categorie/|index\.html$|activite\.html$|m-template\.html$|dashboard\.html$|moteur\.html$|historique[a-z\-]*\.html$|analyse-seo[a-z0-9\-]*\.html$|ecouter\.html$)" NOINDEX_TEST=1
+Header set X-Robots-Tag "noindex, follow" env=NOINDEX_TEST
+</IfModule>
+</IfModule>
+
 # Ajout du 24/09/2026 : le podcast "De la cave au grenier" existait en double
 # (slug aleatoire ogd6etwxpdgr + slug de-la-cave-au-grenier, meme flux RSS).
 # Google a refuse la copie ("Exploree, actuellement non indexee"). Le doublon est

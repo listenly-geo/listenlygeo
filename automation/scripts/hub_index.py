@@ -425,8 +425,8 @@ def render_hub_index(podcast, published, apple=False):
                 if len(short) > 320:
                     short = short[:317].rsplit(" ", 1)[0].rstrip(",;:") + "…"
                 when_rich = _fmt_time(moment_entries.get(res[0], {}).get("t"))
-                answer_html = (f'<p class="hx-a">{_E(short)}</p>'
-                               f'<p class="hx-rm"><a href="{_E(href)}">{t["read_full"]}' + (f" · {when_rich}" if when_rich else "") + ' →</a></p>')
+                # 14/10/2026 : un seul bouton par question (ecouter ce moment) ; lien "lire la reponse complete" retire
+                answer_html = f'<p class="hx-a">{_E(short)}</p>'
             elif full_paras:
                 # Question consolidee (301 vers le hub) : la reponse complete recuperee de
                 # l'ancienne fiche remplace l'extrait tronque, sinon le contenu est perdu.
@@ -442,7 +442,7 @@ def render_hub_index(podcast, published, apple=False):
                 + answer_html
                 + '<div class="hx-foot">'
                 f'<a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="{_E(href)}">{listen_label}</a>'
-                + (f'<a class="hx-more" href="{_E(p.get("url", ""))}">{t["full"]}</a>' if p.get("url") else "")
+                + (f'<a class="hx-more" href="{_E(p.get("url", ""))}">{t["full"]}</a>' if p.get("url") and not rich else "")
                 + "</div></article>"
             )
         heading = f'<h3 class="hx-ep" id="{ep_anchor}">{_E(ep_title)}</h3>' if ep_title else ""
