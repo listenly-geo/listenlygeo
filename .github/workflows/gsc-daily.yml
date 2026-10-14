@@ -1,0 +1,32 @@
+name: Search Console — chiffres du jour (pages, requêtes, positions)
+
+# Récupère chaque jour les données de la Search Console de listenly.fr et les écrit dans data/gsc/.
+# Secret requis : GSC_SERVICE_ACCOUNT_JSON (clé JSON du compte de service ajouté comme utilisateur de la propriété).
+# Lancement à la demande : onglet Actions > "Run workflow".
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '23 5 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gsc-daily
+  cancel-in-progress: false
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q google-auth requests
+      - name: Récupération Search Console
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: python3 automation/scripts/gsc_pull.py
+      - name: Sauvegarde dans le dépôt
+        run: |
+          git config user.name "marketforge-bot"; git config user.email "bot@listenly.fr"
+          git add data/gsc || true
+          git diff --cached --quiet || (git commit -m "Search Console : chiffres du jour" && git pull -q --rebase && git push -q)
