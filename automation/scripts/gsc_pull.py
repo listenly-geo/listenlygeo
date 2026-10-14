@@ -78,12 +78,15 @@ def inspect_moments(tok):
     todo = sorted(released, key=priorite)[:INSPECT_MAX]
     url = "https://searchconsole.googleapis.com/v1/urlInspection/index:inspect"
     ok = 0
+    t0 = time.time()
     for key in todo:
+        if time.time() - t0 > 420:   # budget de 7 min : on garde le resultat partiel, la suite est reprise demain
+            break
         slug, mid = key.split("/", 1)
         page = f"https://listenly.fr/podcast-btb/m/{slug}/{mid}"
         try:
             r = requests.post(url, headers={"Authorization": f"Bearer {tok}"},
-                              json={"inspectionUrl": page, "siteUrl": SITE}, timeout=60)
+                              json={"inspectionUrl": page, "siteUrl": SITE}, timeout=20)
             if r.status_code == 429:
                 break   # quota atteint : on reprend demain
             r.raise_for_status()
