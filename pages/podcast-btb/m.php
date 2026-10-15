@@ -74,6 +74,9 @@ if (is_array($mscore) && empty($mscore['gate'])) { $thin = true; }
 
 $url = 'https://listenly.org/podcast-btb/m/' . $slug . '/' . $mid;
 $title = $t > 0 ? $q . ' — answer at ' . $ts . ' | Listenly' : $q . ' | Listenly';
+// Titre SEO affine (data/titres_seo.json, cle slug/id) : seul le <title> change, le H1 reste la question
+$ovr = @json_decode(@file_get_contents($base . '/data/titres_seo.json'), true)['titres'] ?? [];
+if (!empty($ovr[$slug . '/' . $mid])) { $title = $ovr[$slug . '/' . $mid]; }
 $desc  = $t > 0 ? $q . ' Answered at ' . $ts . ' in ' . $epi . ' (' . $pod . '). Listen from the exact moment.'
                 : $q . ' Answered in ' . $epi . ' (' . $pod . ').';
 $ans = ['@type' => 'Answer', 'text' => mb_substr($answerText !== '' ? $answerText : $q, 0, 1800), 'url' => $url];

@@ -8,6 +8,12 @@ doit etre ajoutee dans `automation/marketforge_engine/optimisations.json` dans l
 - ce fichier alimente automatiquement l'onglet "Optimisations" du Google Sheet (chaque run, via `sheet_bridge.py optimisations`)
 Le proprietaire (Etienne) veut une clarte complete, chaque jour, sur ce qui a ete optimise et ou ca en est.
 
+## Decision 15/10/2026 : SEO d'abord, Hub a la creation (remplace la regle "Hub a la reponse")
+- Les fiches de moments deja rattachees a une fiche N1 gardent ce rattachement.
+- Tout nouveau podcast qui apporte de nouvelles requetes recoit une fiche N1 au format Hub, creee des la decouverte (pas besoin de reponse du prospect).
+- Qualite minimale obligatoire (meme seuil que les moments, sinon noindex) et quota quotidien de creation.
+- Les titres SEO des pages de moments sont dans `pages/podcast-btb/data/titres_seo.json` (cle `slug/id`), appliques au `<title>` par `m.php`.
+
 ## Positionnement MarketForge : PODCAST HUB (decision d'Etienne, 01/10/2026) — PRIORITAIRE
 CAP : trafic de masse et autorite de masse vers Listenly, cash de masse via le moteur autorite. Le produit vendu aux podcasts B2B est un PODCAST HUB : a partir du podcast existant d'une entreprise, un Hub cle en main, brande a son image, qui transforme son catalogue audio en actif web : (1) BRANDING : une vraie vitrine du podcast (cover, description, lecteur, episodes, invites, CTA, identite visuelle, mobile) ; (2) VISIBILITE : l'expertise des episodes (questions reelles, reponses autonomes, timestamps, episodes sources, experts) devient lisible par Google et les IA ; (3) CONVERSION : transformer l'audience en prospects. Dans chaque Hub, une vraie fonctionnalite de recherche renvoie vers Listenly (ex. « Explore more expert answers ») sans « Powered by » artificiels : chaque Hub adopte est un point d'entree utile vers Listenly.
 FUNNEL (on garde tout le systeme actuel, seul le mail change) : 1) le moteur trouve le podcast, cree la fiche Listenly et recupere l'email ; 2) mail 1 en anglais qui explique le Hub et propose « I can build a first version for {PODCAST} from your existing episodes, with no commitment. Shall I send it over? » (PAS de lien d'apercu dans ce mail), puis relance ; 3) si le prospect repond oui : generation de son Hub V1 brande + envoi avec lien de paiement integre ; 4) s'il paie ~500 $, installation sur son site ; maintenance/synchronisation 99 a 199 $/mois a tester (prix non figes).
