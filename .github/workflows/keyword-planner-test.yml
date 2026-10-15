@@ -1,0 +1,37 @@
+name: Keyword Planner — test de connexion (manuel)
+
+# Teste la connexion Google Ads / Keyword Planner avec quelques requêtes.
+# Ne publie rien : écrit seulement pages/podcast-btb/data/keyword_planner.json.
+# Secrets requis : GOOGLE_ADS_CLIENT_ID, GOOGLE_ADS_CLIENT_SECRET, GOOGLE_ADS_REFRESH_TOKEN, GOOGLE_ADS_CUSTOMER_ID.
+# Lancement à la demande uniquement : onglet Actions > "Run workflow".
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: keyword-planner-test
+  cancel-in-progress: false
+
+jobs:
+  test:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test Keyword Planner
+        env:
+          GOOGLE_ADS_CLIENT_ID: ${{ secrets.GOOGLE_ADS_CLIENT_ID }}
+          GOOGLE_ADS_CLIENT_SECRET: ${{ secrets.GOOGLE_ADS_CLIENT_SECRET }}
+          GOOGLE_ADS_REFRESH_TOKEN: ${{ secrets.GOOGLE_ADS_REFRESH_TOKEN }}
+          GOOGLE_ADS_CUSTOMER_ID: ${{ secrets.GOOGLE_ADS_CUSTOMER_ID }}
+        run: |
+          python3 automation/scripts/keyword_planner.py "podcast marketing" "B2B podcast" "podcast for business" "expert podcast"
+          echo "--- Résultat ---"
+          cat pages/podcast-btb/data/keyword_planner.json
+      - name: Sauvegarde du résultat
+        run: |
+          git config user.name "marketforge-bot"; git config user.email "bot@listenly.fr"
+          git add pages/podcast-btb/data/keyword_planner.json || true
+          git diff --cached --quiet || (git commit -m "Keyword Planner : test de connexion" && git pull -q --rebase && git push -q)
