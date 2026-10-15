@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fetch_gsc_stats import get_access_token  # noqa: E402  (meme compte de service GSC)
 
 PAGES = "pages/podcast-btb"
-BASE = "https://listenly.fr/podcast-btb/"
+BASE = "https://listenly.org/podcast-btb/"
 SITE = os.environ.get("GSC_SITE_URL", "sc-domain:listenly.fr")
 STATUS_FILE = f"{PAGES}/data/gsc_index_status.json"
 OUT_FILE = f"{PAGES}/data/consolidated_questions.json"

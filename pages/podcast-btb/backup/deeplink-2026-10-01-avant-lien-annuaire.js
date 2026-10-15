@@ -1,6 +1,6 @@
 /*
  * Lien profond des hubs N1 vers la page d'accueil Listenly (recherche + lecteur en barre).
- *   listenly.fr/?p=<podcast>&m=<moment>  ->  affiche la reponse (vignette du podcast + carte) et lance l'audio au bon moment.
+ *   listenly.org/?p=<podcast>&m=<moment>  ->  affiche la reponse (vignette du podcast + carte) et lance l'audio au bon moment.
  *
  * + vignette du podcast (pochette, nom, bouton "Full podcast") sur chaque resultat de la recherche
  *   (carte /podcast-btb/data/podcast_covers.json, cle = nom du podcast renvoye par la recherche : aucun changement serveur).

@@ -9,7 +9,7 @@
  *   {"mode": "dry_run", "podcast": {...}}         -> montre la ligne qui SERAIT inseree, n'ecrit rien
  *   {"mode": "insert",  "podcast": {...}}         -> insere (ou renvoie l'existant si deja present)
  * podcast = {title, rss_url, description, cover_image, language, author, email, website}
- * Reponse : {"ok": true, "created": bool, "id": 123, "seo_url": "...", "listenly_url": "https://listenly.fr/podcast/show/..."}
+ * Reponse : {"ok": true, "created": bool, "id": 123, "seo_url": "...", "listenly_url": "https://listenly.org/podcast/show/..."}
  *
  * Meme pattern que knowledge-moments-import.php / get-episode-url.php (.env, PDO).
  * Securite : le mode insert refuse de tourner tant que les colonnes obligatoires (title,
@@ -114,7 +114,7 @@ function slugify($s) {
     $s = strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $s));
     return trim(substr(trim($s, '-'), 0, 120), '-') ?: 'podcast';
 }
-function show_url($seo) { return 'https://listenly.fr/podcast/show/' . $seo; }
+function show_url($seo) { return 'https://listenly.org/podcast/show/' . $seo; }
 
 // --- Deja present ? (meme flux RSS ou meme titre) -> on renvoie l'existant, jamais de doublon ---
 $pk = null;

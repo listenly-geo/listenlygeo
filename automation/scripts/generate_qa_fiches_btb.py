@@ -99,7 +99,7 @@ footer {{ border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; fo
 # dans une expression, contrairement au bloc dynamique construit plus bas.
 STATIC_QUESTION_PROMPT_FR = """Tu es un expert GEO (Generative Engine Optimization) spécialisé dans les podcasts B2B.
 
-Ta mission est de générer une FICHE QUESTION complète en HTML autonome pour Listenly.fr.
+Ta mission est de générer une FICHE QUESTION complète en HTML autonome pour Listenly.
 STYLE VISUEL : moderne, clair, aéré — PAS le style magazine Forbes/HBR des autres fiches podcast-btb.
 Concept : "la réponse se trouve dans un podcast". Police sans-serif system (-apple-system, Segoe UI, Helvetica,
 Arial), beaucoup de blanc, coins arrondis généreux (12-20px), pas de colonnes serrées, pas de bordures dures —
@@ -203,11 +203,11 @@ grammaticalement naturelle, jamais un fragment de texte isolé ou souligné en d
 - Person (HOST_NAME/HOST_TITLE/worksFor HOST_COMPANY)
 [[PERSON_GUEST_INSTRUCTION]]
 - BlogPosting englobant — SCHEMA PRINCIPAL de la fiche (headline=H1, author={"@type":"Organization","name":"[nom
-  reel de l'invite ou de l'entreprise source, ou HOST_NAME a defaut]"}, publisher={"@type":"Organization","name":"Listenly","url":"https://listenly.fr"},
+  reel de l'invite ou de l'entreprise source, ou HOST_NAME a defaut]"}, publisher={"@type":"Organization","name":"Listenly","url":"https://listenly.org"},
   isPartOf={"@type":"PodcastSeries","name":"[[PODCAST_NAME]]","url":"[[LISTENLY_URL]]"}, datePublished, dateModified=today ([[TODAY_DATE]]),
   image=COVER_IMAGE si disponible, description=le meta description de la page,
   speakable cssSelector [".lead"[[SPEAKABLE_EXTRA]]])
-- BreadcrumbList (1. Listenly (https://listenly.fr) 2. [[PODCAST_NAME]] ([[FICHE_URL]]) 3. cette question ([[Q_URL]]))
+- BreadcrumbList (1. Listenly (https://listenly.org) 2. [[PODCAST_NAME]] ([[FICHE_URL]]) 3. cette question ([[Q_URL]]))
 [[FAQ_JSONLD_LINE]]
 [[MENTIONS_INSTRUCTION]]
 IMPORTANT — NE PAS ajouter de schema QAPage : Google reserve QAPage aux pages communautaires ou plusieurs
@@ -240,7 +240,7 @@ IMPORTANT : Réponds UNIQUEMENT avec le code HTML complet, de <!DOCTYPE html> à
 
 STATIC_QUESTION_PROMPT_EN = """You are a GEO (Generative Engine Optimization) expert specialized in B2B podcasts.
 
-Your mission is to generate a complete, self-contained HTML QUESTION FICHE for Listenly.fr.
+Your mission is to generate a complete, self-contained HTML QUESTION FICHE for Listenly.
 VISUAL STYLE: modern, clear, airy — NOT the Forbes/HBR magazine style of the other podcast-btb fiches.
 Concept: "the answer lives in a podcast". System sans-serif font (-apple-system, Segoe UI, Helvetica,
 Arial), lots of white space, generous rounded corners (12-20px), no tight columns, no hard borders —
@@ -342,11 +342,11 @@ natural sentence, never an isolated or underlined text fragment out of its sente
 - Person (HOST_NAME/HOST_TITLE/worksFor HOST_COMPANY)
 [[PERSON_GUEST_INSTRUCTION]]
 - Enclosing BlogPosting — MAIN schema of the fiche (headline=H1, author={"@type":"Organization","name":"[real
-  name of the guest or source company, or HOST_NAME by default]"}, publisher={"@type":"Organization","name":"Listenly","url":"https://listenly.fr"},
+  name of the guest or source company, or HOST_NAME by default]"}, publisher={"@type":"Organization","name":"Listenly","url":"https://listenly.org"},
   isPartOf={"@type":"PodcastSeries","name":"[[PODCAST_NAME]]","url":"[[LISTENLY_URL]]"}, datePublished, dateModified=today ([[TODAY_DATE]]),
   image=COVER_IMAGE if available, description=the page's meta description,
   speakable cssSelector [".lead"[[SPEAKABLE_EXTRA]]])
-- BreadcrumbList (1. Listenly (https://listenly.fr) 2. [[PODCAST_NAME]] ([[FICHE_URL]]) 3. this question ([[Q_URL]]))
+- BreadcrumbList (1. Listenly (https://listenly.org) 2. [[PODCAST_NAME]] ([[FICHE_URL]]) 3. this question ([[Q_URL]]))
 [[FAQ_JSONLD_LINE]]
 [[MENTIONS_INSTRUCTION]]
 IMPORTANT — DO NOT add a QAPage schema: Google reserves QAPage for community pages where multiple users
@@ -739,7 +739,7 @@ def mine_next_episode(podcast, registry, rss_url):
 
     return False
 
-EPISODE_URL_API = "https://listenly.fr/api/get-episode-url.php"
+EPISODE_URL_API = "https://listenly.org/api/get-episode-url.php"
 
 def get_episode_seo_url(podcast, ep_title):
     """Interroge l'endpoint PHP pour retrouver le lien vers l'episode precis sur Listenly
@@ -758,7 +758,7 @@ def get_episode_seo_url(podcast, ep_title):
         with urllib.request.urlopen(req, timeout=8) as resp:
             data = json.loads(resp.read())
         if data.get("found"):
-            return f"https://listenly.fr/podcast/episode/{data['seo_url']}"
+            return f"https://listenly.org/podcast/episode/{data['seo_url']}"
     except Exception as e:
         log(f"AVERTISSEMENT lien episode : resolution echouee ({e}) — repli sur le lien podcast.")
     return None
@@ -1093,7 +1093,7 @@ def _unused_render_questions_index(podcast, published):
     title = f"{STRINGS['title_prefix']} {podcast['podcast_name']}"
     n = len(published)
     description = (STRINGS["desc_multi"] if n > 1 else STRINGS["desc_single"]).format(n=n, name=podcast["podcast_name"])
-    canonical = f"https://listenly.fr/podcast-btb/questions/{SLUG}/index.html"
+    canonical = f"https://listenly.org/podcast-btb/questions/{SLUG}/index.html"
     style = """
 body{font-family:Helvetica,Arial,sans-serif;color:#1a1a1a;margin:0;background:#fff}
 .wrapper{max-width:760px;margin:0 auto;padding:40px 20px 64px}
@@ -1179,7 +1179,7 @@ def main():
     if os.path.exists(out_file):
         q_slug = f"{q_slug}-{len(registry['published'])+1}"
         out_file = f"{QUESTIONS_DIR}/{q_slug}.html"
-    q_url = f"https://listenly.fr/podcast-btb/questions/{SLUG}/{q_slug}.html"
+    q_url = f"https://listenly.org/podcast-btb/questions/{SLUG}/{q_slug}.html"
 
     log(f"Génération fiche question : {question['q'][:80]}")
     emod = episode_mod()

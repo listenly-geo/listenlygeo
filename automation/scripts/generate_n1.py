@@ -20,14 +20,14 @@ SLUG         = os.environ["PODCAST_SLUG"]
 RAW_INFO     = os.environ.get("PODCAST_RAW_INFO", "")
 SPOTIFY_URL  = os.environ["SPOTIFY_SHOW_URL"]
 IMAGE_URL    = os.environ.get("PODCAST_IMAGE_URL", "")
-LISTENLY_URL = os.environ.get("LISTENLY_SHOW_URL", f"https://listenly.fr/podcast/show/{SLUG}")
+LISTENLY_URL = os.environ.get("LISTENLY_SHOW_URL", f"https://listenly.org/podcast/show/{SLUG}")
 # Destination choisie par le prospect (automation/marketforge_engine/redirections.json : {slug: url}). Sans destination = page Listenly.
 try:
     _REDIR = json.load(open(os.path.join(os.path.dirname(__file__), "..", "marketforge_engine", "redirections.json"), encoding="utf-8"))
 except Exception:
     _REDIR = {}
 ACCESS_URL = _REDIR.get(SLUG) or LISTENLY_URL
-PLAUSIBLE    = os.environ.get("PLAUSIBLE_DOMAIN", "listenly.fr")
+PLAUSIBLE    = os.environ.get("PLAUSIBLE_DOMAIN", "listenly.org")
 MODEL        = "claude-sonnet-4-6"
 PAGES_DIR    = "pages"
 OUT_FILE     = f"{PAGES_DIR}/{SLUG}-podcast.html"
@@ -79,7 +79,7 @@ CONTRAINTES TECHNIQUES (respecter EXACTEMENT) :
    "Fiche lisible par les modèles IA :" + badges ChatGPT · Perplexity · Gemini · Google AI · Copilot · Claude
 
 4. Structure obligatoire :
-   - Topbar sticky : logo Listenly cliquable (<a href="https://listenly.fr">) + nom podcast (sans bouton)
+   - Topbar sticky : logo Listenly cliquable (<a href="https://listenly.org">) + nom podcast (sans bouton)
    - Hero (cover + nom + tagline + pills thématiques + bouton « ▶ Accéder au podcast » vers {ACCESS_URL})
    - Banderole IA
    - Section "À propos" : sujet de fond, positionnement
@@ -96,7 +96,7 @@ CONTRAINTES TECHNIQUES (respecter EXACTEMENT) :
    - PodcastSeries (url={LISTENLY_URL}, author, publisher)
    - FAQPage (EXACTEMENT les mêmes 5-6 questions que la mega FAQ visible)
    - BreadcrumbList
-   - Organization "Listenly" url "https://listenly.fr" comme publisher
+   - Organization "Listenly" url "https://listenly.org" comme publisher
    - "La rédaction Listenly" comme author
    - datePublished et dateModified = {today}
 
@@ -110,10 +110,10 @@ CONTRAINTES TECHNIQUES (respecter EXACTEMENT) :
 8. Meta SEO :
    - title : 50-65 caractères MAXIMUM
    - meta description : 140-155 caractères MAXIMUM
-   - canonical : https://listenly.fr/fiche-geo-ia/{SLUG}-podcast.html
-   - og:url : https://listenly.fr/fiche-geo-ia/{SLUG}-podcast.html (OBLIGATOIRE — URL de la fiche elle-même)
+   - canonical : https://listenly.org/fiche-geo-ia/{SLUG}-podcast.html
+   - og:url : https://listenly.org/fiche-geo-ia/{SLUG}-podcast.html (OBLIGATOIRE — URL de la fiche elle-même)
    - og:image = {IMAGE_URL}
-   - twitter:url : https://listenly.fr/fiche-geo-ia/{SLUG}-podcast.html
+   - twitter:url : https://listenly.org/fiche-geo-ia/{SLUG}-podcast.html
 
 9. STATISTIQUES : uniquement si source réelle nommée ET datée. Sinon zéro chiffre.
 

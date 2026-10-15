@@ -40,7 +40,7 @@ VERIF_MAX = int(os.environ.get("CONTACT_VERIF_MAX", "30") or 30)
 VERIF_PAR_PODCAST = int(os.environ.get("CONTACT_VERIF_PAR_PODCAST", "4") or 4)
 USE_HOST = os.environ.get("CONTACT_HOST", "1") != "0"
 MODEL = "claude-haiku-4-5-20251001"
-UA = {"User-Agent": "Mozilla/5.0 (compatible; ListenlyGEO/1.0; +https://listenly.fr)"}
+UA = {"User-Agent": "Mozilla/5.0 (compatible; ListenlyGEO/1.0; +https://listenly.org)"}
 PATHS = ["", "/about", "/about-us", "/team", "/our-team", "/leadership", "/contact", "/company"]
 FREE = ("gmail.", "outlook.", "hotmail.", "yahoo.", "icloud.", "proton", "gmx.", "aol.", "live.", "msn.", "me.com")
 HOSTS = ("anchor.fm", "spotify.com", "apple.com", "buzzsprout.com", "libsyn.com", "podbean.com", "simplecast.com",

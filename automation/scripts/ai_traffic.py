@@ -2,7 +2,7 @@
 """
 Trafic venant des IA (01/10/2026) via l'API Plausible (les pages envoient deja leurs visites a Plausible).
 Secret GitHub requis : PLAUSIBLE_API_KEY (Plausible > Settings > API keys). Optionnels : PLAUSIBLE_SITE_ID
-(defaut listenly.fr), PLAUSIBLE_URL (defaut https://plausible.io). Sans cle : on sort sans erreur.
+(defaut listenly.org), PLAUSIBLE_URL (defaut https://plausible.io). Sans cle : on sort sans erreur.
 Ecrit pages/podcast-btb/data/ai_traffic.json : visiteurs 7 jours total / venant des IA, par source.
 """
 import os, json, datetime, urllib.request

@@ -84,7 +84,7 @@ var MFE_MSG_VERSION = '22';   // incremente -> les textes MFE_MSG_* de Reglages 
 var MFE_FIRST_MAIL = [
   '{HELLO}',
   '',
-  'I recently listed the podcast <strong>"{PODCAST}"</strong> on our directory, listenly.fr. It makes the audio expertise of podcasts <u>readable and citable</u> by <strong>Google, ChatGPT and Gemini</strong>.',
+  'I recently listed the podcast <strong>"{PODCAST}"</strong> on our directory, listenly.org. It makes the audio expertise of podcasts <u>readable and citable</u> by <strong>Google, ChatGPT and Gemini</strong>.',
   '',
   '\u2192 <a href="{URL}">{URL}</a>',
   '',
@@ -171,7 +171,7 @@ var MFE_MSG_DEFAULTS = [
   ['MFE_RAPPORT_HEURE', '20', 'Heure d\'envoi du rapport quotidien (0-23).'],
   ['MFE_RAPPORT_EMAIL', '', 'Destinataire du rapport. Vide = toi (compte qui execute le script).'],
   ['MFE_SIG_HTML', 'TRUE', 'Signature riche (photo + liens) en bas des mails. TRUE = activee. Garder FALSE si la delivrabilite baisse.'],
-  ['MFE_SIG_PHOTO', 'https://listenly.fr/podcast-btb/assets/etienne-cugnet.jpg', 'Signature riche — URL publique de ta photo (carree, ~200x200). Vide = pas de photo.'],
+  ['MFE_SIG_PHOTO', 'https://listenly.org/podcast-btb/assets/etienne-cugnet.jpg', 'Signature riche — URL publique de ta photo (carree, ~200x200). Vide = pas de photo.'],
   ['MFE_SIG_NOM', 'Etienne Cugnet', 'Signature riche — nom.'],
   ['MFE_SIG_TITRE', 'Founder, Listenly & Marketforge', 'Signature riche — titre / entreprise.'],
   ['MFE_SIG_ACCROCHE', 'Turning B2B podcasts into Google & AI visibility', 'Signature riche — une ligne "qui je suis". Vide = rien.'],
@@ -832,7 +832,7 @@ function mfeVars_(values) {
   // QUERY_LINK : lien Listenly avec moment ID si disponible (dernier épisode question + moment ID aux colonnes 16, 17)
   // Sinon : lien générique vers la page Listenly du podcast
   // Modele du 13/10/2026 : tous les mails (1er mail et relances) renvoient vers la fiche N1 du podcast (colonne D)
-  var queryLink = String(values[3] || '').trim() || ('https://listenly.fr/podcast/show/' + values[0]);
+  var queryLink = String(values[3] || '').trim() || ('https://listenly.org/podcast/show/' + values[0]);
   // QUERY_BLOCK : la question reelle juste au-dessus du lien Listenly horodate ("question \n-> lien"); sans question, le lien seul
   var question = String(values[16] || '').trim();
   var queryBlock = (question && values[17]) ? question + '\n→ ' + queryLink : queryLink;
@@ -1306,7 +1306,7 @@ function mfeMenuImporter() {
 function mfeMenuTest() {
   var moi = Session.getEffectiveUser().getEmail();
   var sh = mfeSheet_(), rows = mfeRows_(sh);
-  var exemple = rows.length ? rows[0].values : ['', 'Test Podcast', '', 'https://listenly.fr/podcast-btb/a16z-crypto-show-podcast.html', 0];
+  var exemple = rows.length ? rows[0].values : ['', 'Test Podcast', '', 'https://listenly.org/podcast-btb/a16z-crypto-show-podcast.html', 0];
   mfeEnsureSettings_();
   var n = 0;
   ['A'].forEach(function (vr) {
@@ -1587,7 +1587,7 @@ function mfeEnvoyerRapport_(mode) {
       line('Adresses écartées (anti-rebond)', (st['Email invalide'] || 0) + (st['Email risque'] || 0)) +
       (repList.length ? line('En conversation', mfeEsc_(repList.join(', '))) : '') + '</table>') +
     '<div style="text-align:center;margin:22px 0 8px">' +
-    '<a href="https://listenly.fr/podcast-btb/moteur.html" style="display:inline-block;background:#0071e3;color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:11px 20px;border-radius:999px;margin:4px">Tableau de bord</a> ' +
+    '<a href="https://listenly.org/podcast-btb/moteur.html" style="display:inline-block;background:#0071e3;color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:11px 20px;border-radius:999px;margin:4px">Tableau de bord</a> ' +
     '<a href="' + mfeSS_().getUrl() + '" style="display:inline-block;background:#1d1d1f;color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:11px 20px;border-radius:999px;margin:4px">Google Sheet</a></div>' +
     '<div style="text-align:center;font-size:11px;color:#86868b;margin-top:10px">Rapport ' + mode + ' · réglages MFE_RAPPORT dans l\'onglet Réglages</div>' +
     '</div></div>';
@@ -1596,7 +1596,7 @@ function mfeEnvoyerRapport_(mode) {
   var subject = (repToday.length ? '💬 ' : '📊 ') + 'MarketForge — ' + (mode === 'horaire' ? Utilities.formatDate(now, tz, "HH'h'") : jourFr) +
     ' · +' + todayList.length + ' fiches · ' + sentToday + ' envois' + (repList.length ? ' · ' + repList.length + ' réponse' + (repList.length > 1 ? 's' : '') : '');
   var plain = 'Rapport MarketForge Engine ' + jourFr + '\nFiches hub : ' + total + ' (+' + todayList.length + ')\nEnvoyes aujourd\'hui : ' + sentToday + '\nReponses : ' + repList.length +
-    '\nTableau de bord : https://listenly.fr/podcast-btb/moteur.html';
+    '\nTableau de bord : https://listenly.org/podcast-btb/moteur.html';
   GmailApp.sendEmail(to, subject, plain, { htmlBody: html, name: 'MarketForge Engine' });
   return to;
 }

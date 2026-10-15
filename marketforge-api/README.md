@@ -3,7 +3,7 @@
 L'API ne génère rien elle-même. Elle **déclenche le moteur trafic existant** de ce dépôt
 (`.github/workflows/marketforge-hub.yml` → `generate_podcast_btb.py` puis
 `generate_qa_fiches_btb.py`) et **lit ce qu'il a produit** (`pages/podcast-btb/questions/<slug>/_qa_registry.json`)
-pour alimenter le dashboard. Les fiches sont publiées sur `https://listenly.fr/podcast-btb/`.
+pour alimenter le dashboard. Les fiches sont publiées sur `https://listenly.org/podcast-btb/`.
 
 Sources traitées : podcast (RSS), vidéo et webinar (YouTube, Vimeo, .mp4 — yt-dlp + transcription du moteur),
 article et site web (texte de la page, rendu JavaScript si besoin), document (PDF). Les sources non-podcast passent

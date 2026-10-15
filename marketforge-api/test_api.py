@@ -13,7 +13,7 @@ RSS = """<?xml version="1.0"?><rss version="2.0"><channel><title>Le Podcast de l
 REGISTRY = {
     "pending_qa": [{"q": "Comment fixer ses prix ?", "r": "En partant des coûts."}],
     "published": [{"question": "Quel CRM choisir ?", "answer_snippet": "Un CRM simple.",
-                   "url": "https://listenly.fr/podcast-btb/questions/x/q.html",
+                   "url": "https://listenly.org/podcast-btb/questions/x/q.html",
                    "source_episode_title": "Ep 1", "added_date": "2026-09-25"}],
     "current_episode": {"title": "Ep 1"},
 }
@@ -55,7 +55,7 @@ class FakeGitHub:
             return SimpleNamespace(status_code=200, json=lambda: {"content": content})
         if path.endswith("gsc_pages.json"):
             content = base64.b64encode(json.dumps({"period_start": "2026-08-26", "period_end": "2026-09-22", "fetched_at": "x",
-                "pages": {"https://listenly.fr/podcast-btb/questions/x/q.html": {"clicks": 4, "impressions": 90, "position": 6.2,
+                "pages": {"https://listenly.org/podcast-btb/questions/x/q.html": {"clicks": 4, "impressions": 90, "position": 6.2,
                           "queries": [{"query": "meilleur crm pme", "clicks": 3, "impressions": 70, "position": 5.1}]}}}).encode()).decode()
             return SimpleNamespace(status_code=200, json=lambda: {"content": content})
         if path.endswith("-podcast.html"):
@@ -89,7 +89,7 @@ def test_flow(env):
     r = c.post("/api/onboarding/sources", json={"client_id": cid, "type": "podcast", "value": "https://feed/rss"})
     src = r.json()["sources"][0]
     assert src["slug"] == "le-podcast-de-l-immo-ete"
-    assert src["hub_url"] == "https://listenly.fr/podcast-btb/le-podcast-de-l-immo-ete-podcast.html"
+    assert src["hub_url"] == "https://listenly.org/podcast-btb/le-podcast-de-l-immo-ete-podcast.html"
     c.post("/api/onboarding/sources", json={"client_id": cid, "type": "podcast", "value": "https://feed/rss"})
     c.post("/api/onboarding/sources", json={"client_id": cid, "type": "website", "value": "https://client.fr"})
     assert c.post("/api/onboarding/sources", json={"client_id": cid, "type": "video"}).status_code == 422
@@ -119,7 +119,7 @@ def test_flow(env):
     assert d["status"] == "done"
     assert d["opportunities_found"] == 2
     assert d["resources_published"] == 2  # 1 fiche question + la fiche hub
-    assert d["hub_urls"] == ["https://listenly.fr/podcast-btb/le-podcast-de-l-immo-ete-podcast.html"]
+    assert d["hub_urls"] == ["https://listenly.org/podcast-btb/le-podcast-de-l-immo-ete-podcast.html"]
     ops = c.get(f"/api/opportunities/{cid}").json()["opportunities"]
     assert [o["published"] for o in ops] == [True, False]
 
@@ -275,7 +275,7 @@ def test_company_hub_with_sources(env):
     gh.registry = {
         "known_episode_guids": [], "current_episode": None,
         "published": [{"question": "Comment estimer un bien à Lyon ?", "answer_snippet": "Par comparaison.",
-                       "url": "https://listenly.fr/podcast-btb/questions/agence-exemple/q.html",
+                       "url": "https://listenly.org/podcast-btb/questions/agence-exemple/q.html",
                        "source_episode_title": "Estimer son bien", "source_episode_guid": guid("https://www.agence-exemple.fr/blog/estimer")}],
         "pending_qa": [{"q": "Quand vendre ?", "r": "Au printemps.", "source_kind": "article",
                         "source_url": "https://www.agence-exemple.fr/blog/estimer", "source_title": "Estimer son bien"}],
@@ -287,7 +287,7 @@ def test_company_hub_with_sources(env):
     assert by["video"]["status"] == "done" and by["video"]["empty"] is True       # extraite, 0 question
     assert by["document"]["status"] == "queued"                                   # au prochain run
     assert d["opportunities_found"] == 2 and d["resources_published"] == 2       # 1 fiche + le hub
-    assert d["hub_urls"] == ["https://listenly.fr/podcast-btb/agence-exemple-podcast.html"]
+    assert d["hub_urls"] == ["https://listenly.org/podcast-btb/agence-exemple-podcast.html"]
 
 
 def test_pause(env, monkeypatch):

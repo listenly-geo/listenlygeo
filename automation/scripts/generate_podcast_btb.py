@@ -241,7 +241,7 @@ def build_prompt(slug, fiche_url, today, raw_info, cover_image):
     ) if RSS_URL else ""
     return f"""Tu es un expert GEO (Generative Engine Optimization) spécialisé dans les podcasts B2B.
 
-Ta mission est de générer une FICHE PODCAST complète en HTML autonome pour Listenly.fr.
+Ta mission est de générer une FICHE PODCAST complète en HTML autonome pour Listenly.
 Cette fiche présente le PODCAST dans son ensemble (pas un épisode isolé), même style et
 logique GEO que les fiches épisode du Moteur N2 — seul le contenu change.
 
@@ -309,7 +309,7 @@ RÈGLE DE HIÉRARCHIE DE TITRES (accessibilité, obligatoire) : H1 (unique) → 
 RÈGLE DE COULEUR ET DE TON : la couleur d'accent (déjà gérée par les classes CSS) apparaît sur .eyebrow-category, .cta-listen, .lead-label, .key-facts-label, les puces ::before, le filet des .lead/.pull-quote/.article-body h2. Tout le texte de contenu (H1, H2, paragraphes, listes) est en Georgia serif — c'est le choix typographique unique et cohérent qui fait "vrai magazine business" plutôt que "landing page marketing". Aucun encadré gris, aucun badge/pill décoratif hors des 2 CTA et de la carte de fin — le reste du contenu est du texte nu, structuré par des filets fins et des labels colorés discrets, jamais des boîtes.
 
 ### SECTIONS (ordre exact — inspiré d'un article Forbes/HBR)
-0. SITE HEADER (avant le <main>, PAS dedans) : <header class="site-header"><a class="logo" href="https://listenly.fr/">Listenly</a><a class="login-link" href="https://listenly.fr/userAuth">{STRINGS['login_label']}</a></header> — texte EXACT, ne pas reformuler.
+0. SITE HEADER (avant le <main>, PAS dedans) : <header class="site-header"><a class="logo" href="https://listenly.org/">Listenly</a><a class="login-link" href="https://listenly.org/userAuth">{STRINGS['login_label']}</a></header> — texte EXACT, ne pas reformuler.
 1. EYEBROW CATEGORY : <p class="eyebrow-category">{STRINGS['eyebrow_prefix']} · [CATEGORIE]</p> (texte simple, pas de pill ; [CATEGORIE] reste dans la langue de rédaction choisie)
 2. H1 = [PODCAST_NAME] (titre serif classique, jamais une question)
 3. BYLINE ROW : "{STRINGS['byline_pattern']}" avec [HOST_NAME] entouré de <span class='name'>...</span> — respecte EXACTEMENT ce connecteur ("{STRINGS['byline_pattern']}"), c'est utilisé pour extraire les données automatiquement
@@ -333,21 +333,21 @@ RÈGLE DE COULEUR ET DE TON : la couleur d'accent (déjà gérée par les classe
 12b. INLINE CTA (classe .inline-cta, juste avant la FAQ, encore une formulation différente des deux précédentes) : phrase courte incitant à écouter → {CTA_URL}. Classe complète : class="inline-cta plausible-event-name=Clic+Lien+Texte" (obligatoire).
 13. FAQ "{STRINGS['faq_h2']}" (H2, PAS d'emoji dans le H2 — sobriété éditoriale) : 4 Q/R + JSON-LD FAQPage obligatoire. N'utilise JAMAIS la formulation "{STRINGS['faq_forbidden']}".
 14. EPISODE CARD bas de page : cover si {cover_image or "aucune"}, "{STRINGS['card_discover']} [PODCAST_NAME]", sous-titre [HOST_NAME] · [PODCAST_NAME], card-listen "{STRINGS['card_listen']}" → {CTA_URL} (UN SEUL bouton, plus de contact). Classe complète : class="card-listen plausible-event-name=Clic+Bouton+Bleu" (obligatoire).
-15. FOOTER : © [PODCAST_NAME] — [HOST_COMPANY] + lien "{STRINGS['footer_credit']}" → https://listenly.fr (dofollow, color #999, underline)
+15. FOOTER : © [PODCAST_NAME] — [HOST_COMPANY] + lien "{STRINGS['footer_credit']}" → https://listenly.org (dofollow, color #999, underline)
 
 RÈGLE CTA : ce podcast n'a plus qu'un seul objectif de conversion — ramener l'audience vers Listenly sur {CTA_URL} (comme les fiches question N2, qui pointent toujours vers Listenly). Les 3 liens texte (points 8b, 11, 12b) doivent utiliser 3 formulations différentes (pas de copier-coller de la même phrase), rester discrets (soulignés, pas des boutons), et TOUS pointer vers {CTA_URL}. Aucun lien de contact nulle part dans la fiche.
 
 RÈGLE LANGAGE : écris avec assurance et autorité (levier de citabilité IA le mieux établi avec les citations/statistiques selon la littérature GEO) — affirme les faits directement, évite les tournures évasives ("il semblerait", "on pourrait dire"). Reste factuel, mais formule avec assurance.
 
 ## JSON-LD OBLIGATOIRE (dans <head>)
-@graph : BlogPosting (headline=H1, author=[HOST_NAME]/[HOST_TITLE], publisher={{"@type":"Organization","name":"Listenly","url":"https://listenly.fr"}}, isPartOf={LISTENLY_URL}, speakable cssSelector [".lead",".key-facts"]), FAQPage (les 4 questions), Person ([HOST_NAME]/[HOST_TITLE]/worksFor [HOST_COMPANY]), PodcastSeries ([PODCAST_NAME]/{PODCAST_URL}, sameAs: ["{PODCAST_URL}", "{LISTENLY_URL}"]), BreadcrumbList (itemListElement : 1. Listenly (https://listenly.fr) 2. [CATEGORIE] (page catégorie correspondante) 3. [PODCAST_NAME] ({fiche_url})).
+@graph : BlogPosting (headline=H1, author=[HOST_NAME]/[HOST_TITLE], publisher={{"@type":"Organization","name":"Listenly","url":"https://listenly.org"}}, isPartOf={LISTENLY_URL}, speakable cssSelector [".lead",".key-facts"]), FAQPage (les 4 questions), Person ([HOST_NAME]/[HOST_TITLE]/worksFor [HOST_COMPANY]), PodcastSeries ([PODCAST_NAME]/{PODCAST_URL}, sameAs: ["{PODCAST_URL}", "{LISTENLY_URL}"]), BreadcrumbList (itemListElement : 1. Listenly (https://listenly.org) 2. [CATEGORIE] (page catégorie correspondante) 3. [PODCAST_NAME] ({fiche_url})).
 IMPORTANT publisher : toujours l'objet Organization complet ci-dessus (name+url), jamais juste la chaîne "Listenly" seule — c'est l'entité éditrice réutilisée sur 100% des fiches, sa richesse profite au site entier. Si un logo Listenly existe réellement (favicon, image de marque), tu peux l'ajouter en "logo":{{"@type":"ImageObject","url":"..."}}, mais UNIQUEMENT si tu connais son URL réelle — sinon omets ce champ plutôt que d'inventer une URL.
 IMPORTANT sameAs : sert à relier l'entité PodcastSeries à ses profils réels ailleurs sur le web (autorité d'entité pour les moteurs IA/Google). N'invente JAMAIS d'URL sameAs — utilise UNIQUEMENT {PODCAST_URL} et {LISTENLY_URL} tels que fournis, jamais un profil supposé ou reconstitué.
 
 ## BACKLINKS LISTENLY CACHÉS (obligatoires)
-Dans <head> : canonical={fiche_url} (PAS {LISTENLY_URL} — voir RÈGLE CRITIQUE plus haut), rel="publisher" href="https://listenly.fr", meta name="data-provider" content="Listenly".
+Dans <head> : canonical={fiche_url} (PAS {LISTENLY_URL} — voir RÈGLE CRITIQUE plus haut), rel="publisher" href="https://listenly.org", meta name="data-provider" content="Listenly".
 {rss_meta_instruction}
-Dans <body> fin : #semantic-index avec entity [PODCAST_NAME], entity [HOST_NAME], entity [HOST_COMPANY], concept [CATEGORIE], publisher Listenly.fr, isPartOf {LISTENLY_URL}.
+Dans <body> fin : #semantic-index avec entity [PODCAST_NAME], entity [HOST_NAME], entity [HOST_COMPANY], concept [CATEGORIE], publisher Listenly, isPartOf {LISTENLY_URL}.
 
 ## RÈGLES DE QUALITÉ ABSOLUES
 - Chaque phrase du .lead doit être citable seule par une IA
@@ -641,9 +641,9 @@ def add_breadcrumb_jsonld(html, podcast_name, categorie, cat_slug, fiche_url):
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         "itemListElement": [
-            {"@type": "ListItem", "position": 1, "name": "Listenly", "item": "https://listenly.fr/"},
-            {"@type": "ListItem", "position": 2, "name": "Podcasts B2B", "item": "https://listenly.fr/podcast-btb/index.html"},
-            {"@type": "ListItem", "position": 3, "name": categorie, "item": f"https://listenly.fr/podcast-btb/categorie/{cat_slug}.html"},
+            {"@type": "ListItem", "position": 1, "name": "Listenly", "item": "https://listenly.org/"},
+            {"@type": "ListItem", "position": 2, "name": "Podcasts B2B", "item": "https://listenly.org/podcast-btb/index.html"},
+            {"@type": "ListItem", "position": 3, "name": categorie, "item": f"https://listenly.org/podcast-btb/categorie/{cat_slug}.html"},
             {"@type": "ListItem", "position": 4, "name": podcast_name, "item": fiche_url},
         ],
     }
@@ -725,7 +725,7 @@ def render_category_page(cat_slug, categorie, items):
         f"Chaque fiche détaille l'animateur, l'entreprise éditrice et les thématiques abordées."
     )
     description = f"Annuaire des podcasts B2B référencés par Listenly dans la catégorie {categorie}, avec leurs thématiques clés et intervenants."
-    canonical = f"https://listenly.fr/podcast-btb/categorie/{cat_slug}.html"
+    canonical = f"https://listenly.org/podcast-btb/categorie/{cat_slug}.html"
 
     return f"""<!DOCTYPE html>
 <html lang="fr">
@@ -744,7 +744,7 @@ def render_category_page(cat_slug, categorie, items):
   "@type": "CollectionPage",
   "name": "{title}",
   "url": "{canonical}",
-  "isPartOf": {{"@type": "WebSite", "name": "Listenly", "url": "https://listenly.fr"}},
+  "isPartOf": {{"@type": "WebSite", "name": "Listenly", "url": "https://listenly.org"}},
   "mainEntity": {{
     "@type": "ItemList",
     "itemListElement": {item_list_json}
@@ -775,11 +775,11 @@ def render_index_page(by_category, records):
 
     title = "Podcasts B2B référencés par Listenly"
     description = "Annuaire GEO des podcasts B2B référencés par Listenly, classés par catégorie professionnelle."
-    canonical = "https://listenly.fr/podcast-btb/index.html"
+    canonical = "https://listenly.org/podcast-btb/index.html"
 
     item_list_json = json.dumps([
         {"@type": "ListItem", "position": i + 1,
-         "url": f"https://listenly.fr/podcast-btb/categorie/{slug}.html", "name": data["label"]}
+         "url": f"https://listenly.org/podcast-btb/categorie/{slug}.html", "name": data["label"]}
         for i, (slug, data) in enumerate(sorted(by_category.items(), key=lambda kv: kv[1]["label"]))
     ], ensure_ascii=False)
 
@@ -805,7 +805,7 @@ def render_index_page(by_category, records):
   "@type": "CollectionPage",
   "name": "{title}",
   "url": "{canonical}",
-  "isPartOf": {{"@type": "WebSite", "name": "Listenly", "url": "https://listenly.fr", "potentialAction": {{"@type": "SearchAction", "target": "{canonical}?q={{search_term_string}}", "query-input": "required name=search_term_string"}}}},
+  "isPartOf": {{"@type": "WebSite", "name": "Listenly", "url": "https://listenly.org", "potentialAction": {{"@type": "SearchAction", "target": "{canonical}?q={{search_term_string}}", "query-input": "required name=search_term_string"}}}},
   "mainEntity": {{
     "@type": "ItemList",
     "itemListElement": {item_list_json}
@@ -1001,7 +1001,7 @@ def build_sitemap():
             if protected_q is not None and rel_path.startswith("questions/") and fname != "index.html" \
                     and rel_path not in protected_q:
                 continue  # fiche question non indexee / sans impression : hors sitemap (les hubs d'abord)
-            url = f"https://listenly.fr/podcast-btb/{rel_path}"
+            url = f"https://listenly.org/podcast-btb/{rel_path}"
 
             slug_from_fname = fname[:-len("-podcast.html")] if fname.endswith("-podcast.html") else None
             if slug_from_fname and slug_from_fname in podcast_dates and podcast_dates[slug_from_fname]:
@@ -1042,7 +1042,7 @@ def build_sitemap_quality(urls):
     MIN_SIZE_BYTES = 8 * 1024
     quality_urls = []
     for url, mtime, priority in urls:
-        rel_path = url.replace("https://listenly.fr/podcast-btb/", "")
+        rel_path = url.replace("https://listenly.org/podcast-btb/", "")
         full_path = os.path.join(PAGES_DIR, rel_path)
         try:
             if os.path.getsize(full_path) < MIN_SIZE_BYTES:
@@ -1095,7 +1095,7 @@ def build_split_sitemaps(quality_urls):
     excluded = _htaccess_noindex_files()
     groups = {"hubs": [], "questions": [], "autres": []}
     for url, mtime, priority in quality_urls:
-        rel_path = url.replace("https://listenly.fr/podcast-btb/", "")
+        rel_path = url.replace("https://listenly.org/podcast-btb/", "")
         fname = rel_path.rsplit("/", 1)[-1]
         if rel_path.startswith("categorie/") and fname in excluded:
             continue
@@ -1127,12 +1127,12 @@ def build_split_sitemaps(quality_urls):
             f.write(xml)
         last = max((m for _, m, _ in entries_list), default=today)
         index_entries.append(
-            f'  <sitemap>\n    <loc>https://listenly.fr/podcast-btb/sitemap-{name}.xml</loc>\n    <lastmod>{last}</lastmod>\n  </sitemap>'
+            f'  <sitemap>\n    <loc>https://listenly.org/podcast-btb/sitemap-{name}.xml</loc>\n    <lastmod>{last}</lastmod>\n  </sitemap>'
         )
     # 11/10/2026 : sitemap des pages moment (ecrit par generate_moments_sitemap.py, plafonne par jour)
     if os.path.exists(f"{PAGES_DIR}/sitemap-moments.xml"):
         index_entries.append(
-            f'  <sitemap>\n    <loc>https://listenly.fr/podcast-btb/sitemap-moments.xml</loc>\n    <lastmod>{today}</lastmod>\n  </sitemap>'
+            f'  <sitemap>\n    <loc>https://listenly.org/podcast-btb/sitemap-moments.xml</loc>\n    <lastmod>{today}</lastmod>\n  </sitemap>'
         )
     index_xml = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1175,11 +1175,11 @@ def build_llms_txt():
     lines.append("> Annuaire de podcasts B2B francophones référencés par Listenly, organisé par catégorie professionnelle. Chaque podcast dispose d'une fiche de présentation et, pour certains, de fiches par épisode. Contenu optimisé pour la citation par les moteurs IA (ChatGPT, Gemini, Claude, Perplexity).")
     lines.append("")
     lines.append("## Index")
-    lines.append("- [Tous les podcasts par catégorie](https://listenly.fr/podcast-btb/index.html)")
+    lines.append("- [Tous les podcasts par catégorie](https://listenly.org/podcast-btb/index.html)")
     lines.append("")
     lines.append("## Catégories")
     for cslug, data in sorted(by_category.items(), key=lambda kv: kv[1]["label"]):
-        lines.append(f"- [{data['label']}](https://listenly.fr/podcast-btb/categorie/{cslug}.html): {len(data['items'])} podcast(s)")
+        lines.append(f"- [{data['label']}](https://listenly.org/podcast-btb/categorie/{cslug}.html): {len(data['items'])} podcast(s)")
     lines.append("")
     lines.append("## Podcasts référencés")
     for r in sorted(records, key=lambda x: x["podcast_name"]):
@@ -1189,7 +1189,7 @@ def build_llms_txt():
         eps = episodes_by_podcast.get(r["slug"])
         if eps:
             for e in sorted(eps, key=lambda x: x.get("pubdate", ""), reverse=True):
-                ep_url = e.get("url") or f"https://listenly.fr/podcast-btb/episodes/{r['slug']}/{e.get('slug','')}.html"
+                ep_url = e.get("url") or f"https://listenly.org/podcast-btb/episodes/{r['slug']}/{e.get('slug','')}.html"
                 lines.append(f"  - [{e.get('title','(sans titre)')}]({ep_url})")
 
     total_episodes = sum(len(v) for v in episodes_by_podcast.values())
@@ -1374,7 +1374,7 @@ def build_activity_page():
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Activité Listenly — {total_questions} questions, {total_podcasts} podcasts référencés</title>
 <meta name="description" content="Activité en direct de Listenly : {total_questions} questions expertes indexées depuis {total_podcasts} podcasts B2B, mises à jour en continu.">
-<link rel="canonical" href="https://listenly.fr/podcast-btb/activite.html">
+<link rel="canonical" href="https://listenly.org/podcast-btb/activite.html">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{{
@@ -1594,7 +1594,7 @@ def build_dashboard():
     for r in records:
         lu = r.get("listenly_url", "")
         pu = r.get("podcast_url", "")
-        if lu and "listenly.fr" not in lu:
+        if lu and "listenly.org" not in lu:
             suspicious.append((r["slug"], f"listenly_url suspect : {lu[:60]}"))
         if pu and ("linkedin.com" in pu or "postimg" in pu):
             suspicious.append((r["slug"], f"podcast_url suspect : {pu[:60]}"))
@@ -1624,13 +1624,13 @@ def build_dashboard():
         stale = ep["last"] is not None and (today - ep["last"]).days > 14
         stale_badge = ' <span class="warn">+14j sans épisode</span>' if stale else ""
         cta = r.get("episode_cta_target", "listenly")
-        ep_index_url = f"https://listenly.fr/podcast-btb/episodes/{slug}/index.html"
+        ep_index_url = f"https://listenly.org/podcast-btb/episodes/{slug}/index.html"
         ep_link = f'<a href="{ep_index_url}" target="_blank" style="font-size:11px">Voir les épisodes →</a>' if ep["count"] else '<span style="color:#bbb;font-size:11px">—</span>'
 
         qa = qa_by_podcast.get(slug, {"count": 0, "last": None, "stock": 0})
         qa_last_label = format_date_fr(qa["last"]) if qa["last"] else "—"
         qa_stock_badge = f' <span class="warn" style="background:#eef2ff;color:#4a6cf7">{qa["stock"]} en stock</span>' if qa["stock"] else ""
-        qa_index_url = f"https://listenly.fr/podcast-btb/questions/{slug}/index.html"
+        qa_index_url = f"https://listenly.org/podcast-btb/questions/{slug}/index.html"
         qa_link = f'<a href="{qa_index_url}" target="_blank" style="font-size:11px">Voir les fiches requête →</a>' if qa["count"] else '<span style="color:#bbb;font-size:11px">—</span>'
 
         rows.append(f"""
@@ -1749,7 +1749,7 @@ def build_dashboard():
             )
             if not is_qa_scope:
                 continue
-            url = f"https://listenly.fr/podcast-btb/{rel_path}"
+            url = f"https://listenly.org/podcast-btb/{rel_path}"
             if url not in sitemap_urls:
                 orphan_pages.append(rel_path)
     orphan_rows = "".join(f"<li>{p}</li>" for p in orphan_pages[:20]) or "<li>Aucune page orpheline détectée ✓</li>"
@@ -2110,7 +2110,7 @@ ul.clean li{{margin-bottom:6px}}
 <div class="fiche-hist-scroll">
 {hist_rows_html}
 </div>
-<div style="margin-top:10px;text-align:right;"><a href="https://listenly.fr/podcast-btb/activite.html" target="_blank" style="font-size:12px;">Voir la page activité complète →</a></div>
+<div style="margin-top:10px;text-align:right;"><a href="https://listenly.org/podcast-btb/activite.html" target="_blank" style="font-size:12px;">Voir la page activité complète →</a></div>
 </div>
 
 <h2>Anomalies CTA / liens</h2>
@@ -2255,7 +2255,7 @@ def main():
     podcast_name_guess = podcast_name_match.group(1).strip() if podcast_name_match else "podcast"
     slug = SLUG_OVERRIDE or slugify(podcast_name_guess)
     out_file = f"{PAGES_DIR}/{slug}-podcast.html"
-    fiche_url = f"https://listenly.fr/podcast-btb/{slug}-podcast.html"
+    fiche_url = f"https://listenly.org/podcast-btb/{slug}-podcast.html"
     log(f"Slug utilisé : {slug}")
 
     if os.path.exists(out_file):

@@ -124,7 +124,7 @@ def extract_contact_email(xml_bytes):
 def fetch_contact_email(rss_url, timeout=20):
     try:
         req = urllib.request.Request(rss_url, headers={
-            "User-Agent": "Mozilla/5.0 (compatible; ListenlyGEO/1.0; +https://listenly.fr)"})
+            "User-Agent": "Mozilla/5.0 (compatible; ListenlyGEO/1.0; +https://listenly.org)"})
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             return extract_contact_email(resp.read())
     except Exception:
@@ -135,7 +135,7 @@ def fetch_channel_info(rss_url, timeout=20):
     """Email + description publique du podcast (channel description / itunes:summary), texte brut."""
     try:
         req = urllib.request.Request(rss_url, headers={
-            "User-Agent": "Mozilla/5.0 (compatible; ListenlyGEO/1.0; +https://listenly.fr)"})
+            "User-Agent": "Mozilla/5.0 (compatible; ListenlyGEO/1.0; +https://listenly.org)"})
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             xml_bytes = resp.read()
     except Exception:

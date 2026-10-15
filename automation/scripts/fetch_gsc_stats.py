@@ -11,7 +11,7 @@ PREREQUIS (a faire une seule fois, cote Google Cloud + Search Console) :
      projet (nouveau ou existant).
   2. Creer un compte de service (Service Account), generer une cle JSON.
   3. Dans Google Search Console (search.google.com/search-console) sur la propriete
-     listenly.fr, aller dans Parametres > Utilisateurs et autorisations > Ajouter,
+     listenly.org, aller dans Parametres > Utilisateurs et autorisations > Ajouter,
      et ajouter l'email du compte de service (ex: xxx@projet.iam.gserviceaccount.com)
      avec le role "Complet" ou "Restreint" (lecture seule suffit).
   4. Ajouter le CONTENU COMPLET du fichier JSON de la cle comme secret GitHub, nomme
@@ -20,7 +20,7 @@ PREREQUIS (a faire une seule fois, cote Google Cloud + Search Console) :
 
 Variables d'environnement :
   GSC_SERVICE_ACCOUNT_JSON — obligatoire, contenu JSON complet de la cle de service
-  GSC_SITE_URL              — propriete Search Console (defaut: "https://listenly.fr/")
+  GSC_SITE_URL              — propriete Search Console (defaut: "https://listenly.org/")
   GSC_PATH_FILTER           — filtre de page (defaut: "/podcast-btb/")
   GSC_DAYS                  — nombre de jours a recuperer (defaut: 30)
 

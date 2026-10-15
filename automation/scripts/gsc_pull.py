@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Recupere les chiffres de la Search Console (listenly.fr) via l'API et les ecrit dans data/gsc/.
+"""Recupere les chiffres de la Search Console (listenly.fr puis listenly.org) via l'API et les ecrit dans data/gsc/.
 Secret requis : GSC_SERVICE_ACCOUNT_JSON (cle du compte de service). Propriete : GSC_SITE (defaut sc-domain:listenly.fr).
 Sorties : data/gsc/pages.json (pages x clics/impressions/ctr/position), data/gsc/requetes.json (requetes),
 data/gsc/pages_requetes.json (requete x page, pour les pages de moments), data/gsc/resume.json (totaux, date du jour).
@@ -83,7 +83,7 @@ def inspect_moments(tok):
         if time.time() - t0 > 420:   # budget de 7 min : on garde le resultat partiel, la suite est reprise demain
             break
         slug, mid = key.split("/", 1)
-        page = f"https://listenly.fr/podcast-btb/m/{slug}/{mid}"
+        page = f"https://{SITE.replace('sc-domain:', '')}/podcast-btb/m/{slug}/{mid}"   # meme hote que la propriete Search Console
         try:
             r = requests.post(url, headers={"Authorization": f"Bearer {tok}"},
                               json={"inspectionUrl": page, "siteUrl": SITE}, timeout=20)

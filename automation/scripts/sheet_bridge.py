@@ -185,7 +185,7 @@ def push():
     onboard = load(ONBOARD_FILE, {"onboarded": [], "failed_issues": []})
     today = datetime.date.today().isoformat()
     journal = queue.get("journal", {}).get(today, {"episodes": 0, "minutes": 0, "moments": 0})
-    try:   # preuve du mail : une vraie question + son moment exact (lien https://listenly.fr/?p=<slug>&m=<id>)
+    try:   # preuve du mail : une vraie question + son moment exact (lien https://listenly.org/?p=<slug>&m=<id>)
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         import moments_index
     except Exception as e:   # jamais bloquant : sans preuve, le mail part avec le lien general

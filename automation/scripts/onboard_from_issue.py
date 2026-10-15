@@ -24,8 +24,8 @@ from rss_contact import fetch_channel_info  # noqa: E402
 REPO = os.environ.get("GITHUB_REPOSITORY", "listenly-geo/listenlygeo")
 GH_TOKEN = os.environ.get("GH_TOKEN", "").strip()
 SECRET = os.environ.get("KNOWLEDGE_IMPORT_SECRET", "").strip()
-IMPORT_URL = os.environ.get("SHOW_IMPORT_URL", "https://listenly.fr/api/podcast-show-import.php")
-RSS_READER_URL = os.environ.get("RSS_READER_URL", "https://listenly.fr/api/rss-reader-register.php")
+IMPORT_URL = os.environ.get("SHOW_IMPORT_URL", "https://listenly.org/api/podcast-show-import.php")
+RSS_READER_URL = os.environ.get("RSS_READER_URL", "https://listenly.org/api/rss-reader-register.php")
 MODE = (os.environ.get("SHOW_IMPORT_MODE") or "insert").strip()
 MAX_ONBOARD = int(os.environ.get("MAX_ONBOARD") or "10")
 REQUIRE_EMAIL = os.environ.get("ONBOARD_REQUIRE_EMAIL", "1") == "1"   # sans email = inutile pour la prospection

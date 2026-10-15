@@ -9,14 +9,14 @@
   <meta name="author" content="a16z crypto team">
   <meta property="og:title" content="Why SNARKs Need Interactive Proofs and the SumCheck Protocol">
   <meta property="og:description" content="Modern SNARKs combine interactive proofs with cryptographic commitments, using the SumCheck protocol as their core. This design directly addresses prover speed bottlenecks.">
-  <meta property="og:url" content="https://listenly.fr/podcast-btb/questions/a16z-crypto-show/how-do-modern-snarks-relate-to-interactive-proofs-and-why-is-the-sumch.html">
+  <meta property="og:url" content="https://listenly.org/podcast-btb/questions/a16z-crypto-show/how-do-modern-snarks-relate-to-interactive-proofs-and-why-is-the-sumch.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Listenly">
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:title" content="Why SNARKs Need Interactive Proofs and the SumCheck Protocol">
   <meta property="twitter:description" content="Modern SNARKs combine interactive proofs with cryptographic commitments, using the SumCheck protocol as their core. This design directly addresses prover speed bottlenecks.">
-  <link rel="canonical" href="https://listenly.fr/podcast-btb/questions/a16z-crypto-show/how-do-modern-snarks-relate-to-interactive-proofs-and-why-is-the-sumch.html">
-  <link rel="publisher" href="https://listenly.fr">
+  <link rel="canonical" href="https://listenly.org/podcast-btb/questions/a16z-crypto-show/how-do-modern-snarks-relate-to-interactive-proofs-and-why-is-the-sumch.html">
+  <link rel="publisher" href="https://listenly.org">
   <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   background: #ffffff; color: #1a1a1a; line-height: 1.75; font-size: 17px; }
@@ -112,12 +112,12 @@ footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; fon
         "publisher": {
           "@type": "Organization",
           "name": "Listenly",
-          "url": "https://listenly.fr"
+          "url": "https://listenly.org"
         },
         "isPartOf": {
           "@type": "PodcastSeries",
           "name": "a16z crypto show",
-          "url": "https://listenly.fr/podcast/show/a16z-crypto-show"
+          "url": "https://listenly.org/podcast/show/a16z-crypto-show"
         },
         "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/9b/9a/e8/9b9ae8bb-739b-e2a1-3e53-2ff60589f8d4/mza_3192380371801794798.jpg/600x600bb.jpg",
         "speakable": {
@@ -135,19 +135,19 @@ footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; fon
             "@type": "ListItem",
             "position": 1,
             "name": "Listenly",
-            "item": "https://listenly.fr"
+            "item": "https://listenly.org"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "a16z crypto show",
-            "item": "https://listenly.fr/podcast-btb/a16z-crypto-show-podcast.html"
+            "item": "https://listenly.org/podcast-btb/a16z-crypto-show-podcast.html"
           },
           {
             "@type": "ListItem",
             "position": 3,
             "name": "How do modern SNARKs relate to interactive proofs and why is the SumCheck protocol central to current SNARK design?",
-            "item": "https://listenly.fr/podcast-btb/questions/a16z-crypto-show/how-do-modern-snarks-relate-to-interactive-proofs-and-why-is-the-sumch.html"
+            "item": "https://listenly.org/podcast-btb/questions/a16z-crypto-show/how-do-modern-snarks-relate-to-interactive-proofs-and-why-is-the-sumch.html"
           }
         ]
       },
@@ -196,7 +196,7 @@ footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; fon
           <p class="source-line">Answer extracted from the a16z crypto show podcast — listen to the full episode below.</p>
         </div>
       </div>
-      <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/a16z-crypto-show">🎧 Listen to the episode on Listenly</a>
+      <a class="top-cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.org/podcast/show/a16z-crypto-show">🎧 Listen to the episode on Listenly</a>
       <h1>How do modern SNARKs relate to interactive proofs and why is the SumCheck protocol central to current SNARK design?</h1>
       <p class="article-meta">
         <span>September 25, 2026</span>
@@ -204,13 +204,13 @@ footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; fon
       </p>
     </header>
 
-    <p class="breadcrumb"><a href="https://listenly.fr/podcast-btb/a16z-crypto-show-podcast.html">← See the a16z crypto show fiche</a></p>
+    <p class="breadcrumb"><a href="https://listenly.org/podcast-btb/a16z-crypto-show-podcast.html">← See the a16z crypto show fiche</a></p>
 
     <p class="lead">Modern SNARKs are built by combining interactive proofs with cryptographic commitment schemes, with the <strong>SumCheck protocol serving as the core subroutine</strong> in widely deployed systems like the GKR protocol. Interactive proofs themselves form the theoretical half of a SNARK—the second half comes from binding those proofs to cryptographic commitments. Prover speed remains the key bottleneck preventing widespread adoption, and SNARKs built around the SumCheck protocol offer the fastest prover performance available today.</p>
 
     <h2>From theory to practical verification</h2>
 
-    <p>The relationship between interactive proofs and SNARKs represents a direct translation of theoretical computer science into production cryptography. <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/a16z-crypto-show">As explained in the a16z crypto show episode</a>, interactive proofs emerged from groundbreaking research in the 1980s and early 1990s as a way to verify mathematical claims through a back-and-forth exchange between a prover and verifier, using randomness to achieve certainty with logarithmic communication.</p>
+    <p>The relationship between interactive proofs and SNARKs represents a direct translation of theoretical computer science into production cryptography. <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.org/podcast/show/a16z-crypto-show">As explained in the a16z crypto show episode</a>, interactive proofs emerged from groundbreaking research in the 1980s and early 1990s as a way to verify mathematical claims through a back-and-forth exchange between a prover and verifier, using randomness to achieve certainty with logarithmic communication.</p>
 
     <p>What makes this connection crucial is that <strong>the SumCheck protocol appeared immediately</strong> in the earliest major interactive proof work—the LFKN paper—and has remained the most efficient tool for this task ever since. The protocol reduces verification of a sum over a potentially exponential number of variables down to a manageable series of rounds.</p>
 
@@ -218,20 +218,20 @@ footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; fon
 
     <p>The 2008 GKR protocol crystallized the relationship between interactive proofs and practical verification systems by using the <strong>SumCheck protocol as its foundational building block</strong>. GKR showed how to construct interactive proofs for circuit satisfiability that are efficient enough to matter in real systems.</p>
 
-    <p>When cryptographic commitments are layered on top of GKR's interactive proof structure, the result is a SNARK: a system where a prover can convince a verifier of a computation's correctness without the verifier needing to repeat that computation. As discussed in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/a16z-crypto-show">this podcast episode</a>, this architecture directly enables zero-knowledge proofs and verifiable computation across blockchain systems and cloud computing applications.</p>
+    <p>When cryptographic commitments are layered on top of GKR's interactive proof structure, the result is a SNARK: a system where a prover can convince a verifier of a computation's correctness without the verifier needing to repeat that computation. As discussed in <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.org/podcast/show/a16z-crypto-show">this podcast episode</a>, this architecture directly enables zero-knowledge proofs and verifiable computation across blockchain systems and cloud computing applications.</p>
 
     <h2>Why prover speed defines the frontier</h2>
 
     <p>The practical adoption of SNARKs hinges on a single engineering constraint: <strong>the prover must run faster than the original computation it's proving</strong>. If generating a proof takes longer than running the computation itself, SNARKs become theoretically interesting but practically useless.</p>
 
-    <p>SNARKs that build on the SumCheck protocol achieve the fastest prover times known to researchers today. This performance advantage explains why systems like <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/a16z-crypto-show">Lasso and Jolt, discussed in detail in the full episode</a>, are reshaping zero-knowledge virtual machine (ZKVM) design. These systems recognize that the SumCheck-based architecture, despite its theoretical elegance, wins on practical metrics that matter.</p>
+    <p>SNARKs that build on the SumCheck protocol achieve the fastest prover times known to researchers today. This performance advantage explains why systems like <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.org/podcast/show/a16z-crypto-show">Lasso and Jolt, discussed in detail in the full episode</a>, are reshaping zero-knowledge virtual machine (ZKVM) design. These systems recognize that the SumCheck-based architecture, despite its theoretical elegance, wins on practical metrics that matter.</p>
 
     <blockquote class="citation">
       <p>"If you have some kind of theoretical inclination, you always find really fascinating theoretical questions that come up."</p>
       <figcaption><strong>Noam Nisan</strong> — Principal Researcher at Starkware and Gödel Prize–winning computer scientist at Hebrew University of Jerusalem. Nisan's early work on algebraic methods for interactive proof systems established the theoretical foundations on which modern SNARKs and verifiable computation are built. He co-founded the field of algorithmic game theory and has made foundational contributions to computational complexity, pseudorandom generators, and Fourier analytic approaches to PAC learning.</figcaption>
     </blockquote>
 
-    <p>Beyond the mechanics of SumCheck itself, <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.fr/podcast/show/a16z-crypto-show">the episode explores how interactive proof theory evolved from pure mathematics into a foundational pillar of blockchain infrastructure</a>, revealing how seemingly abstract research questions in complexity theory turned out to address the exact challenges digital trust systems face today.</p>
+    <p>Beyond the mechanics of SumCheck itself, <a class="inline-cta plausible-event-name=Clic+Lien+Texte" href="https://listenly.org/podcast/show/a16z-crypto-show">the episode explores how interactive proof theory evolved from pure mathematics into a foundational pillar of blockchain infrastructure</a>, revealing how seemingly abstract research questions in complexity theory turned out to address the exact challenges digital trust systems face today.</p>
 
     <div class="points-cles">
       <h3>Key takeaways</h3>
@@ -247,21 +247,21 @@ footer { border-top: 1px solid #f0f0f0; padding-top: 24px; margin-top: 44px; fon
 
     <div class="faq">
       <div class="faq-item">
-        <h3><a href="https://listenly.fr/podcast-btb/questions/a16z-crypto-show/what-role-did-the-lfkn-paper-play-in-establishing-interactive-proof-sy.html">What role did the LFKN paper play in establishing interactive proof systems for modern verification?</a></h3>
+        <h3><a href="https://listenly.org/podcast-btb/questions/a16z-crypto-show/what-role-did-the-lfkn-paper-play-in-establishing-interactive-proof-sy.html">What role did the LFKN paper play in establishing interactive proof systems for modern verification?</a></h3>
         <p>The LFKN paper from 1990–1992 established an efficient interactive proof for SharpSAT using the SumCheck protocol and demonstrated remarkable foresight by identifying exactly the right protocol that remains central to SNARK design today.</p>
       </div>
       <div class="faq-item">
-        <h3><a href="https://listenly.fr/podcast-btb/questions/a16z-crypto-show/how-does-the-sumcheck-protocol-enable-verification-of-computation-acro.html">How does the SumCheck protocol enable verification of computation across massive datasets and cloud computing?</a></h3>
+        <h3><a href="https://listenly.org/podcast-btb/questions/a16z-crypto-show/how-does-the-sumcheck-protocol-enable-verification-of-computation-acro.html">How does the SumCheck protocol enable verification of computation across massive datasets and cloud computing?</a></h3>
         <p>The SumCheck protocol allows a verifier to confirm a computation result without redoing the entire computation themselves, making it ideal for cloud computing and large-scale datasets by reducing verification burden to a manageable size.</p>
       </div>
       <div class="faq-item">
-        <h3><a href="https://listenly.fr/podcast-btb/questions/a16z-crypto-show/what-is-an-interactive-proof-and-why-did-it-represent-a-fundamental-ex.html">What is an interactive proof and why did it represent a fundamental extension of mathematical proof?</a></h3>
+        <h3><a href="https://listenly.org/podcast-btb/questions/a16z-crypto-show/what-is-an-interactive-proof-and-why-did-it-represent-a-fundamental-ex.html">What is an interactive proof and why did it represent a fundamental extension of mathematical proof?</a></h3>
         <p>An interactive proof is a proof that uses both interaction and randomness, unlike traditional mathematical proofs that are static and deterministic. This fundamental extension, pioneered in the 1980s, enabled new forms of verification for computations far more efficient than classical proofs.</p>
       </div>
     </div>
 
     <div class="cta-block">
-      <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.fr/podcast/show/a16z-crypto-show">Listen to the episode on Listenly</a>
+      <a class="cta-btn plausible-event-name=Clic+Bouton+Bleu" href="https://listenly.org/podcast/show/a16z-crypto-show">Listen to the episode on Listenly</a>
     </div>
 
     <footer>Written by the Listenly editorial team</footer>

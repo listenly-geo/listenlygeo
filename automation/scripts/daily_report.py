@@ -128,7 +128,7 @@ def main(out):
                + kpis([("Fiches hub", total, "au total"), ("Aujourd'hui", f"+{len(new)}", "nouvelles"), ("Rythme", round(week / 7), "fiches / jour")])
                + '<table width="100%" cellpadding="0" cellspacing="0" style="margin-top:12px">'
                + line("Hubs visibles dans Google", len([1 for i, _ in hubs if i])) + line("Impressions des hubs (Search Console)", hub_imp)
-               + line("Backlinks vers listenly.fr", _bl) + line("Visiteurs venant des IA (7 jours)", _ai_txt)
+               + line("Backlinks vers listenly.org", _bl) + line("Visiteurs venant des IA (7 jours)", _ai_txt)
                + line("Anciennes fiches regroupées dans les hubs", regroup)
                + line("Fiches question vérifiées / indexées (protégées)", f"{inspected} / {indexed}") + "</table>")
         + card(h2("🔗 10 fiches N1 à envoyer à Google")
@@ -146,7 +146,7 @@ def main(out):
                + line("Adresses écartées (anti-rebond)", st.get("Email invalide", 0) + st.get("Email risque", 0))
                + (line("En conversation", e(", ".join(rep_all))) if rep_all else "") + "</table>")
         + '<div style="text-align:center;margin:22px 0 8px">'
-          '<a href="https://listenly.fr/podcast-btb/moteur.html" style="display:inline-block;background:#0071e3;color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:11px 20px;border-radius:999px;margin:4px">Tableau de bord</a> '
+          '<a href="https://listenly.org/podcast-btb/moteur.html" style="display:inline-block;background:#0071e3;color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:11px 20px;border-radius:999px;margin:4px">Tableau de bord</a> '
           '<a href="https://docs.google.com/spreadsheets/d/1b53cWGiz6iOuakpotw_Ck4bQBeIMJa3hfq5gP2mFiT4/edit" style="display:inline-block;background:#1d1d1f;color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:11px 20px;border-radius:999px;margin:4px">Google Sheet</a></div>'
         '</div></div>')
     with open(out, "w", encoding="utf-8") as f:

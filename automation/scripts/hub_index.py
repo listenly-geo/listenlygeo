@@ -115,9 +115,9 @@ def _fmt_time(seconds):
 
 def listen_url(podcast):
     url = podcast.get("listenly_url") or ""
-    if "listenly.fr/podcast/show" in url:
+    if "listenly.org/podcast/show" in url:
         return url
-    return podcast.get("podcast_url") or url or "https://listenly.fr"
+    return podcast.get("podcast_url") or url or "https://listenly.org"
 
 
 ENGINE_QUEUE = "automation/marketforge_engine/queue.json"
@@ -216,7 +216,7 @@ def merge_extracted(slug, published):
 def consolidated_urls():
     try:
         with open(f"{PAGES_DIR}/data/consolidated_questions.json", encoding="utf-8") as f:
-            return {"https://listenly.fr/podcast-btb/" + x for x in json.load(f).get("paths", [])}
+            return {"https://listenly.org/podcast-btb/" + x for x in json.load(f).get("paths", [])}
     except (OSError, ValueError):
         return set()
 
@@ -337,7 +337,7 @@ def apple_enabled(n1_path):
 
 def visible_entries(published):
     excluded = load_excluded_urls()
-    return [p for p in published if p.get("url", "").replace("https://listenly.fr", "") not in excluded]
+    return [p for p in published if p.get("url", "").replace("https://listenly.org", "") not in excluded]
 
 
 def render_hub_index(podcast, published, apple=False):
@@ -350,7 +350,7 @@ def render_hub_index(podcast, published, apple=False):
     def _expand(p):
         if p.get("url") not in merged:
             return p
-        rel_path = p["url"].replace("https://listenly.fr/podcast-btb/", "")
+        rel_path = p["url"].replace("https://listenly.org/podcast-btb/", "")
         nonlocal cache_dirty
         if rel_path not in full_cache:
             paras = extract_full_answer_paragraphs(rel_path, p.get("question", ""))

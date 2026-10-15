@@ -37,7 +37,7 @@ DATA_DIR.mkdir(parents=True, exist_ok=True)
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "")
 GITHUB_REPO = os.getenv("GITHUB_REPO", "listenly-geo/listenlygeo")
 WORKFLOW_FILE = os.getenv("WORKFLOW_FILE", "marketforge-hub.yml")
-PUBLIC_BASE = "https://listenly.fr/podcast-btb"
+PUBLIC_BASE = "https://listenly.org/podcast-btb"
 
 # Garde-fous de coût (chaque run = transcription Whisper + appels Claude côté moteur).
 FICHES_PER_RUN = int(os.getenv("FICHES_PER_RUN", "3"))

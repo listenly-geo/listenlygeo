@@ -25,7 +25,7 @@ jobs:
           PODCAST_SLUG: 'deep-media'
           SPOTIFY_SHOW_URL: 'https://open.spotify.com/show/5lcyBzIrQMzXMEfBHvVBPt'
           PODCAST_IMAGE_URL: 'https://i.goopics.net/4wltpq.jpg'
-          PLAUSIBLE_DOMAIN: 'listenly.fr'
+          PLAUSIBLE_DOMAIN: 'listenly.org'
         run: python automation/scripts/generate_episode_fiches.py
       - name: Commit and push
         run: |

@@ -1,7 +1,7 @@
 # Mission « Trafic SEO » — cerveau de l'optimisation quotidienne de Listenly
 
 ## Cap (décision d'Etienne, 14/10/2026)
-Faire venir un trafic de masse vers listenly.fr depuis Google et les IA, au plus vite : quand une personne pose une question,
+Faire venir un trafic de masse vers listenly.org depuis Google et les IA, au plus vite : quand une personne pose une question,
 Google ou une IA cite une **page de moment** Listenly (« ta réponse est à 24:50 dans ce podcast »), et un clic l'amène au bon passage.
 
 ## Modèle (à ne pas remettre en cause sans chiffres)
