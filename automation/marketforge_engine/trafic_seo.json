@@ -1,7 +1,7 @@
 {
-  "_aide": "Leviers du moteur trafic SEO. Modifiables par la tache quotidienne 'Mission trafic SEO' dans les limites ci-dessous ; tout changement est journalise dans optimisations.json. pause_plan = true : plan du site vide et aucune ouverture de nouvelles pages, jusqu'a validation du Keyword Planner (decision du 15/10/2026).",
-  "moments_par_jour": 30,
-  "moments_par_jour_min": 15,
+  "_aide": "Leviers du moteur trafic SEO. Modifiables par la tache quotidienne 'Mission trafic SEO' dans les limites ci-dessous ; tout changement est journalise dans optimisations.json. Rythme : 10 pages par jour au depart (decision du 15/10/2026), minimum 10, le systeme ajuste ensuite selon l'indexation.",
+  "moments_par_jour": 10,
+  "moments_par_jour_min": 10,
   "moments_par_jour_max": 100,
   "variation_max_par_jour": 15,
   "priorite_slugs": [
@@ -14,5 +14,5 @@
   ],
   "exclure_slugs": [],
   "regle_quota": "+15/jour si >=40% des pages ouvertes il y a 7 jours et plus sont indexees ; -15/jour (min 15) si <15% et >=60 pages controlees ; sinon inchange",
-  "pause_plan": true
+  "pause_plan": false
 }
