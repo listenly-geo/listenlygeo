@@ -150,6 +150,24 @@ def next_cap(current, rate, inspected, cfg):
     return current, f"indexation {rate}% sur {inspected} pages : rythme stable"
 
 
+def kp_best(question):
+    """Volume mensuel (Keyword Planner) de la requete la plus proche de la question, ou None si non branche."""
+    try:
+        d = json.load(open("pages/podcast-btb/data/keyword_planner.json", encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    if d.get("statut") != "connecte":
+        return None
+    qw = set(re.findall(r"[a-z]{4,}", question.lower()))
+    best = None
+    for idea in d.get("idees", []):
+        iw = set(re.findall(r"[a-z]{4,}", (idea.get("requete") or "").lower()))
+        if qw and iw and len(qw & iw) / len(iw) >= 0.6:
+            v = idea.get("volume_mensuel_moyen", 0)
+            best = v if best is None else max(best, v)
+    return best if best is not None else 0
+
+
 def main():
     try:
         cfg = json.load(open("automation/marketforge_engine/trafic_seo.json", encoding="utf-8"))
@@ -189,6 +207,14 @@ def main():
                            "question": e.get("q"), "t": int(e.get("t") or 0)}
             gate = nparas_ok(e) and s >= 70
             scores[key]["gate"] = gate
+            # Demande (20 pts) : Keyword Planner si branche, sinon Search Console (impressions 10, clics 20)
+            kp = kp_best(e.get("q") or "")
+            if kp is not None:
+                demande = min(20, round(20 * min(kp, 1000) / 1000))
+            else:
+                demande = 20 if clics > 0 else 10 if imp > 0 else 0
+            scores[key]["demande"] = demande
+            scores[key]["score_final"] = round(s * 0.8 + demande)
             if gate:
                 per_podcast_good[slug] += 1
             # titre propose : une requete reelle dont les mots sont presents dans la reponse

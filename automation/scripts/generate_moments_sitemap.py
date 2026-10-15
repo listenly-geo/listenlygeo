@@ -127,7 +127,8 @@ def main():
             continue
         scores = eligible_scores(d.get("entries") or {})
         if mscores:   # moteur autonome : seules les pages en porte d'entree (2 paragraphes + score >= 70) sont ouvertes
-            scores = {i: sc for i, sc in scores.items() if mscores.get(f"{slug}/{i}", {}).get("gate")}
+            scores = {i: mscores[f"{slug}/{i}"].get("score_final", sc) for i, sc in scores.items()
+                      if mscores.get(f"{slug}/{i}", {}).get("gate")}   # ordre : score final (contenu + demande)
         good = set(scores)
         for key in [k for k in released if k.startswith(slug + "/") and k.split("/", 1)[1] not in good]:
             del released[key]            # page devenue trop fine : retiree du sitemap
