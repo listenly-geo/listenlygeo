@@ -40,6 +40,34 @@ BUSINESS = [
 ]
 
 
+QWORDS = r"^(what|why|how|when|where|who|which|is|are|does|do|can|should|could|would|will|did|was|were)\s+"
+FILL = r"^(is|are|does|do|the|a|an|of|to|for|in|on|that|this|it|be|being)\s+"
+
+
+def seo_title(question, max_len=58, brand="Listenly"):
+    """Brouillon de titre SEO (rapport du 15/10/2026) : sans mot interrogatif, 50 a 58 caracteres, marque a la fin.
+    Brouillon uniquement : chaque titre est relu avant publication."""
+    s = re.sub(r"[?.!]+$", "", (question or "").strip())
+    s = re.sub(QWORDS, "", s, flags=re.I)
+    s = re.sub(FILL, "", s, flags=re.I)
+    s = re.sub(r"\s+", " ", s).strip()
+    suffix = f" | {brand}"
+    room = max_len - len(suffix)
+    core = s
+    if len(core) > room:
+        out = ""
+        for w in core.split():
+            cand = (out + " " + w).strip()
+            if len(cand) > room:
+                break
+            out = cand
+        core = out or core[:room]
+    title = core + suffix if len(core) + len(suffix) <= max_len else core
+    if title and title[0].islower():
+        title = title[0].upper() + title[1:]
+    return {"titre": title, "caracteres": len(title), "alerte_longueur": len(title) > 65}
+
+
 def wc(s):
     return len(str(s or "").split())
 
@@ -227,6 +255,13 @@ def main():
                                    "statut": "a_valider"})
                     break
 
+    # brouillons de titres pour les 30 meilleures pages de qualité (relecture humaine avant toute publication)
+    meilleures = sorted((k for k, v in scores.items() if v.get("gate")), key=lambda k: -scores[k]["score_final"])[:30]
+    for key in meilleures:
+        t = seo_title(scores[key].get("question") or "")
+        titres.append({"page": key, "titre_actuel": scores[key].get("question"), "titre_propose": t["titre"],
+                       "caracteres": t["caracteres"], "alerte_longueur": t["alerte_longueur"],
+                       "statut": "brouillon_a_relire"})
     hubs = {p: n for p, n in per_podcast_good.items() if n >= 3}
     max_par_podcast = 3 if rate is None or rate < 40 else 6
 
