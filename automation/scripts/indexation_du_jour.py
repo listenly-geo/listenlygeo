@@ -51,7 +51,8 @@ def inspecter(tok, url):
                       json={"inspectionUrl": url, "siteUrl": SITE}, timeout=60)
     r.raise_for_status()
     s = r.json().get("inspectionResult", {}).get("indexStatusResult", {})
-    return {"verdict": s.get("verdict"), "etat": s.get("coverageState"), "indexable": s.get("robotsTxtState")}
+    return {"verdict": s.get("verdict"), "etat": s.get("coverageState"),
+            "robots": s.get("robotsTxtState"), "indexation_bloquee": s.get("indexingState")}
 
 
 def http(url):
@@ -75,7 +76,10 @@ def main():
                 item.update(inspecter(tok, url))
             except Exception as e:
                 item["inspection_erreur"] = str(e)[:120]
-        item["pret_pour_demande"] = item["http"] == 200 and item.get("verdict") == "PASS"
+        # Pret = en ligne, pas bloquee par robots.txt ni par balise noindex, et pas encore indexee.
+        item["pret_pour_demande"] = (item["http"] == 200 and item.get("verdict") != "PASS"
+                                     and item.get("robots") != "DISALLOWED"
+                                     and item.get("indexation_bloquee") not in ("BLOCKED_BY_META_TAG", "BLOCKED_BY_HTTP_HEADER"))
         items.append(item)
     out = {"date": datetime.date.today().isoformat(),
            "mode": "liste a traiter dans Claude + Chrome (demande d'indexation manuelle, validation par page)",
