@@ -18,7 +18,7 @@ Usage : python3 automation/scripts/keyword_planner.py "question ou sujet 1" "suj
 """
 import os, sys, json, datetime, urllib.request, urllib.parse, urllib.error
 
-API_VERSION = "v17"
+API_VERSION = "v26"
 OUT = "pages/podcast-btb/data/keyword_planner.json"
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 LANG = "1002"   # anglais
