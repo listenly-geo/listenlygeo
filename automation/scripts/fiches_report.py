@@ -12,7 +12,7 @@ import sys, json, html, datetime, urllib.parse
 
 P = "pages/podcast-btb/data"
 REQ = f"{P}/index_requests.json"
-GSC = "https://search.google.com/u/1/search-console/inspect?resource_id=sc-domain%3Alistenly.fr&id="
+GSC = "https://search.google.com/u/1/search-console/inspect?resource_id=sc-domain%3Alistenly.org&id="
 
 
 def load(p, d):

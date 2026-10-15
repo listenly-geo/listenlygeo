@@ -58,7 +58,7 @@ def main():
     # 10 pages de moments a faire indexer a la main aujourd'hui : ouvertes, controlees non indexees (ou jamais controlees)
     cand = [k for k, d in sorted(st.items(), key=lambda kv: kv[1], reverse=True)
             if (ix.get(k, {}).get("etat") in (None, "inconnue", "detectee_non_indexee"))][:10]
-    site = os.environ.get("GSC_SITE", "sc-domain:listenly.fr")   # propriete Search Console active (change au moment de la bascule .fr -> .org)
+    site = os.environ.get("GSC_SITE", "sc-domain:listenly.org")   # propriete Search Console active (change au moment de la bascule .fr -> .org)
     host = site.replace("sc-domain:", "")
     base = "https://search.google.com/u/1/search-console/inspect?resource_id=" + urllib.parse.quote(site, safe="") + "&id="
     a_indexer = [{"page": f"https://{host}/podcast-btb/m/{k}", "etat": ix.get(k, {}).get("etat", "jamais controlee"),

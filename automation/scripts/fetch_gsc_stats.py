@@ -30,7 +30,7 @@ Sortie : pages/podcast-btb/data/gsc_stats.json
 import os, sys, json, datetime
 import urllib.request, urllib.error
 
-SITE_URL = os.environ.get("GSC_SITE_URL", "sc-domain:listenly.fr")  # propriete de type "domaine" (confirme via Search Console)
+SITE_URL = os.environ.get("GSC_SITE_URL", "sc-domain:listenly.org")  # propriete de type "domaine" (confirme via Search Console)
 PATH_FILTER = os.environ.get("GSC_PATH_FILTER", "/podcast-btb/")
 DAYS = int(os.environ.get("GSC_DAYS", "180"))  # large historique : la selection de periode (7/30/90j) se fait cote navigateur, sans re-fetch
 OUTPUT_FILE = "pages/podcast-btb/data/gsc_stats.json"

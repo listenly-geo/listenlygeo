@@ -1100,7 +1100,7 @@ def build_split_sitemaps(quality_urls):
         if "/" not in rel_path and fname.endswith("-podcast.html"):
             groups["hubs"].append((url, mtime, "1.0"))
         elif rel_path.startswith("questions/"):
-            groups["questions"].append((url, mtime, "0.7"))
+            continue   # 14/10/2026 : pages questions retirees du sitemap (noindex, voir .htaccess)
         else:
             # 14/10/2026 : pages hors hub / hors moment (episodes, categories, accueil...) = noindex,
             # donc retirees du sitemap (voir .htaccess). Seuls hubs, fiches question et moments restent.
@@ -1109,7 +1109,7 @@ def build_split_sitemaps(quality_urls):
     today = datetime.date.today().isoformat()
     index_entries = []
     for name, entries_list in groups.items():
-        if name == "autres":
+        if name in ("autres", "questions"):
             continue
         entries = "\n".join(
             f'  <url>\n    <loc>{u}</loc>\n    <lastmod>{m}</lastmod>\n    <priority>{p}</priority>\n  </url>'

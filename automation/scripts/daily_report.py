@@ -68,8 +68,8 @@ def main(out):
     order_st = {}
     inspected_hubs = sum(1 for v in hub_status.values() if v.get("date"))
     indexed_hubs = sum(1 for v in hub_status.values() if v.get("indexed_on"))
-    GSC = "https://search.google.com/u/1/search-console/inspect?resource_id=sc-domain%3Alistenly.fr"
-    GSC = "https://search.google.com/u/1/search-console/inspect?resource_id=sc-domain%3Alistenly.fr"
+    GSC = "https://search.google.com/u/1/search-console/inspect?resource_id=sc-domain%3Alistenly.org"
+    GSC = "https://search.google.com/u/1/search-console/inspect?resource_id=sc-domain%3Alistenly.org"
     submit_rows = "".join(
         f'<tr><td style="padding:8px 0;border-bottom:1px solid #f0f0f3;font-size:13px">'
         f'<a href="{e(GSC)}&amp;id={urllib.parse.quote(c["url"], safe="")}" style="display:inline-block;background:#0071e3;color:#fff;text-decoration:none;font-weight:600;font-size:12px;padding:5px 12px;border-radius:999px;float:right;margin-left:8px">Inspecter →</a>'

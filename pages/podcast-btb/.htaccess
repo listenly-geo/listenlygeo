@@ -8,6 +8,11 @@
 # autorite au lieu de la perdre (evite les 404 sur des URLs deja crawlees).
 RewriteEngine On
 
+# 14/10/2026 : strategie listenly.org. Hubs et pages de moments : redirection 301 du .fr vers le .org.
+# Ne concerne que l'hote listenly.fr (le .org reste tel quel). Reversible : supprimer ce bloc.
+RewriteCond %{HTTP_HOST} ^(www\.)?listenly\.fr$ [NC]
+RewriteRule ^((?:[^/]+-podcast\.html)|(?:m/[a-z0-9\-]+/[a-f0-9]+/?))$ https://listenly.org/podcast-btb/$1 [R=301,L]
+
 # Pages "moment" rendues cote serveur (m.php) : /podcast-btb/m/<podcast>/<id> -> reponse + lecteur au bon moment
 RewriteRule ^m/([a-z0-9\-]+)/([a-f0-9]+)/?$ m.php?p=$1&m=$2 [L,QSA]
 # 01/10/2026 : page orpheline (aucune fiche correspondante), Google la signalait en echec -> 410 (retiree definitivement)
@@ -2130,3 +2135,11 @@ RewriteRule ^questions/your\-next\-dollar\-money\-management\-for\-hi/what\-role
 RewriteRule ^questions/your\-next\-dollar\-money\-management\-for\-hi/what\-visual\-and\-behavioral\-indicators\-can\-identify\-a\-stealth\-wealth\-mi\.html$ /podcast-btb/your-next-dollar-money-management-for-hi-podcast.html [R=301,L]
 RewriteRule ^questions/your\-next\-dollar\-money\-management\-for\-hi/why\-is\-tax\-planning\-important\-for\-high\-earners\-and\-how\-can\-unexpected\-\.html$ /podcast-btb/your-next-dollar-money-management-for-hi-podcast.html [R=301,L]
 # END hub-consolidation
+
+# 14/10/2026 : pages questions en noindex (seuls hubs et moments sont indexes)
+<IfModule mod_headers.c>
+<IfModule mod_setenvif.c>
+SetEnvIf Request_URI "^/podcast-btb/questions/" NOINDEX_QUESTION=1
+Header set X-Robots-Tag "noindex, follow" env=NOINDEX_QUESTION
+</IfModule>
+</IfModule>

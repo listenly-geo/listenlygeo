@@ -25,7 +25,7 @@ from fetch_gsc_stats import get_access_token  # noqa: E402  (meme compte de serv
 
 PAGES = "pages/podcast-btb"
 BASE = "https://listenly.org/podcast-btb/"
-SITE = os.environ.get("GSC_SITE_URL", "sc-domain:listenly.fr")
+SITE = os.environ.get("GSC_SITE_URL", "sc-domain:listenly.org")
 STATUS_FILE = f"{PAGES}/data/gsc_index_status.json"
 OUT_FILE = f"{PAGES}/data/consolidated_questions.json"
 CONFIG_FILE = "automation/data/consolidation_config.json"

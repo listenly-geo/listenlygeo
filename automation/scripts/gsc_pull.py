@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Recupere les chiffres de la Search Console (listenly.fr puis listenly.org) via l'API et les ecrit dans data/gsc/.
-Secret requis : GSC_SERVICE_ACCOUNT_JSON (cle du compte de service). Propriete : GSC_SITE (defaut sc-domain:listenly.fr).
+Secret requis : GSC_SERVICE_ACCOUNT_JSON (cle du compte de service). Propriete : GSC_SITE (defaut sc-domain:listenly.org).
 Sorties : data/gsc/pages.json (pages x clics/impressions/ctr/position), data/gsc/requetes.json (requetes),
 data/gsc/pages_requetes.json (requete x page, pour les pages de moments), data/gsc/resume.json (totaux, date du jour).
 Ne bloque jamais le moteur : en cas d'erreur, ecrit data/gsc/erreur.json et sort en code 0."""
 import os, sys, json, datetime, time
 import requests
 
-SITE = os.environ.get("GSC_SITE", "sc-domain:listenly.fr")
+SITE = os.environ.get("GSC_SITE", "sc-domain:listenly.org")
 OUT = "data/gsc"
 SCOPES = ["https://www.googleapis.com/auth/webmasters.readonly"]
 JOURS = int(os.environ.get("GSC_JOURS", "90"))
