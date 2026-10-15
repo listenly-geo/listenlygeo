@@ -241,6 +241,8 @@ def extract_episode(podcast, ep):
             return 0
         m.save_knowledge_moments(podcast, ep, guest, qa)  # JSON + push base Listenly (hub)
         save_inbox_stock(podcast, ep, transcript, guest, qa, quote, stats, entities)
+        import reservoir_questions  # noqa: E402
+        reservoir_questions.add_questions(podcast, ep, qa)  # reservoir : tri quotidien ulterieur
         return len(qa)
     finally:
         shutil.rmtree(tmpdir, ignore_errors=True)
