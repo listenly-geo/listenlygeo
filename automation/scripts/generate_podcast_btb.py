@@ -1026,9 +1026,8 @@ def build_sitemap():
         f'{entries}\n'
         '</urlset>\n'
     )
-    with open(f"{PAGES_DIR}/sitemap-podcast-btb.xml", "w", encoding="utf-8") as f:
-        f.write(xml)
-    log(f"Sitemap regenere : {len(urls)} URL(s)")
+    # 14/10/2026 : plus d'ecriture de sitemap-podcast-btb.xml (remplace par les sitemaps separes, voir build_split_sitemaps)
+    log(f"URLs collectees : {len(urls)}")
 
     build_sitemap_quality(urls)
 
@@ -1065,9 +1064,8 @@ def build_sitemap_quality(urls):
         f'{entries}\n'
         '</urlset>\n'
     )
-    with open(f"{PAGES_DIR}/sitemap-quality.xml", "w", encoding="utf-8") as f:
-        f.write(xml)
-    log(f"Sitemap qualite regenere : {len(quality_urls)} URL(s) (sur {len(urls)} au total)")
+    # 14/10/2026 : plus d'ecriture de sitemap-quality.xml (remplace par les sitemaps separes)
+    log(f"Qualite : {len(quality_urls)} URL(s) retenues (sur {len(urls)} au total)")
 
     build_split_sitemaps(quality_urls)
 
@@ -1729,12 +1727,12 @@ def build_dashboard():
     dup_rows = "".join(f"<li><b>{name}</b> : {', '.join(slugs)}</li>" for name, slugs in duplicates) or "<li>Aucun doublon détecté ✓</li>"
 
     # --- Pages orphelines : fichiers HTML presents sur disque mais absents du sitemap ---
-    sitemap_path = f"{PAGES_DIR}/sitemap-podcast-btb.xml"
     sitemap_urls = set()
-    if os.path.exists(sitemap_path):
-        with open(sitemap_path, encoding="utf-8") as f:
-            sitemap_content = f.read()
-        sitemap_urls = set(re.findall(r"<loc>(.*?)</loc>", sitemap_content))
+    for _name in ("hubs", "questions", "moments"):
+        _path = f"{PAGES_DIR}/sitemap-{_name}.xml"
+        if os.path.exists(_path):
+            with open(_path, encoding="utf-8") as f:
+                sitemap_urls |= set(re.findall(r"<loc>(.*?)</loc>", f.read()))
     orphan_pages = []
     for root, dirs, files in os.walk(PAGES_DIR):
         dirs[:] = [d for d in dirs if d != "data"]
