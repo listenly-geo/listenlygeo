@@ -94,7 +94,7 @@ def main():
         write_state({"statut": "connecte", "date": now, "graines": seeds, "idees": ideas})
         print(f"Keyword Planner : {len(ideas)} idees pour {len(seeds)} graines.")
     except urllib.error.HTTPError as e:
-        write_state({"statut": "erreur", "code": e.code, "date": now, "detail": e.read()[:300].decode("utf-8", "ignore")})
+        write_state({"statut": "erreur", "code": e.code, "date": now, "detail": e.read()[:1500].decode("utf-8", "ignore")})
         print(f"Keyword Planner : erreur {e.code}. Voir {OUT}.")
 
 
