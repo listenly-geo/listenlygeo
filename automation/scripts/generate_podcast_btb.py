@@ -1109,7 +1109,7 @@ def build_split_sitemaps(quality_urls):
     today = datetime.date.today().isoformat()
     index_entries = []
     for name, entries_list in groups.items():
-        if name in ("autres", "questions"):
+        if name in ("autres", "questions", "hubs"):   # 15/10/2026 : fiches N1 retirees du sitemap (strategie : reprise avec les moments)
             continue
         entries = "\n".join(
             f'  <url>\n    <loc>{u}</loc>\n    <lastmod>{m}</lastmod>\n    <priority>{p}</priority>\n  </url>'
