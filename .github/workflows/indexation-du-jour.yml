@@ -1,0 +1,32 @@
+name: Indexation du jour — 10 fiches question prêtes
+
+# Chaque jour : choisit 10 fiches question, vérifie leur état (lecture seule) et écrit la liste.
+# La demande d'indexation reste manuelle (session Claude + Chrome, validation par page).
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '35 6 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: indexation-du-jour
+  cancel-in-progress: false
+
+jobs:
+  liste:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q google-auth requests
+      - name: Liste du jour
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: python3 automation/scripts/indexation_du_jour.py
+      - name: Sauvegarde dans le dépôt
+        run: |
+          git config user.name "marketforge-bot"; git config user.email "bot@listenly.fr"
+          git add pages/podcast-btb/data/indexation_du_jour.json || true
+          git diff --cached --quiet || (git commit -m "Indexation du jour : liste des 10 fiches" && git pull -q --rebase && git push -q)
