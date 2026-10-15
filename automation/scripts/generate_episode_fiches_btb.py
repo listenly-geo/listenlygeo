@@ -174,7 +174,7 @@ def transcribe(audio_path, whisper_lang="fr"):
             # une erreur Cloudflare 1010 -- d'apres la doc Cloudflare, ce code correspond tres
             # souvent a un User-Agent absent/suspect (Python envoie "Python-urllib/x.x" par
             # defaut, frequemment bloque). Un User-Agent explicite resout ce cas de figure.
-            "User-Agent": "Mozilla/5.0 (compatible; ListenlyGEO/1.0; +https://listenly.fr)",
+            "User-Agent": "Mozilla/5.0 (compatible; ListenlyGEO/1.0; +https://listenly.org)",
         },
         method="POST",
     )
@@ -392,7 +392,7 @@ def extract_real_qa(transcript, ep, podcast, segments=None):
     return guest, qa, real_quote, key_stats, entities
 
 KNOWLEDGE_MOMENTS_DIR = f"{PAGES_DIR}/data/knowledge_moments"
-KNOWLEDGE_IMPORT_URL = os.environ.get("KNOWLEDGE_IMPORT_URL", "https://listenly.fr/api/knowledge-moments-import.php")
+KNOWLEDGE_IMPORT_URL = os.environ.get("KNOWLEDGE_IMPORT_URL", "https://listenly.org/api/knowledge-moments-import.php")
 KNOWLEDGE_IMPORT_SECRET = os.environ.get("KNOWLEDGE_IMPORT_SECRET", "")
 
 def push_knowledge_moments_to_db(moments):
@@ -423,7 +423,7 @@ def push_knowledge_moments_to_db(moments):
 
 def save_knowledge_moments(podcast, ep, guest, real_qa):
     """Ecrit les knowledge moments (question + timeline) de cet episode dans un fichier JSON
-    portable, un fichier par episode -- pas encore connecte a la vraie base Listenly.fr
+    portable, un fichier par episode -- pas encore connecte a la vraie base Listenly
     (_c_p_knowledge_moments), juste une capture durable en attendant. Format directement
     compatible avec un import ulterieur dans cette table (memes noms de champs)."""
     if not real_qa:
@@ -472,7 +472,7 @@ def get_real_transcript_material(ep, podcast):
         guest, real_qa, real_quote, key_stats, entities = extract_real_qa(transcript, ep, podcast, segments)
         # Capture des knowledge moments (09/09/2026, prepare le futur module Podcast Knowledge
         # Search) : chaque question reelle extraite, avec son timestamp, ecrite dans un fichier
-        # JSON dedie -- stockage "ouvert" en attendant une connexion a la vraie base Listenly.fr
+        # JSON dedie -- stockage "ouvert" en attendant une connexion a la vraie base Listenly
         # (voir architecture-knowledge-search.md). N'affecte en rien le reste du pipeline (fiches
         # HTML generees normalement, que cette ecriture reussisse ou echoue).
         try:
@@ -733,7 +733,7 @@ entités listées ci-dessus quand c'est pertinent, plutôt que d'être déduits 
 
     return f"""Tu es un expert GEO (Generative Engine Optimization) spécialisé dans les podcasts B2B.
 
-Ta mission est de générer une FICHE ÉPISODE complète en HTML autonome pour Listenly.fr.
+Ta mission est de générer une FICHE ÉPISODE complète en HTML autonome pour Listenly.
 MÊME style visuel et logique GEO que la fiche podcast globale (design "magazine business premium"
 type Forbes/HBR : H1 et corps de texte en Georgia serif, eyebrow catégorie sobre, byline
 journalistique, couleur d'accent réservée au seul bouton principal). Cette fiche présente
@@ -795,8 +795,8 @@ Rédige TOUT le contenu de cette fiche (titre, lead, points clés, corps de l'ar
 - FAQPage ({"TOUTES les questions réelles listées, une par une" if real_material else "les 3 questions"})
 - Person (HOST_NAME/HOST_TITLE/worksFor HOST_COMPANY — l'hôte du podcast)
 {person_guest_instruction}
-- BlogPosting englobant (headline=H1, publisher={{"@type":"Organization","name":"Listenly","url":"https://listenly.fr"}}, speakable cssSelector [".lead",".key-facts"])
-- BreadcrumbList (itemListElement : 1. Listenly (https://listenly.fr) 2. {podcast['podcast_name']} ({podcast['fiche_url']}) 3. nom de cet épisode ({ep_url}))
+- BlogPosting englobant (headline=H1, publisher={{"@type":"Organization","name":"Listenly","url":"https://listenly.org"}}, speakable cssSelector [".lead",".key-facts"])
+- BreadcrumbList (itemListElement : 1. Listenly (https://listenly.org) 2. {podcast['podcast_name']} ({podcast['fiche_url']}) 3. nom de cet épisode ({ep_url}))
 {mentions_instruction}
 Backlinks cachés identiques à la fiche podcast (canonical={ep_url}, og:url={ep_url}, rel=publisher, #semantic-index display:none en fin de <body>).
 {"Le bloc #semantic-index doit lister les VRAIES entites nommees fournies plus haut (section MATERIEL REEL) sous forme 'entity: [nom]' une par ligne, plus entity " + guest_full_name if (real_material and guest_full_name) else "Le bloc #semantic-index liste les entites deduites du titre/description (entity PODCAST_NAME, entity HOST_NAME, concept CATEGORIE)."}
@@ -877,7 +877,7 @@ def render_episodes_index(podcast, episodes_meta):
     title = f"Épisodes de {podcast['podcast_name']}"
     n = len(episodes_meta)
     description = f"Retrouvez les {n} fiche{'s' if n > 1 else ''} épisode{'s' if n > 1 else ''} de {podcast['podcast_name']}, référencées par Listenly, avec les questions et sujets abordés."
-    canonical = f"https://listenly.fr/podcast-btb/episodes/{SLUG}/index.html"
+    canonical = f"https://listenly.org/podcast-btb/episodes/{SLUG}/index.html"
     style = """
 body{font-family:Helvetica,Arial,sans-serif;color:#1a1a1a;margin:0;background:#fff}
 .wrapper{max-width:760px;margin:0 auto;padding:40px 20px 64px}
@@ -980,7 +980,7 @@ def main():
             registry.append({"guid": ep["guid"], "slug": ep_slug, "title": ep["title"], "pubdate": ep["pubdate"], "added_date": today})
             continue
 
-        ep_url = f"https://listenly.fr/podcast-btb/episodes/{SLUG}/{ep_slug}.html"
+        ep_url = f"https://listenly.org/podcast-btb/episodes/{SLUG}/{ep_slug}.html"
         log(f"Génération épisode : {ep['title']}")
 
         real_material = None
@@ -1007,7 +1007,7 @@ def main():
     save_registry(registry)
 
     index_html = render_episodes_index(podcast, [
-        {"title": r["title"], "url": r.get("url", f"https://listenly.fr/podcast-btb/episodes/{SLUG}/{r['slug']}.html"), "pubdate": r.get("pubdate","")}
+        {"title": r["title"], "url": r.get("url", f"https://listenly.org/podcast-btb/episodes/{SLUG}/{r['slug']}.html"), "pubdate": r.get("pubdate","")}
         for r in registry
     ])
     with open(f"{EPISODES_DIR}/index.html", "w", encoding="utf-8") as f:

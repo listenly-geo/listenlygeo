@@ -84,7 +84,7 @@ def main():
             lines.append(f"impressions des hubs : {prev.get('hub_impressions', 0)} → {snap['hub_impressions']}")
     if prev:
         if snap["backlinks"] > prev.get("backlinks", 0):
-            lines.append(f"backlinks vers listenly.fr : {prev.get('backlinks', 0)} → {snap['backlinks']}")
+            lines.append(f"backlinks vers listenly.org : {prev.get('backlinks', 0)} → {snap['backlinks']}")
         if snap.get("ai_visitors_7d", 0) > prev.get("ai_visitors_7d", 0):
             lines.append(f"visiteurs venant des IA (7 jours) : {prev.get('ai_visitors_7d', 0)} → {snap['ai_visitors_7d']}")
     if lines:

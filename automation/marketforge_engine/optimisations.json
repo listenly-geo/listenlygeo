@@ -396,7 +396,7 @@
       "id": "opt-57",
       "section": "Mesure",
       "version": "V1.2",
-      "texte": "Compteur de backlinks réel : chaque jour, le moteur regarde si les podcasts contactés ont posé un lien vers listenly.fr (notes d'épisodes ou site). Le chiffre apparaît dans le rapport du soir (avant : 0 codé en dur). Avec le Podcast Hub, la source principale de backlinks sera le lien « Explore more expert answers » de chaque Hub installé.",
+      "texte": "Compteur de backlinks réel : chaque jour, le moteur regarde si les podcasts contactés ont posé un lien vers listenly.org (notes d'épisodes ou site). Le chiffre apparaît dans le rapport du soir (avant : 0 codé en dur). Avec le Podcast Hub, la source principale de backlinks sera le lien « Explore more expert answers » de chaque Hub installé.",
       "date": "01/10/2026",
       "statut": "en_cours"
     },
@@ -412,7 +412,7 @@
       "id": "opt-59",
       "section": "Mesure",
       "version": "V1.2",
-      "texte": "Lien discret « annuaire des podcasts » ajouté en bas de la page d'accueil listenly.fr (via le script déjà installé) : Google a enfin un chemin depuis le site principal vers les fiches N1. Sauvegarde du script avant modification.",
+      "texte": "Lien discret « annuaire des podcasts » ajouté en bas de la page d'accueil listenly.org (via le script déjà installé) : Google a enfin un chemin depuis le site principal vers les fiches N1. Sauvegarde du script avant modification.",
       "date": "01/10/2026",
       "statut": "en_cours"
     },
@@ -580,7 +580,7 @@
       "id": "opt-73",
       "section": "Mail et CTA",
       "version": "V2.1",
-      "texte": "Nouveau mail de prospection : format court et très simple (présentation d'Etienne, lien vers la page Listenly du podcast, question « Where would you like us to redirect this qualified traffic? »). Gras uniquement sur le nom du podcast et « Listenly.fr, The First AI directory for podcast », souligné uniquement sur « you like us to redirect this qualified traffic? ». Test A/B du CTA étendu à 5 variantes (A à E, toutes autour de « avez-vous déjà un Podcast Hub ou faut-il envoyer vers Spotify ? »), réparties à parts égales ; chaque envoi note sa variante, et les réponses sont comptées (et classées positive / neutre / refus / auto) par variante à partir du 04/10. Les anciens mails ne comptent pas dans cette comparaison.",
+      "texte": "Nouveau mail de prospection : format court et très simple (présentation d'Etienne, lien vers la page Listenly du podcast, question « Where would you like us to redirect this qualified traffic? »). Gras uniquement sur le nom du podcast et « Listenly, The First AI directory for podcast », souligné uniquement sur « you like us to redirect this qualified traffic? ». Test A/B du CTA étendu à 5 variantes (A à E, toutes autour de « avez-vous déjà un Podcast Hub ou faut-il envoyer vers Spotify ? »), réparties à parts égales ; chaque envoi note sa variante, et les réponses sont comptées (et classées positive / neutre / refus / auto) par variante à partir du 04/10. Les anciens mails ne comptent pas dans cette comparaison.",
       "date": "03/10/2026",
       "statut": "en_cours"
     },
@@ -612,7 +612,7 @@
       "id": "opt-77",
       "section": "Mail et preuve",
       "version": "V2.4",
-      "texte": "Nouveau template email (05/10/2026) : positionnement Listenly comme « first AI search engine dedicated to B2B podcasts » + lien de preuve concret vers un moment du dernier épisode (question + timestamp). Lien au format https://listenly.fr/?p={slug}&m={moment_id} qui ouvre Listenly avec le lecteur au bon moment. Colonnes ajoutées au Sheet : « Dernier épisode Q » et « Dernier épisode Moment ID » (remplies par enrichissement ultérieur depuis moments.json ou API Listenly). Premier mail envoie lien générique (podcast sur Listenly) ; relance 1 (J+4) enrichie avec question si disponible.",
+      "texte": "Nouveau template email (05/10/2026) : positionnement Listenly comme « first AI search engine dedicated to B2B podcasts » + lien de preuve concret vers un moment du dernier épisode (question + timestamp). Lien au format https://listenly.org/?p={slug}&m={moment_id} qui ouvre Listenly avec le lecteur au bon moment. Colonnes ajoutées au Sheet : « Dernier épisode Q » et « Dernier épisode Moment ID » (remplies par enrichissement ultérieur depuis moments.json ou API Listenly). Premier mail envoie lien générique (podcast sur Listenly) ; relance 1 (J+4) enrichie avec question si disponible.",
       "date": "05/10/2026",
       "statut": "en_cours"
     },
@@ -620,7 +620,7 @@
       "id": "opt-79",
       "section": "Mail et preuve",
       "version": "V2.4",
-      "texte": "Preuve automatique dans les mails : après la transcription, le moteur choisit une question claire pour un décideur B2B (avec horodatage exact) et l'écrit dans le Sheet avec son identifiant. Le mail 1 et les 3 relances affichent le lien https://listenly.fr/?p=<podcast>&m=<moment> qui ouvre Listenly et lance le lecteur au bon moment. Sans question disponible, le mail part avec le lien général du podcast.",
+      "texte": "Preuve automatique dans les mails : après la transcription, le moteur choisit une question claire pour un décideur B2B (avec horodatage exact) et l'écrit dans le Sheet avec son identifiant. Le mail 1 et les 3 relances affichent le lien https://listenly.org/?p=<podcast>&m=<moment> qui ouvre Listenly et lance le lecteur au bon moment. Sans question disponible, le mail part avec le lien général du podcast.",
       "date": "05/10/2026",
       "statut": "en_cours"
     },
@@ -1003,7 +1003,7 @@
     {
       "section": "Trafic Google",
       "version": "V2.5",
-      "texte": "Chaque question extraite d'un podcast a maintenant sa propre adresse listenly.fr/podcast-btb/m/<podcast>/<id> : titre, réponse écrite et horaire lisibles par Google et les IA, lecteur placé au bon moment. Le hub renvoie vers ces adresses. Elles sont ouvertes à Google par un sitemap dédié, 30 nouvelles par jour au maximum.",
+      "texte": "Chaque question extraite d'un podcast a maintenant sa propre adresse listenly.org/podcast-btb/m/<podcast>/<id> : titre, réponse écrite et horaire lisibles par Google et les IA, lecteur placé au bon moment. Le hub renvoie vers ces adresses. Elles sont ouvertes à Google par un sitemap dédié, 30 nouvelles par jour au maximum.",
       "date": "11/10/2026",
       "statut": "en_cours",
       "id": "opt-126"
@@ -1035,7 +1035,7 @@
     {
       "section": "Trafic Google",
       "version": "V2.5",
-      "texte": "Noms des invités : l'orthographe est alignée sur celle du titre officiel de l'épisode (la transcription audio écrit les noms à l'oreille). Titres des pages de moments en « | Listenly.fr » et fiche Organisation ajoutée, pour que Google ne confonde plus Listenly.fr avec l'application de synthèse vocale du même nom.",
+      "texte": "Noms des invités : l'orthographe est alignée sur celle du titre officiel de l'épisode (la transcription audio écrit les noms à l'oreille). Titres des pages de moments en « | Listenly » et fiche Organisation ajoutée, pour que Google ne confonde plus Listenly avec l'application de synthèse vocale du même nom.",
       "date": "11/10/2026",
       "statut": "en_cours",
       "id": "opt-130"
@@ -1243,7 +1243,7 @@
     {
       "section": "Trafic Google",
       "version": "V2.6",
-      "texte": "Suivi automatique de la Search Console : chaque jour, un workflow récupère les pages, requêtes, positions et clics de listenly.fr et les range dans le dépôt (dossier data/gsc), pour savoir quelles pages de moments marchent et orienter les suivantes. Activé dès que la clé du compte de service est ajoutée.",
+      "texte": "Suivi automatique de la Search Console : chaque jour, un workflow récupère les pages, requêtes, positions et clics de listenly.org et les range dans le dépôt (dossier data/gsc), pour savoir quelles pages de moments marchent et orienter les suivantes. Activé dès que la clé du compte de service est ajoutée.",
       "date": "14/10/2026",
       "statut": "a_faire",
       "id": "opt-131"

@@ -48,7 +48,7 @@
   <header>
     <h1>Générateur Podcast-BTB — Moteur Trafic</h1>
     <p>N1 : fiche podcast classique. N2 : au lieu des fiches épisode, génère des fiches question (1 par run, CTA 100% Listenly).</p>
-    <a href="https://listenly.fr/admin/podcast_show/__new" target="_blank" rel="noopener"
+    <a href="https://listenly.org/admin/podcast_show/__new" target="_blank" rel="noopener"
        class="btn-copy" style="display:inline-flex;align-items:center;text-decoration:none;margin-top:10px;">
        🚀 Ouvrir Listenly (nouvelle fiche)</a>
   </header>
@@ -104,8 +104,8 @@
       </div>
       <div>
         <label>Lien Listenly (obligatoire)</label>
-        <input id="f_listenly_url" placeholder="https://listenly.fr/podcast/show/..." oninput="checkListenlyUrl()">
-        <small id="warn_listenly">Ceci ne ressemble pas à un lien listenly.fr</small>
+        <input id="f_listenly_url" placeholder="https://listenly.org/podcast/show/..." oninput="checkListenlyUrl()">
+        <small id="warn_listenly">Ceci ne ressemble pas à un lien listenly.org</small>
       </div>
     </div>
 
@@ -736,11 +736,11 @@ function generateYaml(){
     return;
   }
   if(podcast_url && /listenly\.fr/i.test(podcast_url)){
-    alert("Le champ Spotify contient un lien listenly.fr — vérifie que tu n'as pas inversé les deux champs.");
+    alert("Le champ Spotify contient un lien listenly.org — vérifie que tu n'as pas inversé les deux champs.");
     return;
   }
   if(listenly_url && !/listenly\.fr/i.test(listenly_url)){
-    alert('Le champ Listenly ne contient pas listenly.fr — vérifie ce lien.');
+    alert('Le champ Listenly ne contient pas listenly.org — vérifie ce lien.');
     return;
   }
   if(podcast_url && podcast_url === listenly_url){

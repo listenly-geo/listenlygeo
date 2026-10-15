@@ -22,10 +22,10 @@ jobs:
           RSS_URL: 'https://feeds.acast.com/public/shows/691b375967ed28baeccfef7d'
           PODCAST_SLUG: 'creme-connect'
           SPOTIFY_SHOW_URL: 'https://open.spotify.com/show/1p2YQ5yOf8g3KM6q4FagJh'
-          CTA_URL: 'https://listenly.fr/podcast/show/creme-connect-podcast'
+          CTA_URL: 'https://listenly.org/podcast/show/creme-connect-podcast'
           CTA_LABEL: 'Écouter le podcast'
           PODCAST_IMAGE_URL: 'https://i.postimg.cc/021s0ZDy/6a2aa59e4efb0.jpg'
-          PLAUSIBLE_DOMAIN: 'listenly.fr'
+          PLAUSIBLE_DOMAIN: 'listenly.org'
         run: python automation/scripts/generate_episode_fiches.py
       - name: Commit and push
         run: |

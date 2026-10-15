@@ -70,7 +70,7 @@ def block(rec, picks):
         for r in picks
     )
     url = rec["fiche_url"]
-    code = (f'<a href="{url}"><img src="https://listenly.fr/podcast-btb/assets/featured-on-listenly.svg" '
+    code = (f'<a href="{url}"><img src="https://listenly.org/podcast-btb/assets/featured-on-listenly.svg" '
             f'alt="{html.escape(rec["podcast_name"], quote=True)} featured on Listenly" width="200" height="44"></a>')
     badge_title = "Ajoutez ce badge à votre site" if fr else "Add this badge to your site"
     badge_sub = "Copiez-collez le code ci-dessous dans votre site ou vos notes d'épisodes." if fr else "Copy and paste the code below into your website or show notes."

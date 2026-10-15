@@ -21,7 +21,7 @@ def kind(u):
     if "/podcast-btb/categorie/" in u: return "categorie"
     if re.search(r"/podcast-btb/[^/]+\.html$", u): return "hub"
     if "/podcast/show/" in u: return "show-listenly"
-    if u.rstrip("/") == "https://listenly.fr": return "accueil"
+    if re.sub(r"^https://(www\.)?listenly\.(fr|org)/?$", "", u.rstrip("/") + "/") == "" : return "accueil"
     return "autre"
 
 
@@ -58,9 +58,11 @@ def main():
     # 10 pages de moments a faire indexer a la main aujourd'hui : ouvertes, controlees non indexees (ou jamais controlees)
     cand = [k for k, d in sorted(st.items(), key=lambda kv: kv[1], reverse=True)
             if (ix.get(k, {}).get("etat") in (None, "inconnue", "detectee_non_indexee"))][:10]
-    base = "https://search.google.com/u/1/search-console/inspect?resource_id=sc-domain%3Alistenly.fr&id="
-    a_indexer = [{"page": f"https://listenly.fr/podcast-btb/m/{k}", "etat": ix.get(k, {}).get("etat", "jamais controlee"),
-                  "lien_gsc": base + urllib.parse.quote(f"https://listenly.fr/podcast-btb/m/{k}", safe="")} for k in cand]
+    site = os.environ.get("GSC_SITE", "sc-domain:listenly.fr")   # propriete Search Console active (change au moment de la bascule .fr -> .org)
+    host = site.replace("sc-domain:", "")
+    base = "https://search.google.com/u/1/search-console/inspect?resource_id=" + urllib.parse.quote(site, safe="") + "&id="
+    a_indexer = [{"page": f"https://{host}/podcast-btb/m/{k}", "etat": ix.get(k, {}).get("etat", "jamais controlee"),
+                  "lien_gsc": base + urllib.parse.quote(f"https://{host}/podcast-btb/m/{k}", safe="")} for k in cand]
 
     # pages deja visibles mais peu cliquees (positions 3 a 15) : a retravailler (titre / extrait)
     ctr = sorted([p for p in pages if 3 <= p["position"] <= 15 and p["impressions"] >= 8 and p["clics"] == 0],

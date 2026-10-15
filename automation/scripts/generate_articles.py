@@ -22,7 +22,7 @@ CONTACT_URL       = os.environ.get("CONTACT_URL", "")
 ACCENT_COLOR      = os.environ.get("ACCENT_COLOR", "#2e8bd6")
 MAX_NEW_PER_RUN   = int(os.environ.get("MAX_NEW_PER_RUN", "1"))
 OUTPUT_DIR        = os.environ.get("OUTPUT_DIR", "articles")
-LISTENLY_PODCAST_URL = os.environ.get("LISTENLY_PODCAST_URL", "https://listenly.fr")
+LISTENLY_PODCAST_URL = os.environ.get("LISTENLY_PODCAST_URL", "https://listenly.org")
 
 ANTHROPIC_MODEL   = "claude-sonnet-4-6"
 WHISPER_MODEL     = "whisper-1"
@@ -211,7 +211,7 @@ ARTICLE_TEMPLATE = """<!DOCTYPE html>
   <meta property="og:url" content="{page_url}">
   {og_image}
   <!-- GEO Backend -->
-  <link rel="publisher" href="https://listenly.fr">
+  <link rel="publisher" href="https://listenly.org">
   <meta name="data-provider" content="Listenly">
   <script type="application/ld+json">{json_ld}</script>
   <style>
@@ -360,7 +360,7 @@ ARTICLE_TEMPLATE = """<!DOCTYPE html>
   <!-- Footer -->
   <footer>
     <span>© {blog_name} — {company}</span>
-    <a href="https://listenly.fr" rel="dofollow" target="_blank">Analyse structurée par Listenly</a>
+    <a href="https://listenly.org" rel="dofollow" target="_blank">Analyse structurée par Listenly</a>
   </footer>
 
 </div>
@@ -371,7 +371,7 @@ ARTICLE_TEMPLATE = """<!DOCTYPE html>
   <span class="entity">{invite_prenom} {invite_nom}</span>
   <span class="entity">{invite_entreprise}</span>
   <span class="concept">{persona_cible}</span>
-  <span class="publisher">Listenly.fr</span>
+  <span class="publisher">Listenly</span>
   <span class="isPartOf">{listenly_podcast_url}</span>
 </div>
 
@@ -420,7 +420,7 @@ def build_article(qr, ep):
                 "dateModified": today_iso,
                 "mainEntityOfPage": {"@type": "WebPage", "@id": page_url},
                 "author": {"@type": "Person", "name": f"{qr['invite_prenom']} {qr['invite_nom']}", "jobTitle": qr.get("invite_titre", "")},
-                "publisher": {"@type": "Organization", "name": "Listenly", "url": "https://listenly.fr"},
+                "publisher": {"@type": "Organization", "name": "Listenly", "url": "https://listenly.org"},
                 "isPartOf": {"@type": "WebSite", "@id": LISTENLY_PODCAST_URL},
                 "about": {"@type": "Person", "name": f"{qr['invite_prenom']} {qr['invite_nom']}"},
                 "speakable": {"@type": "SpeakableSpecification", "cssSelector": [".lead", ".key-box"]},

@@ -12,7 +12,7 @@ Variables : KNOWLEDGE_IMPORT_SECRET (requis)
 import os, sys, json, time, urllib.request, urllib.error
 
 SECRET = os.environ.get("KNOWLEDGE_IMPORT_SECRET", "").strip()
-URL = os.environ.get("RSS_READER_URL", "https://listenly.fr/api/rss-reader-register.php")
+URL = os.environ.get("RSS_READER_URL", "https://listenly.org/api/rss-reader-register.php")
 PODCASTS_FILE = "pages/podcast-btb/data/podcasts.json"
 DRY_RUN = os.environ.get("DRY_RUN", "").strip() not in ("", "0", "false", "FALSE")
 

@@ -166,7 +166,7 @@
     });
     row.appendChild(seg);
     var share = el('button', 'pp-share', 'Share this moment'); share.type = 'button';
-    var link = (slug && myId) ? 'https://listenly.fr/podcast-btb/m/' + slug + '/' + myId : (safeListenly(r.episode_url) || 'https://listenly.fr/');
+    var link = (slug && myId) ? 'https://listenly.org/podcast-btb/m/' + slug + '/' + myId : (safeListenly(r.episode_url) || 'https://listenly.org/');
     share.addEventListener('click', function () {
       var done = function () { share.textContent = 'Link copied ✓'; setTimeout(function () { share.textContent = 'Share this moment'; }, 1800); };
       if (navigator.share && /Mobi|Android/i.test(navigator.userAgent)) { navigator.share({ title: r.question, url: link }).catch(function () {}); return; }
@@ -176,7 +176,7 @@
     row.appendChild(share);
     sheet.appendChild(row);
 
-    var show = safeListenly(info.s) || safeListenly(info.h && ('https://listenly.fr' + info.h));
+    var show = safeListenly(info.s) || safeListenly(info.h && ('https://listenly.org' + info.h));
     if (show) { var a = el('a', 'pp-link', 'Full podcast →'); a.href = show; a.target = '_blank'; a.rel = 'noopener'; sheet.appendChild(a); }
     highlight();
   }

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Compteur de backlinks vers listenly.fr (01/10/2026).
-Pour chaque podcast contacte (queue.json), cherche un lien vers listenly.fr dans son flux RSS (notes d'episodes)
+Compteur de backlinks vers listenly.org (01/10/2026).
+Pour chaque podcast contacte (queue.json), cherche un lien vers listenly.org dans son flux RSS (notes d'episodes)
 et sur la page d'accueil de son site (balise <link> du flux). Resultat : pages/podcast-btb/data/backlinks.json
   {"checked": {slug: "AAAA-MM-JJ"}, "found": {slug: {"url": ..., "where": "rss|site", "date": ...}}, "total": N}
 Limite par run (BACKLINK_MAX, defaut 120) : on verifie les moins recemment verifies d'abord. Ne casse jamais le run.
@@ -11,8 +11,8 @@ import os, re, json, datetime, urllib.request
 DATA = "pages/podcast-btb/data"
 OUT = f"{DATA}/backlinks.json"
 MAX = int(os.environ.get("BACKLINK_MAX", "120"))
-UA = {"User-Agent": "Mozilla/5.0 (compatible; ListenlyBot/1.0; +https://listenly.fr)"}
-# lien vers listenly.fr qui n'est pas NOTRE propre fiche hub generee (on cherche un lien POSE par le podcast)
+UA = {"User-Agent": "Mozilla/5.0 (compatible; ListenlyBot/1.0; +https://listenly.org)"}
+# lien vers listenly.org qui n'est pas NOTRE propre fiche hub generee (on cherche un lien POSE par le podcast)
 PAT = re.compile(r"https?://(?:www\.)?listenly\.fr/[^\s\"'<>)]*", re.I)
 
 
@@ -51,12 +51,12 @@ def main():
             xml = get(rss)
             for m in PAT.finditer(xml):
                 u = m.group(0)
-                if "/podcast-btb/" in u or "/podcast/show/" in u or u.rstrip("/").endswith("listenly.fr"):
+                if "/podcast-btb/" in u or "/podcast/show/" in u or u.rstrip("/").endswith("listenly.org"):
                     found = {"url": u, "where": "rss"}
                     break
             if not found:
                 lk = re.search(r"<link>\s*(https?://[^<\s]+)\s*</link>", xml.split("<item>")[0])
-                if lk and "listenly.fr" not in lk.group(1):
+                if lk and "listenly.org" not in lk.group(1):
                     html = get(lk.group(1))
                     m = PAT.search(html)
                     if m:

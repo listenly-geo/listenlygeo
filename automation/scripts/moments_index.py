@@ -24,7 +24,7 @@ KNOWLEDGE_DIR = f"{PAGES_DIR}/data/knowledge_moments"
 INDEX_DIR = f"{PAGES_DIR}/data/moments"
 EP_URLS_FILE = f"{PAGES_DIR}/data/listenly_episode_urls.json"
 PODCASTS_FILE = f"{PAGES_DIR}/data/podcasts.json"
-EPISODE_URL_API = "https://listenly.fr/api/get-episode-url.php"
+EPISODE_URL_API = "https://listenly.org/api/get-episode-url.php"
 PLAYER_PAGE = "/"   # page d accueil Listenly (recherche + lecteur en barre, lien profond) ; repli : /podcast-btb/ecouter.html
 RETRY_NEGATIVE_DAYS = 14
 
@@ -101,7 +101,7 @@ _BUSINESS = re.compile(r"\b(business|company|companies|leader|leaders|leadership
 
 def best_proof(slug, thematique=""):
     """(question, moment_id) = la meilleure question du podcast pour la preuve du mail, ou None.
-    Lien final : https://listenly.fr/?p=<slug>&m=<moment_id> (ouvre Listenly + lecteur a l'horodatage exact).
+    Lien final : https://listenly.org/?p=<slug>&m=<moment_id> (ouvre Listenly + lecteur a l'horodatage exact).
     Choix : question claire et concrete pour un decideur B2B, avec horodatage exact (start_seconds > 0),
     ni trop courte ni trop longue, sans nom propre en cours de phrase, sans chiffres/annees."""
     best, best_score = None, -1
@@ -166,7 +166,7 @@ def seed_episode_urls(ep_urls):
             key = norm(p.get("source_episode_title"))
             if not key or ep_urls.get(slug, {}).get(key, {}).get("u"):
                 continue
-            rel = (p.get("url") or "").replace("https://listenly.fr/podcast-btb/", "")
+            rel = (p.get("url") or "").replace("https://listenly.org/podcast-btb/", "")
             try:
                 with open(f"{PAGES_DIR}/{rel}", encoding="utf-8", errors="ignore") as f:
                     html_ = f.read()
@@ -175,7 +175,7 @@ def seed_episode_urls(ep_urls):
             urls = re.findall(r"https://listenly\.fr/podcast/episode/([A-Za-z0-9_\-]+)", html_)
             if urls:
                 best = collections.Counter(urls).most_common(1)[0][0]
-                ep_urls.setdefault(slug, {})[key] = {"u": f"https://listenly.fr/podcast/episode/{best}", "d": "seed"}
+                ep_urls.setdefault(slug, {})[key] = {"u": f"https://listenly.org/podcast/episode/{best}", "d": "seed"}
                 added += 1
     return added
 
@@ -213,7 +213,7 @@ def resolve_episode_urls(ep_urls, podcasts, max_calls):
                 data=json.dumps({"rss_url": rss[slug], "episode_title": title}).encode("utf-8"))
             with urllib.request.urlopen(req, timeout=8) as r:
                 d = json.loads(r.read())
-            url = f"https://listenly.fr/podcast/episode/{d['seo_url']}" if d.get("found") and d.get("seo_url") else ""
+            url = f"https://listenly.org/podcast/episode/{d['seo_url']}" if d.get("found") and d.get("seo_url") else ""
             ep_urls.setdefault(slug, {})[key] = {"u": url, "d": today.isoformat()}
             found += 1 if url else 0
         except Exception:

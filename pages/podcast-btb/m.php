@@ -1,6 +1,6 @@
 <?php
 /**
- * Page "moment" rendue cote serveur : listenly.fr/podcast-btb/m/<podcast>/<id>
+ * Page "moment" rendue cote serveur : listenly.org/podcast-btb/m/<podcast>/<id>
  * Reprend l'accueil (m-template.html) et remplace titre, H1, canonical, balisage Google, puis ecrit
  * la reponse complete, les chiffres, la citation, les personnes citees et les autres reponses du meme episode.
  * Le lecteur est deja place au bon moment (sans lecture auto).
@@ -40,7 +40,7 @@ $epi = $e['e'] ?? '';
 $who = trim($e['x'] ?? '');
 $role = trim($e['gt'] ?? '');
 $epUrl = (preg_match('#^https://listenly\.fr/#', $e['l'] ?? '')) ? $e['l'] : '';
-$hub = (preg_match('#^/podcast-btb/[a-z0-9\-]+\.html$#i', $d['hub'] ?? '')) ? 'https://listenly.fr' . $d['hub'] : '';
+$hub = (preg_match('#^/podcast-btb/[a-z0-9\-]+\.html$#i', $d['hub'] ?? '')) ? 'https://listenly.org' . $d['hub'] : '';
 $audio = (preg_match('#^https?://#', $e['u'] ?? '')) ? $e['u'] : '';
 if ($q === '' || $audio === '') gone(404, 'Not found');
 
@@ -66,13 +66,13 @@ usort($related, function ($a, $b) { return $a['t'] <=> $b['t']; });
 $score = wc($answerText) + wc(implode(' ', $stats)) + wc($quote) + 8 * min(count($related), 4);
 $thin = (wc($answerText) < 25 || $score < 90 || $t <= 0 || $who === '');
 
-$url = 'https://listenly.fr/podcast-btb/m/' . $slug . '/' . $mid;
-$title = $t > 0 ? $q . ' — answer at ' . $ts . ' | Listenly.fr' : $q . ' | Listenly.fr';
+$url = 'https://listenly.org/podcast-btb/m/' . $slug . '/' . $mid;
+$title = $t > 0 ? $q . ' — answer at ' . $ts . ' | Listenly' : $q . ' | Listenly';
 $desc  = $t > 0 ? $q . ' Answered at ' . $ts . ' in ' . $epi . ' (' . $pod . '). Listen from the exact moment.'
                 : $q . ' Answered in ' . $epi . ' (' . $pod . ').';
 $ans = ['@type' => 'Answer', 'text' => mb_substr($answerText !== '' ? $answerText : $q, 0, 1800), 'url' => $url];
 if ($who !== '') { $ans['author'] = ['@type' => 'Person', 'name' => $who] + ($role !== '' ? ['jobTitle' => $role] : []); }
-$ld = ['@context' => 'https://schema.org', '@type' => 'Question', 'publisher' => ['@type' => 'Organization', 'name' => 'Listenly.fr', 'url' => 'https://listenly.fr/', 'description' => 'Annuaire de podcasts B2B : trouvez le moment exact d\'un épisode où un expert répond à votre question.'], 'name' => $q, 'url' => $url, 'acceptedAnswer' => $ans,
+$ld = ['@context' => 'https://schema.org', '@type' => 'Question', 'publisher' => ['@type' => 'Organization', 'name' => 'Listenly', 'url' => 'https://listenly.org/', 'description' => 'Annuaire de podcasts B2B : trouvez le moment exact d\'un épisode où un expert répond à votre question.'], 'name' => $q, 'url' => $url, 'acceptedAnswer' => $ans,
   'about' => ['@type' => 'PodcastEpisode', 'name' => $epi, 'url' => $epUrl,
     'partOfSeries' => ['@type' => 'PodcastSeries', 'name' => $pod, 'url' => $d['show'] ?? '']]];
 if ($ents) { $ld['mentions'] = array_map(function ($n) { return ['@type' => 'Thing', 'name' => $n]; }, array_slice($ents, 0, 8)); }
@@ -80,8 +80,8 @@ $ldJson = str_replace('</', '<\/', json_encode($ld, JSON_UNESCAPED_UNICODE | JSO
 
 $tpl = preg_replace('#<title>.*?</title>#s', '<title>' . $h($title) . '</title>', $tpl, 1);
 $tpl = preg_replace('#<meta name="description"[^>]*>#', '<meta name="description" content="' . $h($desc) . '">', $tpl, 1);
-$tpl = str_replace('<link rel="canonical" href="https://listenly.fr/">', '<link rel="canonical" href="' . $h($url) . '">', $tpl);
-$tpl = str_replace('<meta property="og:url" content="https://listenly.fr/">', '<meta property="og:url" content="' . $h($url) . '">', $tpl);
+$tpl = str_replace('<link rel="canonical" href="https://listenly.org/">', '<link rel="canonical" href="' . $h($url) . '">', $tpl);
+$tpl = str_replace('<meta property="og:url" content="https://listenly.org/">', '<meta property="og:url" content="' . $h($url) . '">', $tpl);
 $tpl = preg_replace('#<meta property="og:title"[^>]*>#', '<meta property="og:title" content="' . $h($q) . '">', $tpl, 1);
 $tpl = preg_replace('#<script type="application/ld\+json">.*?</script>#s', '<script type="application/ld+json">' . $ldJson . '</script>', $tpl, 1);
 // H1 = la question (le titre d'accueil devient un simple sous-titre de marque)

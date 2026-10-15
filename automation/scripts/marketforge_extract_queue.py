@@ -172,8 +172,8 @@ def build_proof_url(config, podcast):
         slug=podcast.get("slug", ""),
         podcast_name=name,
         podcast_name_url=urllib.parse.quote_plus(name),
-        fiche_url=podcast.get("fiche_url") or f"https://listenly.fr/podcast-btb/{podcast.get('slug', '')}-podcast.html",
-        listenly_url=podcast.get("listenly_url") or f"https://listenly.fr/podcast/show/{podcast.get('slug', '')}",
+        fiche_url=podcast.get("fiche_url") or f"https://listenly.org/podcast-btb/{podcast.get('slug', '')}-podcast.html",
+        listenly_url=podcast.get("listenly_url") or f"https://listenly.org/podcast/show/{podcast.get('slug', '')}",
     )
 
 

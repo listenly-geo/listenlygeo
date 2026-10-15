@@ -10,7 +10,7 @@ pages/podcast-btb/deeplink.js, deploye par le moteur : la page d'accueil n'a plu
 Sorties :
   pages/podcast-btb/ecouter.html                    : copie deployee par le moteur (noindex) — cible des boutons des hubs
   automation/tools/knowledge-search-deeplink.html   : meme page, indexable (canonical /knowledge-search),
-                                                      a coller sur listenly.fr/knowledge-search
+                                                      a coller sur listenly.org/knowledge-search
 Usage : python automation/tools/build_knowledge_deeplink.py
 """
 import re, os
@@ -18,7 +18,7 @@ import re, os
 SRC = "automation/tools/knowledge-search-source.html"
 OUT_ECOUTER = "pages/podcast-btb/ecouter.html"
 OUT_CONCEPT = "automation/tools/knowledge-search-deeplink.html"
-OUT_HOME = "automation/tools/listenly-homepage-deeplink.html"   # meme page, canonical = page d'accueil https://listenly.fr/
+OUT_HOME = "automation/tools/listenly-homepage-deeplink.html"   # meme page, canonical = page d'accueil https://listenly.org/
 
 SCRIPT_TAG = '  <script src="/podcast-btb/deeplink.js"></script>\n'   # logique + vignette : pages/podcast-btb/deeplink.js
 
@@ -38,11 +38,11 @@ def build():
     ecouter = ecouter.replace("<title>Listenly — Knowledge Search: Find the Exact Podcast Answer to Any Question</title>",
                               "<title>Listen to the answer — Listenly</title>", 1)
 
-    home = concept.replace('<link rel="canonical" href="https://listenly.fr/knowledge-search">',
-                           '<link rel="canonical" href="https://listenly.fr/">')
-    home = home.replace('<meta property="og:url" content="https://listenly.fr/knowledge-search">',
-                        '<meta property="og:url" content="https://listenly.fr/">')
-    assert 'href="https://listenly.fr/">' in home and "knowledge-search" not in re.sub(r"<!--.*?-->", "", home)
+    home = concept.replace('<link rel="canonical" href="https://listenly.org/knowledge-search">',
+                           '<link rel="canonical" href="https://listenly.org/">')
+    home = home.replace('<meta property="og:url" content="https://listenly.org/knowledge-search">',
+                        '<meta property="og:url" content="https://listenly.org/">')
+    assert 'href="https://listenly.org/">' in home and "knowledge-search" not in re.sub(r"<!--.*?-->", "", home)
     with open(OUT_HOME, "w", encoding="utf-8") as f:
         f.write(home)
     with open(OUT_CONCEPT, "w", encoding="utf-8") as f:

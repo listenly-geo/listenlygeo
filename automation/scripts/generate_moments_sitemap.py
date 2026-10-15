@@ -21,7 +21,7 @@ PAGES_DIR = "pages/podcast-btb"
 MOMENTS_DIR = f"{PAGES_DIR}/data/moments"
 STATE_FILE = f"{PAGES_DIR}/data/moments_sitemap_state.json"
 OUT = f"{PAGES_DIR}/sitemap-moments.xml"
-BASE = "https://listenly.fr/podcast-btb/m"
+BASE = "https://listenly.org/podcast-btb/m"
 
 
 def wc(text):

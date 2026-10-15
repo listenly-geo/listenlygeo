@@ -64,7 +64,7 @@ for slug in PODCAST_SLUGS:
             continue
 
         req = urllib.request.Request(podcast["rss_url"], headers={
-            "User-Agent": "Mozilla/5.0 (compatible; ListenlyGEO/1.0; +https://listenly.fr)"
+            "User-Agent": "Mozilla/5.0 (compatible; ListenlyGEO/1.0; +https://listenly.org)"
         })
         with urllib.request.urlopen(req, timeout=30) as resp:
             rss_xml = resp.read()
