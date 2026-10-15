@@ -1,8 +1,19 @@
 # Mission « Trafic SEO » — cerveau de l'optimisation quotidienne de Listenly
 
 ## Cap (décision d'Etienne, 14/10/2026)
-Faire venir un trafic de masse vers listenly.org depuis Google et les IA, au plus vite : quand une personne pose une question,
+Devenir le moteur n°1 de recherche d'expertise podcast, et faire venir un trafic de masse vers listenly.org depuis Google et les IA : quand une personne pose une question,
 Google ou une IA cite une **page de moment** Listenly (« ta réponse est à 24:50 dans ce podcast »), et un clic l'amène au bon passage.
+
+## Phases (décision d'Etienne, 15/10/2026)
+1. **Indexer les hubs et les moments** : faire découvrir et indexer les hubs N1 et les pages de moments, et enrichir les 50 fiches les plus demandées.
+2. **Relier chaque question au moment exact** : chaque question renvoie à la bonne page de moment, avec un seul bouton « Écouter ce moment ».
+3. **Couvrir un maximum de podcasts** et obtenir des liens externes.
+
+## Décisions appliquées (15/10/2026)
+- Seuls les **hubs** et les **pages de moments** sont dans l'index (sitemap-index-podcast-btb.xml).
+- Les **pages questions** (`/podcast-btb/questions/`) sont en `noindex, follow`, hors sitemap, sans redirection pour l'instant.
+- Redirection 301 du **.fr vers le .org**, pour les hubs et les moments seulement (`pages/podcast-btb/.htaccess`).
+- Search Console suit la propriété `sc-domain:listenly.org`.
 
 ## Modèle (à ne pas remettre en cause sans chiffres)
 - **Page de moment** (`/podcast-btb/m/<podcast>/<id>`) = ce que Google cite et que le lecteur ouvre. Une adresse par question.
