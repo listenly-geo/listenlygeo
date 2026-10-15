@@ -84,9 +84,25 @@ def podcast_impressions():
     return out
 
 
+def load_moteur():
+    """Etat du moteur autonome (rythme, plafond par podcast) et scores de qualite (porte d'entree)."""
+    etat, scores = {}, {}
+    try:
+        etat = json.load(open(f"{PAGES_DIR}/data/moteur_autonome_etat.json", encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        pass
+    try:
+        scores = json.load(open(f"{PAGES_DIR}/data/moments_scores.json", encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        pass
+    return etat, scores
+
+
 def main():
     cfg = load_cfg()
-    cap = int(os.environ.get("MOMENTS_PAR_JOUR") or cfg.get("moments_par_jour", 30))
+    etat, mscores = load_moteur()
+    cap = int(os.environ.get("MOMENTS_PAR_JOUR") or etat.get("moments_par_jour") or cfg.get("moments_par_jour", 30))
+    max_par_podcast = int(etat.get("max_par_podcast", 0)) or None
     cap = max(int(cfg.get("moments_par_jour_min", 1)), min(cap, int(cfg.get("moments_par_jour_max", 100))))
     exclure = set(cfg.get("exclure_slugs") or [])
     prio = list(cfg.get("priorite_slugs") or [])
@@ -110,10 +126,14 @@ def main():
         if slug in exclure:
             continue
         scores = eligible_scores(d.get("entries") or {})
+        if mscores:   # moteur autonome : seules les pages en porte d'entree (2 paragraphes + score >= 70) sont ouvertes
+            scores = {i: sc for i, sc in scores.items() if mscores.get(f"{slug}/{i}", {}).get("gate")}
         good = set(scores)
         for key in [k for k in released if k.startswith(slug + "/") and k.split("/", 1)[1] not in good]:
             del released[key]            # page devenue trop fine : retiree du sitemap
         ids = sorted((i for i in good if f"{slug}/{i}" not in released), key=lambda i: (-scores[i], i))   # les plus riches d'abord
+        if max_par_podcast:   # plafond par podcast sur les NOUVELLES ouvertures (les anciennes restent)
+            ids = ids[:max(0, max_par_podcast - sum(1 for k in released if k.startswith(slug + "/")))] if mscores else ids
         if ids:
             queues[slug] = ids
 

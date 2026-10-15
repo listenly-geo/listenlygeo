@@ -27,6 +27,9 @@ if (!is_file($file)) gone(404, 'Not found');
 $d = json_decode(file_get_contents($file), true);
 $e = $d['entries'][$mid] ?? null;
 if (!is_array($e)) gone(404, 'Not found');
+$mscores = @json_decode(@file_get_contents($base . '/data/moments_scores.json'), true) ?: [];
+// (format plat : cle = slug/id) -> normalise
+$mscores = ['entries' => $mscores];
 $tpl = @file_get_contents($base . '/m-template.html');
 if ($tpl === false) gone(500, 'Template missing');
 
@@ -65,6 +68,9 @@ usort($related, function ($a, $b) { return $a['t'] <=> $b['t']; });
 // Regle de richesse (identique a generate_moments_sitemap.py) : une page trop fine reste accessible mais en noindex
 $score = wc($answerText) + wc(implode(' ', $stats)) + wc($quote) + 8 * min(count($related), 4);
 $thin = (wc($answerText) < 25 || $score < 90 || $t <= 0 || $who === '');
+// Moteur autonome (15/10/2026) : seule la porte d'entree (2 paragraphes + score >= 70) est indexable.
+$mscore = $mscores['entries'][$slug . '/' . $mid] ?? null;
+if (is_array($mscore) && empty($mscore['gate'])) { $thin = true; }
 
 $url = 'https://listenly.org/podcast-btb/m/' . $slug . '/' . $mid;
 $title = $t > 0 ? $q . ' — answer at ' . $ts . ' | Listenly' : $q . ' | Listenly';
