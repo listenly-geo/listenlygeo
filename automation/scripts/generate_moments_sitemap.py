@@ -115,6 +115,9 @@ def main():
     released = state.setdefault("released", {})
     already_today = sum(1 for d in released.values() if d == today)
     quota = max(cap - already_today, 0)
+    if cfg.get("pause_plan"):   # pause : plan du site vide, aucune nouvelle page ouverte (pages conservees en base)
+        released.clear()
+        quota = 0
 
     queues = {}
     for f in sorted(glob.glob(f"{MOMENTS_DIR}/*.json")):
