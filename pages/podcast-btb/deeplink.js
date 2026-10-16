@@ -22,7 +22,7 @@
   var pathMatch = location.pathname.match(/^\/podcast-btb\/m\/([a-z0-9\-]+)\/([a-f0-9]+)\/?$/i);
   if (pathMatch) { slug = pathMatch[1]; mid = pathMatch[2]; }
 
-  var safeListenly = function (u) { return /^https:\/\/listenly\.fr\//.test(u || '') ? u : ''; };
+  var safeListenly = function (u) { return /^https:\/\/listenly\.(fr|org)\//.test(u || '') ? u : ''; };
   var safeImage = function (u) { return /^https:\/\//.test(u || '') ? u : ''; };
   function el(tag, cls, text) {
     var n = document.createElement(tag);
