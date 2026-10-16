@@ -38,22 +38,9 @@ def write(out):
 
 
 CACHE = "pages/podcast-btb/data/keyword_cache.json"
-CANDIDATES = "pages/podcast-btb/data/keyword_candidates.json"
+THEMES = "pages/podcast-btb/data/keyword_themes.json"   # un theme (1-3 mots) par moment, ecrit a la main
 MAX_NEW_PER_RUN = 100   # plafond de requetes nouvelles par jour (maitrise du budget)
 TTL_DAYS = 30           # un volume reste valable 30 jours
-
-STOP = set("what why how is are was were does do did the a an of in for to and or with by on at from be can could would "
-           "should it its this that which who whom when where whose their there as than into about over under "
-           "has have had will may might must between through during including such more most other some any each "
-           "both so too very just only also not no you your we they our role work works changed change changes "
-           "function functions nature mean means matter matters".split())
-
-
-def phrase_from_question(q):
-    """Forme courte d'une question pour la requete : mots pleins, sans mots interrogatifs, 4 mots max."""
-    words = re.findall(r"[a-zA-Z][a-zA-Z\-']*", (q or "").lower())
-    return " ".join([w for w in words if w not in STOP][:4])
-
 
 def load_json(path, default):
     try:
@@ -62,10 +49,10 @@ def load_json(path, default):
         return default
 
 
-def cached_volume(phrase, cache=None):
-    """Volume mis en cache pour une forme courte, ou None (inconnu, pas de donnee ou expire)."""
+def cached_volume(theme, cache=None):
+    """Volume mensuel mis en cache pour un theme, ou None (inconnu, pas de donnee ou expire)."""
     cache = cache if cache is not None else load_json(CACHE, {})
-    item = cache.get(phrase)
+    item = cache.get(theme)
     if not item or item.get("volume") is None:
         return None
     try:
@@ -76,9 +63,9 @@ def cached_volume(phrase, cache=None):
 
 
 def refresh():
-    """Mode quotidien (GitHub Actions) : interroge DataForSEO pour les formes courtes candidates non connues."""
+    """Mode quotidien (GitHub Actions) : interroge DataForSEO pour les themes non encore connus."""
     today = datetime.date.today().isoformat()
-    cand = load_json(CANDIDATES, [])
+    cand = list(load_json(THEMES, {}).values())
     cache = load_json(CACHE, {})
     cache = {k: v for k, v in cache.items() if not k.startswith("_")
              and (datetime.date.today() - datetime.date.fromisoformat(v.get("date", "1970-01-01"))).days <= TTL_DAYS}
@@ -114,11 +101,12 @@ def main():
     if args[:1] == ["--refresh"]:
         refresh()
         return
+    if "--out" in args:          # --out accepte n'importe ou dans la ligne de commande
+        i = args.index("--out")
+        OUT = args[i + 1]
+        args = args[:i] + args[i + 2:]
     if args[:1] == ["--file"]:   # simulation : une requete par ligne dans le fichier
         args = [l.strip() for l in open(args[1], encoding="utf-8") if l.strip()]
-    if args[:1] == ["--out"]:
-        OUT = args[1]
-        args = args[2:]
     keywords = [k.strip() for k in args if k.strip()]
     today = datetime.date.today().isoformat()
     missing = [k for k in ("DATAFORSEO_LOGIN", "DATAFORSEO_PASSWORD") if not os.environ.get(k)]
