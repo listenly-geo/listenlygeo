@@ -1,6 +1,7 @@
 name: MarketForge — Commande de test (Sheet / mails)
 
 # Pilote les fonctions de test d'Apps Script depuis le chat (pas besoin de cliquer dans le menu du Sheet).
+#  test_mail1: envoie a Etienne le mail 1 seul (exemple : slug donne, sinon 1re ligne Pret avec question)
 #  test_me   : envoie a Etienne le mail 1 + les 3 relances (exemple : slug donne, sinon 1re ligne Pret avec question)
 #  test_real : envoie de VRAIS mails (n = 1 a 3, slug optionnel pour viser UN seul podcast) -> confirm doit etre true
 
@@ -8,9 +9,9 @@ on:
   workflow_dispatch:
     inputs:
       cmd:
-        description: 'test_me ou test_real'
+        description: 'test_mail1, test_me ou test_real'
         required: true
-        default: 'test_me'
+        default: 'test_mail1'
       slug:
         description: 'Podcast vise (optionnel)'
         required: false

@@ -1331,6 +1331,18 @@ function mfeCmd_(body) {
   var lock = LockService.getScriptLock(); lock.waitLock(30000);
   try {
     var sh = mfeSheet_(), cmd = String(body.cmd || ''), slug = String(body.slug || '');
+    if (cmd === 'test_mail1') {   // test rapide : mail 1 seul, envoye uniquement a TOI (pas les relances)
+      var moi1 = Session.getEffectiveUser().getEmail(), ex1 = null;
+      mfeEnsureSettings_();
+      mfeRows_(sh).forEach(function (r) {
+        if (ex1) return;
+        if (slug ? r.values[0] === slug : (r.values[6] === 'Pret' && r.values[16] && r.values[17])) ex1 = r.values;
+      });
+      if (!ex1) return mfeJson_({ ok: false, error: 'aucune ligne trouvee (Pret avec question)' });
+      var d1 = mfeDraft_(ex1, 'A');
+      GmailApp.sendEmail(moi1, '[TEST mail 1] ' + d1[0], mfeWithSignature_(d1[1]), mfeSendOpts_(d1[1]));
+      return mfeJson_({ ok: true, cmd: cmd, mails_envoyes_a_toi: 1, podcast: ex1[1], slug: ex1[0], question: ex1[16] || '', moment_id: ex1[17] || '' });
+    }
     if (cmd === 'test_me') {
       var moi = Session.getEffectiveUser().getEmail(), ex = null;
       mfeEnsureSettings_();
@@ -1412,7 +1424,7 @@ function mfeCmd_(body) {
       var sent = mfeSend_(sh, mfeSettings_(), nb, slug);
       return mfeJson_({ ok: true, cmd: cmd, demandes: nb, envoyes: sent, slug: slug });
     }
-    return mfeJson_({ ok: false, error: 'cmd inconnue (test_me | test_to | test_real)' });
+    return mfeJson_({ ok: false, error: 'cmd inconnue (test_mail1 | test_me | test_to | test_real)' });
   } finally { lock.releaseLock(); }
 }
 

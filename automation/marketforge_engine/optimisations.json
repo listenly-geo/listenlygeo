@@ -1351,6 +1351,14 @@
       "texte": "Le lien des mails pointe maintenant vers le moment exact de l'episode (question reelle + lien listenly.org) quand le podcast en a un, et vers la fiche N1 sinon. Nouveau champ MOMENT_URL disponible dans les modeles de mail. Modeles de mail 1 et relances 1-2-3 mis a jour (texte valide par Etienne le 16/10). Aucune version du script n'a ete augmentee : les textes du Sheet restent ceux saisis.",
       "date": "16/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-154",
+      "section": "Tests",
+      "version": "V2.9",
+      "texte": "Nouvelle commande de test « mail 1 seul » : elle envoie uniquement le mail 1 a Etienne, sans les relances, pour verifier le texte rapidement. Le mail 1 change aussi : la question de redirection devient « Do you have a Spotify or a Podcast Hub ? Where can we redirect the audience who arrives from Google & AI ? », et le lien du moment est integre dans la phrase « one question from your latest episode, here ». Le texte est mis a jour dans le Sheet ; le lien vers le moment reste automatique.",
+      "date": "16/10/2026",
+      "statut": "en_cours"
     }
   ]
 }
