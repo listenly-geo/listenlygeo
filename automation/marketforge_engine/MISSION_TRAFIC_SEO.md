@@ -15,6 +15,14 @@ Google ou une IA cite une **page de moment** Listenly (« ta réponse est à 24:
 - Redirection 301 du **.fr vers le .org**, pour les hubs et les moments seulement (`pages/podcast-btb/.htaccess`).
 - Search Console suit la propriété `sc-domain:listenly.org`.
 
+## Sitemaps (décision d'Etienne, 16/10/2026)
+- Une seule adresse soumise à Search Console : `sitemap-index-podcast-btb.xml` (sur listenly.org).
+- Il pointe vers deux sitemaps : `sitemap-hubs.xml` (fiches N1) et `sitemap-moments.xml` (pages de moment).
+- Sitemap N1 = uniquement les fiches N1 du podcast d'au moins un moment ouvert. Une N1 entre avec son premier moment et sort quand il n'en reste aucun.
+- Les autres fiches N1 restent en ligne sur le site, hors sitemap.
+- Chaque nouveau podcast reçoit sa fiche N1 à la découverte ; ses moments s'ouvrent au rythme quotidien.
+- Les deux générateurs (`generate_moments_sitemap.py` et `generate_podcast_btb.py`) appliquent cette règle.
+
 ## Modèle (à ne pas remettre en cause sans chiffres)
 - **Page de moment** (`/podcast-btb/m/<podcast>/<id>`) = ce que Google cite et que le lecteur ouvre. Une adresse par question.
 - **Hub N1** (`/podcast-btb/<podcast>-podcast.html`) = sommaire du podcast : fait découvrir les pages de moments et leur transmet de la confiance. Il ne doit pas recopier les réponses.

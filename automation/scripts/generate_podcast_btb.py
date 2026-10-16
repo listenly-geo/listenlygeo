@@ -1111,6 +1111,10 @@ def build_split_sitemaps(quality_urls):
     for name, entries_list in groups.items():
         if name in ("autres", "questions"):
             continue
+        if name == "hubs":   # 16/10/2026 : sitemap N1 = seulement les N1 d'un podcast avec moment ouvert
+            from generate_moments_sitemap import allowed_hub_urls
+            keep = set(allowed_hub_urls())
+            entries_list = [e for e in entries_list if e[0] in keep]
         entries = "\n".join(
             f'  <url>\n    <loc>{u}</loc>\n    <lastmod>{m}</lastmod>\n    <priority>{p}</priority>\n  </url>'
             for u, m, p in sorted(entries_list)

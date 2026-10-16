@@ -166,7 +166,7 @@ def main():
     with open(STATE_FILE, "w", encoding="utf-8") as fh:
         json.dump(state, fh, ensure_ascii=False, indent=0, sort_keys=True)
     write_a_indexer(released, today)
-    update_hubs_sitemap(today)
+    sync_hubs_sitemap(today)
     left = sum(len(v) for v in queues.values())
     print(f"[moments-sitemap] +{added} aujourd'hui (plafond {cap}) | total ouvert a Google : {len(released)} | restant en attente : {left}")
 
@@ -214,37 +214,44 @@ def write_a_indexer(released, today):
 
 HUBS_OUT = f"{PAGES_DIR}/sitemap-hubs.xml"
 INDEX_OUT = f"{PAGES_DIR}/sitemap-index-podcast-btb.xml"
-HUB_BASE = "https://listenly.org/podcast-btb/"
+HUB_BASE = "https://listenly.org"
 
 
-def update_hubs_sitemap(today):
-    """Ajoute au sitemap des N1 (sitemap-hubs.xml) toute fiche N1 presente sur disque et absente de la liste.
-    Les adresses deja listees sont conservees telles quelles (jamais de retrait). Meme regle de qualite que
-    generate_podcast_btb.build_sitemap_quality : pas de noindex, fiche d'au moins 8 Ko. L'index garde la date du jour."""
-    try:
-        xml = open(HUBS_OUT, encoding="utf-8").read()
-    except OSError:
-        xml = ""
-    existing = dict(re.findall(r"<loc>([^<]+)</loc>\s*<lastmod>([^<]+)</lastmod>", xml))
-    added = []
-    for path in sorted(glob.glob(f"{PAGES_DIR}/*-podcast.html")):
-        name = os.path.basename(path)
-        url = HUB_BASE + name
-        if url in existing or os.path.getsize(path) < 8 * 1024:
-            continue
+def allowed_hub_urls(released=None):
+    """Fiches N1 a garder dans le sitemap : celles du podcast d'au moins un moment ouvert
+    (moment present dans released). Regle du 16/10/2026 : une N1 entre au sitemap avec son premier moment
+    ouvert et en sort quand il n'en reste aucun. Retourne {url: chemin_disque}."""
+    if released is None:
         try:
-            content = open(path, encoding="utf-8", errors="ignore").read()
-        except OSError:
+            released = json.load(open(STATE_FILE, encoding="utf-8")).get("released", {})
+        except (OSError, json.JSONDecodeError):
+            released = {}
+    out = {}
+    for slug in sorted({k.split("/", 1)[0] for k in released}):
+        try:
+            d = json.load(open(f"{MOMENTS_DIR}/{slug}.json", encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
             continue
-        if "noindex" in content.lower():
+        hub = (d.get("hub") or "").strip()
+        if not re.fullmatch(r"/podcast-btb/[a-z0-9\-]+\.html", hub):
             continue
-        existing[url] = today
-        added.append(url)
-    if not added:
-        return
+        path = f"{PAGES_DIR}/" + hub.replace("/podcast-btb/", "", 1)
+        if os.path.exists(path):
+            out[HUB_BASE + hub] = path
+    return out
+
+
+def sync_hubs_sitemap(today):
+    """Reecrit sitemap-hubs.xml : uniquement les N1 de allowed_hub_urls(). Date de premiere entree conservee,
+    date du jour pour les nouvelles. L'index recoit la date du jour."""
+    try:
+        old = dict(re.findall(r"<loc>([^<]+)</loc>\s*<lastmod>([^<]+)</lastmod>", open(HUBS_OUT, encoding="utf-8").read()))
+    except OSError:
+        old = {}
+    wanted = allowed_hub_urls()
     entries = "\n".join(
-        f"  <url>\n    <loc>{u}</loc>\n    <lastmod>{m}</lastmod>\n    <priority>1.0</priority>\n  </url>"
-        for u, m in sorted(existing.items())
+        f"  <url>\n    <loc>{u}</loc>\n    <lastmod>{old.get(u, today)}</lastmod>\n    <priority>1.0</priority>\n  </url>"
+        for u in sorted(wanted)
     )
     out = ('<?xml version="1.0" encoding="UTF-8"?>\n'
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + entries + "\n</urlset>\n")
@@ -257,7 +264,7 @@ def update_hubs_sitemap(today):
             fh.write(idx)
     except OSError:
         pass
-    print(f"[hubs-sitemap] +{len(added)} fiches N1 ajoutees ({len(existing)} au total)")
+    print(f"[hubs-sitemap] {len(wanted)} fiches N1 (podcasts avec moment ouvert), {len(old) - len(set(old) & set(wanted))} retirees, {len(wanted) - len(set(old) & set(wanted))} ajoutees")
 
 
 if __name__ == "__main__":
