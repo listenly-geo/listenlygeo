@@ -61,8 +61,9 @@ def main():
         resp = call("POST", "/keywords_data/google_ads/search_volume/live",
                     [{"keywords": keywords, "location_code": LOCATION, "language_code": LANGUAGE}])
     except urllib.error.HTTPError as e:
-        write({"statut": "erreur", "date": today, "code": e.code, "detail": e.read().decode()[:300]})
-        print(f"DataForSEO : erreur HTTP {e.code}")
+        body = e.read().decode(errors="ignore")[:500]
+        write({"statut": "erreur", "date": today, "code": e.code, "detail": body})
+        print(f"DataForSEO : erreur HTTP {e.code} : {body}")
         sys.exit(1)
     results = ((resp.get("tasks") or [{}])[0].get("result")) or []
     volumes = [{"mot_cle": r.get("keyword"), "volume_mensuel": r.get("search_volume"),
