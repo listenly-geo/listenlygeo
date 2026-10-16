@@ -26,6 +26,10 @@ jobs:
         env:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
         run: python3 automation/scripts/gsc_pull.py
+      - name: Soumission du plan des moments (Search Console)
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: python3 automation/scripts/gsc_submit_sitemap.py
       - name: Brief quotidien (décision du jour)
         run: python3 automation/scripts/trafic_brief.py
       - name: Sauvegarde dans le dépôt
