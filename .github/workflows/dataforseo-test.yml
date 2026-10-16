@@ -22,9 +22,11 @@ jobs:
       - name: Test de connexion et volumes (3 questions)
         run: |
           python3 automation/scripts/keyword_dataforseo.py \
-            "why do luxury groups enter hospitality" \
-            "what is a prediction market" \
-            "how does AI change the cost of coding"
+            "podcast marketing" \
+            "prediction market" \
+            "luxury hospitality" \
+            "AI coding cost" \
+            "malaria vaccine"
       - name: Enregistrer le resultat
         if: always()
         run: |
