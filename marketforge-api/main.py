@@ -1010,3 +1010,31 @@ def export_leads(client_id: str, authorization: str | None = Header(default=None
         leads = _load(cid).get("leads", [])
     lines = ["email;date;source_url"] + [f"{l['email']};{l['date']};{l['source_url']}" for l in leads]
     return Response("\n".join(lines) + "\n", media_type="text/csv; charset=utf-8")
+
+
+# ---------------------------------------------------------------- téléchargement du Hub (MVP installable)
+# Le moteur archive le dossier du Hub (artefact « hub-site ») dans le dépôt du client.
+# Le client télécharge la dernière archive depuis son dashboard et la dépose sur son site.
+@app.get("/api/hub/{client_id}/download")
+def download_hub(client_id: str, authorization: str | None = Header(default=None)):
+    cid = _authorize(client_id, authorization)
+    with _lock:
+        repos = _load(cid).get("repos", {})
+    if not repos:
+        raise HTTPException(status_code=404, detail="Votre Hub n'est pas encore généré")
+    full = next(iter(repos.values()))
+
+    listing = _gh_at("GET", full, "/actions/artifacts?name=hub-site&per_page=1")
+    artifacts = listing.json().get("artifacts", []) if listing.status_code == 200 else []
+    artifacts = [a for a in artifacts if not a.get("expired")]
+    if not artifacts:
+        raise HTTPException(status_code=404, detail="Aucune version du Hub n'est disponible pour le moment")
+
+    archive = _gh_at("GET", full, f"/actions/artifacts/{artifacts[0]['id']}/zip", follow_redirects=True)
+    if archive.status_code != 200:
+        raise HTTPException(status_code=502, detail="Le Hub n'a pas pu être téléchargé")
+    return Response(
+        archive.content,
+        media_type="application/zip",
+        headers={"Content-Disposition": 'attachment; filename="hub-podcast.zip"'},
+    )
