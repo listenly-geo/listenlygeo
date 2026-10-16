@@ -835,9 +835,11 @@ function mfeVars_(values) {
   var queryLink = String(values[3] || '').trim() || ('https://listenly.org/podcast/show/' + values[0]);
   // QUERY_BLOCK : la question reelle juste au-dessus du lien Listenly horodate ("question \n-> lien"); sans question, le lien seul
   var question = String(values[16] || '').trim();
-  var queryBlock = (question && values[17]) ? question + '\n→ ' + queryLink : queryLink;
+  // MOMENT_URL : lien direct vers le moment de l'episode (listenly.org/?p=slug&m=moment ID, colonnes A et R) ; sans moment ID, lien vers la fiche N1
+  var momentUrl = (values[0] && values[17]) ? 'https://listenly.org/?p=' + String(values[0]).trim() + '&m=' + String(values[17]).trim() : queryLink;
+  var queryBlock = (question && values[17]) ? question + '\n→ ' + momentUrl : queryLink;
   return { PODCAST: mfeShortName_(values[1]), URL: values[3], LINK: values[3], LISTENLY: values[12] || values[3],
-           QUERY_LINK: queryLink, QUERY_BLOCK: queryBlock, QUERY: question, THEMATIQUE: String(values[15] || '').trim() || 'your industry',
+           QUERY_LINK: queryLink, MOMENT_URL: momentUrl, QUERY_BLOCK: queryBlock, QUERY: question, THEMATIQUE: String(values[15] || '').trim() || 'your industry',
            NAME: mfeName_(values[13], mfeShortName_(values[1])), HELLO: mfeHello_(values[13]), BOOKING: MFE.BOOKING, OPTOUT: mfeMsg_('MFE_MSG_OPTOUT') };
 }
 
