@@ -1,0 +1,34 @@
+name: DataForSEO — test de connexion (manuel)
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dataforseo-test
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
+      DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test de connexion et volumes (3 questions)
+        run: |
+          python3 automation/scripts/keyword_dataforseo.py \
+            "why do luxury groups enter hospitality" \
+            "what is a prediction market" \
+            "how does AI change the cost of coding"
+      - name: Enregistrer le resultat
+        run: |
+          git config user.name "listenly-geo"
+          git config user.email "noreply@github.com"
+          git add pages/podcast-btb/data/keyword_dataforseo.json
+          git diff --cached --quiet || git commit -m "DataForSEO : test de connexion (manuel)"
+          git push || true
