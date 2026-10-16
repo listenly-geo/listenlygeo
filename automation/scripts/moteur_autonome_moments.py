@@ -44,28 +44,35 @@ QWORDS = r"^(what|why|how|when|where|who|which|is|are|does|do|can|should|could|w
 FILL = r"^(is|are|does|do|the|a|an|of|to|for|in|on|that|this|it|be|being)\s+"
 
 
-def seo_title(question, max_len=58, brand="Listenly"):
-    """Brouillon de titre SEO (rapport du 15/10/2026) : sans mot interrogatif, 50 a 58 caracteres, marque a la fin.
+def seo_title(question, podcast, max_len=58):
+    """Titre SEO (regle fixee le 16/10/2026) : la QUESTION reste en forme interrogative (les IA et Google
+    trouvent la question telle quelle), raccourcie si besoin, puis le nom du podcast. Cible 50 a 58 caracteres.
     Brouillon uniquement : chaque titre est relu avant publication."""
-    s = re.sub(r"[?.!]+$", "", (question or "").strip())
-    s = re.sub(QWORDS, "", s, flags=re.I)
-    s = re.sub(FILL, "", s, flags=re.I)
-    s = re.sub(r"\s+", " ", s).strip()
-    suffix = f" | {brand}"
-    room = max_len - len(suffix)
-    core = s
+    q = re.sub(r"\s+", " ", (question or "")).strip().rstrip(".!? ")
+    name = re.sub(r"\s+", " ", (podcast or "")).strip() or "Listenly"
+    suffix = f" | {name}"
+    if len(suffix) > 30:   # nom de podcast tres long : version courte
+        suffix = " | " + name[:26].rstrip()
+    room = max_len - len(suffix) - 1   # une place pour le point d'interrogation
+    core, tronque = q, False
     if len(core) > room:
+        tronque = True
         out = ""
         for w in core.split():
             cand = (out + " " + w).strip()
             if len(cand) > room:
                 break
             out = cand
-        core = out or core[:room]
-    title = core + suffix if len(core) + len(suffix) <= max_len else core
-    if title and title[0].islower():
-        title = title[0].upper() + title[1:]
-    return {"titre": title, "caracteres": len(title), "alerte_longueur": len(title) > 65}
+        core = (out or core[:room]).rstrip(" ,;:-")
+        if len(core) < 0.7 * len(q):   # coupe trop brutale : le sens est perdu, a reecrire a la main
+            core, tronque = q, True
+    if core and not core.endswith("?"):
+        core += "?"
+    if core and core[0].islower():
+        core = core[0].upper() + core[1:]
+    title = core + suffix
+    return {"titre": title, "caracteres": len(title), "tronque": tronque,
+            "alerte_longueur": len(title) > 65}
 
 
 def wc(s):
@@ -231,7 +238,7 @@ def main():
             imp, clics, queries = signals.get(key, (0, 0, []))
             bonus = (5 if imp > 0 else 0) + (5 if clics > 0 else 0)
             scores[key] = {"score": s, "detail": detail, "bonus_recherche": bonus,
-                           "impressions": imp, "clics": clics, "podcast": slug, "gate": False,
+                           "impressions": imp, "clics": clics, "podcast": slug, "nom": d.get("podcast") or slug, "gate": False,
                            "question": e.get("q"), "t": int(e.get("t") or 0)}
             gate = nparas_ok(e) and s >= 70
             scores[key]["gate"] = gate
@@ -258,9 +265,9 @@ def main():
     # brouillons de titres pour les 30 meilleures pages de qualité (relecture humaine avant toute publication)
     meilleures = sorted((k for k, v in scores.items() if v.get("gate")), key=lambda k: -scores[k]["score_final"])[:30]
     for key in meilleures:
-        t = seo_title(scores[key].get("question") or "")
+        t = seo_title(scores[key].get("question") or "", scores[key].get("nom"))
         titres.append({"page": key, "titre_actuel": scores[key].get("question"), "titre_propose": t["titre"],
-                       "caracteres": t["caracteres"], "alerte_longueur": t["alerte_longueur"],
+                       "caracteres": t["caracteres"], "tronque": t["tronque"], "alerte_longueur": t["alerte_longueur"],
                        "statut": "brouillon_a_relire"})
     hubs = {p: n for p, n in per_podcast_good.items() if n >= 3}
     max_par_podcast = 3 if rate is None or rate < 40 else 6
