@@ -1,4 +1,4 @@
-name: DataForSEO — test de connexion (manuel)
+name: DataForSEO — simulation des formulations (manuel)
 
 on:
   workflow_dispatch: {}
@@ -19,19 +19,14 @@ jobs:
       DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
-      - name: Test de connexion et volumes (3 questions)
+      - name: Simulation des formulations (volumes DataForSEO)
         run: |
-          python3 automation/scripts/keyword_dataforseo.py \
-            "podcast marketing" \
-            "prediction market" \
-            "luxury hospitality" \
-            "AI coding cost" \
-            "malaria vaccine"
+          python3 automation/scripts/keyword_dataforseo.py --file automation/scripts/simulation_formulations.txt --out pages/podcast-btb/data/keyword_simulation.json
       - name: Enregistrer le resultat
         if: always()
         run: |
           git config user.name "listenly-geo"
           git config user.email "noreply@github.com"
-          git add pages/podcast-btb/data/keyword_dataforseo.json
-          git diff --cached --quiet || git commit -m "DataForSEO : test de connexion (manuel)"
+          git add pages/podcast-btb/data/keyword_simulation.json
+          git diff --cached --quiet || git commit -m "DataForSEO : simulation des formulations (manuel)"
           git push || true

@@ -38,7 +38,14 @@ def write(out):
 
 
 def main():
-    keywords = [k.strip() for k in sys.argv[1:] if k.strip()]
+    global OUT
+    args = sys.argv[1:]
+    if args[:1] == ["--file"]:   # simulation : une requete par ligne dans le fichier
+        args = [l.strip() for l in open(args[1], encoding="utf-8") if l.strip()]
+    if args[:1] == ["--out"]:
+        OUT = args[1]
+        args = args[2:]
+    keywords = [k.strip() for k in args if k.strip()]
     today = datetime.date.today().isoformat()
     missing = [k for k in ("DATAFORSEO_LOGIN", "DATAFORSEO_PASSWORD") if not os.environ.get(k)]
     if missing:
