@@ -164,8 +164,40 @@ def main():
         fh.write(xml)
     with open(STATE_FILE, "w", encoding="utf-8") as fh:
         json.dump(state, fh, ensure_ascii=False, indent=0, sort_keys=True)
+    write_a_indexer(released, today)
     left = sum(len(v) for v in queues.values())
     print(f"[moments-sitemap] +{added} aujourd'hui (plafond {cap}) | total ouvert a Google : {len(released)} | restant en attente : {left}")
+
+
+def write_a_indexer(released, today):
+    """Liste du jour : chaque moment ouvert aujourd'hui avec sa fiche N1 (hub du podcast)."""
+    items, sans_n1 = [], 0
+    for key, day in sorted(released.items()):
+        if day != today:
+            continue
+        slug, mid = key.split("/", 1)
+        try:
+            d = json.load(open(f"{MOMENTS_DIR}/{slug}.json", encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            d = {}
+        hub = (d.get("hub") or "").strip()
+        n1_existe = bool(hub) and os.path.exists(f"{PAGES_DIR}/" + hub.replace("/podcast-btb/", "", 1))
+        if not n1_existe:
+            sans_n1 += 1
+        e = (d.get("entries") or {}).get(mid) or {}
+        items.append({
+            "moment": f"{BASE}/{key}",
+            "question": e.get("q"),
+            "podcast": slug,
+            "n1": f"https://listenly.org{hub}" if hub else "",
+            "n1_existe": n1_existe,
+        })
+    out = {"date": today, "nombre": len(items), "sans_n1": sans_n1,
+           "methode": "Moments ouverts aujourd'hui au sitemap, chacun avec la fiche N1 de son podcast. "
+                      "A demander a Google a la main (Search Console) : ne jamais publier de titre sans validation.",
+           "items": items}
+    with open(f"{PAGES_DIR}/data/moments_a_indexer.json", "w", encoding="utf-8") as fh:
+        json.dump(out, fh, ensure_ascii=False, indent=1)
 
 
 if __name__ == "__main__":
