@@ -10,7 +10,7 @@ Sans ces secrets : ecrit le statut « non connecte » et ne fait aucun appel.
 Usage : python3 automation/scripts/keyword_dataforseo.py "question 1" "question 2" ...
 Sortie : pages/podcast-btb/data/keyword_dataforseo.json
 """
-import os, sys, json, base64, datetime, urllib.request, urllib.error
+import os, re, sys, json, base64, datetime, urllib.request, urllib.error
 
 BASE = "https://api.dataforseo.com/v3"
 OUT = "pages/podcast-btb/data/keyword_dataforseo.json"
@@ -37,9 +37,83 @@ def write(out):
         json.dump(out, fh, ensure_ascii=False, indent=1)
 
 
+CACHE = "pages/podcast-btb/data/keyword_cache.json"
+CANDIDATES = "pages/podcast-btb/data/keyword_candidates.json"
+MAX_NEW_PER_RUN = 100   # plafond de requetes nouvelles par jour (maitrise du budget)
+TTL_DAYS = 30           # un volume reste valable 30 jours
+
+STOP = set("what why how is are was were does do did the a an of in for to and or with by on at from be can could would "
+           "should it its this that which who whom when where whose their there as than into about over under "
+           "has have had will may might must between through during including such more most other some any each "
+           "both so too very just only also not no you your we they our role work works changed change changes "
+           "function functions nature mean means matter matters".split())
+
+
+def phrase_from_question(q):
+    """Forme courte d'une question pour la requete : mots pleins, sans mots interrogatifs, 4 mots max."""
+    words = re.findall(r"[a-zA-Z][a-zA-Z\-']*", (q or "").lower())
+    return " ".join([w for w in words if w not in STOP][:4])
+
+
+def load_json(path, default):
+    try:
+        return json.load(open(path, encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return default
+
+
+def cached_volume(phrase, cache=None):
+    """Volume mis en cache pour une forme courte, ou None (inconnu, pas de donnee ou expire)."""
+    cache = cache if cache is not None else load_json(CACHE, {})
+    item = cache.get(phrase)
+    if not item or item.get("volume") is None:
+        return None
+    try:
+        age = (datetime.date.today() - datetime.date.fromisoformat(item["date"])).days
+    except (KeyError, ValueError):
+        return None
+    return item["volume"] if age <= TTL_DAYS else None
+
+
+def refresh():
+    """Mode quotidien (GitHub Actions) : interroge DataForSEO pour les formes courtes candidates non connues."""
+    today = datetime.date.today().isoformat()
+    cand = load_json(CANDIDATES, [])
+    cache = load_json(CACHE, {})
+    cache = {k: v for k, v in cache.items() if not k.startswith("_")
+             and (datetime.date.today() - datetime.date.fromisoformat(v.get("date", "1970-01-01"))).days <= TTL_DAYS}
+    todo = [p for p in dict.fromkeys(cand) if p and p not in cache][:MAX_NEW_PER_RUN]
+    if not todo:
+        print("DataForSEO : rien a interroger aujourd'hui.")
+        os.makedirs(os.path.dirname(CACHE), exist_ok=True)
+        json.dump(cache, open(CACHE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        return
+    missing = [k for k in ("DATAFORSEO_LOGIN", "DATAFORSEO_PASSWORD") if not os.environ.get(k)]
+    if missing:
+        print("DataForSEO : non connecte. Secrets manquants : " + ", ".join(missing))
+        return
+    try:
+        resp = call("POST", "/keywords_data/google_ads/search_volume/live",
+                    [{"keywords": todo, "location_code": LOCATION, "language_code": LANGUAGE}])
+    except urllib.error.HTTPError as e:
+        print(f"DataForSEO : erreur HTTP {e.code} : {e.read().decode(errors='ignore')[:300]}")
+        sys.exit(1)
+    results = ((resp.get("tasks") or [{}])[0].get("result")) or []
+    got = {r.get("keyword"): r.get("search_volume") for r in results}
+    for kw in todo:
+        cache[kw] = {"volume": got.get(kw), "date": today}
+    cache["_meta"] = {"date": today, "solde": ((resp.get("tasks") or [{}])[0].get("cost"))}
+    os.makedirs(os.path.dirname(CACHE), exist_ok=True)
+    json.dump(cache, open(CACHE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"DataForSEO : {len(todo)} formes interrogees, {sum(1 for kw in todo if got.get(kw) is not None)} avec volume.")
+
+
 def main():
     global OUT
     args = sys.argv[1:]
+    if args[:1] == ["--refresh"]:
+        refresh()
+        return
     if args[:1] == ["--file"]:   # simulation : une requete par ligne dans le fichier
         args = [l.strip() for l in open(args[1], encoding="utf-8") if l.strip()]
     if args[:1] == ["--out"]:

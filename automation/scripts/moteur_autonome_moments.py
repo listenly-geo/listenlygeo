@@ -19,7 +19,7 @@ Le generateur de sitemap (generate_moments_sitemap.py) lit son etat pour l'ordre
 
 Usage : python3 automation/scripts/moteur_autonome_moments.py
 """
-import os, re, json, glob, datetime, collections
+import os, re, json, glob, math, datetime, collections
 
 PAGES = "pages/podcast-btb"
 MOMENTS = f"{PAGES}/data/moments"
@@ -178,6 +178,15 @@ def next_cap(current, rate, inspected, cfg):
     return current, f"indexation {rate}% sur {inspected} pages : rythme stable"
 
 
+def dfs_volume(question):
+    """Volume mensuel DataForSEO (cache quotidien), ou None si inconnu. Aucun appel API ici."""
+    try:
+        from keyword_dataforseo import phrase_from_question, cached_volume
+    except ImportError:
+        return None
+    return cached_volume(phrase_from_question(question))
+
+
 def kp_best(question):
     """Volume mensuel (Keyword Planner) de la requete la plus proche de la question, ou None si non branche."""
     try:
@@ -237,8 +246,11 @@ def main():
             scores[key]["gate"] = gate
             # Demande (20 pts) : Keyword Planner si branche, sinon Search Console (impressions 10, clics 20)
             kp = kp_best(e.get("q") or "")
+            dfs = dfs_volume(e.get("q") or "")
             if kp is not None:
                 demande = min(20, round(20 * min(kp, 1000) / 1000))
+            elif dfs is not None:   # echelle log : 10 -> 5 pts, 1 000 -> 15 pts, 10 000 et plus -> 20 pts
+                demande = min(20, round(20 * math.log10(dfs + 1) / 4))
             else:
                 demande = 20 if clics > 0 else 10 if imp > 0 else 0
             scores[key]["demande"] = demande
@@ -254,6 +266,17 @@ def main():
                     titres.append({"page": key, "titre_actuel": e.get("q"), "requete_reelle": qtext,
                                    "statut": "a_valider"})
                     break
+
+    # formes courtes des 150 meilleures pages de qualite, a interroger le lendemain (DataForSEO, cache)
+    try:
+        from keyword_dataforseo import phrase_from_question
+        top = sorted((k for k, v in scores.items() if v.get("gate")), key=lambda k: -scores[k]["score_final"])[:150]
+        formes = list(dict.fromkeys(phrase_from_question(scores[k].get("question") or "") for k in top))
+        os.makedirs(f"{PAGES}/data", exist_ok=True)
+        json.dump([f for f in formes if f], open(f"{PAGES}/data/keyword_candidates.json", "w", encoding="utf-8"),
+                  ensure_ascii=False, indent=1)
+    except ImportError:
+        pass
 
     # brouillons de titres pour les 30 meilleures pages de qualité (relecture humaine avant toute publication)
     meilleures = sorted((k for k, v in scores.items() if v.get("gate")), key=lambda k: -scores[k]["score_final"])[:30]
