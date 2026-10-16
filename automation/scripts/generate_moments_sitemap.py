@@ -20,6 +20,7 @@ import os, re, json, glob, datetime
 PAGES_DIR = "pages/podcast-btb"
 MOMENTS_DIR = f"{PAGES_DIR}/data/moments"
 STATE_FILE = f"{PAGES_DIR}/data/moments_sitemap_state.json"
+SCORES_FILE = f"{PAGES_DIR}/data/moments_scores.json"
 OUT = f"{PAGES_DIR}/sitemap-moments.xml"
 BASE = "https://listenly.org/podcast-btb/m"
 
@@ -172,6 +173,10 @@ def main():
 def write_a_indexer(released, today):
     """Liste du jour : chaque moment ouvert aujourd'hui avec sa fiche N1 (hub du podcast)."""
     items, sans_n1 = [], 0
+    try:
+        mscores = json.load(open(SCORES_FILE, encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        mscores = {}
     for key, day in sorted(released.items()):
         if day != today:
             continue
@@ -180,6 +185,9 @@ def write_a_indexer(released, today):
             d = json.load(open(f"{MOMENTS_DIR}/{slug}.json", encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
             d = {}
+        q_info = mscores.get(key) or {}
+        if not q_info.get("gate"):   # garde-fou : seule une fiche validee par le score qualite entre dans la liste
+            continue
         hub = (d.get("hub") or "").strip()
         n1_existe = bool(hub) and os.path.exists(f"{PAGES_DIR}/" + hub.replace("/podcast-btb/", "", 1))
         if not n1_existe:
@@ -191,6 +199,9 @@ def write_a_indexer(released, today):
             "podcast": slug,
             "n1": f"https://listenly.org{hub}" if hub else "",
             "n1_existe": n1_existe,
+            "score_qualite": q_info.get("score"),
+            "score_final": q_info.get("score_final"),
+            "validation": "porte d'entree : 2 paragraphes et score qualite >= 70",
         })
     out = {"date": today, "nombre": len(items), "sans_n1": sans_n1,
            "methode": "Moments ouverts aujourd'hui au sitemap, chacun avec la fiche N1 de son podcast. "
