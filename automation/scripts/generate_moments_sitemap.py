@@ -166,6 +166,7 @@ def main():
     with open(STATE_FILE, "w", encoding="utf-8") as fh:
         json.dump(state, fh, ensure_ascii=False, indent=0, sort_keys=True)
     write_a_indexer(released, today)
+    update_hubs_sitemap(today)
     left = sum(len(v) for v in queues.values())
     print(f"[moments-sitemap] +{added} aujourd'hui (plafond {cap}) | total ouvert a Google : {len(released)} | restant en attente : {left}")
 
@@ -209,6 +210,54 @@ def write_a_indexer(released, today):
            "items": items}
     with open(f"{PAGES_DIR}/data/moments_a_indexer.json", "w", encoding="utf-8") as fh:
         json.dump(out, fh, ensure_ascii=False, indent=1)
+
+
+HUBS_OUT = f"{PAGES_DIR}/sitemap-hubs.xml"
+INDEX_OUT = f"{PAGES_DIR}/sitemap-index-podcast-btb.xml"
+HUB_BASE = "https://listenly.org/podcast-btb/"
+
+
+def update_hubs_sitemap(today):
+    """Ajoute au sitemap des N1 (sitemap-hubs.xml) toute fiche N1 presente sur disque et absente de la liste.
+    Les adresses deja listees sont conservees telles quelles (jamais de retrait). Meme regle de qualite que
+    generate_podcast_btb.build_sitemap_quality : pas de noindex, fiche d'au moins 8 Ko. L'index garde la date du jour."""
+    try:
+        xml = open(HUBS_OUT, encoding="utf-8").read()
+    except OSError:
+        xml = ""
+    existing = dict(re.findall(r"<loc>([^<]+)</loc>\s*<lastmod>([^<]+)</lastmod>", xml))
+    added = []
+    for path in sorted(glob.glob(f"{PAGES_DIR}/*-podcast.html")):
+        name = os.path.basename(path)
+        url = HUB_BASE + name
+        if url in existing or os.path.getsize(path) < 8 * 1024:
+            continue
+        try:
+            content = open(path, encoding="utf-8", errors="ignore").read()
+        except OSError:
+            continue
+        if "noindex" in content.lower():
+            continue
+        existing[url] = today
+        added.append(url)
+    if not added:
+        return
+    entries = "\n".join(
+        f"  <url>\n    <loc>{u}</loc>\n    <lastmod>{m}</lastmod>\n    <priority>1.0</priority>\n  </url>"
+        for u, m in sorted(existing.items())
+    )
+    out = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + entries + "\n</urlset>\n")
+    with open(HUBS_OUT, "w", encoding="utf-8") as fh:
+        fh.write(out)
+    try:
+        idx = open(INDEX_OUT, encoding="utf-8").read()
+        idx = re.sub(r"(sitemap-hubs\.xml</loc>\s*<lastmod>)[^<]+(</lastmod>)", lambda m: m.group(1) + today + m.group(2), idx)
+        with open(INDEX_OUT, "w", encoding="utf-8") as fh:
+            fh.write(idx)
+    except OSError:
+        pass
+    print(f"[hubs-sitemap] +{len(added)} fiches N1 ajoutees ({len(existing)} au total)")
 
 
 if __name__ == "__main__":
