@@ -15,24 +15,37 @@ N = 10
 
 
 def choisir():
-    """10 pages de MOMENTS validees par le systeme (porte d'entree gate=True), les plus fortes d'abord,
-    en priorite celles deja ouvertes au sitemap. Exclut celles deja demandees (data/indexation_demandees.json)."""
+    """Methode du 17/10/2026 : d'abord la DEMANDE reelle (volume Google Ads du theme de la fiche),
+    puis la note. Seules les fiches avec un volume > 0 sont retenues. Plafond 3 par podcast.
+    Exclut les pages deja demandees (indexation_demandees.json et index_requests.json)."""
     scores = json.load(open(f"{PAGES}/data/moments_scores.json", encoding="utf-8"))
-    released = json.load(open(f"{PAGES}/data/moments_sitemap_state.json", encoding="utf-8")).get("released", {})
+    scores = scores.get("scores", scores)
     try:
-        deja = set(json.load(open(f"{PAGES}/data/indexation_demandees.json", encoding="utf-8")).get("urls", []))
+        demande = json.load(open(f"{PAGES}/data/demande_par_fiche.json", encoding="utf-8")).get("fiches", {})
     except (OSError, json.JSONDecodeError):
-        deja = set()
+        demande = {}
+    deja = set()
+    for f in ("indexation_demandees.json", "index_requests.json"):
+        try:
+            d = json.load(open(f"{PAGES}/data/{f}", encoding="utf-8"))
+            if isinstance(d, dict):
+                deja.update(d.get("urls", []))
+                for v in d.values():
+                    if isinstance(v, list):
+                        deja.update(x for x in v if isinstance(x, str))
+                for h in d.get("historique", []):
+                    deja.update(h.get("urls", []))
+        except (OSError, json.JSONDecodeError):
+            pass
     cands = []
     for key, v in scores.items():
         if not isinstance(v, dict) or not v.get("gate"):
             continue
-        url = BASE + "m/" + key
-        if url in deja:
+        vol = (demande.get(key) or {}).get("volume", 0)
+        if vol <= 0 or BASE + "m/" + key in deja:
             continue
-        cands.append((0 if key in released else 1, -(v.get("score_final") or 0), key))
+        cands.append((-vol, -(v.get("score_final") or 0), key))
     cands.sort()
-    # Plafond : 3 fiches maximum par podcast (regle du 16/10/2026)
     out, par_podcast = [], {}
     for _, sc, k in cands:
         slug = k.split("/", 1)[0]

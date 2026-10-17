@@ -2,7 +2,7 @@
 """
 Volumes Google Ads (Keyword Planner) pour toutes les questions de moment, chaque jour (17/10/2026).
 
-Lit les questions des fiches qui passent la porte (moments_scores.json, gate = vrai), interroge Google Ads par lots de 20,
+Lit le theme court des fiches qui passent la porte (keyword_themes.json), interroge Google Ads par lots de 20,
 et ecrit pages/podcast-btb/data/keyword_planner.json (lu par moteur_autonome_moments.py).
 Ne publie rien. Sans secrets Google Ads, ecrit l'etat « non connecte ».
 """
@@ -14,22 +14,24 @@ SCORES = "pages/podcast-btb/data/moments_scores.json"
 BATCH = 20
 
 
-def questions():
-    if os.environ.get("KP_THEMES"):   # test : themes courts (keyword_themes.json)
-        try:
-            return sorted(set(v for v in json.load(open("pages/podcast-btb/data/keyword_themes.json", encoding="utf-8")).values() if v))
-        except (OSError, json.JSONDecodeError):
-            return []
-    """Seulement les fiches qui passent la porte de qualite (2 paragraphes, note 70+) : le reservoir."""
+THEMES = "pages/podcast-btb/data/keyword_themes.json"
+DEMANDE = "pages/podcast-btb/data/demande_par_fiche.json"
+
+
+def reservoir_themes():
+    """Theme court de chaque fiche du reservoir (porte passee), tel que ecrit dans keyword_themes.json."""
     try:
         sc = json.load(open(SCORES, encoding="utf-8"))
+        th = json.load(open(THEMES, encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
-        return []
-    qs = set()
-    for v in (sc.get("scores") or sc).values():
-        if isinstance(v, dict) and v.get("gate") and (v.get("question") or "").strip():
-            qs.add(v["question"].strip())
-    return sorted(qs)
+        return {}
+    gate = {k for k, v in (sc.get("scores") or sc).items() if isinstance(v, dict) and v.get("gate")}
+    return {k: t.strip() for k, t in th.items() if k in gate and isinstance(t, str) and t.strip()}
+
+
+def questions():
+    """Methode du 17/10/2026 : on interroge Google avec le theme court de chaque fiche du reservoir."""
+    return sorted(set(reservoir_themes().values()))
 
 
 def main():
@@ -56,6 +58,10 @@ def main():
                 print(f"Arret au lot {i // BATCH} : erreur {e.code}")
                 break
     statut = "connecte" if faits else "erreur"
+    if faits:   # volume par fiche = volume du theme (correspondance exacte)
+        par_theme = {(i.get("requete") or "").lower(): i["volume_mensuel_moyen"] for i in merged.values()}
+        fiches = {k: {"theme": t, "volume": par_theme.get(t.lower(), 0)} for k, t in reservoir_themes().items()}
+        json.dump({"date": now, "fiches": fiches}, open(DEMANDE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     kp.write_state({"statut": statut, "date": now, "graines": qs[:faits * BATCH],
                     "lots_reussis": faits, "lots_en_erreur": erreurs,
                     "idees": sorted(merged.values(), key=lambda x: -x["volume_mensuel_moyen"])})
