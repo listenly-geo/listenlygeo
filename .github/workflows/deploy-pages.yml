@@ -8,7 +8,11 @@ on:
   workflow_dispatch: {}
   push:
     branches: [main]
-    paths: ['automation/marketforge_engine/deploy-now.txt']
+    paths:
+      - 'automation/marketforge_engine/deploy-now.txt'
+      - 'pages/podcast-btb/sitemap-moments.xml'        # 16/10/2026 : mise en ligne quotidienne du plan des moments et des N1
+      - 'pages/podcast-btb/sitemap-index-podcast-btb.xml'
+      - 'pages/podcast-btb/data/titres_seo.json'        # titres SEO lus par m.php
 
 permissions:
   contents: read

@@ -1,12 +1,7 @@
 name: Deploy to Listenly.fr
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'pages/**.html'
-      - 'pages/**.xml'
+  workflow_dispatch: {}   # 16/10/2026 : plus de declenchement automatique (il envoyait vers /listenly.fr/fiche-geo-ia/)
 
 jobs:
   deploy:
