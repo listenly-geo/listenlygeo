@@ -2,28 +2,28 @@
 """
 Volumes Google Ads (Keyword Planner) pour toutes les questions de moment, chaque jour (17/10/2026).
 
-Lit les questions de pages/podcast-btb/data/moments/*.json, interroge Google Ads par lots de 20,
+Lit les questions des fiches qui passent la porte (moments_scores.json, gate = vrai), interroge Google Ads par lots de 20,
 et ecrit pages/podcast-btb/data/keyword_planner.json (lu par moteur_autonome_moments.py).
 Ne publie rien. Sans secrets Google Ads, ecrit l'etat « non connecte ».
 """
-import os, sys, json, glob, datetime, urllib.error
+import os, sys, json, datetime, urllib.error
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import keyword_planner as kp
 
-MOMENTS = "pages/podcast-btb/data/moments"
+SCORES = "pages/podcast-btb/data/moments_scores.json"
 BATCH = 20
 
 
 def questions():
+    """Seulement les fiches qui passent la porte de qualite (2 paragraphes, note 70+) : le reservoir."""
+    try:
+        sc = json.load(open(SCORES, encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
     qs = set()
-    for f in glob.glob(f"{MOMENTS}/*.json"):
-        try:
-            d = json.load(open(f, encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
-            continue
-        for e in (d.get("entries") or {}).values():
-            if isinstance(e, dict) and (e.get("q") or "").strip():
-                qs.add(e["q"].strip())
+    for v in (sc.get("scores") or sc).values():
+        if isinstance(v, dict) and v.get("gate") and (v.get("question") or "").strip():
+            qs.add(v["question"].strip())
     return sorted(qs)
 
 
