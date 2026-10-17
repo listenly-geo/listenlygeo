@@ -3,7 +3,12 @@ name: Keyword Planner — volumes quotidiens (questions de moment)
 # Chaque jour, Google Ads donne le volume mensuel des questions de moment.
 # Ecrit seulement pages/podcast-btb/data/keyword_planner.json, lu par le moteur des moments.
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      themes:
+        description: 'Test : 1 pour envoyer les thèmes courts au lieu des fiches (écrit un fichier séparé)'
+        required: false
+        default: ''
   schedule:
     - cron: '40 5 * * *'
 
@@ -26,9 +31,11 @@ jobs:
           GOOGLE_ADS_CLIENT_SECRET: ${{ secrets.GOOGLE_ADS_CLIENT_SECRET }}
           GOOGLE_ADS_REFRESH_TOKEN: ${{ secrets.GOOGLE_ADS_REFRESH_TOKEN }}
           GOOGLE_ADS_CUSTOMER_ID: ${{ secrets.GOOGLE_ADS_CUSTOMER_ID }}
-        run: python3 automation/scripts/keyword_planner_quotidien.py
+        run: |
+          if [ -n "${{ github.event.inputs.themes }}" ]; then export KP_THEMES=1 KP_OUT=pages/podcast-btb/data/keyword_test_themes.json; fi
+          python3 automation/scripts/keyword_planner_quotidien.py
       - name: Sauvegarde du résultat
         run: |
           git config user.name "marketforge-bot"; git config user.email "bot@listenly.fr"
-          git add pages/podcast-btb/data/keyword_planner.json || true
+          git add pages/podcast-btb/data/keyword_planner.json pages/podcast-btb/data/keyword_test_themes.json 2>/dev/null || true
           git diff --cached --quiet || (git commit -m "Volumes Google Ads des questions de moment (quotidien)" && git pull -q --rebase && git push -q)

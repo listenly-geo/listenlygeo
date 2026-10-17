@@ -15,6 +15,11 @@ BATCH = 20
 
 
 def questions():
+    if os.environ.get("KP_THEMES"):   # test : themes courts (keyword_themes.json)
+        try:
+            return sorted(set(v for v in json.load(open("pages/podcast-btb/data/keyword_themes.json", encoding="utf-8")).values() if v))
+        except (OSError, json.JSONDecodeError):
+            return []
     """Seulement les fiches qui passent la porte de qualite (2 paragraphes, note 70+) : le reservoir."""
     try:
         sc = json.load(open(SCORES, encoding="utf-8"))

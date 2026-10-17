@@ -19,7 +19,7 @@ Usage : python3 automation/scripts/keyword_planner.py "question ou sujet 1" "suj
 import os, sys, json, datetime, urllib.request, urllib.parse, urllib.error
 
 API_VERSION = "v26"
-OUT = "pages/podcast-btb/data/keyword_planner.json"
+OUT = os.environ.get("KP_OUT") or "pages/podcast-btb/data/keyword_planner.json"
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 LANG = "1002"   # anglais
 GEO = "2840"    # Etats-Unis (marche B2B cible)
