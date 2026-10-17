@@ -2,8 +2,6 @@ name: DataForSEO — volumes quotidiens (moteur moments)
 
 on:
   workflow_dispatch: {}
-  schedule:
-    - cron: '20 5 * * *'
 
 permissions:
   contents: write
