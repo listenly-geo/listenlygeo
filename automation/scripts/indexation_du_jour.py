@@ -32,7 +32,17 @@ def choisir():
             continue
         cands.append((0 if key in released else 1, -(v.get("score_final") or 0), key))
     cands.sort()
-    return [(k.split("/", 1)[0], k.split("/", 1)[1], -sc) for _, sc, k in cands[:N]]
+    # Plafond : 3 fiches maximum par podcast (regle du 16/10/2026)
+    out, par_podcast = [], {}
+    for _, sc, k in cands:
+        slug = k.split("/", 1)[0]
+        if par_podcast.get(slug, 0) >= 3:
+            continue
+        par_podcast[slug] = par_podcast.get(slug, 0) + 1
+        out.append((slug, k.split("/", 1)[1], -sc))
+        if len(out) >= N:
+            break
+    return out
 
 
 def token():

@@ -155,9 +155,21 @@ def main():
             if not queues[slug]:
                 del queues[slug]
 
+    # Fiches N1 (hub) du podcast de chaque moment ouvert : ajoutees au plan du site, car chaque moment y est rattache (16/10/2026)
+    hubs = {}
+    for key, day in sorted(released.items()):
+        slug = key.split("/", 1)[0]
+        try:
+            hub = (json.load(open(f"{MOMENTS_DIR}/{slug}.json", encoding="utf-8")).get("hub") or "").strip()
+        except (OSError, json.JSONDecodeError):
+            hub = ""
+        if hub and os.path.exists(f"{PAGES_DIR}/" + hub.replace("/podcast-btb/", "", 1)):
+            hubs.setdefault("https://listenly.org" + hub, day)
     entries = "\n".join(
-        f"  <url>\n    <loc>{BASE}/{key}</loc>\n    <lastmod>{day}</lastmod>\n    <priority>0.8</priority>\n  </url>"
-        for key, day in sorted(released.items())
+        [f"  <url>\n    <loc>{BASE}/{key}</loc>\n    <lastmod>{day}</lastmod>\n    <priority>0.8</priority>\n  </url>"
+         for key, day in sorted(released.items())]
+        + [f"  <url>\n    <loc>{url}</loc>\n    <lastmod>{day}</lastmod>\n    <priority>0.9</priority>\n  </url>"
+           for url, day in sorted(hubs.items())]
     )
     xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + entries + "\n</urlset>\n")
