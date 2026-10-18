@@ -165,11 +165,10 @@ def main():
             hub = ""
         if hub and os.path.exists(f"{PAGES_DIR}/" + hub.replace("/podcast-btb/", "", 1)):
             hubs.setdefault("https://listenly.org" + hub, day)
+    # Le plan des moments ne contient QUE les pages de moment. Les fiches N1 vont dans sitemap-hubs.xml (sync_hubs_sitemap).
     entries = "\n".join(
         [f"  <url>\n    <loc>{BASE}/{key}</loc>\n    <lastmod>{day}</lastmod>\n    <priority>0.8</priority>\n  </url>"
          for key, day in sorted(released.items())]
-        + [f"  <url>\n    <loc>{url}</loc>\n    <lastmod>{day}</lastmod>\n    <priority>0.9</priority>\n  </url>"
-           for url, day in sorted(hubs.items())]
     )
     xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + entries + "\n</urlset>\n")
