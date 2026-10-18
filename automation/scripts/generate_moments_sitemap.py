@@ -131,6 +131,11 @@ def load_moteur():
 
 def main():
     cfg = load_cfg()
+    try:   # 18/10/2026 : niveaux de priorite recalcules chaque jour (notoriete + Search Console)
+        import priorite_podcasts
+        priorite_podcasts.main()
+    except Exception as e:
+        print(f"[priorite] non recalculee : {e}")
     etat, mscores = load_moteur()
     cap = int(os.environ.get("MOMENTS_PAR_JOUR") or etat.get("moments_par_jour") or cfg.get("moments_par_jour", 30))
     max_par_podcast = int(etat.get("max_par_podcast", 0)) or None
