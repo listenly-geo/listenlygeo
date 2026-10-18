@@ -138,6 +138,13 @@ def main():
     exclure = set(cfg.get("exclure_slugs") or [])
     # File d'attente : les pages choisies par volumes mais pas encore ouvertes restent prioritaires (19/10 : pas perdues si la selection du jour change)
     file_plan = file_plan_lire() | demande_du_jour()
+    # 18/10/2026 : seuls les podcasts des niveaux ouverts (trafic_seo.json > niveaux_ouverts) entrent au plan
+    try:
+        niv = json.load(open(f"{PAGES_DIR}/data/priorite_podcasts.json", encoding="utf-8")).get("niveaux", {})
+    except (OSError, json.JSONDecodeError):
+        niv = {}
+    ouverts_niv = set(cfg.get("niveaux_ouverts") or ["A"])
+    file_plan = {k for k in file_plan if niv.get(k.split("/", 1)[0], "C") in ouverts_niv}
     allowed_keys, titres_ok = file_plan, titres_connus()
     prio = list(cfg.get("priorite_slugs") or [])
     imp = podcast_impressions()

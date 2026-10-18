@@ -37,9 +37,17 @@ def choisir():
                     deja.update(h.get("urls", []))
         except (OSError, json.JSONDecodeError):
             pass
+    # 18/10/2026 : seuls les podcasts des niveaux ouverts (trafic_seo.json > niveaux_ouverts) sont proposes
+    try:
+        niv = json.load(open(f"{PAGES}/data/priorite_podcasts.json", encoding="utf-8")).get("niveaux", {})
+        ouverts = set(json.load(open("automation/marketforge_engine/trafic_seo.json", encoding="utf-8")).get("niveaux_ouverts") or ["A"])
+    except (OSError, json.JSONDecodeError):
+        niv, ouverts = {}, {"A"}
     cands = []
     for key, v in scores.items():
         if not isinstance(v, dict) or not v.get("gate"):
+            continue
+        if niv.get(key.split("/", 1)[0], "C") not in ouverts:
             continue
         vol = (demande.get(key) or {}).get("volume", 0)
         if vol <= 0 or BASE + "m/" + key in deja:
