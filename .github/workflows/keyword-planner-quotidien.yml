@@ -10,7 +10,7 @@ on:
         required: false
         default: ''
   schedule:
-    - cron: '40 5 * * *'
+    - cron: '30 3 * * *'
 
 permissions:
   contents: write
@@ -37,5 +37,11 @@ jobs:
       - name: Sauvegarde du résultat
         run: |
           git config user.name "marketforge-bot"; git config user.email "bot@listenly.fr"
-          git add pages/podcast-btb/data/keyword_planner.json pages/podcast-btb/data/keyword_test_themes.json 2>/dev/null || true
-          git diff --cached --quiet || (git commit -m "Volumes Google Ads des questions de moment (quotidien)" && git pull -q --rebase && git push -q)
+          git add pages/podcast-btb/data/keyword_planner.json pages/podcast-btb/data/keyword_test_themes.json pages/podcast-btb/data/demande_par_fiche.json 2>/dev/null || true
+          if git diff --cached --quiet; then echo "Rien de nouveau à enregistrer"; exit 0; fi
+          git commit -m "Volumes Google Ads des questions de moment (quotidien)"
+          for i in 1 2 3; do
+            if git pull -q --rebase && git push -q; then echo "Sauvegarde OK"; exit 0; fi
+            echo "Essai $i échoué, nouvelle tentative dans 15 s"; sleep 15
+          done
+          echo "Sauvegarde impossible après 3 essais"; exit 1
