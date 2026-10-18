@@ -71,6 +71,19 @@ def demande_du_jour():
     return {u.get("url", "").split("/podcast-btb/m/", 1)[1] for u in d.get("urls", []) if "/podcast-btb/m/" in u.get("url", "")}
 
 
+def file_plan_lire():
+    """Pages en attente d'ouverture (choisies par volumes, pas encore au plan)."""
+    try:
+        return set(json.load(open(f"{PAGES_DIR}/data/file_plan_moments.json", encoding="utf-8")).get("keys", []))
+    except (OSError, json.JSONDecodeError):
+        return set()
+
+
+def file_plan_ecrire(keys):
+    with open(f"{PAGES_DIR}/data/file_plan_moments.json", "w", encoding="utf-8") as fh:
+        json.dump({"keys": sorted(keys)}, fh, ensure_ascii=False, indent=1)
+
+
 def titres_connus():
     """Cles slug/id ayant un titre optimise : une page sans titre n'entre pas au plan."""
     try:
@@ -123,7 +136,9 @@ def main():
     max_par_podcast = int(etat.get("max_par_podcast", 0)) or None
     cap = max(int(cfg.get("moments_par_jour_min", 1)), min(cap, int(cfg.get("moments_par_jour_max", 100))))
     exclure = set(cfg.get("exclure_slugs") or [])
-    allowed_keys, titres_ok = demande_du_jour(), titres_connus()
+    # File d'attente : les pages choisies par volumes mais pas encore ouvertes restent prioritaires (19/10 : pas perdues si la selection du jour change)
+    file_plan = file_plan_lire() | demande_du_jour()
+    allowed_keys, titres_ok = file_plan, titres_connus()
     prio = list(cfg.get("priorite_slugs") or [])
     imp = podcast_impressions()
     today = datetime.date.today().isoformat()
@@ -176,6 +191,7 @@ def main():
             if not queues[slug]:
                 del queues[slug]
 
+    file_plan_ecrire({k for k in file_plan if k not in released})   # ce qui reste en attente pour les jours suivants
     # Fiches N1 (hub) du podcast de chaque moment ouvert : ajoutees au plan du site, car chaque moment y est rattache (16/10/2026)
     hubs = {}
     for key, day in sorted(released.items()):
