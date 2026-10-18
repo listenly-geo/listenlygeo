@@ -62,6 +62,23 @@ def eligible_scores(entries):
     return ok
 
 
+def demande_du_jour():
+    """Pages choisies par la selection par volumes (indexation_du_jour.json). Vide = aucune nouvelle ouverture."""
+    try:
+        d = json.load(open(f"{PAGES_DIR}/data/indexation_du_jour.json", encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return set()
+    return {u.get("url", "").split("/podcast-btb/m/", 1)[1] for u in d.get("urls", []) if "/podcast-btb/m/" in u.get("url", "")}
+
+
+def titres_connus():
+    """Cles slug/id ayant un titre optimise : une page sans titre n'entre pas au plan."""
+    try:
+        return set(json.load(open(f"{PAGES_DIR}/data/titres_seo.json", encoding="utf-8")).get("titres", {}).keys())
+    except (OSError, json.JSONDecodeError):
+        return set()
+
+
 def load_cfg():
     try:
         return json.load(open("automation/marketforge_engine/trafic_seo.json", encoding="utf-8"))
@@ -106,6 +123,7 @@ def main():
     max_par_podcast = int(etat.get("max_par_podcast", 0)) or None
     cap = max(int(cfg.get("moments_par_jour_min", 1)), min(cap, int(cfg.get("moments_par_jour_max", 100))))
     exclure = set(cfg.get("exclure_slugs") or [])
+    allowed_keys, titres_ok = demande_du_jour(), titres_connus()
     prio = list(cfg.get("priorite_slugs") or [])
     imp = podcast_impressions()
     today = datetime.date.today().isoformat()
@@ -137,6 +155,9 @@ def main():
         for key in [k for k in released if k.startswith(slug + "/") and k.split("/", 1)[1] not in good]:
             del released[key]            # page devenue trop fine : retiree du sitemap
         ids = sorted((i for i in good if f"{slug}/{i}" not in released), key=lambda i: (-scores[i], i))   # les plus riches d'abord
+        # 18/10/2026 : seules les pages choisies par la selection par volumes (indexation_du_jour.json) et ayant un titre
+        # optimise (titres_seo.json) peuvent entrer au plan. Les pages deja ouvertes restent.
+        ids = [i for i in ids if f"{slug}/{i}" in allowed_keys and f"{slug}/{i}" in titres_ok]
         if max_par_podcast:   # plafond par podcast sur les NOUVELLES ouvertures (les anciennes restent)
             ids = ids[:max(0, max_par_podcast - sum(1 for k in released if k.startswith(slug + "/")))] if mscores else ids
         if ids:
@@ -171,9 +192,10 @@ def main():
          for key, day in sorted(released.items())]
     )
     # Garde-fou : le plan des moments ne doit contenir que des pages /podcast-btb/m/ (jamais de fiche N1)
-    if any("/podcast-btb/m/" not in k for k in released) or "<loc>https://listenly.org/podcast-btb/" in entries and "/podcast-btb/m/" not in entries:
+    locs = re.findall(r"<loc>([^<]+)</loc>", entries)
+    if any(not u.startswith(BASE + "/") for u in locs):
         raise SystemExit("ARRET : une adresse non-moment est entree dans sitemap-moments.xml")
-    if entries.count("<loc>") != len(released):
+    if len(locs) != len(released):
         raise SystemExit("ARRET : nombre d'adresses du plan des moments incoherent")
     xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + entries + "\n</urlset>\n")
