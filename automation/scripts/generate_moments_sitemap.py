@@ -170,6 +170,11 @@ def main():
         [f"  <url>\n    <loc>{BASE}/{key}</loc>\n    <lastmod>{day}</lastmod>\n    <priority>0.8</priority>\n  </url>"
          for key, day in sorted(released.items())]
     )
+    # Garde-fou : le plan des moments ne doit contenir que des pages /podcast-btb/m/ (jamais de fiche N1)
+    if any("/podcast-btb/m/" not in k for k in released) or "<loc>https://listenly.org/podcast-btb/" in entries and "/podcast-btb/m/" not in entries:
+        raise SystemExit("ARRET : une adresse non-moment est entree dans sitemap-moments.xml")
+    if entries.count("<loc>") != len(released):
+        raise SystemExit("ARRET : nombre d'adresses du plan des moments incoherent")
     xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + entries + "\n</urlset>\n")
     with open(OUT, "w", encoding="utf-8") as fh:
