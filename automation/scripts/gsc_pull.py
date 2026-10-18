@@ -138,6 +138,21 @@ def main():
         save("resume", {"date": str(datetime.date.today()), "periode": [s, e], "pages": len(pages),
                         "clics": tot(pages, "clics"), "impressions": tot(pages, "impressions"),
                         "pages_moments": len(pm), "clics_moments": tot(pm, "clics"), "impressions_moments": tot(pm, "impressions")})
+        # Detail pour l'analyse (17/10/2026) : requete x page sur 7 et 28 jours, tous les resultats
+        try:
+            d7 = fin - datetime.timedelta(days=7)
+            d28 = fin - datetime.timedelta(days=28)
+            qp7 = clean(query(tok, ["query", "page"], str(d7), e), ["requete", "page"])
+            qp28 = clean(query(tok, ["query", "page"], str(d28), e), ["requete", "page"])
+            save("requetes_pages_7j", sorted(qp7, key=lambda x: -x["impressions"]))
+            save("requetes_pages_28j", sorted(qp28, key=lambda x: -x["impressions"]))
+            save("analyse_periodes", {"date": str(datetime.date.today()), "fin": e,
+                                     "7j": {"debut": str(d7), "impressions": tot(qp7, "impressions"), "clics": tot(qp7, "clics"),
+                                            "lignes": len(qp7)},
+                                     "28j": {"debut": str(d28), "impressions": tot(qp28, "impressions"), "clics": tot(qp28, "clics"),
+                                            "lignes": len(qp28)}})
+        except Exception as ex:
+            print("Detail 7/28 jours (non bloquant) :", str(ex)[:300])
         print(f"OK : {len(pages)} pages, {len(requetes)} requetes, {len(pm)} pages de moments")
         try:
             print("Indexation des pages de moments :", inspect_moments(tok))
