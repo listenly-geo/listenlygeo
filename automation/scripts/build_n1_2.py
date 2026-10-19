@@ -196,12 +196,17 @@ def build(slug, max_questions=10):
           "description": punch, "url": podcast_url, "image": cover, "genre": cat,
           "author": {"@type": "Person", "name": host}}
     count = len(all_moments)
+    # Qualité minimale (CLAUDE.md) : une fiche N1 n'est indexable qu'avec au moins une vraie
+    # question portée par un expert identifié. Sinon : noindex, follow (et hors sitemap).
+    qualified = any(m["expert"] and m["q"] for m in all_moments)
+    robots = "" if qualified else '<meta name="robots" content="noindex, follow">'
 
     return f"""<!DOCTYPE html>
 <html lang="{esc(lang)}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{robots}
 <title>{esc(name)}: expert answers | Listenly</title>
 <meta name="description" content="{esc(punch[:150])}">
 <link rel="canonical" href="{canon}">
