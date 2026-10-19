@@ -189,6 +189,13 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         raise SystemExit(__doc__)
     slug = sys.argv[1]
+    switch = os.path.join(ROOT, "automation", "marketforge_engine", "modele_n1.json")
+    modele = json.load(open(switch, encoding="utf-8")).get("modele_actif", "N1.2")
+    if modele != "N1.2":
+        raise SystemExit(
+            f"Modèle actif = {modele} : aucune fiche N1.2 générée. "
+            "L'ancien modèle N1.1 est conservé dans pages/podcast-btb/n1-1-archive/. "
+            "Pour repasser en N1.2, remettre modele_actif à N1.2 dans automation/marketforge_engine/modele_n1.json.")
     out = sys.argv[2] if len(sys.argv) > 2 else os.path.join(
         ROOT, "pages", "podcast-btb", "n1-2-preview", f"{slug}-podcast.html")
     n = int(sys.argv[3]) if len(sys.argv) > 3 else 10
