@@ -426,6 +426,29 @@ def _taille_segment(nb):
     return "petit (<20)" if n < 20 else ("moyen (20-99)" if n < 100 else "grand (100+)")
 
 
+# MAJ 19/10/2026 : filtre avant IA (langue du flux RSS). Retour arriere : DISCOVERY_PRE_AI_LANG_FILTER=0
+# ou git revert du commit tague « avant-filtre-ia-19-10 ».
+PRE_AI_LANG_FILTER_ON = os.environ.get("DISCOVERY_PRE_AI_LANG_FILTER", "1") == "1"
+
+
+def rss_language(feed_url):
+    """Langue declaree dans le flux RSS (balise <language>), en minuscules, ou '' si absente/illisible.
+    Ne leve jamais d'exception : '' = on ne decide pas, le candidat passe a l'IA comme avant."""
+    import xml.etree.ElementTree as ET
+    if not feed_url:
+        return ""
+    try:
+        req = urllib.request.Request(feed_url, headers={"User-Agent": "Mozilla/5.0 MarketForge"})
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            root = ET.fromstring(resp.read())
+        for el in root.iter("language"):
+            if el.text and el.text.strip():
+                return el.text.strip().lower()
+        return ""
+    except Exception:
+        return ""
+
+
 def push_cohorte(records):
     if not records:
         return
@@ -734,13 +757,22 @@ def main():
             description=(r.get("description") or r.get("collectionCensoredName") or "")[:800],
             track_count=r.get("trackCount", "?"),
         )
-        log(f"Qualification : {name}...")
-        try:
-            raw = call_claude_with_search(prompt)
-            result = extract_json(raw)
-        except Exception as e:
-            log(f"  ERREUR qualification ({e}) — ignore ce candidat par prudence.")
-            continue
+        # MAJ 19/10/2026 : filtre AVANT l'IA. Si le flux RSS declare une langue autre que l'anglais,
+        # le candidat est refuse sans appel IA (meme resultat qu'avant : la politique « anglais
+        # uniquement » le refusait deja). Desactivable : DISCOVERY_PRE_AI_LANG_FILTER=0.
+        rss_lang = rss_language(r.get("feedUrl", "")) if PRE_AI_LANG_FILTER_ON else ""
+        if rss_lang and not rss_lang.startswith("en"):
+            log(f"Filtre avant IA : {name} refuse sans appel IA (langue RSS : {rss_lang})")
+            result = {"verdict": "REJECT", "detected_language": rss_lang,
+                      "reason": f"Langue declaree dans le RSS : {rss_lang} (hors perimetre, anglais uniquement). [filtre avant IA]"}
+        else:
+            log(f"Qualification : {name}...")
+            try:
+                raw = call_claude_with_search(prompt)
+                result = extract_json(raw)
+            except Exception as e:
+                log(f"  ERREUR qualification ({e}) — ignore ce candidat par prudence.")
+                continue
 
         detected_language = result.get("detected_language", "other")
         verdict = result.get("verdict", "REJECT")

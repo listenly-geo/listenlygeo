@@ -1503,6 +1503,14 @@
       "texte": "Onglet Cohortes alimenté à la découverte : chaque nouveau podcast retenu y est enregistré (date, secteur, taille, source de l'adresse, décision à qualifier). Suivi seulement, sans changer la file d'envoi ni les 287 contacts en cours.",
       "date": "19/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-175",
+      "section": "Pilotage",
+      "version": "Mise à jour 19 octobre",
+      "texte": "Filtre avant l'IA (économie de coût) : si le flux RSS d'un podcast déclare une langue autre que l'anglais, il est refusé sans appel à l'IA. Le résultat ne change pas (la règle « anglais uniquement » le refusait déjà), seul le coût baisse. Retour arrière : DISCOVERY_PRE_AI_LANG_FILTER=0, ou revenir au tag « avant-filtre-ia-19-10 ».",
+      "date": "19/10/2026",
+      "statut": "en_cours"
     }
   ]
 }
