@@ -1511,6 +1511,14 @@
       "texte": "Filtre avant l'IA (économie de coût) : si le flux RSS d'un podcast déclare une langue autre que l'anglais, il est refusé sans appel à l'IA. Le résultat ne change pas (la règle « anglais uniquement » le refusait déjà), seul le coût baisse. Retour arrière : DISCOVERY_PRE_AI_LANG_FILTER=0, ou revenir au tag « avant-filtre-ia-19-10 ».",
       "date": "19/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-176",
+      "section": "Pilotage",
+      "version": "Mise à jour 19 octobre",
+      "texte": "Contrôleur autonome recadré : il ne réduit plus le volume d'envoi quand les rebonds montent ; il retire seulement l'adresse fautive, chaque jour. Les décisions de prospection (répartition, ciblage, horaires, recherche) se prennent une fois par semaine, le lundi, avec au moins 100 envois sur 7 jours, et ne touchent pas les prospects déjà en file. Le plafond de 30 mails par jour ne bouge pas. Chaque action est notée dans l'onglet Consignes. Statut : en service depuis le 19/10, à valider sur les premiers bilans.",
+      "date": "19/10/2026",
+      "statut": "en_cours"
     }
   ]
 }
