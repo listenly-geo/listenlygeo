@@ -17,8 +17,10 @@ def main():
     res = sheet_bridge.call(payload={"action": "cmd", "cmd": "mail2_check"})
     prospects = res.get("prospects", [])
     print(f"mail2 : {len(prospects)} prospect(s) « Lien recu »")
-    # Etape 2 d'abord : envoi pour ceux dont la destination est deja enregistree depuis un passage precedent
-    for p in prospects:
+    # Etape 2 : envoi automatique DESACTIVE pour l'instant (validation du tunnel complet en cours).
+    # Le mail 2 n'est envoye qu'apres confirmation explicite d'Etienne dans le chat.
+    # Pour reactiver l'envoi automatique : MAIL2_AUTO=true dans l'environnement.
+    for p in (prospects if os.environ.get("MAIL2_AUTO", "").lower() == "true" else []):
         if p["slug"] in avant and avant[p["slug"]] == p["lien"] and p["validation"].strip().upper() == "VALIDE" and p["minutes_depuis_reponse"] >= 20:
             r = sheet_bridge.call(payload={"action": "cmd", "cmd": "mail2_send", "slug": p["slug"]})
             print(f"::notice title=Mail 2::{p['slug']} -> {json.dumps(r, ensure_ascii=False)[:200]}")
