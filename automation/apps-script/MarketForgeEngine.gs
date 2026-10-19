@@ -876,6 +876,8 @@ function mfeWithSignature_(body) {
   return lines.length ? body + '\n\n' + lines.join('\n') : body;
 }
 
+function mfeUnescTags_(t) { return String(t).replace(/&lt;(\/?)(strong|b|u|em)&gt;/gi, '<$1$2>'); }
+
 function mfeEsc_(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
 // **texte** = gras ; les URL deviennent des liens cliquables
@@ -885,11 +887,11 @@ function mfeTextToHtml_(body) {
   return mfeEsc_(body).split(/\n{2,}/).map(function (p) {
     var anchors = [];   // les <a href> des textes sont mis de cote : l'URL n'est jamais affichee, le texte du lien est cliquable
     p = p.replace(/&lt;a bold href=&quot;(https?:\/\/.+?)&quot;&gt;(.+?)&lt;\/a&gt;/g, function (m, u, t) {   // lien des relances : bleu #1155CC, sans souligne, gras 600
-      anchors.push('<a href="' + u + '" style="color:#1155CC;text-decoration:none;font-weight:600;">' + t + '</a>');
+      anchors.push('<a href="' + u + '" style="color:#1155CC;text-decoration:none;font-weight:600;">' + mfeUnescTags_(t) + '</a>');
       return '\u0001' + (anchors.length - 1) + '\u0001';
     });
     p = p.replace(/&lt;a href=&quot;(https?:\/\/.+?)&quot;&gt;(.+?)&lt;\/a&gt;/g, function (m, u, t) {
-      anchors.push('<a href="' + u + '" style="color:#1155CC;text-decoration:none;">' + t + '</a>');
+      anchors.push('<a href="' + u + '" style="color:#1155CC;text-decoration:none;">' + mfeUnescTags_(t) + '</a>');
       return '\u0001' + (anchors.length - 1) + '\u0001';
     });
     p = p.replace(/(https?:\/\/[^\s<]+)/g, function (u) {
@@ -910,21 +912,21 @@ function mfeSignatureHtml_() {
   // Signature B2B premium (05/10/2026) : photo | 1 trait bleu vertical | nom, role, promesse, fin trait gris, email, LinkedIn.
   // Photo, nom, role, promesse, email et LinkedIn viennent des reglages MFE_SIG_* (aucune URL en dur). Tableau = compatible Gmail.
   var c = mfeSigCfg_();
-  var promesse = c.accroche || 'We Turn Your Podcast Into Growth';
+  var promesse = c.accroche || '';   // vide = pas de phrase (plus de texte par defaut)
   var photo = c.photo ? '<td style="vertical-align:middle;padding-right:18px;">' +
       '<img src="' + mfeEsc_(c.photo) + '" alt="' + mfeEsc_(c.nom) + '" width="105" height="105" ' +
       'style="display:block;width:105px;height:105px;border-radius:50%;object-fit:cover;border:0;"></td>' : '';
   var email = c.email ? '<div style="font-size:13px;line-height:20px;"><a href="mailto:' + mfeEsc_(c.email) +
       '" style="color:#555555;text-decoration:none;">' + mfeEsc_(c.email) + '</a></div>' : '';
   var linkedin = c.linkedin ? '<div style="font-size:13px;line-height:20px;margin-top:1px;"><a href="' + mfeEsc_(c.linkedin) +
-      '" style="color:#1155CC;text-decoration:none;font-weight:600;">\u2192 Connect on LinkedIn</a></div>' : '';
-  return '<table cellpadding="0" cellspacing="0" border="0" style="margin-top:18px;font-family:Arial,Helvetica,sans-serif;color:#222222;"><tr>' +
+      '" style="color:#777777;text-decoration:none;font-weight:600;">\u2192 Connect on LinkedIn</a></div>' : '';
+  return '<table cellpadding="0" cellspacing="0" border="0" style="margin-top:34px;font-family:Arial,Helvetica,sans-serif;color:#222222;"><tr>' +
     photo +
     '<td style="width:2px;background:#1a73e8;font-size:1px;line-height:1px;">&nbsp;</td>' +
     '<td style="vertical-align:middle;padding-left:18px;">' +
     '<div style="font-size:17px;line-height:22px;font-weight:700;color:#111111;">' + mfeEsc_(c.nom) + '</div>' +
     (c.titre ? '<div style="font-size:14px;line-height:20px;color:#555555;margin-top:2px;">' + mfeEsc_(c.titre) + '</div>' : '') +
-    '<div style="font-size:13px;line-height:19px;font-weight:600;color:#333333;margin-top:7px;">' + mfeEsc_(promesse) + '</div>' +
+    (promesse ? '<div style="font-size:13px;line-height:19px;font-weight:600;color:#333333;margin-top:7px;">' + mfeEsc_(promesse) + '</div>' : '') +
     '<div style="width:34px;border-top:1px solid #d8d8d8;margin:8px 0 6px 0;"></div>' +
     email + linkedin +
     '</td></tr></table>';
