@@ -38,6 +38,18 @@ EXTRA_CSS = """
   .listen-link:hover{ opacity:.75; }
   .result-card .rc-question a{ color: inherit; text-decoration: none; }
   .result-card .rc-question a:hover{ color: var(--accent); }
+  .about{ max-width: 640px; margin: 0 auto; padding: 8px 24px 8px; text-align: left; }
+  .about h2{ font-size: 20px; font-weight: 600; margin: 0 0 10px; }
+  .about h3{ font-size: 14px; font-weight: 600; color: var(--ink-soft); text-transform: uppercase;
+             letter-spacing: .06em; margin: 26px 0 10px; }
+  .about-text{ font-size: 16px; line-height: 1.6; color: var(--ink); margin: 0; }
+  .chips{ display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip{ background: var(--panel); border: 1px solid var(--line-soft); border-radius: 999px;
+         padding: 6px 12px; font-size: 13px; color: var(--ink); }
+  .experts{ list-style: none; padding: 0; margin: 0; }
+  .experts li{ padding: 6px 0; font-size: 15px; border-bottom: 1px solid var(--line-soft); }
+  .experts .role{ color: var(--ink-soft); }
+  .facts{ font-size: 13px; color: var(--ink-soft); margin: 22px 0 0; }
   @media (max-width: 560px){
     .n1-id{ flex-direction: column; align-items: flex-start; }
     .n1-cover{ width:96px; height:96px; }
@@ -63,8 +75,78 @@ def load_moments(slug):
     for mid, e in entries.items():
         q = (e.get("q") or "").strip()
         if q:
-            out.append((mid, q))
+            out.append({"id": mid, "q": q, "expert": (e.get("x") or "").strip(),
+                        "role": (e.get("gt") or "").strip(), "episode": (e.get("e") or "").strip(),
+                        "themes": e.get("en") or []})
     return out
+
+
+def parse_themes(raw):
+    """Les thèmes sont stockés en liste ou en texte de liste : on accepte les deux."""
+    if isinstance(raw, list):
+        return [str(t).strip() for t in raw if str(t).strip()]
+    try:
+        import ast
+        val = ast.literal_eval(raw) if isinstance(raw, str) and raw.startswith("[") else []
+        return [str(t).strip() for t in val if str(t).strip()]
+    except (ValueError, SyntaxError):
+        return []
+
+
+def about_block(p, moments):
+    """Bloc « À propos » (consignes N1.2) : uniquement des données réelles du podcast et de ses questions.
+    Renvoie du HTML, ou '' si rien de fiable à afficher."""
+    name = p.get("podcast_name", "")
+    host = p.get("host_name", "")
+    company = p.get("host_company", "")
+    cat = p.get("categorie", "")
+    punch = p.get("punchline", "")
+
+    experts = {}
+    for m in moments:
+        if m["expert"] and m["expert"] not in experts:
+            experts[m["expert"]] = m["role"]
+    counts = {}
+    for m in moments:
+        for t in parse_themes(m["themes"]):
+            counts[t] = counts.get(t, 0) + 1
+    themes = [t for t, _ in sorted(counts.items(), key=lambda kv: -kv[1])][:6]
+    episodes = {m["episode"] for m in moments if m["episode"]}
+
+    # Description : 80 à 120 mots maximum, construite à partir des champs du podcast.
+    parts = []
+    if name:
+        intro = f"{name} is a {cat} podcast" if cat else f"{name} is a podcast"
+        if host:
+            intro += f" hosted by {host}" + (f" ({company})" if company else "")
+        parts.append(intro + ".")
+    if punch:
+        parts.append(punch)
+    if experts:
+        parts.append(f"It features {len(experts)} expert(s) answering concrete questions.")
+    description = " ".join(parts)
+
+    if not (description or experts or themes):
+        return ""
+
+    blocks = []
+    if description:
+        blocks.append(f'<h2>About this podcast</h2>\n    <p class="about-text">{esc(description)}</p>')
+    if themes:
+        chips = "".join(f'<span class="chip">{esc(t)}</span>' for t in themes)
+        blocks.append(f'<h3>Topics covered</h3>\n    <div class="chips">{chips}</div>')
+    if experts:
+        items = "".join(
+            f'<li><strong>{esc(n)}</strong>' + (f' <span class="role">· {esc(r)}</span>' if r else "") + "</li>"
+            for n, r in experts.items())
+        blocks.append(f'<h3>Experts</h3>\n    <ul class="experts">{items}</ul>')
+    facts = [f"{len(moments)} questions indexed"]
+    if episodes:
+        facts.append(f"{len(episodes)} episode(s) cited")
+    if experts:
+        facts.append(f"{len(experts)} expert(s)")
+    blocks.append(f'<p class="facts">{esc(" · ".join(facts))}</p>')
+    return '<section class="about">\n    ' + "\n    ".join(blocks) + "\n  </section>"
 
 
 def esc(s):
@@ -82,7 +164,8 @@ def template_css():
 def build(slug, max_questions=10):
     p = load_podcast(slug)
     all_moments = load_moments(slug)
-    shown = all_moments[:max_questions]
+    shown = [(m["id"], m["q"]) for m in all_moments[:max_questions]]
+    about_html = about_block(p, all_moments)
     name = p.get("podcast_name", slug)
     host = p.get("host_name", "")
     cat = p.get("categorie", "")
@@ -175,6 +258,7 @@ def build(slug, max_questions=10):
   </div>
 </section>
 
+{about_html}
 <div class="results-wrap">
 {cards}
 </div>
