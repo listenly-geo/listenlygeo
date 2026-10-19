@@ -25,7 +25,7 @@ Sortie :
   - Resume lisible sur stdout et dans $GITHUB_STEP_SUMMARY si present
 """
 
-import os, sys, json, re, time, random, hashlib
+import os, sys, json, re, time, random, hashlib, datetime
 import urllib.request, urllib.error, urllib.parse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from rss_contact import fetch_contact_email, check_email  # noqa: E402
@@ -355,6 +355,59 @@ EXCLUDED_DOMAINS = {
 }
 
 
+# ---------------------------------------------------------------------------
+# MISE A JOUR 19/10/2026 : filtre de recence (date du dernier episode).
+# Decision d'Etienne : plus de 90 jours sans episode = a verifier (pas d'envoi) ; plus de 180 jours = refus.
+# Retour arriere : mettre la variable d'environnement DISCOVERY_RECENCE_GATE=0 (ou git revert du commit
+# tague « maj-2026-10-19-recence »). Gratuit : lit le flux RSS deja interroge par le pre-filtre.
+# ---------------------------------------------------------------------------
+RECENCE_GATE_ON = os.environ.get("DISCOVERY_RECENCE_GATE", "1") == "1"
+RECENCE_A_VERIFIER_JOURS = 90
+RECENCE_REFUS_JOURS = 180
+
+
+def last_episode_date(feed_url):
+    """Date (datetime UTC) du dernier episode du flux RSS, ou None si illisible."""
+    import xml.etree.ElementTree as ET
+    from email.utils import parsedate_to_datetime
+    if not feed_url:
+        return None
+    try:
+        req = urllib.request.Request(feed_url, headers={"User-Agent": "Mozilla/5.0 MarketForge"})
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            root = ET.fromstring(resp.read())
+    except Exception:
+        return None
+    dates = []
+    for item in root.iter("item"):
+        pd = (item.findtext("pubDate") or "").strip()
+        if not pd:
+            continue
+        try:
+            d = parsedate_to_datetime(pd)
+            if d.tzinfo is None:
+                d = d.replace(tzinfo=datetime.timezone.utc)
+            dates.append(d)
+        except Exception:
+            continue
+    return max(dates) if dates else None
+
+
+def recency_gate(feed_url):
+    """Raison du refus ou de la mise a verifier ('' = garde). Ne refuse jamais sur une donnee illisible."""
+    if not RECENCE_GATE_ON:
+        return ""
+    last = last_episode_date(feed_url)
+    if last is None:
+        return ""  # illisible : on ne refuse pas sans preuve (regle : un critere non mesure n'exclut pas)
+    age = (datetime.datetime.now(datetime.timezone.utc) - last).days
+    if age > RECENCE_REFUS_JOURS:
+        return f"dernier episode il y a {age} jours (> {RECENCE_REFUS_JOURS} j)"
+    if age > RECENCE_A_VERIFIER_JOURS:
+        return f"a verifier : dernier episode il y a {age} jours (> {RECENCE_A_VERIFIER_JOURS} j)"
+    return ""
+
+
 def free_reject(cand, email):
     """Raison du refus ('' = garde). Gratuit : ne lit que les donnees iTunes deja recues et l'email du flux."""
     genre = (cand.get("primaryGenreName") or "").replace("MZGenre.Podcasts.", "").strip()
@@ -531,10 +584,11 @@ def main():
             break
         with ThreadPoolExecutor(8) as ex:
             gates = list(ex.map(lambda sc: email_gate(sc[1].get("feedUrl", "")), batch))
-        for (sec, cand), (email, why) in zip(batch, gates):
+            recs = list(ex.map(lambda sc: recency_gate(sc[1].get("feedUrl", "")), batch))  # MAJ 19/10/2026
+        for (sec, cand), (email, why), rwhy in zip(batch, gates, recs):
             prechecked += 1
             if not why:
-                why = free_reject(cand, email)
+                why = rwhy or free_reject(cand, email)  # MAJ 19/10/2026 : filtre de recence
             feed = cand.get("feedUrl", "")
             if why:
                 key = re.sub(r"\s*\(.*", "", why)
