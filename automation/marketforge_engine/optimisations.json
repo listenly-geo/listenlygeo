@@ -1447,6 +1447,14 @@
       "texte": "Coût : si l'épisode a déjà une transcription publiée dans son flux (tag podcast:transcript, format texte horodaté), le moteur la lit directement, sans payer la transcription audio. Sinon, il garde la transcription Whisper comme avant. Aucune étape manuelle en plus.",
       "date": "19/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-166",
+      "section": "Ciblage",
+      "version": "V2.11",
+      "texte": "Relance du moteur 19/10 (étape 1) : découverte, fiche Listenly + N1 créées automatiquement (10 par jour max), extraction de 5 questions candidates par épisode (1 épisode par podcast, 10 épisodes par jour max). Les 5 pages moment entrent dans le réservoir ; le mail pointera vers la meilleure du podcast (critère à définir). Envoi des mails toujours coupé : aucun mail ne part tant que la phrase « 5+ questions » du mail 1 n'est pas corrigée et validée.",
+      "date": "19/10/2026",
+      "statut": "en_cours"
     }
   ]
 }
