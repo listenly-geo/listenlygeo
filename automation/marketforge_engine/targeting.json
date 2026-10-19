@@ -1,10 +1,10 @@
 {
- "updated": "2026-10-19T19:51",
+ "updated": "2026-10-19T19:56",
  "envois_total": 245,
  "reponses_total": 0,
  "taux_reponse_global_pct": 0.0,
- "dirigeants_testes": 5010,
- "dirigeants_trouves": 643,
+ "dirigeants_testes": 5015,
+ "dirigeants_trouves": 644,
  "data_apprentissage": {
   "creneaux_new_york": {
    "heure": {
@@ -106,14 +106,14 @@
  },
  "weights": {
   "Tech & SaaS": 0.0463,
-  "Cybersécurité": 0.0534,
-  "Finance & Fintech": 0.0462,
+  "Cybersécurité": 0.0533,
+  "Finance & Fintech": 0.0469,
   "RH & Recrutement": 0.0431,
   "Marketing & Ventes": 0.0462,
   "Logistique & Supply chain": 0.0447,
   "Construction & Industrie": 0.0437,
   "Énergie": 0.0463,
-  "Assurance": 0.0534,
+  "Assurance": 0.0532,
   "Immobilier": 0.049,
   "Juridique": 0.0604,
   "Conseil": 0.0348,
@@ -122,9 +122,9 @@
   "Cabinets d'avocats": 0.0514,
   "Experts-comptables & patrimoine": 0.0622,
   "Coachs & consultants B2B": 0.0532,
-  "Agences de services": 0.0532,
+  "Agences de services": 0.053,
   "Santé libérale": 0.0519,
-  "Formateurs & programmes": 0.0536
+  "Formateurs & programmes": 0.0533
  },
  "ranking": [
   {
@@ -176,8 +176,24 @@
    "rang": 3
   },
   {
+   "secteur": "Cybersécurité",
+   "poids_pct": 5.3,
+   "delta_pts": 0.1,
+   "tendance": "stable",
+   "onboarde": 51,
+   "joignable": 45,
+   "envoye": 11,
+   "rebond": 0,
+   "reponse": 0,
+   "dirigeant_testes": 213,
+   "dirigeant_trouves": 29,
+   "taux_reponse": 0.0,
+   "score": 0.00021,
+   "rang": 4
+  },
+  {
    "secteur": "Formateurs & programmes",
-   "poids_pct": 5.4,
+   "poids_pct": 5.3,
    "delta_pts": 0.2,
    "tendance": "stable",
    "onboarde": 5,
@@ -185,11 +201,11 @@
    "envoye": 3,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 274,
+   "dirigeant_testes": 276,
    "dirigeant_trouves": 31,
    "taux_reponse": 0.0,
    "score": 0.00021,
-   "rang": 4
+   "rang": 5
   },
   {
    "secteur": "Assurance",
@@ -201,23 +217,7 @@
    "envoye": 12,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 208,
-   "dirigeant_trouves": 29,
-   "taux_reponse": 0.0,
-   "score": 0.00021,
-   "rang": 5
-  },
-  {
-   "secteur": "Cybersécurité",
-   "poids_pct": 5.3,
-   "delta_pts": 0.1,
-   "tendance": "stable",
-   "onboarde": 51,
-   "joignable": 45,
-   "envoye": 11,
-   "rebond": 0,
-   "reponse": 0,
-   "dirigeant_testes": 213,
+   "dirigeant_testes": 209,
    "dirigeant_trouves": 29,
    "taux_reponse": 0.0,
    "score": 0.00021,
@@ -249,7 +249,7 @@
    "envoye": 5,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 290,
+   "dirigeant_testes": 291,
    "dirigeant_trouves": 34,
    "taux_reponse": 0.0,
    "score": 0.00021,
@@ -320,6 +320,22 @@
    "rang": 12
   },
   {
+   "secteur": "Finance & Fintech",
+   "poids_pct": 4.7,
+   "delta_pts": -0.2,
+   "tendance": "stable",
+   "onboarde": 54,
+   "joignable": 47,
+   "envoye": 16,
+   "rebond": 0,
+   "reponse": 0,
+   "dirigeant_testes": 310,
+   "dirigeant_trouves": 39,
+   "taux_reponse": 0.0,
+   "score": 0.00017,
+   "rang": 13
+  },
+  {
    "secteur": "Énergie",
    "poids_pct": 4.6,
    "delta_pts": 0.0,
@@ -333,7 +349,7 @@
    "dirigeant_trouves": 27,
    "taux_reponse": 0.0,
    "score": 0.00017,
-   "rang": 13
+   "rang": 14
   },
   {
    "secteur": "Tech & SaaS",
@@ -347,22 +363,6 @@
    "reponse": 0,
    "dirigeant_testes": 409,
    "dirigeant_trouves": 60,
-   "taux_reponse": 0.0,
-   "score": 0.00017,
-   "rang": 14
-  },
-  {
-   "secteur": "Finance & Fintech",
-   "poids_pct": 4.6,
-   "delta_pts": -0.3,
-   "tendance": "stable",
-   "onboarde": 54,
-   "joignable": 47,
-   "envoye": 16,
-   "rebond": 0,
-   "reponse": 0,
-   "dirigeant_testes": 309,
-   "dirigeant_trouves": 38,
    "taux_reponse": 0.0,
    "score": 0.00017,
    "rang": 15
