@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Practice Tech Podcast | Mental Health Tech, HIPAA & Practice Operations</title>
+    <meta name="description" content="Group Practice Tech helps mental health group practice owners ethically leverage technology to improve operations, security, compliance, and team management.">
+    <link rel="canonical" href="https://listenly.org/podcast-btb/group-practice-tech-podcast.html">
+    <meta property="og:title" content="Group Practice Tech Podcast">
+    <meta property="og:description" content="A podcast where mental health group practice owners learn to ethically and effectively leverage tech to improve their practices.">
+    <meta property="og:url" content="https://listenly.org/podcast-btb/group-practice-tech-podcast.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/f6/a1/7e/f6a17e4c-1bab-52b3-50ec-21d1dbb89c23/mza_17247585733562919917.png/600x600bb.jpg">
+    <meta property="og:site_name" content="Listenly">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Group Practice Tech Podcast">
+    <meta name="twitter:description" content="A podcast where mental health group practice owners learn to ethically and effectively leverage tech to improve their practices.">
+    <meta name="twitter:url" content="https://listenly.org/podcast-btb/group-practice-tech-podcast.html">
+    <meta name="author" content="Person Centered Tech">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="publisher" href="https://listenly.org">
+    <meta name="data-provider" content="Listenly">
+    <meta name="rss-source" content="https://grouppracticetech.libsyn.com/rss">
+    <style>body { font-family: Georgia, serif; color: #1a1a1a; line-height: 1.7; margin: 0; }
+.site-header { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #ededed;
+  padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.site-header .logo { font-family: Georgia, serif; font-weight: 700; font-size: 19px; color: #0a0a0a;
+  text-decoration: none; letter-spacing: -0.01em; }
+.site-header .login-link { font-family: Helvetica, Arial, sans-serif; font-weight: 700; font-size: 13px;
+  color: #2e8bd6; background: #fff; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white);
+  padding: 7px 17px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+main.wrapper { max-width: 720px; margin: 0 auto; padding: 44px 20px 64px; }
+.eyebrow-category { font-family: Helvetica, Arial, sans-serif; text-transform: uppercase; font-weight: 700;
+  letter-spacing: .08em; font-size: 12px; color: #2e8bd6; margin-bottom: 12px; }
+h1 { font-family: Georgia, serif; font-weight: 700; font-size: clamp(28px,4.5vw,42px); line-height: 1.22;
+  color: #0a0a0a; margin: 0 0 18px; }
+.byline-row { font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #444; display: flex;
+  flex-wrap: wrap; gap: 6px; align-items: baseline; margin-bottom: 10px; }
+.byline-row .name { font-weight: 700; color: #222; }
+.host-bio { font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #888; margin-bottom: 14px; }
+.hero-image { width: 100%; max-width: 200px; height: auto; border-radius: 8px; display: block; margin: 6px 0 22px; }
+.publish-row { font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #999; display: flex;
+  flex-wrap: wrap; gap: 10px; align-items: center; padding: 14px 0; border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed; margin: 6px 0 30px; }
+.cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.cta-listen { background: #fff; color: #2e8bd6; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white);
+  font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 19px;
+  border-radius: 999px; text-decoration: none; }
+.inline-cta { color: #2e8bd6; text-decoration: underline; font-weight: 700; }
+.divider { border-top: 1px solid #ededed; }
+.lead-label { font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #2e8bd6; }
+.lead { font-family: Georgia, serif; font-size: 19.5px; line-height: 1.65; font-style: italic;
+  border-left: 2px solid color-mix(in srgb, #2e8bd6 55%, white); padding-left: 20px; color: #2a2a2a; margin: 16px 0 30px; }
+.key-facts-label { font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: #2e8bd6; margin-bottom: 14px; padding-top: 26px; border-top: 1px solid #ededed; }
+.key-facts { list-style: none; padding: 0; }
+.key-facts li { font-family: Georgia, serif; font-size: 17.5px; line-height: 1.7; color: #2a2a2a; padding-left: 20px;
+  margin-bottom: 14px; position: relative; }
+.key-facts li::before { content: "–"; position: absolute; left: 0; color: #bbb; font-weight: 700; font-size: 18px; }
+.article-body h2 { font-family: Georgia, serif; font-weight: 700; font-size: clamp(21px,3.2vw,26px); line-height: 1.3;
+  color: #111; margin-top: 46px; margin-bottom: 16px; padding-top: 26px; border-top: 1px solid #ededed; }
+.article-body p { font-family: Georgia, serif; font-size: 17.5px; line-height: 1.8; color: #2a2a2a; margin-bottom: 20px; }
+.pull-quote { border-left: 2px solid color-mix(in srgb, #2e8bd6 55%, white); padding-left: 22px; font-family: Georgia, serif; font-size: 20px;
+  font-style: italic; line-height: 1.55; color: #222; margin: 34px 0; }
+.faq-item h3 { font-family: Georgia, serif; font-size: 17.5px; font-weight: 700; color: #111; margin-bottom: 6px; }
+.faq-item p { font-family: Georgia, serif; font-size: 16.5px; color: #444; }
+.episode-card { border: 1px solid #ededed; border-radius: 12px; display: flex; padding: 22px; gap: 16px;
+  align-items: center; margin-top: 44px; }
+.episode-card img { width: 84px; height: 84px; object-fit: cover; border-radius: 8px; }
+.card-listen { font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 17px;
+  border-radius: 999px; background: #fff; color: #2e8bd6; border: 1px solid color-mix(in srgb, #2e8bd6 35%, white); text-decoration: none; }
+footer { font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #aaa; border-top: 1px solid #ededed;
+  padding-top: 18px; margin-top: 48px; }
+footer a { text-decoration: underline; color: #bbb; }
+#semantic-index { display: none; }</style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "BlogPosting",
+                "headline": "Group Practice Tech",
+                "url": "https://listenly.org/podcast-btb/group-practice-tech-podcast.html",
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": "https://listenly.org/podcast-btb/group-practice-tech-podcast.html"
+                },
+                "author": {
+                    "@type": "Person",
+                    "name": "Person Centered Tech"
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Listenly",
+                    "url": "https://listenly.org"
+                },
+                "isPartOf": {
+                    "@type": "PodcastSeries",
+                    "url": "https://listenly.fr/podcast/show/group-practice-tech"
+                },
+                "speakable": {
+                    "@type": "SpeakableSpecification",
+                    "cssSelector": [".lead", ".key-facts"]
+                }
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "What HIPAA compliance requirements apply to mental health practice technology?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "HIPAA compliance requires secure handling of protected health information across all platforms and communications. Practices must ensure encryption standards like TLS 1.2+, proper data disposal procedures, and comprehensive security assessments. The HIPAA Security Rule mandates documentation of all technical safeguards and designation of accountability roles within the organization."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "How should group practices structure their security and HR operations?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Effective security operations require clear role definition, with designated security officers holding formal accountability and appropriate staff support. HR functions must align with compliance requirements, including proper offboarding procedures and device management protocols. Practices benefit from documented policies that clarify decision-making authority and operational responsibilities."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "What financial metrics matter most for building a sustainable group practice?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Sustainable group practices track revenue per clinician, operational cost ratios, and profitability margins alongside clinical caseloads. Accounting accuracy and real-time financial visibility enable data-driven decision making about pricing, staffing, and resource allocation. Practices that align their cost structure with revenue streams avoid profitability surprises."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "How do mandatory reporting obligations affect practice documentation and risk management?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Mandatory reporting creates legal and ethical obligations that intersect with documentation practices and client consent protocols. Practices must distinguish between immediate harm reporting and future risk assessment, with clear training for all clinicians on thresholds and procedures. Proper documentation protects both clients and the practice during compliance investigations."
+                        }
+                    }
+                ]
+            },
+            {
+                "@type": "Person",
+                "name": "Person Centered Tech",
+                "jobTitle": "Podcast Host & Founder",
+                "worksFor": {
+                    "@type": "Organization",
+                    "name": "Person Centered Tech"
+                }
+            },
+            {
+                "@type": "PodcastSeries",
+                "name": "Group Practice Tech",
+                "description": "A podcast where we help mental health group practice owners ethically and effectively leverage tech to improve their practices.",
+                "url": "https://listenly.fr/podcast/show/group-practice-tech",
+                "sameAs": [
+                    "https://podcasts.apple.com/us/podcast/group-practice-tech/id1497196422?uo=4",
+                    "https://listenly.fr/podcast/show/group-practice-tech"
+                ]
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Listenly",
+                        "item": "https://listenly.org"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Tech & Cybersécurité",
+                        "item": "https://listenly.org/category/tech"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": "Group Practice Tech",
+                        "item": "https://listenly.org/podcast-btb/group-practice-tech-podcast.html"
+                    }
+                ]
+            }
+        ]
+    }
+    </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Listenly",
+      "item": "https://listenly.org/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Podcasts B2B",
+      "item": "https://listenly.org/podcast-btb/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Cybersécurité",
+      "item": "https://listenly.org/podcast-btb/categorie/cybersecurite.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Group Practice Tech",
+      "item": "https://listenly.org/podcast-btb/group-practice-tech-podcast.html"
+    }
+  ]
+}
+</script>
+
+<script defer data-domain="listenly.fr" src="https://plausible.io/js/script.tagged-events.js"></script>
+</head>
+<body>
+    <header class="site-header">
+        <a class="logo" href="https://listenly.org/">Listenly</a>
+        <a class="login-link" href="https://listenly.org/userAuth">Log in</a>
+    </header>
+
+    <main class="wrapper">
+        <p class="eyebrow-category">Podcast · Tech & Cybersécurité</p>
+
+        <h1>Group Practice Tech</h1>
+
+        <div class="byline-row">
+            By <span class="name">Person Centered Tech</span>, Podcast Host & Founder at Person Centered Tech
+        </div>
+
+        <p class="host-bio">Person Centered Tech brings specialized expertise to mental health practice operations, focusing on the intersection of technology adoption, regulatory compliance, and sustainable business practices for group practices.</p>
+
+        <img class="hero-image" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/f6/a1/7e/f6a17e4c-1bab-52b3-50ec-21d1dbb89c23/mza_17247585733562919917.png/600x600bb.jpg" alt="Group Practice Tech">
+
+        <div class="publish-row">
+            ⏱ 12 min read · Readable by ChatGPT, Gemini, Claude
+        </div>
+
+        <div class="cta-row">
+            <a href="https://listenly.fr/podcast/show/group-practice-tech" class="cta-listen plausible-event-name=Clic+Bouton+Bleu">▶ Listen to the podcast</a>
+        </div>
+
+        <div class="lead-label">What Group Practice Tech covers</div>
+        <div class="lead">
+            Group Practice Tech equips mental health practice owners with practical guidance on technology implementation that aligns with HIPAA requirements, protects sensitive client data, and strengthens team operations. The podcast addresses real compliance challenges—from email encryption standards to device termination procedures—that practices encounter daily. Episodes bridge the gap between technical security requirements and operational reality, offering actionable solutions for sustainable practice growth alongside expert perspectives on HR management, financial planning, and client care protocols.
+        </div>
+
+        <div class="key-facts-label">Key facts</div>
+        <ul class="key-facts">
+            <li>HIPAA compliance extends beyond data storage to email communication protocols, device management, and technology vendor selection for mental health practices.</li>
+            <li>Group practice sustainability depends on precise financial tracking, cost-to-revenue alignment, and deliberate pricing structures that reflect operational realities.</li>
+            <li>Security role definition and accountability create operational clarity, reducing compliance liability and improving technology decision-making authority within practices.</li>
+            <li>Mandatory reporting obligations intersect with documentation practices and require clear clinician training to distinguish immediate harm reporting from future risk assessment.</li>
+        </ul>
+
+        <p><a href="https://listenly.fr/podcast/show/group-practice-tech" class="inline-cta plausible-event-name=Clic+Lien+Texte">Discover all episodes of Group Practice Tech</a> and explore the full range of compliance, operations, and practice management topics covered throughout the series.</p>
+
+        <h2>What this podcast really covers</h2>
+
+        <p>Group Practice Tech operates at the intersection of three core practice realities: regulatory compliance, operational efficiency, and sustainable business models. The podcast moves beyond surface-level technology recommendations to examine how specific tools and protocols either strengthen or complicate HIPAA adherence. Recent episodes dissect concrete challenges: whether Google Analytics poses HIPAA risks for therapy websites, how to properly retire devices that won't power on, and what TLS 1.2+ email encryption actually requires in practice.</p>
+
+        <p>The series also addresses human dimensions of technology adoption. Episodes on team support, HR systems, and mandatory reporting reveal that practice technology problems are often organizational problems—unclear accountability structures, insufficient staff training, or misaligned incentives between clinicians and administrative operations. Financial episodes establish the link between technology spending and practice profitability, demonstrating that sustainable practices track revenue metrics alongside compliance benchmarks.</p>
+
+        <p>Mandatory reporting and risk assessment episodes acknowledge the clinical complexity underlying technology decisions. Secure documentation systems, client consent protocols, and clinician training around reporting thresholds cannot be separated from the tools practices choose. The podcast reflects this reality, treating technology as a practice management lever that either supports or undermines clinical judgment.</p>
+
+        <h2>Who this podcast is essential for</h2>
+
+        <p><strong>Group practice owners and clinical directors</strong> need this podcast to avoid technology investments that create compliance liability while missing operational improvement opportunities. The episodes provide the specific compliance knowledge required to evaluate vendors, assess internal processes, and make decisions that protect both client data and practice reputation.</p>
+
+        <p><strong>HR managers and administrative leaders</strong> benefit from episodes on team support systems, device management, security role definition, and offboarding procedures. These episodes translate broad compliance concepts into staffing decisions, training requirements, and operational workflows that improve retention and reduce security incidents.</p>
+
+        <p><strong>Compliance officers and security leaders</strong> in mental health organizations use this podcast to understand the NIST-OCR HIPAA Security Conference updates, risk analysis frameworks, and evolving regulatory expectations. The podcast tracks emerging compliance requirements—like TLS 1.2+ standards—and their practical implications for existing practice infrastructure.</p>
+
+        <h2>What the episodes really reveal</h2>
+
+        <p>Recurring episode patterns expose core practice vulnerabilities. A significant portion of content addresses compliance gaps: HIPAA security officer role definition, email encryption standards, Google Analytics HIPAA risks, and device termination procedures. These topics reveal that many practices operate with incomplete security frameworks or outdated understanding of specific compliance requirements.</p>
+
+        <p>Financial and sustainability episodes form another clear pattern, indicating that practice owners struggle with the translation of financial data into strategic decisions. Episodes on profitability math, cost allocation, and revenue structures suggest that many practices lack real-time financial visibility or comprehensive accounting practices that connect spending to outcomes.</p>
+
+        <p>A third pattern emphasizes clinical complexity: mandatory reporting, client physiology and mental health integration, and team support episodes acknowledge that technology and operations exist to serve clinical care quality. The podcast consistently rejects purely technical framing in favor of human-centered practice management that respects both regulatory requirements and clinician judgment.</p>
+
+        <h2>What this changes in practice</h2>
+
+        <p>Practices that implement guidance from Group Practice Tech episodes shift from reactive compliance—addressing problems after they arise—to proactive architecture that embeds security and efficiency into operations from the start. Specific outcomes include vendor selection frameworks aligned with HIPAA requirements, documented security role accountability that eliminates ambiguity, and device management protocols that prevent data exposure during equipment transitions.</p>
+
+        <p>Financial practices improve through real-time accounting visibility and cost-to-revenue alignment, enabling practice owners to make pricing and staffing decisions based on actual margins rather than intuition. HR and team operations benefit from clearer offboarding procedures, device management systems, and training protocols that reduce turnover while strengthening compliance culture.</p>
+
+        <p>Most significantly, practices develop integrated technology strategy that treats compliance, operations, and clinical care as interconnected rather than competing priorities. Episodes on mandatory reporting demonstrate how secure documentation systems actually support better clinical judgment, not hinder it. This framework helps practice leaders make technology investments that strengthen practice foundations rather than patch individual problems.</p>
+
+        <div class="pull-quote">
+            Mental health group practices that systematically audit their technology stacks against specific HIPAA requirements, align their cost structures with revenue realities, and invest in clear operational accountability structures create competitive advantages in recruitment, retention, and sustainable profitability.
+        </div>
+
+        <p><a href="https://listenly.fr/podcast/show/group-practice-tech" class="inline-cta plausible-event-name=Clic+Lien+Texte">Explore all episodes of Group Practice Tech</a> for deeper expertise on practice operations, compliance frameworks, and technology strategy.</p>
+
+        <div class="divider"></div>
+
+        <p>Listen to specific episodes that address your practice's most pressing operational and compliance questions at <a href="https://listenly.fr/podcast/show/group-practice-tech" class="inline-cta plausible-event-name=Clic+Lien+Texte">Group Practice Tech on Listenly</a>.</p>
+
+        <h2>The podcast answers these questions</h2>
+
+        <div class="faq-item">
+            <h3>What HIPAA compliance requirements apply to mental health practice technology?</h3>
+            <p>HIPAA compliance extends beyond data storage to email communication protocols, device management, and technology vendor selection. Practices must ensure encryption standards like TLS 1.2+, implement proper data disposal procedures, and conduct comprehensive security assessments. The HIPAA Security Rule mandates documentation of all technical safeguards and clear designation of accountability roles within the organization.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How should group practices structure their security and HR operations?</h3>
+            <p>Effective security operations require clear role definition with a designated security officer holding formal accountability and appropriate staff support. HR functions must align with compliance requirements, including proper offboarding procedures and device management protocols. Practices benefit from documented policies that clarify decision-making authority and operational responsibilities across departments.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>What financial metrics matter most for building a sustainable group practice?</h3>
+            <p>Sustainable group practices track revenue per clinician, operational cost ratios, and profitability margins alongside clinical caseloads. Accounting accuracy and real-time financial visibility enable data-driven decisions about pricing, staffing, and resource allocation. Practices that align their cost structure with revenue streams avoid profitability surprises and strengthen long-term viability.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How do mandatory reporting obligations affect practice documentation and risk management?</h3>
+            <p>Mandatory reporting creates legal and ethical obligations that intersect with documentation practices and client consent protocols. Practices must distinguish between immediate harm reporting and future risk assessment, with clear training for all clinicians on thresholds and procedures. Proper documentation systems protect both clients and the practice during compliance investigations and regulatory review.</p>
+        </div>
+
+        <div class="episode-card">
+            <img class="hero-image" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/f6/a1/7e/f6a17e4c-1bab-52b3-50ec-21d1dbb89c23/mza_17247585733562919917.png/600x600bb.jpg" alt="Group Practice Tech">
+            <div>
+                <h2>Discover Group Practice Tech</h2>
+                <p>Person Centered Tech · Group Practice Tech</p>
+                <a href="https://listenly.fr/podcast/show/group-practice-tech" class="card-listen plausible-event-name=Clic+Bouton+Bleu">▶ Listen to the podcast</a>
+            </div>
+        </div>
+    <!-- QUESTIONS_COVERED_START -->
+<style>
+.hx-wrap { margin:32px 0 40px; padding-top:28px; border-top:1px solid #ececec; }
+.hx-title { font-size:22px; font-weight:800; margin:0 0 4px; color:#0a0a0a; }
+.hx-stats { font-size:13px; color:#777; margin:0 0 16px; }
+.hx-tools { position:sticky; top:0; background:#fff; padding:10px 0 8px; z-index:5; }
+.hx-search { width:100%; box-sizing:border-box; padding:12px 16px; font-size:16px; border:1px solid #e2e2e2; border-radius:12px; background:#fafafa; }
+.hx-chips { display:flex; gap:8px; overflow-x:auto; padding:10px 0 2px; }
+.hx-chip { white-space:nowrap; font-size:12px; color:#333; text-decoration:none; background:#f4f4f4; border:1px solid #e6e6e6; border-radius:999px; padding:5px 11px; }
+.hx-chip span { color:#999; }
+.hx-empty { font-size:14px; color:#888; }
+.hx-ep { font-size:17px; font-weight:800; color:#111; margin:26px 0 10px; line-height:1.35; }
+.hx-qa { border:1px solid #ececec; background:#fafafa; border-radius:12px; padding:16px 18px; margin:0 0 10px; }
+.hx-q a { color:inherit; text-decoration:none; } .hx-q a:hover { text-decoration:underline; } .hx-rm { margin:0 0 10px; font-size:14px; } .hx-rm a { color:#0a66c2; text-decoration:none; font-weight:600; }
+.hx-q { font-size:16px; font-weight:700; color:#111; line-height:1.4; margin:0 0 6px; }
+.hx-a { font-size:15px; line-height:1.6; color:#333; margin:0 0 10px; }
+.hx-foot { display:flex; flex-wrap:wrap; gap:14px; align-items:center; font-size:13px; }
+.hx-listen { font-weight:700; text-decoration:none; color:#1f5fbf; background:#eaf1fd; padding:5px 12px; border-radius:999px; }
+.hx-more { color:#777; }
+.hx-hidden { display:none; }
+</style>
+<div class="questions-covered hx-wrap" id="answers">
+  <h2 class="hx-title">Answers from this podcast</h2>
+  <p class="hx-stats">5 questions answered · 1 episode indexed</p>
+  
+  <section class="hx-episode"><h3 class="hx-ep" id="ep-episode-633-supporting-your-team-protecting-your-practice-with-niki-ra">Episode 633: Supporting Your Team &amp; Protecting Your Practice -- with Niki Ramirez of HR Answers</h3><article class="hx-qa" id="what-are-the-key-differences-between-clinical-skills-and-employer-lead"><h3 class="hx-q"><a href="/podcast-btb/m/group-practice-tech/270fe926c5">What are the key differences between clinical skills and employer leadership skills for therapy practice owners according to HR Answers?</a></h3><p class="hx-a">While clinicians bring exceptional empathy, insight into employee needs, and strong communication skills to leadership, the core challenge is balancing empathy with accountability.</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/podcast-btb/m/group-practice-tech/270fe926c5">▶ Listen to this moment · 8:07</a></div></article><article class="hx-qa" id="what-is-progressive-discipline-in-mental-health-group-practices-and-ho"><h3 class="hx-q"><a href="/podcast-btb/m/group-practice-tech/8ba9586cd8">What is progressive discipline in mental health group practices and how should practice owners implement it?</a></h3><p class="hx-a">Progressive discipline involves a structured escalation from initial awareness-raising conversations through verbal warnings, written documentation (typically via email rather than formal forms to keep defenses down), and strategic coaching throughout the process.</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/podcast-btb/m/group-practice-tech/8ba9586cd8">▶ Listen to this moment · 13:51</a></div></article><article class="hx-qa" id="why-are-comprehensive-job-descriptions-and-employee-handbooks-essentia"><h3 class="hx-q"><a href="/podcast-btb/m/group-practice-tech/e2f88be441">Why are comprehensive job descriptions and employee handbooks essential for small therapy practices with only one or two employees?</a></h3><p class="hx-a">Comprehensive job descriptions with essential functions, required skills, reasoning abilities, language abilities, and tech abilities are necessary guardrails for clarity in employment relationships regardless of practice size.</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/podcast-btb/m/group-practice-tech/e2f88be441">▶ Listen to this moment · 19:16</a></div></article><article class="hx-qa" id="what-foundational-hr-elements-should-new-therapy-practice-owners-estab"><h3 class="hx-q"><a href="/podcast-btb/m/group-practice-tech/a459a5c424">What foundational HR elements should new therapy practice owners establish before or immediately after launch?</a></h3><p class="hx-a">New practice owners should start with a basic compliance review to understand state, local, and federal rules applicable to their business, then develop employment policies that match those regulations—such as paid sick leave policies if required by state law.</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/podcast-btb/m/group-practice-tech/a459a5c424">▶ Listen to this moment · 26:52</a></div></article><article class="hx-qa" id="when-should-therapy-practice-owners-update-their-employee-handbooks-an"><h3 class="hx-q"><a href="/podcast-btb/m/group-practice-tech/0a01463b49">When should therapy practice owners update their employee handbooks and what triggers updates?</a></h3><p class="hx-a">Employee handbooks can be updated anytime throughout the year; there is nothing magical about January 1st, though it is a common refresh point. State legislatures typically update laws in July and January at the state level, and federal updates can happen anytime.</p><div class="hx-foot"><a class="hx-listen plausible-event-name=Clic+Hub+Moment" href="/podcast-btb/m/group-practice-tech/0a01463b49">▶ Listen to this moment · 25:03</a></div></article></section>
+</div>
+<script>
+(function(){var i=document.querySelector('.hx-search');if(!i)return;var e=document.querySelector('.hx-empty');
+i.addEventListener('input',function(){var v=i.value.toLowerCase().trim(),any=false;
+document.querySelectorAll('.hx-qa').forEach(function(a){var ok=!v||a.textContent.toLowerCase().indexOf(v)>-1;a.classList.toggle('hx-hidden',!ok);if(ok)any=true;});
+document.querySelectorAll('.hx-episode').forEach(function(s){s.classList.toggle('hx-hidden',!s.querySelector('.hx-qa:not(.hx-hidden)'));});
+if(e)e.hidden=any;});})();
+</script>
+<!-- QUESTIONS_COVERED_END -->
+</main>
+
+    <footer>
+        © Group Practice Tech — Person Centered Tech · <a href="https://listenly.org" style="color: #999; text-decoration: underline;">Structured analysis by Listenly</a>
+    </footer>
+
+    <div id="semantic-index" style="display:none;">
+        <span data-entity="Group Practice Tech" data-type="PodcastSeries"></span>
+        <span data-entity="Person Centered Tech" data-type="Organization"></span>
+        <span data-concept="Tech & Cybersécurité" data-type="Category"></span>
+        <span data-concept="HIPAA Compliance" data-type="Concept"></span>
+        <span data-concept="Mental Health Practice Management" data-type="Concept"></span>
+        <span data-concept="Practice Operations" data-type="Concept"></span>
+        <span data-publisher="Listenly" data-url="https://listenly.org"></span>
+        <span data-isPartOf="https://listenly.fr/podcast/show/group-practice-tech"></span>
+    </div>
+
+<p style="max-width:720px;margin:0 auto;padding:0 20px 32px;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#999;"><a href="https://listenly.fr/podcast/show/group-practice-tech" class="plausible-event-name=Clic+Lien+Texte" style="color:#999;text-decoration:underline;">Découvrir Group Practice Tech sur Listenly →</a></p>
+</body>
+</html>
