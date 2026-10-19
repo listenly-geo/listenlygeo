@@ -4,7 +4,7 @@
 Aucun appel IA, aucune donnée nouvelle : identité (podcasts.json) + liste des questions
 (data/moments/<slug>.json). Le design reprend EXACTEMENT le gabarit des pages de moment
 (pages/podcast-btb/m-template.html) : mêmes couleurs, même police, même barre de recherche,
-mêmes cartes, même lecteur en bas. Seul le contenu change : identité du podcast en tête,
+mêmes cartes. Pas de lecteur sur la fiche N1 : il est sur chaque page moment. Seul le contenu change : identité du podcast en tête,
 puis la liste de ses questions, chacune reliée à sa page de moment.
 
 Le HUB ne reprend pas le texte des réponses : il liste les questions, chacune vers sa page de moment.
@@ -38,10 +38,6 @@ EXTRA_CSS = """
   .listen-link:hover{ opacity:.75; }
   .result-card .rc-question a{ color: inherit; text-decoration: none; }
   .result-card .rc-question a:hover{ color: var(--accent); }
-  .pb-cta{ margin-left:auto; color: var(--accent); text-decoration:none; font-size:13.5px;
-           font-weight:500; white-space:nowrap; }
-  .pb-cta:hover{ opacity:.75; }
-  body{ padding-bottom: 84px; }
   @media (max-width: 560px){
     .n1-id{ flex-direction: column; align-items: flex-start; }
     .n1-cover{ width:96px; height:96px; }
@@ -182,17 +178,6 @@ def build(slug, max_questions=10):
 {cards}
 </div>
 </main>
-
-<div class="player-bar active" id="playerBar">
-  <div class="pb-art">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-  </div>
-  <div class="pb-info">
-    <div class="pb-title">{esc(name)}</div>
-    <div class="pb-sub">{esc(host)}</div>
-  </div>
-  {f'<a class="pb-cta" href="{esc(podcast_url)}" rel="noopener">Open podcast →</a>' if podcast_url else ""}
-</div>
 
 </body>
 </html>
