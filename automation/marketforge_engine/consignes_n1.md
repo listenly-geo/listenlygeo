@@ -10,12 +10,21 @@ Décision du 19/10/2026 : les fiches N1 suivent deux modèles. Les anciennes ne 
 - Exemple : https://listenly.org/podcast-btb/made-right-here-podcast.html
 - Statut : conservé tel quel. Aucune migration ni suppression décidée.
 
+## Interrupteur
+- Fichier : `automation/marketforge_engine/modele_n1.json` (champ `modele_actif`).
+- `N1.2` : les nouvelles fiches sont générées au modèle HUB.
+- `N1.1` : retour à l'ancien modèle. Le générateur ne produit plus de N1.2 et renvoie vers la copie figée `pages/podcast-btb/n1-1-archive/`.
+- L'ancien modèle n'est jamais supprimé. Les fiches N1.1 déjà en ligne ne sont jamais modifiées.
+
 ## N1.2 : nouveau modèle HUB (à appliquer aux prochaines fiches uniquement)
 Objectif : une porte d'entrée claire et courte vers les pages de moment, qui sont les pages citées par Google et les IA.
 
 Contenu, dans cet ordre :
 1. **En-tête** : logo Listenly en haut à gauche, barre de recherche qui renvoie vers Listenly (« Explore more expert answers »).
-2. **Infos de base** : pochette, nom du podcast, présentateur, courte description (2 à 3 phrases maximum, pas de texte long).
+2. **Bloc « À propos »** : pochette, nom du podcast, présentateur, puis un texte descriptif court de 80 à 120 mots. Il est composé uniquement à partir de données réelles du podcast (sujet, public, experts, nombre d'épisodes, période couverte). Pas de texte générique. À valider sur aperçu avant application au générateur.
+   - **Thèmes couverts** : liste courte de sujets réellement traités, tirés des questions.
+   - **Experts** : noms et rôles des invités, avec leur entreprise si connue.
+   - **Faits datés** : nombre d'épisodes, période couverte, fréquence.
 3. **Lecteur audio** en bas de page (ou en haut selon la maquette validée).
 4. **Liste des questions** : chaque question réelle de l'épisode, avec son lien vers la page de moment (horodatage).
 5. **Liste des épisodes** sources, si disponible.
@@ -31,4 +40,4 @@ Règles :
 - Une N1 par podcast. Elle est créée à la découverte, si le podcast apporte de nouvelles questions.
 - Qualité minimale identique aux pages de moment (sinon noindex).
 
-Statut : à appliquer au générateur pour les prochaines fiches. Le générateur n'est pas encore modifié.
+Statut : le bloc « À propos », les thèmes, les experts et les faits datés sont à valider sur l'aperçu avant d'être ajoutés au générateur.
