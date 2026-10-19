@@ -1,4 +1,4 @@
-# Reflexion du MarketForge Engine (2026-10-13T19:24 UTC)
+# Reflexion du MarketForge Engine (2026-10-19T11:56 UTC)
 **Statut : BLOQUE**
 
 ## Funnel
@@ -18,6 +18,7 @@
 - paiements hub : 0
 
 ## Blocages
+- Statistiques non rafraichies depuis plus de 8 h (2026-10-13T19:26) : bridge Sheet ou Apps Script a l'arret.
 - Reponses non classees (positive / neutre / refus) : impossible de savoir si le funnel marche. Ajouter le champ 'classe' dans replies.json.
 
 ## Pourquoi pas encore de client
