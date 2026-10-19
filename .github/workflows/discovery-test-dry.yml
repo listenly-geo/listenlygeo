@@ -1,0 +1,32 @@
+name: TEST découverte (dry — aucune écriture, aucun appel IA)
+
+# Workflow de test manuel uniquement. Il ne planifie rien et ne touche ni au Sheet,
+# ni à l'historique, ni aux issues, ni à la clé IA : il sert à valider le filtre avant IA.
+on:
+  workflow_dispatch:
+    inputs:
+      countries:
+        description: 'Codes pays iTunes separes par virgule'
+        required: false
+        default: 'us'
+
+permissions:
+  contents: read
+
+jobs:
+  dry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Découverte en mode test
+        env:
+          DISCOVERY_DRY_RUN: '1'
+          DISCOVERY_PRE_AI_LANG_FILTER: '1'
+          DISCOVERY_COUNTRIES: ${{ github.event.inputs.countries || 'us' }}
+          DISCOVERY_MAX_QUALIFY: '15'
+        run: python automation/scripts/discover_podcasts.py
