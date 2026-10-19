@@ -1,14 +1,15 @@
-# Brief trafic SEO — 2026-10-18
+# Brief trafic SEO — 2026-10-19
 
-- Période ['2026-07-18', '2026-10-16'] : 0 clics / 56 impressions sur 33 pages
-- Pages de moments dans Google : 2 pages, 3 impressions, 0 clics
-- Moments ouverts au sitemap : 40 (dont 0 depuis 7 j+) ; contrôlés : 0 ; indexés : 0 (None%)
+- Période ['2026-07-19', '2026-10-17'] : 0 clics / 178 impressions sur 103 pages
+- Pages de moments dans Google : 5 pages, 6 impressions, 0 clics
+- Moments ouverts au sitemap : 50 (dont 0 depuis 7 j+) ; contrôlés : 0 ; indexés : 0 (None%)
 - Quota : 10/jour → recommandé 10/jour (pas assez de pages ouvertes depuis 7 jours et controlees : on ne change pas)
 
 ## Par type de page
-- hub : 24 pages, 41 impr., 0 clics
-- show-listenly : 7 pages, 12 impr., 0 clics
-- moment : 2 pages, 3 impr., 0 clics
+- hub : 71 pages, 131 impr., 0 clics
+- show-listenly : 26 pages, 40 impr., 0 clics
+- moment : 5 pages, 6 impr., 0 clics
+- autre : 1 pages, 1 impr., 0 clics
 
 ## 10 pages de moments à faire indexer à la main aujourd'hui
 - https://listenly.org/podcast-btb/m/best-damn-coach-podcast-conversations-fo/eb97b64625 (inconnue)
@@ -23,7 +24,8 @@
 - https://listenly.org/podcast-btb/m/freakonomics-radio/d99c42589a (inconnue)
 
 ## Pages visibles (positions 3-15) sans clic : titre/extrait à retravailler
-- https://listenly.org/podcast-btb/the-namibia-oil-and-gas-podcast-podcast.html — 10 impr., pos 7.4
+- https://listenly.org/podcast-btb/the-namibia-oil-and-gas-podcast-podcast.html — 11 impr., pos 7.5
 
 ## Requêtes bien placées
 - creic — 3 impr., pos 5, 0 clic(s)
+- l'art de la gestion patrimoniale — 3 impr., pos 10.3, 0 clic(s)
