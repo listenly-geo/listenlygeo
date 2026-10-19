@@ -1090,7 +1090,7 @@ function doGet(e) {
       return r.values[7] && new Date(r.values[7]).toDateString() === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, script_version: 26 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, script_version: 27 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -1102,6 +1102,7 @@ function doPost(e) {
   if (!mfeAuth_(p.secret || body.secret)) return mfeJson_({ ok: false, error: 'secret invalide' });
   if (body.action === 'tendances') return mfeTendances_(body);
   if (body.action === 'optimisations') return mfeOptimisations_(body);
+  if (body.action === 'cohorte') return mfeCohorte_(body);   // MAJ 19/10/2026
   if (body.action === 'cmd') return mfeCmd_(body);
   if (body.action === 'contacts') return mfeContacts_(body);
   if (body.action === 'gate_put') return mfeGatePut_(body);   // v25 : dirigeants confirmes par le filtre d'entree
@@ -1179,6 +1180,21 @@ function mfeTendances_(body) {
 
 // Journal des optimisations -> onglet 'Optimisations' (colonnes A a D : Version, Optimisation, Date, Statut ; a partir de la ligne 5).
 // La liste deroulante / les couleurs de la colonne Statut sont conservees (seuls contenu + mise en forme des lignes sont reecrits).
+// MAJ 19/10/2026 : onglet Cohortes = suivi de chaque nouveau prospect retenu (faits, pas d'analyse).
+// Anti-doublon sur le slug (colonne B). Ne touche jamais aux autres onglets.
+function mfeCohorte_(body) {
+  var sh = mfeSS_().getSheetByName('Cohortes');
+  if (!sh) return mfeJson_({ ok: false, error: 'onglet Cohortes introuvable' });
+  var rows = body.rows || [];
+  if (!rows.length) return mfeJson_({ ok: true, added: 0 });
+  var last = sh.getLastRow();
+  var known = last >= 2 ? sh.getRange(2, 2, last - 1, 1).getValues().map(function (r) { return String(r[0]); }) : [];
+  var fresh = rows.filter(function (r) { return known.indexOf(String(r[1])) === -1; });
+  if (!fresh.length) return mfeJson_({ ok: true, added: 0 });
+  sh.getRange(last + 1, 1, fresh.length, 12).setValues(fresh);
+  return mfeJson_({ ok: true, added: fresh.length });
+}
+
 function mfeOptimisations_(body) {
   var sh = mfeSS_().getSheetByName('Optimisations');
   if (!sh) return mfeJson_({ ok: false, error: 'onglet Optimisations introuvable' });

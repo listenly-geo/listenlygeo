@@ -25,7 +25,7 @@ Sortie :
   - Resume lisible sur stdout et dans $GITHUB_STEP_SUMMARY si present
 """
 
-import os, sys, json, re, time, random, hashlib, datetime
+import os, sys, json, re, time, random, hashlib, datetime, unicodedata
 import urllib.request, urllib.error, urllib.parse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from rss_contact import fetch_contact_email, check_email  # noqa: E402
@@ -408,6 +408,45 @@ def recency_gate(feed_url):
     return ""
 
 
+# ---------------------------------------------------------------------------
+# MAJ 19/10/2026 : onglet Cohortes (suivi des nouveaux prospects retenus). Faits seulement, pas d'analyse.
+# Jamais bloquant : si l'ecriture echoue, la decouverte continue.
+# ---------------------------------------------------------------------------
+def _cohorte_slug(s):
+    s = unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode("ascii")
+    s = re.sub(r"[^a-z0-9]+", "-", s.lower().strip())
+    return re.sub(r"^-+|-+$", "", s)[:60]
+
+
+def _taille_segment(nb):
+    try:
+        n = int(nb)
+    except (TypeError, ValueError):
+        return "taille inconnue"
+    return "petit (<20)" if n < 20 else ("moyen (20-99)" if n < 100 else "grand (100+)")
+
+
+def push_cohorte(records):
+    if not records:
+        return
+    try:
+        import sheet_bridge
+        today = datetime.date.today().isoformat()
+        rows = []
+        for rec in records:
+            name = rec.get("podcast_name", "")
+            sect = rec.get("secteur", "") or "secteur inconnu"
+            rows.append([
+                today, _cohorte_slug(name), name, "a analyser", rec.get("nb_episodes", ""), sect,
+                "RSS" if rec.get("contact_email") else "aucune", "a qualifier", "", "", "",
+                f"{sect} | {_taille_segment(rec.get('nb_episodes'))}",
+            ])
+        res = sheet_bridge.call(payload={"action": "cohorte", "rows": rows})
+        log(f"Cohortes : {res}")
+    except Exception as e:
+        log(f"Cohortes non ecrites ({e}) : la decouverte continue.")
+
+
 def free_reject(cand, email):
     """Raison du refus ('' = garde). Gratuit : ne lit que les donnees iTunes deja recues et l'email du flux."""
     genre = (cand.get("primaryGenreName") or "").replace("MZGenre.Podcasts.", "").strip()
@@ -727,6 +766,7 @@ def main():
             "reason": reason,
             "checked_date": __import__("datetime").date.today().isoformat(),
             "secteur": kw_sector.get(kw_of_feed.get(r.get("feedUrl", "")), ""),
+            "nb_episodes": r.get("trackCount", ""),
         }
         if record["verdict"] == "ONBOARD":
             tagging_text = " ".join([
@@ -745,6 +785,7 @@ def main():
             reject_list.append(record)
         time.sleep(0.3)
 
+    push_cohorte(onboard_list)  # MAJ 19/10/2026 : suivi Cohortes
     os.makedirs(os.path.dirname(SEEN_HISTORY_FILE), exist_ok=True)
     with open(SEEN_HISTORY_FILE, "w", encoding="utf-8") as f:
         json.dump(seen_candidates, f, ensure_ascii=False, indent=2)
