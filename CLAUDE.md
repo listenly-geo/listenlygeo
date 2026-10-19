@@ -23,6 +23,12 @@ PRIORITE = QUALITE, pas volume brut ni backlinks. Prospects prioritaires : B2B r
 METRIQUES : emails envoyes, taux de livraison, taux de reponse, reponses positives (« send it »), V1 envoyees, paiements du setup, passage en abonnement.
 QUESTION UNIQUE : une entreprise B2B paie-t-elle pour que son podcast existant devienne un Hub brande, searchable, exploitable par Google et les IA ?
 
+## Charte graphique du moteur trafic (decision 19/10/2026)
+- Les fiches N1 (hubs) et les pages de moment sur listenly.org suivent la charte sombre Listenly : fond noir (#000000), cartes grises (#1C1C1E), texte #F5F5F7, accent #2997FF, police systeme, logo Listenly en haut a gauche, barre de recherche, lecteur en bas. Reference : pages/podcast-btb/m-template.html.
+- Le branding de l'entreprise (pochette, couleurs) n'est pas utilise dans cette phase : la priorite est le trafic.
+- Les prospects et l'offre Hub brande sont hors perimetre tant que l'on se concentre sur le trafic.
+- Toute nouvelle page N1 ou moment doit reprendre cette charte. Les hubs deja en ligne (style clair) sont a migrer, pas a refaire.
+
 ## Deploiement Apps Script : AUTOMATIQUE (decision du 13/10/2026)
 La connexion clasp d'Etienne est enregistree (secret GitHub CLASPRC_JSON, compte etienne.cugnet@marketforge.fr) : ne JAMAIS lui redemander de coller le code ni de redeployer.
 Pour publier une nouvelle version du script : mettre automation/apps-script/MarketForgeEngine.gs a jour, ecrire `deploy` en 1re ligne de automation/apps-script/deploy-script-now.txt (`publish` = republier sans changer le code, `dry` = lecture seule), commit + push : le workflow « Apps Script — lecture / deploiement » remplace le code, cree une version et la branche sur l'URL du pont.
