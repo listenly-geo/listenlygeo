@@ -429,6 +429,8 @@ def _taille_segment(nb):
 # MAJ 19/10/2026 : filtre avant IA (langue du flux RSS). Retour arriere : DISCOVERY_PRE_AI_LANG_FILTER=0
 # ou git revert du commit tague « avant-filtre-ia-19-10 ».
 PRE_AI_LANG_FILTER_ON = os.environ.get("DISCOVERY_PRE_AI_LANG_FILTER", "1") == "1"
+# MAJ 19/10/2026 : mode test (DISCOVERY_DRY_RUN=1) : aucun appel IA, aucune ecriture, journal seulement.
+DRY_RUN = os.environ.get("DISCOVERY_DRY_RUN", "0") == "1"
 
 
 def rss_language(feed_url):
@@ -766,6 +768,10 @@ def main():
             result = {"verdict": "REJECT", "detected_language": rss_lang,
                       "reason": f"Langue declaree dans le RSS : {rss_lang} (hors perimetre, anglais uniquement). [filtre avant IA]"}
         else:
+            if DRY_RUN:
+                # MAJ 19/10/2026 : mode test. Aucun appel IA, aucune ecriture.
+                log(f"[TEST] {name} : serait envoye a l'IA (langue RSS : {rss_lang or 'non declaree'})")
+                continue
             log(f"Qualification : {name}...")
             try:
                 raw = call_claude_with_search(prompt)
@@ -817,6 +823,11 @@ def main():
             reject_list.append(record)
         time.sleep(0.3)
 
+    if DRY_RUN:
+        # MAJ 19/10/2026 : mode test. Rien n'est ecrit (ni Cohortes, ni historique, ni issues).
+        log(f"[TEST] Fin du test : {len(onboard_list)} podcasts auraient ete retenus, "
+            f"{len(reject_list)} refuses (filtre avant IA : {PRE_AI_LANG_FILTER_ON}). Aucune ecriture.")
+        return
     push_cohorte(onboard_list)  # MAJ 19/10/2026 : suivi Cohortes
     os.makedirs(os.path.dirname(SEEN_HISTORY_FILE), exist_ok=True)
     with open(SEEN_HISTORY_FILE, "w", encoding="utf-8") as f:

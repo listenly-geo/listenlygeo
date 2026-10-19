@@ -11,6 +11,11 @@ on:
         description: 'Codes pays iTunes separes par virgule'
         required: false
         default: 'us'
+      dry_run:
+        description: 'Mode test : aucun appel IA, aucune ecriture (journal seulement)'
+        type: boolean
+        required: false
+        default: false
   schedule:
     - cron: '0 6 * * 1'   # tous les lundis 6h — un lot de candidats frais chaque semaine
 
@@ -33,6 +38,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           DISCOVERY_MAX_QUALIFY: ${{ github.event.inputs.max_qualify || '15' }}
           DISCOVERY_COUNTRIES: ${{ github.event.inputs.countries || 'us' }}
+          DISCOVERY_DRY_RUN: ${{ github.event.inputs.dry_run == 'true' && '1' || '0' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python automation/scripts/discover_podcasts.py
