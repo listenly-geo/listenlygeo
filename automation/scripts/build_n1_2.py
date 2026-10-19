@@ -1,22 +1,52 @@
 #!/usr/bin/env python3
 """Fiche N1.2 (HUB d'autorité) : génère la page d'un podcast à partir des données existantes.
 
-Aucun appel IA, aucune donnée nouvelle : identité (podcasts.json) + liste des moments
-(data/moments/<slug>.json). Charte sombre Listenly (19/10/2026). Le HUB ne reprend pas le texte
-des moments : il les liste, chacun relié à sa page de moment (/podcast-btb/m/<slug>/<id>).
+Aucun appel IA, aucune donnée nouvelle : identité (podcasts.json) + liste des questions
+(data/moments/<slug>.json). Le design reprend EXACTEMENT le gabarit des pages de moment
+(pages/podcast-btb/m-template.html) : mêmes couleurs, même police, même barre de recherche,
+mêmes cartes, même lecteur en bas. Seul le contenu change : identité du podcast en tête,
+puis la liste de ses questions, chacune reliée à sa page de moment.
 
-Usage : python3 automation/scripts/build_n1_2.py <slug> [sortie.html] [max_moments]
+Le HUB ne reprend pas le texte des réponses : il liste les questions, chacune vers sa page de moment.
+
+Usage : python3 automation/scripts/build_n1_2.py <slug> [sortie.html] [max_questions]
 Par défaut, la page part dans pages/podcast-btb/n1-2-preview/ (aperçu, pas de mise en ligne).
 """
 import html
 import json
 import os
+import re
 import sys
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
 PODCASTS = os.path.join(ROOT, "pages", "podcast-btb", "data", "podcasts.json")
 MOMENTS_DIR = os.path.join(ROOT, "pages", "podcast-btb", "data", "moments")
+TEMPLATE = os.path.join(ROOT, "pages", "podcast-btb", "m-template.html")
 BASE_MOMENT = "https://listenly.org/podcast-btb/m"
+
+EXTRA_CSS = """
+  .hero{ padding: 12vh 24px 32px; }
+  .hero .sub{ text-align: left; margin: 0 0 26px; max-width: none; font-size: 16px; }
+  .n1-id{ display:flex; gap:20px; align-items:center; text-align:left; margin-bottom:18px; }
+  .n1-id h1{ font-size: clamp(28px, 4.4vw, 42px); margin: 0 0 6px; }
+  .n1-cover{ width:120px; height:120px; border-radius:20px; object-fit:cover; flex-shrink:0;
+             box-shadow: 0 8px 30px rgba(0,0,0,0.45); }
+  .n1-kicker{ color: var(--ink-soft); font-size:12.5px; text-transform:uppercase; letter-spacing:.07em; margin:0 0 4px; }
+  .n1-host{ color: var(--ink-soft); margin:0; font-size:15px; }
+  .listen-link{ display:inline-block; margin-top:22px; color: var(--accent); text-decoration:none;
+                font-size:14.5px; font-weight:500; }
+  .listen-link:hover{ opacity:.75; }
+  .result-card .rc-question a{ color: inherit; text-decoration: none; }
+  .result-card .rc-question a:hover{ color: var(--accent); }
+  .pb-cta{ margin-left:auto; color: var(--accent); text-decoration:none; font-size:13.5px;
+           font-weight:500; white-space:nowrap; }
+  .pb-cta:hover{ opacity:.75; }
+  body{ padding-bottom: 84px; }
+  @media (max-width: 560px){
+    .n1-id{ flex-direction: column; align-items: flex-start; }
+    .n1-cover{ width:96px; height:96px; }
+  }
+"""
 
 
 def load_podcast(slug):
@@ -28,7 +58,7 @@ def load_podcast(slug):
     raise SystemExit(f"Podcast introuvable : {slug}")
 
 
-def load_moments(slug, limit):
+def load_moments(slug):
     path = os.path.join(MOMENTS_DIR, f"{slug}.json")
     if not os.path.exists(path):
         return []
@@ -38,106 +68,132 @@ def load_moments(slug, limit):
         q = (e.get("q") or "").strip()
         if q:
             out.append((mid, q))
-    return out[:limit]
+    return out
 
 
 def esc(s):
     return html.escape(str(s or ""), quote=True)
 
 
-def build(slug, max_moments=10):
+def template_css():
+    tpl = open(TEMPLATE, encoding="utf-8").read()
+    m = re.search(r"<style>(.*?)</style>", tpl, re.S)
+    if not m:
+        raise SystemExit("Gabarit m-template.html : bloc <style> introuvable")
+    return m.group(1)
+
+
+def build(slug, max_questions=10):
     p = load_podcast(slug)
-    moments = load_moments(slug, max_moments)
+    all_moments = load_moments(slug)
+    shown = all_moments[:max_questions]
     name = p.get("podcast_name", slug)
     host = p.get("host_name", "")
     cat = p.get("categorie", "")
     punch = p.get("punchline", "")
     cover = p.get("cover_image", "")
     podcast_url = p.get("podcast_url", "")
-    accent = "#2997FF"
+    lang = p.get("language", "en")
+    canon = f"https://listenly.org/podcast-btb/{slug}-podcast.html"
 
-    if moments:
-        items = "\n".join(
-            f'      <li><a href="{BASE_MOMENT}/{esc(slug)}/{esc(mid)}">{esc(q)}</a></li>'
-            for mid, q in moments
-        )
-        moments_html = f'<ol class="moments">\n{items}\n    </ol>'
+    if shown:
+        cards = "\n".join(
+            f'''  <div class="result-card">
+    <p class="rc-question"><a href="{BASE_MOMENT}/{esc(slug)}/{esc(mid)}">{esc(q)}</a></p>
+    <div class="rc-meta">
+      <span class="rc-source"><strong>{esc(host)}</strong> on {esc(name)}</span>
+      <a class="rc-play" href="{BASE_MOMENT}/{esc(slug)}/{esc(mid)}" style="text-decoration:none;">Read the answer →</a>
+    </div>
+  </div>'''
+            for mid, q in shown)
     else:
-        moments_html = '<p class="empty">Les questions de cet épisode arrivent bientôt.</p>'
+        cards = '  <div class="state-msg">Questions from this podcast are coming soon.</div>'
 
-    listen = (f'<a class="btn" href="{esc(podcast_url)}" rel="noopener">Écouter sur Apple Podcasts</a>'
-              if podcast_url else "")
+    cover_html = f'<img class="n1-cover" src="{esc(cover)}" alt="{esc(name)}">' if cover else ""
+    listen_html = (f'<a class="listen-link" href="{esc(podcast_url)}" rel="noopener">Listen on Apple Podcasts →</a>'
+                   if podcast_url else "")
+    ld = {"@context": "https://schema.org", "@type": "PodcastSeries", "name": name,
+          "description": punch, "url": podcast_url, "image": cover, "genre": cat,
+          "author": {"@type": "Person", "name": host}}
+    count = len(all_moments)
 
-    return f"""<!doctype html>
-<html lang="{esc(p.get('language', 'en'))}">
+    return f"""<!DOCTYPE html>
+<html lang="{esc(lang)}">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(name)} : questions et réponses | Listenly</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{esc(name)}: expert answers | Listenly</title>
 <meta name="description" content="{esc(punch[:150])}">
-<link rel="canonical" href="https://listenly.org/podcast-btb/{esc(slug)}-podcast.html">
+<link rel="canonical" href="{canon}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{esc(name)} | Listenly">
+<meta property="og:description" content="{esc(punch[:150])}">
+<meta property="og:url" content="{canon}">
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"PodcastSeries","name":{json.dumps(name, ensure_ascii=False)},
-"description":{json.dumps(punch, ensure_ascii=False)},"url":{json.dumps(podcast_url)},
-"image":{json.dumps(cover)},"genre":{json.dumps(cat, ensure_ascii=False)},
-"author":{{"@type":"Person","name":{json.dumps(host, ensure_ascii=False)}}}}}
+{json.dumps(ld, ensure_ascii=False)}
 </script>
-<style>
-  :root {{ --bg:#000000; --card:#1C1C1E; --ink:#F5F5F7; --soft:#86868B; --accent:{accent}; }}
-  * {{ box-sizing:border-box; }}
-  body {{ margin:0; background:var(--bg); color:var(--ink);
-         font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }}
-  header {{ display:flex; align-items:center; gap:12px; padding:16px; }}
-  .logo {{ color:var(--ink); font-weight:700; text-decoration:none; font-size:18px; }}
-  .search {{ flex:1; display:flex; }}
-  .search input {{ width:100%; background:var(--card); color:var(--ink); border:1px solid #2c2c2e;
-                  border-radius:999px; padding:10px 16px; font-size:15px; }}
-  main {{ max-width:720px; margin:0 auto; padding:8px 16px 120px; }}
-  .card {{ background:var(--card); border-radius:16px; padding:20px; margin-bottom:16px; }}
-  .show {{ display:flex; gap:16px; align-items:center; }}
-  .show img {{ width:120px; height:120px; border-radius:14px; object-fit:cover; }}
-  h1 {{ font-size:24px; margin:0 0 6px; line-height:1.2; }}
-  .meta {{ color:var(--soft); font-size:14px; margin:0; }}
-  .punch {{ font-size:15px; line-height:1.5; margin:12px 0 0; }}
-  h2 {{ font-size:17px; margin:0 0 12px; }}
-  ol.moments {{ padding-left:20px; margin:0; }}
-  ol.moments li {{ margin:0 0 10px; line-height:1.4; }}
-  ol.moments a {{ color:var(--accent); text-decoration:none; }}
-  .empty {{ color:var(--soft); margin:0; }}
-  .btn {{ display:inline-block; background:var(--accent); color:#000; font-weight:600;
-          padding:10px 16px; border-radius:999px; text-decoration:none; font-size:14px; }}
-  .player {{ position:fixed; left:0; right:0; bottom:0; background:var(--card);
-             padding:12px 16px; display:flex; justify-content:center; border-top:1px solid #2c2c2e; }}
-  @media (max-width:520px) {{ .show {{ flex-direction:column; align-items:flex-start; }} }}
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>{template_css()}{EXTRA_CSS}</style>
 </head>
 <body>
-<header>
-  <a class="logo" href="https://listenly.org/">Listenly</a>
-  <form class="search" action="https://listenly.org/" method="get">
-    <input type="search" name="q" placeholder="Explore more expert answers">
-  </form>
+
+<header style="position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:16px clamp(16px,4vw,40px);">
+  <a href="https://listenly.org/" style="color:#F5F5F7;text-decoration:none;font-weight:700;font-size:18px;letter-spacing:-0.01em;">Listenly</a>
 </header>
-<main>
-  <section class="card show">
-    {f'<img src="{esc(cover)}" alt="{esc(name)}">' if cover else ''}
-    <div>
-      <h1>{esc(name)}</h1>
-      <p class="meta">{esc(host)}{' · ' + esc(cat) if cat else ''}</p>
-    </div>
-  </section>
-  <section class="card">
-    <p class="punch">{esc(punch)}</p>
-    <p style="margin:14px 0 0">{listen}</p>
-  </section>
-  <section class="card">
-    <h2>Questions de l'épisode</h2>
-    {moments_html}
-  </section>
-</main>
-<div class="player" aria-label="Lecteur">
-  <span class="meta">Lecteur à intégrer</span>
+
+<div class="ambient-glow">
+  <div class="glow-blob a"></div>
+  <div class="glow-blob b"></div>
+  <div class="glow-blob c"></div>
+  <div class="glow-blob d"></div>
 </div>
+
+<main>
+<section class="hero">
+  <div class="hero-content">
+    <div class="n1-id">
+      {cover_html}
+      <div>
+        <p class="n1-kicker">{esc(cat) if cat else "Podcast"}</p>
+        <h1>{esc(name)}</h1>
+        <p class="n1-host">{esc(host)}</p>
+      </div>
+    </div>
+    <p class="sub">{esc(punch)}</p>
+
+    <div class="search-shell">
+      <form class="search-box" action="https://listenly.org/" method="get">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <div class="input-wrap">
+          <input type="search" name="q" aria-label="Search" placeholder="Explore more expert answers" autocomplete="off">
+        </div>
+        <button type="submit">Search</button>
+      </form>
+    </div>
+
+    <div class="avail-count"><span class="dot"></span><strong>{count}</strong> questions from this podcast</div>
+    {listen_html}
+  </div>
+</section>
+
+<div class="results-wrap">
+{cards}
+</div>
+</main>
+
+<div class="player-bar active" id="playerBar">
+  <div class="pb-art">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+  </div>
+  <div class="pb-info">
+    <div class="pb-title">{esc(name)}</div>
+    <div class="pb-sub">{esc(host)}</div>
+  </div>
+  {f'<a class="pb-cta" href="{esc(podcast_url)}" rel="noopener">Open podcast →</a>' if podcast_url else ""}
+</div>
+
 </body>
 </html>
 """
