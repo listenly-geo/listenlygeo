@@ -452,6 +452,18 @@
   .listen-link:hover{ opacity:.75; }
   .result-card .rc-question a{ color: inherit; text-decoration: none; }
   .result-card .rc-question a:hover{ color: var(--accent); }
+  .about{ max-width: 640px; margin: 0 auto; padding: 8px 24px 8px; text-align: left; }
+  .about h2{ font-size: 20px; font-weight: 600; margin: 0 0 10px; }
+  .about h3{ font-size: 14px; font-weight: 600; color: var(--ink-soft); text-transform: uppercase;
+             letter-spacing: .06em; margin: 26px 0 10px; }
+  .about-text{ font-size: 16px; line-height: 1.6; color: var(--ink); margin: 0; }
+  .chips{ display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip{ background: var(--panel); border: 1px solid var(--line-soft); border-radius: 999px;
+         padding: 6px 12px; font-size: 13px; color: var(--ink); }
+  .experts{ list-style: none; padding: 0; margin: 0; }
+  .experts li{ padding: 6px 0; font-size: 15px; border-bottom: 1px solid var(--line-soft); }
+  .experts .role{ color: var(--ink-soft); }
+  .facts{ font-size: 13px; color: var(--ink-soft); margin: 22px 0 0; }
   @media (max-width: 560px){
     .n1-id{ flex-direction: column; align-items: flex-start; }
     .n1-cover{ width:96px; height:96px; }
@@ -499,6 +511,15 @@
   </div>
 </section>
 
+<section class="about">
+    <h2>About this podcast</h2>
+    <p class="about-text">Business Daily is a Finance &amp; Patrimoine podcast hosted by Business Daily Team (BBC). Business Daily decodes the economics of everyday objects and major geopolitical events. It features 1 expert(s) answering concrete questions.</p>
+    <h3>Topics covered</h3>
+    <div class="chips"><span class="chip">Google</span><span class="chip">Google Wave</span><span class="chip">Google Maps</span><span class="chip">Google Docs</span><span class="chip">Slack</span><span class="chip">Fluent</span></div>
+    <h3>Experts</h3>
+    <ul class="experts"><li><strong>Cameron Adams</strong> <span class="role">· Co-founder and Chief Product Officer at Canva</span></li></ul>
+    <p class="facts">18 questions indexed · 3 episode(s) cited · 1 expert(s)</p>
+  </section>
 <div class="results-wrap">
   <div class="result-card">
     <p class="rc-question"><a href="https://listenly.org/podcast-btb/m/business-daily/139c9013d3">What was Google Wave and why was it eventually shut down despite its technological innovation?</a></p>
