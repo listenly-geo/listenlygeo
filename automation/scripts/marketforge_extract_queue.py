@@ -22,7 +22,7 @@ Entree dans la file :
 Variables : ANTHROPIC_API_KEY, GROQ_API_KEY (ou OPENAI_API_KEY), KNOWLEDGE_IMPORT_SECRET
 Optionnelles : EPISODES_PAR_JOUR (surcharge ponctuelle), DRY_RUN=1 (planifie sans rien extraire)
 """
-import os, sys, json, datetime, hashlib, tempfile, shutil, urllib.parse, importlib.util
+import os, sys, re, json, datetime, hashlib, tempfile, shutil, urllib.parse, urllib.request, importlib.util
 import xml.etree.ElementTree as ET
 
 ENGINE_DIR = "automation/marketforge_engine"
@@ -117,8 +117,24 @@ def read_rss(url):
             durations[title] = parse_duration_minutes(dur.text if dur is not None else "")
     except ET.ParseError:
         pass
+    transcripts = {}
+    try:
+        root = ET.fromstring(xml_bytes)
+        for item in root.iter("item"):
+            title_el = item.find("title")
+            title = emod().clean_text(title_el.text) if title_el is not None and title_el.text else ""
+            tr = [t for t in item.findall(f"{PODCAST_NS}transcript") if t.attrib.get("url")]
+            if tr:
+                # prefere le format texte horodate (vtt/srt/json) ; ignore les formats sans horaires (html, txt)
+                pref = sorted(tr, key=lambda t: 0 if any(k in t.attrib.get("type", "") for k in ("vtt", "srt", "json")) else 1)[0]
+                if any(k in pref.attrib.get("type", "") for k in ("vtt", "srt", "json")):
+                    transcripts[title] = (pref.attrib["url"], pref.attrib.get("type", ""))
+    except ET.ParseError:
+        pass
     for ep in episodes:
         ep["minutes"] = durations.get(ep["title"]) or DEFAULT_EPISODE_MINUTES
+        if ep["title"] in transcripts:
+            ep["transcript_url"], ep["transcript_type"] = transcripts[ep["title"]]
     return episodes, extract_contact_email(xml_bytes)
 
 
@@ -221,18 +237,92 @@ def refresh_hub(podcast):
         return False
 
 
+PODCAST_NS = "{https://podcastindex.org/namespace/1.0}"
+
+
+def _secs(h_m_s_ms):
+    """'00:01:02.500' ou '01:02.500' -> secondes."""
+    parts = h_m_s_ms.replace(",", ".").split(":")
+    if len(parts) == 2:
+        parts = ["0"] + parts
+    h, mi, s = parts
+    return int(h) * 3600 + int(mi) * 60 + float(s)
+
+
+def _parse_vtt_srt(text):
+    """VTT / SRT : blocs « debut --> fin » suivis du texte. Retourne (texte, segments)."""
+    segs = []
+    lines = text.replace("\r", "").split("\n")
+    i = 0
+    while i < len(lines):
+        m_ = re.search(r"(\d{1,2}:\d{2}(?::\d{2})?[.,]\d{3})\s*-->\s*(\d{1,2}:\d{2}(?::\d{2})?[.,]\d{3})", lines[i])
+        if m_:
+            i += 1
+            body = []
+            while i < len(lines) and lines[i].strip():
+                body.append(lines[i].strip())
+                i += 1
+            t = re.sub(r"<[^>]+>", "", " ".join(body)).strip()
+            if t:
+                segs.append({"start": _secs(m_.group(1)), "end": _secs(m_.group(2)), "text": t})
+        i += 1
+    return segs
+
+
+def _parse_json_transcript(raw):
+    """Format Podcasting 2.0 : {"segments": [{"startTime", "endTime", "body"}]}."""
+    data = json.loads(raw)
+    segs = []
+    for s in data.get("segments", []):
+        t = (s.get("body") or "").strip()
+        if t:
+            segs.append({"start": float(s.get("startTime", 0)), "end": float(s.get("endTime", 0)), "text": t})
+    return segs
+
+
+def fetch_published_transcript(ep):
+    """Transcription publiee par le podcast (tag podcast:transcript du flux). None si absente ou inutilisable :
+    dans ce cas le moteur retombe sur la transcription Whisper, comme avant. Ne leve jamais d'erreur."""
+    url = ep.get("transcript_url")
+    if not url:
+        return None
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; ListenlyGEO/1.0; +https://listenly.org)"})
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            raw = resp.read(3_000_000).decode("utf-8", "ignore")
+        kind = (ep.get("transcript_type") or "").lower()
+        if "json" in kind or raw.lstrip().startswith("{"):
+            segs = _parse_json_transcript(raw)
+        else:
+            segs = _parse_vtt_srt(raw)
+        text = " ".join(s["text"] for s in segs)
+        # trop court ou sans horaires = inutilisable (on garde Whisper)
+        if len(segs) < 20 or len(text) < 1500:
+            return None
+        return text, segs
+    except Exception as e:
+        log(f"Transcription publiee indisponible ({type(e).__name__}) : Whisper utilise.")
+        return None
+
+
 def extract_episode(podcast, ep):
     """Pipeline existant, sans generation de fiche. Retourne le nombre de Q/R ecrites."""
     m = emod()
     m.SLUG = podcast["slug"]  # save_knowledge_moments nomme le fichier avec ce slug
     tmpdir = tempfile.mkdtemp(prefix="mf_engine_")
     try:
-        audio_path = os.path.join(tmpdir, "episode.mp3")
-        size = m.download_audio(ep["audio_url"], audio_path)
-        audio_path = m.compress_audio_if_needed(audio_path, size)
-        if getattr(m, "WHISPER_SPEEDUP_FACTOR", 1.0) != 1.0:
-            audio_path = m.speed_up_audio(audio_path)
-        transcript, segments = m.transcribe(audio_path, podcast.get("language", "en"))
+        # Transcription publiee dans le flux (gratuite) si elle existe, sinon Whisper sur l'audio (payant).
+        published = fetch_published_transcript(ep)
+        if published:
+            transcript, segments = published
+            log(f"Transcription publiee utilisee (gratuit) : {len(segments)} segments.")
+        else:
+            audio_path = os.path.join(tmpdir, "episode.mp3")
+            size = m.download_audio(ep["audio_url"], audio_path)
+            audio_path = m.compress_audio_if_needed(audio_path, size)
+            if getattr(m, "WHISPER_SPEEDUP_FACTOR", 1.0) != 1.0:
+                audio_path = m.speed_up_audio(audio_path)
+            transcript, segments = m.transcribe(audio_path, podcast.get("language", "en"))
         if not transcript:
             log("Transcription vide — episode ignore.")
             return 0
