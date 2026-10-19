@@ -70,13 +70,15 @@ var MFE_DEFAULTS = [
 // Mail 2 (apres reponse du prospect, UNIQUEMENT une fois la fiche N1 redirigee). Pas encore branche : l'envoi automatique n'existe pas encore.
 // Variables : {DESTINATION_URL} (lien donne par le prospect) {DESTINATION_LABEL} (your website / your Podcast Hub / your Spotify page) {COUNT} (questions par episode, calcule par podcast).
 var MFE_CTA_MAIL = [
-  '<strong>Done!</strong> Your episode page now redirects your traffic to <strong>{DESTINATION_URL}</strong>.',
+  'Done! The traffic for {PODCAST} on Listenly now goes to {DESTINATION_LABEL}.',
   '',
-  'Based on our analysis, <strong>each episode of your podcast contains <u>{COUNT}+ questions</u></strong> already searched on <strong>Google, ChatGPT and Gemini</strong> by your audience.',
+  'If GEO interests you, <strong>it\'s now possible to turn your regularly published content (podcasts, videos, webinars) into visibility on Google and AI</strong>, without producing more content or changing your strategy.',
   '',
-  'That\'s <u>demand you can capture</u>. You could turn your podcast into a <u>continuous traffic engine</u> that sends visitors to <strong>{DESTINATION_LABEL}</strong>.',
+  'My agency, MarketForge, builds custom systems that make your content visible in Google, ChatGPT and Gemini search results.',
   '',
-  '<strong>Would you like me to give you access to our 2-minute audit?</strong>',
+  'Here\'s our <a href="https://marketforge.fr/3-minute-audit"><strong>free 3-minute audit</strong></a> to see concretely what\'s possible with your content.',
+  '',
+  'We can also take a moment to talk this week if you\'d like!',
   '',
   'Best,'
 ].join('\n');
@@ -588,7 +590,7 @@ function mfeLienDuProspect_(msgs, email) {
 var MFE_VALIDATION_COL = 19;   // colonne S (numero de colonne, 1 = A)
 function mfeMail2Vars_(v) {
   var lien = String(v[11] || '').replace('Lien donne : ', '').trim();
-  return { DESTINATION_URL: lien,
+  return { PODCAST: String(v[1] || ''), DESTINATION_URL: lien,
            DESTINATION_LABEL: /spotify\.com/i.test(lien) ? 'your Spotify page' : 'your website',
            COUNT: String(v[4] || '') };
 }
