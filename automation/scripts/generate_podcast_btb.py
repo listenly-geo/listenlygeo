@@ -2207,6 +2207,34 @@ def build_index_and_categories(records):
 
     log(f"Index + {len(by_category)} page(s) catégorie régénérées")
 
+
+def _modele_n1_actif():
+    try:
+        with open("automation/marketforge_engine/modele_n1.json", encoding="utf-8") as f:
+            return json.load(f).get("modele_actif", "N1.1")
+    except (OSError, json.JSONDecodeError):
+        return "N1.1"
+
+
+def _generate_n1_2(slug, out_file):
+    """Ecrit la fiche N1.2 (HUB) d'un podcast deja present dans podcasts.json, puis resynchronise
+    index, sitemap et historique comme le fait le chemin existant."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "build_n1_2", os.path.join(os.path.dirname(os.path.abspath(__file__)), "build_n1_2.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    html_page = mod.build(slug)
+    with open(out_file, "w", encoding="utf-8") as f:
+        f.write(html_page)
+    log(f"Fiche N1.2 ecrite : {out_file}")
+    records = load_data()
+    build_index_and_categories(records)
+    build_sitemap()
+    build_historique()
+    build_llms_txt()
+
+
 def main():
     if os.environ.get("GITHUB_EVENT_NAME") == "schedule" and os.path.exists(f"{PAGES_DIR}/.cron-paused"):
         log("Cron podcast-btb en pause (fichier .cron-paused present) — run ignore.")
@@ -2271,6 +2299,13 @@ def main():
         # moteur trafic (podcast-btb-qa-*.yml) qui l'appelle lui-meme explicitement. Le laisser
         # ici faisait regenerer/committer dashboard.html par les ~120 anciens workflows episode,
         # multipliant enormement le risque de collision git sur ce fichier partage.
+        return
+
+    # 19/10/2026 : interrupteur des fiches N1 (automation/marketforge_engine/modele_n1.json).
+    # N1.2 = modele HUB (generateur build_n1_2.py, sans IA). N1.1 = ancien modele, chemin
+    # ci-dessous inchange. Une fiche deja presente n'est jamais reecrite (garde ci-dessus).
+    if _modele_n1_actif() == "N1.2":
+        _generate_n1_2(slug, out_file)
         return
 
     os.makedirs(PAGES_DIR, exist_ok=True)
