@@ -426,6 +426,37 @@ def _taille_segment(nb):
     return "petit (<20)" if n < 20 else ("moyen (20-99)" if n < 100 else "grand (100+)")
 
 
+def rss_facts(feed_url):
+    """MAJ 19/10/2026 : lecture du flux RSS pour la collecte Cohortes (faits seulement).
+    Retourne un texte court. Ne leve jamais d'exception : en cas d'echec, « RSS non verifie »."""
+    import xml.etree.ElementTree as ET
+    from email.utils import parsedate_to_datetime
+    if not feed_url:
+        return "RSS : non trouve"
+    try:
+        req = urllib.request.Request(feed_url, headers={"User-Agent": "Mozilla/5.0 MarketForge"})
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            root = ET.fromstring(resp.read())
+    except Exception as e:
+        return f"RSS : inaccessible ({type(e).__name__})"
+    now = datetime.datetime.now(datetime.timezone.utc)
+    items, dates = 0, []
+    for item in root.iter("item"):
+        items += 1
+        try:
+            d = parsedate_to_datetime((item.findtext("pubDate") or "").strip())
+            if d.tzinfo is None:
+                d = d.replace(tzinfo=datetime.timezone.utc)
+            dates.append(d)
+        except Exception:
+            continue
+    if not items:
+        return "RSS : lu, aucun episode trouve"
+    last = max(dates).date().isoformat() if dates else "date inconnue"
+    n90 = sum(1 for d in dates if (now - d).days <= 90)
+    return f"RSS : lu, {items} episodes, dernier {last}, {n90} sur 90 j"
+
+
 def push_cohorte(records):
     if not records:
         return
@@ -433,13 +464,20 @@ def push_cohorte(records):
         import sheet_bridge
         today = datetime.date.today().isoformat()
         rows = []
-        for rec in records:
+        # Lectures RSS en parallele, bornees ; un echec donne « RSS non verifie », jamais bloquant.
+        try:
+            with ThreadPoolExecutor(max_workers=6) as ex:
+                facts = list(ex.map(lambda r: rss_facts(r.get("feed_url", "")), records))
+        except Exception as e:
+            log(f"Cohortes : lecture RSS impossible ({e}) : RSS non verifie.")
+            facts = ["RSS : non verifie"] * len(records)
+        for rec, fact in zip(records, facts):
             name = rec.get("podcast_name", "")
             sect = rec.get("secteur", "") or "secteur inconnu"
             rows.append([
                 today, _cohorte_slug(name), name, "a analyser", rec.get("nb_episodes", ""), sect,
                 "RSS" if rec.get("contact_email") else "aucune", "a qualifier", "", "", "",
-                f"{sect} | {_taille_segment(rec.get('nb_episodes'))}",
+                f"{sect} | {_taille_segment(rec.get('nb_episodes'))} | {fact}",
             ])
         res = sheet_bridge.call(payload={"action": "cohorte", "rows": rows})
         log(f"Cohortes : {res}")
