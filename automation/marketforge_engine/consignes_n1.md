@@ -29,7 +29,7 @@ Contenu, dans cet ordre :
 4. **Liste des épisodes** sources, si disponible.
 5. **Pied de page** : mentions et lien vers Listenly.
 
-Pas de lecteur audio sur la fiche N1 : l'écoute se fait sur chaque page moment.
+Bouton « Listen to the podcast » (libellé en anglais) en tête de fiche. Pas de lecteur audio sur la fiche N1 : l'écoute se fait sur chaque page moment.
 
 Style :
 - Charte sombre Listenly : fond #000000, cartes #1C1C1E, texte #F5F5F7, accent #2997FF, police système.
