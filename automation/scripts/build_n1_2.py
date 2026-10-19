@@ -106,8 +106,9 @@ def build(slug, max_questions=10):
         cards = '  <div class="state-msg">Questions from this podcast are coming soon.</div>'
 
     cover_html = f'<img class="n1-cover" src="{esc(cover)}" alt="{esc(name)}">' if cover else ""
-    listen_html = (f'<a class="listen-link" href="{esc(podcast_url)}" rel="noopener">Listen to the podcast →</a>'
-                   if podcast_url else "")
+    listenly_page = p.get("listenly_url") or ""
+    listen_html = (f'<a class="listen-link" href="{esc(listenly_page)}">Listen to the podcast →</a>'
+                   if listenly_page else "")
     ld = {"@context": "https://schema.org", "@type": "PodcastSeries", "name": name,
           "description": punch, "url": podcast_url, "image": cover, "genre": cat,
           "author": {"@type": "Person", "name": host}}
