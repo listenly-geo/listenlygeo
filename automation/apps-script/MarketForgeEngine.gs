@@ -86,17 +86,17 @@ var MFE_MSG_VERSION = '22';   // incremente -> les textes MFE_MSG_* de Reglages 
 var MFE_FIRST_MAIL = [
   '{HELLO}',
   '',
-  'I recently listed the podcast <strong>"{PODCAST}"</strong> on our directory, listenly.org. It makes the audio expertise of podcasts <u>readable and citable</u> by <strong>Google, ChatGPT and Gemini</strong>.',
+  'I recently listed your podcast <strong>{PODCAST}</strong> on <a href="https://listenly.org">Listenly.org</a>, the 1st GEO engine for podcast visibility.',
   '',
-  '\u2192 <a href="{URL}">{URL}</a>',
+  '<strong>Our mission:</strong> Make podcasts discoverable on Google and AI platforms by transforming audio expertise into searchable, SEO/GEO-optimized answers.',
   '',
-  'Where should I redirect the traffic of <u>qualified executives</u> who arrive?',
+  'For example, your latest episode contains 5+ questions already asked by leaders on Google, ChatGPT and Gemini, like <a href="{MOMENT_URL}">this one</a>.',
   '',
-  '<strong>To your website?</strong>',
-  '<strong>To a Podcast Hub?</strong>',
-  '<strong>To a Spotify page?</strong>',
+  '<strong>Do you have a website you want to redirect this traffic from Google & AI?</strong>',
   '',
-  'Best,'
+  'Best,',
+  '',
+  'P.S. Otherwise, the traffic stays on Listenly. Just let us know :)'
 ].join('\n');
 // Test A/B du CTA (03/10/2026) : 5 variantes A-E, une seule par envoi. Texte brut (aucun gras / souligne dans les CTA).
 var MFE_CTAS = {
@@ -110,7 +110,7 @@ var MFE_AB_KEYS = ['A', 'B', 'C', 'D', 'E'];
 var MFE_AB_DEPUIS = new Date(2026, 9, 4).getTime();   // seuls les envois a partir du 04/10/2026 (nouveau mail) comptent dans le test A-E
 var MFE_MSG_RESET = ['MFE_MSG_OBJET', 'MFE_MSG_FICHE', 'MFE_MSG_REPONSES', 'MFE_MSG_RELANCE', 'MFE_MSG_RELANCE_2', 'MFE_MSG_RELANCE_3', 'MFE_CTA_A', 'MFE_CTA_B', 'MFE_CTA_C', 'MFE_CTA_D', 'MFE_CTA_E'];   // v13 : seuls ces textes sont reecrits dans Reglages (le reste est conserve)
 var MFE_MSG_DEFAULTS = [
-  ['MFE_MSG_OBJET', 'Regarding {PODCAST} | Listenly indexing',
+  ['MFE_MSG_OBJET', 'About your podcast | {PODCAST}',
    'MarketForge Engine — objet du 1er mail. {PODCAST} = nom du podcast.'],
   ['MFE_MSG_FICHE', MFE_FIRST_MAIL,
    'MarketForge Engine — 1er mail. Variables : {NAME} (hote, sinon "{PODCAST} team") {PODCAST} {URL} (fiche N1 du podcast) {BOOKING} {OPTOUT}.'],
