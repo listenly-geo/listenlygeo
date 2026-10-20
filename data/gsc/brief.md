@@ -1,8 +1,8 @@
-# Brief trafic SEO — 2026-10-19
+# Brief trafic SEO — 2026-10-20
 
-- Période ['2026-07-19', '2026-10-17'] : 0 clics / 178 impressions sur 103 pages
+- Période ['2026-07-20', '2026-10-18'] : 0 clics / 178 impressions sur 103 pages
 - Pages de moments dans Google : 5 pages, 6 impressions, 0 clics
-- Moments ouverts au sitemap : 50 (dont 0 depuis 7 j+) ; contrôlés : 0 ; indexés : 0 (None%)
+- Moments ouverts au sitemap : 53 (dont 0 depuis 7 j+) ; contrôlés : 0 ; indexés : 0 (None%)
 - Quota : 10/jour → recommandé 10/jour (pas assez de pages ouvertes depuis 7 jours et controlees : on ne change pas)
 
 ## Par type de page
@@ -14,7 +14,6 @@
 ## 10 pages de moments à faire indexer à la main aujourd'hui
 - https://listenly.org/podcast-btb/m/best-damn-coach-podcast-conversations-fo/eb97b64625 (inconnue)
 - https://listenly.org/podcast-btb/m/beyond-luxury/1a55291ad7 (inconnue)
-- https://listenly.org/podcast-btb/m/freakonomics-radio/e7f243d0dd (inconnue)
 - https://listenly.org/podcast-btb/m/the-daily-podcast/82c936b2d5 (inconnue)
 - https://listenly.org/podcast-btb/m/the-single-source/103c535b37 (inconnue)
 - https://listenly.org/podcast-btb/m/16-minutes-news-by-a16z/a4a410faae (inconnue)
@@ -22,6 +21,7 @@
 - https://listenly.org/podcast-btb/m/acq2-by-acquired/5befe269b3 (inconnue)
 - https://listenly.org/podcast-btb/m/ai-a16z/de75aa3c5b (inconnue)
 - https://listenly.org/podcast-btb/m/freakonomics-radio/d99c42589a (inconnue)
+- https://listenly.org/podcast-btb/m/the-conference-room/2687274a29 (inconnue)
 
 ## Pages visibles (positions 3-15) sans clic : titre/extrait à retravailler
 - https://listenly.org/podcast-btb/the-namibia-oil-and-gas-podcast-podcast.html — 11 impr., pos 7.5
