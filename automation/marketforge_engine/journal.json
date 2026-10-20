@@ -2,6 +2,17 @@
  "_aide": "Erreurs des workflows MarketForge, la plus recente en premier. Alimente par journal_erreurs.py.",
  "entrees": [
   {
+   "date": "20/10/2026 12:35 UTC",
+   "workflow": "Apps Script — lecture / déploiement de MarketForgeEngine.gs",
+   "run": "39423329672",
+   "lien": "https://github.com/listenly-geo/listenlygeo/actions/runs/39423329672",
+   "etape": "Lecture / déploiement",
+   "messages": [
+    "2026-10-20T12:34:55.2042166Z ##[error]RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.",
+    "2026-10-20T12:34:55.2340845Z ##[error]Process completed with exit code 1."
+   ]
+  },
+  {
    "date": "13/10/2026 20:21 UTC",
    "workflow": "Apps Script — lecture / déploiement de MarketForgeEngine.gs",
    "run": "38462048348",
