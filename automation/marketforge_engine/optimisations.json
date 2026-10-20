@@ -1,6 +1,7 @@
 {
   "_aide": "Journal des optimisations du MarketForge Engine. Source unique : ce fichier alimente l'onglet 'Optimisations' du Sheet (sheet_bridge.py optimisations, a chaque run). Statuts : valide (valide par Etienne) | en_cours | a_faire. Champ version : V1.0, V1.1... (lot de mise en ligne). Ajouter une ligne a CHAQUE optimisation ; passer en 'valide' quand le resultat est verifie.",
   "sections": [
+    "Pilotage",
     "Ciblage",
     "Envoi et délivrabilité",
     "Mesure",
@@ -1574,6 +1575,14 @@
       "version": "Controleur 19/10",
       "texte": "Passage de 20h35 UTC : tous les workflows surveilles sont OK (aucun echec recent). Stock de prospects prets a 7, loin de l'objectif de 40 : une decouverte supplementaire est lancee. Aucun changement de reglage ni de texte.",
       "date": "19/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-186",
+      "section": "Pilotage",
+      "version": "V2.4",
+      "texte": "Contrôleur autonome (passage 3/6, 11h35 UTC) : stock prêt à 11 sur un objectif de 40 avant 14h. Découverte supplémentaire lancée à la main (workflow discover-podcasts) pour alimenter le stock. Aucun réglage, texte de mail ni plafond modifié.",
+      "date": "20/10/2026",
       "statut": "en_cours"
     }
   ]
