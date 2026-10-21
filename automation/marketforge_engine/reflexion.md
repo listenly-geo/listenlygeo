@@ -1,4 +1,4 @@
-# Reflexion du MarketForge Engine (2026-10-20T23:59 UTC)
+# Reflexion du MarketForge Engine (2026-10-21T00:02 UTC)
 **Statut : BLOQUE**
 
 ## Funnel
@@ -18,6 +18,7 @@
 - paiements hub : 0
 
 ## Blocages
+- Envois sous 50 % du plafond (30/j) alors que des prospects sont prets : Apps Script arrete ou plage horaire/quota en cause.
 - Reponses non classees (positive / neutre / refus) : impossible de savoir si le funnel marche. Ajouter le champ 'classe' dans replies.json.
 
 ## Pourquoi pas encore de client
