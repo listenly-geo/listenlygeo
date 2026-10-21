@@ -58,8 +58,6 @@ def choisir():
     for key, v in scores.items():
         if not isinstance(v, dict) or not v.get("gate"):
             continue
-        if not titres.get(key):
-            continue
         if niv.get(key.split("/", 1)[0], "C") not in ouverts:
             continue
         vol = (demande.get(key) or {}).get("volume", 0)
@@ -75,9 +73,32 @@ def choisir():
             continue
         par_podcast[slug] = par_podcast.get(slug, 0) + 1
         out.append((slug, k.split("/", 1)[1], -sc))
-        if len(out) >= N:
+        if len(out) >= N * 3:   # marge : certaines pages seront ecartees (titre impossible a generer)
             break
-    return out
+    return out, titres
+
+
+def titre_pour(slug, mid, titres):
+    """Titre existant, sinon titre genere (meme regle que seo_title). None si pas assez propre."""
+    key = slug + "/" + mid
+    if titres.get(key):
+        return titres[key]
+    try:
+        d = json.load(open(f"{PAGES}/data/moments/{slug}.json", encoding="utf-8"))
+        q = d["entries"][mid]["q"]
+        name = d.get("podcast") or slug
+    except (OSError, KeyError, json.JSONDecodeError):
+        return None
+    try:
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("mam", "automation/scripts/moteur_autonome_moments.py")
+        mam = importlib.util.module_from_spec(spec); spec.loader.exec_module(mam)
+        t = mam.seo_title(q, name)
+    except Exception:
+        return None
+    if t["tronque"] or t["alerte_longueur"]:
+        return None   # question a reecrire : on passe a la suivante
+    return t["titre"]
 
 
 def token():
@@ -113,9 +134,21 @@ def main():
         tok = token() if os.environ.get("GSC_SERVICE_ACCOUNT_JSON") else None
     except Exception:
         tok = None
-    for slug, mid, score in choisir():
+    cands, titres = choisir()
+    nouveaux = {}
+    chosen = []
+    for slug, mid, score in cands:
+        if len(chosen) >= N:
+            break
+        titre = titre_pour(slug, mid, titres)
+        if not titre:
+            continue
+        if not titres.get(slug + "/" + mid):
+            nouveaux[slug + "/" + mid] = titre
+        chosen.append((slug, mid, score, titre))
+    for slug, mid, score, titre in chosen:
         url = BASE + "m/" + slug + "/" + mid
-        item = {"url": url, "score_qualite": score, "http": http(url)}
+        item = {"url": url, "titre": titre, "score_qualite": score, "http": http(url)}
         if tok:
             try:
                 item.update(inspecter(tok, url))
@@ -130,6 +163,14 @@ def main():
            "mode": "liste a traiter dans Claude + Chrome (demande d'indexation manuelle, validation par page)",
            "pretes": sum(1 for i in items if i["pret_pour_demande"]),
            "urls": items}
+    if nouveaux:
+        tp = f"{PAGES}/data/titres_seo.json"
+        raw = json.load(open(tp, encoding="utf-8"))
+        if isinstance(raw, dict) and "titres" in raw:
+            raw["titres"].update(nouveaux)
+        else:
+            raw.update(nouveaux)
+        json.dump(raw, open(tp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     json.dump(out, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"[indexation] {out['pretes']} pretes sur {len(items)}")

@@ -28,5 +28,5 @@ jobs:
       - name: Sauvegarde dans le dépôt
         run: |
           git config user.name "marketforge-bot"; git config user.email "bot@listenly.fr"
-          git add pages/podcast-btb/data/indexation_du_jour.json || true
-          git diff --cached --quiet || (git commit -m "Indexation du jour : liste des 10 fiches" && git pull -q --rebase && git push -q)
+          git add pages/podcast-btb/data/indexation_du_jour.json pages/podcast-btb/data/titres_seo.json || true
+          git diff --cached --quiet || (git commit -m "Indexation du jour : liste des 10 fiches et titres" && git pull -q --rebase && git push -q)
