@@ -72,13 +72,13 @@ var MFE_DEFAULTS = [
 var MFE_CTA_MAIL = [
   'Done! The traffic for {PODCAST} on Listenly now goes to {DESTINATION_LABEL}.',
   '',
-  'If GEO interests you, <strong>it\'s now possible to turn your regularly published content (podcasts, videos, webinars) into visibility on Google and AI</strong>, without producing more content or changing your strategy.',
+  'If GEO interests you, <strong>it\'s now possible to turn a content flow (podcasts, webinars) into direct visibility for your company on Google and AI, with no extra production.</strong>',
   '',
-  'My agency, MarketForge, builds custom systems that make your content visible in Google, ChatGPT and Gemini search results.',
+  'My agency, MarketForge, builds custom <strong>AI knowledge hubs</strong> to finally unlock the potential of your podcast and <u>turn it directly into visibility on Google</u>.',
   '',
-  'Here\'s our <a href="https://marketforge.fr/3-minute-audit"><strong>free 3-minute audit</strong></a> to see concretely what\'s possible with your content.',
+  'If this interests you, here\'s access to our keynote: <a href="{KEYNOTE_URL}">From Podcast to Conversion</a>',
   '',
-  'We can also take a moment to talk this week if you\'d like!',
+  'Is AI search already part of your SEO plan for next year?',
   '',
   'Best,'
 ].join('\n');
