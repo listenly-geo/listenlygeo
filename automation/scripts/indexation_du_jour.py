@@ -33,6 +33,10 @@ def choisir():
                 for v in d.values():
                     if isinstance(v, list):
                         deja.update(x for x in v if isinstance(x, str))
+                    elif isinstance(v, dict):
+                        # 21/10/2026 : journal par date (urls_demandees, deja_indexees)
+                        for kk in ("urls_demandees", "deja_indexees", "urls"):
+                            deja.update(x for x in v.get(kk, []) if isinstance(x, str))
                 for h in d.get("historique", []):
                     deja.update(h.get("urls", []))
         except (OSError, json.JSONDecodeError):
@@ -43,9 +47,18 @@ def choisir():
         ouverts = set(json.load(open("automation/marketforge_engine/trafic_seo.json", encoding="utf-8")).get("niveaux_ouverts") or ["A"])
     except (OSError, json.JSONDecodeError):
         niv, ouverts = {}, {"A"}
+    # 21/10/2026 : une page n'est proposee a l'indexation que si son titre SEO est deja ecrit
+    # (titres_seo.json, cle slug/id). Sans titre, on ne demande pas l'indexation.
+    try:
+        titres = json.load(open(f"{PAGES}/data/titres_seo.json", encoding="utf-8"))
+        titres = titres.get("titres", titres)
+    except (OSError, json.JSONDecodeError):
+        titres = {}
     cands = []
     for key, v in scores.items():
         if not isinstance(v, dict) or not v.get("gate"):
+            continue
+        if not titres.get(key):
             continue
         if niv.get(key.split("/", 1)[0], "C") not in ouverts:
             continue
