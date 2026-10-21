@@ -50,7 +50,8 @@ def choisir():
         if niv.get(key.split("/", 1)[0], "C") not in ouverts:
             continue
         vol = (demande.get(key) or {}).get("volume", 0)
-        if vol <= 0 or BASE + "m/" + key in deja:
+        # 21/10/2026 : élargi. Les pages avec volume passent d'abord (tri par volume), puis les autres niveau A par note.
+        if BASE + "m/" + key in deja:
             continue
         cands.append((-vol, -(v.get("score_final") or 0), key))
     cands.sort()
