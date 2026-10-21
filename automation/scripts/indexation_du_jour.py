@@ -37,7 +37,12 @@ def choisir():
                         # 21/10/2026 : journal par date (urls_demandees, deja_indexees)
                         for kk in ("urls_demandees", "deja_indexees", "urls"):
                             deja.update(x for x in v.get(kk, []) if isinstance(x, str))
+                # 21/10/2026 : seules les URL REELLEMENT demandees ou deja indexees sont exclues.
+                # Les entrees "en attente" (non demandees faute de Claude in Chrome) restent proposables.
                 for h in d.get("historique", []):
+                    txt = (h.get("resultat", "") + " " + h.get("essai", ""))
+                    if "en attente" in txt or "NON demandee" in txt:
+                        continue
                     deja.update(h.get("urls", []))
         except (OSError, json.JSONDecodeError):
             pass
