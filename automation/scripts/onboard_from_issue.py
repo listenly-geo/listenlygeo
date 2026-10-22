@@ -164,6 +164,23 @@ def add_podcast_to_json(c, listenly_url, slug):
 # --- REACTIVE 11/10/2026 : creation du hub N1 a l'onboarding ---
 # Le hub est la porte d'entree qui fait decouvrir les pages de moments (une par question) et leur transmet de la confiance.
 # Cout : un appel Claude par nouveau podcast, plafonne par MAX_ONBOARD (nouveaux podcasts par run) et par la decouverte du jour.
+def set_fiche_url(slug):
+    """Inscrit l'adresse de la fiche N1 dans podcasts.json si la page existe (le Sheet en a besoin pour creer la ligne prospect)."""
+    page = f"pages/podcast-btb/{slug}-podcast.html"
+    if not os.path.exists(page):
+        return
+    try:
+        with open(PODCASTS_FILE, encoding="utf-8") as f:
+            podcasts = json.load(f)
+        for p in podcasts:
+            if p.get("slug") == slug and not p.get("fiche_url"):
+                p["fiche_url"] = f"https://listenly.org/podcast-btb/{slug}-podcast.html"
+        with open(PODCASTS_FILE, "w", encoding="utf-8") as f:
+            json.dump(podcasts, f, ensure_ascii=False, indent=2)
+    except (OSError, ValueError) as e:
+        log(f"(adresse de fiche non inscrite : {e})")
+
+
 def generate_n1(c, listenly_url, slug):
     """Genere la fiche N1 (page HTML hub) du podcast. Jamais bloquant : en cas d'echec l'onboarding continue."""
     env = dict(os.environ)
@@ -257,6 +274,7 @@ def main():
         # 11/10/2026 : le hub N1 est de nouveau cree (les pages de moments y sont liees, il leur transmet sa force)
         n1_ok = generate_n1(c, listenly_url, slug)
         log(f"Hub N1 de '{slug}' : {'cree' if n1_ok else 'NON cree (le podcast reste transcrit)'}")
+        set_fiche_url(slug)   # sans cette adresse le prospect n'entre jamais dans la feuille de prospection
 
         created = "creee" if res.get("created") else "deja existante"
         gh("POST", f"/issues/{c['issue_number']}/comments", {"body": (
