@@ -1,12 +1,17 @@
 name: Rafraîchir le dashboard (sans toucher au moteur)
 
-# Bouton "Run workflow" pour voir une mise a jour du dashboard tout de suite, sans attendre
-# le prochain run planifie (toutes les 4h). Ne fait QUE : lire le Google Sheet de prospection,
-# regenerer moteur.html, publier. Ne touche JAMAIS a la decouverte, l'onboarding, l'extraction,
-# ni a config.json — aucun podcast cree, aucun mail envoye.
+# Bouton "Run workflow" pour voir une mise a jour du dashboard tout de suite.
+# Mise a jour automatique chaque nuit (02:00 UTC = 3h-4h heure de Berlin).
+# Ne fait QUE : lire le Google Sheet de prospection, regenerer moteur.html, publier.
+# Ne touche JAMAIS a la decouverte, l'onboarding, l'extraction, ni a config.json —
+# aucun podcast cree, aucun mail envoye.
+# 22/10/2026 : groupe de concurrence propre (au lieu de marketforge-engine-run), sinon le
+# dashboard attendait en file derriere le moteur qui tourne en continu et ne se mettait jamais a jour.
 
 on:
   workflow_dispatch: {}
+  schedule:
+    - cron: '0 2 * * *'
   push:
     branches: [main]
     paths: ['automation/marketforge_engine/refresh-now.txt']
@@ -15,7 +20,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: marketforge-engine-run
+  group: moteur-dashboard-refresh
   cancel-in-progress: false
 
 jobs:
