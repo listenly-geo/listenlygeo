@@ -920,6 +920,9 @@ function mfeSignatureHtml_() {
       '" style="color:#555555;text-decoration:none;">' + mfeEsc_(c.email) + '</a></div>' : '';
   var linkedin = c.linkedin ? '<div style="font-size:13px;line-height:20px;margin-top:1px;"><a href="' + mfeEsc_(c.linkedin) +
       '" style="color:#777777;text-decoration:none;font-weight:600;">\u2192 Connect on LinkedIn</a></div>' : '';
+  var siteParts = String(c.site || '').split('|'), siteUrl = siteParts.pop().trim(), siteTxt = (siteParts.join('|') || siteUrl).trim();
+  var site = siteUrl ? '<div style="font-size:13px;line-height:20px;margin-top:1px;"><a href="' + mfeEsc_(siteUrl) +
+      '" style="color:#555555;text-decoration:none;">' + mfeEsc_(siteTxt) + '</a></div>' : '';
   return '<table cellpadding="0" cellspacing="0" border="0" style="margin-top:34px;font-family:Arial,Helvetica,sans-serif;color:#222222;"><tr>' +
     photo +
     '<td style="width:2px;background:#1a73e8;font-size:1px;line-height:1px;">&nbsp;</td>' +
@@ -928,7 +931,7 @@ function mfeSignatureHtml_() {
     (c.titre ? '<div style="font-size:14px;line-height:20px;color:#555555;margin-top:2px;">' + mfeEsc_(c.titre) + '</div>' : '') +
     (promesse ? '<div style="font-size:13px;line-height:19px;font-weight:600;color:#333333;margin-top:7px;">' + mfeEsc_(promesse) + '</div>' : '') +
     '<div style="width:34px;border-top:1px solid #d8d8d8;margin:8px 0 6px 0;"></div>' +
-    email + linkedin +
+    email + site + linkedin +
     '</td></tr></table>';
 }
 
