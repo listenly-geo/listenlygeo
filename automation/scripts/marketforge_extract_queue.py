@@ -154,6 +154,10 @@ def sync_queue(queue, config, podcasts):
     added = []
     for p in podcasts:
         slug = p.get("slug")
+        # Rattrapage : une entree deja en file sans adresse de fiche N1 la recupere de podcasts.json
+        # (sans elle le Sheet ne cree jamais la ligne prospect).
+        if slug in queue["podcasts"] and p.get("fiche_url") and not queue["podcasts"][slug].get("fiche_url"):
+            queue["podcasts"][slug]["fiche_url"] = p["fiche_url"]
         if not slug or slug in queue["podcasts"] or slug in excluded:
             continue
         if not p.get("rss_url"):
