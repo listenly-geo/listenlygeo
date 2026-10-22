@@ -11,7 +11,7 @@ Décisions autonomes permises :
   - relancer la découverte si le stock de prêts est sous l'objectif (au plus toutes les 6 h) ;
   - relancer le run du moteur si le stock est sous l'objectif et qu'il n'est pas en pause.
 """
-import datetime, json, os, subprocess, sys, urllib.request
+import datetime, json, os, subprocess, sys, urllib.error, urllib.request
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 ENGINE = os.path.join(ROOT, "automation", "marketforge_engine")
@@ -75,6 +75,18 @@ def lire_pause():
         return True
 
 
+def sonde(url):
+    """Code HTTP d'une adresse du serveur Listenly (503 = serveur surcharge/indisponible)."""
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "mf-health"})
+        with urllib.request.urlopen(req, timeout=20) as r:
+            return r.status
+    except urllib.error.HTTPError as e:
+        return e.code
+    except Exception as e:
+        return f"erreur ({e})"[:60]
+
+
 def main():
     now = datetime.datetime.utcnow()
     stats = load(os.path.join(ENGINE, "prospection_stats.json"), {})
@@ -91,6 +103,12 @@ def main():
     }
     deploy_ok = str(checks["deploiement_pont"]["conclusion"]) == "success"
 
+    serveur = {"listenly.fr": sonde("https://listenly.fr/"), "listenly.org": sonde("https://listenly.org/"),
+               "api_import": sonde("https://listenly.org/api/podcast-show-import.php")}
+    if any(str(v).startswith("5") for v in serveur.values()):
+        alertes_serveur = "Serveur Listenly indisponible (erreur 5xx) : les fiches ne peuvent pas être créées pour l'instant, le moteur réessaie tout seul."
+    else:
+        alertes_serveur = ""
     stock = {"prets": pret, "objectif": OBJECTIF, "sous_objectif": pret < OBJECTIF,
              "risque_ou_sans_dirigeant": status.get("Email risque", 0) + status.get("En pause (pas de dirigeant)", 0),
              "onboardes_dernier_run": len(last_onboard.get("onboarded", []))}
@@ -108,12 +126,14 @@ def main():
             decisions.append("Découverte déjà relancée il y a moins de 6 h : pas de nouvelle relance.")
         elif dispatch("discover-podcasts.yml"):
             decisions.append({"action": "relance découverte", "quand": now.isoformat(timespec="minutes")})
+    if alertes_serveur:
+        alertes.append(alertes_serveur)
     if stock["sous_objectif"]:
         alertes.append(f"Stock de prospects prêts : {pret} sur {OBJECTIF}.")
     if stock["risque_ou_sans_dirigeant"]:
         alertes.append(f"{stock['risque_ou_sans_dirigeant']} prospects à risque ou sans dirigeant (à traiter).")
 
-    result = {"maj": now.isoformat(timespec="minutes"), "etapes": checks, "stock": stock,
+    result = {"maj": now.isoformat(timespec="minutes"), "etapes": checks, "serveur_listenly": serveur, "stock": stock,
               "decisions": [d if isinstance(d, dict) else {"action": d, "quand": now.isoformat(timespec="minutes")} for d in decisions],
               "alertes": alertes}
     with open(OUT, "w", encoding="utf-8") as f:

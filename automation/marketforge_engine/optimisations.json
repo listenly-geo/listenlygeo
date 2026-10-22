@@ -1800,6 +1800,14 @@
       "texte": "Cause trouvée des fiches refusées : le serveur Listenly répond parfois « indisponible » (erreur 503) quand il est surchargé. Le moteur réessaie maintenant 4 fois avec des pauses, et si le serveur reste indisponible il ne bloque plus le candidat : il réessaie tout seul au passage suivant.",
       "date": "22/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-214",
+      "section": "Pilotage",
+      "version": "V2.5",
+      "texte": "Le contrôle de santé vérifie maintenant aussi si le serveur Listenly répond (sites et adresse de création des fiches) et l'écrit dans le rapport, pour savoir tout de suite si un blocage vient du serveur.",
+      "date": "22/10/2026",
+      "statut": "en_cours"
     }
   ]
 }
