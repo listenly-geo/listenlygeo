@@ -228,7 +228,7 @@ def main():
         res = create_listenly_show(c)
         log(f"Listenly : {json.dumps(res, ensure_ascii=False)[:400]}")
         if not res.get("ok"):
-            failed.append(c["issue_number"]); mark_failed(c["issue_number"], "creation de la fiche Listenly refusee"); continue
+            failed.append(c["issue_number"]); mark_failed(c["issue_number"], "creation de la fiche Listenly refusee : " + str(res.get("error") or res)[:300]); continue
         if MODE != "insert":
             continue
         register_rss_reader(c["feed_url"])
