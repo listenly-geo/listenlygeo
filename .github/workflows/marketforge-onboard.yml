@@ -114,6 +114,13 @@ jobs:
           SHOW_IMPORT_MODE: ${{ github.event.inputs.mode || 'insert' }}
         run: python automation/scripts/onboard_from_issue.py
 
+      - name: Compte-rendu vers le Google Sheet (les contacts entrent dans la prospection)
+        if: always() && github.event.inputs.mode != 'dry_run'
+        continue-on-error: true
+        env:
+          MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
+        run: python automation/scripts/sheet_bridge.py push
+
       - name: Regenerer le dashboard
         if: github.event.inputs.mode != 'dry_run'
         run: python automation/scripts/rebuild_dashboard.py || true
