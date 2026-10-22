@@ -449,7 +449,7 @@ function mfeSend_(sh, cfg, force, onlySlug) {   // onlySlug (optionnel) : n'envo
     }
     if (cfg.DIRIGEANT && cfg.DIRIGEANT_SEUL) {   // v25 : dirigeant seulement, jamais l'adresse du flux
       if (!leader) {
-        sh.getRange(r.row, 7).setValue('En pause (pas de dirigeant)');
+        sh.getRange(r.row, 7).setValue('Non valide');
         sh.getRange(r.row, 12).setValue('Pas envoye : aucun dirigeant avec adresse verifiee (MFE_DIRIGEANT_SEUL)');
         return;
       }
@@ -664,7 +664,7 @@ function mfeVerifyMailbox_(email) {
   if (st === 'invalid' || st === 'disposable') return { stop: true, status: 'Email invalide', why: 'boite inexistante (' + st + ')' };
   var risques = String(mfeReadSettings_().MFE_VERIF_RISQUES).toUpperCase() === 'TRUE';
   if (risques && st === 'catchall') return { stop: false };
-  return { stop: true, status: 'Email risque', why: 'non verifiable (' + st + ')' };
+  return { stop: true, status: 'Non valide', why: 'non verifiable (' + st + ')' };
 }
 
 // ---------- v24 : action web "verify" (module Qui contacter) ----------
@@ -1618,7 +1618,7 @@ function mfeEnvoyerRapport_(mode) {
       line('Envoi automatique', cfg.ENVOI_AUTO ? '🟢 actif' : '⏸️ en pause') + line('Emails envoyés au total', sentTotal) +
       line('Relances envoyées aujourd\'hui', relToday) +
       line('Rebonds', bounces + (sentTotal ? ' (' + (Math.round(bounces / sentTotal * 1000) / 10) + ' %)' : '')) +
-      line('Adresses écartées (anti-rebond)', (st['Email invalide'] || 0) + (st['Email risque'] || 0)) +
+      line('Adresses écartées (anti-rebond)', (st['Email invalide'] || 0) + (st['Non valide'] || 0)) +
       (repList.length ? line('En conversation', mfeEsc_(repList.join(', '))) : '') + '</table>') +
     '<div style="text-align:center;margin:22px 0 8px">' +
     '<a href="https://listenly.org/podcast-btb/moteur.html" style="display:inline-block;background:#0071e3;color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:11px 20px;border-radius:999px;margin:4px">Tableau de bord</a> ' +
