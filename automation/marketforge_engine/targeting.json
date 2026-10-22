@@ -1,6 +1,6 @@
 {
- "updated": "2026-10-22T12:10",
- "envois_total": 243,
+ "updated": "2026-10-22T12:15",
+ "envois_total": 244,
  "reponses_total": 0,
  "taux_reponse_global_pct": 0.0,
  "dirigeants_testes": 5086,
@@ -9,7 +9,7 @@
   "creneaux_new_york": {
    "heure": {
     "08h": {
-     "envoyes": 43,
+     "envoyes": 44,
      "reponses": 0
     },
     "09h": {
@@ -70,6 +70,10 @@
     }
    },
    "jour": {
+    "jeu": {
+     "envoyes": 27,
+     "reponses": 0
+    },
     "mer": {
      "envoyes": 44,
      "reponses": 0
@@ -93,10 +97,6 @@
     "ven": {
      "envoyes": 20,
      "reponses": 0
-    },
-    "jeu": {
-     "envoyes": 26,
-     "reponses": 0
     }
    }
   },
@@ -105,22 +105,22 @@
   "postes_trouves": {}
  },
  "weights": {
-  "Tech & SaaS": 0.0466,
-  "Cybersécurité": 0.0533,
-  "Finance & Fintech": 0.0467,
+  "Tech & SaaS": 0.0467,
+  "Cybersécurité": 0.0534,
+  "Finance & Fintech": 0.0468,
   "RH & Recrutement": 0.0426,
   "Marketing & Ventes": 0.046,
-  "Logistique & Supply chain": 0.0444,
+  "Logistique & Supply chain": 0.0445,
   "Construction & Industrie": 0.0439,
   "Énergie": 0.0475,
-  "Assurance": 0.053,
-  "Immobilier": 0.0479,
-  "Juridique": 0.0614,
-  "Conseil": 0.0347,
-  "Santé": 0.0534,
+  "Assurance": 0.0531,
+  "Immobilier": 0.048,
+  "Juridique": 0.0615,
+  "Conseil": 0.0348,
+  "Santé": 0.0535,
   "Business général (entreprise)": 0.0552,
   "Cabinets d'avocats": 0.0509,
-  "Experts-comptables & patrimoine": 0.0621,
+  "Experts-comptables & patrimoine": 0.0612,
   "Coachs & consultants B2B": 0.0522,
   "Agences de services": 0.0528,
   "Santé libérale": 0.0512,
@@ -128,24 +128,8 @@
  },
  "ranking": [
   {
-   "secteur": "Experts-comptables & patrimoine",
-   "poids_pct": 6.2,
-   "delta_pts": 0.0,
-   "tendance": "stable",
-   "onboarde": 21,
-   "joignable": 21,
-   "envoye": 12,
-   "rebond": 0,
-   "reponse": 0,
-   "dirigeant_testes": 302,
-   "dirigeant_trouves": 52,
-   "taux_reponse": 0.0,
-   "score": 0.00026,
-   "rang": 1
-  },
-  {
    "secteur": "Juridique",
-   "poids_pct": 6.1,
+   "poids_pct": 6.2,
    "delta_pts": 0.0,
    "tendance": "stable",
    "onboarde": 26,
@@ -157,6 +141,22 @@
    "dirigeant_trouves": 26,
    "taux_reponse": 0.0,
    "score": 0.00026,
+   "rang": 1
+  },
+  {
+   "secteur": "Experts-comptables & patrimoine",
+   "poids_pct": 6.1,
+   "delta_pts": -0.1,
+   "tendance": "stable",
+   "onboarde": 21,
+   "joignable": 21,
+   "envoye": 13,
+   "rebond": 0,
+   "reponse": 0,
+   "dirigeant_testes": 302,
+   "dirigeant_trouves": 52,
+   "taux_reponse": 0.0,
+   "score": 0.00025,
    "rang": 2
   },
   {
@@ -268,7 +268,7 @@
    "dirigeant_testes": 326,
    "dirigeant_trouves": 50,
    "taux_reponse": 0.0,
-   "score": 0.00021,
+   "score": 0.0002,
    "rang": 9
   },
   {
@@ -338,7 +338,7 @@
   {
    "secteur": "Finance & Fintech",
    "poids_pct": 4.7,
-   "delta_pts": -0.0,
+   "delta_pts": 0.0,
    "tendance": "stable",
    "onboarde": 54,
    "joignable": 48,
@@ -348,7 +348,7 @@
    "dirigeant_testes": 312,
    "dirigeant_trouves": 39,
    "taux_reponse": 0.0,
-   "score": 0.00018,
+   "score": 0.00017,
    "rang": 14
   },
   {
@@ -385,7 +385,7 @@
   },
   {
    "secteur": "Logistique & Supply chain",
-   "poids_pct": 4.4,
+   "poids_pct": 4.5,
    "delta_pts": 0.0,
    "tendance": "stable",
    "onboarde": 30,
