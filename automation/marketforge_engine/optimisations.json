@@ -1792,6 +1792,14 @@
       "texte": "L'outil audio (ffmpeg) du moteur est maintenant récupéré en version prête à l'emploi, sans passer par le téléchargement lent qui avait bloqué le moteur 30 minutes. Une solution de secours existe si cela échoue.",
       "date": "22/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-213",
+      "section": "Creation des fiches",
+      "version": "V2.5",
+      "texte": "Cause trouvée des fiches refusées : le serveur Listenly répond parfois « indisponible » (erreur 503) quand il est surchargé. Le moteur réessaie maintenant 4 fois avec des pauses, et si le serveur reste indisponible il ne bloque plus le candidat : il réessaie tout seul au passage suivant.",
+      "date": "22/10/2026",
+      "statut": "en_cours"
     }
   ]
 }

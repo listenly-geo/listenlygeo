@@ -16,7 +16,7 @@ Variables :
   MAX_ONBOARD       : plafond par run (defaut 10)
 """
 import os, sys, re, json, subprocess, urllib.request, urllib.error
-import datetime
+import datetime, time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from rss_contact import fetch_channel_info  # noqa: E402
@@ -85,11 +85,24 @@ def create_listenly_show(c):
     req = urllib.request.Request(IMPORT_URL, data=json.dumps(payload).encode(), method="POST",
                                  headers={"Content-Type": "application/json", "X-Import-Secret": SECRET,
                                           "User-Agent": "ListenlyGEO/1.0"})
-    try:
-        with urllib.request.urlopen(req, timeout=30) as r:
-            return json.loads(r.read().decode())
-    except urllib.error.HTTPError as e:
-        return {"ok": False, "error": f"HTTP {e.code} : {e.read().decode(errors='ignore')[:300]}"}
+    # Le serveur Listenly renvoie parfois un 503 passager (surcharge) : on reessaie avec une pause croissante
+    # avant de baisser les bras, et une erreur passagere ne bloque JAMAIS l'issue (reessai au run suivant).
+    last = {"ok": False, "error": "inconnue", "transient": True}
+    for attempt, pause in enumerate((0, 15, 45, 90)):
+        if pause:
+            time.sleep(pause)
+        try:
+            with urllib.request.urlopen(req, timeout=45) as r:
+                return json.loads(r.read().decode())
+        except urllib.error.HTTPError as e:
+            body = e.read().decode(errors='ignore')[:300]
+            last = {"ok": False, "error": f"HTTP {e.code} : {body}", "transient": e.code in (429, 500, 502, 503, 504)}
+            if not last["transient"]:
+                return last
+        except (urllib.error.URLError, TimeoutError, OSError) as e:
+            last = {"ok": False, "error": f"reseau : {e}", "transient": True}
+        log(f"Listenly : essai {attempt + 1}/4 echoue ({last['error'][:80]})")
+    return last
 
 
 def register_rss_reader(feed_url):
@@ -228,6 +241,9 @@ def main():
         res = create_listenly_show(c)
         log(f"Listenly : {json.dumps(res, ensure_ascii=False)[:400]}")
         if not res.get("ok"):
+            if res.get("transient"):   # serveur momentanement indisponible : on ne bloque pas l'issue, reessai au prochain run
+                log(f"Listenly indisponible pour #{c['issue_number']} (erreur passagere) - reessai au prochain run.")
+                continue
             failed.append(c["issue_number"]); mark_failed(c["issue_number"], "creation de la fiche Listenly refusee : " + str(res.get("error") or res)[:300]); continue
         if MODE != "insert":
             continue
