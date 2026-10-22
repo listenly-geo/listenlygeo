@@ -95,17 +95,22 @@ jobs:
           PY
           cat "$GITHUB_OUTPUT"
 
-      - name: Installer ffmpeg
+      - name: Installer ffmpeg (binaire pret a l'emploi, sans apt)
         if: steps.cfg.outputs.pause != 'true'
-        timeout-minutes: 8
+        timeout-minutes: 5
+        continue-on-error: true
+        uses: FedericoCarboni/setup-ffmpeg@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Plan B ffmpeg (apt, delai court) si le binaire n'est pas la
+        if: steps.cfg.outputs.pause != 'true'
+        timeout-minutes: 5
         continue-on-error: true
         run: |
           if ! command -v ffmpeg >/dev/null 2>&1; then
             export DEBIAN_FRONTEND=noninteractive
-            for i in 1 2 3; do
-              sudo timeout 120 apt-get update -qq && sudo timeout 180 apt-get install -y -qq ffmpeg && break
-              sleep 10
-            done
+            sudo timeout 90 apt-get update -qq && sudo timeout 150 apt-get install -y -qq ffmpeg || true
           fi
 
       - name: 0b. Ciblage adaptatif (poids par secteur selon les retours reels)
