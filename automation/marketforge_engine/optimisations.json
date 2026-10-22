@@ -1720,6 +1720,14 @@
       "texte": "Prospects a risque (adresse non verifiable) et sans dirigeant identifie : passes automatiquement en « Non valide ». Ils ne sont plus mis en pause, donc on ne les reprend pas par erreur.",
       "date": "22/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-204",
+      "section": "Pilotage",
+      "version": "V2.4",
+      "texte": "Nouveau contrôle automatique toutes les 2 h (MarketForge Health) : vérifie le pont, le moteur, la découverte, le stock de prospects prêts. Il relance la découverte si le stock est sous 30 (au plus toutes les 6 h). Il ne lève jamais la pause et n'envoie aucun mail.",
+      "date": "22/10/2026",
+      "statut": "en_cours"
     }
   ]
 }

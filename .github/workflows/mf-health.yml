@@ -1,0 +1,51 @@
+name: MarketForge Health (contrôle toutes les 2 h)
+
+# Un seul contrôle : vérifie chaque étape, écrit health.json, et relance la découverte
+# si le stock de prospects prêts est sous l'objectif (au plus toutes les 6 h).
+# Ne lève JAMAIS la pause et n'envoie AUCUN mail.
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '15 */2 * * *'
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: mf-health
+  cancel-in-progress: false
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Contrôle et décisions automatiques
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
+        run: python automation/scripts/mf_health.py
+
+      - name: Commit du rapport de santé
+        run: |
+          git config user.name  "listenly-bot"
+          git config user.email "bot@listenly.fr"
+          git add automation/marketforge_engine/health.json
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau."; exit 0
+          fi
+          git commit -q -m "Auto: MarketForge Health"
+          for i in 1 2 3 4 5; do
+            if git pull -q --rebase --autostash origin main && git push -q origin HEAD:main; then exit 0; fi
+            git rebase --abort 2>/dev/null || true; sleep $((RANDOM % 10 + 3))
+          done
+          exit 1
