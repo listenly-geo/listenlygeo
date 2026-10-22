@@ -5,7 +5,7 @@ name: Envoi de secours (cadence 15 min)
 on:
   workflow_dispatch: {}
   schedule:
-    - cron: '*/15 12-21 * * *'
+    - cron: '*/15 23,0-21 * * *'
 
 permissions:
   contents: read
