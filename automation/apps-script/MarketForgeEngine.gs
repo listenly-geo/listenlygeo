@@ -51,7 +51,7 @@ var MFE_DEFAULTS = [
   ['MFE_MINUTES_AUDIO_MAX_JOUR', '600', 'MarketForge Engine — garde-fou minutes audio par jour.'],
   ['MFE_ENVOI_AUTO', 'TRUE', 'MarketForge Engine — TRUE = envoie les mails automatiquement. FALSE = prepare seulement (statut "Pret").'],
   ['MFE_MAX_ENVOIS_JOUR', '1500', 'MarketForge Engine — plafond absolu de premiers mails par jour (limite Google Workspace : 1500).'],
-  ['MFE_MONTEE_PROGRESSIVE', 'TRUE', 'MarketForge Engine — TRUE = 44/j la 1re semaine (1 mail / 15 min), 80, 150, 300, 500, 1000 puis plafond (protege la delivrabilite).'],
+  ['MFE_MONTEE_PROGRESSIVE', 'TRUE', 'MarketForge Engine — QUALITE = paliers 30, 40, 50, 70, 100 par jour, un palier de plus seulement si rebonds 7j <= 2 % et envois reellement faits (baisse si > 3 %). TRUE = 44/j la 1re semaine (1 mail / 15 min), 80, 150, 300, 500, 1000 puis plafond (protege la delivrabilite).'],
   ['MFE_HEURES_ENVOI', '8-19', 'MarketForge Engine — plage horaire d\'envoi (heure du script), mails repartis sur la plage.'],
   ['MFE_EMAIL_TEST', '', 'MarketForge Engine — MODE TEST : si une adresse est saisie ici, TOUS les mails partent vers elle (objet prefixe [TEST]) et les prospects restent "Pret". Vider la case pour passer en reel.'],
   ['MFE_MAX_REBONDS', '3', 'MarketForge Engine — au-dela de N mails bloques/rebonds sur 3 jours, l\'envoi automatique se met en pause (MFE_ENVOI_AUTO passe a FALSE).'],
@@ -384,7 +384,44 @@ function mfeImport_(sh, podcasts) {
 
 // ---------- 2. Premier mail ----------
 // Plafond du jour selon la montee progressive (semaines depuis le 1er envoi)
+// Mode QUALITE (MFE_MONTEE_PROGRESSIVE = QUALITE) : le plafond monte par paliers, uniquement si les signaux de qualite sont verts.
+var MFE_PALIERS = [30, 40, 50, 70, 100];
+
+function mfeQualityCap_(cfg) {
+  var props = PropertiesService.getScriptProperties();
+  var idx = parseInt(props.getProperty('MFE_PALIER_IDX'), 10);
+  if (isNaN(idx) || idx < 0) idx = 0;
+  var today = new Date().toDateString();
+  if (props.getProperty('MFE_PALIER_EVAL') !== today) {   // une seule evaluation par jour
+    props.setProperty('MFE_PALIER_EVAL', today);
+    try {
+      var rows = mfeRows_(mfeSheet_()), now = Date.now();
+      var since7 = now - 7 * 86400000, since3 = now - 3 * 86400000;
+      var s7 = rows.filter(function (r) { return r.values[7] && new Date(r.values[7]).getTime() > since7; });
+      var s3 = rows.filter(function (r) { return r.values[7] && new Date(r.values[7]).getTime() > since3; });
+      var bounces = s7.filter(function (r) { return r.values[6] === 'Rebond'; }).length;
+      var rate = s7.length ? bounces / s7.length : 0;
+      var palier = MFE_PALIERS[Math.min(idx, MFE_PALIERS.length - 1)];
+      var lastChange = Number(props.getProperty('MFE_PALIER_DATE') || 0);
+      var stable = (now - lastChange) >= 3 * 86400000;
+      var used = s3.length / 3 >= 0.5 * palier;   // le palier actuel a vraiment ete utilise
+      if (bounces >= 3 && rate > 0.03 && idx > 0) {
+        idx--; props.setProperty('MFE_PALIER_DATE', String(now));
+        mfeJournalScript_('Palier', 'BAISSE a ' + MFE_PALIERS[idx] + '/j : rebonds 7j ' + bounces + '/' + s7.length + ' (' + Math.round(rate * 1000) / 10 + ' %)');
+      } else if (stable && used && rate <= 0.02 && s7.length >= 100 && idx < MFE_PALIERS.length - 1 && cfg.ENVOI_AUTO) {
+        idx++; props.setProperty('MFE_PALIER_DATE', String(now));
+        mfeJournalScript_('Palier', 'HAUSSE a ' + MFE_PALIERS[idx] + '/j : rebonds 7j ' + bounces + '/' + s7.length + ' (' + Math.round(rate * 1000) / 10 + ' %)');
+      } else {
+        mfeJournalScript_('Palier', 'MAINTIEN a ' + palier + '/j : envois 7j ' + s7.length + ', rebonds ' + bounces + ', stable ' + stable + ', utilise ' + used);
+      }
+      props.setProperty('MFE_PALIER_IDX', String(idx));
+    } catch (e) { mfeJournalScript_('Palier', 'evaluation impossible : ' + e); }
+  }
+  return MFE_PALIERS[Math.min(idx, MFE_PALIERS.length - 1)];
+}
+
 function mfeDailyCap_(cfg) {
+  if (String(cfg.MONTEE_MODE || '') === 'QUALITE') return Math.min(cfg.MAX_ENVOIS_JOUR, mfeQualityCap_(cfg));
   if (!cfg.MONTEE) return cfg.MAX_ENVOIS_JOUR;
   var props = PropertiesService.getScriptProperties();
   var start = props.getProperty('MFE_START');
@@ -1052,7 +1089,8 @@ function mfeSettings_() {
   return {
     ENVOI_AUTO: String(cfg.MFE_ENVOI_AUTO).toUpperCase() === 'TRUE',
     MAX_ENVOIS_JOUR: Math.min(parseInt(cfg.MFE_MAX_ENVOIS_JOUR, 10) || 30, 1500),
-    MONTEE: String(cfg.MFE_MONTEE_PROGRESSIVE).toUpperCase() !== 'FALSE',
+    MONTEE: ['FALSE', 'QUALITE'].indexOf(String(cfg.MFE_MONTEE_PROGRESSIVE).toUpperCase()) < 0,   // calendrier fixe (TRUE)
+    MONTEE_MODE: String(cfg.MFE_MONTEE_PROGRESSIVE || '').toUpperCase(),   // QUALITE = paliers selon les signaux de qualite
     H_START: parseInt(String(cfg.MFE_HEURES_ENVOI || '8-19').split('-')[0], 10) || 8,
     H_END: parseInt(String(cfg.MFE_HEURES_ENVOI || '8-19').split('-')[1], 10) || 19,
     RELANCE_JOURS: parseInt(cfg.MFE_RELANCE_JOURS, 10) || 0,
