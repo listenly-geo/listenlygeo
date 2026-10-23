@@ -27,12 +27,11 @@ jobs:
             if [ -z "${!v}" ]; then echo "::error::secret $v manquant"; exit 1; fi
           done
           U="ftp://$FTP_SERVER"
+          note() { printf '%s' "$2" | tr '\n' ' ' | cut -c1-900 | sed "s/^/::notice title=$1::/"; echo; }
           opts="--ssl-reqd --insecure --connect-timeout 20 --max-time 60 -sS"
-          echo "== racine FTP :"
-          curl $opts --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/" -l | head -60 || { echo "::warning::FTPS refuse, essai FTP simple"; opts="--connect-timeout 20 --max-time 60 -sS"; curl $opts --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/" -l | head -60; }
-          echo "== dossier app.marketforge.fr :"
-          curl $opts --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/app.marketforge.fr/" -l 2>&1 | head -20
-          echo "== ecriture test :"
+          R=$(curl $opts --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/" -l 2>&1) || { M="FTPS KO: $R"; opts="--connect-timeout 20 --max-time 60 -sS"; R=$(curl $opts --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/" -l 2>&1); }
+          note "racine FTP ($(echo $opts | cut -c1-12))" "$R"
+          D=$(curl $opts --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/app.marketforge.fr/" -l 2>&1); note "dossier app.marketforge.fr" "$D"
           echo test > /tmp/dtb-test.txt
-          curl $opts --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/dtb-test.txt "$U/app.marketforge.fr/dtb-test.txt" && echo "ecriture OK"
-          curl $opts --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "-DELE app.marketforge.fr/dtb-test.txt" "$U/" -o /dev/null && echo "suppression OK"
+          W=$(curl $opts --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/dtb-test.txt "$U/app.marketforge.fr/dtb-test.txt" 2>&1 && echo ECRITURE_OK); note "ecriture" "$W"
+          X=$(curl $opts --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "-DELE app.marketforge.fr/dtb-test.txt" "$U/" -o /dev/null 2>&1 && echo SUPPRESSION_OK); note "suppression" "$X"
