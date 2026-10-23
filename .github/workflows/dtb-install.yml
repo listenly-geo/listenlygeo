@@ -44,8 +44,8 @@ jobs:
           sleep 3
           UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36"
           for u in "http://$SITE/dtbdiag.txt" "https://$SITE/dtbdiag.txt" "http://$SITE/dtbdiag.php" "https://$SITE/dtbdiag.php"; do
-            r=$(curl -sS -k -m 30 -w ' [HTTP %{http_code}]' "$u" 2>&1 || true); note "curl $u" "$r"
-            r=$(curl -sS -k -m 30 -A "$UA" -w ' [HTTP %{http_code}]' "$u" 2>&1 || true); note "navigateur $u" "$r"
+            r=$(curl -sS -k -m 30 -w ' [HTTP %{http_code}]' "$u" 2>&1 || true); note "curl-$(echo $u | tr -c a-z0-9 _)" "$r"
+            r=$(curl -sS -k -m 30 -A "$UA" -w ' [HTTP %{http_code}]' "$u" 2>&1 || true); note "nav-$(echo $u | tr -c a-z0-9 _)" "$r"
           done
           curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "-DELE app.marketforge.fr/public/dtbdiag.txt" "$U/" -o /dev/null || true
           curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "-DELE app.marketforge.fr/public/dtbdiag.php" "$U/" -o /dev/null || true
