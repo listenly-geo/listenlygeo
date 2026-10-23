@@ -34,6 +34,7 @@ jobs:
 
       - name: Diagnostic du site (fichier texte et PHP, http et https)
         if: github.event.inputs.mode == 'diag'
+        shell: bash {0}
         run: |
           U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 120 -sS --ftp-create-dirs"
           note() { printf '%s' "$2" | tr '\n' ' ' | cut -c1-900 | sed "s/^/::notice title=$1::/"; echo; }
