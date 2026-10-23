@@ -1904,6 +1904,14 @@
       "texte": "Le rôle du contrôleur change : il doit atteindre l'objectif du jour coûte que coûte et ne peut plus jamais bloquer le système (plus aucune mise en pause du moteur, plus aucune coupure de l'envoi). Si la pause est activée, il la lève et relance le moteur. Si le stock manque, il monte les capacités de découverte, d'onboarding et d'extraction (jusqu'à 60 par jour), et les baisse quand le stock est plein.",
       "date": "23/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-227",
+      "section": "Pilotage",
+      "version": "V2.5",
+      "texte": "Précision sur le rôle du contrôleur : il ne met jamais le système en pause, mais il peut ralentir la cadence d'envoi (jamais sous 10 par jour) si Gmail bloque ou si Google risque de classer les mails en spam (rebonds en hausse, réputation en baisse), puis il remonte d'un cran dès que tout est revenu au vert. Objectif : ne jamais faire bloquer le compte tout en envoyant le plus possible.",
+      "date": "23/10/2026",
+      "statut": "en_cours"
     }
   ]
 }
