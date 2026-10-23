@@ -26,7 +26,10 @@ jobs:
           done
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
           printf '%s\n' "$DTB_SSH_KEY" > ~/.ssh/dtb_key && chmod 600 ~/.ssh/dtb_key
-          ssh-keyscan -T 15 "$DTB_SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          head -1 ~/.ssh/dtb_key | cut -c1-35
+          wc -l ~/.ssh/dtb_key
+          if ! ssh-keyscan -T 15 "$DTB_SSH_HOST" >> ~/.ssh/known_hosts 2>/tmp/scan.err; then echo "::error::ssh-keyscan impossible vers le port 22 : $(head -c 200 /tmp/scan.err)"; fi
+          if [ ! -s ~/.ssh/known_hosts ]; then echo "::error::le serveur ne repond pas sur le port 22 (SSH ferme ou bloque)"; exit 1; fi
           echo "hote et cle prets"
       - name: Test connexion et etat du serveur (lecture seule)
         if: github.event.inputs.mode == 'test'
