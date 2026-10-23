@@ -32,6 +32,26 @@ jobs:
           curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/t.txt "$U/app.marketforge.fr/dtb-test.txt" && echo "::notice title=ecriture::OK"
           curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "-DELE app.marketforge.fr/dtb-test.txt" "$U/" -o /dev/null && echo "::notice title=suppression::OK"
 
+      - name: Diagnostic du site (fichier texte et PHP, http et https)
+        if: github.event.inputs.mode == 'diag'
+        run: |
+          U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 120 -sS --ftp-create-dirs"
+          note() { printf '%s' "$2" | tr '\n' ' ' | cut -c1-900 | sed "s/^/::notice title=$1::/"; echo; }
+          echo "ok-texte" > /tmp/d.txt; printf '<?php echo "PHP ".PHP_VERSION." ok";' > /tmp/d.php
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/d.txt "$U/app.marketforge.fr/public/dtbdiag.txt"
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/d.php "$U/app.marketforge.fr/public/dtbdiag.php"
+          sleep 3
+          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36"
+          for u in "http://$SITE/dtbdiag.txt" "https://$SITE/dtbdiag.txt" "http://$SITE/dtbdiag.php" "https://$SITE/dtbdiag.php"; do
+            r=$(curl -sS -k -m 30 -w ' [HTTP %{http_code}]' "$u" 2>&1 || true); note "curl $u" "$r"
+            r=$(curl -sS -k -m 30 -A "$UA" -w ' [HTTP %{http_code}]' "$u" 2>&1 || true); note "navigateur $u" "$r"
+          done
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "-DELE app.marketforge.fr/public/dtbdiag.txt" "$U/" -o /dev/null || true
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "-DELE app.marketforge.fr/public/dtbdiag.php" "$U/" -o /dev/null || true
+          L=$(curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/app.marketforge.fr/" -l 2>&1); note "contenu du dossier" "$L"
+          L=$(curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/app.marketforge.fr/public/" -l 2>&1); note "contenu de public" "$L"
+          V=$(curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/app.marketforge.fr/vendor/" -l 2>&1 | wc -l); note "fichiers dans vendor" "$V"
+
       - name: Recuperer le paquet DocTheBuilder
         if: github.event.inputs.mode == 'install'
         uses: actions/checkout@v4
