@@ -52,6 +52,13 @@ jobs:
           L=$(curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/app.marketforge.fr/" -l 2>&1); note "contenu du dossier" "$L"
           L=$(curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/app.marketforge.fr/public/" -l 2>&1); note "contenu de public" "$L"
           V=$(curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/app.marketforge.fr/vendor/" -l 2>&1 | wc -l); note "fichiers dans vendor" "$V"
+          L=$(curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -X "LIST -a" "$U/app.marketforge.fr/public/" 2>&1 | awk '{print $1" "$NF}'); note "public avec fichiers caches" "$L"
+          L=$(curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -X "LIST -a" "$U/app.marketforge.fr/" 2>&1 | awk '{print $1" "$NF}' | head -40); note "racine avec fichiers caches" "$L"
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/d.php "$U/app.marketforge.fr.marketforge.fr/dtbdiag.php" >/dev/null 2>&1
+          sleep 2
+          r=$(curl -sS -k -m 30 -w ' [HTTP %{http_code}]' "http://app.marketforge.fr.marketforge.fr/dtbdiag.php" 2>&1 || true); note "php-autre-domaine" "$r"
+          r=$(curl -sS -k -m 30 -w ' [HTTP %{http_code}]' "http://marketforge.fr/dtbdiag.php" 2>&1 || true); note "php-site-principal" "$r"
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "-DELE app.marketforge.fr.marketforge.fr/dtbdiag.php" "$U/" -o /dev/null >/dev/null 2>&1
 
       - name: Recuperer le paquet DocTheBuilder
         if: github.event.inputs.mode == 'install'
