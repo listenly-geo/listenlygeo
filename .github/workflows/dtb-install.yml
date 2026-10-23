@@ -53,6 +53,14 @@ jobs:
           r=$(curl -sS -k -m 30 -w ' [HTTP %{http_code}]' "http://marketforge.fr/dtbdiag.php" 2>&1 || true); note "php-site-principal" "$r"
           curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "-DELE app.marketforge.fr.marketforge.fr/dtbdiag.php" "$U/" -o /dev/null >/dev/null 2>&1
 
+      - name: Deposer un test PHP a ouvrir dans le navigateur (et supprimer l'ancien script)
+        if: github.event.inputs.mode == 'diag-php'
+        shell: bash {0}
+        run: |
+          U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 120 -sS --ftp-create-dirs"
+          for f in $(curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/app.marketforge.fr/public/" -l 2>/dev/null | grep '^dtbinst-'); do curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "-DELE app.marketforge.fr/public/$f" "$U/" -o /dev/null; done
+          printf '<?php header("Content-Type: text/plain"); echo "PHP ".PHP_VERSION." fonctionne\n"; echo "memoire: ".ini_get("memory_limit")."\n"; echo "zip: ".(class_exists("ZipArchive")?"oui":"non")."\n"; echo "pdo_mysql: ".(extension_loaded("pdo_mysql")?"oui":"non")."\n";' > /tmp/t.php
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/t.php "$U/app.marketforge.fr/public/test-php.php" && echo "::notice title=test-php::depose"
       - name: Recuperer le paquet DocTheBuilder
         if: github.event.inputs.mode == 'install'
         uses: actions/checkout@v4
