@@ -1,6 +1,6 @@
 {
- "updated": "2026-10-23T07:01",
- "envois_total": 239,
+ "updated": "2026-10-23T07:07",
+ "envois_total": 240,
  "reponses_total": 0,
  "taux_reponse_global_pct": 0.0,
  "dirigeants_testes": 5087,
@@ -8,6 +8,10 @@
  "data_apprentissage": {
   "creneaux_new_york": {
    "heure": {
+    "03h": {
+     "envoyes": 13,
+     "reponses": 0
+    },
     "02h": {
      "envoyes": 14,
      "reponses": 0
@@ -87,15 +91,11 @@
     "04h": {
      "envoyes": 4,
      "reponses": 0
-    },
-    "03h": {
-     "envoyes": 12,
-     "reponses": 0
     }
    },
    "jour": {
     "ven": {
-     "envoyes": 24,
+     "envoyes": 25,
      "reponses": 0
     },
     "jeu": {
@@ -129,32 +129,32 @@
   "postes_trouves": {}
  },
  "weights": {
-  "Tech & SaaS": 0.046,
+  "Tech & SaaS": 0.0455,
   "Cybersécurité": 0.0524,
   "Finance & Fintech": 0.0466,
   "RH & Recrutement": 0.0425,
   "Marketing & Ventes": 0.0465,
-  "Logistique & Supply chain": 0.0461,
+  "Logistique & Supply chain": 0.0462,
   "Construction & Industrie": 0.0438,
   "Énergie": 0.0474,
-  "Assurance": 0.0537,
+  "Assurance": 0.0538,
   "Immobilier": 0.0486,
-  "Juridique": 0.0612,
+  "Juridique": 0.0613,
   "Conseil": 0.0352,
-  "Santé": 0.0559,
-  "Business général (entreprise)": 0.055,
-  "Cabinets d'avocats": 0.0516,
+  "Santé": 0.056,
+  "Business général (entreprise)": 0.0551,
+  "Cabinets d'avocats": 0.0517,
   "Experts-comptables & patrimoine": 0.0599,
-  "Coachs & consultants B2B": 0.0513,
+  "Coachs & consultants B2B": 0.0514,
   "Agences de services": 0.0518,
   "Santé libérale": 0.0503,
-  "Formateurs & programmes": 0.0541
+  "Formateurs & programmes": 0.0542
  },
  "ranking": [
   {
    "secteur": "Juridique",
    "poids_pct": 6.1,
-   "delta_pts": 0.0,
+   "delta_pts": 0.1,
    "tendance": "stable",
    "onboarde": 26,
    "joignable": 23,
@@ -186,7 +186,7 @@
   {
    "secteur": "Santé",
    "poids_pct": 5.6,
-   "delta_pts": 0.0,
+   "delta_pts": 0.1,
    "tendance": "stable",
    "onboarde": 30,
    "joignable": 30,
@@ -202,7 +202,7 @@
   {
    "secteur": "Business général (entreprise)",
    "poids_pct": 5.5,
-   "delta_pts": -0.1,
+   "delta_pts": -0.0,
    "tendance": "stable",
    "onboarde": 191,
    "joignable": 139,
@@ -409,12 +409,12 @@
   },
   {
    "secteur": "Tech & SaaS",
-   "poids_pct": 4.6,
-   "delta_pts": -0.0,
+   "poids_pct": 4.5,
+   "delta_pts": -0.1,
    "tendance": "stable",
    "onboarde": 42,
    "joignable": 42,
-   "envoye": 25,
+   "envoye": 26,
    "rebond": 0,
    "reponse": 0,
    "dirigeant_testes": 425,
