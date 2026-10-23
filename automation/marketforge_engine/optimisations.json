@@ -1864,6 +1864,22 @@
       "texte": "Montée des envois par paliers selon la qualité : 30, 40, 50, 70 puis 100 par jour. Le moteur monte d'un palier seulement si, sur 7 jours, les rebonds restent sous 2 %, au moins 100 mails sont partis et le palier actuel est vraiment utilisé (3 jours de stabilité minimum). Il redescend d'un palier si les rebonds dépassent 3 %.",
       "date": "23/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-222",
+      "section": "Ciblage",
+      "version": "V2.6",
+      "texte": "Les envois sont arrêtés par le manque de prospects prêts, pas par la qualité : tout le stock a été envoyé. Pour retrouver 30 par jour, la capacité de fabrication est relevée : découverte 40 par jour (avant 20), onboarding 30 par jour (avant 10), extraction 30 épisodes par jour (avant 10). Les 10 candidats restants, bloqués par l'erreur passagère du serveur, sont relancés.",
+      "date": "23/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-223",
+      "section": "Mail et envoi",
+      "version": "V2.6",
+      "texte": "Paliers de qualité activés (mode QUALITE, plafond absolu 100 par jour) : le plafond du jour est de 30 et ne monte que si les rebonds restent sous 2 %.",
+      "date": "23/10/2026",
+      "statut": "en_cours"
     }
   ]
 }
