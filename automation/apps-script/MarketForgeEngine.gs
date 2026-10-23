@@ -86,11 +86,11 @@ var MFE_MSG_VERSION = '22';   // incremente -> les textes MFE_MSG_* de Reglages 
 var MFE_FIRST_MAIL = [
   '{HELLO}',
   '',
-  'I recently listed your podcast <strong>{PODCAST}</strong> on <a href="https://listenly.org">Listenly.org</a>, the AI podcast engine that turns audio expertise into readable answers for Google & AI.',
+  'I recently listed your podcast <strong>{PODCAST}</strong> on <a href="https://listenly.org">Listenly.org</a>, the AI podcast engine <strong>that turns audio expertise into readable answers for Google & AI</strong>.',
   '',
   'For example, your episodes contain <strong>+15 questions</strong> like <a href="{MOMENT_URL}"><em><u>this one</u></em></a> that leaders ask on Google, ChatGPT, Gemini, Claude.',
   '',
-  '<strong>Are you already exploring how your podcast could bring clients from AI, without more content?</strong>',
+  'Are you already exploring how your podcast could bring clients from AI, without more content?',
   '',
   'Best,',
   'Etienne Cugnet'
