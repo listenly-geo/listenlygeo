@@ -59,7 +59,8 @@ jobs:
           done
           sleep 3
           for i in 1 2 3 4; do
-            got=$(curl -sS -m 20 "https://$SITE/probe$i-$RAND.txt" 2>/dev/null || true)
+            got=$(curl -sS -k -m 20 "https://$SITE/probe$i-$RAND.txt" 2>/dev/null || true)
+            [ "$got" = "probe$i-$RAND" ] || got=$(curl -sS -m 20 "http://$SITE/probe$i-$RAND.txt" 2>/dev/null || true)
             if [ "$got" = "probe$i-$RAND" ]; then FOUND=$i; fi
           done
           i=0
@@ -69,8 +70,8 @@ jobs:
           case "${FOUND:-0}" in
             1) ROOT="app.marketforge.fr" ;;
             2) ROOT="app.marketforge.fr.marketforge.fr" ;;
-            3|4) echo "::error::Le sous-domaine pointe vers le dossier racine, pas vers /public. Dans cPanel > Domaines, mettre la racine du document a .../public"; exit 1 ;;
-            *) echo "::error::https://$SITE ne repond pas encore (certificat HTTPS ou domaine pas pret). Reessayer dans quelques minutes."; exit 1 ;;
+            3|4) echo "::error::Le sous-domaine pointe vers le dossier racine, pas vers /public. Dans cPanel > Domaines > Gerer, mettre la racine du document a app.marketforge.fr/public"; exit 1 ;;
+            *) echo "::error::$SITE ne repond pas (domaine pas pret)."; exit 1 ;;
           esac
           note "dossier du site" "$ROOT"
 
@@ -114,12 +115,13 @@ jobs:
           F -T /tmp/inst.php "$U/$ROOT/public/dtbinst-$TOKEN.php"
 
           # 5. Execution
-          OUT=$(curl -sS -m 1200 "https://$SITE/dtbinst-$TOKEN.php?t=$TOKEN" 2>&1 || true)
+          OUT=$(curl -sS -k -m 1200 "https://$SITE/dtbinst-$TOKEN.php?t=$TOKEN" 2>&1 || true)
+          case "$OUT" in *"installation terminee"*|*ERREUR*) ;; *) OUT=$(curl -sS -m 1200 "http://$SITE/dtbinst-$TOKEN.php?t=$TOKEN" 2>&1 || true) ;; esac
           note "installation" "$OUT"
 
           # 6. Nettoyage de securite (au cas ou le script ne se serait pas supprime) + verification
           F -Q "-DELE $ROOT/public/dtbinst-$TOKEN.php" "$U/" -o /dev/null >/dev/null 2>&1 || true
           F -Q "-DELE $ROOT/dtb-package.zip" "$U/" -o /dev/null >/dev/null 2>&1 || true
-          CODE=$(curl -sS -o /dev/null -m 30 -w '%{http_code}' "https://$SITE/" 2>&1 || true)
+          CODE=$(curl -sS -k -o /dev/null -m 30 -w '%{http_code}' "https://$SITE/" 2>&1 || curl -sS -o /dev/null -m 30 -w 'http:%{http_code}' "http://$SITE/" 2>&1 || true)
           note "verification https://$SITE" "code HTTP $CODE"
           case "$OUT" in *"installation terminee"*) ;; *) exit 1 ;; esac
