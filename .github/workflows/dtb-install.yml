@@ -85,43 +85,59 @@ jobs:
           open('/tmp/dtb.env','w').write(t)
           PY
 
-          # 3. Script d'installation (jeton aleatoire, se supprime)
+          # 3. Script d'installation par etapes (jeton aleatoire) : extraction par lots, puis artisan, puis nettoyage
           TOKEN=$(openssl rand -hex 16)
-          cat > /tmp/inst.php <<PHP
+          cat > /tmp/inst.php <<'PHP'
           <?php
-          if ((\$_GET['t'] ?? '') !== '$TOKEN') { http_response_code(404); exit; }
-          header('Content-Type: text/plain'); @set_time_limit(0); ini_set('memory_limit','1024M');
-          echo "PHP ".PHP_VERSION."\n";
+          if (($_GET['t'] ?? '') !== '__TOKEN__') { http_response_code(404); exit; }
+          header('Content-Type: text/plain'); @set_time_limit(0); ignore_user_abort(true); ini_set('memory_limit','512M');
+          $root = dirname(__DIR__); $zip = $root.'/dtb-package.zip'; $step = $_GET['step'] ?? '';
+          echo 'PHP '.PHP_VERSION."\n";
           if (version_compare(PHP_VERSION,'8.2.0','<')) { echo "ERREUR: PHP trop ancien (8.2 minimum): choisir PHP 8.3 pour ce sous-domaine dans cPanel\n"; exit; }
-          \$root = dirname(__DIR__); \$zip = \$root.'/dtb-package.zip';
-          \$z = new ZipArchive; if (\$z->open(\$zip) !== true) { echo "ERREUR: paquet illisible\n"; exit; }
-          \$z->extractTo(\$root); \$z->close(); echo "fichiers extraits\n";
-          foreach ([\$root.'/storage', \$root.'/bootstrap/cache'] as \$d) { \$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(\$d, FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST); @chmod(\$d,0775); foreach (\$it as \$f) { @chmod(\$f->getPathname(), \$f->isDir() ? 0775 : 0664); } }
-          try {
-            require \$root.'/vendor/autoload.php';
-            \$app = require \$root.'/bootstrap/app.php';
-            \$k = \$app->make(Illuminate\Contracts\Console\Kernel::class); \$k->bootstrap();
-            foreach ([['migrate',['--force'=>true]],['storage:link',[]],['config:cache',[]],['route:cache',[]],['view:cache',[]]] as \$c) {
-              try { \$r = \$k->call(\$c[0], \$c[1]); echo \$c[0].' => '.\$r.' '.trim(substr(\$k->output(),-200))."\n"; } catch (Throwable \$e) { echo \$c[0].' ERREUR: '.substr(\$e->getMessage(),0,300)."\n"; }
-            }
-          } catch (Throwable \$e) { echo 'ERREUR: '.substr(\$e->getMessage(),0,400)."\n"; }
-          @unlink(\$zip); @unlink(__FILE__); echo "installation terminee\n";
+          if ($step === 'extract') {
+            $z = new ZipArchive; if ($z->open($zip) !== true) { echo "ERREUR: paquet illisible\n"; exit; }
+            $from = (int)($_GET['from'] ?? 0); $n = $z->numFiles; $to = min($n, $from + 1200);
+            for ($i = $from; $i < $to; $i++) { $z->extractTo($root, $z->getNameIndex($i)); }
+            $z->close(); echo ($to >= $n) ? "EXTRACT_DONE $n\n" : "NEXT $to / $n\n"; exit;
+          }
+          if ($step === 'artisan') {
+            foreach ([$root.'/storage', $root.'/bootstrap/cache'] as $d) { @chmod($d,0775); $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($d, FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST); foreach ($it as $f) { @chmod($f->getPathname(), $f->isDir() ? 0775 : 0664); } }
+            try {
+              require $root.'/vendor/autoload.php';
+              $app = require $root.'/bootstrap/app.php';
+              $k = $app->make(Illuminate\Contracts\Console\Kernel::class); $k->bootstrap();
+              foreach ([['migrate',['--force'=>true]],['storage:link',[]],['config:cache',[]],['route:cache',[]],['view:cache',[]]] as $c) {
+                try { $r = $k->call($c[0], $c[1]); echo $c[0].' => '.$r.' '.trim(substr($k->output(),-150))."\n"; } catch (Throwable $e) { echo $c[0].' ERREUR: '.substr($e->getMessage(),0,250)."\n"; }
+              }
+            } catch (Throwable $e) { echo 'ERREUR: '.substr($e->getMessage(),0,300)."\n"; }
+            echo "ARTISAN_FINI\n"; exit;
+          }
+          if ($step === 'clean') { @unlink($zip); @unlink(__FILE__); echo "NETTOYE\n"; exit; }
+          echo "etape inconnue\n";
           PHP
-          sed -i 's/^          //' /tmp/inst.php
+          sed -i 's/^          //; s/__TOKEN__/'"$TOKEN"'/' /tmp/inst.php
+          sed -i "s/^        //" /tmp/inst.php 2>/dev/null || true
 
           # 4. Envoi FTP : paquet + .env + script
           F -T pkg/dtb-package.zip "$U/$ROOT/dtb-package.zip" && note "paquet envoye" "$(ls -l pkg/dtb-package.zip | awk '{print $5}') octets"
           F -T /tmp/dtb.env "$U/$ROOT/.env"
           F -T /tmp/inst.php "$U/$ROOT/public/dtbinst-$TOKEN.php"
 
-          # 5. Execution
-          OUT=$(curl -sS -k -m 1200 "https://$SITE/dtbinst-$TOKEN.php?t=$TOKEN" 2>&1 || true)
-          case "$OUT" in *"installation terminee"*|*ERREUR*) ;; *) OUT=$(curl -sS -m 1200 "http://$SITE/dtbinst-$TOKEN.php?t=$TOKEN" 2>&1 || true) ;; esac
-          note "installation" "$OUT"
+          # 5. Execution par etapes (https sans controle du certificat, sinon http)
+          call() { r=$(curl -sS -k -m 300 "https://$SITE/dtbinst-$TOKEN.php?t=$TOKEN&$1" 2>&1) || r=$(curl -sS -m 300 "http://$SITE/dtbinst-$TOKEN.php?t=$TOKEN&$1" 2>&1) || true; echo "$r"; }
+          FROM=0; LOG=""
+          for n in $(seq 1 20); do
+            r=$(call "step=extract&from=$FROM"); LOG="$LOG | $(echo "$r" | tail -1)"
+            case "$r" in *EXTRACT_DONE*) break ;; *"NEXT "*) FROM=$(echo "$r" | grep -o 'NEXT [0-9]*' | cut -d' ' -f2) ;; *) note "extraction" "$r"; break ;; esac
+          done
+          note "extraction" "$LOG"
+          case "$LOG" in *EXTRACT_DONE*)
+            r=$(call "step=artisan"); note "artisan" "$r"
+            call "step=clean" >/dev/null
+          ;; *) echo "::error::extraction incomplete (le paquet et le script restent sur le serveur pour reprise)"; exit 1 ;; esac
 
-          # 6. Nettoyage de securite (au cas ou le script ne se serait pas supprime) + verification
+          # 6. Nettoyage de securite + verification
           F -Q "-DELE $ROOT/public/dtbinst-$TOKEN.php" "$U/" -o /dev/null >/dev/null 2>&1 || true
-          F -Q "-DELE $ROOT/dtb-package.zip" "$U/" -o /dev/null >/dev/null 2>&1 || true
           CODE=$(curl -sS -k -o /dev/null -m 30 -w '%{http_code}' "https://$SITE/" 2>&1 || curl -sS -o /dev/null -m 30 -w 'http:%{http_code}' "http://$SITE/" 2>&1 || true)
-          note "verification https://$SITE" "code HTTP $CODE"
-          case "$OUT" in *"installation terminee"*) ;; *) exit 1 ;; esac
+          note "verification $SITE" "code HTTP $CODE"
+          case "$r" in *ARTISAN_FINI*) ;; *) exit 1 ;; esac
