@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "test-ftp = verifier l'acces FTP (rien d'installe) | install = installer DocTheBuilder"
+        description: "test-ftp = verifier l'acces FTP | install = installer DocTheBuilder sur app.marketforge.fr"
         default: "test-ftp"
         required: true
 concurrency:
@@ -17,21 +17,109 @@ jobs:
       FTP_SERVER: ${{ secrets.FTP_SERVER }}
       FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
       FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      DTB_DB_NAME: ${{ secrets.DTB_DB_NAME }}
+      DTB_DB_USER: ${{ secrets.DTB_DB_USER }}
+      DTB_DB_PASSWORD: ${{ secrets.DTB_DB_PASSWORD }}
+      SITE: app.marketforge.fr
     steps:
       - uses: actions/checkout@v4
 
-      - name: Test FTP (lecture + ecriture d'un petit fichier, puis suppression)
+      - name: Test FTP (ecriture d'un petit fichier, puis suppression)
         if: github.event.inputs.mode == 'test-ftp'
         run: |
-          for v in FTP_SERVER FTP_USERNAME FTP_PASSWORD; do
+          U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 20 --max-time 60 -sS"
+          echo test > /tmp/t.txt
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/t.txt "$U/app.marketforge.fr/dtb-test.txt" && echo "::notice title=ecriture::OK"
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "-DELE app.marketforge.fr/dtb-test.txt" "$U/" -o /dev/null && echo "::notice title=suppression::OK"
+
+      - name: Recuperer le paquet DocTheBuilder
+        if: github.event.inputs.mode == 'install'
+        uses: actions/checkout@v4
+        with:
+          ref: dtb-package
+          path: pkg
+
+      - name: Installer DocTheBuilder
+        if: github.event.inputs.mode == 'install'
+        run: |
+          set -u
+          for v in FTP_SERVER FTP_USERNAME FTP_PASSWORD DTB_DB_NAME DTB_DB_USER DTB_DB_PASSWORD; do
             if [ -z "${!v}" ]; then echo "::error::secret $v manquant"; exit 1; fi
           done
-          U="ftp://$FTP_SERVER"
-          note() { printf '%s' "$2" | tr '\n' ' ' | cut -c1-900 | sed "s/^/::notice title=$1::/"; echo; }
-          opts="--ssl-reqd --insecure --connect-timeout 20 --max-time 60 -sS"
-          R=$(curl $opts --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/" -l 2>&1) || { M="FTPS KO: $R"; opts="--connect-timeout 20 --max-time 60 -sS"; R=$(curl $opts --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/" -l 2>&1); }
-          note "racine FTP ($(echo $opts | cut -c1-12))" "$R"
-          D=$(curl $opts --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/app.marketforge.fr/" -l 2>&1); note "dossier app.marketforge.fr" "$D"
-          echo test > /tmp/dtb-test.txt
-          W=$(curl $opts --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/dtb-test.txt "$U/app.marketforge.fr/dtb-test.txt" 2>&1 && echo ECRITURE_OK); note "ecriture" "$W"
-          X=$(curl $opts --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "-DELE app.marketforge.fr/dtb-test.txt" "$U/" -o /dev/null 2>&1 && echo SUPPRESSION_OK); note "suppression" "$X"
+          U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 1500 -sS --ftp-create-dirs"
+          F() { curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$@"; }
+          note() { printf '%s' "$2" | tr '\n' ' ' | cut -c1-1200 | sed "s/^/::notice title=$1::/"; echo; }
+
+          # 1. Quel dossier est servi par https://app.marketforge.fr ?
+          RAND=$(openssl rand -hex 6); ROOT=""; WRONG=""
+          i=0
+          for D in "app.marketforge.fr/public" "app.marketforge.fr.marketforge.fr/public" "app.marketforge.fr" "app.marketforge.fr.marketforge.fr"; do
+            i=$((i+1)); echo "probe$i-$RAND" > /tmp/p.txt
+            F -T /tmp/p.txt "$U/$D/probe$i-$RAND.txt" >/dev/null 2>&1 || true
+          done
+          sleep 3
+          for i in 1 2 3 4; do
+            got=$(curl -sS -m 20 "https://$SITE/probe$i-$RAND.txt" 2>/dev/null || true)
+            if [ "$got" = "probe$i-$RAND" ]; then FOUND=$i; fi
+          done
+          i=0
+          for D in "app.marketforge.fr/public" "app.marketforge.fr.marketforge.fr/public" "app.marketforge.fr" "app.marketforge.fr.marketforge.fr"; do
+            i=$((i+1)); F -Q "-DELE $D/probe$i-$RAND.txt" "$U/" -o /dev/null >/dev/null 2>&1 || true
+          done
+          case "${FOUND:-0}" in
+            1) ROOT="app.marketforge.fr" ;;
+            2) ROOT="app.marketforge.fr.marketforge.fr" ;;
+            3|4) echo "::error::Le sous-domaine pointe vers le dossier racine, pas vers /public. Dans cPanel > Domaines, mettre la racine du document a .../public"; exit 1 ;;
+            *) echo "::error::https://$SITE ne repond pas encore (certificat HTTPS ou domaine pas pret). Reessayer dans quelques minutes."; exit 1 ;;
+          esac
+          note "dossier du site" "$ROOT"
+
+          # 2. .env de production
+          python3 - <<'PY'
+          import os,secrets,base64
+          t=open('pkg/dtb-env.template').read()
+          key='base64:'+base64.b64encode(secrets.token_bytes(32)).decode()
+          pw=os.environ['DTB_DB_PASSWORD'].replace('\\','\\\\').replace('"','\\"')
+          t=t.replace('__APP_KEY__',key).replace('__DB_NAME__',os.environ['DTB_DB_NAME']).replace('__DB_USER__',os.environ['DTB_DB_USER']).replace('__DB_PASS__',pw)
+          open('/tmp/dtb.env','w').write(t)
+          PY
+
+          # 3. Script d'installation (jeton aleatoire, se supprime)
+          TOKEN=$(openssl rand -hex 16)
+          cat > /tmp/inst.php <<PHP
+          <?php
+          if ((\$_GET['t'] ?? '') !== '$TOKEN') { http_response_code(404); exit; }
+          header('Content-Type: text/plain'); @set_time_limit(0); ini_set('memory_limit','1024M');
+          echo "PHP ".PHP_VERSION."\n";
+          if (version_compare(PHP_VERSION,'8.2.0','<')) { echo "ERREUR: PHP trop ancien (8.2 minimum): choisir PHP 8.3 pour ce sous-domaine dans cPanel\n"; exit; }
+          \$root = dirname(__DIR__); \$zip = \$root.'/dtb-package.zip';
+          \$z = new ZipArchive; if (\$z->open(\$zip) !== true) { echo "ERREUR: paquet illisible\n"; exit; }
+          \$z->extractTo(\$root); \$z->close(); echo "fichiers extraits\n";
+          foreach ([\$root.'/storage', \$root.'/bootstrap/cache'] as \$d) { \$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(\$d, FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST); @chmod(\$d,0775); foreach (\$it as \$f) { @chmod(\$f->getPathname(), \$f->isDir() ? 0775 : 0664); } }
+          try {
+            require \$root.'/vendor/autoload.php';
+            \$app = require \$root.'/bootstrap/app.php';
+            \$k = \$app->make(Illuminate\Contracts\Console\Kernel::class); \$k->bootstrap();
+            foreach ([['migrate',['--force'=>true]],['storage:link',[]],['config:cache',[]],['route:cache',[]],['view:cache',[]]] as \$c) {
+              try { \$r = \$k->call(\$c[0], \$c[1]); echo \$c[0].' => '.\$r.' '.trim(substr(\$k->output(),-200))."\n"; } catch (Throwable \$e) { echo \$c[0].' ERREUR: '.substr(\$e->getMessage(),0,300)."\n"; }
+            }
+          } catch (Throwable \$e) { echo 'ERREUR: '.substr(\$e->getMessage(),0,400)."\n"; }
+          @unlink(\$zip); @unlink(__FILE__); echo "installation terminee\n";
+          PHP
+          sed -i 's/^          //' /tmp/inst.php
+
+          # 4. Envoi FTP : paquet + .env + script
+          F -T pkg/dtb-package.zip "$U/$ROOT/dtb-package.zip" && note "paquet envoye" "$(ls -l pkg/dtb-package.zip | awk '{print $5}') octets"
+          F -T /tmp/dtb.env "$U/$ROOT/.env"
+          F -T /tmp/inst.php "$U/$ROOT/public/dtbinst-$TOKEN.php"
+
+          # 5. Execution
+          OUT=$(curl -sS -m 1200 "https://$SITE/dtbinst-$TOKEN.php?t=$TOKEN" 2>&1 || true)
+          note "installation" "$OUT"
+
+          # 6. Nettoyage de securite (au cas ou le script ne se serait pas supprime) + verification
+          F -Q "-DELE $ROOT/public/dtbinst-$TOKEN.php" "$U/" -o /dev/null >/dev/null 2>&1 || true
+          F -Q "-DELE $ROOT/dtb-package.zip" "$U/" -o /dev/null >/dev/null 2>&1 || true
+          CODE=$(curl -sS -o /dev/null -m 30 -w '%{http_code}' "https://$SITE/" 2>&1 || true)
+          note "verification https://$SITE" "code HTTP $CODE"
+          case "$OUT" in *"installation terminee"*) ;; *) exit 1 ;; esac
