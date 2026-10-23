@@ -1,0 +1,47 @@
+name: DocTheBuilder - test connexion et installation (o2switch)
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "test = verifier la connexion SSH et le serveur (rien n'est modifie)"
+        default: "test"
+        required: true
+concurrency:
+  group: dtb-install
+  cancel-in-progress: false
+jobs:
+  dtb:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preparer la connexion SSH
+        env:
+          DTB_SSH_KEY: ${{ secrets.DTB_SSH_KEY }}
+          DTB_SSH_HOST: ${{ secrets.DTB_SSH_HOST }}
+          DTB_SSH_USER: ${{ secrets.DTB_SSH_USER }}
+        run: |
+          for v in DTB_SSH_KEY DTB_SSH_HOST DTB_SSH_USER; do
+            if [ -z "${!v}" ]; then echo "::error::secret $v manquant"; exit 1; fi
+          done
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$DTB_SSH_KEY" > ~/.ssh/dtb_key && chmod 600 ~/.ssh/dtb_key
+          ssh-keyscan -T 15 "$DTB_SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          echo "hote et cle prets"
+      - name: Test connexion et etat du serveur (lecture seule)
+        if: github.event.inputs.mode == 'test'
+        env:
+          DTB_SSH_HOST: ${{ secrets.DTB_SSH_HOST }}
+          DTB_SSH_USER: ${{ secrets.DTB_SSH_USER }}
+        run: |
+          ssh -i ~/.ssh/dtb_key -o BatchMode=yes -o ConnectTimeout=20 "$DTB_SSH_USER@$DTB_SSH_HOST" '
+            echo "== connexion OK : $(whoami) sur $(hostname)";
+            echo "== PHP par defaut :"; php -v | head -1;
+            echo "== PHP 8.3 / 8.4 disponibles :"; ls /opt/cpanel 2>/dev/null | grep -i "ea-php8" ;
+            for p in /opt/cpanel/ea-php83/root/usr/bin/php /opt/cpanel/ea-php84/root/usr/bin/php; do [ -x $p ] && echo "$p -> $($p -v | head -1)"; done;
+            echo "== extensions PHP 8.3 :"; /opt/cpanel/ea-php83/root/usr/bin/php -m 2>/dev/null | tr "\n" " ";
+            echo; echo "== composer :"; (which composer && composer --version) 2>&1 | head -2;
+            echo "== dossier du sous-domaine :"; ls -ld ~/app.marketforge.fr ~/app.marketforge.fr/public 2>&1;
+            echo "== espace disque :"; df -h ~ | tail -1;
+            echo "== mysql client :"; which mysql 2>&1 | head -1
+          '
