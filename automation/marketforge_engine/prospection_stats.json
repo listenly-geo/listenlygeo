@@ -1,6 +1,6 @@
 {
- "updated": "2026-10-25T12:35",
- "total": 676,
+ "updated": "2026-10-25T12:51",
+ "total": 678,
  "status": {
   "Clos (ancien mail)": 182,
   "Rebond": 12,
@@ -9,17 +9,18 @@
   "Non valide": 67,
   "En pause (ancienne selection)": 56,
   "Email instable": 1,
-  "Envoye": 276,
-  "Pret": 9,
+  "Envoye": 275,
+  "Pret": 11,
   "En pause (pas de dirigeant)": 24,
   "En pause (question hors sujet)": 1,
   "Email risque": 11,
   "En pause (doublon dirigeant)": 9,
-  "En pause (a trier)": 7
+  "En pause (a trier)": 7,
+  "Relance": 1
  },
  "sent_total": 472,
  "replies_total": 1,
- "followups_total": 16,
+ "followups_total": 17,
  "sent_by_day": {
   "2026-09-27": 23,
   "2026-09-28": 20,
@@ -48,7 +49,8 @@
   "2026-09-28": 1
  },
  "followups_by_day": {
-  "2026-10-01": 16
+  "2026-10-01": 16,
+  "2026-10-25": 1
  },
  "bounces_by_day": {
   "2026-09-27": 7,
@@ -62,6 +64,42 @@
  "cap_jour_effectif": 30,
  "envoyes_aujourdhui": 2,
  "prospects": [
+  {
+   "slug": "stay-paid-podcast",
+   "podcast": "Stay Paid Podcast",
+   "statut": "Pret",
+   "ajoute_le": "2026-10-25T12:50:29.815Z",
+   "envoye_le": "",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.org/podcast-btb/stay-paid-podcast-podcast.html",
+   "queue_rank": 11,
+   "variante": ""
+  },
+  {
+   "slug": "the-small-nation-podcast",
+   "podcast": "The Small Nation Podcast",
+   "statut": "Pret",
+   "ajoute_le": "2026-10-25T12:50:29.791Z",
+   "envoye_le": "",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.org/podcast-btb/the-small-nation-podcast-podcast.html",
+   "queue_rank": 10,
+   "variante": ""
+  },
+  {
+   "slug": "unscripted",
+   "podcast": "Unscripted!",
+   "statut": "Relance",
+   "ajoute_le": "2026-10-21T00:08:12.052Z",
+   "envoye_le": "2026-10-21T12:24:53.702Z",
+   "relance_le": "2026-10-25T12:36:43.254Z",
+   "reponse": "",
+   "fiche_url": "https://listenly.org/podcast-btb/unscripted-podcast.html",
+   "queue_rank": null,
+   "variante": "E"
+  },
   {
    "slug": "influential-u",
    "podcast": "Influential U",
@@ -385,18 +423,6 @@
    "fiche_url": "https://listenly.org/podcast-btb/revops-champions-podcast.html",
    "queue_rank": null,
    "variante": "B"
-  },
-  {
-   "slug": "unscripted",
-   "podcast": "Unscripted!",
-   "statut": "Envoye",
-   "ajoute_le": "2026-10-21T00:08:12.052Z",
-   "envoye_le": "2026-10-21T12:24:53.702Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.org/podcast-btb/unscripted-podcast.html",
-   "queue_rank": null,
-   "variante": "E"
   },
   {
    "slug": "theedge-podcast",
@@ -3637,30 +3663,6 @@
    "fiche_url": "https://listenly.fr/podcast-btb/global-medical-device-podcast-powered-by-podcast.html",
    "queue_rank": null,
    "variante": "C"
-  },
-  {
-   "slug": "exit-is-now-plan-accordingly",
-   "podcast": "Exit is Now: Plan Accordingly",
-   "statut": "Envoye",
-   "ajoute_le": "2026-10-03T09:57:28.606Z",
-   "envoye_le": "2026-10-07T07:10:40.607Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/exit-is-now-plan-accordingly-podcast.html",
-   "queue_rank": null,
-   "variante": "B"
-  },
-  {
-   "slug": "high-impact-growth",
-   "podcast": "High-Impact Growth",
-   "statut": "Envoye",
-   "ajoute_le": "2026-10-03T09:57:26.592Z",
-   "envoye_le": "2026-10-07T07:10:34.416Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/high-impact-growth-podcast.html",
-   "queue_rank": null,
-   "variante": "A"
   }
  ]
 }
