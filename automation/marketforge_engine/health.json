@@ -1,17 +1,17 @@
 {
-  "maj": "2026-10-25T17:37",
+  "maj": "2026-10-25T20:46",
   "etapes": {
     "deploiement_pont": {
       "conclusion": "success",
       "at": "2026-10-23T16:50:00Z"
     },
     "moteur": {
-      "conclusion": "pending",
-      "at": "2026-10-25T17:27:23Z"
+      "conclusion": "in_progress",
+      "at": "2026-10-25T20:44:19Z"
     },
     "decouverte": {
       "conclusion": "success",
-      "at": "2026-10-25T17:35:26Z"
+      "at": "2026-10-25T20:35:35Z"
     },
     "tableau_de_bord": {
       "conclusion": "success",
@@ -24,7 +24,7 @@
     "api_import": 405
   },
   "stock": {
-    "prets": 10,
+    "prets": 11,
     "objectif": 30,
     "sous_objectif": true,
     "risque_ou_sans_dirigeant": 35,
@@ -32,12 +32,12 @@
   },
   "decisions": [
     {
-      "action": "relance découverte",
-      "quand": "2026-10-25T17:37"
+      "action": "Découverte déjà relancée il y a moins de 6 h : pas de nouvelle relance.",
+      "quand": "2026-10-25T20:46"
     }
   ],
   "alertes": [
-    "Stock de prospects prêts : 10 sur 30.",
+    "Stock de prospects prêts : 11 sur 30.",
     "35 prospects à risque ou sans dirigeant (à traiter)."
   ]
 }
