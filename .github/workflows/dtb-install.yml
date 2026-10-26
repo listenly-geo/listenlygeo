@@ -187,6 +187,8 @@ jobs:
           F -T automation/dtb-patch/hub-v1-patch.zip "$U/$ROOT/dtb-hub-patch.zip" && echo "::notice title=paquet::depose"
           F -T /tmp/patch.php "$U/$ROOT/public/dtbpatch-$TOKEN.php" && echo "::notice title=script::depose"
           call() { r=$(curl -sS -k -m 300 "https://$SITE/dtbpatch-$TOKEN.php?t=$TOKEN&step=$1" 2>&1) || r=$(curl -sS -m 300 "http://$SITE/dtbpatch-$TOKEN.php?t=$TOKEN&step=$1" 2>&1) || true; echo "$r"; }
+          sleep 5
+          D1=$(curl -sS -k -m 30 -o /dev/null -w 'home=%{http_code}' "https://$SITE/" 2>&1); D2=$(curl -sS -k -m 30 -o /dev/null -w 'script=%{http_code}' "https://$SITE/dtbpatch-$TOKEN.php?t=$TOKEN&step=status" 2>&1); D3=$(curl -sS -m 30 -o /dev/null -w 'http-script=%{http_code}' "http://$SITE/dtbpatch-$TOKEN.php?t=$TOKEN&step=status" 2>&1); D4=$(F -l "$U/$ROOT/" 2>&1 | tr '\n' ' ' | cut -c1-400); echo "$D1 | $D2 | $D3" | sed "s/^/::notice title=diag::/"; echo "::notice title=ftp-racine::$D4"
           r=$(call extract); echo "$r" | tr '\n' ' ' | cut -c1-800 | sed "s/^/::notice title=extraction::/"; echo
           case "$r" in *EXTRACT_OK*) ;; *) echo "::error::extraction echouee"; F -Q "-DELE $ROOT/public/dtbpatch-$TOKEN.php" "$U/" -o /dev/null >/dev/null 2>&1 || true; exit 1 ;; esac
           r=$(call artisan); echo "$r" | tr '\n' ' ' | cut -c1-1200 | sed "s/^/::notice title=artisan::/"; echo
