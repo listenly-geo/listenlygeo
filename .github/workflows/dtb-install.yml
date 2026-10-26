@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "test-ftp = verifier l'acces FTP | install = installer DocTheBuilder sur app.marketforge.fr | patch = deposer le correctif Hub V1"
+        description: "test-ftp = verifier l'acces FTP | install = installer DocTheBuilder sur app.marketforge.fr | patch = deposer le correctif Hub V1 | restore = remettre la version d'origine"
         default: "test-ftp"
         required: true
 concurrency:
@@ -196,3 +196,31 @@ jobs:
           CODE=$(curl -sS -k -o /dev/null -m 30 -w '%{http_code}' "https://$SITE/" 2>/dev/null || echo 000)
           echo "::notice title=verification::site HTTP $CODE, manifest identique=$([ "$LOCAL" = "$REMOTE" ] && echo oui || echo non)"
           [ "$LOCAL" = "$REMOTE" ] || { echo "::error::manifest different apres depot"; exit 1; }
+
+      - name: Restaurer la version d'origine (mode restore)
+        if: github.event.inputs.mode == 'restore'
+        shell: bash {0}
+        run: |
+          set -u
+          for v in FTP_SERVER FTP_USERNAME FTP_PASSWORD; do
+            if [ -z "${!v}" ]; then echo "::error::secret $v manquant"; exit 1; fi
+          done
+          U="ftp://$FTP_SERVER"; ROOT="app.marketforge.fr"
+          o="--ssl-reqd --insecure --connect-timeout 30 --max-time 300 -sS --ftp-create-dirs"
+          F() { curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$@"; }
+          SRC="automation/dtb-patch/restore"; N=0; FAIL=0
+          while IFS= read -r f; do
+            rel="${f#$SRC/}"
+            if F -T "$f" "$U/$ROOT/$rel" >/dev/null 2>/tmp/err.txt; then N=$((N+1)); else FAIL=$((FAIL+1)); echo "::error::echec $rel : $(cat /tmp/err.txt)"; fi
+          done < <(find $SRC -type f)
+          echo "::notice title=restauration::$N fichiers remis, $FAIL en echec"
+          [ "$FAIL" -eq 0 ] || exit 1
+          for rel in app/Console/Commands/ImportHubAnswers.php resources/js/pages/docs/themes/listenly/index.tsx; do
+            F -Q "-DELE $ROOT/$rel" "$U/" -o /dev/null >/dev/null 2>&1 && echo "::notice title=supprime::$rel" || echo "::notice title=deja-absent::$rel"
+          done
+          LOCAL=$(sha256sum $SRC/public/build/manifest.json | cut -c1-64)
+          sleep 5
+          REMOTE=$(curl -sS -k -m 30 "https://$SITE/build/manifest.json" | sha256sum | cut -c1-64)
+          CODE=$(curl -sS -k -o /dev/null -m 30 -w '%{http_code}' "https://$SITE/" 2>/dev/null || echo 000)
+          echo "::notice title=verification::site HTTP $CODE, manifest d'origine=$([ "$LOCAL" = "$REMOTE" ] && echo oui || echo non)"
+          [ "$LOCAL" = "$REMOTE" ] || { echo "::error::manifest different apres restauration"; exit 1; }
