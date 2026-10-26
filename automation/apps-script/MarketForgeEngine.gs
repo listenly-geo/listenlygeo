@@ -82,18 +82,22 @@ var MFE_CTA_MAIL = [
   '',
   'Best,'
 ].join('\n');
-var MFE_MSG_VERSION = '22';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
+var MFE_MSG_VERSION = '23';   // incremente -> les textes MFE_MSG_* de Reglages sont remis a jour a l'installation
 var MFE_FIRST_MAIL = [
   '{HELLO}',
   '',
-  'I recently listed your podcast <strong>{PODCAST}</strong> on <a href="https://listenly.org">Listenly.org</a>, the AI podcast engine <strong>that turns audio expertise into readable answers for Google & AI</strong>.',
+  'I recently listed your podcast {PODCAST} on <a href="https://listenly.org">Listenly.org</a>, <strong>the AI podcast engine</strong> that turns audio expertise <u>into readable answers for Google & AI.</u>',
   '',
-  'For example, your episodes contain <strong>+15 questions</strong> like <a href="{MOMENT_URL}"><em><u>this one</u></em></a> that leaders ask on Google, ChatGPT, Gemini, Claude.',
+  'For example, your latest episode contains <strong>+15 questions</strong> like <a href="{MOMENT_URL}"><em><u>this one</u></em></a> that leaders already ask on Google, ChatGPT, Gemini and Claude.',
   '',
-  'Are you already exploring how your podcast could bring clients from AI, without more content?',
+  'But they can\'t find you because of the audio format.',
+  '',
+  '<strong>Where would you like us to send this traffic: a Spotify page, a Podcast Hub...</strong>',
   '',
   'Best,',
-  'Etienne Cugnet'
+  'Etienne Cugnet',
+  '',
+  'PS: Without your reply, the traffic stays on Listenly.'
 ].join('\n');
 // Test A/B du CTA (03/10/2026) : 5 variantes A-E, une seule par envoi. Texte brut (aucun gras / souligne dans les CTA).
 var MFE_CTAS = {
