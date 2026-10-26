@@ -171,7 +171,7 @@ jobs:
           note "verification $SITE" "code HTTP $CODE"
           case "$r" in *ARTISAN_FINI*) ;; *) exit 1 ;; esac
 
-      - name: Deposer et appliquer le correctif (mode patch)
+      - name: Deposer le correctif Hub V1 (mode patch, FTP direct)
         if: github.event.inputs.mode == 'patch'
         shell: bash {0}
         run: |
@@ -179,24 +179,20 @@ jobs:
           for v in FTP_SERVER FTP_USERNAME FTP_PASSWORD; do
             if [ -z "${!v}" ]; then echo "::error::secret $v manquant"; exit 1; fi
           done
-          U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 600 -sS --ftp-create-dirs"
+          U="ftp://$FTP_SERVER"; ROOT="app.marketforge.fr"
+          o="--ssl-reqd --insecure --connect-timeout 30 --max-time 300 -sS --ftp-create-dirs"
           F() { curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$@"; }
-          ROOT="app.marketforge.fr"
-          TOKEN=$(openssl rand -hex 16)
-          sed "s/__TOKEN__/$TOKEN/" automation/dtb-patch/patch.php > /tmp/patch.php
-          F -T automation/dtb-patch/hub-v1-patch.zip "$U/$ROOT/dtb-hub-patch.zip" && echo "::notice title=paquet::depose"
-          F -T /tmp/patch.php "$U/$ROOT/public/dtbpatch-$TOKEN.php" && echo "::notice title=script::depose"
-          call() { r=$(curl -sS -k --http1.1 -m 300 "https://$SITE/dtbpatch-$TOKEN.php?t=$TOKEN&step=$1" 2>&1) || r=$(curl -sS -m 300 "http://$SITE/dtbpatch-$TOKEN.php?t=$TOKEN&step=$1" 2>&1) || true; echo "$r"; }
-          printf '<?php echo "PING ".PHP_VERSION;' > /tmp/ping.php; F -T /tmp/ping.php "$U/$ROOT/public/ping-$TOKEN.php" >/dev/null 2>&1; echo "pong-$TOKEN" > /tmp/pong.txt; F -T /tmp/pong.txt "$U/$ROOT/public/pong-$TOKEN.txt" >/dev/null 2>&1; F -l "$U/$ROOT/public/" 2>&1 | grep -E "ping-|pong-" | tr '\n' ' ' | sed "s/^/::notice title=listing::/"; echo
-          sleep 5; P0=$(curl -sS -k -m 30 "https://$SITE/pong-$TOKEN.txt" 2>&1 | head -c 100); echo "::notice title=pong::$P0"; P1=$(curl -sS -k -m 30 "https://$SITE/ping-$TOKEN.php" 2>&1 | head -c 200); echo "::notice title=ping::$P1"
-          sleep 5; P1=$(curl -sS -k --http1.1 -m 30 "https://$SITE/dtbping-$TOKEN.php" 2>&1 | head -c 200); echo "::notice title=ping::$P1"; F -Q "-DELE $ROOT/public/ping-$TOKEN.php" "$U/" -o /dev/null >/dev/null 2>&1 || true; F -Q "-DELE $ROOT/public/pong-$TOKEN.txt" "$U/" -o /dev/null >/dev/null 2>&1 || true
-          D0=$(curl -sS -k --http1.1 -m 30 -o /dev/null -w 'h1-script=%{http_code}' "https://$SITE/dtbpatch-$TOKEN.php?t=$TOKEN&step=status" 2>&1); D5=$(curl -sS -k --http1.1 -m 30 "https://$SITE/dtbpatch-$TOKEN.php?t=$TOKEN&step=status" 2>&1 | head -c 200); echo "$D0 | $D5" | tr '\n' ' ' | sed "s/^/::notice title=h1::/"; echo
-          D1=$(curl -sS -k -m 30 -o /dev/null -w 'home=%{http_code}' "https://$SITE/" 2>&1); D2=$(curl -sS -k -m 30 -o /dev/null -w 'script=%{http_code}' "https://$SITE/dtbpatch-$TOKEN.php?t=$TOKEN&step=status" 2>&1); D3=$(curl -sS -m 30 -o /dev/null -w 'http-script=%{http_code}' "http://$SITE/dtbpatch-$TOKEN.php?t=$TOKEN&step=status" 2>&1); D4=$(F -l "$U/$ROOT/" 2>&1 | tr '\n' ' ' | cut -c1-400); echo "$D1 | $D2 | $D3" | sed "s/^/::notice title=diag::/"; echo "::notice title=ftp-racine::$D4"
-          r=$(call extract); echo "$r" | tr '\n' ' ' | cut -c1-800 | sed "s/^/::notice title=extraction::/"; echo
-          case "$r" in *EXTRACT_OK*) ;; *) echo "::error::extraction echouee"; F -Q "-DELE $ROOT/public/dtbpatch-$TOKEN.php" "$U/" -o /dev/null >/dev/null 2>&1 || true; exit 1 ;; esac
-          r=$(call artisan); echo "$r" | tr '\n' ' ' | cut -c1-1200 | sed "s/^/::notice title=artisan::/"; echo
-          call clean >/dev/null
-          F -Q "-DELE $ROOT/public/dtbpatch-$TOKEN.php" "$U/" -o /dev/null >/dev/null 2>&1 || true
+          rm -rf /tmp/patch && mkdir /tmp/patch && unzip -q automation/dtb-patch/hub-v1-patch.zip -d /tmp/patch
+          N=0; FAIL=0
+          while IFS= read -r f; do
+            rel="${f#/tmp/patch/}"
+            if F -T "$f" "$U/$ROOT/$rel" >/dev/null 2>/tmp/err.txt; then N=$((N+1)); else FAIL=$((FAIL+1)); echo "::error::echec $rel : $(cat /tmp/err.txt)"; fi
+          done < <(find /tmp/patch -type f)
+          echo "::notice title=depot::$N fichiers deposes, $FAIL en echec"
+          [ "$FAIL" -eq 0 ] || exit 1
+          LOCAL=$(sha256sum /tmp/patch/public/build/manifest.json | cut -c1-64)
+          sleep 5
+          REMOTE=$(curl -sS -k -m 30 "https://$SITE/build/manifest.json" | sha256sum | cut -c1-64)
           CODE=$(curl -sS -k -o /dev/null -m 30 -w '%{http_code}' "https://$SITE/" 2>/dev/null || echo 000)
-          echo "::notice title=verification::code HTTP $CODE"
-          case "$r" in *ARTISAN_FINI*) ;; *) echo "::error::artisan non termine"; exit 1 ;; esac
+          echo "::notice title=verification::site HTTP $CODE, manifest identique=$([ "$LOCAL" = "$REMOTE" ] && echo oui || echo non)"
+          [ "$LOCAL" = "$REMOTE" ] || { echo "::error::manifest different apres depot"; exit 1; }
