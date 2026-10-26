@@ -21,7 +21,12 @@ def choisir():
     scores = json.load(open(f"{PAGES}/data/moments_scores.json", encoding="utf-8"))
     scores = scores.get("scores", scores)
     try:
-        demande = json.load(open(f"{PAGES}/data/demande_par_fiche.json", encoding="utf-8")).get("fiches", {})
+        dem_raw = json.load(open(f"{PAGES}/data/demande_par_fiche.json", encoding="utf-8"))
+        demande = dem_raw.get("fiches", {})
+        # 26/10/2026 : si les volumes ne sont pas du jour (Keyword Planner en echec), on ne les utilise pas.
+        # La selection continue alors avec la seule note de qualite (score_final).
+        if str(dem_raw.get("date", ""))[:10] != datetime.date.today().isoformat():
+            demande = {}
     except (OSError, json.JSONDecodeError):
         demande = {}
     deja = set()
@@ -164,8 +169,13 @@ def main():
                                      and item.get("robots") != "DISALLOWED"
                                      and item.get("indexation_bloquee") not in ("BLOCKED_BY_META_TAG", "BLOCKED_BY_HTTP_HEADER"))
         items.append(item)
+    try:
+        volumes_ok = str(json.load(open(f"{PAGES}/data/demande_par_fiche.json", encoding="utf-8")).get("date", ""))[:10] == datetime.date.today().isoformat()
+    except (OSError, json.JSONDecodeError):
+        volumes_ok = False
     out = {"date": datetime.date.today().isoformat(),
            "mode": "liste a traiter dans Claude + Chrome (demande d'indexation manuelle, validation par page)",
+           "selection": "volumes du jour + note" if volumes_ok else "note seule (volumes non a jour, Keyword Planner en echec)",
            "pretes": sum(1 for i in items if i["pret_pour_demande"]),
            "urls": items}
     if nouveaux:
