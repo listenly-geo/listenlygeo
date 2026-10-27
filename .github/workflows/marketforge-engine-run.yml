@@ -134,7 +134,7 @@ jobs:
           DISCOVERY_KNOWN_RATIO: '0.2'   # 80 % podcasts B2B de niche (repondent plus que les gros medias)
           MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}   # filtre dirigeant (08/10/2026) : verification MyEmailVerifier via le script Google
           DISCOVERY_LEADER_GATE: '1'
-          DISCOVERY_GATE_JOUR: '1000'        # 13/10/2026 : plafond releve a 1000 par Etienne (rendement du filtre tombe a 5 %, stock sous 40) ; ~6 par dirigeant -> 40 dirigeants
+          DISCOVERY_GATE_JOUR: '1500'        # 13/10/2026 : plafond releve a 1000 par Etienne (rendement du filtre tombe a 5 %, stock sous 40) ; ~6 par dirigeant -> 40 dirigeants
           DISCOVERY_GATE_MAX: '45'         # podcasts examines par passage
           DISCOVERY_GATE_VERIF_MAX: '60'   # verifications max par passage
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
