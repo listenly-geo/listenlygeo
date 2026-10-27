@@ -1,75 +1,73 @@
 {
- "updated": "2026-10-27T18:41",
+ "updated": "2026-10-27T19:07",
  "phase": "adaptation (plus d'envois pour les meilleures variantes)",
- "verdict": "trop tot pour conclure (215 envois avec variante ; il en faut au moins 100 par variante et 95 % de chances)",
+ "verdict": "trop tot pour conclure (208 envois avec variante ; il en faut au moins 100 par variante et 95 % de chances)",
  "weights": {
-  "A": 0.1999,
-  "B": 0.1999,
-  "C": 0.1998,
-  "D": 0.2011,
-  "E": 0.1994
+  "A": 0.1996,
+  "B": 0.2005,
+  "C": 0.2008,
+  "D": 0.2,
+  "E": 0.1991
  },
  "variants": {
   "A": {
    "label": "Podcast Hub ou Spotify : « keep Spotify as the destination? »",
-   "envoye": 43,
+   "envoye": 42,
    "rebond": 0,
    "reponse": 0,
    "classes": {
     "auto": 1
    },
-   "delivres": 43,
+   "delivres": 42,
    "taux_pct": 0.0,
-   "chance_meilleure_pct": 20.0,
+   "chance_meilleure_pct": 19.8,
    "part_envois_pct": 20.0
   },
   "B": {
    "label": "Podcast Hub ou Spotify : « redirect it to Spotify for now? »",
-   "envoye": 43,
+   "envoye": 41,
    "rebond": 0,
    "reponse": 0,
    "classes": {
     "oui": 1,
     "auto": 1
    },
-   "delivres": 43,
+   "delivres": 41,
    "taux_pct": 0.0,
-   "chance_meilleure_pct": 19.9,
-   "part_envois_pct": 20.0
+   "chance_meilleure_pct": 20.2,
+   "part_envois_pct": 20.1
   },
   "C": {
    "label": "Spotify d'abord : « Should we send it to Spotify, or… Podcast Hub? »",
-   "envoye": 43,
+   "envoye": 41,
    "rebond": 0,
    "reponse": 0,
    "classes": {},
-   "delivres": 43,
+   "delivres": 41,
    "taux_pct": 0.0,
-   "chance_meilleure_pct": 19.9,
-   "part_envois_pct": 20.0
+   "chance_meilleure_pct": 20.3,
+   "part_envois_pct": 20.1
   },
   "D": {
    "label": "Question directe : « Do you have a Podcast Hub where we can send this audience? »",
-   "envoye": 43,
-   "rebond": 0,
-   "reponse": 0,
-   "classes": {
-    "redirection": 1
-   },
-   "delivres": 43,
-   "taux_pct": 0.0,
-   "chance_meilleure_pct": 20.4,
-   "part_envois_pct": 20.1
-  },
-  "E": {
-   "label": "Question courte : « Do you already have a Podcast Hub to receive it? »",
-   "envoye": 43,
+   "envoye": 42,
    "rebond": 0,
    "reponse": 0,
    "classes": {},
-   "delivres": 43,
+   "delivres": 42,
    "taux_pct": 0.0,
-   "chance_meilleure_pct": 19.8,
+   "chance_meilleure_pct": 20.0,
+   "part_envois_pct": 20.0
+  },
+  "E": {
+   "label": "Question courte : « Do you already have a Podcast Hub to receive it? »",
+   "envoye": 42,
+   "rebond": 0,
+   "reponse": 0,
+   "classes": {},
+   "delivres": 42,
+   "taux_pct": 0.0,
+   "chance_meilleure_pct": 19.7,
    "part_envois_pct": 19.9
   }
  }
