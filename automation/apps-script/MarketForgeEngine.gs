@@ -462,11 +462,14 @@ function mfeStockGate_(rows, cfg, lectureSeule) {
   }).length;
   var props = PropertiesService.getScriptProperties(), now = new Date(), key = mfeSendDayKey_(now, cfg);
   if (!(cfg.STOCK_MIN > 0)) return { stock: stock, ouvert: true, ouverture: 0 };
-  if (props.getProperty('MFE_STOCK_LATCH') === key) return { stock: stock, ouvert: true, ouverture: parseInt(props.getProperty('MFE_OPEN_SLOT'), 10) || 0 };
+  // v29 (27/10/2026, rafale de 6 mails a 20h18) : le creneau d'ouverture n'est memorise QUE lorsque l'envoi automatique est reellement actif.
+  // Avant, un passage a vide (envoi coupe) memorisait un creneau trop ancien et le budget "rattrapait" d'un coup les creneaux ecoules.
+  // Nouvelles proprietes (MFE_STOCK_LATCH2 / MFE_OPEN_SLOT2) : l'ancienne memorisation erronee est ignoree.
+  if (props.getProperty('MFE_STOCK_LATCH2') === key) return { stock: stock, ouvert: true, ouverture: parseInt(props.getProperty('MFE_OPEN_SLOT2'), 10) || 0 };
   if (stock >= cfg.STOCK_MIN) {
     var slot = mfeSlotNow_(now, cfg);
-    if (lectureSeule) return { stock: stock, ouvert: true, ouverture: slot };
-    props.setProperty('MFE_STOCK_LATCH', key); props.setProperty('MFE_OPEN_SLOT', String(slot));
+    if (lectureSeule || !cfg.ENVOI_AUTO) return { stock: stock, ouvert: true, ouverture: slot };
+    props.setProperty('MFE_STOCK_LATCH2', key); props.setProperty('MFE_OPEN_SLOT2', String(slot));
     return { stock: stock, ouvert: true, ouverture: slot };
   }
   return { stock: stock, ouvert: false, ouverture: 0 };
@@ -1173,7 +1176,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), script_version: 28 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), script_version: 29 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }

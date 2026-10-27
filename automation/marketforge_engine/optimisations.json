@@ -2632,6 +2632,14 @@
       "texte": "Contrôleur du 27/10 (passage 19h05 Paris) : workflows OK, aucun échec. Stock prêt 25 sur 30 (attendu 30 à 14h), envoi toujours en attente (0 mail envoyé). Coût 24,8 vérifications par contact (1640 pour 66). Plus grosses pertes : 332 podcasts sans nom de dirigeant, 236 adresses devinées invalides, 201 animateurs seuls, 189 domaines attrape-tout. Plafond du jour (5000) non atteint, recherche continue. Plan B à valider par Etienne : podcasts sans email RSS (1577 écartés).",
       "date": "27/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-317",
+      "section": "Envoi et délivrabilité",
+      "version": "V2.8",
+      "texte": "Correction d'un défaut constaté à l'ouverture de l'envoi (6 mails partis d'un coup à 20h18 au lieu d'un étalement). Le script retenait un créneau d'ouverture trop ancien alors que l'envoi était encore coupé, puis rattrapait les créneaux écoulés. Désormais l'ouverture n'est mémorisée que lorsque l'envoi automatique est réellement actif : les mails repartent étalés jusqu'à 6h du matin. L'envoi automatique a été remis sur FALSE le temps de la correction.",
+      "date": "27/10/2026",
+      "statut": "en_cours"
     }
   ]
 }
