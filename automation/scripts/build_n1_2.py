@@ -196,10 +196,10 @@ def build(slug, max_questions=10):
           "description": punch, "url": podcast_url, "image": cover, "genre": cat,
           "author": {"@type": "Person", "name": host}}
     count = len(all_moments)
-    # Qualité minimale (CLAUDE.md) : une fiche N1 n'est indexable qu'avec au moins une vraie
-    # question portée par un expert identifié. Sinon : noindex, follow (et hors sitemap).
-    qualified = any(m["expert"] and m["q"] for m in all_moments)
-    robots = "" if qualified else '<meta name="robots" content="noindex, follow">'
+    # Decision 27/10/2026 : une fiche N1 est TOUJOURS creee en noindex, follow. Le SCORING MOMENT
+    # SYSTEM retire la balise (sync_hubs_sitemap) quand le premier moment du podcast est ouvert :
+    # N1 et moment sont indexes ensemble.
+    robots = '<meta name="robots" content="noindex, follow">'
 
     return f"""<!DOCTYPE html>
 <html lang="{esc(lang)}">

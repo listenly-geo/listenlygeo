@@ -12,6 +12,7 @@ Le proprietaire (Etienne) veut une clarte complete, chaque jour, sur ce qui a et
 - Les fiches de moments deja rattachees a une fiche N1 gardent ce rattachement.
 - Tout nouveau podcast qui apporte de nouvelles requetes recoit une fiche N1 au format Hub, creee des la decouverte (pas besoin de reponse du prospect).
 - Qualite minimale obligatoire (meme seuil que les moments, sinon noindex) et quota quotidien de creation.
+- PRECISION 27/10/2026 : toute fiche N1 est creee en NOINDEX (follow). Elle est indexee par le SCORING MOMENT SYSTEM en meme temps que sa premiere fiche moment (balise noindex retiree dans `sync_hubs_sitemap`, entree dans sitemap-hubs.xml). Jamais indexable des la creation.
 - Les titres SEO des pages de moments sont dans `pages/podcast-btb/data/titres_seo.json` (cle `slug/id`), appliques au `<title>` par `m.php`.
 
 ## Positionnement MarketForge : PODCAST HUB (decision d'Etienne, 01/10/2026) — PRIORITAIRE

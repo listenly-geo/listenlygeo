@@ -315,6 +315,21 @@ def sync_hubs_sitemap(today):
     except OSError:
         old = {}
     wanted = allowed_hub_urls()
+    # Decision 27/10/2026 : la N1 est creee en noindex ; elle devient indexable en meme temps que son
+    # premier moment ouvert (la balise robots noindex est retiree ici).
+    nb_ouvertes = 0
+    for path in wanted.values():
+        try:
+            html = open(path, encoding="utf-8").read()
+        except OSError:
+            continue
+        neuf = re.sub(r'[ \t]*<meta\s+name="robots"\s+content="noindex[^"]*"\s*/?>[ \t]*\n?', "", html, count=1)
+        if neuf != html:
+            with open(path, "w", encoding="utf-8") as fh:
+                fh.write(neuf)
+            nb_ouvertes += 1
+    if nb_ouvertes:
+        print(f"[hubs-sitemap] {nb_ouvertes} fiches N1 passees en index (premier moment ouvert)")
     entries = "\n".join(
         f"  <url>\n    <loc>{u}</loc>\n    <lastmod>{old.get(u, today)}</lastmod>\n    <priority>1.0</priority>\n  </url>"
         for u in sorted(wanted)
