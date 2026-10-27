@@ -320,6 +320,7 @@ def find_contact(slug, prospect, pods, ctx):
     stats = ctx["stats"]
     if not base:
         result["fiabilite"] = "Pas de site d'entreprise trouve"
+        stats["sans_site"] = stats.get("sans_site", 0) + 1   # 27/10/2026 : mesure des etapes du filtre
         return result, ""
     pages = fetch_site(base)   # peut etre vide : l'animateur (transcription, flux) suffit pour deduire une adresse
     dom = domain_of(base)

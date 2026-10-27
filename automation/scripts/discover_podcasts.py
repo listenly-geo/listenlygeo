@@ -727,6 +727,12 @@ def main():
     if GATE_ON:
         gate_state["used"] = int(gate_state.get("used", 0)) + (gate_run_cap - gate_ctx["verif_left"])
         gate_state["tries"] = int(gate_state.get("tries", 0)) + gate_tries
+        _et = gate_state.setdefault("etapes", {})   # 27/10/2026 : ou tombent les candidats du filtre dirigeant (cumul du jour)
+        for _k, _v in gate_ctx["stats"].items():
+            _et[_k] = _et.get(_k, 0) + _v
+        _rf = gate_state.setdefault("prefiltre", {})
+        for _k, _v in refus.items():
+            _rf[_k] = _rf.get(_k, 0) + _v
         gate_state["ok"] = int(gate_state.get("ok", 0)) + gate_ok
         _ce = getattr(contact_finder, "CLAUDE_ERRORS", {})
         if _ce:   # erreurs de l'API Claude (cle, credit, quota) : cause probable de « Aucun nom trouve » en masse

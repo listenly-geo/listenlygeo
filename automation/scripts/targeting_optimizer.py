@@ -47,7 +47,8 @@ OTHER = "Autre"
 
 PRIOR_REPLY_RATE = 0.02   # a priori : 2 % de reponses en prospection a froid
 PRIOR_STRENGTH = 30       # poids de l'a priori, en nombre d'envois
-FLOOR = 0.015             # part minimale de budget par secteur actif (exploration) ; 20 secteurs -> 30 % d exploration, 70 % guides par les resultats
+MIN_REPLIES_FOR_SCORE = 10   # 27/10/2026
+FLOOR = 0.010             # part minimale de budget par secteur actif (exploration) ; 20 secteurs -> 20 % d exploration, 80 % guides par les resultats (27/10/2026 : 0,015 -> 0,010)
 CAP = 0.30                # part maximale d'un seul secteur (diversification)
 MIN_SENT_FOR_TREND = 10
 
@@ -128,6 +129,8 @@ def main():
         # taux de dirigeants joignables, lisse vers la moyenne globale (poids 10 tests)
         reach = (b["dirigeant_trouves"] + g_rate * 10) / (b["dirigeant_testes"] + 10)
         reply = (b["reponse"] + global_rate * PRIOR_STRENGTH) / (b["envoye"] + PRIOR_STRENGTH)
+        if tot_rep < MIN_REPLIES_FOR_SCORE:
+            reply = 1.0   # 27/10/2026 : avec moins de 10 reponses au total, le taux de reponse n'est que du bruit (il penalisait les secteurs deja contactes) -> seul le taux de dirigeants joignables guide les poids
         bounce = (b["rebond"] + 0.5) / (b["envoye"] + 5)
         b["taux_reponse"] = round(100.0 * b["reponse"] / b["envoye"], 1) if b["envoye"] else None
         b["score"] = reach * reply * (1 - bounce)
