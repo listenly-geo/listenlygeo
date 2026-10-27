@@ -33,14 +33,28 @@ def main():
         stock = sum(1 for p in st.get("prospects", []) if p.get("statut") == "Pret" and "/podcast-btb/" in str(p.get("fiche_url", "")))
         if stock < seuil:
             print(f"envoi secours : reservoir {stock}/{seuil} -> aucun envoi"); return
-    if not (h0 <= now.hour < h1):
+    # 27/10/2026 (rafales de 6 mails a 20h18 et 20h48) : meme calendrier que le script Apps Script. Le jour d'envoi commence a h0 ;
+    # le calendrier part du creneau d'OUVERTURE du reservoir et, si l'ouverture est tardive (apres MFE_NUIT_SI_OUVERT_APRES h),
+    # court jusqu'a MFE_NUIT_JUSQU_A h du matin. Un seul mail par passage au maximum : jamais de rattrapage en rafale.
+    try:
+        nuit = int(reg.get("MFE_NUIT_JUSQU_A") if str(reg.get("MFE_NUIT_JUSQU_A", "")).strip() != "" else 6)
+        apres = int(reg.get("MFE_NUIT_SI_OUVERT_APRES") or 18)
+    except Exception:
+        nuit, apres = 6, 18
+    slot_now = ((now.hour - h0 + 24) % 24) * 4 + now.minute // 15
+    normal = (h1 - h0) * 4
+    night = (24 - h0 + nuit) * 4 if nuit > 0 else normal
+    ouverture = int(g.get("ouverture") or 0) if isinstance(g, dict) else 0
+    tard = nuit > 0 and ouverture >= (apres - h0) * 4
+    fin = night if tard else normal
+    if slot_now >= fin:
         print(f"envoi secours : hors plage ({now.hour}h)"); return
     cap = int(st.get("cap_jour_effectif") or reg.get("MFE_MAX_ENVOIS_JOUR") or 30)
     sent = int(st.get("envoyes_aujourdhui") or 0)
-    slots = (h1 - h0) * 4
-    slot = (now.hour - h0) * 4 + now.minute // 15 + 1
+    slots = max(1, fin - ouverture)
+    slot = max(1, slot_now - ouverture + 1)
     allowed = math.ceil(cap * slot / slots)
-    a_envoyer = min(6, allowed - sent, cap - sent)   # 6 par passage au maximum (rattrapage progressif)
+    a_envoyer = min(1, allowed - sent, cap - sent)   # 1 par passage au maximum : pas de rafale de rattrapage
     print(f"envoi secours : {sent} envoyes, {allowed} attendus a ce creneau, plafond {cap} -> {max(a_envoyer, 0)} a envoyer")
     while a_envoyer > 0:
         n = min(3, a_envoyer)

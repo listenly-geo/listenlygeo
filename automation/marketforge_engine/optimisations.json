@@ -2640,6 +2640,14 @@
       "texte": "Correction d'un défaut constaté à l'ouverture de l'envoi (6 mails partis d'un coup à 20h18 au lieu d'un étalement). Le script retenait un créneau d'ouverture trop ancien alors que l'envoi était encore coupé, puis rattrapait les créneaux écoulés. Désormais l'ouverture n'est mémorisée que lorsque l'envoi automatique est réellement actif : les mails repartent étalés jusqu'à 6h du matin. L'envoi automatique a été remis sur FALSE le temps de la correction.",
       "date": "27/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-318",
+      "section": "Envoi et délivrabilité",
+      "version": "V2.8",
+      "texte": "Deuxième rafale de 6 mails à 20h48 : l'envoi de secours (GitHub) suivait l'ancien calendrier 14h-24h et rattrapait d'un coup les créneaux écoulés. Il suit maintenant le même calendrier que le script d'envoi (départ au créneau d'ouverture du stock, étalement jusqu'à 6h du matin si l'ouverture est tardive) et n'envoie qu'un mail par passage au maximum. Envoi automatique remis sur FALSE le temps de la correction. 12 mails envoyés à ce stade.",
+      "date": "27/10/2026",
+      "statut": "en_cours"
     }
   ]
 }
