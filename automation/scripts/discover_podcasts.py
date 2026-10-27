@@ -458,6 +458,8 @@ def failed_domains_from(seen):
     for rec in seen.values():
         if rec.get("gate") != "dirigeant" or not rec.get("email_domain"):
             continue
+        if rec["email_domain"] in FREE_MAIL:   # 27/10/2026 : Gmail etc. n'identifie pas une entreprise : jamais de blocage par domaine
+            continue
         try:
             age = (today - __import__("datetime").date.fromisoformat(rec.get("checked_date", ""))).days
         except ValueError:
