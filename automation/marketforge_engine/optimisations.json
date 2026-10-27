@@ -2480,6 +2480,14 @@
       "texte": "Bug corrige : a 07h46 l'historique des podcasts deja testes (5073 entrees) avait ete remis a zero par un autre workflow, ce qui faisait retester des podcasts deja refuses et gaspiller des verifications payantes. Historique restaure, et le moteur fait maintenant l'union avec le fichier existant avant d'ecrire pour que cela ne puisse plus se reproduire.",
       "date": "27/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-299",
+      "section": "Ciblage",
+      "version": "V2.8",
+      "texte": "Premiere mesure des abandons du filtre dirigeant : sur un passage de 34 podcasts, 13 sans nom de dirigeant, 10 avec l'animateur seul, 8 domaines impossibles a verifier, 8 adresses devinees invalides, et 8 adresses valides qui n'ont donne aucun prospect (titre non dirigeant ou doublon). Ajout d'un compteur des titres refuses pour savoir lesquels font perdre des adresses valides.",
+      "date": "27/10/2026",
+      "statut": "en_cours"
     }
   ]
 }
