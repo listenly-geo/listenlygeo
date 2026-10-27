@@ -50,6 +50,7 @@ var MFE_DEFAULTS = [
   ['MFE_EPISODES_PAR_PODCAST', '3', 'MarketForge Engine — profondeur d\'extraction par podcast.'],
   ['MFE_MINUTES_AUDIO_MAX_JOUR', '600', 'MarketForge Engine — garde-fou minutes audio par jour.'],
   ['MFE_ENVOI_AUTO', 'TRUE', 'MarketForge Engine — TRUE = envoie les mails automatiquement. FALSE = prepare seulement (statut "Pret").'],
+  ['MFE_MAIL2_AUTO', 'FALSE', 'MarketForge Engine — Mail 2 (apres reponse du prospect) : TRUE = envoie automatiquement le mail CTA apres 20 min. FALSE = validation manuelle seulement (tu envoies toi-meme).'],
   ['MFE_MAX_ENVOIS_JOUR', '1500', 'MarketForge Engine — plafond absolu de premiers mails par jour (limite Google Workspace : 1500).'],
   ['MFE_MONTEE_PROGRESSIVE', 'TRUE', 'MarketForge Engine — QUALITE = paliers 30, 40, 50, 70, 100 par jour, un palier de plus seulement si rebonds 7j <= 2 % et envois reellement faits (baisse si > 3 %). TRUE = 44/j la 1re semaine (1 mail / 15 min), 80, 150, 300, 500, 1000 puis plafond (protege la delivrabilite).'],
   ['MFE_HEURES_ENVOI', '8-19', 'MarketForge Engine — plage horaire d\'envoi (heure du script), mails repartis sur la plage.'],
@@ -1504,6 +1505,9 @@ function mfeCmd_(body) {
       if (!target) return mfeJson_({ ok: false, error: 'aucune ligne « Lien recu » pour ce podcast' });
       if (String(target.values[MFE_VALIDATION_COL - 1] || '').trim().toUpperCase() !== 'VALIDE') return mfeJson_({ ok: false, error: 'pas encore VALIDE en colonne S' });
       if (Date.now() - new Date(target.values[9]).getTime() < 20 * 60000) return mfeJson_({ ok: false, error: 'moins de 20 minutes depuis la reponse' });
+      // BLOQUE : MFE_MAIL2_AUTO = FALSE = envoi manuel seulement
+      var cfg = mfeReadSettings_();
+      if (String(cfg.MFE_MAIL2_AUTO).toUpperCase() !== 'TRUE') return mfeJson_({ ok: false, error: 'Envoi manuel du mail 2 seulement (MFE_MAIL2_AUTO = FALSE). Le prospect attend ta reponse.' });
       var vv = mfeMail2Vars_(target.values);
       var html = mfeFill_(MFE_CTA_MAIL, vv);
       GmailApp.getThreadById(target.values[10]).reply(mfeWithSignature_(html), mfeSendOpts_(html));
