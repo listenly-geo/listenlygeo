@@ -2512,6 +2512,14 @@
       "texte": "Règle du réservoir : aucun mail ne part tant que 30 prospects vérifiés ne sont pas prêts à envoyer. Dès que les 30 sont atteints, l'envoi du jour démarre et continue progressivement jusqu'à minuit (réglage MFE_STOCK_MIN, appliqué aussi à l'envoi de secours).",
       "date": "27/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-303",
+      "section": "Extraction",
+      "version": "V2.8",
+      "texte": "Correction d'un bug d'extraction : certaines transcriptions publiées par les podcasts (format liste) faisaient échouer l'extraction des questions, ce qui bloquait le prospect PLATO. Les transcriptions de ce format sont maintenant lues.",
+      "date": "27/10/2026",
+      "statut": "en_cours"
     }
   ]
 }

@@ -276,11 +276,14 @@ def _parse_vtt_srt(text):
 def _parse_json_transcript(raw):
     """Format Podcasting 2.0 : {"segments": [{"startTime", "endTime", "body"}]}."""
     data = json.loads(raw)
+    items = data if isinstance(data, list) else (data.get("segments") or data.get("results") or [] if isinstance(data, dict) else [])
     segs = []
-    for s in data.get("segments", []):
-        t = (s.get("body") or "").strip()
+    for s in items:
+        if not isinstance(s, dict):
+            continue
+        t = (s.get("body") or s.get("text") or "").strip()
         if t:
-            segs.append({"start": float(s.get("startTime", 0)), "end": float(s.get("endTime", 0)), "text": t})
+            segs.append({"start": float(s.get("startTime", s.get("start", 0)) or 0), "end": float(s.get("endTime", s.get("end", 0)) or 0), "text": t})
     return segs
 
 
