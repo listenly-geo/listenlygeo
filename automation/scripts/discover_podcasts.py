@@ -178,14 +178,19 @@ produits par une societe (editeur de logiciel, cabinet, industriel, societe de s
 marketing, avec un hote salarie de l'entreprise (fondateur, dirigeant, marketing), des episodes reguliers
 et une audience petite ou moyenne. Ces entreprises ont un budget et un objectif de visibilite.
 
-ONBOARD uniquement si TOUTES ces conditions sont reunies (acceptance_path = "ENTREPRISE") :
-  1) Le podcast est produit/publie par une entreprise B2B (pas un media, pas un createur ou coach independant,
-     pas une emission de radio/presse, pas un reseau de podcasts)
-  2) L'hote ou l'editeur est rattache a cette entreprise
+DECISION 27/10/2026 (Etienne, objectif 30 prospects par jour) : on accepte AUSSI les createurs, coachs, consultants
+et experts INDEPENDANTS (acceptance_path = "CREATEUR") des qu'une personne identifiable anime un podcast
+business/B2B actif : ils recoivent le meme traitement que les entreprises.
+
+ONBOARD si TOUTES ces conditions sont reunies (acceptance_path = "ENTREPRISE" ou "CREATEUR") :
+  1) Le podcast est produit/publie par une entreprise B2B, OU par un createur / coach / consultant / expert
+     independant identifiable (pas un media, pas une emission de radio/presse, pas un reseau de podcasts)
+  2) Il existe une personne identifiable rattachee au podcast (hote, fondateur, editeur)
   3) Le sujet est business/B2B (pas true crime, politique, divertissement, parentalite, histoire narree)
   4) Audience petite ou moyenne : REJECT si podcast celebre, grand public, classe dans les tops ou adosse a
      un gros media (ex. Freakonomics, Masters of Scale, a16z, Business Wars, Founders)
-En cas de doute sur la nature "entreprise" du podcast, REJECT.
+En cas de doute sur le sujet business ou sur la notoriete (media / celebrite), REJECT. Un createur independant
+n'est PLUS un motif de rejet.
 
 TA MISSION : a partir des metadonnees iTunes ci-dessous, et en utilisant la recherche web pour verifier
 qui produit reellement le podcast et son niveau de notoriete, determine si c'est un podcast d'entreprise B2B
@@ -205,7 +210,7 @@ Reponds STRICTEMENT avec un objet JSON valide, rien d'autre :
 {{
   "mass_media_or_celebrity": true/false,
   "existing_coverage_level": "faible/moyen/eleve",
-  "acceptance_path": "ENTREPRISE" ou "aucun",
+  "acceptance_path": "ENTREPRISE" ou "CREATEUR" ou "aucun",
   "detected_language": "fr" ou "en" ou "other",
   "verdict": "ONBOARD" ou "REJECT",
   "reason": "1-2 phrases en francais expliquant le verdict, en precisant l'entreprise editrice si ONBOARD"
