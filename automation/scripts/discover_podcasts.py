@@ -819,6 +819,12 @@ def main():
 
     push_cohorte(onboard_list)  # MAJ 19/10/2026 : suivi Cohortes
     os.makedirs(os.path.dirname(SEEN_HISTORY_FILE), exist_ok=True)
+    # 27/10/2026 : ne jamais ecraser l'historique avec une version plus petite (un autre workflow l'avait remis a zero a 07h46,
+    # ce qui faisait retester des milliers de podcasts deja refuses). On relit le fichier sur disque et on fait l'UNION.
+    _on_disk = load_json(SEEN_HISTORY_FILE, {})
+    if isinstance(_on_disk, dict) and _on_disk:
+        _on_disk.update(seen_candidates)
+        seen_candidates = _on_disk
     with open(SEEN_HISTORY_FILE, "w", encoding="utf-8") as f:
         json.dump(seen_candidates, f, ensure_ascii=False, indent=2)
 
