@@ -95,7 +95,7 @@ def resolve_entry(slug, question, episode_title, lk=None):
 _Q_START = re.compile(r"^(how|what|why|when|which|should|can|does|do|is|are|where)\b", re.I)
 
 
-_OFFTOPIC = re.compile(r"\b(nhl|nba|nfl|mlb|stanley cup|playoffs?|hockey|football|soccer|basketball|baseball|coyotes|overtime|habs|lightning|game \\d|goalie|quarterback|touchdown|movie|film|celebrity|recipe|weather|malaria|vaccine|dating|zodiac)\b", re.I)
+_OFFTOPIC = re.compile(r"\b(nhl|nba|nfl|mlb|stanley cup|playoffs?|hockey|football|soccer|basketball|baseball|coyotes|overtime|habs|lightning|game \\d|goalie|quarterback|touchdown|movie|film|celebrity|recipe|weather|malaria|vaccine|dating|zodiac|tickets?|venue|registration|discount code|eating disorders?|anorexia|bulimia|suicide|self-harm)\b", re.I)
 _BUSINESS = re.compile(r"\b(business|company|companies|leader|leaders|leadership|customers?|clients?|revenue|growth|strategy|strategic|market|sales|marketing|valuation|hiring|operations?|investment|investors?|ai|data|technology|infrastructure|cost|profit|brand|management|decisions?|teams?|executives?|founders?|startups?|compliance|risk|supply chain|pricing)\b", re.I)
 
 
@@ -124,7 +124,7 @@ def best_proof(slug, thematique=""):
         else:
             themed = 0
         if biz + themed == 0:
-            continue                                                   # ni B2B ni thematique : pas une bonne preuve
+            score -= 3                                                 # 27/10 : ni mot B2B ni thematique (thematique en francais, questions en anglais) -> penalise au lieu d'ecarter
         if _Q_START.match(q):
             score += 3
         score -= abs(n - 90) / 30.0                                   # ideal : ~90 caracteres
@@ -133,7 +133,7 @@ def best_proof(slug, thematique=""):
             score -= 2
         if score > best_score:
             best, best_score = (q, moment_id(slug, q)), score
-    return best
+    return best if best_score >= 6 else None                           # 27/10 : seuil de qualite minimal (remplace l'exclusion totale)
 
 
 # ---------------------------------------------------------------------------------------------

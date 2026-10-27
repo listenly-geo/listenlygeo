@@ -2432,6 +2432,14 @@
       "texte": "Contrôleur du 27/10 (passage 10h35 UTC) : workflows de prospection OK, aucun échec, MFE_PAUSE = FALSE, envoi auto TRUE, plafond 100/jour. Stock prêt 11 sur 40 (écart 29). Plafonds découverte, onboarding et extraction déjà au maximum (60). Découverte relancée à la main. Gmail : aucun blocage, quota ni rebond sur 48 h, cadence inchangée. Goulot : découverte de dirigeants vérifiés, décision à prendre par Etienne.",
       "date": "27/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-293",
+      "section": "Ciblage",
+      "version": "V2.8",
+      "texte": "Correction du blocage des envois : 11 prospects verifies etaient prets mais aucun mail ne partait, car le filtre de la question d'exemple les ecartait tous (theme en francais, questions en anglais). Le filtre penalise maintenant au lieu d'exclure, ecarte les sujets de billetterie et de sante sensible, et garde un seuil minimal.",
+      "date": "27/10/2026",
+      "statut": "en_cours"
     }
   ]
 }
