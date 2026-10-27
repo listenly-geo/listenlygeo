@@ -447,6 +447,26 @@ def push_cohorte(records):
         log(f"Cohortes non ecrites ({e}) : la decouverte continue.")
 
 
+MIN_EPISODES = int(os.environ.get("DISCOVERY_MIN_EPISODES", "10") or 10)   # 27/10/2026 (avant : 3)
+DOMAIN_FAIL_DAYS = 30   # 27/10/2026 : un domaine deja sans dirigeant joignable n'est pas retente avant 30 jours
+
+
+def failed_domains_from(seen):
+    """Domaines d'email du flux deja passes au filtre dirigeant SANS resultat, il y a moins de DOMAIN_FAIL_DAYS jours."""
+    out = set()
+    today = __import__("datetime").date.today()
+    for rec in seen.values():
+        if rec.get("gate") != "dirigeant" or not rec.get("email_domain"):
+            continue
+        try:
+            age = (today - __import__("datetime").date.fromisoformat(rec.get("checked_date", ""))).days
+        except ValueError:
+            continue
+        if age < DOMAIN_FAIL_DAYS:
+            out.add(rec["email_domain"])
+    return out
+
+
 def free_reject(cand, email):
     """Raison du refus ('' = garde). Gratuit : ne lit que les donnees iTunes deja recues et l'email du flux."""
     genre = (cand.get("primaryGenreName") or "").replace("MZGenre.Podcasts.", "").strip()
@@ -528,8 +548,8 @@ def main():
         if feed_url in seen_candidates:
             continue
         track_count = r.get("trackCount", 0)
-        if track_count < 3:
-            continue  # trop peu d'episodes, probablement inactif/test
+        if track_count < MIN_EPISODES:
+            continue  # 27/10/2026 : trop peu d'episodes (< 10 par defaut, avant 3) = podcast de loisir ou inactif, filtre dirigeant inutile
         by_keyword.setdefault(kw, []).append(r)
         total_new += 1
 
@@ -609,6 +629,7 @@ def main():
     _lu = load_json(LEADERS_FILE, {})
     leaders_used = set(_lu.get("hashes", [])) if isinstance(_lu, dict) else set()
     leaders_new = set()
+    failed_domains = failed_domains_from(seen_candidates)
     gate_found = {}   # feed -> dirigeant confirme par le filtre (transmis au Sheet : une seule recherche dans tout le funnel)
     while len(to_qualify) < MAX_QUALIFY and live and prechecked < MAX_PRECHECK and not gate_stop:
         batch = []
@@ -628,6 +649,8 @@ def main():
             prechecked += 1
             if not why:
                 why = rwhy or free_reject(cand, email)  # MAJ 19/10/2026 : filtre de recence
+                if not why and email and email.rsplit("@", 1)[-1].lower() in failed_domains:
+                    why = "domaine deja sans dirigeant joignable (retente apres %d jours)" % DOMAIN_FAIL_DAYS   # 27/10/2026
             feed = cand.get("feedUrl", "")
             if why:
                 key = re.sub(r"\s*\(.*", "", why)
@@ -667,7 +690,10 @@ def main():
                         "reason": "Filtre dirigeant : " + re.sub(r"\s*\(\d{2}/\d{2}/\d{4}\)|\s*le \d{4}-\d{2}-\d{2}", "", g_why)[:120],
                         "detected_language": "", "checked_date": __import__("datetime").date.today().isoformat(),
                         "secteur": kw_sector.get(kw_of_feed.get(feed, ""), ""), "gate": "dirigeant",
+                        "email_domain": (email or "").rsplit("@", 1)[-1].lower() if email else "",
                     }
+                    if email:
+                        failed_domains.add(email.rsplit("@", 1)[-1].lower())
                     continue
                 _lr = gate_ctx.get("last_res") or {}
                 _h = hashlib.sha256((_lr.get("email") or "").strip().lower().encode()).hexdigest() if _lr.get("email") else ""
