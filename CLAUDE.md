@@ -37,3 +37,4 @@ Seul cas ou redemander quelque chose : le journal affiche `RefreshError` / `inva
 ## Regle du reservoir (decision du 27/10/2026) : RIEN NE PART TANT QUE LE STOCK N'EST PAS A 30
 - Chaque jour, les prospects se stockent de 6h a 14h ; l'envoi ne demarre que si au moins 30 prospects "Pret" (question reelle + fiche N1) sont disponibles (reglage `MFE_STOCK_MIN`, 30 par defaut). Une fois atteint, l'envoi reste ouvert jusqu'a minuit, de facon progressive.
 - Applique dans `mfeSend_` (Apps Script, `mfeStockGate_`) et dans `envoi_secours.py`. Ne jamais remettre `MFE_ENVOI_AUTO` a TRUE pour contourner cette regle.
+- Envoi de nuit (27/10/2026) : le « jour d'envoi » va de 14h a 14h le lendemain. Si le stock de 30 n'est atteint qu'apres 18h, les 30 mails sont etales jusqu'a 6h du matin (MFE_NUIT_JUSQU_A, MFE_NUIT_SI_OUVERT_APRES), sans rafale de rattrapage.

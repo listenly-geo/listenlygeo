@@ -58,6 +58,8 @@ var MFE_DEFAULTS = [
   ['MFE_AB_ACTIF', 'TRUE', 'MarketForge Engine — TRUE = test A/B du CTA (chaque mail recoit une variante, la repartition suit les resultats). FALSE = toujours la variante A.'],
   ['MFE_ENVOI_DIRIGEANT', 'FALSE', 'Qui contacter (v24) — TRUE = quand une adresse de dirigeant VERIFIEE existe (colonnes S-X), le 1er mail part a ce dirigeant (seul destinataire) pour une part des prospects (voir MFE_DIRIGEANT_PART), l\'autre part sert de temoin. FALSE = comportement habituel (adresse du flux RSS).'],
   ['MFE_DIRIGEANT_PART', '50', 'Qui contacter (v24) — pourcentage des prospects (avec adresse de dirigeant verifiee) qui recoivent le mail au dirigeant ; le reste = temoin (adresse du flux) pour comparer les reponses.'],
+  ['MFE_NUIT_JUSQU_A', '6', 'Envoi de nuit (27/10/2026) — si le stock de 30 prospects prets n\'est atteint que tard (apres MFE_NUIT_SI_OUVERT_APRES h), les mails restants sont etales jusqu\'a cette heure du matin (heure de Paris). 0 = pas d\'envoi de nuit. Le jour d\'envoi commence a l\'heure de debut de MFE_HEURES_ENVOI.'],
+  ['MFE_NUIT_SI_OUVERT_APRES', '18', 'Envoi de nuit — heure (Paris) apres laquelle une ouverture tardive de l\'envoi prolonge la plage jusqu\'a MFE_NUIT_JUSQU_A.'],
   ['MFE_STOCK_MIN', '30', 'Reservoir (regle du 27/10/2026) — AUCUN mail ne part tant que le stock de prospects prets a envoyer (statut Pret, question reelle, fiche N1) n\'atteint pas ce nombre. Une fois l\'envoi du jour commence, il continue jusqu\'a minuit. 0 = regle desactivee.'],
   ['MFE_DIRIGEANT_SEUL', 'TRUE', 'Qui contacter (v25) — TRUE = AUCUN mail ne part a l\'adresse du flux : sans dirigeant verifie (colonnes S-X) le prospect passe en "En pause (pas de dirigeant)". Un meme dirigeant ne recoit qu\'un seul 1er mail (les autres podcasts passent en "En pause (doublon dirigeant)"). FALSE = ancien comportement.'],
   ['MFE_VERIF_DIRIGEANT_MAX_JOUR', '40', 'Qui contacter (v24) — plafond de verifications MyEmailVerifier PAR JOUR pour la recherche d\'adresses de dirigeants (le quota gratuit est partage avec la verification avant envoi).'],
@@ -447,34 +449,54 @@ function mfeLeaderPick_(sh, r, cfg) {
   return { to: email, nom: nom, poste: poste };
 }
 
-// Regle du reservoir : stock = prospects "Pret" avec question reelle et fiche N1. Porte verrouillee ouverte pour la journee des que le stock atteint le seuil.
-function mfeStockGate_(rows, cfg) {
+// "Jour d'envoi" (27/10/2026) : commence a H_START (14h) et finit a H_START le lendemain, pour que les envois de nuit comptent dans la meme journee.
+function mfeSendDayKey_(d, cfg) { return new Date(d.getTime() - cfg.H_START * 3600000).toDateString(); }
+// Creneau de 15 min depuis le debut du jour d'envoi (0 a 95)
+function mfeSlotNow_(d, cfg) { return (((d.getHours() - cfg.H_START + 24) % 24) * 4) + Math.floor(d.getMinutes() / 15); }
+
+// Regle du reservoir : stock = prospects "Pret" avec question reelle et fiche N1. Porte verrouillee ouverte pour le jour d'envoi des que le stock atteint le seuil ;
+// on garde le creneau d'ouverture pour etaler les envois a partir de ce moment.
+function mfeStockGate_(rows, cfg, lectureSeule) {
   var stock = rows.filter(function (r) {
     return r.values[6] === 'Pret' && r.values[16] && String(r.values[3] || '').indexOf('/podcast-btb/') >= 0;
   }).length;
-  if (!(cfg.STOCK_MIN > 0)) return { stock: stock, ouvert: true };
-  var props = PropertiesService.getScriptProperties(), today = new Date().toDateString();
-  if (props.getProperty('MFE_STOCK_LATCH') === today) return { stock: stock, ouvert: true };
-  if (stock >= cfg.STOCK_MIN) { props.setProperty('MFE_STOCK_LATCH', today); return { stock: stock, ouvert: true }; }
-  return { stock: stock, ouvert: false };
+  var props = PropertiesService.getScriptProperties(), now = new Date(), key = mfeSendDayKey_(now, cfg);
+  if (!(cfg.STOCK_MIN > 0)) return { stock: stock, ouvert: true, ouverture: 0 };
+  if (props.getProperty('MFE_STOCK_LATCH') === key) return { stock: stock, ouvert: true, ouverture: parseInt(props.getProperty('MFE_OPEN_SLOT'), 10) || 0 };
+  if (stock >= cfg.STOCK_MIN) {
+    var slot = mfeSlotNow_(now, cfg);
+    if (lectureSeule) return { stock: stock, ouvert: true, ouverture: slot };
+    props.setProperty('MFE_STOCK_LATCH', key); props.setProperty('MFE_OPEN_SLOT', String(slot));
+    return { stock: stock, ouvert: true, ouverture: slot };
+  }
+  return { stock: stock, ouvert: false, ouverture: 0 };
 }
 
 function mfeSend_(sh, cfg, force, onlySlug) {   // onlySlug (optionnel) : n'envoie qu'a ce podcast
   mfeEnsureSettings_();   // v23 : met a jour les textes des mails dans Reglages avant chaque envoi (sinon l'ancien texte reste)
   var now = new Date(), h = now.getHours(), min = now.getMinutes();
-  if (!force && (h < cfg.H_START || h >= cfg.H_END)) return 0;   // hors plage horaire
+  // Plage : H_START a H_END (14h-24h) ; si l'envoi n'a pu s'ouvrir que tard (stock a 30 apres NUIT_SI_OUVERT_APRES h), il continue la nuit
+  // jusqu'a NUIT_JUSQU_A h (6h) en etalant les mails restants.
+  var slotNow = mfeSlotNow_(now, cfg);
+  var normalSlots = (cfg.H_END - cfg.H_START) * 4;
+  var nightSlots = cfg.NUIT_JUSQU_A > 0 ? (24 - cfg.H_START + cfg.NUIT_JUSQU_A) * 4 : normalSlots;
+  if (!force && slotNow >= Math.max(normalSlots, nightSlots)) return 0;   // hors plage horaire
   var daily = mfeDailyCap_(cfg);
-  var today = now.toDateString();
+  var today = mfeSendDayKey_(now, cfg);
   var rows = mfeRows_(sh);
   var sentToday = rows.filter(function (r) {
-    return r.values[7] && new Date(r.values[7]).toDateString() === today;
+    return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
   }).length;
-  // Regle du reservoir (27/10/2026) : l'envoi du jour ne demarre que si le stock de prets atteint MFE_STOCK_MIN ; une fois ouvert, il reste ouvert jusqu'a minuit.
-  if (!onlySlug && force !== true && !mfeStockGate_(rows, cfg).ouvert) return 0;   // seuls un test cible (slug) ou force=true passent
-  // Repartition sur la plage : a l'heure h, on ne depasse pas la part proportionnelle du jour
-  // (creneaux de 15 min : a 44/j, exactement 1 mail par quart d'heure)
-  var slots = (cfg.H_END - cfg.H_START) * 4;
-  var slot = (h - cfg.H_START) * 4 + Math.floor(min / 15) + 1;
+  // Regle du reservoir (27/10/2026) : l'envoi du jour ne demarre que si le stock de prets atteint MFE_STOCK_MIN ; une fois ouvert, il reste ouvert pour tout le jour d'envoi.
+  var gate = mfeStockGate_(rows, cfg);
+  if (!onlySlug && force !== true && !gate.ouvert) return 0;   // seuls un test cible (slug) ou force=true passent
+  var openSlot = gate.ouverture || 0;
+  var openedLate = cfg.NUIT_JUSQU_A > 0 && openSlot >= (cfg.NUIT_SI_OUVERT_APRES - cfg.H_START) * 4;
+  var endSlots = openedLate ? nightSlots : normalSlots;
+  if (!force && slotNow >= endSlots) return 0;
+  // Repartition entre l'ouverture et la fin de plage : mails uniformement etales (creneaux de 15 min), sans rafale de rattrapage.
+  var slots = Math.max(1, endSlots - openSlot);
+  var slot = Math.max(1, slotNow - openSlot + 1);
   var allowedSoFar = Math.ceil(daily * slot / slots);
   var budget = Math.max(0, Math.min(daily, allowedSoFar) - sentToday);
   if (force) budget = force === true ? Math.max(0, daily - sentToday) : Math.min(force, Math.max(0, daily - sentToday));
@@ -1110,6 +1132,8 @@ function mfeSettings_() {
     MONTEE_MODE: String(cfg.MFE_MONTEE_PROGRESSIVE || '').toUpperCase(),   // QUALITE = paliers selon les signaux de qualite
     H_START: parseInt(String(cfg.MFE_HEURES_ENVOI || '8-19').split('-')[0], 10) || 8,
     H_END: parseInt(String(cfg.MFE_HEURES_ENVOI || '8-19').split('-')[1], 10) || 19,
+    NUIT_JUSQU_A: isNaN(parseInt(cfg.MFE_NUIT_JUSQU_A, 10)) ? 6 : Math.max(0, Math.min(10, parseInt(cfg.MFE_NUIT_JUSQU_A, 10))),
+    NUIT_SI_OUVERT_APRES: parseInt(cfg.MFE_NUIT_SI_OUVERT_APRES, 10) || 18,
     STOCK_MIN: isNaN(parseInt(cfg.MFE_STOCK_MIN, 10)) ? 30 : parseInt(cfg.MFE_STOCK_MIN, 10),
     RELANCE_JOURS: parseInt(cfg.MFE_RELANCE_JOURS, 10) || 0,
     EMAIL_TEST: String(cfg.MFE_EMAIL_TEST || '').trim(),
@@ -1144,12 +1168,12 @@ function doGet(e) {
     // Expose le plafond du jour (montee progressive) et le nombre deja envoye aujourd'hui,
     // pour que le tableau de bord puisse estimer l'heure d'envoi des prospects "Pret".
     var cfg = mfeSettings_();
-    var today = new Date().toDateString();
+    var today = mfeSendDayKey_(new Date(), cfg);
     var sentToday = mfeRows_(sh).filter(function (r) {
-      return r.values[7] && new Date(r.values[7]).toDateString() === today;
+      return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg), script_version: 28 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), script_version: 28 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
