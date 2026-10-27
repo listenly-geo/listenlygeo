@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Envoi de secours (12/10/2026) : si le declencheur d'envoi de 15 min d'Apps Script ne tourne pas, GitHub fait partir les mails au meme rythme.
-Memes regles que le script : plage horaire du Sheet, plafond du jour, repartition par creneaux de 15 min, interrupteur MFE_ENVOI_AUTO.
+Memes regles que le script : plage horaire du Sheet, plafond du jour, repartition par creneaux de 15 min, interrupteur MFE_ENVOI_AUTO, reservoir MFE_STOCK_MIN (27/10/2026 : rien ne part tant que 30 prospects ne sont pas prets).
 Aucun doublon possible : le plafond et le compteur du jour sont ceux du Sheet (le script d'envoi refuse de depasser)."""
 import sys, os, math, datetime, json
 from zoneinfo import ZoneInfo
@@ -24,6 +24,15 @@ def main():
         h0, h1 = [int(x) for x in str(reg.get("MFE_HEURES_ENVOI", "14-23")).split("-")]
     except Exception:
         h0, h1 = 14, 23
+    g = st.get("stock_pret")
+    seuil = int(reg.get("MFE_STOCK_MIN") or 30)
+    if isinstance(g, dict):
+        if seuil > 0 and not g.get("ouvert"):
+            print(f"envoi secours : reservoir {g.get('stock')}/{seuil} -> aucun envoi tant que le stock n'est pas pret"); return
+    elif seuil > 0:   # script pas encore a jour : on compte nous-memes (Pret + fiche N1)
+        stock = sum(1 for p in st.get("prospects", []) if p.get("statut") == "Pret" and "/podcast-btb/" in str(p.get("fiche_url", "")))
+        if stock < seuil:
+            print(f"envoi secours : reservoir {stock}/{seuil} -> aucun envoi"); return
     if not (h0 <= now.hour < h1):
         print(f"envoi secours : hors plage ({now.hour}h)"); return
     cap = int(st.get("cap_jour_effectif") or reg.get("MFE_MAX_ENVOIS_JOUR") or 30)

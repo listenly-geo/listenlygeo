@@ -33,3 +33,7 @@ QUESTION UNIQUE : une entreprise B2B paie-t-elle pour que son podcast existant d
 La connexion clasp d'Etienne est enregistree (secret GitHub CLASPRC_JSON, compte etienne.cugnet@marketforge.fr) : ne JAMAIS lui redemander de coller le code ni de redeployer.
 Pour publier une nouvelle version du script : mettre automation/apps-script/MarketForgeEngine.gs a jour, ecrire `deploy` en 1re ligne de automation/apps-script/deploy-script-now.txt (`publish` = republier sans changer le code, `dry` = lecture seule), commit + push : le workflow « Apps Script — lecture / deploiement » remplace le code, cree une version et la branche sur l'URL du pont.
 Seul cas ou redemander quelque chose : le journal affiche `RefreshError` / `invalid_grant` (jeton revoque) -> refaire `npx.cmd @google/clasp login` et recoller `.clasprc.json` dans CLASPRC_JSON.
+
+## Regle du reservoir (decision du 27/10/2026) : RIEN NE PART TANT QUE LE STOCK N'EST PAS A 30
+- Chaque jour, les prospects se stockent de 6h a 14h ; l'envoi ne demarre que si au moins 30 prospects "Pret" (question reelle + fiche N1) sont disponibles (reglage `MFE_STOCK_MIN`, 30 par defaut). Une fois atteint, l'envoi reste ouvert jusqu'a minuit, de facon progressive.
+- Applique dans `mfeSend_` (Apps Script, `mfeStockGate_`) et dans `envoi_secours.py`. Ne jamais remettre `MFE_ENVOI_AUTO` a TRUE pour contourner cette regle.
