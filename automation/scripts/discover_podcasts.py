@@ -621,7 +621,7 @@ def main():
     if GATE_ON and gate_run_cap <= 0:
         log("Filtre dirigeant : budget de verifications du jour atteint -> aucune nouvelle decouverte ce run.")
     gate_ctx = {"state": {}, "verif_left": gate_run_cap, "verif_ok": True,
-                "stats": collections.defaultdict(int), "par_podcast": 2}
+                "stats": collections.defaultdict(int), "par_podcast": 3}
     gate_tries = gate_ok = 0
     gate_stop = False
     # UN DIRIGEANT = UN SEUL PODCAST (12/10/2026) : controle a l'entree, avant toute fiche. Empreintes sha256, jamais d'adresse en clair.
