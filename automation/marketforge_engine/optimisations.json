@@ -2592,6 +2592,30 @@
       "texte": "Fiches hub sur listenly.org : le compteur de questions affichait 0 alors que les réponses étaient là, il affiche maintenant le vrai nombre. Le bloc des réponses passe au style sombre Listenly (cartes grises, texte clair, colonne centrée) au lieu des cartes blanches collées aux bords. 53 fiches mises à jour.",
       "date": "27/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-313",
+      "texte": "Le moteur garde maintenant en mémoire, d'un run à l'autre, les domaines « attrape-tout » et ceux dont les adresses sont invalides (30 jours). Avant, cette mémoire repartait de zéro à chaque run et les mêmes domaines étaient revérifiés. Objectif : moins de vérifications payées pour rien.",
+      "section": "Ciblage",
+      "version": "V2.8",
+      "date": "27/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-314",
+      "texte": "Le moteur apprend quel format d'adresse réussit le plus souvent (prénom@ ou prénom.nom@) et teste celui-là en premier, ce qui réduit le nombre de vérifications par personne.",
+      "section": "Ciblage",
+      "version": "V2.8",
+      "date": "27/10/2026",
+      "statut": "en_cours"
+    },
+    {
+      "id": "opt-315",
+      "texte": "Avant de payer une vérification, le moteur contrôle si l'adresse déduite est déjà attribuée à un autre podcast (un dirigeant = un seul podcast) et passe son chemin si c'est le cas.",
+      "section": "Ciblage",
+      "version": "V2.8",
+      "date": "27/10/2026",
+      "statut": "en_cours"
     }
   ]
 }

@@ -22,6 +22,7 @@ Variables : MFE_SHEET_URL, ANTHROPIC_API_KEY, CONTACT_MAX (defaut 40), CONTACT_D
 CONTACT_VERIFY (0 = ne verifie rien, defaut 1), CONTACT_VERIF_MAX (verifications par passage, defaut 30),
 CONTACT_VERIF_PAR_PODCAST (defaut 4), CONTACT_HOST (0 = n'utilise pas l'animateur comme candidat, defaut 1)
 """
+import hashlib
 import os, re, sys, time, json, datetime, unicodedata, collections, urllib.request, urllib.parse
 from urllib.parse import urlparse, urljoin
 
@@ -154,14 +155,18 @@ def mail_domain(site_domain):
     return ".".join(labels)
 
 
-def candidate_addresses(name, dom):
-    """Formats testes, du plus courant au moins courant : prenom@ puis prenom.nom@ (aucune adresse n'est ecrite sans verification)."""
+def candidate_addresses(name, dom, formats=None):
+    """Formats testes, du plus courant au moins courant : prenom@ puis prenom.nom@ (aucune adresse n'est ecrite sans verification).
+    27/10/2026 : `formats` = compteurs de succes appris ({"prenom@": n, "prenom.nom@": m}) ; le format le plus reussi passe en premier."""
     parts = name_parts(name)
     if not parts or not dom:
         return []
     f, l = parts
     out = []
-    for a in (f"{f}@{dom}", f"{f}.{l}@{dom}"):
+    cands = [("prenom@", f"{f}@{dom}"), ("prenom.nom@", f"{f}.{l}@{dom}")]
+    if formats and formats.get("prenom.nom@", 0) > formats.get("prenom@", 0):
+        cands.reverse()
+    for a in (c[1] for c in cands):
         if a not in out and not email_problem(a):
             out.append(a)
     return out
@@ -376,9 +381,19 @@ def find_contact(slug, prospect, pods, ctx):
             if dcache.get(mdom, {}).get("statut") == "catchall":
                 stats["domaines_attrape_tout"] += 1
             continue
-        for addr in candidate_addresses(name, mdom):
+        # 27/10/2026 : domaine deja essaye sans succes (4 adresses invalides, aucune valide, < 30 jours) : on ne paie plus de verification
+        _dm = dcache.get(mdom, {})
+        if _dm.get("invalid", 0) >= 4 and _dm.get("statut") != "ok" and _recent(_dm.get("date")):
+            stats["domaine_deja_invalide"] = stats.get("domaine_deja_invalide", 0) + 1
+            continue
+        fmts = ctx["state"].setdefault("_formats", {})
+        for addr in candidate_addresses(name, mdom, fmts):
             if tested >= ctx.get("par_podcast", VERIF_PAR_PODCAST) or ctx["verif_left"] <= 0 or not ctx["verif_ok"]:
                 break
+            # 27/10/2026 : adresse deja attribuee a un autre podcast (un dirigeant = un seul podcast) : inutile de la verifier
+            if ctx.get("leaders_used") and hashlib.sha256(addr.strip().lower().encode()).hexdigest() in ctx["leaders_used"]:
+                stats["deja_pris_avant_verif"] = stats.get("deja_pris_avant_verif", 0) + 1
+                continue
             tested += 1
             ctx["verif_left"] -= 1
             stats["testees"] += 1
@@ -389,8 +404,13 @@ def find_contact(slug, prospect, pods, ctx):
                 result.update({"nom": name, "poste": role, "email": addr, "verifie": True,
                                "fiabilite": f"Verifiee ({fmt}) le {dates}"})
                 dcache[mdom] = {"statut": "ok", "date": datetime.date.today().isoformat()}
+                fmts[fmt] = fmts.get(fmt, 0) + 1   # apprentissage du format d'adresse le plus reussi
                 stats["verifiees"] += 1
                 return result, base
+            if st == "invalid":
+                _e = dcache.setdefault(mdom, {})
+                _e["invalid"] = _e.get("invalid", 0) + 1
+                _e["date"] = datetime.date.today().isoformat()
             if st == "catchall":
                 dcache[mdom] = {"statut": "catchall", "date": datetime.date.today().isoformat()}
                 stats["domaines_attrape_tout"] += 1

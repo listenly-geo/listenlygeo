@@ -622,7 +622,12 @@ def main():
     gate_run_cap = max(0, min(int(os.environ.get("DISCOVERY_GATE_VERIF_MAX", "16") or 16), gate_day_left))
     if GATE_ON and gate_run_cap <= 0:
         log("Filtre dirigeant : budget de verifications du jour atteint -> aucune nouvelle decouverte ce run.")
-    gate_ctx = {"state": {}, "verif_left": gate_run_cap, "verif_ok": True,
+    # 27/10/2026 : memoire des domaines (catch-all, invalides) et du format d'adresse le plus reussi, conservee d'un run a l'autre
+    # (avant, elle repartait de zero a chaque run : les memes domaines catch-all etaient reverifies).
+    DOM_FILE = "automation/marketforge_engine/domaines_verifies.json"
+    _dm = load_json(DOM_FILE, {})
+    _dm = _dm if isinstance(_dm, dict) else {}
+    gate_ctx = {"state": {"_domaines": _dm.get("domaines", {}), "_formats": _dm.get("formats", {})}, "verif_left": gate_run_cap, "verif_ok": True,
                 "stats": collections.defaultdict(int), "par_podcast": 3}
     gate_tries = gate_ok = 0
     gate_stop = False
@@ -631,6 +636,7 @@ def main():
     _lu = load_json(LEADERS_FILE, {})
     leaders_used = set(_lu.get("hashes", [])) if isinstance(_lu, dict) else set()
     leaders_new = set()
+    gate_ctx["leaders_used"] = leaders_used   # adresses deja attribuees : pas de verification pour elles
     failed_domains = failed_domains_from(seen_candidates)
     gate_found = {}   # feed -> dirigeant confirme par le filtre (transmis au Sheet : une seule recherche dans tout le funnel)
     while len(to_qualify) < MAX_QUALIFY and live and prechecked < MAX_PRECHECK and not gate_stop:
@@ -745,6 +751,14 @@ def main():
             with open(GATE_FILE, "w", encoding="utf-8") as f:
                 json.dump(gate_state, f, indent=1)
         except OSError:
+            pass
+        try:   # memoire des domaines : on garde ceux des 30 derniers jours
+            _cut = (__import__("datetime").date.today() - __import__("datetime").timedelta(days=30)).isoformat()
+            _doms = {d: v for d, v in gate_ctx["state"].get("_domaines", {}).items() if isinstance(v, dict) and str(v.get("date", "")) >= _cut}
+            with open(DOM_FILE, "w", encoding="utf-8") as f:
+                json.dump({"_aide": "Memoire du moteur : domaines catch-all / invalides (30 j) et format d'adresse le plus reussi. Aucune adresse en clair.",
+                           "domaines": _doms, "formats": gate_ctx["state"].get("_formats", {})}, f, indent=1)
+        except Exception:
             pass
         try:   # 27/10/2026 : historique par jour du cout de recherche (verifications utilisees, contacts trouves, pertes par etape) pour optimiser
             _hf = "automation/marketforge_engine/verif_historique.json"
