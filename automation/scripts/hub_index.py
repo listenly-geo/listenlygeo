@@ -504,6 +504,28 @@ if(e)e.hidden=any;}});}})();
 """
 
 
+# Charte sombre Listenly (19/10/2026) pour le bloc des reponses des fiches N1.2 : fond noir, cartes #1C1C1E,
+# texte #F5F5F7, accent #2997FF, colonne centree comme le reste de la page.
+DARK_CSS = """
+<style>
+.questions-covered.hx-wrap { max-width:720px; margin:24px auto 80px; padding:28px 24px 0; border-top:1px solid #2C2C2E; color:#F5F5F7; box-sizing:border-box; }
+.hx-wrap .hx-title { color:#F5F5F7; font-weight:700; }
+.hx-wrap .hx-stats { color:#86868B; }
+.hx-wrap .hx-tools { background:#000; }
+.hx-wrap .hx-search { background:#1C1C1E; border:1px solid #2C2C2E; color:#F5F5F7; }
+.hx-wrap .hx-chip { background:#1C1C1E; border-color:#2C2C2E; color:#F5F5F7; }
+.hx-wrap .hx-chip span { color:#86868B; }
+.hx-wrap .hx-empty { color:#86868B; }
+.hx-wrap .hx-ep { color:#F5F5F7; font-weight:600; font-size:16px; }
+.hx-wrap .hx-qa { background:#1C1C1E; border:1px solid #2C2C2E; border-radius:16px; padding:18px 20px; }
+.hx-wrap .hx-q { color:#F5F5F7; }
+.hx-wrap .hx-q a:hover { color:#2997FF; text-decoration:none; }
+.hx-wrap .hx-a { color:#C7C7CC; }
+.hx-wrap .hx-listen { color:#2997FF; background:rgba(41,151,255,.14); }
+.hx-wrap .hx-more, .hx-wrap .hx-rm a { color:#86868B; }
+</style>
+"""
+
 def apply_hub_index(n1_path, podcast, published):
     """Remplace (ou insere) le bloc hub-index dans la fiche N1. Renvoie True si la page a change."""
     published = merge_extracted(podcast.get("slug", ""), published)
@@ -522,10 +544,17 @@ def apply_hub_index(n1_path, podcast, published):
         page = pre.rstrip("\n") + "\n" + post if pre.endswith("\n") else pre + post
 
     entries = visible_entries(published)
+    dark = "--panel: #1C1C1E" in page and 'class="search-shell"' in page   # fiche N1.2 : charte sombre Listenly
     if not entries:
         new = page
     else:
         block = START_MARKER + render_hub_index(podcast, published, apple_enabled(n1_path)) + END_MARKER
+        if dark:
+            block = START_MARKER + DARK_CSS + render_hub_index(podcast, published, False) + END_MARKER
+            nq = len(entries)
+            page = re.sub(r'(<div class="avail-count">.*?<strong>)\d+(</strong>)', lambda m: m.group(1) + str(nq) + m.group(2), page, count=1, flags=re.DOTALL)
+            page = re.sub(r'\d+ questions indexed', f"{nq} questions indexed", page, count=1)
+            page = re.sub(r'\s*<div class="results-wrap">\s*<div class="state-msg">[^<]*</div>\s*</div>', "\n", page, count=1)
         cta = re.search(r'<div class="cta-row">.*?</div>', page, flags=re.DOTALL)
         if len(entries) >= HUB_TOP_THRESHOLD and cta:
             new = page[:cta.end()] + "\n" + block + "\n" + page[cta.end():].lstrip("\n")
