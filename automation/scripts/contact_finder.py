@@ -429,11 +429,12 @@ def leader_gate(name, artist, feed_url, feed_email, ctx):
     # ni un poste non dirigeant (manager, producteur...).
     poste = (res.get("poste") or "")
     if em and not LEADER_TITLE.search(poste):
-        _st = ctx.setdefault("stats", {})   # 27/10/2026 : mesure des adresses verifiees perdues a cause du titre (aucun nom, seulement le titre)
+        # 27/10/2026 (decision d'Etienne) : on accepte toute personne nommee en rapport avec le podcast (animateur, producteur, marketing...)
+        # des que son adresse est verifiee ; on garde seulement la mesure pour comparer les reponses par type de poste.
+        _st = ctx.setdefault("stats", {})
         _st["poste_non_dirigeant"] = _st.get("poste_non_dirigeant", 0) + 1
-        _k = "poste_refuse: " + (re.sub(r"[^a-z &/-]", "", poste.lower())[:32].strip() or "inconnu")
+        _k = "poste_accepte: " + (re.sub(r"[^a-z &/-]", "", poste.lower())[:32].strip() or "inconnu")
         _st[_k] = _st.get(_k, 0) + 1
-        return False, "poste non dirigeant (" + (poste[:40] or "inconnu") + ")"
     if em and em != (feed_email or "").lower():
         return True, "dirigeant joignable (" + ("ecrit sur le site" if res.get("ecrit_site") else "verifie") + ")"
     return False, res.get("fiabilite") or "aucun dirigeant joignable"
