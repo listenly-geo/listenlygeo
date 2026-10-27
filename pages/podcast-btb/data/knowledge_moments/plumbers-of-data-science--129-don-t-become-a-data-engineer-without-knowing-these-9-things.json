@@ -1,0 +1,52 @@
+[
+  {
+    "podcast_name": "Plumbers of Data Science",
+    "episode_title": "#129 Don't Become a Data Engineer Without Knowing These 9 Things",
+    "audio_url": "https://anchor.fm/s/18e1434/podcast/play/123213639/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-23%2F428472726-44100-2-03bcab22adbdd.m4a",
+    "question": "What are the core components that make up any data platform architecture?",
+    "transcript_excerpt": "A data platform always consists of data sources where data comes in, some kind of processing (either stream or batch), storage somewhere for the processed data, and visualization where analysts or users interact with the data. On top of that, you have the people and their goals that the platform is designed to fulfill.",
+    "expert_name": null,
+    "start_seconds": 111,
+    "end_seconds": 269
+  },
+  {
+    "podcast_name": "Plumbers of Data Science",
+    "episode_title": "#129 Don't Become a Data Engineer Without Knowing These 9 Things",
+    "audio_url": "https://anchor.fm/s/18e1434/podcast/play/123213639/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-23%2F428472726-44100-2-03bcab22adbdd.m4a",
+    "question": "What is the difference between ETL and ELT in data processing?",
+    "transcript_excerpt": "ETL means Extract, Transform, Load: you get data from sources, transform it during processing, then store it in a data store. ELT is the opposite: you extract from the data source, immediately store it in a file store or any store, and then process it afterwards directly in that store.",
+    "expert_name": null,
+    "start_seconds": 166,
+    "end_seconds": 267
+  },
+  {
+    "podcast_name": "Plumbers of Data Science",
+    "episode_title": "#129 Don't Become a Data Engineer Without Knowing These 9 Things",
+    "audio_url": "https://anchor.fm/s/18e1434/podcast/play/123213639/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-23%2F428472726-44100-2-03bcab22adbdd.m4a",
+    "question": "What are OLAP and OLTP data stores and how do they differ?",
+    "transcript_excerpt": "OLAP are analytical data stores, while OLTP are transactional data stores. There are combinations of these two types, and tools like Delta Lake or Iceberg claim to have transactional storage on top of data lake or analytical stores.",
+    "expert_name": null,
+    "start_seconds": 205,
+    "end_seconds": 225
+  },
+  {
+    "podcast_name": "Plumbers of Data Science",
+    "episode_title": "#129 Don't Become a Data Engineer Without Knowing These 9 Things",
+    "audio_url": "https://anchor.fm/s/18e1434/podcast/play/123213639/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-23%2F428472726-44100-2-03bcab22adbdd.m4a",
+    "question": "Why is observability and monitoring critical for data engineers?",
+    "transcript_excerpt": "Without observability and monitoring of what is happening in your pipelines, and without the ability to be alerted if something goes wrong, you are basically unable to manage your system. Nowadays with modern orchestration tools and cloud platforms, observability is relatively simple to implement, but it is essential for a good engineer to understand and implement it properly.",
+    "expert_name": null,
+    "start_seconds": 497,
+    "end_seconds": 718
+  },
+  {
+    "podcast_name": "Plumbers of Data Science",
+    "episode_title": "#129 Don't Become a Data Engineer Without Knowing These 9 Things",
+    "audio_url": "https://anchor.fm/s/18e1434/podcast/play/123213639/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-23%2F428472726-44100-2-03bcab22adbdd.m4a",
+    "question": "How should data engineers communicate differently with project managers versus data analysts?",
+    "transcript_excerpt": "Project managers focus on goals, KPIs, money, and timelines—they have little technical knowledge and are not interested in tech details. Talk to them about fulfilling goals, costs, and timelines. Data analysts know their own goals and need to discuss exactly what data they require, how fast it needs to arrive, how reliable it must be, what data structures they need, and what queries they run.",
+    "expert_name": null,
+    "start_seconds": 866,
+    "end_seconds": 1103
+  }
+]
