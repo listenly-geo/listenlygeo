@@ -447,6 +447,7 @@ function mfeLeaderPick_(sh, r, cfg) {
 }
 
 function mfeSend_(sh, cfg, force, onlySlug) {   // onlySlug (optionnel) : n'envoie qu'a ce podcast
+  mfeEnsureSettings_();   // v23 : met a jour les textes des mails dans Reglages avant chaque envoi (sinon l'ancien texte reste)
   var now = new Date(), h = now.getHours(), min = now.getMinutes();
   if (!force && (h < cfg.H_START || h >= cfg.H_END)) return 0;   // hors plage horaire
   var daily = mfeDailyCap_(cfg);
