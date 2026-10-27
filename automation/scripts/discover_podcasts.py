@@ -744,6 +744,17 @@ def main():
                 json.dump(gate_state, f, indent=1)
         except OSError:
             pass
+        try:   # 27/10/2026 : historique par jour du cout de recherche (verifications utilisees, contacts trouves, pertes par etape) pour optimiser
+            _hf = "automation/marketforge_engine/verif_historique.json"
+            _h = load_json(_hf, {})
+            _u, _o = int(gate_state.get("used", 0)), int(gate_state.get("ok", 0))
+            _h[gate_state.get("date", _today)] = {"verifications": _u, "podcasts_testes": int(gate_state.get("tries", 0)), "contacts_trouves": _o,
+                "verifications_par_contact": round(_u / _o, 1) if _o else None, "etapes": gate_state.get("etapes", {}),
+                "prefiltre": gate_state.get("prefiltre", {}), "secteurs": gate_state.get("secteurs", {})}
+            with open(_hf, "w", encoding="utf-8") as f:
+                json.dump(_h, f, indent=1, ensure_ascii=False)
+        except Exception:
+            pass
         log(f"Filtre dirigeant : {gate_tries} podcasts testes, {gate_ok} avec dirigeant joignable, "
             f"{gate_ctx['verif_left']} verifications restantes sur ce run, detail {dict(gate_ctx['stats'])}")
     log(f"Pre-filtre RSS gratuit : {prechecked} podcasts verifies, {len(to_qualify)} joignables retenus pour qualification, "
