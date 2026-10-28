@@ -1,13 +1,13 @@
 {
-  "maj": "2026-10-28T01:17",
+  "maj": "2026-10-28T08:23",
   "etapes": {
     "deploiement_pont": {
       "conclusion": "success",
-      "at": "2026-10-27T21:19:53Z"
+      "at": "2026-10-28T01:58:11Z"
     },
     "moteur": {
-      "conclusion": "in_progress",
-      "at": "2026-10-28T00:51:56Z"
+      "conclusion": "success",
+      "at": "2026-10-28T05:49:57Z"
     },
     "decouverte": {
       "conclusion": "success",
@@ -15,16 +15,16 @@
     },
     "tableau_de_bord": {
       "conclusion": "success",
-      "at": "2026-10-27T07:36:06Z"
+      "at": "2026-10-28T08:09:13Z"
     }
   },
   "serveur_listenly": {
     "listenly.fr": 200,
-    "listenly.org": 503,
-    "api_import": 403
+    "listenly.org": 200,
+    "api_import": 405
   },
   "stock": {
-    "prets": 39,
+    "prets": 41,
     "objectif": 30,
     "sous_objectif": false,
     "risque_ou_sans_dirigeant": 35,
@@ -32,7 +32,6 @@
   },
   "decisions": [],
   "alertes": [
-    "Serveur Listenly indisponible (erreur 5xx) : les fiches ne peuvent pas être créées pour l'instant, le moteur réessaie tout seul.",
     "35 prospects à risque ou sans dirigeant (à traiter)."
   ]
 }
