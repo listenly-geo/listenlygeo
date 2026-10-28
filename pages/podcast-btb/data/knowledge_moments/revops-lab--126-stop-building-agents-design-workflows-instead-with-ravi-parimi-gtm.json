@@ -1,0 +1,52 @@
+[
+  {
+    "podcast_name": "RevOps Lab",
+    "episode_title": "#126 Stop Building Agents, Design Workflows Instead – with Ravi Parimi, GTM & RevOps Leader",
+    "audio_url": "https://anchor.fm/s/ec172b58/podcast/play/127962828/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-23%2F434831682-44100-2-8913ef8fa2cef.mp3",
+    "question": "Why is agent-first mindset wrong for deploying AI in production sales workflows?",
+    "transcript_excerpt": "Agent-first mindset works for experimentation to test capabilities and limits, but when deploying into production, it fails because production is fundamentally about workflows—sequences of processes with inputs, outputs, people, and systems. Putting an agent on top of an existing inefficient human-only process without redesigning the workflow itself is wrong. Instead, companies must think workflow-first: map out end-to-end processes, define input-output contracts, identify where humans should be involved for exceptions and judgment, and deterministically specify rules for agents to execute without hallucination.",
+    "expert_name": "Ravi Parimi",
+    "start_seconds": 334,
+    "end_seconds": 582
+  },
+  {
+    "podcast_name": "RevOps Lab",
+    "episode_title": "#126 Stop Building Agents, Design Workflows Instead – with Ravi Parimi, GTM & RevOps Leader",
+    "audio_url": "https://anchor.fm/s/ec172b58/podcast/play/127962828/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-23%2F434831682-44100-2-8913ef8fa2cef.mp3",
+    "question": "What is the difference between using agents for task automation versus designing workflows with agents?",
+    "transcript_excerpt": "Task-based agent development is first-generation thinking—agents write emails, summarize drafts, generate documents. But when thinking from outcomes and jobs to be done, you need a series of sequential steps. Lead routing exemplifies this: you must consider disputes on account ownership, strategic account handling, non-standard terms, and edge cases where humans apply judgment. Agents must be treated as digital workers in a talent mix, not standalone tools, with clear understanding of agent capabilities versus human capabilities within each workflow step.",
+    "expert_name": "Ravi Parimi",
+    "start_seconds": 555,
+    "end_seconds": 674
+  },
+  {
+    "podcast_name": "RevOps Lab",
+    "episode_title": "#126 Stop Building Agents, Design Workflows Instead – with Ravi Parimi, GTM & RevOps Leader",
+    "audio_url": "https://anchor.fm/s/ec172b58/podcast/play/127962828/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-23%2F434831682-44100-2-8913ef8fa2cef.mp3",
+    "question": "How should companies manage agent autonomy and permissions in production workflows?",
+    "transcript_excerpt": "Autonomy should have a renewable license with clearly defined scope and permissions. Agents must have conditions specifying when they are allowed to decide and when they are allowed to execute steps. The analogy is a driver's license: you are not allowed to drive every vehicle under every condition—permissions vary by vehicle type and context. Similarly, agents need clearly defined permissions under which they can execute and perform, with human oversight built into the workflow design.",
+    "expert_name": "Ravi Parimi",
+    "start_seconds": 1030,
+    "end_seconds": 1244
+  },
+  {
+    "podcast_name": "RevOps Lab",
+    "episode_title": "#126 Stop Building Agents, Design Workflows Instead – with Ravi Parimi, GTM & RevOps Leader",
+    "audio_url": "https://anchor.fm/s/ec172b58/podcast/play/127962828/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-23%2F434831682-44100-2-8913ef8fa2cef.mp3",
+    "question": "What happens to RevOps workflows after an agent is deployed to production?",
+    "transcript_excerpt": "Work does not stop at agent launch. Deploying something to production does not mean work is done. Someone must own agent operations post-launch, taking responsibility for speed, quality, cost, latency, and ongoing improvement. This requires a product-centric mindset: thinking about releases, roadmaps, agile workflows, sprint-based deployment processes, and performance metrics. Companies must iterate from workflow V1 to V2 to V3 with ownership of benchmarks and KPIs, similar to how DevOps transformed engineering operations.",
+    "expert_name": "Ravi Parimi",
+    "start_seconds": 1250,
+    "end_seconds": 1387
+  },
+  {
+    "podcast_name": "RevOps Lab",
+    "episode_title": "#126 Stop Building Agents, Design Workflows Instead – with Ravi Parimi, GTM & RevOps Leader",
+    "audio_url": "https://anchor.fm/s/ec172b58/podcast/play/127962828/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-23%2F434831682-44100-2-8913ef8fa2cef.mp3",
+    "question": "Why do RevOps teams need sandbox testing environments and feedback loops for agent workflows?",
+    "transcript_excerpt": "Without testing environments and feedback loops, agents can do unintended things without being caught—there are already stories of agents breaking systems. A proper system includes a secure sandbox environment where you can test before production, layered security to prevent unwanted behavior, and feedback mechanisms to train agents further. This mirrors software development practices where you test before release, and should apply equally to AI agents to avoid critical failures like accidental CRM data deletion.",
+    "expert_name": "Ravi Parimi",
+    "start_seconds": 1393,
+    "end_seconds": 1543
+  }
+]
