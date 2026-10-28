@@ -42,7 +42,19 @@ def main():
         print("Keyword Planner : non connecte. Secrets manquants : " + ", ".join(missing))
         return
     qs = questions()
-    token = kp.access_token()
+    # 28/10/2026 : si Google refuse le jeton (ex. invalid_grant), on l'ecrit dans l'etat au lieu de planter
+    # sans trace. Le fichier de volumes d'hier reste intact (aucune selection faussee).
+    try:
+        token = kp.access_token()
+    except urllib.error.HTTPError as e:
+        detail = e.read()[:300].decode("utf-8", "ignore")
+        kp.write_state({"statut": "erreur", "etape": "jeton Google Ads", "code": e.code, "date": now, "detail": detail})
+        print(f"Keyword Planner : jeton refuse (erreur {e.code}) : {detail}")
+        return
+    except Exception as e:
+        kp.write_state({"statut": "erreur", "etape": "jeton Google Ads", "date": now, "detail": str(e)[:300]})
+        print(f"Keyword Planner : jeton impossible : {e}")
+        return
     merged, erreurs, faits = {}, 0, 0
     for i in range(0, len(qs), BATCH):
         lot = qs[i:i + BATCH]
