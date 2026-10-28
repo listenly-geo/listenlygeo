@@ -476,7 +476,9 @@ function mfeStockGate_(rows, cfg, lectureSeule) {
   return { stock: stock, ouvert: false, ouverture: 0 };
 }
 
-function mfeSend_(sh, cfg, force, onlySlug) {   // onlySlug (optionnel) : n'envoie qu'a ce podcast
+// paced (v30, 28/10/2026) : l'envoi de secours (GitHub) demande l'envoi AVEC le rythme etale : jamais plus que le budget du creneau, relu sous verrou.
+// Avant, force=n contournait le rythme : le secours et le declencheur de 15 min pouvaient envoyer chacun 1 mail au meme creneau (2 mails a 8 s d'ecart).
+function mfeSend_(sh, cfg, force, onlySlug, paced) {   // onlySlug (optionnel) : n'envoie qu'a ce podcast
   mfeEnsureSettings_();   // v23 : met a jour les textes des mails dans Reglages avant chaque envoi (sinon l'ancien texte reste)
   var now = new Date(), h = now.getHours(), min = now.getMinutes();
   // Plage : H_START a H_END (14h-24h) ; si l'envoi n'a pu s'ouvrir que tard (stock a 30 apres NUIT_SI_OUVERT_APRES h), il continue la nuit
@@ -497,13 +499,14 @@ function mfeSend_(sh, cfg, force, onlySlug) {   // onlySlug (optionnel) : n'envo
   var openSlot = gate.ouverture || 0;
   var openedLate = cfg.NUIT_JUSQU_A > 0 && openSlot >= (cfg.NUIT_SI_OUVERT_APRES - cfg.H_START) * 4;
   var endSlots = openedLate ? nightSlots : normalSlots;
-  if (!force && slotNow >= endSlots) return 0;
+  if ((!force || paced) && slotNow >= endSlots) return 0;
   // Repartition entre l'ouverture et la fin de plage : mails uniformement etales (creneaux de 15 min), sans rafale de rattrapage.
   var slots = Math.max(1, endSlots - openSlot);
   var slot = Math.max(1, slotNow - openSlot + 1);
   var allowedSoFar = Math.ceil(daily * slot / slots);
   var budget = Math.max(0, Math.min(daily, allowedSoFar) - sentToday);
   if (force) budget = force === true ? Math.max(0, daily - sentToday) : Math.min(force, Math.max(0, daily - sentToday));
+  if (force && paced) budget = Math.min(budget, Math.max(0, Math.min(daily, allowedSoFar) - sentToday));   // secours : meme rythme que le declencheur
   var sent = 0;
   var ab = mfeAbPlan_(rows, cfg);
   var usedLeaders = {};   // v25 : adresses deja contactees (un dirigeant = un seul 1er mail)
@@ -1177,7 +1180,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), script_version: 29 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), script_version: 30 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -1531,7 +1534,7 @@ function mfeCmd_(body) {
     if (cmd === 'test_real') {
       if (body.confirm !== true) return mfeJson_({ ok: false, error: 'confirm=true requis (envoi de vrais mails)' });
       var nb = Math.max(1, Math.min(Number(body.n) || 1, 3));
-      var sent = mfeSend_(sh, mfeSettings_(), nb, slug);
+      var sent = mfeSend_(sh, mfeSettings_(), nb, slug, body.paced === true);
       return mfeJson_({ ok: true, cmd: cmd, demandes: nb, envoyes: sent, slug: slug });
     }
     return mfeJson_({ ok: false, error: 'cmd inconnue (test_mail1 | test_me | test_to | test_real)' });

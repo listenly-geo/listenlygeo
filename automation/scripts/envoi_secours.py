@@ -58,7 +58,7 @@ def main():
     print(f"envoi secours : {sent} envoyes, {allowed} attendus a ce creneau, plafond {cap} -> {max(a_envoyer, 0)} a envoyer")
     while a_envoyer > 0:
         n = min(3, a_envoyer)
-        res = sheet_bridge.call(payload={"action": "cmd", "cmd": "test_real", "slug": "", "n": n, "confirm": True})
+        res = sheet_bridge.call(payload={"action": "cmd", "cmd": "test_real", "slug": "", "n": n, "confirm": True, "paced": True})
         print(f"::notice title=Envoi de secours::{json.dumps(res, ensure_ascii=False)[:300]}")
         if not res.get("ok"):
             sys.exit(1)

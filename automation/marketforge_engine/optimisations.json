@@ -2656,6 +2656,14 @@
       "date": "27/10/2026",
       "statut": "en_cours",
       "texte": "Contrôleur du 27/10 (passage 21h05 Paris) : stock prêt 35 sur 30, objectif atteint, workflows OK. Coût 17,8 vérifications par contact (1886 pour 106), en baisse depuis 24,8 à 19h. Plafond de vérifications du jour baissé de 5000 à 2000 pour économiser le quota mensuel."
+    },
+    {
+      "id": "opt-319",
+      "section": "Envoi et délivrabilité",
+      "version": "V2.8",
+      "texte": "Deux mails sont partis à 8 secondes d'écart à 2h37 : l'envoi de secours (GitHub) et le déclencheur de 15 minutes envoyaient chacun un mail au même créneau. L'envoi de secours respecte désormais le même rythme étalé que le déclencheur (budget du créneau relu à l'envoi) : un seul mail par créneau au maximum, jamais deux d'un coup.",
+      "date": "28/10/2026",
+      "statut": "en_cours"
     }
   ]
 }
