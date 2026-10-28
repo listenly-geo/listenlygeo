@@ -214,9 +214,14 @@ def parse_podcast_feed(xml_bytes, max_episodes=10):
 
     return podcast_name, description, cover_image, episode_titles, spotify_url
 
+DESCRIPTION_FLUX = ""   # 28/10/2026 : description du flux, conservee pour la fiche (champ description_flux)
+
+
 def build_raw_info_from_rss(rss_url, extra_info):
+    global DESCRIPTION_FLUX
     log(f"Lecture du flux RSS : {rss_url}")
     podcast_name, description, cover_image, episode_titles, spotify_url = parse_podcast_feed(fetch_rss(rss_url))
+    DESCRIPTION_FLUX = description or ""
     if not podcast_name:
         raise ValueError("Impossible d'extraire le nom du podcast depuis le flux RSS")
     log(f"Podcast detecte : {podcast_name} ({len(episode_titles)} episode(s) trouve(s))")
@@ -2354,6 +2359,8 @@ def main():
             log(f"Tags assignes : { {k: v for k, v in tags.items() if v} }")
 
     meta["rss_url"] = RSS_URL
+    if DESCRIPTION_FLUX:
+        meta["description_flux"] = DESCRIPTION_FLUX
     meta["podcast_url"] = PODCAST_URL
     meta["contact_url"] = CONTACT_URL
     meta["listenly_url"] = LISTENLY_URL

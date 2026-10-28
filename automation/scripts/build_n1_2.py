@@ -115,7 +115,10 @@ def about_block(p, moments):
 
     # Description : 80 à 120 mots maximum, construite à partir des champs du podcast.
     parts = []
-    if name:
+    flux = (p.get("description_flux") or "").strip()   # 28/10/2026 : description du flux RSS (gratuite)
+    if flux and not punch:
+        parts.append(flux)
+    elif name:
         intro = f"{name} is a {cat} podcast" if cat else f"{name} is a podcast"
         if host:
             intro += f" hosted by {host}" + (f" ({company})" if company else "")
