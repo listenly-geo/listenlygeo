@@ -34,19 +34,29 @@ def choisir():
         try:
             d = json.load(open(f"{PAGES}/data/{f}", encoding="utf-8"))
             if isinstance(d, dict):
-                deja.update(d.get("urls", []))
-                for v in d.values():
+                # 28/10/2026 : "urls_en_attente" = pages NON demandees (quota/outil absent) -> restent proposables.
+                for kq, v in d.items():
+                    if kq == "urls_en_attente":
+                        continue
                     if isinstance(v, list):
                         deja.update(x for x in v if isinstance(x, str))
                     elif isinstance(v, dict):
                         # 21/10/2026 : journal par date (urls_demandees, deja_indexees)
+                        # 28/10/2026 : une journee ou "0 demande envoyee" ne fait exclure aucune de ses URL.
+                        aucune = v.get("urls_demandees") == 0 or str(v.get("resultat", "")).startswith("0 demande")
                         for kk in ("urls_demandees", "deja_indexees", "urls"):
-                            deja.update(x for x in v.get(kk, []) if isinstance(x, str))
+                            if aucune and kk == "urls":
+                                continue
+                            val = v.get(kk, [])
+                            if isinstance(val, list):
+                                deja.update(x for x in val if isinstance(x, str))
                 # 21/10/2026 : seules les URL REELLEMENT demandees ou deja indexees sont exclues.
                 # Les entrees "en attente" (non demandees faute de Claude in Chrome) restent proposables.
                 for h in d.get("historique", []):
                     txt = (h.get("resultat", "") + " " + h.get("essai", ""))
-                    if "en attente" in txt or "NON demandee" in txt:
+                    # 28/10/2026 : "0 demande envoyee" = rien n'a ete demande, donc rien a exclure.
+                    if "en attente" in txt or "NON demandee" in txt or h.get("urls_demandees") == 0 \
+                            or str(h.get("resultat", "")).startswith("0 demande"):
                         continue
                     deja.update(h.get("urls", []))
         except (OSError, json.JSONDecodeError):
@@ -76,15 +86,9 @@ def choisir():
             continue
         cands.append((-vol, -(v.get("score_final") or 0), key))
     cands.sort()
-    out, par_podcast = [], {}
-    for _, sc, k in cands:
-        slug = k.split("/", 1)[0]
-        if par_podcast.get(slug, 0) >= 3:
-            continue
-        par_podcast[slug] = par_podcast.get(slug, 0) + 1
-        out.append((slug, k.split("/", 1)[1], -sc))
-        if len(out) >= N * 3:   # marge : certaines pages seront ecartees (titre impossible a generer)
-            break
+    # 28/10/2026 : plus de plafond ici. Le plafond par podcast (3) et les N pages sont appliques dans main(),
+    # apres verification du titre : sinon les 30 premiers (souvent sans titre) bloquaient les pages deja titrees.
+    out = [(k.split("/", 1)[0], k.split("/", 1)[1], -sc) for _, sc, k in cands]
     return out, titres
 
 
@@ -147,12 +151,16 @@ def main():
     cands, titres = choisir()
     nouveaux = {}
     chosen = []
+    par_podcast = {}
     for slug, mid, score in cands:
         if len(chosen) >= N:
             break
+        if par_podcast.get(slug, 0) >= 3:
+            continue
         titre = titre_pour(slug, mid, titres)
         if not titre:
             continue
+        par_podcast[slug] = par_podcast.get(slug, 0) + 1
         if not titres.get(slug + "/" + mid):
             nouveaux[slug + "/" + mid] = titre
         chosen.append((slug, mid, score, titre))

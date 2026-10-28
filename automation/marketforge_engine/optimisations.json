@@ -2664,6 +2664,14 @@
       "texte": "Deux mails sont partis à 8 secondes d'écart à 2h37 : l'envoi de secours (GitHub) et le déclencheur de 15 minutes envoyaient chacun un mail au même créneau. L'envoi de secours respecte désormais le même rythme étalé que le déclencheur (budget du créneau relu à l'envoi) : un seul mail par créneau au maximum, jamais deux d'un coup.",
       "date": "28/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-320",
+      "section": "Pilotage",
+      "version": "V2.8",
+      "texte": "La sélection quotidienne des pages à indexer ne bloque plus : elle n'écartait pas les 9 pages en attente (jamais envoyées) et s'arrêtait aux 30 premiers candidats, souvent sans titre. Elle prend désormais les pages titrées dans l'ordre, et n'exclut que les pages réellement demandées ou déjà indexées.",
+      "date": "28/10/2026",
+      "statut": "en_cours"
     }
   ]
 }
