@@ -1,0 +1,52 @@
+[
+  {
+    "podcast_name": "#AuditTuesday GRC Podcast",
+    "episode_title": "The Shadow NHI Problem: What’s Hiding in Your Identity Environment?",
+    "audio_url": "https://www.buzzsprout.com/2296327/episodes/19811208-the-shadow-nhi-problem-what-s-hiding-in-your-identity-environment.mp3",
+    "question": "What are non-human identities (NHI) and where do they typically reside in an organization's infrastructure?",
+    "transcript_excerpt": "Non-human identities are things like service accounts, API keys, tokens, and certificates that let applications, scripts, and machines log into other systems. They reside in identity access management systems, AWS, Azure, GCP, secrets managers, vaults, key vaults, CI/CD tools, Kubernetes, and often hard-coded in code or configuration files where nobody's tracking them—which is the dangerous part.",
+    "expert_name": "Dave Ackley",
+    "start_seconds": 349,
+    "end_seconds": 402
+  },
+  {
+    "podcast_name": "#AuditTuesday GRC Podcast",
+    "episode_title": "The Shadow NHI Problem: What’s Hiding in Your Identity Environment?",
+    "audio_url": "https://www.buzzsprout.com/2296327/episodes/19811208-the-shadow-nhi-problem-what-s-hiding-in-your-identity-environment.mp3",
+    "question": "How do AI agents expand the shadow NHI problem in enterprise environments?",
+    "transcript_excerpt": "AI agents themselves are NHIs that need to authenticate to APIs, databases and tools, so they get service accounts, API keys, or auth tokens. The problem is agents often get provisioned fast with broad scopes without proper security controls. Agents consume other service accounts' credentials and exhibit non-deterministic behavior, meaning an LLM-driven agent can be steered by inputs into taking actions nobody explicitly coded, potentially exploiting over-provisioned credentials.",
+    "expert_name": "Dave Ackley",
+    "start_seconds": 808,
+    "end_seconds": 982
+  },
+  {
+    "podcast_name": "#AuditTuesday GRC Podcast",
+    "episode_title": "The Shadow NHI Problem: What’s Hiding in Your Identity Environment?",
+    "audio_url": "https://www.buzzsprout.com/2296327/episodes/19811208-the-shadow-nhi-problem-what-s-hiding-in-your-identity-environment.mp3",
+    "question": "What are the key technical differences between human identities and non-human identities in terms of access controls?",
+    "transcript_excerpt": "Non-human identities typically have no multi-factor authentication (MFA), often no expiry—keys can live for years—and are frequently overprivileged. Ownership tends to decay, especially when the engineer who created the service account leaves the organization and it's never rotated to someone else or transferred.",
+    "expert_name": "Dave Ackley",
+    "start_seconds": 385,
+    "end_seconds": 619
+  },
+  {
+    "podcast_name": "#AuditTuesday GRC Podcast",
+    "episode_title": "The Shadow NHI Problem: What’s Hiding in Your Identity Environment?",
+    "audio_url": "https://www.buzzsprout.com/2296327/episodes/19811208-the-shadow-nhi-problem-what-s-hiding-in-your-identity-environment.mp3",
+    "question": "What is the role of identity governance tools like UITAS in discovering and managing shadow NHIs?",
+    "transcript_excerpt": "UITAS can identify non-human identities by scanning IDPs and IAM systems, then attach a 'heartbeat' by sending discovered identities to human entities for attestation. This allows someone to confirm whether each identity is needed, should be quarantined, or should be revoked. UITAS can also augment identity data with risk scores to help organizations determine whether identities are risky or safe.",
+    "expert_name": "Dave Ackley",
+    "start_seconds": 729,
+    "end_seconds": 863
+  },
+  {
+    "podcast_name": "#AuditTuesday GRC Podcast",
+    "episode_title": "The Shadow NHI Problem: What’s Hiding in Your Identity Environment?",
+    "audio_url": "https://www.buzzsprout.com/2296327/episodes/19811208-the-shadow-nhi-problem-what-s-hiding-in-your-identity-environment.mp3",
+    "question": "How does privilege creep and lack of regular review create security risks for AI agents and service accounts?",
+    "transcript_excerpt": "People keep adding privileges to agents and service accounts, and without a mechanism to pull them back or regularly review them—what was called a 'heartbeat' by someone who owns it—agents will be doing whatever they want. Chain delegated identity becomes murky when an agent, tool, and downstream API involve multiple NHIs handing off trust, making it hard to audit who actually did an action during incident response.",
+    "expert_name": "Dave Ackley",
+    "start_seconds": 941,
+    "end_seconds": 1044
+  }
+]
