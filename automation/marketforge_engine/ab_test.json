@@ -1,24 +1,22 @@
 {
- "updated": "2026-10-28T17:31",
+ "updated": "2026-10-28T17:45",
  "phase": "adaptation (plus d'envois pour les meilleures variantes)",
- "verdict": "trop tot pour conclure (221 envois avec variante ; il en faut au moins 100 par variante et 95 % de chances)",
+ "verdict": "trop tot pour conclure (219 envois avec variante ; il en faut au moins 100 par variante et 95 % de chances)",
  "weights": {
-  "A": 0.2009,
-  "B": 0.2012,
+  "A": 0.201,
+  "B": 0.2003,
   "C": 0.1995,
-  "D": 0.2002,
-  "E": 0.1981
+  "D": 0.1998,
+  "E": 0.1993
  },
  "variants": {
   "A": {
    "label": "Podcast Hub ou Spotify : « keep Spotify as the destination? »",
-   "envoye": 44,
+   "envoye": 43,
    "rebond": 0,
    "reponse": 0,
-   "classes": {
-    "auto": 1
-   },
-   "delivres": 44,
+   "classes": {},
+   "delivres": 43,
    "taux_pct": 0.0,
    "chance_meilleure_pct": 20.4,
    "part_envois_pct": 20.1
@@ -34,8 +32,8 @@
    },
    "delivres": 44,
    "taux_pct": 0.0,
-   "chance_meilleure_pct": 20.5,
-   "part_envois_pct": 20.1
+   "chance_meilleure_pct": 20.1,
+   "part_envois_pct": 20.0
   },
   "C": {
    "label": "Spotify d'abord : « Should we send it to Spotify, or… Podcast Hub? »",
@@ -56,19 +54,19 @@
    "classes": {},
    "delivres": 44,
    "taux_pct": 0.0,
-   "chance_meilleure_pct": 20.1,
+   "chance_meilleure_pct": 19.9,
    "part_envois_pct": 20.0
   },
   "E": {
    "label": "Question courte : « Do you already have a Podcast Hub to receive it? »",
-   "envoye": 45,
+   "envoye": 44,
    "rebond": 0,
    "reponse": 0,
    "classes": {},
-   "delivres": 45,
+   "delivres": 44,
    "taux_pct": 0.0,
-   "chance_meilleure_pct": 19.3,
-   "part_envois_pct": 19.8
+   "chance_meilleure_pct": 19.7,
+   "part_envois_pct": 19.9
   }
  }
 }
