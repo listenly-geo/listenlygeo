@@ -60,6 +60,7 @@ var MFE_DEFAULTS = [
   ['MFE_ENVOI_DIRIGEANT', 'FALSE', 'Qui contacter (v24) — TRUE = quand une adresse de dirigeant VERIFIEE existe (colonnes S-X), le 1er mail part a ce dirigeant (seul destinataire) pour une part des prospects (voir MFE_DIRIGEANT_PART), l\'autre part sert de temoin. FALSE = comportement habituel (adresse du flux RSS).'],
   ['MFE_DIRIGEANT_PART', '50', 'Qui contacter (v24) — pourcentage des prospects (avec adresse de dirigeant verifiee) qui recoivent le mail au dirigeant ; le reste = temoin (adresse du flux) pour comparer les reponses.'],
   ['MFE_NUIT_JUSQU_A', '6', 'Envoi de nuit (27/10/2026) — si le stock de 30 prospects prets n\'est atteint que tard (apres MFE_NUIT_SI_OUVERT_APRES h), les mails restants sont etales jusqu\'a cette heure du matin (heure de Paris). 0 = pas d\'envoi de nuit. Le jour d\'envoi commence a l\'heure de debut de MFE_HEURES_ENVOI.'],
+  ['MFE_WEEKEND_PAUSE', 'TRUE', 'Week-end (decision du 29/10/2026) — TRUE = AUCUN mail (premiers mails ni relances) le samedi et le dimanche (heure de Paris), et pas de creation de fiche ni de prospection ces jours-la. Le jour d\'envoi du vendredi se termine a minuit (pas de debordement la nuit vers le samedi). FALSE = envois aussi le week-end.'],
   ['MFE_NUIT_SI_OUVERT_APRES', '18', 'Envoi de nuit — heure (Paris) apres laquelle une ouverture tardive de l\'envoi prolonge la plage jusqu\'a MFE_NUIT_JUSQU_A.'],
   ['MFE_STOCK_MIN', '30', 'Reservoir (regle du 27/10/2026) — AUCUN mail ne part tant que le stock de prospects prets a envoyer (statut Pret, question reelle, fiche N1) n\'atteint pas ce nombre. Une fois l\'envoi du jour commence, il continue jusqu\'a minuit. 0 = regle desactivee.'],
   ['MFE_DIRIGEANT_SEUL', 'TRUE', 'Qui contacter (v25) — TRUE = AUCUN mail ne part a l\'adresse du flux : sans dirigeant verifie (colonnes S-X) le prospect passe en "En pause (pas de dirigeant)". Un meme dirigeant ne recoit qu\'un seul 1er mail (les autres podcasts passent en "En pause (doublon dirigeant)"). FALSE = ancien comportement.'],
@@ -355,7 +356,7 @@ function mfeQuotidien_() {
   }
   var sent = 0;   // l'envoi des premiers mails est fait par marketforgeEngineEnvoi (toutes les 15 min)
   var replies = mfeCheckReplies_(sh);
-  var relances = (cfg.ENVOI_AUTO && cfg.RELANCE_JOURS > 0) ? mfeFollowUp_(sh, cfg.RELANCE_JOURS) : 0;
+  var relances = (cfg.ENVOI_AUTO && cfg.RELANCE_JOURS > 0 && !(cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg))) ? mfeFollowUp_(sh, cfg.RELANCE_JOURS) : 0;
   Logger.log('MarketForge Engine : %s ajoute(s), %s envoye(s), %s reponse(s), %s relance(s)', added, sent, replies, relances);
   try { mfeRapportSiPrevu_(); } catch (e) { Logger.log('Rapport : %s', e); }
 }
@@ -453,6 +454,14 @@ function mfeLeaderPick_(sh, r, cfg) {
 // "Jour d'envoi" (27/10/2026) : commence a H_START (14h) et finit a H_START le lendemain, pour que les envois de nuit comptent dans la meme journee.
 function mfeSendDayKey_(d, cfg) { return new Date(d.getTime() - cfg.H_START * 3600000).toDateString(); }
 // Creneau de 15 min depuis le debut du jour d'envoi (0 a 95)
+// Week-end (29/10/2026) : vrai si le jour calendaire (Paris) OU le jour d'envoi (qui commence a H_START) tombe un samedi/dimanche.
+// Le lundi avant H_START appartient au jour d'envoi du dimanche : rien ne part non plus.
+function mfeDow_(t) { return parseInt(Utilities.formatDate(t, 'Europe/Paris', 'u'), 10); }   // 1 = lundi ... 7 = dimanche
+function mfeWeekend_(now, cfg) {
+  var back = new Date(now.getTime() - cfg.H_START * 3600000);
+  return mfeDow_(now) >= 6 || mfeDow_(back) >= 6;
+}
+
 function mfeSlotNow_(d, cfg) { return (((d.getHours() - cfg.H_START + 24) % 24) * 4) + Math.floor(d.getMinutes() / 15); }
 
 // Regle du reservoir : stock = prospects "Pret" avec question reelle et fiche N1. Porte verrouillee ouverte pour le jour d'envoi des que le stock atteint le seuil ;
@@ -481,11 +490,13 @@ function mfeStockGate_(rows, cfg, lectureSeule) {
 function mfeSend_(sh, cfg, force, onlySlug, paced) {   // onlySlug (optionnel) : n'envoie qu'a ce podcast
   mfeEnsureSettings_();   // v23 : met a jour les textes des mails dans Reglages avant chaque envoi (sinon l'ancien texte reste)
   var now = new Date(), h = now.getHours(), min = now.getMinutes();
+  if (cfg.WEEKEND_PAUSE && !onlySlug && mfeWeekend_(now, cfg)) return 0;   // 29/10/2026 : pas de prospection le samedi ni le dimanche
+  var nuitJusqua = (cfg.WEEKEND_PAUSE && mfeDow_(new Date(now.getTime() - cfg.H_START * 3600000)) === 5) ? 0 : cfg.NUIT_JUSQU_A;   // jour d'envoi du vendredi : fin a minuit
   // Plage : H_START a H_END (14h-24h) ; si l'envoi n'a pu s'ouvrir que tard (stock a 30 apres NUIT_SI_OUVERT_APRES h), il continue la nuit
   // jusqu'a NUIT_JUSQU_A h (6h) en etalant les mails restants.
   var slotNow = mfeSlotNow_(now, cfg);
   var normalSlots = (cfg.H_END - cfg.H_START) * 4;
-  var nightSlots = cfg.NUIT_JUSQU_A > 0 ? (24 - cfg.H_START + cfg.NUIT_JUSQU_A) * 4 : normalSlots;
+  var nightSlots = nuitJusqua > 0 ? (24 - cfg.H_START + nuitJusqua) * 4 : normalSlots;
   if (!force && slotNow >= Math.max(normalSlots, nightSlots)) return 0;   // hors plage horaire
   var daily = mfeDailyCap_(cfg);
   var today = mfeSendDayKey_(now, cfg);
@@ -497,7 +508,7 @@ function mfeSend_(sh, cfg, force, onlySlug, paced) {   // onlySlug (optionnel) :
   var gate = mfeStockGate_(rows, cfg);
   if (!onlySlug && force !== true && !gate.ouvert) return 0;   // seuls un test cible (slug) ou force=true passent
   var openSlot = gate.ouverture || 0;
-  var openedLate = cfg.NUIT_JUSQU_A > 0 && openSlot >= (cfg.NUIT_SI_OUVERT_APRES - cfg.H_START) * 4;
+  var openedLate = nuitJusqua > 0 && openSlot >= (cfg.NUIT_SI_OUVERT_APRES - cfg.H_START) * 4;
   var endSlots = openedLate ? nightSlots : normalSlots;
   if ((!force || paced) && slotNow >= endSlots) return 0;
   // Repartition entre l'ouverture et la fin de plage : mails uniformement etales (creneaux de 15 min), sans rafale de rattrapage.
@@ -1141,6 +1152,7 @@ function mfeSettings_() {
     H_END: parseInt(String(cfg.MFE_HEURES_ENVOI || '8-19').split('-')[1], 10) || 19,
     NUIT_JUSQU_A: isNaN(parseInt(cfg.MFE_NUIT_JUSQU_A, 10)) ? 6 : Math.max(0, Math.min(10, parseInt(cfg.MFE_NUIT_JUSQU_A, 10))),
     NUIT_SI_OUVERT_APRES: parseInt(cfg.MFE_NUIT_SI_OUVERT_APRES, 10) || 18,
+    WEEKEND_PAUSE: String(cfg.MFE_WEEKEND_PAUSE || 'TRUE').toUpperCase() !== 'FALSE',
     STOCK_MIN: isNaN(parseInt(cfg.MFE_STOCK_MIN, 10)) ? 30 : parseInt(cfg.MFE_STOCK_MIN, 10),
     RELANCE_JOURS: parseInt(cfg.MFE_RELANCE_JOURS, 10) || 0,
     EMAIL_TEST: String(cfg.MFE_EMAIL_TEST || '').trim(),
@@ -1180,7 +1192,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), script_version: 30 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 31 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -1569,7 +1581,7 @@ function mfeMenuTraiter() {
 function mfeMenuRelances() {
   var sh = mfeSheet_(), cfg = mfeSettings_();
   var rep = mfeCheckReplies_(sh);
-  var rel = cfg.RELANCE_JOURS > 0 ? mfeFollowUp_(sh, cfg.RELANCE_JOURS) : 0;
+  var rel = (cfg.RELANCE_JOURS > 0 && !(cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg))) ? mfeFollowUp_(sh, cfg.RELANCE_JOURS) : 0;
   mfeAlert_(rep + ' nouvelle(s) reponse(s), ' + rel + ' relance(s) envoyee(s).');
 }
 

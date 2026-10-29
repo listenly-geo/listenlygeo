@@ -24,6 +24,13 @@ def main():
         h0, h1 = [int(x) for x in str(reg.get("MFE_HEURES_ENVOI", "14-23")).split("-")]
     except Exception:
         h0, h1 = 14, 23
+    # 29/10/2026 (decision d'Etienne) : aucun mail le samedi ni le dimanche. Meme regle que le script Apps Script : le jour calendaire OU le
+    # « jour d'envoi » (qui commence a h0) tombe un samedi/dimanche -> rien ne part (le lundi avant h0 appartient au jour d'envoi du dimanche).
+    pause_we = str(reg.get("MFE_WEEKEND_PAUSE") or "TRUE").strip().upper() != "FALSE"
+    veille = now - datetime.timedelta(hours=h0)
+    if pause_we and (now.weekday() >= 5 or veille.weekday() >= 5):
+        print("envoi secours : week-end (samedi/dimanche) -> aucun envoi"); return
+    vendredi = veille.weekday() == 4   # jour d'envoi du vendredi : pas de debordement la nuit vers le samedi
     g = st.get("stock_pret")
     seuil = int(reg.get("MFE_STOCK_MIN") or 30)
     if isinstance(g, dict):
@@ -41,6 +48,8 @@ def main():
         apres = int(reg.get("MFE_NUIT_SI_OUVERT_APRES") or 18)
     except Exception:
         nuit, apres = 6, 18
+    if pause_we and vendredi:
+        nuit = 0
     slot_now = ((now.hour - h0 + 24) % 24) * 4 + now.minute // 15
     normal = (h1 - h0) * 4
     night = (24 - h0 + nuit) * 4 if nuit > 0 else normal

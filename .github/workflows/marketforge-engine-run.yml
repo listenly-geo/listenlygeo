@@ -30,7 +30,25 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  garde:
+    # 29/10/2026 (decision d'Etienne) : pas de creation de fiche ni de prospection le samedi et le dimanche (heure de Paris).
+    runs-on: ubuntu-latest
+    outputs:
+      weekend: ${{ steps.d.outputs.weekend }}
+    steps:
+      - id: d
+        run: |
+          j=$(TZ=Europe/Paris date +%u)
+          if [ "$j" -ge 6 ]; then
+            echo "weekend=true" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Week-end::samedi/dimanche : ni creation de fiche ni prospection (regle du 29/10/2026)"
+          else
+            echo "weekend=false" >> "$GITHUB_OUTPUT"
+          fi
+
   run:
+    needs: garde
+    if: needs.garde.outputs.weekend != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 330
     steps:
