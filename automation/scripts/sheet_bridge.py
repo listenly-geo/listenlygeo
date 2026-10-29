@@ -170,6 +170,10 @@ def stats():
         "max_envois_jour": reg.get("MFE_MAX_ENVOIS_JOUR", ""),
         "heures_envoi": reg.get("MFE_HEURES_ENVOI", ""),
         "cap_jour_effectif": res.get("cap_jour_effectif"),
+        # 29/10/2026 : le VRAI stock = « Pret » AVEC question extraite ET fiche N1 (c'est ce que le script d'envoi exige pour ouvrir l'envoi).
+        # Le simple nombre de « Pret » (status.Pret) pouvait afficher 30 alors que 24 seulement etaient utilisables.
+        "stock_utilisable": sum(1 for r in rows if str(r.get("Statut")) == "Pret" and r.get("Dernier épisode Q") and "/podcast-btb/" in str(r.get("Preuve (fiche N1)") or "")),
+        "stock_pret": res.get("stock_pret"),
         "envoyes_aujourdhui": res.get("envoyes_aujourdhui"),
         "prospects": detail,
     }

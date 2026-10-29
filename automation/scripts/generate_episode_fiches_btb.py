@@ -536,10 +536,46 @@ def enrich_from_fiche_html(record):
         record["accent_color"] = m.group(1) if m else "#2e8bd6"
     return record
 
+_RSS_HEADERS = [
+    # 29/10/2026 : plusieurs flux refusaient le simple "Mozilla/5.0" (HTTP 403 / 406) depuis les serveurs GitHub : on essaie ensuite
+    # un navigateur complet, puis un client de podcasts (les hebergeurs les laissent passer).
+    {"User-Agent": "Mozilla/5.0"},
+    {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+     "Accept": "application/rss+xml, application/xml, text/xml, */*;q=0.8", "Accept-Language": "en-US,en;q=0.9"},
+    {"User-Agent": "iTunes/12.12.4 (Macintosh; OS X 10.15.7) AppleWebKit/605.1.15", "Accept": "*/*"},
+    {"User-Agent": "Podcasts/1.0 CFNetwork/1485 Darwin/23.1.0", "Accept": "*/*"},
+]
+
+
+def _rss_nettoye(data):
+    """Flux mal forme (esperluette seule, caracteres de controle) : on le repare, sans toucher aux flux valides."""
+    try:
+        ET.fromstring(data)
+        return data
+    except ET.ParseError:
+        pass
+    import re as _re
+    txt = data.decode("utf-8", "ignore")
+    txt = _re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", "", txt)
+    txt = _re.sub(r"&(?!(?:[A-Za-z][A-Za-z0-9]*|#[0-9]+|#x[0-9A-Fa-f]+);)", "&amp;", txt)
+    return txt.encode("utf-8")
+
+
 def fetch_rss(url):
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        return resp.read()
+    derniere = None
+    for headers in _RSS_HEADERS:
+        try:
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                return _rss_nettoye(resp.read())
+        except urllib.error.HTTPError as e:
+            derniere = e
+            if e.code not in (401, 403, 406, 429, 451):
+                raise   # 404 / 5xx : inutile de changer d'identite
+        except Exception as e:
+            derniere = e
+            break
+    raise derniere
 
 def parse_episodes(xml_bytes):
     root = ET.fromstring(xml_bytes)

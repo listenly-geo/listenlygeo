@@ -2680,6 +2680,14 @@
       "texte": "Plus de création de fiche ni de prospection le samedi et le dimanche (décision d'Etienne du 29/10) : le moteur de découverte, la recherche des contacts, l'envoi des premiers mails, les relances et l'envoi de secours s'arrêtent du samedi 00h au lundi 14h (heure de Paris). Le lundi, le stock se reconstitue de 6h à 14h comme d'habitude. Le vendredi, l'envoi se termine à minuit au lieu de déborder la nuit sur le samedi. Réglage modifiable : MFE_WEEKEND_PAUSE dans l'onglet Réglages.",
       "date": "29/10/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-322",
+      "section": "Ciblage",
+      "version": "V2.8",
+      "texte": "Le stock de prospects prêts est maintenant compté comme le script d'envoi le compte (avec question extraite et fiche N1) : il affichait 30 alors que 24 seulement étaient utilisables, et l'envoi du jour restait bloqué par la règle du réservoir. De plus, la lecture des flux RSS réessaie avec d'autres identités (navigateur, application de podcasts) et répare les flux mal formés : 6 podcasts en attente (erreurs 403, 406 ou flux cassé) peuvent enfin être extraits.",
+      "date": "29/10/2026",
+      "statut": "en_cours"
     }
   ]
 }
