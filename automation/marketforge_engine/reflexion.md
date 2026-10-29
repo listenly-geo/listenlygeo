@@ -1,10 +1,10 @@
-# Reflexion du MarketForge Engine (2026-10-29T14:57 UTC)
+# Reflexion du MarketForge Engine (2026-10-29T15:12 UTC)
 **Statut : BLOQUE**
 
 ## Funnel
 - podcasts en file : 880
 - contacts prets a mailer : 287
-- bloques en attente : 6
+- bloques en attente : 0
 - sans email : 68
 - prospects dans sheet : 300
 - statut pret : 29
@@ -18,6 +18,7 @@
 - paiements hub : 0
 
 ## Blocages
+- envoi_auto=false : le Sheet prepare mais n'envoie plus (pause auto rebonds ? reglage MFE_ENVOI_AUTO).
 - Reponses non classees (positive / neutre / refus) : impossible de savoir si le funnel marche. Ajouter le champ 'classe' dans replies.json.
 
 ## Pourquoi pas encore de client
