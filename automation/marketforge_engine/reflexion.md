@@ -1,4 +1,4 @@
-# Reflexion du MarketForge Engine (2026-10-29T23:19 UTC)
+# Reflexion du MarketForge Engine (2026-10-30T00:13 UTC)
 **Statut : BLOQUE**
 
 ## Funnel
@@ -18,7 +18,7 @@
 - paiements hub : 0
 
 ## Blocages
-- Rebonds 3/93 sur 3 jours (3 %) : reputation du domaine en danger.
+- Rebonds 3/72 sur 3 jours (4 %) : reputation du domaine en danger.
 - Reponses non classees (positive / neutre / refus) : impossible de savoir si le funnel marche. Ajouter le champ 'classe' dans replies.json.
 
 ## Pourquoi pas encore de client
