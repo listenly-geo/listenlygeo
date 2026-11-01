@@ -1,14 +1,14 @@
-# Brief trafic SEO — 2026-10-31
+# Brief trafic SEO — 2026-11-01
 
-- Période ['2026-07-31', '2026-10-29'] : 17 clics / 2844 impressions sur 469 pages
-- Pages de moments dans Google : 71 pages, 300 impressions, 10 clics
-- Moments ouverts au sitemap : 75 (dont 66 depuis 7 j+) ; contrôlés : 66 ; indexés : 55 (83.3%)
-- Quota : 10/jour → recommandé 25/jour (83.3% indexees : on peut accelerer)
+- Période ['2026-08-01', '2026-10-30'] : 17 clics / 2866 impressions sur 471 pages
+- Pages de moments dans Google : 73 pages, 303 impressions, 10 clics
+- Moments ouverts au sitemap : 75 (dont 66 depuis 7 j+) ; contrôlés : 66 ; indexés : 56 (84.8%)
+- Quota : 10/jour → recommandé 25/jour (84.8% indexees : on peut accelerer)
 
 ## Par type de page
-- hub : 275 pages, 2015 impr., 4 clics
-- show-listenly : 114 pages, 489 impr., 3 clics
-- moment : 71 pages, 300 impr., 10 clics
+- hub : 275 pages, 2031 impr., 4 clics
+- show-listenly : 114 pages, 492 impr., 3 clics
+- moment : 73 pages, 303 impr., 10 clics
 - autre : 9 pages, 40 impr., 0 clics
 
 ## 10 pages de moments à faire indexer à la main aujourd'hui
@@ -22,7 +22,7 @@
 
 ## Pages visibles (positions 3-15) sans clic : titre/extrait à retravailler
 - https://listenly.org/podcast-btb/the-collective-advantage-podcast.html — 53 impr., pos 8.7
-- https://listenly.org/podcast-btb/tbpn-podcast.html — 41 impr., pos 14.6
+- https://listenly.org/podcast-btb/tbpn-podcast.html — 42 impr., pos 14.4
 - https://listenly.org/podcast-btb/the-namibia-oil-and-gas-podcast-podcast.html — 41 impr., pos 8.3
 - https://listenly.org/podcast-btb/the-wholesale-change-show-podcast.html — 40 impr., pos 12.6
 - https://listenly.org/podcast-btb/leaders-on-purpose-podcast.html — 37 impr., pos 7.4
