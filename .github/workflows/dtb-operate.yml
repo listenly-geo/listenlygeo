@@ -1,0 +1,73 @@
+name: DocTheBuilder - exploration et operations (autonome)
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "discover = lecture seule (commandes, modeles, routes, migrations)"
+        default: "discover"
+        required: true
+permissions:
+  contents: write
+concurrency:
+  group: dtb-operate
+  cancel-in-progress: false
+jobs:
+  op:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+      FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+      FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      SITE: app.marketforge.fr
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decouverte en lecture seule
+        shell: bash {0}
+        run: |
+          set +e
+          TOKEN=$(openssl rand -hex 16)
+          U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 120 -sS --ftp-create-dirs"
+          cat > /tmp/disc.php <<'PHP'
+          <?php
+          if (($_GET['t'] ?? '') !== '__TOKEN__') { http_response_code(404); exit; }
+          header('Content-Type: text/plain; charset=utf-8'); @set_time_limit(120); ini_set('memory_limit','512M');
+          $root = dirname(__DIR__); $what = $_GET['what'] ?? '';
+          if ($what === 'glob') { foreach (glob($root.'/'.($_GET['g'] ?? '')) as $f) echo substr($f, strlen($root)+1)."\n"; exit; }
+          if ($what === 'file') {
+            $rel = str_replace(['..','\\'], '', $_GET['p'] ?? '');
+            if (stripos($rel, '.env') !== false) { echo "REFUSE"; exit; }
+            $p = $root.'/'.$rel; echo is_file($p) ? substr(file_get_contents($p), 0, 60000) : 'NOFILE'; exit;
+          }
+          if ($what === 'artisan') {
+            try {
+              require $root.'/vendor/autoload.php';
+              $app = require $root.'/bootstrap/app.php';
+              $k = $app->make(Illuminate\Contracts\Console\Kernel::class); $k->bootstrap();
+              $k->call($_GET['c'] ?? 'list'); echo $k->output();
+            } catch (Throwable $e) { echo 'ERREUR: '.substr($e->getMessage(),0,400); }
+            exit;
+          }
+          echo "etape inconnue";
+          PHP
+          sed -i "s/__TOKEN__/$TOKEN/" /tmp/disc.php
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/disc.php "$U/$SITE/public/dtbdisc-$TOKEN.php"
+          sleep 3
+          call() { curl -sS -k -m 200 "https://$SITE/dtbdisc-$TOKEN.php?t=$TOKEN&$1" 2>/dev/null || curl -sS -m 200 "http://$SITE/dtbdisc-$TOKEN.php?t=$TOKEN&$1" 2>/dev/null; }
+          mkdir -p automation/dtb-discovery
+          OUT=automation/dtb-discovery/decouverte.txt
+          {
+            echo "=== modeles ==="; call "what=glob&g=app/Models/*.php"
+            echo "=== modele Site ==="; call "what=file&p=app/Models/Site.php"
+            echo "=== migrations sites ==="; call "what=glob&g=database/migrations/*site*"
+            echo "=== routes web ==="; call "what=file&p=routes/web.php"
+            echo "=== commandes artisan ==="; call "what=artisan&c=list"
+          } > "$OUT" 2>&1
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "-DELE $SITE/public/dtbdisc-$TOKEN.php" "$U/" -o /dev/null >/dev/null 2>&1
+          echo "$(wc -c < $OUT) octets ecrits"
+      - name: Enregistrer le resultat dans le depot
+        run: |
+          git config user.name "claude-bot"; git config user.email "claude-bot@users.noreply.github.com"
+          git add automation/dtb-discovery
+          git commit -m "DocTheBuilder : decouverte en lecture seule (commandes, modeles, routes)" || echo "rien a committer"
+          git push || echo "push impossible"
