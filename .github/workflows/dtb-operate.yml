@@ -29,7 +29,7 @@ jobs:
           TOKEN=$(openssl rand -hex 16)
           U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 120 -sS --ftp-create-dirs"
           cat > /tmp/disc.php <<'PHP'
-<?php
+          <?php
           if (($_GET['t'] ?? '') !== '__TOKEN__') { http_response_code(404); exit; }
           header('Content-Type: text/plain; charset=utf-8'); @set_time_limit(120); ini_set('memory_limit','512M');
           $root = dirname(__DIR__); $what = $_GET['what'] ?? '';
