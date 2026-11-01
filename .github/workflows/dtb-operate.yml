@@ -29,7 +29,7 @@ jobs:
           TOKEN=$(openssl rand -hex 16)
           U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 120 -sS --ftp-create-dirs"
           cat > /tmp/disc.php <<'PHP'
-          <?php
+<?php
           if (($_GET['t'] ?? '') !== '__TOKEN__') { http_response_code(404); exit; }
           header('Content-Type: text/plain; charset=utf-8'); @set_time_limit(120); ini_set('memory_limit','512M');
           $root = dirname(__DIR__); $what = $_GET['what'] ?? '';
@@ -51,19 +51,21 @@ jobs:
           echo "etape inconnue";
           PHP
           sed -i "s/__TOKEN__/$TOKEN/" /tmp/disc.php
-          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/disc.php "$U/$SITE/public/dtbdisc-$TOKEN.php"
-          sleep 3
-          call() { curl -sS -k -m 200 "https://$SITE/dtbdisc-$TOKEN.php?t=$TOKEN&$1" 2>/dev/null || curl -sS -m 200 "http://$SITE/dtbdisc-$TOKEN.php?t=$TOKEN&$1" 2>/dev/null; }
+          sed -i 's/^          //' /tmp/disc.php
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/disc.php "$U/app.marketforge.fr/public/dtbdisc-$TOKEN.php" && echo "depot FTP OK" || echo "depot FTP ECHEC"
+          sleep 5
+          call() { curl -sS -k -m 200 -w ' [HTTP %{http_code}]' "https://$SITE/dtbdisc-$TOKEN.php?t=$TOKEN&$1" 2>&1 || curl -sS -m 200 -w ' [HTTP %{http_code}]' "http://$SITE/dtbdisc-$TOKEN.php?t=$TOKEN&$1" 2>&1; }
           mkdir -p automation/dtb-discovery
           OUT=automation/dtb-discovery/decouverte.txt
           {
+            echo "=== test ==="; call "what=glob&g=app/Models/*.php" | head -c 300; echo
             echo "=== modeles ==="; call "what=glob&g=app/Models/*.php"
             echo "=== modele Site ==="; call "what=file&p=app/Models/Site.php"
             echo "=== migrations sites ==="; call "what=glob&g=database/migrations/*site*"
             echo "=== routes web ==="; call "what=file&p=routes/web.php"
             echo "=== commandes artisan ==="; call "what=artisan&c=list"
           } > "$OUT" 2>&1
-          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "-DELE $SITE/public/dtbdisc-$TOKEN.php" "$U/" -o /dev/null >/dev/null 2>&1
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "-DELE app.marketforge.fr/public/dtbdisc-$TOKEN.php" "$U/" -o /dev/null >/dev/null 2>&1
           echo "$(wc -c < $OUT) octets ecrits"
       - name: Enregistrer le resultat dans le depot
         run: |
