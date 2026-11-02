@@ -1,0 +1,52 @@
+[
+  {
+    "podcast_name": "The StorONE Podcast",
+    "episode_title": "StorONE FlashSPAN in action, how 9x capacity increases proved critical with 1PB+ of production data",
+    "audio_url": "https://anchor.fm/s/fa690e88/podcast/play/127534144/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-15%2Fc3d451e1-5a6b-9917-acdc-52546bd89f79.m4a",
+    "question": "How does StoreOne FlashSPAN technology enable 9x capacity increase with mixed flash and HDD storage tiers?",
+    "transcript_excerpt": "The 9x ratio combines one part flash with nine parts HDD, achieving hard drive economics with flash performance. The platform allows tuning the SSD layer to the HDD layer based on I/O patterns and application needs. By running an 80-20 rule where 20% of virtual machines consume 80% of infrastructure resources, less critical applications can run on HDD and automatically adjust when needed, with the ability to tune caching on the fly through telemetry.",
+    "expert_name": "André Meydoud",
+    "start_seconds": 877,
+    "end_seconds": 1122
+  },
+  {
+    "podcast_name": "The StorONE Podcast",
+    "episode_title": "StorONE FlashSPAN in action, how 9x capacity increases proved critical with 1PB+ of production data",
+    "audio_url": "https://anchor.fm/s/fa690e88/podcast/play/127534144/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-15%2Fc3d451e1-5a6b-9917-acdc-52546bd89f79.m4a",
+    "question": "What one-to-many replication capabilities does StoreOne provide that competitors lack?",
+    "transcript_excerpt": "StoreOne's one-to-many replication allows replicating a single primary data source to multiple secondary targets with different snapshot rules per target. Fabrics for Clouds uses this for N+1 disaster recovery across four locations: two in Canada and two in the US, with mixed synchronous local and asynchronous remote replication patterns, and the ability to tier replication across sites while protecting against ransomware.",
+    "expert_name": "André Meydoud",
+    "start_seconds": 460,
+    "end_seconds": 544
+  },
+  {
+    "podcast_name": "The StorONE Podcast",
+    "episode_title": "StorONE FlashSPAN in action, how 9x capacity increases proved critical with 1PB+ of production data",
+    "audio_url": "https://anchor.fm/s/fa690e88/podcast/play/127534144/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-15%2Fc3d451e1-5a6b-9917-acdc-52546bd89f79.m4a",
+    "question": "How does StoreOne auto-tiering address hardware cost inflation and storage procurement challenges?",
+    "transcript_excerpt": "Auto-tiering, a core architectural feature from StoreOne's inception, automatically places data on the appropriate storage medium. With NVMe costs skyrocketing and HDD becoming more economical, customers can add a second petabyte of HDD for less than 100 terabytes of NVMe, averaging storage costs across tiers and extending infrastructure life longer without requiring full flash upgrades.",
+    "expert_name": "André Meydoud",
+    "start_seconds": 528,
+    "end_seconds": 690
+  },
+  {
+    "podcast_name": "The StorONE Podcast",
+    "episode_title": "StorONE FlashSPAN in action, how 9x capacity increases proved critical with 1PB+ of production data",
+    "audio_url": "https://anchor.fm/s/fa690e88/podcast/play/127534144/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-15%2Fc3d451e1-5a6b-9917-acdc-52546bd89f79.m4a",
+    "question": "Why did Fabrics for Clouds stay with StoreOne for seven years after switching vendors four times in the previous seven years?",
+    "transcript_excerpt": "StoreOne's flexible platform architecture separates hardware from software and protocols, allowing it to adopt new technologies immediately. The company's culture of listening to customer requirements, delivering promised features on time, and proactively supporting emerging protocols like NVMe TCP without requiring customer requests proved decisive, combined with the ability to scale through multi-location deployments and auto-tiering without vendor changes.",
+    "expert_name": "André Meydoud",
+    "start_seconds": 240,
+    "end_seconds": 330
+  },
+  {
+    "podcast_name": "The StorONE Podcast",
+    "episode_title": "StorONE FlashSPAN in action, how 9x capacity increases proved critical with 1PB+ of production data",
+    "audio_url": "https://anchor.fm/s/fa690e88/podcast/play/127534144/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-15%2Fc3d451e1-5a6b-9917-acdc-52546bd89f79.m4a",
+    "question": "How does AI data generation impact storage strategy and what does StoreOne enable for AI workload management?",
+    "transcript_excerpt": "AI workloads generate ten times more data than traditional applications through verbose context and RAG processing. This forces enterprises to adopt staging and de-staging strategies rather than infinite flash purchases. StoreOne's platform enables managing data lifecycle through replication, tiering, and remote boot capabilities, allowing customers to adapt storage economics to massive AI-generated datasets without bankrupting infrastructure budgets.",
+    "expert_name": "André Meydoud",
+    "start_seconds": 1335,
+    "end_seconds": 1410
+  }
+]
