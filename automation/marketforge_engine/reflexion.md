@@ -1,4 +1,4 @@
-# Reflexion du MarketForge Engine (2026-11-02T20:40 UTC)
+# Reflexion du MarketForge Engine (2026-11-02T20:46 UTC)
 **Statut : BLOQUE**
 
 ## Funnel
@@ -10,7 +10,7 @@
 - statut pret : 27
 - mails envoyes : 631
 - relances : 30
-- rebonds total : 4
+- rebonds total : 5
 - reponses reelles : 2
 - reponses classees : 0
 - reponses positives : 0
@@ -18,6 +18,7 @@
 - paiements hub : 0
 
 ## Blocages
+- Rebonds 1/24 sur 3 jours (4 %) : reputation du domaine en danger.
 - Reponses non classees (positive / neutre / refus) : impossible de savoir si le funnel marche. Ajouter le champ 'classe' dans replies.json.
 
 ## Pourquoi pas encore de client
@@ -28,4 +29,5 @@
 - Relances envoyees sans reponse positive : mesurer separement 1er mail vs relances.
 
 ## Actions proposees
+- Durcir le filtre email (verification boite) et ralentir tant que le taux de rebond depasse 3 %.
 - Classer chaque reponse reelle : positive (interesse par le Hub), neutre, refus.

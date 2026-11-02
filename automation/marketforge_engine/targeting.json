@@ -1,9 +1,9 @@
 {
- "updated": "2026-11-02T20:40",
+ "updated": "2026-11-02T20:46",
  "envois_total": 241,
  "reponses_total": 0,
  "taux_reponse_global_pct": 0.0,
- "dirigeants_testes": 12868,
+ "dirigeants_testes": 12875,
  "dirigeants_trouves": 1448,
  "data_apprentissage": {
   "creneaux_new_york": {
@@ -129,26 +129,26 @@
   "postes_trouves": {}
  },
  "weights": {
-  "Tech & SaaS": 0.0552,
-  "Cybersécurité": 0.0731,
-  "Finance & Fintech": 0.0463,
-  "RH & Recrutement": 0.0439,
-  "Marketing & Ventes": 0.0501,
-  "Logistique & Supply chain": 0.0563,
-  "Construction & Industrie": 0.0424,
-  "Énergie": 0.0458,
-  "Assurance": 0.0525,
+  "Tech & SaaS": 0.0554,
+  "Cybersécurité": 0.0733,
+  "Finance & Fintech": 0.0464,
+  "RH & Recrutement": 0.0413,
+  "Marketing & Ventes": 0.0503,
+  "Logistique & Supply chain": 0.0565,
+  "Construction & Industrie": 0.0426,
+  "Énergie": 0.046,
+  "Assurance": 0.0527,
   "Immobilier": 0.0521,
-  "Juridique": 0.0485,
+  "Juridique": 0.0487,
   "Conseil": 0.0314,
-  "Santé": 0.0462,
-  "Business général (entreprise)": 0.0531,
-  "Cabinets d'avocats": 0.0412,
-  "Experts-comptables & patrimoine": 0.0583,
+  "Santé": 0.0463,
+  "Business général (entreprise)": 0.053,
+  "Cabinets d'avocats": 0.0413,
+  "Experts-comptables & patrimoine": 0.0585,
   "Coachs & consultants B2B": 0.0521,
-  "Agences de services": 0.0516,
-  "Santé libérale": 0.047,
-  "Formateurs & programmes": 0.053
+  "Agences de services": 0.0518,
+  "Santé libérale": 0.0471,
+  "Formateurs & programmes": 0.0532
  },
  "ranking": [
   {
@@ -164,13 +164,13 @@
    "dirigeant_testes": 629,
    "dirigeant_trouves": 111,
    "taux_reponse": 0.0,
-   "score": 0.1664,
+   "score": 0.16639,
    "rang": 1
   },
   {
    "secteur": "Experts-comptables & patrimoine",
-   "poids_pct": 5.8,
-   "delta_pts": -0.1,
+   "poids_pct": 5.9,
+   "delta_pts": -0.0,
    "tendance": "stable",
    "onboarde": 11,
    "joignable": 11,
@@ -185,7 +185,7 @@
   },
   {
    "secteur": "Logistique & Supply chain",
-   "poids_pct": 5.6,
+   "poids_pct": 5.7,
    "delta_pts": -0.1,
    "tendance": "stable",
    "onboarde": 12,
@@ -202,7 +202,7 @@
   {
    "secteur": "Tech & SaaS",
    "poids_pct": 5.5,
-   "delta_pts": -0.0,
+   "delta_pts": 0.0,
    "tendance": "stable",
    "onboarde": 19,
    "joignable": 19,
@@ -212,8 +212,24 @@
    "dirigeant_testes": 1251,
    "dirigeant_trouves": 153,
    "taux_reponse": 0.0,
-   "score": 0.11932,
+   "score": 0.11931,
    "rang": 4
+  },
+  {
+   "secteur": "Formateurs & programmes",
+   "poids_pct": 5.3,
+   "delta_pts": 0.0,
+   "tendance": "stable",
+   "onboarde": 8,
+   "joignable": 8,
+   "envoye": 8,
+   "rebond": 0,
+   "reponse": 0,
+   "dirigeant_testes": 660,
+   "dirigeant_trouves": 78,
+   "taux_reponse": 0.0,
+   "score": 0.11356,
+   "rang": 5
   },
   {
    "secteur": "Business général (entreprise)",
@@ -225,31 +241,15 @@
    "envoye": 31,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 347,
+   "dirigeant_testes": 349,
    "dirigeant_trouves": 40,
    "taux_reponse": 0.0,
-   "score": 0.1136,
-   "rang": 5
-  },
-  {
-   "secteur": "Formateurs & programmes",
-   "poids_pct": 5.3,
-   "delta_pts": -0.0,
-   "tendance": "stable",
-   "onboarde": 8,
-   "joignable": 8,
-   "envoye": 8,
-   "rebond": 0,
-   "reponse": 0,
-   "dirigeant_testes": 660,
-   "dirigeant_trouves": 78,
-   "taux_reponse": 0.0,
-   "score": 0.11356,
+   "score": 0.11297,
    "rang": 6
   },
   {
    "secteur": "Assurance",
-   "poids_pct": 5.2,
+   "poids_pct": 5.3,
    "delta_pts": -0.1,
    "tendance": "stable",
    "onboarde": 4,
@@ -273,10 +273,10 @@
    "envoye": 8,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 485,
+   "dirigeant_testes": 486,
    "dirigeant_trouves": 56,
    "taux_reponse": 0.0,
-   "score": 0.11097,
+   "score": 0.11074,
    "rang": 8
   },
   {
@@ -289,16 +289,16 @@
    "envoye": 11,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 803,
+   "dirigeant_testes": 806,
    "dirigeant_trouves": 92,
    "taux_reponse": 0.0,
-   "score": 0.11097,
+   "score": 0.11056,
    "rang": 9
   },
   {
    "secteur": "Agences de services",
    "poids_pct": 5.2,
-   "delta_pts": -0.1,
+   "delta_pts": -0.0,
    "tendance": "stable",
    "onboarde": 5,
    "joignable": 5,
@@ -324,7 +324,7 @@
    "dirigeant_testes": 616,
    "dirigeant_trouves": 67,
    "taux_reponse": 0.0,
-   "score": 0.10581,
+   "score": 0.1058,
    "rang": 11
   },
   {
@@ -340,7 +340,7 @@
    "dirigeant_testes": 443,
    "dirigeant_trouves": 50,
    "taux_reponse": 0.0,
-   "score": 0.10158,
+   "score": 0.10157,
    "rang": 12
   },
   {
@@ -353,10 +353,10 @@
    "envoye": 11,
    "rebond": 1,
    "reponse": 0,
-   "dirigeant_testes": 846,
+   "dirigeant_testes": 847,
    "dirigeant_trouves": 91,
    "taux_reponse": 0.0,
-   "score": 0.09753,
+   "score": 0.09742,
    "rang": 13
   },
   {
@@ -388,7 +388,7 @@
    "dirigeant_testes": 433,
    "dirigeant_trouves": 45,
    "taux_reponse": 0.0,
-   "score": 0.09545,
+   "score": 0.09544,
    "rang": 15
   },
   {
@@ -408,25 +408,9 @@
    "rang": 16
   },
   {
-   "secteur": "RH & Recrutement",
-   "poids_pct": 4.4,
-   "delta_pts": 0.1,
-   "tendance": "stable",
-   "onboarde": 32,
-   "joignable": 28,
-   "envoye": 8,
-   "rebond": 0,
-   "reponse": 0,
-   "dirigeant_testes": 540,
-   "dirigeant_trouves": 50,
-   "taux_reponse": 0.0,
-   "score": 0.08938,
-   "rang": 17
-  },
-  {
    "secteur": "Construction & Industrie",
-   "poids_pct": 4.2,
-   "delta_pts": 0.0,
+   "poids_pct": 4.3,
+   "delta_pts": 0.1,
    "tendance": "stable",
    "onboarde": 7,
    "joignable": 7,
@@ -437,6 +421,22 @@
    "dirigeant_trouves": 74,
    "taux_reponse": 0.0,
    "score": 0.08557,
+   "rang": 17
+  },
+  {
+   "secteur": "RH & Recrutement",
+   "poids_pct": 4.1,
+   "delta_pts": -0.2,
+   "tendance": "stable",
+   "onboarde": 32,
+   "joignable": 28,
+   "envoye": 8,
+   "rebond": 1,
+   "reponse": 0,
+   "dirigeant_testes": 540,
+   "dirigeant_trouves": 50,
+   "taux_reponse": 0.0,
+   "score": 0.08223,
    "rang": 18
   },
   {
@@ -452,7 +452,7 @@
    "dirigeant_testes": 612,
    "dirigeant_trouves": 53,
    "taux_reponse": 0.0,
-   "score": 0.08219,
+   "score": 0.08218,
    "rang": 19
   },
   {
@@ -484,7 +484,7 @@
    "dirigeant_testes": 0,
    "dirigeant_trouves": 0,
    "taux_reponse": 0.0,
-   "score": 0.11129,
+   "score": 0.11123,
    "rang": 21
   }
  ]
