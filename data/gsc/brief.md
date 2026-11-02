@@ -1,17 +1,19 @@
-# Brief trafic SEO — 2026-11-01
+# Brief trafic SEO — 2026-11-02
 
-- Période ['2026-08-01', '2026-10-30'] : 17 clics / 2866 impressions sur 471 pages
+- Période ['2026-08-02', '2026-10-31'] : 17 clics / 2875 impressions sur 471 pages
 - Pages de moments dans Google : 73 pages, 303 impressions, 10 clics
-- Moments ouverts au sitemap : 75 (dont 66 depuis 7 j+) ; contrôlés : 66 ; indexés : 56 (84.8%)
-- Quota : 10/jour → recommandé 25/jour (84.8% indexees : on peut accelerer)
+- Moments ouverts au sitemap : 77 (dont 70 depuis 7 j+) ; contrôlés : 70 ; indexés : 60 (85.7%)
+- Quota : 10/jour → recommandé 25/jour (85.7% indexees : on peut accelerer)
 
 ## Par type de page
-- hub : 275 pages, 2031 impr., 4 clics
-- show-listenly : 114 pages, 492 impr., 3 clics
+- hub : 275 pages, 2036 impr., 4 clics
+- show-listenly : 114 pages, 495 impr., 3 clics
 - moment : 73 pages, 303 impr., 10 clics
-- autre : 9 pages, 40 impr., 0 clics
+- autre : 9 pages, 41 impr., 0 clics
 
 ## 10 pages de moments à faire indexer à la main aujourd'hui
+- https://listenly.org/podcast-btb/m/the-ramsey-show/ef566974d8 (inconnue)
+- https://listenly.org/podcast-btb/m/world-war-2-podcast/6329b679c0 (inconnue)
 - https://listenly.org/podcast-btb/m/best-damn-coach-podcast-conversations-fo/eb97b64625 (inconnue)
 - https://listenly.org/podcast-btb/m/beyond-luxury/1a55291ad7 (inconnue)
 - https://listenly.org/podcast-btb/m/the-single-source/103c535b37 (inconnue)
