@@ -74,11 +74,22 @@ def choisir():
         titres = titres.get("titres", titres)
     except (OSError, json.JSONDecodeError):
         titres = {}
+    # 02/11/2026 : niveau B ouvert seulement pour les podcasts qui ont deja des clics, et seulement quand
+    # le stock titre du niveau A passe sous 20 fiches.
+    try:
+        prouves = {x["podcast"] for x in json.load(open("data/gsc/resultats_par_podcast.json", encoding="utf-8")).get("detail", []) if x.get("clics", 0) > 0}
+    except (OSError, json.JSONDecodeError):
+        prouves = set()
+    stock_A = sum(1 for key, v in scores.items()
+                  if isinstance(v, dict) and v.get("gate") and niv.get(key.split("/", 1)[0], "C") == "A"
+                  and titres.get(key) and BASE + "m/" + key not in deja)
+    ouvrir_B = stock_A < 20
     cands = []
     for key, v in scores.items():
         if not isinstance(v, dict) or not v.get("gate"):
             continue
-        if niv.get(key.split("/", 1)[0], "C") not in ouverts:
+        lvl = niv.get(key.split("/", 1)[0], "C")
+        if lvl not in ouverts and not (ouvrir_B and lvl == "B" and key.split("/", 1)[0] in prouves):
             continue
         vol = (demande.get(key) or {}).get("volume", 0)
         # 21/10/2026 : élargi. Les pages avec volume passent d'abord (tri par volume), puis les autres niveau A par note.
