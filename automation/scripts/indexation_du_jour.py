@@ -153,14 +153,27 @@ def main():
     chosen = []
     par_podcast = {}
     deja_indexees_nouvelles = []
-    for slug, mid, score in cands:
-        if len(chosen) >= N:
-            break
+    # 02/11/2026 : repartition 70 % / 30 %. 7 pages sur 10 vont aux podcasts qui ont deja des clics
+    # (data/gsc/resultats_par_podcast.json), les 3 autres a des podcasts nouveaux. Les places restantes sont
+    # completees par n'importe quelle page disponible.
+    prouves = set()
+    try:
+        rp = json.load(open("data/gsc/resultats_par_podcast.json", encoding="utf-8"))
+        prouves = {x["podcast"] for x in rp.get("detail", []) if x.get("clics", 0) > 0}
+    except (OSError, json.JSONDecodeError):
+        pass
+    QUOTA_PROUVES = round(N * 0.7)
+    vus = set()
+
+    def essayer(slug, mid, score):
+        if (slug, mid) in vus:
+            return
+        vus.add((slug, mid))
         if par_podcast.get(slug, 0) >= 3:
-            continue
+            return
         titre = titre_pour(slug, mid, titres)
         if not titre:
-            continue
+            return
         # 02/11/2026 : controle reel dans la Search Console (API) avant de choisir.
         # Une page deja indexee n'est pas proposee : elle est notee dans indexees_verifiees.json.
         if tok:
@@ -168,13 +181,31 @@ def main():
                 etat = inspecter(tok, BASE + "m/" + slug + "/" + mid)
                 if etat.get("verdict") == "PASS":
                     deja_indexees_nouvelles.append(BASE + "m/" + slug + "/" + mid)
-                    continue
+                    return
             except Exception:
                 pass
         par_podcast[slug] = par_podcast.get(slug, 0) + 1
         if not titres.get(slug + "/" + mid):
             nouveaux[slug + "/" + mid] = titre
         chosen.append((slug, mid, score, titre))
+
+    # passe 1 : podcasts qui rapportent deja (70 %)
+    for slug, mid, score in cands:
+        if len(chosen) >= QUOTA_PROUVES:
+            break
+        if slug in prouves:
+            essayer(slug, mid, score)
+    # passe 2 : podcasts nouveaux (30 %)
+    for slug, mid, score in cands:
+        if len(chosen) >= N:
+            break
+        if slug not in prouves:
+            essayer(slug, mid, score)
+    # passe 3 : si une place reste libre, n'importe quelle page disponible
+    for slug, mid, score in cands:
+        if len(chosen) >= N:
+            break
+        essayer(slug, mid, score)
     if deja_indexees_nouvelles:
         vp = f"{PAGES}/data/indexees_verifiees.json"
         try:
