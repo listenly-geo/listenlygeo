@@ -1,13 +1,13 @@
-# Reflexion du MarketForge Engine (2026-11-02T00:09 UTC)
+# Reflexion du MarketForge Engine (2026-11-02T00:31 UTC)
 **Statut : BLOQUE**
 
 ## Funnel
-- podcasts en file : 938
+- podcasts en file : 940
 - contacts prets a mailer : 287
 - bloques en attente : 1
 - sans email : 68
 - prospects dans sheet : 300
-- statut pret : 18
+- statut pret : 20
 - mails envoyes : 607
 - relances : 17
 - rebonds total : 4
