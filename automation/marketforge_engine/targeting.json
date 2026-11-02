@@ -1,13 +1,17 @@
 {
- "updated": "2026-11-02T22:02",
- "envois_total": 242,
+ "updated": "2026-11-02T22:13",
+ "envois_total": 243,
  "reponses_total": 0,
  "taux_reponse_global_pct": 0.0,
- "dirigeants_testes": 12898,
+ "dirigeants_testes": 12904,
  "dirigeants_trouves": 1454,
  "data_apprentissage": {
   "creneaux_new_york": {
    "heure": {
+    "17h": {
+     "envoyes": 12,
+     "reponses": 0
+    },
     "16h": {
      "envoyes": 23,
      "reponses": 0
@@ -46,10 +50,6 @@
     },
     "18h": {
      "envoyes": 10,
-     "reponses": 0
-    },
-    "17h": {
-     "envoyes": 11,
      "reponses": 0
     },
     "00h": {
@@ -99,7 +99,7 @@
    },
    "jour": {
     "lun": {
-     "envoyes": 34,
+     "envoyes": 35,
      "reponses": 0
     },
     "jeu": {
@@ -136,18 +136,18 @@
   "Marketing & Ventes": 0.0506,
   "Logistique & Supply chain": 0.0564,
   "Construction & Industrie": 0.0425,
-  "Énergie": 0.0458,
+  "Énergie": 0.0456,
   "Assurance": 0.0526,
   "Immobilier": 0.0519,
   "Juridique": 0.049,
   "Conseil": 0.0314,
-  "Santé": 0.0462,
-  "Business général (entreprise)": 0.0527,
+  "Santé": 0.0463,
+  "Business général (entreprise)": 0.0526,
   "Cabinets d'avocats": 0.0412,
   "Experts-comptables & patrimoine": 0.0584,
   "Coachs & consultants B2B": 0.0527,
   "Agences de services": 0.0517,
-  "Santé libérale": 0.0473,
+  "Santé libérale": 0.0475,
   "Formateurs & programmes": 0.0531
  },
  "ranking": [
@@ -241,27 +241,11 @@
    "envoye": 11,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 809,
+   "dirigeant_testes": 810,
    "dirigeant_trouves": 94,
    "taux_reponse": 0.0,
-   "score": 0.11252,
+   "score": 0.11238,
    "rang": 6
-  },
-  {
-   "secteur": "Business général (entreprise)",
-   "poids_pct": 5.3,
-   "delta_pts": 0.2,
-   "tendance": "stable",
-   "onboarde": 436,
-   "joignable": 384,
-   "envoye": 31,
-   "rebond": 0,
-   "reponse": 0,
-   "dirigeant_testes": 351,
-   "dirigeant_trouves": 40,
-   "taux_reponse": 0.0,
-   "score": 0.11235,
-   "rang": 7
   },
   {
    "secteur": "Assurance",
@@ -277,6 +261,22 @@
    "dirigeant_trouves": 63,
    "taux_reponse": 0.0,
    "score": 0.11218,
+   "rang": 7
+  },
+  {
+   "secteur": "Business général (entreprise)",
+   "poids_pct": 5.3,
+   "delta_pts": 0.2,
+   "tendance": "stable",
+   "onboarde": 436,
+   "joignable": 384,
+   "envoye": 31,
+   "rebond": 0,
+   "reponse": 0,
+   "dirigeant_testes": 352,
+   "dirigeant_trouves": 40,
+   "taux_reponse": 0.0,
+   "score": 0.11203,
    "rang": 8
   },
   {
@@ -345,18 +345,18 @@
   },
   {
    "secteur": "Santé libérale",
-   "poids_pct": 4.7,
-   "delta_pts": 0.0,
+   "poids_pct": 4.8,
+   "delta_pts": 0.1,
    "tendance": "stable",
    "onboarde": 15,
    "joignable": 15,
-   "envoye": 11,
+   "envoye": 12,
    "rebond": 1,
    "reponse": 0,
-   "dirigeant_testes": 849,
+   "dirigeant_testes": 851,
    "dirigeant_trouves": 92,
    "taux_reponse": 0.0,
-   "score": 0.09825,
+   "score": 0.09862,
    "rang": 13
   },
   {
@@ -401,10 +401,10 @@
    "envoye": 2,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 504,
+   "dirigeant_testes": 506,
    "dirigeant_trouves": 51,
    "taux_reponse": 0.0,
-   "score": 0.09417,
+   "score": 0.09381,
    "rang": 16
   },
   {
@@ -484,7 +484,7 @@
    "dirigeant_testes": 0,
    "dirigeant_trouves": 0,
    "taux_reponse": 0.0,
-   "score": 0.11149,
+   "score": 0.11144,
    "rang": 21
   }
  ]
