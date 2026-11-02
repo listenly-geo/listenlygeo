@@ -1,0 +1,52 @@
+[
+  {
+    "podcast_name": "Lights On Data Show",
+    "episode_title": "Why AI Works in a Demo but Struggles With Your Data - Interview with CUBIG",
+    "audio_url": "https://anchor.fm/s/5afa3048/podcast/play/127584762/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-16%2F434319180-44100-2-f6bf23d06056f.mp3",
+    "question": "Why does AI fail to work on real enterprise data even when the model and data exist?",
+    "transcript_excerpt": "You have three different jobs that need to happen: predicting customer outcomes, following up on service cases, and understanding customers. Each one needs something particular from its data. If that information is missing or disconnected, a better model won't fit into its own. The work CUBIG does is to prepare and adapt the data so that the AI can actually work and do its job.",
+    "expert_name": "Hobe",
+    "start_seconds": 82,
+    "end_seconds": 303
+  },
+  {
+    "podcast_name": "Lights On Data Show",
+    "episode_title": "Why AI Works in a Demo but Struggles With Your Data - Interview with CUBIG",
+    "audio_url": "https://anchor.fm/s/5afa3048/podcast/play/127584762/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-16%2F434319180-44100-2-f6bf23d06056f.mp3",
+    "question": "What does CUBIG's Synth Titan platform do for AI-ready data preparation?",
+    "transcript_excerpt": "Synth Titan is the platform built to connect the preparation of data with the check on the results. It prepares the data, adapts the data, applies improvements that matter, and checks whether the result fits the task that is needed for the agent or any purposes of using AI models. It acts as an AI-ready data operating layer between data foundations and AI that uses it.",
+    "expert_name": "Hobe",
+    "start_seconds": 495,
+    "end_seconds": 659
+  },
+  {
+    "podcast_name": "Lights On Data Show",
+    "episode_title": "Why AI Works in a Demo but Struggles With Your Data - Interview with CUBIG",
+    "audio_url": "https://anchor.fm/s/5afa3048/podcast/play/127584762/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-16%2F434319180-44100-2-f6bf23d06056f.mp3",
+    "question": "Can the same dataset be ready for one AI task but not another?",
+    "transcript_excerpt": "Yes, exactly. For example, service records might be enough to summarize the last month's workload, but predicting an unusual failure is a different task because you need relevant examples from before the failure happens. Taking action on that needs the current status of the case, the correct piece of equipment, and the rule that applies today. Cleaning the file helps, but it won't create the failure examples that you are missing or tell you which policy applies.",
+    "expert_name": "Hobe",
+    "start_seconds": 212,
+    "end_seconds": 253
+  },
+  {
+    "podcast_name": "Lights On Data Show",
+    "episode_title": "Why AI Works in a Demo but Struggles With Your Data - Interview with CUBIG",
+    "audio_url": "https://anchor.fm/s/5afa3048/podcast/play/127584762/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-16%2F434319180-44100-2-f6bf23d06056f.mp3",
+    "question": "How does CUBIG's DTS functionality handle missing training examples for rare events like equipment failures?",
+    "transcript_excerpt": "DTS reconstructs synthetic data for gaps in the dataset, which is the free dataset that can be amplified while keeping the distributions and relationships that matter. It combines three core ideas: controlling access to the original data with differential privacy embedded and distribution correction. However, you must test whether the supplemented training data helped on separate real examples, because the aim is user coverage and more rows alone do not give you that answer.",
+    "expert_name": "Hobe",
+    "start_seconds": 1501,
+    "end_seconds": 1605
+  },
+  {
+    "podcast_name": "Lights On Data Show",
+    "episode_title": "Why AI Works in a Demo but Struggles With Your Data - Interview with CUBIG",
+    "audio_url": "https://anchor.fm/s/5afa3048/podcast/play/127584762/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-16%2F434319180-44100-2-f6bf23d06056f.mp3",
+    "question": "What preparation work must happen before an AI model can review service cases correctly?",
+    "transcript_excerpt": "Three steps are required: First, identification of the asset and case (P17 is the equipment, W0322 is a service case). Second, tie each case to its current state and opening time. Third, determine which rule applies—since September 1, an open case gets reviewed after 40 hours, while the archived rule said 96 hours. The preparation must connect asset identification, case status, timing, and the applicable rule so the AI can make the correct decision.",
+    "expert_name": "Hobe",
+    "start_seconds": 751,
+    "end_seconds": 875
+  }
+]
