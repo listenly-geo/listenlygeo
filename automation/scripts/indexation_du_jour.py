@@ -30,7 +30,7 @@ def choisir():
     except (OSError, json.JSONDecodeError):
         demande = {}
     deja = set()
-    for f in ("indexation_demandees.json", "index_requests.json"):
+    for f in ("indexation_demandees.json", "index_requests.json", "indexees_verifiees.json"):  # 02/11/2026 : pages verifiees indexees
         try:
             d = json.load(open(f"{PAGES}/data/{f}", encoding="utf-8"))
             if isinstance(d, dict):
