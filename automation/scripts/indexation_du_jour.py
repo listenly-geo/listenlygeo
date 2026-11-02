@@ -152,6 +152,7 @@ def main():
     nouveaux = {}
     chosen = []
     par_podcast = {}
+    deja_indexees_nouvelles = []
     for slug, mid, score in cands:
         if len(chosen) >= N:
             break
@@ -160,10 +161,28 @@ def main():
         titre = titre_pour(slug, mid, titres)
         if not titre:
             continue
+        # 02/11/2026 : controle reel dans la Search Console (API) avant de choisir.
+        # Une page deja indexee n'est pas proposee : elle est notee dans indexees_verifiees.json.
+        if tok:
+            try:
+                etat = inspecter(tok, BASE + "m/" + slug + "/" + mid)
+                if etat.get("verdict") == "PASS":
+                    deja_indexees_nouvelles.append(BASE + "m/" + slug + "/" + mid)
+                    continue
+            except Exception:
+                pass
         par_podcast[slug] = par_podcast.get(slug, 0) + 1
         if not titres.get(slug + "/" + mid):
             nouveaux[slug + "/" + mid] = titre
         chosen.append((slug, mid, score, titre))
+    if deja_indexees_nouvelles:
+        vp = f"{PAGES}/data/indexees_verifiees.json"
+        try:
+            vd = json.load(open(vp, encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            vd = {"note": "Pages verifiees INDEXEES dans la Search Console.", "urls": []}
+        vd["urls"] = sorted(set(vd.get("urls", [])) | set(deja_indexees_nouvelles))
+        json.dump(vd, open(vp, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     for slug, mid, score, titre in chosen:
         url = BASE + "m/" + slug + "/" + mid
         item = {"url": url, "titre": titre, "score_qualite": score, "http": http(url)}
