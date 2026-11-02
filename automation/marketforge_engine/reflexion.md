@@ -1,4 +1,4 @@
-# Reflexion du MarketForge Engine (2026-10-30T22:54 UTC)
+# Reflexion du MarketForge Engine (2026-11-01T23:47 UTC)
 **Statut : BLOQUE**
 
 ## Funnel
@@ -18,7 +18,8 @@
 - paiements hub : 0
 
 ## Blocages
-- Rebonds 4/102 sur 3 jours (3 %) : reputation du domaine en danger.
+- Rebonds 1/30 sur 3 jours (3 %) : reputation du domaine en danger.
+- Statistiques non rafraichies depuis plus de 8 h (2026-11-01T08:58) : bridge Sheet ou Apps Script a l'arret.
 - Reponses non classees (positive / neutre / refus) : impossible de savoir si le funnel marche. Ajouter le champ 'classe' dans replies.json.
 
 ## Pourquoi pas encore de client
