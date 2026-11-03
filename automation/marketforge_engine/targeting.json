@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-03T23:05",
- "envois_total": 253,
+ "updated": "2026-11-03T23:09",
+ "envois_total": 254,
  "reponses_total": 0,
  "taux_reponse_global_pct": 0.0,
  "dirigeants_testes": 12974,
@@ -8,6 +8,10 @@
  "data_apprentissage": {
   "creneaux_new_york": {
    "heure": {
+    "18h": {
+     "envoyes": 11,
+     "reponses": 0
+    },
     "17h": {
      "envoyes": 17,
      "reponses": 0
@@ -46,10 +50,6 @@
     },
     "08h": {
      "envoyes": 20,
-     "reponses": 0
-    },
-    "18h": {
-     "envoyes": 10,
      "reponses": 0
     },
     "00h": {
@@ -99,7 +99,7 @@
    },
    "jour": {
     "mar": {
-     "envoyes": 67,
+     "envoyes": 68,
      "reponses": 0
     },
     "lun": {
@@ -138,7 +138,7 @@
   "Construction & Industrie": 0.0435,
   "Énergie": 0.0461,
   "Assurance": 0.0526,
-  "Immobilier": 0.0517,
+  "Immobilier": 0.0518,
   "Juridique": 0.0485,
   "Conseil": 0.0314,
   "Santé": 0.0463,
@@ -280,6 +280,22 @@
    "rang": 8
   },
   {
+   "secteur": "Immobilier",
+   "poids_pct": 5.2,
+   "delta_pts": -0.1,
+   "tendance": "stable",
+   "onboarde": 58,
+   "joignable": 47,
+   "envoye": 11,
+   "rebond": 0,
+   "reponse": 0,
+   "dirigeant_testes": 502,
+   "dirigeant_trouves": 57,
+   "taux_reponse": 0.0,
+   "score": 0.10998,
+   "rang": 9
+  },
+  {
    "secteur": "Agences de services",
    "poids_pct": 5.2,
    "delta_pts": -0.0,
@@ -293,22 +309,6 @@
    "dirigeant_trouves": 71,
    "taux_reponse": 0.0,
    "score": 0.10987,
-   "rang": 9
-  },
-  {
-   "secteur": "Immobilier",
-   "poids_pct": 5.2,
-   "delta_pts": -0.1,
-   "tendance": "stable",
-   "onboarde": 58,
-   "joignable": 47,
-   "envoye": 10,
-   "rebond": 0,
-   "reponse": 0,
-   "dirigeant_testes": 502,
-   "dirigeant_trouves": 57,
-   "taux_reponse": 0.0,
-   "score": 0.10974,
    "rang": 10
   },
   {
