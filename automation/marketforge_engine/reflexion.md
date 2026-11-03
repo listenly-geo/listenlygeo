@@ -1,4 +1,4 @@
-# Reflexion du MarketForge Engine (2026-11-03T12:41 UTC)
+# Reflexion du MarketForge Engine (2026-11-03T12:46 UTC)
 **Statut : BLOQUE**
 
 ## Funnel
@@ -18,6 +18,7 @@
 - paiements hub : 0
 
 ## Blocages
+- envoi_auto=false : le Sheet prepare mais n'envoie plus (pause auto rebonds ? reglage MFE_ENVOI_AUTO).
 - Rebonds 1/30 sur 3 jours (3 %) : reputation du domaine en danger.
 - Reponses non classees (positive / neutre / refus) : impossible de savoir si le funnel marche. Ajouter le champ 'classe' dans replies.json.
 
