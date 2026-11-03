@@ -147,7 +147,7 @@ class ImportHubAnswers extends Command
         // badge source, chapeau, CTA, sections, citation, CTA, points cles, audio, extrait Listenly.
         $blocks = [];
         $cta = trim((string) ($item['cta_url'] ?? $data['cta_url'] ?? ''));
-        $ctaText = trim((string) ($item['cta_text'] ?? $data['cta_text'] ?? 'En savoir plus sur ce sujet'));
+        $ctaText = trim((string) ($item['cta_text'] ?? $data['cta_text'] ?? 'Learn more about this topic'));
         $hasCta = $cta !== '' && preg_match('#^https?://#i', $cta) === 1;
         $listenlyUrl = trim((string) ($item['listenly_url'] ?? $data['listenly_show_url'] ?? ''));
 
@@ -158,7 +158,7 @@ class ImportHubAnswers extends Command
         $excerptSource = $paragraphs[1] ?? $paragraphs[0] ?? '';
 
         // 1. Badge de source.
-        $blocks[] = ['id' => 'b_'.Str::random(8), 'kind' => 'p', 'html' => '<strong>'.e('Basé sur un épisode · '.(string) ($data['podcast'] ?? '')).'</strong>'];
+        $blocks[] = ['id' => 'b_'.Str::random(8), 'kind' => 'p', 'html' => '<strong>'.e('Based on an episode · '.(string) ($data['podcast'] ?? '')).'</strong>'];
 
         // 2. Chapeau.
         if ($paragraphs !== []) {
@@ -195,7 +195,7 @@ class ImportHubAnswers extends Command
         // 6. Points cles.
         $points = array_values(array_filter(array_map('strval', (array) ($item['key_points'] ?? []))));
         if ($points !== []) {
-            $blocks[] = ['id' => 'h_'.Str::random(8), 'kind' => 'h2', 'text' => 'Points clés à retenir'];
+            $blocks[] = ['id' => 'h_'.Str::random(8), 'kind' => 'h2', 'text' => 'Key takeaways'];
             $blocks[] = [
                 'id' => 'k_'.Str::random(8),
                 'kind' => 'checklist',
@@ -205,7 +205,7 @@ class ImportHubAnswers extends Command
 
         // 7. Audio de l'episode (en bas, pas en tete).
         if (! empty($item['audio_url'])) {
-            $blocks[] = ['id' => 'h_'.Str::random(8), 'kind' => 'h2', 'text' => "Écouter l'épisode"];
+            $blocks[] = ['id' => 'h_'.Str::random(8), 'kind' => 'h2', 'text' => 'Listen to the episode'];
             $blocks[] = [
                 'id' => 'a_'.Str::random(8),
                 'kind' => 'listenly-audio',
@@ -223,7 +223,7 @@ class ImportHubAnswers extends Command
                 'id' => 'x_'.Str::random(8),
                 'kind' => 'callout',
                 'variant' => 'info',
-                'text' => '<p><strong>Extrait de l\'épisode</strong> · '.e((string) ($data['podcast'] ?? '')).
+                'text' => '<p><strong>Episode excerpt</strong> · '.e((string) ($data['podcast'] ?? '')).
                     ' · '.e((string) ($item['episode'] ?? '')).'</p>'.
                     '<p><em>'.e((string) ($item['question'] ?? '')).'</em></p>'.
                     '<p>'.e(Str::limit($excerptSource, 320)).'</p>'.
@@ -249,7 +249,7 @@ class ImportHubAnswers extends Command
             'id' => 'c_'.Str::random(8),
             'kind' => 'callout',
             'variant' => 'ok',
-            'text' => '<p><strong>Vous voulez appliquer ceci à votre activité ?</strong></p>'.
+            'text' => '<p><strong>Want to apply this to your business?</strong></p>'.
                 '<p><a href="'.e($url).'">'.e($text).' &rarr;</a></p>',
         ];
     }
