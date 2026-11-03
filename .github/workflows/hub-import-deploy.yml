@@ -1,0 +1,93 @@
+name: Hub import — comparer / deployer l'adresse de reception
+
+# compare : telecharge les fichiers actuels du serveur et les compare (aucune ecriture).
+# deploy  : envoie les 5 fichiers, ajoute HUB_IMPORT_TOKEN dans le .env si absent, puis teste l'adresse.
+# Le mot de passe vient uniquement du secret GitHub HUB_IMPORT_TOKEN (jamais affiche).
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'compare ou deploy'
+        required: true
+        type: choice
+        default: compare
+        options:
+          - compare
+          - deploy
+
+permissions:
+  contents: read
+
+jobs:
+  hub-import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+      FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+      FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      HUB_IMPORT_TOKEN: ${{ secrets.HUB_IMPORT_TOKEN }}
+      SITE: app.marketforge.fr
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verifier les secrets
+        run: |
+          for v in FTP_SERVER FTP_USERNAME FTP_PASSWORD HUB_IMPORT_TOKEN; do
+            if [ -z "${!v}" ]; then echo "::error::secret $v manquant"; exit 1; fi
+          done
+
+      - name: Telecharger les fichiers actuels du serveur
+        run: |
+          U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 120 -sS"
+          mkdir -p /tmp/live
+          for f in routes/web.php bootstrap/app.php config/services.php app/Http/Controllers/HubImportController.php app/Console/Commands/ImportHubAnswers.php; do
+            mkdir -p "/tmp/live/$(dirname "$f")"
+            if curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/app.marketforge.fr/$f" -o "/tmp/live/$f" 2>/dev/null; then
+              echo "::notice title=present::$f"
+            else
+              rm -f "/tmp/live/$f"; echo "::notice title=absent::$f"
+            fi
+          done
+          # .env : telecharge sans jamais afficher son contenu
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/app.marketforge.fr/.env" -o /tmp/live/.env && echo "::notice title=env::telecharge" || echo "::error::.env illisible"
+
+      - name: Comparer avec la version a deployer
+        run: |
+          D=automation/dtb-patch/hub-import-endpoint
+          for f in routes/web.php bootstrap/app.php config/services.php app/Http/Controllers/HubImportController.php app/Console/Commands/ImportHubAnswers.php; do
+            if [ ! -f "/tmp/live/$f" ]; then echo "::warning::$f absent du serveur (sera ajoute)"; continue; fi
+            if diff -q "/tmp/live/$f" "$D/$f" >/dev/null; then echo "::notice title=identique::$f"; else echo "::warning title=different::$f"; diff -u "/tmp/live/$f" "$D/$f" | head -80 || true; fi
+          done
+          if grep -q '^HUB_IMPORT_TOKEN=' /tmp/live/.env 2>/dev/null; then echo "::notice title=env::HUB_IMPORT_TOKEN deja present dans le .env"; else echo "::notice title=env::HUB_IMPORT_TOKEN absent du .env"; fi
+
+      - name: Deployer (mode deploy uniquement)
+        if: inputs.mode == 'deploy'
+        run: |
+          set -e
+          U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 300 -sS --ftp-create-dirs"
+          D=automation/dtb-patch/hub-import-endpoint
+          # .env : ajouter la ligne seulement si absente (jamais d'ecrasement d'une valeur existante)
+          if grep -q '^HUB_IMPORT_TOKEN=' /tmp/live/.env; then
+            echo "::notice::HUB_IMPORT_TOKEN deja present, .env non modifie"
+          else
+            cp /tmp/live/.env /tmp/env.new
+            [ -n "$(tail -c1 /tmp/env.new)" ] && echo >> /tmp/env.new
+            printf 'HUB_IMPORT_TOKEN=%s\n' "$HUB_IMPORT_TOKEN" >> /tmp/env.new
+            curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/env.new "$U/app.marketforge.fr/.env"
+            echo "::notice::HUB_IMPORT_TOKEN ajoute dans le .env"
+          fi
+          for f in routes/web.php bootstrap/app.php config/services.php app/Http/Controllers/HubImportController.php app/Console/Commands/ImportHubAnswers.php; do
+            curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T "$D/$f" "$U/app.marketforge.fr/$f"
+            echo "::notice title=envoye::$f"
+          done
+
+      - name: Tester l'adresse de reception
+        if: inputs.mode == 'deploy'
+        run: |
+          sleep 5
+          code_sans=$(curl -sS -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' -d '{}' "https://$SITE/hub/import" || true)
+          echo "::notice title=sans-mot-de-passe::HTTP $code_sans (attendu 401)"
+          code_avec=$(curl -sS -o /tmp/resp.json -w '%{http_code}' -X POST -H 'Content-Type: application/json' -H "X-Hub-Token: $HUB_IMPORT_TOKEN" -d '{"site":"test","answers":[]}' "https://$SITE/hub/import" || true)
+          echo "::notice title=avec-mot-de-passe::HTTP $code_avec (attendu 422 : mot de passe accepte, payload vide refuse)"
