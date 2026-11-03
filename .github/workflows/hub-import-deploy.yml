@@ -2,6 +2,7 @@ name: Hub import — comparer / deployer l'adresse de reception
 
 # compare : telecharge les fichiers actuels du serveur et les compare (aucune ecriture).
 # test-dry / test-import : envoie le test Answers with Dr. J a l adresse (simulation puis reel, pages en brouillon).
+# theme : envoie le theme Listenly (3 fichiers PHP + public/build). Ne change aucun site : le choix du theme se fait ensuite dans le tableau de bord.
 # deploy  : envoie les 5 fichiers, ajoute HUB_IMPORT_TOKEN dans le .env si absent, puis teste l'adresse.
 # Le mot de passe vient uniquement du secret GitHub HUB_IMPORT_TOKEN (jamais affiche).
 
@@ -18,6 +19,7 @@ on:
           - deploy
           - test-dry
           - test-import
+          - theme
 
 permissions:
   contents: read
@@ -25,7 +27,7 @@ permissions:
 jobs:
   hub-import:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 45
     env:
       FTP_SERVER: ${{ secrets.FTP_SERVER }}
       FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
@@ -112,3 +114,27 @@ jobs:
           print('questions envoyees :', len(d['answers']), '| simulation :', d['dry_run'])
           PY
           curl -sS -X POST -H 'Content-Type: application/json' -H "X-Hub-Token: $HUB_IMPORT_TOKEN" --data-binary @/tmp/payload.json -w '\nHTTP %{http_code}\n' "https://$SITE/hub/import" | tee /tmp/resp.txt
+
+      - name: Deployer le theme Listenly (fichiers PHP puis public/build, manifest en dernier)
+        if: inputs.mode == 'theme'
+        run: |
+          U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 300 -sS --ftp-create-dirs"
+          D=automation/dtb-patch/hub-import-endpoint
+          for f in app/Support/DocsTheme.php app/Http/Controllers/PublishedDocsController.php; do
+            curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T "$D/$f" "$U/app.marketforge.fr/$f" && echo "::notice title=envoye::$f"
+          done
+          n=0; fail=0
+          while IFS= read -r src; do
+            rel="${src#$D/}"
+            if curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T "$src" "$U/app.marketforge.fr/$rel"; then n=$((n+1)); else fail=$((fail+1)); echo "::warning::echec $rel"; fi
+          done < <(find $D/public/build -type f ! -name manifest.json)
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T "$D/public/build/manifest.json" "$U/app.marketforge.fr/public/build/manifest.json"
+          echo "::notice title=assets::$n fichiers envoyes, $fail echec(s), manifest en dernier"
+          [ "$fail" -eq 0 ]
+
+      - name: Verifier le site apres deploiement du theme
+        if: inputs.mode == 'theme'
+        run: |
+          sleep 5
+          code=$(curl -sS -o /dev/null -w '%{http_code}' "https://$SITE/docs/answers-with-dr-jr/what-is-the-basic-formula-for-calculating-net-income-on-an-income-statement" || true)
+          echo "::notice title=page-test::HTTP $code"
