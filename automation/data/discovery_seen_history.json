@@ -251335,5 +251335,51 @@
     "detected_language": "",
     "checked_date": "2026-11-03",
     "secteur": "Tech & SaaS"
+  },
+  "https://www.abc.net.au/feeds/7642312/podcast.xml": {
+    "podcast_name": "Nightlife",
+    "artist_name": "ABC Australia",
+    "feed_url": "https://www.abc.net.au/feeds/7642312/podcast.xml",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-03",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://www.omnycontent.com/d/playlist/d78b8638-2127-4603-a5c1-b4cf00a8e156/7bcecb17-6c6e-440f-b5f3-b4d4002e38be/ca2f172a-384b-4175-86c5-b4d4002e38c5/podcast.rss": {
+    "podcast_name": "Rocky Mountain Marketing- Digital Marketing for Entrepreneurs",
+    "artist_name": "Katie Brinkley",
+    "feed_url": "https://www.omnycontent.com/d/playlist/d78b8638-2127-4603-a5c1-b4cf00a8e156/7bcecb17-6c6e-440f-b5f3-b4d4002e38be/ca2f172a-384b-4175-86c5-b4d4002e38c5/podcast.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 188 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-03",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://feeds.transistor.fm/build-your-saas": {
+    "podcast_name": "Build Your SaaS",
+    "artist_name": "Transistor.fm",
+    "feed_url": "https://feeds.transistor.fm/build-your-saas",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-03",
+    "secteur": "Tech & SaaS"
+  },
+  "https://feeds.transistor.fm/the-wp-minute-plus": {
+    "podcast_name": "The WP Minute+",
+    "artist_name": "Matt Medeiros",
+    "feed_url": "https://feeds.transistor.fm/the-wp-minute-plus",
+    "genre": "Tech News",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-03",
+    "secteur": "Tech & SaaS",
+    "gate": "dirigeant",
+    "email_domain": "thewpminute.com"
   }
 }
