@@ -162,7 +162,7 @@ class ImportHubAnswers extends Command
 
         // 2. Chapeau.
         if ($paragraphs !== []) {
-            $blocks[] = ['id' => 'p_'.Str::random(8), 'kind' => 'p', 'html' => e(array_shift($paragraphs))];
+            $blocks[] = ['id' => 'p_'.Str::random(8), 'kind' => 'p', 'html' => '<em>'.e(array_shift($paragraphs)).'</em>'];
         }
 
 
