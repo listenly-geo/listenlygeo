@@ -165,10 +165,6 @@ class ImportHubAnswers extends Command
             $blocks[] = ['id' => 'p_'.Str::random(8), 'kind' => 'p', 'html' => e(array_shift($paragraphs))];
         }
 
-        // 3. CTA haut de page.
-        if ($hasCta) {
-            $blocks[] = $this->ctaBlock($cta, $ctaText);
-        }
 
         // 4. Corps : "## Titre" = section ; citation juste apres la 2e section.
         $headings = 0;
@@ -182,7 +178,7 @@ class ImportHubAnswers extends Command
                     $blocks[] = $this->quoteBlock($quote, $quoteBy);
                     $quoteDone = true;
                 }
-                $blocks[] = ['id' => 'h_'.Str::random(8), 'kind' => 'h2', 'text' => e(trim(substr($paragraph, 3)))];
+                $blocks[] = ['id' => 'h_'.Str::random(8), 'kind' => 'h2', 'text' => trim(substr($paragraph, 3))];
             } else {
                 $blocks[] = ['id' => 'p_'.Str::random(8), 'kind' => 'p', 'html' => e($paragraph)];
             }
@@ -191,7 +187,7 @@ class ImportHubAnswers extends Command
             $blocks[] = $this->quoteBlock($quote, $quoteBy);
         }
 
-        // 5. CTA milieu de page.
+        // 5. CTA unique, apres le texte.
         if ($hasCta) {
             $blocks[] = $this->ctaBlock($cta, $ctaText);
         }
@@ -199,7 +195,7 @@ class ImportHubAnswers extends Command
         // 6. Points cles.
         $points = array_values(array_filter(array_map('strval', (array) ($item['key_points'] ?? []))));
         if ($points !== []) {
-            $blocks[] = ['id' => 'h_'.Str::random(8), 'kind' => 'h2', 'text' => e('Points clés à retenir')];
+            $blocks[] = ['id' => 'h_'.Str::random(8), 'kind' => 'h2', 'text' => 'Points clés à retenir'];
             $blocks[] = [
                 'id' => 'k_'.Str::random(8),
                 'kind' => 'checklist',
@@ -209,7 +205,7 @@ class ImportHubAnswers extends Command
 
         // 7. Audio de l'episode (en bas, pas en tete).
         if (! empty($item['audio_url'])) {
-            $blocks[] = ['id' => 'h_'.Str::random(8), 'kind' => 'h2', 'text' => e("Écouter l'épisode")];
+            $blocks[] = ['id' => 'h_'.Str::random(8), 'kind' => 'h2', 'text' => "Écouter l'épisode"];
             $blocks[] = [
                 'id' => 'a_'.Str::random(8),
                 'kind' => 'listenly-audio',
