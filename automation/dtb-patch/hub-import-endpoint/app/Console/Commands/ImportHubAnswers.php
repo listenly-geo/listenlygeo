@@ -143,6 +143,8 @@ class ImportHubAnswers extends Command
      */
     private function blocksFor(array $item, array $data): array
     {
+        // Ordre de la page de reference (article audiobook) :
+        // badge source, chapeau, CTA, sections, citation, CTA, points cles, audio, extrait Listenly.
         $blocks = [];
         $cta = trim((string) ($item['cta_url'] ?? $data['cta_url'] ?? ''));
         $ctaText = trim((string) ($item['cta_text'] ?? $data['cta_text'] ?? 'En savoir plus sur ce sujet'));
@@ -155,13 +157,59 @@ class ImportHubAnswers extends Command
         ));
         $excerptSource = $paragraphs[1] ?? $paragraphs[0] ?? '';
 
-        // 1. Chapeau.
+        // 1. Badge de source.
+        $blocks[] = ['id' => 'b_'.Str::random(8), 'kind' => 'p', 'html' => '<strong>'.e('Basé sur un épisode · '.(string) ($data['podcast'] ?? '')).'</strong>'];
+
+        // 2. Chapeau.
         if ($paragraphs !== []) {
-            $blocks[] = ['id' => 'p_'.Str::random(8), 'kind' => 'p', 'html' => '<strong>'.e(array_shift($paragraphs)).'</strong>'];
+            $blocks[] = ['id' => 'p_'.Str::random(8), 'kind' => 'p', 'html' => e(array_shift($paragraphs))];
         }
 
-        // 2. Lecteur audio de l'episode.
+        // 3. CTA haut de page.
+        if ($hasCta) {
+            $blocks[] = $this->ctaBlock($cta, $ctaText);
+        }
+
+        // 4. Corps : "## Titre" = section ; citation juste apres la 2e section.
+        $headings = 0;
+        $quoteDone = false;
+        $quote = trim((string) ($item['quote'] ?? ''));
+        $quoteBy = trim((string) ($item['quote_by'] ?? ''));
+        foreach ($paragraphs as $paragraph) {
+            if (str_starts_with($paragraph, '## ')) {
+                $headings++;
+                if ($headings === 2 && $quote !== '' && ! $quoteDone) {
+                    $blocks[] = $this->quoteBlock($quote, $quoteBy);
+                    $quoteDone = true;
+                }
+                $blocks[] = ['id' => 'h_'.Str::random(8), 'kind' => 'h2', 'text' => e(trim(substr($paragraph, 3)))];
+            } else {
+                $blocks[] = ['id' => 'p_'.Str::random(8), 'kind' => 'p', 'html' => e($paragraph)];
+            }
+        }
+        if ($quote !== '' && ! $quoteDone) {
+            $blocks[] = $this->quoteBlock($quote, $quoteBy);
+        }
+
+        // 5. CTA milieu de page.
+        if ($hasCta) {
+            $blocks[] = $this->ctaBlock($cta, $ctaText);
+        }
+
+        // 6. Points cles.
+        $points = array_values(array_filter(array_map('strval', (array) ($item['key_points'] ?? []))));
+        if ($points !== []) {
+            $blocks[] = ['id' => 'h_'.Str::random(8), 'kind' => 'h2', 'text' => e('Points clés à retenir')];
+            $blocks[] = [
+                'id' => 'k_'.Str::random(8),
+                'kind' => 'checklist',
+                'items' => array_map(fn (string $t): array => ['id' => 'i_'.Str::random(6), 'text' => $t], $points),
+            ];
+        }
+
+        // 7. Audio de l'episode (en bas, pas en tete).
         if (! empty($item['audio_url'])) {
+            $blocks[] = ['id' => 'h_'.Str::random(8), 'kind' => 'h2', 'text' => e("Écouter l'épisode")];
             $blocks[] = [
                 'id' => 'a_'.Str::random(8),
                 'kind' => 'listenly-audio',
@@ -173,25 +221,8 @@ class ImportHubAnswers extends Command
             ];
         }
 
-        // 3. Corps : "## Titre" = section, le reste = paragraphes. CTA place avant la 2e section.
-        $headings = 0;
-        $midCtaDone = false;
-        foreach ($paragraphs as $paragraph) {
-            if (str_starts_with($paragraph, '## ')) {
-                $headings++;
-                if ($headings === 2 && $hasCta && ! $midCtaDone) {
-                    $blocks[] = $this->ctaBlock($cta, $ctaText);
-                    $midCtaDone = true;
-                }
-                $blocks[] = ['id' => 'h_'.Str::random(8), 'kind' => 'h2', 'text' => e(trim(substr($paragraph, 3)))];
-            } else {
-                $blocks[] = ['id' => 'p_'.Str::random(8), 'kind' => 'p', 'html' => e($paragraph)];
-            }
-        }
-
-        // 4. Extrait de l'episode, comme sur les pages moment de Listenly.
+        // 8. Extrait Listenly.
         if ($listenlyUrl !== '' && preg_match('#^https?://#i', $listenlyUrl) === 1) {
-            $excerpt = Str::limit($excerptSource, 320);
             $blocks[] = [
                 'id' => 'x_'.Str::random(8),
                 'kind' => 'callout',
@@ -199,17 +230,21 @@ class ImportHubAnswers extends Command
                 'text' => '<p><strong>Extrait de l\'épisode</strong> · '.e((string) ($data['podcast'] ?? '')).
                     ' · '.e((string) ($item['episode'] ?? '')).'</p>'.
                     '<p><em>'.e((string) ($item['question'] ?? '')).'</em></p>'.
-                    '<p>'.e($excerpt).'</p>'.
+                    '<p>'.e(Str::limit($excerptSource, 320)).'</p>'.
                     '<p><a href="'.e($listenlyUrl).'">Écouter et lire la réponse sur Listenly &rarr;</a></p>',
             ];
         }
 
-        // 5. CTA de fin.
-        if ($hasCta) {
-            $blocks[] = $this->ctaBlock($cta, $ctaText);
-        }
-
         return $blocks;
+    }
+
+    private function quoteBlock(string $quote, string $by): array
+    {
+        return [
+            'id' => 'q_'.Str::random(8),
+            'kind' => 'quote',
+            'html' => '<p>&laquo;&nbsp;'.e($quote).'&nbsp;&raquo;</p>'.($by !== '' ? '<p><strong>'.e($by).'</strong></p>' : ''),
+        ];
     }
 
     private function ctaBlock(string $url, string $text): array
