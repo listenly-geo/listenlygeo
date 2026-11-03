@@ -93,7 +93,7 @@ var MFE_FIRST_MAIL = [
   '',
   'I listed your podcast <strong>{PODCAST}</strong> recently on <a href="http://listenly.org" style="text-decoration: none;">listenly.org</a>, the 1st AI search engine for podcast.',
   '',
-  'Concept is simple: Each episode of your podcast contains <strong>+15 questions</strong> that business leaders ask Google and AI when they look for you, like <a href="{MOMENT_URL}">here</a>.',
+  'Concept is simple: Each episode of your podcast contains +15 questions that business leaders ask Google and AI when they look for you, like <a href="{MOMENT_URL}">here</a>.',
   '',
   'But invisible until today to world <u>because of audio AI cant read.</u>',
   '',
