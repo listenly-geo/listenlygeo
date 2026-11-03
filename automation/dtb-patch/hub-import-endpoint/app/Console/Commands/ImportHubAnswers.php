@@ -227,7 +227,7 @@ class ImportHubAnswers extends Command
                     ' · '.e((string) ($item['episode'] ?? '')).'</p>'.
                     '<p><em>'.e((string) ($item['question'] ?? '')).'</em></p>'.
                     '<p>'.e(Str::limit($excerptSource, 320)).'</p>'.
-                    '<p><a href="'.e($listenlyUrl).'">Écouter et lire la réponse sur Listenly &rarr;</a></p>',
+                    '<p><a href="'.e($listenlyUrl).'">Listen to and read the full answer on Listenly &rarr;</a></p>',
             ];
         }
 
