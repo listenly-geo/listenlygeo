@@ -1,6 +1,7 @@
 name: Hub import — comparer / deployer l'adresse de reception
 
 # compare : telecharge les fichiers actuels du serveur et les compare (aucune ecriture).
+# test-dry / test-import : envoie le test Answers with Dr. J a l adresse (simulation puis reel, pages en brouillon).
 # deploy  : envoie les 5 fichiers, ajoute HUB_IMPORT_TOKEN dans le .env si absent, puis teste l'adresse.
 # Le mot de passe vient uniquement du secret GitHub HUB_IMPORT_TOKEN (jamais affiche).
 
@@ -15,6 +16,8 @@ on:
         options:
           - compare
           - deploy
+          - test-dry
+          - test-import
 
 permissions:
   contents: read
@@ -95,3 +98,17 @@ jobs:
           echo "::notice title=sans-mot-de-passe::HTTP $code_sans (attendu 401)"
           code_avec=$(curl -sS -o /tmp/resp.json -w '%{http_code}' -X POST -H 'Content-Type: application/json' -H "X-Hub-Token: $HUB_IMPORT_TOKEN" -d '{"site":"test","answers":[]}' "https://$SITE/hub/import" || true)
           echo "::notice title=avec-mot-de-passe::HTTP $code_avec (attendu 422 : mot de passe accepte, payload vide refuse)"
+
+      - name: Envoyer le test d'import (Answers with Dr. J)
+        if: inputs.mode == 'test-dry' || inputs.mode == 'test-import'
+        env:
+          MODE: ${{ inputs.mode }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          d = json.load(open('automation/dtb-patch/hub-import-endpoint/tests/answers-with-dr-j.json', encoding='utf-8'))
+          d['dry_run'] = os.environ['MODE'] == 'test-dry'
+          json.dump(d, open('/tmp/payload.json', 'w', encoding='utf-8'), ensure_ascii=False)
+          print('questions envoyees :', len(d['answers']), '| simulation :', d['dry_run'])
+          PY
+          curl -sS -X POST -H 'Content-Type: application/json' -H "X-Hub-Token: $HUB_IMPORT_TOKEN" --data-binary @/tmp/payload.json -w '\nHTTP %{http_code}\n' "https://$SITE/hub/import" | tee /tmp/resp.txt
