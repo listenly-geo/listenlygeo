@@ -78,6 +78,10 @@ jobs:
             curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/env.new "$U/app.marketforge.fr/.env"
             echo "::notice::HUB_IMPORT_TOKEN ajoute dans le .env"
           fi
+          # Vider les caches Laravel (routes et config) : sinon la nouvelle route et le nouveau .env sont ignores
+          for c in bootstrap/cache/config.php bootstrap/cache/routes-v7.php; do
+            curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "-DELE app.marketforge.fr/$c" "$U/" -o /dev/null >/dev/null 2>&1 && echo "::notice title=cache::supprime $c" || echo "::notice title=cache::$c absent"
+          done
           for f in routes/web.php bootstrap/app.php config/services.php app/Http/Controllers/HubImportController.php app/Console/Commands/ImportHubAnswers.php; do
             curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T "$D/$f" "$U/app.marketforge.fr/$f"
             echo "::notice title=envoye::$f"
