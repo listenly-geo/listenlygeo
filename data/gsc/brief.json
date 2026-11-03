@@ -1,13 +1,13 @@
 {
- "date": "2026-11-02",
+ "date": "2026-11-03",
  "periode": [
-  "2026-08-02",
-  "2026-10-31"
+  "2026-08-03",
+  "2026-11-01"
  ],
  "totaux": {
   "pages": 471,
   "clics": 17,
-  "impressions": 2875,
+  "impressions": 2891,
   "pages_moments": 73,
   "clics_moments": 10,
   "impressions_moments": 303
@@ -16,7 +16,7 @@
   "hub": {
    "pages": 275,
    "clics": 4,
-   "impressions": 2036
+   "impressions": 2047
   },
   "moment": {
    "pages": 73,
@@ -26,40 +26,41 @@
   "show-listenly": {
    "pages": 114,
    "clics": 3,
-   "impressions": 495
+   "impressions": 497
   },
   "autre": {
    "pages": 9,
    "clics": 0,
-   "impressions": 41
+   "impressions": 44
   }
  },
  "moments": {
   "ouvertes_total": 77,
-  "ouvertes_depuis_7j": 70,
-  "controlees": 70,
-  "indexees": 60,
-  "taux_indexation_pct": 85.7,
+  "ouvertes_depuis_7j": 72,
+  "controlees": 72,
+  "indexees": 62,
+  "taux_indexation_pct": 86.1,
   "etats": {
    "indexee": 65,
    "explorée_non_indexee": 3,
-   "inconnue": 9
+   "inconnue": 7,
+   "detectee_non_indexee": 2
   }
  },
  "quota": {
   "actuel": 10,
   "recommande": 25,
-  "raison": "85.7% indexees : on peut accelerer"
+  "raison": "86.1% indexees : on peut accelerer"
  },
  "a_demander_a_la_main_aujourdhui": [
   {
    "page": "https://listenly.org/podcast-btb/m/the-ramsey-show/ef566974d8",
-   "etat": "inconnue",
+   "etat": "detectee_non_indexee",
    "lien_gsc": "https://search.google.com/u/1/search-console/inspect?resource_id=sc-domain%3Alistenly.org&id=https%3A%2F%2Flistenly.org%2Fpodcast-btb%2Fm%2Fthe-ramsey-show%2Fef566974d8"
   },
   {
    "page": "https://listenly.org/podcast-btb/m/world-war-2-podcast/6329b679c0",
-   "etat": "inconnue",
+   "etat": "detectee_non_indexee",
    "lien_gsc": "https://search.google.com/u/1/search-console/inspect?resource_id=sc-domain%3Alistenly.org&id=https%3A%2F%2Flistenly.org%2Fpodcast-btb%2Fm%2Fworld-war-2-podcast%2F6329b679c0"
   },
   {
@@ -105,11 +106,6 @@
    "pos": 8.7
   },
   {
-   "page": "https://listenly.org/podcast-btb/tbpn-podcast.html",
-   "impr": 42,
-   "pos": 14.4
-  },
-  {
    "page": "https://listenly.org/podcast-btb/the-namibia-oil-and-gas-podcast-podcast.html",
    "impr": 41,
    "pos": 8.3
@@ -126,8 +122,8 @@
   },
   {
    "page": "https://listenly.org/podcast-btb/the-road-to-autonomy-podcast.html",
-   "impr": 36,
-   "pos": 9.9
+   "impr": 37,
+   "pos": 10.7
   },
   {
    "page": "https://listenly.org/podcast-btb/the-cro-spotlight-podcast-podcast.html",
@@ -148,6 +144,11 @@
    "page": "https://listenly.org/podcast-btb/beyond-fulfillment-podcast-podcast.html",
    "impr": 25,
    "pos": 9.9
+  },
+  {
+   "page": "https://listenly.org/podcast-btb/the-best-of-yvonne-podcast-podcast.html",
+   "impr": 24,
+   "pos": 6.6
   }
  ],
  "requetes_bien_placees": [
@@ -212,12 +213,6 @@
    "clics": 0
   },
   {
-   "requete": "the road to autonomy",
-   "impr": 15,
-   "pos": 7.6,
-   "clics": 0
-  },
-  {
    "requete": "cro spotlight podcast",
    "impr": 7,
    "pos": 7.9,
@@ -238,6 +233,12 @@
   {
    "requete": "road to autonomy",
    "impr": 6,
+   "pos": 8.3,
+   "clics": 0
+  },
+  {
+   "requete": "which late-stage or growth vcs are considered founder-friendly?",
+   "impr": 3,
    "pos": 8.3,
    "clics": 0
   }
