@@ -91,9 +91,11 @@ var MFE_MSG_VERSION = '23';   // incremente -> les textes MFE_MSG_* de Reglages 
 var MFE_FIRST_MAIL = [
   '{HELLO}',
   '',
-  'I\'m reaching out because I listed your podcast <strong>{PODCAST}</strong> this morning on <a href="http://listenly.org" style="text-decoration: none;">listenly.org</a>, the 1st AI search engine, made to help your expertise get cited on Google & AI.',
+  'I listed your podcast <strong>{PODCAST}</strong> recently on <a href="http://listenly.org" style="text-decoration: none;">listenly.org</a>, the 1st AI search engine for podcast.',
   '',
-  'Each episode of your podcast contains <strong>+15 questions</strong> that business leaders ask Google and AI when they look for you. Clear example on your last episode: <a href="{MOMENT_URL}">here</a>.',
+  'Concept is simple: Each episode of your podcast contains <strong>+15 questions</strong> that business leaders ask Google and AI when they look for you, like <a href="{MOMENT_URL}">here</a>.',
+  '',
+  'But invisible until today to world <u>because of audio AI cant read.</u>',
   '',
   '<strong>We can redirect qualified prospects from Listenly to your funnel, for free.</strong>',
   '',
