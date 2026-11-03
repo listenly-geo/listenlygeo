@@ -1,15 +1,15 @@
 {
- "updated": "2026-11-03T22:47",
+ "updated": "2026-11-03T22:52",
  "total": 890,
  "status": {
   "Clos (ancien mail)": 182,
   "Rebond": 17,
   "Repondu": 1,
   "Email invalide": 20,
-  "Non valide": 96,
+  "Non valide": 97,
   "En pause (ancienne selection)": 56,
   "Email instable": 2,
-  "Envoye": 433,
+  "Envoye": 434,
   "En pause (pas de dirigeant)": 24,
   "En pause (question hors sujet)": 1,
   "Email risque": 11,
@@ -20,9 +20,9 @@
   "Relance 2": 1,
   "Relance": 13,
   "Lien recu": 1,
-  "Pret": 5
+  "Pret": 3
  },
- "sent_total": 650,
+ "sent_total": 651,
  "replies_total": 2,
  "followups_total": 30,
  "sent_by_day": {
@@ -54,7 +54,7 @@
   "2026-10-29": 30,
   "2026-10-30": 30,
   "2026-11-02": 30,
-  "2026-11-03": 13
+  "2026-11-03": 14
  },
  "replies_by_day": {
   "2026-09-28": 1,
@@ -78,14 +78,26 @@
  "max_envois_jour": 100,
  "heures_envoi": "14-24",
  "cap_jour_effectif": 30,
- "stock_utilisable": 5,
+ "stock_utilisable": 3,
  "stock_pret": {
-  "stock": 5,
+  "stock": 3,
   "ouvert": true,
   "ouverture": 20
  },
- "envoyes_aujourdhui": 13,
+ "envoyes_aujourdhui": 14,
  "prospects": [
+  {
+   "slug": "the-storone-podcast",
+   "podcast": "The StorONE Podcast",
+   "statut": "Envoye",
+   "ajoute_le": "2026-11-02T23:14:21.886Z",
+   "envoye_le": "2026-11-03T22:50:23.690Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.org/podcast-btb/the-storone-podcast-podcast.html",
+   "queue_rank": null,
+   "variante": "B"
+  },
   {
    "slug": "executive-office-insights",
    "podcast": "Executive Office Insights",
@@ -251,7 +263,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/culture-architects-podcast.html",
-   "queue_rank": 5,
+   "queue_rank": 3,
    "variante": ""
   },
   {
@@ -263,7 +275,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/real-world-np-podcast.html",
-   "queue_rank": 4,
+   "queue_rank": 2,
    "variante": ""
   },
   {
@@ -275,19 +287,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/str-data-lab-by-airdna-podcast.html",
-   "queue_rank": 3,
-   "variante": ""
-  },
-  {
-   "slug": "the-storone-podcast",
-   "podcast": "The StorONE Podcast",
-   "statut": "Pret",
-   "ajoute_le": "2026-11-02T23:14:21.886Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.org/podcast-btb/the-storone-podcast-podcast.html",
-   "queue_rank": 2,
+   "queue_rank": 1,
    "variante": ""
   },
   {
@@ -317,13 +317,13 @@
   {
    "slug": "go-ai-podcast",
    "podcast": "GO AI Podcast",
-   "statut": "Pret",
+   "statut": "Non valide",
    "ajoute_le": "2026-11-02T22:16:46.329Z",
    "envoye_le": "",
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/go-ai-podcast-podcast.html",
-   "queue_rank": 1,
+   "queue_rank": null,
    "variante": ""
   },
   {
