@@ -144,7 +144,21 @@ class ImportHubAnswers extends Command
     private function blocksFor(array $item, array $data): array
     {
         $blocks = [];
+        $paragraphs = array_values(array_filter(
+            preg_split('/\n\s*\n/', trim((string) $item['answer'])) ?: [],
+            fn (string $p): bool => trim($p) !== '',
+        ));
 
+        // 1. Chapeau : premier paragraphe de la reponse, en lead.
+        if ($paragraphs !== []) {
+            $blocks[] = [
+                'id' => 'p_'.Str::random(8),
+                'kind' => 'p',
+                'html' => '<strong>'.e(trim(array_shift($paragraphs))).'</strong>',
+            ];
+        }
+
+        // 2. Extrait audio de l'episode (lecteur du Hub).
         if (! empty($item['audio_url'])) {
             $blocks[] = [
                 'id' => 'a_'.Str::random(8),
@@ -157,19 +171,28 @@ class ImportHubAnswers extends Command
             ];
         }
 
-        foreach (preg_split('/\n\s*\n/', trim((string) $item['answer'])) ?: [] as $paragraph) {
-            $blocks[] = [
-                'id' => 'p_'.Str::random(8),
-                'kind' => 'p',
-                'html' => e(trim($paragraph)),
-            ];
+        // 3. Developpement : le reste de la reponse, sous un titre de section.
+        if ($paragraphs !== []) {
+            $blocks[] = ['id' => 'h_'.Str::random(8), 'kind' => 'h2', 'text' => e('Développement')];
+            foreach ($paragraphs as $paragraph) {
+                $blocks[] = ['id' => 'p_'.Str::random(8), 'kind' => 'p', 'html' => e(trim($paragraph))];
+            }
         }
 
+        // 4. Citation de l'intervenant, si fournie.
         if (! empty($item['quote'])) {
+            $blocks[] = ['id' => 'q_'.Str::random(8), 'kind' => 'quote', 'html' => e((string) $item['quote'])];
+        }
+
+        // 5. Encart CTA vers le site du client (ou la cible indiquee).
+        $cta = trim((string) ($item['cta_url'] ?? $data['cta_url'] ?? ''));
+        if ($cta !== '' && preg_match('#^https?://#i', $cta)) {
+            $ctaText = trim((string) ($item['cta_text'] ?? $data['cta_text'] ?? 'En savoir plus sur ce sujet'));
             $blocks[] = [
-                'id' => 'q_'.Str::random(8),
-                'kind' => 'quote',
-                'html' => e((string) $item['quote']),
+                'id' => 'c_'.Str::random(8),
+                'kind' => 'callout',
+                'variant' => 'info',
+                'text' => '<a href="'.e($cta).'">'.e($ctaText).' &rarr;</a>',
             ];
         }
 
