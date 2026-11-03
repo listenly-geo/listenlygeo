@@ -171,11 +171,13 @@ class ImportHubAnswers extends Command
             ];
         }
 
-        // 3. Developpement : le reste de la reponse, sous un titre de section.
-        if ($paragraphs !== []) {
-            $blocks[] = ['id' => 'h_'.Str::random(8), 'kind' => 'h2', 'text' => e('Développement')];
-            foreach ($paragraphs as $paragraph) {
-                $blocks[] = ['id' => 'p_'.Str::random(8), 'kind' => 'p', 'html' => e(trim($paragraph))];
+        // 3. Corps de l'article : "## Titre" = titre de section, le reste = paragraphes.
+        foreach ($paragraphs as $paragraph) {
+            $paragraph = trim($paragraph);
+            if (str_starts_with($paragraph, '## ')) {
+                $blocks[] = ['id' => 'h_'.Str::random(8), 'kind' => 'h2', 'text' => e(trim(substr($paragraph, 3)))];
+            } else {
+                $blocks[] = ['id' => 'p_'.Str::random(8), 'kind' => 'p', 'html' => e($paragraph)];
             }
         }
 
