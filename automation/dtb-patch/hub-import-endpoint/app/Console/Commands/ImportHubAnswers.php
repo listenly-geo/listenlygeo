@@ -144,21 +144,23 @@ class ImportHubAnswers extends Command
     private function blocksFor(array $item, array $data): array
     {
         $blocks = [];
-        $paragraphs = array_values(array_filter(
-            preg_split('/\n\s*\n/', trim((string) $item['answer'])) ?: [],
-            fn (string $p): bool => trim($p) !== '',
-        ));
+        $cta = trim((string) ($item['cta_url'] ?? $data['cta_url'] ?? ''));
+        $ctaText = trim((string) ($item['cta_text'] ?? $data['cta_text'] ?? 'En savoir plus sur ce sujet'));
+        $hasCta = $cta !== '' && preg_match('#^https?://#i', $cta) === 1;
+        $listenlyUrl = trim((string) ($item['listenly_url'] ?? $data['listenly_show_url'] ?? ''));
 
-        // 1. Chapeau : premier paragraphe de la reponse, en lead.
+        $paragraphs = array_values(array_filter(
+            array_map('trim', preg_split('/\n\s*\n/', trim((string) $item['answer'])) ?: []),
+            fn (string $p): bool => $p !== '',
+        ));
+        $excerptSource = $paragraphs[1] ?? $paragraphs[0] ?? '';
+
+        // 1. Chapeau.
         if ($paragraphs !== []) {
-            $blocks[] = [
-                'id' => 'p_'.Str::random(8),
-                'kind' => 'p',
-                'html' => '<strong>'.e(trim(array_shift($paragraphs))).'</strong>',
-            ];
+            $blocks[] = ['id' => 'p_'.Str::random(8), 'kind' => 'p', 'html' => '<strong>'.e(array_shift($paragraphs)).'</strong>'];
         }
 
-        // 2. Extrait audio de l'episode (lecteur du Hub).
+        // 2. Lecteur audio de l'episode.
         if (! empty($item['audio_url'])) {
             $blocks[] = [
                 'id' => 'a_'.Str::random(8),
@@ -167,38 +169,58 @@ class ImportHubAnswers extends Command
                 'startSec' => (int) ($item['start_sec'] ?? 0),
                 'episode' => (string) ($item['episode'] ?? ''),
                 'podcast' => (string) ($data['podcast'] ?? ''),
-                'listenlyUrl' => (string) ($item['listenly_url'] ?? ($data['listenly_show_url'] ?? '')),
+                'listenlyUrl' => $listenlyUrl,
             ];
         }
 
-        // 3. Corps de l'article : "## Titre" = titre de section, le reste = paragraphes.
+        // 3. Corps : "## Titre" = section, le reste = paragraphes. CTA place avant la 2e section.
+        $headings = 0;
+        $midCtaDone = false;
         foreach ($paragraphs as $paragraph) {
-            $paragraph = trim($paragraph);
             if (str_starts_with($paragraph, '## ')) {
+                $headings++;
+                if ($headings === 2 && $hasCta && ! $midCtaDone) {
+                    $blocks[] = $this->ctaBlock($cta, $ctaText);
+                    $midCtaDone = true;
+                }
                 $blocks[] = ['id' => 'h_'.Str::random(8), 'kind' => 'h2', 'text' => e(trim(substr($paragraph, 3)))];
             } else {
                 $blocks[] = ['id' => 'p_'.Str::random(8), 'kind' => 'p', 'html' => e($paragraph)];
             }
         }
 
-        // 4. Citation de l'intervenant, si fournie.
-        if (! empty($item['quote'])) {
-            $blocks[] = ['id' => 'q_'.Str::random(8), 'kind' => 'quote', 'html' => e((string) $item['quote'])];
-        }
-
-        // 5. Encart CTA vers le site du client (ou la cible indiquee).
-        $cta = trim((string) ($item['cta_url'] ?? $data['cta_url'] ?? ''));
-        if ($cta !== '' && preg_match('#^https?://#i', $cta)) {
-            $ctaText = trim((string) ($item['cta_text'] ?? $data['cta_text'] ?? 'En savoir plus sur ce sujet'));
+        // 4. Extrait de l'episode, comme sur les pages moment de Listenly.
+        if ($listenlyUrl !== '' && preg_match('#^https?://#i', $listenlyUrl) === 1) {
+            $excerpt = Str::limit($excerptSource, 320);
             $blocks[] = [
-                'id' => 'c_'.Str::random(8),
+                'id' => 'x_'.Str::random(8),
                 'kind' => 'callout',
                 'variant' => 'info',
-                'text' => '<a href="'.e($cta).'">'.e($ctaText).' &rarr;</a>',
+                'text' => '<p><strong>Extrait de l\'épisode</strong> · '.e((string) ($data['podcast'] ?? '')).
+                    ' · '.e((string) ($item['episode'] ?? '')).'</p>'.
+                    '<p><em>'.e((string) ($item['question'] ?? '')).'</em></p>'.
+                    '<p>'.e($excerpt).'</p>'.
+                    '<p><a href="'.e($listenlyUrl).'">Écouter et lire la réponse sur Listenly &rarr;</a></p>',
             ];
         }
 
+        // 5. CTA de fin.
+        if ($hasCta) {
+            $blocks[] = $this->ctaBlock($cta, $ctaText);
+        }
+
         return $blocks;
+    }
+
+    private function ctaBlock(string $url, string $text): array
+    {
+        return [
+            'id' => 'c_'.Str::random(8),
+            'kind' => 'callout',
+            'variant' => 'ok',
+            'text' => '<p><strong>Vous voulez appliquer ceci à votre activité ?</strong></p>'.
+                '<p><a href="'.e($url).'">'.e($text).' &rarr;</a></p>',
+        ];
     }
 
     private function readTime(string $text): string
