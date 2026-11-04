@@ -1,19 +1,17 @@
-# Brief trafic SEO — 2026-11-03
+# Brief trafic SEO — 2026-11-04
 
-- Période ['2026-08-03', '2026-11-01'] : 17 clics / 2891 impressions sur 471 pages
+- Période ['2026-08-04', '2026-11-02'] : 17 clics / 2901 impressions sur 471 pages
 - Pages de moments dans Google : 73 pages, 303 impressions, 10 clics
 - Moments ouverts au sitemap : 77 (dont 72 depuis 7 j+) ; contrôlés : 72 ; indexés : 62 (86.1%)
 - Quota : 10/jour → recommandé 25/jour (86.1% indexees : on peut accelerer)
 
 ## Par type de page
-- hub : 275 pages, 2047 impr., 4 clics
-- show-listenly : 114 pages, 497 impr., 3 clics
+- hub : 275 pages, 2050 impr., 4 clics
+- show-listenly : 114 pages, 503 impr., 3 clics
 - moment : 73 pages, 303 impr., 10 clics
-- autre : 9 pages, 44 impr., 0 clics
+- autre : 9 pages, 45 impr., 0 clics
 
 ## 10 pages de moments à faire indexer à la main aujourd'hui
-- https://listenly.org/podcast-btb/m/the-ramsey-show/ef566974d8 (detectee_non_indexee)
-- https://listenly.org/podcast-btb/m/world-war-2-podcast/6329b679c0 (detectee_non_indexee)
 - https://listenly.org/podcast-btb/m/best-damn-coach-podcast-conversations-fo/eb97b64625 (inconnue)
 - https://listenly.org/podcast-btb/m/beyond-luxury/1a55291ad7 (inconnue)
 - https://listenly.org/podcast-btb/m/the-single-source/103c535b37 (inconnue)
