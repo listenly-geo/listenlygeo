@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-04T10:18",
- "total": 890,
+ "updated": "2026-11-04T10:28",
+ "total": 891,
  "status": {
   "Clos (ancien mail)": 182,
   "Rebond": 17,
@@ -19,7 +19,8 @@
   "En pause (erreur extraction)": 9,
   "Relance 2": 1,
   "Relance": 13,
-  "Lien recu": 1
+  "Lien recu": 1,
+  "Pret": 1
  },
  "sent_total": 654,
  "replies_total": 2,
@@ -77,14 +78,26 @@
  "max_envois_jour": 100,
  "heures_envoi": "14-24",
  "cap_jour_effectif": 30,
- "stock_utilisable": 0,
+ "stock_utilisable": 1,
  "stock_pret": {
-  "stock": 0,
+  "stock": 1,
   "ouvert": true,
   "ouverture": 20
  },
  "envoyes_aujourdhui": 17,
  "prospects": [
+  {
+   "slug": "the-welsh-wire",
+   "podcast": "The Welsh Wire",
+   "statut": "Pret",
+   "ajoute_le": "2026-11-04T10:27:41.278Z",
+   "envoye_le": "",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.org/podcast-btb/the-welsh-wire-podcast.html",
+   "queue_rank": 1,
+   "variante": ""
+  },
   {
    "slug": "culture-architects",
    "podcast": "Culture Architects™",
@@ -3672,18 +3685,6 @@
    "fiche_url": "https://listenly.fr/podcast-btb/better-than-before-with-tony-richards-podcast.html",
    "queue_rank": null,
    "variante": "B"
-  },
-  {
-   "slug": "u-s-manufacturing-today",
-   "podcast": "U.S. Manufacturing Today",
-   "statut": "Envoye",
-   "ajoute_le": "2026-10-13T07:09:49.672Z",
-   "envoye_le": "2026-10-13T14:34:09.855Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/u-s-manufacturing-today-podcast.html",
-   "queue_rank": null,
-   "variante": "E"
   }
  ]
 }
