@@ -32,7 +32,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           DISCOVERY_MAX_QUALIFY: ${{ github.event.inputs.max_qualify || '15' }}
-          DISCOVERY_COUNTRIES: ${{ github.event.inputs.countries || 'us' }}
+          DISCOVERY_COUNTRIES: ${{ github.event.inputs.countries || 'us,gb,ca,au' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python automation/scripts/discover_podcasts.py
