@@ -1,4 +1,4 @@
-# Reflexion du MarketForge Engine (2026-11-04T05:57 UTC)
+# Reflexion du MarketForge Engine (2026-11-04T06:01 UTC)
 **Statut : BLOQUE**
 
 ## Funnel
@@ -18,6 +18,7 @@
 - paiements hub : 0
 
 ## Blocages
+- Stock 'Pret' vide : plus aucun mail a envoyer (decouverte/onboarding/contact en panne ou emails rejetes).
 - Reponses non classees (positive / neutre / refus) : impossible de savoir si le funnel marche. Ajouter le champ 'classe' dans replies.json.
 
 ## Pourquoi pas encore de client
