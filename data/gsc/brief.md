@@ -1,14 +1,14 @@
-# Brief trafic SEO — 2026-11-04
+# Brief trafic SEO — 2026-11-06
 
-- Période ['2026-08-04', '2026-11-02'] : 17 clics / 2901 impressions sur 471 pages
-- Pages de moments dans Google : 73 pages, 303 impressions, 10 clics
-- Moments ouverts au sitemap : 77 (dont 72 depuis 7 j+) ; contrôlés : 72 ; indexés : 62 (86.1%)
-- Quota : 10/jour → recommandé 25/jour (86.1% indexees : on peut accelerer)
+- Période ['2026-08-06', '2026-11-04'] : 17 clics / 2912 impressions sur 472 pages
+- Pages de moments dans Google : 74 pages, 304 impressions, 10 clics
+- Moments ouverts au sitemap : 77 (dont 75 depuis 7 j+) ; contrôlés : 75 ; indexés : 65 (86.7%)
+- Quota : 10/jour → recommandé 25/jour (86.7% indexees : on peut accelerer)
 
 ## Par type de page
-- hub : 275 pages, 2050 impr., 4 clics
-- show-listenly : 114 pages, 503 impr., 3 clics
-- moment : 73 pages, 303 impr., 10 clics
+- hub : 275 pages, 2058 impr., 4 clics
+- show-listenly : 114 pages, 505 impr., 3 clics
+- moment : 74 pages, 304 impr., 10 clics
 - autre : 9 pages, 45 impr., 0 clics
 
 ## 10 pages de moments à faire indexer à la main aujourd'hui
@@ -30,7 +30,7 @@
 - https://listenly.org/podcast-btb/risk-management-brick-by-brick-podcast.html — 27 impr., pos 10.3
 - https://listenly.org/podcast-btb/the-dsr-network-podcast.html — 26 impr., pos 13.8
 - https://listenly.org/podcast-btb/beyond-fulfillment-podcast-podcast.html — 25 impr., pos 9.9
-- https://listenly.org/podcast-btb/the-best-of-yvonne-podcast-podcast.html — 24 impr., pos 6.6
+- https://listenly.org/podcast-btb/the-best-of-yvonne-podcast-podcast.html — 25 impr., pos 6.4
 
 ## Requêtes bien placées
 - "guy kawasaki" — 9 impr., pos 3.9, 0 clic(s)
