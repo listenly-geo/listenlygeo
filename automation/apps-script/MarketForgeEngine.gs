@@ -100,7 +100,9 @@ var MFE_FIRST_MAIL = [
   '<strong>I can redirect this qualified audience to your website or Hub, for free.</strong> Would you be interested? Setup takes 5 minutes.',
   '',
   'Best regards,',
-  'Etienne Cugnet'
+  'Etienne Cugnet',
+  '',
+  'PS: Without a reply from you, 100% of this traffic will keep going to Listenly, not to your website.'
 ].join('\n');
 // Test A/B du CTA (03/10/2026) : 5 variantes A-E, une seule par envoi. Texte brut (aucun gras / souligne dans les CTA).
 var MFE_CTAS = {
