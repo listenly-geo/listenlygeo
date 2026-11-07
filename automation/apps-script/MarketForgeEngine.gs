@@ -1174,13 +1174,13 @@ function mfeSettings_() {
     H_END: parseInt(String(cfg.MFE_HEURES_ENVOI || '8-19').split('-')[1], 10) || 19,
     NUIT_JUSQU_A: isNaN(parseInt(cfg.MFE_NUIT_JUSQU_A, 10)) ? 6 : Math.max(0, Math.min(10, parseInt(cfg.MFE_NUIT_JUSQU_A, 10))),
     NUIT_SI_OUVERT_APRES: parseInt(cfg.MFE_NUIT_SI_OUVERT_APRES, 10) || 18,
-    WEEKEND_PAUSE: String(cfg.MFE_WEEKEND_PAUSE || 'TRUE').toUpperCase() !== 'FALSE',
+    WEEKEND_PAUSE: String((cfg.MFE_WEEKEND_PAUSE === undefined || cfg.MFE_WEEKEND_PAUSE === null || cfg.MFE_WEEKEND_PAUSE === '') ? 'TRUE' : cfg.MFE_WEEKEND_PAUSE).toUpperCase() !== 'FALSE',   // 07/11/2026 : le booleen FALSE du Sheet ne doit pas retomber sur TRUE
     STOCK_MIN: isNaN(parseInt(cfg.MFE_STOCK_MIN, 10)) ? 30 : parseInt(cfg.MFE_STOCK_MIN, 10),
     RELANCE_JOURS: parseInt(cfg.MFE_RELANCE_JOURS, 10) || 0,
     EMAIL_TEST: String(cfg.MFE_EMAIL_TEST || '').trim(),
     AB_ACTIF: String(cfg.MFE_AB_ACTIF).toUpperCase() !== 'FALSE',
     DIRIGEANT: String(cfg.MFE_ENVOI_DIRIGEANT).toUpperCase() === 'TRUE',   // v24 : eteint par defaut
-    DIRIGEANT_SEUL: String(cfg.MFE_DIRIGEANT_SEUL || 'TRUE').toUpperCase() !== 'FALSE',   // v25
+    DIRIGEANT_SEUL: String((cfg.MFE_DIRIGEANT_SEUL === undefined || cfg.MFE_DIRIGEANT_SEUL === null || cfg.MFE_DIRIGEANT_SEUL === '') ? 'TRUE' : cfg.MFE_DIRIGEANT_SEUL).toUpperCase() !== 'FALSE',   // v25
     DIRIGEANT_PART: Math.max(0, Math.min(100, isNaN(parseInt(cfg.MFE_DIRIGEANT_PART, 10)) ? 50 : parseInt(cfg.MFE_DIRIGEANT_PART, 10))),
   };
 }

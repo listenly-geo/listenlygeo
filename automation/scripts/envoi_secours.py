@@ -26,7 +26,8 @@ def main():
         h0, h1 = 14, 23
     # 29/10/2026 (decision d'Etienne) : aucun mail le samedi ni le dimanche. Meme regle que le script Apps Script : le jour calendaire OU le
     # « jour d'envoi » (qui commence a h0) tombe un samedi/dimanche -> rien ne part (le lundi avant h0 appartient au jour d'envoi du dimanche).
-    pause_we = str(reg.get("MFE_WEEKEND_PAUSE") or "TRUE").strip().upper() != "FALSE"
+    _pw = reg.get("MFE_WEEKEND_PAUSE")   # 07/11/2026 : un FALSE du Sheet (booleen) ne doit pas retomber sur TRUE
+    pause_we = str("TRUE" if _pw in (None, "") else _pw).strip().upper() != "FALSE"
     veille = now - datetime.timedelta(hours=h0)
     if pause_we and (now.weekday() >= 5 or veille.weekday() >= 5):
         print("envoi secours : week-end (samedi/dimanche) -> aucun envoi"); return

@@ -2824,6 +2824,14 @@
       "texte": "Decouverte de podcasts : 321 nouveaux mots-cles (nouveaux metiers et nouvelles formulations dans les 20 secteurs) car les anciens etaient epuises, et recherches Apple ralenties avec arret propre apres 8 echecs d'affilee (Apple bloquait nos serveurs en erreur 403 et le run perdait 40 minutes pour presque rien).",
       "date": "07/11/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-340",
+      "section": "Envoi",
+      "version": "V3.0",
+      "texte": "Correction d'un bug d'envoi : quand le Sheet contenait FALSE pour la pause week-end, le moteur le lisait comme vide et remettait TRUE. Le moteur ne pouvait donc jamais tourner le week-end. Corrige dans Apps Script et dans l'envoi de secours (le reglage FALSE est maintenant respecte).",
+      "date": "07/11/2026",
+      "statut": "en_cours"
     }
   ]
 }
