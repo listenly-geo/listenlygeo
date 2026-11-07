@@ -528,15 +528,30 @@ def main():
     # --- 1) Collecte brute via iTunes Search -- on garde le mot-cle qui a trouve chaque
     # resultat, pour pouvoir diversifier la selection ensuite (voir etape 3).
     raw_results = {}  # feed_url -> (record, keyword)
+    # 07/11/2026 : iTunes repond 403 a beaucoup de requetes depuis les serveurs GitHub (IP partagees, cadence trop rapide).
+    # Cadence ralentie (1.2 s entre deux requetes) et arret propre apres 8 echecs d'affilee : on garde ce qui a ete trouve
+    # au lieu de perdre 40 minutes en pauses/retentatives (un echec = 18 s de pauses).
+    echecs_de_suite, arret = 0, False
     for kw in keywords:
+        if arret:
+            break
         for country in COUNTRIES:
-            for r in itunes_search(kw, country):
+            res = itunes_search(kw, country)
+            if res:
+                echecs_de_suite = 0
+            else:
+                echecs_de_suite += 1
+                if echecs_de_suite >= 8:
+                    log(f"  {echecs_de_suite} recherches vides d'affilee (iTunes bloque cette IP) : arret des recherches, on traite ce qui a ete trouve.")
+                    arret = True
+                    break
+            for r in res:
                 feed_url = r.get("feedUrl")
                 if not feed_url:
                     continue
                 if feed_url not in raw_results:
                     raw_results[feed_url] = (r, kw)
-            time.sleep(0.2)  # courtoisie API
+            time.sleep(1.2)  # courtoisie API (07/11/2026 : 0.2 -> 1.2 s)
 
     log(f"{len(raw_results)} podcasts uniques trouves (avant filtrage).")
 
