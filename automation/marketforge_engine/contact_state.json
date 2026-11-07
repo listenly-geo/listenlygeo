@@ -87,6 +87,10 @@
    "date": "2026-10-12",
    "statut": "ok"
   },
+  "biggerpockets.com": {
+   "date": "2026-11-07",
+   "statut": "catchall"
+  },
   "bluwave.net": {
    "date": "2026-10-11",
    "statut": "ok"
@@ -113,6 +117,10 @@
   },
   "cofenster.com": {
    "date": "2026-10-08",
+   "statut": "ok"
+  },
+  "contentallies.com": {
+   "date": "2026-11-07",
    "statut": "ok"
   },
   "contractordynamics.com": {
@@ -183,6 +191,10 @@
    "date": "2026-10-11",
    "statut": "ok"
   },
+  "glcs.net": {
+   "date": "2026-11-07",
+   "invalid": 1
+  },
   "gorilla76.com": {
    "date": "2026-10-11",
    "statut": "ok"
@@ -197,6 +209,10 @@
   },
   "harveynash.com": {
    "date": "2026-10-09",
+   "statut": "ok"
+  },
+  "heavybit.com": {
+   "date": "2026-11-07",
    "statut": "ok"
   },
   "hollywoodbranded.com": {
@@ -296,7 +312,7 @@
    "statut": "ok"
   },
   "naturalencounters.com": {
-   "date": "2026-10-08",
+   "date": "2026-11-07",
    "statut": "catchall"
   },
   "neu.fit": {
@@ -346,6 +362,10 @@
   "podwheels.com": {
    "date": "2026-10-08",
    "statut": "catchall"
+  },
+  "predictiveroi.com": {
+   "date": "2026-11-07",
+   "statut": "ok"
   },
   "presentationmultimedia.com": {
    "date": "2026-10-10",
@@ -427,6 +447,10 @@
    "date": "2026-10-12",
    "statut": "ok"
   },
+  "singerlewak.com": {
+   "date": "2026-11-07",
+   "invalid": 2
+  },
   "smbteam.com": {
    "date": "2026-10-11",
    "statut": "ok"
@@ -499,6 +523,10 @@
    "date": "2026-10-12",
    "statut": "ok"
   },
+  "thisisarray.com": {
+   "date": "2026-11-07",
+   "statut": "ok"
+  },
   "topco.co.za": {
    "date": "2026-10-10",
    "statut": "ok"
@@ -525,6 +553,10 @@
   },
   "uprightdigital.com": {
    "date": "2026-10-11",
+   "statut": "ok"
+  },
+  "uxstudioteam.com": {
+   "date": "2026-11-07",
    "statut": "ok"
   },
   "varsityhousegym.com": {
@@ -565,17 +597,28 @@
   }
  },
  "_formats": {
-  "prenom@": 1
+  "prenom@": 6
  },
  "_resume": {
-  "adresses_utilisables": 0,
+  "adresses_utilisables": 5,
   "date": "2026-11-07",
-  "detail": {},
+  "detail": {
+   "animateur_seul": 2,
+   "domaines_attrape_tout": 2,
+   "nom_transcription": 2,
+   "noms": 9,
+   "statut_catchall": 2,
+   "statut_invalid": 3,
+   "statut_unknown": 1,
+   "statut_valid": 5,
+   "testees": 11,
+   "verifiees": 5
+  },
   "ecriture_sheet": true,
-  "noms": 0,
+  "noms": 9,
   "raison_indispo": "",
-  "traites": 0,
-  "verifications": 0
+  "traites": 9,
+  "verifications": 11
  },
  "a-brave-new-podcast": {
   "date": "2026-10-11",
@@ -982,7 +1025,13 @@
   "score": 50
  },
  "biggerpockets-real-estate-podcast": {
-  "score": 80
+  "date": "2026-11-07",
+  "email_trouve": false,
+  "rang": 9,
+  "score": 80,
+  "trouve": true,
+  "v": 4,
+  "verifie": false
  },
  "biz-help-for-you": {
   "date": "2026-10-28",
@@ -1561,13 +1610,13 @@
   "verifie": false
  },
  "design-aloud": {
-  "date": "2026-10-12",
-  "email_trouve": false,
+  "date": "2026-11-07",
+  "email_trouve": true,
   "rang": 1,
-  "score": 93,
+  "score": 98,
   "trouve": true,
-  "v": 0,
-  "verifie": false
+  "v": 4,
+  "verifie": true
  },
  "designops-island-discs": {
   "date": "2026-10-10",
@@ -1624,7 +1673,13 @@
   "score": 50
  },
  "driving-forward-podcast": {
-  "score": 80
+  "date": "2026-11-07",
+  "email_trouve": false,
+  "rang": 1,
+  "score": 95,
+  "trouve": true,
+  "v": 4,
+  "verifie": false
  },
  "e-a-s-e-into-retirement-radio-show": {
   "date": "2026-11-02",
@@ -2187,13 +2242,13 @@
   "score": 50
  },
  "heavybit-podcasts": {
-  "date": "2026-10-12",
-  "email_trouve": false,
+  "date": "2026-11-07",
+  "email_trouve": true,
   "rang": 1,
-  "score": 93,
+  "score": 98,
   "trouve": true,
-  "v": 0,
-  "verifie": false
+  "v": 4,
+  "verifie": true
  },
  "hecast-the-podcast-for-men-by-hechangedi": {
   "score": 50
@@ -2733,7 +2788,13 @@
   "verifie": false
  },
  "leaders-of-b2b-podcast-interviews-on-bus": {
-  "score": 80
+  "date": "2026-11-07",
+  "email_trouve": true,
+  "rang": 1,
+  "score": 100,
+  "trouve": true,
+  "v": 4,
+  "verifie": true
  },
  "leading-conversations": {
   "date": "2026-10-12",
@@ -4450,7 +4511,7 @@
   "score": 50
  },
  "the-balancing-act-podcast-with-singerlew": {
-  "date": "2026-10-08",
+  "date": "2026-11-07",
   "email_trouve": false,
   "rang": 9,
   "score": 73,
@@ -5226,13 +5287,13 @@
   "score": 50
  },
  "the-managing-partners-podcast-law-firm-b": {
-  "date": "2026-10-12",
-  "email_trouve": false,
+  "date": "2026-11-07",
+  "email_trouve": true,
   "rang": 1,
-  "score": 93,
+  "score": 98,
   "trouve": true,
-  "v": 0,
-  "verifie": false
+  "v": 4,
+  "verifie": true
  },
  "the-manufacturing-it-podcast": {
   "score": 25
@@ -5499,13 +5560,13 @@
   "verifie": true
  },
  "the-progressive-agency-podcast": {
-  "date": "2026-10-12",
-  "email_trouve": false,
+  "date": "2026-11-07",
+  "email_trouve": true,
   "rang": 1,
-  "score": 93,
+  "score": 98,
   "trouve": true,
-  "v": 0,
-  "verifie": false
+  "v": 4,
+  "verifie": true
  },
  "the-promarketer-podcast": {
   "date": "2026-10-10",
@@ -5811,7 +5872,7 @@
   "score": 50
  },
  "the-tec-talk-podcast-presented-by-natura": {
-  "date": "2026-10-08",
+  "date": "2026-11-07",
   "email_trouve": false,
   "rang": 1,
   "score": 88,
