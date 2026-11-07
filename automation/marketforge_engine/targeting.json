@@ -1,13 +1,17 @@
 {
- "updated": "2026-11-07T19:01",
- "envois_total": 233,
+ "updated": "2026-11-07T19:25",
+ "envois_total": 235,
  "reponses_total": 0,
  "taux_reponse_global_pct": 0.0,
- "dirigeants_testes": 13381,
- "dirigeants_trouves": 1516,
+ "dirigeants_testes": 13391,
+ "dirigeants_trouves": 1517,
  "data_apprentissage": {
   "creneaux_new_york": {
    "heure": {
+    "14h": {
+     "envoyes": 23,
+     "reponses": 0
+    },
     "13h": {
      "envoyes": 21,
      "reponses": 0
@@ -46,10 +50,6 @@
     },
     "15h": {
      "envoyes": 31,
-     "reponses": 0
-    },
-    "14h": {
-     "envoyes": 21,
      "reponses": 0
     },
     "00h": {
@@ -99,7 +99,7 @@
    },
    "jour": {
     "sam": {
-     "envoyes": 18,
+     "envoyes": 20,
      "reponses": 0
     },
     "mar": {
@@ -133,24 +133,24 @@
   "postes_trouves": {}
  },
  "weights": {
-  "Tech & SaaS": 0.0551,
-  "Cybersécurité": 0.0709,
+  "Tech & SaaS": 0.055,
+  "Cybersécurité": 0.0708,
   "Finance & Fintech": 0.0465,
   "RH & Recrutement": 0.042,
   "Marketing & Ventes": 0.0505,
-  "Logistique & Supply chain": 0.056,
+  "Logistique & Supply chain": 0.0564,
   "Construction & Industrie": 0.0431,
   "Énergie": 0.0459,
-  "Assurance": 0.0521,
-  "Immobilier": 0.0519,
-  "Juridique": 0.0489,
+  "Assurance": 0.0526,
+  "Immobilier": 0.0518,
+  "Juridique": 0.0488,
   "Conseil": 0.0339,
-  "Santé": 0.0469,
+  "Santé": 0.0468,
   "Business général (entreprise)": 0.0535,
   "Cabinets d'avocats": 0.0414,
   "Experts-comptables & patrimoine": 0.0578,
   "Coachs & consultants B2B": 0.0515,
-  "Agences de services": 0.0513,
+  "Agences de services": 0.0511,
   "Santé libérale": 0.0486,
   "Formateurs & programmes": 0.0522
  },
@@ -158,7 +158,7 @@
   {
    "secteur": "Cybersécurité",
    "poids_pct": 7.1,
-   "delta_pts": -0.1,
+   "delta_pts": -0.2,
    "tendance": "stable",
    "onboarde": 81,
    "joignable": 76,
@@ -190,17 +190,17 @@
   {
    "secteur": "Logistique & Supply chain",
    "poids_pct": 5.6,
-   "delta_pts": -0.1,
+   "delta_pts": -0.0,
    "tendance": "stable",
    "onboarde": 14,
    "joignable": 14,
    "envoye": 12,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 747,
-   "dirigeant_trouves": 94,
+   "dirigeant_testes": 748,
+   "dirigeant_trouves": 95,
    "taux_reponse": 0.0,
-   "score": 0.12198,
+   "score": 0.1231,
    "rang": 3
   },
   {
@@ -213,10 +213,10 @@
    "envoye": 17,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 1306,
+   "dirigeant_testes": 1308,
    "dirigeant_trouves": 160,
    "taux_reponse": 0.0,
-   "score": 0.11966,
+   "score": 0.11948,
    "rang": 4
   },
   {
@@ -236,6 +236,22 @@
    "rang": 5
   },
   {
+   "secteur": "Assurance",
+   "poids_pct": 5.3,
+   "delta_pts": 0.0,
+   "tendance": "stable",
+   "onboarde": 6,
+   "joignable": 6,
+   "envoye": 2,
+   "rebond": 0,
+   "reponse": 0,
+   "dirigeant_testes": 541,
+   "dirigeant_trouves": 66,
+   "taux_reponse": 0.0,
+   "score": 0.11314,
+   "rang": 6
+  },
+  {
    "secteur": "Formateurs & programmes",
    "poids_pct": 5.2,
    "delta_pts": -0.0,
@@ -249,22 +265,6 @@
    "dirigeant_trouves": 79,
    "taux_reponse": 0.0,
    "score": 0.11199,
-   "rang": 6
-  },
-  {
-   "secteur": "Assurance",
-   "poids_pct": 5.2,
-   "delta_pts": -0.0,
-   "tendance": "stable",
-   "onboarde": 6,
-   "joignable": 6,
-   "envoye": 1,
-   "rebond": 0,
-   "reponse": 0,
-   "dirigeant_testes": 541,
-   "dirigeant_trouves": 66,
-   "taux_reponse": 0.0,
-   "score": 0.11169,
    "rang": 7
   },
   {
@@ -277,10 +277,10 @@
    "envoye": 10,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 513,
+   "dirigeant_testes": 514,
    "dirigeant_trouves": 59,
    "taux_reponse": 0.0,
-   "score": 0.11115,
+   "score": 0.11093,
    "rang": 8
   },
   {
@@ -290,13 +290,13 @@
    "tendance": "stable",
    "onboarde": 22,
    "joignable": 22,
-   "envoye": 14,
+   "envoye": 15,
    "rebond": 0,
    "reponse": 0,
    "dirigeant_testes": 859,
    "dirigeant_trouves": 97,
    "taux_reponse": 0.0,
-   "score": 0.10996,
+   "score": 0.1101,
    "rang": 9
   },
   {
@@ -309,10 +309,10 @@
    "envoye": 4,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 620,
+   "dirigeant_testes": 623,
    "dirigeant_trouves": 72,
    "taux_reponse": 0.0,
-   "score": 0.10964,
+   "score": 0.10912,
    "rang": 10
   },
   {
@@ -325,10 +325,10 @@
    "envoye": 12,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 650,
+   "dirigeant_testes": 651,
    "dirigeant_trouves": 72,
    "taux_reponse": 0.0,
-   "score": 0.10755,
+   "score": 0.10739,
    "rang": 11
   },
   {
@@ -341,10 +341,10 @@
    "envoye": 10,
    "rebond": 1,
    "reponse": 0,
-   "dirigeant_testes": 471,
+   "dirigeant_testes": 472,
    "dirigeant_trouves": 54,
    "taux_reponse": 0.0,
-   "score": 0.10316,
+   "score": 0.10295,
    "rang": 12
   },
   {
@@ -373,10 +373,10 @@
    "envoye": 1,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 441,
+   "dirigeant_testes": 442,
    "dirigeant_trouves": 47,
    "taux_reponse": 0.0,
-   "score": 0.09783,
+   "score": 0.09762,
    "rang": 14
   },
   {
@@ -488,7 +488,7 @@
    "dirigeant_testes": 0,
    "dirigeant_trouves": 0,
    "taux_reponse": 0.0,
-   "score": 0.11205,
+   "score": 0.11204,
    "rang": 21
   }
  ]
