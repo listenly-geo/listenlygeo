@@ -1,17 +1,17 @@
 {
-  "maj": "2026-11-07T16:22",
+  "maj": "2026-11-07T21:44",
   "etapes": {
     "deploiement_pont": {
       "conclusion": "failure",
       "at": "2026-11-07T15:05:49Z"
     },
     "moteur": {
-      "conclusion": "in_progress",
-      "at": "2026-11-07T16:20:06Z"
+      "conclusion": "pending",
+      "at": "2026-11-07T21:31:20Z"
     },
     "decouverte": {
       "conclusion": "success",
-      "at": "2026-11-05T13:07:09Z"
+      "at": "2026-11-07T16:22:57Z"
     },
     "tableau_de_bord": {
       "conclusion": "success",
@@ -24,21 +24,15 @@
     "api_import": 405
   },
   "stock": {
-    "prets": 28,
+    "prets": 30,
     "objectif": 30,
-    "sous_objectif": true,
+    "sous_objectif": false,
     "risque_ou_sans_dirigeant": 21,
-    "onboardes_dernier_run": 0
+    "onboardes_dernier_run": 4
   },
-  "decisions": [
-    {
-      "action": "relance découverte",
-      "quand": "2026-11-07T16:22"
-    }
-  ],
+  "decisions": [],
   "alertes": [
     "Pont d'envoi en échec : reconnexion clasp nécessaire (action humaine).",
-    "Stock de prospects prêts : 28 sur 30.",
     "21 prospects à risque ou sans dirigeant (à traiter)."
   ]
 }
