@@ -100,7 +100,8 @@ var MFE_FIRST_MAIL = [
   '<strong>I can redirect this qualified audience to your website or Hub, for free.</strong> Would you be interested? Setup takes 5 minutes.',
   '',
   'Best regards,',
-  'Etienne Cugnet',
+  '',
+  'Etienne',
   '',
   '<em>PS: Without a reply, 100% of this traffic stays on Listenly, not on your website.</em>'
 ].join('\n');
