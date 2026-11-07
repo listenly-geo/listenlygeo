@@ -41,8 +41,7 @@ Seul cas ou redemander quelque chose : le journal affiche `RefreshError` / `inva
 - Applique dans `mfeSend_` (Apps Script, `mfeStockGate_`) et dans `envoi_secours.py`. Ne jamais remettre `MFE_ENVOI_AUTO` a TRUE pour contourner cette regle.
 - Envoi de nuit (27/10/2026) : le « jour d'envoi » va de 14h a 14h le lendemain. Si le stock de 30 n'est atteint qu'apres 18h, les 30 mails sont etales jusqu'a 6h du matin (MFE_NUIT_JUSQU_A, MFE_NUIT_SI_OUVERT_APRES), sans rafale de rattrapage.
 
-## Week-end : pas de creation de fiche ni de prospection (decision du 29/10/2026)
-- Du samedi 00h au lundi 14h (heure de Paris) : aucune decouverte, aucune creation de fiche de prospect, aucune recherche de contact, aucun premier mail, aucune relance, aucun envoi de secours.
-- Applique par : job `garde` des workflows marketforge-engine-run et marketforge-contact-finder (jour calendaire samedi/dimanche), `mfeWeekend_` dans MarketForgeEngine.gs (v31, jour calendaire OU jour d'envoi samedi/dimanche) et `envoi_secours.py`. Reglage : MFE_WEEKEND_PAUSE (TRUE par defaut).
-- Le jour d'envoi du vendredi se termine a minuit (pas de debordement de nuit vers le samedi). Le lundi, le stock se reconstitue de 6h a 14h.
+## Week-end : le moteur tourne 7j/7 (decision du 07/11/2026, remplace la pause du 29/10/2026)
+- Decouverte, creation de fiche, recherche de contact, premiers mails, relances et envoi de secours fonctionnent aussi le samedi et le dimanche (les particuliers sont connectes en permanence).
+- Reglage : MFE_WEEKEND_PAUSE = FALSE (Sheet, Reglages). Les jobs `garde` des workflows marketforge-engine-run et marketforge-contact-finder ne bloquent plus le week-end. Ne jamais remettre TRUE sans demande d'Etienne.
 - Hors perimetre : le moteur trafic / SCORING MOMENT SYSTEM (systeme separe).

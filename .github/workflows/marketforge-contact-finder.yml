@@ -35,20 +35,15 @@ concurrency:
 
 jobs:
   garde:
-    # 29/10/2026 (decision d'Etienne) : pas de creation de fiche ni de prospection le samedi et le dimanche (heure de Paris).
+    # 07/11/2026 : la pause week-end du 29/10 est supprimee (le moteur tourne 7j/7).
     runs-on: ubuntu-latest
     outputs:
       weekend: ${{ steps.d.outputs.weekend }}
     steps:
       - id: d
         run: |
-          j=$(TZ=Europe/Paris date +%u)
-          if [ "$j" -ge 6 ]; then
-            echo "weekend=true" >> "$GITHUB_OUTPUT"
-            echo "::notice title=Week-end::samedi/dimanche : ni creation de fiche ni prospection (regle du 29/10/2026)"
-          else
-            echo "weekend=false" >> "$GITHUB_OUTPUT"
-          fi
+          # 07/11/2026 (decision d'Etienne) : le moteur tourne AUSSI le week-end (les particuliers sont connectes en permanence).
+          echo "weekend=false" >> "$GITHUB_OUTPUT"
 
   find:
     needs: garde
