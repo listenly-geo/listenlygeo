@@ -1,17 +1,18 @@
-# Brief trafic SEO — 2026-11-06
+# Brief trafic SEO — 2026-11-07
 
-- Période ['2026-08-06', '2026-11-04'] : 17 clics / 2912 impressions sur 472 pages
+- Période ['2026-08-07', '2026-11-05'] : 17 clics / 2925 impressions sur 472 pages
 - Pages de moments dans Google : 74 pages, 304 impressions, 10 clics
-- Moments ouverts au sitemap : 77 (dont 75 depuis 7 j+) ; contrôlés : 75 ; indexés : 65 (86.7%)
-- Quota : 10/jour → recommandé 25/jour (86.7% indexees : on peut accelerer)
+- Moments ouverts au sitemap : 78 (dont 75 depuis 7 j+) ; contrôlés : 75 ; indexés : 63 (84.0%)
+- Quota : 10/jour → recommandé 25/jour (84.0% indexees : on peut accelerer)
 
 ## Par type de page
-- hub : 275 pages, 2058 impr., 4 clics
-- show-listenly : 114 pages, 505 impr., 3 clics
+- hub : 275 pages, 2064 impr., 4 clics
+- show-listenly : 114 pages, 511 impr., 3 clics
 - moment : 74 pages, 304 impr., 10 clics
-- autre : 9 pages, 45 impr., 0 clics
+- autre : 9 pages, 46 impr., 0 clics
 
 ## 10 pages de moments à faire indexer à la main aujourd'hui
+- https://listenly.org/podcast-btb/m/world-war-2-podcast/d7d4e7aba3 (inconnue)
 - https://listenly.org/podcast-btb/m/best-damn-coach-podcast-conversations-fo/eb97b64625 (inconnue)
 - https://listenly.org/podcast-btb/m/beyond-luxury/1a55291ad7 (inconnue)
 - https://listenly.org/podcast-btb/m/the-single-source/103c535b37 (inconnue)
@@ -26,7 +27,7 @@
 - https://listenly.org/podcast-btb/the-wholesale-change-show-podcast.html — 40 impr., pos 12.6
 - https://listenly.org/podcast-btb/leaders-on-purpose-podcast.html — 37 impr., pos 7.4
 - https://listenly.org/podcast-btb/the-road-to-autonomy-podcast.html — 37 impr., pos 10.7
-- https://listenly.org/podcast-btb/the-cro-spotlight-podcast-podcast.html — 29 impr., pos 8.4
+- https://listenly.org/podcast-btb/the-cro-spotlight-podcast-podcast.html — 30 impr., pos 10.4
 - https://listenly.org/podcast-btb/risk-management-brick-by-brick-podcast.html — 27 impr., pos 10.3
 - https://listenly.org/podcast-btb/the-dsr-network-podcast.html — 26 impr., pos 13.8
 - https://listenly.org/podcast-btb/beyond-fulfillment-podcast-podcast.html — 25 impr., pos 9.9
