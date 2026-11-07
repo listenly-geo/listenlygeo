@@ -91,18 +91,16 @@ var MFE_MSG_VERSION = '23';   // incremente -> les textes MFE_MSG_* de Reglages 
 var MFE_FIRST_MAIL = [
   '{HELLO}',
   '',
-  'I listed your podcast <strong>{PODCAST}</strong> recently on <a href="https://listenly.org">listenly.org</a>, the 1st AI search engine for podcast.',
+  'I\'m reaching out because I listed your podcast <strong>{PODCAST}</strong> on <a href="https://listenly.org">Listenly.org</a>, the AI Wikipedia of podcasts.',
   '',
-  'Concept is simple: Each episode of your podcast contains +15 questions that business leaders ask Google and AI when they look for you, like <a href="{MOMENT_URL}">here</a>.',
+  'We turn your podcast\'s audio expertise into answers that Google, ChatGPT, Claude and Gemini can cite, <a href="{MOMENT_URL}">like here</a>.',
   '',
-  'But invisible until today to world <u>because of audio AI cant read.</u>',
+  'So when a business leader asks a question about you, your expertise can finally be cited.',
   '',
-  '<strong>We can redirect qualified prospects from Listenly to your funnel, for free.</strong>',
-  '',
-  'Would you be interested in a short video explaining how it works? It takes 5 minutes, and an RSS feed is all we need.',
+  '<strong>I can redirect this qualified audience to your website or Hub, for free.</strong> Would you be interested? Setup takes 5 minutes.',
   '',
   'Best regards,',
-  'Etienne'
+  'Etienne Cugnet'
 ].join('\n');
 // Test A/B du CTA (03/10/2026) : 5 variantes A-E, une seule par envoi. Texte brut (aucun gras / souligne dans les CTA).
 var MFE_CTAS = {
