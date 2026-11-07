@@ -95,7 +95,7 @@ var MFE_FIRST_MAIL = [
   '',
   'We turn your podcast\'s audio expertise into answers that Google, ChatGPT, Claude and Gemini can cite, <a href="{MOMENT_URL}">like here</a>.',
   '',
-  'So when a business leader asks a question about you, your expertise can finally be cited.',
+  'So when <u>a business leader asks a question about you</u>, your expertise can finally be cited.',
   '',
   '<strong>I can redirect this qualified audience to your website or Hub, for free.</strong> Would you be interested? Setup takes 5 minutes.',
   '',
