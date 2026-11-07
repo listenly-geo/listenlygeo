@@ -1,25 +1,28 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Tableau de bord des questions | Listenly</title>
+<title>Questions Dashboard | Listenly</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 <style>
 :root { color-scheme: dark; }
 body { margin: 0; background: #000; color: #F5F5F7; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; }
-.wrap { max-width: 980px; margin: 0 auto; padding: 24px max(16px, env(safe-area-inset-left, 0px)) 48px max(16px, env(safe-area-inset-right, 0px)); }
-header.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+.wrap { max-width: 980px; margin: 0 auto; padding: 24px max(16px, env(safe-area-inset-left, 0px)) 56px max(16px, env(safe-area-inset-right, 0px)); }
 .logo { font-weight: 700; letter-spacing: -.02em; font-size: 20px; }
-h1 { font-size: 26px; margin: 0; font-weight: 600; }
-.sub { color: #8E8E93; margin: 4px 0 0; font-size: 14px; }
+.hero { text-align: center; padding: 56px 0 40px; }
+.hero .label { color: #8E8E93; font-size: 14px; text-transform: uppercase; letter-spacing: .12em; }
+.counter { font-size: clamp(64px, 16vw, 160px); font-weight: 700; color: #FFFFFF; font-variant-numeric: tabular-nums; line-height: 1; margin: 18px 0 14px; letter-spacing: -.03em; }
+.hero .sub { color: #8E8E93; font-size: 15px; margin: 0; }
+.stats { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; margin-top: 28px; }
+.stat { text-align: center; }
+.stat b { display: block; font-size: 28px; font-variant-numeric: tabular-nums; color: #2997FF; }
+.stat span { color: #8E8E93; font-size: 13px; }
 .card { background: #1C1C1E; border-radius: 14px; padding: 20px; margin-bottom: 16px; }
 .card h2 { font-size: 16px; font-weight: 600; margin: 0 0 10px; }
-.lbl { color: #8E8E93; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; }
-.big { font-size: 64px; font-weight: 700; color: #2997FF; font-variant-numeric: tabular-nums; line-height: 1.1; margin: 6px 0; }
 .note { color: #8E8E93; font-size: 13px; margin: 4px 0 0; }
-.chart { width: 100%; min-height: 260px; }
+.chart { width: 100%; min-height: 240px; }
 .tablewrap { overflow-x: auto; max-height: 520px; overflow-y: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
 th { text-align: left; color: #8E8E93; font-weight: 500; position: sticky; top: 0; background: #1C1C1E; padding: 8px 6px; border-bottom: 1px solid #2C2C2E; }
@@ -30,46 +33,63 @@ td a { color: #2997FF; text-decoration: none; }
 </head>
 <body>
 <div class="wrap">
-<header class="top">
-  <div>
-    <div class="logo">Listenly</div>
-    <h1 style="margin-top:14px">Questions référencées</h1>
-    <p class="sub">Le compteur part de zéro le 15 octobre 2026, date de publication de la première question.</p>
-  </div>
-</header>
+  <div class="logo">Listenly</div>
 
-<section class="card">
-  <div class="lbl">Questions référencées</div>
-  <div class="big" id="total">—</div>
-  <div class="note">Depuis le 15/10/2026</div>
-</section>
+  <section class="hero">
+    <div class="label">Referenced questions</div>
+    <div class="counter" id="counter">0</div>
+    <p class="sub">Questions indexed across all podcasts on Listenly</p>
+    <div class="stats">
+      <div class="stat"><b id="podcasts">0</b><span>podcasts covered</span></div>
+      <div class="stat"><b id="published">0</b><span>published since 15 Oct 2026</span></div>
+    </div>
+  </section>
 
-<section class="card">
-  <h2>Croissance cumulée</h2>
-  <div id="chart" class="chart"></div>
-</section>
+  <section class="card">
+    <h2>Published questions, cumulative</h2>
+    <div id="chart" class="chart"></div>
+  </section>
 
-<section class="card">
-  <h2>Les 100 dernières questions générées</h2>
-  <p class="note">La plus récente en haut.</p>
-  <div class="tablewrap">
-    <table>
-      <thead><tr><th>Question</th><th>Podcast</th><th>Date</th></tr></thead>
-      <tbody id="rows"></tbody>
-    </table>
-  </div>
-</section>
+  <section class="card">
+    <h2>Latest 100 generated questions</h2>
+    <p class="note">Most recent first.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Question</th><th>Podcast</th><th>Date</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </section>
 </div>
 <script>
+const TOTAL=7388;
+const PODCASTS=706;
+const PUBLISHED=78;
 const SERIE=[{"date": "2026-10-15", "ajoutees": 10, "total": 10}, {"date": "2026-10-16", "ajoutees": 10, "total": 20}, {"date": "2026-10-17", "ajoutees": 10, "total": 30}, {"date": "2026-10-18", "ajoutees": 10, "total": 40}, {"date": "2026-10-19", "ajoutees": 10, "total": 50}, {"date": "2026-10-20", "ajoutees": 3, "total": 53}, {"date": "2026-10-21", "ajoutees": 10, "total": 63}, {"date": "2026-10-22", "ajoutees": 3, "total": 66}, {"date": "2026-10-26", "ajoutees": 4, "total": 70}, {"date": "2026-10-27", "ajoutees": 2, "total": 72}, {"date": "2026-10-29", "ajoutees": 3, "total": 75}, {"date": "2026-11-02", "ajoutees": 2, "total": 77}, {"date": "2026-11-07", "ajoutees": 1, "total": 78}];
 const DERNIERES=[{"date": "2026-11-07", "question": "How did Nazi ideology shape Hitler's treatment of Jewish people and Slavic populations in occupied Poland?", "podcast": "World War II with Tom Hanks", "url": "https://listenly.org/podcast-btb/m/world-war-2-podcast/d7d4e7aba3"}, {"date": "2026-11-02", "question": "Why does Dr. John Deloney respect Graham Stephan's public reversal on financial strategy?", "podcast": "The Ramsey Show", "url": "https://listenly.org/podcast-btb/m/the-ramsey-show/ef566974d8"}, {"date": "2026-11-02", "question": "What were the terms of the Treaty of Versailles and how did they contribute to the rise of Hitler and Nazi Germany?", "podcast": "World War II with Tom Hanks", "url": "https://listenly.org/podcast-btb/m/world-war-2-podcast/6329b679c0"}, {"date": "2026-10-29", "question": "What are the physiological effects of ingesting tetrahydrosoline from eye drops?", "podcast": "Dateline NBC", "url": "https://listenly.org/podcast-btb/m/date-line-nbc/6ad40daf53"}, {"date": "2026-10-29", "question": "What is the relationship between work ethic and creative output for prolific writers?", "podcast": "The Tim Ferriss Show", "url": "https://listenly.org/podcast-btb/m/the-tim-ferriss-show/2ff3fb30bb"}, {"date": "2026-10-29", "question": "What are beavers and why are they considered important for climate adaptation in Britain?", "podcast": "Up First from NPR", "url": "https://listenly.org/podcast-btb/m/up-first-from-npr/075c5d2b6b"}, {"date": "2026-10-27", "question": "What role does the album format play in an artist's career strategy in the streaming era?", "podcast": "The Bob Lefsetz Podcast", "url": "https://listenly.org/podcast-btb/m/the-bob-lefsetz-podcast/8933d078bb"}, {"date": "2026-10-27", "question": "What systematic approach helps untrained writers develop a sustainable writing habit?", "podcast": "The Tim Ferriss Show", "url": "https://listenly.org/podcast-btb/m/the-tim-ferriss-show/49b3dd6faf"}, {"date": "2026-10-26", "question": "What documentation is required from a merchant applying for LegitScript certification?", "podcast": "B2B Vault: The Biz To Biz Podcast", "url": "https://listenly.org/podcast-btb/m/b2b-vault-the-biz-to-biz-podcast/9e927e8ebe"}, {"date": "2026-10-26", "question": "How did social media platforms transform from social networking systems to addictive engagement machines?", "podcast": "The Mel Robbins Podcast", "url": "https://listenly.org/podcast-btb/m/the-mel-robbins-podcast/a2ee56467d"}, {"date": "2026-10-26", "question": "How does building multiple businesses at different growth stages improve coaching and mentorship quality?", "podcast": "Young and Profiting with Hala Taha (Entrepreneurship, Sales, Marketing)", "url": "https://listenly.org/podcast-btb/m/young-and-profiting-with-hala-taha-entrepreneurship/aa3da96cf7"}, {"date": "2026-10-26", "question": "Why are small businesses attractive targets for hackers compared to large enterprises?", "podcast": "Young and Profiting with Hala Taha (Entrepreneurship, Sales, Marketing)", "url": "https://listenly.org/podcast-btb/m/young-and-profiting-with-hala-taha-entrepreneurship/bcc3baefdf"}, {"date": "2026-10-22", "question": "What psychological challenges do frontier AI researchers face when working at scale in compute-intensive environments?", "podcast": "Invest Like The Best", "url": "https://listenly.org/podcast-btb/m/invest-like-the-best/76f1ef1d35"}, {"date": "2026-10-22", "question": "How should venture investors balance conviction-based decision-making with seeking external validation on investment theses?", "podcast": "Invest Like The Best", "url": "https://listenly.org/podcast-btb/m/invest-like-the-best/996130088c"}, {"date": "2026-10-22", "question": "How quickly can a homeowner sell their property in the current real estate market?", "podcast": "The Diary Of A CEO with Steven Bartlett", "url": "https://listenly.org/podcast-btb/m/the-diary-of-a-ceo-with-steven-bartlett/d6bbf30692"}, {"date": "2026-10-21", "question": "Why has Wikipedia traffic declined since the rise of generative AI and search engine improvements?", "podcast": "Guy Kawasaki's Remarkable People", "url": "https://listenly.org/podcast-btb/m/guy-kawasaki-s-remarkable-people/6243c3f645"}, {"date": "2026-10-21", "question": "What would be the advantage of a Wikipedia-specific language model over general-purpose AI systems?", "podcast": "Guy Kawasaki's Remarkable People", "url": "https://listenly.org/podcast-btb/m/guy-kawasaki-s-remarkable-people/7df64452fa"}, {"date": "2026-10-21", "question": "What are the key differences between how Wikipedia and large language models handle obscure factual information?", "podcast": "Guy Kawasaki's Remarkable People", "url": "https://listenly.org/podcast-btb/m/guy-kawasaki-s-remarkable-people/f9112357c4"}, {"date": "2026-10-21", "question": "How did the Tom's Shoes business model influence the founding approach of Thrive Cosmetics?", "podcast": "How I Built This with Guy Raz", "url": "https://listenly.org/podcast-btb/m/how-i-built-this-with-guy-raz/b69ed39341"}, {"date": "2026-10-21", "question": "What financial commitment and employment strategy did Karissa use to launch Thrive Causemetics?", "podcast": "How I Built This with Guy Raz", "url": "https://listenly.org/podcast-btb/m/how-i-built-this-with-guy-raz/c92c5017a4"}, {"date": "2026-10-21", "question": "How should venture investors evaluate whether they have sufficient domain expertise before committing to research-intensive technology bets?", "podcast": "Invest Like The Best", "url": "https://listenly.org/podcast-btb/m/invest-like-the-best/6bab71d78e"}, {"date": "2026-10-21", "question": "Why is increasing investment risk not a good strategy when you are behind on retirement savings?", "podcast": "Money Guy Show", "url": "https://listenly.org/podcast-btb/m/money-guy-show/32c3046b1b"}, {"date": "2026-10-21", "question": "Why does The Money Guy Show advise against prioritizing children's college savings over your own retirement when you are behind?", "podcast": "Money Guy Show", "url": "https://listenly.org/podcast-btb/m/money-guy-show/fa65a49575"}, {"date": "2026-10-21", "question": "What specific recommendation does research suggest for protecting young people from social media harm?", "podcast": "The Mel Robbins Podcast", "url": "https://listenly.org/podcast-btb/m/the-mel-robbins-podcast/f9ca264f43"}, {"date": "2026-10-21", "question": "Why do slot machine mechanics explain the addictive design of social media platforms?", "podcast": "The Mel Robbins Podcast", "url": "https://listenly.org/podcast-btb/m/the-mel-robbins-podcast/f9f3860031"}, {"date": "2026-10-20", "question": "Why has Jackson Hole, Wyoming historically been the location of the Federal Reserve's annual symposium?", "podcast": "Morning Brew Daily", "url": "https://listenly.org/podcast-btb/m/morning-brew-daily/401792ffbf"}, {"date": "2026-10-20", "question": "What is the wedding date for Ketch Secor and Molly Tuttle?", "podcast": "The Bob Lefsetz Podcast", "url": "https://listenly.org/podcast-btb/m/the-bob-lefsetz-podcast/5abe03b243"}, {"date": "2026-10-20", "question": "What intensity of weight lifting is required to produce neural and brain benefits from resistance training?", "podcast": "The Diary Of A CEO with Steven Bartlett", "url": "https://listenly.org/podcast-btb/m/the-diary-of-a-ceo-with-steven-bartlett/7c7f11fe02"}, {"date": "2026-10-19", "question": "Why did the name 'Late July' resonate with the founder's vision for the brand?", "podcast": "How I Built This with Guy Raz", "url": "https://listenly.org/podcast-btb/m/how-i-built-this-with-guy-raz/ee6ef1e4a5"}, {"date": "2026-10-19", "question": "What are the core components that make up courageous leadership as a teachable skill?", "podcast": "Masters of Scale", "url": "https://listenly.org/podcast-btb/m/masters-of-scale/4fcbd0bfc0"}, {"date": "2026-10-19", "question": "What is the distinction between cognitive empathy and affective empathy in leadership?", "podcast": "Masters of Scale", "url": "https://listenly.org/podcast-btb/m/masters-of-scale/76a7893dd2"}, {"date": "2026-10-19", "question": "What is emotional granularity and why is it critical for leadership effectiveness?", "podcast": "Masters of Scale", "url": "https://listenly.org/podcast-btb/m/masters-of-scale/e54dce41cf"}, {"date": "2026-10-19", "question": "What is the median retirement savings by age group in the United States?", "podcast": "Money Guy Show", "url": "https://listenly.org/podcast-btb/m/money-guy-show/a48c2d0329"}, {"date": "2026-10-19", "question": "What is Shein's new strategic direction after its fast fashion model stalled?", "podcast": "Morning Brew Daily", "url": "https://listenly.org/podcast-btb/m/morning-brew-daily/412a895c23"}, {"date": "2026-10-19", "question": "What is the acquisition price of Hugging Face by NVIDIA and what hidden references does it contain?", "podcast": "Morning Brew Daily", "url": "https://listenly.org/podcast-btb/m/morning-brew-daily/f6b60b708c"}, {"date": "2026-10-19", "question": "What are the tax advantages of owning a home versus renting when selling?", "podcast": "The Diary Of A CEO with Steven Bartlett", "url": "https://listenly.org/podcast-btb/m/the-diary-of-a-ceo-with-steven-bartlett/570159587b"}, {"date": "2026-10-19", "question": "What happened when Janet McNamara asked her psychiatrist about a possible autism diagnosis?", "podcast": "This American Life", "url": "https://listenly.org/podcast-btb/m/this-american-life/babdc7b374"}, {"date": "2026-10-19", "question": "How does Anthony O'Neal define financial freedom and what does it look like in his daily life?", "podcast": "Young and Profiting with Hala Taha (Entrepreneurship, Sales, Marketing)", "url": "https://listenly.org/podcast-btb/m/young-and-profiting-with-hala-taha-entrepreneurship/66e33d5c97"}, {"date": "2026-10-18", "question": "What role did the LFKN paper play in establishing interactive proof systems for modern verification?", "podcast": "a16z crypto show", "url": "https://listenly.org/podcast-btb/m/a16z-crypto-show/2c99222eeb"}, {"date": "2026-10-18", "question": "How does the funding model for open-source AI development differ from traditional open-source software sustainability?", "podcast": "AI + a16z", "url": "https://listenly.org/podcast-btb/m/ai-a16z/60c6ec4dbd"}, {"date": "2026-10-18", "question": "How does cash flow impact business failure and what is the primary reason businesses go out of business?", "podcast": "B2B Vault: The Biz To Biz Podcast", "url": "https://listenly.org/podcast-btb/m/b2b-vault-the-biz-to-biz-podcast/4c914b6710"}, {"date": "2026-10-18", "question": "Why do coaches believe they don't have a framework when they actually do?", "podcast": "Best Damn Coach Podcast: Conversations for coaches, mentors, and service providers to grow a profitable coaching business", "url": "https://listenly.org/podcast-btb/m/best-damn-coach-podcast-conversations-fo/eb97b64625"}, {"date": "2026-10-18", "question": "What production constraints have forced Assouline to abandon potential book projects despite creative completion?", "podcast": "Beyond Luxury", "url": "https://listenly.org/podcast-btb/m/beyond-luxury/1a55291ad7"}, {"date": "2026-10-18", "question": "How accurate were the Iowa electronic markets at predicting elections compared to national polls?", "podcast": "Freakonomics Radio", "url": "https://listenly.org/podcast-btb/m/freakonomics-radio/e7f243d0dd"}, {"date": "2026-10-18", "question": "How is Signed.com priced and what are its tiers?", "podcast": "The Angel Next Door", "url": "https://listenly.org/podcast-btb/m/the-angel-next-door/302403ee8e"}, {"date": "2026-10-18", "question": "What is the relationship between acceptable failure rates and high-performing team culture?", "podcast": "The Conference Room with Simon Lader", "url": "https://listenly.org/podcast-btb/m/the-conference-room/2b6af584bd"}, {"date": "2026-10-18", "question": "How do health wearables like Whoop and Oura rings use AI to provide personalized health recommendations?", "podcast": "The Daily", "url": "https://listenly.org/podcast-btb/m/the-daily-podcast/82c936b2d5"}, {"date": "2026-10-18", "question": "How should institutional allocators position secondary equity strategies within diversified portfolio allocations?", "podcast": "The Single Source", "url": "https://listenly.org/podcast-btb/m/the-single-source/103c535b37"}, {"date": "2026-10-17", "question": "Why is malaria considered one of the most difficult diseases to develop a vaccine against?", "podcast": "16 Minutes News by a16z", "url": "https://listenly.org/podcast-btb/m/16-minutes-news-by-a16z/a4a410faae"}, {"date": "2026-10-17", "question": "How does AI function as a democratizer of education and knowledge access?", "podcast": "3 Takeaways™", "url": "https://listenly.org/podcast-btb/m/3-take-away/ebb311cf70"}, {"date": "2026-10-17", "question": "How did the Popcorn project relate to ideas about verifying delegated computation?", "podcast": "a16z crypto show", "url": "https://listenly.org/podcast-btb/m/a16z-crypto-show/f35291a28f"}, {"date": "2026-10-17", "question": "What was Andrew Ross Sorkin's business venture before joining the New York Times full-time?", "podcast": "ACQ2 by Acquired", "url": "https://listenly.org/podcast-btb/m/acq2-by-acquired/5befe269b3"}, {"date": "2026-10-17", "question": "Why are open-source model labs implementing commercial licensing terms and usage restrictions on recently released models?", "podcast": "AI + a16z", "url": "https://listenly.org/podcast-btb/m/ai-a16z/de75aa3c5b"}, {"date": "2026-10-17", "question": "How did Kalshi win regulatory approval for election prediction markets?", "podcast": "Freakonomics Radio", "url": "https://listenly.org/podcast-btb/m/freakonomics-radio/d99c42589a"}, {"date": "2026-10-17", "question": "How can angel investors use a self-directed IRA to invest in startups?", "podcast": "The Angel Next Door", "url": "https://listenly.org/podcast-btb/m/the-angel-next-door/264b2917f4"}, {"date": "2026-10-17", "question": "How should organizations assess whether their technology stack actually supports their growth stage?", "podcast": "The Conference Room with Simon Lader", "url": "https://listenly.org/podcast-btb/m/the-conference-room/2687274a29"}, {"date": "2026-10-17", "question": "What are Saudi Arabia's limited options to address the blockade of all oil export routes?", "podcast": "The Daily", "url": "https://listenly.org/podcast-btb/m/the-daily-podcast/34addf4256"}, {"date": "2026-10-17", "question": "What is the core investment principle that differentiates a low-basis acquisition strategy in private equity real estate?", "podcast": "The Single Source", "url": "https://listenly.org/podcast-btb/m/the-single-source/0f600a27af"}, {"date": "2026-10-16", "question": "What is the distinction between preventing illness versus blocking transmission in malaria vaccine design?", "podcast": "16 Minutes News by a16z", "url": "https://listenly.org/podcast-btb/m/16-minutes-news-by-a16z/922f63485b"}, {"date": "2026-10-16", "question": "What are Katrina Mulligan's three key takeaways on AI for government and national security leaders?", "podcast": "3 Takeaways™", "url": "https://listenly.org/podcast-btb/m/3-take-away/6eda23f533"}, {"date": "2026-10-16", "question": "What is an interactive proof and why did it represent a fundamental extension of mathematical proof?", "podcast": "a16z crypto show", "url": "https://listenly.org/podcast-btb/m/a16z-crypto-show/52d1ccab50"}, {"date": "2026-10-16", "question": "How has the cost and nature of software production changed with AI-generated code?", "podcast": "ACQ2 by Acquired", "url": "https://listenly.org/podcast-btb/m/acq2-by-acquired/f9555169bd"}, {"date": "2026-10-16", "question": "What is a prediction market and how does it function as a financial instrument?", "podcast": "Freakonomics Radio", "url": "https://listenly.org/podcast-btb/m/freakonomics-radio/6a08767543"}, {"date": "2026-10-16", "question": "Why is early-stage capital in disability technology so critically underserved by venture capital?", "podcast": "The Angel Next Door", "url": "https://listenly.org/podcast-btb/m/the-angel-next-door/24f20ba97b"}, {"date": "2026-10-16", "question": "What advantages does cross-functional leadership experience provide compared to deep specialization in a single domain?", "podcast": "The Conference Room with Simon Lader", "url": "https://listenly.org/podcast-btb/m/the-conference-room/0d6f05b302"}, {"date": "2026-10-16", "question": "What specific events in July and recent weeks led to the collapse of Saudi Arabia's oil export alternatives?", "podcast": "The Daily", "url": "https://listenly.org/podcast-btb/m/the-daily-podcast/2edf3461b2"}, {"date": "2026-10-16", "question": "What were the origins of the partition of Ireland and when did it happen?", "podcast": "The Rest Is History", "url": "https://listenly.org/podcast-btb/m/the-rest-is-history/32f58f000f"}, {"date": "2026-10-16", "question": "What property types and strategies does an opportunistic commercial real estate private equity fund target in today's market?", "podcast": "The Single Source", "url": "https://listenly.org/podcast-btb/m/the-single-source/00e0c7ba4d"}, {"date": "2026-10-15", "question": "Why can the pressure for immediate presidential action during crisis be dangerous to national decision-making?", "podcast": "3 Takeaways™", "url": "https://listenly.org/podcast-btb/m/3-take-away/573fd4a472"}, {"date": "2026-10-15", "question": "What mental framework should a technology leader use to evaluate emerging AI capabilities?", "podcast": "ACQ2 by Acquired", "url": "https://listenly.org/podcast-btb/m/acq2-by-acquired/a274b22bae"}, {"date": "2026-10-15", "question": "Why do enterprises choose to deploy open-weight models instead of relying on proprietary APIs, beyond cost considerations?", "podcast": "AI + a16z", "url": "https://listenly.org/podcast-btb/m/ai-a16z/1c61d4bcc8"}, {"date": "2026-10-15", "question": "What enforcement actions have occurred against research-only peptide sellers?", "podcast": "B2B Vault: The Biz To Biz Podcast", "url": "https://listenly.org/podcast-btb/m/b2b-vault-the-biz-to-biz-podcast/44c78a1f0b"}, {"date": "2026-10-15", "question": "How does naming and visualizing a coaching framework impact business growth and client conversion?", "podcast": "Best Damn Coach Podcast: Conversations for coaches, mentors, and service providers to grow a profitable coaching business", "url": "https://listenly.org/podcast-btb/m/best-damn-coach-podcast-conversations-fo/a9b48876e0"}, {"date": "2026-10-15", "question": "Why are major luxury conglomerates like LVMH rapidly expanding into hospitality rather than focusing solely on luxury goods?", "podcast": "Beyond Luxury", "url": "https://listenly.org/podcast-btb/m/beyond-luxury/0b21e2e17e"}, {"date": "2026-10-15", "question": "How are data centers and AI demand shaping energy infrastructure planning in the GCC?", "podcast": "Beyond the Deck", "url": "https://listenly.org/podcast-btb/m/beyond-the-deck/82b7e6f45a"}, {"date": "2026-10-15", "question": "How does the RoboDebt program exemplify governance failure in public sector delivery?", "podcast": "Beyond The Plan", "url": "https://listenly.org/podcast-btb/m/beyond-the-plan/15ce652197"}, {"date": "2026-10-15", "question": "What major construction projects are positioned to drive growth in the Philadelphia market in coming years?", "podcast": "Building PA Podcast", "url": "https://listenly.org/podcast-btb/m/building-pa-podcast/bf9714b1db"}, {"date": "2026-10-15", "question": "Why does bulk freight represent a defensible niche within a saturated freight brokerage market?", "podcast": "Bulkloads Podcast", "url": "https://listenly.org/podcast-btb/m/bulkloads-podcast/7d1cf46492"}];
 </script>
 <script>
 (function () {
-  var fmtD = d3.utcFormat('%d/%m/%Y');
-  var fmtS = d3.utcFormat('%d %b');
-  var total = SERIE.length ? Number(SERIE[SERIE.length - 1].total) : 0;
-  document.getElementById('total').textContent = String(total);
+  var fmtN = function (n) { return Math.round(n).toLocaleString('en-US'); };
+  var fmtD = d3.utcFormat('%b %-d, %Y');
+  var fmtS = d3.utcFormat('%b %-d');
+
+  function countUp(el, target, ms) {
+    var start = null;
+    function step(ts) {
+      if (start === null) start = ts;
+      var p = Math.min((ts - start) / ms, 1);
+      var e = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmtN(target * e);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    el.textContent = '0';
+    requestAnimationFrame(step);
+  }
+
+  countUp(document.getElementById('counter'), TOTAL, 2200);
+  countUp(document.getElementById('podcasts'), PODCASTS, 1600);
+  countUp(document.getElementById('published'), Number(PUBLISHED), 1600);
 
   function draw() {
     var box = document.getElementById('chart');
@@ -78,7 +98,7 @@ const DERNIERES=[{"date": "2026-11-07", "question": "How did Nazi ideology shape
       return { date: r.date, total: Number(r.total) };
     }));
     var parsed = pts.map(function (p) { return { d: new Date(p.date + 'T00:00:00Z'), v: p.total }; });
-    var w = box.clientWidth || 600, h = 260, m = { t: 12, r: 16, b: 28, l: 36 };
+    var w = box.clientWidth || 600, h = 240, m = { t: 12, r: 16, b: 28, l: 36 };
     var svg = d3.select(box).append('svg').attr('width', '100%').attr('viewBox', '0 0 ' + w + ' ' + h);
     var x = d3.scaleUtc().domain(d3.extent(parsed, function (p) { return p.d; })).range([m.l, w - m.r]);
     var y = d3.scaleLinear().domain([0, Math.max(10, d3.max(parsed, function (p) { return p.v; }))]).nice().range([h - m.b, m.t]);
