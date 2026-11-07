@@ -123,9 +123,9 @@ var MFE_MSG_DEFAULTS = [
   ['MFE_MSG_RELANCE', [
     '{HELLO}',
     '',
-    'I\'m following up regarding the listing of <strong>{PODCAST}</strong> on Listenly, the AI Wikipedia of podcasts.',
+    'I\'m following up regarding the listing of <strong>{PODCAST}</strong> on <a href="https://listenly.org">Listenly.org</a>, the AI Wikipedia of podcasts.',
     '',
-    'Your expertise is now visible to ChatGPT, Claude and Gemini, but visitors aren\'t redirected to your website.',
+    'Your expertise is now visible to ChatGPT, Claude and Gemini, <a href="{MOMENT_URL}">like here</a>, but visitors aren\'t redirected to your website.',
     '',
     'Would you like to activate this <u>free redirection</u>? It takes 5 minutes.',
     '',
@@ -135,9 +135,9 @@ var MFE_MSG_DEFAULTS = [
   ['MFE_MSG_RELANCE_2', [
     '{HELLO}',
     '',
-    'I\'m reaching out again about redirecting <strong>{PODCAST}</strong>\'s audience from Listenly to your website.',
+    'I\'m reaching out again about redirecting <strong>{PODCAST}</strong>\'s audience from <a href="https://listenly.org">Listenly.org</a> to your website.',
     '',
-    'Every visitor who discovers your expertise could become a <u>potential customer</u>.',
+    'Every visitor who discovers your expertise, <a href="{MOMENT_URL}">like here</a>, could become a <u>potential customer</u>.',
     '',
     'Would you like to take this traffic back, or should we keep it on Listenly?',
     '',
@@ -148,9 +148,9 @@ var MFE_MSG_DEFAULTS = [
   ['MFE_MSG_RELANCE_3', [
     '{HELLO}',
     '',
-    'Last follow-up regarding <strong>{PODCAST}</strong> on Listenly.',
+    'Last follow-up regarding <strong>{PODCAST}</strong> on <a href="https://listenly.org">Listenly.org</a>.',
     '',
-    'Without your confirmation, visitors will keep discovering your expertise on Listenly, <u>without being redirected to your website</u>.',
+    'Without your confirmation, visitors will keep discovering your expertise, <a href="{MOMENT_URL}">like here</a>, <u>without being redirected to your website</u>.',
     '',
     'Would you like to take this audience back, for free?',
     '',
@@ -158,6 +158,9 @@ var MFE_MSG_DEFAULTS = [
     '',
     'Etienne'
   ].join('\n'), 'MarketForge Engine — relance 3 (J+12, URGENCE, sans lien), dans le meme fil. Variables : {HELLO} {PODCAST}.'],
+  ['MFE_MSG_OBJET_RELANCE_1', 'Follow-up: my message regarding {PODCAST}', 'MarketForge Engine — objet de la relance 1 (J+4), envoyee comme nouveau mail.'],
+  ['MFE_MSG_OBJET_RELANCE_2', 'Follow-up 2: redirecting {PODCAST}\'s traffic', 'MarketForge Engine — objet de la relance 2 (J+8).'],
+  ['MFE_MSG_OBJET_RELANCE_3', 'Last follow-up regarding {PODCAST}', 'MarketForge Engine — objet de la relance 3 (J+12).'],
   ['MFE_CTA_A', MFE_CTAS.A, 'Test A/B — CTA variante A (texte brut ; vide = variante desactivee).'],
   ['MFE_CTA_B', MFE_CTAS.B, 'Test A/B — CTA variante B (texte brut ; vide = variante desactivee).'],
   ['MFE_CTA_C', MFE_CTAS.C, 'Test A/B — CTA variante C (texte brut ; vide = variante desactivee).'],
@@ -865,8 +868,15 @@ function mfeFollowUp_(sh, days) {
       return;
     }
     if (st[2] < 3 && !(r.values[16] && r.values[17])) return;   // relances 1 et 2 : jamais sans vraie question + moment horodate (pas de lien generique)
-    var rel = mfeFill_(mfeMsg_(st[0]), mfeVars_(r.values));
-    thread.replyAll(mfeWithSignature_(rel), mfeSendOpts_(rel));
+    // 07/11/2026 : chaque relance part comme un NOUVEAU mail avec son propre objet (accroche differente). Garde-fou : aucune relance
+    // si le prospect a deja ecrit (meme dans un autre fil) ou si l'adresse est absente.
+    var to = String(r.values[2] || '').trim();
+    if (!to) return;
+    if (mfeProspectWrote_(to, sentAt)) { sh.getRange(r.row, 12).setValue('Message recu du prospect : pas de relance (a verifier)'); return; }
+    var vv = mfeVars_(r.values);
+    var rel = mfeFill_(mfeMsg_(st[0]), vv);
+    var objetRel = mfeFill_(mfeMsg_('MFE_MSG_OBJET_RELANCE_' + st[2]), vv);
+    GmailApp.sendEmail(to, objetRel, mfeWithSignature_(rel), mfeSendOpts_(rel));
     sh.getRange(r.row, 7).setValue(st[1]);
     sh.getRange(r.row, 9).setValue(new Date());
     n++;
@@ -914,6 +924,26 @@ function mfeShortName_(name) {
   var cut = full.split(/\s*[:|–—]\s*|\s+-\s+|\s*\(/)[0].trim();
   if (cut.length < 3) cut = full;
   return cut.length > 60 ? cut.slice(0, 60).replace(/\s+\S*$/, '') : cut;
+}
+
+// Vrai si le prospect nous a ecrit (hors reponses automatiques) depuis le 1er mail, dans n'importe quel fil.
+function mfeProspectWrote_(email, sentAtMs) {
+  try {
+    var th = GmailApp.search('from:' + email + ' -in:chats', 0, 5), em = String(email).toLowerCase();
+    for (var i = 0; i < th.length; i++) {
+      var ms = th[i].getMessages();
+      for (var j = 0; j < ms.length; j++) {
+        var m = ms[j];
+        if (m.getFrom().toLowerCase().indexOf(em) === -1) continue;
+        if (m.getDate().getTime() < sentAtMs) continue;
+        var subj = m.getSubject() || '', head = m.getPlainBody().slice(0, 300);
+        if (/automatic reply|auto-?reply|autoreply|out of office|r\u00e9ponse automatique|absence|away from/i.test(subj)) continue;
+        if (/^\s*(hi there!?\s*)?(thank(s| you) (so much )?for (reaching|contacting|your (email|message))|this is an automated|this is an auto)/i.test(head)) continue;
+        return true;
+      }
+    }
+  } catch (e) { return false; }
+  return false;
 }
 
 function mfeVars_(values) {
@@ -1432,7 +1462,7 @@ function mfeMenuTest() {
   });
   var v = mfeVars_(exemple), objet = mfeFill_(mfeMsg_('MFE_MSG_OBJET'), v);
   var rel = mfeFill_(mfeMsg_('MFE_MSG_RELANCE'), v);
-  GmailApp.sendEmail(moi, '[TEST relance] Re: ' + objet, mfeWithSignature_(rel), mfeSendOpts_(rel));
+  GmailApp.sendEmail(moi, '[TEST relance] ' + mfeFill_(mfeMsg_('MFE_MSG_OBJET_RELANCE_1'), v), mfeWithSignature_(rel), mfeSendOpts_(rel));
   n++;
   mfeAlert_(n + ' mails test envoyes a ' + moi + ' (1 par variante de CTA + la relance). Textes modifiables dans Reglages (MFE_MSG_*, MFE_CTA_*). Expediteur : ' + (mfeFromOpts_().from || moi));
 }
@@ -1470,7 +1500,7 @@ function mfeCmd_(body) {
       var v = mfeVars_(ex), objet = mfeFill_(mfeMsg_('MFE_MSG_OBJET'), v), n = 1;
       ['MFE_MSG_RELANCE', 'MFE_MSG_RELANCE_2', 'MFE_MSG_RELANCE_3'].forEach(function (k, i) {
         var t = mfeFill_(mfeMsg_(k), v);
-        GmailApp.sendEmail(moi, '[TEST relance ' + (i + 1) + '] Re: ' + objet, mfeWithSignature_(t), mfeSendOpts_(t));
+        GmailApp.sendEmail(moi, '[TEST relance ' + (i + 1) + '] ' + mfeFill_(mfeMsg_('MFE_MSG_OBJET_RELANCE_' + (i + 1)), v), mfeWithSignature_(t), mfeSendOpts_(t));
         n++;
       });
       return mfeJson_({ ok: true, cmd: cmd, mails_envoyes_a_toi: n, podcast: ex[1], slug: ex[0], question: ex[16] || '', moment_id: ex[17] || '' });

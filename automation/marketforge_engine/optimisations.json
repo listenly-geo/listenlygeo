@@ -2792,6 +2792,14 @@
       "texte": "Nouvelles relances 1, 2 et 3 en anglais, alignees sur le nouveau mail 1 (J+4 : redirection gratuite, J+8 : recuperer le trafic, J+12 : derniere relance avec reponse OUI), avec un passage souligne dans chacune. Les relances restent bloquees tant que le test n'est pas valide.",
       "date": "07/11/2026",
       "statut": "en_cours"
+    },
+    {
+      "id": "opt-336",
+      "section": "Mail et CTA",
+      "version": "V3.0",
+      "texte": "Relances 1, 2 et 3 : ajout du lien Listenly.org et du lien vers la fiche moment (« like here ») dans chaque relance, et un objet different par relance (« Follow-up: my message regarding {PODCAST} », « Follow-up 2: redirecting {PODCAST}'s traffic », « Last follow-up regarding {PODCAST} »). Chaque relance part maintenant comme un nouveau mail, avec un garde-fou : aucune relance si le prospect a deja ecrit, meme dans un autre fil. Relances toujours bloquees jusqu'a activation.",
+      "date": "07/11/2026",
+      "statut": "valide"
     }
   ]
 }
