@@ -102,7 +102,7 @@ var MFE_FIRST_MAIL = [
   'Best regards,',
   'Etienne Cugnet',
   '',
-  'PS: Without a reply from you, 100% of this traffic will keep going to Listenly, not to your website.'
+  '<em>PS: Without a reply, 100% of this traffic stays on Listenly, not on your website.</em>'
 ].join('\n');
 // Test A/B du CTA (03/10/2026) : 5 variantes A-E, une seule par envoi. Texte brut (aucun gras / souligne dans les CTA).
 var MFE_CTAS = {
