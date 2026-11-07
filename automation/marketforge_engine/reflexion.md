@@ -1,4 +1,4 @@
-# Reflexion du MarketForge Engine (2026-11-05T16:54 UTC)
+# Reflexion du MarketForge Engine (2026-11-07T11:03 UTC)
 **Statut : BLOQUE**
 
 ## Funnel
@@ -18,6 +18,7 @@
 - paiements hub : 0
 
 ## Blocages
+- envoi_auto=false : le Sheet prepare mais n'envoie plus (pause auto rebonds ? reglage MFE_ENVOI_AUTO).
 - Reponses non classees (positive / neutre / refus) : impossible de savoir si le funnel marche. Ajouter le champ 'classe' dans replies.json.
 
 ## Pourquoi pas encore de client
