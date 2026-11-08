@@ -35,21 +35,15 @@ concurrency:
 
 jobs:
   garde:
-    # 08/11/2026 : pause week-end reactivee (samedi et dimanche).
+    # 08/11/2026 : le week-end remplit le stock, sans aucun envoi de mail.
     runs-on: ubuntu-latest
     outputs:
       weekend: ${{ steps.d.outputs.weekend }}
     steps:
       - id: d
         run: |
-          # 08/11/2026 (decision d'Etienne) : pause le samedi et le dimanche (heure de Paris), remplace la decision du 07/11.
-          j=$(TZ=Europe/Paris date +%u)
-          if [ "$j" -ge 6 ]; then
-            echo "weekend=true" >> "$GITHUB_OUTPUT"
-            echo "::notice title=Week-end::samedi/dimanche : pause (decision du 08/11/2026)"
-          else
-            echo "weekend=false" >> "$GITHUB_OUTPUT"
-          fi
+          # 08/11/2026 (decision d'Etienne) : le week-end sert a REMPLIR LE STOCK (decouverte, fiches, contacts). Seuls les envois restent en pause (MFE_WEEKEND_PAUSE).
+          echo "weekend=false" >> "$GITHUB_OUTPUT"
 
   find:
     needs: garde
