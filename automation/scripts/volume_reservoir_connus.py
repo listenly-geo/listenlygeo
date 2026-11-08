@@ -10,7 +10,7 @@ MarketForge qui n'ont pas encore de fiche. Lecture seule : ne publie rien, ne mo
 
 Secrets : ANTHROPIC_API_KEY, GOOGLE_ADS_CLIENT_ID / CLIENT_SECRET / REFRESH_TOKEN / CUSTOMER_ID (+ developer token)
 """
-import os, sys, json, re, hashlib, datetime, urllib.request, urllib.error
+import os, sys, json, re, time, hashlib, datetime, urllib.request, urllib.error
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import keyword_planner as kp  # noqa: E402
@@ -19,6 +19,7 @@ RESERVOIR = "automation/marketforge_engine/reservoir_questions.json"
 DIR = "automation/moments_connus"
 THEMES = f"{DIR}/themes_reservoir.json"
 OUT = f"{DIR}/volumes_reservoir.json"
+VCACHE = f"{DIR}/volumes_themes_cache.json"   # theme -> volume deja obtenu (reprise apres un blocage 429)
 MODEL = "claude-haiku-4-5-20251001"
 BATCH_THEME = 40
 BATCH_ADS = 20
@@ -82,19 +83,34 @@ def main():
         return
 
     themes = sorted({cache[qkey(i)] for i in items if qkey(i) in cache})
-    vol, faits, erreurs = {}, 0, 0
-    for s in range(0, len(themes), BATCH_ADS):
-        try:
-            for idea in kp.generate_ideas(themes[s:s + BATCH_ADS], token):
-                k = (idea.get("requete") or "").lower()
-                if k and idea["volume_mensuel_moyen"] > vol.get(k, -1):
-                    vol[k] = idea["volume_mensuel_moyen"]
-            faits += 1
-        except urllib.error.HTTPError as e:
-            erreurs += 1
-            if e.code in (429, 403):
-                print(f"Arret au lot {s // BATCH_ADS} : erreur {e.code}")
+    vol = json.load(open(VCACHE, encoding="utf-8")) if os.path.exists(VCACHE) else {}
+    todo_t = [t for t in themes if t not in vol]
+    faits, erreurs = 0, 0
+    for s in range(0, len(todo_t), BATCH_ADS):
+        lot = todo_t[s:s + BATCH_ADS]
+        for essai in range(4):
+            try:
+                got = {}
+                for idea in kp.generate_ideas(lot, token):
+                    k = (idea.get("requete") or "").lower()
+                    got[k] = max(got.get(k, 0), idea["volume_mensuel_moyen"])
+                for t in lot:
+                    vol[t] = got.get(t, 0)
+                faits += 1
                 break
+            except urllib.error.HTTPError as e:
+                if e.code == 429 and essai < 3:
+                    time.sleep(45 * (essai + 1))
+                    continue
+                erreurs += 1
+                break
+        else:
+            erreurs += 1
+        json.dump(vol, open(VCACHE, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
+        if erreurs >= 3:
+            print("Arret : trop d'erreurs Google Ads (quota).")
+            break
+        time.sleep(3)
     res = {}
     for i in items:
         k = qkey(i)

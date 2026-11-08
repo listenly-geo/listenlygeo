@@ -2,6 +2,8 @@ name: Volumes Google Ads du reservoir (questions sans fiche)
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '40 4 * * *'
 
 permissions:
   contents: write
@@ -13,7 +15,7 @@ concurrency:
 jobs:
   volumes:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

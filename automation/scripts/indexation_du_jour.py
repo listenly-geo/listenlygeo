@@ -12,6 +12,28 @@ OUT = f"{PAGES}/data/indexation_du_jour.json"
 SITE = os.environ.get("GSC_SITE", "sc-domain:listenly.org")
 BASE = "https://listenly.org/podcast-btb/"
 N = 10
+SOURCES = {}   # slug/id -> "connu" | "mot_cle" (08/11/2026 : repartition 50/50 pendant 14 jours, puis reglage selon la Search Console)
+QUOTA_CONNU = 5
+QUOTA_MOTCLE = 5
+
+
+def volumes_motcle():
+    """08/11/2026 : volumes Google Ads des questions du reservoir (volume_reservoir_connus.py). {slug/id: volume}.
+    Seules les questions a 100 recherches/mois ou plus sont des fiches 'mot-cle'."""
+    import hashlib, re
+    try:
+        d = json.load(open("automation/moments_connus/volumes_reservoir.json", encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    if d.get("statut") != "connecte":
+        return {}
+    out = {}
+    for v in d.get("items", {}).values():
+        if v.get("volume", 0) >= 100:
+            norm = re.sub(r"\s+", " ", (v["question"] or "").strip().lower())
+            mid = hashlib.sha1(f"{v['podcast_slug']}|{norm}".encode("utf-8")).hexdigest()[:10]
+            out[f"{v['podcast_slug']}/{mid}"] = v["volume"]
+    return out
 
 
 def choisir():
@@ -85,13 +107,21 @@ def choisir():
                   and titres.get(key) and BASE + "m/" + key not in deja)
     ouvrir_B = stock_A < 20
     cands = []
+    motcle = volumes_motcle()
     for key, v in scores.items():
         if not isinstance(v, dict) or not v.get("gate"):
             continue
         lvl = niv.get(key.split("/", 1)[0], "C")
-        if lvl not in ouverts and not (ouvrir_B and lvl == "B" and key.split("/", 1)[0] in prouves):
-            continue
         vol = (demande.get(key) or {}).get("volume", 0)
+        if lvl in ouverts:
+            SOURCES[key] = "connu"
+        elif key in motcle:   # 08/11/2026 : fiche 'mot-cle' = question du reservoir avec >= 100 recherches/mois
+            SOURCES[key] = "mot_cle"
+            vol = max(vol, motcle[key])
+        elif ouvrir_B and lvl == "B" and key.split("/", 1)[0] in prouves:
+            SOURCES[key] = "connu"
+        else:
+            continue
         # 21/10/2026 : élargi. Les pages avec volume passent d'abord (tri par volume), puis les autres niveau A par note.
         if BASE + "m/" + key in deja:
             continue
@@ -200,19 +230,17 @@ def main():
             nouveaux[slug + "/" + mid] = titre
         chosen.append((slug, mid, score, titre))
 
-    # passe 1 : podcasts qui rapportent deja (70 %)
-    for slug, mid, score in cands:
-        if len(chosen) >= QUOTA_PROUVES:
-            break
-        if slug in prouves:
-            essayer(slug, mid, score)
-    # passe 2 : podcasts nouveaux (30 %)
-    for slug, mid, score in cands:
-        if len(chosen) >= N:
-            break
-        if slug not in prouves:
-            essayer(slug, mid, score)
-    # passe 3 : si une place reste libre, n'importe quelle page disponible
+    # 08/11/2026 : repartition 50/50 (remplace le 70/30 'podcasts avec clics'). 5 fiches de podcasts connus,
+    # 5 fiches mots-cles du reservoir (volume Google Ads >= 100/mois). Si un groupe manque de stock,
+    # l'autre complete. Chaque fiche porte son etiquette de source pour le suivi Search Console.
+    def n_source(src):
+        return sum(1 for c in chosen if SOURCES.get(c[0] + "/" + c[1]) == src)
+    for src, quota in (("connu", QUOTA_CONNU), ("mot_cle", QUOTA_MOTCLE)):
+        for slug, mid, score in cands:
+            if n_source(src) >= quota:
+                break
+            if SOURCES.get(slug + "/" + mid) == src:
+                essayer(slug, mid, score)
     for slug, mid, score in cands:
         if len(chosen) >= N:
             break
@@ -227,7 +255,7 @@ def main():
         json.dump(vd, open(vp, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     for slug, mid, score, titre in chosen:
         url = BASE + "m/" + slug + "/" + mid
-        item = {"url": url, "titre": titre, "score_qualite": score, "http": http(url)}
+        item = {"url": url, "titre": titre, "score_qualite": score, "source": SOURCES.get(slug + "/" + mid, "connu"), "http": http(url)}
         if tok:
             try:
                 item.update(inspecter(tok, url))
@@ -244,7 +272,8 @@ def main():
         volumes_ok = False
     out = {"date": datetime.date.today().isoformat(),
            "mode": "liste a traiter dans Claude + Chrome (demande d'indexation manuelle, validation par page)",
-           "selection": "volumes du jour + note" if volumes_ok else "note seule (volumes non a jour, Keyword Planner en echec)",
+           "repartition": {"connu": sum(1 for i in items if i.get("source") == "connu"), "mot_cle": sum(1 for i in items if i.get("source") == "mot_cle")},
+           "selection": "50/50 connus + mots-cles ; volumes du jour + note" if volumes_ok else "note seule (volumes non a jour, Keyword Planner en echec)",
            "pretes": sum(1 for i in items if i["pret_pour_demande"]),
            "urls": items}
     if nouveaux:
