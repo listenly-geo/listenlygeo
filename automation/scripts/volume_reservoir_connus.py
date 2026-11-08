@@ -25,7 +25,8 @@ BATCH_ADS = 20
 
 
 def qkey(item):
-    base = f"{item.get('podcast_slug', '')}|{re.sub(r'\\W+', ' ', (item.get('question') or '').lower()).strip()}"
+    norm = re.sub(r'\W+', ' ', (item.get('question') or '').lower()).strip()
+    base = item.get('podcast_slug', '') + '|' + norm
     return hashlib.sha1(base.encode("utf-8")).hexdigest()[:12]
 
 
