@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: write
+  actions: write   # relance le déploiement du tableau de bord après la mise à jour du statut
 
 concurrency:
   group: gsc-daily
@@ -37,3 +38,8 @@ jobs:
           git config user.name "marketforge-bot"; git config user.email "bot@listenly.fr"
           git add data/gsc || true
           git diff --cached --quiet || (git commit -m "Search Console : chiffres du jour" && git pull -q --rebase && git push -q)
+      - name: Redéploiement du tableau de bord (statut d'indexation)
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST repos/${{ github.repository }}/actions/workflows/deploy-pages.yml/dispatches -f ref=main

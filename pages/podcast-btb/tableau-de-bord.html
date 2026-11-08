@@ -58,6 +58,7 @@ td a { color: #2997FF; text-decoration: none; }
       <button class="tab on" data-tab="en">En cours</button>
       <button class="tab" data-tab="ok">Indexé</button>
     </div>
+    <p class="note" id="reqdate"></p>
     <div class="tablewrap">
       <table>
         <thead><tr><th>Titre Google</th><th>Podcast</th><th>Demandée le</th></tr></thead>
@@ -142,9 +143,25 @@ const SERIE=[{"date": "2026-10-15", "ajoutees": 10, "total": 10}, {"date": "2026
   document.querySelectorAll('.tab').forEach(function (btn) {
     btn.addEventListener('click', function () {
       document.querySelectorAll('.tab').forEach(function (x) { x.classList.toggle('on', x === btn); });
-      reqRows(btn.getAttribute('data-tab') === 'ok' ? 'ok' : 'en');
+      curTab = btn.getAttribute('data-tab') === 'ok' ? 'ok' : 'en';
+      reqRows(curTab);
     });
   });
+
+  var curTab = 'en';
+  fetch('data/statut_indexation.json', { cache: 'no-store' }).then(function (res) {
+    return res.ok ? res.json() : null;
+  }).then(function (j) {
+    if (j && j.pages) {
+      REQUESTS.forEach(function (r) {
+        var e = j.pages[r.url];
+        if (e) { r.statut = e === 'indexee' ? 'Indexé' : 'En cours'; }
+      });
+      var d = document.getElementById('reqdate');
+      if (d) { d.textContent = 'Statut Search Console mis à jour le ' + j.date + ' (contrôle automatique quotidien).'; }
+      reqRows(curTab);
+    }
+  }).catch(function () {});
 
   draw(); reqRows('en');
   window.addEventListener('resize', draw);

@@ -63,6 +63,14 @@ def inspect_moments(tok):
     if not os.path.exists(st_path):
         return None
     released = json.load(open(st_path, encoding="utf-8")).get("released", {})
+    # 08/11/2026 : on inspecte aussi toutes les pages demandees a l'indexation (journal index_requests.json)
+    cibles = set(released)
+    ih = "pages/podcast-btb/data/index_requests.json"
+    if os.path.exists(ih):
+        for e in json.load(open(ih, encoding="utf-8")).get("historique", []):
+            for u in e.get("urls", []) or []:
+                if isinstance(u, str) and "/podcast-btb/m/" in u:
+                    cibles.add(u.split("/podcast-btb/m/", 1)[1].strip("/"))
     prev_path = f"{OUT}/indexation_moments.json"
     prev = json.load(open(prev_path, encoding="utf-8")) if os.path.exists(prev_path) else {}
     today = str(datetime.date.today())
@@ -75,7 +83,7 @@ def inspect_moments(tok):
             return (1, r.get("controle", ""))
         return (2, r.get("controle", ""))
 
-    todo = sorted(released, key=priorite)[:INSPECT_MAX]
+    todo = sorted(cibles, key=priorite)[:INSPECT_MAX]
     url = "https://searchconsole.googleapis.com/v1/urlInspection/index:inspect"
     ok = 0
     t0 = time.time()
@@ -107,12 +115,16 @@ def inspect_moments(tok):
                      "indexation": ix.get("indexingState", ""), "controle": today}
         ok += 1
         time.sleep(0.15)
-    prev = {k: v for k, v in prev.items() if k in released}
+    prev = {k: v for k, v in prev.items() if k in cibles}
     save("indexation_moments", prev)
     comptes = {}
     for v in prev.values():
         comptes[v["etat"]] = comptes.get(v["etat"], 0) + 1
     save("indexation_resume", {"date": today, "pages_proposees": len(released), "inspectees_ce_jour": ok, "par_etat": comptes})
+    # Fichier public lu par le tableau de bord (listenly.org/podcast-btb/tableau-de-bord.html)
+    pub = {v["page"]: v["etat"] for v in prev.values() if v.get("page")}
+    with open("pages/podcast-btb/data/statut_indexation.json", "w", encoding="utf-8") as f:
+        json.dump({"date": today, "pages": pub}, f, ensure_ascii=False, indent=1)
     return comptes
 
 
