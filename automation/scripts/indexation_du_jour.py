@@ -108,6 +108,11 @@ def choisir():
     ouvrir_B = stock_A < 20
     cands = []
     motcle = volumes_motcle()
+    # 08/11/2026 : les fiches rallongees aujourd'hui (enrichir_du_jour.py) passent en premier dans leur groupe
+    try:
+        enrichies = set(json.load(open(f"{PAGES}/data/enrichies_du_jour.json", encoding="utf-8")).get("cles", []))
+    except (OSError, json.JSONDecodeError):
+        enrichies = set()
     for key, v in scores.items():
         if not isinstance(v, dict) or not v.get("gate"):
             continue
@@ -125,7 +130,7 @@ def choisir():
         # 21/10/2026 : élargi. Les pages avec volume passent d'abord (tri par volume), puis les autres niveau A par note.
         if BASE + "m/" + key in deja:
             continue
-        cands.append((-vol, -(v.get("score_final") or 0), key))
+        cands.append((-(vol + (10**9 if key in enrichies else 0)), -(v.get("score_final") or 0), key))
     cands.sort()
     # 28/10/2026 : plus de plafond ici. Le plafond par podcast (3) et les N pages sont appliques dans main(),
     # apres verification du titre : sinon les 30 premiers (souvent sans titre) bloquaient les pages deja titrees.

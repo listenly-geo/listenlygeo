@@ -1,6 +1,7 @@
-name: Indexation du jour — 10 fiches question prêtes
+name: Indexation du jour — 10 fiches moment prêtes (5 connues + 5 mots-clés)
 
-# Chaque jour : choisit 10 fiches question, vérifie leur état (lecture seule) et écrit la liste.
+# Chaque jour : note les moments, rallonge la réponse des fiches candidates (transcription, 12 appels Haiku),
+# choisit 10 fiches (50/50 connues / mots-clés), vérifie leur état (lecture seule) et écrit la liste.
 # La demande d'indexation reste manuelle (session Claude + Chrome, validation par page).
 on:
   workflow_dispatch: {}
@@ -9,6 +10,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: indexation-du-jour
@@ -16,11 +18,20 @@ concurrency:
 
 jobs:
   liste:
-    timeout-minutes: 15
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run: pip install -q google-auth requests
+      - name: Note des moments (avant enrichissement)
+        run: python3 automation/scripts/moteur_autonome_moments.py
+      - name: Rallonger la réponse des fiches candidates
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python3 automation/scripts/enrichir_du_jour.py
+      - name: Note des moments (après enrichissement)
+        run: python3 automation/scripts/moteur_autonome_moments.py
       - name: Liste du jour
         env:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
@@ -28,5 +39,12 @@ jobs:
       - name: Sauvegarde dans le dépôt
         run: |
           git config user.name "marketforge-bot"; git config user.email "bot@listenly.fr"
-          git add pages/podcast-btb/data/indexation_du_jour.json pages/podcast-btb/data/titres_seo.json pages/podcast-btb/data/indexees_verifiees.json || true
-          git diff --cached --quiet || (git commit -m "Indexation du jour : liste des 10 fiches et titres" && git pull -q --rebase && git push -q)
+          git add pages/podcast-btb/data/indexation_du_jour.json pages/podcast-btb/data/titres_seo.json pages/podcast-btb/data/indexees_verifiees.json \
+                  pages/podcast-btb/data/enrichies_du_jour.json pages/podcast-btb/data/moments pages/podcast-btb/data/moments_scores.json \
+                  pages/podcast-btb/data/moteur_autonome_etat.json pages/podcast-btb/data/hubs_candidats.json pages/podcast-btb/data/titres_proposes.json || true
+          git diff --cached --quiet || (git commit -m "Indexation du jour : fiches rallongees, liste des 10 fiches et titres" && git pull -q --rebase && git push -q)
+      - name: Mise en ligne des fiches rallongées
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST repos/${{ github.repository }}/actions/workflows/deploy-pages.yml/dispatches -f ref=main
