@@ -35,6 +35,32 @@ def log(msg):
     print(f"[moments-connus] {msg}", flush=True)
 
 
+# --- Filtre « episodes de fond » (08/11/2026) : privilegier interviews et explications, eviter l'actualite ---
+NEWS = ("breaking", "what happened", "midterm", "election", "live from", "this week", "recap", "headlines",
+        "tonight", "today's", "monday", "tuesday", "wednesday", "thursday", "friday", "sentencing", "trial",
+        "stock market", "shutdown", "polls", "caucus", "verdict")
+EVERGREEN = ("how to", "how ", "why ", "what is", "what are", "guide", "explained", "lessons", "framework",
+             "strategy", "mindset", "habits", "mistakes", "ways to", "secrets", "playbook", "science of", "rules")
+
+
+def score_fond(ep):
+    """Plus c'est haut, plus l'episode est intemporel. Interview avec un invite : bonus. Actualite : malus."""
+    t = (ep.get("title") or "").lower()
+    pts = sum(2 for k in EVERGREEN if k in t)
+    pts += 1 if " with " in t or " w/ " in t else 0
+    pts -= sum(3 for k in NEWS if k in t)
+    minutes = ep.get("minutes") or 60
+    if minutes < 15 or minutes > 110:
+        pts -= 1
+    return pts
+
+
+def choisir_episode(todo, fenetre=12):
+    """Parmi les 12 episodes non traites les plus recents, prend le plus « de fond » (a egalite : le plus recent)."""
+    cand = todo[:fenetre]
+    return max(cand, key=lambda e: (score_fond(e), -cand.index(e)))
+
+
 def main():
     config = mq.load_json(CONFIG_FILE, {})
     if config.get("pause"):
@@ -95,7 +121,7 @@ def main():
             todo = [e for e in episodes if e.get("audio_url") and e["guid"] not in skip]
             if not todo:
                 continue
-            ep = todo[0]  # le plus recent non traite
+            ep = choisir_episode(todo) if config.get('filtre_fond', True) else todo[0]
             if journal["minutes"] + ep["minutes"] > minutes_max and journal["episodes"] > run_start:
                 continue
             log(f"{slug} : {ep['title'][:80]} ({ep['minutes']} min)")
