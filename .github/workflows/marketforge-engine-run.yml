@@ -31,15 +31,21 @@ concurrency:
 
 jobs:
   garde:
-    # 07/11/2026 : la pause week-end du 29/10 est supprimee (le moteur tourne 7j/7).
+    # 08/11/2026 : pause week-end reactivee (samedi et dimanche).
     runs-on: ubuntu-latest
     outputs:
       weekend: ${{ steps.d.outputs.weekend }}
     steps:
       - id: d
         run: |
-          # 07/11/2026 (decision d'Etienne) : le moteur tourne AUSSI le week-end (les particuliers sont connectes en permanence).
-          echo "weekend=false" >> "$GITHUB_OUTPUT"
+          # 08/11/2026 (decision d'Etienne) : pause le samedi et le dimanche (heure de Paris), remplace la decision du 07/11.
+          j=$(TZ=Europe/Paris date +%u)
+          if [ "$j" -ge 6 ]; then
+            echo "weekend=true" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Week-end::samedi/dimanche : pause (decision du 08/11/2026)"
+          else
+            echo "weekend=false" >> "$GITHUB_OUTPUT"
+          fi
 
   run:
     needs: garde
