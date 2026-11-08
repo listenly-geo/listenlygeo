@@ -1,0 +1,22 @@
+name: Inventaire des podcasts connus (lecture seule)
+
+# Compte les épisodes des podcasts de niveau A via leurs flux RSS. Aucune fiche créée, rien publié.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  inventaire:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Comptage des épisodes
+        run: python3 automation/scripts/inventaire_podcasts_connus.py
+      - name: Sauvegarde dans le dépôt
+        run: |
+          git config user.name "marketforge-bot"; git config user.email "bot@listenly.fr"
+          git add pages/podcast-btb/data/inventaire_connus.json || true
+          git diff --cached --quiet || (git commit -m "Inventaire des podcasts connus" && git pull -q --rebase && git push -q)
