@@ -1,7 +1,7 @@
 name: Moments connus — extraction quotidienne (podcasts niveau A)
 
 # Pipeline SEPARE de MarketForge : extrait de vraies Q/R des episodes des podcasts connus (niveau A)
-# pour le SCORING MOMENT SYSTEM de listenly.org. Debit : automation/moments_connus/config.json (20 episodes/jour).
+# pour le SCORING MOMENT SYSTEM de listenly.org. Debit : automation/moments_connus/config.json (20 fiches moment/jour).
 # N'ecrit jamais dans la file, le reservoir ni les stats de prospection de MarketForge.
 on:
   workflow_dispatch:

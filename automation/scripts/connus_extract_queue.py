@@ -86,6 +86,7 @@ def main():
     eps_podcast = int(config.get("episodes_par_podcast_par_jour", 3))
     minutes_max = int(config.get("minutes_audio_max_jour", 2400))
     run_max = int(config.get("episodes_par_run", eps_jour) or eps_jour)
+    moments_max = int(config.get("moments_par_jour", 20))   # 08/11/2026 : 20 fiches moment par jour maximum
     if not DRY_RUN:
         mq.set_questions_max(mq.emod(), int(config.get("questions_max_par_episode", 5)))
 
@@ -98,10 +99,11 @@ def main():
     run_start = journal["episodes"]
     progress = True
     while progress and journal["episodes"] < eps_jour and journal["minutes"] < minutes_max \
+            and journal["moments"] < moments_max \
             and journal["episodes"] - run_start < run_max:
         progress = False
         for slug in order:
-            if journal["episodes"] >= eps_jour or journal["minutes"] >= minutes_max \
+            if journal["episodes"] >= eps_jour or journal["minutes"] >= minutes_max or journal["moments"] >= moments_max \
                     or journal["episodes"] - run_start >= run_max:
                 break
             if done_today[slug] >= eps_podcast:
