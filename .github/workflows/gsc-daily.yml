@@ -36,7 +36,7 @@ jobs:
       - name: Sauvegarde dans le dépôt
         run: |
           git config user.name "marketforge-bot"; git config user.email "bot@listenly.fr"
-          git add data/gsc || true
+          git add data/gsc pages/podcast-btb/data/statut_indexation.json || true
           git diff --cached --quiet || (git commit -m "Search Console : chiffres du jour" && git pull -q --rebase && git push -q)
       - name: Redéploiement du tableau de bord (statut d'indexation)
         if: success()
