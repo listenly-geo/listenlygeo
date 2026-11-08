@@ -125,7 +125,7 @@ const SERIE=[{"date": "2026-10-15", "ajoutees": 10, "total": 10}, {"date": "2026
   function reqRows(tab) {
     var tb = document.getElementById('reqrows');
     tb.innerHTML = '';
-    REQUESTS.filter(function (r) { return tab === 'ok' ? r.statut === 'Indexé' : r.statut !== 'Indexé'; }).forEach(function (r) {
+    REQUESTS.filter(function (r) { return tab === 'ok' ? r.statut === 'Indexé' : r.statut !== 'Indexé'; }).sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); }).forEach(function (r) {
       var tr = document.createElement('tr');
       var a = document.createElement('td');
       var link = document.createElement('a');
