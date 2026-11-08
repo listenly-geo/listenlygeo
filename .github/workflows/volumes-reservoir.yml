@@ -1,0 +1,39 @@
+name: Volumes Google Ads du reservoir (questions sans fiche)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: volumes-reservoir
+  cancel-in-progress: false
+
+jobs:
+  volumes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Themes (Claude) + volumes Google Ads
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_ADS_CLIENT_ID: ${{ secrets.GOOGLE_ADS_CLIENT_ID }}
+          GOOGLE_ADS_CLIENT_SECRET: ${{ secrets.GOOGLE_ADS_CLIENT_SECRET }}
+          GOOGLE_ADS_REFRESH_TOKEN: ${{ secrets.GOOGLE_ADS_REFRESH_TOKEN }}
+          GOOGLE_ADS_CUSTOMER_ID: ${{ secrets.GOOGLE_ADS_CUSTOMER_ID }}
+        run: python3 automation/scripts/volume_reservoir_connus.py
+      - name: Selection
+        run: python3 automation/scripts/selection_reservoir_connus.py
+      - name: Sauvegarde
+        run: |
+          git config user.name "marketforge-bot"; git config user.email "bot@listenly.fr"
+          git add automation/moments_connus/
+          if git diff --staged --quiet; then echo "Rien de nouveau."; else
+            git commit -m "Auto: volumes Google Ads du reservoir + selection"
+            for i in 1 2 3 4 5; do git fetch origin main && git rebase origin/main && git push && break; sleep 8; done
+          fi
