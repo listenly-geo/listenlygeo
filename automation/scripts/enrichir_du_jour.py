@@ -64,6 +64,33 @@ def reecrire(question, extrait, texte):
     return paras[:3]
 
 
+def claude(prompt, max_tokens=120):
+    body = json.dumps({"model": MODEL, "max_tokens": max_tokens, "messages": [{"role": "user", "content": prompt}]}).encode()
+    req = urllib.request.Request("https://api.anthropic.com/v1/messages", data=body, method="POST", headers={
+        "x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01", "content-type": "application/json"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.loads(r.read())["content"][0]["text"].strip()
+
+
+def titre_court(question, podcast):
+    """Titre Google : question courte (meme regle que seo_title : question + ' | Podcast', 50 a 58 caracteres).
+    Les questions longues ne se raccourcissent pas mecaniquement : Claude les reformule."""
+    name = re.sub(r"\s+", " ", podcast or "").strip() or "Listenly"
+    suffix = f" | {name}" if len(name) <= 28 else " | " + name[:26].rstrip()
+    room = 58 - len(suffix)
+    for essai in range(2):
+        t = claude(f"Rewrite this podcast question as a short natural Google search question in English, "
+                   f"at most {room - 4 * essai} characters including the final question mark, keeping its meaning and "
+                   f"its main keywords. No quotes, reply with the question only.\n\n{question}", 80).strip(' "\n')
+        t = re.sub(r"\s+", " ", t)
+        if t and not t.endswith("?"):
+            t += "?"
+        full = t + suffix
+        if t and len(full) <= 58:
+            return full
+    return None
+
+
 def main():
     scores = json.load(open(f"{PAGES}/data/moments_scores.json", encoding="utf-8"))
     scores = scores.get("scores", scores)
@@ -123,6 +150,16 @@ def main():
             e["enrichi"] = datetime.date.today().isoformat()
             json.dump(d, open(f, "w", encoding="utf-8"), ensure_ascii=False)
             par_podcast[slug] = par_podcast.get(slug, 0) + 1
+            try:
+                titre = titre_court(e.get("q"), d.get("podcast") or slug)
+            except Exception:
+                titre = None
+            if titre:
+                tp = f"{PAGES}/data/titres_seo.json"
+                raw = json.load(open(tp, encoding="utf-8"))
+                (raw["titres"] if isinstance(raw, dict) and "titres" in raw else raw)[k] = titre
+                json.dump(raw, open(tp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+                r["titre"] = titre
             r["resultat"] = "ok"
             done.append(k)
             ok += 1
@@ -132,7 +169,7 @@ def main():
           f"{sum(1 for r in rapport if r['groupe']=='connu' and r['resultat']=='ok')} connues, "
           f"{sum(1 for r in rapport if r['groupe']=='mot_cle' and r['resultat']=='ok')} mots-cles")
     for r in rapport:
-        print(f"  {r['groupe']:8s} {r['resultat']:28s} {r['question'][:70]}")
+        print(f"  {r['groupe']:8s} {r['resultat']:28s} {r.get('titre') or r['question'][:70]}")
 
 
 if __name__ == "__main__":
