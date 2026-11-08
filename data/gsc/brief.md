@@ -1,18 +1,18 @@
-# Brief trafic SEO — 2026-11-07
+# Brief trafic SEO — 2026-11-08
 
-- Période ['2026-08-07', '2026-11-05'] : 17 clics / 2925 impressions sur 472 pages
-- Pages de moments dans Google : 74 pages, 304 impressions, 10 clics
-- Moments ouverts au sitemap : 78 (dont 75 depuis 7 j+) ; contrôlés : 75 ; indexés : 63 (84.0%)
-- Quota : 10/jour → recommandé 25/jour (84.0% indexees : on peut accelerer)
+- Période ['2026-08-08', '2026-11-06'] : 17 clics / 2944 impressions sur 474 pages
+- Pages de moments dans Google : 75 pages, 306 impressions, 10 clics
+- Moments ouverts au sitemap : 78 (dont 75 depuis 7 j+) ; contrôlés : 75 ; indexés : 65 (86.7%)
+- Quota : 10/jour → recommandé 25/jour (86.7% indexees : on peut accelerer)
 
 ## Par type de page
-- hub : 275 pages, 2064 impr., 4 clics
-- show-listenly : 114 pages, 511 impr., 3 clics
-- moment : 74 pages, 304 impr., 10 clics
+- hub : 276 pages, 2075 impr., 4 clics
+- show-listenly : 114 pages, 517 impr., 3 clics
+- moment : 75 pages, 306 impr., 10 clics
 - autre : 9 pages, 46 impr., 0 clics
 
 ## 10 pages de moments à faire indexer à la main aujourd'hui
-- https://listenly.org/podcast-btb/m/world-war-2-podcast/d7d4e7aba3 (inconnue)
+- https://listenly.org/podcast-btb/m/world-war-2-podcast/d7d4e7aba3 (detectee_non_indexee)
 - https://listenly.org/podcast-btb/m/best-damn-coach-podcast-conversations-fo/eb97b64625 (inconnue)
 - https://listenly.org/podcast-btb/m/beyond-luxury/1a55291ad7 (inconnue)
 - https://listenly.org/podcast-btb/m/the-single-source/103c535b37 (inconnue)
@@ -25,7 +25,7 @@
 - https://listenly.org/podcast-btb/the-collective-advantage-podcast.html — 53 impr., pos 8.7
 - https://listenly.org/podcast-btb/the-namibia-oil-and-gas-podcast-podcast.html — 41 impr., pos 8.3
 - https://listenly.org/podcast-btb/the-wholesale-change-show-podcast.html — 40 impr., pos 12.6
-- https://listenly.org/podcast-btb/leaders-on-purpose-podcast.html — 37 impr., pos 7.4
+- https://listenly.org/podcast-btb/leaders-on-purpose-podcast.html — 38 impr., pos 7.5
 - https://listenly.org/podcast-btb/the-road-to-autonomy-podcast.html — 37 impr., pos 10.7
 - https://listenly.org/podcast-btb/the-cro-spotlight-podcast-podcast.html — 30 impr., pos 10.4
 - https://listenly.org/podcast-btb/risk-management-brick-by-brick-podcast.html — 27 impr., pos 10.3
