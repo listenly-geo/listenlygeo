@@ -35,6 +35,7 @@ td a { color: #2997FF; text-decoration: none; }
 <body>
 <div class="wrap">
   <div class="logo">Listenly</div>
+  <p style="margin:12px 0 0"><a class="tab" href="https://search.google.com/search-console/inspect?resource_id=sc-domain%3Alistenly.org" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none">Ouvrir l'inspecteur d'URL (Search Console)</a></p>
 
   <section class="hero">
     <div class="label">Questions indexed by Google</div>
@@ -53,14 +54,11 @@ td a { color: #2997FF; text-decoration: none; }
 
   <section class="card">
     <h2>Pages demandées à l'indexation</h2>
-    <p class="note">Statut vérifié dans la Search Console. « En cours » = demandée, pas encore confirmée indexée.</p>
     <div class="tabs" style="margin-top:12px">
       <button class="tab on" data-tab="en">En cours</button>
       <button class="tab" data-tab="ok">Indexé</button>
       <button class="tab" data-tab="res">Réservoir</button>
     </div>
-    <p class="note" id="reqdate"></p>
-    <p style="margin:10px 0 0"><a class="tab" href="https://search.google.com/search-console/inspect?resource_id=sc-domain%3Alistenly.org" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none">Ouvrir l'inspecteur d'URL (Search Console)</a></p>
     <div class="tablewrap">
       <table>
         <thead><tr><th>Titre Google</th><th>Podcast</th><th>Demandée le</th></tr></thead>
@@ -181,8 +179,6 @@ const SERIE=[{"date": "2026-10-15", "ajoutees": 10, "total": 10}, {"date": "2026
         var e = j.pages[r.url];
         if (e) { r.statut = e === 'indexee' ? 'Indexé' : 'En cours'; }
       });
-      var d = document.getElementById('reqdate');
-      if (d) { d.textContent = 'Statut Search Console mis à jour le ' + j.date + ' (contrôle automatique quotidien).'; }
       var indexed = Object.keys(j.pages).filter(function (k) { return j.pages[k] === 'indexee'; }).length;
       countUp(document.getElementById('counter'), indexed, 2200);
       var sub = document.getElementById('indexsub');
