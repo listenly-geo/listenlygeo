@@ -130,7 +130,25 @@ def main():
             f = f"{PAGES}/data/moments/{slug}.json"
             d = json.load(open(f, encoding="utf-8"))
             e = d["entries"].get(mid)
-            if not e or len(e.get("f") or []) >= 2:
+            if not e:
+                continue
+            if len(e.get("f") or []) >= 2:
+                # deja rallongee (relance du meme jour) : on complete seulement le titre s'il manque
+                if e.get("enrichi") and e.get("q"):
+                    tp = f"{PAGES}/data/titres_seo.json"
+                    raw = json.load(open(tp, encoding="utf-8"))
+                    tit = raw["titres"] if isinstance(raw, dict) and "titres" in raw else raw
+                    if not tit.get(k):
+                        try:
+                            t2 = titre_court(e.get("q"), d.get("podcast") or slug)
+                        except Exception:
+                            t2 = None
+                        if t2:
+                            tit[k] = t2
+                            json.dump(raw, open(tp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+                    if tit.get(k) and e.get("enrichi") == datetime.date.today().isoformat():
+                        done.append(k); par_podcast[slug] = par_podcast.get(slug, 0) + 1; ok += 1
+                        rapport.append({"groupe": groupe, "cle": k, "question": e["q"], "resultat": "ok", "titre": tit[k]})
                 continue
             txt = transcript(slug, e.get("e"))
             r = {"groupe": groupe, "cle": k, "question": e.get("q"), "resultat": ""}
