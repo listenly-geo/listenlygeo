@@ -1,0 +1,52 @@
+[
+  {
+    "podcast_name": "Cup o' Go",
+    "episode_title": "🌉 Ready, Sets, Go! Live from SF, hosted by Assembled!",
+    "audio_url": "https://media.transistor.fm/62db1b94/2bd15a13.mp3",
+    "question": "What is the new Go sets proposal in Go 1.28 and how does it replace the map workaround?",
+    "transcript_excerpt": "Go introduced a proposal for a package with a generic set type through x/collection/set. Instead of using the previous workaround with map keys and empty structs, you now use set.of() to create a set of elements, with methods like intersection, union, difference, and contains. The proposal was accepted and is coming in Go 1.28.",
+    "expert_name": "Anton",
+    "start_seconds": 33,
+    "end_seconds": 254
+  },
+  {
+    "podcast_name": "Cup o' Go",
+    "episode_title": "🌉 Ready, Sets, Go! Live from SF, hosted by Assembled!",
+    "audio_url": "https://media.transistor.fm/62db1b94/2bd15a13.mp3",
+    "question": "How do Go sets operations like intersection, union, and difference work in the new API?",
+    "transcript_excerpt": "The set API provides intersection (the part in common between two sets, like a Venn diagram middle), union (both sets combined, everything), and difference (everything except the overlapping part). You also have contains to check if an element exists. For example, you can find which services to start by calculating desired difference from running.",
+    "expert_name": "Anton",
+    "start_seconds": 166,
+    "end_seconds": 406
+  },
+  {
+    "podcast_name": "Cup o' Go",
+    "episode_title": "🌉 Ready, Sets, Go! Live from SF, hosted by Assembled!",
+    "audio_url": "https://media.transistor.fm/62db1b94/2bd15a13.mp3",
+    "question": "Why did Vercel choose Go instead of Rust for native Next.js support?",
+    "transcript_excerpt": "Vercel chose Go over Rust primarily because of iteration speed and compilation speed. Go compiles extremely fast, enabling hot reloading on every code change, which is critical for developer experience. Rust's compilation speed was too slow for their vision of rapid development cycles with multiple engineers changing code simultaneously.",
+    "expert_name": "Anton",
+    "start_seconds": 325,
+    "end_seconds": 737
+  },
+  {
+    "podcast_name": "Cup o' Go",
+    "episode_title": "🌉 Ready, Sets, Go! Live from SF, hosted by Assembled!",
+    "audio_url": "https://media.transistor.fm/62db1b94/2bd15a13.mp3",
+    "question": "What is the Go test analyzers proposal by Alan Donovan for custom analysis?",
+    "transcript_excerpt": "The proposal allows Go test to run custom analyzers specified by the workspace, not just the subset of GoVet analyzers it currently runs. This requires exporting interfaces from the Go analysis package, enabling developers to write and integrate their own analyzers. The proposal is still in discussion phases as of seven hours before this episode.",
+    "expert_name": "Anton",
+    "start_seconds": 404,
+    "end_seconds": 505
+  },
+  {
+    "podcast_name": "Cup o' Go",
+    "episode_title": "🌉 Ready, Sets, Go! Live from SF, hosted by Assembled!",
+    "audio_url": "https://media.transistor.fm/62db1b94/2bd15a13.mp3",
+    "question": "What are the key differences between AI-generated versus human-created Go educational content?",
+    "transcript_excerpt": "The host notes a channel called Ongla with well-animated explanations like 'How Go Maps Work Internally with Swiss Tables' that appear to be human-narrated and high-quality. While some AI-generated Go tools and libraries are appearing, the quality varies. The focus should be on whether the content itself is useful rather than its origin.",
+    "expert_name": "Anton",
+    "start_seconds": 1523,
+    "end_seconds": 1633
+  }
+]
