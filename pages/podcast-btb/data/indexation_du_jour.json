@@ -1,16 +1,16 @@
 {
- "date": "2026-11-08",
+ "date": "2026-11-09",
  "mode": "liste a traiter dans Claude + Chrome (demande d'indexation manuelle, validation par page)",
  "repartition": {
-  "connu": 7,
-  "mot_cle": 3
+  "connu": 8,
+  "mot_cle": 2
  },
- "selection": "50/50 connus + mots-cles ; volumes du jour + note",
+ "selection": "note seule (volumes non a jour, Keyword Planner en echec)",
  "pretes": 10,
  "urls": [
   {
-   "url": "https://listenly.org/podcast-btb/m/acq2-by-acquired/3d6c6453c7",
-   "titre": "Is AI transformational technology? | ACQ2 by Acquired",
+   "url": "https://listenly.org/podcast-btb/m/masters-of-scale/c0a43d9155",
+   "titre": "What security risks do AI agents have? | Masters of Scale",
    "score_qualite": 80,
    "source": "connu",
    "http": 200,
@@ -21,9 +21,9 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/b2b-vault-the-biz-to-biz-podcast/3c65cb5ff6",
-   "titre": "match list vape CBD merchants? | B2B Vault: The Biz To Biz",
-   "score_qualite": 80,
+   "url": "https://listenly.org/podcast-btb/m/date-line-nbc/64bb1bb99d",
+   "titre": "Why did Andrew Griffin kill Tom and Angela? | Dateline NBC",
+   "score_qualite": 72,
    "source": "connu",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -33,8 +33,8 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/acq2-by-acquired/8083488071",
-   "titre": "what is Sierra's AI agent mission? | ACQ2 by Acquired",
+   "url": "https://listenly.org/podcast-btb/m/freakonomics-radio/a6f98e781c",
+   "titre": "how does a citizens assembly work? | Freakonomics Radio",
    "score_qualite": 72,
    "source": "connu",
    "http": 200,
@@ -46,7 +46,7 @@
   },
   {
    "url": "https://listenly.org/podcast-btb/m/masters-of-scale/cdfc5eb74b",
-   "titre": "What is prompt injection attack on AI? | Masters of Scale",
+   "titre": "how does prompt injection attack AI? | Masters of Scale",
    "score_qualite": 72,
    "source": "connu",
    "http": 200,
@@ -69,9 +69,9 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/scaling-clean/43c86eca76",
-   "titre": "What AI tools does Bennu's team use? | Scaling Clean",
-   "score_qualite": 76,
+   "url": "https://listenly.org/podcast-btb/m/the-doctor-s-crossing-carpe-diem-podcast/646e6f0747",
+   "titre": "who qualifies for PSLF? | The Doctor's Crossing Carp",
+   "score_qualite": 64,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -81,20 +81,8 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/theedge-podcast/b8b54499f2",
-   "titre": "awards Floyd Lee Locums best place work? | TheEdge Podcast",
-   "score_qualite": 57,
-   "source": "mot_cle",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/my-grc-pov/a2ccf2c5af",
-   "titre": "what does risk management mean? | MY GRC POV",
+   "url": "https://listenly.org/podcast-btb/m/msp-unplugged/13a34219c7",
+   "titre": "why does security awareness training fail? | MSP Unplugged",
    "score_qualite": 76,
    "source": "mot_cle",
    "http": 200,
@@ -119,6 +107,18 @@
   {
    "url": "https://listenly.org/podcast-btb/m/the-mel-robbins-podcast/b93c97d66b",
    "titre": "What to do when family ignores health? | Mel Robbins",
+   "score_qualite": 62,
+   "source": "connu",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/the-tim-ferriss-show/3f570157d7",
+   "titre": "What do cancer survivors expect? | The Tim Ferriss Show",
    "score_qualite": 62,
    "source": "connu",
    "http": 200,
