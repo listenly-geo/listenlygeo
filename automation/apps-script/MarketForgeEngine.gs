@@ -1583,6 +1583,18 @@ function mfeCmd_(body) {
       });
       return mfeJson_({ ok: true, cmd: cmd, lignes_mises_a_jour: maj, sans_fiche_n1: sans });
     }
+    if (cmd === 'rouvrir_sans_dirigeant') {   // 09/11/2026 plan B : remet en "Pret" les prospects ecartes UNIQUEMENT faute de dirigeant verifie (leur adresse du flux sera verifiee juste avant l'envoi)
+      var rouverts = 0;
+      mfeRows_(sh).forEach(function (r) {
+        var st = r.values[6], note = String(r.values[11] || '');
+        if ((st === 'Non valide' && note.indexOf('MFE_DIRIGEANT_SEUL') >= 0) || st === 'En pause (pas de dirigeant)') {
+          sh.getRange(r.row, 7).setValue('Pret');
+          sh.getRange(r.row, 12).setValue('Rouvert (plan B 09/11/2026) : contact du flux RSS, adresse verifiee avant envoi');
+          rouverts++;
+        }
+      });
+      return mfeJson_({ ok: true, cmd: cmd, rouverts: rouverts });
+    }
     if (cmd === 'test_real') {
       if (body.confirm !== true) return mfeJson_({ ok: false, error: 'confirm=true requis (envoi de vrais mails)' });
       var nb = Math.max(1, Math.min(Number(body.n) || 1, 3));
