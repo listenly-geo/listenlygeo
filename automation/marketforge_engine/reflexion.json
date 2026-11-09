@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-09T11:57",
+ "updated": "2026-11-09T12:44",
  "statut": "BLOQUE",
  "funnel": {
-  "podcasts_en_file": 1075,
+  "podcasts_en_file": 1111,
   "contacts_prets_a_mailer": 287,
-  "bloques_en_attente": 1,
+  "bloques_en_attente": 23,
   "sans_email": 68,
   "prospects_dans_sheet": 300,
-  "statut_pret": 93,
+  "statut_pret": 102,
   "mails_envoyes": 684,
   "relances": 30,
   "rebonds_total": 5,
@@ -18,6 +18,8 @@
   "paiements_hub": 0
  },
  "blocages": [
+  "Aucun contact cree depuis 2 jours alors que 23 podcasts attendent : etape 'contact' bloquee (verifier extraction_auto, doit etre false).",
+  "extraction_auto=true : les nouveaux podcasts restent en 'en_attente' au lieu de passer en contact.",
   "Reponses non classees (positive / neutre / refus) : impossible de savoir si le funnel marche. Ajouter le champ 'classe' dans replies.json."
  ],
  "hypotheses": [
@@ -28,6 +30,7 @@
   "Relances envoyees sans reponse positive : mesurer separement 1er mail vs relances."
  ],
  "actions": [
+  "Verifier config.json : extraction_auto=false, onboarding_auto=true, pause=false.",
   "Classer chaque reponse reelle : positive (interesse par le Hub), neutre, refus."
  ]
 }
