@@ -174,7 +174,16 @@ const SERIE=[{"date": "2026-10-15", "ajoutees": 10, "total": 10}, {"date": "2026
   });
 
   var curTab = 'ok';
-  fetch('data/statut_indexation.json', { cache: 'no-store' }).then(function (res) {
+  fetch('data/suivi_fiches.json', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }).then(function (s) {
+    if (s && s.fiches) {
+      var have = {};
+      REQUESTS.forEach(function (r) { have[r.url] = 1; });
+      s.fiches.forEach(function (f) {
+        if (!have[f.url]) { REQUESTS.push({ date: f.date, question: f.question, podcast: f.podcast, url: f.url, statut: 'En cours' }); }
+      });
+    }
+    return fetch('data/statut_indexation.json', { cache: 'no-store' });
+  }).then(function (res) {
     return res.ok ? res.json() : null;
   }).then(function (j) {
     if (j && j.pages) {

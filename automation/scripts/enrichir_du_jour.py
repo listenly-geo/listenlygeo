@@ -85,6 +85,7 @@ def titre_court(question, podcast):
         t = re.sub(r"\s+", " ", t)
         if t and not t.endswith("?"):
             t += "?"
+        t = t[:1].upper() + t[1:]
         full = t + suffix
         if t and len(full) <= 58:
             return full

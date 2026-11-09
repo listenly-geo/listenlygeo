@@ -71,6 +71,11 @@ def inspect_moments(tok):
             for u in e.get("urls", []) or []:
                 if isinstance(u, str) and "/podcast-btb/m/" in u:
                     cibles.add(u.split("/podcast-btb/m/", 1)[1].strip("/"))
+    sf = "pages/podcast-btb/data/suivi_fiches.json"
+    if os.path.exists(sf):   # 09/11/2026 : fiches demandees a l'indexation (tableau de suivi)
+        for f in json.load(open(sf, encoding="utf-8")).get("fiches", []):
+            if "/podcast-btb/m/" in f.get("url", ""):
+                cibles.add(f["url"].split("/podcast-btb/m/", 1)[1].strip("/"))
     prev_path = f"{OUT}/indexation_moments.json"
     prev = json.load(open(prev_path, encoding="utf-8")) if os.path.exists(prev_path) else {}
     today = str(datetime.date.today())
