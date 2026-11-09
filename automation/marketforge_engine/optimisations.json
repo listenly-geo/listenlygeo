@@ -2901,7 +2901,7 @@
       "id": "opt-349",
       "section": "Stock",
       "version": "V3.0",
-      "texte": "Le reservoir se remplit maintenant tous les jours, sans s'arreter a 40 prospects prets : la production ne s'arrete qu'a un plafond de securite de 500 (reglable dans le Sheet, MFE_STOCK_PLAFOND). Objectif : constituer une reserve pour augmenter progressivement le volume d'envoi (+30 prospects ou plus par jour).",
+      "texte": "Le reservoir se remplit chaque jour sans s'arreter a 40 prospects prets : la production est limitee par un budget quotidien de 40 nouveaux prospects (reglage MFE_EPISODES_PAR_JOUR, 1 episode par podcast), pour maitriser le cout. Un plafond de securite de 500 en stock reste en place. Objectif : une reserve qui grandit de +30 a +40 par jour pour augmenter progressivement le volume d'envoi.",
       "date": "09/11/2026",
       "statut": "en_cours"
     }
