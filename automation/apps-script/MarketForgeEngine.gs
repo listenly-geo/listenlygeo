@@ -61,9 +61,11 @@ var MFE_DEFAULTS = [
   ['MFE_DIRIGEANT_PART', '50', 'Qui contacter (v24) — pourcentage des prospects (avec adresse de dirigeant verifiee) qui recoivent le mail au dirigeant ; le reste = temoin (adresse du flux) pour comparer les reponses.'],
   ['MFE_NUIT_JUSQU_A', '6', 'Envoi de nuit (27/10/2026) — si le stock de 30 prospects prets n\'est atteint que tard (apres MFE_NUIT_SI_OUVERT_APRES h), les mails restants sont etales jusqu\'a cette heure du matin (heure de Paris). 0 = pas d\'envoi de nuit. Le jour d\'envoi commence a l\'heure de debut de MFE_HEURES_ENVOI.'],
   ['MFE_WEEKEND_PAUSE', 'TRUE', 'Week-end (decision du 29/10/2026) — TRUE = AUCUN mail (premiers mails ni relances) le samedi et le dimanche (heure de Paris), et pas de creation de fiche ni de prospection ces jours-la. Le jour d\'envoi du vendredi se termine a minuit (pas de debordement la nuit vers le samedi). FALSE = envois aussi le week-end.'],
+  ['MFE_PODCASTINDEX_KEY', '', 'Decouverte (09/11/2026) — cle API Podcast Index (https://api.podcastindex.org). Avec le secret, ajoute cet annuaire ouvert comme source de podcasts.'],
+  ['MFE_PODCASTINDEX_SECRET', '', 'Decouverte (09/11/2026) — SECRET API Podcast Index. Vide = Podcast Index ignore.'],
   ['MFE_NUIT_SI_OUVERT_APRES', '18', 'Envoi de nuit — heure (Paris) apres laquelle une ouverture tardive de l\'envoi prolonge la plage jusqu\'a MFE_NUIT_JUSQU_A.'],
   ['MFE_STOCK_MIN', '30', 'Reservoir (regle du 27/10/2026) — AUCUN mail ne part tant que le stock de prospects prets a envoyer (statut Pret, question reelle, fiche N1) n\'atteint pas ce nombre. Une fois l\'envoi du jour commence, il continue jusqu\'a minuit. 0 = regle desactivee.'],
-  ['MFE_DIRIGEANT_SEUL', 'TRUE', 'Qui contacter (v25) — TRUE = AUCUN mail ne part a l\'adresse du flux : sans dirigeant verifie (colonnes S-X) le prospect passe en "En pause (pas de dirigeant)". Un meme dirigeant ne recoit qu\'un seul 1er mail (les autres podcasts passent en "En pause (doublon dirigeant)"). FALSE = ancien comportement.'],
+  ['MFE_DIRIGEANT_SEUL', 'FALSE', 'Qui contacter (v25) — 09/11/2026 : FALSE = plan B, le contact du flux RSS verifie recoit le mail quand aucun dirigeant n\'est verifie (dirigeants envoyes en premier). TRUE = AUCUN mail ne part a l\'adresse du flux : sans dirigeant verifie (colonnes S-X) le prospect passe en "En pause (pas de dirigeant)". Un meme dirigeant ne recoit qu\'un seul 1er mail (les autres podcasts passent en "En pause (doublon dirigeant)"). FALSE = ancien comportement.'],
   ['MFE_VERIF_DIRIGEANT_MAX_JOUR', '40', 'Qui contacter (v24) — plafond de verifications MyEmailVerifier PAR JOUR pour la recherche d\'adresses de dirigeants (le quota gratuit est partage avec la verification avant envoi).'],
   ['MFE_RELANCE_JOURS', '4', 'MarketForge Engine — relance unique apres N jours sans reponse (0 = pas de relance).'],
   ['MFE_RELANCE_DEPUIS', '02/10/2026', 'MarketForge Engine — les relances ne concernent que les prospects dont le 1er mail est parti a partir de cette date (JJ/MM/AAAA). Les prospects de l\'ancien mail ne sont jamais relances. Vide = tous.'],
@@ -523,6 +525,18 @@ function mfeSend_(sh, cfg, force, onlySlug, paced) {   // onlySlug (optionnel) :
     var st0 = r.values[6];
     if (r.values[2] && (st0 === 'Envoye' || st0 === 'Relance' || st0 === 'Relance 2' || st0 === 'Relance 3' || st0 === 'Repondu' || st0 === 'Lien recu' || st0 === 'Done')) usedLeaders[String(r.values[2]).toLowerCase()] = true;
   });
+  // 09/11/2026 : les prospects avec un DIRIGEANT verifie partent en premier, puis ceux dont seul le contact du flux RSS est verifie.
+  var rangEnvoi = {};
+  rows.forEach(function (r) {
+    if (r.values[6] !== 'Pret' || !r.values[16] || String(r.values[3] || '').indexOf('/podcast-btb/') < 0) return;
+    var l0 = null;
+    try { l0 = cfg.DIRIGEANT ? mfeLeaderPick_(sh, r, cfg) : null; } catch (e) { l0 = null; }
+    rangEnvoi[r.row] = l0 ? 0 : 1;
+  });
+  rows = rows.slice().sort(function (a, b) {
+    var ra = rangEnvoi[a.row] === undefined ? 2 : rangEnvoi[a.row], rb = rangEnvoi[b.row] === undefined ? 2 : rangEnvoi[b.row];
+    return (ra - rb) || (a.row - b.row);
+  });
   rows.forEach(function (r) {
     if (sent >= budget || r.values[6] !== 'Pret') return;
     if (onlySlug && r.values[0] !== onlySlug) return;
@@ -579,6 +593,7 @@ function mfeSend_(sh, cfg, force, onlySlug, paced) {   // onlySlug (optionnel) :
         sh.getRange(r.row, MFE.COLS.length + 7).setValue(r.values[2]);
         sh.getRange(r.row, 12).setValue('Envoye au dirigeant (' + (leader.poste || 'poste inconnu') + ') ; contact du flux d\'origine : colonne Y');
       }
+      if (!leader) sh.getRange(r.row, 12).setValue('Envoye au contact du flux RSS (adresse verifiee, aucun dirigeant verifie)');   // 09/11/2026 : repere pour comparer les reponses
       if (leader) usedLeaders[String(leader.to).toLowerCase()] = true;
       ab.counts[variant]++; ab.total++;
       sent++;
@@ -1183,7 +1198,7 @@ function mfeSettings_() {
     EMAIL_TEST: String(cfg.MFE_EMAIL_TEST || '').trim(),
     AB_ACTIF: String(cfg.MFE_AB_ACTIF).toUpperCase() !== 'FALSE',
     DIRIGEANT: String(cfg.MFE_ENVOI_DIRIGEANT).toUpperCase() === 'TRUE',   // v24 : eteint par defaut
-    DIRIGEANT_SEUL: String((cfg.MFE_DIRIGEANT_SEUL === undefined || cfg.MFE_DIRIGEANT_SEUL === null || cfg.MFE_DIRIGEANT_SEUL === '') ? 'TRUE' : cfg.MFE_DIRIGEANT_SEUL).toUpperCase() !== 'FALSE',   // v25
+    DIRIGEANT_SEUL: String((cfg.MFE_DIRIGEANT_SEUL === undefined || cfg.MFE_DIRIGEANT_SEUL === null || cfg.MFE_DIRIGEANT_SEUL === '') ? 'FALSE' : cfg.MFE_DIRIGEANT_SEUL).toUpperCase() !== 'FALSE',   // v25
     DIRIGEANT_PART: Math.max(0, Math.min(100, isNaN(parseInt(cfg.MFE_DIRIGEANT_PART, 10)) ? 50 : parseInt(cfg.MFE_DIRIGEANT_PART, 10))),
   };
 }

@@ -162,6 +162,48 @@ def itunes_search(term, country, limit=100, max_retries=3):
     return []
 
 
+# ---------------------------------------------------------------------------
+# PODCAST INDEX (09/11/2026) : annuaire ouvert (API officielle, cle gratuite) en complement d'iTunes, qui bloque souvent les serveurs
+# GitHub. Les resultats reprennent la forme iTunes (collectionName, artistName, feedUrl...) et passent par les memes filtres.
+# Identifiants : variables PODCASTINDEX_API_KEY / PODCASTINDEX_API_SECRET, sinon onglet Reglages du Sheet (MFE_PODCASTINDEX_KEY / _SECRET).
+# Sans identifiants complets : source ignoree, rien ne casse.
+# ---------------------------------------------------------------------------
+def podcastindex_creds():
+    k = os.environ.get("PODCASTINDEX_API_KEY", "").strip()
+    sec = os.environ.get("PODCASTINDEX_API_SECRET", "").strip()
+    if not (k and sec):
+        try:
+            reg = (contact_finder.sheet_bridge.call(payload={"action": "config"}) or {}).get("reglages", {}) or {}
+            k = k or str(reg.get("MFE_PODCASTINDEX_KEY", "") or "").strip()
+            sec = sec or str(reg.get("MFE_PODCASTINDEX_SECRET", "") or "").strip()
+        except Exception:
+            pass
+    return (k, sec) if (k and sec) else None
+
+
+def podcastindex_search(term, creds, limit=60):
+    now = str(int(time.time()))
+    auth = hashlib.sha1((creds[0] + creds[1] + now).encode()).hexdigest()
+    url = "https://api.podcastindex.org/api/1.0/search/byterm?" + urllib.parse.urlencode({"q": term, "max": limit, "fulltext": ""})
+    req = urllib.request.Request(url, headers={"User-Agent": "MarketForgeEngine/1.0", "X-Auth-Key": creds[0], "X-Auth-Date": now, "Authorization": auth})
+    with urllib.request.urlopen(req, timeout=20) as r:
+        data = json.loads(r.read().decode("utf-8", "ignore"))
+    out = []
+    for f in data.get("feeds", []) or []:
+        lang = str(f.get("language") or "").lower()
+        if lang and not lang.startswith("en"):
+            continue   # cible actuelle : podcasts anglophones
+        cats = f.get("categories") or {}
+        genre = next(iter(cats.values()), "") if isinstance(cats, dict) and cats else ""
+        feed = f.get("url") or f.get("originalUrl") or ""
+        if not feed:
+            continue
+        out.append({"collectionName": f.get("title", ""), "artistName": f.get("author") or f.get("ownerName") or "", "feedUrl": feed,
+                    "primaryGenreName": genre, "trackCount": int(f.get("episodeCount") or MIN_EPISODES), "description": (f.get("description") or "")[:800],
+                    "collectionViewUrl": f.get("link") or "", "artworkUrl600": f.get("artwork") or f.get("image") or "", "_source": "podcastindex"})
+    return out
+
+
 QUALIFICATION_PROMPT = """Tu es un analyste GEO (Generative Engine Optimization) charge de decider si un
 podcast merite d'etre onboarde sur un moteur de fiches B2B, sur la base de donnees reelles observees :
 
@@ -317,6 +359,22 @@ FREE_MAIL = ("gmail.com", "googlemail.com", "yahoo.com", "yahoo.co.uk", "hotmail
 ALLOW_FREEMAIL = os.environ.get("DISCOVERY_ALLOW_FREEMAIL", "0") == "1"
 
 
+def feed_description(feed_url, timeout=10):
+    """Description du podcast lue dans son flux RSS (repeches du plan B : l'historique ne la garde pas). Vide si illisible."""
+    try:
+        req = urllib.request.Request(feed_url, headers={"User-Agent": "Mozilla/5.0 (compatible; MarketForgeBot)"})
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            raw = r.read(300000).decode("utf-8", "ignore")
+    except Exception:
+        return ""
+    m = re.search(r"<channel>.*?<description[^>]*>(.*?)</description>", raw, re.S | re.I)
+    if not m:
+        return ""
+    t = re.sub(r"<!\[CDATA\[|\]\]>", "", m.group(1))
+    t = re.sub(r"<[^>]+>", " ", t)
+    return re.sub(r"\s+", " ", t).strip()[:800]
+
+
 def email_gate(feed_url):
     """(email, raison_du_refus). Gratuit (lit le RSS). Objectif 30/09/2026 : ne qualifier (cout Claude) et
     n'onboarder que des podcasts JOIGNABLES par une adresse professionnelle -- une adresse Gmail/Outlook est
@@ -453,6 +511,10 @@ def push_cohorte(records):
 
 
 MIN_EPISODES = int(os.environ.get("DISCOVERY_MIN_EPISODES", "10") or 10)   # 27/10/2026 (avant : 3)
+# PLAN B (09/11/2026, decision d'Etienne) : quand aucun dirigeant joignable n'est trouve, l'adresse du flux RSS (verifiee 'valid') suffit :
+# createurs, coachs et experts independants acceptes. Les dirigeants verifies restent envoyes en premier (cote Apps Script).
+RSS_FALLBACK = os.environ.get("DISCOVERY_RSS_FALLBACK", "1") == "1"
+RESCUE_MAX = int(os.environ.get("DISCOVERY_RESCUE_MAX", "600") or 600)   # podcasts deja trouves puis ecartes par le filtre dirigeant, repeches par run
 DOMAIN_FAIL_DAYS = 30   # 27/10/2026 : un domaine deja sans dirigeant joignable n'est pas retente avant 30 jours
 
 
@@ -553,6 +615,28 @@ def main():
                     raw_results[feed_url] = (r, kw)
             time.sleep(1.2)  # courtoisie API (07/11/2026 : 0.2 -> 1.2 s)
 
+    # Podcast Index : source complementaire (n'est pas bloquee comme iTunes)
+    _pi = podcastindex_creds()
+    if _pi:
+        _pi_n, _pi_fail = 0, 0
+        for kw in keywords:
+            try:
+                for r in podcastindex_search(kw, _pi):
+                    if r["feedUrl"] not in raw_results:
+                        raw_results[r["feedUrl"]] = (r, kw)
+                        _pi_n += 1
+                _pi_fail = 0
+            except Exception as e:
+                _pi_fail += 1
+                log(f"  Podcast Index : erreur sur '{kw}' ({type(e).__name__})")
+                if _pi_fail >= 5:
+                    log("  Podcast Index : 5 erreurs d'affilee, source abandonnee pour ce run.")
+                    break
+            time.sleep(0.4)
+        log(f"Podcast Index : {_pi_n} podcasts supplementaires trouves.")
+    else:
+        log("Podcast Index : identifiants absents (cle + secret), source ignoree.")
+
     log(f"{len(raw_results)} podcasts uniques trouves (avant filtrage).")
 
     # --- 2) Filtrage grossier : deja onboarde, deja pausé, deja traite, heuristiques ---
@@ -608,6 +692,28 @@ def main():
     taken_per_keyword = {}
     to_qualify = []
 
+    # REPECHAGE (09/11/2026) : les podcasts deja trouves puis ecartes par le seul filtre dirigeant (aucun appel iTunes necessaire)
+    # repassent par le pre-filtre gratuit puis par le plan B (adresse du flux verifiee). Un seul repechage par podcast.
+    rescue_feeds = set()
+    if RSS_FALLBACK and RESCUE_MAX > 0:
+        _today_iso = __import__("datetime").date.today().isoformat()
+        _pool = [r for r in seen_candidates.values()
+                 if isinstance(r, dict) and r.get("gate") == "dirigeant" and r.get("feed_url") and not r.get("rescue")]
+        random.shuffle(_pool)
+        for r in _pool[:RESCUE_MAX]:
+            sec_r = r.get("secteur") or "Autre"
+            kw_r = "__rescue__" + sec_r
+            by_keyword.setdefault(kw_r, []).append({
+                "collectionName": r.get("podcast_name", ""), "artistName": r.get("artist_name", ""), "feedUrl": r["feed_url"],
+                "primaryGenreName": r.get("genre", ""), "trackCount": r.get("nb_episodes") or 0, "_rescue": True})
+            kw_sector[kw_r] = sec_r
+            kw_of_feed[r["feed_url"]] = kw_r
+            rescue_feeds.add(r["feed_url"])
+        log(f"Repechage plan B : {len(rescue_feeds)} podcasts ecartes par le filtre dirigeant remis en file")
+
+    for _kw in [k for k in by_keyword if k.startswith('__rescue__')]:
+        sector_kws.setdefault(kw_sector.get(_kw, 'Autre'), []).append(_kw)
+
     def draw(sector):
         """1 candidat du secteur (tourniquet entre ses mots-cles, plafond par mot-cle)."""
         kws = sector_kws.get(sector, [])
@@ -615,7 +721,7 @@ def main():
             kw = kws.pop(0)
             kws.append(kw)
             pool = by_keyword.get(kw)
-            if pool and taken_per_keyword.get(kw, 0) < MAX_PER_KEYWORD:
+            if pool and taken_per_keyword.get(kw, 0) < (400 if kw.startswith('__rescue__') else MAX_PER_KEYWORD):
                 taken_per_keyword[kw] = taken_per_keyword.get(kw, 0) + 1
                 return pool.pop(0)
         return None
@@ -658,6 +764,7 @@ def main():
     leaders_new = set()
     gate_ctx["leaders_used"] = leaders_used   # adresses deja attribuees : pas de verification pour elles
     failed_domains = failed_domains_from(seen_candidates)
+    rss_accepted = set()   # plan B : feeds acceptes sur la seule adresse du flux verifiee
     gate_found = {}   # feed -> dirigeant confirme par le filtre (transmis au Sheet : une seule recherche dans tout le funnel)
     while len(to_qualify) < MAX_QUALIFY and live and prechecked < MAX_PRECHECK and not gate_stop:
         batch = []
@@ -677,7 +784,7 @@ def main():
             prechecked += 1
             if not why:
                 why = rwhy or free_reject(cand, email)  # MAJ 19/10/2026 : filtre de recence
-                if not why and email and email.rsplit("@", 1)[-1].lower() in failed_domains:
+                if not why and not RSS_FALLBACK and email and email.rsplit("@", 1)[-1].lower() in failed_domains:
                     why = "domaine deja sans dirigeant joignable (retente apres %d jours)" % DOMAIN_FAIL_DAYS   # 27/10/2026
             feed = cand.get("feedUrl", "")
             if why:
@@ -698,11 +805,37 @@ def main():
                     gate_stop = True
                     break
                 gate_tries += 1
-                try:
-                    g_ok, g_why = contact_finder.leader_gate(cand.get("collectionName", ""), cand.get("artistName", ""), feed, email, gate_ctx)
-                except Exception as e:
-                    log(f"  filtre dirigeant : erreur {type(e).__name__} (candidat ignore ce run)")
-                    continue
+                # Plan B : un repeche ou un domaine deja sans dirigeant saute la recherche Claude (cout) et va droit a l'adresse du flux.
+                skip_leader = RSS_FALLBACK and bool(cand.get("_rescue") or (email and email.rsplit("@", 1)[-1].lower() in failed_domains))
+                gate_ctx["last_res"] = {}
+                g_ok, g_why = False, "recherche du dirigeant sautee (plan B)"
+                if not skip_leader:
+                    try:
+                        g_ok, g_why = contact_finder.leader_gate(cand.get("collectionName", ""), cand.get("artistName", ""), feed, email, gate_ctx)
+                    except Exception as e:
+                        log(f"  filtre dirigeant : erreur {type(e).__name__} (candidat ignore ce run)")
+                        continue
+                if not g_ok and RSS_FALLBACK and email:
+                    _eh = hashlib.sha256(email.strip().lower().encode()).hexdigest()
+                    _st = gate_ctx.setdefault("stats", {})
+                    if _eh in leaders_used:
+                        _st["rss_deja_pris"] = _st.get("rss_deja_pris", 0) + 1
+                    elif gate_ctx["verif_left"] > 0:
+                        gate_ctx["verif_left"] -= 1
+                        _v = contact_finder.verify_email(email)
+                        _st["rss_verif_" + str(_v)] = _st.get("rss_verif_" + str(_v), 0) + 1
+                        if _v == "valid":
+                            leaders_used.add(_eh)
+                            leaders_new.add(_eh)
+                            gate_ok += 1
+                            _st["rss_accepte"] = _st.get("rss_accepte", 0) + 1
+                            rss_accepted.add(feed)
+                            pre_email[feed] = email
+                            if cand.get("_rescue") and not cand.get("description"):
+                                cand["description"] = feed_description(feed)
+                            to_qualify.append(cand)
+                            per_sector[sec] = per_sector.get(sec, 0) + 1
+                            continue
                 if not gate_ctx["verif_ok"] and not g_ok:
                     log("  filtre dirigeant : verification MyEmailVerifier indisponible -> arret du filtre sur ce run (rien n'est ecarte)")
                     gate_stop = True
@@ -746,6 +879,12 @@ def main():
             pre_email[feed] = email
             to_qualify.append(cand)
             per_sector[sec] = per_sector.get(sec, 0) + 1
+    if rescue_feeds:   # un seul repechage par podcast : les rejets repeches ne reviennent pas au prochain run
+        _td = __import__("datetime").date.today().isoformat()
+        for _f in rescue_feeds:
+            _rec = seen_candidates.get(_f)
+            if isinstance(_rec, dict) and _rec.get("verdict") == "REJECT" and _f not in rss_accepted and _rec.get("checked_date") == _td:
+                _rec["rescue"] = _td
     if GATE_ON and leaders_new:
         try:
             with open(LEADERS_FILE, "w", encoding="utf-8") as f:

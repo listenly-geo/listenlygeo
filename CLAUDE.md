@@ -46,3 +46,9 @@ Seul cas ou redemander quelque chose : le journal affiche `RefreshError` / `inva
 - Ne partent PAS le samedi et le dimanche (heure de Paris) : premiers mails, relances, envoi de secours. Reglage : MFE_WEEKEND_PAUSE = TRUE (Sheet, Reglages).
 - Les jobs `garde` des workflows marketforge-engine-run et marketforge-contact-finder ne bloquent plus le week-end. Ne jamais remettre FALSE sur MFE_WEEKEND_PAUSE sans demande d'Etienne.
 - Hors perimetre : le moteur trafic / SCORING MOMENT SYSTEM (systeme separe).
+
+## Plan B contact : l'adresse du flux RSS verifiee suffit (decision du 09/11/2026)
+- Objectif : le plus de prospects contactables possible (independants acceptes). Sans dirigeant verifie, le mail part a l'adresse du flux RSS si MyEmailVerifier la confirme `valid` (MFE_DIRIGEANT_SEUL = FALSE).
+- Ordre d'envoi : dirigeants verifies d'abord, contacts du flux RSS ensuite. Les envois au flux sont reperes dans la colonne Notes du Sheet (« Envoye au contact du flux RSS ») pour comparer les taux de reponse.
+- Repechage (`discover_podcasts.py`, DISCOVERY_RSS_FALLBACK / DISCOVERY_RESCUE_MAX) : les podcasts ecartes seulement par le filtre dirigeant repassent par le plan B, une fois chacun.
+- Podcast Index : source de decouverte complementaire a iTunes (cle + secret dans Reglages : MFE_PODCASTINDEX_KEY / MFE_PODCASTINDEX_SECRET). Ne jamais ecrire ces valeurs dans le depot.
