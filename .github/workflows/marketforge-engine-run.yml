@@ -78,7 +78,7 @@ jobs:
           print("mode test : 1 fiche, 2 episodes max")
           PY
 
-      - name: "Stock de prets (objectif 40 avant 14h, plein = on ne produit plus)"
+      - name: "Stock de prets (le reservoir se remplit chaque jour ; arret seulement au plafond MFE_STOCK_PLAFOND)"
         id: stock
         continue-on-error: true
         env:
@@ -90,8 +90,14 @@ jobs:
           import sheet_bridge
           d = sheet_bridge.call({"action": "status"})
           n = sum(1 for p in d.get("prospects", []) if p.get("Statut") == "Pret")
+          # 09/11/2026 (Etienne) : le reservoir se remplit TOUS les jours pour pouvoir augmenter progressivement le volume d'envoi.
+          # L'ancien arret a 40 est remplace par un plafond de securite reglable (Reglages : MFE_STOCK_PLAFOND, 500 par defaut).
+          try:
+              plafond = int(float(str((d.get("reglages") or {}).get("MFE_STOCK_PLAFOND") or 500)))
+          except Exception:
+              plafond = 500
           print(f"stock={n}")
-          print(f"full={'true' if n >= 40 else 'false'}")
+          print(f"full={'true' if n >= plafond else 'false'}")
           PY
           cat "$GITHUB_OUTPUT" | grep -E "^(stock|full)="
 
