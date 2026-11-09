@@ -12,6 +12,7 @@ OUT = f"{PAGES}/data/indexation_du_jour.json"
 SITE = os.environ.get("GSC_SITE", "sc-domain:listenly.org")
 BASE = "https://listenly.org/podcast-btb/"
 N = 10
+RETARD = []    # slug/id des fiches en retard (non demandees la veille), prioritaires
 SOURCES = {}   # slug/id -> "connu" | "mot_cle" (08/11/2026 : repartition 50/50 pendant 14 jours, puis reglage selon la Search Console)
 QUOTA_CONNU = 5
 QUOTA_MOTCLE = 5
@@ -83,6 +84,21 @@ def choisir():
                     deja.update(h.get("urls", []))
         except (OSError, json.JSONDecodeError):
             pass
+    # 09/11/2026 (Etienne) : REGLE — les fiches choisies mais NON demandees faute de quota/outil (urls_en_attente du
+    # journal) passent AVANT TOUTES LES AUTRES le lendemain, tant qu'elles ne sont ni demandees ni indexees.
+    retard = []
+    try:
+        jr = json.load(open(f"{PAGES}/data/index_requests.json", encoding="utf-8"))
+        for kd in sorted(jr):
+            v = jr[kd]
+            if isinstance(v, dict):
+                for u in (v.get("urls_en_attente") or []):
+                    if isinstance(u, str) and "/podcast-btb/m/" in u and u not in deja and u not in retard:
+                        retard.append(u)
+    except (OSError, json.JSONDecodeError):
+        pass
+    RETARD.clear()
+    RETARD.extend(u.split("/podcast-btb/m/", 1)[1].strip("/") for u in retard)
     # 18/10/2026 : seuls les podcasts des niveaux ouverts (trafic_seo.json > niveaux_ouverts) sont proposes
     try:
         niv = json.load(open(f"{PAGES}/data/priorite_podcasts.json", encoding="utf-8")).get("niveaux", {})
@@ -240,6 +256,12 @@ def main():
     # l'autre complete. Chaque fiche porte son etiquette de source pour le suivi Search Console.
     def n_source(src):
         return sum(1 for c in chosen if SOURCES.get(c[0] + "/" + c[1]) == src)
+    # passe 0 (09/11/2026) : les fiches en retard d'abord, sans quota de groupe
+    for slug, mid, score in cands:
+        if len(chosen) >= N:
+            break
+        if slug + "/" + mid in RETARD:
+            essayer(slug, mid, score)
     for src, quota in (("connu", QUOTA_CONNU), ("mot_cle", QUOTA_MOTCLE)):
         for slug, mid, score in cands:
             if n_source(src) >= quota:
