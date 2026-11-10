@@ -1,0 +1,52 @@
+[
+  {
+    "podcast_name": "Cloudy with a Chance of Insights | A Microsoft Cloud (Azure, M365) Show for Architects & Engineers",
+    "episode_title": "When agent governance becomes an operating model problem",
+    "audio_url": "https://anchor.fm/s/fb7dd7f4/podcast/play/128500804/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-31%2F435518543-44100-2-158401432b642.m4a",
+    "question": "What is Microsoft's agentic behavior engineering guidance and how does it separate agent behavior from implementation?",
+    "transcript_excerpt": "Microsoft's guidance introduces the concept of a behavior contract that describes what an agent is expected to do within a particular situation, including what it must not do, what evidence it needs before taking action, and when human approval is required. This separates the required behavior of the agent from the implementation used to produce it, allowing organizations to maintain consistent behavior requirements whether the underlying model changes from GPT to PHY or other models, or if the prompt is modified.",
+    "expert_name": null,
+    "start_seconds": 289,
+    "end_seconds": 496
+  },
+  {
+    "podcast_name": "Cloudy with a Chance of Insights | A Microsoft Cloud (Azure, M365) Show for Architects & Engineers",
+    "episode_title": "When agent governance becomes an operating model problem",
+    "audio_url": "https://anchor.fm/s/fb7dd7f4/podcast/play/128500804/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-31%2F435518543-44100-2-158401432b642.m4a",
+    "question": "How should organizations test non-deterministic AI agents if they do not produce consistent outputs like traditional applications?",
+    "transcript_excerpt": "Organizations should build scenario-based testing around behavior contracts, creating representative scenarios for each behavior and testing what happens if inputs are missing, incorrect, or attempt to stretch security boundaries. They should also build a curated set of real use cases where people who understand the domain have agreed on expected outcomes, rather than relying solely on synthetic scenarios or traditional user acceptance testing scripts that assume deterministic outputs.",
+    "expert_name": null,
+    "start_seconds": 150,
+    "end_seconds": 570
+  },
+  {
+    "podcast_name": "Cloudy with a Chance of Insights | A Microsoft Cloud (Azure, M365) Show for Architects & Engineers",
+    "episode_title": "When agent governance becomes an operating model problem",
+    "audio_url": "https://anchor.fm/s/fb7dd7f4/podcast/play/128500804/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-31%2F435518543-44100-2-158401432b642.m4a",
+    "question": "What changes are needed when switching between different AI model providers like OpenAI and Anthropic in agent applications?",
+    "transcript_excerpt": "When moving from OpenAI models like GPT-5 or GPT-6 to Anthropic's Opus, you cannot simply swap models without changes. Anthropic models have a slightly different mechanism for communicating compared to OpenAI models, requiring you to rewrite the underlying contracts and rebuild the harness that supports that model change, rather than treating all models as interchangeable components.",
+    "expert_name": null,
+    "start_seconds": 844,
+    "end_seconds": 875
+  },
+  {
+    "podcast_name": "Cloudy with a Chance of Insights | A Microsoft Cloud (Azure, M365) Show for Architects & Engineers",
+    "episode_title": "When agent governance becomes an operating model problem",
+    "audio_url": "https://anchor.fm/s/fb7dd7f4/podcast/play/128500804/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-31%2F435518543-44100-2-158401432b642.m4a",
+    "question": "What is ISO 27090 and how does it differ from ISO 42001 for AI security?",
+    "transcript_excerpt": "ISO 27090 is a new international security standard published on October 14th that focuses on how AI systems themselves can be attacked and what needs to be protected, covering poison training data, model theft, manipulated inputs, compromised models, and attacks against the AI workflow itself. In contrast, ISO 42001 tells you how to govern AI as an organization from a management perspective, whereas ISO 27090 adds the AI-specific cybersecurity operational layer.",
+    "expert_name": null,
+    "start_seconds": 1476,
+    "end_seconds": 1716
+  },
+  {
+    "podcast_name": "Cloudy with a Chance of Insights | A Microsoft Cloud (Azure, M365) Show for Architects & Engineers",
+    "episode_title": "When agent governance becomes an operating model problem",
+    "audio_url": "https://anchor.fm/s/fb7dd7f4/podcast/play/128500804/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-31%2F435518543-44100-2-158401432b642.m4a",
+    "question": "What frameworks should enterprises use for comprehensive AI security and governance?",
+    "transcript_excerpt": "Organizations should use ISO 42001 for the governance backbone and formal AI management system, ISO 27090 for AI-specific cybersecurity, NIST AI RMF (Risk Management Framework) for practical risk management with a dedicated generative AI profile, and OWASP GenAI top 10 for developer-level attack techniques like prompt injection and unsafe tool usage.",
+    "expert_name": null,
+    "start_seconds": 1686,
+    "end_seconds": 1716
+  }
+]
