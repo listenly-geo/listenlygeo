@@ -1,18 +1,17 @@
-# Brief trafic SEO — 2026-11-09
+# Brief trafic SEO — 2026-11-10
 
-- Période ['2026-08-09', '2026-11-07'] : 17 clics / 2949 impressions sur 474 pages
+- Période ['2026-08-10', '2026-11-08'] : 17 clics / 2955 impressions sur 474 pages
 - Pages de moments dans Google : 75 pages, 306 impressions, 10 clics
-- Moments ouverts au sitemap : 80 (dont 77 depuis 7 j+) ; contrôlés : 77 ; indexés : 66 (85.7%)
-- Quota : 10/jour → recommandé 25/jour (85.7% indexees : on peut accelerer)
+- Moments ouverts au sitemap : 80 (dont 77 depuis 7 j+) ; contrôlés : 77 ; indexés : 67 (87.0%)
+- Quota : 10/jour → recommandé 25/jour (87.0% indexees : on peut accelerer)
 
 ## Par type de page
-- hub : 276 pages, 2080 impr., 4 clics
+- hub : 276 pages, 2086 impr., 4 clics
 - show-listenly : 114 pages, 517 impr., 3 clics
 - moment : 75 pages, 306 impr., 10 clics
 - autre : 9 pages, 46 impr., 0 clics
 
 ## 10 pages de moments à faire indexer à la main aujourd'hui
-- https://listenly.org/podcast-btb/m/the-tim-ferriss-show/3f570157d7 (inconnue)
 - https://listenly.org/podcast-btb/m/best-damn-coach-podcast-conversations-fo/eb97b64625 (inconnue)
 - https://listenly.org/podcast-btb/m/beyond-luxury/1a55291ad7 (inconnue)
 - https://listenly.org/podcast-btb/m/the-single-source/103c535b37 (inconnue)
@@ -25,8 +24,8 @@
 - https://listenly.org/podcast-btb/the-collective-advantage-podcast.html — 53 impr., pos 8.7
 - https://listenly.org/podcast-btb/the-namibia-oil-and-gas-podcast-podcast.html — 41 impr., pos 8.3
 - https://listenly.org/podcast-btb/the-wholesale-change-show-podcast.html — 40 impr., pos 12.6
+- https://listenly.org/podcast-btb/the-road-to-autonomy-podcast.html — 39 impr., pos 13.1
 - https://listenly.org/podcast-btb/leaders-on-purpose-podcast.html — 38 impr., pos 7.5
-- https://listenly.org/podcast-btb/the-road-to-autonomy-podcast.html — 37 impr., pos 10.7
 - https://listenly.org/podcast-btb/the-cro-spotlight-podcast-podcast.html — 30 impr., pos 10.4
 - https://listenly.org/podcast-btb/risk-management-brick-by-brick-podcast.html — 27 impr., pos 10.3
 - https://listenly.org/podcast-btb/the-dsr-network-podcast.html — 26 impr., pos 13.8
