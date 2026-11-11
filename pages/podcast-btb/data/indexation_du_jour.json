@@ -2,21 +2,93 @@
  "date": "2026-11-11",
  "mode": "liste a traiter dans Claude + Chrome (demande d'indexation manuelle, validation par page)",
  "repartition": {
-  "connu": 1,
+  "connu": 7,
   "mot_cle": 0
  },
- "selection": "note seule (volumes non a jour, Keyword Planner en echec)",
- "pretes": 1,
+ "selection": "50/50 connus + mots-cles ; volumes du jour + note",
+ "pretes": 7,
  "urls": [
   {
-   "url": "https://listenly.org/podcast-btb/m/the-mel-robbins-podcast/b0fd537f33",
-   "titre": "How do you talk through a hard relationship? | Mel Robbins",
+   "url": "https://listenly.org/podcast-btb/m/pod-save-america/74bd7cf51b",
+   "titre": "Why didn't Sanders endorse Hong? | Pod Save America",
    "score_qualite": 58,
    "source": "connu",
    "http": 200,
    "verdict": "NEUTRAL",
    "etat": "Crawled - currently not indexed",
    "robots": "ALLOWED",
+   "indexation_bloquee": "INDEXING_ALLOWED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/the-bob-lefsetz-podcast/6892ad417f",
+   "titre": "How did Low Cut Connie begin? | The Bob Lefsetz Podcast",
+   "score_qualite": 58,
+   "source": "connu",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/the-mel-robbins-podcast/e86eb12ca4",
+   "titre": "Does screen time weaken bonds? | The Mel Robbins Podcast",
+   "score_qualite": 58,
+   "source": "connu",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/the-tim-ferriss-show/3b284c628b",
+   "titre": "Do family duties drain writers? | The Tim Ferriss Show",
+   "score_qualite": 58,
+   "source": "connu",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/the-tim-ferriss-show/a6013cc99e",
+   "titre": "Which parents need Mentava first? | The Tim Ferriss Show",
+   "score_qualite": 58,
+   "source": "connu",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/the-tim-ferriss-show/f683fd4366",
+   "titre": "How fast can kids learn to read? | The Tim Ferriss Show",
+   "score_qualite": 58,
+   "source": "connu",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/this-american-life/445346ea4a",
+   "titre": "How was a prolapsed cord handled? | This American Life",
+   "score_qualite": 58,
+   "source": "connu",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
    "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
    "pret_pour_demande": true
   }
