@@ -786,11 +786,13 @@
     "feed_url": "https://www.omnycontent.com/d/playlist/de62ff84-6498-49d0-a266-a9d50120c712/7a120abd-04c5-402d-9aeb-ab090058838c/d1b6b596-6d24-43ed-8489-ab09005883ac/podcast.rss",
     "genre": "Business News",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Cybersécurité",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "bfm.my",
+    "rescue": "2026-11-11"
   },
   "https://anchor.fm/s/247a4d14/podcast/rss": {
     "podcast_name": "The Digital Patient",
@@ -8408,11 +8410,13 @@
     "feed_url": "https://softwareengineeringdaily.com/feed/podcast/",
     "genre": "Tech News",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Tech & SaaS",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "softwareengineeringdaily.com",
+    "rescue": "2026-11-11"
   },
   "https://rss.buzzsprout.com/1971056.rss": {
     "podcast_name": "Scuttlebutt: Official Podcast of the National Museum of the Surface Navy",
@@ -11270,11 +11274,13 @@
     "feed_url": "https://feeds.megaphone.fm/recodedecode",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Logistique & Supply chain",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "theverge.com",
+    "rescue": "2026-11-11"
   },
   "https://rss.libsyn.com/shows/106362/destinations/573919.xml": {
     "podcast_name": "CanInnovate",
@@ -14071,11 +14077,13 @@
     "feed_url": "https://feeds.megaphone.fm/CWT9205947236",
     "genre": "Investing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Assurance",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "chatwithtraders.com",
+    "rescue": "2026-11-11"
   },
   "https://anchor.fm/s/5ecf4168/podcast/rss": {
     "podcast_name": "Our Story Your Story",
@@ -16143,12 +16151,15 @@
     "artist_name": "BevNET Inc.",
     "feed_url": "https://rss.libsyn.com/shows/131310/destinations/799674.xml",
     "genre": "Entrepreneurship",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "reason": "Taste Radio est un podcast de média établi et notoire. Produit par BevNET Inc., une média company de référence fondée en 1996 et reconnue comme autorité dans l'industrie (citée par NYT, WSJ, CNBC). Le podcast affiche 1,3M+ downloads, est classé #1 dans sa catégorie avec une couverture documentaire déjà importante, et s'appuie sur une infrastructure massive (magazine papier, événements Live 750+ participants, newsletter 19,8K subscribers). Ce n'est pas un podcast d'entreprise B2B anonyme mais une propriété médias célèbre dans son secteur.",
+    "checked_date": "2026-11-11",
     "secteur": "Experts-comptables & patrimoine",
-    "gate": "dirigeant"
+    "nb_episodes": 0
   },
   "https://rss.libsyn.com/shows/113713/destinations/639887.xml": {
     "podcast_name": "Operation Agency Freedom - The #1 Podcast for Digital Agency Owners Who Want to Scale and Exit Their Business",
@@ -17160,12 +17171,15 @@
     "artist_name": "Howard Farran: Dentist | Dental CE Speaker | Founder & CEO of Dentaltown.co",
     "feed_url": "https://rss.libsyn.com/shows/58519/destinations/222357.xml",
     "genre": "Medicine",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "reason": "Ce podcast est produit par Dentaltown.com (entreprise B2B), animé par Howard Farran (fondateur/CEO identifiable) sur un sujet business B2B. Cependant, il dépasse le critère d'audience 'petite ou moyenne': avec 1.700+ épisodes, 8M+ téléchargements, et le statut de figure d'influence reconnue mondialement en dentisterie, ce podcast relève d'une notoriété établie incompatible avec l'onboarding visé.",
+    "checked_date": "2026-11-11",
     "secteur": "Experts-comptables & patrimoine",
-    "gate": "dirigeant"
+    "nb_episodes": 0
   },
   "https://anchor.fm/s/7dadb010/podcast/rss": {
     "podcast_name": "The Video Entrepreneur",
@@ -17757,12 +17771,23 @@
     "artist_name": "Profisee",
     "feed_url": "https://fast.wistia.com/channels/8w6c1dqrb1/rss",
     "genre": "Business",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B d'entreprise produit par Profisee (éditeur MDM), hébergé et animé par Malcolm Hawker (Head of Data Strategy et ancien analyste Gartner), avec audience spécialisée petite/moyenne. Sujet business/données pointu, pas de mass-media ni grande notoriété.",
+    "checked_date": "2026-11-11",
     "secteur": "Business général (entreprise)",
-    "gate": "dirigeant"
+    "nb_episodes": 0,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Blockchain",
+      "Business Law",
+      "Big Data",
+      "Business Law"
+    ],
+    "contact_email": "manasia.cobb@profisee.com"
   },
   "https://rss.buzzsprout.com/2308511.rss": {
     "podcast_name": "Good Neighbor Podcast: Delco",
@@ -22677,12 +22702,15 @@
     "artist_name": "Joel Goldberg",
     "feed_url": "https://api.riverside.fm/hosting/mQWjum1p.rss",
     "genre": "Entrepreneurship",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : poste non dirigeant (Animateur du podcast (poste non confirme)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "reason": "Joel Goldberg est une personnalité médias établie (broadcaster Emmy Award-winning pour Kansas City Royals depuis 2008, speaker reconnu, auteur publié). Le podcast bénéficie d'une audience importante et d'une forte couverture médiatique existante, ce qui ne correspond pas au profil cible des podcasts B2B de niche avec peu de concurrence documentaire.",
+    "checked_date": "2026-11-11",
     "secteur": "Conseil",
-    "gate": "dirigeant"
+    "nb_episodes": 0
   },
   "https://feeds.blubrry.com/feeds/1629290.xml": {
     "podcast_name": "The Next Big Thing in Health",
@@ -26269,12 +26297,15 @@
     "artist_name": "Mike Blinder",
     "feed_url": "https://rss.libsyn.com/shows/211364/destinations/1525979.xml",
     "genre": "News",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : poste non dirigeant (Animateur du podcast (poste non confirme)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "reason": "Le podcast E&P Reports est produit par Editor & Publisher, une publication médias établie depuis 1884 et reconnue comme 'la bible de l'industrie des journaux'. C'est un média mass-media classique, adossé à une institution de presse historique avec une forte notoriété dans l'industrie médias, ce qui dépasse le seuil d'audience petite/moyenne acceptable.",
+    "checked_date": "2026-11-11",
     "secteur": "Agences de services",
-    "gate": "dirigeant"
+    "nb_episodes": 0
   },
   "https://feed.podbean.com/community-crafted-education/feed.xml": {
     "podcast_name": "Community Crafted Education",
@@ -28214,11 +28245,13 @@
     "feed_url": "https://rss.buzzsprout.com/2427121.rss",
     "genre": "Technology",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Logistique & Supply chain",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "aeratechnology.com",
+    "rescue": "2026-11-11"
   },
   "https://anchor.fm/s/ea50d6c/podcast/rss": {
     "podcast_name": "The Patty-G Show",
@@ -28557,11 +28590,13 @@
     "feed_url": "https://feeds.redcircle.com/b05e3936-dc24-4467-8f62-a9461fe23582",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Conseil",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "jakibmedia.com",
+    "rescue": "2026-11-11"
   },
   "https://feeds.transistor.fm/the-aperiam-podcast": {
     "podcast_name": "The Aperiam Podcast",
@@ -29764,11 +29799,13 @@
     "feed_url": "https://feeds.redcircle.com/4f451305-e5b4-4878-b293-63e3057356b8",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Tech & SaaS",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "vendasta.com",
+    "rescue": "2026-11-11"
   },
   "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/2a2e20c8-a094-4bd4-bb18-b00c01377e24/714b9fe5-439d-49a6-851d-b00c01390f7e/podcast.rss": {
     "podcast_name": "Army of Normal Folks",
@@ -32701,12 +32738,15 @@
     "artist_name": "RunningRestaurants.com",
     "feed_url": "https://feeds.podetize.com/rss/gijH_xQwV",
     "genre": "Business",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "reason": "Le podcast Running Restaurants, animé par Jaime Oikle (RunningRestaurants.com), est bien un podcast B2B business établi et actif. Cependant, il est classé Top 5 dans sa catégorie depuis plus de 20 ans avec 250+ épisodes et jouit d'une notoriété élevée dans l'industrie restaurant. Cela le disqualifie du critère d'audience petite ou moyenne.",
+    "checked_date": "2026-11-11",
     "secteur": "Assurance",
-    "gate": "dirigeant"
+    "nb_episodes": 0
   },
   "https://rss.buzzsprout.com/1896223.rss": {
     "podcast_name": "Being a Life Sciences Leader",
@@ -32724,12 +32764,15 @@
     "artist_name": "Italian Wine Podcast",
     "feed_url": "https://feeds.megaphone.fm/MJS8122694951",
     "genre": "Society & Culture",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "reason": "Ce podcast ne satisfait pas les critères d'onboarding. Bien que produit par Mamma Jumbo Shrimp (entité d'édition), l'Italian Wine Podcast est un podcast de contenu célèbre avec audience très large (6+ millions d'écoutes cumulées) et présence média importante. Il ne s'agit pas d'un podcast d'entreprise B2B à audience petite/moyenne : c'est un content media établi avec production professionnelle distribuée globalement, qui entre dans la catégorie des podcasts « adossés à des gros médias » ou « classe dans les tops ».",
+    "checked_date": "2026-11-11",
     "secteur": "Formateurs & programmes",
-    "gate": "dirigeant"
+    "nb_episodes": 0
   },
   "https://rss.buzzsprout.com/2201834.rss": {
     "podcast_name": "Hutte Trails Podcast – A podcast about all things Salesforce",
@@ -34666,11 +34709,13 @@
     "feed_url": "https://feeds.soundcloud.com/users/soundcloud:users:703839116/sounds.rss",
     "genre": "Science",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Santé",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "biotech2050.com",
+    "rescue": "2026-11-11"
   },
   "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/3359dc75-1c0a-4909-9509-ae270179eef9/8cc6a3ea-a431-4770-b5eb-ae270179ef02/podcast.rss": {
     "podcast_name": "Up On Game",
@@ -35171,11 +35216,13 @@
     "feed_url": "https://www.spreaker.com/show/6603165/episodes/feed",
     "genre": "Marketing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Tech & SaaS",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "get-clout.com",
+    "rescue": "2026-11-11"
   },
   "https://rss.libsyn.com/shows/66018/destinations/264727.xml": {
     "podcast_name": "The Dad Edge Podcast",
@@ -36525,11 +36572,13 @@
     "feed_url": "https://rss.libsyn.com/shows/231719/destinations/1710998.xml",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Construction & Industrie",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "evolveadvisory.co.uk",
+    "rescue": "2026-11-11"
   },
   "https://feeds.acast.com/public/shows/63ba05595c7f640011fdcaed": {
     "podcast_name": "Dear FoundHer...Real Founder Stories for Women Small Business Owners",
@@ -38887,11 +38936,13 @@
     "feed_url": "https://rss.buzzsprout.com/1963188.rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Cabinets d'avocats",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "deepwealth.com",
+    "rescue": "2026-11-11"
   },
   "https://rss.libsyn.com/shows/575250/destinations/4981595.xml": {
     "podcast_name": "Women Unlocking Wealth",
@@ -39374,11 +39425,13 @@
     "feed_url": "https://feeds.transistor.fm/leaders-edge",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Assurance",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "ciab.com",
+    "rescue": "2026-11-11"
   },
   "https://feeds.feedburner.com/insurancemarketing": {
     "podcast_name": "The Insurance Marketing and Advertising Podcast",
@@ -40712,11 +40765,13 @@
     "feed_url": "https://rss.pdrl.fm/e402a9/feeds.megaphone.fm/howtofail",
     "genre": "Society & Culture",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Formateurs & programmes",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "sonymusic.com",
+    "rescue": "2026-11-11"
   },
   "https://www.omnycontent.com/d/playlist/dec49068-1c54-472a-b92f-abcd002ce4f4/992b955e-725c-447f-a8b4-ac4d00d7484b/725fbafb-3018-49a1-9cc9-ac4d00d74859/podcast.rss": {
     "podcast_name": "The Rundown",
@@ -41027,12 +41082,15 @@
     "artist_name": "Megan Bozzuto",
     "feed_url": "https://rss.pdrl.fm/cc33fd/feeds.libsyn.com/413117/rss/?redirect=false",
     "genre": "Careers",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "reason": "Le podcast est produit par une organisation (International Association of Women) et non par une personne physique indépendante. Bien que Megan Bozzuto soit présentée comme hôte, elle est salariée de l'IAW en tant que présidente, ce qui en fait une émission d'entreprise/organisation. Cependant, les métadonnées iTunes indiquent '0 episodes', suggérant que le podcast n'a pas encore lancé réellement ou n'est pas actif actuellement. Un podcast sans épisodes ne peut pas être onboardé.",
+    "checked_date": "2026-11-11",
     "secteur": "Agences de services",
-    "gate": "dirigeant"
+    "nb_episodes": 0
   },
   "https://rss.libsyn.com/shows/515113/destinations/4418893.xml": {
     "podcast_name": "Broadcast Your Authority",
@@ -44104,12 +44162,23 @@
     "artist_name": "Elliot Begoun",
     "feed_url": "https://anchor.fm/s/10b964f68/podcast/rss",
     "genre": "Entrepreneurship",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : poste non dirigeant (Animateur du podcast (poste non confirme)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast de niche B2B produit et animé par Elliot Begoun, expert indépendant reconnu (fondateur TIG Brands, 30+ ans d'expérience dans le secteur des natural products). Sujet pointu (entrepreneurship/CPG), audience petite-moyenne, aucune affiliation à un gros média. Correspond parfaitement au profil CREATEUR.",
+    "checked_date": "2026-11-11",
     "secteur": "Logistique & Supply chain",
-    "gate": "dirigeant"
+    "nb_episodes": 0,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Natural Health",
+      "Industry Analysis",
+      "Venture Capital",
+      "Product-Market Fit"
+    ],
+    "contact_email": "support@tigbrands.com"
   },
   "https://rss.buzzsprout.com/1031740.rss": {
     "podcast_name": "The Catch Up",
@@ -44607,11 +44676,13 @@
     "feed_url": "https://feeds.soundcloud.com/users/soundcloud:users:233628346/sounds.rss",
     "genre": "News",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Construction & Industrie",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "spacing.ca",
+    "rescue": "2026-11-11"
   },
   "https://audioboom.com/channels/5043432.rss": {
     "podcast_name": "#SistersInLaw",
@@ -45680,12 +45751,15 @@
     "artist_name": "Intelligent Investor",
     "feed_url": "https://www.omnycontent.com/d/playlist/b034de0e-930d-434b-9822-a7140060b2c0/087f773e-34f7-45fb-a4f2-a78b000c6495/b9e412ea-f1ee-40db-a0f8-aaf5005d790d/podcast.rss",
     "genre": "Business",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "reason": "Podcast produit par Intelligent Investor (InvestSMART Group, ASX: INV), une institution financière établie cotée en bourse avec marque bien reconnue, présence médias importante et ETFs listés. Ne correspond pas au profil 'PME B2B' ou 'créateur indépendant' visé, mais plutôt à une institution financière avec forte couverture existante.",
+    "checked_date": "2026-11-11",
     "secteur": "Finance & Fintech",
-    "gate": "dirigeant"
+    "nb_episodes": 0
   },
   "https://feeds.redcircle.com/763148d5-7fc0-4a26-93fe-b6f38e52384f": {
     "podcast_name": "FDD Morning Brief",
@@ -47041,11 +47115,13 @@
     "feed_url": "https://app.springcast.fm/podcast-xml/15673",
     "genre": "Government",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Logistique & Supply chain",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "europol.europa.eu",
+    "rescue": "2026-11-11"
   },
   "https://feeds.simplecast.com/m3Tr79ut": {
     "podcast_name": "The Data Stack Show",
@@ -47124,11 +47200,13 @@
     "feed_url": "https://feeds.transistor.fm/daybreak-3e66db67-ddb3-4cd3-9ba9-460bd586dcbb",
     "genre": "Business News",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Finance & Fintech",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "the-ken.com",
+    "rescue": "2026-11-11"
   },
   "https://www.spreaker.com/show/5571406/episodes/feed": {
     "podcast_name": "Invisible Ink",
@@ -50027,11 +50105,13 @@
     "feed_url": "https://rss.amperwave.net/v2/feed/audacynetwork/5537203662b07a9b9672f6283a43aa54",
     "genre": "News",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Cabinets d'avocats",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "meidastouch.com",
+    "rescue": "2026-11-11"
   },
   "https://www.corbettreport.com/newrss.xml": {
     "podcast_name": "The Corbett Report Podcast",
@@ -52091,11 +52171,13 @@
     "feed_url": "https://feeds.blubrry.com/feeds/1472518.xml",
     "genre": "How To",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Cabinets d'avocats",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "djtrivia.com",
+    "rescue": "2026-11-11"
   },
   "https://rss.buzzsprout.com/2466810.rss": {
     "podcast_name": "Built by Margin with Laurie Chen",
@@ -52694,11 +52776,13 @@
     "feed_url": "https://anchor.fm/s/10afd3f08/podcast/rss",
     "genre": "Technology",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Cybersécurité",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "zkteco.co.za",
+    "rescue": "2026-11-11"
   },
   "https://anchor.fm/s/fc1328f4/podcast/rss": {
     "podcast_name": "Developers:After Dark",
@@ -52727,12 +52811,23 @@
     "artist_name": "UnAccountable",
     "feed_url": "https://anchor.fm/s/e65e7b30/podcast/rss",
     "genre": "Business",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B business/accounting hébergé par deux créateurs/experts indépendants identifiables (Tyler Otto de Specialized Accounting, Jeremy Van Groll de Nonprofit Bookkeeping), avec audience petite (175+ streams/épisode), production régulière, aucun lien mass-media. Répond à tous les critères d'acceptance_path CREATEUR.",
+    "checked_date": "2026-11-11",
     "secteur": "Experts-comptables & patrimoine",
-    "gate": "dirigeant"
+    "nb_episodes": 0,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Law",
+      "World War I",
+      "World War II",
+      "Business Law"
+    ],
+    "contact_email": "tyler@tylerotto.com"
   },
   "https://feeds.megaphone.fm/radicalcandor": {
     "podcast_name": "Radical Candor: Communication at Work",
@@ -53931,12 +54026,23 @@
     "artist_name": "Brad Leavitt",
     "feed_url": "https://feeds.simplecast.com/vLiGvFnf",
     "genre": "Entrepreneurship",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast d'entreprise B2B actif produit par AFT Construction (Scottsdale, Arizona), animé par Brad Leavitt (président fondateur identifiable). Sujet entrepreneurship/construction B2B, 369+ épisodes publiés régulièrement. Bien que Brad Leavitt soit recognu localement (Phoenix Titan 100, Inc 5000), ce n'est pas une célébrité grand public et le podcast cible un public professionnel niche (entrepreneurs, constructeurs, architectes), satisfaisant le seuil « petite ou moyenne audience ».",
+    "checked_date": "2026-11-11",
     "secteur": "Construction & Industrie",
-    "gate": "dirigeant"
+    "nb_episodes": 0,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Wealth Building",
+      "Business Law",
+      "UX/UI Design",
+      "World War I"
+    ],
+    "contact_email": "brad.l@aftconstruction.com"
   },
   "https://rss.pdrl.fm/63a296/feeds.simplecast.com/DzohBBeS": {
     "podcast_name": "Locked On Cougars - Daily Podcast On BYU Cougars Football & Basketball",
@@ -54726,12 +54832,15 @@
     "artist_name": "Research Insights",
     "feed_url": "https://rss.libsyn.com/shows/118468/destinations/683706.xml",
     "genre": "Natural Sciences",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : poste non dirigeant (Animateur du podcast (poste non confirme)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "reason": "La Society of Actuaries (SOA) est une grande organisation professionnelle établie, avec plus de 30 000 membres et une structure formelle de professionnel reconnue globalement, ce qui la classe comme organisation de notoriété élevée, non admissible selon les critères qui rejettent les contenus adossés à de gros médias ou organisations établies. De plus, le flux de podcasts actuel montre 0 épisodes en base (métadonnée iTunes incohérente).",
+    "checked_date": "2026-11-11",
     "secteur": "Juridique",
-    "gate": "dirigeant"
+    "nb_episodes": 0
   },
   "https://rss.art19.com/inside-fsu-athletics": {
     "podcast_name": "Behind the Mic, The Official Podcast of FSU",
@@ -54785,12 +54894,23 @@
     "artist_name": "NextGen Healthcare",
     "feed_url": "https://anchor.fm/s/1d3f0300/podcast/rss",
     "genre": "Medicine",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B d'entreprise produit par NextGen Healthcare (société publique éditrice de logiciels de gestion sanitaire), hébergé par des cadres salariés identifiables (Dr. Robert Murry - CMO, Jenna Hagan - VP Product Marketing), contenu métier spécialisé pour leaders ambulatoires, audience niche professionnelle (non grand public).",
+    "checked_date": "2026-11-11",
     "secteur": "Cybersécurité",
-    "gate": "dirigeant"
+    "nb_episodes": 0,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Herbal Medicine",
+      "General Medicine",
+      "Preventive Medicine",
+      "Functional Medicine"
+    ],
+    "contact_email": "advisors@nextgen.com"
   },
   "https://audioboom.com/channels/4931232.rss": {
     "podcast_name": "OC Talk Radio",
@@ -55207,11 +55327,13 @@
     "feed_url": "https://anchor.fm/s/3cd57578/podcast/rss",
     "genre": "Management",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Assurance",
-    "gate": "dirigeant"
+    "gate": "dirigeant",
+    "email_domain": "fsbrew.co",
+    "rescue": "2026-11-11"
   },
   "https://anchor.fm/s/ff0c9e28/podcast/rss": {
     "podcast_name": "Richmond Leadership Lab",
@@ -59116,12 +59238,13 @@
     "feed_url": "https://petronella.ai/podcast/encrypted-ambition/feed.xml",
     "genre": "Technology",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Cybersécurité",
     "gate": "dirigeant",
-    "email_domain": "petronellatech.com"
+    "email_domain": "petronellatech.com",
+    "rescue": "2026-11-11"
   },
   "https://rss.buzzsprout.com/2556473.rss": {
     "podcast_name": "The Check-In",
@@ -59671,13 +59794,23 @@
     "artist_name": "Convera",
     "feed_url": "https://anchor.fm/s/e1720574/podcast/rss",
     "genre": "Business",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast d'entreprise B2B produit par Convera (fintech spécialisée en paiements transfrontaliers et change). Animé par des employés identifiables (Steven Dooley, George Vessey, etc.), sujet entièrement business/B2B (devises, paiements, risques FX), audience petite-moyenne en niches. Peu de couverture documentaire existante, bonne correspondance avec le profil 'niche B2B expertise pointue'.",
+    "checked_date": "2026-11-11",
     "secteur": "Finance & Fintech",
-    "gate": "dirigeant",
-    "email_domain": "convera.com"
+    "nb_episodes": 0,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Currency Markets",
+      "Foreign Policy",
+      "US Foreign Policy",
+      "Business Law"
+    ],
+    "contact_email": "socialmediamatters@convera.com"
   },
   "https://rss.art19.com/unh-wildcast": {
     "podcast_name": "UNH Wildcast",
@@ -63093,13 +63226,15 @@
     "artist_name": "Nick Loper of Side Hustle Nation | YAP Media",
     "feed_url": "https://rss.introcast.io/655135292/feeds.megaphone.fm/YAP9195874886",
     "genre": "Entrepreneurship",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "reason": "The Side Hustle Show est un podcast créateur indépendant avec une très forte notoriété (35M+ téléchargements, 100k+ auditeurs mensuels, classement TOP 0.1%, prix Plutus Award). Bien qu'animé par Nick Loper (créateur identifiable), il dépasse largement le seuil « petite ou moyenne audience » et atteint le statut de podcast célèbre grand public à l'opposé des critères d'acceptation.",
+    "checked_date": "2026-11-11",
     "secteur": "Coachs & consultants B2B",
-    "gate": "dirigeant",
-    "email_domain": "sidehustlenation.com"
+    "nb_episodes": 0
   },
   "https://www.spreaker.com/show/5972007/episodes/feed": {
     "podcast_name": "Arts Admin Unleashed",
@@ -63692,12 +63827,13 @@
     "feed_url": "https://feeds.transistor.fm/jason-daily",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Experts-comptables & patrimoine",
     "gate": "dirigeant",
-    "email_domain": "jasononfirms.com"
+    "email_domain": "jasononfirms.com",
+    "rescue": "2026-11-11"
   },
   "https://rss.libsyn.com/shows/321632/destinations/2609840.xml": {
     "podcast_name": "The Prosperous Nonprofit",
@@ -68249,13 +68385,15 @@
     "artist_name": "Benjamin Felix, Cameron Passmore, and Dan Bortolotti",
     "feed_url": "https://rss.libsyn.com/shows/127327/destinations/763774.xml",
     "genre": "Investing",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "reason": "PWL Capital est une entreprise établie de wealth management (fondée 1996, $600M+ AUM) avec une audience de podcast significative (384k downloads/mois). Le podcast atteint le statut de média de marque trop visible et établi pour le critère d'audience petite/moyenne requis.",
+    "checked_date": "2026-11-11",
     "secteur": "Logistique & Supply chain",
-    "gate": "dirigeant",
-    "email_domain": "pwlcapital.com"
+    "nb_episodes": 0
   },
   "https://feed.podbean.com/accountingapps/feed.xml": {
     "podcast_name": "Accounting Apps Podcast",
@@ -69817,13 +69955,23 @@
     "artist_name": "ADAPTOVATE",
     "feed_url": "https://anchor.fm/s/a1851f00/podcast/rss",
     "genre": "Business",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast d'entreprise B2B produit par ADAPTOVATE (cabinet de conseil en agilité / agile consulting avec bureaux mondiaux). Hosts identifiables (salariés : Laura Scott, Chelsea Bates, Nate Nelson, Dave Gumley). Sujet business/stratégie/agilité. Audience petite-moyenne (31 épisodes historiques, mise à jour bihebdomadaire, pas de célèbre ni grand media).",
+    "checked_date": "2026-11-11",
     "secteur": "Agences de services",
-    "gate": "dirigeant",
-    "email_domain": "adaptovate.com"
+    "nb_episodes": 0,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Strategy",
+      "Business Consulting",
+      "Business Ideas",
+      "Business Law"
+    ],
+    "contact_email": "social@adaptovate.com"
   },
   "https://rss.buzzsprout.com/629833.rss": {
     "podcast_name": "The Word On Wealth",
@@ -75543,13 +75691,15 @@
     "artist_name": "SEN",
     "feed_url": "https://feeds.megaphone.fm/NTETP7392740660",
     "genre": "Sports",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "reason": "SEN Breakfast est produit par une grosse station média (1116 SEN, propriété de Sports Entertainment Network), c'est une émission de radio grand public, non un podcast B2B. Il s'agit d'une célébrité médias avec une concurrence documentaire massive et plusieurs milliers d'épisodes déjà publiés. Ce format dépasse complètement les critères de la cible (audience petite/moyenne B2B).",
+    "checked_date": "2026-11-11",
     "secteur": "Logistique & Supply chain",
-    "gate": "dirigeant",
-    "email_domain": "sen.com.au"
+    "nb_episodes": 0
   },
   "https://rss.buzzsprout.com/1919219.rss": {
     "podcast_name": "Retirement Planning Education, with Andy Panko",
@@ -75845,12 +75995,13 @@
     "feed_url": "https://rss.pdrl.fm/7fd02b/feeds.megaphone.fm/WWO6859523866",
     "genre": "Government",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Cybersécurité",
     "gate": "dirigeant",
-    "email_domain": "westwoodone.com"
+    "email_domain": "westwoodone.com",
+    "rescue": "2026-11-11"
   },
   "https://anchor.fm/s/14cc266c/podcast/rss": {
     "podcast_name": "Two Chicks, Three Seats: The Event Manager's Guide to Industry Trends",
@@ -77223,13 +77374,15 @@
     "artist_name": "Canadian Club of Toronto",
     "feed_url": "https://media.vvc.ca/podcast-feed/1zq5eRh3bHg1oDWO.xml",
     "genre": "Business",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "reason": "Le Canadian Club of Toronto est une organisation médias prestigieuse et établie depuis 1897, avec une forte présence nationale et couverture médiatique récurrente. Ne correspond pas au profil cible: ce n'est ni un podcast d'entreprise B2B ni un créateur indépendant, mais une institution reconnue avec audience importante et couverture existante.",
+    "checked_date": "2026-11-11",
     "secteur": "Santé",
-    "gate": "dirigeant",
-    "email_domain": "canadianclub.org"
+    "nb_episodes": 0
   },
   "https://rss.buzzsprout.com/1659394.rss": {
     "podcast_name": "The Tamil Creator",
@@ -77722,12 +77875,13 @@
     "feed_url": "https://anchor.fm/s/63feb77c/podcast/rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Logistique & Supply chain",
     "gate": "dirigeant",
-    "email_domain": "therecursive.com"
+    "email_domain": "therecursive.com",
+    "rescue": "2026-11-11"
   },
   "https://feeds.captivate.fm/thejobhuntingpodcast/": {
     "podcast_name": "The Job Hunting Podcast",
@@ -78028,13 +78182,23 @@
     "artist_name": "Paddy Delaney, QFA RPA APA | Independent Retirement Planner, Ireland",
     "feed_url": "https://rss.libsyn.com/shows/85854/destinations/414202.xml",
     "genre": "Investing",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Le podcast est produit et créé par Paddy Delaney, un expert indépendant qualifié (QFA RPA APA). Il s'agit d'un créateur indépendant travaillant sur la planification financière de retraite depuis 2017 avec une expertise pointue, correspondant au profil CREATEUR accepté depuis le 27/10/2026. Le podcast est B2B spécialisé, niche, sans affiliation média majeure.",
+    "checked_date": "2026-11-11",
     "secteur": "Experts-comptables & patrimoine",
-    "gate": "dirigeant",
-    "email_domain": "informeddecisions.ie"
+    "nb_episodes": 0,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Retirement Planning",
+      "Value Investing",
+      "Tax Planning",
+      "HR Strategy"
+    ],
+    "contact_email": "admin@informeddecisions.ie"
   },
   "https://rss.libsyn.com/shows/61836/destinations/240953.xml": {
     "podcast_name": "The Secure World Foundation Podcast",
@@ -79056,13 +79220,15 @@
     "artist_name": "Dear Media",
     "feed_url": "https://rss.art19.com/the-nicole-walters-podcast",
     "genre": "Society & Culture",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "reason": "Dear Media est un grand réseau de podcasts mass-media adossé à des célébrités et influenceurs, pas une entreprise B2B. Le contenu est lifestyle/société & culture (conversations personnelles), non business/B2B. Pas d'acceptance_path applicable.",
+    "checked_date": "2026-11-11",
     "secteur": "Marketing & Ventes",
-    "gate": "dirigeant",
-    "email_domain": "nicolewalters.com"
+    "nb_episodes": 0
   },
   "https://anchor.fm/s/eb066f6c/podcast/rss": {
     "podcast_name": "giving intelligence podcast",
@@ -80435,12 +80601,13 @@
     "feed_url": "https://feeds.transistor.fm/fwdstart",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Tech & SaaS",
     "gate": "dirigeant",
-    "email_domain": "fwdstart.me"
+    "email_domain": "fwdstart.me",
+    "rescue": "2026-11-11"
   },
   "https://feed.podbean.com/rudnerlaw/feed.xml": {
     "podcast_name": "Fire Away",
@@ -81880,13 +82047,23 @@
     "artist_name": "Bakersfield Professionals",
     "feed_url": "https://rss.libsyn.com/shows/238073/destinations/1772252.xml",
     "genre": "Business",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B régional avec animateurs identifiables (Dave Plivelich, Kyle Jones, Amanda Jones) produisant du contenu business/conseil pour Bakersfield Professionals. Audience petite-moyenne, faible couverture documentaire, sujet business pointu (finance, immobilier, conseils d'entrepreneurs locaux). Correspond au profil niche B2B recherché.",
+    "checked_date": "2026-11-11",
     "secteur": "RH & Recrutement",
-    "gate": "dirigeant",
-    "email_domain": "kernradio.com"
+    "nb_episodes": 0,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Law",
+      "Business Law",
+      "Ancestral Wisdom",
+      "Business Strategy"
+    ],
+    "contact_email": "steve@kernradio.com"
   },
   "https://feeds.captivate.fm/power-players-by-origis/": {
     "podcast_name": "Power Players by Origis®",
@@ -85580,13 +85757,15 @@
     "artist_name": "Jade Buford",
     "feed_url": "https://rss.libsyn.com/shows/432321/destinations/3605064.xml",
     "genre": "Entrepreneurship",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Verifiee (prenom@) le 27/10/2026",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "reason": "Le podcast est inactif depuis plus de 90 jours avec 0 épisodes actuellement en ligne sur iTunes (métadonnées fournies). Bien que Jade Buford soit une créatrice indépendante identifiable (CEO/Creative Director de J. Alexandria Creative) avec un sujet B2B pertinent (branding/web design pour petites entreprises), l'absence d'activité récente et le nombre zéro d'épisodes rendent ce podcast non-onboardable dans son état actuel.",
+    "checked_date": "2026-11-11",
     "secteur": "Agences de services",
-    "gate": "dirigeant",
-    "email_domain": "jalexandriacreative.com"
+    "nb_episodes": 0
   },
   "https://feeds.simplecast.com/f4lyBCl_": {
     "podcast_name": "New Books in Economics",
@@ -89671,13 +89850,23 @@
     "artist_name": "thoughtbot",
     "feed_url": "https://feeds.fireside.fm/giantrobots/rss",
     "genre": "Technology",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast d'entreprise B2B produit par thoughtbot (cabinet design/développement établi depuis 2003, ~1000 clients). Hôtes identifiables (Chad Pytel CEO, Will Larry, Sami Birnbaum). Contenu business/software avec audience niche petite-moyenne (pas grand public ni célèbre). Sujet aligné avec expertise métier de l'éditeur.",
+    "checked_date": "2026-11-11",
     "secteur": "Business général (entreprise)",
-    "gate": "dirigeant",
-    "email_domain": "giantrobots.fm"
+    "nb_episodes": 0,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Development",
+      "Software Development",
+      "Business Law",
+      "MVP Development"
+    ],
+    "contact_email": "hosts@giantrobots.fm"
   },
   "https://feeds.simplecast.com/YrsWw4Sz": {
     "podcast_name": "Empowering Workplaces",
@@ -94763,12 +94952,11 @@
     "feed_url": "https://the401kmarketingpodcast.blubrry.net/feed/podcast/",
     "genre": "Marketing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Formateurs & programmes",
-    "gate": "dirigeant",
-    "email_domain": "topadvisorm.com"
+    "rescue": "2026-11-11"
   },
   "https://www.ironsharpensironradio.com/feed/podcast/": {
     "podcast_name": "Iron Sharpens Iron Radio",
@@ -97981,13 +98169,23 @@
     "artist_name": "Lisa McGuire",
     "feed_url": "https://rss.libsyn.com/shows/360428/destinations/2956856.xml",
     "genre": "Entrepreneurship",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Verifiee (prenom@) le 27/10/2026",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast d'expert indépendant B2B animé par Lisa McGuire, coach en stratégie commerciale certifiée. Audience niche (coaches, consultants, entrepreneurs), sujet pointu (identité professionnelle et marque personnelle), peu de couverture médiatique existante. Conforme au profil CREATEUR.",
+    "checked_date": "2026-11-11",
     "secteur": "Cybersécurité",
-    "gate": "dirigeant",
-    "email_domain": "lisamcguire.com"
+    "nb_episodes": 0,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Life Purpose",
+      "Business Growth",
+      "Business Law",
+      "Van Life"
+    ],
+    "contact_email": "lisa@lisamcguire.com"
   },
   "https://anchor.fm/s/11908b3c/podcast/rss": {
     "podcast_name": "The Derivative",
@@ -101263,12 +101461,13 @@
     "feed_url": "https://rss.buzzsprout.com/2432067.rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Santé",
     "gate": "dirigeant",
-    "email_domain": "alisoncurfmanmd.com"
+    "email_domain": "alisoncurfmanmd.com",
+    "rescue": "2026-11-11"
   },
   "https://rss.buzzsprout.com/2016609.rss": {
     "podcast_name": "Reimagined Workforce - Workforce Transformation",
@@ -101334,13 +101533,15 @@
     "artist_name": "Heartland Newsfeed",
     "feed_url": "https://www.spreaker.com/show/6051130/episodes/feed",
     "genre": "News",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "reason": "Ce podcast est un média d'actualités généraliste (digital news publisher) produit par Heartland Media Group, pas un podcast B2B d'entreprise. C'est une extension d'un réseau de radio/news traditionnel, et il entre dans la catégorie 'média' explicitement exclue des critères d'onboarding (News, pas expertise pointue B2B). Malgré audience modérée, la nature éditoriale classifie ce contenu hors de la cible business/B2B.",
+    "checked_date": "2026-11-11",
     "secteur": "Conseil",
-    "gate": "dirigeant",
-    "email_domain": "heartlandmediagroupilmo.com"
+    "nb_episodes": 0
   },
   "https://rss.libsyn.com/shows/196715/destinations/1394774.xml": {
     "podcast_name": "DAWbench Radio Show",
@@ -104030,12 +104231,13 @@
     "feed_url": "https://anchor.fm/s/f1f28554/podcast/rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Logistique & Supply chain",
     "gate": "dirigeant",
-    "email_domain": "ehub.com"
+    "email_domain": "ehub.com",
+    "rescue": "2026-11-11"
   },
   "https://media.rss.com/prosperity/feed.xml": {
     "podcast_name": "Faith, Hope, & Prosperity",
@@ -108182,12 +108384,13 @@
     "feed_url": "https://feeds.simplecast.com/JCZxk8SX",
     "genre": "Courses",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Assurance",
     "gate": "dirigeant",
-    "email_domain": "scic.com"
+    "email_domain": "scic.com",
+    "rescue": "2026-11-11"
   },
   "https://smallbizaimarketing.podomatic.com/rss2.xml": {
     "podcast_name": "Small Biz AI Marketing",
@@ -114450,13 +114653,23 @@
     "artist_name": "Wealthlab AU",
     "feed_url": "https://anchor.fm/s/649e5fc0/podcast/rss",
     "genre": "Investing",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast d'entreprise B2B produit par Wealthlab AU (cabinet de conseil en planification financière australien), animé par deux hôtes identifiables (Scott Jackson et Phil Sproule, planificateurs financiers). Audience petite-moyenne (30K+ abonnés YouTube, mis à jour hebdomadairement), contenu business/investissement sans concurrence documentaire majeure.",
+    "checked_date": "2026-11-11",
     "secteur": "Cabinets d'avocats",
-    "gate": "dirigeant",
-    "email_domain": "wealthlab.com.au"
+    "nb_episodes": 0,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Tax Planning",
+      "World War I",
+      "World War II",
+      "Tax Planning"
+    ],
+    "contact_email": "scott@wealthlab.com.au"
   },
   "https://feeds.megaphone.fm/LTN6681902881": {
     "podcast_name": "The Jury Is Out",
@@ -117773,13 +117986,23 @@
     "artist_name": "Black Hills Information Security",
     "feed_url": "https://feeds.transistor.fm/talkin-bout-infosec-news",
     "genre": "Tech News",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast d'entreprise B2B produit par Black Hills Information Security (cabinet de cybersécurité), animé régulièrement par des hôtes identifiables (Corey Ham, John Strand), sujet métier pointu (infosec news), audience estimée 1,000-10,000 auditeurs - correspond exactement au profil cible : petite/moyenne audience, expertise précise, aucune adossement à un grand média.",
+    "checked_date": "2026-11-11",
     "secteur": "Cybersécurité",
-    "gate": "dirigeant",
-    "email_domain": "blackhillsinfosec.com"
+    "nb_episodes": 0,
+    "suggested_category": "📰 News",
+    "suggested_tags": [
+      "Tech Industry News",
+      "Business News",
+      "Tech Startups",
+      "Big Tech Companies"
+    ],
+    "contact_email": "marketing@blackhillsinfosec.com"
   },
   "https://feeds.simplecast.com/7LkZ_Xir": {
     "podcast_name": "Dare to Disrupt",
@@ -119015,12 +119238,11 @@
     "feed_url": "https://rss.libsyn.com/shows/104506/destinations/559506.xml",
     "genre": "Careers",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 102 jours (> 90 j)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Santé",
-    "gate": "dirigeant",
-    "email_domain": "clinicaltrialpodcast.com"
+    "rescue": "2026-11-11"
   },
   "https://rss.buzzsprout.com/2601971.rss": {
     "podcast_name": "The Mark Divine Show",
@@ -123222,13 +123444,15 @@
     "artist_name": "Cheryl Porcelijn | podcast voor webdesigners",
     "feed_url": "https://app.springcast.fm/podcast-xml/2821/",
     "genre": "Courses",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "other",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Verifiee (prenom@) le 27/10/2026",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "reason": "Langue detectee : other (hors perimetre, anglais uniquement). Podcast niche B2B animé par Cheryl Porcelijn, créatrice indépendante identifiable (mentor stratégique en webdesign). Sujet business/B2B pointu (gestion d'entreprise de webdesign, acquisition clients, optimisation processus), audience petite/moyenne, aucune affiliation média ou célébrité. Actif avec 260+ épisodes réguliers. Répond aux critères CREATEUR.",
+    "checked_date": "2026-11-11",
     "secteur": "Agences de services",
-    "gate": "dirigeant",
-    "email_domain": "cprecision.nl"
+    "nb_episodes": 0
   },
   "https://rss.libsyn.com/shows/569085/destinations/4923970.xml": {
     "podcast_name": "Reshaping Finance",
@@ -124049,13 +124273,23 @@
     "artist_name": "Christopher H. Loo, MD-PhD",
     "feed_url": "https://anchor.fm/s/24b73288/podcast/rss",
     "genre": "Business",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Créateur indépendant B2B identifié (Dr. Christopher H. Loo, MD-PhD, Financial Freedom for Physicians). Podcast business/entrepreneuriat actif depuis 2021 avec ~1900+ épisodes et audience petite-moyenne (~823 auditeurs mensuels). Remplit tous les critères d'acceptance.",
+    "checked_date": "2026-11-11",
     "secteur": "Construction & Industrie",
-    "gate": "dirigeant",
-    "email_domain": "drchrisloomdphd.com"
+    "nb_episodes": 0,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Financial Freedom",
+      "Business Law",
+      "Business Law",
+      "Digital Detox"
+    ],
+    "contact_email": "chris@drchrisloomdphd.com"
   },
   "https://rss.buzzsprout.com/2397343.rss": {
     "podcast_name": "Money Majlis",
@@ -129479,13 +129713,23 @@
     "artist_name": "Ryan Elazari",
     "feed_url": "https://anchor.fm/s/f1883cbc/podcast/rss",
     "genre": "Business",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Ryan Elazari est un créateur/opérateur CRE indépendant ayant fondé ce podcast B2B niche (PropTech/immobilier commercial). Le podcast satisfait tous les critères : sujet business/B2B pointu, hôte identifiable et actif, audience petite/moyenne (environ 20 épisodes), aucune affiliation média/celebrity. Accepté via acceptance_path CREATEUR.",
+    "checked_date": "2026-11-11",
     "secteur": "Immobilier",
-    "gate": "dirigeant",
-    "email_domain": "creunplugged.com"
+    "nb_episodes": 0,
+    "suggested_category": "🏠 Real Estate",
+    "suggested_tags": [
+      "Real Estate Law",
+      "Business Law",
+      "PropTech",
+      "Business Law"
+    ],
+    "contact_email": "info@creunplugged.com"
   },
   "https://feeds.megaphone.fm/medicine-in-america": {
     "podcast_name": "Medicine In America",
@@ -129505,13 +129749,23 @@
     "artist_name": "Lukasz Tomicki and LRT Capital Management LLC",
     "feed_url": "https://www.geminibrief.com/feed/podcast/the-gemini-report/",
     "genre": "Investing",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-10-27",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B d'une entreprise de gestion d'investissement (LRT Capital Management LLC), animé par son fondateur Lukasz Tomicki, avec sujet spécialisé en analyse d'investissement et audience non-célèbre. L'entreprise a une structure établie et un objectif commercial clair.",
+    "checked_date": "2026-11-11",
     "secteur": "Cybersécurité",
-    "gate": "dirigeant",
-    "email_domain": "lrtcapital.com"
+    "nb_episodes": 0,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Venture Capital Investing",
+      "Cholesterol Management",
+      "Stress Management",
+      "Time Management"
+    ],
+    "contact_email": "ltomicki@lrtcapital.com"
   },
   "https://anchor.fm/s/e89ab9b8/podcast/rss": {
     "podcast_name": "Qi Talks",
@@ -133865,12 +134119,13 @@
     "feed_url": "https://rss.libsyn.com/shows/76128/destinations/339032.xml",
     "genre": "Marketing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Experts-comptables & patrimoine",
     "gate": "dirigeant",
-    "email_domain": "smoothbusinessgrowth.com"
+    "email_domain": "smoothbusinessgrowth.com",
+    "rescue": "2026-11-11"
   },
   "https://feeds.transistor.fm/cybersentries": {
     "podcast_name": "Cyber Sentries: AI Insight to Cloud Security",
@@ -137125,12 +137380,11 @@
     "feed_url": "https://anchor.fm/s/1c401a5c/podcast/rss",
     "genre": "Non-Profit",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 92 jours (> 90 j)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Cybersécurité",
-    "gate": "dirigeant",
-    "email_domain": "commongooddata.com"
+    "rescue": "2026-11-11"
   },
   "https://anchor.fm/s/522c070c/podcast/rss": {
     "podcast_name": "Strictly From Nowhere: A Podcast Experiment by Cause of a Kind",
@@ -138323,12 +138577,13 @@
     "feed_url": "https://api.riverside.com/hosting/huBfxVfJ.rss",
     "genre": "Management",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Coachs & consultants B2B",
     "gate": "dirigeant",
-    "email_domain": "tribeagency.org"
+    "email_domain": "tribeagency.org",
+    "rescue": "2026-11-11"
   },
   "https://rss.libsyn.com/shows/480798/destinations/4089864.xml": {
     "podcast_name": "The G20 Interfaith Forum Podcast",
@@ -143757,12 +144012,13 @@
     "feed_url": "https://rss.libsyn.com/shows/144209/destinations/913535.xml",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-27",
+    "checked_date": "2026-11-11",
     "secteur": "Finance & Fintech",
     "gate": "dirigeant",
-    "email_domain": "sweatystartup.com"
+    "email_domain": "sweatystartup.com",
+    "rescue": "2026-11-11"
   },
   "https://radiohio-rss.streamguys1.com/CommonManAndTimmy/common-man-timmy.xml": {
     "podcast_name": "Common Man & Timmy",
@@ -145596,12 +145852,13 @@
     "feed_url": "https://api.riverside.com/hosting/XYMo8CON.rss",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-28",
+    "checked_date": "2026-11-11",
     "secteur": "Logistique & Supply chain",
     "gate": "dirigeant",
-    "email_domain": "thepmc.nz"
+    "email_domain": "thepmc.nz",
+    "rescue": "2026-11-11"
   },
   "https://anchor.fm/s/dac1a130/podcast/rss": {
     "podcast_name": "Uncommon",
@@ -146480,13 +146737,15 @@
     "artist_name": "Michael Farris",
     "feed_url": "https://rss.libsyn.com/shows/131060/destinations/797488.xml",
     "genre": "Society & Culture",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
-    "detected_language": "",
-    "checked_date": "2026-10-28",
+    "reason": "Coffee and a Mike est un podcast de politique, géopolitique et actualités généralistes avec une notoriété importante (1400+ épisodes depuis 8 ans, audience estimée 1k-10k auditeurs, 4.4k followers, classé dans les tops). Bien qu'animé par Michael Farris (créateur indépendant identifiable), le format généraliste (society & culture, news) et la couverture établie le rapprochent davantage d'un média généraliste que d'un véritable podcast B2B d'expertise pointue.",
+    "checked_date": "2026-11-11",
     "secteur": "Logistique & Supply chain",
-    "gate": "dirigeant",
-    "email_domain": "coffeeandamike.com"
+    "nb_episodes": 0
   },
   "https://srbadvisors.com/feed/podcast/": {
     "podcast_name": "Kitchen Table Finance with Nick and Dave",
@@ -147357,12 +147616,13 @@
     "feed_url": "https://rss.libsyn.com/shows/75087/destinations/331182.xml",
     "genre": "Mental Health",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-28",
+    "checked_date": "2026-11-11",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "theocdstories.com"
+    "email_domain": "theocdstories.com",
+    "rescue": "2026-11-11"
   },
   "https://www.johndalton.me/feed/podcast/": {
     "podcast_name": "John Dalton - gently does it . . .",
@@ -147571,12 +147831,13 @@
     "feed_url": "https://rss.buzzsprout.com/2390460.rss",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-28",
+    "checked_date": "2026-11-11",
     "secteur": "Immobilier",
     "gate": "dirigeant",
-    "email_domain": "icsc.com"
+    "email_domain": "icsc.com",
+    "rescue": "2026-11-11"
   },
   "https://rss.libsyn.com/shows/243380/destinations/1822397.xml": {
     "podcast_name": "The Blueprint Podcast",
@@ -149954,12 +150215,13 @@
     "feed_url": "https://anchor.fm/s/10728fe1c/podcast/rss",
     "genre": "Investing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-28",
+    "checked_date": "2026-11-11",
     "secteur": "Experts-comptables & patrimoine",
     "gate": "dirigeant",
-    "email_domain": "bigmoneyretirement.com"
+    "email_domain": "bigmoneyretirement.com",
+    "rescue": "2026-11-11"
   },
   "https://anchor.fm/s/5195e9c/podcast/rss": {
     "podcast_name": "Growth Masters Federal: Thinking, Planning and Collaborating to Build Value in the Federal Market",
@@ -152383,13 +152645,15 @@
     "artist_name": "Jeff Wise",
     "feed_url": "https://feeds.simplecast.com/08g3zWzs",
     "genre": "Technology",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Verifiee (prenom@) le 28/10/2026",
-    "detected_language": "",
-    "checked_date": "2026-10-28",
+    "reason": "Ce podcast est produit par Jeff Wise, un journaliste aviation indépendant établi qui bénéficie d'une grande notoriété médiatique (Netflix, CNN, Fox News, MSNBC) et d'une couverture documentaire considérable. Le sujet MH370 n'est pas business/B2B (c'est un sujet d'investigation journalistique/documentaire) et ne correspond pas aux critères d'un podcast d'entreprise B2B ou d'expert indépendant en domaine business/conseil.",
+    "checked_date": "2026-11-11",
     "secteur": "Finance & Fintech",
-    "gate": "dirigeant",
-    "email_domain": "jeffwise.net"
+    "nb_episodes": 0
   },
   "https://feed.podbean.com/adashoptalk/feed.xml": {
     "podcast_name": "ADA Shop Talk",
@@ -153716,13 +153980,23 @@
     "artist_name": "Travis Wells",
     "feed_url": "https://rss.buzzsprout.com/2190425.rss",
     "genre": "Entrepreneurship",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
-    "detected_language": "",
-    "checked_date": "2026-10-28",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Travis Wells est un créateur/expert immobilier indépendant identifiable avec un podcast B2B actif (192 épisodes, publication hebdomadaire) sur l'investissement immobilier et l'entrepreneuriat. Pas de média établi, audience niche/petite-moyenne (non classé dans les tops majeurs), sujet business/B2B pointu (wholetailing, novation deals, stratégies immobilières créatives). Aligne parfaitement avec acceptance_path CREATEUR.",
+    "checked_date": "2026-11-11",
     "secteur": "Immobilier",
-    "gate": "dirigeant",
-    "email_domain": "yahoo.com"
+    "nb_episodes": 0,
+    "suggested_category": "🏠 Real Estate",
+    "suggested_tags": [
+      "Real Estate Law",
+      "MVP Development",
+      "Web Development",
+      "Van Life"
+    ],
+    "contact_email": "tc.wells@yahoo.com"
   },
   "https://anchor.fm/s/e56abacc/podcast/rss": {
     "podcast_name": "CarQuicks",
@@ -153840,12 +154114,13 @@
     "feed_url": "https://rss.buzzsprout.com/786629.rss",
     "genre": "Marketing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Pas de site d'entreprise trouve",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-28",
+    "checked_date": "2026-11-11",
     "secteur": "Santé",
     "gate": "dirigeant",
-    "email_domain": "protonmail.com"
+    "email_domain": "protonmail.com",
+    "rescue": "2026-11-11"
   },
   "https://www.omnycontent.com/d/playlist/de62ff84-6498-49d0-a266-a9d50120c712/86769b8d-3549-430f-a66e-ab09004037ac/a3c388e0-68fd-4512-80a5-ab09004037ba/podcast.rss": {
     "podcast_name": "The Property Show",
@@ -156254,13 +156529,23 @@
     "artist_name": "Scinary Cybersecurity",
     "feed_url": "https://feeds.fireside.fm/scinary-info-nexus/rss",
     "genre": "Technology",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-10-28",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast d'entreprise B2B produit par Scinary Cybersecurity (SME de services cybersécurité fondée en 2015, 11-50 employés). Audience petite/moyenne (< 4K listeners/mois), animé par des employés identifiables (CEO Richard Martin, SOC Managers Joseph Hamilton, Mario Ortiz, Brazos Wortham), sujet business B2B pointu (cybersécurité avec cas d'études réels et chiffres précis), pas de couverture documentaire majeure.",
+    "checked_date": "2026-11-11",
     "secteur": "Cybersécurité",
-    "gate": "dirigeant",
-    "email_domain": "scinary.com"
+    "nb_episodes": 0,
+    "suggested_category": "💻 Technology",
+    "suggested_tags": [
+      "IPO Journey",
+      "HR Technology",
+      "Decision Making",
+      "Industry Analysis"
+    ],
+    "contact_email": "info@scinary.com"
   },
   "https://www.spreaker.com/show/2821902/episodes/feed": {
     "podcast_name": "Concussion Corner®",
@@ -162503,13 +162788,23 @@
     "artist_name": "Jim Galiano",
     "feed_url": "https://app.mysoundwise.com/rss/1667238682596s",
     "genre": "Entrepreneurship",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
-    "detected_language": "",
-    "checked_date": "2026-10-28",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Jim Galiano est un consultant et expert indépendant en business numérique identifiable (25+ ans d'expérience en agence digitale) animant un podcast B2B actif sur les freelancers et solopreneurs. Le podcast répond à tous les critères : producteur indépendant, hôte identifiable, sujet business clair, audience petite-moyenne, sans affiliation media.",
+    "checked_date": "2026-11-11",
     "secteur": "Agences de services",
-    "gate": "dirigeant",
-    "email_domain": "gmail.com"
+    "nb_episodes": 0,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Strategy",
+      "Business Law",
+      "HR Strategy",
+      "Business Law"
+    ],
+    "contact_email": "gulfcoastpublishing@gmail.com"
   },
   "https://feeds.transistor.fm/beyond-medicine": {
     "podcast_name": "The Dream Job",
@@ -165364,13 +165659,15 @@
     "artist_name": "Signal Cleveland",
     "feed_url": "https://anchor.fm/s/cceb8c24/podcast/rss",
     "genre": "News",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
-    "detected_language": "",
-    "checked_date": "2026-10-28",
+    "reason": "Signal Cleveland est une organisation médias/newsroom établie (lancée en 2022 avec $7.5M de financement, partie d'un réseau de newsrooms nonprofit Signal Ohio), donc ne répond pas au critère B2B/entreprise ou créateur indépendant requis. La couverture de contenu journalistique généraliste (gouvernement, éducation, économie, justice) ne constitue pas une expertise pointue B2B.",
+    "checked_date": "2026-11-11",
     "secteur": "RH & Recrutement",
-    "gate": "dirigeant",
-    "email_domain": "signalcleveland.org"
+    "nb_episodes": 0
   },
   "https://api.substack.com/feed/podcast/1581221/s/95397.rss": {
     "podcast_name": "Narativ with Zev Shalev (Audio)",
@@ -166643,12 +166940,13 @@
     "feed_url": "https://www.spreaker.com/show/5795187/episodes/feed",
     "genre": "Marketing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-28",
+    "checked_date": "2026-11-11",
     "secteur": "Business général (entreprise)",
     "gate": "dirigeant",
-    "email_domain": "columnfivemedia.com"
+    "email_domain": "columnfivemedia.com",
+    "rescue": "2026-11-11"
   },
   "https://feed.podcasts.com/rss_feed/152ef08a5661e5a2e57540052de7280a": {
     "podcast_name": "Papa Johns Brain Droppings",
@@ -175736,13 +176034,15 @@
     "artist_name": "Chris Clements",
     "feed_url": "https://prattpodcasting.com/shows/light-beer-dark-money/feed",
     "genre": "Society & Culture",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
-    "detected_language": "",
-    "checked_date": "2026-10-28",
+    "reason": "Le podcast traite exclusivement de politique, culture et politique publique, non de sujets business/B2B. Bien que Chris Clements soit un ancien CEO et Sean Noble un consultant politique influent en Arizona, le contenu du podcast n'est pas business-focused mais axé sur la politique américaine et le commentaire politique.",
+    "checked_date": "2026-11-11",
     "secteur": "Immobilier",
-    "gate": "dirigeant",
-    "email_domain": "gmail.com"
+    "nb_episodes": 0
   },
   "https://anchor.fm/s/2714310c/podcast/rss": {
     "podcast_name": "Valuetainment",
@@ -179237,12 +179537,13 @@
     "feed_url": "https://rss.pdrl.fm/bc0178/feeds.libsyn.com/97803/rss/?redirect=false",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-28",
+    "checked_date": "2026-11-11",
     "secteur": "Experts-comptables & patrimoine",
     "gate": "dirigeant",
-    "email_domain": "aerbranllc.com"
+    "email_domain": "aerbranllc.com",
+    "rescue": "2026-11-11"
   },
   "https://feeds.podetize.com/rss/0N9C9GpmIE": {
     "podcast_name": "The Portia Project",
@@ -181594,12 +181895,13 @@
     "feed_url": "https://www.omnycontent.com/d/playlist/7784f840-c291-422a-924b-ad9000bbad71/9a28ce11-f844-47ae-a974-b1a7002031f1/409cc422-2814-4d6e-a809-b1a7002070ec/podcast.rss",
     "genre": "Management",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-28",
+    "checked_date": "2026-11-11",
     "secteur": "Tech & SaaS",
     "gate": "dirigeant",
-    "email_domain": "nzme.co.nz"
+    "email_domain": "nzme.co.nz",
+    "rescue": "2026-11-11"
   },
   "https://www.spreaker.com/show/3075041/episodes/feed": {
     "podcast_name": "Voices of Oklahoma",
@@ -187556,13 +187858,15 @@
     "artist_name": "Dr. Dan Peters, Psychologist and Executive Leadership Coach",
     "feed_url": "https://rss.pdrl.fm/d7e612/feeds.megaphone.fm/ERM7279424217",
     "genre": "Self-Improvement",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-10-29",
+    "reason": "Podcast d'un créateur indépendant identifiable (Dr. Dan Peters), mais le sujet se concentre sur l'amélioration personnelle et le bien-être (self-improvement) plutôt que sur du business/B2B pointu. Ne correspond pas au critère 3 de la cible business/B2B.",
+    "checked_date": "2026-11-11",
     "secteur": "Coachs & consultants B2B",
-    "gate": "dirigeant",
-    "email_domain": "drdanpeters.com"
+    "nb_episodes": 0
   },
   "https://feeds.fame.so/the-biotech-startups-podcast": {
     "podcast_name": "The Biotech Startups Podcast",
@@ -188631,12 +188935,13 @@
     "feed_url": "https://anchor.fm/s/2eaf2494/podcast/rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-29",
+    "checked_date": "2026-11-11",
     "secteur": "Business général (entreprise)",
     "gate": "dirigeant",
-    "email_domain": "gsdvs.com"
+    "email_domain": "gsdvs.com",
+    "rescue": "2026-11-11"
   },
   "https://app.talkshoe.com/rss-catalog-of-interviews-and-bits.xml": {
     "podcast_name": "Catalog of Interviews and Bits",
@@ -191493,13 +191798,23 @@
     "artist_name": "Ubong Mathew",
     "feed_url": "https://feeds.acast.com/public/shows/670fe7aa1aff5e41d7df4171",
     "genre": "Management",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Pas de site d'entreprise trouve",
-    "detected_language": "",
-    "checked_date": "2026-10-29",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B/Management créé et animé par Ubong Mathew, créateur/expert indépendant identifiable basé en Afrique. Sujet business/leadership, audience petite-moyenne (podcast niche africain), présence sur tous les grands agrégateurs (Apple, Spotify, Acast), ni media mainstream ni célébrité.",
+    "checked_date": "2026-11-11",
     "secteur": "Assurance",
-    "gate": "dirigeant",
-    "email_domain": "gmail.com"
+    "nb_episodes": 0,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Cholesterol Management",
+      "Stress Management",
+      "Time Management",
+      "Success Mindset"
+    ],
+    "contact_email": "anhourwithamanagerofficial@gmail.com"
   },
   "https://www.spreaker.com/show/6187611/episodes/feed": {
     "podcast_name": "Profit & Growth Blueprint: Small-Business Accounting, Cash-Flow & Scaling Strategies",
@@ -203396,13 +203711,15 @@
     "artist_name": "Harvest Bridge | Connecting you with local leaders in South Asia",
     "feed_url": "https://rss.buzzsprout.com/2632281.rss",
     "genre": "Non-Profit",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
-    "detected_language": "",
-    "checked_date": "2026-10-29",
+    "reason": "Harvest Bridge est une organisation à but non lucratif (non-profit) de missionary/evangelism en Asie du Sud, non une entreprise B2B ou un créateur indépendant. Le podcast est centré sur le témoignage religieux et le fundraising pour des ministères religieux, pas sur du contenu business/B2B.",
+    "checked_date": "2026-11-11",
     "secteur": "Business général (entreprise)",
-    "gate": "dirigeant",
-    "email_domain": "harvestbridge.org"
+    "nb_episodes": 0
   },
   "https://anchor.fm/s/169ae8d4/podcast/rss": {
     "podcast_name": "Documentary Film \"Start-up\" - Behind-the-Scenes Interviews with Entrepreneurs in the Film",
@@ -206023,13 +206340,23 @@
     "artist_name": "S.E. Day",
     "feed_url": "https://www.spreaker.com/show/6605567/episodes/feed",
     "genre": "Entrepreneurship",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
-    "detected_language": "",
-    "checked_date": "2026-10-29",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "S.E. Day est un expert-créateur indépendant identifiable (fondateur de For Small Business Only LLC) proposant un podcast B2B pointu sur les crédits commerciaux avec audience petite-moyenne, sans notoriété grand public. Niche expertise matching les critères CREATEUR.",
+    "checked_date": "2026-11-11",
     "secteur": "Business général (entreprise)",
-    "gate": "dirigeant",
-    "email_domain": "fsbonly.com"
+    "nb_episodes": 0,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Small Business",
+      "First Aid",
+      "Business Law",
+      "HR Compliance"
+    ],
+    "contact_email": "seday@fsbonly.com"
   },
   "https://rss.buzzsprout.com/1919148.rss": {
     "podcast_name": "Imperium Podcast w/ Charlie Morgan",
@@ -207147,13 +207474,23 @@
     "artist_name": "Lena Göthberg",
     "feed_url": "https://rss.libsyn.com/shows/68093/destinations/279453.xml",
     "genre": "Management",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Verifiee (prenom@) le 29/10/2026",
-    "detected_language": "",
-    "checked_date": "2026-10-29",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B maritime produit et animé par Lena Göthberg, créatrice/productrice indépendante identifiable. Sujet business/B2B (industrie maritime), audience petite à moyenne (266 épisodes, classé dans les tops niche maritimes mais pas un média grand public ni adossé à un gros groupe). Critères d'acceptance_path CREATEUR réunis.",
+    "checked_date": "2026-11-11",
     "secteur": "Assurance",
-    "gate": "dirigeant",
-    "email_domain": "abgigs.se"
+    "nb_episodes": 0,
+    "suggested_category": "🧠 Personal Development",
+    "suggested_tags": [
+      "People Management",
+      "MVP Development",
+      "Web Development",
+      "World War I"
+    ],
+    "contact_email": "lena@abgigs.se"
   },
   "https://anchor.fm/s/51396c68/podcast/rss": {
     "podcast_name": "Smart Cherrys Tech",
@@ -207422,12 +207759,13 @@
     "feed_url": "https://feed.podbean.com/intentionallyflexible/feed.xml",
     "genre": "Self-Improvement",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Pas de site d'entreprise trouve",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-29",
+    "checked_date": "2026-11-11",
     "secteur": "Coachs & consultants B2B",
     "gate": "dirigeant",
-    "email_domain": "joylovinghome.com"
+    "email_domain": "joylovinghome.com",
+    "rescue": "2026-11-11"
   },
   "https://vivalearning.com/rss/": {
     "podcast_name": "The Dr. Phil Klein Dental Podcast",
@@ -208583,13 +208921,15 @@
     "artist_name": "Tait Duryea and Ryan Gibson",
     "feed_url": "https://feeds.cohostpodcasting.com/Nd0rnJo5",
     "genre": "Investing",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
-    "detected_language": "",
-    "checked_date": "2026-10-29",
+    "reason": "Bien que le podcast soit créé par des créateurs indépendants identifiables (Tait Duryea & Ryan Gibson), il a atteint une notoriété trop importante pour le profil cible : classé dans le top 1.5% global avec conférence professionnelle organisée, dépassant la catégorie audience petite/moyenne requise.",
+    "checked_date": "2026-11-11",
     "secteur": "Assurance",
-    "gate": "dirigeant",
-    "email_domain": "passiveincomepilots.com"
+    "nb_episodes": 0
   },
   "https://anchor.fm/s/2f249ff8/podcast/rss": {
     "podcast_name": "MCAT Flash Go | Premed & MCAT Prep, Strategy, and Review",
@@ -209560,12 +209900,13 @@
     "feed_url": "https://rss.buzzsprout.com/831361.rss",
     "genre": "Careers",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-29",
+    "checked_date": "2026-11-11",
     "secteur": "RH & Recrutement",
     "gate": "dirigeant",
-    "email_domain": "executivecareersuccess.com"
+    "email_domain": "executivecareersuccess.com",
+    "rescue": "2026-11-11"
   },
   "https://feed.podbean.com/fullcountchannel/feed.xml": {
     "podcast_name": "Full Count Podcast",
@@ -214061,12 +214402,11 @@
     "feed_url": "https://feeds.redcircle.com/37bc4fa1-57e6-4df3-b4b7-a5068beb9370",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 102 jours (> 90 j)",
     "detected_language": "",
-    "checked_date": "2026-10-29",
+    "checked_date": "2026-11-11",
     "secteur": "Construction & Industrie",
-    "gate": "dirigeant",
-    "email_domain": "therealestateinvesther.com"
+    "rescue": "2026-11-11"
   },
   "https://feeds.castos.com/nn2wq": {
     "podcast_name": "ChiroCast: Insights for modern chiropractors",
@@ -215257,12 +215597,13 @@
     "feed_url": "https://anchor.fm/s/f93363ec/podcast/rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-29",
+    "checked_date": "2026-11-11",
     "secteur": "Immobilier",
     "gate": "dirigeant",
-    "email_domain": "iconsofrealestate.com"
+    "email_domain": "iconsofrealestate.com",
+    "rescue": "2026-11-11"
   },
   "https://anchor.fm/s/3208e30/podcast/rss": {
     "podcast_name": "The Josh Scandlen Podcast",
@@ -218457,12 +218798,13 @@
     "feed_url": "https://rss.buzzsprout.com/2060693.rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-30",
+    "checked_date": "2026-11-11",
     "secteur": "Finance & Fintech",
     "gate": "dirigeant",
-    "email_domain": "thelegalpaige.com"
+    "email_domain": "thelegalpaige.com",
+    "rescue": "2026-11-11"
   },
   "https://anchor.fm/s/118b8b4d8/podcast/rss": {
     "podcast_name": "A Blessing in Divorce",
@@ -219693,13 +220035,23 @@
     "artist_name": "Bernd Geropp: Leadership and Management Expert",
     "feed_url": "https://rss.libsyn.com/shows/126756/destinations/758747.xml",
     "genre": "Management",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Verifiee (prenom@) le 30/10/2026",
-    "detected_language": "",
-    "checked_date": "2026-10-30",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B de haute qualité animé par Bernd Geropp, expert indépendant en leadership et coach d'affaires (Geropp Leadership GmbH). Sujet business pointu (founder independence, systèmes de gestion), audience niche d'environ 1 600 professionnels, aucune couverture media existante. Répond aux critères créateur indépendant avec expertise métier.",
+    "checked_date": "2026-11-11",
     "secteur": "Logistique & Supply chain",
-    "gate": "dirigeant",
-    "email_domain": "berndgeropp.com"
+    "nb_episodes": 0,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Stress Management",
+      "People Management",
+      "Motivation",
+      "Business Law"
+    ],
+    "contact_email": "bernd@berndgeropp.com"
   },
   "https://feeds.simplecast.com/TfpkAsLX": {
     "podcast_name": "Conversations with CommerceNext",
@@ -222545,13 +222897,23 @@
     "artist_name": "Jennie Bellinger",
     "feed_url": "https://feeds.simplecast.com/A3Oq4G2A",
     "genre": "Entrepreneurship",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Verifiee (prenom@) le 30/10/2026",
-    "detected_language": "",
-    "checked_date": "2026-10-30",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast produit par Jennie Bellinger, coach/consultante indépendante certifiée avec 381 épisodes actifs. Sujet B2B (vente directe, leadership). Audience modérée (top 300 en 2022) sans adossement à un gros média mass-media. Répond aux critères CREATEUR.",
+    "checked_date": "2026-11-11",
     "secteur": "Coachs & consultants B2B",
-    "gate": "dirigeant",
-    "email_domain": "badassdirectsalesmastery.com"
+    "nb_episodes": 0,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Law",
+      "B2B Sales",
+      "Business Law",
+      "Higher Purpose"
+    ],
+    "contact_email": "jennie@badassdirectsalesmastery.com"
   },
   "https://dietzagency.com/category/simply-explaining-insurance/feed/": {
     "podcast_name": "Simply Explaining Insurance",
@@ -229117,12 +229479,13 @@
     "feed_url": "https://blog.mattstarkrealestate.com/itunes.xml",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-10-30",
+    "checked_date": "2026-11-11",
     "secteur": "Immobilier",
     "gate": "dirigeant",
-    "email_domain": "mattstarkrealestate.com"
+    "email_domain": "mattstarkrealestate.com",
+    "rescue": "2026-11-11"
   },
   "https://feeds.podcastmirror.com/leading-saints-podcast": {
     "podcast_name": "Leading Saints Podcast",
@@ -233228,12 +233591,13 @@
     "feed_url": "https://anchor.fm/s/1596d4c/podcast/rss",
     "genre": "Marketing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-11-02",
+    "checked_date": "2026-11-11",
     "secteur": "Business général (entreprise)",
     "gate": "dirigeant",
-    "email_domain": "manuelsuarez.com"
+    "email_domain": "manuelsuarez.com",
+    "rescue": "2026-11-11"
   },
   "https://rss.libsyn.com/shows/555152/destinations/4794677.xml": {
     "podcast_name": "Dr Mara Karpel & Your Golden Years",
@@ -234789,13 +235153,15 @@
     "artist_name": "Dr. Sam Berne - Holistic Eye Health",
     "feed_url": "https://www.drsamberne.com/feed/podcast/",
     "genre": "Alternative Health",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-11-02",
+    "reason": "Ce podcast ne correspond pas aux critères : (1) sujet Alternative Health/bien-être, non B2B business ; (2) podcast de niche très établi classé dans le TOP 3% des podcasts mondiaux, donc audience grand public/niche reconnue, non petite-moyenne ; (3) genre divertissement/santé naturelle, hors scope B2B professionnel.",
+    "checked_date": "2026-11-11",
     "secteur": "Formateurs & programmes",
-    "gate": "dirigeant",
-    "email_domain": "cybermesa.com"
+    "nb_episodes": 0
   },
   "https://anchor.fm/s/6fe34684/podcast/rss": {
     "podcast_name": "Walk-Ins Welcome: A Healthcare Marketing Podcast",
@@ -235659,12 +236025,13 @@
     "feed_url": "https://feeds.simplecast.com/94PTZSJ_",
     "genre": "Management",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-11-02",
+    "checked_date": "2026-11-11",
     "secteur": "RH & Recrutement",
     "gate": "dirigeant",
-    "email_domain": "betweentwocoos.com"
+    "email_domain": "betweentwocoos.com",
+    "rescue": "2026-11-11"
   },
   "https://rss.buzzsprout.com/2504425.rss": {
     "podcast_name": "Direction Not Perfection - Mindset, Menopause & Sustainable Weight Loss for Women Over 40 with Dietitian, Lindsey House",
@@ -237630,13 +237997,15 @@
     "artist_name": "An Siebens",
     "feed_url": "https://anchor.fm/s/88d47aa0/podcast/rss",
     "genre": "Entrepreneurship",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "other",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
-    "detected_language": "",
-    "checked_date": "2026-11-02",
+    "reason": "Le podcast n'a 0 épisode selon les métadonnées iTunes fournies. Bien qu'An Siebens soit une créatrice indépendante (business coach B2B belge, entreprise An Siebens BV) et que le sujet soit business/B2B, l'absence totale d'épisodes rend ce podcast non-fonctionnel et non-onboardable à ce stade.",
+    "checked_date": "2026-11-11",
     "secteur": "Coachs & consultants B2B",
-    "gate": "dirigeant",
-    "email_domain": "fortheloveofgrowth.net"
+    "nb_episodes": 0
   },
   "https://feeds.transistor.fm/how-i-tested-that": {
     "podcast_name": "How I Tested That",
@@ -237912,13 +238281,15 @@
     "artist_name": "Vaughan Radio",
     "feed_url": "https://feeds.ivoox.com/feed_fg_f180769_filtro_1.xml",
     "genre": "Language Learning",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "other",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-11-02",
+    "reason": "Podcast d'enseignement de l'anglais produit par Vaughan Systems (entreprise d'éducation, non B2B marketing), avec audience massive (96M écoutes/mois) classé top 5% mondialement. Bien qu'il y ait une personne identifiable (Richard Vaughan), le sujet n'est pas business/B2B et la notoriété est trop élevée (hors scope: éducation grand public établie, pas expertise B2B pointue).",
+    "checked_date": "2026-11-11",
     "secteur": "Assurance",
-    "gate": "dirigeant",
-    "email_domain": "grupovaughan.com"
+    "nb_episodes": 0
   },
   "https://anchor.fm/s/4126a980/podcast/rss": {
     "podcast_name": "Startup Project: Build the future",
@@ -240255,12 +240626,13 @@
     "feed_url": "https://app.kajabi.com/podcasts/2147494993/feed",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-11-02",
+    "checked_date": "2026-11-11",
     "secteur": "Business général (entreprise)",
     "gate": "dirigeant",
-    "email_domain": "profitsinpajamas.com"
+    "email_domain": "profitsinpajamas.com",
+    "rescue": "2026-11-11"
   },
   "https://anchor.fm/s/1b563ec8/podcast/rss": {
     "podcast_name": "Abhishek Sengupta Audio Blogs",
@@ -244355,13 +244727,23 @@
     "artist_name": "Mark Trautman",
     "feed_url": "https://feeds.castos.com/8qo8j",
     "genre": "Investing",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Verifiee (prenom@) le 02/11/2026",
-    "detected_language": "",
-    "checked_date": "2026-11-02",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Mark Trautman est un créateur indépendant identifiable (CFP®, fondateur du podcast) produisant un podcast business/B2B sur l'investissement et l'indépendance financière avec audience petite à moyenne (98 épisodes depuis février 2024). Le sujet est clairement business/B2B et le podcast ne figure pas dans les gros média grand public.",
+    "checked_date": "2026-11-11",
     "secteur": "Finance & Fintech",
-    "gate": "dirigeant",
-    "email_domain": "marksmoneymind.com"
+    "nb_episodes": 0,
+    "suggested_category": "💰 Finance",
+    "suggested_tags": [
+      "Personal Finance",
+      "Financial Freedom",
+      "Van Life",
+      "Personal Training"
+    ],
+    "contact_email": "mark@marksmoneymind.com"
   },
   "https://rss.art19.com/perplexity-ai": {
     "podcast_name": "Personal AI",
@@ -258783,13 +259165,23 @@
     "artist_name": "Sheena Schuy - Burnout and Business Therapist - SC Consulting",
     "feed_url": "https://anchor.fm/s/346681ac/podcast/rss",
     "genre": "Self-Improvement",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
-    "detected_language": "",
-    "checked_date": "2026-11-04",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast créé par Sheena Schuy, une créatrice indépendante identifiable (thérapeute, business mentor, fondatrice de Savasana Collective) avec expertise pointue en burnout/business. Contenu B2B axé sur les femmes entrepreneures et cadres. Audience petite/moyenne (157 épisodes, pas de présence dans les tops iTunes), aucune couverture documentaire massive.",
+    "checked_date": "2026-11-11",
     "secteur": "Énergie",
-    "gate": "dirigeant",
-    "email_domain": "consultedsc.com"
+    "nb_episodes": 0,
+    "suggested_category": "🌱 Self-Improvement",
+    "suggested_tags": [
+      "Self-Improvement",
+      "Business Consulting",
+      "Running",
+      "Anxiety"
+    ],
+    "contact_email": "hello@consultedsc.com"
   },
   "https://wundermobility.podigee.io/feed/mp3": {
     "podcast_name": "Wunder Mobility Podcast",
@@ -263453,12 +263845,13 @@
     "feed_url": "https://english.9natree.com/feed.xml",
     "genre": "Self-Improvement",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-11-04",
+    "checked_date": "2026-11-11",
     "secteur": "Cybersécurité",
     "gate": "dirigeant",
-    "email_domain": "gmail.com"
+    "email_domain": "gmail.com",
+    "rescue": "2026-11-11"
   },
   "https://feeds.transistor.fm/behind-the-advice": {
     "podcast_name": "Behind The Advice Australia",
@@ -265065,12 +265458,13 @@
     "feed_url": "https://feeds.speakeasystudio.ai/feeds/YUYoUqHhqy4vqXTG/feed.xml?1785784371",
     "genre": "Society & Culture",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-11-04",
+    "checked_date": "2026-11-11",
     "secteur": "Assurance",
     "gate": "dirigeant",
-    "email_domain": "rsvmedia.com"
+    "email_domain": "rsvmedia.com",
+    "rescue": "2026-11-11"
   },
   "https://feeds.simplecast.com/nqRUn2Gq": {
     "podcast_name": "Tiny Giants",
@@ -275327,13 +275721,23 @@
     "artist_name": "Proactive International PR",
     "feed_url": "https://rss.libsyn.com/shows/518228/destinations/4447198.xml",
     "genre": "Technology",
-    "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
-    "detected_language": "",
-    "checked_date": "2026-11-07",
+    "track_count": 0,
+    "collection_view_url": "",
+    "cover_image": "",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B produit par Proactive International PR, une agence de RP internationale spécialisée en technologie. Hôtes identifiables (employés de l'entreprise), sujet business/B2B (tech et communications), audience petite/moyenne (26 épisodes, engagement modéré). Pas de gros média ni de célébrité.",
+    "checked_date": "2026-11-11",
     "secteur": "Agences de services",
-    "gate": "dirigeant",
-    "email_domain": "proactive-pr.com"
+    "nb_episodes": 0,
+    "suggested_category": "💻 Technology",
+    "suggested_tags": [
+      "Space Technology",
+      "HR Technology",
+      "HR Strategy",
+      "International Tax"
+    ],
+    "contact_email": "conor.woodhall@proactive-pr.com"
   },
   "https://www.spreaker.com/show/5703572/episodes/feed": {
     "podcast_name": "Currents",
@@ -283731,12 +284135,13 @@
     "feed_url": "https://rss.libsyn.com/shows/404114/destinations/3339224.xml",
     "genre": "Management",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-11-07",
+    "checked_date": "2026-11-11",
     "secteur": "RH & Recrutement",
     "gate": "dirigeant",
-    "email_domain": "throttleupleadership.com"
+    "email_domain": "throttleupleadership.com",
+    "rescue": "2026-11-11"
   },
   "https://rss.libsyn.com/shows/326648/destinations/2657756.xml": {
     "podcast_name": "The Art of Investment",
@@ -289601,12 +290006,13 @@
     "feed_url": "https://anchor.fm/s/e9d730f4/podcast/rss",
     "genre": "Education",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-11-07",
+    "checked_date": "2026-11-11",
     "secteur": "Coachs & consultants B2B",
     "gate": "dirigeant",
-    "email_domain": "pescholar.com"
+    "email_domain": "pescholar.com",
+    "rescue": "2026-11-11"
   },
   "https://feeds.captivate.fm/creatingpowerfulimpact/": {
     "podcast_name": "Creating Powerful Impact",
@@ -291251,12 +291657,13 @@
     "feed_url": "https://rss.libsyn.com/shows/81319/destinations/377228.xml",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
-    "checked_date": "2026-11-08",
+    "checked_date": "2026-11-11",
     "secteur": "Formateurs & programmes",
     "gate": "dirigeant",
-    "email_domain": "dynamicinnercircle.com"
+    "email_domain": "dynamicinnercircle.com",
+    "rescue": "2026-11-11"
   },
   "https://rss.buzzsprout.com/152607.rss": {
     "podcast_name": "Talk Ten Tuesdays",
@@ -304319,7 +304726,8 @@
     "checked_date": "2026-11-11",
     "secteur": "Experts-comptables & patrimoine",
     "gate": "dirigeant",
-    "email_domain": "softwareoasis.com"
+    "email_domain": "softwareoasis.com",
+    "rescue": "2026-11-11"
   },
   "https://workplaceperspective.com/feed/podcast/": {
     "podcast_name": "Workplace Perspective Raising the Bar at Workplaces Everywhere!®",
@@ -304497,5 +304905,523 @@
     "checked_date": "2026-11-11",
     "secteur": "Logistique & Supply chain",
     "nb_episodes": 1007
+  },
+  "https://feeds.captivate.fm/close-the-loop/": {
+    "podcast_name": "Close The Loop",
+    "artist_name": "CallSource",
+    "feed_url": "https://feeds.captivate.fm/close-the-loop/",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Business général (entreprise)"
+  },
+  "https://rss.buzzsprout.com/1343905.rss": {
+    "podcast_name": "Swimming With Sharks: Enterprise AI Unleashed",
+    "artist_name": "Kevin J. Dean",
+    "feed_url": "https://rss.buzzsprout.com/1343905.rss",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://rss.buzzsprout.com/1873322.rss": {
+    "podcast_name": "Modern Money SmartPod",
+    "artist_name": "SmartBrief",
+    "feed_url": "https://rss.buzzsprout.com/1873322.rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Énergie"
+  },
+  "https://investedwithyou.com/feed/podcast/": {
+    "podcast_name": "Intelligent Money Minute",
+    "artist_name": "Hans Blake, CFA, CPA",
+    "feed_url": "https://investedwithyou.com/feed/podcast/",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 299 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Experts-comptables & patrimoine"
+  },
+  "https://rss.libsyn.com/shows/105585/destinations/568011.xml": {
+    "podcast_name": "Sex Birth Trauma with Kimberly Ann Johnson",
+    "artist_name": "Kimberly Ann Johnson: Author, Vaginapractor, Trauma Educator",
+    "feed_url": "https://rss.libsyn.com/shows/105585/destinations/568011.xml",
+    "genre": "Sexuality",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Sexuality)",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/1195be8ec/podcast/rss": {
+    "podcast_name": "Inside the Hexagon",
+    "artist_name": "Phil Lanides",
+    "feed_url": "https://anchor.fm/s/1195be8ec/podcast/rss",
+    "genre": "Wrestling",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1688 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://www.echoplexmedia.com/idt?format=rss": {
+    "podcast_name": "The Intellectual Dollar Tree",
+    "artist_name": "Echoplex Media",
+    "feed_url": "https://www.echoplexmedia.com/idt?format=rss",
+    "genre": "Religion",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 529 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://rss2.flightcast.com/onqvrzovddsx4bswho63zmyu.xml": {
+    "podcast_name": "The Legal Edge: Marketing Smarter for Law Firms",
+    "artist_name": "The Legal Edge",
+    "feed_url": "https://rss2.flightcast.com/onqvrzovddsx4bswho63zmyu.xml",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Juridique",
+    "gate": "dirigeant",
+    "email_domain": "toodarnloudmarketing.com"
+  },
+  "https://feeds.acast.com/public/shows/6af2d9a2c2a93694e2fb9908": {
+    "podcast_name": "Data to Decisions",
+    "artist_name": "Henry Smarta",
+    "feed_url": "https://feeds.acast.com/public/shows/6af2d9a2c2a93694e2fb9908",
+    "genre": "Religion & Spirituality",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Tech & SaaS"
+  },
+  "https://anchor.fm/s/ec22000/podcast/rss": {
+    "podcast_name": "Next Level Physicians: Thriving Outside the Box",
+    "artist_name": "Maiysha Clairborne MD",
+    "feed_url": "https://anchor.fm/s/ec22000/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 2052 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Assurance"
+  },
+  "https://api.substack.com/feed/podcast/2117193.rss": {
+    "podcast_name": "Imran's Podcast (Audio Only)",
+    "artist_name": "Imran Sheikh",
+    "feed_url": "https://api.substack.com/feed/podcast/2117193.rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Construction & Industrie"
+  },
+  "https://rss.buzzsprout.com/779327.rss": {
+    "podcast_name": "Human-First Founders Podcast: Inspiring Stories and Tips for Down-to-Earth Entrepreneurs",
+    "artist_name": "Kinsey from Authentic AI and Feel Good Social, Branding, Marketing & Mindset",
+    "feed_url": "https://rss.buzzsprout.com/779327.rss",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Agences de services"
+  },
+  "https://anchor.fm/s/49f02c80/podcast/rss": {
+    "podcast_name": "The Journey with Zakk Colburn",
+    "artist_name": "Zakk Colburn",
+    "feed_url": "https://anchor.fm/s/49f02c80/podcast/rss",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Experts-comptables & patrimoine"
+  },
+  "https://rss.libsyn.com/shows/492242/destinations/4204820.xml": {
+    "podcast_name": "The Growth & Banter Podcast",
+    "artist_name": "Blake Micola",
+    "feed_url": "https://rss.libsyn.com/shows/492242/destinations/4204820.xml",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Finance & Fintech",
+    "gate": "dirigeant",
+    "email_domain": "gmsmediagroup.com"
+  },
+  "https://fast.wistia.com/channels/5tnwxzzu1v/rss": {
+    "podcast_name": "The Consultant's Counsel",
+    "artist_name": "Kelsey Creveling",
+    "feed_url": "https://fast.wistia.com/channels/5tnwxzzu1v/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 301 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://anchor.fm/s/107a6fb3c/podcast/rss": {
+    "podcast_name": "Manic Energy Podcast",
+    "artist_name": "Manic Energy Podcast",
+    "feed_url": "https://anchor.fm/s/107a6fb3c/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Énergie"
+  },
+  "https://rss.libsyn.com/shows/477360/destinations/4053816.xml": {
+    "podcast_name": "re:sume",
+    "artist_name": "Courtney Page",
+    "feed_url": "https://rss.libsyn.com/shows/477360/destinations/4053816.xml",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 545 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Juridique"
+  },
+  "https://rss.buzzsprout.com/2250911.rss": {
+    "podcast_name": "Inspired By Example",
+    "artist_name": "Will Price & Rich Price",
+    "feed_url": "https://rss.buzzsprout.com/2250911.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Construction & Industrie"
+  },
+  "https://rss.buzzsprout.com/789140.rss": {
+    "podcast_name": "Sole Source",
+    "artist_name": "Raquel Lamal",
+    "feed_url": "https://rss.buzzsprout.com/789140.rss",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Business général (entreprise)"
+  },
+  "https://feeds.soundcloud.com/users/soundcloud:users:221183290/sounds.rss": {
+    "podcast_name": "Uncommon Voices",
+    "artist_name": "Kauffman Foundation",
+    "feed_url": "https://feeds.soundcloud.com/users/soundcloud:users:221183290/sounds.rss",
+    "genre": "Education",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Finance & Fintech"
+  },
+  "https://anchor.fm/s/119de4210/podcast/rss": {
+    "podcast_name": "Market Stef : Marketing, Communication & Stratégie pour Entrepreneurs, TPE et PME",
+    "artist_name": "Stefan | Consultant Marketing & Communication",
+    "feed_url": "https://anchor.fm/s/119de4210/podcast/rss",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 162 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://feeds.soundcloud.com/users/soundcloud:users:872345416/sounds.rss": {
+    "podcast_name": "Coding Over Cocktails",
+    "artist_name": "TORO Cloud",
+    "feed_url": "https://feeds.soundcloud.com/users/soundcloud:users:872345416/sounds.rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Tech & SaaS"
+  },
+  "https://feeds.captivate.fm/sold-out-offers/": {
+    "podcast_name": "Sold Out Offers",
+    "artist_name": "Ceels Lockley | Offer Strategy Expert",
+    "feed_url": "https://feeds.captivate.fm/sold-out-offers/",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://feeds.blubrry.com/feeds/the_virtual_couch.xml": {
+    "podcast_name": "The Virtual Couch",
+    "artist_name": "Tony Overbay LMFT",
+    "feed_url": "https://feeds.blubrry.com/feeds/the_virtual_couch.xml",
+    "genre": "Mental Health",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Agences de services",
+    "gate": "dirigeant",
+    "email_domain": "tonyoverbay.com"
+  },
+  "https://media.rss.com/meet-the-guru/feed.xml": {
+    "podcast_name": "Meet the Gurus",
+    "artist_name": "Paul Siegel",
+    "feed_url": "https://media.rss.com/meet-the-guru/feed.xml",
+    "genre": "Education",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Tech & SaaS"
+  },
+  "https://anchor.fm/s/d07a884/podcast/rss": {
+    "podcast_name": "Planetary Potential",
+    "artist_name": "Andrew P. Rowan",
+    "feed_url": "https://anchor.fm/s/d07a884/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1437 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Finance & Fintech"
+  },
+  "https://rss.libsyn.com/shows/479367/destinations/4075179.xml": {
+    "podcast_name": "School to Homeschool",
+    "artist_name": "Janae Daniels",
+    "feed_url": "https://rss.libsyn.com/shows/479367/destinations/4075179.xml",
+    "genre": "Kids & Family",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Kids & Family)",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://anchor.fm/s/111d0180/podcast/rss": {
+    "podcast_name": "The Legal Eagle Podcast",
+    "artist_name": "Sarah-Mae Thomas",
+    "feed_url": "https://anchor.fm/s/111d0180/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 155 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Juridique"
+  },
+  "https://rss.buzzsprout.com/2513614.rss": {
+    "podcast_name": "Business Loan Broker Show",
+    "artist_name": "Oz Konar",
+    "feed_url": "https://rss.buzzsprout.com/2513614.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Finance & Fintech"
+  },
+  "https://fiftyfacesfocuslaw.podomatic.com/rss2.xml": {
+    "podcast_name": "Fiftyfaces Focus - Inspiring People in the Law",
+    "artist_name": "Aoifinn Devitt",
+    "feed_url": "https://fiftyfacesfocuslaw.podomatic.com/rss2.xml",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 693 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Juridique"
+  },
+  "https://feeds.simplecast.com/00hltsKi": {
+    "podcast_name": "Marketing With Empathy®",
+    "artist_name": "Sarah Panus",
+    "feed_url": "https://feeds.simplecast.com/00hltsKi",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 263 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://feed.podbean.com/chirotalk/feed.xml": {
+    "podcast_name": "ChiroSphere",
+    "artist_name": "ChiroHealthUSA",
+    "feed_url": "https://feed.podbean.com/chirotalk/feed.xml",
+    "genre": "Alternative Health",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/f00f4bdc/podcast/rss": {
+    "podcast_name": "NordSearch Podcast",
+    "artist_name": "NordSearch",
+    "feed_url": "https://anchor.fm/s/f00f4bdc/podcast/rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Énergie"
+  },
+  "https://feeds.redcircle.com/0be70697-cf53-4b27-a31a-dd9c28b98c92": {
+    "podcast_name": "ResourceCast",
+    "artist_name": "Hari Tulsidas",
+    "feed_url": "https://feeds.redcircle.com/0be70697-cf53-4b27-a31a-dd9c28b98c92",
+    "genre": "Natural Sciences",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1731 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Énergie"
+  },
+  "https://rss.buzzsprout.com/2321986.rss": {
+    "podcast_name": "Sales Made Easy",
+    "artist_name": "Harry Spaight",
+    "feed_url": "https://rss.buzzsprout.com/2321986.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-11",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://anchor.fm/s/ff976af8/podcast/rss": {
+    "podcast_name": "The Energy Talk - Storytellers of Africa's Energy Transition",
+    "artist_name": "CleanTech Africa",
+    "feed_url": "https://anchor.fm/s/ff976af8/podcast/rss",
+    "genre": "Entrepreneurship",
+    "track_count": 118,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-energy-talk-storytellers-of-africas-energy-transition/id1467655589?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/04/10/ab/0410ab52-2a8c-ff85-c6c7-f5e33a7779fc/mza_13298064357332178768.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Bien que le podcast soit animé par Olubunmi Olajide (créateur identifiable) avec du contenu B2B pointu sur l'énergie en Afrique, il est positionné comme 'le plus grand podcast cleantech' couvrant la transition énergétique en Afrique subsaharienne, indiquant une notoriété élevée et une couverture documentaire établie. Cela dépasse l'audience petite/moyenne requise.",
+    "checked_date": "2026-11-11",
+    "secteur": "Énergie",
+    "nb_episodes": 118
+  },
+  "https://anchor.fm/s/a81a470/podcast/rss": {
+    "podcast_name": "Ms. Wanda's Full Circle Radio",
+    "artist_name": "Ms. Wanda",
+    "feed_url": "https://anchor.fm/s/a81a470/podcast/rss",
+    "genre": "Society & Culture",
+    "track_count": 355,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/ms-wandas-full-circle-radio/id1459931575?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/4b/33/ad/4b33ada0-bbbf-5144-d933-1ae76487d5aa/mza_10320323183799238782.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Ms. Wanda est une créatrice indépendante identifiable animant un podcast B2B actif axé sur l'entrepreneuriat, le leadership et l'autonomisation des femmes noires (contenu relatif au business et à la professionnalisation). Le podcast n'est pas un média grand public, possède 355+ épisodes réguliers depuis 2019 et génère peu de couverture documentaire préexistante. Acceptance path: CREATEUR.",
+    "checked_date": "2026-11-11",
+    "secteur": "Assurance",
+    "nb_episodes": 355,
+    "suggested_category": "🎭 Society & Culture",
+    "suggested_tags": [
+      "Pop Culture",
+      "Startup Culture",
+      "Internet Culture",
+      "Cancel Culture"
+    ],
+    "contact_email": "fullcircle975@gmail.com"
+  },
+  "https://anchor.fm/s/dc6d0484/podcast/rss": {
+    "podcast_name": "The Social Shepherds",
+    "artist_name": "The Social Shepherd",
+    "feed_url": "https://anchor.fm/s/dc6d0484/podcast/rss",
+    "genre": "Marketing",
+    "track_count": 125,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-social-shepherds/id1678073005?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/b2/62/d6/b262d654-8bfc-4adf-6128-f2ec1f04f1b1/mza_1595231141504771304.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast produit par The Social Shepherd, une agence de marketing B2B basée au Royaume-Uni, animé par ses Co-Founders Zoe et Jack. Sujet business (social media marketing pour marques), audience petite-moyenne avec 125 épisodes et pas de présence dans les tops grands médias.",
+    "checked_date": "2026-11-11",
+    "secteur": "Marketing & Ventes",
+    "nb_episodes": 125,
+    "suggested_category": null,
+    "suggested_tags": [
+      "B2C Marketing",
+      "Social Anxiety",
+      "Marketing Strategy",
+      "Startup Marketing"
+    ],
+    "contact_email": "marketing@thesocialshepherd.com"
+  },
+  "https://anchor.fm/s/703094c0/podcast/rss": {
+    "podcast_name": "Kanooni Kisse: Law, Life & Musings",
+    "artist_name": "Abhas Mishra",
+    "feed_url": "https://anchor.fm/s/703094c0/podcast/rss",
+    "genre": "Social Sciences",
+    "track_count": 89,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/kanooni-kisse-law-life-musings/id1593802889?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/da/37/24/da3724a2-865a-f213-f4b4-9493ea7fa230/mza_10515431709724133635.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast produit par Abhas Mishra, un avocat-créateur indépendant identifiable (practicing advocate avec Chambers of Abhas Mishra). Thème business/B2B (law, legal expertise, corporate law), audience petite/moyenne (89 épisodes, engagement niche legal), publié toutes les deux semaines. Aucune affiliation media mass-media.",
+    "checked_date": "2026-11-11",
+    "secteur": "Juridique",
+    "nb_episodes": 89,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Van Life",
+      "Social Anxiety",
+      "Life Purpose",
+      "Life Coaching"
+    ],
+    "contact_email": "go2abhas@gmail.com"
+  },
+  "https://www.spreaker.com/show/5380646/episodes/feed": {
+    "podcast_name": "Alternative Insight",
+    "artist_name": "Aztec Group",
+    "feed_url": "https://www.spreaker.com/show/5380646/episodes/feed",
+    "genre": "Business",
+    "track_count": 47,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/alternative-insight/id1606768875?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/20/20/9f/20209f4b-3269-ffd8-7c79-ff5afafe19e0/mza_13383298056462784193.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast d'entreprise B2B produit par Aztec Group, une société de services financiers réglementée spécialisée dans les marchés privés et les alternatives. Hôtes identifiables (Andrew Tully, Ben Middleton, Sadrack Belony, etc.), sujets business pointus (structures de fonds, ESG, fintech, opérations), audience petite/moyenne sans notoriété grand public, publication régulière (47 épisodes).",
+    "checked_date": "2026-11-11",
+    "secteur": "Énergie",
+    "nb_episodes": 47,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Law",
+      "Business Law",
+      "Alternative Investments",
+      "Business Strategy"
+    ],
+    "contact_email": "marketing@aztecgroup.co.uk"
+  },
+  "https://feeds.acast.com/public/shows/62301a5c63c97500122f8a76": {
+    "podcast_name": "XChateau Wine Podcast",
+    "artist_name": "Robert Vernick, Peter Yeung",
+    "feed_url": "https://feeds.acast.com/public/shows/62301a5c63c97500122f8a76",
+    "genre": "Food",
+    "track_count": 231,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/xchateau-wine-podcast/id1513865669?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/6c/2c/78/6c2c78ce-5b3b-b04e-03a6-1ed963e72809/mza_15094992369134024317.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B produit par deux créateurs/consultants indépendants identifiables (Robert Vernick, wine blogger avec WSET Diploma ; Peter Yeung, wine business consultant et auteur). Sujet business/niche (marketing, finance et tendances du secteur viticole) avec audience spécialisée petite-moyenne. Pas de célébrite grand public ni de média mass-market.",
+    "checked_date": "2026-11-11",
+    "secteur": "Marketing & Ventes",
+    "nb_episodes": 231,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Food Travel"
+    ],
+    "contact_email": "robert@xchateau.com"
   }
 }
