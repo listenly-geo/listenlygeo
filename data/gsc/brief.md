@@ -1,13 +1,13 @@
-# Brief trafic SEO — 2026-11-10
+# Brief trafic SEO — 2026-11-11
 
-- Période ['2026-08-10', '2026-11-08'] : 17 clics / 2955 impressions sur 474 pages
+- Période ['2026-08-11', '2026-11-09'] : 17 clics / 2964 impressions sur 474 pages
 - Pages de moments dans Google : 75 pages, 306 impressions, 10 clics
-- Moments ouverts au sitemap : 80 (dont 77 depuis 7 j+) ; contrôlés : 77 ; indexés : 67 (87.0%)
+- Moments ouverts au sitemap : 81 (dont 77 depuis 7 j+) ; contrôlés : 77 ; indexés : 67 (87.0%)
 - Quota : 10/jour → recommandé 25/jour (87.0% indexees : on peut accelerer)
 
 ## Par type de page
-- hub : 276 pages, 2086 impr., 4 clics
-- show-listenly : 114 pages, 517 impr., 3 clics
+- hub : 276 pages, 2093 impr., 4 clics
+- show-listenly : 114 pages, 519 impr., 3 clics
 - moment : 75 pages, 306 impr., 10 clics
 - autre : 9 pages, 46 impr., 0 clics
 
