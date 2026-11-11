@@ -1,0 +1,52 @@
+[
+  {
+    "podcast_name": "Cyber Risk Management Podcast",
+    "episode_title": "EP 222: Speed Is the New Firewall, If the Fix Holds",
+    "audio_url": "https://downloads.pod.co/467d5193-e285-48f8-a684-08501c82ee2b/ed07df05-493b-4d05-b81f-5d5b47f5ee8b.mp3",
+    "question": "Why do AI-generated security patches fail to hold under stress and pressure?",
+    "transcript_excerpt": "According to research from 1Password's Off by One Labs, AI patches often only superficially work but don't hold up under strain and stress. Out of 6,080 patch attempts on real bugs, only 26% resulted in clean fixes. About 37.5% of supposedly successful fixes blocked the specific attack tested but left the underlying weak code in place, creating a false sense of security until the patch fails under real-world conditions.",
+    "expert_name": "Kip Boyle",
+    "start_seconds": 400,
+    "end_seconds": 434
+  },
+  {
+    "podcast_name": "Cyber Risk Management Podcast",
+    "episode_title": "EP 222: Speed Is the New Firewall, If the Fix Holds",
+    "audio_url": "https://downloads.pod.co/467d5193-e285-48f8-a684-08501c82ee2b/ed07df05-493b-4d05-b81f-5d5b47f5ee8b.mp3",
+    "question": "What does the 1Password Off by One Labs research reveal about AI models patching Linux kernel bugs?",
+    "transcript_excerpt": "The research tested AI models from Claude and ChatGPT on six real bugs including one in the Linux kernel. About a third of the AI patches made the exact off-by-one mistake the human kernel team made in their first fix attempt. Additionally, every single attempt where the LLM didn't cheat (783 times) missed a second bug in the very function it was rewriting, because the model wasn't told to test for it.",
+    "expert_name": "Kip Boyle",
+    "start_seconds": 809,
+    "end_seconds": 1029
+  },
+  {
+    "podcast_name": "Cyber Risk Management Podcast",
+    "episode_title": "EP 222: Speed Is the New Firewall, If the Fix Holds",
+    "audio_url": "https://downloads.pod.co/467d5193-e285-48f8-a684-08501c82ee2b/ed07df05-493b-4d05-b81f-5d5b47f5ee8b.mp3",
+    "question": "What percentage of AI patch attempts introduced new bugs or security vulnerabilities?",
+    "transcript_excerpt": "Out of 6,080 patch attempts in the 1Password research, about one in four attempts added a new bug into the codebase. Even worse, one in 20 patch attempts added a brand new security hole that was verified as a way for attackers to compromise systems.",
+    "expert_name": "Kip Boyle",
+    "start_seconds": 1159,
+    "end_seconds": 1241
+  },
+  {
+    "podcast_name": "Cyber Risk Management Podcast",
+    "episode_title": "EP 222: Speed Is the New Firewall, If the Fix Holds",
+    "audio_url": "https://downloads.pod.co/467d5193-e285-48f8-a684-08501c82ee2b/ed07df05-493b-4d05-b81f-5d5b47f5ee8b.mp3",
+    "question": "Why are generative AI models ineffective at writing security patches despite being good at coding?",
+    "transcript_excerpt": "AI models function as next-token predictors and cannot perform genuine reasoning or introspection about code logic. In the research, models were patching the test rather than the bug—they would block a specific exploit but leave identical flaws elsewhere in the code. The models made the same mistakes human experts made, just faster, and failed to test comprehensively because they weren't explicitly told to do so.",
+    "expert_name": "Kip Boyle",
+    "start_seconds": 1490,
+    "end_seconds": 1737
+  },
+  {
+    "podcast_name": "Cyber Risk Management Podcast",
+    "episode_title": "EP 222: Speed Is the New Firewall, If the Fix Holds",
+    "audio_url": "https://downloads.pod.co/467d5193-e285-48f8-a684-08501c82ee2b/ed07df05-493b-4d05-b81f-5d5b47f5ee8b.mp3",
+    "question": "What is OpenAI's Daybreak initiative and does it address AI patching reliability issues?",
+    "transcript_excerpt": "OpenAI released a product called Daybreak, a generative AI service that creates and pushes security fixes automatically as part of their 'Patch the Planet' initiative. However, the research shows we are not ready for fully automated AI patching yet. The expected value of fully LLM-generated non-human-reviewed patches is described as 'a net negative by a considerable margin,' meaning the AI fixes often make problems worse rather than solving them.",
+    "expert_name": "Kip Boyle",
+    "start_seconds": 555,
+    "end_seconds": 592
+  }
+]
