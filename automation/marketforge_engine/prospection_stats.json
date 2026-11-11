@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T13:03",
+ "updated": "2026-11-11T13:45",
  "total": 1074,
  "status": {
   "Clos (ancien mail)": 182,
@@ -8,9 +8,10 @@
   "Email invalide": 21,
   "Non valide": 94,
   "En pause (ancienne selection)": 53,
-  "Envoye": 525,
+  "Relance": 15,
   "Email instable": 3,
-  "Pret": 129,
+  "Envoye": 526,
+  "Pret": 126,
   "En pause (question hors sujet)": 1,
   "Email risque": 11,
   "En pause (pas de fiche N1)": 1,
@@ -18,12 +19,11 @@
   "En pause (a trier)": 1,
   "En pause (erreur extraction)": 9,
   "Relance 2": 1,
-  "Relance": 13,
   "Lien recu": 1
  },
- "sent_total": 744,
+ "sent_total": 747,
  "replies_total": 2,
- "followups_total": 30,
+ "followups_total": 32,
  "sent_by_day": {
   "2026-09-27": 23,
   "2026-09-28": 20,
@@ -56,7 +56,8 @@
   "2026-11-03": 17,
   "2026-11-07": 30,
   "2026-11-09": 30,
-  "2026-11-10": 30
+  "2026-11-10": 30,
+  "2026-11-11": 3
  },
  "replies_by_day": {
   "2026-09-28": 1,
@@ -65,7 +66,8 @@
  "followups_by_day": {
   "2026-10-01": 16,
   "2026-10-29": 1,
-  "2026-11-02": 13
+  "2026-11-02": 13,
+  "2026-11-11": 2
  },
  "bounces_by_day": {
   "2026-09-27": 7,
@@ -81,14 +83,74 @@
  "max_envois_jour": 100,
  "heures_envoi": "14-24",
  "cap_jour_effectif": 30,
- "stock_utilisable": 108,
+ "stock_utilisable": 105,
  "stock_pret": {
-  "stock": 108,
+  "stock": 105,
   "ouvert": true,
   "ouverture": 0
  },
- "envoyes_aujourdhui": 0,
+ "envoyes_aujourdhui": 3,
  "prospects": [
+  {
+   "slug": "career-change-maker-career-clarity-caree",
+   "podcast": "Career Change Maker | Career Clarity, Career Opportunities, Career Pivots, Burnout, Corporate Job, Portfolio Career",
+   "statut": "Envoye",
+   "ajoute_le": "2026-11-09T11:52:37.019Z",
+   "envoye_le": "2026-11-11T13:37:23.238Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.org/podcast-btb/career-change-maker-career-clarity-caree-podcast.html",
+   "queue_rank": null,
+   "variante": "C"
+  },
+  {
+   "slug": "snyder-showdown",
+   "podcast": "Snyder Showdown",
+   "statut": "Relance",
+   "ajoute_le": "2026-10-11T23:15:33.185Z",
+   "envoye_le": "2026-11-07T13:31:14.465Z",
+   "relance_le": "2026-11-11T13:37:15.389Z",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/snyder-showdown-podcast.html",
+   "queue_rank": null,
+   "variante": "B"
+  },
+  {
+   "slug": "leaders-of-b2b-podcast-interviews-on-bus",
+   "podcast": "Leaders of B2B Podcast - Interviews on Business Leadership, B2B Sales, B2B Marketing and Revenue Growth",
+   "statut": "Relance",
+   "ajoute_le": "2026-09-29T10:55:18.073Z",
+   "envoye_le": "2026-11-07T13:24:16.395Z",
+   "relance_le": "2026-11-11T13:37:12.405Z",
+   "reponse": "",
+   "fiche_url": "https://listenly.fr/podcast-btb/leaders-of-b2b-podcast-interviews-on-bus-podcast.html",
+   "queue_rank": null,
+   "variante": "E"
+  },
+  {
+   "slug": "the-jay-maymi-talk-show",
+   "podcast": "The Jay Maymi Talk Show",
+   "statut": "Envoye",
+   "ajoute_le": "2026-11-09T11:52:36.973Z",
+   "envoye_le": "2026-11-11T13:24:49.734Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.org/podcast-btb/the-jay-maymi-talk-show-podcast.html",
+   "queue_rank": null,
+   "variante": "B"
+  },
+  {
+   "slug": "built-different-podcast-australian-prope",
+   "podcast": "Built Different Podcast | Australian Property Investing with Aaron Christie-David",
+   "statut": "Envoye",
+   "ajoute_le": "2026-11-10T05:42:23.511Z",
+   "envoye_le": "2026-11-11T13:10:12.705Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.org/podcast-btb/built-different-podcast-australian-prope-podcast.html",
+   "queue_rank": null,
+   "variante": "B"
+  },
   {
    "slug": "grow-with-technology",
    "podcast": "Grow with Technology",
@@ -98,7 +160,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/grow-with-technology-podcast.html",
-   "queue_rank": 129,
+   "queue_rank": 126,
    "variante": ""
   },
   {
@@ -110,7 +172,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/everyday-business-problems-podcast.html",
-   "queue_rank": 128,
+   "queue_rank": 125,
    "variante": ""
   },
   {
@@ -122,7 +184,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/hacks-and-hobbies-with-junaid-ahmed-podcast.html",
-   "queue_rank": 127,
+   "queue_rank": 124,
    "variante": ""
   },
   {
@@ -134,7 +196,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/cyber-connect-podcast-podcast.html",
-   "queue_rank": 126,
+   "queue_rank": 123,
    "variante": ""
   },
   {
@@ -146,7 +208,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/foxcast-podcast.html",
-   "queue_rank": 125,
+   "queue_rank": 122,
    "variante": ""
   },
   {
@@ -158,7 +220,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/fearless-presentations-podcast.html",
-   "queue_rank": 124,
+   "queue_rank": 121,
    "variante": ""
   },
   {
@@ -170,7 +232,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/ess-biztools-business-advisory-services-podcast.html",
-   "queue_rank": 123,
+   "queue_rank": 120,
    "variante": ""
   },
   {
@@ -182,7 +244,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/do-diligence-podcast.html",
-   "queue_rank": 122,
+   "queue_rank": 119,
    "variante": ""
   },
   {
@@ -194,7 +256,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/corruption-crime-compliance-podcast.html",
-   "queue_rank": 121,
+   "queue_rank": 118,
    "variante": ""
   },
   {
@@ -206,7 +268,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/emotional-balance-sheet-with-paul-fenner-podcast.html",
-   "queue_rank": 120,
+   "queue_rank": 117,
    "variante": ""
   },
   {
@@ -218,7 +280,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/culture-leaders-with-dr-jessica-kriegel-podcast.html",
-   "queue_rank": 119,
+   "queue_rank": 116,
    "variante": ""
   },
   {
@@ -230,7 +292,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/great-work-for-restaurants-podcast.html",
-   "queue_rank": 118,
+   "queue_rank": 115,
    "variante": ""
   },
   {
@@ -242,7 +304,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/doctors-eyes-only-podcast.html",
-   "queue_rank": 117,
+   "queue_rank": 114,
    "variante": ""
   },
   {
@@ -254,7 +316,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/equilibrio-home-healthcare-podcast.html",
-   "queue_rank": 116,
+   "queue_rank": 113,
    "variante": ""
   },
   {
@@ -266,7 +328,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/fhp-lawyers-law-talk-podcast-podcast.html",
-   "queue_rank": 115,
+   "queue_rank": 112,
    "variante": ""
   },
   {
@@ -278,7 +340,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/ground-transportation-podcast-podcast.html",
-   "queue_rank": 114,
+   "queue_rank": 111,
    "variante": ""
   },
   {
@@ -290,7 +352,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/from-the-ground-up-podcast.html",
-   "queue_rank": 113,
+   "queue_rank": 110,
    "variante": ""
   },
   {
@@ -302,7 +364,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/growing-for-market-podcast-podcast.html",
-   "queue_rank": 112,
+   "queue_rank": 109,
    "variante": ""
   },
   {
@@ -314,7 +376,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/embrace-the-squiggle-change-happens-grow-podcast.html",
-   "queue_rank": 111,
+   "queue_rank": 108,
    "variante": ""
   },
   {
@@ -326,7 +388,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/glowing-success-podcast.html",
-   "queue_rank": 110,
+   "queue_rank": 107,
    "variante": ""
   },
   {
@@ -338,7 +400,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/for-the-record-podcast.html",
-   "queue_rank": 109,
+   "queue_rank": 106,
    "variante": ""
   },
   {
@@ -350,7 +412,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/don-t-cut-your-own-bangs-podcast.html",
-   "queue_rank": 108,
+   "queue_rank": 105,
    "variante": ""
   },
   {
@@ -362,7 +424,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/great-events-podcast.html",
-   "queue_rank": 107,
+   "queue_rank": 104,
    "variante": ""
   },
   {
@@ -374,7 +436,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/family-business-today-podcast.html",
-   "queue_rank": 106,
+   "queue_rank": 103,
    "variante": ""
   },
   {
@@ -386,7 +448,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/hayvn-hubcast-podcast.html",
-   "queue_rank": 105,
+   "queue_rank": 102,
    "variante": ""
   },
   {
@@ -398,7 +460,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/ensombl-advice-australia-podcast.html",
-   "queue_rank": 104,
+   "queue_rank": 101,
    "variante": ""
   },
   {
@@ -410,7 +472,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/continuing-education-for-mental-health-c-podcast.html",
-   "queue_rank": 103,
+   "queue_rank": 100,
    "variante": ""
   },
   {
@@ -422,7 +484,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/cyber-risk-management-podcast-podcast.html",
-   "queue_rank": 102,
+   "queue_rank": 99,
    "variante": ""
   },
   {
@@ -434,7 +496,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/good-neighbor-podcast-bergen-podcast.html",
-   "queue_rank": 101,
+   "queue_rank": 98,
    "variante": ""
   },
   {
@@ -446,7 +508,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/forank-marketing-podcast.html",
-   "queue_rank": 100,
+   "queue_rank": 97,
    "variante": ""
   },
   {
@@ -458,7 +520,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/diary-of-a-creator-with-your-creator-bes-podcast.html",
-   "queue_rank": 99,
+   "queue_rank": 96,
    "variante": ""
   },
   {
@@ -470,7 +532,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/get-business-smart-with-tony-bradshaw-podcast.html",
-   "queue_rank": 98,
+   "queue_rank": 95,
    "variante": ""
   },
   {
@@ -482,7 +544,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/deep-leadership-podcast.html",
-   "queue_rank": 97,
+   "queue_rank": 94,
    "variante": ""
   },
   {
@@ -494,7 +556,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/daring-to-succeed-podcast.html",
-   "queue_rank": 96,
+   "queue_rank": 93,
    "variante": ""
   },
   {
@@ -506,7 +568,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/disability-matters-podcast.html",
-   "queue_rank": 95,
+   "queue_rank": 92,
    "variante": ""
   },
   {
@@ -518,7 +580,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/green-giants-titans-of-clean-energy-podc-podcast.html",
-   "queue_rank": 94,
+   "queue_rank": 91,
    "variante": ""
   },
   {
@@ -530,7 +592,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/evolving-entrepreneurship-podcast.html",
-   "queue_rank": 93,
+   "queue_rank": 90,
    "variante": ""
   },
   {
@@ -542,7 +604,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/glucosetech-continuous-glucose-monitorin-podcast.html",
-   "queue_rank": 92,
+   "queue_rank": 89,
    "variante": ""
   },
   {
@@ -554,7 +616,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/extropy-on-air-finance-transformation-ap-podcast.html",
-   "queue_rank": 91,
+   "queue_rank": 88,
    "variante": ""
   },
   {
@@ -926,7 +988,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/brave-women-at-work-podcast.html",
-   "queue_rank": 90,
+   "queue_rank": 87,
    "variante": ""
   },
   {
@@ -938,7 +1000,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/business-is-war-podcast-podcast.html",
-   "queue_rank": 89,
+   "queue_rank": 86,
    "variante": ""
   },
   {
@@ -950,7 +1012,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/associated-podcast.html",
-   "queue_rank": 88,
+   "queue_rank": 85,
    "variante": ""
   },
   {
@@ -962,7 +1024,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/compassionate-climb-podcast.html",
-   "queue_rank": 87,
+   "queue_rank": 84,
    "variante": ""
   },
   {
@@ -974,7 +1036,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/austin-tech-connect-the-podcast-for-the-podcast.html",
-   "queue_rank": 86,
+   "queue_rank": 83,
    "variante": ""
   },
   {
@@ -986,7 +1048,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/between-now-and-success-podcast.html",
-   "queue_rank": 85,
+   "queue_rank": 82,
    "variante": ""
   },
   {
@@ -998,7 +1060,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/brainz-podcast-podcast.html",
-   "queue_rank": 84,
+   "queue_rank": 81,
    "variante": ""
   },
   {
@@ -1010,7 +1072,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/brave-business-triumphs-a-nkst-podcast-podcast.html",
-   "queue_rank": 83,
+   "queue_rank": 80,
    "variante": ""
   },
   {
@@ -1022,7 +1084,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/aviadev-insight-africa-podcast.html",
-   "queue_rank": 82,
+   "queue_rank": 79,
    "variante": ""
   },
   {
@@ -1034,7 +1096,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/beyond-the-brief-podcast.html",
-   "queue_rank": 81,
+   "queue_rank": 78,
    "variante": ""
   },
   {
@@ -1046,7 +1108,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/accounting-industry-insights-with-mark-h-podcast.html",
-   "queue_rank": 80,
+   "queue_rank": 77,
    "variante": ""
   },
   {
@@ -1058,7 +1120,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/aashto-re-source-q-a-podcast-podcast.html",
-   "queue_rank": 79,
+   "queue_rank": 76,
    "variante": ""
   },
   {
@@ -1070,7 +1132,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/bni-the-power-of-one-podcast.html",
-   "queue_rank": 78,
+   "queue_rank": 75,
    "variante": ""
   },
   {
@@ -1082,7 +1144,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/bourbon-business-podcast.html",
-   "queue_rank": 77,
+   "queue_rank": 74,
    "variante": ""
   },
   {
@@ -1094,7 +1156,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/american-farmland-owner-podcast-podcast.html",
-   "queue_rank": 76,
+   "queue_rank": 73,
    "variante": ""
   },
   {
@@ -1106,7 +1168,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/b2b-marketing-leaders-podcast-podcast.html",
-   "queue_rank": 75,
+   "queue_rank": 72,
    "variante": ""
   },
   {
@@ -1118,7 +1180,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/ayurveda-and-women-s-health-an-evolution-podcast.html",
-   "queue_rank": 74,
+   "queue_rank": 71,
    "variante": ""
   },
   {
@@ -1130,7 +1192,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/beyond-the-search-bar-podcast.html",
-   "queue_rank": 73,
+   "queue_rank": 70,
    "variante": ""
   },
   {
@@ -1142,7 +1204,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/acquisition-talk-podcast.html",
-   "queue_rank": 72,
+   "queue_rank": 69,
    "variante": ""
   },
   {
@@ -1154,19 +1216,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/career-coaching-with-jessness-podcast.html",
-   "queue_rank": 71,
-   "variante": ""
-  },
-  {
-   "slug": "built-different-podcast-australian-prope",
-   "podcast": "Built Different Podcast | Australian Property Investing with Aaron Christie-David",
-   "statut": "Pret",
-   "ajoute_le": "2026-11-10T05:42:23.511Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.org/podcast-btb/built-different-podcast-australian-prope-podcast.html",
-   "queue_rank": 70,
+   "queue_rank": 68,
    "variante": ""
   },
   {
@@ -1178,7 +1228,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/cloudy-with-a-chance-of-insights-a-micro-podcast.html",
-   "queue_rank": 69,
+   "queue_rank": 67,
    "variante": ""
   },
   {
@@ -1190,7 +1240,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/aba-business-leaders-podcast.html",
-   "queue_rank": 68,
+   "queue_rank": 66,
    "variante": ""
   },
   {
@@ -1202,7 +1252,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/beyond-the-briefcase-podcast.html",
-   "queue_rank": 67,
+   "queue_rank": 65,
    "variante": ""
   },
   {
@@ -1214,7 +1264,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/boss-leap-podcast.html",
-   "queue_rank": 66,
+   "queue_rank": 64,
    "variante": ""
   },
   {
@@ -1226,7 +1276,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/business-on-top-with-kaeli-lindholm-podcast.html",
-   "queue_rank": 65,
+   "queue_rank": 63,
    "variante": ""
   },
   {
@@ -1238,7 +1288,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/better-body-academy-podcast-podcast.html",
-   "queue_rank": 64,
+   "queue_rank": 62,
    "variante": ""
   },
   {
@@ -1250,7 +1300,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/bee-formless-flow-driven-ceo-podcast.html",
-   "queue_rank": 63,
+   "queue_rank": 61,
    "variante": ""
   },
   {
@@ -1262,7 +1312,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/b2b-insights-podcast-podcast.html",
-   "queue_rank": 62,
+   "queue_rank": 60,
    "variante": ""
   },
   {
@@ -1274,7 +1324,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/banking-on-data-podcast.html",
-   "queue_rank": 61,
+   "queue_rank": 59,
    "variante": ""
   },
   {
@@ -1286,7 +1336,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/construction-genius-construction-leaders-podcast.html",
-   "queue_rank": 60,
+   "queue_rank": 58,
    "variante": ""
   },
   {
@@ -1298,7 +1348,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/coasting-in-retirement-with-josh-null-podcast.html",
-   "queue_rank": 59,
+   "queue_rank": 57,
    "variante": ""
   },
   {
@@ -1310,7 +1360,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/ai-for-architects-podcast.html",
-   "queue_rank": 58,
+   "queue_rank": 56,
    "variante": ""
   },
   {
@@ -1322,7 +1372,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/ai-world-podcast.html",
-   "queue_rank": 57,
+   "queue_rank": 55,
    "variante": ""
   },
   {
@@ -1334,7 +1384,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/accountant-s-flight-plan-podcast.html",
-   "queue_rank": 56,
+   "queue_rank": 54,
    "variante": ""
   },
   {
@@ -1346,7 +1396,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/build-better-business-podcast-with-chuck-podcast.html",
-   "queue_rank": 55,
+   "queue_rank": 53,
    "variante": ""
   },
   {
@@ -1358,7 +1408,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/biotalk-with-rich-bendis-podcast.html",
-   "queue_rank": 54,
+   "queue_rank": 52,
    "variante": ""
   },
   {
@@ -1370,7 +1420,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/best-of-the-best-in-franchising-podcast.html",
-   "queue_rank": 53,
+   "queue_rank": 51,
    "variante": ""
   },
   {
@@ -1394,7 +1444,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/ad-sales-training-nation-podcast.html",
-   "queue_rank": 52,
+   "queue_rank": 50,
    "variante": ""
   },
   {
@@ -1766,7 +1816,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/mitchell-s-moments-coaching-podcast-podcast.html",
-   "queue_rank": 51,
+   "queue_rank": 49,
    "variante": ""
   },
   {
@@ -1778,7 +1828,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/machine-shop-growth-podcast.html",
-   "queue_rank": 50,
+   "queue_rank": 48,
    "variante": ""
   },
   {
@@ -1790,7 +1840,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/my-true-position-podcast.html",
-   "queue_rank": 49,
+   "queue_rank": 47,
    "variante": ""
   },
   {
@@ -1802,7 +1852,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/more-than-money-with-gene-dickison-podcast.html",
-   "queue_rank": 48,
+   "queue_rank": 46,
    "variante": ""
   },
   {
@@ -1814,7 +1864,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/npte-clinical-files-physical-therapy-podcast.html",
-   "queue_rank": 47,
+   "queue_rank": 45,
    "variante": ""
   },
   {
@@ -1826,7 +1876,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/inspired-stewardship-podcast.html",
-   "queue_rank": 46,
+   "queue_rank": 44,
    "variante": ""
   },
   {
@@ -1838,7 +1888,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/euphoric-alcohol-free-podcast.html",
-   "queue_rank": 45,
+   "queue_rank": 43,
    "variante": ""
   },
   {
@@ -1850,7 +1900,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/nerding-out-with-viktor-podcast.html",
-   "queue_rank": 44,
+   "queue_rank": 42,
    "variante": ""
   },
   {
@@ -1862,7 +1912,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/exceptionally-good-leaders-for-a-better-podcast.html",
-   "queue_rank": 43,
+   "queue_rank": 41,
    "variante": ""
   },
   {
@@ -1874,7 +1924,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/mac-bleu-podcast.html",
-   "queue_rank": 42,
+   "queue_rank": 40,
    "variante": ""
   },
   {
@@ -1886,7 +1936,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/lifetime-legacy-lawyers-podcast.html",
-   "queue_rank": 41,
+   "queue_rank": 39,
    "variante": ""
   },
   {
@@ -1898,7 +1948,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/business-insights-podcast.html",
-   "queue_rank": 40,
+   "queue_rank": 38,
    "variante": ""
   },
   {
@@ -1910,7 +1960,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/let-s-clear-the-air-energy-podcast-podcast.html",
-   "queue_rank": 39,
+   "queue_rank": 37,
    "variante": ""
   },
   {
@@ -1922,7 +1972,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/inspector-empire-builder-podcast.html",
-   "queue_rank": 38,
+   "queue_rank": 36,
    "variante": ""
   },
   {
@@ -1934,7 +1984,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/airdrie-inside-podcast.html",
-   "queue_rank": 37,
+   "queue_rank": 35,
    "variante": ""
   },
   {
@@ -1946,7 +1996,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/success-innovation-podcast.html",
-   "queue_rank": 36,
+   "queue_rank": 34,
    "variante": ""
   },
   {
@@ -1958,7 +2008,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/mostly-middle-tennessee-business-podcast-podcast.html",
-   "queue_rank": 35,
+   "queue_rank": 33,
    "variante": ""
   },
   {
@@ -1970,7 +2020,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/point-of-impact-with-aaron-hale-podcast.html",
-   "queue_rank": 34,
+   "queue_rank": 32,
    "variante": ""
   },
   {
@@ -1982,7 +2032,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/straight-from-the-cutter-s-mouth-a-retin-podcast.html",
-   "queue_rank": 33,
+   "queue_rank": 31,
    "variante": ""
   },
   {
@@ -1994,7 +2044,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/at-the-power-table-podcast-podcast.html",
-   "queue_rank": 32,
+   "queue_rank": 30,
    "variante": ""
   },
   {
@@ -2006,7 +2056,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/creative-business-spark-podcast.html",
-   "queue_rank": 31,
+   "queue_rank": 29,
    "variante": ""
   },
   {
@@ -2018,7 +2068,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/the-playeasy-warmup-podcast.html",
-   "queue_rank": 30,
+   "queue_rank": 28,
    "variante": ""
   },
   {
@@ -2030,7 +2080,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/the-whiskey-ring-podcast-podcast.html",
-   "queue_rank": 29,
+   "queue_rank": 27,
    "variante": ""
   },
   {
@@ -2042,7 +2092,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/the-execution-gap-podcast.html",
-   "queue_rank": 28,
+   "queue_rank": 26,
    "variante": ""
   },
   {
@@ -2054,7 +2104,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/southeast-texas-works-podcast.html",
-   "queue_rank": 27,
+   "queue_rank": 25,
    "variante": ""
   },
   {
@@ -2066,7 +2116,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/independence-by-design-podcast.html",
-   "queue_rank": 26,
+   "queue_rank": 24,
    "variante": ""
   },
   {
@@ -2078,7 +2128,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/scaling-up-h2o-podcast.html",
-   "queue_rank": 25,
+   "queue_rank": 23,
    "variante": ""
   },
   {
@@ -2090,7 +2140,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/inspired-leadership-hr-workplace-culture-podcast.html",
-   "queue_rank": 24,
+   "queue_rank": 22,
    "variante": ""
   },
   {
@@ -2102,7 +2152,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/nourishing-autism-podcast.html",
-   "queue_rank": 23,
+   "queue_rank": 21,
    "variante": ""
   },
   {
@@ -2114,7 +2164,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/the-health-tech-edge-podcast.html",
-   "queue_rank": 22,
+   "queue_rank": 20,
    "variante": ""
   },
   {
@@ -2126,7 +2176,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/the-gaming-playbook-w-harry-phokou-podcast.html",
-   "queue_rank": 21,
+   "queue_rank": 19,
    "variante": ""
   },
   {
@@ -2138,7 +2188,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/light-bulb-moments-with-phil-fornaro-podcast.html",
-   "queue_rank": 20,
+   "queue_rank": 18,
    "variante": ""
   },
   {
@@ -2150,7 +2200,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/systemise-and-scale-with-gary-das-podcast.html",
-   "queue_rank": 19,
+   "queue_rank": 17,
    "variante": ""
   },
   {
@@ -2162,7 +2212,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/healthy-careers-podcast.html",
-   "queue_rank": 18,
+   "queue_rank": 16,
    "variante": ""
   },
   {
@@ -2174,7 +2224,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/talk-ip-to-me-podcast.html",
-   "queue_rank": 17,
+   "queue_rank": 15,
    "variante": ""
   },
   {
@@ -2186,7 +2236,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/cup-o-go-podcast.html",
-   "queue_rank": 16,
+   "queue_rank": 14,
    "variante": ""
   },
   {
@@ -2198,7 +2248,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/significance-of-wealth-with-tom-ruggie-podcast.html",
-   "queue_rank": 15,
+   "queue_rank": 13,
    "variante": ""
   },
   {
@@ -2210,7 +2260,7 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/advisor-talk-with-frank-larosa-podcast.html",
-   "queue_rank": 14,
+   "queue_rank": 12,
    "variante": ""
   },
   {
@@ -2222,30 +2272,6 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/the-abic-podcast-podcast.html",
-   "queue_rank": 13,
-   "variante": ""
-  },
-  {
-   "slug": "career-change-maker-career-clarity-caree",
-   "podcast": "Career Change Maker | Career Clarity, Career Opportunities, Career Pivots, Burnout, Corporate Job, Portfolio Career",
-   "statut": "Pret",
-   "ajoute_le": "2026-11-09T11:52:37.019Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.org/podcast-btb/career-change-maker-career-clarity-caree-podcast.html",
-   "queue_rank": 12,
-   "variante": ""
-  },
-  {
-   "slug": "the-jay-maymi-talk-show",
-   "podcast": "The Jay Maymi Talk Show",
-   "statut": "Pret",
-   "ajoute_le": "2026-11-09T11:52:36.973Z",
-   "envoye_le": "",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.org/podcast-btb/the-jay-maymi-talk-show-podcast.html",
    "queue_rank": 11,
    "variante": ""
   },
@@ -2582,30 +2608,6 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.fr/podcast-btb/a-brave-new-podcast-podcast.html",
-   "queue_rank": null,
-   "variante": "E"
-  },
-  {
-   "slug": "snyder-showdown",
-   "podcast": "Snyder Showdown",
-   "statut": "Envoye",
-   "ajoute_le": "2026-10-11T23:15:33.185Z",
-   "envoye_le": "2026-11-07T13:31:14.465Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/snyder-showdown-podcast.html",
-   "queue_rank": null,
-   "variante": "B"
-  },
-  {
-   "slug": "leaders-of-b2b-podcast-interviews-on-bus",
-   "podcast": "Leaders of B2B Podcast - Interviews on Business Leadership, B2B Sales, B2B Marketing and Revenue Growth",
-   "statut": "Envoye",
-   "ajoute_le": "2026-09-29T10:55:18.073Z",
-   "envoye_le": "2026-11-07T13:24:16.395Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.fr/podcast-btb/leaders-of-b2b-podcast-interviews-on-bus-podcast.html",
    "queue_rank": null,
    "variante": "E"
   },
