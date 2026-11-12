@@ -100,13 +100,13 @@ var MFE_FIRST_MAIL = [
   '',
   'So when <u>a business leader asks a question about you</u>, your expertise can finally be cited.',
   '',
-  '<strong>I can redirect this qualified audience to your website or Hub, for free.</strong> Would you be interested? Setup takes 5 minutes.',
+  '<strong>Have you ever considered turning each episode into traffic that comes directly from Google & AI, with nothing to change in your strategy?</strong>',
   '',
   'Best regards,',
   '',
   'Etienne',
   '',
-  '<em>PS: Without a reply, 100% of this traffic stays on Listenly, not on your website.</em>'
+  '<em>PS: We already have the Index system, and we can install it on your website.</em>'
 ].join('\n');
 // Test A/B du CTA (03/10/2026) : 5 variantes A-E, une seule par envoi. Texte brut (aucun gras / souligne dans les CTA).
 var MFE_CTAS = {
