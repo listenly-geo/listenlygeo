@@ -234,8 +234,8 @@ ONBOARD si TOUTES ces conditions sont reunies (acceptance_path = "ENTREPRISE" ou
 En cas de doute sur le sujet business ou sur la notoriete (media / celebrite), REJECT. Un createur independant
 n'est PLUS un motif de rejet.
 
-TA MISSION : a partir des metadonnees iTunes ci-dessous, et en utilisant la recherche web pour verifier
-qui produit reellement le podcast et son niveau de notoriete, determine si c'est un podcast d'entreprise B2B
+TA MISSION : a partir des metadonnees iTunes ci-dessous, et en t'appuyant sur ces seules metadonnees (sans recherche web) pour juger
+qui produit le podcast et son niveau de notoriete, determine si c'est un podcast d'entreprise B2B
 a audience petite ou moyenne.
 
 METADONNEES ITUNES :
@@ -259,13 +259,28 @@ Reponds STRICTEMENT avec un objet JSON valide, rien d'autre :
 }}"""
 
 
+# 12/11/2026 (Etienne) : la recherche web par podcast coutait ~20 000 tokens/appel (12 M de tokens Haiku/jour).
+# Par defaut : qualification sur les seules metadonnees (~1 000 tokens). DISCOVERY_WEB_SEARCH=1 la remet.
+WEB_SEARCH = os.environ.get("DISCOVERY_WEB_SEARCH", "0") == "1"
+QUALIF_JOUR = int(os.environ.get("DISCOVERY_QUALIF_JOUR", "60") or 60)
+QUALIF_FILE = "automation/marketforge_engine/qualif_budget.json"
+# Le plafond limite aussi la recherche de contacts : inutile de verifier des adresses (cout) si on ne peut plus qualifier.
+try:
+    _qb0 = json.load(open(QUALIF_FILE, encoding="utf-8"))
+    _used0 = int(_qb0.get("used", 0)) if _qb0.get("date") == __import__("datetime").date.today().isoformat() else 0
+except Exception:
+    _used0 = 0
+MAX_QUALIFY = max(0, min(MAX_QUALIFY, QUALIF_JOUR - _used0))
+
+
 def call_claude_with_search(prompt):
     payload = {
         "model": MODEL,
-        "max_tokens": 1200,
-        "tools": [{"type": "web_search_20250305", "name": "web_search"}],
+        "max_tokens": 1200 if WEB_SEARCH else 400,
         "messages": [{"role": "user", "content": prompt}],
     }
+    if WEB_SEARCH:
+        payload["tools"] = [{"type": "web_search_20250305", "name": "web_search"}]
     data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(
         "https://api.anthropic.com/v1/messages", data=data,
@@ -943,7 +958,15 @@ def main():
 
     onboard_list = []
     reject_list = []
+    _qb = load_json(QUALIF_FILE, {})
+    _qtoday = __import__("datetime").date.today().isoformat()
+    if _qb.get("date") != _qtoday:
+        _qb = {"date": _qtoday, "used": 0}
     for r in to_qualify:
+        if int(_qb.get("used", 0)) >= QUALIF_JOUR:
+            log(f"Plafond quotidien de qualifications atteint ({QUALIF_JOUR}/jour) : les autres candidats seront vus un autre jour.")
+            break
+        _qb["used"] = int(_qb.get("used", 0)) + 1
         name = r.get("collectionName", "?")
         prompt = QUALIFICATION_PROMPT.format(
             name=name,
@@ -1003,6 +1026,11 @@ def main():
             reject_list.append(record)
         time.sleep(0.3)
 
+    try:
+        with open(QUALIF_FILE, "w", encoding="utf-8") as _f:
+            json.dump(_qb, _f)
+    except Exception:
+        pass
     push_cohorte(onboard_list)  # MAJ 19/10/2026 : suivi Cohortes
     os.makedirs(os.path.dirname(SEEN_HISTORY_FILE), exist_ok=True)
     # 27/10/2026 : ne jamais ecraser l'historique avec une version plus petite (un autre workflow l'avait remis a zero a 07h46,
