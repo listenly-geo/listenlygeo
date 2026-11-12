@@ -1,17 +1,19 @@
-# Brief trafic SEO — 2026-11-11
+# Brief trafic SEO — 2026-11-12
 
-- Période ['2026-08-11', '2026-11-09'] : 17 clics / 2964 impressions sur 474 pages
-- Pages de moments dans Google : 75 pages, 306 impressions, 10 clics
-- Moments ouverts au sitemap : 81 (dont 77 depuis 7 j+) ; contrôlés : 77 ; indexés : 67 (87.0%)
+- Période ['2026-08-12', '2026-11-10'] : 18 clics / 2976 impressions sur 474 pages
+- Pages de moments dans Google : 75 pages, 309 impressions, 10 clics
+- Moments ouverts au sitemap : 84 (dont 77 depuis 7 j+) ; contrôlés : 77 ; indexés : 67 (87.0%)
 - Quota : 10/jour → recommandé 25/jour (87.0% indexees : on peut accelerer)
 
 ## Par type de page
-- hub : 276 pages, 2093 impr., 4 clics
-- show-listenly : 114 pages, 519 impr., 3 clics
-- moment : 75 pages, 306 impr., 10 clics
+- hub : 276 pages, 2098 impr., 4 clics
+- show-listenly : 114 pages, 523 impr., 4 clics
+- moment : 75 pages, 309 impr., 10 clics
 - autre : 9 pages, 46 impr., 0 clics
 
 ## 10 pages de moments à faire indexer à la main aujourd'hui
+- https://listenly.org/podcast-btb/m/the-bob-lefsetz-podcast/6892ad417f (inconnue)
+- https://listenly.org/podcast-btb/m/this-american-life/445346ea4a (inconnue)
 - https://listenly.org/podcast-btb/m/best-damn-coach-podcast-conversations-fo/eb97b64625 (inconnue)
 - https://listenly.org/podcast-btb/m/beyond-luxury/1a55291ad7 (inconnue)
 - https://listenly.org/podcast-btb/m/the-single-source/103c535b37 (inconnue)
