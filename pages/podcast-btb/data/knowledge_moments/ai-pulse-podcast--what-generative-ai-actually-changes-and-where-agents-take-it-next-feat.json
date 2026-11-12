@@ -1,0 +1,52 @@
+[
+  {
+    "podcast_name": "AI Pulse Podcast",
+    "episode_title": "What Generative AI Actually Changes, and Where Agents Take it Next feat. Alan Nichol, CTO of Rasa",
+    "audio_url": "https://anchor.fm/s/ed86b2d8/podcast/play/124328517/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-17%2F429986941-44100-2-941daef0fa467.mp3",
+    "question": "What are the main use cases where generative AI has genuinely moved the needle according to recent progress?",
+    "transcript_excerpt": "Agentic coding and LLM-assisted coding represent the leading edge where generative AI is working well. Around the end of last year, LLM coding transitioned from augmenting what humans could do to performing most work mostly correctly most of the time, with humans intervening only in minor ways. Breakthroughs have also emerged in solving open problems in mathematics and theoretical physics, where AI serves as a tool for generating new ideas.",
+    "expert_name": "Alan Nichol",
+    "start_seconds": 89,
+    "end_seconds": 327
+  },
+  {
+    "podcast_name": "AI Pulse Podcast",
+    "episode_title": "What Generative AI Actually Changes, and Where Agents Take it Next feat. Alan Nichol, CTO of Rasa",
+    "audio_url": "https://anchor.fm/s/ed86b2d8/podcast/play/124328517/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-17%2F429986941-44100-2-941daef0fa467.mp3",
+    "question": "What is the core difference between generative AI and agentic AI in terms of capabilities and autonomy?",
+    "transcript_excerpt": "Generative AI at its core uses a large language model to produce text, wrapped in a system providing additional capabilities like data retrieval and action-taking. Agentic AI adds the ability to take autonomous decisions and reason about what it should do, rather than following prescriptive rules. For example, instead of pre-defining exactly how to handle a refund, agentic AI gives the LLM the opportunity to assess the customer situation and come up with a reasonable solution autonomously.",
+    "expert_name": "Alan Nichol",
+    "start_seconds": 376,
+    "end_seconds": 632
+  },
+  {
+    "podcast_name": "AI Pulse Podcast",
+    "episode_title": "What Generative AI Actually Changes, and Where Agents Take it Next feat. Alan Nichol, CTO of Rasa",
+    "audio_url": "https://anchor.fm/s/ed86b2d8/podcast/play/124328517/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-17%2F429986941-44100-2-941daef0fa467.mp3",
+    "question": "How has the balance between LLM autonomy and structured control in AI system architectures evolved over the past 12 to 18 months?",
+    "transcript_excerpt": "There has been a reversal in architectural approaches. Previously, engineers built strict workflows and sprinkled LLM processing on top for rephrasing and information extraction. Now, given the dramatic progress in model capabilities, organizations start with the LLM as the primary layer and add determinism and control on top as an additional layer. This reversal became possible only because the rate of progress in model capabilities is so high.",
+    "expert_name": "Alan Nichol",
+    "start_seconds": 1214,
+    "end_seconds": 1439
+  },
+  {
+    "podcast_name": "AI Pulse Podcast",
+    "episode_title": "What Generative AI Actually Changes, and Where Agents Take it Next feat. Alan Nichol, CTO of Rasa",
+    "audio_url": "https://anchor.fm/s/ed86b2d8/podcast/play/124328517/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-17%2F429986941-44100-2-941daef0fa467.mp3",
+    "question": "When should organizations use rule-based systems versus agentic AI for complex business processes?",
+    "transcript_excerpt": "If you already know exactly how a business process works, running it through an LLM adds no value. However, for regulated industries and compliance-critical steps, you want to enforce specific procedures because you are legally obligated to do so. The key is pairing LLM capabilities with structured control in a way that lets the LLM work effectively while maintaining necessary guardrails and determinism for risk management.",
+    "expert_name": "Alan Nichol",
+    "start_seconds": 987,
+    "end_seconds": 1200
+  },
+  {
+    "podcast_name": "AI Pulse Podcast",
+    "episode_title": "What Generative AI Actually Changes, and Where Agents Take it Next feat. Alan Nichol, CTO of Rasa",
+    "audio_url": "https://anchor.fm/s/ed86b2d8/podcast/play/124328517/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-17%2F429986941-44100-2-941daef0fa467.mp3",
+    "question": "Why is the McDonald's chatbot example significant for understanding AI guardrails in production systems?",
+    "transcript_excerpt": "McDonald's implemented a chatbot in their app to help users decide what to order but did not put proper guardrails around it. Users discovered they could use it to write code, causing the company's API bills to skyrocket. This demonstrates why governance, control, and deliberate design behind how AI agents operate is critical to prevent unintended usage and cost overruns in production applications.",
+    "expert_name": "Alan Nichol",
+    "start_seconds": 1311,
+    "end_seconds": 1424
+  }
+]

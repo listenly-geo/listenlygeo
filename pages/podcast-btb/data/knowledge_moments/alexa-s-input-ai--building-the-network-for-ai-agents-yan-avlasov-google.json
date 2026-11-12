@@ -1,0 +1,52 @@
+[
+  {
+    "podcast_name": "Alexa's Input (AI)",
+    "episode_title": "Building the Network for AI Agents — Yan Avlasov, Google",
+    "audio_url": "https://anchor.fm/s/4013852c/podcast/play/125692018/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-16%2F431991897-44100-2-844c61649dc18.mp3",
+    "question": "Why is Envoy the foundation for building AI agent networking infrastructure instead of creating new technology?",
+    "transcript_excerpt": "Envoy provides a great foundation with significant operational history running in the most demanding environments at Google. It has been analyzed with NITs models to address weaknesses, and reinventing the wheel would be a distraction; instead, Google is focusing energy on building new agentic layers on top of already strong existing infrastructure. Envoy is already integrated into most infrastructure and people know how to operate it, making adaptation the logical path forward.",
+    "expert_name": "Yan Avlasov",
+    "start_seconds": 1082,
+    "end_seconds": 1333
+  },
+  {
+    "podcast_name": "Alexa's Input (AI)",
+    "episode_title": "Building the Network for AI Agents — Yan Avlasov, Google",
+    "audio_url": "https://anchor.fm/s/4013852c/podcast/play/125692018/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-16%2F431991897-44100-2-844c61649dc18.mp3",
+    "question": "What new layers are emerging in the OSI model for agentic workloads and what do they do?",
+    "transcript_excerpt": "Two new layers have emerged on top of the traditional seven-layer OSI model: a semantic or behavioral layer that recognizes agent intent (such as whether an agent wants to make a purchase) and routes to appropriate protocols, and a communications layer below it containing new protocols like MCP and A2A for specific tasks. The semantic layer enables semantic routing to pick the optimal model based on capabilities, cost, and latency of the request.",
+    "expert_name": "Yan Avlasov",
+    "start_seconds": 683,
+    "end_seconds": 863
+  },
+  {
+    "podcast_name": "Alexa's Input (AI)",
+    "episode_title": "Building the Network for AI Agents — Yan Avlasov, Google",
+    "audio_url": "https://anchor.fm/s/4013852c/podcast/play/125692018/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-16%2F431991897-44100-2-844c61649dc18.mp3",
+    "question": "How has the cost model and optimization strategy for AI inference proxies changed compared to traditional request routing?",
+    "transcript_excerpt": "With agentic protocols, the cost of inference requests has dramatically increased compared to search queries, and requests take significantly longer. The network now needs to choose which model to route requests to, provide cost controls, optimize costs due to high inference expenses, and handle retries by potentially choosing completely different providers with different schemas—for example, transcoding from Anthropic to Gemini schema when one provider runs out of tokens.",
+    "expert_name": "Yan Avlasov",
+    "start_seconds": 832,
+    "end_seconds": 998
+  },
+  {
+    "podcast_name": "Alexa's Input (AI)",
+    "episode_title": "Building the Network for AI Agents — Yan Avlasov, Google",
+    "audio_url": "https://anchor.fm/s/4013852c/podcast/play/125692018/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-16%2F431991897-44100-2-844c61649dc18.mp3",
+    "question": "What are the challenges with dynamic policy management when running hundreds of thousands of agents at scale?",
+    "transcript_excerpt": "Agentic applications require policies defined per individual agent rather than per entire application, which at cloud scale means proxies need millions of different bits of information loaded into them. Google had to redesign control planes to fetch policies dynamically as traffic is observed and evict policies based on ebb and flow of agentic traffic, which created learning pains because existing control plane mechanisms didn't fit well with dynamic policy loading requirements.",
+    "expert_name": "Yan Avlasov",
+    "start_seconds": 1387,
+    "end_seconds": 1616
+  },
+  {
+    "podcast_name": "Alexa's Input (AI)",
+    "episode_title": "Building the Network for AI Agents — Yan Avlasov, Google",
+    "audio_url": "https://anchor.fm/s/4013852c/podcast/play/125692018/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-16%2F431991897-44100-2-844c61649dc18.mp3",
+    "question": "How does AI security vulnerability detection differ from traditional human-led code analysis?",
+    "transcript_excerpt": "AI models are much better at finding weak points than seasoned human security analysts and need significantly less time to piece together multiple bugs and produce serious exploits. They excel at finding needles in haystacks and discovering multiple vulnerabilities that work together to create major problems, representing a double-edged sword where security improvements are possible but exploitation becomes easier if organizations don't keep up.",
+    "expert_name": "Yan Avlasov",
+    "start_seconds": 404,
+    "end_seconds": 477
+  }
+]

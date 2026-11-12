@@ -1,0 +1,52 @@
+[
+  {
+    "podcast_name": "AI and Data Horizons",
+    "episode_title": "Robert Hodges - Real-Time Analytics and the Database Convergence",
+    "audio_url": "https://traffic.libsyn.com/secure/3658aa8a-b828-42db-be48-b8759d64ab95/AIDH_Robert_Hogdes.mp3?dest-id=5152195",
+    "question": "What is real-time analytics and how do database requirements differ from traditional transactional databases?",
+    "transcript_excerpt": "Real-time analytics means being able to process data very quickly into large data sets so that if something happens in the outside world, you see it within seconds to a small number of minutes and can ask questions about that data very quickly. A classic example is a security management system where if somebody makes DNS calls to a known malware host, you want to know about it within 20 seconds, and then allow analysts to sort through data to find when it started, how wide it spreads, and which applications are affected. This differs from transactional databases because it requires scanning data very quickly with big chunks of data and column storage, rather than the small 4K blocks optimized for transaction processing.",
+    "expert_name": "Robert Hodges",
+    "start_seconds": 247,
+    "end_seconds": 468
+  },
+  {
+    "podcast_name": "AI and Data Horizons",
+    "episode_title": "Robert Hodges - Real-Time Analytics and the Database Convergence",
+    "audio_url": "https://traffic.libsyn.com/secure/3658aa8a-b828-42db-be48-b8759d64ab95/AIDH_Robert_Hogdes.mp3?dest-id=5152195",
+    "question": "What are practical industry examples where real-time analytics databases deliver measurable business value?",
+    "transcript_excerpt": "Real-time analytics is now pervasive across multiple industries. In high-frequency trading, traders react at the nanosecond level and want to know during the trading day if systems are operating at absolute top capacity because if they aren't, that's how you lose money. In sports, franchises are moving to real-time data systems to extract value during the critical 50-minute window where fans spend hundreds of dollars. Security systems use real-time analytics to detect threats, and companies training LLMs monitor enormous amounts of data generated through training and inference to ensure systems operate at best capacity and allocate costs optimally.",
+    "expert_name": "Robert Hodges",
+    "start_seconds": 392,
+    "end_seconds": 633
+  },
+  {
+    "podcast_name": "AI and Data Horizons",
+    "episode_title": "Robert Hodges - Real-Time Analytics and the Database Convergence",
+    "audio_url": "https://traffic.libsyn.com/secure/3658aa8a-b828-42db-be48-b8759d64ab95/AIDH_Robert_Hogdes.mp3?dest-id=5152195",
+    "question": "Why is open source the right approach for building real-time analytics database systems?",
+    "transcript_excerpt": "Open source is driven by the fact that systems dealing with large data are too big to build from first principles on a desktop or in an academic lab; they require solving real industry problems. Many modern databases like Hadoop, HBase, and Spark emerged from industry problems with code written by people at Facebook and Uber, making open source the natural approach. Additionally, once a database is open source, AI models can train on it—when asking ChatGPT or Claude to build a real-time analytics application on an event stream from Kafka, the model will recognize ClickHouse and Kafka because it trained on them, allowing it to assemble systems from technology it understands. This reinforces open source as good for both generating and distributing technology and enabling AI models to build with it effectively.",
+    "expert_name": "Robert Hodges",
+    "start_seconds": 854,
+    "end_seconds": 1103
+  },
+  {
+    "podcast_name": "AI and Data Horizons",
+    "episode_title": "Robert Hodges - Real-Time Analytics and the Database Convergence",
+    "audio_url": "https://traffic.libsyn.com/secure/3658aa8a-b828-42db-be48-b8759d64ab95/AIDH_Robert_Hogdes.mp3?dest-id=5152195",
+    "question": "How do PostgreSQL, ClickHouse, Kafka, and data lakes work together as a unified data architecture?",
+    "transcript_excerpt": "Most data problems can be represented by a combination of four database types. PostgreSQL handles transaction processing and drives stock exchanges as an incredibly capable OLTP database. ClickHouse allows you to analyze vast piles of data served by Kafka from armies of software services. Kafka is essentially a log-based database that streams event data. Data lakes (now called lake houses) are where you exhaust and store very large pools of data as references for reports, compliance, and for data scientists and analysts who need direct access to large amounts of data for creative use. Together, this 'quadrifecta of data' provides a flexible architecture where there are not many use cases that cannot be solved by a combination of these databases, and it allows exploration and evolution without locking into old vendor architectures.",
+    "expert_name": "Robert Hodges",
+    "start_seconds": 1060,
+    "end_seconds": 1274
+  },
+  {
+    "podcast_name": "AI and Data Horizons",
+    "episode_title": "Robert Hodges - Real-Time Analytics and the Database Convergence",
+    "audio_url": "https://traffic.libsyn.com/secure/3658aa8a-b828-42db-be48-b8759d64ab95/AIDH_Robert_Hogdes.mp3?dest-id=5152195",
+    "question": "How should organizations design data systems for an uncertain AI future?",
+    "transcript_excerpt": "Organizations should build systems that will work no matter how the AI revolution plays out. A 2024 Mericor study found that AI benchmarks covered only 10% of tasks in the United States government database of real jobs, highlighting uncertainty about where AI will be effective. While AI is revolutionizing code development, it may not help much with simpler tasks like logging from a restaurant. The key is to design flexible architectures where the data driving applications remains absolutely critical to these architectures regardless of how AI evolves, making the database infrastructure the stable foundation upon which other technologies can be built and adapted.",
+    "expert_name": "Robert Hodges",
+    "start_seconds": 1194,
+    "end_seconds": 1278
+  }
+]
