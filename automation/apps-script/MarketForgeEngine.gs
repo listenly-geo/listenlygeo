@@ -94,7 +94,7 @@ var MFE_MSG_VERSION = '23';   // incremente -> les textes MFE_MSG_* de Reglages 
 var MFE_FIRST_MAIL = [
   '{HELLO}',
   '',
-  'I\'m reaching out because I listed your podcast <strong>{PODCAST}</strong> on <a href="https://listenly.org">Listenly.org</a>, the AI Wikipedia of podcasts.',
+  'I\'m reaching out because I listed your podcast <strong>{PODCAST}</strong> on <a href="https://listenly.org">Listenly.org</a>, <strong>the first Podcast Index built for Google & AI</strong>.',
   '',
   'We turn your podcast\'s audio expertise into answers that Google, ChatGPT, Claude and Gemini can cite, <a href="{MOMENT_URL}">like here</a>.',
   '',
