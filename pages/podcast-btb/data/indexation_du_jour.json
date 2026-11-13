@@ -2,12 +2,24 @@
  "date": "2026-11-13",
  "mode": "liste a traiter dans Claude + Chrome (demande d'indexation manuelle, validation par page)",
  "repartition": {
-  "connu": 9,
-  "mot_cle": 1
+  "connu": 5,
+  "mot_cle": 5
  },
  "selection": "note seule (volumes non a jour, Keyword Planner en echec)",
  "pretes": 10,
  "urls": [
+  {
+   "url": "https://listenly.org/podcast-btb/m/the-angel-next-door/901b239770",
+   "titre": "Fabric VC Series A graduation rate? | The Angel Next Door",
+   "score_qualite": 72,
+   "source": "connu",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
   {
    "url": "https://listenly.org/podcast-btb/m/acq2-by-acquired/8083488071",
    "titre": "What is Sierra's AI agent mission? | ACQ2 by Acquired",
@@ -57,10 +69,22 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/wait-wait-dont-tell-me/31cce4ce8b",
-   "titre": "What pressure did Lilly King describe? | Wait Wait...",
-   "score_qualite": 58,
-   "source": "connu",
+   "url": "https://listenly.org/podcast-btb/m/theedge-podcast/b8b54499f2",
+   "titre": "Awards floyd lee locums best place work? | TheEdge Podcast",
+   "score_qualite": 60,
+   "source": "mot_cle",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/my-grc-pov/a2ccf2c5af",
+   "titre": "What is risk management definition? | MY GRC POV",
+   "score_qualite": 76,
+   "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
    "etat": "URL is unknown to Google",
@@ -81,10 +105,10 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/wait-wait-dont-tell-me/ba071d9aa4",
-   "titre": "What design flaws hit short-term rentals? | Wait Wait...",
-   "score_qualite": 58,
-   "source": "connu",
+   "url": "https://listenly.org/podcast-btb/m/coffee-cap-rates-commercial-real-estate/7454d64b9f",
+   "titre": "Is Brooklyn adding affordable homes? | Coffee & Cap Rates",
+   "score_qualite": 94,
+   "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
    "etat": "URL is unknown to Google",
@@ -93,34 +117,10 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/world-war-2-podcast/d81690aae3",
-   "titre": "What human cost does the WWII series show? | World War II",
-   "score_qualite": 58,
-   "source": "connu",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/young-and-profiting-with-hala-taha-entrepreneurship/3d1db310f9",
-   "titre": "Does SSO simplify two-factor login? | Young and Profiting",
-   "score_qualite": 58,
-   "source": "connu",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/young-and-profiting-with-hala-taha-entrepreneurship/6d053f85f7",
-   "titre": "How do hackers breach midsize firms? | Young and Profiting",
-   "score_qualite": 58,
-   "source": "connu",
+   "url": "https://listenly.org/podcast-btb/m/commercially-speaking-podcast-commercial/14a389d5f0",
+   "titre": "What is private credit? | Commercially Speaking Podcast",
+   "score_qualite": 94,
+   "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
    "etat": "URL is unknown to Google",
