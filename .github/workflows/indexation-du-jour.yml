@@ -6,7 +6,9 @@ name: Indexation du jour — 10 fiches moment prêtes (5 connues + 5 mots-clés)
 on:
   workflow_dispatch: {}
   schedule:
+    - cron: '10 5 * * *'   # 13/11/2026 : lancement de secours (le cron GitHub saute parfois)
     - cron: '35 6 * * *'
+    - cron: '50 7 * * *'   # 2e secours
 
 permissions:
   contents: write
