@@ -132,7 +132,9 @@ def main():
         return [k for _, k in out]
 
     c_connu = pool((k for k in keys_connus if niv.get(k.split("/")[0]) == "A"), lambda k, v: v.get("score_final", 0))
-    c_motcle = pool((k for k in motcle if k not in keys_connus), lambda k, v: motcle[k] * 1000 + v.get("score_final", 0))
+    # 13/11/2026 : podcasts moins connus (niveaux B/C) ; le volume Google Ads est un simple bonus de tri
+    c_motcle = pool((k for k in scores if niv.get(k.split("/")[0], "C") != "A" and k not in keys_connus),
+                    lambda k, v: motcle.get(k, 0) * 1000 + v.get("score_final", 0))
 
     done, par_podcast, rapport = [], {}, []
     for groupe, cands in (("connu", c_connu), ("mot_cle", c_motcle)):

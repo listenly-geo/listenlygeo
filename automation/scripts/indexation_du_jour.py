@@ -136,11 +136,11 @@ def choisir():
         vol = (demande.get(key) or {}).get("volume", 0)
         if lvl in ouverts:
             SOURCES[key] = "connu"
-        elif key in motcle:   # 08/11/2026 : fiche 'mot-cle' = question du reservoir avec >= 100 recherches/mois
+        elif lvl not in ouverts:
+            # 13/11/2026 : fiche 'mot-cle' = toute fiche validee d'un podcast moins connu (niveaux B/C).
+            # Le volume Google Ads n'est plus qu'un bonus de tri (volumes figes), jamais un filtre.
             SOURCES[key] = "mot_cle"
-            vol = max(vol, motcle[key])
-        elif ouvrir_B and lvl == "B" and key.split("/", 1)[0] in prouves:
-            SOURCES[key] = "connu"
+            vol = max(vol, motcle.get(key, 0))
         else:
             continue
         # 21/10/2026 : élargi. Les pages avec volume passent d'abord (tri par volume), puis les autres niveau A par note.
