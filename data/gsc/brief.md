@@ -1,8 +1,8 @@
-# Brief trafic SEO — 2026-11-12
+# Brief trafic SEO — 2026-11-13
 
-- Période ['2026-08-12', '2026-11-10'] : 18 clics / 2976 impressions sur 474 pages
+- Période ['2026-08-13', '2026-11-11'] : 18 clics / 2976 impressions sur 474 pages
 - Pages de moments dans Google : 75 pages, 309 impressions, 10 clics
-- Moments ouverts au sitemap : 84 (dont 77 depuis 7 j+) ; contrôlés : 77 ; indexés : 67 (87.0%)
+- Moments ouverts au sitemap : 87 (dont 77 depuis 7 j+) ; contrôlés : 77 ; indexés : 67 (87.0%)
 - Quota : 10/jour → recommandé 25/jour (87.0% indexees : on peut accelerer)
 
 ## Par type de page
@@ -12,15 +12,16 @@
 - autre : 9 pages, 46 impr., 0 clics
 
 ## 10 pages de moments à faire indexer à la main aujourd'hui
-- https://listenly.org/podcast-btb/m/the-bob-lefsetz-podcast/6892ad417f (inconnue)
-- https://listenly.org/podcast-btb/m/this-american-life/445346ea4a (inconnue)
+- https://listenly.org/podcast-btb/m/this-american-life/81532615dd (inconnue)
+- https://listenly.org/podcast-btb/m/wait-wait-dont-tell-me/31cce4ce8b (inconnue)
+- https://listenly.org/podcast-btb/m/wait-wait-dont-tell-me/ba071d9aa4 (inconnue)
+- https://listenly.org/podcast-btb/m/world-war-2-podcast/d81690aae3 (inconnue)
 - https://listenly.org/podcast-btb/m/best-damn-coach-podcast-conversations-fo/eb97b64625 (inconnue)
 - https://listenly.org/podcast-btb/m/beyond-luxury/1a55291ad7 (inconnue)
 - https://listenly.org/podcast-btb/m/the-single-source/103c535b37 (inconnue)
 - https://listenly.org/podcast-btb/m/16-minutes-news-by-a16z/a4a410faae (inconnue)
 - https://listenly.org/podcast-btb/m/ai-a16z/de75aa3c5b (inconnue)
 - https://listenly.org/podcast-btb/m/the-conference-room/2687274a29 (inconnue)
-- https://listenly.org/podcast-btb/m/16-minutes-news-by-a16z/922f63485b (inconnue)
 
 ## Pages visibles (positions 3-15) sans clic : titre/extrait à retravailler
 - https://listenly.org/podcast-btb/the-collective-advantage-podcast.html — 53 impr., pos 8.7
