@@ -1,0 +1,52 @@
+[
+  {
+    "podcast_name": "4.0 Solutions Podcast",
+    "episode_title": "What Are We Missing Between IT and OT Monitoring?",
+    "audio_url": "https://app.kajabi.com/podcasts/medias/2149282300.mp3",
+    "question": "Why is it so difficult to monitor the IT and OT infrastructure that serves as the foundation for SCADA, MES, and business intelligence systems?",
+    "transcript_excerpt": "The difficulty stems from two main factors: behavioral and organizational. First, IT security policies are often inhibitive to OT operations, as manufacturing facilities prioritize production above all else. Second, the OT-IT divide exists because controls engineers use practices that work when problems occur, not necessarily IT best practices. Once connectivity is established between historically air-gapped systems, monitoring becomes critical but is rarely implemented across both domains, creating a gap where IT lacks visibility into OT infrastructure and vice versa.",
+    "expert_name": "Eric Eckman",
+    "start_seconds": 360,
+    "end_seconds": 1020
+  },
+  {
+    "podcast_name": "4.0 Solutions Podcast",
+    "episode_title": "What Are We Missing Between IT and OT Monitoring?",
+    "audio_url": "https://app.kajabi.com/podcasts/medias/2149282300.mp3",
+    "question": "What protocols and capabilities does PRTG support for monitoring both IT and OT networks?",
+    "transcript_excerpt": "Paessler has developed protocols and templates including OPC, MQTT, and Modbus to monitor OT networks, with Siemens-specific protocols implemented first due to the company's Germany base. The platform is now working on Ethernet/IP and PROFINET support. PRTG uses sensor objects for each monitored element, with typical sizing of five to ten sensors per device, and can run on-premises, in the cloud, or in air-gapped environments with Linux-based remote collectors that can even run on PLCs or network switches.",
+    "expert_name": "Eric Eckman",
+    "start_seconds": 1111,
+    "end_seconds": 1337
+  },
+  {
+    "podcast_name": "4.0 Solutions Podcast",
+    "episode_title": "What Are We Missing Between IT and OT Monitoring?",
+    "audio_url": "https://app.kajabi.com/podcasts/medias/2149282300.mp3",
+    "question": "What is the core architecture and deployment model of PRTG for monitoring across enterprise IT and plant floor environments?",
+    "transcript_excerpt": "PRTG's core engine is a Windows server-based or VM-based system typically deployed on-premises, though it can also run in the cloud. A second remote device collector can be installed on Linux and deployed in distributed locations, including air-gapped environments. Sensors are defined as channels into devices, not physical sensors; a 48-port switch may have 48 sensors addressing each port, each with metadata and monitoring parameters. Paessler offers a fully functional 30-day free trial with implementation possible in monitoring minutes rather than weeks or months.",
+    "expert_name": "Eric Eckman",
+    "start_seconds": 1304,
+    "end_seconds": 1453
+  },
+  {
+    "podcast_name": "4.0 Solutions Podcast",
+    "episode_title": "What Are We Missing Between IT and OT Monitoring?",
+    "audio_url": "https://app.kajabi.com/podcasts/medias/2149282300.mp3",
+    "question": "How does PRTG differ from Rockwell Automation's Factory Asset Manager in addressing IT/OT convergence monitoring?",
+    "transcript_excerpt": "Factory Asset Manager, Rockwell's product from the early 2000s, pioneered centralized monitoring of PLC firmware and software across a plant, but was prohibitively expensive and never gained wide adoption. PRTG delivers on the same promise as Factory Asset Manager but in an agnostic, protocol-agnostic way that applies to both IT and OT environments, supporting Siemens, Rockwell, and other vendors with protocols like OPC, MQTT, Modbus, and Ethernet/IP that Factory Asset Manager did not cover.",
+    "expert_name": "Eric Eckman",
+    "start_seconds": 517,
+    "end_seconds": 738
+  },
+  {
+    "podcast_name": "4.0 Solutions Podcast",
+    "episode_title": "What Are We Missing Between IT and OT Monitoring?",
+    "audio_url": "https://app.kajabi.com/podcasts/medias/2149282300.mp3",
+    "question": "What type of integrators and use cases is Paessler targeting with PRTG for digital transformation initiatives?",
+    "transcript_excerpt": "Paessler is focusing on digital transformation integrators implementing unified namespace solutions and holistic manufacturing system improvements, not cabinet builders. These integrators typically have existing relationships with IT teams and are building service platforms around PRTG rather than making transactional software sales, seeking lifetime customer value through managed services rather than one-time implementations.",
+    "expert_name": "Eric Eckman",
+    "start_seconds": 1215,
+    "end_seconds": 1330
+  }
+]

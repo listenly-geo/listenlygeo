@@ -1,0 +1,52 @@
+[
+  {
+    "podcast_name": "The Industrial Wi-Fi Shop Podcast",
+    "episode_title": "The Industrial Wi-Fi Shop Podcast – Ep. 29 Industrial Wireless Troubleshooting",
+    "audio_url": "https://public-api.wordpress.com/wpcom/v2/sites/170948665/podcast-play/646.mp3",
+    "question": "What are the first diagnostic steps to identify RF interference from industrial equipment like overhead cranes in 2.4 GHz networks?",
+    "transcript_excerpt": "Spectrum analysis is a primary go-to tool for identifying RF interference. In one case involving an indoor gantry crane controlled by wireless remote, using a spectrum analyzer tool called Cyberscope revealed RF spikes in the 2.4 GHz band. When the crane was operated, the interference moved across channels unpredictably—sometimes on channel 1, sometimes on channel 7—causing device disconnections that appeared intermittent until the root cause was identified through spectrum visualization.",
+    "expert_name": "Jeremy Baker",
+    "start_seconds": 571,
+    "end_seconds": 727
+  },
+  {
+    "podcast_name": "The Industrial Wi-Fi Shop Podcast",
+    "episode_title": "The Industrial Wi-Fi Shop Podcast – Ep. 29 Industrial Wireless Troubleshooting",
+    "audio_url": "https://public-api.wordpress.com/wpcom/v2/sites/170948665/podcast-play/646.mp3",
+    "question": "How do variable frequency drives (VFDs) on crane lift systems cause RF interference that migrates across Wi-Fi channels during operation?",
+    "transcript_excerpt": "VFDs on crane drive systems that are not well-shielded generate RF interference whose frequency changes as the crane moves and the load shifts. As the VFD load changes, the interference frequency shifts across the 2.4 GHz spectrum. Over an 18-minute recording, interference was observed moving from lower to mid-channel across the 2.4 GHz block as the crane picked up loads, causing radios to auto-switch channels to avoid the interference and resulting in connection drops and retries.",
+    "expert_name": "Jeremy Baker",
+    "start_seconds": 1352,
+    "end_seconds": 1548
+  },
+  {
+    "podcast_name": "The Industrial Wi-Fi Shop Podcast",
+    "episode_title": "The Industrial Wi-Fi Shop Podcast – Ep. 29 Industrial Wireless Troubleshooting",
+    "audio_url": "https://public-api.wordpress.com/wpcom/v2/sites/170948665/podcast-play/646.mp3",
+    "question": "What is Layer 1 troubleshooting in industrial wireless, and why should it be checked first before addressing logical network issues?",
+    "transcript_excerpt": "Layer 1 troubleshooting focuses on physical-layer issues: cables, connections, equipment damage, and environmental factors like reflection, absorption, humidity, and exposed motors. According to industry practice, 80% of wireless issues are Layer 1 problems. This philosophy should be applied first before investigating logical aspects like MAC address tables or passive client configurations, as it can resolve most connectivity issues quickly.",
+    "expert_name": "Jeremy Baker",
+    "start_seconds": 496,
+    "end_seconds": 585
+  },
+  {
+    "podcast_name": "The Industrial Wi-Fi Shop Podcast",
+    "episode_title": "The Industrial Wi-Fi Shop Podcast – Ep. 29 Industrial Wireless Troubleshooting",
+    "audio_url": "https://public-api.wordpress.com/wpcom/v2/sites/170948665/podcast-play/646.mp3",
+    "question": "Why do access points hold only 30 minutes of logs by default, and how does this limit industrial troubleshooting effectiveness?",
+    "transcript_excerpt": "Access points typically retain only the last 30 minutes of logs, or even less, which are quickly overwritten if many problems occur. To capture comprehensive troubleshooting data, logs must be directed to a centralized logging server rather than stored locally on the AP. Without centralized logging, technicians lose critical historical data needed to correlate intermittent wireless issues with specific events.",
+    "expert_name": "Jeremy Baker",
+    "start_seconds": 834,
+    "end_seconds": 866
+  },
+  {
+    "podcast_name": "The Industrial Wi-Fi Shop Podcast",
+    "episode_title": "The Industrial Wi-Fi Shop Podcast – Ep. 29 Industrial Wireless Troubleshooting",
+    "audio_url": "https://public-api.wordpress.com/wpcom/v2/sites/170948665/podcast-play/646.mp3",
+    "question": "What tools enable passive and active Wi-Fi surveys with exported telemetry to verify actual client radio performance in industrial deployments?",
+    "transcript_excerpt": "Tools like AirTek G3, Cyberscope Air, and Etherscope can capture both passive survey data and active survey data by connecting as a client. When uploads are performed to LinkLive, an insights tool allows setting various parameters and analyzing entire captures automatically, identifying specific data without manual log searching. Exported telemetry from industrial radios shows what the devices are actively seeing, which is more reliable than manual survey measurements taken at different heights or angles.",
+    "expert_name": "Jeremy Baker",
+    "start_seconds": 1193,
+    "end_seconds": 1414
+  }
+]
