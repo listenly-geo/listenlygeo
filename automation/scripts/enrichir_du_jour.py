@@ -104,7 +104,22 @@ def main():
     import hashlib
     keys_connus = {i["podcast_slug"] + "/" + hashlib.sha1(f"{i['podcast_slug']}|{norm(i['question'])}".encode()).hexdigest()[:10]
                    for i in connus}
-    deja = ij.deja_demandees() if hasattr(ij, "deja_demandees") else set()
+    # 13/11/2026 : ij.deja_demandees n'existe pas -> l'enrichissement re-choisissait des fiches deja demandees.
+    deja = set()
+    for fn in ("index_requests.json", "indexees_verifiees.json", "indexation_demandees.json"):
+        try:
+            raw = json.load(open(f"{PAGES}/data/{fn}", encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        stack = [raw]
+        while stack:
+            x = stack.pop()
+            if isinstance(x, dict):
+                stack.extend(x.values())
+            elif isinstance(x, list):
+                stack.extend(x)
+            elif isinstance(x, str) and "/podcast-btb/m/" in x:
+                deja.add(x.split("/podcast-btb/m/", 1)[1].strip("/"))
 
     def pool(keys, tri):
         out = []
@@ -125,6 +140,8 @@ def main():
         for k in cands:
             if ok >= PAR_GROUPE or len([r for r in rapport if r["groupe"] == groupe]) >= PAR_GROUPE + RESERVE:
                 break
+            if k in deja:
+                continue
             slug, mid = k.split("/")
             if par_podcast.get(slug, 0) >= 3:
                 continue
