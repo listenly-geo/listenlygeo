@@ -2,15 +2,63 @@
  "date": "2026-11-14",
  "mode": "liste a traiter dans Claude + Chrome (demande d'indexation manuelle, validation par page)",
  "repartition": {
-  "connu": 5,
-  "mot_cle": 5
+  "connu": 2,
+  "mot_cle": 8
  },
- "selection": "note seule (volumes non a jour, Keyword Planner en echec)",
+ "selection": "50/50 connus + mots-cles ; volumes du jour + note",
  "pretes": 10,
  "urls": [
   {
-   "url": "https://listenly.org/podcast-btb/m/coffee-cap-rates-commercial-real-estate/7454d64b9f",
-   "titre": "Is Brooklyn adding affordable homes? | Coffee & Cap Rates",
+   "url": "https://listenly.org/podcast-btb/m/how-i-built-this-with-guy-raz/2aa431fdbe",
+   "titre": "How did michael dell start? | How I Built This with Guy",
+   "score_qualite": 72,
+   "source": "connu",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/young-and-profiting-with-hala-taha-entrepreneurship/6d053f85f7",
+   "titre": "How do hackers breach midsize firms? | Young and Profiting",
+   "score_qualite": 58,
+   "source": "connu",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/ai-pulse-podcast/87b23ecc80",
+   "titre": "Generative vs agentic AI difference? | AI Pulse Podcast",
+   "score_qualite": 76,
+   "source": "mot_cle",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/american-farmland-owner-podcast/bce495853e",
+   "titre": "Mortgage rates vs history? | American Farmland Owner Po",
+   "score_qualite": 56,
+   "source": "mot_cle",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/lcr-media-podcast/8afda803db",
+   "titre": "Do retail skills help lawn care? | LCR Media Podcast",
    "score_qualite": 94,
    "source": "mot_cle",
    "http": 200,
@@ -21,8 +69,8 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/commercially-speaking-podcast-commercial/14a389d5f0",
-   "titre": "What is private credit? | Commercially Speaking Podcast",
+   "url": "https://listenly.org/podcast-btb/m/lcr-media-podcast/0b40827962",
+   "titre": "Why do lawn care owners underprice? | LCR Media Podcast",
    "score_qualite": 94,
    "source": "mot_cle",
    "http": 200,
@@ -33,69 +81,9 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/this-american-life/81532615dd",
-   "titre": "Why did Katie's home birth go wrong? | This American Life",
-   "score_qualite": 58,
-   "source": "connu",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "Discovered - currently not indexed",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/wait-wait-dont-tell-me/31cce4ce8b",
-   "titre": "What pressure did Lilly King describe? | Wait Wait...",
-   "score_qualite": 58,
-   "source": "connu",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "Discovered - currently not indexed",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/wait-wait-dont-tell-me/ba071d9aa4",
-   "titre": "What design flaws hit short-term rentals? | Wait Wait...",
-   "score_qualite": 58,
-   "source": "connu",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "Discovered - currently not indexed",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/world-war-2-podcast/d81690aae3",
-   "titre": "What human cost does the WWII series show? | World War II",
-   "score_qualite": 58,
-   "source": "connu",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "Discovered - currently not indexed",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/young-and-profiting-with-hala-taha-entrepreneurship/3d1db310f9",
-   "titre": "Does SSO simplify two-factor login? | Young and Profiting",
-   "score_qualite": 58,
-   "source": "connu",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/pivot-to-profit/d130b84a48",
-   "titre": "What is imposter syndrome? | Pivot to Profit",
-   "score_qualite": 60,
+   "url": "https://listenly.org/podcast-btb/m/forum-focus/5c9f07eb9c",
+   "titre": "How did unions protect prevailing wages? | Forum Focus",
+   "score_qualite": 88,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -105,9 +93,9 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/annex-wealth-management-show/c49b3fb793",
-   "titre": "Sequence of returns risk? | Annex Wealth Management Show",
-   "score_qualite": 80,
+   "url": "https://listenly.org/podcast-btb/m/best-damn-coach-podcast-conversations-fo/eb97b64625",
+   "titre": "Why do coaches lack a framework? | Best Damn Coach",
+   "score_qualite": 74,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -117,9 +105,21 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/commercially-speaking-podcast-commercial/70cb367c6d",
-   "titre": "Are handmade gifts better? | Commercially Speaking Podcast",
-   "score_qualite": 94,
+   "url": "https://listenly.org/podcast-btb/m/car-dealership-guy-podcast/a1046603b1",
+   "titre": "Soft skills that win car sales? — Car Dealership Guy",
+   "score_qualite": 70,
+   "source": "mot_cle",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/beyond-luxury/1a55291ad7",
+   "titre": "Why did Assouline shelve finished books? | Beyond Luxury",
+   "score_qualite": 74,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
