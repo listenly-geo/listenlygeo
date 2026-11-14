@@ -1,0 +1,52 @@
+[
+  {
+    "podcast_name": "Chaos Lever Podcast",
+    "episode_title": "Voters Reject AI Data Centers, Google's Privacy Pivot, and DigiCert Exposed | Tech News of the Week",
+    "audio_url": "https://op3.dev/e/media.transistor.fm/7c11f7bb/c87d8801.mp3",
+    "question": "What happened to DigiCert's internal archive system that exposed customer data for 16 months?",
+    "transcript_excerpt": "In February 2025, DigiCert accidentally placed an internal archive system on a publicly accessible virtual network. The system held historical customer data including names, addresses, emails, photo IDs and passports. The server remained exposed from February 2025 until July 2026 — nearly 16 months — because the archive used the same account platform as customer-facing systems, allowing anyone to self-register and access the data. DigiCert did not investigate the issue in earnest until October 2026.",
+    "expert_name": null,
+    "start_seconds": 148,
+    "end_seconds": 314
+  },
+  {
+    "podcast_name": "Chaos Lever Podcast",
+    "episode_title": "Voters Reject AI Data Centers, Google's Privacy Pivot, and DigiCert Exposed | Tech News of the Week",
+    "audio_url": "https://op3.dev/e/media.transistor.fm/7c11f7bb/c87d8801.mp3",
+    "question": "What percentage of local measures rejecting new AI data centers passed in the 2026 election across 10 states?",
+    "transcript_excerpt": "Across 10 states, 41 local measures asked whether new data centers were a good idea. In 40 of those 41 measures, voters rejected new data centers — a 97.5% no vote. Examples include Kansas city El Dorado, which voted to ban new high-impact data centers for 10 years, and Emporia, Kansas, which passed a similar measure.",
+    "expert_name": null,
+    "start_seconds": 482,
+    "end_seconds": 701
+  },
+  {
+    "podcast_name": "Chaos Lever Podcast",
+    "episode_title": "Voters Reject AI Data Centers, Google's Privacy Pivot, and DigiCert Exposed | Tech News of the Week",
+    "audio_url": "https://op3.dev/e/media.transistor.fm/7c11f7bb/c87d8801.mp3",
+    "question": "Why did Google modify its privacy policy to allow personalized ads from Gmail, Drive and Photos content for Gemini?",
+    "transcript_excerpt": "On October 16th, Google changed its privacy policy statement from 'we don't show you personalized ads based on your content from Drive, Gmail or Photos' to allow this if users choose to make that data available to services supporting personalized ads on Gemini. Google uses various prompts and pop-ups to entice users to turn on Google AI without fully explaining the consequences, framing it as 'Would you like better answers?' Once opted in, user data flows through Google AI to generate summaries, which then inform targeted ads.",
+    "expert_name": null,
+    "start_seconds": 853,
+    "end_seconds": 1009
+  },
+  {
+    "podcast_name": "Chaos Lever Podcast",
+    "episode_title": "Voters Reject AI Data Centers, Google's Privacy Pivot, and DigiCert Exposed | Tech News of the Week",
+    "audio_url": "https://op3.dev/e/media.transistor.fm/7c11f7bb/c87d8801.mp3",
+    "question": "How did GitHub's new Rubicon architecture separate compute and storage to handle agentic code generation at scale?",
+    "transcript_excerpt": "GitHub's Rubicon architecture separates compute from storage and reads from writes, replacing the old system that scaled them together. The new system creates multiple virtual replicas for each repository that can service reads or writes independently. A separate service maintains references for all packs in the repository, which replicas query to check their local cache. The entire system is backed by Azure Blob Storage. The platform is now tested to support 5,000 concurrent agents sending 7,200 pushes per second to a single repository while still serving reads with low latency.",
+    "expert_name": null,
+    "start_seconds": 1217,
+    "end_seconds": 1286
+  },
+  {
+    "podcast_name": "Chaos Lever Podcast",
+    "episode_title": "Voters Reject AI Data Centers, Google's Privacy Pivot, and DigiCert Exposed | Tech News of the Week",
+    "audio_url": "https://op3.dev/e/media.transistor.fm/7c11f7bb/c87d8801.mp3",
+    "question": "What are the obvious animation flaws that revealed the Christian Dior Christmas ad was AI-generated, not hand-animated?",
+    "transcript_excerpt": "Real animators identified nakedly obvious and subtle clues that the six-minute Christian Dior Christmas ad was generated using AI, not hand-animated as claimed. Flaws included hands with multiple fingers, eyeballs in the wrong place, and movement that does not make sense. The company claimed the ad was hand-animated and even released a behind-the-scenes video with animated stills, but the visual inconsistencies contradicted those claims.",
+    "expert_name": null,
+    "start_seconds": 1482,
+    "end_seconds": 1619
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "podcast_name": "alphalist.CTO Podcast - For CTOs and Technical Leaders",
+    "episode_title": "#150 From a Worm's Brain to Mercedes: Building AI That Runs Without the Cloud // Mathias Lechner, Liquid AI",
+    "audio_url": "https://audio.podigee-cdn.net/2635428-m-b647560d04bb150520582cb3e5ae224e.mp3?source=feed",
+    "question": "How does Liquid AI run large language models on phones and edge devices without cloud computing?",
+    "transcript_excerpt": "Liquid AI uses Liquid Neural Networks (LNNs) and LFM-II architectures designed to be extremely efficient through novel convolutional layers derived from architecture search. The models incorporate multiplicative gates inspired by synaptic modeling from C. elegans neuroscience. Their current models run at around forty tokens per second on a Raspberry Pi with GPT-3.5-level instruction capabilities, and they work closely with silicon partners like Qualcomm to optimize at the hardware level, accessing low-level NPU instructions and special cache features.",
+    "expert_name": "Matthias Lechner",
+    "start_seconds": 806,
+    "end_seconds": 1032
+  },
+  {
+    "podcast_name": "alphalist.CTO Podcast - For CTOs and Technical Leaders",
+    "episode_title": "#150 From a Worm's Brain to Mercedes: Building AI That Runs Without the Cloud // Mathias Lechner, Liquid AI",
+    "audio_url": "https://audio.podigee-cdn.net/2635428-m-b647560d04bb150520582cb3e5ae224e.mp3?source=feed",
+    "question": "What inspired Matthias Lechner to apply C. elegans worm neuroscience to artificial intelligence?",
+    "transcript_excerpt": "Lechner was introduced to C. elegans through a neuroscience research institute that studied these worms, which have only 302 neurons and around 8,000 synapses yet exhibit remarkable robust behaviors like social cooperation when sleeping and memory formation. In contrast, artificial neural networks in 2016 were massive networks easily fooled by input perturbations, like a stop sign with a sticker. His PhD advisors Daniela Ruz and co-founder Ramin saw the intriguing robustness of these organisms and proposed investigating how to bring this biological efficiency into machine learning and robotic learning.",
+    "expert_name": "Matthias Lechner",
+    "start_seconds": 226,
+    "end_seconds": 404
+  },
+  {
+    "podcast_name": "alphalist.CTO Podcast - For CTOs and Technical Leaders",
+    "episode_title": "#150 From a Worm's Brain to Mercedes: Building AI That Runs Without the Cloud // Mathias Lechner, Liquid AI",
+    "audio_url": "https://audio.podigee-cdn.net/2635428-m-b647560d04bb150520582cb3e5ae224e.mp3?source=feed",
+    "question": "Why did Liquid AI design a self-driving car model with only 19 neurons instead of following AI scaling laws?",
+    "transcript_excerpt": "While industry trends from 2015-2016 showed that scaling model size improves performance (scaling laws from Anthropic researchers), the self-driving car required a different objective focused on robustness, controllability, and observability rather than general knowledge. The 19-neuron control network proved robust to extreme lighting perturbations and shadows that caused standard convolutional networks trained for hours to fail. The task of lane-keeping does not require vast factual knowledge; it requires reliability under difficult conditions, demonstrating that smaller models with biological inspiration can outperform scaled models for specific, constrained tasks.",
+    "expert_name": "Matthias Lechner",
+    "start_seconds": 300,
+    "end_seconds": 510
+  },
+  {
+    "podcast_name": "alphalist.CTO Podcast - For CTOs and Technical Leaders",
+    "episode_title": "#150 From a Worm's Brain to Mercedes: Building AI That Runs Without the Cloud // Mathias Lechner, Liquid AI",
+    "audio_url": "https://audio.podigee-cdn.net/2635428-m-b647560d04bb150520582cb3e5ae224e.mp3?source=feed",
+    "question": "What is Liquid AI's partnership strategy with hardware manufacturers like Qualcomm and AMD?",
+    "transcript_excerpt": "Liquid AI works at CEO-to-CEO level with Qualcomm, AMD, and other silicon providers to gain early access to unreleased hardware and low-level optimization support. In return, these manufacturers can increase hardware sales by enabling their chips to run efficient AI models. The partnerships provide resources for model optimization and engineer support, allowing Liquid AI to design together instructions and modifications for next-generation chips. Ramin, Liquid AI's CEO, appeared at the Qualcomm Snapdragon Summit, indicating deep collaborative integration at executive levels.",
+    "expert_name": "Matthias Lechner",
+    "start_seconds": 918,
+    "end_seconds": 996
+  },
+  {
+    "podcast_name": "alphalist.CTO Podcast - For CTOs and Technical Leaders",
+    "episode_title": "#150 From a Worm's Brain to Mercedes: Building AI That Runs Without the Cloud // Mathias Lechner, Liquid AI",
+    "audio_url": "https://audio.podigee-cdn.net/2635428-m-b647560d04bb150520582cb3e5ae224e.mp3?source=feed",
+    "question": "How much token throughput does a phone need for different AI assistant tasks?",
+    "transcript_excerpt": "Token throughput requirements vary by task: for drafting messages, users want very fast performance around 80-200 tokens per second, while background tasks can work with as low as 20 tokens per second. For interactive computer use where a user speaks and waits for their phone to execute an action like calling Uber, latency becomes critical and more tokens per second are needed to avoid lengthy waits.",
+    "expert_name": "Matthias Lechner",
+    "start_seconds": 1366,
+    "end_seconds": 1615
+  }
+]
