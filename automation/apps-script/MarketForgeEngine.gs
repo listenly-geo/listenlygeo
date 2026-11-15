@@ -1229,6 +1229,45 @@ function mfeSettings_() {
 }
 
 // ---------- Pont GitHub (application web) ----------
+// ---------- Onboarding client apres paiement (15/11/2026) ----------
+// La page app.marketforge.fr/onboarding envoie ici les reponses du client. Seule action publique : elle exige un identifiant de session Stripe
+// (cs_live_... / cs_test_...). Si la propriete de script STRIPE_SECRET_KEY existe, le paiement est verifie aupres de Stripe ; sinon la ligne est marquee "paiement non verifie".
+var MFE_ONB_COLS = ['Date', 'Statut', 'Paiement', 'Session Stripe', 'Email', 'Podcast', 'Flux RSS', 'Objectif', 'Lien du bouton', 'Client ideal', 'Sujets prioritaires', 'A exclure',
+  'Questions des clients', 'Nom affiche', 'Logo', 'Couleur', 'Domaine', 'Sous-domaine', 'DNS gere par', 'Contact DNS', 'Notes'];
+function mfeOnbClean_(v, max) {
+  v = String(v == null ? '' : v).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, '').trim().slice(0, max || 500);
+  return /^[=+\-@]/.test(v) ? "'" + v : v;   // jamais de formule dans le Sheet
+}
+function mfeOnboardingPublic_(b) {
+  var sid = String(b.session_id || '').trim();
+  if (!/^cs_(live|test)_[A-Za-z0-9]{10,200}$/.test(sid)) return mfeJson_({ ok: false, error: 'paiement introuvable' });
+  var email = mfeOnbClean_(b.email, 200);
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return mfeJson_({ ok: false, error: 'email invalide' });
+  var paiement = 'non verifie';
+  var key = PropertiesService.getScriptProperties().getProperty('STRIPE_SECRET_KEY');
+  if (key) {
+    try {
+      var res = UrlFetchApp.fetch('https://api.stripe.com/v1/checkout/sessions/' + sid, { headers: { Authorization: 'Bearer ' + key }, muteHttpExceptions: true });
+      var js = JSON.parse(res.getContentText());
+      if (res.getResponseCode() !== 200 || js.payment_status !== 'paid') return mfeJson_({ ok: false, error: 'paiement non confirme' });
+      paiement = 'paye (verifie)';
+    } catch (err) { return mfeJson_({ ok: false, error: 'verification impossible' }); }
+  }
+  var lock = LockService.getScriptLock(); lock.waitLock(30000);
+  try {
+    var ss = mfeSS_(), sh = ss.getSheetByName('Onboarding');
+    if (!sh) { sh = ss.insertSheet('Onboarding'); sh.getRange(1, 1, 1, MFE_ONB_COLS.length).setValues([MFE_ONB_COLS]).setFontWeight('bold'); sh.setFrozenRows(1); }
+    var c = function (k, m) { return mfeOnbClean_(b[k], m); };
+    var line = [new Date(), 'A installer', paiement, sid, email, c('podcast', 200), c('rss', 500), c('objectif', 200), c('bouton_url', 500), c('client_ideal', 600), c('sujets', 600), c('exclusions', 600),
+      c('questions', 1500), c('nom_affiche', 200), c('logo', 500), c('couleur', 20), c('domaine', 200), c('sous_domaine', 100), c('dns_qui', 100), c('dns_contact', 200), ''];
+    var ids = sh.getLastRow() > 1 ? sh.getRange(2, 4, sh.getLastRow() - 1, 1).getValues() : [], row = 0;
+    for (var i = 0; i < ids.length; i++) if (ids[i][0] === sid) { row = i + 2; break; }
+    if (row) { var keep = sh.getRange(row, 2).getValue(); line[0] = sh.getRange(row, 1).getValue(); line[1] = keep; sh.getRange(row, 1, 1, line.length).setValues([line]); }   // meme paiement = mise a jour, pas de doublon
+    else { sh.appendRow(line); row = sh.getLastRow(); try { GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Nouvel onboarding Index : ' + (line[5] || email), 'Paiement : ' + paiement + '\nPodcast : ' + line[5] + '\nEmail : ' + email + '\nRSS : ' + line[6] + '\nDomaine : ' + line[16] + ' (sous-domaine ' + line[17] + ')\n\nLigne ' + row + ' de l\'onglet Onboarding.'); } catch (e2) { Logger.log('Alerte onboarding : %s', e2); } }
+  } finally { lock.releaseLock(); }
+  return mfeJson_({ ok: true });
+}
+
 function mfeAuth_(secret) {
   var s = PropertiesService.getScriptProperties().getProperty('MFE_SECRET');
   return s && secret === s;
@@ -1257,7 +1296,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 32 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 33 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -1266,6 +1305,7 @@ function doPost(e) {
   var body = {};
   try { body = JSON.parse(e.postData.contents); } catch (err) { return mfeJson_({ ok: false, error: 'JSON invalide' }); }
   var p = (e && e.parameter) || {};
+  if (body.action === 'onboarding_public') return mfeOnboardingPublic_(body);   // 15/11/2026 : questionnaire client apres paiement (seule action sans secret, protegee par l'identifiant de paiement Stripe)
   if (!mfeAuth_(p.secret || body.secret)) return mfeJson_({ ok: false, error: 'secret invalide' });
   if (body.action === 'tendances') return mfeTendances_(body);
   if (body.action === 'optimisations') return mfeOptimisations_(body);

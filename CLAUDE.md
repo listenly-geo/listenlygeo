@@ -56,3 +56,6 @@ Seul cas ou redemander quelque chose : le journal affiche `RefreshError` / `inva
 
 ## Relances secondaires (decision du 15/11/2026)
 - Priorite absolue au 1er mail. Les relances ne partent que dans la plage 14h-24h, une fois le stock atteint, si les 1ers mails du jour sont a l'heure, au plus `MFE_RELANCES_MAX_JOUR` (40) par jour d'envoi, etalees, R1 > R2 > R3 puis les plus anciennes d'abord (`mfeRelanceBudget_`). Week-end : aucune relance (inchange).
+
+## Onboarding Index (decision du 15/11/2026)
+- Apres paiement Stripe (297 EUR), le client arrive sur `https://app.marketforge.fr/onboarding/?session_id={CHECKOUT_SESSION_ID}` (source : `automation/onboarding/index.html`, deploiement : workflow `onboarding-deploy.yml`). Reponses -> onglet `Onboarding` du Sheet (action publique `onboarding_public` d'Apps Script, protegee par l'identifiant de session Stripe ; verification Stripe active si la propriete de script `STRIPE_SECRET_KEY` existe). Ne jamais mettre le secret du pont dans la page.

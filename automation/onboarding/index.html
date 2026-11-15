@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Set up your Index - MarketForge</title>
+<style>
+:root{--bg:#FAFAF7;--ink:#0E0E10;--mut:#6B6B73;--line:#E4E4DE;--blue:#2F5BFF;--card:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif}
+.wrap{max-width:640px;margin:0 auto;padding:28px 18px 60px}
+.brand{font-weight:700;font-size:18px;margin-bottom:26px}
+h1{font-size:30px;line-height:1.15;margin:0 0 8px;letter-spacing:-.02em}
+.lead{color:var(--mut);margin:0 0 22px}
+.bar{height:4px;background:var(--line);border-radius:4px;overflow:hidden;margin:6px 0 6px}
+.bar i{display:block;height:100%;width:25%;background:var(--blue);transition:width .25s}
+.step{font-size:12px;letter-spacing:.08em;color:var(--mut);text-transform:uppercase;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+label{display:block;font-weight:600;margin:16px 0 6px}
+label:first-child{margin-top:0}
+.hint{font-weight:400;color:var(--mut);font-size:14px}
+input[type=text],input[type=email],input[type=url],textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font:inherit;background:#fff}
+textarea{min-height:90px;resize:vertical}
+input:focus,textarea:focus{outline:2px solid var(--blue);border-color:transparent}
+.opts{display:grid;gap:8px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:11px 13px;cursor:pointer;font-weight:500}
+.opt input{margin-top:4px}
+.row{display:flex;gap:10px;align-items:center}
+.row input[type=color]{width:46px;height:42px;border:1px solid var(--line);border-radius:10px;padding:2px;background:#fff}
+.sub{display:flex;align-items:center;gap:6px}
+.sub span{color:var(--mut);white-space:nowrap;font-size:14px}
+.btns{display:flex;gap:10px;margin-top:22px}
+button{font:inherit;font-weight:600;border:0;border-radius:999px;padding:14px 22px;cursor:pointer}
+.next{background:var(--blue);color:#fff;flex:1}
+.back{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.err{color:#C0262D;font-size:14px;margin-top:10px;min-height:20px}
+.ok{text-align:center;padding:10px 4px}
+.ok h2{font-size:26px;margin:6px 0}
+.hide{display:none}
+.notice{background:#FFF6E5;border:1px solid #F3DDA8;border-radius:12px;padding:14px;margin-bottom:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">Marketforge</div>
+  <div id="blocked" class="notice hide"><b>Open this page from your payment confirmation.</b><br>The link that follows your payment identifies your order. If you paid and see this message, reply to your receipt email and we will fix it right away.</div>
+  <div id="app">
+    <h1>Let's set up your Index</h1>
+    <p class="lead">Your answers tell us exactly how to build it. It takes about 3 minutes.</p>
+    <div class="bar"><i id="prog"></i></div>
+    <div class="step" id="stepLabel">Step 1 of 4</div>
+    <form class="card" id="form" novalidate>
+      <section data-s="1">
+        <label>Your email</label>
+        <input type="email" name="email" autocomplete="email" placeholder="you@company.com">
+        <label>Your podcast name</label>
+        <input type="text" name="podcast" placeholder="e.g. The Growth Show">
+        <label>Your RSS feed <span class="hint">(or a link to your podcast)</span></label>
+        <input type="text" name="rss" placeholder="https://feeds.example.com/rss">
+        <label>What should your Index bring you first?</label>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="objectif" value="Clients / leads"> Clients and leads</label>
+          <label class="opt"><input type="radio" name="objectif" value="Booked calls"> Booked calls</label>
+          <label class="opt"><input type="radio" name="objectif" value="Newsletter subscribers"> Newsletter subscribers</label>
+          <label class="opt"><input type="radio" name="objectif" value="Product sales"> Sales of a product or course</label>
+        </div>
+      </section>
+      <section data-s="2" class="hide">
+        <label>Where should the main button send visitors? <span class="hint">(contact page, calendar, offer, your site)</span></label>
+        <input type="url" name="bouton_url" placeholder="https://yoursite.com/book">
+        <label>Who is your ideal client? <span class="hint">(one sentence)</span></label>
+        <textarea name="client_ideal" placeholder="e.g. Founders of B2B SaaS companies with 10 to 50 employees"></textarea>
+        <label>Which topics should come first? <span class="hint">(up to 3)</span></label>
+        <textarea name="sujets" placeholder="e.g. pricing, hiring, outbound sales"></textarea>
+      </section>
+      <section data-s="3" class="hide">
+        <label>Which questions do your clients ask you most often?</label>
+        <textarea name="questions" placeholder="One per line. We will answer them first from your episodes."></textarea>
+        <label>Any episodes or topics to leave out? <span class="hint">(optional)</span></label>
+        <textarea name="exclusions"></textarea>
+        <label>Name shown on your Index</label>
+        <input type="text" name="nom_affiche" placeholder="Your company or podcast name">
+        <label>Logo link <span class="hint">(optional, or send it by email later)</span></label>
+        <input type="text" name="logo" placeholder="https://...">
+        <label>Main color</label>
+        <div class="row"><input type="color" name="couleur" value="#2F5BFF"><span class="hint">Used for buttons and links</span></div>
+      </section>
+      <section data-s="4" class="hide">
+        <label>Your website domain</label>
+        <input type="text" name="domaine" placeholder="yoursite.com">
+        <label>Where should your Index live?</label>
+        <div class="sub"><input type="text" name="sous_domaine" value="expertise" aria-label="subdomain"><span>.yourdomain.com</span></div>
+        <label>Who manages your domain settings (DNS)?</label>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="dns_qui" value="Me"> I do</label>
+          <label class="opt"><input type="radio" name="dns_qui" value="Someone else"> Someone else (we will send you a ready-to-forward email)</label>
+          <label class="opt"><input type="radio" name="dns_qui" value="Not sure"> I'm not sure (we will host it for you for now)</label>
+        </div>
+        <label>Contact for DNS <span class="hint">(only if someone else manages it)</span></label>
+        <input type="email" name="dns_contact" placeholder="webmaster@yourcompany.com">
+      </section>
+      <div class="err" id="err"></div>
+      <div class="btns">
+        <button type="button" class="back hide" id="back">Back</button>
+        <button type="button" class="next" id="next">Continue</button>
+      </div>
+    </form>
+  </div>
+  <div id="done" class="card ok hide">
+    <h2>You're all set.</h2>
+    <p>We received your answers. Your Index is being prepared exactly as you described.</p>
+    <p class="lead">You will get an email within 48 hours with a single simple step to put it live on your domain.</p>
+  </div>
+</div>
+<script>
+(function(){
+  var ENDPOINT = '__ONBOARDING_ENDPOINT__';
+  var q = new URLSearchParams(location.search), sid = q.get('session_id') || '';
+  var ok = /^cs_(live|test)_[A-Za-z0-9]{10,200}$/.test(sid);
+  var $ = function(i){return document.getElementById(i)};
+  if(!ok){ $('blocked').classList.remove('hide'); $('app').classList.add('hide'); return; }
+  var cur = 1, total = 4, f = $('form');
+  function val(n){ var e=f.elements[n]; if(!e) return ''; if(e.length && e[0] && e[0].type==='radio'){ for(var i=0;i<e.length;i++) if(e[i].checked) return e[i].value; return ''; } return (e.value||'').trim(); }
+  function show(n){
+    cur=n; [].forEach.call(f.querySelectorAll('section'),function(s){ s.classList.toggle('hide', +s.dataset.s!==n); });
+    $('prog').style.width=(n/total*100)+'%'; $('stepLabel').textContent='Step '+n+' of '+total;
+    $('back').classList.toggle('hide', n===1); $('next').textContent = n===total ? 'Send my answers' : 'Continue'; $('err').textContent='';
+  }
+  function check(n){
+    if(n===1){
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val('email'))) return 'Please enter a valid email.';
+      if(!val('podcast')) return 'Please enter your podcast name.';
+      if(!val('rss')) return 'Please enter your RSS feed or podcast link.';
+      if(!val('objectif')) return 'Please choose what your Index should bring you first.';
+    }
+    if(n===2 && !val('bouton_url')) return 'Please tell us where the main button should lead.';
+    if(n===3 && !val('nom_affiche')) return 'Please enter the name to show on your Index.';
+    if(n===4){ if(!val('domaine')) return 'Please enter your website domain.'; if(!val('sous_domaine')) return 'Please choose a subdomain.'; if(!val('dns_qui')) return 'Please tell us who manages your domain.'; }
+    return '';
+  }
+  $('back').onclick=function(){ show(cur-1); };
+  $('next').onclick=function(){
+    var m=check(cur); if(m){ $('err').textContent=m; return; }
+    if(cur<total){ show(cur+1); window.scrollTo(0,0); return; }
+    var data={action:'onboarding_public',session_id:sid};
+    ['email','podcast','rss','objectif','bouton_url','client_ideal','sujets','exclusions','questions','nom_affiche','logo','couleur','domaine','sous_domaine','dns_qui','dns_contact'].forEach(function(k){ data[k]=val(k); });
+    $('next').disabled=true; $('next').textContent='Sending...';
+    var body=JSON.stringify(data), opt={method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:body};
+    function fin(){ $('app').classList.add('hide'); $('done').classList.remove('hide'); window.scrollTo(0,0); }
+    fetch(ENDPOINT,opt).then(function(r){return r.json();}).then(function(j){
+      if(j&&j.ok) fin(); else { $('err').textContent='We could not confirm your order ('+((j&&j.error)||'error')+'). Please reply to your receipt email.'; $('next').disabled=false; $('next').textContent='Send my answers'; }
+    }).catch(function(){
+      fetch(ENDPOINT,{method:'POST',mode:'no-cors',headers:opt.headers,body:body}).then(fin).catch(function(){ $('err').textContent='Connection problem. Please try again.'; $('next').disabled=false; $('next').textContent='Send my answers'; });
+    });
+  };
+  show(1);
+})();
+</script>
+</body>
+</html>

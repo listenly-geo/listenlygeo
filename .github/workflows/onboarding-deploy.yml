@@ -1,0 +1,47 @@
+name: Onboarding Index — deployer la page client
+
+# Envoie automation/onboarding/index.html sur app.marketforge.fr/onboarding/ (acces FTP deja utilise par les autres workflows DTB).
+# L'adresse de reception (application web Apps Script) est injectee au deploiement, SANS le secret (partie ?secret=... retiree).
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'automation/onboarding/**'
+      - '.github/workflows/onboarding-deploy.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+      FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+      FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preparer la page
+        run: |
+          for v in FTP_SERVER FTP_USERNAME FTP_PASSWORD MFE_SHEET_URL; do
+            if [ -z "${!v}" ]; then echo "::error::secret $v manquant"; exit 1; fi
+          done
+          BASE="${MFE_SHEET_URL%%\?*}"
+          case "$BASE" in https://script.google.com/*) ;; *) echo "::error::adresse Apps Script inattendue"; exit 1;; esac
+          mkdir -p /tmp/out
+          sed "s#__ONBOARDING_ENDPOINT__#${BASE}#" automation/onboarding/index.html > /tmp/out/index.html
+          if grep -q 'secret=' /tmp/out/index.html; then echo "::error::un secret est present dans la page"; exit 1; fi
+      - name: Envoyer sur le serveur
+        run: |
+          U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 120 -sS --ftp-create-dirs"
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/out/index.html "$U/app.marketforge.fr/public/onboarding/index.html"
+          echo "::notice::page envoyee"
+      - name: Verifier la page en ligne
+        run: |
+          sleep 5
+          code=$(curl -sS -o /tmp/live.html -w '%{http_code}' "https://app.marketforge.fr/onboarding/?session_id=cs_test_verification123" || true)
+          echo "HTTP $code"
+          [ "$code" = "200" ] && grep -q "Let's set up your Index" /tmp/live.html && grep -q 'script.google.com' /tmp/live.html && echo "::notice::page en ligne et branchee" || { echo "::error::page non accessible ou incomplete"; exit 1; }
