@@ -1,0 +1,55 @@
+{
+  "episode_guid": "https://permalink.castos.com/podcast/54639/episode/2580206",
+  "source_kind": "marketforge_engine",
+  "source_url": "https://episodes.castos.com/6485957f09ee91-41670518/2580206/c1e-7mq1guv167kud6vdp-z3owj9zvh4m5-xcv65h.mp3",
+  "episode_title": "Introduction to HTTP Request Smuggling",
+  "pubdate": "Thu, 20 Aug 2026 14:33:55 +0000",
+  "real_qa": [
+    {
+      "q": "What is HTTP request smuggling and how does it exploit differences between proxies and web servers?",
+      "r": "HTTP request smuggling is an attack technique that exploits differences in how intermediary proxies and the end web server determine where one message ends and the next begins. By sending a specially crafted request that uses conflicting message length indicators, an attacker can smuggle a hidden extra request or alter the order of messages, allowing unauthorized commands to slip past security checks leading to data theft, session hijacking or cache poisoning.",
+      "start_seconds": 46,
+      "end_seconds": 156,
+      "score": 9,
+      "requete": "HTTP request smuggling attack technique",
+      "start_exact": true
+    },
+    {
+      "q": "What are the two main variants of HTTP request smuggling attacks?",
+      "r": "In the first variant the proxy uses the content length header to split incoming data while the end server relies on chunk markers, causing leftover bytes to be passed as a hidden second request. In the second variant, the proxy honors chunk markers, but the end server uses the content length value, allowing an attacker to splice the stream so that a smuggled request slips through undetected.",
+      "start_seconds": 73,
+      "end_seconds": 151,
+      "score": 9,
+      "requete": "HTTP request smuggling variants content length chunk markers",
+      "start_exact": true
+    },
+    {
+      "q": "What real-world data breaches have resulted from HTTP request smuggling attacks?",
+      "r": "Attackers have used hidden extra requests to trick caching servers into revealing private session tokens, exposing millions of user accounts. In a notable case at a large online retailer, customer names and payment card numbers were intercepted and stolen before security systems detected the intrusion. Other breaches have led attackers to slip past authentication checks to run unauthorized commands on internal systems, leading to data theft and service outages.",
+      "start_seconds": 103,
+      "end_seconds": 160,
+      "score": 8,
+      "requete": "HTTP request smuggling data breach retailer payment cards",
+      "start_exact": true
+    }
+  ],
+  "guest": {
+    "prenom": "",
+    "nom": "",
+    "titre": "",
+    "entreprise": "",
+    "titre_secondaire": "",
+    "entreprise_secondaire": "",
+    "bio_context": ""
+  },
+  "real_quote": "HTTP request smuggling is an attack technique that exploits differences in how intermediary proxies and the end web server determine where one message ends and the next begins.",
+  "key_stats": [
+    "millions of user accounts exposed through session token theft via HTTP request smuggling"
+  ],
+  "entities": [
+    "HTTP request smuggling",
+    "HTTP protocol"
+  ],
+  "transcript_full": "Whenever you request a web page, your browser sends a text-based message using a standard web protocol. Each message consists of a start line that names the action and resource, a series of descriptive lines, a blank line, and any optional data. If one or more intermediary servers called proxies sit between you and the destination, each proxy reads the descriptive lines to decide where to forward the message, then passes it along unchanged. The final server passes the same four parts in order, performs the requested task, and returns a reply back through the same proxy chain. This simple pipeline depends on every participant agreeing on how to mark where one message ends and the next begins. HTTP request smuggling is an attack technique that exploits differences in how intermediary proxies and the end web server determine where one message ends and the next begins. by sending a specially crafted request that uses conflicting message length indicators, an attacker can smuggle a hidden extra request or alter the order of messages. This allows unauthorized commands to slip past security checks leading to data theft, session hijacking or cache poisoning In the first variant the proxy uses the content length header to split incoming data while the end server relies on chunk markers This mismatch causes leftover bytes to be passed as a hidden second request. In the second variant, the proxy honors chunk markers, but the end server uses the content length value, allowing an attacker to splice the stream so that a smuggled request slips through undetected. Attackers have used hidden extra requests to trick caching servers into revealing private session tokens, exposing millions of user accounts. In a notable case at a large online retailer, customer names and payment card numbers were intercepted and stolen before security systems detected the intrusion. other breaches have led attackers slip past authentication checks to run unauthorized commands on internal systems, leading to data theft and service outages. In the next video, we will demonstrate how attackers craft conflicting headers to hide extra requests, hijack sessions, and poison caches. Then we will explore practical defenses, tightening server and proxy settings, enforcing strict message boundary checks and using validation routines to detect and block smuggled requests before they can do harm.",
+  "extracted_date": "2026-11-15"
+}
