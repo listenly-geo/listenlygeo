@@ -45,3 +45,9 @@ jobs:
           code=$(curl -sS -o /tmp/live.html -w '%{http_code}' "https://app.marketforge.fr/onboarding/?session_id=cs_test_verification123" || true)
           echo "HTTP $code"
           [ "$code" = "200" ] && grep -q "Let's set up your Index" /tmp/live.html && grep -q 'script.google.com' /tmp/live.html && echo "::notice::page en ligne et branchee" || { echo "::error::page non accessible ou incomplete"; exit 1; }
+      - name: Verifier la reception (refus attendu, rien n'est ecrit)
+        run: |
+          BASE="${MFE_SHEET_URL%%\?*}"
+          rep=$(curl -sSL -m 90 -X POST -H 'Content-Type: text/plain' -d '{"action":"onboarding_public","session_id":"invalide","email":"x@y.zz"}' "$BASE" || true)
+          echo "reponse: $rep"
+          echo "$rep" | grep -q 'paiement introuvable' && echo "::notice::reception active (refus d'un faux paiement OK)" || { echo "::error::reception non active (script pas a jour ?)"; exit 1; }
