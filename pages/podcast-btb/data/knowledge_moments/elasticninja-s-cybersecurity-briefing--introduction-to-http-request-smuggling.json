@@ -13,7 +13,7 @@
     "podcast_name": "ElasticNinja's Cybersecurity Briefing",
     "episode_title": "Introduction to HTTP Request Smuggling",
     "audio_url": "https://episodes.castos.com/6485957f09ee91-41670518/2580206/c1e-7mq1guv167kud6vdp-z3owj9zvh4m5-xcv65h.mp3",
-    "question": "What are the two main variants of HTTP request smuggling attacks?",
+    "question": "What are the two main variants of HTTP request smuggling exploiting content length and chunk markers?",
     "transcript_excerpt": "In the first variant the proxy uses the content length header to split incoming data while the end server relies on chunk markers, causing leftover bytes to be passed as a hidden second request. In the second variant, the proxy honors chunk markers, but the end server uses the content length value, allowing an attacker to splice the stream so that a smuggled request slips through undetected.",
     "expert_name": null,
     "start_seconds": 73,
@@ -23,10 +23,20 @@
     "podcast_name": "ElasticNinja's Cybersecurity Briefing",
     "episode_title": "Introduction to HTTP Request Smuggling",
     "audio_url": "https://episodes.castos.com/6485957f09ee91-41670518/2580206/c1e-7mq1guv167kud6vdp-z3owj9zvh4m5-xcv65h.mp3",
-    "question": "What real-world data breaches have resulted from HTTP request smuggling attacks?",
-    "transcript_excerpt": "Attackers have used hidden extra requests to trick caching servers into revealing private session tokens, exposing millions of user accounts. In a notable case at a large online retailer, customer names and payment card numbers were intercepted and stolen before security systems detected the intrusion. Other breaches have led attackers to slip past authentication checks to run unauthorized commands on internal systems, leading to data theft and service outages.",
+    "question": "How have attackers used HTTP request smuggling to steal customer data at online retailers?",
+    "transcript_excerpt": "In a notable case at a large online retailer, attackers used hidden extra requests to trick caching servers into revealing private session tokens, exposing millions of user accounts. Customer names and payment card numbers were intercepted and stolen before security systems detected the intrusion.",
     "expert_name": null,
     "start_seconds": 103,
+    "end_seconds": 160
+  },
+  {
+    "podcast_name": "ElasticNinja's Cybersecurity Briefing",
+    "episode_title": "Introduction to HTTP Request Smuggling",
+    "audio_url": "https://episodes.castos.com/6485957f09ee91-41670518/2580206/c1e-7mq1guv167kud6vdp-z3owj9zvh4m5-xcv65h.mp3",
+    "question": "What are the practical defenses against HTTP request smuggling attacks?",
+    "transcript_excerpt": "Practical defenses include tightening server and proxy settings, enforcing strict message boundary checks and using validation routines to detect and block smuggled requests before they can do harm.",
+    "expert_name": null,
+    "start_seconds": 143,
     "end_seconds": 160
   }
 ]

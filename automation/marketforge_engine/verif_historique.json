@@ -6507,19 +6507,55 @@
   }
  },
  "2026-11-15": {
-  "verifications": 0,
-  "podcasts_testes": 0,
-  "contacts_trouves": 0,
-  "verifications_par_contact": null,
-  "etapes": {},
-  "prefiltre": {},
+  "verifications": 129,
+  "podcasts_testes": 121,
+  "contacts_trouves": 60,
+  "verifications_par_contact": 2.1,
+  "etapes": {
+   "sans_nom": 1,
+   "rss_verif_catchall": 52,
+   "noms": 13,
+   "testees": 16,
+   "statut_valid": 7,
+   "verifiees": 7,
+   "rss_verif_valid": 56,
+   "rss_accepte": 56,
+   "deja_pris_avant_verif": 4,
+   "statut_invalid": 3,
+   "sans_site": 2,
+   "animateur_seul": 6,
+   "ecrit_site": 1,
+   "poste_non_dirigeant": 2,
+   "poste_accepte: animateur du podcast poste non c": 2,
+   "statut_catchall": 2,
+   "domaines_attrape_tout": 2,
+   "statut_unknown": 4,
+   "rss_verif_unknown": 4,
+   "rss_verif_invalid": 1,
+   "rss_deja_pris": 4
+  },
+  "prefiltre": {
+   "a verifier : dernier episode il y a 161 jours": 1,
+   "dernier episode il y a 2161 jours": 1,
+   "dernier episode il y a 914 jours": 1,
+   "aucun dirigeant joignable": 61,
+   "dernier episode il y a 333 jours": 1,
+   "dernier episode il y a 612 jours": 1,
+   "pas d'email dans le RSS": 14,
+   "dernier episode il y a 982 jours": 1,
+   "dernier episode il y a 380 jours": 1,
+   "dernier episode il y a 1579 jours": 1,
+   "dernier episode il y a 794 jours": 1,
+   "email inexploitable": 1,
+   "a verifier : dernier episode il y a 108 jours": 1
+  },
   "secteurs": {
    "Coachs & consultants B2B": {
-    "tries": 1042,
-    "ok": 98
+    "tries": 1044,
+    "ok": 99
    },
    "Santé libérale": {
-    "tries": 1087,
+    "tries": 1109,
     "ok": 101
    },
    "Experts-comptables & patrimoine": {
@@ -6527,7 +6563,7 @@
     "ok": 103
    },
    "Construction & Industrie": {
-    "tries": 1005,
+    "tries": 1017,
     "ok": 88
    },
    "Logistique & Supply chain": {
@@ -6535,8 +6571,8 @@
     "ok": 102
    },
    "Finance & Fintech": {
-    "tries": 1183,
-    "ok": 107
+    "tries": 1193,
+    "ok": 108
    },
    "Agences de services": {
     "tries": 726,
@@ -6547,7 +6583,7 @@
     "ok": 84
    },
    "Tech & SaaS": {
-    "tries": 1504,
+    "tries": 1520,
     "ok": 169
    },
    "RH & Recrutement": {
@@ -6571,8 +6607,8 @@
     "ok": 25
    },
    "Énergie": {
-    "tries": 608,
-    "ok": 59
+    "tries": 610,
+    "ok": 60
    },
    "Assurance": {
     "tries": 665,
@@ -6583,8 +6619,8 @@
     "ok": 51
    },
    "Marketing & Ventes": {
-    "tries": 821,
-    "ok": 76
+    "tries": 822,
+    "ok": 77
    },
    "Juridique": {
     "tries": 606,

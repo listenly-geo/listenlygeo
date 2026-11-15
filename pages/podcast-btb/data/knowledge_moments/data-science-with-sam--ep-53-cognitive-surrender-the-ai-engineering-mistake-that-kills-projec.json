@@ -3,50 +3,50 @@
     "podcast_name": "Data Science With Sam",
     "episode_title": "EP 53: Cognitive Surrender: The AI Engineering Mistake That Kills Projects",
     "audio_url": "https://dts.podtrac.com/redirect.mp3/traffic.libsyn.com/secure/b230f277-a1c8-4919-9022-8b641676fe70/2026_11_03_04_15_45_66bdfb88-9235-41db-8740-31d799366f53.mp3?dest-id=5594239",
-    "question": "What is cognitive surrender in AI engineering and why does it kill AI projects?",
-    "transcript_excerpt": "Cognitive surrender is when you say 'just go do it' without thinking about what the AI is doing or verifying its output. Ethan experienced this when he gave Claude access to all his documentation and code without reviewing anything, resulting in the system using outdated information and strange implementations. He learned that you must spend 30-40% of your time thinking through a project completely to avoid this mistake.",
+    "question": "What is cognitive surrender in AI engineering and how does it differ from cognitive offloading?",
+    "transcript_excerpt": "Cognitive surrender is when you say just go do it without thinking about what the AI is doing or understanding its output. Cognitive offloading is different—it means asking Claude how edge caching works to learn and expand your own understanding. Ethan emphasizes that cognitive surrender leads to hallucinations and broken projects, while staying curious and asking why questions helps the AI reason better.",
     "expert_name": "Ethan Lyon",
-    "start_seconds": 1072,
-    "end_seconds": 1296
+    "start_seconds": 917,
+    "end_seconds": 1151
   },
   {
     "podcast_name": "Data Science With Sam",
     "episode_title": "EP 53: Cognitive Surrender: The AI Engineering Mistake That Kills Projects",
     "audio_url": "https://dts.podtrac.com/redirect.mp3/traffic.libsyn.com/secure/b230f277-a1c8-4919-9022-8b641676fe70/2026_11_03_04_15_45_66bdfb88-9235-41db-8740-31d799366f53.mp3?dest-id=5594239",
-    "question": "How does building a semantic layer with LookML improve AI accuracy for data queries?",
-    "transcript_excerpt": "A semantic layer with LookML tells the AI agent where to find data and what calculated metrics are already defined. Instead of Claude trying to figure out how revenue is calculated every time, it already knows through LookML. This prevents the AI from going to wrong projects or datasets and ensures deterministic, accurate responses—Ethan's team achieved 100% accuracy when using this approach versus 70% without it.",
+    "question": "How can BigQuery MCP connector mistakes impact user trust in AI data systems?",
+    "transcript_excerpt": "When the BigQuery MCP connector went to the wrong product, dataset, or table and returned incorrect information, it sowed fear, uncertainty, and doubt in users. Once that trust is broken, you have to work twice as hard to get it back. Users then avoid using the system because verification takes three times as long and defeats the efficiency gains AI is supposed to provide.",
     "expert_name": "Ethan Lyon",
-    "start_seconds": 645,
-    "end_seconds": 855
+    "start_seconds": 260,
+    "end_seconds": 330
   },
   {
     "podcast_name": "Data Science With Sam",
     "episode_title": "EP 53: Cognitive Surrender: The AI Engineering Mistake That Kills Projects",
     "audio_url": "https://dts.podtrac.com/redirect.mp3/traffic.libsyn.com/secure/b230f277-a1c8-4919-9022-8b641676fe70/2026_11_03_04_15_45_66bdfb88-9235-41db-8740-31d799366f53.mp3?dest-id=5594239",
-    "question": "What is the verification tax problem with AI outputs and how does trust in data prevent it?",
-    "transcript_excerpt": "The verification tax is the second job created by AI—proving that every AI output was correct. If a number is wrong even once, it seeds fear, uncertainty, and doubt in users, who then stop using the system and you have to work twice as hard to regain trust. Ethan solved this by hard-coding authentication to restrict AI access to only three production-level projects, building an MCP server, and incorporating Twyman's Law so Claude verifies itself.",
+    "question": "What is conversational analytics and how does it improve data accuracy for AI queries?",
+    "transcript_excerpt": "Conversational analytics, which comes from Google, uses LookML to create agents trained on business metrics and calculated fields. When Ethan's team tested their MCP tool against Google's conversational analytics on the same questions, the conversational analytics got it right 100% of the time because the agent was trained to identify exactly what users were trying to do, compared to their earlier 30-70% accuracy.",
     "expert_name": "Ethan Lyon",
-    "start_seconds": 308,
-    "end_seconds": 528
+    "start_seconds": 422,
+    "end_seconds": 668
   },
   {
     "podcast_name": "Data Science With Sam",
     "episode_title": "EP 53: Cognitive Surrender: The AI Engineering Mistake That Kills Projects",
     "audio_url": "https://dts.podtrac.com/redirect.mp3/traffic.libsyn.com/secure/b230f277-a1c8-4919-9022-8b641676fe70/2026_11_03_04_15_45_66bdfb88-9235-41db-8740-31d799366f53.mp3?dest-id=5594239",
-    "question": "How did Google Conversational Analytics help achieve 100% accuracy compared to raw Claude queries?",
-    "transcript_excerpt": "Conversational Analytics is Google's tool trained on LookML that can identify exactly what you are trying to query. Ethan's team ran trials comparing their MCP tool with Conversational Analytics and found that Conversational Analytics was right every single time it ran—achieving 100% deterministic accuracy, as reliable as writing a Python script—compared to Claude's 70% accuracy without the semantic layer.",
+    "question": "Why is semantic layer and documentation critical before building AI data systems?",
+    "transcript_excerpt": "Claude cannot reliably query across thousands of projects without knowing which ones are production-level or what data users should access. Organizations that have documented every field and table in their databases give Claude context to work with. Without this hard work of documentation and building a semantic layer with LookML, Claude will guess and return wrong answers, breaking user trust.",
     "expert_name": "Ethan Lyon",
-    "start_seconds": 419,
-    "end_seconds": 663
+    "start_seconds": 625,
+    "end_seconds": 856
   },
   {
     "podcast_name": "Data Science With Sam",
     "episode_title": "EP 53: Cognitive Surrender: The AI Engineering Mistake That Kills Projects",
     "audio_url": "https://dts.podtrac.com/redirect.mp3/traffic.libsyn.com/secure/b230f277-a1c8-4919-9022-8b641676fe70/2026_11_03_04_15_45_66bdfb88-9235-41db-8740-31d799366f53.mp3?dest-id=5594239",
-    "question": "What step-by-step approach should engineers follow to avoid cognitive surrender in AI projects?",
-    "transcript_excerpt": "Start with a voice conversation with Claude—an hour-long dialogue where you repeatedly ask 'why' to understand its thinking and expand your own. Keep asking clarifying questions to correct its reasoning, which becomes embedded in how Claude thinks to itself. Once you feel confident about the problem space, move to text and request all requirements in visual form, ensuring you understand the architecture completely before building.",
+    "question": "What step-by-step approach prevents cognitive surrender when building AI systems?",
+    "transcript_excerpt": "Start with a long voice conversation asking Claude why it would do things a certain way, really understanding its thinking. Keep asking why like a child to correct its reasoning. Then ask Claude what it doesn't know about requirements that would be important. Once you feel confident, stop and go back to text to get all requirements in a visual format, refine the architecture, and only then build.",
     "expert_name": "Ethan Lyon",
-    "start_seconds": 1243,
-    "end_seconds": 1471
+    "start_seconds": 1246,
+    "end_seconds": 1479
   }
 ]
