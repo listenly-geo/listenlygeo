@@ -50,7 +50,7 @@ jobs:
           BASE="${MFE_SHEET_URL%%\?*}"
           rep=""
           for i in 1 2 3 4 5; do   # Google renvoie parfois un 404 passager : on reessaie
-            rep=$(curl -sSL -m 90 -X POST -H 'Content-Type: text/plain' -d '{"action":"onboarding_public","session_id":"invalide","email":"x@y.zz"}' "$BASE" || true)
+            rep=$(curl -sSL -m 90 -H 'Content-Type: text/plain' -d '{"action":"onboarding_public","session_id":"invalide","email":"x@y.zz"}' "$BASE" || true)
             echo "$rep" | grep -q '"ok"' && break
             sleep 15
           done
