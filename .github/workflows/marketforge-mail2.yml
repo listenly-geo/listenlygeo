@@ -3,9 +3,9 @@ name: MarketForge — Mail 2 (destination + CTA apres reponse)
 # Toutes les 30 min : enregistre la destination donnee par le prospect (fiche N1), puis envoie le mail 2
 # seulement apres 20 min ET validation (VALIDE en colonne S du Sheet).
 
+# 15/11/2026 (Etienne) : mail 2 de reponse DESACTIVE. Plus aucun apercu de validation n'est envoye a sa boite.
+# Pour reactiver : remettre la ligne `schedule` ci-dessous (cron '7,37 * * * *').
 on:
-  schedule:
-    - cron: '7,37 * * * *'
   workflow_dispatch:
 
 permissions:
