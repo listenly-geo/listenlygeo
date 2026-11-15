@@ -69,6 +69,7 @@ var MFE_DEFAULTS = [
   ['MFE_DIRIGEANT_SEUL', 'FALSE', 'Qui contacter (v25) — 09/11/2026 : FALSE = plan B, le contact du flux RSS verifie recoit le mail quand aucun dirigeant n\'est verifie (dirigeants envoyes en premier). TRUE = AUCUN mail ne part a l\'adresse du flux : sans dirigeant verifie (colonnes S-X) le prospect passe en "En pause (pas de dirigeant)". Un meme dirigeant ne recoit qu\'un seul 1er mail (les autres podcasts passent en "En pause (doublon dirigeant)"). FALSE = ancien comportement.'],
   ['MFE_VERIF_DIRIGEANT_MAX_JOUR', '40', 'Qui contacter (v24) — plafond de verifications MyEmailVerifier PAR JOUR pour la recherche d\'adresses de dirigeants (le quota gratuit est partage avec la verification avant envoi).'],
   ['MFE_RELANCE_JOURS', '4', 'MarketForge Engine — relance unique apres N jours sans reponse (0 = pas de relance).'],
+  ['MFE_RELANCES_MAX_JOUR', '40', 'MarketForge Engine — maximum de relances par jour d\'envoi (15/11/2026). Les relances sont SECONDAIRES : jamais avant les 1ers mails, etalees sur la plage horaire, R1 puis R2 puis R3, les plus anciennes d\'abord. 0 = aucune relance automatique.'],
   ['MFE_RELANCE_DEPUIS', '02/10/2026', 'MarketForge Engine — les relances ne concernent que les prospects dont le 1er mail est parti a partir de cette date (JJ/MM/AAAA). Les prospects de l\'ancien mail ne sont jamais relances. Vide = tous.'],
 ];
 
@@ -355,7 +356,8 @@ function mfeQuotidien_() {
   }
   var sent = 0;   // l'envoi des premiers mails est fait par marketforgeEngineEnvoi (toutes les 15 min)
   var replies = mfeCheckReplies_(sh);
-  var relances = (cfg.ENVOI_AUTO && cfg.RELANCE_JOURS > 0 && !(cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg))) ? mfeFollowUp_(sh, cfg.RELANCE_JOURS) : 0;
+  var relBudget = (cfg.ENVOI_AUTO && cfg.RELANCE_JOURS > 0) ? mfeRelanceBudget_(sh, cfg) : 0;   // 15/11/2026 : relances secondaires
+  var relances = relBudget > 0 ? mfeFollowUp_(sh, cfg.RELANCE_JOURS, relBudget) : 0;
   Logger.log('MarketForge Engine : %s ajoute(s), %s envoye(s), %s reponse(s), %s relance(s)', added, sent, replies, relances);
   try { mfeRapportSiPrevu_(); } catch (e) { Logger.log('Rapport : %s', e); }
 }
@@ -855,10 +857,27 @@ function mfeBounceGuard_(sh) {
   Logger.log('PAUSE AUTO : %s rebonds en 3 jours -> MFE_ENVOI_AUTO = FALSE', n);
 }
 
+// Relances SECONDAIRES (15/11/2026) : la priorite est le 1er mail. Les relances ne partent que dans la plage horaire normale, une fois le stock atteint,
+// quand les 1ers mails du jour ne sont pas en retard sur leur rythme, et au plus MFE_RELANCES_MAX_JOUR par jour d'envoi, etalees comme les 1ers mails.
+function mfeRelanceBudget_(sh, cfg) {
+  var now = new Date();
+  if (cfg.WEEKEND_PAUSE && mfeWeekend_(now, cfg)) return 0;
+  var slots = (cfg.H_END - cfg.H_START) * 4, slotNow = mfeSlotNow_(now, cfg);
+  if (slotNow >= slots || cfg.RELANCES_MAX_JOUR <= 0) return 0;
+  var rows = mfeRows_(sh), today = mfeSendDayKey_(now, cfg), daily = mfeDailyCap_(cfg);
+  var stock = rows.filter(function (r) { return r.values[6] === 'Pret' && r.values[16] && String(r.values[3] || '').indexOf('/podcast-btb/') >= 0; }).length;
+  if (stock < cfg.STOCK_MIN) return 0;   // regle du reservoir : rien ne part tant que le stock n'est pas atteint
+  var first = rows.filter(function (r) { return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today; }).length;
+  if (stock > 0 && first < Math.min(daily, Math.ceil(daily * (slotNow + 1) / slots))) return 0;   // 1ers mails en retard : ils passent d'abord
+  var done = rows.filter(function (r) { return r.values[8] && mfeSendDayKey_(new Date(r.values[8]), cfg) === today; }).length;
+  var allowed = Math.ceil(cfg.RELANCES_MAX_JOUR * (slotNow + 1) / slots);
+  return Math.max(0, Math.min(allowed, cfg.RELANCES_MAX_JOUR) - done);
+}
+
 // 3 relances dans le meme fil : J+N, J+2N, J+3N apres le 1er mail (N = MFE_RELANCE_JOURS = 4 -> J+4, J+8, J+12).
 // Statut : Envoye -> Relance (R1) -> Relance 2 (R2) -> Relance 3 (R3). Colonnes inchangees ("Relance le" = date de la derniere relance).
 // Un prospect Repondu / Rebond / Email instable n'est plus relance (detecte par mfeCheckReplies_ + garde-fou ci-dessous).
-function mfeFollowUp_(sh, days) {
+function mfeFollowUp_(sh, days, limit) {   // limit (optionnel) : nombre max de relances ce passage ; ordre R1, R2, R3 puis les plus anciennes d'abord
   var n = 0, now = Date.now(), DAY = 86400000;
   var stages = { 'Envoye': ['MFE_MSG_RELANCE', 'Relance', 1], 'Relance': ['MFE_MSG_RELANCE_2', 'Relance 2', 2], 'Relance 2': ['MFE_MSG_RELANCE_3', 'Relance 3', 3] };
   // Relances reservees aux prospects dont le 1er mail est parti a partir de MFE_RELANCE_DEPUIS (JJ/MM/AAAA)
@@ -868,7 +887,13 @@ function mfeFollowUp_(sh, days) {
     var m = String(depuis || '').trim().match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
     if (m) since = new Date(+m[3], +m[2] - 1, +m[1]).getTime();
   }
-  mfeRows_(sh).forEach(function (r) {
+  var cand = mfeRows_(sh).filter(function (r) { return stages[r.values[6]] && r.values[7]; });
+  cand.sort(function (a, b) {
+    var d = stages[a.values[6]][2] - stages[b.values[6]][2];
+    return d !== 0 ? d : new Date(a.values[7]).getTime() - new Date(b.values[7]).getTime();
+  });
+  cand.forEach(function (r) {
+    if (limit !== undefined && n >= limit) return;
     var st = stages[r.values[6]];
     if (st && String(r.values[3] || '').indexOf('/podcast-btb/') < 0) return;   // modele du 13/10/2026 : pas de relance sans fiche N1
     if (!st || !r.values[7] || !r.values[10]) return;
@@ -1194,6 +1219,7 @@ function mfeSettings_() {
     WEEKEND_PAUSE: String((cfg.MFE_WEEKEND_PAUSE === undefined || cfg.MFE_WEEKEND_PAUSE === null || cfg.MFE_WEEKEND_PAUSE === '') ? 'TRUE' : cfg.MFE_WEEKEND_PAUSE).toUpperCase() !== 'FALSE',   // 07/11/2026 : le booleen FALSE du Sheet ne doit pas retomber sur TRUE
     STOCK_MIN: isNaN(parseInt(cfg.MFE_STOCK_MIN, 10)) ? 30 : parseInt(cfg.MFE_STOCK_MIN, 10),
     RELANCE_JOURS: parseInt(cfg.MFE_RELANCE_JOURS, 10) || 0,
+    RELANCES_MAX_JOUR: isNaN(parseInt(cfg.MFE_RELANCES_MAX_JOUR, 10)) ? 40 : Math.max(0, parseInt(cfg.MFE_RELANCES_MAX_JOUR, 10)),
     EMAIL_TEST: String(cfg.MFE_EMAIL_TEST || '').trim(),
     AB_ACTIF: String(cfg.MFE_AB_ACTIF).toUpperCase() !== 'FALSE',
     DIRIGEANT: String(cfg.MFE_ENVOI_DIRIGEANT).toUpperCase() === 'TRUE',   // v24 : eteint par defaut
@@ -1231,7 +1257,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 31 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 32 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }

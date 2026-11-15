@@ -53,3 +53,6 @@ Seul cas ou redemander quelque chose : le journal affiche `RefreshError` / `inva
 - Ordre d'envoi : dirigeants verifies d'abord, contacts du flux RSS ensuite. Les envois au flux sont reperes dans la colonne Notes du Sheet (« Envoye au contact du flux RSS ») pour comparer les taux de reponse.
 - Repechage (`discover_podcasts.py`, DISCOVERY_RSS_FALLBACK / DISCOVERY_RESCUE_MAX) : les podcasts ecartes seulement par le filtre dirigeant repassent par le plan B, une fois chacun.
 - Podcast Index : source de decouverte complementaire a iTunes (cle + secret dans Reglages : MFE_PODCASTINDEX_KEY / MFE_PODCASTINDEX_SECRET). Ne jamais ecrire ces valeurs dans le depot.
+
+## Relances secondaires (decision du 15/11/2026)
+- Priorite absolue au 1er mail. Les relances ne partent que dans la plage 14h-24h, une fois le stock atteint, si les 1ers mails du jour sont a l'heure, au plus `MFE_RELANCES_MAX_JOUR` (40) par jour d'envoi, etalees, R1 > R2 > R3 puis les plus anciennes d'abord (`mfeRelanceBudget_`). Week-end : aucune relance (inchange).
