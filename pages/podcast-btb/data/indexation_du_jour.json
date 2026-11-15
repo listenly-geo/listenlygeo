@@ -1,16 +1,28 @@
 {
- "date": "2026-11-14",
+ "date": "2026-11-15",
  "mode": "liste a traiter dans Claude + Chrome (demande d'indexation manuelle, validation par page)",
  "repartition": {
-  "connu": 2,
-  "mot_cle": 8
+  "connu": 3,
+  "mot_cle": 7
  },
- "selection": "50/50 connus + mots-cles ; volumes du jour + note",
+ "selection": "note seule (volumes non a jour, Keyword Planner en echec)",
  "pretes": 10,
  "urls": [
   {
    "url": "https://listenly.org/podcast-btb/m/how-i-built-this-with-guy-raz/2aa431fdbe",
    "titre": "How did michael dell start? | How I Built This with Guy",
+   "score_qualite": 72,
+   "source": "connu",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/the-angel-next-door/54f084bbc3",
+   "titre": "Fabric VC portfolio companies? | The Angel Next Door",
    "score_qualite": 72,
    "source": "connu",
    "http": 200,
@@ -45,18 +57,6 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/american-farmland-owner-podcast/bce495853e",
-   "titre": "Mortgage rates vs history? | American Farmland Owner Po",
-   "score_qualite": 56,
-   "source": "mot_cle",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
    "url": "https://listenly.org/podcast-btb/m/dailycyber-the-truth-about-cyber-securit/ef9efa1a69",
    "titre": "US data centers vs China? | DailyCyber The Truth About",
    "score_qualite": 60,
@@ -69,8 +69,8 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/lcr-media-podcast/8afda803db",
-   "titre": "Do retail skills help lawn care? | LCR Media Podcast",
+   "url": "https://listenly.org/podcast-btb/m/lcr-media-podcast/0b40827962",
+   "titre": "Why do lawn care owners underprice? | LCR Media Podcast",
    "score_qualite": 94,
    "source": "mot_cle",
    "http": 200,
@@ -81,8 +81,8 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/lcr-media-podcast/0b40827962",
-   "titre": "Why do lawn care owners underprice? | LCR Media Podcast",
+   "url": "https://listenly.org/podcast-btb/m/lcr-media-podcast/8afda803db",
+   "titre": "Do retail skills help lawn care? | LCR Media Podcast",
    "score_qualite": 94,
    "source": "mot_cle",
    "http": 200,
@@ -117,9 +117,9 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/car-dealership-guy-podcast/a1046603b1",
-   "titre": "Soft skills that win car sales? — Car Dealership Guy",
-   "score_qualite": 70,
+   "url": "https://listenly.org/podcast-btb/m/beyond-luxury/1a55291ad7",
+   "titre": "Why did Assouline shelve finished books? | Beyond Luxury",
+   "score_qualite": 74,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
