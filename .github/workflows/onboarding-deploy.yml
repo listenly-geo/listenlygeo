@@ -44,7 +44,7 @@ jobs:
           sleep 5
           code=$(curl -sS -o /tmp/live.html -w '%{http_code}' "https://app.marketforge.fr/onboarding/?session_id=cs_test_verification123" || true)
           echo "HTTP $code"
-          [ "$code" = "200" ] && grep -q "Let's set up your Index" /tmp/live.html && grep -q 'script.google.com' /tmp/live.html && echo "::notice::page en ligne et branchee" || { echo "::error::page non accessible ou incomplete"; exit 1; }
+          [ "$code" = "200" ] && grep -q 'put your Index online' /tmp/live.html && grep -q 'script.google.com' /tmp/live.html && echo "::notice::page en ligne et branchee" || { echo "::error::page non accessible ou incomplete"; exit 1; }
       - name: Verifier la reception (refus attendu, rien n'est ecrit)
         run: |
           BASE="${MFE_SHEET_URL%%\?*}"
