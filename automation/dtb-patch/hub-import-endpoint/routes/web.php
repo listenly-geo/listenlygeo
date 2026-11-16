@@ -41,6 +41,8 @@ Route::inertia('/', 'welcome', [
 
 Route::get('media-assets/{asset}', [DashboardMediaController::class, 'show'])->name('media.assets.show');
 
+Route::get('sitemap.xml', \App\Http\Controllers\SitemapController::class)->name('sitemap.index');
+Route::get('docs/{siteSlug}/sitemap.xml', \App\Http\Controllers\SitemapController::class)->name('sitemap.site');
 Route::get('docs/{siteSlug}', PublishedDocsController::class)
     ->name('docs.index');
 Route::get('docs/{siteSlug}/{path}', PublishedDocsController::class)

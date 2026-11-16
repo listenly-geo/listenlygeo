@@ -1,0 +1,109 @@
+name: Index — indexation (SEO) : deployer / verifier
+
+# deploy : envoie DocsSeo + SitemapController + PublishedDocsController, ajoute 2 routes sitemap dans routes/web.php du serveur,
+#          ajoute titre/description/canonical/donnees structurees/texte sans JavaScript dans resources/views/app.blade.php, complete robots.txt.
+#          Les fichiers du serveur sont modifies A PARTIR DE LEUR VERSION EN LIGNE (pas ecrases) et sauvegardes (.bak-seo).
+# verifier : lecture seule, controle la page, le sitemap et robots.txt en ligne.
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'deploy ou verifier'
+        required: true
+        type: choice
+        default: verifier
+        options:
+          - verifier
+          - deploy
+
+permissions:
+  contents: read
+
+jobs:
+  seo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+      FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+      FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      SITE: app.marketforge.fr
+      PAGE: https://app.marketforge.fr/docs/answers-with-dr-jr/what-is-the-basic-formula-for-calculating-net-income-on-an-income-statement
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deployer
+        if: inputs.mode == 'deploy'
+        run: |
+          set -e
+          for v in FTP_SERVER FTP_USERNAME FTP_PASSWORD; do [ -n "${!v}" ] || { echo "::error::secret $v manquant"; exit 1; }; done
+          U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 120 -sS --ftp-create-dirs"
+          D=automation/dtb-patch/hub-import-endpoint
+          mkdir -p /tmp/live /tmp/new
+          for f in routes/web.php resources/views/app.blade.php public/robots.txt; do
+            mkdir -p "/tmp/live/$(dirname "$f")" "/tmp/new/$(dirname "$f")"
+            curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/$SITE/$f" -o "/tmp/live/$f"
+            [ -s "/tmp/live/$f" ] || { echo "::error::$f illisible sur le serveur"; exit 1; }
+          done
+          python3 - <<'PY'
+          import re, sys
+          def rd(p): return open(p, encoding='utf-8').read()
+          def wr(p, s): open(p, 'w', encoding='utf-8').write(s)
+          # routes : 2 routes sitemap AVANT les routes docs (sinon "{path}" les capture)
+          r = rd('/tmp/live/routes/web.php')
+          if "SitemapController" not in r:
+              a = "Route::get('docs/{siteSlug}', PublishedDocsController::class)"
+              if a not in r: sys.exit("ancre routes introuvable")
+              r = r.replace(a, "Route::get('sitemap.xml', \\App\\Http\\Controllers\\SitemapController::class)->name('sitemap.index');\nRoute::get('docs/{siteSlug}/sitemap.xml', \\App\\Http\\Controllers\\SitemapController::class)->name('sitemap.site');\n" + a, 1)
+          wr('/tmp/new/routes/web.php', r)
+          # vue racine : titre, balises, texte sans JavaScript
+          b = rd('/tmp/live/resources/views/app.blade.php')
+          if "$seo" not in b:
+              t = re.search(r"<title>\{\{ \$appDisplayName \?\? config\('app\.name', 'App'\) \}\}</title>", b)
+              h = b.find("<x-inertia::head>")
+              p = b.find("<x-inertia::app />")
+              if not t or h < 0 or p < 0: sys.exit("ancres de la vue racine introuvables")
+              b = b.replace(t.group(0), "<title>{{ $seo['title'] ?? ($appDisplayName ?? config('app.name', 'App')) }}</title>", 1)
+              b = b.replace("<x-inertia::head>", "@isset($seo){!! $seo['head'] !!}@endisset\n        <x-inertia::head>", 1)
+              b = b.replace("<x-inertia::app />", "<x-inertia::app />\n        @isset($seo)<noscript>{!! $seo['noscript'] !!}</noscript>@endisset", 1)
+          wr('/tmp/new/resources/views/app.blade.php', b)
+          # robots.txt : plan du site + zones privees
+          x = rd('/tmp/live/public/robots.txt')
+          if 'Sitemap:' not in x:
+              x = "User-agent: *\nDisallow: /dashboard\nDisallow: /admin\nDisallow: /login\nDisallow: /register\n\nSitemap: https://app.marketforge.fr/sitemap.xml\n"
+          wr('/tmp/new/public/robots.txt', x)
+          PY
+          # sauvegardes puis envoi (fichiers PHP et vue d'abord, routes en dernier)
+          for f in routes/web.php resources/views/app.blade.php public/robots.txt; do
+            curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T "/tmp/live/$f" "$U/$SITE/$f.bak-seo"
+          done
+          for f in app/Support/DocsSeo.php app/Http/Controllers/SitemapController.php app/Http/Controllers/PublishedDocsController.php; do
+            curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T "$D/$f" "$U/$SITE/$f" && echo "::notice title=envoye::$f"
+          done
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/new/resources/views/app.blade.php "$U/$SITE/resources/views/app.blade.php"
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/new/public/robots.txt "$U/$SITE/public/robots.txt"
+          for c in bootstrap/cache/routes-v7.php bootstrap/cache/config.php; do
+            curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "-DELE $SITE/$c" "$U/" -o /dev/null >/dev/null 2>&1 && echo "::notice::cache supprime $c" || echo "::notice::$c absent"
+          done
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/new/routes/web.php "$U/$SITE/routes/web.php"
+          echo "::notice::deploiement termine"
+
+      - name: Verifier la page, le sitemap et robots.txt
+        run: |
+          sleep 8
+          ok=1
+          curl -sS -m 40 -o /tmp/p.html -w 'HTTP page %{http_code}\n' "$PAGE"
+          echo "--- title";       grep -oiE '<title>[^<]*</title>' /tmp/p.html | head -2
+          echo "--- description"; grep -oiE '<meta name="description"[^>]*>' /tmp/p.html | head -1
+          echo "--- canonical";   grep -oiE '<link rel="canonical"[^>]*>' /tmp/p.html | head -1
+          echo "--- robots";      grep -oiE '<meta name="robots"[^>]*>' /tmp/p.html | head -1
+          echo "--- JSON-LD";     grep -c 'application/ld+json' /tmp/p.html
+          echo "--- texte sans JavaScript (noscript)"; grep -o '<noscript><main><h1>[^<]*' /tmp/p.html | head -1
+          grep -q '<link rel="canonical"' /tmp/p.html && grep -q 'application/ld+json' /tmp/p.html && grep -q '<noscript><main>' /tmp/p.html || ok=0
+          curl -sS -m 40 -o /tmp/s.xml -w 'HTTP sitemap %{http_code}\n' "https://$SITE/sitemap.xml"
+          echo "urls dans le sitemap : $(grep -c '<loc>' /tmp/s.xml || true)"; head -c 400 /tmp/s.xml; echo
+          grep -q '<loc>' /tmp/s.xml || ok=0
+          curl -sS -m 20 "https://$SITE/robots.txt"; echo
+          curl -sS -m 20 "https://$SITE/robots.txt" | grep -q 'Sitemap:' || ok=0
+          [ "$ok" = 1 ] && echo "::notice::indexation en place" || { echo "::error::controle SEO incomplet"; exit 1; }

@@ -6,6 +6,9 @@ use App\Actions\Docs\BuildPublishedSitePayload;
 use App\Models\Site;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\View;
+use App\Support\DocsSeo;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -36,6 +39,7 @@ class PublishedDocsController extends Controller
                 ];
                 $payload['previousPage'] = null;
                 $payload['nextPage'] = null;
+                $this->shareSeo($site, $payload);
 
                 return Inertia::render('docs/show', $payload);
             }
@@ -46,6 +50,15 @@ class PublishedDocsController extends Controller
             ]);
         }
 
-        return Inertia::render('docs/show', ($this->buildPublishedSitePayload)($site, $path));
+        $payload = ($this->buildPublishedSitePayload)($site, $path);
+        $this->shareSeo($site, $payload);
+
+        return Inertia::render('docs/show', $payload);
+    }
+
+    /** Titre, description, adresse officielle, donnees structurees et texte sans JavaScript (indexation, 15/11/2026). */
+    private function shareSeo(Site $site, array $payload): void
+    {
+        View::share('seo', DocsSeo::build($payload, (bool) Arr::get($site->settings_json ?? [], 'seo.noindex', false)));
     }
 }

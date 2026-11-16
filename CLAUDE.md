@@ -59,3 +59,9 @@ Seul cas ou redemander quelque chose : le journal affiche `RefreshError` / `inva
 
 ## Onboarding Index (decision du 15/11/2026)
 - Apres paiement Stripe (297 EUR), le client arrive sur `https://app.marketforge.fr/onboarding/?session_id={CHECKOUT_SESSION_ID}` (source : `automation/onboarding/index.html`, deploiement : workflow `onboarding-deploy.yml`). Reponses -> onglet `Onboarding` du Sheet (action publique `onboarding_public` d'Apps Script, protegee par l'identifiant de session Stripe ; verification Stripe active si la propriete de script `STRIPE_SECRET_KEY` existe). Ne jamais mettre le secret du pont dans la page.
+
+## Index (app.marketforge.fr) : indexation Google et IA (15/11/2026)
+- Les pages publiees (`/docs/{site}/{page}`) embarquent cote serveur : titre, description, canonical, balises de partage, donnees structurees (Article + BreadcrumbList), texte sans JavaScript (`<noscript>`) et liens internes (`app/Support/DocsSeo.php`). Plan du site : `/sitemap.xml` et `/docs/{site}/sitemap.xml` ; `robots.txt` y renvoie. `settings_json.seo.noindex = true` retire un Index de l'indexation.
+- Deploiement : workflow `index-seo-deploy.yml` (mode `deploy` puis `verifier`) ; il modifie routes/web.php, la vue racine et robots.txt A PARTIR de la version du serveur et garde une sauvegarde `.bak-seo`.
+- Domaine du client : l'app ne sert PAS encore un Index sur le domaine d'un client (pas de routage par nom de domaine). Tant que `config('app.docs_custom_domains')` est faux, le canonical pointe vers app.marketforge.fr.
+
