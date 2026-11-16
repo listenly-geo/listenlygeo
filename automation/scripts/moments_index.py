@@ -286,6 +286,18 @@ def build_index(podcast, ep_urls):
         }
     if not entries:
         return 0
+    # 16/11/2026 : les reponses rallongees (champ "f" + "enrichi", enrichir_du_jour.py) ne doivent JAMAIS etre
+    # ecrasees par la reconstruction : sinon la fiche perd ses 2 paragraphes, sort de la porte d'entree et
+    # la page repasse en noindex.
+    try:
+        ancien = (load_json(f"{INDEX_DIR}/{slug}.json", {}) or {}).get("entries", {})
+    except Exception:
+        ancien = {}
+    for mid_, e_ in entries.items():
+        o_ = ancien.get(mid_)
+        if isinstance(o_, dict) and o_.get("enrichi") and o_.get("f"):
+            e_["f"] = o_["f"]
+            e_["enrichi"] = o_["enrichi"]
     save_json(f"{INDEX_DIR}/{slug}.json", {
         "podcast": podcast.get("podcast_name", slug), "slug": slug,
         "hub": f"/podcast-btb/{slug}-podcast.html", "show": podcast.get("listenly_url", ""),
