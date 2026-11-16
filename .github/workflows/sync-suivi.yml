@@ -1,0 +1,31 @@
+name: Tableau de suivi indexation - mise a jour automatique
+
+on:
+  push:
+    branches: [main]
+    paths: ['pages/podcast-btb/data/index_requests.json']
+  schedule:
+    - cron: '30 22 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 automation/scripts/sync_suivi_fiches.py
+      - name: Commit + mise en ligne
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions"; git config user.email "actions@github.com"
+          if [ -n "$(git status --porcelain pages/podcast-btb/data/suivi_fiches.json)" ]; then
+            git add pages/podcast-btb/data/suivi_fiches.json
+            git commit -m "Suivi indexation : mise a jour automatique"
+            git pull --rebase -q && git push -q
+            gh workflow run deploy-pages.yml --ref main
+          fi
