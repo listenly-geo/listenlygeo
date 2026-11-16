@@ -14,7 +14,7 @@ En cas d'echec : statut "Erreur" + alerte. Aucun effet de bord sur Listenly (rie
 Variables : MFE_SHEET_URL (avec ?secret=), HUB_IMPORT_TOKEN, ANTHROPIC_API_KEY, GROQ_API_KEY (ou OPENAI_API_KEY)
 Optionnelles : INDEX_EPISODES_MAX (6), INDEX_CLIENTS_MAX (2), INDEX_AUDIO_MIN (20), INDEX_TEST_EMAILS (adresses autorisees sans paiement verifie), DRY_RUN=1
 """
-import os, sys, re, json, tempfile, shutil, subprocess, urllib.request, urllib.error
+import os, sys, re, json, time, tempfile, shutil, subprocess, urllib.request, urllib.error
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sheet_bridge as sb  # noqa: E402
@@ -112,16 +112,25 @@ def extract_answers(podcast, episodes, trim_min):
 
 
 def post_import(payload):
+    """Un envoi vers l'app, avec 3 essais (l'hebergeur renvoie parfois un 502/503 passager). L'import est idempotent."""
     token = os.environ.get("HUB_IMPORT_TOKEN", "")
     if not token:
         raise RuntimeError("HUB_IMPORT_TOKEN manquant")
-    req = urllib.request.Request(HUB_URL, data=json.dumps(payload, ensure_ascii=False).encode(), method="POST",
-                                 headers={"Content-Type": "application/json", "X-Hub-Token": token})
-    try:
-        with urllib.request.urlopen(req, timeout=300) as r:
-            return json.loads(r.read().decode())
-    except urllib.error.HTTPError as e:
-        raise RuntimeError(f"import HTTP {e.code} : {e.read().decode(errors='replace')[:300]}")
+    last = None
+    for attempt in range(3):
+        req = urllib.request.Request(HUB_URL, data=json.dumps(payload, ensure_ascii=False).encode(), method="POST",
+                                     headers={"Content-Type": "application/json", "X-Hub-Token": token})
+        try:
+            with urllib.request.urlopen(req, timeout=300) as r:
+                return json.loads(r.read().decode())
+        except urllib.error.HTTPError as e:
+            last = RuntimeError(f"import HTTP {e.code} : {e.read().decode(errors='replace')[:200]}")
+            if e.code not in (500, 502, 503, 504):
+                break
+        except (urllib.error.URLError, TimeoutError) as e:
+            last = RuntimeError(f"import injoignable : {e}")
+        time.sleep(25 * (attempt + 1))
+    raise last
 
 
 def build(row):
@@ -145,10 +154,14 @@ def build(row):
         "cta_text": CTA_TEXT.get(row.get("Objectif", ""), "Learn more"),
         "answers": answers, "dry_run": DRY_RUN,
     }
-    res = post_import(payload)
-    log(f"Import : {str(res.get('output', ''))[:300]}")
-    if not res.get("ok"):
-        raise RuntimeError("import refuse : " + str(res.get("output", ""))[:200])
+    # Envoi par lots de 8 pages (charge raisonnable pour l'hebergeur) : le site est cree au 1er lot, la mise en ligne se fait au dernier.
+    lots = [answers[i:i + 8] for i in range(0, len(answers), 8)]
+    for n, lot in enumerate(lots, 1):
+        part = dict(payload, answers=lot, publish=(n == len(lots)))
+        res = post_import(part)
+        log(f"Import lot {n}/{len(lots)} : {str(res.get('output', ''))[-160:]}")
+        if not res.get("ok"):
+            raise RuntimeError("import refuse : " + str(res.get("output", ""))[:200])
     return f"{BASE_DOCS}/{site}", len(answers)
 
 
