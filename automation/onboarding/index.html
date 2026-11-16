@@ -6,25 +6,27 @@
 <meta name="robots" content="noindex,nofollow">
 <title>Set up your Index - MarketForge</title>
 <style>
-:root{--bg:#FAFAF7;--ink:#0E0E10;--mut:#6B6B73;--line:#E4E4DE;--blue:#2F5BFF;--card:#fff}
+:root{--bg:#FAFAF7;--ink:#0E0E10;--mut:#6B6B73;--line:#E4E4DE;--blue:#2F5BFF;--card:#fff;--ok:#1F9D55}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif}
 .wrap{max-width:640px;margin:0 auto;padding:28px 18px 60px}
-.brand{font-weight:700;font-size:18px;margin-bottom:26px}
+.brand{font-weight:700;font-size:18px;margin-bottom:22px}
 h1{font-size:30px;line-height:1.15;margin:0 0 8px;letter-spacing:-.02em}
-.lead{color:var(--mut);margin:0 0 22px}
+h2{font-size:22px;line-height:1.2;margin:0 0 6px;letter-spacing:-.01em}
+.lead{color:var(--mut);margin:0 0 20px}
 .bar{height:4px;background:var(--line);border-radius:4px;overflow:hidden;margin:6px 0 6px}
-.bar i{display:block;height:100%;width:25%;background:var(--blue);transition:width .25s}
-.step{font-size:12px;letter-spacing:.08em;color:var(--mut);text-transform:uppercase;margin-bottom:18px}
+.bar i{display:block;height:100%;width:20%;background:var(--blue);transition:width .3s}
+.step{font-size:12px;letter-spacing:.08em;color:var(--mut);text-transform:uppercase;margin-bottom:16px;display:flex;justify-content:space-between}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
 label{display:block;font-weight:600;margin:16px 0 6px}
 label:first-child{margin-top:0}
 .hint{font-weight:400;color:var(--mut);font-size:14px}
+.why{background:#F1F4FF;border-radius:12px;padding:11px 13px;font-size:14px;color:#2A3A7A;margin:0 0 4px}
 input[type=text],input[type=email],input[type=url],textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font:inherit;background:#fff}
 textarea{min-height:90px;resize:vertical}
 input:focus,textarea:focus{outline:2px solid var(--blue);border-color:transparent}
 .opts{display:grid;gap:8px}
-.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:11px 13px;cursor:pointer;font-weight:500}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:11px 13px;cursor:pointer;font-weight:500;margin:0}
 .opt input{margin-top:4px}
 .row{display:flex;gap:10px;align-items:center}
 .row input[type=color]{width:46px;height:42px;border:1px solid var(--line);border-radius:10px;padding:2px;background:#fff}
@@ -33,12 +35,29 @@ input:focus,textarea:focus{outline:2px solid var(--blue);border-color:transparen
 .btns{display:flex;gap:10px;margin-top:22px}
 button{font:inherit;font-weight:600;border:0;border-radius:999px;padding:14px 22px;cursor:pointer}
 .next{background:var(--blue);color:#fff;flex:1}
+.next:disabled{opacity:.6}
 .back{background:#fff;border:1px solid var(--line);color:var(--ink)}
 .err{color:#C0262D;font-size:14px;margin-top:10px;min-height:20px}
-.ok{text-align:center;padding:10px 4px}
-.ok h2{font-size:26px;margin:6px 0}
 .hide{display:none}
 .notice{background:#FFF6E5;border:1px solid #F3DDA8;border-radius:12px;padding:14px;margin-bottom:16px}
+.road{list-style:none;margin:0;padding:0;position:relative}
+.road li{display:flex;gap:14px;padding:0 0 18px;position:relative}
+.road li:last-child{padding-bottom:0}
+.road li:not(:last-child):before{content:"";position:absolute;left:15px;top:32px;bottom:2px;width:2px;background:var(--line)}
+.dot{flex:none;width:32px;height:32px;border-radius:50%;background:#EEF1FF;color:var(--blue);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+.road li.done .dot{background:var(--ok);color:#fff}
+.road b{display:block}
+.road span{color:var(--mut);font-size:14px}
+.need{margin:18px 0 0;padding:14px;border:1px dashed var(--line);border-radius:12px;font-size:14px;color:var(--mut)}
+.need b{color:var(--ink)}
+.pv{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:12px;margin:0 0 18px;background:#FCFCFA}
+.pv img{width:56px;height:56px;border-radius:10px;object-fit:cover;background:#EEE;flex:none}
+.pv .t{font-weight:700;line-height:1.2}
+.pv .m{font-size:13px;color:var(--mut)}
+.pv .btn{display:inline-block;margin-top:6px;color:#fff;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:600;background:var(--blue)}
+.ok{text-align:center;padding:6px 2px 0}
+.ok .tick{width:54px;height:54px;border-radius:50%;background:var(--ok);color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+.ok .road{text-align:left;margin-top:20px}
 </style>
 </head>
 <body>
@@ -46,18 +65,40 @@ button{font:inherit;font-weight:600;border:0;border-radius:999px;padding:14px 22
   <div class="brand">Marketforge</div>
   <div id="blocked" class="notice hide"><b>Open this page from your payment confirmation.</b><br>The link that follows your payment identifies your order. If you paid and see this message, reply to your receipt email and we will fix it right away.</div>
   <div id="app">
-    <h1>Let's set up your Index</h1>
-    <p class="lead">Your answers tell us exactly how to build it. It takes about 3 minutes.</p>
     <div class="bar"><i id="prog"></i></div>
-    <div class="step" id="stepLabel">Step 1 of 4</div>
+    <div class="step"><span id="stepLabel">Welcome</span><span id="timeLeft"></span></div>
     <form class="card" id="form" novalidate>
+
       <section data-s="1">
+        <h1>Welcome. Let's put your Index online.</h1>
+        <p class="lead">Your podcast becomes a searchable expert library that Google and AI assistants can read, and that turns listeners into leads. Here is the road ahead.</p>
+        <ol class="road">
+          <li><div class="dot">1</div><div><b>Your podcast</b><span>Your RSS feed. We read your episodes ourselves.</span></div></li>
+          <li><div class="dot">2</div><div><b>Your goal and audience</b><span>What your Index should bring you, and who it speaks to.</span></div></li>
+          <li><div class="dot">3</div><div><b>Your identity</b><span>Name, logo and color, so it looks like you.</span></div></li>
+          <li><div class="dot">4</div><div><b>Your domain</b><span>Where your Index will live on your website.</span></div></li>
+          <li><div class="dot">5</div><div><b>Installation</b><span>One simple line to copy and paste. We guide you step by step.</span></div></li>
+          <li><div class="dot">6</div><div><b>Your Index comes to life</b><span>You get your link and a confirmation email.</span></div></li>
+        </ol>
+        <div class="need"><b>About 5 minutes.</b> Have these ready: your podcast RSS feed (or a link to it), the link your main button should open, and the name of whoever manages your domain if it is not you.</div>
+      </section>
+
+      <section data-s="2" class="hide">
+        <h2>Your podcast</h2>
+        <p class="why">Why: we read your episodes ourselves and turn the expert answers into pages. You do not upload anything.</p>
         <label>Your email</label>
         <input type="email" name="email" autocomplete="email" placeholder="you@company.com">
-        <label>Your podcast name</label>
-        <input type="text" name="podcast" placeholder="e.g. The Growth Show">
         <label>Your RSS feed <span class="hint">(or a link to your podcast)</span></label>
         <input type="text" name="rss" placeholder="https://feeds.example.com/rss">
+        <div id="rssNote" class="hint" style="margin-top:6px"></div>
+        <label>Your podcast name</label>
+        <input type="text" name="podcast" placeholder="e.g. The Growth Show">
+      </section>
+
+      <section data-s="3" class="hide">
+        <h2>Your goal and audience</h2>
+        <p class="why">Why: this decides which answers come first and where the main button sends visitors.</p>
+        <div class="pv" data-pv><img alt=""><div><div class="t"></div><div class="m"></div><span class="btn"></span></div></div>
         <label>What should your Index bring you first?</label>
         <div class="opts">
           <label class="opt"><input type="radio" name="objectif" value="Clients / leads"> Clients and leads</label>
@@ -65,20 +106,22 @@ button{font:inherit;font-weight:600;border:0;border-radius:999px;padding:14px 22
           <label class="opt"><input type="radio" name="objectif" value="Newsletter subscribers"> Newsletter subscribers</label>
           <label class="opt"><input type="radio" name="objectif" value="Product sales"> Sales of a product or course</label>
         </div>
-      </section>
-      <section data-s="2" class="hide">
         <label>Where should the main button send visitors? <span class="hint">(contact page, calendar, offer, your site)</span></label>
         <input type="url" name="bouton_url" placeholder="https://yoursite.com/book">
         <label>Who is your ideal client? <span class="hint">(one sentence)</span></label>
         <textarea name="client_ideal" placeholder="e.g. Founders of B2B SaaS companies with 10 to 50 employees"></textarea>
         <label>Which topics should come first? <span class="hint">(up to 3)</span></label>
         <textarea name="sujets" placeholder="e.g. pricing, hiring, outbound sales"></textarea>
-      </section>
-      <section data-s="3" class="hide">
-        <label>Which questions do your clients ask you most often?</label>
+        <label>Which questions do your clients ask you most often? <span class="hint">(optional)</span></label>
         <textarea name="questions" placeholder="One per line. We will answer them first from your episodes."></textarea>
         <label>Any episodes or topics to leave out? <span class="hint">(optional)</span></label>
         <textarea name="exclusions"></textarea>
+      </section>
+
+      <section data-s="4" class="hide">
+        <h2>Your identity</h2>
+        <p class="why">Why: your Index should look like your brand from the first visit.</p>
+        <div class="pv" data-pv><img alt=""><div><div class="t"></div><div class="m"></div><span class="btn"></span></div></div>
         <label>Name shown on your Index</label>
         <input type="text" name="nom_affiche" placeholder="Your company or podcast name">
         <label>Logo link <span class="hint">(optional, or send it by email later)</span></label>
@@ -86,11 +129,14 @@ button{font:inherit;font-weight:600;border:0;border-radius:999px;padding:14px 22
         <label>Main color</label>
         <div class="row"><input type="color" name="couleur" value="#2F5BFF"><span class="hint">Used for buttons and links</span></div>
       </section>
-      <section data-s="4" class="hide">
+
+      <section data-s="5" class="hide">
+        <h2>Your domain</h2>
+        <p class="why">Why: your Index lives on your own website, under an address like expertise.yoursite.com. That way the authority builds on your domain.</p>
         <label>Your website domain</label>
         <input type="text" name="domaine" placeholder="yoursite.com">
         <label>Where should your Index live?</label>
-        <div class="sub"><input type="text" name="sous_domaine" value="expertise" aria-label="subdomain"><span>.yourdomain.com</span></div>
+        <div class="sub"><input type="text" name="sous_domaine" value="expertise" aria-label="subdomain"><span id="subSuffix">.yourdomain.com</span></div>
         <label>Who manages your domain settings (DNS)?</label>
         <div class="opts">
           <label class="opt"><input type="radio" name="dns_qui" value="Me"> I do</label>
@@ -100,17 +146,26 @@ button{font:inherit;font-weight:600;border:0;border-radius:999px;padding:14px 22
         <label>Contact for DNS <span class="hint">(only if someone else manages it)</span></label>
         <input type="email" name="dns_contact" placeholder="webmaster@yourcompany.com">
       </section>
+
       <div class="err" id="err"></div>
       <div class="btns">
         <button type="button" class="back hide" id="back">Back</button>
-        <button type="button" class="next" id="next">Continue</button>
+        <button type="button" class="next" id="next">Start</button>
       </div>
     </form>
   </div>
+
   <div id="done" class="card ok hide">
-    <h2>You're all set.</h2>
-    <p>We received your answers. Your Index is being prepared exactly as you described.</p>
-    <p class="lead">You will get an email within 48 hours with a single simple step to put it live on your domain.</p>
+    <div class="tick">&#10003;</div>
+    <h2>Your answers are in. We take it from here.</h2>
+    <p class="lead">A confirmation email is on its way to <b id="doneMail"></b>.</p>
+    <ol class="road">
+      <li class="done"><div class="dot">&#10003;</div><div><b>Your answers</b><span>Received.</span></div></li>
+      <li><div class="dot">5</div><div><b>We build your Index</b><span>From your episodes, in your colors.</span></div></li>
+      <li><div class="dot">6</div><div><b>You install it</b><span>You receive one line to copy and paste (or forward to your webmaster). We guide you.</span></div></li>
+      <li><div class="dot">7</div><div><b>Your Index comes to life</b><span>You get the link to see it live.</span></div></li>
+    </ol>
+    <p class="hint" style="margin-top:18px">You will hear from us within 48 hours. Questions? Just reply to any email from us.</p>
   </div>
 </div>
 <script>
@@ -120,26 +175,54 @@ button{font:inherit;font-weight:600;border:0;border-radius:999px;padding:14px 22
   var ok = /^cs_(live|test)_[A-Za-z0-9]{10,200}$/.test(sid);
   var $ = function(i){return document.getElementById(i)};
   if(!ok){ $('blocked').classList.remove('hide'); $('app').classList.add('hide'); return; }
-  var cur = 1, total = 4, f = $('form');
+  var cur = 1, total = 5, f = $('form'), feed = {img:'', title:'', eps:0};
+  var minutes = {1:5,2:4,3:3,4:2,5:1};
   function val(n){ var e=f.elements[n]; if(!e) return ''; if(e.length && e[0] && e[0].type==='radio'){ for(var i=0;i<e.length;i++) if(e[i].checked) return e[i].value; return ''; } return (e.value||'').trim(); }
+  function pv(){
+    var t = val('nom_affiche') || val('podcast') || feed.title || 'Your podcast';
+    [].forEach.call(document.querySelectorAll('[data-pv]'),function(p){
+      var im=p.querySelector('img'); if(feed.img){ im.src=feed.img; im.style.visibility='visible'; } else { im.removeAttribute('src'); im.style.visibility='hidden'; }
+      p.querySelector('.t').textContent=t;
+      p.querySelector('.m').textContent=feed.eps ? feed.eps+' episodes become searchable expert answers' : 'Your episodes become searchable expert answers';
+      var b=p.querySelector('.btn'); b.style.background=val('couleur')||'#2F5BFF'; b.textContent=({'Clients / leads':'Work with us','Booked calls':'Book a call','Newsletter subscribers':'Join the newsletter','Product sales':'Get the offer'})[val('objectif')]||'Your main button';
+    });
+  }
   function show(n){
     cur=n; [].forEach.call(f.querySelectorAll('section'),function(s){ s.classList.toggle('hide', +s.dataset.s!==n); });
-    $('prog').style.width=(n/total*100)+'%'; $('stepLabel').textContent='Step '+n+' of '+total;
-    $('back').classList.toggle('hide', n===1); $('next').textContent = n===total ? 'Send my answers' : 'Continue'; $('err').textContent='';
+    $('prog').style.width=(n/total*100)+'%';
+    $('stepLabel').textContent = n===1 ? 'Welcome' : 'Step '+(n-1)+' of '+(total-1);
+    $('timeLeft').textContent = '~'+minutes[n]+' min left';
+    $('back').classList.toggle('hide', n===1); $('next').textContent = n===1 ? 'Start' : (n===total ? 'Send my answers' : 'Continue'); $('err').textContent='';
+    if(n===5){ var d=val('domaine').replace(/^https?:\/\//,'').replace(/^www\./,'').replace(/\/.*$/,''); $('subSuffix').textContent='.'+(d||'yourdomain.com'); }
+    if(n===3||n===4) pv();
   }
   function check(n){
-    if(n===1){
+    if(n===2){
       if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val('email'))) return 'Please enter a valid email.';
-      if(!val('podcast')) return 'Please enter your podcast name.';
       if(!val('rss')) return 'Please enter your RSS feed or podcast link.';
-      if(!val('objectif')) return 'Please choose what your Index should bring you first.';
+      if(!val('podcast')) return 'Please enter your podcast name.';
     }
-    if(n===2 && !val('bouton_url')) return 'Please tell us where the main button should lead.';
-    if(n===3 && !val('nom_affiche')) return 'Please enter the name to show on your Index.';
-    if(n===4){ if(!val('domaine')) return 'Please enter your website domain.'; if(!val('sous_domaine')) return 'Please choose a subdomain.'; if(!val('dns_qui')) return 'Please tell us who manages your domain.'; }
+    if(n===3){ if(!val('objectif')) return 'Please choose what your Index should bring you first.'; if(!val('bouton_url')) return 'Please tell us where the main button should lead.'; }
+    if(n===4 && !val('nom_affiche')) return 'Please enter the name to show on your Index.';
+    if(n===5){ if(!val('domaine')) return 'Please enter your website domain.'; if(!val('sous_domaine')) return 'Please choose a subdomain.'; if(!val('dns_qui')) return 'Please tell us who manages your domain.'; }
     return '';
   }
-  $('back').onclick=function(){ show(cur-1); };
+  // Lecture du flux en direct (via le pont) : pochette, nom, nombre d'episodes
+  var tmr=null, last='';
+  function readFeed(){
+    var u=val('rss'); if(!/^https?:\/\//i.test(u)||u===last) return; last=u;
+    $('rssNote').textContent='Reading your podcast...';
+    fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'onboarding_rss',session_id:sid,url:u})})
+      .then(function(r){return r.json();}).then(function(j){
+        if(j&&j.ok&&j.title){ feed={img:j.image||'',title:j.title,eps:j.episodes||0}; $('rssNote').textContent='Found: '+j.title+(j.episodes?' ('+j.episodes+' episodes)':''); if(!val('podcast')) f.elements.podcast.value=j.title; if(!val('nom_affiche')) f.elements.nom_affiche.value=j.title; pv(); }
+        else $('rssNote').textContent='';
+      }).catch(function(){ $('rssNote').textContent=''; });
+  }
+  f.elements.rss.addEventListener('input',function(){ clearTimeout(tmr); tmr=setTimeout(readFeed,700); });
+  f.elements.rss.addEventListener('blur',readFeed);
+  ['podcast','nom_affiche','couleur','bouton_url'].forEach(function(k){ f.elements[k].addEventListener('input',pv); });
+  [].forEach.call(f.elements.objectif,function(r){ r.addEventListener('change',pv); });
+  $('back').onclick=function(){ show(cur-1); window.scrollTo(0,0); };
   $('next').onclick=function(){
     var m=check(cur); if(m){ $('err').textContent=m; return; }
     if(cur<total){ show(cur+1); window.scrollTo(0,0); return; }
@@ -147,7 +230,7 @@ button{font:inherit;font-weight:600;border:0;border-radius:999px;padding:14px 22
     ['email','podcast','rss','objectif','bouton_url','client_ideal','sujets','exclusions','questions','nom_affiche','logo','couleur','domaine','sous_domaine','dns_qui','dns_contact'].forEach(function(k){ data[k]=val(k); });
     $('next').disabled=true; $('next').textContent='Sending...';
     var body=JSON.stringify(data), opt={method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:body};
-    function fin(){ $('app').classList.add('hide'); $('done').classList.remove('hide'); window.scrollTo(0,0); }
+    function fin(){ $('doneMail').textContent=val('email'); $('app').classList.add('hide'); $('done').classList.remove('hide'); window.scrollTo(0,0); }
     fetch(ENDPOINT,opt).then(function(r){return r.json();}).then(function(j){
       if(j&&j.ok) fin(); else { $('err').textContent='We could not confirm your order ('+((j&&j.error)||'error')+'). Please reply to your receipt email.'; $('next').disabled=false; $('next').textContent='Send my answers'; }
     }).catch(function(){

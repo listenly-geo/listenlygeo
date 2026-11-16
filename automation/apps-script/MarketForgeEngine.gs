@@ -1250,6 +1250,28 @@ function mfeOnbClean_(v, max) {
   v = String(v == null ? '' : v).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, '').trim().slice(0, max || 500);
   return /^[=+\-@]/.test(v) ? "'" + v : v;   // jamais de formule dans le Sheet
 }
+// Apercu du flux RSS pour l'onboarding : titre, pochette, nombre d'episodes. Lecture seule, protegee par le meme identifiant de session que l'onboarding.
+function mfeOnboardingRss_(b) {
+  var sid = String(b.session_id || '').trim();
+  if (!/^cs_(live|test)_[A-Za-z0-9]{10,200}$/.test(sid)) return mfeJson_({ ok: false, error: 'paiement introuvable' });
+  var url = String(b.url || '').trim();
+  var m = url.match(/^https?:\/\/([^\/:?#]+)(?::\d+)?(\/|$|\?)/i);
+  if (!m || /^(localhost|127\.|10\.|192\.168\.|169\.254\.|172\.(1[6-9]|2\d|3[01])\.|0\.|\[)/i.test(m[1]) || m[1].indexOf('.') < 0) return mfeJson_({ ok: false, error: 'lien invalide' });
+  try {
+    var res = UrlFetchApp.fetch(url, { muteHttpExceptions: true, followRedirects: true, headers: { 'User-Agent': 'MarketForge/1.0 (+https://marketforge.fr)' } });
+    if (res.getResponseCode() !== 200) return mfeJson_({ ok: false, error: 'flux introuvable' });
+    var txt = res.getContentText();
+    if (txt.length > 6000000) return mfeJson_({ ok: false, error: 'flux trop volumineux' });
+    var root = XmlService.parse(txt).getRootElement(), ch = root.getChild('channel');
+    if (!ch) return mfeJson_({ ok: false, error: 'pas un flux podcast' });
+    var ns = XmlService.getNamespace('http://www.itunes.com/dtds/podcast-1.0.dtd');
+    var title = ch.getChildText('title') || '', image = '';
+    var it = ch.getChild('image', ns); if (it && it.getAttribute('href')) image = it.getAttribute('href').getValue();
+    if (!image) { var im = ch.getChild('image'); if (im) image = im.getChildText('url') || ''; }
+    if (!/^https:\/\//i.test(image)) image = '';
+    return mfeJson_({ ok: true, title: mfeOnbClean_(title, 200), image: image, episodes: ch.getChildren('item').length });
+  } catch (err) { return mfeJson_({ ok: false, error: 'lecture impossible' }); }
+}
 function mfeOnboardingPublic_(b) {
   var sid = String(b.session_id || '').trim();
   if (!/^cs_(live|test)_[A-Za-z0-9]{10,200}$/.test(sid)) return mfeJson_({ ok: false, error: 'paiement introuvable' });
@@ -1275,7 +1297,9 @@ function mfeOnboardingPublic_(b) {
     var ids = sh.getLastRow() > 1 ? sh.getRange(2, 4, sh.getLastRow() - 1, 1).getValues() : [], row = 0;
     for (var i = 0; i < ids.length; i++) if (ids[i][0] === sid) { row = i + 2; break; }
     if (row) { var keep = sh.getRange(row, 2).getValue(); line[0] = sh.getRange(row, 1).getValue(); line[1] = keep; sh.getRange(row, 1, 1, line.length).setValues([line]); }   // meme paiement = mise a jour, pas de doublon
-    else { sh.appendRow(line); row = sh.getLastRow(); try { GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Nouvel onboarding Index : ' + (line[5] || email), 'Paiement : ' + paiement + '\nPodcast : ' + line[5] + '\nEmail : ' + email + '\nRSS : ' + line[6] + '\nDomaine : ' + line[16] + ' (sous-domaine ' + line[17] + ')\n\nLigne ' + row + ' de l\'onglet Onboarding.'); } catch (e2) { Logger.log('Alerte onboarding : %s', e2); } }
+    else { sh.appendRow(line); row = sh.getLastRow(); try { GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Nouvel onboarding Index : ' + (line[5] || email), 'Paiement : ' + paiement + '\nPodcast : ' + line[5] + '\nEmail : ' + email + '\nRSS : ' + line[6] + '\nDomaine : ' + line[16] + ' (sous-domaine ' + line[17] + ')\n\nLigne ' + row + ' de l\'onglet Onboarding.'); } catch (e2) { Logger.log('Alerte onboarding : %s', e2); }
+      // 16/11/2026 : mail de confirmation au client (uniquement si le paiement est verifie aupres de Stripe : jamais d'envoi a une adresse saisie sans paiement reel)
+      if (paiement === 'paye (verifie)') { try { GmailApp.sendEmail(email, 'Your Index is on its way', 'Hi,\n\nThanks for your order and for taking the time to answer our questions. We have everything we need.\n\nWhat happens next:\n1. We build your Index from your podcast episodes' + (line[13] ? ' (shown as "' + line[13] + '")' : '') + '.\n2. You receive one simple line to copy and paste on your domain' + (line[16] ? ' (' + (line[17] || 'expertise') + '.' + line[16] + ')' : '') + ', or to forward to whoever manages it. We guide you step by step.\n3. Your Index comes to life, and you get the link to see it.\n\nYou will hear from us within 48 hours. If anything is unclear, just reply to this email.\n\nThe MarketForge team', { name: 'MarketForge' }); } catch (e3) { Logger.log('Mail client onboarding : %s', e3); } } }
   } finally { lock.releaseLock(); }
   return mfeJson_({ ok: true });
 }
@@ -1308,7 +1332,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 34 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 35 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -1317,6 +1341,7 @@ function doPost(e) {
   var body = {};
   try { body = JSON.parse(e.postData.contents); } catch (err) { return mfeJson_({ ok: false, error: 'JSON invalide' }); }
   var p = (e && e.parameter) || {};
+  if (body.action === 'onboarding_rss') return mfeOnboardingRss_(body);   // 16/11/2026 : apercu du podcast en direct dans l'onboarding (titre, pochette, nb d'episodes)
   if (body.action === 'onboarding_public') return mfeOnboardingPublic_(body);   // 15/11/2026 : questionnaire client apres paiement (seule action sans secret, protegee par l'identifiant de paiement Stripe)
   if (!mfeAuth_(p.secret || body.secret)) return mfeJson_({ ok: false, error: 'secret invalide' });
   if (body.action === 'tendances') return mfeTendances_(body);
