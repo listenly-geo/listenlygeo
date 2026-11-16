@@ -39,7 +39,7 @@ function ListenlyAnswerPlayer({ block }: { block: DocsBlock }) {
             if (window.innerWidth < 640) {
                 setBox({ left: 12, width: window.innerWidth - 24 });
             } else {
-                const width = Math.min(rect.width, 560);
+                const width = Math.min(rect.width, 640);
                 setBox({ left: rect.left + (rect.width - width) / 2, width });
             }
         };
@@ -135,6 +135,10 @@ function ListenlyAnswerPlayer({ block }: { block: DocsBlock }) {
                         <svg viewBox="0 0 24 24" className="size-4" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
                     )}
                 </button>
+                <div className="hidden min-w-0 max-w-[40%] shrink-0 flex-col leading-tight sm:flex">
+                    <span className="truncate text-[12px] font-semibold">{block.podcast}</span>
+                    <span className="truncate text-[11px] text-[#7A6B52]">{block.episode}</span>
+                </div>
                 <input
                     type="range"
                     aria-label={failed ? 'Audio unavailable' : 'Seek'}
@@ -150,6 +154,7 @@ function ListenlyAnswerPlayer({ block }: { block: DocsBlock }) {
                     }}
                     className="h-1.5 min-w-0 flex-1 cursor-pointer accent-[#8A6A3B]"
                 />
+                <span className="min-w-0 max-w-[30%] truncate text-[11px] font-semibold sm:hidden">{block.podcast}</span>
                 <span className="shrink-0 text-[11px] tabular-nums text-[#7A6B52]">{failed ? 'Unavailable' : formatAudioTime(time)}</span>
                 {block.listenlyUrl ? (
                     <a
