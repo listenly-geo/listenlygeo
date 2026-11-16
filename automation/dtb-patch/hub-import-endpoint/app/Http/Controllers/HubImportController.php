@@ -37,12 +37,17 @@ class HubImportController extends Controller
         $file = $dir.'/'.Str::uuid().'.json';
         File::put($file, json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
 
-        $status = Artisan::call('hub:import', [
+        $args = [
             'site' => $site,
             'file' => $file,
             '--publish' => (bool) ($payload['publish'] ?? false),
             '--dry-run' => (bool) ($payload['dry_run'] ?? false),
-        ]);
+        ];
+        if (trim((string) ($payload['create_site'] ?? '')) !== '') {
+            $args['--create-site'] = trim((string) $payload['create_site']);
+        }
+
+        $status = Artisan::call('hub:import', $args);
 
         File::delete($file);
 

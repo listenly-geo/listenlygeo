@@ -4,9 +4,13 @@ namespace App\Console\Commands;
 
 use App\Actions\Docs\AutosavePageRevision;
 use App\Actions\Docs\ManagePrototypePageTree;
+use App\Actions\Docs\EnsureEditorWorkspace;
 use App\Actions\Docs\PublishSiteRelease;
+use App\Actions\Docs\SyncOrganizationUsageCounter;
+use App\Models\Organization;
 use App\Models\Page;
 use App\Models\Site;
+use App\Models\Space;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
@@ -38,6 +42,7 @@ class ImportHubAnswers extends Command
         {site : UUID ou slug du site}
         {file : Chemin du fichier JSON}
         {--user= : E-mail de l\'utilisateur qui signe les pages}
+        {--create-site= : Nom du site à créer s\'il n\'existe pas encore (onboarding client)}
         {--publish : Publie une nouvelle version après l\'import}
         {--dry-run : Affiche ce qui serait créé sans rien écrire}';
 
@@ -47,22 +52,29 @@ class ImportHubAnswers extends Command
         ManagePrototypePageTree $pages,
         AutosavePageRevision $autosave,
         PublishSiteRelease $publish,
+        EnsureEditorWorkspace $workspace,
+        SyncOrganizationUsageCounter $usage,
     ): int {
         $site = Site::query()
             ->where('uuid', $this->argument('site'))
             ->orWhere('slug', $this->argument('site'))
             ->first();
 
-        if (! $site) {
-            $this->error('Site introuvable.');
-
-            return self::FAILURE;
-        }
-
         $user = User::query()->where('email', $this->option('user') ?: 'etienne.cugnet@marketforge.fr')->first();
 
         if (! $user) {
             $this->error('Utilisateur introuvable : vérifiez --user.');
+
+            return self::FAILURE;
+        }
+
+        if (! $site && $this->option('create-site') && ! $this->option('dry-run')) {
+            $site = $this->createSite($workspace, $usage, $user, (string) $this->argument('site'), (string) $this->option('create-site'));
+            $this->info('Site créé : '.$site->slug);
+        }
+
+        if (! $site) {
+            $this->error('Site introuvable.');
 
             return self::FAILURE;
         }
@@ -136,6 +148,41 @@ class ImportHubAnswers extends Command
         }
 
         return self::SUCCESS;
+    }
+
+    /**
+     * Crée le site d'un nouveau client (même structure que le tableau de bord : un espace par défaut), publié avec le thème Listenly.
+     */
+    private function createSite(EnsureEditorWorkspace $workspace, SyncOrganizationUsageCounter $usage, User $user, string $slug, string $name): Site
+    {
+        $organization = Organization::query()->findOrFail($workspace($user)['organization']['id']);
+        $slug = Str::slug($slug) ?: Str::slug($name) ?: 'site';
+        $name = trim($name) !== '' ? mb_substr(trim($name), 0, 80) : $slug;
+
+        $site = $organization->sites()->create([
+            'name' => $name,
+            'slug' => $slug,
+            'visibility' => 'public',
+            'status' => 'draft',
+            'settings_json' => ['appearance' => ['docs_theme' => 'listenly']],
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+        ]);
+
+        $space = $site->spaces()->create([
+            'name' => 'Answers',
+            'slug' => 'answers',
+            'icon' => 'book',
+            'color' => 'oklch(55% 0.14 255)',
+            'position' => 0,
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+        ]);
+
+        $site->forceFill(['default_space_id' => $space->id, 'updated_by' => $user->id])->save();
+        $usage($organization);
+
+        return $site;
     }
 
     /**

@@ -1250,6 +1250,38 @@ function mfeOnbClean_(v, max) {
   v = String(v == null ? '' : v).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, '').trim().slice(0, max || 500);
   return /^[=+\-@]/.test(v) ? "'" + v : v;   // jamais de formule dans le Sheet
 }
+// ---------- Construction automatique de l'Index client (16/11/2026) : le generateur GitHub lit les lignes a construire et met le statut a jour ----------
+function mfeOnbPending_() {
+  var sh = mfeSS_().getSheetByName('Onboarding');
+  if (!sh || sh.getLastRow() < 2) return mfeJson_({ ok: true, rows: [] });
+  var vals = sh.getRange(2, 1, sh.getLastRow() - 1, MFE_ONB_COLS.length).getValues(), out = [];
+  for (var i = 0; i < vals.length; i++) {
+    var st = String(vals[i][1] || '');
+    if (st !== 'A construire' && st !== 'A installer') continue;
+    var o = { row: i + 2 };
+    for (var c = 0; c < MFE_ONB_COLS.length; c++) o[MFE_ONB_COLS[c]] = String(vals[i][c] instanceof Date ? vals[i][c].toISOString() : vals[i][c]);
+    out.push(o);
+  }
+  return mfeJson_({ ok: true, rows: out });
+}
+function mfeOnbUpdate_(b) {
+  var sh = mfeSS_().getSheetByName('Onboarding'), row = parseInt(b.row, 10);
+  if (!sh || !(row >= 2 && row <= sh.getLastRow())) return mfeJson_({ ok: false, error: 'ligne invalide' });
+  var statut = mfeOnbClean_(b.statut, 40), note = mfeOnbClean_(b.note, 500), url = String(b.url || '');
+  if (statut) sh.getRange(row, 2).setValue(statut);
+  if (note || url) sh.getRange(row, 21).setValue((url ? 'Index : ' + url + ' | ' : '') + note);
+  var email = String(sh.getRange(row, 5).getValue() || ''), podcast = String(sh.getRange(row, 6).getValue() || '');
+  try {
+    if (statut === 'Pret' && /^https:\/\//.test(url)) {
+      GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Index pret : ' + podcast, 'Index construit pour ' + podcast + '\n' + url + '\nLigne ' + row + ' de l\'onglet Onboarding.');
+      if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) && String(sh.getRange(row, 3).getValue()).indexOf('paye') === 0)
+        GmailApp.sendEmail(email, 'Your Index is ready', 'Hi,\n\nYour Index is ready. See it live here:\n' + url + '\n\nYour podcast episodes are now searchable expert answers, readable by Google and AI assistants.\n\nNext step: putting it on your own domain. We will send you one simple line to copy and paste (or forward to whoever manages your domain). If you have any question, just reply to this email.\n\nThe MarketForge team', { name: 'MarketForge' });
+    } else if (statut === 'Erreur') {
+      GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Index en erreur : ' + podcast, 'Construction en erreur pour ' + podcast + '\nLigne ' + row + '\n' + note);
+    }
+  } catch (err) { Logger.log('Mail onboarding_update : %s', err); }
+  return mfeJson_({ ok: true });
+}
 // Apercu du flux RSS pour l'onboarding : titre, pochette, nombre d'episodes. Lecture seule, protegee par le meme identifiant de session que l'onboarding.
 function mfeOnboardingRss_(b) {
   var sid = String(b.session_id || '').trim();
@@ -1292,7 +1324,7 @@ function mfeOnboardingPublic_(b) {
     var ss = mfeSS_(), sh = ss.getSheetByName('Onboarding');
     if (!sh) { sh = ss.insertSheet('Onboarding'); sh.getRange(1, 1, 1, MFE_ONB_COLS.length).setValues([MFE_ONB_COLS]).setFontWeight('bold'); sh.setFrozenRows(1); }
     var c = function (k, m) { return mfeOnbClean_(b[k], m); };
-    var line = [new Date(), 'A installer', paiement, sid, email, c('podcast', 200), c('rss', 500), c('objectif', 200), c('bouton_url', 500), c('client_ideal', 600), c('sujets', 600), c('exclusions', 600),
+    var line = [new Date(), 'A construire', paiement, sid, email, c('podcast', 200), c('rss', 500), c('objectif', 200), c('bouton_url', 500), c('client_ideal', 600), c('sujets', 600), c('exclusions', 600),
       c('questions', 1500), c('nom_affiche', 200), c('logo', 500), c('couleur', 20), c('domaine', 200), c('sous_domaine', 100), c('dns_qui', 100), c('dns_contact', 200), ''];
     var ids = sh.getLastRow() > 1 ? sh.getRange(2, 4, sh.getLastRow() - 1, 1).getValues() : [], row = 0;
     for (var i = 0; i < ids.length; i++) if (ids[i][0] === sid) { row = i + 2; break; }
@@ -1332,7 +1364,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 35 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 36 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -1344,6 +1376,8 @@ function doPost(e) {
   if (body.action === 'onboarding_rss') return mfeOnboardingRss_(body);   // 16/11/2026 : apercu du podcast en direct dans l'onboarding (titre, pochette, nb d'episodes)
   if (body.action === 'onboarding_public') return mfeOnboardingPublic_(body);   // 15/11/2026 : questionnaire client apres paiement (seule action sans secret, protegee par l'identifiant de paiement Stripe)
   if (!mfeAuth_(p.secret || body.secret)) return mfeJson_({ ok: false, error: 'secret invalide' });
+  if (body.action === 'onboarding_pending') return mfeOnbPending_();   // 16/11/2026 : construction automatique de l'Index client
+  if (body.action === 'onboarding_update') return mfeOnbUpdate_(body);
   if (body.action === 'tendances') return mfeTendances_(body);
   if (body.action === 'optimisations') return mfeOptimisations_(body);
   if (body.action === 'cohorte') return mfeCohorte_(body);   // MAJ 19/10/2026

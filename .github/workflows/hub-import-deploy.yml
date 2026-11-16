@@ -20,6 +20,7 @@ on:
           - test-dry
           - test-import
           - theme
+          - code
 
 permissions:
   contents: read
@@ -114,6 +115,19 @@ jobs:
           print('questions envoyees :', len(d['answers']), '| simulation :', d['dry_run'])
           PY
           curl -sS -X POST -H 'Content-Type: application/json' -H "X-Hub-Token: $HUB_IMPORT_TOKEN" --data-binary @/tmp/payload.json -w '\nHTTP %{http_code}\n' "https://$SITE/hub/import" | tee /tmp/resp.txt
+
+      - name: Deployer seulement le code d'import (2 fichiers PHP, aucune route ni .env touches)
+        if: inputs.mode == 'code'
+        run: |
+          U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 120 -sS"
+          D=automation/dtb-patch/hub-import-endpoint
+          for f in app/Console/Commands/ImportHubAnswers.php app/Http/Controllers/HubImportController.php; do
+            curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T "$D/$f" "$U/app.marketforge.fr/$f" && echo "::notice title=envoye::$f"
+          done
+          sleep 3
+          printf '{"site":"answers-with-dr-jr","answers":[{"question":"x","answer":"y"}],"dry_run":true}' > /tmp/p.json
+          curl -sS -X POST -H 'Content-Type: application/json' -H "X-Hub-Token: $HUB_IMPORT_TOKEN" --data-binary @/tmp/p.json -w '\nHTTP %{http_code}\n' "https://$SITE/hub/import" | tee /tmp/resp.txt
+          grep -q "HTTP 200" /tmp/resp.txt || { echo "::error::l'import ne repond pas correctement apres le deploiement"; exit 1; }
 
       - name: Deployer le theme Listenly (fichiers PHP puis public/build, manifest en dernier)
         if: inputs.mode == 'theme'

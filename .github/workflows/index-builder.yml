@@ -1,0 +1,64 @@
+name: Index client — construction automatique
+
+# Toutes les 30 min : lit les lignes "A construire" de l'onglet Onboarding (paiement verifie), construit l'Index
+# du client (RSS -> questions/reponses -> site + pages publiees), met le statut a jour dans le Sheet et envoie les mails.
+# Sans ligne a construire, le passage ne fait rien (cout nul).
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'true = simulation (aucune ecriture dans le Sheet, import en simulation)'
+        required: false
+        default: 'false'
+  schedule:
+    - cron: '7,37 * * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: index-builder
+  cancel-in-progress: false
+
+jobs:
+  construire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
+      HUB_IMPORT_TOKEN: ${{ secrets.HUB_IMPORT_TOKEN }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      DRY_RUN: ${{ inputs.dry_run == 'true' && '1' || '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Y a-t-il un Index a construire ?
+        id: file
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import os, sys
+          sys.path.insert(0, "automation/scripts")
+          import sheet_bridge as sb
+          n = 0
+          try:
+              j = sb.call(payload={"action": "onboarding_pending"})
+              n = len(j.get("rows", [])) if isinstance(j, dict) and j.get("ok") else 0
+          except Exception as e:
+              print(f"::warning::pont injoignable : {e}", file=sys.stderr)
+          print(f"n={n}")
+          PY
+          cat "$GITHUB_OUTPUT"
+      - name: Installer ffmpeg
+        if: steps.file.outputs.n != '0'
+        continue-on-error: true
+        uses: FedericoCarboni/setup-ffmpeg@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Construire les Index
+        if: steps.file.outputs.n != '0'
+        run: python automation/scripts/index_builder.py
