@@ -1,7 +1,7 @@
 {
- "updated": "2026-11-16T13:36",
+ "updated": "2026-11-16T14:28",
  "phase": "exploration (repartition egale)",
- "verdict": "trop tot pour conclure (71 envois avec variante ; il en faut au moins 100 par variante et 95 % de chances)",
+ "verdict": "trop tot pour conclure (75 envois avec variante ; il en faut au moins 100 par variante et 95 % de chances)",
  "weights": {
   "A": 0.2,
   "B": 0.2,
@@ -12,39 +12,17 @@
  "variants": {
   "A": {
    "label": "Podcast Hub ou Spotify : « keep Spotify as the destination? »",
-   "envoye": 14,
-   "rebond": 0,
-   "reponse": 0,
-   "classes": {},
-   "delivres": 14,
-   "taux_pct": 0.0,
-   "chance_meilleure_pct": 20.4,
-   "part_envois_pct": 20.0
-  },
-  "B": {
-   "label": "Podcast Hub ou Spotify : « redirect it to Spotify for now? »",
-   "envoye": 13,
-   "rebond": 0,
-   "reponse": 0,
-   "classes": {},
-   "delivres": 13,
-   "taux_pct": 0.0,
-   "chance_meilleure_pct": 20.7,
-   "part_envois_pct": 20.0
-  },
-  "C": {
-   "label": "Spotify d'abord : « Should we send it to Spotify, or… Podcast Hub? »",
    "envoye": 15,
    "rebond": 0,
    "reponse": 0,
    "classes": {},
    "delivres": 15,
    "taux_pct": 0.0,
-   "chance_meilleure_pct": 19.5,
+   "chance_meilleure_pct": 19.9,
    "part_envois_pct": 20.0
   },
-  "D": {
-   "label": "Question directe : « Do you have a Podcast Hub where we can send this audience? »",
+  "B": {
+   "label": "Podcast Hub ou Spotify : « redirect it to Spotify for now? »",
    "envoye": 14,
    "rebond": 0,
    "reponse": 0,
@@ -52,6 +30,28 @@
    "delivres": 14,
    "taux_pct": 0.0,
    "chance_meilleure_pct": 19.9,
+   "part_envois_pct": 20.0
+  },
+  "C": {
+   "label": "Spotify d'abord : « Should we send it to Spotify, or… Podcast Hub? »",
+   "envoye": 16,
+   "rebond": 0,
+   "reponse": 0,
+   "classes": {},
+   "delivres": 16,
+   "taux_pct": 0.0,
+   "chance_meilleure_pct": 19.8,
+   "part_envois_pct": 20.0
+  },
+  "D": {
+   "label": "Question directe : « Do you have a Podcast Hub where we can send this audience? »",
+   "envoye": 15,
+   "rebond": 0,
+   "reponse": 0,
+   "classes": {},
+   "delivres": 15,
+   "taux_pct": 0.0,
+   "chance_meilleure_pct": 20.3,
    "part_envois_pct": 20.0
   },
   "E": {
@@ -62,7 +62,7 @@
    "classes": {},
    "delivres": 15,
    "taux_pct": 0.0,
-   "chance_meilleure_pct": 19.5,
+   "chance_meilleure_pct": 20.0,
    "part_envois_pct": 20.0
   }
  }
