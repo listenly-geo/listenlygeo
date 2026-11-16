@@ -1,6 +1,6 @@
 import DOMPurify from 'dompurify';
 import { Link } from '@inertiajs/react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ElementType, ReactNode } from 'react';
 import katex from 'katex';
 import 'katex/dist/katex.min.css';
@@ -26,6 +26,36 @@ function ListenlyAnswerPlayer({ block }: { block: DocsBlock }) {
     const [time, setTime] = useState(start);
     const [duration, setDuration] = useState(0);
     const [failed, setFailed] = useState(false);
+    const anchorRef = useRef<HTMLDivElement>(null);
+    const [box, setBox] = useState<{ left: number; width: number } | null>(null);
+
+    // Carte fixe en bas de l'écran, calée sur la largeur de la colonne de l'article (jamais sur les menus latéraux).
+    useEffect(() => {
+        const measure = () => {
+            const rect = anchorRef.current?.getBoundingClientRect();
+            if (!rect) {
+                return;
+            }
+            if (window.innerWidth < 640) {
+                setBox({ left: 12, width: window.innerWidth - 24 });
+            } else {
+                setBox({ left: rect.left, width: rect.width });
+            }
+        };
+        measure();
+        const observer = new ResizeObserver(measure);
+        if (anchorRef.current) {
+            observer.observe(anchorRef.current);
+        }
+        window.addEventListener('resize', measure);
+        document.body.style.paddingBottom = '120px';
+
+        return () => {
+            observer.disconnect();
+            window.removeEventListener('resize', measure);
+            document.body.style.paddingBottom = '';
+        };
+    }, []);
 
     if (!block.audioUrl) {
         return null;
@@ -57,9 +87,12 @@ function ListenlyAnswerPlayer({ block }: { block: DocsBlock }) {
     const max = duration > 0 ? duration : Math.max(start + 600, 1);
 
     return (
+        <>
+        <div ref={anchorRef} aria-hidden="true" className="h-0 w-full" />
         <section
             aria-label="Listen to the answer"
-            className="sticky bottom-4 z-30 my-6 rounded-2xl border border-white/10 bg-[#1C1C1E]/95 p-3 text-[#F5F5F7] shadow-2xl backdrop-blur sm:p-4"
+            style={box ? { left: box.left, width: box.width } : { visibility: 'hidden' }}
+            className="fixed bottom-4 z-40 rounded-2xl border border-white/10 bg-[#1C1C1E]/95 p-3 text-[#F5F5F7] shadow-2xl backdrop-blur"
         >
             <audio
                 ref={audioRef}
@@ -153,6 +186,7 @@ function ListenlyAnswerPlayer({ block }: { block: DocsBlock }) {
                 </a>
             ) : null}
         </section>
+        </>
     );
 }
 
