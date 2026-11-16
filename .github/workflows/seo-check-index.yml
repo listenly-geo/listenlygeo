@@ -32,3 +32,4 @@ jobs:
           echo "--- robots.txt"; curl -sS -m 20 -w '\nHTTP %{http_code}\n' https://app.marketforge.fr/robots.txt | head -20
           echo "--- sitemap.xml"; curl -sS -m 20 -o /tmp/s.xml -w 'HTTP %{http_code}\n' https://app.marketforge.fr/sitemap.xml; head -c 700 /tmp/s.xml; echo; grep -c '<loc>' /tmp/s.xml || true
           echo "--- pages de l'index test dans le sitemap"; grep -c 'answers-with-dr-jr' /tmp/s.xml || true
+          echo "--- lecteur audio (donnees de la page)"; grep -oE '(startSec|listenlyUrl)[^,}]{0,90}' /tmp/p.html | sed 's/&quot;/"/g' | sort -u | head -6 || true
