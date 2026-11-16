@@ -1,0 +1,46 @@
+name: Index — diagnostic d'affichage d'une page (lecture seule)
+
+# Ouvre une page publique de l'Index dans un vrai navigateur et affiche les erreurs JavaScript de la console, pour comprendre un ecran blanc.
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'Adresse de la page (app.marketforge.fr uniquement)'
+        required: true
+        default: 'https://app.marketforge.fr/docs/answers-with-dr-j-test-index-index'
+
+permissions:
+  contents: read
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Ouvrir la page et lire la console
+        env:
+          PAGE: ${{ inputs.url }}
+        run: |
+          case "$PAGE" in https://app.marketforge.fr/*) ;; *) echo "adresse non autorisee"; exit 1;; esac
+          mkdir -p /tmp/pw && cd /tmp/pw && npm init -y >/dev/null && npm i playwright@1.49.1 >/dev/null 2>&1 && npx playwright install --with-deps chromium >/dev/null 2>&1
+          cat > run.js <<'JS'
+          const { chromium } = require('playwright');
+          (async () => {
+            const b = await chromium.launch(); const p = await b.newPage();
+            p.on('console', m => { if (['error','warning'].includes(m.type())) console.log('CONSOLE', m.type(), m.text().slice(0, 400)); });
+            p.on('pageerror', e => console.log('PAGEERROR', String(e.message || e).slice(0, 600)));
+            p.on('requestfailed', r => console.log('REQFAILED', r.url().slice(0, 160), r.failure() && r.failure().errorText));
+            p.on('response', r => { if (r.status() >= 400) console.log('HTTP', r.status(), r.url().slice(0, 160)); });
+            await p.goto(process.env.PAGE, { waitUntil: 'networkidle', timeout: 45000 }).catch(e => console.log('GOTO', e.message));
+            await p.waitForTimeout(3000);
+            const t = await p.evaluate(() => document.body.innerText.trim().length);
+            console.log('TEXTLEN', t);
+            console.log('TITLE', await p.title());
+            console.log('ROOTHTML', (await p.evaluate(() => (document.getElementById('app') || document.body).innerHTML.length)));
+            await b.close();
+          })();
+          JS
+          node run.js
