@@ -163,7 +163,7 @@ function ListenlyAnswerPlayer({ block }: { block: DocsBlock }) {
                         rel="noreferrer"
                         className="shrink-0 text-xs font-semibold whitespace-nowrap text-[#8A5A1F] no-underline hover:opacity-75"
                     >
-                        Listen on Listenly →
+                        Listen to the episode →
                     </a>
                 ) : null}
             </section>
