@@ -1,15 +1,15 @@
-# Reflexion du MarketForge Engine (2026-11-16T14:28 UTC)
+# Reflexion du MarketForge Engine (2026-11-16T14:50 UTC)
 **Statut : BLOQUE**
 
 ## Funnel
-- podcasts en file : 2286
+- podcasts en file : 2297
 - contacts prets a mailer : 287
-- bloques en attente : 809
+- bloques en attente : 820
 - sans email : 68
 - prospects dans sheet : 300
-- statut pret : 225
-- mails envoyes : 860
-- relances : 89
+- statut pret : 220
+- mails envoyes : 862
+- relances : 96
 - rebonds total : 0
 - reponses reelles : 4
 - reponses classees : 0
@@ -18,12 +18,12 @@
 - paiements hub : 0
 
 ## Blocages
-- Aucun contact cree depuis 2 jours alors que 809 podcasts attendent : etape 'contact' bloquee (verifier extraction_auto, doit etre false).
+- Aucun contact cree depuis 2 jours alors que 820 podcasts attendent : etape 'contact' bloquee (verifier extraction_auto, doit etre false).
 - extraction_auto=true : les nouveaux podcasts restent en 'en_attente' au lieu de passer en contact.
 - Reponses non classees (positive / neutre / refus) : impossible de savoir si le funnel marche. Ajouter le champ 'classe' dans replies.json.
 
 ## Pourquoi pas encore de client
-- Ordre de grandeur (hypothese, pas une mesure) : un 1er client a ~1500 $ demande souvent 500 a 3000 mails froids. Il en reste 0 a 2140, soit environ 0 a 53 jours au rythme actuel (40/j).
+- Ordre de grandeur (hypothese, pas une mesure) : un 1er client a ~1500 $ demande souvent 500 a 3000 mails froids. Il en reste 0 a 2138, soit environ 0 a 53 jours au rythme actuel (40/j).
 - Reponse 0.5 % : sous le seuil habituel (1-3 %). L'accroche ou la cible est a revoir avant d'augmenter le volume.
 - 21 secteurs avec moins de 15 envois : aucun signal par niche, ne pas en tirer de conclusion.
 - Test A/B CTA : trop tot pour un gagnant. Ne rien changer avant 100 envois par variante.
