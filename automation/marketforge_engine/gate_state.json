@@ -1,15 +1,15 @@
 {
  "date": "2026-11-16",
- "used": 0,
- "tries": 0,
- "ok": 0,
+ "used": 150,
+ "tries": 154,
+ "ok": 60,
  "secteurs": {
   "Coachs & consultants B2B": {
    "tries": 1044,
    "ok": 99
   },
   "Sant\u00e9 lib\u00e9rale": {
-   "tries": 1109,
+   "tries": 1131,
    "ok": 101
   },
   "Experts-comptables & patrimoine": {
@@ -17,7 +17,7 @@
    "ok": 103
   },
   "Construction & Industrie": {
-   "tries": 1017,
+   "tries": 1030,
    "ok": 88
   },
   "Logistique & Supply chain": {
@@ -25,11 +25,11 @@
    "ok": 102
   },
   "Finance & Fintech": {
-   "tries": 1193,
+   "tries": 1211,
    "ok": 108
   },
   "Agences de services": {
-   "tries": 726,
+   "tries": 728,
    "ok": 74
   },
   "Formateurs & programmes": {
@@ -37,7 +37,7 @@
    "ok": 84
   },
   "Tech & SaaS": {
-   "tries": 1520,
+   "tries": 1558,
    "ok": 169
   },
   "RH & Recrutement": {
@@ -49,7 +49,7 @@
    "ok": 49
   },
   "Cybers\u00e9curit\u00e9": {
-   "tries": 785,
+   "tries": 786,
    "ok": 114
   },
   "Cabinets d'avocats": {
@@ -85,6 +85,37 @@
    "ok": 63
   }
  },
- "etapes": {},
- "prefiltre": {}
+ "etapes": {
+  "rss_verif_catchall": 82,
+  "noms": 2,
+  "testees": 1,
+  "statut_valid": 1,
+  "verifiees": 1,
+  "rss_verif_valid": 60,
+  "rss_accepte": 60,
+  "sans_nom": 3,
+  "rss_deja_pris": 5,
+  "sans_site": 1,
+  "ecrit_site": 1,
+  "rss_verif_invalid": 3,
+  "rss_verif_unknown": 4
+ },
+ "prefiltre": {
+  "dernier episode il y a 2563 jours": 1,
+  "pas d'email dans le RSS": 17,
+  "dernier episode il y a 1448 jours": 1,
+  "dernier episode il y a 481 jours": 1,
+  "dernier episode il y a 551 jours": 1,
+  "aucun dirigeant joignable": 94,
+  "categorie hors B2B": 1,
+  "dernier episode il y a 550 jours": 1,
+  "dernier episode il y a 464 jours": 1,
+  "dernier episode il y a 1000 jours": 1,
+  "dernier episode il y a 1081 jours": 1,
+  "a verifier : dernier episode il y a 102 jours": 1,
+  "dernier episode il y a 1291 jours": 1,
+  "dernier episode il y a 331 jours": 1,
+  "a verifier : dernier episode il y a 108 jours": 2,
+  "a verifier : dernier episode il y a 91 jours": 1
+ }
 }

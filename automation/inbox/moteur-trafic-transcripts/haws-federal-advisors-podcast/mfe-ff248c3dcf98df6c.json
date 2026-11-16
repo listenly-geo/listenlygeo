@@ -6,48 +6,48 @@
   "pubdate": "Fri, 13 Nov 2026 02:00:00 +0000",
   "real_qa": [
     {
-      "q": "How does divorce affect FERS pension benefits and survivor annuity for federal employees?",
-      "r": "Federal employees can negotiate with their spouse on how to split pension benefits through their divorce decree, which OPM will follow exactly. Survivor annuity requires either a 10% pension reduction to leave 50% to the ex-spouse, or a 5% reduction to leave 25%. The key constraint is that if you remarry, there is a 50% cap on total pension benefits you can leave behind across all beneficiaries combined.",
-      "start_seconds": 104,
-      "end_seconds": 327,
+      "q": "How does divorce affect a federal employee's FERS pension and survivor annuity benefits?",
+      "r": "Divorce impact on a federal pension depends entirely on what is negotiated in the divorce decree—there is no pre-fixed way benefits transfer to a spouse. When retiring, the federal employee submits court orders to OPM, which then pays the ex-spouse's eligible share. For survivor annuity, the employee can elect either a 10% pension reduction to leave the ex-spouse 50% of the pension, or a 5% reduction to leave 25%. However, there is no way to leave pension benefits behind after death without accepting a reduction during life. If the employee remarries, there is a 50% cap on total survivor benefits that can be divided between an ex-spouse and new spouse.",
+      "start_seconds": 129,
+      "end_seconds": 353,
       "score": 9,
-      "requete": "FERS pension divorce survivor annuity federal employee",
+      "requete": "FERS pension divorce survivor annuity",
       "start_exact": true
     },
     {
       "q": "What happens to TSP accounts in a federal employee divorce settlement?",
-      "r": "TSP splits are negotiated between spouses and TSP will pay the ex-spouse directly without requiring the employee to take a taxable withdrawal first. This direct payment structure means the money going to the ex-spouse does not create a taxable event for the employee.",
+      "r": "TSP division is negotiated between spouses and is not automatically determined. When a spouse receives a TSP split, the account pays the ex-spouse directly without requiring the employee to withdraw and transfer funds, which avoids triggering taxes on the transferred amount. Both spouses may also choose to keep their own separate investments and part ways without splitting the TSP.",
       "start_seconds": 212,
       "end_seconds": 350,
       "score": 8,
-      "requete": "TSP federal employee divorce split direct payment",
+      "requete": "TSP division divorce federal employee",
       "start_exact": true
     },
     {
-      "q": "Can federal employees keep FEHB health insurance for ex-spouses after divorce?",
-      "r": "FEHB can be negotiated for ex-spouses but it is not as straightforward as other benefits. If an ex-spouse remarries before age 55, they lose FEHB coverage, and they normally have to pay higher premiums. The structure depends on how important this benefit is and what both parties negotiate.",
+      "q": "Can a federal employee's ex-spouse maintain FEHB health insurance coverage after divorce?",
+      "r": "An ex-spouse can potentially keep FEHB health insurance coverage, but it is not as straightforward as with other benefits. If the ex-spouse remarries before age 55, they lose FEHB eligibility. They normally must also pay a higher premium than during marriage. The ability to maintain this benefit depends on the specific terms negotiated and how important the benefit is to the ex-spouse.",
       "start_seconds": 247,
       "end_seconds": 353,
       "score": 7,
-      "requete": "FEHB ex-spouse federal employee divorce age 55",
+      "requete": "FEHB health insurance federal employee divorce ex-spouse",
       "start_exact": true
     },
     {
-      "q": "Do federal employee beneficiary designations automatically update after a divorce?",
-      "r": "Divorce does not automatically update beneficiary designations. If an ex-spouse is still listed as a beneficiary on life insurance, IRAs, TSP, 401ks, or other assets, those benefits will go to them upon death even after divorce. Federal employees must manually update all beneficiary designations themselves.",
-      "start_seconds": 275,
+      "q": "Do beneficiary designations automatically update after a federal employee divorce?",
+      "r": "Divorce does not automatically update beneficiary designations on federal benefits or other assets. If an ex-spouse is still listed as a beneficiary on TSP, life insurance, IRAs, 401ks, or other accounts, they will receive those benefits upon the employee's death even after the divorce is finalized. The employee must manually update all beneficiary designations across every asset to ensure they reflect the intended recipients.",
+      "start_seconds": 271,
       "end_seconds": 353,
       "score": 9,
-      "requete": "federal employee beneficiary designation divorce automatic update",
+      "requete": "beneficiary designation divorce federal employee automatic update",
       "start_exact": true
     },
     {
-      "q": "Is there a better time to divorce as a federal employee relative to retirement timing?",
-      "r": "Timing divorce before retirement provides more options than timing it after retirement, such as electing survivor benefits and making adjustments to federal benefits. After retirement, there are fewer options to adjust benefit elections.",
+      "q": "When is the best time to finalize a federal employee divorce relative to retirement date?",
+      "r": "Timing a divorce before retirement provides more options than finalizing it after retirement. Before retirement, a federal employee can elect survivor benefits and adjust various benefit elections. After retirement, fewer options exist to modify benefit arrangements. While divorces cannot typically be timed intentionally, if the divorce timeline falls close to a planned retirement date, completing it before retiring allows for better planning and more flexibility in benefit elections.",
       "start_seconds": 321,
       "end_seconds": 353,
-      "score": 6,
-      "requete": "federal employee divorce before retirement timing benefits",
+      "score": 7,
+      "requete": "federal employee divorce timing before retirement",
       "start_exact": true
     }
   ],
@@ -58,23 +58,21 @@
     "entreprise": "Haws Federal Advisors",
     "titre_secondaire": "",
     "entreprise_secondaire": "",
-    "bio_context": "Dallin Hawes runs a financial planning firm that helps federal employees maximize their investments and taxes through various life situations, including divorce. He specializes in advising federal employees on how major life events impact their benefits and retirement planning."
+    "bio_context": "Dallin Hawes runs a financial planning firm specializing in helping federal employees maximize their investments, taxes, and navigate complex benefit situations including divorce. He provides guidance on federal benefits structures such as FERS pensions, TSP accounts, and FEHB health insurance."
   },
-  "real_quote": "Make sure your attorney is familiar enough with Fed stuff that they draft things correctly and word things correctly so OPM recognizes everything.",
+  "real_quote": "Whatever is in your divorce decree is what will happen. Make sure you're very thoughtful about what you keep, what you give up.",
   "key_stats": [
-    "10% pension reduction allows ex-spouse to receive 50% survivor annuity",
-    "5% pension reduction allows ex-spouse to receive 25% survivor annuity",
-    "50% cap on total pension benefits that can be left behind across all beneficiaries if remarried",
-    "Age 55 threshold for ex-spouse FEHB eligibility after remarriage"
+    "10% pension reduction to leave ex-spouse 50% survivor annuity",
+    "5% pension reduction to leave ex-spouse 25% survivor annuity",
+    "50% cap on total survivor benefits if employee remarries",
+    "Age 55 threshold: ex-spouse loses FEHB coverage if they remarry before age 55"
   ],
   "entities": [
     "FERS",
-    "TSP",
-    "FEHB",
-    "OPM",
-    "Haws Federal Advisors",
-    "Federal Employee Health Benefits",
-    "Thrift Savings Plan"
+    "TSP (Thrift Savings Plan)",
+    "FEHB (Federal Employee Health Benefits)",
+    "OPM (Office of Personnel Management)",
+    "Haws Federal Advisors"
   ],
   "transcript_full": "So if you're a federal employee and you are thinking about divorce or you are in the process of divorce and you want to know how does a divorce impact all of your federal benefits? Because there's a lot of pieces of this. You have your TSP, your health insurance, your pension, plus a whole bunch of other things. How does getting a divorce impact all of those benefits? How is it going to actually impact your retirement when you want to retire? So let's go ahead and rock and roll and hit this stuff. Now, if you're new to the channel, welcome. My name is Dallin Hawes. I run a financial planning firm, helping feds do all this stuff, maximize their investments, taxes, et cetera, through all the ups and downs, including divorce. So let's go ahead and rock and roll. Number one, here are the few different pieces that you want to make sure you have right. Number one, your pension, understanding what your spouse is going to get from your pension, your survivor annuity, busy if you passed away, a piece of that, TSP, other things like health insurance, life insurance, all that good jazz. And let me just cut to the chase. There is no pre-fixed way that any of these benefits go to your spouse. It all comes down to what you guys negotiate in court. That's all that matters. There's no fixed way. There's no fixed way. Now we're going to talk about how this normally happens, how things are normally negotiated. But if you negotiate something else, then that is what will actually work. Whatever is in your divorce decree is what will happen, is what will happen. So make sure you're very thoughtful about what you keep, what you give up, et cetera, et cetera. Because if you give up things that are actually a lot more valuable than you thought, then that can be really painful down the line. So let go ahead and dive in A couple of things here for your federal pension your federal pension Basically you take all the forms from your court order divorce decree et cetera And when you retire, you get it to OPM. And OPM will pay out your extra share if they are eligible for a piece of it. What many federal employees do is they negotiate to give a bigger piece of their TSP away so they don't have to give up any piece of their pension. Again, there's pros and cons of all of that. But that is a common thing that happens. And again, OPM is going to follow the orders exactly. So make sure things are worded in a way that you are comfortable with, that you know actually makes sense for you. Survivor annuity. So this is if something happened to you, does your spouse continue receiving a piece of your pension? And there's two ways this can happen. Basically, you can either take a 10% reduction to your pension when you're both alive so that your spouse is left with 50% or a 5% reduction. So your spouse is left or ex-spouse rather is left with 25%. But there's no way to leave a piece of your pension behind if you pass away without having a reduction to your pension. There's no way to do that. Some divorce decrees negotiate that the spouse has to pay for this if they want. So food for thought. Food for thought. Again, you want to make sure this is clear. Even if you are the spouse divorcing the federal employee, Make sure this is clear if you want a piece of the pension after they pass away. Because normally things like health insurance comes with that, comes with that. Or is tied to it at the very least. And here the thing to watch this is huge If you get divorced and then get remarried normally there a cap of 50 of how much of your pension you can leave behind So if you pass away you can't leave 50% to your old spouse and 50% for your new spouse. It doesn't work that way. If you want to leave something to both, you could do normally 25% to both, but not 50. 50% cap is the most you can leave behind. So keep that in mind as you're negotiating this. And of course, TSP, again, it's up to negotiations. You guys decide who keeps what. Sometimes both spouses have plenty of investments themselves. So they just kind of part ways. They keep their own stuff. They keep their own stuff. And basically, TSP pays your spouse directly. Pays your spouse directly. So you genuinely don't have to take a withdrawal and then send it over. Don't do that, by the way. TSP normally just splits it up by themselves so you don't have to pay taxes on the money that goes to your spouse, which can be huge, which can be huge. and they're basically your spouse can have ways to keep FEHB it's not as clean cut for example if they remarry before 55 they lose it they normally have to pay more of the premium blah blah blah it's not as clean cut normally for ex-spouses for a health insurance but there are ways to do it depending on how important this benefit is for them and this one is huge let's say you're now divorced okay it's gone through finalized you gave up whatever you had to give up going through a divorce doesn't automatically update your beneficiaries. If on your beneficiary you have your ex as the beneficiary listed if you pass away even if you divorced it will go to that ex period done Same for any other beneficiaries you have It not automatic You have to manually go in and update your beneficiaries on all the different assets you have, life insurance, IRAs, TSP, 401ks, all the stuff you have. Make sure the beneficiaries are correct and up to date. It doesn't happen automatically. That'd be huge. Unless, of course, you want your ex to receive the stuff. Don't list them there. And, and, and, and timing matters on all this. Timing matters. If you do this before you retire, there's a lot of things you can do while electing survivor benefits, et cetera. After retiring, there's fewer options to adjust things. Obviously we don't really time our divorces, hopefully, right? But if you have any say, and you're kind of close in this range, Again, doing it before retiring helps and before you actually sign into the documents of divorce decrees, making sure you get the federal language, making sure it's very clear how your federal benefits are handled is huge. Now, I'm a financial planner. I'm not an attorney. I'm not the type of person that goes in and drafts this stuff. So don't reach out to us for that. We don't do that. Make sure your attorney is familiar enough with Fed stuff that they draft things correctly and word things correctly so OPM recognizes everything. as you actually draft office. And that's the scoop. Again, we never want divorce, but if it's going to happen, you want to make sure things are done in a way that you understand, that works for you, that you give up the benefits that you're okay with and you keep the ones you definitely want. And that's all part of the negotiation. So good luck with all the craze and if you're going through that and I'll see you in the next video.",
   "extracted_date": "2026-11-16"
