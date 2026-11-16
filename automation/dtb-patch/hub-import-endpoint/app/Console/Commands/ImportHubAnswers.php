@@ -96,6 +96,14 @@ class ImportHubAnswers extends Command
             $this->info('Thème du site : '.$themeId);
         }
 
+        // Indexation Google (optionnel) : "seo_noindex" true = site retire de l'indexation (balise noindex + hors plan du site), false = remis en indexation.
+        if (array_key_exists('seo_noindex', $data) && ! $this->option('dry-run')) {
+            $settings = $site->settings_json ?? [];
+            $settings['seo'] = array_merge($settings['seo'] ?? [], ['noindex' => (bool) $data['seo_noindex']]);
+            $site->forceFill(['settings_json' => $settings, 'updated_by' => $user->id])->save();
+            $this->info('Indexation Google : '.($data['seo_noindex'] ? 'NOINDEX (retire)' : 'index (autorise)'));
+        }
+
         $created = 0;
         $updated = 0;
         $skipped = 0;

@@ -13,8 +13,12 @@ on:
         description: 'site-theme : slug du site a modifier'
         required: false
         default: ''
+      noindex:
+        description: 'site-theme : true = retirer le site de Google (noindex), false = autoriser, vide = ne pas toucher'
+        required: false
+        default: ''
       docs_theme:
-        description: 'site-theme : theme a appliquer (mintlify, gitbook, fumadocs, laravel, listenly)'
+        description: 'site-theme : theme a appliquer (mintlify, gitbook, fumadocs, laravel, listenly), vide = ne pas toucher'
         required: false
         default: 'mintlify'
       mode:
@@ -130,9 +134,10 @@ jobs:
         env:
           T_SITE: ${{ inputs.site }}
           T_THEME: ${{ inputs.docs_theme }}
+          T_NOINDEX: ${{ inputs.noindex }}
         run: |
           [ -n "$T_SITE" ] || { echo "::error::site manquant"; exit 1; }
-          python3 -c "import json,os; json.dump({'site':os.environ['T_SITE'],'docs_theme':os.environ['T_THEME'],'publish':True,'answers':[{'question':'x','answer':'y'}]},open('/tmp/p.json','w'))"
+          python3 -c "import json,os; d={'site':os.environ['T_SITE'],'docs_theme':os.environ['T_THEME'],'publish':True,'answers':[{'question':'x','answer':'y'}]}; n=os.environ.get('T_NOINDEX',''); d.update({'seo_noindex': n=='true'} if n in ('true','false') else {}); json.dump(d,open('/tmp/p.json','w'))"
           curl -sS -X POST -H 'Content-Type: application/json' -H "X-Hub-Token: $HUB_IMPORT_TOKEN" --data-binary @/tmp/p.json -w '\nHTTP %{http_code}\n' "https://$SITE/hub/import" | tee /tmp/resp.txt
           grep -q "HTTP 200" /tmp/resp.txt || { echo "::error::theme non applique"; exit 1; }
 
