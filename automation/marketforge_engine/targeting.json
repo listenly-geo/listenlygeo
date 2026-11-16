@@ -1,15 +1,15 @@
 {
- "updated": "2026-11-16T17:13",
+ "updated": "2026-11-16T17:50",
  "envois_total": 79,
  "reponses_total": 0,
  "taux_reponse_global_pct": 0.0,
- "dirigeants_testes": 16313,
- "dirigeants_trouves": 1621,
+ "dirigeants_testes": 16324,
+ "dirigeants_trouves": 1623,
  "data_apprentissage": {
   "creneaux_new_york": {
    "heure": {
     "12h": {
-     "envoyes": 8,
+     "envoyes": 10,
      "reponses": 0
     },
     "11h": {
@@ -17,7 +17,7 @@
      "reponses": 0
     },
     "10h": {
-     "envoyes": 10,
+     "envoyes": 8,
      "reponses": 0
     },
     "09h": {
@@ -69,26 +69,26 @@
   "postes_trouves": {}
  },
  "weights": {
-  "Tech & SaaS": 0.0538,
+  "Tech & SaaS": 0.0537,
   "Cybersécurité": 0.0677,
-  "Finance & Fintech": 0.0459,
-  "RH & Recrutement": 0.0449,
+  "Finance & Fintech": 0.0461,
+  "RH & Recrutement": 0.0454,
   "Marketing & Ventes": 0.0492,
   "Logistique & Supply chain": 0.0551,
   "Construction & Industrie": 0.0457,
   "Énergie": 0.048,
   "Assurance": 0.0537,
-  "Immobilier": 0.0504,
-  "Juridique": 0.0501,
+  "Immobilier": 0.0498,
+  "Juridique": 0.0499,
   "Conseil": 0.0332,
   "Santé": 0.0479,
   "Business général (entreprise)": 0.0539,
-  "Cabinets d'avocats": 0.0415,
-  "Experts-comptables & patrimoine": 0.0594,
+  "Cabinets d'avocats": 0.0419,
+  "Experts-comptables & patrimoine": 0.0595,
   "Coachs & consultants B2B": 0.0491,
-  "Agences de services": 0.0511,
+  "Agences de services": 0.051,
   "Santé libérale": 0.0475,
-  "Formateurs & programmes": 0.0519
+  "Formateurs & programmes": 0.0518
  },
  "ranking": [
   {
@@ -114,13 +114,13 @@
    "tendance": "stable",
    "onboarde": 84,
    "joignable": 42,
-   "envoye": 8,
+   "envoye": 9,
    "rebond": 0,
    "reponse": 0,
    "dirigeant_testes": 871,
    "dirigeant_trouves": 104,
    "taux_reponse": 0.0,
-   "score": 0.11459,
+   "score": 0.11492,
    "rang": 2
   },
   {
@@ -165,10 +165,10 @@
    "envoye": 5,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 1600,
+   "dirigeant_testes": 1601,
    "dirigeant_trouves": 171,
    "taux_reponse": 0.0,
-   "score": 0.10149,
+   "score": 0.10142,
    "rang": 5
   },
   {
@@ -197,10 +197,10 @@
    "envoye": 3,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 810,
+   "dirigeant_testes": 812,
    "dirigeant_trouves": 84,
    "taux_reponse": 0.0,
-   "score": 0.09717,
+   "score": 0.09694,
    "rang": 7
   },
   {
@@ -213,27 +213,11 @@
    "envoye": 3,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 728,
+   "dirigeant_testes": 729,
    "dirigeant_trouves": 74,
    "taux_reponse": 0.0,
-   "score": 0.09527,
+   "score": 0.09514,
    "rang": 8
-  },
-  {
-   "secteur": "Immobilier",
-   "poids_pct": 5.0,
-   "delta_pts": 0.0,
-   "tendance": "stable",
-   "onboarde": 124,
-   "joignable": 63,
-   "envoye": 2,
-   "rebond": 0,
-   "reponse": 0,
-   "dirigeant_testes": 634,
-   "dirigeant_trouves": 64,
-   "taux_reponse": 0.0,
-   "score": 0.09371,
-   "rang": 9
   },
   {
    "secteur": "Juridique",
@@ -242,13 +226,29 @@
    "tendance": "stable",
    "onboarde": 102,
    "joignable": 55,
-   "envoye": 5,
+   "envoye": 4,
    "rebond": 0,
    "reponse": 0,
    "dirigeant_testes": 613,
    "dirigeant_trouves": 60,
    "taux_reponse": 0.0,
-   "score": 0.09301,
+   "score": 0.09247,
+   "rang": 9
+  },
+  {
+   "secteur": "Immobilier",
+   "poids_pct": 5.0,
+   "delta_pts": -0.0,
+   "tendance": "stable",
+   "onboarde": 124,
+   "joignable": 63,
+   "envoye": 1,
+   "rebond": 0,
+   "reponse": 0,
+   "dirigeant_testes": 635,
+   "dirigeant_trouves": 64,
+   "taux_reponse": 0.0,
+   "score": 0.09237,
    "rang": 10
   },
   {
@@ -280,7 +280,7 @@
    "dirigeant_testes": 1048,
    "dirigeant_trouves": 99,
    "taux_reponse": 0.0,
-   "score": 0.09057,
+   "score": 0.09058,
    "rang": 12
   },
   {
@@ -320,7 +320,7 @@
    "poids_pct": 4.8,
    "delta_pts": 0.0,
    "tendance": "stable",
-   "onboarde": 119,
+   "onboarde": 120,
    "joignable": 54,
    "envoye": 10,
    "rebond": 0,
@@ -341,10 +341,10 @@
    "envoye": 3,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 1217,
-   "dirigeant_trouves": 108,
+   "dirigeant_testes": 1222,
+   "dirigeant_trouves": 109,
    "taux_reponse": 0.0,
-   "score": 0.08328,
+   "score": 0.0837,
    "rang": 16
   },
   {
@@ -366,33 +366,33 @@
   {
    "secteur": "RH & Recrutement",
    "poids_pct": 4.5,
-   "delta_pts": 0.0,
+   "delta_pts": 0.1,
    "tendance": "stable",
    "onboarde": 94,
    "joignable": 44,
    "envoye": 4,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 691,
-   "dirigeant_trouves": 59,
+   "dirigeant_testes": 692,
+   "dirigeant_trouves": 60,
    "taux_reponse": 0.0,
-   "score": 0.08083,
+   "score": 0.08206,
    "rang": 18
   },
   {
    "secteur": "Cabinets d'avocats",
    "poids_pct": 4.2,
-   "delta_pts": -0.0,
+   "delta_pts": 0.0,
    "tendance": "stable",
    "onboarde": 33,
    "joignable": 10,
-   "envoye": 1,
+   "envoye": 2,
    "rebond": 0,
    "reponse": 0,
    "dirigeant_testes": 681,
    "dirigeant_trouves": 54,
    "taux_reponse": 0.0,
-   "score": 0.07295,
+   "score": 0.0739,
    "rang": 19
   },
   {
@@ -424,7 +424,7 @@
    "dirigeant_testes": 0,
    "dirigeant_trouves": 0,
    "taux_reponse": null,
-   "score": 0.08951,
+   "score": 0.08956,
    "rang": 21
   }
  ]
