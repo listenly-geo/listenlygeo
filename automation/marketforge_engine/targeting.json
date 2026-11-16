@@ -1,19 +1,19 @@
 {
- "updated": "2026-11-16T16:30",
+ "updated": "2026-11-16T16:55",
  "envois_total": 79,
  "reponses_total": 0,
  "taux_reponse_global_pct": 0.0,
- "dirigeants_testes": 16294,
- "dirigeants_trouves": 1620,
+ "dirigeants_testes": 16302,
+ "dirigeants_trouves": 1621,
  "data_apprentissage": {
   "creneaux_new_york": {
    "heure": {
     "11h": {
-     "envoyes": 12,
+     "envoyes": 13,
      "reponses": 0
     },
     "10h": {
-     "envoyes": 13,
+     "envoyes": 12,
      "reponses": 0
     },
     "09h": {
@@ -51,7 +51,7 @@
    },
    "jour": {
     "lun": {
-     "envoyes": 37,
+     "envoyes": 38,
      "reponses": 0
     },
     "mar": {
@@ -59,7 +59,7 @@
      "reponses": 0
     },
     "ven": {
-     "envoyes": 31,
+     "envoyes": 30,
      "reponses": 0
     }
    }
@@ -70,15 +70,15 @@
  },
  "weights": {
   "Tech & SaaS": 0.0537,
-  "Cybersécurité": 0.0678,
-  "Finance & Fintech": 0.0459,
-  "RH & Recrutement": 0.0451,
+  "Cybersécurité": 0.0677,
+  "Finance & Fintech": 0.046,
+  "RH & Recrutement": 0.0449,
   "Marketing & Ventes": 0.0492,
   "Logistique & Supply chain": 0.0551,
-  "Construction & Industrie": 0.0453,
-  "Énergie": 0.0484,
+  "Construction & Industrie": 0.0457,
+  "Énergie": 0.0482,
   "Assurance": 0.0537,
-  "Immobilier": 0.0504,
+  "Immobilier": 0.0505,
   "Juridique": 0.0501,
   "Conseil": 0.0329,
   "Santé": 0.0483,
@@ -87,24 +87,24 @@
   "Experts-comptables & patrimoine": 0.0594,
   "Coachs & consultants B2B": 0.0492,
   "Agences de services": 0.0507,
-  "Santé libérale": 0.0473,
-  "Formateurs & programmes": 0.0521
+  "Santé libérale": 0.0474,
+  "Formateurs & programmes": 0.052
  },
  "ranking": [
   {
    "secteur": "Cybersécurité",
    "poids_pct": 6.8,
-   "delta_pts": 0.0,
+   "delta_pts": -0.0,
    "tendance": "stable",
    "onboarde": 129,
    "joignable": 91,
    "envoye": 2,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 786,
+   "dirigeant_testes": 787,
    "dirigeant_trouves": 114,
    "taux_reponse": 0.0,
-   "score": 0.13415,
+   "score": 0.13398,
    "rang": 1
   },
   {
@@ -197,10 +197,10 @@
    "envoye": 3,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 806,
+   "dirigeant_testes": 807,
    "dirigeant_trouves": 84,
    "taux_reponse": 0.0,
-   "score": 0.09765,
+   "score": 0.09753,
    "rang": 7
   },
   {
@@ -221,7 +221,7 @@
   },
   {
    "secteur": "Immobilier",
-   "poids_pct": 5.0,
+   "poids_pct": 5.1,
    "delta_pts": 0.0,
    "tendance": "stable",
    "onboarde": 123,
@@ -245,10 +245,10 @@
    "envoye": 5,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 612,
+   "dirigeant_testes": 613,
    "dirigeant_trouves": 60,
    "taux_reponse": 0.0,
-   "score": 0.09316,
+   "score": 0.09301,
    "rang": 10
   },
   {
@@ -284,22 +284,6 @@
    "rang": 12
   },
   {
-   "secteur": "Énergie",
-   "poids_pct": 4.8,
-   "delta_pts": -0.0,
-   "tendance": "stable",
-   "onboarde": 45,
-   "joignable": 15,
-   "envoye": 1,
-   "rebond": 0,
-   "reponse": 0,
-   "dirigeant_testes": 618,
-   "dirigeant_trouves": 60,
-   "taux_reponse": 0.0,
-   "score": 0.08903,
-   "rang": 13
-  },
-  {
    "secteur": "Santé",
    "poids_pct": 4.8,
    "delta_pts": 0.0,
@@ -313,22 +297,38 @@
    "dirigeant_trouves": 49,
    "taux_reponse": 0.0,
    "score": 0.08894,
+   "rang": 13
+  },
+  {
+   "secteur": "Énergie",
+   "poids_pct": 4.8,
+   "delta_pts": -0.1,
+   "tendance": "stable",
+   "onboarde": 45,
+   "joignable": 15,
+   "envoye": 1,
+   "rebond": 0,
+   "reponse": 0,
+   "dirigeant_testes": 621,
+   "dirigeant_trouves": 60,
+   "taux_reponse": 0.0,
+   "score": 0.08861,
    "rang": 14
   },
   {
    "secteur": "Santé libérale",
    "poids_pct": 4.7,
-   "delta_pts": -0.0,
+   "delta_pts": 0.0,
    "tendance": "stable",
    "onboarde": 118,
    "joignable": 54,
-   "envoye": 9,
+   "envoye": 10,
    "rebond": 0,
    "reponse": 0,
    "dirigeant_testes": 1136,
    "dirigeant_trouves": 102,
    "taux_reponse": 0.0,
-   "score": 0.08666,
+   "score": 0.08688,
    "rang": 15
   },
   {
@@ -349,18 +349,18 @@
   },
   {
    "secteur": "Construction & Industrie",
-   "poids_pct": 4.5,
-   "delta_pts": -0.0,
+   "poids_pct": 4.6,
+   "delta_pts": 0.0,
    "tendance": "stable",
    "onboarde": 91,
    "joignable": 48,
    "envoye": 5,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 1044,
-   "dirigeant_trouves": 90,
+   "dirigeant_testes": 1045,
+   "dirigeant_trouves": 91,
    "taux_reponse": 0.0,
-   "score": 0.08202,
+   "score": 0.08284,
    "rang": 17
   },
   {
@@ -370,13 +370,13 @@
    "tendance": "stable",
    "onboarde": 94,
    "joignable": 44,
-   "envoye": 5,
+   "envoye": 4,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 689,
+   "dirigeant_testes": 690,
    "dirigeant_trouves": 59,
    "taux_reponse": 0.0,
-   "score": 0.08154,
+   "score": 0.08095,
    "rang": 18
   },
   {
@@ -424,7 +424,7 @@
    "dirigeant_testes": 0,
    "dirigeant_trouves": 0,
    "taux_reponse": null,
-   "score": 0.08956,
+   "score": 0.08958,
    "rang": 21
   }
  ]

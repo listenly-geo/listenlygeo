@@ -331774,12 +331774,13 @@
     "feed_url": "https://anchor.fm/s/ef8089c4/podcast/rss",
     "genre": "Mental Health",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-16",
     "secteur": "Formateurs & programmes",
     "gate": "dirigeant",
-    "email_domain": "adventuresinadversitypodcast.com"
+    "email_domain": "adventuresinadversitypodcast.com",
+    "rescue": "2026-11-16"
   },
   "https://feeds.acast.com/public/shows/63b1dfa92f7bca00106901e5": {
     "podcast_name": "Jonathan On Money",
@@ -331853,12 +331854,13 @@
     "feed_url": "https://rss.libsyn.com/shows/118458/destinations/683605.xml",
     "genre": "Careers",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-16",
     "secteur": "RH & Recrutement",
     "gate": "dirigeant",
-    "email_domain": "bpm-associates.com"
+    "email_domain": "bpm-associates.com",
+    "rescue": "2026-11-16"
   },
   "https://rss.buzzsprout.com/2130901.rss": {
     "podcast_name": "AI Uncovered",
@@ -332108,12 +332110,13 @@
     "feed_url": "https://feeds.acast.com/public/shows/67e367eac38e2d5b7d035792",
     "genre": "Business News",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-16",
     "secteur": "Cybersécurité",
     "gate": "dirigeant",
-    "email_domain": "insuranceasianews.com"
+    "email_domain": "insuranceasianews.com",
+    "rescue": "2026-11-16"
   },
   "https://feed.podbean.com/the-startup-revolution/feed.xml": {
     "podcast_name": "The Start-Up (R)evolution",
@@ -332143,12 +332146,13 @@
     "feed_url": "https://rss.buzzsprout.com/2451676.rss",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-16",
     "secteur": "Énergie",
     "gate": "dirigeant",
-    "email_domain": "tradetreasurypayments.com"
+    "email_domain": "tradetreasurypayments.com",
+    "rescue": "2026-11-16"
   },
   "https://anchor.fm/s/382ff688/podcast/rss": {
     "podcast_name": "Queen's University Alternative Assets Fund (QUAAF) Round Table Podcast",
@@ -332255,12 +332259,13 @@
     "feed_url": "https://anchor.fm/s/f3dc66b4/podcast/rss",
     "genre": "Tech News",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-16",
     "secteur": "Énergie",
     "gate": "dirigeant",
-    "email_domain": "w.media"
+    "email_domain": "w.media",
+    "rescue": "2026-11-16"
   },
   "https://feeds.castos.com/opv2": {
     "podcast_name": "Water Values Podcast",
@@ -332268,12 +332273,13 @@
     "feed_url": "https://feeds.castos.com/opv2",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-16",
     "secteur": "Énergie",
     "gate": "dirigeant",
-    "email_domain": "dentons.com"
+    "email_domain": "dentons.com",
+    "rescue": "2026-11-16"
   },
   "https://anchor.fm/s/106f4b684/podcast/rss": {
     "podcast_name": "Country Name Stories - GeoHistory Facts for Curious Minds",
@@ -332413,5 +332419,268 @@
       "Business Growth"
     ],
     "contact_email": "tellmeeverythinglogistics@gmail.com"
+  },
+  "https://rss.libsyn.com/shows/174143/destinations/1173671.xml": {
+    "podcast_name": "The Most Awesome Founder Podcast",
+    "artist_name": "Gerrit McGowan",
+    "feed_url": "https://rss.libsyn.com/shows/174143/destinations/1173671.xml",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 957 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Logistique & Supply chain"
+  },
+  "https://api.substack.com/feed/podcast/1054079.rss": {
+    "podcast_name": "Simplified. By Tobias Dahlberg",
+    "artist_name": "Simplify to grow",
+    "feed_url": "https://api.substack.com/feed/podcast/1054079.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://www.spreaker.com/show/1787041/episodes/feed": {
+    "podcast_name": "Heroes in Business",
+    "artist_name": "Eliances",
+    "feed_url": "https://www.spreaker.com/show/1787041/episodes/feed",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://anchor.fm/s/3c22b6e0/podcast/rss": {
+    "podcast_name": "Forging Life Podcast",
+    "artist_name": "Trey Ryder",
+    "feed_url": "https://anchor.fm/s/3c22b6e0/podcast/rss",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1741 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Construction & Industrie"
+  },
+  "https://feeds.acast.com/public/shows/66fa0106acfe1ec5ec2d3dd5": {
+    "podcast_name": "Superhero: Sidekick",
+    "artist_name": "Superhero",
+    "feed_url": "https://feeds.acast.com/public/shows/66fa0106acfe1ec5ec2d3dd5",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Logistique & Supply chain"
+  },
+  "https://media.rss.com/tools-talents-and-techniques-with-dustin-sutton/feed.xml": {
+    "podcast_name": "TOOLS TALENTS AND TECHNIQUES with Dustin Sutton",
+    "artist_name": "Dustin Sutton",
+    "feed_url": "https://media.rss.com/tools-talents-and-techniques-with-dustin-sutton/feed.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Immobilier"
+  },
+  "https://api.riverside.fm/hosting/eFqUlBPO.rss": {
+    "podcast_name": "The Impossible Entrepreneur",
+    "artist_name": "Architect Anna",
+    "feed_url": "https://api.riverside.fm/hosting/eFqUlBPO.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Formateurs & programmes",
+    "gate": "dirigeant",
+    "email_domain": "markitect.co"
+  },
+  "https://www.spreaker.com/show/4308157/episodes/feed": {
+    "podcast_name": "Verbally Effective Podcast",
+    "artist_name": "Ivy Multimedia LLC",
+    "feed_url": "https://www.spreaker.com/show/4308157/episodes/feed",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Immobilier",
+    "gate": "dirigeant",
+    "email_domain": "ivymultimedia.com"
+  },
+  "https://rss.libsyn.com/shows/76831/destinations/344221.xml": {
+    "podcast_name": "Well-Oiled Operations with Stacy Tuschl",
+    "artist_name": "Stacy Tuschl",
+    "feed_url": "https://rss.libsyn.com/shows/76831/destinations/344221.xml",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 101 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.buzzsprout.com/1500619.rss": {
+    "podcast_name": "Tradesman Millionaire with Bowen Gines",
+    "artist_name": "Bowen Gines",
+    "feed_url": "https://rss.buzzsprout.com/1500619.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Construction & Industrie"
+  },
+  "https://anchor.fm/s/eef2832c/podcast/rss": {
+    "podcast_name": "Not A Life Sentence",
+    "artist_name": "Carla Berbary",
+    "feed_url": "https://anchor.fm/s/eef2832c/podcast/rss",
+    "genre": "Mental Health",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : email inexploitable (domaine sans serveur mail)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://rss.buzzsprout.com/1300375.rss": {
+    "podcast_name": "The Veterinary Survival Show",
+    "artist_name": "Mark McGaunn, CPA/PFS, CFP® and Jenni George, CVPM",
+    "feed_url": "https://rss.buzzsprout.com/1300375.rss",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/d926e268/podcast/rss": {
+    "podcast_name": "Unconditional",
+    "artist_name": "SMS Law",
+    "feed_url": "https://anchor.fm/s/d926e268/podcast/rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Finance & Fintech",
+    "gate": "dirigeant",
+    "email_domain": "smslaw.com.au"
+  },
+  "https://feeds.transistor.fm/build-a-better-wellness-biz": {
+    "podcast_name": "Build A Better Wellness Biz",
+    "artist_name": "Jeremy Enns",
+    "feed_url": "https://feeds.transistor.fm/build-a-better-wellness-biz",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://anchor.fm/s/dc0a53ac/podcast/rss": {
+    "podcast_name": "Australian Property Show",
+    "artist_name": "Tom Haigh - Property and Investing - powered by Groundswell Property",
+    "feed_url": "https://anchor.fm/s/dc0a53ac/podcast/rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Finance & Fintech",
+    "gate": "dirigeant",
+    "email_domain": "mymoneysorted.com.au"
+  },
+  "https://rss.buzzsprout.com/2105163.rss": {
+    "podcast_name": "The Punch Bowl Diaries",
+    "artist_name": "Leigh Moss and April Hill",
+    "feed_url": "https://rss.buzzsprout.com/2105163.rss",
+    "genre": "Christianity",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Christianity)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Santé libérale"
+  },
+  "https://www.spreaker.com/show/5932576/episodes/feed": {
+    "podcast_name": "Thriving Out of The Box",
+    "artist_name": "Bold Brave TV",
+    "feed_url": "https://www.spreaker.com/show/5932576/episodes/feed",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Énergie"
+  },
+  "https://www.spreaker.com/show/5094411/episodes/feed": {
+    "podcast_name": "Startup Sales Academy presented by SaaS First 100",
+    "artist_name": "John Ellis",
+    "feed_url": "https://www.spreaker.com/show/5094411/episodes/feed",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1722 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://rss.buzzsprout.com/1926226.rss": {
+    "podcast_name": "Active Mom Podcast: Pregnancy, Postpartum, Perimenopause, Menopause & Beyond",
+    "artist_name": "Carrie",
+    "feed_url": "https://rss.buzzsprout.com/1926226.rss",
+    "genre": "Medicine",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://feeds.megaphone.fm/geronimounfiltered": {
+    "podcast_name": "Geronimo Unfiltered",
+    "artist_name": "Geronimo Unfiltered",
+    "feed_url": "https://feeds.megaphone.fm/geronimounfiltered",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Formateurs & programmes",
+    "gate": "dirigeant",
+    "email_domain": "geronimoventures.com"
+  },
+  "https://anchor.fm/s/4363cf48/podcast/rss": {
+    "podcast_name": "XTraw AI: Machine Learning and AI Applications",
+    "artist_name": "Venkata\"Raghu Banda\"",
+    "feed_url": "https://anchor.fm/s/4363cf48/podcast/rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : email ecole / administration (insead.edu)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Énergie"
+  },
+  "https://api.riverside.com/hosting/95WuHly2.rss": {
+    "podcast_name": "The Healthy Perspective",
+    "artist_name": "Dr. Chris Boman",
+    "feed_url": "https://api.riverside.com/hosting/95WuHly2.rss",
+    "genre": "Entrepreneurship",
+    "track_count": 76,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-healthy-perspective/id1576425150?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/69/c5/11/69c511a0-d802-4f5b-e70d-995768768627/mza_6428342371311367433.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Dr. Chris Boman, créateur/expert indépendant identifiable dans le domaine business/entrepreneurship. Audience petite-moyenne (76 épisodes, pas de signal de notoriété mass-media), conforme au critère CREATEUR du 27/10/2026.",
+    "checked_date": "2026-11-16",
+    "secteur": "Santé libérale",
+    "nb_episodes": 76,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Healthy Eating",
+      "Female Entrepreneurship",
+      "Serial Entrepreneurship"
+    ],
+    "contact_email": "c@drchrisboman.com"
   }
 }
