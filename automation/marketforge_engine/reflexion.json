@@ -1,14 +1,14 @@
 {
- "updated": "2026-11-16T18:12",
+ "updated": "2026-11-16T18:30",
  "statut": "BLOQUE",
  "funnel": {
-  "podcasts_en_file": 2332,
+  "podcasts_en_file": 2335,
   "contacts_prets_a_mailer": 287,
-  "bloques_en_attente": 855,
+  "bloques_en_attente": 858,
   "sans_email": 68,
   "prospects_dans_sheet": 300,
   "statut_pret": 220,
-  "mails_envoyes": 874,
+  "mails_envoyes": 876,
   "relances": 100,
   "rebonds_total": 0,
   "reponses_reelles": 4,
@@ -18,12 +18,12 @@
   "paiements_hub": 0
  },
  "blocages": [
-  "Aucun contact cree depuis 2 jours alors que 855 podcasts attendent : etape 'contact' bloquee (verifier extraction_auto, doit etre false).",
+  "Aucun contact cree depuis 2 jours alors que 858 podcasts attendent : etape 'contact' bloquee (verifier extraction_auto, doit etre false).",
   "extraction_auto=true : les nouveaux podcasts restent en 'en_attente' au lieu de passer en contact.",
   "Reponses non classees (positive / neutre / refus) : impossible de savoir si le funnel marche. Ajouter le champ 'classe' dans replies.json."
  ],
  "hypotheses": [
-  "Ordre de grandeur (hypothese, pas une mesure) : un 1er client a ~1500 $ demande souvent 500 a 3000 mails froids. Il en reste 0 a 2126, soit environ 0 a 53 jours au rythme actuel (40/j).",
+  "Ordre de grandeur (hypothese, pas une mesure) : un 1er client a ~1500 $ demande souvent 500 a 3000 mails froids. Il en reste 0 a 2124, soit environ 0 a 53 jours au rythme actuel (40/j).",
   "Reponse 0.5 % : sous le seuil habituel (1-3 %). L'accroche ou la cible est a revoir avant d'augmenter le volume.",
   "21 secteurs avec moins de 15 envois : aucun signal par niche, ne pas en tirer de conclusion.",
   "Test A/B CTA : trop tot pour un gagnant. Ne rien changer avant 100 envois par variante.",
