@@ -1,0 +1,45 @@
+name: Index — lire des fichiers du serveur (lecture seule)
+
+# Lit (sans rien ecrire) quelques fichiers PHP de l'app Index sur le serveur et les affiche dans le journal,
+# pour pouvoir brancher la creation automatique d'un site client. Jamais le .env ni de secret : liste blanche de chemins app/ et routes/.
+
+on:
+  workflow_dispatch:
+    inputs:
+      paths:
+        description: 'Chemins relatifs a app.marketforge.fr (separes par des espaces), ex: app/Models/Site.php'
+        required: true
+        default: 'app/Models/Site.php app/Http/Controllers/DashboardSitesController.php'
+      lister:
+        description: 'Dossiers a lister (separes par des espaces), ex: app/Actions/Docs'
+        required: false
+        default: 'app/Actions app/Actions/Docs app/Actions/Sites'
+
+permissions:
+  contents: read
+
+jobs:
+  lire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+      FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+      FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+    steps:
+      - name: Lister et lire
+        env:
+          PATHS: ${{ inputs.paths }}
+          DIRS: ${{ inputs.lister }}
+        run: |
+          U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 120 -sS"
+          for d in $DIRS; do
+            case "$d" in app/*|routes|routes/*|config) ;; *) echo "refuse: $d"; continue;; esac
+            echo "=== LISTE $d ==="; curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/app.marketforge.fr/$d/" -l || true
+          done
+          for f in $PATHS; do
+            case "$f" in app/*.php|app/*/*.php|app/*/*/*.php|app/*/*/*/*.php|routes/*.php|config/*.php) ;; *) echo "refuse: $f"; continue;; esac
+            case "$f" in *..*|*.env*) echo "refuse: $f"; continue;; esac
+            echo "=== FICHIER $f ==="; curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/app.marketforge.fr/$f" || echo "(illisible)"
+            echo; echo "=== FIN $f ==="
+          done
