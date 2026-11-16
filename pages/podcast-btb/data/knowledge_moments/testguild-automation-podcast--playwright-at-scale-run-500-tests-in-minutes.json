@@ -1,0 +1,52 @@
+[
+  {
+    "podcast_name": "TestGuild Automation Podcast",
+    "episode_title": "Playwright at Scale: Run 500 Tests in Minutes",
+    "audio_url": "https://traffic.libsyn.com/secure/testtalks/tgaOliverPlaywrightatScaleRun500TestsinMinutes611.mp3?dest-id=184057",
+    "question": "Why do Playwright test suites become unreliable as they scale from 10 to 30 tests?",
+    "transcript_excerpt": "When Playwright test suites grow from 10-30 tests, teams encounter either speed issues requiring sharding and infrastructure changes, or more commonly, reliability issues. As soon as a team loses trust in the test suite, it becomes a slippery slope where the suite gets in the way more than it helps. The core reliability problems come from the application itself—race conditions, bad front-end rendering, database load issues, or test isolation problems—not from the test framework. Oliver emphasizes that there's no magical AI solution; the problems must be solved through careful investigation and care for both the tests and the application.",
+    "expert_name": "Oliver",
+    "start_seconds": 194,
+    "end_seconds": 442
+  },
+  {
+    "podcast_name": "TestGuild Automation Podcast",
+    "episode_title": "Playwright at Scale: Run 500 Tests in Minutes",
+    "audio_url": "https://traffic.libsyn.com/secure/testtalks/tgaOliverPlaywrightatScaleRun500TestsinMinutes611.mp3?dest-id=184057",
+    "question": "How does running parallel Playwright tests accidentally turn into performance testing?",
+    "transcript_excerpt": "When teams spin up ephemeral environments for each test and run them in parallel, they put unexpected load on the system without realizing it. Eventually some timeouts exceed limits intermittently, creating the appearance of flaky tests. Rather than recognizing this as a system performance problem—why should a page take 7-8 seconds to load?—teams blame the test. But this reveals a valuable insight: if the system takes that long under controlled testing conditions, it's failing to meet user experience standards.",
+    "expert_name": "Oliver",
+    "start_seconds": 571,
+    "end_seconds": 769
+  },
+  {
+    "podcast_name": "TestGuild Automation Podcast",
+    "episode_title": "Playwright at Scale: Run 500 Tests in Minutes",
+    "audio_url": "https://traffic.libsyn.com/secure/testtalks/tgaOliverPlaywrightatScaleRun500TestsinMinutes611.mp3?dest-id=184057",
+    "question": "What is Enform's core positioning and how does it differ from Playwright?",
+    "transcript_excerpt": "Enform is an infrastructure platform that makes running Playwright tests feel easy. While Playwright is the test framework itself, Enform provides cloud-based infrastructure that spins up one virtual machine in the cloud for each individual test, allowing teams to run tests in parallel at scale. Enform adds data storage, analytics, test tracing with OpenTelemetry, and AI agent capabilities to help teams diagnose failures. It functions as a drop-in replacement for running Playwright locally.",
+    "expert_name": "Oliver",
+    "start_seconds": 1252,
+    "end_seconds": 1487
+  },
+  {
+    "podcast_name": "TestGuild Automation Podcast",
+    "episode_title": "Playwright at Scale: Run 500 Tests in Minutes",
+    "audio_url": "https://traffic.libsyn.com/secure/testtalks/tgaOliverPlaywrightatScaleRun500TestsinMinutes611.mp3?dest-id=184057",
+    "question": "How can AI agents write better deterministic Playwright tests using LiveTest in Enform?",
+    "transcript_excerpt": "Instead of having agents interact purely with a real browser, Enform's LiveTest feature allows agents to run within an already-logged-in test context using existing helper functions and fixtures. The agent can see screenshots and ARIA snapshot trees after each step, write Playwright code using predefined utilities, and discover existing tests to understand patterns. This approach produces better tests because the agent has already seen the browser once, found good locators, and created code aligned with the existing test suite—resulting in tests that are both reviewable artifacts and likely to be durable.",
+    "expert_name": "Oliver",
+    "start_seconds": 1084,
+    "end_seconds": 1283
+  },
+  {
+    "podcast_name": "TestGuild Automation Podcast",
+    "episode_title": "Playwright at Scale: Run 500 Tests in Minutes",
+    "audio_url": "https://traffic.libsyn.com/secure/testtalks/tgaOliverPlaywrightatScaleRun500TestsinMinutes611.mp3?dest-id=184057",
+    "question": "Why should testers learning Playwright still review AI-generated test code even if it looks good?",
+    "transcript_excerpt": "Even though AI agents produce pretty good code from the beginning, reviewability and understanding the artifact has underestimated value. Test code remains a reviewable artifact that describes what you're trying to do, and reviewing it—whether by humans or other agentic systems—enables learning over time. A tester doesn't need to understand everything on day one, but should at least grasp what the test does and what it's trying to achieve. This builds knowledge: when the test becomes a problem or requires updates, understanding the artifact reveals new insights that make you a better tester.",
+    "expert_name": "Oliver",
+    "start_seconds": 822,
+    "end_seconds": 1061
+  }
+]
