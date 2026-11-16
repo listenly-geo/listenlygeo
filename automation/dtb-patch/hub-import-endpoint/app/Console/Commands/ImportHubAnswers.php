@@ -87,6 +87,15 @@ class ImportHubAnswers extends Command
             return self::FAILURE;
         }
 
+        // Thème du site (optionnel, ex. "mintlify") : appliqué à chaque import, sans toucher aux autres réglages.
+        $themeId = trim((string) ($data['docs_theme'] ?? ''));
+        if ($themeId !== '' && ! $this->option('dry-run') && in_array($themeId, \App\Support\DocsTheme::ids(), true)) {
+            $settings = $site->settings_json ?? [];
+            $settings['appearance'] = array_merge($settings['appearance'] ?? [], ['docs_theme' => $themeId]);
+            $site->forceFill(['settings_json' => $settings, 'updated_by' => $user->id])->save();
+            $this->info('Thème du site : '.$themeId);
+        }
+
         $created = 0;
         $updated = 0;
         $skipped = 0;
@@ -151,7 +160,7 @@ class ImportHubAnswers extends Command
     }
 
     /**
-     * Crée le site d'un nouveau client (même structure que le tableau de bord : un espace par défaut), publié avec le thème Listenly.
+     * Crée le site d'un nouveau client (même structure que le tableau de bord : un espace par défaut). Le thème est celui par défaut de l'app (comme le site de référence).
      */
     private function createSite(EnsureEditorWorkspace $workspace, SyncOrganizationUsageCounter $usage, User $user, string $slug, string $name): Site
     {
@@ -164,7 +173,6 @@ class ImportHubAnswers extends Command
             'slug' => $slug,
             'visibility' => 'public',
             'status' => 'draft',
-            'settings_json' => ['appearance' => ['docs_theme' => 'listenly']],
             'created_by' => $user->id,
             'updated_by' => $user->id,
         ]);

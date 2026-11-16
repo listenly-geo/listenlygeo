@@ -149,7 +149,7 @@ def build(row):
         raise RuntimeError("aucune reponse exploitable extraite des episodes")
     site = slugify(name) + "-index"
     payload = {
-        "site": site, "create_site": name, "podcast": name, "publish": True,
+        "site": site, "create_site": name, "podcast": name, "publish": True, "docs_theme": "mintlify",
         "cta_url": (row.get("Lien du bouton") or "").strip(),
         "cta_text": CTA_TEXT.get(row.get("Objectif", ""), "Learn more"),
         "answers": answers, "dry_run": DRY_RUN,

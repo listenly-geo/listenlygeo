@@ -9,6 +9,14 @@ name: Hub import — comparer / deployer l'adresse de reception
 on:
   workflow_dispatch:
     inputs:
+      site:
+        description: 'site-theme : slug du site a modifier'
+        required: false
+        default: ''
+      docs_theme:
+        description: 'site-theme : theme a appliquer (mintlify, gitbook, fumadocs, laravel, listenly)'
+        required: false
+        default: 'mintlify'
       mode:
         description: 'compare ou deploy'
         required: true
@@ -21,6 +29,7 @@ on:
           - test-import
           - theme
           - code
+          - site-theme
 
 permissions:
   contents: read
@@ -115,6 +124,17 @@ jobs:
           print('questions envoyees :', len(d['answers']), '| simulation :', d['dry_run'])
           PY
           curl -sS -X POST -H 'Content-Type: application/json' -H "X-Hub-Token: $HUB_IMPORT_TOKEN" --data-binary @/tmp/payload.json -w '\nHTTP %{http_code}\n' "https://$SITE/hub/import" | tee /tmp/resp.txt
+
+      - name: Appliquer un theme a un site existant (sans toucher aux pages) puis republier
+        if: inputs.mode == 'site-theme'
+        env:
+          T_SITE: ${{ inputs.site }}
+          T_THEME: ${{ inputs.docs_theme }}
+        run: |
+          [ -n "$T_SITE" ] || { echo "::error::site manquant"; exit 1; }
+          python3 -c "import json,os; json.dump({'site':os.environ['T_SITE'],'docs_theme':os.environ['T_THEME'],'publish':True,'answers':[{'question':'x','answer':'y'}]},open('/tmp/p.json','w'))"
+          curl -sS -X POST -H 'Content-Type: application/json' -H "X-Hub-Token: $HUB_IMPORT_TOKEN" --data-binary @/tmp/p.json -w '\nHTTP %{http_code}\n' "https://$SITE/hub/import" | tee /tmp/resp.txt
+          grep -q "HTTP 200" /tmp/resp.txt || { echo "::error::theme non applique"; exit 1; }
 
       - name: Deployer seulement le code d'import (2 fichiers PHP, aucune route ni .env touches)
         if: inputs.mode == 'code'
