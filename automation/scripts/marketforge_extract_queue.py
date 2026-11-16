@@ -32,6 +32,7 @@ PAGES_DIR = "pages/podcast-btb"
 PODCASTS_FILE = f"{PAGES_DIR}/data/podcasts.json"
 QUESTIONS_DIR = f"{PAGES_DIR}/questions"
 DEFAULT_EPISODE_MINUTES = 60  # si itunes:duration absent du flux
+AUDIO_TRIM_MIN = 0  # 16/11/2026 : minutes d'audio transcrites au maximum par episode (0 = tout) ; fixe dans main() depuis config.audio_minutes_max_par_episode
 INBOX_ROOT = "automation/inbox/moteur-trafic-transcripts"  # stock lu par generate_qa_fiches_btb.py
 INBOX_TRANSCRIPT_MAX = 20000
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -323,10 +324,27 @@ def extract_episode(podcast, ep):
         if published:
             transcript, segments = published
             log(f"Transcription publiee utilisee (gratuit) : {len(segments)} segments.")
+            if AUDIO_TRIM_MIN > 0:   # 16/11/2026 : meme limite que l'audio (moins de texte pour Claude, les horaires du debut restent exacts)
+                kept = [sg for sg in segments if float(sg.get("start", 0) or 0) <= AUDIO_TRIM_MIN * 60]
+                if len(kept) >= 20:
+                    segments = kept
+                    transcript = " ".join(str(sg.get("text", "")).strip() for sg in kept).strip()
         else:
             audio_path = os.path.join(tmpdir, "episode.mp3")
             size = m.download_audio(ep["audio_url"], audio_path)
-            audio_path = m.compress_audio_if_needed(audio_path, size)
+            trimmed = False
+            if AUDIO_TRIM_MIN > 0:   # 16/11/2026 (Etienne) : seules les N premieres minutes sont transcrites (1 question utilisable suffit pour le mail)
+                try:
+                    import subprocess
+                    out = os.path.join(tmpdir, "episode_trim.mp3")
+                    subprocess.run(["ffmpeg", "-y", "-i", audio_path, "-t", str(AUDIO_TRIM_MIN * 60), "-vn", "-ac", "1",
+                                    "-ar", "16000", "-b:a", "32k", out], check=True, capture_output=True)
+                    audio_path, size, trimmed = out, os.path.getsize(out), True
+                    log(f"Audio coupe aux {AUDIO_TRIM_MIN} premieres minutes ({size/1024/1024:.1f} Mo).")
+                except Exception as e:
+                    log(f"Coupe audio impossible ({type(e).__name__}) : episode complet.")
+            if not trimmed:
+                audio_path = m.compress_audio_if_needed(audio_path, size)
             if getattr(m, "WHISPER_SPEEDUP_FACTOR", 1.0) != 1.0:
                 audio_path = m.speed_up_audio(audio_path)
             transcript, segments = m.transcribe(audio_path, podcast.get("language", "en"))
@@ -367,6 +385,10 @@ def main():
     for d in sorted(queue["journal"])[:-30]:
         del queue["journal"][d]
 
+    global AUDIO_TRIM_MIN
+    AUDIO_TRIM_MIN = max(0, int(config.get("audio_minutes_max_par_episode", 0) or 0))
+    if AUDIO_TRIM_MIN:
+        log(f"Audio limite a {AUDIO_TRIM_MIN} min par episode (config.audio_minutes_max_par_episode).")
     if not DRY_RUN:
         set_questions_max(emod(), int(config.get("questions_max_par_episode", 6)))
 
@@ -463,6 +485,26 @@ def main():
     # et passe avant tous les autres : c'est lui qui peut partir au dirigeant.
     contact_state = load_json("automation/marketforge_engine/contact_state.json", {})
     leaders = {s_ for s_, v_ in contact_state.items() if isinstance(v_, dict) and v_.get("email_trouve")}
+    # 16/11/2026 (Etienne) : on n'extrait QUE ce qu'on va contacter. Un prospect est contactable s'il est « Pret » dans le Sheet
+    # (adresse + fiche N1) mais n'a pas encore de question pour le mail (colonne « Dernier episode Q » vide). Si le Sheet est
+    # injoignable, on ne filtre pas ce run (jamais de blocage de la production sur une panne passagere).
+    only_contact = bool(config.get("extraction_seulement_contactables", False))
+    if only_contact:
+        try:
+            import sheet_bridge
+            st_sheet = sheet_bridge.call({"action": "status"})
+            contactables = {
+                str(r.get("Slug")) for r in st_sheet.get("prospects", [])
+                if r.get("Statut") == "Pret" and r.get("Slug") and (r.get("Email") or r.get("Email decideur"))
+                and not str(r.get("Dernier épisode Q") or "").strip()
+            }
+            if not st_sheet.get("ok", True) and not contactables:
+                raise RuntimeError("reponse du Sheet vide")
+            log(f"Extraction ciblee : {len(contactables)} prospect(s) contactable(s) sans question (Pret, adresse + fiche N1).")
+            leaders |= contactables
+        except Exception as e:
+            only_contact = False
+            log(f"AVERTISSEMENT : liste des contactables indisponible ({type(e).__name__}: {str(e)[:120]}) — extraction non filtree sur ce run.")
     try:
         import moments_index
     except Exception:
@@ -512,7 +554,7 @@ def main():
         return 2              # vagues suivantes : d'abord les hubs avec impressions
     order = sorted(
         (s for s, st in queue["podcasts"].items()
-         if hub_ready(s, st) and (
+         if hub_ready(s, st) and (not only_contact or s in leaders) and (
              (extraction_auto and st["status"] in ("en_attente", "en_cours"))
              or (s in extraire and st["status"] in ("en_attente", "en_cours", "contact", "sans_email"))
              or (differee and st["status"] in ("contact", "sans_email", "en_cours")
@@ -560,8 +602,9 @@ def main():
         for ep in todo[:remaining]:
             if journal["episodes"] >= eps_per_day:
                 break
-            if journal["minutes"] + ep["minutes"] > minutes_max and journal["episodes"] > 0:
-                log(f"Episode de {ep['minutes']} min depasserait le budget minutes — reporte.")
+            em = min(ep["minutes"], AUDIO_TRIM_MIN) if AUDIO_TRIM_MIN > 0 else ep["minutes"]   # minutes reellement transcrites
+            if journal["minutes"] + em > minutes_max and journal["episodes"] > 0:
+                log(f"Episode de {em} min depasserait le budget minutes — reporte.")
                 break
             log(f"Extraction : {ep['title'][:80]} ({ep['minutes']} min)")
             if DRY_RUN:
@@ -579,7 +622,7 @@ def main():
             state["moments_count"] += n
             state["status"] = "en_cours"
             journal["episodes"] += 1
-            journal["minutes"] += ep["minutes"]
+            journal["minutes"] += em
             journal["moments"] += n
             log(f"  -> {n} Q/R ajoutee(s) au hub.")
 

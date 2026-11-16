@@ -215,6 +215,7 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           KNOWLEDGE_IMPORT_SECRET: ${{ secrets.KNOWLEDGE_IMPORT_SECRET }}
+          MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}   # 16/11/2026 : liste des prospects contactables (extraction ciblee)
         run: python automation/scripts/marketforge_extract_queue.py
 
       - name: Thematique de chaque podcast (pour le mail)
