@@ -1,0 +1,34 @@
+name: Index — controle SEO d'une page (lecture seule)
+
+# Telecharge une page publique de l'Index de test et affiche ce que voit Google : robots, canonical, titre, donnees structurees, robots.txt, sitemap.
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'Adresse de la page a controler'
+        required: true
+        default: 'https://app.marketforge.fr/docs/answers-with-dr-jr/what-is-the-basic-formula-for-calculating-net-income-on-an-income-statement'
+
+permissions:
+  contents: read
+
+jobs:
+  seo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Controler la page
+        env:
+          PAGE: ${{ inputs.url }}
+        run: |
+          case "$PAGE" in https://app.marketforge.fr/*) ;; *) echo "adresse non autorisee"; exit 1;; esac
+          H=$(curl -sS -m 30 -A 'Mozilla/5.0 (compatible; Googlebot/2.1)' -D /tmp/h.txt -o /tmp/p.html -w '%{http_code}' "$PAGE"); echo "HTTP page: $H"
+          grep -i '^x-robots-tag' /tmp/h.txt || echo "x-robots-tag: (aucun)"
+          echo "--- robots meta"; grep -oiE '<meta[^>]+name=["'"'"']robots["'"'"'][^>]*>' /tmp/p.html || echo "(aucune balise robots : indexable par defaut)"
+          echo "--- canonical"; grep -oiE '<link[^>]+rel=["'"'"']canonical["'"'"'][^>]*>' /tmp/p.html || echo "(aucun canonical)"
+          echo "--- title"; grep -oiE '<title>[^<]*</title>' /tmp/p.html | head -1
+          echo "--- description"; grep -oiE '<meta[^>]+name=["'"'"']description["'"'"'][^>]*>' /tmp/p.html | head -1 || true
+          echo "--- JSON-LD"; grep -oE '"@type"\s*:\s*"[A-Za-z]+"' /tmp/p.html | sort -u || true; grep -c 'application/ld+json' /tmp/p.html || true
+          echo "--- robots.txt"; curl -sS -m 20 -w '\nHTTP %{http_code}\n' https://app.marketforge.fr/robots.txt | head -20
+          echo "--- sitemap.xml"; curl -sS -m 20 -o /tmp/s.xml -w 'HTTP %{http_code}\n' https://app.marketforge.fr/sitemap.xml; head -c 700 /tmp/s.xml; echo; grep -c '<loc>' /tmp/s.xml || true
+          echo "--- pages de l'index test dans le sitemap"; grep -c 'answers-with-dr-jr' /tmp/s.xml || true
