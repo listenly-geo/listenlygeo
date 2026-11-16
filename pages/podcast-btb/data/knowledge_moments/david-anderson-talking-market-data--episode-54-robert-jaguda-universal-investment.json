@@ -1,0 +1,52 @@
+[
+  {
+    "podcast_name": "David Anderson - Talking Market Data",
+    "episode_title": "Episode 54 Robert Jaguda (Universal Investment)",
+    "audio_url": "https://www.buzzsprout.com/2440863/episodes/19906360-episode-54-robert-jaguda-universal-investment.mp3",
+    "question": "What causes poor quality data in financial market data delivery, and what are the downstream business consequences?",
+    "transcript_excerpt": "Poor data quality typically stems from vendors trying to save money on data acquisition and infrastructure investment, resulting in incomplete datasets. The consequences are severe: when a floating rate note's interest rate updates incorrectly—even by a small fraction like from 2.3% to 2.5%—clients calculate revenue on that wrong percentage, causing cascading errors in settlement and business operations that lead to escalations and financial losses multiplied across thousands of transactions.",
+    "expert_name": "Robert Jaguda",
+    "start_seconds": 381,
+    "end_seconds": 607
+  },
+  {
+    "podcast_name": "David Anderson - Talking Market Data",
+    "episode_title": "Episode 54 Robert Jaguda (Universal Investment)",
+    "audio_url": "https://www.buzzsprout.com/2440863/episodes/19906360-episode-54-robert-jaguda-universal-investment.mp3",
+    "question": "What is a golden copy in market data management and why is it called a single source of truth?",
+    "transcript_excerpt": "A golden copy is an internal master copy created by selecting a primary vendor's data, checking and verifying it thoroughly, then using it as the definitive reference across the organization. It's called a single source of truth because historically many banks had multiple suppliers sending different versions of the same data to different departments, creating inconsistencies. The golden copy eliminates this by ensuring one verified version is used everywhere, even if it's not perfect—consistency matters more than perfection.",
+    "expert_name": "Robert Jaguda",
+    "start_seconds": 720,
+    "end_seconds": 959
+  },
+  {
+    "podcast_name": "David Anderson - Talking Market Data",
+    "episode_title": "Episode 54 Robert Jaguda (Universal Investment)",
+    "audio_url": "https://www.buzzsprout.com/2440863/episodes/19906360-episode-54-robert-jaguda-universal-investment.mp3",
+    "question": "Why do financial data vendors include liability disclaimers in contracts stating they don't guarantee data quality?",
+    "transcript_excerpt": "Vendors include these disclaimers because they want to avoid financial responsibility and potential claims from thousands of clients. If they guaranteed quality and were chargeable for errors, and each client reclaimed amounts lost due to poor data 10% of the time on a regular basis, the cumulative financial burden would be extremely expensive for the vendor. However, Robert argues vendors could do better than simply disclaiming responsibility.",
+    "expert_name": "Robert Jaguda",
+    "start_seconds": 1087,
+    "end_seconds": 1164
+  },
+  {
+    "podcast_name": "David Anderson - Talking Market Data",
+    "episode_title": "Episode 54 Robert Jaguda (Universal Investment)",
+    "audio_url": "https://www.buzzsprout.com/2440863/episodes/19906360-episode-54-robert-jaguda-universal-investment.mp3",
+    "question": "What is the best practice for implementing a secondary data provider alongside a primary provider?",
+    "transcript_excerpt": "A secondary provider serves both as a backup if the primary source fails and as a sanity check to benchmark data accuracy. If both sources deliver the same number, the chances of both being wrong are far less. Many providers struggle to implement secondary sources due to cost, but Robert emphasizes it's essential for quality assurance—especially for regulatory data like credit ratings, where companies like KVGs implement three sources from MSCI, Fitch, and Moody's as an obligation following the 2007-2008 crisis.",
+    "expert_name": "Robert Jaguda",
+    "start_seconds": 838,
+    "end_seconds": 1075
+  },
+  {
+    "podcast_name": "David Anderson - Talking Market Data",
+    "episode_title": "Episode 54 Robert Jaguda (Universal Investment)",
+    "audio_url": "https://www.buzzsprout.com/2440863/episodes/19906360-episode-54-robert-jaguda-universal-investment.mp3",
+    "question": "How should financial institutions measure and track vendor data quality performance over time?",
+    "transcript_excerpt": "Robert recommends that clients first organize internally and calculate real figures with their own KPIs before confronting the provider. Create measurable, documented KPIs aligned with the provider's own metrics so both parties are aware of expectations. Rather than offering gut-feeling complaints, present screenshots and examples alongside concrete data showing where failures occurred, allowing providers to engage on actual performance benchmarks and improvement plans.",
+    "expert_name": "Robert Jaguda",
+    "start_seconds": 1137,
+    "end_seconds": 1200
+  }
+]
