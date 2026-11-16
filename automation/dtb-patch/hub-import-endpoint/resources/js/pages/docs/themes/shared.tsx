@@ -39,7 +39,8 @@ function ListenlyAnswerPlayer({ block }: { block: DocsBlock }) {
             if (window.innerWidth < 640) {
                 setBox({ left: 12, width: window.innerWidth - 24 });
             } else {
-                setBox({ left: rect.left, width: rect.width });
+                const width = Math.min(rect.width, 560);
+                setBox({ left: rect.left + (rect.width - width) / 2, width });
             }
         };
         measure();
@@ -48,7 +49,7 @@ function ListenlyAnswerPlayer({ block }: { block: DocsBlock }) {
             observer.observe(anchorRef.current);
         }
         window.addEventListener('resize', measure);
-        document.body.style.paddingBottom = '120px';
+        document.body.style.paddingBottom = '80px';
 
         return () => {
             observer.disconnect();
@@ -88,34 +89,33 @@ function ListenlyAnswerPlayer({ block }: { block: DocsBlock }) {
 
     return (
         <>
-        <div ref={anchorRef} aria-hidden="true" className="h-0 w-full" />
-        <section
-            aria-label="Listen to the answer"
-            style={box ? { left: box.left, width: box.width } : { visibility: 'hidden' }}
-            className="fixed bottom-4 z-40 rounded-2xl border border-white/10 bg-[#1C1C1E]/95 p-3 text-[#F5F5F7] shadow-2xl backdrop-blur"
-        >
-            <audio
-                ref={audioRef}
-                preload="metadata"
-                src={block.audioUrl}
-                onLoadedMetadata={(event) => {
-                    const audio = event.currentTarget;
-                    ready.current = true;
-                    setDuration(audio.duration || 0);
-                    audio.currentTime = start;
-                    setTime(start);
-                    if (wantPlay.current) {
-                        wantPlay.current = false;
-                        void audio.play().catch(() => undefined);
-                    }
-                }}
-                onTimeUpdate={(event) => setTime(event.currentTarget.currentTime)}
-                onPlay={() => setPlaying(true)}
-                onPause={() => setPlaying(false)}
-                onEnded={() => setPlaying(false)}
-                onError={() => setFailed(true)}
-            />
-            <div className="flex items-center gap-3">
+            <div ref={anchorRef} aria-hidden="true" className="h-0 w-full" />
+            <section
+                aria-label="Listen to the answer"
+                style={box ? { left: box.left, width: box.width } : { visibility: 'hidden' }}
+                className="fixed bottom-4 z-40 flex items-center gap-3 rounded-full border border-[#E2D6C0] bg-[#F4ECDD]/95 py-2 pr-4 pl-2 text-[#3B3326] shadow-lg backdrop-blur"
+            >
+                <audio
+                    ref={audioRef}
+                    preload="metadata"
+                    src={block.audioUrl}
+                    onLoadedMetadata={(event) => {
+                        const audio = event.currentTarget;
+                        ready.current = true;
+                        setDuration(audio.duration || 0);
+                        audio.currentTime = start;
+                        setTime(start);
+                        if (wantPlay.current) {
+                            wantPlay.current = false;
+                            void audio.play().catch(() => undefined);
+                        }
+                    }}
+                    onTimeUpdate={(event) => setTime(event.currentTarget.currentTime)}
+                    onPlay={() => setPlaying(true)}
+                    onPause={() => setPlaying(false)}
+                    onEnded={() => setPlaying(false)}
+                    onError={() => setFailed(true)}
+                />
                 <button
                     type="button"
                     onClick={() => {
@@ -127,65 +127,41 @@ function ListenlyAnswerPlayer({ block }: { block: DocsBlock }) {
                         }
                     }}
                     aria-label={playing ? 'Pause' : 'Play the answer'}
-                    className="flex size-11 shrink-0 items-center justify-center rounded-full bg-white text-black transition hover:opacity-85"
+                    className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[#3B3326] text-[#F4ECDD] transition hover:opacity-85"
                 >
                     {playing ? (
-                        <svg viewBox="0 0 24 24" className="size-5" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>
+                        <svg viewBox="0 0 24 24" className="size-4" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>
                     ) : (
-                        <svg viewBox="0 0 24 24" className="size-5" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                        <svg viewBox="0 0 24 24" className="size-4" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
                     )}
                 </button>
-                <div className="min-w-0 flex-1">
-                    <div className="flex items-baseline justify-between gap-3">
-                        <span className="truncate text-[13px] font-medium">{failed ? 'This audio source could not be played.' : title}</span>
-                        <span className="shrink-0 text-[11px] tabular-nums text-[#86868B]">{formatAudioTime(time)}{duration > 0 ? ` / ${formatAudioTime(duration)}` : ''}</span>
-                    </div>
-                    <input
-                        type="range"
-                        aria-label="Seek"
-                        min={0}
-                        max={max}
-                        step={1}
-                        value={Math.min(time, max)}
-                        onChange={(event) => {
-                            if (audioRef.current) {
-                                audioRef.current.currentTime = Number(event.target.value);
-                                setTime(Number(event.target.value));
-                            }
-                        }}
-                        className="mt-1.5 h-1.5 w-full cursor-pointer accent-[#2997FF]"
-                    />
-                    <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
-                        <span className="text-[#86868B]">The answer starts at {formatAudioTime(start)}</span>
-                        {Math.abs(time - start) > 5 ? (
-                            <button type="button" onClick={goToAnswer} className="text-[#2997FF] hover:opacity-75">Back to the answer</button>
-                        ) : null}
-                        <button type="button" aria-label="Back 10 seconds" onClick={() => { if (audioRef.current) audioRef.current.currentTime = Math.max(0, audioRef.current.currentTime - 10); }} className="text-[#86868B] hover:text-white">−10s</button>
-                        <button type="button" aria-label="Forward 10 seconds" onClick={() => { if (audioRef.current) audioRef.current.currentTime = audioRef.current.currentTime + 10; }} className="text-[#86868B] hover:text-white">+10s</button>
-                    </div>
-                </div>
+                <input
+                    type="range"
+                    aria-label={failed ? 'Audio unavailable' : 'Seek'}
+                    min={0}
+                    max={max}
+                    step={1}
+                    value={Math.min(time, max)}
+                    onChange={(event) => {
+                        if (audioRef.current) {
+                            audioRef.current.currentTime = Number(event.target.value);
+                            setTime(Number(event.target.value));
+                        }
+                    }}
+                    className="h-1.5 min-w-0 flex-1 cursor-pointer accent-[#8A6A3B]"
+                />
+                <span className="shrink-0 text-[11px] tabular-nums text-[#7A6B52]">{failed ? 'Unavailable' : formatAudioTime(time)}</span>
                 {block.listenlyUrl ? (
                     <a
                         href={block.listenlyUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="hidden shrink-0 rounded-full border border-[#2997FF]/60 px-3 py-2 text-xs font-semibold text-[#2997FF] no-underline transition hover:bg-[#2997FF]/10 sm:inline-block"
+                        className="shrink-0 text-xs font-semibold whitespace-nowrap text-[#8A5A1F] no-underline hover:opacity-75"
                     >
                         Listen on Listenly →
                     </a>
                 ) : null}
-            </div>
-            {block.listenlyUrl ? (
-                <a
-                    href={block.listenlyUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-2 block rounded-full border border-[#2997FF]/60 px-3 py-2 text-center text-xs font-semibold text-[#2997FF] no-underline sm:hidden"
-                >
-                    Listen on Listenly →
-                </a>
-            ) : null}
-        </section>
+            </section>
         </>
     );
 }
