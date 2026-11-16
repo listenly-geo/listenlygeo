@@ -39,7 +39,8 @@ def main():
             print(f"envoi secours : reservoir {g.get('stock')}/{seuil} -> aucun envoi tant que le stock n'est pas pret"); return
     elif seuil > 0:   # script pas encore a jour : on compte nous-memes (Pret + fiche N1)
         stock = sum(1 for p in st.get("prospects", []) if p.get("statut") == "Pret" and "/podcast-btb/" in str(p.get("fiche_url", "")))
-        if stock < seuil:
+        forcee = str(reg.get("MFE_OUVERTURE_FORCEE") or "TRUE").strip().upper() != "FALSE"   # 16/11/2026 : ouverture a 14h meme si le stock n'est pas plein
+        if stock < seuil and not (forcee and stock > 0):
             print(f"envoi secours : reservoir {stock}/{seuil} -> aucun envoi"); return
     # 27/10/2026 (rafales de 6 mails a 20h18 et 20h48) : meme calendrier que le script Apps Script. Le jour d'envoi commence a h0 ;
     # le calendrier part du creneau d'OUVERTURE du reservoir et, si l'ouverture est tardive (apres MFE_NUIT_SI_OUVERT_APRES h),

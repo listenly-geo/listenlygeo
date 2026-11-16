@@ -65,6 +65,7 @@ var MFE_DEFAULTS = [
   ['MFE_PODCASTINDEX_SECRET', '', 'Decouverte (09/11/2026) — SECRET API Podcast Index. Vide = Podcast Index ignore.'],
   ['MFE_STOCK_PLAFOND', '500', 'Reservoir (09/11/2026) — le moteur remplit le stock de prospects prets tous les jours, sans s\'arreter a 40 ; il ne s\'arrete qu\'a ce plafond de securite (cout). Monter ce nombre pour une reserve plus grande.'],
   ['MFE_NUIT_SI_OUVERT_APRES', '18', 'Envoi de nuit — heure (Paris) apres laquelle une ouverture tardive de l\'envoi prolonge la plage jusqu\'a MFE_NUIT_JUSQU_A.'],
+  ['MFE_OUVERTURE_FORCEE', 'TRUE', 'Reservoir (decision du 16/11/2026) — TRUE = si le stock n\'a pas atteint MFE_STOCK_MIN a l\'ouverture de la plage d\'envoi (14h), l\'envoi demarre QUAND MEME avec les prospects prets disponibles (sans minimum). L\'objectif de stock reste MFE_STOCK_MIN. FALSE = ancienne regle stricte.'],
   ['MFE_STOCK_MIN', '30', 'Reservoir (regle du 27/10/2026) — AUCUN mail ne part tant que le stock de prospects prets a envoyer (statut Pret, question reelle, fiche N1) n\'atteint pas ce nombre. Une fois l\'envoi du jour commence, il continue jusqu\'a minuit. 0 = regle desactivee.'],
   ['MFE_DIRIGEANT_SEUL', 'FALSE', 'Qui contacter (v25) — 09/11/2026 : FALSE = plan B, le contact du flux RSS verifie recoit le mail quand aucun dirigeant n\'est verifie (dirigeants envoyes en premier). TRUE = AUCUN mail ne part a l\'adresse du flux : sans dirigeant verifie (colonnes S-X) le prospect passe en "En pause (pas de dirigeant)". Un meme dirigeant ne recoit qu\'un seul 1er mail (les autres podcasts passent en "En pause (doublon dirigeant)"). FALSE = ancien comportement.'],
   ['MFE_VERIF_DIRIGEANT_MAX_JOUR', '40', 'Qui contacter (v24) — plafond de verifications MyEmailVerifier PAR JOUR pour la recherche d\'adresses de dirigeants (le quota gratuit est partage avec la verification avant envoi).'],
@@ -482,6 +483,16 @@ function mfeStockGate_(rows, cfg, lectureSeule) {
     if (lectureSeule || !cfg.ENVOI_AUTO) return { stock: stock, ouvert: true, ouverture: slot };
     props.setProperty('MFE_STOCK_LATCH2', key); props.setProperty('MFE_OPEN_SLOT2', String(slot));
     return { stock: stock, ouvert: true, ouverture: slot };
+  }
+  // 16/11/2026 (Etienne) : a l'ouverture de la plage d'envoi (14h), si le reservoir n'est pas plein, on lance QUAND MEME la prospection avec le stock disponible.
+  // L'objectif reste MFE_STOCK_MIN (le stock continue de se remplir), mais plus aucun minimum n'empeche l'envoi pendant la plage horaire.
+  if (cfg.OUVERTURE_FORCEE && stock > 0) {
+    var slotF = mfeSlotNow_(now, cfg);
+    if (slotF < (cfg.H_END - cfg.H_START) * 4) {
+      if (lectureSeule || !cfg.ENVOI_AUTO) return { stock: stock, ouvert: true, ouverture: slotF, force: true };
+      props.setProperty('MFE_STOCK_LATCH2', key); props.setProperty('MFE_OPEN_SLOT2', String(slotF));
+      return { stock: stock, ouvert: true, ouverture: slotF, force: true };
+    }
   }
   return { stock: stock, ouvert: false, ouverture: 0 };
 }
@@ -1218,6 +1229,7 @@ function mfeSettings_() {
     NUIT_SI_OUVERT_APRES: parseInt(cfg.MFE_NUIT_SI_OUVERT_APRES, 10) || 18,
     WEEKEND_PAUSE: String((cfg.MFE_WEEKEND_PAUSE === undefined || cfg.MFE_WEEKEND_PAUSE === null || cfg.MFE_WEEKEND_PAUSE === '') ? 'TRUE' : cfg.MFE_WEEKEND_PAUSE).toUpperCase() !== 'FALSE',   // 07/11/2026 : le booleen FALSE du Sheet ne doit pas retomber sur TRUE
     STOCK_MIN: isNaN(parseInt(cfg.MFE_STOCK_MIN, 10)) ? 30 : parseInt(cfg.MFE_STOCK_MIN, 10),
+    OUVERTURE_FORCEE: String((cfg.MFE_OUVERTURE_FORCEE === undefined || cfg.MFE_OUVERTURE_FORCEE === null || cfg.MFE_OUVERTURE_FORCEE === '') ? 'TRUE' : cfg.MFE_OUVERTURE_FORCEE).toUpperCase() !== 'FALSE',   // 16/11/2026
     RELANCE_JOURS: parseInt(cfg.MFE_RELANCE_JOURS, 10) || 0,
     RELANCES_MAX_JOUR: isNaN(parseInt(cfg.MFE_RELANCES_MAX_JOUR, 10)) ? 40 : Math.max(0, parseInt(cfg.MFE_RELANCES_MAX_JOUR, 10)),
     EMAIL_TEST: String(cfg.MFE_EMAIL_TEST || '').trim(),
@@ -1296,7 +1308,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 33 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 34 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
