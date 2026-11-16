@@ -334145,12 +334145,13 @@
     "feed_url": "https://feeds.acast.com/public/shows/62e46ecdb27b7b0012d2773c",
     "genre": "Health & Fitness",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-16",
     "secteur": "Juridique",
     "gate": "dirigeant",
-    "email_domain": "shannonaswales.com"
+    "email_domain": "shannonaswales.com",
+    "rescue": "2026-11-16"
   },
   "https://feeds.simplecast.com/E0BLgXSr": {
     "podcast_name": "One Stop Shop",
@@ -334246,12 +334247,13 @@
     "feed_url": "https://anchor.fm/s/9b64fba4/podcast/rss",
     "genre": "Self-Improvement",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-16",
     "secteur": "Formateurs & programmes",
     "gate": "dirigeant",
-    "email_domain": "joclarkcoaching.com"
+    "email_domain": "joclarkcoaching.com",
+    "rescue": "2026-11-16"
   },
   "https://anchor.fm/s/5eab3ac0/podcast/rss": {
     "podcast_name": "TBT on Air",
@@ -334275,7 +334277,8 @@
     "checked_date": "2026-11-16",
     "secteur": "Assurance",
     "gate": "dirigeant",
-    "email_domain": "biggerpockets.com"
+    "email_domain": "biggerpockets.com",
+    "rescue": "2026-11-16"
   },
   "https://rss.libsyn.com/shows/571705/destinations/4947050.xml": {
     "podcast_name": "Data Career Transformations",
@@ -334294,12 +334297,13 @@
     "feed_url": "https://businessofyou.libsyn.com/rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-16",
     "secteur": "RH & Recrutement",
     "gate": "dirigeant",
-    "email_domain": "thebrandid.com"
+    "email_domain": "thebrandid.com",
+    "rescue": "2026-11-16"
   },
   "https://feeds.captivate.fm/coaching-for-leaders/": {
     "podcast_name": "Coaching For Leaders",
@@ -334373,12 +334377,13 @@
     "feed_url": "https://atunwadigital-rss.streamguys1.com/content/joynewstv/businesslive-apple-podcasts.xml",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-16",
     "secteur": "Finance & Fintech",
     "gate": "dirigeant",
-    "email_domain": "myjoyonline.com"
+    "email_domain": "myjoyonline.com",
+    "rescue": "2026-11-16"
   },
   "https://prescribingprosperity.blubrry.net/feed/podcast/": {
     "podcast_name": "Prescribing Prosperity",
@@ -334391,7 +334396,8 @@
     "checked_date": "2026-11-16",
     "secteur": "Experts-comptables & patrimoine",
     "gate": "dirigeant",
-    "email_domain": "proudmouth.com"
+    "email_domain": "proudmouth.com",
+    "rescue": "2026-11-16"
   },
   "https://rss.buzzsprout.com/1964444.rss": {
     "podcast_name": "Unfiltered Sessions",
@@ -334528,5 +334534,413 @@
     "checked_date": "2026-11-16",
     "secteur": "Finance & Fintech",
     "nb_episodes": 637
+  },
+  "https://anchor.fm/s/1eff24e0/podcast/rss": {
+    "podcast_name": "The Oswego Alumni Podcast",
+    "artist_name": "The Oswego Alumni Podcast",
+    "feed_url": "https://anchor.fm/s/1eff24e0/podcast/rss",
+    "genre": "Education",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 181 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Juridique"
+  },
+  "https://feeds.captivate.fm/the-7-figure-accountant/": {
+    "podcast_name": "7 Figure Accountant Podcast",
+    "artist_name": "Nick Sinclair",
+    "feed_url": "https://feeds.captivate.fm/the-7-figure-accountant/",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Juridique"
+  },
+  "https://feeds.fireside.fm/mdominick/rss": {
+    "podcast_name": "The Mike Dominick Show",
+    "artist_name": "The Mad Botter INC",
+    "feed_url": "https://feeds.fireside.fm/mdominick/rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1945 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Tech & SaaS"
+  },
+  "https://feed.podbean.com/lsi-btw/feed.xml": {
+    "podcast_name": "Behind the Win",
+    "artist_name": "Sarah Bertagnolli",
+    "feed_url": "https://feed.podbean.com/lsi-btw/feed.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Conseil"
+  },
+  "https://media.rss.com/threaded-minds/feed.xml": {
+    "podcast_name": "Threaded Minds",
+    "artist_name": "Suhaib Zada",
+    "feed_url": "https://media.rss.com/threaded-minds/feed.xml",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Juridique"
+  },
+  "https://rss.libsyn.com/shows/196451/destinations/1392413.xml": {
+    "podcast_name": "FedUpward Podcast - Tips for Federal Government Employees",
+    "artist_name": "Love Rutledge",
+    "feed_url": "https://rss.libsyn.com/shows/196451/destinations/1392413.xml",
+    "genre": "Government",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Conseil",
+    "gate": "dirigeant",
+    "email_domain": "fedupward.com"
+  },
+  "https://rss.libsyn.com/shows/182354/destinations/1247585.xml": {
+    "podcast_name": "Beauty and the Biz",
+    "artist_name": "Catherine Maley, MBA",
+    "feed_url": "https://rss.libsyn.com/shows/182354/destinations/1247585.xml",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Santé libérale",
+    "gate": "dirigeant",
+    "email_domain": "catherinemaley.com"
+  },
+  "https://anchor.fm/s/9b6e938/podcast/rss": {
+    "podcast_name": "Tech Money Talks is The #1 Podcast Helping You Build a Cloud FinOps Career and an Online Business",
+    "artist_name": "Brian McCumber @techmoneytalks",
+    "feed_url": "https://anchor.fm/s/9b6e938/podcast/rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1160 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://anchor.fm/s/10bcbe178/podcast/rss": {
+    "podcast_name": "The Inflection Podcast",
+    "artist_name": "Anebi Agbo",
+    "feed_url": "https://anchor.fm/s/10bcbe178/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 340 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Tech & SaaS"
+  },
+  "https://feeds.captivate.fm/engaging-personalities/": {
+    "podcast_name": "Engaging Personalities",
+    "artist_name": "Anders Boulanger",
+    "feed_url": "https://feeds.captivate.fm/engaging-personalities/",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://rss.buzzsprout.com/2351320.rss": {
+    "podcast_name": "Podcasting Badass: Podcast Tips & Mindset Tricks For Success & Monetization",
+    "artist_name": "Sober Steve The Podcast Guy",
+    "feed_url": "https://rss.buzzsprout.com/2351320.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Assurance"
+  },
+  "https://anchor.fm/s/d9a730e4/podcast/rss": {
+    "podcast_name": "Growing Home Podcast",
+    "artist_name": "Terry Therrien",
+    "feed_url": "https://anchor.fm/s/d9a730e4/podcast/rss",
+    "genre": "Home & Garden",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.libsyn.com/shows/243986/destinations/1827788.xml": {
+    "podcast_name": "EQ Gangster",
+    "artist_name": "Noble Gibbens",
+    "feed_url": "https://rss.libsyn.com/shows/243986/destinations/1827788.xml",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "RH & Recrutement",
+    "gate": "dirigeant",
+    "email_domain": "eqgangster.com"
+  },
+  "https://www.taxcrimejunkies.com/feed.xml": {
+    "podcast_name": "Tax Crime Junkies",
+    "artist_name": "Dominique Molina",
+    "feed_url": "https://www.taxcrimejunkies.com/feed.xml",
+    "genre": "True Crime",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Immobilier"
+  },
+  "https://media.rss.com/conversations-at-the-summit/feed.xml": {
+    "podcast_name": "Conversations at the Summit",
+    "artist_name": "ClimbUK",
+    "feed_url": "https://media.rss.com/conversations-at-the-summit/feed.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Juridique"
+  },
+  "https://anchor.fm/s/e8e1218c/podcast/rss": {
+    "podcast_name": "Living on the Exhale: Finding inspiration, laughter, joy, and growth from the messy middle of life",
+    "artist_name": "Staci Berkovitz - On the Exhale",
+    "feed_url": "https://anchor.fm/s/e8e1218c/podcast/rss",
+    "genre": "Mental Health",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 644 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Assurance"
+  },
+  "https://app.kajabi.com/podcasts/2147521537/feed": {
+    "podcast_name": "Good Things Happening! Just under the surface...",
+    "artist_name": "Derek Sabori | The Underswell",
+    "feed_url": "https://app.kajabi.com/podcasts/2147521537/feed",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1091 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://api.substack.com/feed/podcast/1393403.rss": {
+    "podcast_name": "Cryosphere Podcast",
+    "artist_name": "Cryosphere Foundation",
+    "feed_url": "https://api.substack.com/feed/podcast/1393403.rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Tech & SaaS"
+  },
+  "https://feeds.acast.com/public/shows/631eb30fc8e7bc0013a54902": {
+    "podcast_name": "The Inspiration Project",
+    "artist_name": "ACC",
+    "feed_url": "https://feeds.acast.com/public/shows/631eb30fc8e7bc0013a54902",
+    "genre": "Education",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 173 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Juridique"
+  },
+  "https://rss.buzzsprout.com/2152405.rss": {
+    "podcast_name": "Riveo Impact Lab",
+    "artist_name": "Elin Barton, Emily Adams",
+    "feed_url": "https://rss.buzzsprout.com/2152405.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 95 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "RH & Recrutement"
+  },
+  "https://anchor.fm/s/239a2d4c/podcast/rss": {
+    "podcast_name": "LouFit",
+    "artist_name": "Louie",
+    "feed_url": "https://anchor.fm/s/239a2d4c/podcast/rss",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Immobilier"
+  },
+  "https://media.rss.com/freedom-rx/feed.xml": {
+    "podcast_name": "Freedom Rx",
+    "artist_name": "Freedom Practice Coaching",
+    "feed_url": "https://media.rss.com/freedom-rx/feed.xml",
+    "genre": "Medicine",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Assurance"
+  },
+  "https://anchor.fm/s/27389894/podcast/rss": {
+    "podcast_name": "Entrepreneur & Leadership Live Talk",
+    "artist_name": "Michael Thiemann",
+    "feed_url": "https://anchor.fm/s/27389894/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1746 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://anchor.fm/s/70680d88/podcast/rss": {
+    "podcast_name": "The Digital Health Voice",
+    "artist_name": "The Digital Health Voice",
+    "feed_url": "https://anchor.fm/s/70680d88/podcast/rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1431 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://anchor.fm/s/122da854/podcast/rss": {
+    "podcast_name": "Real Journeys of Success with Rob Elliott",
+    "artist_name": "Robert Elliott",
+    "feed_url": "https://anchor.fm/s/122da854/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1077 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.art19.com/halfsies": {
+    "podcast_name": "Halfsies",
+    "artist_name": "Solid Listen",
+    "feed_url": "https://rss.art19.com/halfsies",
+    "genre": "Personal Journals",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Personal Journals)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/1003ef084/podcast/rss": {
+    "podcast_name": "Bouncing Back Podcast with DrStem",
+    "artist_name": "Bouncing Back Podcast with DrStem",
+    "feed_url": "https://anchor.fm/s/1003ef084/podcast/rss",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 407 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/4cf8d904/podcast/rss": {
+    "podcast_name": "Marrin Costello Radio",
+    "artist_name": "Marrin Costello Radio",
+    "feed_url": "https://anchor.fm/s/4cf8d904/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Santé libérale"
+  },
+  "https://illumini.netmindz.net/feed.php?feed_id=15": {
+    "podcast_name": "Radio Illumini - Martina Unshaken Unstirred",
+    "artist_name": "Radio Illumini",
+    "feed_url": "https://illumini.netmindz.net/feed.php?feed_id=15",
+    "genre": "Music",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 768 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/15a3484/podcast/rss": {
+    "podcast_name": "GenTech Marketing",
+    "artist_name": "GenTech Marketing",
+    "feed_url": "https://anchor.fm/s/15a3484/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.buzzsprout.com/2523649.rss": {
+    "podcast_name": "Successful Dental : Depth not Display",
+    "artist_name": "Shaz Memon",
+    "feed_url": "https://rss.buzzsprout.com/2523649.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-16",
+    "secteur": "Santé libérale"
+  },
+  "https://feeds.libsyn.com/250829/rss": {
+    "podcast_name": "The Fit Freedom Podcast",
+    "artist_name": "Ashley Beeman",
+    "feed_url": "https://feeds.libsyn.com/250829/rss",
+    "genre": "Fitness",
+    "track_count": 100,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-fit-freedom-podcast/id1689106755?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/28/d6/ba/28d6ba1a-fd54-d4bc-5ffc-56d31c0df2c6/mza_10838939912854505310.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Le podcast traite du fitness et du bien-être personnel, sujet non-B2B exclu des critères d'onboarding. Bien qu'Ashley Beeman soit un créateur identifiable, le sujet n'est pas business/B2B (pas expertise pointue B2B, méthodologie professionnelle ou conseil d'affaires).",
+    "checked_date": "2026-11-16",
+    "secteur": "Santé libérale",
+    "nb_episodes": 100
+  },
+  "https://anchor.fm/s/f0f2fd50/podcast/rss": {
+    "podcast_name": "Beyond YOUR Bar Podcast",
+    "artist_name": "Denisa Tova",
+    "feed_url": "https://anchor.fm/s/f0f2fd50/podcast/rss",
+    "genre": "Society & Culture",
+    "track_count": 178,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/beyond-your-bar-podcast/id1726441255?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/1c/12/f7/1c12f749-1ce3-17ef-9a82-34fe6673b7fc/mza_5346460134423379082.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Denisa Tova, créatrice indépendante identifiable, sujet business/B2B (au-delà du bar, orientation professionnelle/entrepreneuriat), audience petite-moyenne (178 épisodes, pas de signal de grande notoriété), pas d'affiliation media mass-media détectée.",
+    "checked_date": "2026-11-16",
+    "secteur": "Tech & SaaS",
+    "nb_episodes": 178,
+    "suggested_category": "🎭 Society & Culture",
+    "suggested_tags": [
+      "Pop Culture",
+      "Startup Culture",
+      "Internet Culture",
+      "Cancel Culture"
+    ],
+    "contact_email": "denisa.tova@gmail.com"
+  },
+  "https://feeds.soundcloud.com/users/soundcloud:users:390604902/sounds.rss": {
+    "podcast_name": "Small Business Matters",
+    "artist_name": "Small Business Matters",
+    "feed_url": "https://feeds.soundcloud.com/users/soundcloud:users:390604902/sounds.rss",
+    "genre": "Business",
+    "track_count": 67,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/small-business-matters/id1355544407?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/0d/82/86/0d8286f0-e23f-e570-a78d-e785ae085564/mza_429644438293790646.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B d'entreprise avec 67 épisodes, audience petite/moyenne, hôte identifiable (Small Business Matters). Pas de signature de média de masse ou de célébrité. Correspond aux critères d'onboarding ENTREPRISE.",
+    "checked_date": "2026-11-16",
+    "secteur": "Santé libérale",
+    "nb_episodes": 67,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Small Business",
+      "Business Law",
+      "Business Law",
+      "Business Strategy"
+    ],
+    "contact_email": "kelly@smallbusinessmattersonline.com"
   }
 }
