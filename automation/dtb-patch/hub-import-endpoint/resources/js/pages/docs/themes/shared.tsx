@@ -1,6 +1,6 @@
 import DOMPurify from 'dompurify';
 import { Link } from '@inertiajs/react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ElementType, ReactNode } from 'react';
 import katex from 'katex';
 import 'katex/dist/katex.min.css';
@@ -13,117 +13,163 @@ const formatAudioTime = (value: number) => {
 };
 
 /**
- * Lecteur « réponse au bon moment » (comme Listenly) : barre fixe en bas de l'écran tant que le bloc n'est pas atteint,
- * lecture qui démarre à la minute exacte où l'expert répond, retour à la réponse en un clic.
+ * Lecteur « réponse au bon moment » (même principe que listenly.org) :
+ * barre FIXE en bas de l'écran, ouverte dès l'arrivée sur la page. On charge l'épisode, on attend les métadonnées,
+ * PUIS on place la tête de lecture à la seconde de la réponse (sinon le navigateur l'ignore) et on lance le son.
  */
 function ListenlyAnswerPlayer({ block }: { block: DocsBlock }) {
     const audioRef = useRef<HTMLAudioElement>(null);
-    const placed = useRef(false);
+    const ready = useRef(false);
+    const wantPlay = useRef(false);
     const start = Math.max(0, Math.floor(block.startSec ?? 0));
+    const [open, setOpen] = useState(true);
     const [playing, setPlaying] = useState(false);
     const [time, setTime] = useState(start);
     const [duration, setDuration] = useState(0);
+    const [failed, setFailed] = useState(false);
+
+    useEffect(() => {
+        if (!open) {
+            return;
+        }
+        document.body.style.paddingBottom = '96px';
+
+        return () => {
+            document.body.style.paddingBottom = '';
+        };
+    }, [open]);
 
     if (!block.audioUrl) {
         return null;
     }
 
-    const goToAnswer = () => {
-        const audio = audioRef.current;
-        if (audio) {
-            audio.currentTime = start;
-            placed.current = true;
-            setTime(start);
-        }
-    };
-
-    const toggle = () => {
+    const play = () => {
         const audio = audioRef.current;
         if (!audio) {
             return;
         }
-        if (audio.paused) {
-            if (!placed.current) {
-                goToAnswer();
-            }
-            void audio.play();
-        } else {
-            audio.pause();
+        if (!ready.current) {
+            wantPlay.current = true;
+            audio.load();
+
+            return;
+        }
+        void audio.play().catch(() => undefined);
+    };
+
+    const goToAnswer = () => {
+        const audio = audioRef.current;
+        if (audio) {
+            audio.currentTime = start;
+            setTime(start);
         }
     };
 
+    const listenAtAnswer = () => {
+        setOpen(true);
+        window.setTimeout(() => {
+            goToAnswer();
+            play();
+        }, 0);
+    };
+
     const title = [block.episode, block.podcast].filter(Boolean).join(' · ');
+    const max = duration > 0 ? duration : Math.max(start + 600, 1);
 
     return (
-        <section
-            aria-label="Listen to the answer"
-            className="sticky bottom-3 z-40 rounded-2xl border border-white/10 bg-[#1C1C1E]/95 p-3 text-[#F5F5F7] shadow-2xl backdrop-blur sm:p-4"
-        >
-            <audio
-                ref={audioRef}
-                preload="metadata"
-                src={block.audioUrl}
-                onLoadedMetadata={(event) => {
-                    setDuration(event.currentTarget.duration || 0);
-                    if (!placed.current && start > 0) {
-                        event.currentTarget.currentTime = start;
-                        placed.current = true;
-                    }
-                }}
-                onTimeUpdate={(event) => setTime(event.currentTarget.currentTime)}
-                onPlay={() => setPlaying(true)}
-                onPause={() => setPlaying(false)}
-                onEnded={() => setPlaying(false)}
-            />
-            <div className="flex items-center gap-3">
+        <>
+            <section className="rounded-xl border border-white/10 bg-[#1C1C1E] p-5 text-[#F5F5F7]">
+                <p className="m-0 text-xs text-[#86868B]">{title}</p>
                 <button
                     type="button"
-                    onClick={toggle}
+                    onClick={listenAtAnswer}
+                    className="mt-3 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-black hover:opacity-85"
+                >
+                    <svg viewBox="0 0 24 24" className="size-4" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                    Listen at {formatAudioTime(start)}
+                </button>
+                {block.listenlyUrl ? (
+                    <a href={block.listenlyUrl} target="_blank" rel="noreferrer" className="ml-4 text-sm text-[#2997FF] no-underline hover:opacity-75">Listen on Listenly →</a>
+                ) : null}
+            </section>
+
+            <div
+                role="region"
+                aria-label="Audio player"
+                style={{ display: open ? 'flex' : 'none' }}
+                className="fixed inset-x-0 bottom-0 z-50 items-center gap-3 border-t border-white/10 bg-[#141416]/95 px-4 py-3 text-[#F5F5F7] shadow-[0_-8px_32px_rgba(0,0,0,0.35)] backdrop-blur sm:gap-4 sm:px-6"
+            >
+                <audio
+                    ref={audioRef}
+                    preload="metadata"
+                    src={block.audioUrl}
+                    onLoadedMetadata={(event) => {
+                        const audio = event.currentTarget;
+                        ready.current = true;
+                        setDuration(audio.duration || 0);
+                        audio.currentTime = start;
+                        setTime(start);
+                        if (wantPlay.current) {
+                            wantPlay.current = false;
+                            void audio.play().catch(() => undefined);
+                        }
+                    }}
+                    onTimeUpdate={(event) => setTime(event.currentTarget.currentTime)}
+                    onPlay={() => setPlaying(true)}
+                    onPause={() => setPlaying(false)}
+                    onEnded={() => setPlaying(false)}
+                    onError={() => setFailed(true)}
+                />
+                <button
+                    type="button"
+                    onClick={() => {
+                        const audio = audioRef.current;
+                        if (audio && !audio.paused) {
+                            audio.pause();
+                        } else {
+                            play();
+                        }
+                    }}
                     aria-label={playing ? 'Pause' : 'Play the answer'}
-                    className="flex size-11 shrink-0 items-center justify-center rounded-full bg-white text-black transition hover:opacity-85"
+                    className="flex size-10 shrink-0 items-center justify-center rounded-full bg-white text-black hover:opacity-85"
                 >
                     {playing ? (
-                        <svg viewBox="0 0 24 24" className="size-5" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>
+                        <svg viewBox="0 0 24 24" className="size-4" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>
                     ) : (
-                        <svg viewBox="0 0 24 24" className="size-5" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                        <svg viewBox="0 0 24 24" className="size-4" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
                     )}
                 </button>
+                <button type="button" aria-label="Back 10 seconds" onClick={() => { if (audioRef.current) audioRef.current.currentTime = Math.max(0, audioRef.current.currentTime - 10); }} className="shrink-0 text-xs text-[#86868B] hover:text-white">−10s</button>
+                <button type="button" aria-label="Forward 10 seconds" onClick={() => { if (audioRef.current) audioRef.current.currentTime = audioRef.current.currentTime + 10; }} className="shrink-0 text-xs text-[#86868B] hover:text-white">+10s</button>
                 <div className="min-w-0 flex-1">
-                    <div className="flex items-baseline justify-between gap-3 text-xs text-[#86868B]">
-                        <span className="truncate text-[13px] font-medium text-[#F5F5F7]">Hear the answer · starts at {formatAudioTime(start)}</span>
-                        <span className="shrink-0 tabular-nums">{formatAudioTime(time)}{duration > 0 ? ` / ${formatAudioTime(duration)}` : ''}</span>
+                    <div className="flex items-baseline justify-between gap-3">
+                        <span className="truncate text-[13px] font-medium">{failed ? 'This audio source could not be played.' : title}</span>
+                        <span className="shrink-0 text-[11px] tabular-nums text-[#86868B]">{formatAudioTime(time)}{duration > 0 ? ` / ${formatAudioTime(duration)}` : ''}</span>
                     </div>
                     <input
                         type="range"
                         aria-label="Seek"
                         min={0}
-                        max={duration > 0 ? duration : Math.max(start + 600, 1)}
+                        max={max}
                         step={1}
-                        value={Math.min(time, duration > 0 ? duration : Math.max(start + 600, 1))}
+                        value={Math.min(time, max)}
                         onChange={(event) => {
-                            const audio = audioRef.current;
-                            if (audio) {
-                                audio.currentTime = Number(event.target.value);
-                                placed.current = true;
-                                setTime(audio.currentTime);
+                            if (audioRef.current) {
+                                audioRef.current.currentTime = Number(event.target.value);
+                                setTime(Number(event.target.value));
                             }
                         }}
-                        className="mt-1.5 h-1.5 w-full cursor-pointer accent-[#2997FF]"
+                        className="mt-1 h-1.5 w-full cursor-pointer accent-[#2997FF]"
                     />
-                    <div className="mt-1 flex items-center justify-between gap-3 text-xs text-[#86868B]">
-                        <span className="truncate">{title}</span>
-                        <span className="flex shrink-0 items-center gap-3">
-                            {Math.abs(time - start) > 5 ? (
-                                <button type="button" onClick={goToAnswer} className="text-[#2997FF] hover:opacity-75">Back to the answer</button>
-                            ) : null}
-                            {block.listenlyUrl ? (
-                                <a href={block.listenlyUrl} target="_blank" rel="noreferrer" className="text-[#2997FF] no-underline hover:opacity-75">Listen on Listenly →</a>
-                            ) : null}
-                        </span>
-                    </div>
                 </div>
+                {Math.abs(time - start) > 5 ? (
+                    <button type="button" onClick={goToAnswer} className="hidden shrink-0 text-xs text-[#2997FF] hover:opacity-75 sm:block">Back to the answer</button>
+                ) : null}
+                <button type="button" aria-label="Close player" onClick={() => { audioRef.current?.pause(); setOpen(false); }} className="shrink-0 p-1 text-[#86868B] hover:text-white">
+                    <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                </button>
             </div>
-        </section>
+        </>
     );
 }
 
