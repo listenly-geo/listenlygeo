@@ -345514,12 +345514,13 @@
     "feed_url": "https://www.omnycontent.com/d/playlist/4b883cc6-7d4d-4c88-bc0d-b3d201148e19/d3dd6f8a-8340-4d99-b629-b3e300b9760a/62c25832-4e8d-4715-9cd5-b3e300b9761a/podcast.rss",
     "genre": "Management",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Cybersécurité",
     "gate": "dirigeant",
-    "email_domain": "wavelengthcreative.com"
+    "email_domain": "wavelengthcreative.com",
+    "rescue": "2026-11-17"
   },
   "https://anchor.fm/s/1f956b94/podcast/rss": {
     "podcast_name": "MIDI Innovation Vault ™",
@@ -345565,7 +345566,8 @@
     "checked_date": "2026-11-17",
     "secteur": "Cybersécurité",
     "gate": "dirigeant",
-    "email_domain": "bnpmedia.com"
+    "email_domain": "bnpmedia.com",
+    "rescue": "2026-11-17"
   },
   "https://rss.libsyn.com/shows/523238/destinations/4495758.xml": {
     "podcast_name": "Go Get Great",
@@ -345639,12 +345641,13 @@
     "feed_url": "https://rss.libsyn.com/shows/303443/destinations/2420420.xml",
     "genre": "Management",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Pas de site d'entreprise trouve",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Construction & Industrie",
     "gate": "dirigeant",
-    "email_domain": "gmail.com"
+    "email_domain": "gmail.com",
+    "rescue": "2026-11-17"
   },
   "https://anchor.fm/s/1040e5614/podcast/rss": {
     "podcast_name": "Mountain Mule Media",
@@ -345708,5 +345711,267 @@
       "Growth Investing"
     ],
     "contact_email": "community@allocate.co"
+  },
+  "https://rss.libsyn.com/shows/178589/destinations/1212512.xml": {
+    "podcast_name": "Learn Skin with Dr. Raja and Dr. Hadar",
+    "artist_name": "LearnSkin",
+    "feed_url": "https://rss.libsyn.com/shows/178589/destinations/1212512.xml",
+    "genre": "Medicine",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale",
+    "gate": "dirigeant",
+    "email_domain": "learnskin.com"
+  },
+  "https://anchor.fm/s/678f539c/podcast/rss": {
+    "podcast_name": "The Wildly Capable Woman",
+    "artist_name": "Hannah Schmitt",
+    "feed_url": "https://anchor.fm/s/678f539c/podcast/rss",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1422 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Agences de services"
+  },
+  "https://feed.podbean.com/BammerAndMe/feed.xml": {
+    "podcast_name": "Bammer and Me",
+    "artist_name": "Mike Balaban",
+    "feed_url": "https://feed.podbean.com/BammerAndMe/feed.xml",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Juridique"
+  },
+  "https://anchor.fm/s/f175bba0/podcast/rss": {
+    "podcast_name": "Harder Not Smarter Podcast",
+    "artist_name": "Greg VanDyne and Kevin Seiff",
+    "feed_url": "https://anchor.fm/s/f175bba0/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : email inexploitable (domaine sans serveur mail)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://feeds.simplecast.com/TfJJU9ix": {
+    "podcast_name": "Her One Thing",
+    "artist_name": "Kristin Zeier",
+    "feed_url": "https://feeds.simplecast.com/TfJJU9ix",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : email inexploitable (domaine sans serveur mail)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://rss.libsyn.com/shows/320309/destinations/2591939.xml": {
+    "podcast_name": "Agile Innovation Leaders",
+    "artist_name": "Ula Ojiaku",
+    "feed_url": "https://rss.libsyn.com/shows/320309/destinations/2591939.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 578 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://feed.podbean.com/unbillablehrs/feed.xml": {
+    "podcast_name": "unbillable hours - a podcast about better professional services marketing",
+    "artist_name": "Ash, Flo",
+    "feed_url": "https://feed.podbean.com/unbillablehrs/feed.xml",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Conseil"
+  },
+  "https://anchor.fm/s/297cf794/podcast/rss": {
+    "podcast_name": "Let's Discuss With Diamond Podcast",
+    "artist_name": "Diamond Rivera",
+    "feed_url": "https://anchor.fm/s/297cf794/podcast/rss",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1553 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Juridique"
+  },
+  "https://rss.libsyn.com/shows/89201/destinations/439907.xml": {
+    "podcast_name": "Sustainable Winegrowing",
+    "artist_name": "Vineyard Team",
+    "feed_url": "https://rss.libsyn.com/shows/89201/destinations/439907.xml",
+    "genre": "Natural Sciences",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Conseil",
+    "gate": "dirigeant",
+    "email_domain": "vineyardteam.org"
+  },
+  "https://rss.libsyn.com/shows/367127/destinations/3014855.xml": {
+    "podcast_name": "The Global List Podcast",
+    "artist_name": "David Solomon Bassiouni",
+    "feed_url": "https://rss.libsyn.com/shows/367127/destinations/3014855.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Conseil",
+    "gate": "dirigeant",
+    "email_domain": "bassiounigroup.com"
+  },
+  "https://feeds.simplecast.com/wHZyvQ8F": {
+    "podcast_name": "Roads Taken",
+    "artist_name": "Dartmouth Class of 1996, Leslie Jennings Rowley",
+    "feed_url": "https://feeds.simplecast.com/wHZyvQ8F",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 246 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Conseil"
+  },
+  "https://feeds.soundcloud.com/users/soundcloud:users:796128103/sounds.rss": {
+    "podcast_name": "Bankadelic: The colorful side of finance",
+    "artist_name": "Bankadelic: The colorful side of finance",
+    "feed_url": "https://feeds.soundcloud.com/users/soundcloud:users:796128103/sounds.rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech"
+  },
+  "https://feeds.megaphone.fm/mindbodygreen-clean-beauty-school": {
+    "podcast_name": "Clean Beauty School",
+    "artist_name": "mindbodygreen",
+    "feed_url": "https://feeds.megaphone.fm/mindbodygreen-clean-beauty-school",
+    "genre": "Alternative Health",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 287 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://cindybidar.com/feed/podcast/": {
+    "podcast_name": "Tiny Course Empire Podcast",
+    "artist_name": "Cindy Bidar",
+    "feed_url": "https://cindybidar.com/feed/podcast/",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 631 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://anchor.fm/s/f9da3118/podcast/rss": {
+    "podcast_name": "Microsoft Mentors",
+    "artist_name": "Cloud Decisions",
+    "feed_url": "https://anchor.fm/s/f9da3118/podcast/rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://rss.libsyn.com/shows/106177/destinations/572514.xml": {
+    "podcast_name": "Bulletproof Your CPG Brand",
+    "artist_name": "Daniel Lohman",
+    "feed_url": "https://rss.libsyn.com/shows/106177/destinations/572514.xml",
+    "genre": "Entrepreneurship",
+    "track_count": 346,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/bulletproof-your-cpg-brand/id1282121597?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/81/80/d8/8180d8ce-20b3-3d14-e48d-5b59d9e66322/mza_18130414689740232259.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Daniel Lohman (créateur/expert indépendant identifiable) sur un sujet B2B pointu (CPG branding). 346 épisodes indiquent une activité régulière, audience petite à moyenne non mainstream — correspond au profil acceptance_path CREATEUR depuis 27/10/2026.",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech",
+    "nb_episodes": 346,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Brand Strategy",
+      "Female Entrepreneurship",
+      "Serial Entrepreneurship"
+    ],
+    "contact_email": "dan@cms4cpg.com"
+  },
+  "https://feeds.redcircle.com/d4a05898-6b5d-4661-a9dd-473cbee429f7": {
+    "podcast_name": "Community Creators with Shana Lynn",
+    "artist_name": "Shana Lynn Bresnahan",
+    "feed_url": "https://feeds.redcircle.com/d4a05898-6b5d-4661-a9dd-473cbee429f7",
+    "genre": "Marketing",
+    "track_count": 248,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/community-creators-with-shana-lynn/id1612838240?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/ff/52/b9/ff52b9e1-c44e-4859-7b47-1dcee585dc9f/mza_14790273553178514163.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Shana Lynn Bresnahan, créatrice/experte indépendante identifiable dans le domaine du marketing et community building (248 épisodes réguliers). Audience petite/moyenne, sujet business B2B, pas de média mass ou célébrité grand public détectée.",
+    "checked_date": "2026-11-17",
+    "secteur": "Formateurs & programmes",
+    "nb_episodes": 248,
+    "suggested_category": null,
+    "suggested_tags": [
+      "B2C Marketing",
+      "Marketing Strategy",
+      "Startup Marketing",
+      "Community Building"
+    ],
+    "contact_email": "support@communitycultivated.com"
+  },
+  "https://anchor.fm/s/ea66926c/podcast/rss": {
+    "podcast_name": "Design for Change",
+    "artist_name": "Jagadeesh",
+    "feed_url": "https://anchor.fm/s/ea66926c/podcast/rss",
+    "genre": "Design",
+    "track_count": 323,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/design-for-change/id1722831587?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/66/93/06/6693063c-8b99-ddb7-04c4-280aed9b6e20/mza_5005371808015781353.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par un créateur indépendant identifiable (Jagadeesh) sur un sujet business/design avec 323 épisodes reguliers. Pas de signe de grande notoriété ou d'adossement à un gros média — correspond au profil CREATEUR accepté depuis 27/10/2026.",
+    "checked_date": "2026-11-17",
+    "secteur": "Agences de services",
+    "nb_episodes": 323,
+    "suggested_category": null,
+    "suggested_tags": [
+      "UX/UI Design",
+      "Curriculum Design",
+      "Change Management",
+      "Organizational Design"
+    ],
+    "contact_email": "mail2jackey@gmail.com"
+  },
+  "https://feeds.simplecast.com/O18dRNOD": {
+    "podcast_name": "HTML All The Things - Web Development, AI, and Developer Careers",
+    "artist_name": "Matt Lawrence and Mike Karan",
+    "feed_url": "https://feeds.simplecast.com/O18dRNOD",
+    "genre": "Technology",
+    "track_count": 548,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/html-all-the-things-web-development-ai-and/id1412209136?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/d3/a3/c2/d3a3c20e-4f18-6c09-5a4a-5059c9dddefb/mza_7256827776676032459.jpeg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par deux créateurs indépendants identifiables (Matt Lawrence et Mike Karan) sur un sujet B2B/technology (développement web, AI, carrières tech). Avec 548 épisodes, il montre une activité régulière mais n'est pas un média de masse ou une célébrité grand public, correspondant au profil CREATEUR accepté depuis le 27/10/2026.",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS",
+    "nb_episodes": 548,
+    "suggested_category": "💻 Technology",
+    "suggested_tags": [
+      "MVP Development",
+      "Web Development",
+      "HR Technology",
+      "Leadership Development"
+    ],
+    "contact_email": "htmlallthethings@gmail.com"
   }
 }
