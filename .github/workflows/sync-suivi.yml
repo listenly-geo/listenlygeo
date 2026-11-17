@@ -18,13 +18,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python3 automation/scripts/sync_suivi_fiches.py
+      - name: Traduction francaise des titres
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python3 automation/scripts/traduire_titres_fr.py || true
       - name: Commit + mise en ligne
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           git config user.name "github-actions"; git config user.email "actions@github.com"
-          if [ -n "$(git status --porcelain pages/podcast-btb/data/suivi_fiches.json)" ]; then
-            git add pages/podcast-btb/data/suivi_fiches.json
+          if [ -n "$(git status --porcelain pages/podcast-btb/data/suivi_fiches.json pages/podcast-btb/data/traductions_fr.json)" ]; then
+            git add pages/podcast-btb/data/suivi_fiches.json pages/podcast-btb/data/traductions_fr.json
             git commit -m "Suivi indexation : mise a jour automatique"
             git pull --rebase -q && git push -q
             gh workflow run deploy-pages.yml --ref main

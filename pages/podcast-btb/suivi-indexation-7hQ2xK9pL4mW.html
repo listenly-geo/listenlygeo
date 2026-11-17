@@ -124,6 +124,16 @@ const SERIE=[{"date": "2026-10-15", "ajoutees": 10, "total": 10}, {"date": "2026
       .attr('r', 3).attr('fill', '#2997FF');
   }
 
+  var FR = {};
+  function addFr(td, r) {
+    var t = FR[r.url];
+    if (t && typeof t === 'string') {
+      var fr = document.createElement('div');
+      fr.textContent = '🇫🇷 ' + t;
+      fr.style.cssText = 'color:#8E8E93;font-size:13px;margin-top:3px;line-height:1.35';
+      td.appendChild(fr);
+    }
+  }
   function reqRows(tab) {
     var tb = document.getElementById('reqrows');
     tb.innerHTML = '';
@@ -134,6 +144,7 @@ const SERIE=[{"date": "2026-10-15", "ajoutees": 10, "total": 10}, {"date": "2026
       link.href = r.url; link.target = '_blank'; link.rel = 'noopener';
       link.textContent = r.question;
       if (r.url) { a.appendChild(link); } else { a.textContent = r.question; }
+      addFr(a, r);
       var b = document.createElement('td'); b.textContent = r.podcast || '';
       var c = document.createElement('td'); c.className = 'd';
       c.textContent = r.date ? fmtD(new Date(r.date + 'T00:00:00Z')) : '—';
@@ -156,6 +167,7 @@ const SERIE=[{"date": "2026-10-15", "ajoutees": 10, "total": 10}, {"date": "2026
       link.href = r.url; link.target = '_blank'; link.rel = 'noopener';
       link.textContent = r.question;
       if (r.url) { a.appendChild(link); } else { a.textContent = r.question; }
+      addFr(a, r);
       var b = document.createElement('td'); b.textContent = r.podcast || '';
       var d = document.createElement('td'); d.className = 'd';
       d.textContent = r.date ? fmtD(new Date(r.date + 'T00:00:00Z')) : '—';
@@ -174,7 +186,7 @@ const SERIE=[{"date": "2026-10-15", "ajoutees": 10, "total": 10}, {"date": "2026
   });
 
   var curTab = 'ok';
-  fetch('data/suivi_fiches.json', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }).then(function (s) {
+  fetch('data/traductions_fr.json', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; }).then(function (t) { FR = t || {}; if (curTab === 'res') { resRows(); } else { reqRows(curTab); } return fetch('data/suivi_fiches.json', { cache: 'no-store' }); }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }).then(function (s) {
     if (s && s.fiches) {
       var have = {};
       REQUESTS.forEach(function (r) { have[r.url] = 1; });
