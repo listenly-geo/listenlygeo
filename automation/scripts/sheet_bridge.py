@@ -249,7 +249,8 @@ def tendances():
     res = call(payload={"action": "tendances", "updated": t.get("updated", ""),
                         "envois_total": t.get("envois_total", 0), "reponses_total": t.get("reponses_total", 0),
                         "rows": rows,
-                        "ab": {"rows": ab_rows, "verdict": ab.get("verdict", ""), "updated": ab.get("updated", "")} if ab_rows else None})
+                        "ab": {"rows": ab_rows, "verdict": ab.get("verdict", ""), "updated": ab.get("updated", "")} if ab_rows
+                              else {"clear": True, "verdict": ab.get("verdict", "")}})
     log(f"Classement des tendances envoye a la Synthese : {res}")
 
 

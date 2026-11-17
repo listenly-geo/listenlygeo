@@ -119,6 +119,7 @@ var MFE_CTAS = {
   E: 'Do you already have a Podcast Hub to receive it?'
 };
 var MFE_AB_KEYS = ['A', 'B', 'C', 'D', 'E'];
+var MFE_AB_REEL = false;   // 17/11/2026 : ancien test A-E coupe (il ne changeait pas le mail). true = a remettre avec de vraies versions du mail.
 var MFE_AB_DEPUIS = new Date(2026, 9, 4).getTime();   // seuls les envois a partir du 04/10/2026 (nouveau mail) comptent dans le test A-E
 var MFE_MSG_RESET = ['MFE_MSG_OBJET', 'MFE_MSG_FICHE', 'MFE_MSG_REPONSES', 'MFE_MSG_RELANCE', 'MFE_MSG_RELANCE_2', 'MFE_MSG_RELANCE_3', 'MFE_CTA_A', 'MFE_CTA_B', 'MFE_CTA_C', 'MFE_CTA_D', 'MFE_CTA_E'];   // v13 : seuls ces textes sont reecrits dans Reglages (le reste est conserve)
 var MFE_MSG_DEFAULTS = [
@@ -598,7 +599,7 @@ function mfeSend_(sh, cfg, force, onlySlug, paced) {   // onlySlug (optionnel) :
     try {
       var threadId = mfeMail_(to, d[0], d[1]);
       sh.getRange(r.row, 7, 1, 5).setValues([['Envoye', new Date(), '', '', threadId]]);
-      sh.getRange(r.row, 15).setValue(variant);
+      // 17/11/2026 : la variante CTA n'est plus ecrite (ancien test A-E supprime : le mail n'avait pas de CTA variable). Colonne 15 reservee aux futures VRAIES versions du mail.
       if (leader) {   // l'adresse reellement utilisee devient celle de la ligne (reponses, rebonds, relances la suivent) ; l'origine est gardee en colonne Y
         sh.getRange(r.row, 3).setValue(leader.to);
         sh.getRange(r.row, 14).setValue(leader.nom);
@@ -1127,7 +1128,7 @@ function mfeDraft_(values, variant) {  // [objet, corps, variante] du 1er mail
 // (ab_test.json sur GitHub) ; sans poids, repartition egale. Choix = variante la plus en retard sur sa part.
 function mfeAbPlan_(rows, cfg) {
   var variants = ['A'];
-  if (cfg.AB_ACTIF) {
+  if (cfg.AB_ACTIF && MFE_AB_REEL) {
     var st = mfeReadSettings_();
     variants = MFE_AB_KEYS.filter(function (k) { return ('MFE_CTA_' + k) in st ? String(st['MFE_CTA_' + k]).trim() !== '' : k === 'A'; });
     if (!variants.length) variants = ['A'];
@@ -1364,7 +1365,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 36 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 37 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -1442,7 +1443,11 @@ function mfeTendances_(body) {
   sh.setColumnWidth(col + 1, 210);
   // Bloc "Test A/B du CTA" sous le classement des secteurs (ligne 46)
   var ab = body.ab;
-  if (ab && ab.rows) {
+  if (ab && ab.clear) {   // 17/11/2026 : plus de test A/B, on vide l'ancien bloc pour que la Synthese ne soit pas trompeuse
+    sh.getRange(46, col, 20, width).clearContent().clearFormat();
+    sh.getRange(46, col).setValue('Test A/B : aucun test en cours').setFontWeight('bold').setFontSize(12);
+    sh.getRange(47, col).setValue(ab.verdict || '').setFontStyle('italic').setFontColor('#666666');
+  } else if (ab && ab.rows) {
     var t2 = 46, h2 = ['Variante', 'Type de CTA', 'Envoyes', 'Rebonds', 'Reponses', 'Taux reponse %', 'Chance d\'etre la meilleure %', 'Part des envois %'];
     sh.getRange(t2, col, 20, width).clearContent().clearFormat();
     sh.getRange(t2, col).setValue('Test A/B du CTA (appel \u00e0 l\'action du mail)').setFontWeight('bold').setFontSize(12);

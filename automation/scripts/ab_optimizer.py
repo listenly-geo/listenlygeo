@@ -45,7 +45,13 @@ def load(path, default):
         return default
 
 
+ACTIF = False   # 17/11/2026 : ancien test A-E supprime (les variantes n'etaient pas dans le mail). Remettre True avec de VRAIES versions du mail.
+
+
 def main():
+    if not ACTIF:
+        print("[ab] aucun test A/B en cours (ancien test A-E supprime le 17/11/2026) : rien a calculer.")
+        return 0
     stats = load(STATS, {})
     ignored = set(load(CONFIG, {}).get("reponses_automatiques_ignorees", []))
     classes_by_podcast = {}
