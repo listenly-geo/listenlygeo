@@ -351549,12 +351549,13 @@
     "feed_url": "https://api.riverside.fm/hosting/9CxL0jZZ.rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "RH & Recrutement",
     "gate": "dirigeant",
-    "email_domain": "abettermonday.me"
+    "email_domain": "abettermonday.me",
+    "rescue": "2026-11-17"
   },
   "https://feed.podbean.com/duckcreektechnologies/feed.xml": {
     "podcast_name": "Conversations on the Creek",
@@ -351644,7 +351645,8 @@
     "checked_date": "2026-11-17",
     "secteur": "Santé",
     "gate": "dirigeant",
-    "email_domain": "dearmedia.com"
+    "email_domain": "dearmedia.com",
+    "rescue": "2026-11-17"
   },
   "https://anchor.fm/s/106020920/podcast/rss": {
     "podcast_name": "Becoming Visible with Christina Payne",
@@ -351725,5 +351727,256 @@
     "checked_date": "2026-11-17",
     "secteur": "Finance & Fintech",
     "nb_episodes": 202
+  },
+  "https://anchor.fm/s/94ff25b4/podcast/rss": {
+    "podcast_name": "Mighty MERP",
+    "artist_name": "Melissa Rosenblum",
+    "feed_url": "https://anchor.fm/s/94ff25b4/podcast/rss",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Juridique"
+  },
+  "https://api.riverside.com/hosting/mzrd30Az.rss": {
+    "podcast_name": "O3C Games",
+    "artist_name": "O3C Games",
+    "feed_url": "https://api.riverside.com/hosting/mzrd30Az.rss",
+    "genre": "Comedy",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Comedy)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Construction & Industrie"
+  },
+  "https://www.omnycontent.com/d/playlist/2fb3740d-3436-44af-8cc0-a91900716aa5/0dca146c-7ce1-4a32-9b05-ac2a00524989/65d91c4f-fd4c-4907-822a-ac2a00524989/podcast.rss": {
+    "podcast_name": "Credlin",
+    "artist_name": "News24",
+    "feed_url": "https://www.omnycontent.com/d/playlist/2fb3740d-3436-44af-8cc0-a91900716aa5/0dca146c-7ce1-4a32-9b05-ac2a00524989/65d91c4f-fd4c-4907-822a-ac2a00524989/podcast.rss",
+    "genre": "News",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Énergie",
+    "gate": "dirigeant",
+    "email_domain": "news24.com.au"
+  },
+  "https://anchor.fm/s/4e81ebf8/podcast/rss": {
+    "podcast_name": "DailyStraits.com - Something Different!",
+    "artist_name": "dailystraits.com",
+    "feed_url": "https://anchor.fm/s/4e81ebf8/podcast/rss",
+    "genre": "News",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 151 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Logistique & Supply chain"
+  },
+  "https://feed.podbean.com/myenergy2050/feed.xml": {
+    "podcast_name": "My Energy 2050 Podcast",
+    "artist_name": "Michael LaBelle",
+    "feed_url": "https://feed.podbean.com/myenergy2050/feed.xml",
+    "genre": "Education",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Énergie"
+  },
+  "https://anchor.fm/s/132ef6a4/podcast/rss": {
+    "podcast_name": "KMXT News",
+    "artist_name": "KMXT",
+    "feed_url": "https://anchor.fm/s/132ef6a4/podcast/rss",
+    "genre": "Daily News",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Énergie"
+  },
+  "https://anchor.fm/s/dc3d4ce4/podcast/rss": {
+    "podcast_name": "Churners Digest",
+    "artist_name": "FearTheZ",
+    "feed_url": "https://anchor.fm/s/dc3d4ce4/podcast/rss",
+    "genre": "Hobbies",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Hobbies)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Logistique & Supply chain"
+  },
+  "https://feeds.transistor.fm/owners-roundtable": {
+    "podcast_name": "Owner's Roundtable",
+    "artist_name": "Jeff McLarty",
+    "feed_url": "https://feeds.transistor.fm/owners-roundtable",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Agences de services",
+    "gate": "dirigeant",
+    "email_domain": "focalpointedmonton.com"
+  },
+  "https://www.spreaker.com/show/6604714/episodes/feed": {
+    "podcast_name": "The Energy Manager's Playbook",
+    "artist_name": "Save on Energy",
+    "feed_url": "https://www.spreaker.com/show/6604714/episodes/feed",
+    "genre": "Education",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Énergie",
+    "gate": "dirigeant",
+    "email_domain": "ieso.ca"
+  },
+  "https://anchor.fm/s/86420b4/podcast/rss": {
+    "podcast_name": "SimplyPHP Unscripted",
+    "artist_name": "SimplyPHP",
+    "feed_url": "https://anchor.fm/s/86420b4/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Agences de services"
+  },
+  "https://anchor.fm/s/da11620c/podcast/rss": {
+    "podcast_name": "Entrepreneurs Sushi Club",
+    "artist_name": "Woon Tan, Loubna Zarrou, Gayle Edwards",
+    "feed_url": "https://anchor.fm/s/da11620c/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://rss.libsyn.com/shows/149210/destinations/957782.xml": {
+    "podcast_name": "Millionaire Car Salesman Podcast",
+    "artist_name": "Dealer Synergy",
+    "feed_url": "https://rss.libsyn.com/shows/149210/destinations/957782.xml",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Marketing & Ventes",
+    "gate": "dirigeant",
+    "email_domain": "dealersynergy.com"
+  },
+  "https://lawyerstellall.com/feed/podcast/": {
+    "podcast_name": "Lawyers Tell All®: Conversations with Chris Mullins",
+    "artist_name": "Lawyers Tell All®: Conversations with Chris Mullins",
+    "feed_url": "https://lawyerstellall.com/feed/podcast/",
+    "genre": "Documentary",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 467 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://feeds.megaphone.fm/fall-line-field-notes": {
+    "podcast_name": "Fall Line Field Notes",
+    "artist_name": "Eric O'Brien and Clay Mitchell",
+    "feed_url": "https://feeds.megaphone.fm/fall-line-field-notes",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1127 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://anchor.fm/s/36c45ed8/podcast/rss": {
+    "podcast_name": "Swenglanese - talking business in the UAE",
+    "artist_name": "Swenglanese",
+    "feed_url": "https://anchor.fm/s/36c45ed8/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://anchor.fm/s/f0d0a264/podcast/rss": {
+    "podcast_name": "Conectando Mentes Curiosas, por PG Advogados",
+    "artist_name": "Conectando Mentes Curiosas",
+    "feed_url": "https://anchor.fm/s/f0d0a264/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 581 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Juridique"
+  },
+  "https://www.thefishow.com/feed/podcast/": {
+    "podcast_name": "The Financial Independence Show",
+    "artist_name": "Cody Berman and Justin Taylor",
+    "feed_url": "https://www.thefishow.com/feed/podcast/",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Immobilier"
+  },
+  "https://feed.podbean.com/scaleyourrealestate/feed.xml": {
+    "podcast_name": "Scale Your CoLiving Real Estate",
+    "artist_name": "Sam Wegert",
+    "feed_url": "https://feed.podbean.com/scaleyourrealestate/feed.xml",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Immobilier"
+  },
+  "https://anchor.fm/s/453e1ad0/podcast/rss": {
+    "podcast_name": "Gundogs and Guard dogs",
+    "artist_name": "Lez Graham and Ross McCarthy",
+    "feed_url": "https://anchor.fm/s/453e1ad0/podcast/rss",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.buzzsprout.com/2011463.rss": {
+    "podcast_name": "Reviving Vet Med",
+    "artist_name": "Dr. Marie Holowaychuk",
+    "feed_url": "https://rss.buzzsprout.com/2011463.rss",
+    "genre": "Mental Health",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/5bb57eac/podcast/rss": {
+    "podcast_name": "Beyond Coding",
+    "artist_name": "Patrick Akil",
+    "feed_url": "https://anchor.fm/s/5bb57eac/podcast/rss",
+    "genre": "Technology",
+    "track_count": 276,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/beyond-coding/id1572440477?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/94/1a/c9/941ac991-e318-afbc-425d-c6bab6fc615a/mza_16175084110818161592.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Patrick Akil, créateur/expert indépendant identifiable dans le domaine de la technologie et du business. 276 épisodes réguliers, audience petite/moyenne, pas de rattachement à un gros média ou réseau célèbre. Correspond au profil CREATEUR accepté depuis 27/10/2026.",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS",
+    "nb_episodes": 276,
+    "suggested_category": "💻 Technology",
+    "suggested_tags": [
+      "HR Technology",
+      "Blockchain Technology",
+      "Wearable Technology",
+      "Space Technology"
+    ],
+    "contact_email": "beyondcodingpodcast@gmail.com"
   }
 }
