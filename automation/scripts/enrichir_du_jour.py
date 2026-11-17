@@ -72,10 +72,14 @@ def claude(prompt, max_tokens=120):
         return json.loads(r.read())["content"][0]["text"].strip()
 
 
-def titre_court(question, podcast):
+def titre_court(question, podcast, connu=False):
     """Titre Google : question courte (meme regle que seo_title : question + ' | Podcast', 50 a 58 caracteres).
     Les questions longues ne se raccourcissent pas mecaniquement : Claude les reformule."""
     name = re.sub(r"\s+", " ", podcast or "").strip() or "Listenly"
+    # 17/11/2026 (Etienne) : le nom du podcast n'est garde que pour les podcasts tres connus (niveau A) ;
+    # sinon le titre finit par "| Listenly" (question plus longue, marque Listenly, pas de nom coupe).
+    if not connu or len(name) > 28:
+        name = "Listenly"
     suffix = f" | {name}" if len(name) <= 28 else " | " + name[:26].rstrip()
     room = 58 - len(suffix)
     for essai in range(2):
@@ -160,7 +164,7 @@ def main():
                     tit = raw["titres"] if isinstance(raw, dict) and "titres" in raw else raw
                     if not tit.get(k):
                         try:
-                            t2 = titre_court(e.get("q"), d.get("podcast") or slug)
+                            t2 = titre_court(e.get("q"), d.get("podcast") or slug, niv.get(slug) == "A")
                         except Exception:
                             t2 = None
                         if t2:
@@ -189,7 +193,7 @@ def main():
             json.dump(d, open(f, "w", encoding="utf-8"), ensure_ascii=False)
             par_podcast[slug] = par_podcast.get(slug, 0) + 1
             try:
-                titre = titre_court(e.get("q"), d.get("podcast") or slug)
+                titre = titre_court(e.get("q"), d.get("podcast") or slug, niv.get(slug) == "A")
             except Exception:
                 titre = None
             if titre:
