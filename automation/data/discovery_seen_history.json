@@ -347095,12 +347095,13 @@
     "feed_url": "https://positivepolarity.libsyn.com/rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Logistique & Supply chain",
     "gate": "dirigeant",
-    "email_domain": "positivepolarity.com"
+    "email_domain": "positivepolarity.com",
+    "rescue": "2026-11-17"
   },
   "https://feed.podbean.com/zemarpodcast/feed.xml": {
     "podcast_name": "Midway Business Podcast",
@@ -347207,12 +347208,13 @@
     "feed_url": "https://anchor.fm/s/10fb99ca8/podcast/rss",
     "genre": "Medicine",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "imncontent.com"
+    "email_domain": "imncontent.com",
+    "rescue": "2026-11-17"
   },
   "https://feed.podbean.com/phorestfm/feed.xml": {
     "podcast_name": "PhorestFM: Building a Stronger Industry, Together",
@@ -347315,5 +347317,294 @@
       "Time Management"
     ],
     "contact_email": "mike@globalstudio.com"
+  },
+  "https://feed.podbean.com/hakaimagazine/feed.xml": {
+    "podcast_name": "Hakai Magazine Audio Edition",
+    "artist_name": "Hakai Magazine",
+    "feed_url": "https://feed.podbean.com/hakaimagazine/feed.xml",
+    "genre": "Nature",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Énergie"
+  },
+  "https://api.substack.com/feed/podcast/73172.rss": {
+    "podcast_name": "Venture Unlocked: The playbook for venture capital managers",
+    "artist_name": "Samir Kaji",
+    "feed_url": "https://api.substack.com/feed/podcast/73172.rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech"
+  },
+  "https://post.futurimedia.com/kxl/playlist/rss/12.xml": {
+    "podcast_name": "KXL-Afternoon News",
+    "artist_name": "Alpha Media",
+    "feed_url": "https://post.futurimedia.com/kxl/playlist/rss/12.xml",
+    "genre": "Daily News",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Daily News)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "http://rss.castbox.fm/everest/f1753f1840314d8baa020d47ad4f4cf0.xml": {
+    "podcast_name": "The Conscious Podcast",
+    "artist_name": "Laura Morris & Ellie Phillips, Conscious Solutions",
+    "feed_url": "http://rss.castbox.fm/everest/f1753f1840314d8baa020d47ad4f4cf0.xml",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 386 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://rss.buzzsprout.com/2431640.rss": {
+    "podcast_name": "High Agency Women",
+    "artist_name": "Missing Perspectives",
+    "feed_url": "https://rss.buzzsprout.com/2431640.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech"
+  },
+  "https://feeds.megaphone.fm/USVL8655812591": {
+    "podcast_name": "The HR Uprising Podcast",
+    "artist_name": "Lucinda Carney",
+    "feed_url": "https://feeds.megaphone.fm/USVL8655812591",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 134 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "RH & Recrutement"
+  },
+  "https://rss.libsyn.com/shows/481770/destinations/4100196.xml": {
+    "podcast_name": "Marketing Tails",
+    "artist_name": "Mark Bevington",
+    "feed_url": "https://rss.libsyn.com/shows/481770/destinations/4100196.xml",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 404 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://feeds.megaphone.fm/SONORO4759191984": {
+    "podcast_name": "Business Perfect Formula",
+    "artist_name": "Sonoro | Trufinco",
+    "feed_url": "https://feeds.megaphone.fm/SONORO4759191984",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 574 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://anchor.fm/s/2342ebcc/podcast/rss": {
+    "podcast_name": "She's Next Talks",
+    "artist_name": "Reinvantage",
+    "feed_url": "https://anchor.fm/s/2342ebcc/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Énergie"
+  },
+  "https://feed.podbean.com/www.futurized.co/feed.xml": {
+    "podcast_name": "Futurized - thought leadership on the future",
+    "artist_name": "Trond Arne Undheim",
+    "feed_url": "https://feed.podbean.com/www.futurized.co/feed.xml",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Logistique & Supply chain"
+  },
+  "https://podcast-cdn.kasperowski.com/feed.xml": {
+    "podcast_name": "With Great People: High-Performance Teams",
+    "artist_name": "Richard Kasperowski",
+    "feed_url": "https://podcast-cdn.kasperowski.com/feed.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1512 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://rss.buzzsprout.com/952195.rss": {
+    "podcast_name": "Legal updates | Simmons & Simmons",
+    "artist_name": "Simmons & Simmons",
+    "feed_url": "https://rss.buzzsprout.com/952195.rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Énergie"
+  },
+  "https://feeds.transistor.fm/level-10-leaders": {
+    "podcast_name": "Level 10 Leaders",
+    "artist_name": "Ryan Castle",
+    "feed_url": "https://feeds.transistor.fm/level-10-leaders",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://api.riverside.fm/hosting/F9tMlDA0.rss": {
+    "podcast_name": "Regular Expressions",
+    "artist_name": "Ben Griswold and Noah Heldman",
+    "feed_url": "https://api.riverside.fm/hosting/F9tMlDA0.rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 144 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://api.substack.com/feed/podcast/4016182.rss": {
+    "podcast_name": "Stories for the future",
+    "artist_name": "Veslemøy Klavenes-Berge ✨",
+    "feed_url": "https://api.substack.com/feed/podcast/4016182.rss",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://anchor.fm/s/dc33ee74/podcast/rss": {
+    "podcast_name": "I LIKE TO MOVE IT",
+    "artist_name": "Rulmeca",
+    "feed_url": "https://anchor.fm/s/dc33ee74/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Logistique & Supply chain",
+    "gate": "dirigeant",
+    "email_domain": "rulmeca.com"
+  },
+  "https://anchor.fm/s/83e2cbc8/podcast/rss": {
+    "podcast_name": "Empire by Design",
+    "artist_name": "Brittney van Gestel",
+    "feed_url": "https://anchor.fm/s/83e2cbc8/podcast/rss",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 159 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://feeds.megaphone.fm/IDG1424689161": {
+    "podcast_name": "CIO Leadership Live: ASEAN",
+    "artist_name": "Foundry",
+    "feed_url": "https://feeds.megaphone.fm/IDG1424689161",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 124 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Énergie"
+  },
+  "https://anchor.fm/s/10a8bbba8/podcast/rss": {
+    "podcast_name": "Tech Startup Network Podcast with Ashley DiBiase",
+    "artist_name": "Tech Startup Network",
+    "feed_url": "https://anchor.fm/s/10a8bbba8/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 117 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://feeds.captivate.fm/im-the-gaffer/": {
+    "podcast_name": "I'm The Gaffer",
+    "artist_name": "Gavin Coyle",
+    "feed_url": "https://feeds.captivate.fm/im-the-gaffer/",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://feeds.transistor.fm/leverage-addicts": {
+    "podcast_name": "Leverage Addicts",
+    "artist_name": "MHQ",
+    "feed_url": "https://feeds.transistor.fm/leverage-addicts",
+    "genre": "Investing",
+    "track_count": 340,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/leverage-addicts/id1674078954?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/c0/47/db/c047dbf0-ef94-37c7-4ddd-4f0991e48e06/mza_946733009380147871.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B d'investissement produit par l'entreprise MHQ avec 340 épisodes réguliers, audience petite/moyenne non-celebrity, sujet business pointu (investissement/leverage) sans couverture documentaire massive.",
+    "checked_date": "2026-11-17",
+    "secteur": "RH & Recrutement",
+    "nb_episodes": 340,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Value Investing",
+      "Growth Investing",
+      "Dividend Investing",
+      "Angel Investing"
+    ],
+    "contact_email": "marketing@mhq.co.nz"
+  },
+  "https://www.omnycontent.com/d/playlist/2798843f-7b1c-4bf3-ad76-b3e90035255e/c62dcb14-a351-4080-9318-b3ef00c2361d/64c8631e-0d8e-4661-932a-b3ef00c2362b/podcast.rss": {
+    "podcast_name": "The Hot Desk",
+    "artist_name": "WLR",
+    "feed_url": "https://www.omnycontent.com/d/playlist/2798843f-7b1c-4bf3-ad76-b3e90035255e/c62dcb14-a351-4080-9318-b3ef00c2361d/64c8631e-0d8e-4661-932a-b3ef00c2362b/podcast.rss",
+    "genre": "Entrepreneurship",
+    "track_count": 100,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-hot-desk/id1795063645?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/c9/86/55/c98655ca-01dd-a37c-5232-4a9937690037/mza_14151763853866539068.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast d'entreprise B2B sur l'entrepreneurship produit par WLR (éditeur identifiable), avec 100 épisodes réguliers, audience petite/moyenne, et aucun signal de notoriété mass-media ou célébrité. Remplit tous les critères d'onboarding.",
+    "checked_date": "2026-11-17",
+    "secteur": "RH & Recrutement",
+    "nb_episodes": 100,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Female Entrepreneurship",
+      "Serial Entrepreneurship"
+    ],
+    "contact_email": "digital@wlrfm.com"
+  },
+  "https://rss.libsyn.com/shows/608815/destinations/5305305.xml": {
+    "podcast_name": "The Missing Ingredient",
+    "artist_name": "CJ Bruce",
+    "feed_url": "https://rss.libsyn.com/shows/608815/destinations/5305305.xml",
+    "genre": "Marketing",
+    "track_count": 31,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-missing-ingredient/id1884392051?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/b1/2f/9f/b12f9f94-973e-5b06-b88a-c77bd4d5bfa1/mza_1620482714058426027.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par CJ Bruce, créateur indépendant identifiable, sujet marketing/B2B, 31 épisodes indiquant une activité régulière, audience petite/moyenne (pas de signal de notoriété mass-media). Correspond au profil CREATEUR accepté depuis 27/10/2026.",
+    "checked_date": "2026-11-17",
+    "secteur": "Marketing & Ventes",
+    "nb_episodes": 31,
+    "suggested_category": null,
+    "suggested_tags": [
+      "B2C Marketing",
+      "Marketing Strategy",
+      "Startup Marketing",
+      "Missing Persons"
+    ],
+    "contact_email": "rise25editor@gmail.com"
   }
 }
