@@ -1,13 +1,17 @@
 {
- "updated": "2026-11-17T14:02",
- "envois_total": 86,
+ "updated": "2026-11-17T14:18",
+ "envois_total": 87,
  "reponses_total": 0,
  "taux_reponse_global_pct": 0.0,
- "dirigeants_testes": 16569,
+ "dirigeants_testes": 16573,
  "dirigeants_trouves": 1666,
  "data_apprentissage": {
   "creneaux_new_york": {
    "heure": {
+    "09h": {
+     "envoyes": 11,
+     "reponses": 0
+    },
     "08h": {
      "envoyes": 13,
      "reponses": 0
@@ -25,10 +29,6 @@
      "reponses": 0
     },
     "10h": {
-     "envoyes": 10,
-     "reponses": 0
-    },
-    "09h": {
      "envoyes": 10,
      "reponses": 0
     },
@@ -51,7 +51,7 @@
    },
    "jour": {
     "mar": {
-     "envoyes": 33,
+     "envoyes": 34,
      "reponses": 0
     },
     "mer": {
@@ -69,7 +69,7 @@
   "postes_trouves": {}
  },
  "weights": {
-  "Tech & SaaS": 0.0534,
+  "Tech & SaaS": 0.0533,
   "Cybersécurité": 0.0669,
   "Finance & Fintech": 0.0463,
   "RH & Recrutement": 0.0453,
@@ -77,11 +77,11 @@
   "Logistique & Supply chain": 0.0544,
   "Construction & Industrie": 0.0458,
   "Énergie": 0.0479,
-  "Assurance": 0.053,
+  "Assurance": 0.0533,
   "Immobilier": 0.0505,
   "Juridique": 0.0499,
   "Conseil": 0.0325,
-  "Santé": 0.0506,
+  "Santé": 0.0505,
   "Business général (entreprise)": 0.0566,
   "Cabinets d'avocats": 0.0413,
   "Experts-comptables & patrimoine": 0.0579,
@@ -165,26 +165,26 @@
    "envoye": 4,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 1616,
+   "dirigeant_testes": 1617,
    "dirigeant_trouves": 175,
    "taux_reponse": 0.0,
-   "score": 0.10223,
+   "score": 0.10217,
    "rang": 5
   },
   {
    "secteur": "Assurance",
    "poids_pct": 5.3,
-   "delta_pts": -0.0,
+   "delta_pts": 0.0,
    "tendance": "stable",
    "onboarde": 78,
    "joignable": 32,
-   "envoye": 4,
+   "envoye": 5,
    "rebond": 0,
    "reponse": 0,
    "dirigeant_testes": 670,
    "dirigeant_trouves": 72,
    "taux_reponse": 0.0,
-   "score": 0.1014,
+   "score": 0.10199,
    "rang": 6
   },
   {
@@ -229,10 +229,10 @@
    "envoye": 4,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 523,
+   "dirigeant_testes": 524,
    "dirigeant_trouves": 53,
    "taux_reponse": 0.0,
-   "score": 0.0957,
+   "score": 0.09552,
    "rang": 9
   },
   {
@@ -284,22 +284,6 @@
    "rang": 12
   },
   {
-   "secteur": "Énergie",
-   "poids_pct": 4.8,
-   "delta_pts": -0.1,
-   "tendance": "stable",
-   "onboarde": 49,
-   "joignable": 15,
-   "envoye": 2,
-   "rebond": 0,
-   "reponse": 0,
-   "dirigeant_testes": 634,
-   "dirigeant_trouves": 61,
-   "taux_reponse": 0.0,
-   "score": 0.08941,
-   "rang": 13
-  },
-  {
    "secteur": "Coachs & consultants B2B",
    "poids_pct": 4.8,
    "delta_pts": -0.0,
@@ -313,6 +297,22 @@
    "dirigeant_trouves": 100,
    "taux_reponse": 0.0,
    "score": 0.0894,
+   "rang": 13
+  },
+  {
+   "secteur": "Énergie",
+   "poids_pct": 4.8,
+   "delta_pts": -0.1,
+   "tendance": "stable",
+   "onboarde": 49,
+   "joignable": 15,
+   "envoye": 2,
+   "rebond": 0,
+   "reponse": 0,
+   "dirigeant_testes": 635,
+   "dirigeant_trouves": 61,
+   "taux_reponse": 0.0,
+   "score": 0.08927,
    "rang": 14
   },
   {
@@ -357,10 +357,10 @@
    "envoye": 6,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 1063,
+   "dirigeant_testes": 1064,
    "dirigeant_trouves": 94,
    "taux_reponse": 0.0,
-   "score": 0.08452,
+   "score": 0.08444,
    "rang": 17
   },
   {
@@ -376,7 +376,7 @@
    "dirigeant_testes": 705,
    "dirigeant_trouves": 63,
    "taux_reponse": 0.0,
-   "score": 0.08313,
+   "score": 0.08312,
    "rang": 18
   },
   {
@@ -424,7 +424,7 @@
    "dirigeant_testes": 0,
    "dirigeant_trouves": 0,
    "taux_reponse": null,
-   "score": 0.09058,
+   "score": 0.09055,
    "rang": 21
   }
  ]

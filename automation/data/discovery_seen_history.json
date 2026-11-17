@@ -348274,7 +348274,8 @@
     "checked_date": "2026-11-17",
     "secteur": "Énergie",
     "gate": "dirigeant",
-    "email_domain": "university.fm"
+    "email_domain": "university.fm",
+    "rescue": "2026-11-17"
   },
   "https://feeds.transistor.fm/the-unburdened-leader": {
     "podcast_name": "The Unburdened Leader",
@@ -348293,12 +348294,13 @@
     "feed_url": "https://anchor.fm/s/f1cf884c/podcast/rss",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Tech & SaaS",
     "gate": "dirigeant",
-    "email_domain": "custify.com"
+    "email_domain": "custify.com",
+    "rescue": "2026-11-17"
   },
   "https://anchor.fm/s/11a1a2fdc/podcast/rss": {
     "podcast_name": "Realm Maintenance",
@@ -348339,12 +348341,13 @@
     "feed_url": "https://feeds.blubrry.com/feeds/1470828.xml",
     "genre": "Medicine",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Santé",
     "gate": "dirigeant",
-    "email_domain": "malcolmoutloud.com"
+    "email_domain": "malcolmoutloud.com",
+    "rescue": "2026-11-17"
   },
   "https://anchor.fm/s/be3a82c/podcast/rss": {
     "podcast_name": "The Engaged Prospect Podcast",
@@ -348546,5 +348549,186 @@
       "Executive Leadership"
     ],
     "contact_email": "glenn@glenngow.com"
+  },
+  "https://rss.buzzsprout.com/2313244.rss": {
+    "podcast_name": "Hello & Welcome",
+    "artist_name": "Marisa",
+    "feed_url": "https://rss.buzzsprout.com/2313244.rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Immobilier"
+  },
+  "https://anchor.fm/s/15ee0da8/podcast/rss": {
+    "podcast_name": "Your Business Greatness",
+    "artist_name": "Simone Sloan",
+    "feed_url": "https://anchor.fm/s/15ee0da8/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://anchor.fm/s/f74f72dc/podcast/rss": {
+    "podcast_name": "The Enterprise Learning Podcast",
+    "artist_name": "Technology Transformation Strategies",
+    "feed_url": "https://anchor.fm/s/f74f72dc/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 714 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://pghtech.libsyn.com/rss": {
+    "podcast_name": "10-Minute Tech Talks: How Tech Entrepreneurs Fail & How You Can Avoid It",
+    "artist_name": "Jonathan Kersting",
+    "feed_url": "https://pghtech.libsyn.com/rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Coachs & consultants B2B",
+    "gate": "dirigeant",
+    "email_domain": "pghtech.org"
+  },
+  "https://pinecast.com/feed/founder-journeys-by-launch-vc": {
+    "podcast_name": "Founder Journey",
+    "artist_name": "Ray Walia",
+    "feed_url": "https://pinecast.com/feed/founder-journeys-by-launch-vc",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1151 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Immobilier"
+  },
+  "https://anchor.fm/s/f04b34f8/podcast/rss": {
+    "podcast_name": "The Dadpreneur Podcast",
+    "artist_name": "dadpreneur",
+    "feed_url": "https://anchor.fm/s/f04b34f8/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 311 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://www.roofingcontractor.com/media/podcasts/5077-best-of-success-podcast-show.rss": {
+    "podcast_name": "Best of Success Podcast Show",
+    "artist_name": "www.roofingcontractor.com",
+    "feed_url": "https://www.roofingcontractor.com/media/podcasts/5077-best-of-success-podcast-show.rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Cybersécurité",
+    "gate": "dirigeant",
+    "email_domain": "bnpmedia.com"
+  },
+  "https://www.omnycontent.com/d/playlist/2bfe2d30-2756-4510-8b2d-adff010aaaac/dc1d7bfb-9174-43ba-a9b9-b29e013d66a1/ee17b27c-a754-426b-821a-b29e013d6aea/podcast.rss": {
+    "podcast_name": "Smart Money Radio",
+    "artist_name": "Financial 1 Wealth",
+    "feed_url": "https://www.omnycontent.com/d/playlist/2bfe2d30-2756-4510-8b2d-adff010aaaac/dc1d7bfb-9174-43ba-a9b9-b29e013d66a1/ee17b27c-a754-426b-821a-b29e013d6aea/podcast.rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 329 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech"
+  },
+  "https://anchor.fm/s/105f71ca4/podcast/rss": {
+    "podcast_name": "The School of Wealth",
+    "artist_name": "Rondi Lambeth",
+    "feed_url": "https://anchor.fm/s/105f71ca4/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 215 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Immobilier"
+  },
+  "https://anchor.fm/s/89f90b8/podcast/rss": {
+    "podcast_name": "Let's Get Bossy",
+    "artist_name": "Megan Gillespie",
+    "feed_url": "https://anchor.fm/s/89f90b8/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 809 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Immobilier"
+  },
+  "https://rss.buzzsprout.com/2391243.rss": {
+    "podcast_name": "The Chris Salerno Show",
+    "artist_name": "Chris Salerno",
+    "feed_url": "https://rss.buzzsprout.com/2391243.rss",
+    "genre": "Business",
+    "track_count": 68,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-chris-salerno-show/id1760606484?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/bd/74/6a/bd746aab-db6a-f163-a7b0-a17e5598189d/mza_9930550048768554863.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Chris Salerno, créateur/expert indépendant identifiable dans le domaine business. 68 épisodes réguliers, audience petite/moyenne, aucun indicateur de mass-media ou célébrité grand public. Éligible en tant que CREATEUR selon la décision du 27/10/2026.",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech",
+    "nb_episodes": 68,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Law",
+      "Business Law",
+      "Business Strategy",
+      "Business Growth"
+    ],
+    "contact_email": "stephanie@qccapitalgroup.com"
+  },
+  "https://rss.buzzsprout.com/2095830.rss": {
+    "podcast_name": "Next Gen Trucking Talk with Lindsey Trent",
+    "artist_name": "Lindsey Trent",
+    "feed_url": "https://rss.buzzsprout.com/2095830.rss",
+    "genre": "Careers",
+    "track_count": 75,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/next-gen-trucking-talk-with-lindsey-trent/id1670647376?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/8e/ed/81/8eed81d1-0bd0-4802-f002-47b737455a1c/mza_2252298142932869971.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Lindsey Trent, créatrice indépendante identifiable dans le secteur B2B (logistique/transport). Sujet business/expertise pointue, audience petite-moyenne (75 épisodes), aucun lien détecté avec un gros média ou célébrité grand public.",
+    "checked_date": "2026-11-17",
+    "secteur": "Formateurs & programmes",
+    "nb_episodes": 75,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Cybersecurity Careers",
+      "Spoiler Talk"
+    ],
+    "contact_email": "info@nextgentrucking.org"
+  },
+  "https://anchor.fm/s/eae30d9c/podcast/rss": {
+    "podcast_name": "The SafeHouse",
+    "artist_name": "The SafeHouse Initiative",
+    "feed_url": "https://anchor.fm/s/eae30d9c/podcast/rss",
+    "genre": "Technology",
+    "track_count": 96,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-safehouse/id1712141435?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/23/4b/ee/234bee0e-519a-58f0-21fe-ad7dbf34bdbf/mza_10735378865879879531.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "The SafeHouse Initiative est une entreprise/organisation B2B identifiable produisant un podcast Technology avec 96 épisodes réguliers, audience petite-moyenne, sans signature de média de masse ni célébrité. Répond à tous les critères d'onboarding.",
+    "checked_date": "2026-11-17",
+    "secteur": "Cybersécurité",
+    "nb_episodes": 96,
+    "suggested_category": "💻 Technology",
+    "suggested_tags": [
+      "HR Technology",
+      "Blockchain Technology",
+      "Wearable Technology",
+      "Space Technology"
+    ],
+    "contact_email": "safehouseinitiative.org@gmail.com"
   }
 }
