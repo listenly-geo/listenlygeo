@@ -1,0 +1,89 @@
+name: Generateur podcast francais (independant du moteur americain)
+
+# 17/11/2026 : un flux RSS francais -> fiches moment en francais sur listenly.org/podcast-btb/fr/.
+# Totalement separe du moteur trafic : groupe de concurrence propre, ne commit QUE sous pages/podcast-btb/fr/,
+# deploie QUE le dossier fr/ (fichier d'etat FTP distinct). Lance depuis la page privee automation/fr/generateur.html.
+
+on:
+  workflow_dispatch:
+    inputs:
+      rss_url:
+        description: "Adresse du flux RSS du podcast francais"
+        required: true
+      episodes:
+        description: "Nombre d'episodes a traiter (les plus recents pas encore faits)"
+        default: "3"
+      minutes_audio:
+        description: "Minutes d'audio transcrites par episode (0 = episode entier)"
+        default: "25"
+      questions_par_episode:
+        description: "Nombre maximum de questions par episode"
+        default: "4"
+      dry_run:
+        description: "Simulation : lit le flux et planifie, ne depense rien"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fr-generator
+  cancel-in-progress: false
+
+jobs:
+  generer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: Generation
+        env:
+          RSS_URL: ${{ inputs.rss_url }}
+          EPISODES: ${{ inputs.episodes }}
+          MINUTES_AUDIO: ${{ inputs.minutes_audio }}
+          QUESTIONS_PAR_EPISODE: ${{ inputs.questions_par_episode }}
+          DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          KNOWLEDGE_IMPORT_SECRET: ${{ secrets.KNOWLEDGE_IMPORT_SECRET }}
+          PODCAST_SLUG: fr-podcast
+        run: python automation/fr/generate_fr.py
+
+      - name: Enregistrer (uniquement pages/podcast-btb/fr/)
+        if: ${{ !inputs.dry_run }}
+        run: |
+          git config user.name "listenly-fr-generator"
+          git config user.email "actions@users.noreply.github.com"
+          git add pages/podcast-btb/fr
+          git diff --cached --quiet && { echo "Rien a enregistrer"; exit 0; }
+          git commit -m "FR generateur : nouvelles fiches moment ($(date -u +%F))"
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i*5))
+          done
+          exit 1
+
+      - name: Mise en ligne FTP (fr/ uniquement)
+        if: ${{ !inputs.dry_run }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./pages/podcast-btb/fr/
+          server-dir: /listenly.fr/podcast-btb/fr/
+          state-name: .ftp-deploy-sync-state-fr.json
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.gitkeep
+            data/knowledge_moments/**

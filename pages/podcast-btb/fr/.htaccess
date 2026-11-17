@@ -1,0 +1,6 @@
+# Generateur FR independant (17/11/2026) : ces regles ne concernent que /podcast-btb/fr/.
+# Les pages "moment" francaises sont rendues par fr/m.php : /podcast-btb/fr/m/<podcast>/<id>
+RewriteEngine On
+RewriteRule ^m/([a-z0-9\-]+)/([a-f0-9]+)/?$ m.php?p=$1&m=$2 [L,QSA]
+# Donnees du generateur : jamais servies au public
+RewriteRule ^data/ - [F,L]
