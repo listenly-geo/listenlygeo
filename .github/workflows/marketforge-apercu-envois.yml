@@ -1,0 +1,30 @@
+name: MarketForge — Apercu des prochains envois (lecture seule)
+
+# Liste, dans l'ordre du moteur, les prochains prospects qui recevront le 1er mail (podcast, type de destinataire,
+# question, lien de la fiche moment). N'envoie rien, n'ecrit rien. Aucune adresse email dans le journal.
+
+on:
+  workflow_dispatch:
+    inputs:
+      n:
+        description: 'Nombre de prospects a lister'
+        required: false
+        default: '40'
+
+permissions:
+  contents: read
+
+jobs:
+  apercu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Apercu
+        env:
+          MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
+          APERCU_N: ${{ github.event.inputs.n }}
+        run: python automation/scripts/apercu_envois.py
