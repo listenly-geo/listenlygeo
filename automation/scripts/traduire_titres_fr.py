@@ -11,8 +11,8 @@ for page in glob.glob("pages/podcast-btb/suivi-indexation-*.html"):
         m = re.search(r"const " + k + r"=(\[.*?\]);\n", h)
         if m:
             for r in json.loads(m.group(1)):
-                if r.get("url") and r.get("question"):
-                    items[r["url"]] = r["question"]
+                if r.get("question"):
+                    items[r.get("url") or "q:" + r["question"]] = r["question"]
 for f in json.load(open(f"{D}/suivi_fiches.json")).get("fiches", []):
     if f.get("url") and f.get("question"):
         items[f["url"]] = f["question"]

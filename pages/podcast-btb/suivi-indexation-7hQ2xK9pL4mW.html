@@ -126,7 +126,7 @@ const SERIE=[{"date": "2026-10-15", "ajoutees": 10, "total": 10}, {"date": "2026
 
   var FR = {};
   function addFr(td, r) {
-    var t = FR[r.url];
+    var t = FR[r.url] || FR['q:' + r.question];
     if (t && typeof t === 'string') {
       var fr = document.createElement('div');
       fr.textContent = '🇫🇷 ' + t;
