@@ -234,6 +234,7 @@ jobs:
         continue-on-error: true
         env:
           MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # 17/11/2026 : arbitre de preuve (choix de la question du mail, ~0,001 $ par podcast)
         run: python automation/scripts/sheet_bridge.py push
 
       - name: Lecteur de moments (index des questions + adresses d'episodes Listenly)

@@ -1371,7 +1371,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 38 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 39 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -1417,6 +1417,14 @@ function doPost(e) {
       // preuve du mail : question + moment exact (colonnes 17-18), seulement si le 1er mail n'est pas encore parti
       if (x && x.latest_episode_question && x.latest_episode_moment_id && !r.values[7] && !r.values[16]) {
         sh.getRange(r.row, 17, 1, 2).setValues([[x.latest_episode_question, x.latest_episode_moment_id]]);
+      } else if (x && x.proof_v2 && !r.values[7] && r.values[6] === 'Pret') {
+        // 17/11/2026 : l'arbitre (Claude Haiku) a choisi la meilleure preuve parmi les questions deja extraites -> remplace l'ancienne
+        if (x.proof_none) {
+          sh.getRange(r.row, 7).setValue('En pause (question hors sujet)');
+          sh.getRange(r.row, 12).setValue('Pas envoye : aucune question extraite ne prouve l\'expertise du podcast (arbitre de preuve, 17/11/2026)');
+        } else if (x.latest_episode_question && x.latest_episode_moment_id && String(r.values[17]) !== String(x.latest_episode_moment_id)) {
+          sh.getRange(r.row, 17, 1, 2).setValues([[x.latest_episode_question, x.latest_episode_moment_id]]);
+        }
       }
     });
     return mfeJson_({ ok: true, lignes_ajoutees: added });

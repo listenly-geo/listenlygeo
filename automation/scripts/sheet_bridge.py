@@ -201,20 +201,37 @@ def push():
         moments_index = None
         log(f"(moments_index indisponible : {e})")
 
+    # 17/11/2026 : pour les prospects « Pret » pas encore contactes, un arbitre Claude Haiku choisit la meilleure preuve parmi
+    # les questions DEJA extraites (choix memorise : un seul appel par podcast). Les autres gardent le choix par regles (gratuit).
+    pret = set()
+    try:
+        st = call({"action": "status"})
+        pret = {str(r.get("Slug")) for r in st.get("prospects", []) if str(r.get("Statut")) == "Pret" and not r.get("Envoye le")}
+    except Exception as e:
+        log(f"(statuts indisponibles pour l'arbitre de preuve : {e})")
+    cache_path = "automation/marketforge_engine/proof_choice.json"
+    cache = load(cache_path, {})
+    n_cache = len(cache)
+
     def proof(slug, p):
+        """(question, moment_id, arbitre) ; arbitre=True si le choix vient de l'arbitre (le Sheet peut alors remplacer l'ancienne preuve)."""
         if not moments_index or not p.get("moments_count"):
-            return "", ""
+            return "", "", False
         try:
             moments_index.invalidate(slug)
+            if slug in pret and len(cache) - n_cache < 80:   # au plus 80 nouveaux arbitrages par run (le reste au run suivant)
+                r = moments_index.best_proof_ai(slug, p.get("thematique", ""), p.get("podcast_name", ""), cache)
+                if r is not None:
+                    return r[0], r[1], True
             q, mid = moments_index.best_proof(slug, p.get("thematique", "")) or ("", "")
-            return q, mid
+            return q, mid, False
         except Exception as e:
             log(f"(preuve {slug} : {e})")
-            return "", ""
+            return "", "", False
 
     podcasts = []
     for s, p in queue.get("podcasts", {}).items():
-        q, mid = proof(s, p)
+        q, mid, arbitre = proof(s, p)
         podcasts.append(
             {"slug": s, "podcast_name": p.get("podcast_name", s), "email": p.get("email", ""),
              "status": p.get("status", ""), "moments_count": p.get("moments_count", 0),
@@ -222,7 +239,12 @@ def push():
              "host_name": p.get("host_name", ""), "listenly_url": p.get("listenly_url", ""),
              "thematique": p.get("thematique", ""),
              "latest_episode_question": q, "latest_episode_moment_id": mid,
+             "proof_v2": arbitre, "proof_none": bool(arbitre and not mid),
              "last_error": p.get("last_error", "")})
+    if len(cache) != n_cache:
+        with open(cache_path, "w", encoding="utf-8") as f:
+            json.dump(cache, f, ensure_ascii=False, indent=0)
+        log(f"Arbitre de preuve : {len(cache) - n_cache} nouveau(x) choix (Claude Haiku), {len(cache)} memorises.")
     payload = {
         "action": "report",
         "date": datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),

@@ -99,41 +99,110 @@ _OFFTOPIC = re.compile(r"\b(nhl|nba|nfl|mlb|stanley cup|playoffs?|hockey|footbal
 _BUSINESS = re.compile(r"\b(business|company|companies|leader|leaders|leadership|customers?|clients?|revenue|growth|strategy|strategic|market|sales|marketing|valuation|hiring|operations?|investment|investors?|ai|data|technology|infrastructure|cost|profit|brand|management|decisions?|teams?|executives?|founders?|startups?|compliance|risk|supply chain|pricing)\b", re.I)
 
 
-def best_proof(slug, thematique=""):
-    """(question, moment_id) = la meilleure question du podcast pour la preuve du mail, ou None.
-    Lien final : https://listenly.org/?p=<slug>&m=<moment_id> (ouvre Listenly + lecteur a l'horodatage exact).
+# 17/11/2026 : sujets personnels / medicaux et questions anecdotiques = mauvaise preuve pour l'animateur (ex. traitement d'un cancer
+# montre a un podcast business). La question reste vraie (elle vient de son episode), mais elle ne prouve pas son expertise.
+_PERSONAL = re.compile(r"\b(cancer|tumou?rs?|chemo\w*|tamoxifen|radiotherapy|miscarriage|divorce|funeral|grie(f|ving)|bereavement|diagnosed with)\b", re.I)
+_TRIVIA = re.compile(r"^(how much (does|do|did|is|are)\b.*\b(cost|price)|what is the (material )?(cost|price)\b|what is \w+( \w+){0,3} pricing\b|when was .* (first )?(held|founded|launched)\b|what is the name of\b)", re.I)
+
+
+def rank_proofs(slug, thematique=""):
+    """Questions du podcast utilisables comme preuve, triees de la meilleure a la moins bonne : [(score, question, moment_id)].
     Choix : question claire et concrete pour un decideur B2B, avec horodatage exact (start_seconds > 0),
-    ni trop courte ni trop longue, sans nom propre en cours de phrase, sans chiffres/annees."""
-    best, best_score = None, -1
+    ni trop courte ni trop longue, sans nom propre en cours de phrase, sans chiffres/annees, sans sujet personnel."""
+    out, seen = [], set()
     for m in load_moments(slug):
         q = (m.get("question") or "").strip()
-        if not q or int(m.get("start_seconds") or 0) <= 0:
+        if not q or int(m.get("start_seconds") or 0) <= 0 or norm(q) in seen:
             continue
+        seen.add(norm(q))
         n = len(q)
         if n < 40 or n > 150 or not q.endswith("?"):
             continue
-        if _OFFTOPIC.search(q):
-            continue                                                   # hors sujet B2B (sport, divertissement, sante grand public...)
+        if _OFFTOPIC.search(q) or _PERSONAL.search(q):
+            continue                                                   # hors sujet B2B ou sujet personnel / medical
         score = 10
         biz = len(_BUSINESS.findall(q))
         score += min(3.0, 1.5 * biz)                                   # vocabulaire de decideur B2B
         words = {w for w in re.findall(r"[a-zà-ÿ]{5,}", (thematique or "").lower())}
-        if words:
-            themed = sum(1 for w in words if w[:5] in q.lower())
-            score += min(3.0, 1.5 * themed)                            # colle a la thematique du podcast
-        else:
-            themed = 0
+        themed = sum(1 for w in words if w[:5] in q.lower()) if words else 0
+        score += min(3.0, 1.5 * themed)                                # colle a la thematique du podcast
         if biz + themed == 0:
-            score -= 3                                                 # 27/10 : ni mot B2B ni thematique (thematique en francais, questions en anglais) -> penalise au lieu d'ecarter
+            score -= 3                                                 # 27/10 : ni mot B2B ni thematique -> penalise au lieu d'ecarter
         if _Q_START.match(q):
             score += 3
+        if re.match(r"^(how|why)\b", q, re.I) or re.search(r"\b(strategy|approach|framework|lesson|insight|mistake)s?\b", q, re.I):
+            score += 1                                                 # 17/11 : question d'expert (comment / pourquoi / methode)
+        if _TRIVIA.search(q):
+            score -= 4                                                 # 17/11 : question anecdotique (prix d'un produit, date d'un evenement)
         score -= abs(n - 90) / 30.0                                   # ideal : ~90 caracteres
         score -= 1.5 * len(re.findall(r"(?<=[a-z,] )[A-Z][a-z]+", q))    # noms propres au milieu de phrase
         if re.search(r"\d", q):
             score -= 2
-        if score > best_score:
-            best, best_score = (q, moment_id(slug, q)), score
-    return best if best_score >= 6 else None                           # 27/10 : seuil de qualite minimal (remplace l'exclusion totale)
+        if score >= 6:                                                 # 27/10 : seuil de qualite minimal
+            out.append((round(score, 2), q, moment_id(slug, q)))
+    out.sort(key=lambda x: -x[0])
+    return out
+
+
+def best_proof(slug, thematique=""):
+    """(question, moment_id) = la meilleure question du podcast pour la preuve du mail (regles seules, gratuit), ou None.
+    Lien final : https://listenly.org/podcast-btb/m/<slug>/<moment_id>."""
+    r = rank_proofs(slug, thematique)
+    return (r[0][1], r[0][2]) if r else None
+
+
+PROOF_CACHE = "automation/marketforge_engine/proof_choice.json"
+HAIKU = "claude-haiku-4-5-20251001"
+
+
+def _ask_haiku(podcast_name, thematique, questions):
+    prompt = (
+        "You pick the single best proof question for a cold email to the host of a podcast.\n"
+        f"Podcast: {podcast_name}\nTopic: {thematique or 'unknown'}\n\n"
+        "Each question below was extracted from one of the host's own episodes. The email shows ONE of them as proof that "
+        "their episodes contain expert answers that Google and AI assistants can cite. Pick the question that best shows the "
+        "expertise of THIS podcast to its host: on the podcast's core topic, useful to a business decision-maker, a real "
+        "'how/why/what strategy' question. Avoid personal or medical stories, anecdotes, product prices, event dates, and "
+        "anything the host would find off-topic or embarrassing.\n\n"
+        + "\n".join(f"{i}. {q}" for i, q in enumerate(questions, 1))
+        + "\n\nAnswer with the number only. Answer 0 if none of them is an acceptable proof for this podcast.")
+    payload = {"model": HAIKU, "max_tokens": 5, "messages": [{"role": "user", "content": prompt}]}
+    req = urllib.request.Request("https://api.anthropic.com/v1/messages", data=json.dumps(payload).encode("utf-8"),
+                                 headers={"x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01",
+                                          "content-type": "application/json"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        txt = "".join(b.get("text", "") for b in json.loads(r.read().decode()).get("content", []))
+    m = re.search(r"\d+", txt)
+    return int(m.group()) if m else -1
+
+
+def best_proof_ai(slug, thematique="", podcast_name="", cache=None):
+    """17/11/2026 : comme best_proof, mais un arbitre Claude Haiku choisit parmi les 6 meilleures questions DEJA extraites
+    (aucune transcription en plus). Choix memorise par podcast + jeu de questions : un seul appel (~0,001 $) par podcast.
+    Retour : (question, moment_id), ou ("", "") si aucune question n'est une preuve acceptable, ou None sans question utilisable."""
+    ranked = rank_proofs(slug, thematique)[:6]
+    if not ranked:
+        return None
+    if len(ranked) == 1 or not os.environ.get("ANTHROPIC_API_KEY"):
+        return (ranked[0][1], ranked[0][2])
+    key = slug + "|" + ",".join(sorted(x[2] for x in ranked))
+    if cache is not None and key in cache:
+        mid = cache[key]
+    else:
+        try:
+            k = _ask_haiku(podcast_name or slug, thematique, [x[1] for x in ranked])
+        except Exception as e:
+            print(f"[moments_index] arbitre indisponible pour {slug} ({type(e).__name__}) : choix par les regles", flush=True)
+            return (ranked[0][1], ranked[0][2])
+        mid = "" if k == 0 else (ranked[k - 1][2] if 1 <= k <= len(ranked) else ranked[0][2])
+        if cache is not None:
+            cache[key] = mid
+    if not mid:
+        return ("", "")
+    for _, q, m in ranked:
+        if m == mid:
+            return (q, m)
+    return (ranked[0][1], ranked[0][2])
 
 
 # ---------------------------------------------------------------------------------------------
