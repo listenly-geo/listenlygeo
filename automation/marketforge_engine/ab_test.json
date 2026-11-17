@@ -1,69 +1,124 @@
 {
- "updated": "2026-11-17T08:43",
- "phase": "exploration (repartition egale)",
- "verdict": "trop tot pour conclure (79 envois avec variante ; il en faut au moins 100 par variante et 95 % de chances)",
+ "updated": "2026-11-17T09:06",
+ "actif": true,
+ "cycle": 1,
+ "cycle_debut": "2026-11-17",
+ "controle": "Q0",
+ "phase": "cycle 1, jour 1/7",
+ "verdict": "Cycle 1 (depuis le 2026-11-17) : 0 envois, 0 vraies reponses. Decision dans 7 jour(s).",
  "weights": {
-  "A": 0.2,
-  "B": 0.2,
-  "C": 0.2,
-  "D": 0.2,
-  "E": 0.2
+  "Q0": 0.25,
+  "Q1": 0.25,
+  "Q2": 0.25,
+  "Q3": 0.25
+ },
+ "texts": {
+  "Q0": "Have you ever considered turning each episode into traffic that comes directly from Google & AI, with nothing to change in your strategy?",
+  "Q1": "Have you ever thought about becoming the expert Google and ChatGPT recommend in your field, without writing a word?",
+  "Q2": "Have you ever thought about your episodes bringing you clients from Google and ChatGPT, without recording a single extra episode?",
+  "Q3": "Have you ever thought about ChatGPT recommending your business when your future clients ask a question, without publishing anything new?"
  },
  "variants": {
-  "A": {
-   "label": "Podcast Hub ou Spotify : « keep Spotify as the destination? »",
-   "envoye": 15,
+  "Q0": {
+   "label": "Trafic (reference)",
+   "texte": "Have you ever considered turning each episode into traffic that comes directly from Google & AI, with nothing to change in your strategy?",
+   "envoye": 0,
    "rebond": 0,
    "reponse": 0,
-   "classes": {},
-   "delivres": 15,
-   "taux_pct": 0.0,
-   "chance_meilleure_pct": 20.5,
-   "part_envois_pct": 20.0
+   "positive": 0,
+   "delivres": 0,
+   "taux_pct": null,
+   "chance_meilleure_pct": "",
+   "part_envois_pct": 25.0
   },
-  "B": {
-   "label": "Podcast Hub ou Spotify : « redirect it to Spotify for now? »",
-   "envoye": 20,
+  "Q1": {
+   "label": "Reference / expert",
+   "texte": "Have you ever thought about becoming the expert Google and ChatGPT recommend in your field, without writing a word?",
+   "envoye": 0,
    "rebond": 0,
    "reponse": 0,
-   "classes": {},
-   "delivres": 20,
-   "taux_pct": 0.0,
-   "chance_meilleure_pct": 17.3,
-   "part_envois_pct": 20.0
+   "positive": 0,
+   "delivres": 0,
+   "taux_pct": null,
+   "chance_meilleure_pct": "",
+   "part_envois_pct": 25.0
   },
-  "C": {
-   "label": "Spotify d'abord : « Should we send it to Spotify, or… Podcast Hub? »",
-   "envoye": 17,
+  "Q2": {
+   "label": "Clients",
+   "texte": "Have you ever thought about your episodes bringing you clients from Google and ChatGPT, without recording a single extra episode?",
+   "envoye": 0,
    "rebond": 0,
    "reponse": 0,
-   "classes": {},
-   "delivres": 17,
-   "taux_pct": 0.0,
-   "chance_meilleure_pct": 19.2,
-   "part_envois_pct": 20.0
+   "positive": 0,
+   "delivres": 0,
+   "taux_pct": null,
+   "chance_meilleure_pct": "",
+   "part_envois_pct": 25.0
   },
-  "D": {
-   "label": "Question directe : « Do you have a Podcast Hub where we can send this audience? »",
-   "envoye": 13,
+  "Q3": {
+   "label": "Clients cites par l'IA",
+   "texte": "Have you ever thought about ChatGPT recommending your business when your future clients ask a question, without publishing anything new?",
+   "envoye": 0,
    "rebond": 0,
    "reponse": 0,
-   "classes": {},
-   "delivres": 13,
-   "taux_pct": 0.0,
-   "chance_meilleure_pct": 22.1,
-   "part_envois_pct": 20.0
-  },
-  "E": {
-   "label": "Question courte : « Do you already have a Podcast Hub to receive it? »",
-   "envoye": 14,
-   "rebond": 0,
-   "reponse": 0,
-   "classes": {},
-   "delivres": 14,
-   "taux_pct": 0.0,
-   "chance_meilleure_pct": 20.9,
-   "part_envois_pct": 20.0
+   "positive": 0,
+   "delivres": 0,
+   "taux_pct": null,
+   "chance_meilleure_pct": "",
+   "part_envois_pct": 25.0
   }
+ },
+ "reserve_restante": 4,
+ "etat": {
+  "cycle": 1,
+  "cycle_debut": "2026-11-17",
+  "controle": "Q0",
+  "versions": {
+   "Q0": {
+    "label": "Trafic (reference)",
+    "texte": "Have you ever considered turning each episode into traffic that comes directly from Google & AI, with nothing to change in your strategy?"
+   },
+   "Q1": {
+    "label": "Reference / expert",
+    "texte": "Have you ever thought about becoming the expert Google and ChatGPT recommend in your field, without writing a word?"
+   },
+   "Q2": {
+    "label": "Clients",
+    "texte": "Have you ever thought about your episodes bringing you clients from Google and ChatGPT, without recording a single extra episode?"
+   },
+   "Q3": {
+    "label": "Clients cites par l'IA",
+    "texte": "Have you ever thought about ChatGPT recommending your business when your future clients ask a question, without publishing anything new?"
+   }
+  },
+  "actives": [
+   "Q0",
+   "Q1",
+   "Q2",
+   "Q3"
+  ],
+  "reserve": [
+   {
+    "id": "Q4",
+    "label": "Rendez-vous",
+    "texte": "Have you ever considered turning each episode into booked calls that come directly from Google & AI, with nothing to change in your podcast?"
+   },
+   {
+    "id": "Q5",
+    "label": "Prospects qualifies",
+    "texte": "Have you ever considered turning each episode into qualified leads that come directly from Google & AI, with nothing to change in your workflow?"
+   },
+   {
+    "id": "Q6",
+    "label": "Reponses d'expert",
+    "texte": "Have you ever considered turning each episode into expert answers that Google & AI recommend to your future clients, with nothing to change in your strategy?"
+   },
+   {
+    "id": "Q7",
+    "label": "Nouveaux clients",
+    "texte": "Have you ever considered turning each episode into new clients that come directly from Google & AI, with nothing to change in your strategy?"
+   }
+  ],
+  "historique": []
  }
 }

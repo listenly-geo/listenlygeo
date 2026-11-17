@@ -155,10 +155,15 @@ def stats():
         }
         for r in prospect_rows[:300]
     ]
+    # 17/11/2026 : toutes les lignes du test A/B (variante notee), sans email ni thread, pour que ab_optimizer.py compte tout le cycle
+    ab_envois = [{"slug": r.get("Slug", ""), "podcast": r.get("Podcast", ""), "statut": r.get("Statut", ""),
+                  "envoye_le": r.get("Envoye le", ""), "variante": r.get("Variante CTA", "")}
+                 for r in rows if str(r.get("Variante CTA") or "").startswith("Q") and r.get("Envoye le")]
     out = {
         "updated": datetime.datetime.utcnow().isoformat(timespec="minutes"),
         "total": len(rows),
         "status": status,
+        "ab_envois": ab_envois,
         "sent_total": sum(sent_by_day.values()),
         "replies_total": sum(replies_by_day.values()),
         "followups_total": sum(followups_by_day.values()),
@@ -243,8 +248,9 @@ def tendances():
              r.get("onboarde", 0), r.get("joignable", 0), r.get("envoye", 0), r.get("rebond", 0),
              r.get("reponse", 0), r.get("taux_reponse")] for r in t["ranking"]]
     ab = load("automation/marketforge_engine/ab_test.json", {})
-    ab_rows = [[k, d.get("label", ""), d.get("envoye", 0), d.get("rebond", 0), d.get("reponse", 0),
-                d.get("taux_pct") if d.get("taux_pct") is not None else "", d.get("chance_meilleure_pct", 0),
+    ab_rows = [[k + (" (reference)" if k == ab.get("controle") else ""), d.get("texte") or d.get("label", ""),
+                d.get("envoye", 0), d.get("rebond", 0), d.get("reponse", 0),
+                d.get("taux_pct") if d.get("taux_pct") is not None else "", d.get("positive", 0),
                 d.get("part_envois_pct", 0)] for k, d in (ab.get("variants") or {}).items()]
     res = call(payload={"action": "tendances", "updated": t.get("updated", ""),
                         "envois_total": t.get("envois_total", 0), "reponses_total": t.get("reponses_total", 0),

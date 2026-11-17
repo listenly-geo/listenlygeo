@@ -102,24 +102,22 @@ var MFE_FIRST_MAIL = [
   '',
   'So when <u>a business leader asks a question about you</u>, your expertise can finally be cited.',
   '',
-  '<strong>Have you ever considered turning each episode into traffic that comes directly from Google & AI, with nothing to change in your strategy?</strong>',
+  '<strong>{CTA}</strong>',   // 17/11/2026 : phrase testee (A/B), fournie par ab_test.json (ab_optimizer.py)
   '',
   'Best regards,',
   '',
   'Etienne',
   '',
-  '<em>PS: We already have the Index system, and we can install it on your website.</em>'
+  '<em>PS: Without a reply, the system automatically keeps your episodes\' traffic on Listenly.</em>'
 ].join('\n');
 // Test A/B du CTA (03/10/2026) : 5 variantes A-E, une seule par envoi. Texte brut (aucun gras / souligne dans les CTA).
+// 17/11/2026 : les phrases testees viennent de ab_test.json (versions Q0, Q1...). MFE_CTA_A = phrase de secours (reference Q0).
 var MFE_CTAS = {
-  A: 'Do you already have a Podcast Hub, or should we keep Spotify as the destination?',
-  B: 'Do you already have a Podcast Hub, or should we redirect it to Spotify for now?',
-  C: 'Should we send it to Spotify, or do you already have a Podcast Hub?',
-  D: 'Do you have a Podcast Hub where we can send this audience?',
-  E: 'Do you already have a Podcast Hub to receive it?'
+  A: 'Have you ever considered turning each episode into traffic that comes directly from Google & AI, with nothing to change in your strategy?',
+  B: '', C: '', D: '', E: ''
 };
 var MFE_AB_KEYS = ['A', 'B', 'C', 'D', 'E'];
-var MFE_AB_REEL = false;   // 17/11/2026 : ancien test A-E coupe (il ne changeait pas le mail). true = a remettre avec de vraies versions du mail.
+var MFE_AB_REEL = true;   // 17/11/2026 : vrai test A/B de la phrase d'accroche ({CTA} dans le 1er mail). false = uniquement la reference.
 var MFE_AB_DEPUIS = new Date(2026, 9, 4).getTime();   // seuls les envois a partir du 04/10/2026 (nouveau mail) comptent dans le test A-E
 var MFE_MSG_RESET = ['MFE_MSG_OBJET', 'MFE_MSG_FICHE', 'MFE_MSG_REPONSES', 'MFE_MSG_RELANCE', 'MFE_MSG_RELANCE_2', 'MFE_MSG_RELANCE_3', 'MFE_CTA_A', 'MFE_CTA_B', 'MFE_CTA_C', 'MFE_CTA_D', 'MFE_CTA_E'];   // v13 : seuls ces textes sont reecrits dans Reglages (le reste est conserve)
 var MFE_MSG_DEFAULTS = [
@@ -599,7 +597,7 @@ function mfeSend_(sh, cfg, force, onlySlug, paced) {   // onlySlug (optionnel) :
     try {
       var threadId = mfeMail_(to, d[0], d[1]);
       sh.getRange(r.row, 7, 1, 5).setValues([['Envoye', new Date(), '', '', threadId]]);
-      // 17/11/2026 : la variante CTA n'est plus ecrite (ancien test A-E supprime : le mail n'avait pas de CTA variable). Colonne 15 reservee aux futures VRAIES versions du mail.
+      sh.getRange(r.row, 15).setValue(variant);   // 17/11/2026 : version de la phrase d'accroche reellement inseree dans le mail (Q0, Q1...)
       if (leader) {   // l'adresse reellement utilisee devient celle de la ligne (reponses, rebonds, relances la suivent) ; l'origine est gardee en colonne Y
         sh.getRange(r.row, 3).setValue(leader.to);
         sh.getRange(r.row, 14).setValue(leader.nom);
@@ -622,12 +620,11 @@ function mfeSend_(sh, cfg, force, onlySlug, paced) {   // onlySlug (optionnel) :
 function mfeSendTest_(sh, to) {
   var props = PropertiesService.getScriptProperties();
   if (props.getProperty('MFE_TEST_DONE') === to + '|' + MFE_MSG_VERSION) return 0;   // une seule fois par adresse test et par version des textes
-  var n = 0, done = {}, variants = ['A'];
+  var n = 0, done = {}, variants = Object.keys(mfeAbData_().texts);
   mfeRows_(sh).forEach(function (r) {
     var kind = Number(r.values[4]) > 0 ? 'reponses' : 'fiche';
     if (done[kind] || r.values[6] !== 'Pret') return;
     variants.forEach(function (vr) {
-      if (!mfeMsg_('MFE_CTA_' + vr)) return;
       var d = mfeDraft_(r.values, vr);
       var tb = '(Mail qui partirait a : ' + r.values[2] + ' \u2014 variante CTA ' + vr + ')\n\n' + d[1];
       GmailApp.sendEmail(to, '[TEST ' + vr + '] ' + d[0], mfeWithSignature_(tb), mfeSendOpts_(tb));
@@ -1117,33 +1114,42 @@ function mfeSendOpts_(bodySansSignature) {
 
 function mfeDraft_(values, variant) {  // [objet, corps, variante] du 1er mail
   var v = mfeVars_(values);
-  variant = variant || 'A';
-  v.CTA = mfeFill_(mfeMsg_('MFE_CTA_' + variant) || mfeMsg_('MFE_CTA_A'), v);
+  var abd = mfeAbData_();
+  if (!variant || !abd.texts[variant]) variant = abd.texts[abd.controle] ? abd.controle : Object.keys(abd.texts)[0];
+  v.CTA = mfeFill_(abd.texts[variant], v);
   var body = Number(values[4]) > 0 ? mfeMsg_('MFE_MSG_REPONSES') : mfeMsg_('MFE_MSG_FICHE');
   return [mfeFill_(mfeMsg_('MFE_MSG_OBJET'), v), mfeFill_(body, v), variant];
 }
 
-// ---------- Test A/B du CTA ----------
-// Variantes actives = cles MFE_CTA_A, _B, _C, _D non vides. Repartition : poids publies par ab_optimizer.py
-// (ab_test.json sur GitHub) ; sans poids, repartition egale. Choix = variante la plus en retard sur sa part.
-function mfeAbPlan_(rows, cfg) {
-  var variants = ['A'];
-  if (cfg.AB_ACTIF && MFE_AB_REEL) {
-    var st = mfeReadSettings_();
-    variants = MFE_AB_KEYS.filter(function (k) { return ('MFE_CTA_' + k) in st ? String(st['MFE_CTA_' + k]).trim() !== '' : k === 'A'; });
-    if (!variants.length) variants = ['A'];
-  }
-  var weights = {};
+// ---------- Test A/B de la phrase d'accroche (17/11/2026) ----------
+// Source : ab_test.json sur GitHub, ecrit par ab_optimizer.py : versions actives (Q0, Q1...), textes, poids, debut du cycle.
+// Fichier illisible : uniquement la phrase de secours MFE_CTA_A, notee Q0. Choix = version la plus en retard sur sa part.
+function mfeAbData_() {
+  if (mfeAbData_.memo) return mfeAbData_.memo;
+  var d = null;
   try {
-    var cache = CacheService.getScriptCache(), raw = cache.get('MFE_AB');
+    var cache = CacheService.getScriptCache(), raw = cache.get('MFE_AB2');
     if (!raw) {
       var res = UrlFetchApp.fetch(MFE.AB_URL + '?t=' + Date.now(), { muteHttpExceptions: true });
-      if (res.getResponseCode() === 200) { raw = res.getContentText(); cache.put('MFE_AB', raw, 600); }
+      if (res.getResponseCode() === 200) { raw = res.getContentText(); try { cache.put('MFE_AB2', raw, 600); } catch (e2) {} }
     }
-    if (raw) weights = JSON.parse(raw).weights || {};
+    if (raw) d = JSON.parse(raw);
   } catch (e) { Logger.log('ab_test.json illisible : %s', e); }
-  var sum = 0;
-  var complete = variants.every(function (k) { return weights[k] > 0; });   // poids publies pour TOUTES les variantes actives, sinon repartition egale
+  var texts = {};
+  if (d && d.texts) Object.keys(d.texts).forEach(function (k) { if (String(d.texts[k] || '').trim()) texts[k] = String(d.texts[k]); });
+  if (!Object.keys(texts).length) texts = { Q0: mfeMsg_('MFE_CTA_A') || MFE_CTAS.A };
+  var controle = d && d.controle && texts[d.controle] ? d.controle : Object.keys(texts)[0];
+  var debut = (d && d.cycle_debut) ? new Date(d.cycle_debut + 'T00:00:00Z').getTime() : MFE_AB_DEPUIS;
+  mfeAbData_.memo = { texts: texts, weights: (d && d.weights) || {}, controle: controle, debut: debut };
+  return mfeAbData_.memo;
+}
+
+function mfeAbPlan_(rows, cfg) {
+  var abd = mfeAbData_();
+  var variants = Object.keys(abd.texts);
+  if (!(cfg.AB_ACTIF && MFE_AB_REEL)) variants = [abd.controle];
+  var weights = abd.weights, sum = 0;
+  var complete = variants.every(function (k) { return weights[k] > 0; });   // poids publies pour TOUTES les versions actives, sinon repartition egale
   variants.forEach(function (k) { sum += (complete ? weights[k] : 0); });
   var w = {};
   variants.forEach(function (k) { w[k] = complete && sum > 0 ? weights[k] / sum : 1 / variants.length; });
@@ -1151,7 +1157,7 @@ function mfeAbPlan_(rows, cfg) {
   variants.forEach(function (k) { counts[k] = 0; });
   rows.forEach(function (r) {
     var vr = String(r.values[14] || '');
-    if (!r.values[7] || new Date(r.values[7]).getTime() < MFE_AB_DEPUIS) return;   // ancien mail : hors test A-E
+    if (!r.values[7] || new Date(r.values[7]).getTime() < abd.debut) return;   // envois d'avant le cycle en cours : hors comptage
     if (vr && counts[vr] != null) { counts[vr]++; total++; }
   });
   return { variants: variants, weights: w, counts: counts, total: total };
@@ -1365,7 +1371,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 37 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 38 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -1448,14 +1454,14 @@ function mfeTendances_(body) {
     sh.getRange(46, col).setValue('Test A/B : aucun test en cours').setFontWeight('bold').setFontSize(12);
     sh.getRange(47, col).setValue(ab.verdict || '').setFontStyle('italic').setFontColor('#666666');
   } else if (ab && ab.rows) {
-    var t2 = 46, h2 = ['Variante', 'Type de CTA', 'Envoyes', 'Rebonds', 'Reponses', 'Taux reponse %', 'Chance d\'etre la meilleure %', 'Part des envois %'];
+    var t2 = 46, h2 = ['Version', 'Phrase testee', 'Envoyes', 'Rebonds', 'Vraies reponses', 'Taux reponse %', 'Reponses positives', 'Part des envois %'];
     sh.getRange(t2, col, 20, width).clearContent().clearFormat();
-    sh.getRange(t2, col).setValue('Test A/B du CTA (appel \u00e0 l\'action du mail)').setFontWeight('bold').setFontSize(12);
+    sh.getRange(t2, col).setValue('Test A/B de la phrase d\'accroche du 1er mail').setFontWeight('bold').setFontSize(12);
     sh.getRange(t2 + 1, col, 1, h2.length).setValues([h2]).setFontWeight('bold').setFontColor('#ffffff')
       .setBackground('#0e7c86').setWrap(true).setVerticalAlignment('middle');
     if (ab.rows.length) sh.getRange(t2 + 2, col, ab.rows.length, h2.length).setValues(ab.rows);
     sh.getRange(t2 + 3 + ab.rows.length, col).setValue('Verdict : ' + (ab.verdict || '')).setFontWeight('bold');
-    sh.getRange(t2 + 4 + ab.rows.length, col).setValue('Mis \u00e0 jour ' + (ab.updated || '') + ' \u00b7 La part des envois suit les r\u00e9sultats une fois 30 envois atteints par variante.')
+    sh.getRange(t2 + 4 + ab.rows.length, col).setValue('Mis \u00e0 jour ' + (ab.updated || '') + ' \u00b7 Cycle de 7 jours : la gagnante devient la r\u00e9f\u00e9rence, sans r\u00e9ponse 3 nouvelles phrases entrent en test.')
       .setFontStyle('italic').setFontColor('#666666');
   }
   return mfeJson_({ ok: true, lignes: rows.length });
@@ -1614,7 +1620,7 @@ function mfeMenuTest() {
   var exemple = rows.length ? rows[0].values : ['', 'Test Podcast', '', 'https://listenly.org/podcast-btb/a16z-crypto-show-podcast.html', 0];
   mfeEnsureSettings_();
   var n = 0;
-  ['A'].forEach(function (vr) {
+  Object.keys(mfeAbData_().texts).forEach(function (vr) {
     var d = mfeDraft_(exemple, vr);
     GmailApp.sendEmail(moi, '[TEST ' + vr + ' - premier mail] ' + d[0], mfeWithSignature_(d[1]), mfeSendOpts_(d[1]));
     n++;
