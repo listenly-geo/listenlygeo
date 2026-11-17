@@ -1,23 +1,27 @@
 {
- "updated": "2026-11-17T15:24",
- "envois_total": 96,
+ "updated": "2026-11-17T15:41",
+ "envois_total": 99,
  "reponses_total": 0,
  "taux_reponse_global_pct": 0.0,
- "dirigeants_testes": 16601,
+ "dirigeants_testes": 16606,
  "dirigeants_trouves": 1672,
  "data_apprentissage": {
   "creneaux_new_york": {
    "heure": {
+    "14h": {
+     "envoyes": 8,
+     "reponses": 0
+    },
+    "13h": {
+     "envoyes": 10,
+     "reponses": 0
+    },
     "10h": {
-     "envoyes": 12,
+     "envoyes": 13,
      "reponses": 0
     },
     "09h": {
      "envoyes": 14,
-     "reponses": 0
-    },
-    "13h": {
-     "envoyes": 9,
      "reponses": 0
     },
     "12h": {
@@ -43,19 +47,15 @@
     "15h": {
      "envoyes": 7,
      "reponses": 0
-    },
-    "14h": {
-     "envoyes": 7,
-     "reponses": 0
     }
    },
    "jour": {
-    "mar": {
-     "envoyes": 39,
+    "mer": {
+     "envoyes": 19,
      "reponses": 0
     },
-    "mer": {
-     "envoyes": 17,
+    "mar": {
+     "envoyes": 40,
      "reponses": 0
     },
     "lun": {
@@ -72,19 +72,19 @@
   "Tech & SaaS": 0.0531,
   "Cybersécurité": 0.0671,
   "Finance & Fintech": 0.0466,
-  "RH & Recrutement": 0.0451,
+  "RH & Recrutement": 0.045,
   "Marketing & Ventes": 0.0506,
   "Logistique & Supply chain": 0.0545,
   "Construction & Industrie": 0.0464,
   "Énergie": 0.0477,
-  "Assurance": 0.0531,
-  "Immobilier": 0.0503,
-  "Juridique": 0.0499,
+  "Assurance": 0.053,
+  "Immobilier": 0.0501,
+  "Juridique": 0.0501,
   "Conseil": 0.0325,
   "Santé": 0.0503,
   "Business général (entreprise)": 0.0565,
   "Cabinets d'avocats": 0.0412,
-  "Experts-comptables & patrimoine": 0.0577,
+  "Experts-comptables & patrimoine": 0.0578,
   "Coachs & consultants B2B": 0.0476,
   "Agences de services": 0.0501,
   "Santé libérale": 0.0476,
@@ -96,7 +96,7 @@
    "poids_pct": 6.7,
    "delta_pts": -0.1,
    "tendance": "stable",
-   "onboarde": 132,
+   "onboarde": 133,
    "joignable": 91,
    "envoye": 5,
    "rebond": 0,
@@ -114,13 +114,13 @@
    "tendance": "stable",
    "onboarde": 87,
    "joignable": 42,
-   "envoye": 6,
+   "envoye": 7,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 878,
+   "dirigeant_testes": 879,
    "dirigeant_trouves": 104,
    "taux_reponse": 0.0,
-   "score": 0.11288,
+   "score": 0.1132,
    "rang": 2
   },
   {
@@ -174,17 +174,17 @@
   {
    "secteur": "Assurance",
    "poids_pct": 5.3,
-   "delta_pts": 0.0,
+   "delta_pts": -0.0,
    "tendance": "stable",
    "onboarde": 79,
    "joignable": 32,
    "envoye": 5,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 670,
+   "dirigeant_testes": 671,
    "dirigeant_trouves": 72,
    "taux_reponse": 0.0,
-   "score": 0.102,
+   "score": 0.10185,
    "rang": 6
   },
   {
@@ -245,11 +245,27 @@
    "envoye": 4,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 654,
+   "dirigeant_testes": 656,
    "dirigeant_trouves": 66,
    "taux_reponse": 0.0,
-   "score": 0.09531,
+   "score": 0.09502,
    "rang": 10
+  },
+  {
+   "secteur": "Juridique",
+   "poids_pct": 5.0,
+   "delta_pts": -0.1,
+   "tendance": "stable",
+   "onboarde": 104,
+   "joignable": 55,
+   "envoye": 10,
+   "rebond": 0,
+   "reponse": 0,
+   "dirigeant_testes": 621,
+   "dirigeant_trouves": 61,
+   "taux_reponse": 0.0,
+   "score": 0.09499,
+   "rang": 11
   },
   {
    "secteur": "Agences de services",
@@ -265,22 +281,6 @@
    "dirigeant_trouves": 74,
    "taux_reponse": 0.0,
    "score": 0.09496,
-   "rang": 11
-  },
-  {
-   "secteur": "Juridique",
-   "poids_pct": 5.0,
-   "delta_pts": -0.1,
-   "tendance": "stable",
-   "onboarde": 104,
-   "joignable": 55,
-   "envoye": 8,
-   "rebond": 0,
-   "reponse": 0,
-   "dirigeant_testes": 621,
-   "dirigeant_trouves": 61,
-   "taux_reponse": 0.0,
-   "score": 0.09449,
    "rang": 12
   },
   {
@@ -304,7 +304,7 @@
    "poids_pct": 4.8,
    "delta_pts": 0.1,
    "tendance": "stable",
-   "onboarde": 132,
+   "onboarde": 133,
    "joignable": 54,
    "envoye": 6,
    "rebond": 0,
@@ -336,7 +336,7 @@
    "poids_pct": 4.7,
    "delta_pts": 0.1,
    "tendance": "stable",
-   "onboarde": 183,
+   "onboarde": 184,
    "joignable": 110,
    "envoye": 5,
    "rebond": 0,
@@ -344,7 +344,7 @@
    "dirigeant_testes": 1252,
    "dirigeant_trouves": 114,
    "taux_reponse": 0.0,
-   "score": 0.08658,
+   "score": 0.08657,
    "rang": 16
   },
   {
@@ -368,15 +368,15 @@
    "poids_pct": 4.5,
    "delta_pts": 0.1,
    "tendance": "stable",
-   "onboarde": 102,
+   "onboarde": 103,
    "joignable": 44,
    "envoye": 2,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 706,
+   "dirigeant_testes": 707,
    "dirigeant_trouves": 63,
    "taux_reponse": 0.0,
-   "score": 0.08301,
+   "score": 0.0829,
    "rang": 18
   },
   {
@@ -424,7 +424,7 @@
    "dirigeant_testes": 0,
    "dirigeant_trouves": 0,
    "taux_reponse": null,
-   "score": 0.09073,
+   "score": 0.0907,
    "rang": 21
   }
  ]
