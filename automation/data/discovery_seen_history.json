@@ -337462,12 +337462,13 @@
     "feed_url": "https://feeds.ivoox.com/feed_fg_f11366403_filtro_1.xml",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Construction & Industrie",
     "gate": "dirigeant",
-    "email_domain": "proyectarelfuturo.com"
+    "email_domain": "proyectarelfuturo.com",
+    "rescue": "2026-11-17"
   },
   "https://rss.buzzsprout.com/2364042.rss": {
     "podcast_name": "FORGED: The People Shaped by Business",
@@ -337486,12 +337487,13 @@
     "feed_url": "https://massachusettsbusinessnetwork.com/feed/podcast/",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Juridique",
     "gate": "dirigeant",
-    "email_domain": "massachusettsbusinessnetwork.com"
+    "email_domain": "massachusettsbusinessnetwork.com",
+    "rescue": "2026-11-17"
   },
   "https://anchor.fm/s/222804c/podcast/rss": {
     "podcast_name": "The Blake Haggett Podcast",
@@ -337510,12 +337512,13 @@
     "feed_url": "https://feeds.transistor.fm/outerspaces",
     "genre": "Careers",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Formateurs & programmes",
     "gate": "dirigeant",
-    "email_domain": "yes.express"
+    "email_domain": "yes.express",
+    "rescue": "2026-11-17"
   },
   "https://anchor.fm/s/99b162c/podcast/rss": {
     "podcast_name": "Walk Like Beggars",
@@ -337761,5 +337764,287 @@
       "Show Breakdown"
     ],
     "contact_email": "nickolasnatali@gmail.com"
+  },
+  "https://feeds.packetpushers.net/kubernetesunpacked/": {
+    "podcast_name": "Kubernetes Unpacked",
+    "artist_name": "Packet Pushers",
+    "feed_url": "https://feeds.packetpushers.net/kubernetesunpacked/",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 893 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://www.omnycontent.com/d/playlist/53b6fe2a-4ef6-4356-ae92-a61500df6da0/bfc0f78b-1084-4aaa-914e-b101004ef066/dcf78267-6a42-4fc4-b3a5-b101004ef082/podcast.rss": {
+    "podcast_name": "The Calling (formerly The Agile Contact Centre Podcast)",
+    "artist_name": "Callo Consulting",
+    "feed_url": "https://www.omnycontent.com/d/playlist/53b6fe2a-4ef6-4356-ae92-a61500df6da0/bfc0f78b-1084-4aaa-914e-b101004ef066/dcf78267-6a42-4fc4-b3a5-b101004ef082/podcast.rss",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 812 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://feeds.captivate.fm/the-shift-spotlight/": {
+    "podcast_name": "The Shift Spotlight!",
+    "artist_name": "The Shift Spot",
+    "feed_url": "https://feeds.captivate.fm/the-shift-spotlight/",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://anchor.fm/s/2a4e8034/podcast/rss": {
+    "podcast_name": "Bitcoin Fixes This",
+    "artist_name": "Jimmy Song",
+    "feed_url": "https://anchor.fm/s/2a4e8034/podcast/rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 291 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech"
+  },
+  "https://media.rss.com/tdg-podcast/feed.xml": {
+    "podcast_name": "The DeCesare Group Podcast",
+    "artist_name": "Jim DeCesare",
+    "feed_url": "https://media.rss.com/tdg-podcast/feed.xml",
+    "genre": "Business News",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://marijanakay.com/feed/podcast": {
+    "podcast_name": "The Content Love Podcast",
+    "artist_name": "Marijana Kay",
+    "feed_url": "https://marijanakay.com/feed/podcast",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 3071 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://anchor.fm/s/1003400e8/podcast/rss": {
+    "podcast_name": "Startup Breakdown",
+    "artist_name": "Caroline Sumners, Milly Barker",
+    "feed_url": "https://anchor.fm/s/1003400e8/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://rss.buzzsprout.com/2311278.rss": {
+    "podcast_name": "The MBA Way",
+    "artist_name": "Erik Solbakken, BA, CA, CPA",
+    "feed_url": "https://rss.buzzsprout.com/2311278.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 566 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech"
+  },
+  "https://rss.buzzsprout.com/1415668.rss": {
+    "podcast_name": "What You Didn't Expect in Fertility, Pregnancy & Birth: Real Stories & Expert Insights",
+    "artist_name": "Paulette Kamenecka",
+    "feed_url": "https://rss.buzzsprout.com/1415668.rss",
+    "genre": "Parenting",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Business général (entreprise)"
+  },
+  "https://feeds.transistor.fm/the-road-to-why": {
+    "podcast_name": "The Road to Why",
+    "artist_name": "The Northern Trust Institute",
+    "feed_url": "https://feeds.transistor.fm/the-road-to-why",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 427 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Experts-comptables & patrimoine"
+  },
+  "https://feeds.redcircle.com/1d991789-a13d-4421-884f-31a04bd8cf33": {
+    "podcast_name": "DENtalks powered by DEN Meditation",
+    "artist_name": "DEN Meditation",
+    "feed_url": "https://feeds.redcircle.com/1d991789-a13d-4421-884f-31a04bd8cf33",
+    "genre": "Spirituality",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 801 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.buzzsprout.com/2096054.rss": {
+    "podcast_name": "Lighthouse Canton IDEAs Podcast",
+    "artist_name": "Lighthouse Canton",
+    "feed_url": "https://rss.buzzsprout.com/2096054.rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Experts-comptables & patrimoine"
+  },
+  "https://feeds.zencastr.com/f/4YUeUAN9.rss": {
+    "podcast_name": "Spark Time!",
+    "artist_name": "Mighty Spark Communications",
+    "feed_url": "https://feeds.zencastr.com/f/4YUeUAN9.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 314 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé"
+  },
+  "https://anchor.fm/s/8568bb9c/podcast/rss": {
+    "podcast_name": "The Educated HomeBuyer | First Time Home Buyer Tips, Mortgage Rates & Housing Market Updates",
+    "artist_name": "Josh Lewis & Jeb Smith | Real Estate, Mortgage & Housing Market Experts",
+    "feed_url": "https://anchor.fm/s/8568bb9c/podcast/rss",
+    "genre": "How To",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Immobilier",
+    "gate": "dirigeant",
+    "email_domain": "theeducatedhomebuyer.com"
+  },
+  "https://anchor.fm/s/11ab8450/podcast/rss": {
+    "podcast_name": "Midstage Startup Momentum",
+    "artist_name": "Roland Siebelink",
+    "feed_url": "https://anchor.fm/s/11ab8450/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 452 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé"
+  },
+  "https://anchor.fm/s/786b648/podcast/rss": {
+    "podcast_name": "Dailey Blend Show",
+    "artist_name": "Reed Dailey",
+    "feed_url": "https://anchor.fm/s/786b648/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 452 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Immobilier"
+  },
+  "https://rss.libsyn.com/shows/419159/destinations/3480125.xml": {
+    "podcast_name": "Real Estate Jerky",
+    "artist_name": "Ed Parcaut",
+    "feed_url": "https://rss.libsyn.com/shows/419159/destinations/3480125.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Immobilier",
+    "gate": "dirigeant",
+    "email_domain": "edparcaut.com"
+  },
+  "https://feeds.simplecast.com/cvfv5zOM": {
+    "podcast_name": "Money Talkers",
+    "artist_name": "Cody Loughlin",
+    "feed_url": "https://feeds.simplecast.com/cvfv5zOM",
+    "genre": "Parenting",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1736 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Construction & Industrie"
+  },
+  "https://feeds.soundcloud.com/users/soundcloud:users:435149208/sounds.rss": {
+    "podcast_name": "Tax Insights with Hawkins Ash CPAs",
+    "artist_name": "Tax Insights with Hawkins Ash CPAs",
+    "feed_url": "https://feeds.soundcloud.com/users/soundcloud:users:435149208/sounds.rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 803 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Business général (entreprise)"
+  },
+  "https://restaurantownersuncorked.podomatic.com/rss2.xml": {
+    "podcast_name": "Restaurant Owners Uncorked",
+    "artist_name": "Schedulefly",
+    "feed_url": "https://restaurantownersuncorked.podomatic.com/rss2.xml",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 104 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Construction & Industrie"
+  },
+  "https://anchor.fm/s/f1b98010/podcast/rss": {
+    "podcast_name": "A To Z Podcast",
+    "artist_name": "Elton Lim",
+    "feed_url": "https://anchor.fm/s/f1b98010/podcast/rss",
+    "genre": "Careers",
+    "track_count": 40,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/a-to-z-podcast/id1801721826?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/e6/26/ac/e626ac38-ce8a-5039-7b0c-cb8bca3929bb/mza_14669162699222510039.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par un créateur indépendant identifiable (Elton Lim) dans la catégorie Careers (business/B2B), avec 40 épisodes réguliers et aucun indice de grande notoriété ou affiliation média. Correspond au profil CREATEUR accepté depuis 27/10/2026.",
+    "checked_date": "2026-11-17",
+    "secteur": "Marketing & Ventes",
+    "nb_episodes": 40,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Cybersecurity Careers"
+    ],
+    "contact_email": "breaktheboxmy@gmail.com"
+  },
+  "https://sarahlarbi.com/feed/podcast": {
+    "podcast_name": "Where Should I Invest? Real Estate Investing in Canada",
+    "artist_name": "Sarah Larbi",
+    "feed_url": "https://sarahlarbi.com/feed/podcast",
+    "genre": "Investing",
+    "track_count": 299,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/where-should-i-invest-real-estate-investing-in-canada/id1266521430?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts125/v4/1c/d7/a2/1cd7a23a-4269-d592-cd6f-2a7bf297b728/mza_4154148567236533606.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Sarah Larbi, créatrice indépendante identifiable, sur l'investissement immobilier au Canada (sujet B2B/business). Audience petite à moyenne (299 épisodes, pas de mention de célébrité ou média établi). Remplit tous les critères d'acceptance_path CREATEUR.",
+    "checked_date": "2026-11-17",
+    "secteur": "Immobilier",
+    "nb_episodes": 299,
+    "suggested_category": "🏠 Real Estate",
+    "suggested_tags": [
+      "Real Estate Investing",
+      "Real Estate Law",
+      "Estate Law",
+      "Estate Planning"
+    ],
+    "contact_email": "sarahlarbi@hotmail.com"
+  },
+  "https://feeds.megaphone.fm/IKEER2119994480": {
+    "podcast_name": "The DTC Podcast",
+    "artist_name": "Eric Dyck",
+    "feed_url": "https://feeds.megaphone.fm/IKEER2119994480",
+    "genre": "Marketing",
+    "track_count": 804,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-dtc-podcast/id1514561839?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/65/f4/26/65f426a4-8b07-df1d-d2f7-f1147b9f88a3/mza_14039441621314970348.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Avec 804 épisodes publiés, ce podcast DTC démontre une audience et une notoriété établies (top tier de productivité). Bien qu'animé par un créateur identifiable (Eric Dyck), l'ampleur et la maturité du projet le classent en catégorie célèbre/grand public plutôt que petite-moyenne audience, disqualifiant du critère 4.",
+    "checked_date": "2026-11-17",
+    "secteur": "Business général (entreprise)",
+    "nb_episodes": 804
   }
 }
