@@ -3008,6 +3008,14 @@
    "texte": "Délivrabilité : test mail-tester du vrai mail 1 = 8,9/10 (SPF, DKIM et réputation de l'expéditeur valides). Le seul point perdu vient de la photo de la signature (trop d'image pour un mail court, 30 % de texte). Décision d'Etienne : la photo est conservée dans la signature.",
    "date": "17/11/2026",
    "statut": "valide"
+  },
+  {
+   "id": "opt-363",
+   "section": "Mail et CTA",
+   "version": "V3.7",
+   "texte": "Objet du 1er mail : « important | about your podcast {PODCAST} » devient « About your podcast {PODCAST} ». Le mot « important » est surveillé par les filtres anti-spam et peut paraître trompeur au destinataire.",
+   "date": "17/11/2026",
+   "statut": "en_cours"
   }
  ]
 }
