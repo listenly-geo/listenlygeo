@@ -1,19 +1,18 @@
-# Brief trafic SEO — 2026-11-16
+# Brief trafic SEO — 2026-11-17
 
-- Période ['2026-08-16', '2026-11-14'] : 19 clics / 3011 impressions sur 479 pages
+- Période ['2026-08-17', '2026-11-15'] : 19 clics / 3022 impressions sur 480 pages
 - Pages de moments dans Google : 78 pages, 314 impressions, 10 clics
-- Moments ouverts au sitemap : 87 (dont 79 depuis 7 j+) ; contrôlés : 79 ; indexés : 70 (88.6%)
-- Quota : 10/jour → recommandé 25/jour (88.6% indexees : on peut accelerer)
+- Moments ouverts au sitemap : 87 (dont 79 depuis 7 j+) ; contrôlés : 78 ; indexés : 70 (89.7%)
+- Quota : 10/jour → recommandé 25/jour (89.7% indexees : on peut accelerer)
 
 ## Par type de page
-- hub : 277 pages, 2120 impr., 5 clics
+- hub : 278 pages, 2131 impr., 5 clics
 - show-listenly : 115 pages, 530 impr., 4 clics
 - moment : 78 pages, 314 impr., 10 clics
 - autre : 9 pages, 47 impr., 0 clics
 
 ## 10 pages de moments à faire indexer à la main aujourd'hui
 - https://listenly.org/podcast-btb/m/the-single-source/103c535b37 (inconnue)
-- https://listenly.org/podcast-btb/m/16-minutes-news-by-a16z/a4a410faae (inconnue)
 - https://listenly.org/podcast-btb/m/ai-a16z/de75aa3c5b (inconnue)
 - https://listenly.org/podcast-btb/m/the-conference-room/2687274a29 (inconnue)
 - https://listenly.org/podcast-btb/m/16-minutes-news-by-a16z/922f63485b (inconnue)
@@ -22,13 +21,13 @@
 - https://listenly.org/podcast-btb/the-collective-advantage-podcast.html — 53 impr., pos 8.7
 - https://listenly.org/podcast-btb/the-namibia-oil-and-gas-podcast-podcast.html — 41 impr., pos 8.3
 - https://listenly.org/podcast-btb/the-wholesale-change-show-podcast.html — 40 impr., pos 12.6
-- https://listenly.org/podcast-btb/the-road-to-autonomy-podcast.html — 39 impr., pos 13.1
 - https://listenly.org/podcast-btb/leaders-on-purpose-podcast.html — 38 impr., pos 7.5
 - https://listenly.org/podcast-btb/the-cro-spotlight-podcast-podcast.html — 30 impr., pos 10.4
 - https://listenly.org/podcast-btb/risk-management-brick-by-brick-podcast.html — 29 impr., pos 11.7
 - https://listenly.org/podcast-btb/beyond-fulfillment-podcast-podcast.html — 25 impr., pos 9.9
 - https://listenly.org/podcast-btb/the-best-of-yvonne-podcast-podcast.html — 25 impr., pos 6.4
 - https://listenly.org/podcast-btb/m/this-american-life/babdc7b374 — 23 impr., pos 8.1
+- https://listenly.org/podcast-btb/m/morning-brew-daily/401792ffbf — 22 impr., pos 5.3
 
 ## Requêtes bien placées
 - "guy kawasaki" — 9 impr., pos 3.9, 0 clic(s)
