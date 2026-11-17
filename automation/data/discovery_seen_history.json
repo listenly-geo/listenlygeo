@@ -346755,7 +346755,8 @@
     "checked_date": "2026-11-17",
     "secteur": "Agences de services",
     "gate": "dirigeant",
-    "email_domain": "haymarketmedia.com"
+    "email_domain": "haymarketmedia.com",
+    "rescue": "2026-11-17"
   },
   "https://feeds.simplecast.com/UjLn90oq": {
     "podcast_name": "The Consumer Finance Podcast",
@@ -346796,12 +346797,13 @@
     "feed_url": "https://rss.libsyn.com/shows/175217/destinations/1183103.xml",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Finance & Fintech",
     "gate": "dirigeant",
-    "email_domain": "nicknicknick.com"
+    "email_domain": "nicknicknick.com",
+    "rescue": "2026-11-17"
   },
   "https://feeds.redcircle.com/2b6ccc70-232c-4e17-be7c-828d84ff84f8": {
     "podcast_name": "Craft Beer Travel & Adventure",
@@ -346831,12 +346833,13 @@
     "feed_url": "https://anchor.fm/s/e07244cc/podcast/rss",
     "genre": "Marketing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Logistique & Supply chain",
     "gate": "dirigeant",
-    "email_domain": "badasserybyb.com"
+    "email_domain": "badasserybyb.com",
+    "rescue": "2026-11-17"
   },
   "https://rss.libsyn.com/shows/85658/destinations/412725.xml": {
     "podcast_name": "Get Clarity with Jamie Smart",
@@ -346844,12 +346847,13 @@
     "feed_url": "https://rss.libsyn.com/shows/85658/destinations/412725.xml",
     "genre": "Marketing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Formateurs & programmes",
     "gate": "dirigeant",
-    "email_domain": "jamiesmart.com"
+    "email_domain": "jamiesmart.com",
+    "rescue": "2026-11-17"
   },
   "https://anchor.fm/s/8137b76c/podcast/rss": {
     "podcast_name": "99pages",
@@ -347029,5 +347033,287 @@
       "Business Growth"
     ],
     "contact_email": "mbrewerx@mac.com"
+  },
+  "https://feeds.simplecast.com/vSYO_1Vf": {
+    "podcast_name": "Fort Worth Roots Podcast",
+    "artist_name": "Andrew Turner",
+    "feed_url": "https://feeds.simplecast.com/vSYO_1Vf",
+    "genre": "Personal Journals",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 174 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Construction & Industrie"
+  },
+  "https://anchor.fm/s/106ad7328/podcast/rss": {
+    "podcast_name": "Midlife-ish Podcast",
+    "artist_name": "Midlife-ish Podcast",
+    "feed_url": "https://anchor.fm/s/106ad7328/podcast/rss",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://feed.podbean.com/successorexcusespodcast/feed.xml": {
+    "podcast_name": "The Success or Excuses Podcast",
+    "artist_name": "James Fleming",
+    "feed_url": "https://feed.podbean.com/successorexcusespodcast/feed.xml",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://api.riverside.fm/hosting/6fAzewLK.rss/": {
+    "podcast_name": "Balance Boldly: Intimacy and Impact in Business",
+    "artist_name": "Dr. Naketa Ren Thigpen: Balance (and) Relationship Advisor",
+    "feed_url": "https://api.riverside.fm/hosting/6fAzewLK.rss/",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 349 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://anchor.fm/s/dfec9ad4/podcast/rss": {
+    "podcast_name": "Domestic Preparedness",
+    "artist_name": "Domestic Preparedness",
+    "feed_url": "https://anchor.fm/s/dfec9ad4/podcast/rss",
+    "genre": "News",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Énergie"
+  },
+  "https://positivepolarity.libsyn.com/rss": {
+    "podcast_name": "The Positive Polarity Podcast",
+    "artist_name": "Dave Molenda",
+    "feed_url": "https://positivepolarity.libsyn.com/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Logistique & Supply chain",
+    "gate": "dirigeant",
+    "email_domain": "positivepolarity.com"
+  },
+  "https://feed.podbean.com/zemarpodcast/feed.xml": {
+    "podcast_name": "Midway Business Podcast",
+    "artist_name": "Midway Business Podcast",
+    "feed_url": "https://feed.podbean.com/zemarpodcast/feed.xml",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://rss.buzzsprout.com/1194764.rss": {
+    "podcast_name": "THE POLY PODCAST",
+    "artist_name": "Alliance for PE Pipe",
+    "feed_url": "https://rss.buzzsprout.com/1194764.rss",
+    "genre": "Non-Profit",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Énergie"
+  },
+  "https://feeds.transistor.fm/the-next-new-thing": {
+    "podcast_name": "The Next New Thing",
+    "artist_name": "Andrew Warner",
+    "feed_url": "https://feeds.transistor.fm/the-next-new-thing",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Construction & Industrie"
+  },
+  "https://rss.buzzsprout.com/2365697.rss": {
+    "podcast_name": "The Spiritual Shitshow with Suzanne Sole",
+    "artist_name": "Suzanne Sole",
+    "feed_url": "https://rss.buzzsprout.com/2365697.rss",
+    "genre": "Spirituality",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Spirituality)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Agences de services"
+  },
+  "https://allsportsbest.podbean.com/feed.xml": {
+    "podcast_name": "All Sports Best",
+    "artist_name": "All Sports Best",
+    "feed_url": "https://allsportsbest.podbean.com/feed.xml",
+    "genre": "Sports",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Logistique & Supply chain"
+  },
+  "https://anchor.fm/s/101d7209c/podcast/rss": {
+    "podcast_name": "Conversations with Dental Friends",
+    "artist_name": "Rachael",
+    "feed_url": "https://anchor.fm/s/101d7209c/podcast/rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.podengine.io/the-aesthetic-edge": {
+    "podcast_name": "The Aesthetic Edge",
+    "artist_name": "Dr. Samuel Smith",
+    "feed_url": "https://rss.podengine.io/the-aesthetic-edge",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 468 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://feeds.megaphone.fm/futurati": {
+    "podcast_name": "FUTURATI PODCAST",
+    "artist_name": "Thomas Frey",
+    "feed_url": "https://feeds.megaphone.fm/futurati",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 621 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Juridique"
+  },
+  "https://rss.libsyn.com/shows/482064/destinations/4103103.xml": {
+    "podcast_name": "The Here's Waldo Podcast",
+    "artist_name": "Lizzie Mintus",
+    "feed_url": "https://rss.libsyn.com/shows/482064/destinations/4103103.xml",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 602 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Juridique"
+  },
+  "https://anchor.fm/s/10fb99ca8/podcast/rss": {
+    "podcast_name": "The John Bell & Croyden Podcast",
+    "artist_name": "John Bell & Croyden and The Relations Group",
+    "feed_url": "https://anchor.fm/s/10fb99ca8/podcast/rss",
+    "genre": "Medicine",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale",
+    "gate": "dirigeant",
+    "email_domain": "imncontent.com"
+  },
+  "https://feed.podbean.com/phorestfm/feed.xml": {
+    "podcast_name": "PhorestFM: Building a Stronger Industry, Together",
+    "artist_name": "Phorest Software",
+    "feed_url": "https://feed.podbean.com/phorestfm/feed.xml",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/225577e8/podcast/rss": {
+    "podcast_name": "Fanny Dunagan Show",
+    "artist_name": "Fanny Dunagan",
+    "feed_url": "https://anchor.fm/s/225577e8/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://app.kajabi.com/podcasts/2147750905/feed": {
+    "podcast_name": "The eXperiment Podcast",
+    "artist_name": "Laura Doughty",
+    "feed_url": "https://app.kajabi.com/podcasts/2147750905/feed",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 321 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://api.riverside.fm/hosting/rW69C7ob.rss": {
+    "podcast_name": "Human Powered: High-performing agency & consultancy teams",
+    "artist_name": "Trenton Moss: Exited agency founder & bestselling author",
+    "feed_url": "https://api.riverside.fm/hosting/rW69C7ob.rss",
+    "genre": "Entrepreneurship",
+    "track_count": 48,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/human-powered-high-performing-agency-consultancy-teams/id1730364310?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/b6/b7/a5/b6b7a55b-e19c-ac46-fbaa-c60e668d7ff3/mza_3505263081332956401.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Trenton Moss, créateur/expert indépendant identifiable (fondateur ayant quitté son agence, auteur). Sujet B2B pointu (agences et consultancies haute performance), audience petite à moyenne (48 épisodes, pas de mention media mass-market). Correspond au profil CREATEUR accepté depuis 27/10/2026.",
+    "checked_date": "2026-11-17",
+    "secteur": "Agences de services",
+    "nb_episodes": 48,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Female Entrepreneurship",
+      "Serial Entrepreneurship",
+      "Human Rights",
+      "Human Behavior"
+    ],
+    "contact_email": "trentonmoss100@gmail.com"
+  },
+  "https://rss.libsyn.com/shows/188171/destinations/1298471.xml": {
+    "podcast_name": "Homeward: The Sovereign Business Podcast",
+    "artist_name": "Amber Lilyestrom",
+    "feed_url": "https://rss.libsyn.com/shows/188171/destinations/1298471.xml",
+    "genre": "Marketing",
+    "track_count": 619,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/homeward-the-sovereign-business-podcast/id1102196253?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/d7/a1/15/d7a115fb-079a-9f7e-416a-03ec08ee187a/mza_12442201926171797190.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast business/B2B animé par Amber Lilyestrom, créatrice indépendante identifiable, avec 619 épisodes reguliers et audience petite/moyenne (pas de signal de notoriété mass-media). Accepté sous acceptance_path CREATEUR selon la décision du 27/10/2026.",
+    "checked_date": "2026-11-17",
+    "secteur": "Coachs & consultants B2B",
+    "nb_episodes": 619,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Law",
+      "B2C Marketing",
+      "Business Law",
+      "Business Strategy"
+    ],
+    "contact_email": "amber@amberlilyestrom.com"
+  },
+  "https://rss.libsyn.com/shows/131076/destinations/797618.xml": {
+    "podcast_name": "Two Are Gathered Leadership Podcast",
+    "artist_name": "Michael K. Reynolds &  Jim Johnson",
+    "feed_url": "https://rss.libsyn.com/shows/131076/destinations/797618.xml",
+    "genre": "Management",
+    "track_count": 172,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/two-are-gathered-leadership-podcast/id1436387670?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/74/68/08/746808e6-6b86-54da-a5e0-d78f91d066e6/mza_316752532968602356.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par deux créateurs indépendants identifiables (Michael K. Reynolds & Jim Johnson) sur le management/leadership B2B, avec 172 épisodes réguliers et aucun indice de notoriété mass-média ou affiliation à un gros réseau. Correspond au profil CREATEUR accepté depuis 27/10/2026.",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS",
+    "nb_episodes": 172,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Leadership",
+      "Cholesterol Management",
+      "Stress Management",
+      "Time Management"
+    ],
+    "contact_email": "mike@globalstudio.com"
   }
 }
