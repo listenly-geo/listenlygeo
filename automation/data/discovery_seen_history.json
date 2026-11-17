@@ -346016,12 +346016,13 @@
     "feed_url": "https://api.riverside.fm/hosting/wMWn2YqB.rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Immobilier",
     "gate": "dirigeant",
-    "email_domain": "saltcreekadvisory.com"
+    "email_domain": "saltcreekadvisory.com",
+    "rescue": "2026-11-17"
   },
   "https://www.elevatethegamepodcast.com/feed.xml": {
     "podcast_name": "Elevate the Game",
@@ -346045,7 +346046,8 @@
     "checked_date": "2026-11-17",
     "secteur": "Agences de services",
     "gate": "dirigeant",
-    "email_domain": "softwareoasis.com"
+    "email_domain": "softwareoasis.com",
+    "rescue": "2026-11-17"
   },
   "https://feeds.transistor.fm/the-ground-up": {
     "podcast_name": "The Ground Up",
@@ -346229,5 +346231,196 @@
     "checked_date": "2026-11-17",
     "secteur": "Santé libérale",
     "nb_episodes": 64
+  },
+  "https://api.substack.com/feed/podcast/3525780.rss": {
+    "podcast_name": "Sources with Alex Heath",
+    "artist_name": "Alex Heath",
+    "feed_url": "https://api.substack.com/feed/podcast/3525780.rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Construction & Industrie"
+  },
+  "https://feed.podbean.com/clareu/feed.xml": {
+    "podcast_name": "Rawthentic Leadership",
+    "artist_name": "Clare Edwards",
+    "feed_url": "https://feed.podbean.com/clareu/feed.xml",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://anchor.fm/s/ee43a654/podcast/rss": {
+    "podcast_name": "Mapping Ties: Stories of Togetherness at Work",
+    "artist_name": "Anamaria Dorgo",
+    "feed_url": "https://anchor.fm/s/ee43a654/podcast/rss",
+    "genre": "Education",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://feeds.captivate.fm/in-the-weeds-with-jimmy/": {
+    "podcast_name": "In the Weeds with Jimmy Young",
+    "artist_name": "Pro Cannabis Media",
+    "feed_url": "https://feeds.captivate.fm/in-the-weeds-with-jimmy/",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé"
+  },
+  "https://rss.buzzsprout.com/1166228.rss": {
+    "podcast_name": "LEADERS IN SALES",
+    "artist_name": "SAWOO",
+    "feed_url": "https://rss.buzzsprout.com/1166228.rss",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Construction & Industrie"
+  },
+  "https://feeds.transistor.fm/the-anti-failure-podcast": {
+    "podcast_name": "The Anti-Failure Podcast",
+    "artist_name": "Chris Kendall",
+    "feed_url": "https://feeds.transistor.fm/the-anti-failure-podcast",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Juridique"
+  },
+  "https://feeds.acast.com/public/shows/d1a6ddca-f102-4b5c-8d87-630132fe5aaa": {
+    "podcast_name": "ReConsider",
+    "artist_name": "Erik Fogg",
+    "feed_url": "https://feeds.acast.com/public/shows/d1a6ddca-f102-4b5c-8d87-630132fe5aaa",
+    "genre": "Philosophy",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://rss.buzzsprout.com/265300.rss": {
+    "podcast_name": "Tradie HQ - The Tradies Podcast",
+    "artist_name": "Dan Bailey",
+    "feed_url": "https://rss.buzzsprout.com/265300.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Business général (entreprise)"
+  },
+  "https://rss.buzzsprout.com/2207815.rss": {
+    "podcast_name": "Raising the OC Bar",
+    "artist_name": "Orange County Bar Association",
+    "feed_url": "https://rss.buzzsprout.com/2207815.rss",
+    "genre": "Non-Profit",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Juridique"
+  },
+  "https://rss.buzzsprout.com/2220199.rss": {
+    "podcast_name": "Smarter Podcasting: How To Use Podcasting For Business Growth",
+    "artist_name": "Seven Million Bikes Podcasts",
+    "feed_url": "https://rss.buzzsprout.com/2220199.rss",
+    "genre": "How To",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://anchor.fm/s/61189fb4/podcast/rss": {
+    "podcast_name": "WomenHeard",
+    "artist_name": "New York Women in Communications",
+    "feed_url": "https://anchor.fm/s/61189fb4/podcast/rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://rss.buzzsprout.com/2202487.rss": {
+    "podcast_name": "Only Connect Business Networking Podcast",
+    "artist_name": "Talent Lab / Urbano Network",
+    "feed_url": "https://rss.buzzsprout.com/2202487.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé"
+  },
+  "https://rss.libsyn.com/shows/72096/destinations/308386.xml": {
+    "podcast_name": "The 7-Figure CEO Podcast",
+    "artist_name": "Casey Graham: CEO, Entrepreneur and Business Strategist",
+    "feed_url": "https://rss.libsyn.com/shows/72096/destinations/308386.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 2619 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.buzzsprout.com/2467061.rss": {
+    "podcast_name": "Clipped: Your Content Creation Toolkit",
+    "artist_name": "Eric Montgomery",
+    "feed_url": "https://rss.buzzsprout.com/2467061.rss",
+    "genre": "How To",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://stevewmoore.com/consulting/podcast/feed.xml": {
+    "podcast_name": "The UX Friction Report",
+    "artist_name": "Steve Moore",
+    "feed_url": "https://stevewmoore.com/consulting/podcast/feed.xml",
+    "genre": "Design",
+    "track_count": 14,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-ux-friction-report/id6835567238?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/43/07/8e/43078e8d-8fd0-0e73-1374-9c0aadace1ce/mza_16744486503688928897.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B animé par Steve Moore, créateur indépendant identifiable, sujet design/UX (business), audience petite (14 épisodes), pas de média mass ou célébrité associée. Satisfait les critères CREATEUR.",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS",
+    "nb_episodes": 14,
+    "suggested_category": null,
+    "suggested_tags": [
+      "UX/UI Design",
+      "Curriculum Design",
+      "Organizational Design"
+    ],
+    "contact_email": "podcast@stevewmoore.com"
+  },
+  "https://rss.libsyn.com/shows/88725/destinations/436373.xml": {
+    "podcast_name": "Mind Muscle and Movement Podcast",
+    "artist_name": "Lindsey Heiserman",
+    "feed_url": "https://rss.libsyn.com/shows/88725/destinations/436373.xml",
+    "genre": "Fitness",
+    "track_count": 298,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/mind-muscle-and-movement-podcast/id1169046758?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/38/e2/00/38e20076-9245-7baf-694b-9feebcf309b3/mza_5052553108418381937.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Le sujet principal est Fitness (sport/bien-être), qui ne relève pas du B2B business/expertise professionnelle requis. Bien que Lindsey Heiserman soit un créateur identifiable avec 298 épisodes, ce podcast ne cible pas une audience professionnelle ou d'experts business.",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale",
+    "nb_episodes": 298
   }
 }
