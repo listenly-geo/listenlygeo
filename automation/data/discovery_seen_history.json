@@ -339759,12 +339759,13 @@
     "feed_url": "https://rss.libsyn.com/shows/152789/destinations/988319.xml",
     "genre": "Management",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Assurance",
     "gate": "dirigeant",
-    "email_domain": "theresacantley.com"
+    "email_domain": "theresacantley.com",
+    "rescue": "2026-11-17"
   },
   "https://rss.buzzsprout.com/1825422.rss": {
     "podcast_name": "AE Mackintosh Exterior Cleaning Podcast",
@@ -339882,12 +339883,13 @@
     "feed_url": "https://rss.libsyn.com/shows/111188/destinations/614960.xml",
     "genre": "Investing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Logistique & Supply chain",
     "gate": "dirigeant",
-    "email_domain": "seattleinvestorsclub.com"
+    "email_domain": "seattleinvestorsclub.com",
+    "rescue": "2026-11-17"
   },
   "https://feed.podbean.com/podcast.strongtowns.org/feed.xml": {
     "podcast_name": "The Strong Towns Podcast",
@@ -339939,12 +339941,13 @@
     "feed_url": "https://feeds.simplecast.com/jDpliQV0",
     "genre": "Technology",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Immobilier",
     "gate": "dirigeant",
-    "email_domain": "clearcapital.com"
+    "email_domain": "clearcapital.com",
+    "rescue": "2026-11-17"
   },
   "https://rss.buzzsprout.com/1467337.rss": {
     "podcast_name": "Insights into Success",
@@ -340093,5 +340096,251 @@
       "Show Breakdown"
     ],
     "contact_email": "erick@fromthegroundupshow.com"
+  },
+  "https://fast.wistia.com/channels/i4oer3yx6e/rss": {
+    "podcast_name": "Growing Forward: Lead like the top 1% in growth, marketing, & product",
+    "artist_name": "Andrew Capland",
+    "feed_url": "https://fast.wistia.com/channels/i4oer3yx6e/rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 139 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://feeds.redcircle.com/8964d86e-f02c-4cab-aba1-729b51c5f3fe": {
+    "podcast_name": "Salon Frequency",
+    "artist_name": "Jocelyn Reneé",
+    "feed_url": "https://feeds.redcircle.com/8964d86e-f02c-4cab-aba1-729b51c5f3fe",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 356 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech"
+  },
+  "https://rss.libsyn.com/shows/288047/destinations/2240777.xml": {
+    "podcast_name": "Mistake FREE Real Estate With Marck de Lautour",
+    "artist_name": "Marck de Lautour",
+    "feed_url": "https://rss.libsyn.com/shows/288047/destinations/2240777.xml",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 283 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Immobilier"
+  },
+  "https://feed.podbean.com/WBTS/feed.xml": {
+    "podcast_name": "Wellness Beyond the Surface: Reimagining Workplace Well-being",
+    "artist_name": "Damalie C. Akuamoah",
+    "feed_url": "https://feed.podbean.com/WBTS/feed.xml",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://rss.buzzsprout.com/915007.rss": {
+    "podcast_name": "Pros Talk Pregnancy Podcast",
+    "artist_name": "Body Ready Method",
+    "feed_url": "https://rss.buzzsprout.com/915007.rss",
+    "genre": "Parenting",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech"
+  },
+  "https://anchor.fm/s/35b04534/podcast/rss": {
+    "podcast_name": "Catch the Tornado Podcast",
+    "artist_name": "Catch the Tornado Podcast",
+    "feed_url": "https://anchor.fm/s/35b04534/podcast/rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1797 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://rss.buzzsprout.com/1987234.rss": {
+    "podcast_name": "Ginger Biz",
+    "artist_name": "Katy Murray",
+    "feed_url": "https://rss.buzzsprout.com/1987234.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Agences de services"
+  },
+  "https://anchor.fm/s/102e9a52c/podcast/rss": {
+    "podcast_name": "Daily AI News by GAI Insights",
+    "artist_name": "Paul Baier",
+    "feed_url": "https://anchor.fm/s/102e9a52c/podcast/rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://feed.podbean.com/the1895podcast/feed.xml": {
+    "podcast_name": "The 1895 Podcast",
+    "artist_name": "GWGI",
+    "feed_url": "https://feed.podbean.com/the1895podcast/feed.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Énergie"
+  },
+  "https://rss.buzzsprout.com/1841889.rss": {
+    "podcast_name": "The Entrepreneurs' Journey",
+    "artist_name": "Keith Sconiers",
+    "feed_url": "https://rss.buzzsprout.com/1841889.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Assurance"
+  },
+  "https://anchor.fm/s/33ff49d8/podcast/rss": {
+    "podcast_name": "Ventures In Product",
+    "artist_name": "Pauline Malubay",
+    "feed_url": "https://anchor.fm/s/33ff49d8/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Agences de services"
+  },
+  "https://anchor.fm/s/32bd8ef4/podcast/rss": {
+    "podcast_name": "Building it for Success",
+    "artist_name": "Caiphas Muyambo",
+    "feed_url": "https://anchor.fm/s/32bd8ef4/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Énergie"
+  },
+  "https://anchor.fm/s/ff7e9014/podcast/rss": {
+    "podcast_name": "Product Thinking",
+    "artist_name": "Melissa Perri",
+    "feed_url": "https://anchor.fm/s/ff7e9014/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 145 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://feeds.captivate.fm/the-connection-podcast/": {
+    "podcast_name": "The Connection Podcast - Lauren Dry",
+    "artist_name": "Lauren Dry",
+    "feed_url": "https://feeds.captivate.fm/the-connection-podcast/",
+    "genre": "Relationships",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Construction & Industrie"
+  },
+  "https://rss.libsyn.com/shows/64139/destinations/253701.xml": {
+    "podcast_name": "The Talent Grow Show: Grow Your Leadership and Communication Skills",
+    "artist_name": "Halelly Azulay",
+    "feed_url": "https://rss.libsyn.com/shows/64139/destinations/253701.xml",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 2183 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "RH & Recrutement"
+  },
+  "https://anchor.fm/s/e1166d04/podcast/rss": {
+    "podcast_name": "The Joyous Path to Millions | Wealth, Entrepreneurship, & Money Healing | Host - Emily June Wilcox",
+    "artist_name": "Emily June Wilcox",
+    "feed_url": "https://anchor.fm/s/e1166d04/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Coachs & consultants B2B",
+    "gate": "dirigeant",
+    "email_domain": "emilywilcox.com"
+  },
+  "https://api.substack.com/feed/podcast/496290.rss": {
+    "podcast_name": "Mommy's on a Call | Wellness & Mindfulness for Modern Moms, Mindful Parenting, Entrepreneurship",
+    "artist_name": "Stephanie Uchima-Carney",
+    "feed_url": "https://api.substack.com/feed/podcast/496290.rss",
+    "genre": "Parenting",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 241 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Construction & Industrie"
+  },
+  "https://www.spreaker.com/show/5888193/episodes/feed": {
+    "podcast_name": "More Doors Podcast",
+    "artist_name": "Deep Blue Capital",
+    "feed_url": "https://www.spreaker.com/show/5888193/episodes/feed",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Immobilier",
+    "gate": "dirigeant",
+    "email_domain": "deepbluere.com"
+  },
+  "https://feeds.captivate.fm/dentons-ir-insights-australia/": {
+    "podcast_name": "Dentons IR Insights Podcast – Australia",
+    "artist_name": "Dentons",
+    "feed_url": "https://feeds.captivate.fm/dentons-ir-insights-australia/",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Juridique"
+  },
+  "https://rss.libsyn.com/shows/121551/destinations/711789.xml": {
+    "podcast_name": "The Event Show",
+    "artist_name": "Andrew O'Loughlin",
+    "feed_url": "https://rss.libsyn.com/shows/121551/destinations/711789.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1637 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "RH & Recrutement"
+  },
+  "https://feeds.megaphone.fm/GS4070508667": {
+    "podcast_name": "Freaking Out About Work with Randy Freking",
+    "artist_name": "Randy Freking",
+    "feed_url": "https://feeds.megaphone.fm/GS4070508667",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1954 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Juridique"
+  },
+  "https://rss.libsyn.com/shows/87200/destinations/424447.xml": {
+    "podcast_name": "The Polished Podcast",
+    "artist_name": "The Polished Network",
+    "feed_url": "https://rss.libsyn.com/shows/87200/destinations/424447.xml",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 693 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "RH & Recrutement"
   }
 }
