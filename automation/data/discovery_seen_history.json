@@ -344749,12 +344749,13 @@
     "feed_url": "https://rss.libsyn.com/shows/345422/destinations/2820590.xml",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Formateurs & programmes",
     "gate": "dirigeant",
-    "email_domain": "leanoutmethod.com"
+    "email_domain": "leanoutmethod.com",
+    "rescue": "2026-11-17"
   },
   "https://feeds.captivate.fm/girlz-who-sell-spotlight/": {
     "podcast_name": "GirlzWhoSell Spotlight",
@@ -344817,12 +344818,13 @@
     "feed_url": "https://www.omnycontent.com/d/playlist/1306acca-8e91-407b-adba-adf70057d15f/773041ac-0ce2-41e4-9337-ae11015b73d3/5c706584-49dd-4e8f-a11b-ae11015b73e6/podcast.rss",
     "genre": "Medicine",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "RH & Recrutement",
     "gate": "dirigeant",
-    "email_domain": "drronehrlich.com"
+    "email_domain": "drronehrlich.com",
+    "rescue": "2026-11-17"
   },
   "https://publicfeeds.net/f/13467/feed-rss.xml": {
     "podcast_name": "EcoRadio KC",
@@ -344973,12 +344975,13 @@
     "feed_url": "https://feeds.podetize.com/rss/3LLG7VJhQV",
     "genre": "Careers",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Énergie",
     "gate": "dirigeant",
-    "email_domain": "resilientnewmedia.com"
+    "email_domain": "resilientnewmedia.com",
+    "rescue": "2026-11-17"
   },
   "https://feeds.simplecast.com/Qsf3W8sQ": {
     "podcast_name": "That One Idea by WaterBridge Ventures",
@@ -345221,5 +345224,254 @@
     "checked_date": "2026-11-17",
     "secteur": "Énergie",
     "nb_episodes": 189
+  },
+  "https://feeds.acast.com/public/shows/6363da5132472000113eb563": {
+    "podcast_name": "The Future View Podcast",
+    "artist_name": "Trimble Group",
+    "feed_url": "https://feeds.acast.com/public/shows/6363da5132472000113eb563",
+    "genre": "Courses",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://www.omnycontent.com/d/playlist/1167fb74-5a4b-45cf-8e47-adde00712524/77db2317-8934-4cb8-9de8-adde007138a8/6b937445-0845-47b5-b63f-adde0071e8d0/podcast.rss": {
+    "podcast_name": "Serious Danger",
+    "artist_name": "Emerald Moon & Tom Ballard",
+    "feed_url": "https://www.omnycontent.com/d/playlist/1167fb74-5a4b-45cf-8e47-adde00712524/77db2317-8934-4cb8-9de8-adde007138a8/6b937445-0845-47b5-b63f-adde0071e8d0/podcast.rss",
+    "genre": "Politics",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Politics)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Agences de services"
+  },
+  "https://anchor.fm/s/dd587914/podcast/rss": {
+    "podcast_name": "Customer Success: With Fahim Waaler",
+    "artist_name": "Fahim Waaler",
+    "feed_url": "https://anchor.fm/s/dd587914/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 371 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://rss.buzzsprout.com/1770363.rss": {
+    "podcast_name": "Oasis Network Roadshow",
+    "artist_name": "Oasis Radio Network",
+    "feed_url": "https://rss.buzzsprout.com/1770363.rss",
+    "genre": "Christianity",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://healysolutions.com/feed/podcast/": {
+    "podcast_name": "The Profit Express",
+    "artist_name": "Tim Healy",
+    "feed_url": "https://healysolutions.com/feed/podcast/",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Business général (entreprise)"
+  },
+  "https://feed.podbean.com/superchargemypractice/feed.xml": {
+    "podcast_name": "Supercharge My Practice",
+    "artist_name": "Anil Mustafa",
+    "feed_url": "https://feed.podbean.com/superchargemypractice/feed.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://feeds.transistor.fm/in-good-companies": {
+    "podcast_name": "In Good Companies",
+    "artist_name": "Cadence Bank",
+    "feed_url": "https://feeds.transistor.fm/in-good-companies",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Énergie"
+  },
+  "https://feeds.castos.com/q4gw0": {
+    "podcast_name": "Genuine Humans",
+    "artist_name": "Social Element",
+    "feed_url": "https://feeds.castos.com/q4gw0",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 411 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Agences de services"
+  },
+  "https://anchor.fm/s/a7727ac/podcast/rss": {
+    "podcast_name": "Reaching The Finish Line",
+    "artist_name": "Kallen Diggs",
+    "feed_url": "https://anchor.fm/s/a7727ac/podcast/rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 2761 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://makinghay.blubrry.net/feed/podcast/": {
+    "podcast_name": "Making Hay",
+    "artist_name": "Marcia Miller",
+    "feed_url": "https://makinghay.blubrry.net/feed/podcast/",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 645 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.buzzsprout.com/1417060.rss": {
+    "podcast_name": "The Ironhack Podcast",
+    "artist_name": "Ironhack",
+    "feed_url": "https://rss.buzzsprout.com/1417060.rss",
+    "genre": "Tech News",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://feeds.redcircle.com/be0d7d9b-67fc-4293-af19-444ca856829c": {
+    "podcast_name": "Star of the Show",
+    "artist_name": "Delaney Swift",
+    "feed_url": "https://feeds.redcircle.com/be0d7d9b-67fc-4293-af19-444ca856829c",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 810 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://media.rss.com/ceo-af/feed.xml": {
+    "podcast_name": "Ceo-Af",
+    "artist_name": "Kimba Garcia",
+    "feed_url": "https://media.rss.com/ceo-af/feed.xml",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Immobilier"
+  },
+  "https://feeds.transistor.fm/mental-wealth-for-entrepreneurs": {
+    "podcast_name": "Mental Wealth For Entrepreneurs",
+    "artist_name": "Katerina Thomas",
+    "feed_url": "https://feeds.transistor.fm/mental-wealth-for-entrepreneurs",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://feeds.captivate.fm/being-motherhustler/": {
+    "podcast_name": "Being Motherhustler",
+    "artist_name": "Kareen Mills",
+    "feed_url": "https://feeds.captivate.fm/being-motherhustler/",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://www.spreaker.com/show/3668396/episodes/feed": {
+    "podcast_name": "The Drive with Spence Checketts",
+    "artist_name": "Broadway Media",
+    "feed_url": "https://www.spreaker.com/show/3668396/episodes/feed",
+    "genre": "Sports",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech",
+    "gate": "dirigeant",
+    "email_domain": "broadwaymedia.com"
+  },
+  "https://anchor.fm/s/cbf4cb0/podcast/rss": {
+    "podcast_name": "Worship Harvest Podcast",
+    "artist_name": "Worship Harvest Ministries",
+    "feed_url": "https://anchor.fm/s/cbf4cb0/podcast/rss",
+    "genre": "Religion & Spirituality",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Religion & Spirituality)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://feeds.megaphone.fm/KQINC7690695903": {
+    "podcast_name": "The California Report Magazine",
+    "artist_name": "KQED",
+    "feed_url": "https://feeds.megaphone.fm/KQINC7690695903",
+    "genre": "Daily News",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Daily News)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech"
+  },
+  "https://rss.libsyn.com/shows/333338/destinations/2715020.xml": {
+    "podcast_name": "Dear Accountant",
+    "artist_name": "Cecilia Leung CPA",
+    "feed_url": "https://rss.libsyn.com/shows/333338/destinations/2715020.xml",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1538 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Énergie"
+  },
+  "https://rss.libsyn.com/shows/492038/destinations/4202612.xml": {
+    "podcast_name": "Your Spiritual Upgrade with Greta Ertl",
+    "artist_name": "Greta Ertl",
+    "feed_url": "https://rss.libsyn.com/shows/492038/destinations/4202612.xml",
+    "genre": "Self-Improvement",
+    "track_count": 160,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/your-spiritual-upgrade-with-greta-ertl/id1714840690?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/d0/15/10/d0151080-885d-b5c5-b97d-f4aa843b2c4e/mza_4886403615056293956.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Le podcast traite de spiritualité et self-improvement (développement personnel), domaine non-B2B qui ne correspond pas aux critères de visibilité business/B2B requis pour l'onboarding. Bien que le créateur soit identifiable et indépendant, le sujet n'est pas aligné avec la cible.",
+    "checked_date": "2026-11-17",
+    "secteur": "Formateurs & programmes",
+    "nb_episodes": 160
+  },
+  "https://rss.libsyn.com/shows/550947/destinations/4755027.xml": {
+    "podcast_name": "Polaris Pathways - a Synozur podcast",
+    "artist_name": "Chris McNulty",
+    "feed_url": "https://rss.libsyn.com/shows/550947/destinations/4755027.xml",
+    "genre": "Technology",
+    "track_count": 46,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/polaris-pathways-a-synozur-podcast/id1773172041?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/82/82/66/8282664b-19c0-17d6-7d44-cfc56f2f0d8e/mza_11709753525170462668.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast d'entreprise B2B produit par Synozur (éditeur identifié), animé par Chris McNulty (hôte identifiable), sujet technology/business avec 46 épisodes réguliers. Audience petite/moyenne, pas de signal de notoriété mass-media ou média établi.",
+    "checked_date": "2026-11-17",
+    "secteur": "Business général (entreprise)",
+    "nb_episodes": 46,
+    "suggested_category": "💻 Technology",
+    "suggested_tags": [
+      "HR Technology",
+      "Blockchain Technology",
+      "Wearable Technology",
+      "Space Technology"
+    ],
+    "contact_email": "polaris@synozur.com"
   }
 }
