@@ -338810,12 +338810,13 @@
     "feed_url": "https://anchor.fm/s/caff5454/podcast/rss",
     "genre": "News",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Santé",
     "gate": "dirigeant",
-    "email_domain": "simmonsandharris.com"
+    "email_domain": "simmonsandharris.com",
+    "rescue": "2026-11-17"
   },
   "https://rss.buzzsprout.com/1965759.rss": {
     "podcast_name": "Couchonomics with Arjun",
@@ -338894,7 +338895,8 @@
     "checked_date": "2026-11-17",
     "secteur": "Logistique & Supply chain",
     "gate": "dirigeant",
-    "email_domain": "earnyourleisure.com"
+    "email_domain": "earnyourleisure.com",
+    "rescue": "2026-11-17"
   },
   "https://whislerwhileyouretire.blubrry.net/feed/podcast/": {
     "podcast_name": "License To Spend",
@@ -339078,12 +339080,13 @@
     "feed_url": "https://rss.libsyn.com/shows/53400/destinations/193834.xml",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Business général (entreprise)",
     "gate": "dirigeant",
-    "email_domain": "herbusiness.com"
+    "email_domain": "herbusiness.com",
+    "rescue": "2026-11-17"
   },
   "https://anchor.fm/s/10891c900/podcast/rss": {
     "podcast_name": "Shred The Debt",
@@ -339190,12 +339193,13 @@
     "feed_url": "https://wtmarketingpros.com/feed/podcast/",
     "genre": "Marketing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Business général (entreprise)",
     "gate": "dirigeant",
-    "email_domain": "wcrada.com"
+    "email_domain": "wcrada.com",
+    "rescue": "2026-11-17"
   },
   "https://rss.libsyn.com/shows/77451/destinations/348833.xml": {
     "podcast_name": "401(k) Roundtable",
@@ -339354,5 +339358,365 @@
       "Business Growth"
     ],
     "contact_email": "sandi@cmswebsolutions.com"
+  },
+  "https://feeds.acast.com/public/shows/5a2b3194a3e017c06871e8c7": {
+    "podcast_name": "Gamers Too",
+    "artist_name": "Nate Killian & Matt Serway",
+    "feed_url": "https://feeds.acast.com/public/shows/5a2b3194a3e017c06871e8c7",
+    "genre": "Video Games",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Juridique"
+  },
+  "https://anchor.fm/s/10ffa4244/podcast/rss/": {
+    "podcast_name": "Irish Sports Saturdays",
+    "artist_name": "Sports",
+    "feed_url": "https://anchor.fm/s/10ffa4244/podcast/rss/",
+    "genre": "Sports",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1416 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech"
+  },
+  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/2e063e16-ff01-4204-a8f1-b0cb00e5fdcd/ffe5a090-fae7-455d-a2c6-b0cb00e950e2/podcast.rss": {
+    "podcast_name": "The Unshakeables",
+    "artist_name": "iHeartPodcasts",
+    "feed_url": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/2e063e16-ff01-4204-a8f1-b0cb00e5fdcd/ffe5a090-fae7-455d-a2c6-b0cb00e950e2/podcast.rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Énergie"
+  },
+  "https://feeds.soundcloud.com/users/soundcloud:users:724492930/sounds.rss": {
+    "podcast_name": "Short Ends Podcast",
+    "artist_name": "Grannell Knox",
+    "feed_url": "https://feeds.soundcloud.com/users/soundcloud:users:724492930/sounds.rss",
+    "genre": "Arts",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 334 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Juridique"
+  },
+  "https://anchor.fm/s/f91eac68/podcast/rss": {
+    "podcast_name": "Minus One",
+    "artist_name": "South Park Commons",
+    "feed_url": "https://anchor.fm/s/f91eac68/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Construction & Industrie"
+  },
+  "https://rss.buzzsprout.com/1936050.rss": {
+    "podcast_name": "Kidbrooke Insights Podcast",
+    "artist_name": "Natalie Burke, Zaliia Gindullina",
+    "feed_url": "https://rss.buzzsprout.com/1936050.rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://feed.podbean.com/teachinglearningleadingk12/feed.xml": {
+    "podcast_name": "Teaching Learning Leading K-12",
+    "artist_name": "Steven Miletto",
+    "feed_url": "https://feed.podbean.com/teachinglearningleadingk12/feed.xml",
+    "genre": "Education",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "RH & Recrutement"
+  },
+  "https://feeds.transistor.fm/the-visionary-ceo-podcast": {
+    "podcast_name": "Visionary CEO Podcast",
+    "artist_name": "Breanne Dyck & Jill Joevenazzo",
+    "feed_url": "https://feeds.transistor.fm/the-visionary-ceo-podcast",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://feeds.soundcloud.com/users/soundcloud:users:641377761/sounds.rss": {
+    "podcast_name": "The B.M.W. Life™ (Boss Mom Wife Life)",
+    "artist_name": "Sirena Moore-Thomas",
+    "feed_url": "https://feeds.soundcloud.com/users/soundcloud:users:641377761/sounds.rss",
+    "genre": "Kids & Family",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1915 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://www.spreaker.com/show/3603567/episodes/feed": {
+    "podcast_name": "The Rick Robinson Show",
+    "artist_name": "Rick Robinson",
+    "feed_url": "https://www.spreaker.com/show/3603567/episodes/feed",
+    "genre": "Politics",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech"
+  },
+  "https://rss.buzzsprout.com/1221641.rss": {
+    "podcast_name": "UnScripted: Authentic Leadership Podcast",
+    "artist_name": "La'Fayette Lane & John LeBrun",
+    "feed_url": "https://rss.buzzsprout.com/1221641.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "RH & Recrutement"
+  },
+  "https://feeds.transistor.fm/health-further": {
+    "podcast_name": "Health:Further",
+    "artist_name": "Marcus Whitney & Vic Gatto",
+    "feed_url": "https://feeds.transistor.fm/health-further",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé"
+  },
+  "https://feeds.soundcloud.com/users/soundcloud:users:209869572/sounds.rss": {
+    "podcast_name": "Catching Your Memories",
+    "artist_name": "Diane Atwood",
+    "feed_url": "https://feeds.soundcloud.com/users/soundcloud:users:209869572/sounds.rss",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1244 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.libsyn.com/shows/248327/destinations/1867925.xml": {
+    "podcast_name": "TCN Worldwide Market Minutes Podcast",
+    "artist_name": "TCN Worldwide",
+    "feed_url": "https://rss.libsyn.com/shows/248327/destinations/1867925.xml",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1383 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Immobilier"
+  },
+  "https://feed.podbean.com/cashflowfightclubpod/feed.xml": {
+    "podcast_name": "Cash Flow Fight Club",
+    "artist_name": "Mike and Ligia Deaton",
+    "feed_url": "https://feed.podbean.com/cashflowfightclubpod/feed.xml",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/499e0608/podcast/rss": {
+    "podcast_name": "Inside Gas Money",
+    "artist_name": "Gas Money LLC",
+    "feed_url": "https://anchor.fm/s/499e0608/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 710 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Construction & Industrie"
+  },
+  "https://rss.pdrl.fm/8dce64/feeds.megaphone.fm/citycastmadison": {
+    "podcast_name": "City Cast Madison",
+    "artist_name": "City Cast",
+    "feed_url": "https://rss.pdrl.fm/8dce64/feeds.megaphone.fm/citycastmadison",
+    "genre": "Daily News",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Daily News)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Énergie"
+  },
+  "https://rss.pdrl.fm/3511d4/feeds.libsyn.com/559855/rss/?redirect=false": {
+    "podcast_name": "Lifeselfmastery's podcast I Startups I Venture Capital",
+    "artist_name": "Rohit Malhotra",
+    "feed_url": "https://rss.pdrl.fm/3511d4/feeds.libsyn.com/559855/rss/?redirect=false",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Business général (entreprise)",
+    "gate": "dirigeant",
+    "email_domain": "substack.com"
+  },
+  "https://rss.amperwave.net/v2/feed/audacynetwork/c90f3292db89b3d661e6b57cc0c690c1": {
+    "podcast_name": "Eye on Veterans",
+    "artist_name": "CBS News",
+    "feed_url": "https://rss.amperwave.net/v2/feed/audacynetwork/c90f3292db89b3d661e6b57cc0c690c1",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 181 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Business général (entreprise)"
+  },
+  "https://anchor.fm/s/683dd250/podcast/rss": {
+    "podcast_name": "Between Two Friends with Brett Trembly",
+    "artist_name": "Brett Trembly",
+    "feed_url": "https://anchor.fm/s/683dd250/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Immobilier"
+  },
+  "https://rss.libsyn.com/shows/71390/destinations/303279.xml": {
+    "podcast_name": "The Startup Success Podcast",
+    "artist_name": "Bob Walsh and Patrick Foley",
+    "feed_url": "https://rss.libsyn.com/shows/71390/destinations/303279.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 3478 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé"
+  },
+  "https://feeds.soundcloud.com/users/soundcloud:users:464976780/sounds.rss": {
+    "podcast_name": "ReproducibiliTea Podcast",
+    "artist_name": "ReproducibiliTea Podcast",
+    "feed_url": "https://feeds.soundcloud.com/users/soundcloud:users:464976780/sounds.rss",
+    "genre": "Science",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 524 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://feeds.feedburner.com/profilesinprosperity": {
+    "podcast_name": "Profiles in Prosperity",
+    "artist_name": "Service Roundtable",
+    "feed_url": "https://feeds.feedburner.com/profilesinprosperity",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 412 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Construction & Industrie"
+  },
+  "https://eventualmillionaire.com/feed/case-studies-millionaire-business-owners/": {
+    "podcast_name": "Eventual Millionaire - Video Case Studies with Millionaire Business Owners",
+    "artist_name": "Jaime Masters",
+    "feed_url": "https://eventualmillionaire.com/feed/case-studies-millionaire-business-owners/",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Construction & Industrie"
+  },
+  "https://rss.buzzsprout.com/367916.rss": {
+    "podcast_name": "Podcasting Made Simple",
+    "artist_name": "Alex Sanfilippo, PodMatch.com",
+    "feed_url": "https://rss.buzzsprout.com/367916.rss",
+    "genre": "How To",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Business général (entreprise)"
+  },
+  "https://feed.podbean.com/designmuseum/feed.xml": {
+    "podcast_name": "Design is Everywhere",
+    "artist_name": "CoDesign Collaborative",
+    "feed_url": "https://feed.podbean.com/designmuseum/feed.xml",
+    "genre": "Design",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Agences de services"
+  },
+  "https://rss.buzzsprout.com/2295406.rss": {
+    "podcast_name": "The Developing Life Podcast",
+    "artist_name": "Davron Bowman | Heather Crank | Tru Adams",
+    "feed_url": "https://rss.buzzsprout.com/2295406.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 96 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Agences de services"
+  },
+  "https://feed.ausha.co/rj98WHq4P9rm": {
+    "podcast_name": "School of Hard Knocks Podcast",
+    "artist_name": "The School of Hard Knocks",
+    "feed_url": "https://feed.ausha.co/rj98WHq4P9rm",
+    "genre": "Business",
+    "track_count": 82,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/school-of-hard-knocks-podcast/id1716474536?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/a6/ac/02/a6ac0275-d872-e80c-e797-ee6d9ae5aed4/mza_1531579992704254747.jpeg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast business B2B animé par un créateur/expert indépendable identifiable (The School of Hard Knocks), 82 épisodes réguliers, audience petite/moyenne, aucun indicateur de célébrité ou affiliation media grand public. Correspond au profil CREATEUR accepté depuis 27/10/2026.",
+    "checked_date": "2026-11-17",
+    "secteur": "Marketing & Ventes",
+    "nb_episodes": 82,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Law",
+      "Business Law",
+      "Business Strategy",
+      "Business Growth"
+    ],
+    "contact_email": "schoolofhardknocksinfo@gmail.com"
+  },
+  "https://themichaelsartainpodcast.libsyn.com/rss": {
+    "podcast_name": "The Michael Sartain Podcast",
+    "artist_name": "Michael Sartain",
+    "feed_url": "https://themichaelsartainpodcast.libsyn.com/rss",
+    "genre": "Science",
+    "track_count": 98,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-michael-sartain-podcast/id1579791157?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/78/0d/00/780d002a-6863-3e60-1448-02fd08147d56/mza_13019742170169333923.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par un créateur indépendant identifiable (Michael Sartain) sur un sujet business/B2B (Science appliquée au contexte professionnel), avec 98 épisodes réguliers et audience petite/moyenne. Correspond au critère CREATEUR accepté depuis 27/10/2026.",
+    "checked_date": "2026-11-17",
+    "secteur": "Marketing & Ventes",
+    "nb_episodes": 98,
+    "suggested_category": "🔬 Science",
+    "suggested_tags": [
+      "Data Science",
+      "Philosophy of Science",
+      "Political Science",
+      "Behavioral Science"
+    ],
+    "contact_email": "mjsartain@gmail.com"
+  },
+  "https://rss.libsyn.com/shows/554782/destinations/4791032.xml": {
+    "podcast_name": "The Joe Polish Show",
+    "artist_name": "Joe Polish",
+    "feed_url": "https://rss.libsyn.com/shows/554782/destinations/4791032.xml",
+    "genre": "Society & Culture",
+    "track_count": 67,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-joe-polish-show/id1778339688?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/1a/c6/3c/1ac63c69-4c06-9d80-7034-ea3e7003f654/mza_1278640610971667196.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Joe Polish est une personnalité célèbre et influente dans le domaine du marketing/business (fondateur de Genius Network), avec une notoriété grand public établie. Ce podcast relève de la catégorie mass-media/célébrité avec forte couverture documentaire existante, incompatible avec les critères d'audience petite ou moyenne.",
+    "checked_date": "2026-11-17",
+    "secteur": "Business général (entreprise)",
+    "nb_episodes": 67
   }
 }
