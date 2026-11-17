@@ -350688,12 +350688,13 @@
     "feed_url": "https://anchor.fm/s/df2ab680/podcast/rss",
     "genre": "Careers",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Formateurs & programmes",
     "gate": "dirigeant",
-    "email_domain": "10forty.com"
+    "email_domain": "10forty.com",
+    "rescue": "2026-11-17"
   },
   "https://feed.podbean.com/thefemaleinvestor/feed.xml": {
     "podcast_name": "The Female Investor",
@@ -350745,12 +350746,13 @@
     "feed_url": "https://anchor.fm/s/1100c2fb8/podcast/rss",
     "genre": "Investing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Construction & Industrie",
     "gate": "dirigeant",
-    "email_domain": "legacyacresland.com"
+    "email_domain": "legacyacresland.com",
+    "rescue": "2026-11-17"
   },
   "https://rss.buzzsprout.com/2131035.rss": {
     "podcast_name": "The Color Shift",
@@ -350835,12 +350837,13 @@
     "feed_url": "https://rss.libsyn.com/shows/312917/destinations/2516852.xml",
     "genre": "Marketing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "whatboxdigital.com"
+    "email_domain": "whatboxdigital.com",
+    "rescue": "2026-11-17"
   },
   "https://rss.buzzsprout.com/2650882.rss": {
     "podcast_name": "Healthcare Revolution",
@@ -350848,12 +350851,13 @@
     "feed_url": "https://rss.buzzsprout.com/2650882.rss",
     "genre": "Health & Fitness",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "foundationptutah.com"
+    "email_domain": "foundationptutah.com",
+    "rescue": "2026-11-17"
   },
   "https://feeds.megaphone.fm/thesecondact": {
     "podcast_name": "The Second Act",
@@ -351013,5 +351017,241 @@
     "checked_date": "2026-11-17",
     "secteur": "Tech & SaaS",
     "nb_episodes": 22
+  },
+  "https://anchor.fm/s/fac9c264/podcast/rss": {
+    "podcast_name": "The NOCE Dose: The Opioid Crisis Unplugged",
+    "artist_name": "The Nevada Opioid Center of Excellence (NOCE)",
+    "feed_url": "https://anchor.fm/s/fac9c264/podcast/rss",
+    "genre": "Mental Health",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 110 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://rss.buzzsprout.com/1391620.rss": {
+    "podcast_name": "You Say Data, I Say Dayta",
+    "artist_name": "Joe Forish",
+    "feed_url": "https://rss.buzzsprout.com/1391620.rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://dsrb.com.au/podcast/feed/subscribe/": {
+    "podcast_name": "DSR Branding Presents",
+    "artist_name": "Dan Rowell",
+    "feed_url": "https://dsrb.com.au/podcast/feed/subscribe/",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Énergie"
+  },
+  "https://rss.libsyn.com/shows/59928/destinations/230272.xml": {
+    "podcast_name": "Eternal Leadership",
+    "artist_name": "Unknown",
+    "feed_url": "https://rss.libsyn.com/shows/59928/destinations/230272.xml",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech"
+  },
+  "https://api.riverside.fm/hosting/H98y94sX.rss": {
+    "podcast_name": "Alt Marketing School",
+    "artist_name": "Fab Giovanetti",
+    "feed_url": "https://api.riverside.fm/hosting/H98y94sX.rss",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Agences de services",
+    "gate": "dirigeant",
+    "email_domain": "creativeimpact.group"
+  },
+  "https://feeds.castos.com/8qppj": {
+    "podcast_name": "AT Pit Crew Podcast",
+    "artist_name": "Ray Castle",
+    "feed_url": "https://feeds.castos.com/8qppj",
+    "genre": "Medicine",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 350 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://rss.libsyn.com/shows/174107/destinations/1173350.xml": {
+    "podcast_name": "Influencers",
+    "artist_name": "The Conference Board",
+    "feed_url": "https://rss.libsyn.com/shows/174107/destinations/1173350.xml",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1483 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Agences de services"
+  },
+  "https://anchor.fm/s/ef4065d8/podcast/rss": {
+    "podcast_name": "Failing Forward",
+    "artist_name": "Bethany Fiocchi Root",
+    "feed_url": "https://anchor.fm/s/ef4065d8/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 475 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech"
+  },
+  "https://feed.podbean.com/brandbuilders/feed.xml": {
+    "podcast_name": "Founder Files",
+    "artist_name": "Founder Files",
+    "feed_url": "https://feed.podbean.com/brandbuilders/feed.xml",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://rss.libsyn.com/shows/101234/destinations/534775.xml": {
+    "podcast_name": "STEMulating Conversations with Dr. Q",
+    "artist_name": "Marquita M. Qualls, PhD",
+    "feed_url": "https://rss.libsyn.com/shows/101234/destinations/534775.xml",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 265 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Conseil"
+  },
+  "https://feeds.captivate.fm/stablescoop/": {
+    "podcast_name": "Stable Scoop",
+    "artist_name": "Horse Radio Network",
+    "feed_url": "https://feeds.captivate.fm/stablescoop/",
+    "genre": "Sports",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://familyofficeworld.blubrry.net/feed/podcast/": {
+    "podcast_name": "Family Office World",
+    "artist_name": "Ron Diamond",
+    "feed_url": "https://familyofficeworld.blubrry.net/feed/podcast/",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 915 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech"
+  },
+  "https://anchor.fm/s/2b968c48/podcast/rss": {
+    "podcast_name": "Leadership is Female",
+    "artist_name": "Emily Jaenson",
+    "feed_url": "https://anchor.fm/s/2b968c48/podcast/rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 574 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Construction & Industrie"
+  },
+  "https://rss.buzzsprout.com/1194812.rss": {
+    "podcast_name": "Finding Fertile Ground: Communicate for Change",
+    "artist_name": "Marie Gettel-Gilmartin",
+    "feed_url": "https://rss.buzzsprout.com/1194812.rss",
+    "genre": "Personal Journals",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Construction & Industrie"
+  },
+  "https://rss.buzzsprout.com/2091563.rss": {
+    "podcast_name": "Blame it on Marketing ™",
+    "artist_name": "Emma Davies and Ruta Sudmantaite",
+    "feed_url": "https://rss.buzzsprout.com/2091563.rss",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://rss.libsyn.com/shows/196379/destinations/1391744.xml": {
+    "podcast_name": "The Future of Leadership",
+    "artist_name": "Zoe Routh",
+    "feed_url": "https://rss.libsyn.com/shows/196379/destinations/1391744.xml",
+    "genre": "Management",
+    "track_count": 436,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-future-of-leadership/id1163003618?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/30/cf/85/30cf85bb-bbea-4bea-160e-1823957dbef4/mza_16911713028663169736.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Zoe Routh, créatrice/experte indépendante identifiable dans le domaine du leadership et management (436 épisodes, sujet B2B pointu). Pas de lien à un grand média ou célébrité de masse, audience estimée petite à moyenne.",
+    "checked_date": "2026-11-17",
+    "secteur": "Conseil",
+    "nb_episodes": 436,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Leadership",
+      "Cholesterol Management",
+      "Stress Management",
+      "Time Management"
+    ],
+    "contact_email": "zoe@zoerouth.com"
+  },
+  "https://feeds.simplecast.com/Uf4DOpaf": {
+    "podcast_name": "Lumida Wealth : Non-Consensus Invest Beyond the Ordinary",
+    "artist_name": "Ram Ahluwalia",
+    "feed_url": "https://feeds.simplecast.com/Uf4DOpaf",
+    "genre": "Investing",
+    "track_count": 207,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/lumida-wealth-non-consensus-invest-beyond-the-ordinary/id1716035740?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/02/58/fb/0258fb1e-43a5-d7b7-1828-2dcb0cc2f4bd/mza_7838914293305235991.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Ram Ahluwalia, créateur/expert indépendant identifiable dans le domaine de l'investissement B2B. Sujet business avéré (investing), 207 épisodes réguliers, pas de lien détectable à un grand média ou célébrité grand public. Correspond au profil CREATEUR accepté depuis 27/10/2026.",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech",
+    "nb_episodes": 207,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Wealth Building",
+      "Value Investing",
+      "Growth Investing",
+      "Dividend Investing"
+    ],
+    "contact_email": "justin@lumida.com"
+  },
+  "https://www.techcarsmachines.com/?feed=podcast": {
+    "podcast_name": "Tech. Cars. Machines.",
+    "artist_name": "Ali Tabibian, GTK Partners",
+    "feed_url": "https://www.techcarsmachines.com/?feed=podcast",
+    "genre": "Business",
+    "track_count": 63,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/tech-cars-machines/id1348084991?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts112/v4/0d/74/80/0d748084-06f6-5a13-527a-64fbbff58a27/mza_16140845476735891267.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Ali Tabibian est un créateur indépendant identifiable produisant un podcast B2B actif (63 épisodes) sur la tech et les machines. Audience petite/moyenne, pas de média grand public détecté — correspond au profil CREATEUR accepté depuis 27/10/2026.",
+    "checked_date": "2026-11-17",
+    "secteur": "Énergie",
+    "nb_episodes": 63,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Law",
+      "Business Law",
+      "Business Strategy",
+      "Business Growth"
+    ],
+    "contact_email": "ali@gtkpartners.com"
   }
 }
