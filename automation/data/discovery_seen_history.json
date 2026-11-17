@@ -347658,12 +347658,13 @@
     "feed_url": "https://rss.libsyn.com/shows/543377/destinations/4683957.xml",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Tech & SaaS",
     "gate": "dirigeant",
-    "email_domain": "deloittece.com"
+    "email_domain": "deloittece.com",
+    "rescue": "2026-11-17"
   },
   "https://feed.podbean.com/rokthejournal/feed.xml": {
     "podcast_name": "Automation Chat",
@@ -347704,12 +347705,13 @@
     "feed_url": "https://api.riverside.com/hosting/rv4bD4wq.rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Formateurs & programmes",
     "gate": "dirigeant",
-    "email_domain": "deirdremartin.ie"
+    "email_domain": "deirdremartin.ie",
+    "rescue": "2026-11-17"
   },
   "https://anchor.fm/s/edb0da40/podcast/rss": {
     "podcast_name": "10xMarketer Podcast",
@@ -347827,5 +347829,203 @@
       "Serial Entrepreneurship"
     ],
     "contact_email": "superhero@couragebrands.com"
+  },
+  "https://feeds.captivate.fm/epic-angels/": {
+    "podcast_name": "Investor Talk",
+    "artist_name": "Epic Angels",
+    "feed_url": "https://feeds.captivate.fm/epic-angels/",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Juridique"
+  },
+  "https://anchor.fm/s/d387c714/podcast/rss": {
+    "podcast_name": "Might In Motion",
+    "artist_name": "Marianna Kinnee",
+    "feed_url": "https://anchor.fm/s/d387c714/podcast/rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 417 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Logistique & Supply chain"
+  },
+  "https://feeds.captivate.fm/the-truckvincom-podcast/": {
+    "podcast_name": "The TruckVin.com Podcast",
+    "artist_name": "Zach Ellis",
+    "feed_url": "https://feeds.captivate.fm/the-truckvincom-podcast/",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Logistique & Supply chain"
+  },
+  "http://lakeforestcollege.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?courseid=d19edfd4-a9b9-4332-ba52-4d26ef20d189&type=mp4": {
+    "podcast_name": "Lectures and Performances",
+    "artist_name": "Lake Forest College",
+    "feed_url": "http://lakeforestcollege.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?courseid=d19edfd4-a9b9-4332-ba52-4d26ef20d189&type=mp4",
+    "genre": "Courses",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé"
+  },
+  "https://rss.libsyn.com/shows/70203/destinations/294477.xml": {
+    "podcast_name": "The Ultimate Achievement Show",
+    "artist_name": "Dr. Matthew Westheimer",
+    "feed_url": "https://rss.libsyn.com/shows/70203/destinations/294477.xml",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 2104 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/4c22dcf0/podcast/rss": {
+    "podcast_name": "Smart Route",
+    "artist_name": "CTM",
+    "feed_url": "https://anchor.fm/s/4c22dcf0/podcast/rss",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 280 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Tech & SaaS"
+  },
+  "https://rss.libsyn.com/shows/205451/destinations/1473385.xml": {
+    "podcast_name": "The Sprinkler Nerd Show",
+    "artist_name": "Andy Humphrey",
+    "feed_url": "https://rss.libsyn.com/shows/205451/destinations/1473385.xml",
+    "genre": "Home & Garden",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Home & Garden)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://rss.libsyn.com/shows/345341/destinations/2819990.xml": {
+    "podcast_name": "BOSS Talk",
+    "artist_name": "La'Vista Jones",
+    "feed_url": "https://rss.libsyn.com/shows/345341/destinations/2819990.xml",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1056 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé"
+  },
+  "https://feeds.soundcloud.com/users/soundcloud:users:813022150/sounds.rss": {
+    "podcast_name": "Africa Legal Podcast",
+    "artist_name": "Africa Legal",
+    "feed_url": "https://feeds.soundcloud.com/users/soundcloud:users:813022150/sounds.rss",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 105 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Juridique"
+  },
+  "https://anchor.fm/s/b2ad810/podcast/rss": {
+    "podcast_name": "The New School Podcast with Christine Hong",
+    "artist_name": "Christine Hong",
+    "feed_url": "https://anchor.fm/s/b2ad810/podcast/rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 2178 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Construction & Industrie"
+  },
+  "https://rss.libsyn.com/shows/123952/destinations/733504.xml": {
+    "podcast_name": "The Writing Witch",
+    "artist_name": "Afura Nefertiti Fareed",
+    "feed_url": "https://rss.libsyn.com/shows/123952/destinations/733504.xml",
+    "genre": "Spirituality",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Spirituality)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://anchor.fm/s/de01deb4/podcast/rss": {
+    "podcast_name": "The Problem Solver",
+    "artist_name": "David Kohlmeier",
+    "feed_url": "https://anchor.fm/s/de01deb4/podcast/rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1098 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Juridique"
+  },
+  "https://feed.ausha.co/OmlkPijez9ND": {
+    "podcast_name": "Leading with integrity: Leadership talk",
+    "artist_name": "David Hatch",
+    "feed_url": "https://feed.ausha.co/OmlkPijez9ND",
+    "genre": "Management",
+    "track_count": 257,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/leading-with-integrity-leadership-talk/id1634571070?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/47/a6/a3/47a6a364-1327-c5c6-9627-8471a9c05fb6/mza_16196730332831388815.jpeg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par David Hatch, créateur/expert indépendant identifiable, sur un sujet business/B2B (management et leadership), avec 257 épisodes réguliers et aucun indice de grande notoriété ou affiliation média. Correspond au profil CREATEUR accepté depuis 27/10/2026.",
+    "checked_date": "2026-11-17",
+    "secteur": "Construction & Industrie",
+    "nb_episodes": 257,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Leadership",
+      "Cholesterol Management",
+      "Stress Management",
+      "Time Management"
+    ],
+    "contact_email": "info@griffonconsulting.co.uk"
+  },
+  "https://rss.libsyn.com/shows/443349/destinations/3710415.xml": {
+    "podcast_name": "Aquarian Age Business",
+    "artist_name": "Oath Oracle",
+    "feed_url": "https://rss.libsyn.com/shows/443349/destinations/3710415.xml",
+    "genre": "Entrepreneurship",
+    "track_count": 101,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/aquarian-age-business/id1652943902?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/2c/20/91/2c20912b-bd5a-0cbd-3595-5e336a00979b/mza_9913759706961701520.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast d'entrepreneurship produit par un créateur/expert indépendant identifiable (Oath Oracle), audience petite à moyenne (101 épisodes, sujet B2B niche), aucun indicateur de célébrité ou affiliation media grand public. Correspond au critère CREATEUR depuis la décision du 27/10/2026.",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé libérale",
+    "nb_episodes": 101,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Law",
+      "Business Law",
+      "Business Strategy",
+      "Business Growth"
+    ],
+    "contact_email": "oath.oracle@gmail.com"
+  },
+  "https://feeds.transistor.fm/reimagine-law": {
+    "podcast_name": "Reimagine Law",
+    "artist_name": "Frances Ridout (QMUL), Kerry Jarred (Jarred Consulting), Simon Reichwald (UnTappedTalentUK), Nigel Spencer (QMUL)",
+    "feed_url": "https://feeds.transistor.fm/reimagine-law",
+    "genre": "Careers",
+    "track_count": 137,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/reimagine-law/id1807805383?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/08/22/b2/0822b2b2-f139-a38d-0a74-89c9971e5e5c/mza_17848516586207192531.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B produit par Queen Mary University of London (QMUL) avec des experts identifiables (Frances Ridout, Kerry Jarred, Simon Reichwald, Nigel Spencer). Audience petite/moyenne, sujet business/droit, pas de couverture documentaire massive attendue.",
+    "checked_date": "2026-11-17",
+    "secteur": "Juridique",
+    "nb_episodes": 137,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Cybersecurity Careers"
+    ],
+    "contact_email": "accounts@jannomedia.com"
   }
 }
