@@ -2,10 +2,10 @@
  "date": "2026-11-17",
  "mode": "liste a traiter dans Claude + Chrome (demande d'indexation manuelle, validation par page)",
  "repartition": {
-  "connu": 3,
-  "mot_cle": 7
+  "connu": 5,
+  "mot_cle": 5
  },
- "selection": "note seule (volumes non a jour, Keyword Planner en echec)",
+ "selection": "50/50 connus + mots-cles ; volumes du jour + note",
  "pretes": 10,
  "urls": [
   {
@@ -13,6 +13,54 @@
    "titre": "How did unions protect prevailing wages? | Forum Focus",
    "score_qualite": 88,
    "source": "mot_cle",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/the-diary-of-a-ceo-with-steven-bartlett/9ed9bf7833",
+   "titre": "How did Spotify prepare for Apple Music 2015? | Listenly",
+   "score_qualite": 68,
+   "source": "connu",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/b2b-vault-the-biz-to-biz-podcast/90e238f7c5",
+   "titre": "When did Square stop CBD processing? | Listenly",
+   "score_qualite": 57,
+   "source": "connu",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/freakonomics-radio/0105efef43",
+   "titre": "Is sortition better than elections? | Freakonomics Radio",
+   "score_qualite": 68,
+   "source": "connu",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/3-take-away/04e659d6fa",
+   "titre": "What is the cobra effect in practice? | 3 Takeaways™",
+   "score_qualite": 60,
+   "source": "connu",
    "http": 200,
    "verdict": "NEUTRAL",
    "etat": "URL is unknown to Google",
@@ -33,33 +81,9 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/3-take-away/04e659d6fa",
-   "titre": "What is the cobra effect? | 3 Takeaways™",
+   "url": "https://listenly.org/podcast-btb/m/nerding-out-with-viktor/c8004e31a5",
+   "titre": "What does a Hardware Security Module do? | Listenly",
    "score_qualite": 60,
-   "source": "connu",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/guy-kawasaki-s-remarkable-people/127c551d12",
-   "titre": "Why do people feel unloved? | Guy Kawasaki's Remarkable",
-   "score_qualite": 60,
-   "source": "connu",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/hallocasa-real-estate-show/4fb639fa94",
-   "titre": "1% rule real estate metric? | HalloCasa Real Estate Show",
-   "score_qualite": 63,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -69,20 +93,8 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/best-franchise-brands-podcast/6847ae5310",
-   "titre": "Kaizen Sean Foley Redbox+? | Best Franchise Brands Podc",
-   "score_qualite": 68,
-   "source": "mot_cle",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/the-real-solutions-business-podcast/b29af8b06b",
-   "titre": "How does AEO differ from SEO? | The Real Solutions Busines",
+   "url": "https://listenly.org/podcast-btb/m/benefits-executive-roundtable/aedd16f354",
+   "titre": "When is Medicare open enrollment period? | Listenly",
    "score_qualite": 72,
    "source": "mot_cle",
    "http": 200,
@@ -93,9 +105,9 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/proven-podcast/df11809354",
-   "titre": "Does Sesame make healthcare prices clear? | Proven Podcast",
-   "score_qualite": 88,
+   "url": "https://listenly.org/podcast-btb/m/next-venture-alliance-show/0c86558152",
+   "titre": "What is a legal description in property? | Listenly",
+   "score_qualite": 64,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -105,21 +117,9 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/executive-wins-podcast/e6e987421e",
-   "titre": "What is NorQuest's strategy? | Executive Wins Podcast",
-   "score_qualite": 86,
-   "source": "mot_cle",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/digital-construction-podcast/6e3e7243c3",
-   "titre": "BIM career advice that lasts? — Digital Construction",
-   "score_qualite": 74,
+   "url": "https://listenly.org/podcast-btb/m/lifelong-learners-collective/d462fac409",
+   "titre": "How does EFT tapping differ from talk therapy? | Listenly",
+   "score_qualite": 60,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
