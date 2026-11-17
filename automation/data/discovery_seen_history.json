@@ -351338,12 +351338,13 @@
     "feed_url": "https://rss.buzzsprout.com/1288742.rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Agences de services",
     "gate": "dirigeant",
-    "email_domain": "fallowfieldmason.com"
+    "email_domain": "fallowfieldmason.com",
+    "rescue": "2026-11-17"
   },
   "https://anchor.fm/s/106d5dffc/podcast/rss": {
     "podcast_name": "The Business Enquirer Podcast",
@@ -351373,12 +351374,13 @@
     "feed_url": "https://rss.buzzsprout.com/2510516.rss",
     "genre": "Alternative Health",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-17",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "nnbl.blog"
+    "email_domain": "nnbl.blog",
+    "rescue": "2026-11-17"
   },
   "https://rss.libsyn.com/shows/45940/destinations/151545.xml": {
     "podcast_name": "The Head Trash + Healing Show with Alexia Leachman",
@@ -351540,5 +351542,188 @@
     "checked_date": "2026-11-17",
     "secteur": "Santé libérale",
     "nb_episodes": 101
+  },
+  "https://api.riverside.fm/hosting/9CxL0jZZ.rss": {
+    "podcast_name": "Alternative Exit",
+    "artist_name": "Andy",
+    "feed_url": "https://api.riverside.fm/hosting/9CxL0jZZ.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "RH & Recrutement",
+    "gate": "dirigeant",
+    "email_domain": "abettermonday.me"
+  },
+  "https://feed.podbean.com/duckcreektechnologies/feed.xml": {
+    "podcast_name": "Conversations on the Creek",
+    "artist_name": "Duck Creek Technologies",
+    "feed_url": "https://feed.podbean.com/duckcreektechnologies/feed.xml",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Cybersécurité"
+  },
+  "https://rss.buzzsprout.com/1405264.rss": {
+    "podcast_name": "Real Estate VS Technology: UNLEASHED!",
+    "artist_name": "Liftoff Agent",
+    "feed_url": "https://rss.buzzsprout.com/1405264.rss",
+    "genre": "Tech News",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Immobilier"
+  },
+  "https://anchor.fm/s/9f1c9950/podcast/rss": {
+    "podcast_name": "ANAVIVO",
+    "artist_name": "Tim C. Miller",
+    "feed_url": "https://anchor.fm/s/9f1c9950/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 952 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Immobilier"
+  },
+  "https://www.primarycarecures.com/feed/podcast/": {
+    "podcast_name": "Primary Care Cures",
+    "artist_name": "Ron Barshop",
+    "feed_url": "https://www.primarycarecures.com/feed/podcast/",
+    "genre": "Medicine",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 867 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé"
+  },
+  "https://www.spreaker.com/show/6348411/episodes/feed": {
+    "podcast_name": "Cafe con Pam",
+    "artist_name": "Pam Covarrubias",
+    "feed_url": "https://www.spreaker.com/show/6348411/episodes/feed",
+    "genre": "Personal Journals",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Personal Journals)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "RH & Recrutement"
+  },
+  "https://feed.ausha.co/yOd0kQFY9387": {
+    "podcast_name": "The Edge Effect: A Marketing Podcast",
+    "artist_name": "Caroline Crawford",
+    "feed_url": "https://feed.ausha.co/yOd0kQFY9387",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 727 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Agences de services"
+  },
+  "https://anchor.fm/s/b5aa84c/podcast/rss": {
+    "podcast_name": "PowerTalk",
+    "artist_name": "Nani Bernal",
+    "feed_url": "https://anchor.fm/s/b5aa84c/podcast/rss",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Business général (entreprise)"
+  },
+  "https://rss.art19.com/the-worlds-first-podcast": {
+    "podcast_name": "The World's First Podcast with Erin & Sara Foster",
+    "artist_name": "Dear Media | Wishbone Production",
+    "feed_url": "https://rss.art19.com/the-worlds-first-podcast",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Santé",
+    "gate": "dirigeant",
+    "email_domain": "dearmedia.com"
+  },
+  "https://anchor.fm/s/106020920/podcast/rss": {
+    "podcast_name": "Becoming Visible with Christina Payne",
+    "artist_name": "Christina Payne",
+    "feed_url": "https://anchor.fm/s/106020920/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 421 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Logistique & Supply chain"
+  },
+  "https://rss.buzzsprout.com/2040663.rss": {
+    "podcast_name": "Where Humanity Meets Technology Podcast",
+    "artist_name": "Maurice O. Hamilton Sr.",
+    "feed_url": "https://rss.buzzsprout.com/2040663.rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Logistique & Supply chain"
+  },
+  "https://media.rss.com/thebword/feed.xml": {
+    "podcast_name": "The B Word",
+    "artist_name": "Structure",
+    "feed_url": "https://media.rss.com/thebword/feed.xml",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Agences de services"
+  },
+  "https://anchor.fm/s/942841fc/podcast/rss": {
+    "podcast_name": "Niche Finance",
+    "artist_name": "Jackson Roberts",
+    "feed_url": "https://anchor.fm/s/942841fc/podcast/rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1562 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech"
+  },
+  "https://rss.buzzsprout.com/1392172.rss": {
+    "podcast_name": "Connect Inspire Create",
+    "artist_name": "Carol Clegg",
+    "feed_url": "https://rss.buzzsprout.com/1392172.rss",
+    "genre": "Entrepreneurship",
+    "track_count": 227,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/connect-inspire-create/id1534662994?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/f6/0c/e4/f60ce4d6-f31f-abcb-32aa-a07c21899e84/mza_16609920248262643291.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast d'entrepreneurship anime par Carol Clegg, createur independant identifiable, avec 227 episodes reguliers. Sujet business/B2B, audience petite-moyenne (pas de signal de notoriete mass-media ou media etabli), correspond au critere CREATEUR depuis la decision du 27/10/2026.",
+    "checked_date": "2026-11-17",
+    "secteur": "Business général (entreprise)",
+    "nb_episodes": 227,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Female Entrepreneurship",
+      "Serial Entrepreneurship"
+    ],
+    "contact_email": "carol@carolclegg.com"
+  },
+  "https://feeds.megaphone.fm/NYGNA8557055622": {
+    "podcast_name": "The Calum Johnson Show",
+    "artist_name": "Unknown",
+    "feed_url": "https://feeds.megaphone.fm/NYGNA8557055622",
+    "genre": "Entrepreneurship",
+    "track_count": 202,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-calum-johnson-show/id1609102004?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/05/d0/b5/05d0b5e2-539a-fe5d-82e8-594aed13a6f3/mza_1027611230628579942.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Impossible de valider l'identité du créateur (artistName = 'Unknown'). Sans confirmation d'une personne identifiable rattachée au podcast, le critère 2 n'est pas satisfait.",
+    "checked_date": "2026-11-17",
+    "secteur": "Finance & Fintech",
+    "nb_episodes": 202
   }
 }
