@@ -361267,12 +361267,13 @@
     "feed_url": "https://anchor.fm/s/f17aac78/podcast/rss",
     "genre": "Marketing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Agences de services",
     "gate": "dirigeant",
-    "email_domain": "limitlessimpactagency.com"
+    "email_domain": "limitlessimpactagency.com",
+    "rescue": "2026-11-18"
   },
   "https://rss.buzzsprout.com/1789177.rss": {
     "podcast_name": "The Changeup",
@@ -361328,5 +361329,76 @@
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/1131393b8/podcast/rss": {
+    "podcast_name": "Jack Vaughan Podcast",
+    "artist_name": "Jack Vaughan",
+    "feed_url": "https://anchor.fm/s/1131393b8/podcast/rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 264 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://www.spreaker.com/show/5883926/episodes/feed": {
+    "podcast_name": "Shine Your Light",
+    "artist_name": "Bold Brave TV",
+    "feed_url": "https://www.spreaker.com/show/5883926/episodes/feed",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://troytrojans.com/services/podcast_rss.ashx": {
+    "podcast_name": "Troy Trojans Athletics",
+    "artist_name": "Troy Athletics",
+    "feed_url": "https://troytrojans.com/services/podcast_rss.ashx",
+    "genre": "Sports",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : email ecole / administration (troy.edu)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Juridique"
+  },
+  "https://feeds.fireside.fm/fibep/rss": {
+    "podcast_name": "Media Intelligence Explained",
+    "artist_name": "FIBEP",
+    "feed_url": "https://feeds.fireside.fm/fibep/rss",
+    "genre": "Management",
+    "track_count": 26,
+    "collection_view_url": "https://podcasts.apple.com/gb/podcast/media-intelligence-explained/id1615972611?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/73/e5/57/73e55731-b71c-9f43-b129-46a972d8b139/mza_14407867319171234760.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B produit par FIBEP (éditeur identifié), sujet Management aligné avec l'expertise media intelligence, 26 épisodes réguliers, audience petite/moyenne, pas de notoriété grand public détectée. Remplit tous les critères d'onboarding.",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes",
+    "nb_episodes": 26,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Cholesterol Management",
+      "Stress Management",
+      "Emotional Intelligence",
+      "Time Management"
+    ],
+    "contact_email": "fibep@govori-internet.com"
+  },
+  "https://rss.libsyn.com/shows/223658/destinations/1637177.xml": {
+    "podcast_name": "The Psymposia Podcast",
+    "artist_name": "Psymposia",
+    "feed_url": "https://rss.libsyn.com/shows/223658/destinations/1637177.xml",
+    "genre": "Society & Culture",
+    "track_count": 99,
+    "collection_view_url": "https://podcasts.apple.com/gb/podcast/the-psymposia-podcast/id1489329965?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/24/5d/7b/245d7b65-c32e-2ab9-3e20-519912909956/mza_6333244447161533410.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Le sujet 'Society & Culture' ne correspond pas à la cible B2B/business requise. Psymposia apparaît comme un projet de contenu culturel/sociétal généraliste, non un podcast business ou d'expertise professionnelle.",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes",
+    "nb_episodes": 99
   }
 }
