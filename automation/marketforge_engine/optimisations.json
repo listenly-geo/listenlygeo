@@ -54,6 +54,14 @@
    "texte": "Nouvelle adresse SAV supportindex@marketforge.fr : les mails envoyés aux clients après paiement (confirmation, Index prêt) partent de cette adresse, les réponses des clients y arrivent, et elle est affichée en bas de la page de vente.",
    "date": "18/11/2026",
    "statut": "en_cours"
+  },
+  {
+   "id": "opt-373",
+   "section": "Mesure",
+   "version": "V4.0",
+   "texte": "Contrôle automatique du paiement : à chaque déploiement de la page d'onboarding, le système vérifie qu'un faux paiement est refusé par Stripe, donc que seuls les vrais clients qui ont payé déclenchent la construction de leur Index.",
+   "date": "18/11/2026",
+   "statut": "en_cours"
   }
  ],
  "items": [

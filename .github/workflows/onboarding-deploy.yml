@@ -56,3 +56,16 @@ jobs:
           done
           echo "reponse: ${rep:0:200}"
           echo "$rep" | grep -q 'paiement introuvable' && echo "::notice::reception active (refus d'un faux paiement OK)" || { echo "::error::reception non active (script pas a jour ?)"; exit 1; }
+      - name: Verifier que Stripe controle bien le paiement (un faux paiement doit etre refuse)
+        run: |
+          BASE="${MFE_SHEET_URL%%\?*}"
+          rep=""
+          for i in 1 2 3 4 5; do
+            rep=$(curl -sSL -m 90 -H 'Content-Type: text/plain' -d '{"action":"onboarding_public","session_id":"cs_live_zzzzzzzzzzzzzzzzzzzzzzzz","email":"verif@marketforge.fr","podcast":"VERIFICATION AUTOMATIQUE"}' "$BASE" || true)
+            echo "$rep" | grep -q '"ok"' && break
+            sleep 15
+          done
+          echo "reponse: ${rep:0:200}"
+          if echo "$rep" | grep -q 'paiement non confirme'; then echo "::notice::Stripe controle les paiements (faux paiement refuse)"
+          elif echo "$rep" | grep -q '"ok":true'; then echo "::error::cle Stripe absente ou non lue : un faux paiement a ete accepte (ligne VERIFICATION AUTOMATIQUE ecrite dans l'onglet Onboarding)"; exit 1
+          else echo "::error::reponse inattendue"; exit 1; fi
