@@ -5,71 +5,95 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Podcast AI Index - MarketForge</title>
-<meta name="description" content="Turn the expertise in your podcast into pages that Google and ChatGPT can cite.">
+<meta name="description" content="Your podcast already has the answers. Get them found by Google and AI.">
 <style>
-:root{--bg:#fff;--ink:#1d1d1f;--mut:#6e6e73;--line:#e8e8ed;--blue:#0071e3;--card:#fff}
+:root{--bg:#fff;--ink:#0A0A0A;--mut:#6b6b70;--line:rgba(10,10,10,.08);--blue:#315BFF;--soft:#FAFAF7}
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif}
-.wrap{max-width:760px;margin:0 auto;padding:0 20px 80px}
-header{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-bottom:1px solid var(--line)}
-.brand{font-weight:700;font-size:18px}
-.hero{text-align:center;padding:64px 0 28px}
-.tag{color:var(--mut);font-size:14px;margin-bottom:14px}
-h1{font-size:40px;line-height:1.1;letter-spacing:-.02em;margin:0 0 16px;font-weight:600}
-.lead{color:var(--mut);font-size:19px;margin:0 auto;max-width:620px}
-.video{margin:36px 0 8px;border-radius:18px;overflow:hidden;border:1px solid var(--line);aspect-ratio:16/9;background:#f5f5f7}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+header{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.brand{font-weight:700;font-size:18px;letter-spacing:-.01em}
+.lang{display:flex;gap:4px;font-size:13px}
+.lang button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;cursor:pointer;font:inherit;color:var(--mut)}
+.lang button.on{color:var(--ink);border-color:var(--ink)}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:14px}
+h1{font-size:clamp(34px,5.2vw,58px);line-height:1.04;letter-spacing:-.035em;margin:0 0 18px;font-weight:600}
+h2{font-size:clamp(28px,3.6vw,42px);line-height:1.1;letter-spacing:-.03em;margin:0 0 12px;font-weight:600}
+.lead{color:var(--mut);font-size:19px;max-width:560px;margin:0 0 26px}
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:44px;align-items:center;padding:54px 0 70px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;text-decoration:none;font-weight:600;border-radius:999px;padding:14px 26px;font-size:16px;border:1px solid var(--ink);color:var(--ink);background:#fff}
+.btn.p{background:var(--blue);border-color:var(--blue);color:#fff}
+.video{border-radius:22px;overflow:hidden;border:1px solid var(--line);aspect-ratio:16/9;background:var(--soft);display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:14px;text-align:center;padding:20px}
 .video iframe{width:100%;height:100%;border:0}
-h2{font-size:28px;letter-spacing:-.01em;margin:56px 0 18px;font-weight:600;text-align:center}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.card{border:1px solid var(--line);border-radius:18px;padding:20px;background:var(--card)}
-.card b{display:block;margin-bottom:4px}
-.card span{color:var(--mut);font-size:15px}
-.steps{list-style:none;padding:0;margin:0;display:grid;gap:12px}
-.steps li{display:flex;gap:14px;align-items:flex-start;border:1px solid var(--line);border-radius:18px;padding:16px 18px}
-.n{flex:none;width:30px;height:30px;border-radius:50%;background:#f5f5f7;font-weight:600;display:flex;align-items:center;justify-content:center}
-.price{text-align:center;border:1px solid var(--line);border-radius:22px;padding:34px 20px;margin-top:56px}
-.amount{font-size:56px;font-weight:600;letter-spacing:-.03em;line-height:1}
-.note{color:var(--mut);margin:8px 0 22px}
-.btn{display:inline-block;background:var(--blue);color:#fff;text-decoration:none;font-weight:600;border-radius:999px;padding:15px 30px;font-size:17px}
-.alt{color:var(--mut);font-size:15px;margin-top:14px}
+section{padding:70px 0;border-top:1px solid var(--line)}
+.center{text-align:center}
+.center .lead{margin:0 auto 38px}
+.flow{display:flex;align-items:stretch;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 0 34px}
+.flow .st{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:14px 18px;font-weight:600;font-size:15px;min-width:150px}
+.flow .ar{align-self:center;color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--soft);border:1px solid var(--line);border-radius:22px;padding:26px;transition:transform .2s,border-color .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);border-color:var(--blue);box-shadow:0 10px 30px rgba(10,10,10,.06)}
+.ic{width:42px;height:42px;border-radius:12px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:14px;color:var(--blue)}
+.ic svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card b{display:block;margin-bottom:6px;font-size:17px}
+.card span{color:var(--mut);font-size:15px;display:block}
+.price{max-width:520px;margin:0 auto;border:1px solid var(--line);border-radius:26px;padding:38px 30px;text-align:center;background:#fff;box-shadow:0 14px 44px rgba(10,10,10,.06)}
+.name{font-weight:600;color:var(--mut);margin-bottom:6px}
+.amount{font-size:64px;font-weight:600;letter-spacing:-.04em;line-height:1}
+.note{color:var(--mut);margin:8px 0 24px}
+.list{list-style:none;padding:0;margin:0 0 28px;text-align:left;display:grid;gap:11px}
+.list li{display:flex;gap:10px;font-size:15.5px}
+.list li:before{content:"✓";color:var(--blue);font-weight:700}
+.alt{color:var(--mut);font-size:15px;margin-top:16px}
 .alt a{color:var(--blue)}
-footer{margin-top:60px;color:var(--mut);font-size:13px;text-align:center}
-.hide{display:none}
-@media(max-width:620px){h1{font-size:31px}.grid{grid-template-columns:1fr}.hero{padding-top:44px}}
+.hide{display:none!important}
+footer{padding:34px 0 50px;color:var(--mut);font-size:13px;text-align:center;border-top:1px solid var(--line)}
+@media(max-width:860px){.hero{grid-template-columns:1fr;gap:30px;padding-top:30px}.grid{grid-template-columns:1fr}.flow .ar{display:none}.flow .st{flex:1 1 100%}}
+.rv{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}.rv.in{opacity:1;transform:none}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header><div class="brand">MarketForge</div></header>
+<header><div class="brand">MarketForge</div><div class="lang"><button data-l="en">EN</button><button data-l="fr">FR</button></div></header>
 
-<section class="hero">
-  <div class="tag">Podcast AI Index</div>
-  <h1>Your podcast, found by Google and ChatGPT.</h1>
-  <p class="lead">We turn what you and your guests already say into pages that answer real questions, with the expert quote and the audio clip. Nothing new to record.</p>
-</section>
-
-<div class="video hide" id="video"></div>
-
-<h2>What is in your Index</h2>
-<div class="grid">
-  <div class="card"><b>A page per real question</b><span>Each question your episodes answer becomes its own page.</span></div>
-  <div class="card"><b>A clear answer</b><span>Written in plain words, with the expert's own quote.</span></div>
-  <div class="card"><b>Key points</b><span>The takeaways, ready to be read and cited.</span></div>
-  <div class="card"><b>The audio, at the right second</b><span>The player starts exactly where the answer is given.</span></div>
+<div class="hero">
+  <div>
+    <div class="eyebrow" data-t="eyebrow"></div>
+    <h1 data-t="h1"></h1>
+    <p class="lead" data-t="sub"></p>
+    <div class="btns"><a class="btn p" href="#pricing" data-t="cta1"></a><a class="btn" href="#spec" data-t="cta2"></a></div>
+  </div>
+  <div class="video" id="video"><span data-t="vidsoon"></span></div>
 </div>
 
-<h2>How it works</h2>
-<ol class="steps">
-  <li><div class="n">1</div><div><b>You get started</b><br><span style="color:var(--mut)">A secure payment, then a short form about your podcast and your goals.</span></div></li>
-  <li><div class="n">2</div><div><b>We build your Index</b><br><span style="color:var(--mut)">From your existing episodes, with your name and your call to action.</span></div></li>
-  <li><div class="n">3</div><div><b>You put it online</b><br><span style="color:var(--mut)">Delivered ready to install on your own website, with a step-by-step guide.</span></div></li>
-</ol>
+<section id="spec" class="center">
+  <div class="eyebrow" data-t="spec_eyebrow"></div>
+  <h2 data-t="spec_title"></h2>
+  <p class="lead" data-t="spec_sub"></p>
+  <div class="flow rv">
+    <div class="st" data-t="f1"></div><div class="ar">→</div>
+    <div class="st" data-t="f2"></div><div class="ar">→</div>
+    <div class="st" data-t="f3"></div><div class="ar">→</div>
+    <div class="st" data-t="f4"></div>
+  </div>
+  <div class="grid" id="specgrid" style="text-align:left"></div>
+</section>
 
-<section class="price" id="start">
-  <div class="amount" id="price">297 €</div>
-  <div class="note" id="note">Launch price, one-time payment.</div>
-  <a class="btn hide" id="pay" href="#">Get my Index</a>
-  <div class="alt hide" id="alt">Questions first? <a id="mail" href="#">Reply to my email</a>, I read every message.</div>
+<section id="pricing" class="center">
+  <div class="eyebrow" data-t="pr_eyebrow"></div>
+  <h2 data-t="pr_title"></h2>
+  <p class="lead" data-t="pr_sub"></p>
+  <div class="price rv">
+    <div class="name">Index</div>
+    <div class="amount" id="price">297 €</div>
+    <div class="note" id="note"></div>
+    <ul class="list" id="incl"></ul>
+    <a class="btn p hide" id="pay" href="#" data-t="pr_btn"></a>
+    <div class="alt" id="alt"><a id="mail" href="#" data-t="pr_alt"></a></div>
+  </div>
 </section>
 
 <footer>© MarketForge</footer>
@@ -77,29 +101,80 @@ footer{margin-top:60px;color:var(--mut);font-size:13px;text-align:center}
 
 <script>
 (function(){
-  var ENDPOINT="__OFFRE_ENDPOINT__";
-  var q=new URLSearchParams(location.search), ref=(q.get("ref")||"").replace(/[^a-zA-Z0-9._-]/g,"").slice(0,80);
-  function ping(ev){
-    if(!ENDPOINT||ENDPOINT.indexOf("http")!==0)return;
-    try{fetch(ENDPOINT,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain"},body:JSON.stringify({action:"offre_event",event:ev,ref:ref,variant:"base"})});}catch(e){}
-  }
-  ping("vue");
-  fetch("config.json?t="+Date.now()).then(function(r){return r.json()}).then(function(c){
-    if(c.price_label)document.getElementById("price").textContent=c.price_label;
-    if(c.price_note)document.getElementById("note").textContent=c.price_note;
-    var mail=c.contact_email||"";
-    if(c.video_url&&/^https:\/\/(www\.youtube\.com|www\.youtube-nocookie\.com|player\.vimeo\.com)\//.test(c.video_url)){
-      var v=document.getElementById("video");v.innerHTML='<iframe src="'+c.video_url+'" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';v.classList.remove("hide");
-    }
-    var pay=document.getElementById("pay"),alt=document.getElementById("alt");
-    if(c.payment_url&&/^https:\/\//.test(c.payment_url)){
-      var u=c.payment_url+(ref&&c.payment_url.indexOf("buy.stripe.com")>-1?(c.payment_url.indexOf("?")<0?"?":"&")+"client_reference_id="+encodeURIComponent(ref):"");
-      pay.href=u;pay.classList.remove("hide");pay.addEventListener("click",function(){ping("clic")});
-    }else if(mail){
-      pay.textContent="Reply to get started";pay.href="mailto:"+mail+"?subject="+encodeURIComponent("Podcast AI Index");pay.classList.remove("hide");pay.addEventListener("click",function(){ping("clic")});
-    }
-    if(mail){var m=document.getElementById("mail");m.href="mailto:"+mail+"?subject="+encodeURIComponent("Podcast AI Index");alt.classList.remove("hide");}
-  }).catch(function(){});
+var ENDPOINT="__OFFRE_ENDPOINT__";
+var T={
+en:{eyebrow:"Podcast AI Index",h1:"Your podcast already has the answers. Get them found by Google and AI.",
+ sub:"Your podcast becomes answers that Google, ChatGPT, Claude and Gemini can find and cite. Nothing new to record, no change to your strategy.",
+ cta1:"Get my Index",cta2:"See how it works",vidsoon:"Video coming soon",
+ spec_eyebrow:"TECHNICAL SHEET",spec_title:"What's inside an Index",
+ spec_sub:"An Index is a set of pages installed on your domain. Each page answers a real question from your episodes, with a written answer, an audio player and a link to the full episode.",
+ f1:"Episode",f2:"Extracted question",f3:"Answer page on your domain",f4:"Found and cited by Google and AI",
+ items:[
+ ["file","Answer pages","One page per real question extracted from your episodes, with a clear answer, an embedded audio player and a link back to the full episode."],
+ ["globe","Hosted on your domain","Installed on a subdomain you control (e.g. expertise.yoursite.com). You keep the traffic and the SEO."],
+ ["bot","Readable by AI and search engines","Structure built for Google, ChatGPT, Claude and Gemini, so your answers can be cited in AI Overviews and chats."],
+ ["wand","Automatic extraction","Your episodes are analysed and the questions and answers are extracted automatically. No extra content to write or publish."],
+ ["refresh","Automatic updates","New episodes are included for the first 3 months. The Index updates without any work on your side."],
+ ["shield","No change of strategy","You keep producing your podcast exactly as before. The Index turns what already exists into visibility."]],
+ pr_eyebrow:"PRICING",pr_title:"One simple offer. Installed on your site.",pr_sub:"Everything you need to turn your podcast into answers that can be found.",
+ note:"One-time payment, lifetime",
+ incl:["Installed on your own site (e.g. expertise.yoursite.com)","One page per real question from your episodes: answer, audio player, link to the episode","Readable by Google, ChatGPT, Claude and Gemini","Your first 20 questions online within 48 hours","New episodes included for the first 3 months","No extra content to publish, no change of strategy"],
+ pr_btn:"Get my Index",pr_alt:"Not sure yet? Reply to my email and I'll show you an example.",pr_btn2:"Reply to get started"},
+fr:{eyebrow:"Index Podcast IA",h1:"Votre podcast a déjà les réponses. Faites-les trouver par Google et les IA.",
+ sub:"Votre podcast devient des réponses que Google, ChatGPT, Claude et Gemini peuvent trouver et citer. Rien de plus à enregistrer, aucun changement de stratégie.",
+ cta1:"Obtenir mon Index",cta2:"Voir comment ça marche",vidsoon:"Vidéo bientôt disponible",
+ spec_eyebrow:"FICHE TECHNIQUE",spec_title:"Qu'est-ce qu'un Index ?",
+ spec_sub:"Un Index est un ensemble de pages installées sur votre domaine. Chaque page répond à une vraie question issue de vos épisodes, avec une réponse écrite, un lecteur audio et un lien vers l'épisode complet.",
+ f1:"Épisode",f2:"Question extraite",f3:"Page de réponse sur votre domaine",f4:"Trouvée et citée par Google et les IA",
+ items:[
+ ["file","Pages de réponses","Une page par question réelle extraite de vos épisodes, avec une réponse claire, un lecteur audio intégré et un lien vers l'épisode complet."],
+ ["globe","Hébergé sur votre domaine","Installé sur un sous-domaine que vous contrôlez (ex. expertise.votresite.com). Vous restez propriétaire du trafic et du SEO."],
+ ["bot","Lisible par les IA et les moteurs de recherche","Structure pensée pour Google, ChatGPT, Claude et Gemini : vos réponses peuvent être citées dans les AI Overviews et les chats."],
+ ["wand","Extraction automatique","Vos épisodes sont analysés, les questions et réponses sont extraites automatiquement. Aucun contenu supplémentaire à écrire ou publier."],
+ ["refresh","Mises à jour automatiques","Les nouveaux épisodes sont inclus pendant les 3 premiers mois. L'Index se met à jour sans intervention de votre part."],
+ ["shield","Aucun changement de stratégie","Vous continuez à produire votre podcast exactement comme avant. L'Index transforme ce qui existe déjà en visibilité."]],
+ pr_eyebrow:"TARIF",pr_title:"Une offre simple. Installée sur votre site.",pr_sub:"Tout ce qu'il faut pour transformer votre podcast en réponses qui se trouvent.",
+ note:"Paiement unique, à vie",
+ incl:["Installé sur votre propre site (ex. expertise.votresite.com)","Une page par vraie question de vos épisodes : réponse, lecteur audio, lien vers l'épisode","Lisible par Google, ChatGPT, Claude et Gemini","Vos 20 premières questions en ligne sous 48 heures","Nouveaux épisodes inclus pendant les 3 premiers mois","Aucun contenu supplémentaire à publier, aucun changement de stratégie"],
+ pr_btn:"Obtenir mon Index",pr_alt:"Pas sûr ? Répondez à mon mail, je vous montre un exemple.",pr_btn2:"Répondre pour commencer"}
+};
+var ICON={file:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',
+ globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+ bot:'<rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M9 16.5h6"/>',
+ wand:'<path d="M5 19 19 5M14 5l1-2 1 2 2 1-2 1-1 2-1-2-2-1zM6 10l.7-1.4L8 8l-1.3-.6L6 6l-.6 1.4L4 8l1.4.6z"/>',
+ refresh:'<path d="M20 11a8 8 0 0 0-14.5-3.5L4 9M4 4v5h5M4 13a8 8 0 0 0 14.5 3.5L20 15M20 20v-5h-5"/>',
+ shield:'<path d="M12 3 5 6v6c0 4.5 3 8 7 9 4-1 7-4.5 7-9V6z"/><path d="m9 12 2 2 4-4"/>'};
+var q=new URLSearchParams(location.search),ref=(q.get("ref")||"").replace(/[^a-zA-Z0-9._-]/g,"").slice(0,80);
+var lang=(q.get("lang")||((navigator.language||"en").slice(0,2)==="fr"?"fr":"en"));if(!T[lang])lang="en";
+var CFG={};
+function ping(ev){if(!ENDPOINT||ENDPOINT.indexOf("http")!==0)return;try{fetch(ENDPOINT,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain"},body:JSON.stringify({action:"offre_event",event:ev,ref:ref,variant:"base"})});}catch(e){}}
+function render(){
+ var t=T[lang];document.documentElement.lang=lang;
+ document.querySelectorAll("[data-t]").forEach(function(e){var k=e.getAttribute("data-t");if(t[k]!=null)e.textContent=t[k];});
+ document.getElementById("specgrid").innerHTML=t.items.map(function(i){return '<div class="card rv in"><div class="ic"><svg viewBox="0 0 24 24">'+ICON[i[0]]+'</svg></div><b>'+i[1]+'</b><span>'+i[2]+'</span></div>';}).join("");
+ document.getElementById("incl").innerHTML=t.incl.map(function(x){return "<li>"+x+"</li>";}).join("");
+ document.getElementById("note").textContent=(CFG.price_note&&CFG["price_note_"+lang])||CFG["price_note_"+lang]||t.note;
+ document.querySelectorAll(".lang button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-l")===lang);});
+ var pay=document.getElementById("pay");if(pay&&!CFG.payment_url&&CFG.contact_email)pay.textContent=t.pr_btn2;
+ var m=document.getElementById("mail");if(CFG.contact_email)m.href="mailto:"+CFG.contact_email+"?subject="+encodeURIComponent("Podcast AI Index");
+}
+document.querySelectorAll(".lang button").forEach(function(b){b.addEventListener("click",function(){lang=b.getAttribute("data-l");render();});});
+render();ping("vue");
+var io=("IntersectionObserver" in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.15}):null;
+document.querySelectorAll(".rv").forEach(function(e){if(io)io.observe(e);else e.classList.add("in");});
+fetch("config.json?t="+Date.now()).then(function(r){return r.json()}).then(function(c){
+ CFG=c;
+ if(c.price_label)document.getElementById("price").textContent=c.price_label;
+ if(c.video_url&&/^https:\/\/(www\.youtube\.com|www\.youtube-nocookie\.com|player\.vimeo\.com|fast\.wistia\.(net|com))\//.test(c.video_url)){
+  var v=document.getElementById("video");v.innerHTML='<iframe src="'+c.video_url+'" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';v.style.padding="0";
+ }
+ var pay=document.getElementById("pay");
+ if(c.payment_url&&/^https:\/\//.test(c.payment_url)){
+  pay.href=c.payment_url+(ref&&c.payment_url.indexOf("buy.stripe.com")>-1?(c.payment_url.indexOf("?")<0?"?":"&")+"client_reference_id="+encodeURIComponent(ref):"");
+ }else if(c.contact_email){pay.href="mailto:"+c.contact_email+"?subject="+encodeURIComponent("Podcast AI Index");}
+ if(c.payment_url||c.contact_email){pay.classList.remove("hide");pay.addEventListener("click",function(){ping("clic")});}
+ render();
+}).catch(function(){});
 })();
 </script>
 </body>
