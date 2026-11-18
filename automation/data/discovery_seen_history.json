@@ -361708,12 +361708,13 @@
     "feed_url": "https://audioboom.com/channels/5167887.rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "stephaniewigner.com"
+    "email_domain": "stephaniewigner.com",
+    "rescue": "2026-11-18"
   },
   "https://feeds.acast.com/public/shows/d521fadd-44da-47b9-aea1-6966e3928e63": {
     "podcast_name": "The Internet Marketing Podcast",
@@ -361791,5 +361792,27 @@
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Marketing & Ventes"
+  },
+  "https://feeds.captivate.fm/mygoodalliedhealthpractice/": {
+    "podcast_name": "My Good Allied Health Practice",
+    "artist_name": "Amy Geach",
+    "feed_url": "https://feeds.captivate.fm/mygoodalliedhealthpractice/",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://feeds.acast.com/public/shows/5f39b0eb4155ee796a097742": {
+    "podcast_name": "Confidence From Within",
+    "artist_name": "Juliana Leamen",
+    "feed_url": "https://feeds.acast.com/public/shows/5f39b0eb4155ee796a097742",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 173 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
   }
 }
