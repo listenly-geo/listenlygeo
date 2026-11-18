@@ -2,12 +2,24 @@
  "date": "2026-11-18",
  "mode": "liste a traiter dans Claude + Chrome (demande d'indexation manuelle, validation par page)",
  "repartition": {
-  "connu": 2,
-  "mot_cle": 8
+  "connu": 4,
+  "mot_cle": 6
  },
- "selection": "note seule (volumes non a jour, Keyword Planner en echec)",
+ "selection": "50/50 connus + mots-cles ; volumes du jour + note",
  "pretes": 10,
  "urls": [
+  {
+   "url": "https://listenly.org/podcast-btb/m/date-line-nbc/049baba10b",
+   "titre": "What sentence did Larry Miliete get? | Dateline NBC",
+   "score_qualite": 56,
+   "source": "connu",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
   {
    "url": "https://listenly.org/podcast-btb/m/3-take-away/96043c9360",
    "titre": "Did fines make parents arrive even later? | 3 Takeaways™",
@@ -22,7 +34,7 @@
   },
   {
    "url": "https://listenly.org/podcast-btb/m/b2b-vault-the-biz-to-biz-podcast/90e238f7c5",
-   "titre": "When did Square stop CBD processing? | Listenly",
+   "titre": "Did Square drop CBD? | B2B Vault: The Biz To Biz Podcast",
    "score_qualite": 57,
    "source": "connu",
    "http": 200,
@@ -33,9 +45,21 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/paid-vocation-with-lupe-prado/f9b8588cd0",
-   "titre": "When did Bird's Bookstore open Dallas? | Listenly",
-   "score_qualite": 72,
+   "url": "https://listenly.org/podcast-btb/m/how-i-built-this-with-guy-raz/905855e5fa",
+   "titre": "Who bought newspapers? | How I Built This with Guy Raz",
+   "score_qualite": 56,
+   "source": "connu",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/profits-with-pajak/f81ae29551",
+   "titre": "Why did eBay lawn care seller fail order? | Listenly",
+   "score_qualite": 92,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -45,9 +69,9 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/the-jay-maymi-talk-show/c782d2ed34",
-   "titre": "When did solar tax credits end? | The Jay Maymi Talk Show",
-   "score_qualite": 72,
+   "url": "https://listenly.org/podcast-btb/m/retirement-results/c783d5d108",
+   "titre": "How do retirees convert savings to income? | Listenly",
+   "score_qualite": 89,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -57,9 +81,9 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/nuts-and-bolts-of-leadership/7022a823e3",
-   "titre": "Are ESOP staff real owners? | Nuts and Bolts of Leadership",
-   "score_qualite": 76,
+   "url": "https://listenly.org/podcast-btb/m/the-wealth-exchange/c368c5891e",
+   "titre": "How to integrate Nicola Credit Fund with bonds? | Listenly",
+   "score_qualite": 88,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -69,9 +93,9 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/lifelong-learners-collective/d462fac409",
-   "titre": "How does EFT tapping differ from talk therapy? | Listenly",
-   "score_qualite": 60,
+   "url": "https://listenly.org/podcast-btb/m/proven-podcast/df11809354",
+   "titre": "Does Sesame make healthcare prices clear? | Proven Podcast",
+   "score_qualite": 88,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -81,9 +105,9 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/point-of-impact-with-aaron-hale/28904cea37",
-   "titre": "Why quit the Marines? | Point Of Impact With Aaron Hale",
-   "score_qualite": 60,
+   "url": "https://listenly.org/podcast-btb/m/executive-wins-podcast/e6e987421e",
+   "titre": "What is NorQuest's strategy? | Executive Wins Podcast",
+   "score_qualite": 86,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -93,33 +117,9 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/talkin-toowoomba/295955d9b3",
-   "titre": "How does PSMA PET scan differ from MRI? | Listenly",
-   "score_qualite": 60,
-   "source": "mot_cle",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/creative-genius-podcast/c1b464ec08",
-   "titre": "Is metal better than plexiglass? | Creative Genius Podcast",
-   "score_qualite": 64,
-   "source": "mot_cle",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/the-real-solutions-business-podcast/b29af8b06b",
-   "titre": "How does AEO differ from SEO? | The Real Solutions Busines",
-   "score_qualite": 72,
+   "url": "https://listenly.org/podcast-btb/m/car-dealership-guy-podcast/a1046603b1",
+   "titre": "Soft skills that win car sales? | Car Dealership Guy",
+   "score_qualite": 70,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
