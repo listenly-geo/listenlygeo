@@ -358033,12 +358033,13 @@
     "feed_url": "https://api.riverside.com/hosting/IDdK53Bf.rss",
     "genre": "Careers",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "RH & Recrutement",
     "gate": "dirigeant",
-    "email_domain": "cxr.works"
+    "email_domain": "cxr.works",
+    "rescue": "2026-11-18"
   },
   "https://feeds.transistor.fm/mouth-mechanics-with-dr-tanzania-davis": {
     "podcast_name": "Mouth Mechanics",
@@ -358110,5 +358111,106 @@
     "checked_date": "2026-11-18",
     "secteur": "Immobilier",
     "nb_episodes": 235
+  },
+  "https://theaverageguy.tv/category/tagpodcasts/cyberfrontiers/feed/": {
+    "podcast_name": "Cyber Frontiers",
+    "artist_name": "Jim Collison",
+    "feed_url": "https://theaverageguy.tv/category/tagpodcasts/cyberfrontiers/feed/",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1649 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://feeds.captivate.fm/beyond-the-boxx/": {
+    "podcast_name": "Hashtag Influencer",
+    "artist_name": "BabbleBoxx",
+    "feed_url": "https://feeds.captivate.fm/beyond-the-boxx/",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://rss.buzzsprout.com/1946004.rss": {
+    "podcast_name": "CREducation Podcast",
+    "artist_name": "Drey & Tayler",
+    "feed_url": "https://rss.buzzsprout.com/1946004.rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Immobilier"
+  },
+  "https://anchor.fm/s/4e5585f4/podcast/rss": {
+    "podcast_name": "The Royal Bloodline",
+    "artist_name": "the GodKing",
+    "feed_url": "https://anchor.fm/s/4e5585f4/podcast/rss",
+    "genre": "History",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1041 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://haronthemove.libsyn.com/rss": {
+    "podcast_name": "HAR On The Move",
+    "artist_name": "HAR.com",
+    "feed_url": "https://haronthemove.libsyn.com/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Immobilier",
+    "gate": "dirigeant",
+    "email_domain": "har.com"
+  },
+  "https://feed.podbean.com/cxinsider/feed.xml": {
+    "podcast_name": "CX Insider - Customer experience leaders sharing insights and ideas for customer service success",
+    "artist_name": "ACF Technologies",
+    "feed_url": "https://feed.podbean.com/cxinsider/feed.xml",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://feed.podbean.com/simply-product-hunt/feed.xml": {
+    "podcast_name": "Simply Product Hunt",
+    "artist_name": "Simply News from Qurrent",
+    "feed_url": "https://feed.podbean.com/simply-product-hunt/feed.xml",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://anchor.fm/s/e12181bc/podcast/rss": {
+    "podcast_name": "iCareBetter: Endometriosis Unplugged",
+    "artist_name": "Jandra Mueller DPT, MS",
+    "feed_url": "https://anchor.fm/s/e12181bc/podcast/rss",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 986 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://www.theaverageguy.tv/feed/cfvideolarge/": {
+    "podcast_name": "Cyber Frontiers (Video Large)",
+    "artist_name": "Jim Collison",
+    "feed_url": "https://www.theaverageguy.tv/feed/cfvideolarge/",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1649 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Formateurs & programmes"
   }
 }
