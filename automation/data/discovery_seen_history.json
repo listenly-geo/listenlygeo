@@ -359638,12 +359638,13 @@
     "feed_url": "https://anchor.fm/s/981c9d44/podcast/rss",
     "genre": "Non-Profit",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "efp.org"
+    "email_domain": "efp.org",
+    "rescue": "2026-11-18"
   },
   "https://anchor.fm/s/f5e095ac/podcast/rss": {
     "podcast_name": "Very Necessary Decisions",
@@ -359723,5 +359724,88 @@
       "Special Education"
     ],
     "contact_email": "stephenschalk.speaking@gmail.com"
+  },
+  "https://pinecast.com/feed/rocki-s-reality": {
+    "podcast_name": "Rocki’s Reality",
+    "artist_name": "Detroit is Different",
+    "feed_url": "https://pinecast.com/feed/rocki-s-reality",
+    "genre": "Music",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Finance & Fintech",
+    "gate": "dirigeant",
+    "email_domain": "creatediff.com"
+  },
+  "https://api.substack.com/feed/podcast/4679374.rss": {
+    "podcast_name": "The Lighthouse with Ryan Obernesser",
+    "artist_name": "Ryan Obernesser",
+    "feed_url": "https://api.substack.com/feed/podcast/4679374.rss",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.buzzsprout.com/2143370.rss": {
+    "podcast_name": "Marketing Legends",
+    "artist_name": "Matt Leitz",
+    "feed_url": "https://rss.buzzsprout.com/2143370.rss",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.libsyn.com/shows/575810/destinations/4986880.xml": {
+    "podcast_name": "UNCHAINEDTV'S Truth Files with Jane Velez-Mitchell",
+    "artist_name": "Jane Velez-Mitchell",
+    "feed_url": "https://rss.libsyn.com/shows/575810/destinations/4986880.xml",
+    "genre": "News Commentary",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (News Commentary)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.buzzsprout.com/2600501.rss": {
+    "podcast_name": "Heart And Profit Podcast.",
+    "artist_name": "Eugene Berezin",
+    "feed_url": "https://rss.buzzsprout.com/2600501.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://feed.pod.co/dental-marketing-heroes": {
+    "podcast_name": "The Dental Marketing Heroes Podcast",
+    "artist_name": "Ian Cantle",
+    "feed_url": "https://feed.pod.co/dental-marketing-heroes",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 214 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://feeds.libsyn.com/575810/rss": {
+    "podcast_name": "UnchainedTV",
+    "artist_name": "Jane Velez-Mitchell",
+    "feed_url": "https://feeds.libsyn.com/575810/rss",
+    "genre": "Food",
+    "track_count": 296,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/unchainedtv/id1804941600?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/01/bb/89/01bb8900-8950-1685-72d1-ab5ca14b6604/mza_5034117824479142117.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Jane Velez-Mitchell est une personnalité médiatique reconnue (animatrice TV célèbre), ce podcast est un projet personnel d'une célébrité grand public, non un podcast d'entreprise B2B. Le genre 'Food' et l'absence de sujet business/B2B confirment l'inadéquation avec les critères d'acceptation.",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale",
+    "nb_episodes": 296
   }
 }
