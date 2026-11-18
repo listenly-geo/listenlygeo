@@ -359476,12 +359476,13 @@
     "feed_url": "https://brandedwithsteph.libsyn.com/rss",
     "genre": "Marketing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Marketing & Ventes",
     "gate": "dirigeant",
-    "email_domain": "theweberco.com"
+    "email_domain": "theweberco.com",
+    "rescue": "2026-11-18"
   },
   "https://www.spreaker.com/show/4661522/episodes/feed": {
     "podcast_name": "The Melting Pot",
@@ -359597,5 +359598,130 @@
       "Business Law"
     ],
     "contact_email": "marketing@carolroyse.com"
+  },
+  "https://anchor.fm/s/c5b770bc/podcast/rss": {
+    "podcast_name": "Bellies, Babies and Birth!",
+    "artist_name": "Bellies, Babies and Birth",
+    "feed_url": "https://anchor.fm/s/c5b770bc/podcast/rss",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.libsyn.com/shows/118835/destinations/687187.xml": {
+    "podcast_name": "The 80/20 Real Estate Show by InvestorFuse",
+    "artist_name": "InvestorFuse",
+    "feed_url": "https://rss.libsyn.com/shows/118835/destinations/687187.xml",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1666 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://anchor.fm/s/1275c79c/podcast/rss": {
+    "podcast_name": "(Help Stop The Genocide In American Ghettos Podcast)",
+    "artist_name": "Mr. Emmanuel Barbee",
+    "feed_url": "https://anchor.fm/s/1275c79c/podcast/rss",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/981c9d44/podcast/rss": {
+    "podcast_name": "EFP Perio Talks",
+    "artist_name": "European Federation of Periodontology",
+    "feed_url": "https://anchor.fm/s/981c9d44/podcast/rss",
+    "genre": "Non-Profit",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale",
+    "gate": "dirigeant",
+    "email_domain": "efp.org"
+  },
+  "https://anchor.fm/s/f5e095ac/podcast/rss": {
+    "podcast_name": "Very Necessary Decisions",
+    "artist_name": "HuCapital",
+    "feed_url": "https://anchor.fm/s/f5e095ac/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 803 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://feeds.captivate.fm/the-lendsetter-show/": {
+    "podcast_name": "The Lendsetter Show",
+    "artist_name": "Good Vibe Squad",
+    "feed_url": "https://feeds.captivate.fm/the-lendsetter-show/",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.libsyn.com/shows/90005/destinations/446031.xml": {
+    "podcast_name": "The Group Practice Exchange",
+    "artist_name": "The Group Practice Exchange",
+    "feed_url": "https://rss.libsyn.com/shows/90005/destinations/446031.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 420 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://feeds.megaphone.fm/PODAGEN4209796131": {
+    "podcast_name": "Alex Becker Channel",
+    "artist_name": "Alex Becker Channel",
+    "feed_url": "https://feeds.megaphone.fm/PODAGEN4209796131",
+    "genre": "Investing",
+    "track_count": 286,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/alex-becker-channel/id1818368665?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/c1/93/cb/c193cbda-b145-a8a6-de6a-e4f9d17a5974/mza_1503802526535445690.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast business/investing animé par un créateur identifiable (Alex Becker) avec 286 épisodes réguliers. Pas de média mass ou célébrité grand public détectable ; audience de niche B2B correspondant aux critères d'acceptance_path CREATEUR depuis 27/10/2026.",
+    "checked_date": "2026-11-18",
+    "secteur": "Formateurs & programmes",
+    "nb_episodes": 286,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Value Investing",
+      "Growth Investing",
+      "Dividend Investing",
+      "Angel Investing"
+    ],
+    "contact_email": "undenaiblecult@gmail.com"
+  },
+  "https://app.kajabi.com/podcasts/2147504890/feed": {
+    "podcast_name": "The Clearly Aligned™ Podcast",
+    "artist_name": "Dr. Stephen Schalk",
+    "feed_url": "https://app.kajabi.com/podcasts/2147504890/feed",
+    "genre": "Education",
+    "track_count": 23,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-clearly-aligned-podcast/id1642754028?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/e3/37/70/e33770af-d91e-e3d1-9cc1-baf0dc9d994e/mza_3310837587207789831.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Dr. Stephen Schalk, créateur/expert indépendant identifiable dans le domaine du business/développement personnel (Clearly Aligned™ suggère du coaching/consulting). 23 épisodes, audience petite/moyenne, pas de lien apparent à un grand média — correspond au profil acceptance_path CREATEUR depuis la décision du 27/10/2026.",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale",
+    "nb_episodes": 23,
+    "suggested_category": "🎓 Education",
+    "suggested_tags": [
+      "K-12 Education",
+      "Higher Education",
+      "Alternative Education",
+      "Special Education"
+    ],
+    "contact_email": "stephenschalk.speaking@gmail.com"
   }
 }

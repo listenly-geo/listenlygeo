@@ -1,15 +1,15 @@
 {
- "updated": "2026-11-18T14:36",
- "envois_total": 142,
+ "updated": "2026-11-18T14:53",
+ "envois_total": 143,
  "reponses_total": 0,
  "taux_reponse_global_pct": 0.0,
- "dirigeants_testes": 16799,
- "dirigeants_trouves": 1700,
+ "dirigeants_testes": 16803,
+ "dirigeants_trouves": 1701,
  "data_apprentissage": {
   "creneaux_new_york": {
    "heure": {
     "09h": {
-     "envoyes": 17,
+     "envoyes": 18,
      "reponses": 0
     },
     "08h": {
@@ -51,7 +51,7 @@
    },
    "jour": {
     "mer": {
-     "envoyes": 33,
+     "envoyes": 34,
      "reponses": 0
     },
     "mar": {
@@ -69,24 +69,24 @@
   "postes_trouves": {}
  },
  "weights": {
-  "Tech & SaaS": 0.0534,
+  "Tech & SaaS": 0.0535,
   "Cybersécurité": 0.0662,
-  "Finance & Fintech": 0.0466,
+  "Finance & Fintech": 0.0465,
   "RH & Recrutement": 0.0454,
   "Marketing & Ventes": 0.0514,
   "Logistique & Supply chain": 0.0545,
   "Construction & Industrie": 0.0468,
   "Énergie": 0.0475,
   "Assurance": 0.0527,
-  "Immobilier": 0.0498,
-  "Juridique": 0.0496,
+  "Immobilier": 0.0503,
+  "Juridique": 0.0495,
   "Conseil": 0.0331,
   "Santé": 0.0498,
-  "Business général (entreprise)": 0.0562,
+  "Business général (entreprise)": 0.0561,
   "Cabinets d'avocats": 0.0407,
   "Experts-comptables & patrimoine": 0.0573,
-  "Coachs & consultants B2B": 0.0479,
-  "Agences de services": 0.0514,
+  "Coachs & consultants B2B": 0.0478,
+  "Agences de services": 0.0513,
   "Santé libérale": 0.0475,
   "Formateurs & programmes": 0.0521
  },
@@ -126,7 +126,7 @@
   {
    "secteur": "Business général (entreprise)",
    "poids_pct": 5.6,
-   "delta_pts": 0.0,
+   "delta_pts": -0.0,
    "tendance": "stable",
    "onboarde": 523,
    "joignable": 401,
@@ -162,13 +162,13 @@
    "tendance": "stable",
    "onboarde": 121,
    "joignable": 58,
-   "envoye": 9,
+   "envoye": 10,
    "rebond": 0,
    "reponse": 0,
    "dirigeant_testes": 1627,
    "dirigeant_trouves": 176,
    "taux_reponse": 0.0,
-   "score": 0.10427,
+   "score": 0.10453,
    "rang": 5
   },
   {
@@ -213,27 +213,43 @@
    "envoye": 11,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 837,
+   "dirigeant_testes": 838,
    "dirigeant_trouves": 86,
    "taux_reponse": 0.0,
-   "score": 0.09952,
+   "score": 0.0994,
    "rang": 8
   },
   {
    "secteur": "Agences de services",
    "poids_pct": 5.1,
-   "delta_pts": 0.1,
+   "delta_pts": 0.0,
    "tendance": "stable",
    "onboarde": 78,
    "joignable": 21,
    "envoye": 8,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 764,
+   "dirigeant_testes": 765,
    "dirigeant_trouves": 79,
    "taux_reponse": 0.0,
-   "score": 0.0994,
+   "score": 0.09927,
    "rang": 9
+  },
+  {
+   "secteur": "Immobilier",
+   "poids_pct": 5.0,
+   "delta_pts": 0.1,
+   "tendance": "stable",
+   "onboarde": 134,
+   "joignable": 63,
+   "envoye": 4,
+   "rebond": 0,
+   "reponse": 0,
+   "dirigeant_testes": 663,
+   "dirigeant_trouves": 68,
+   "taux_reponse": 0.0,
+   "score": 0.09685,
+   "rang": 10
   },
   {
    "secteur": "Santé",
@@ -248,23 +264,7 @@
    "dirigeant_testes": 529,
    "dirigeant_trouves": 53,
    "taux_reponse": 0.0,
-   "score": 0.09565,
-   "rang": 10
-  },
-  {
-   "secteur": "Immobilier",
-   "poids_pct": 5.0,
-   "delta_pts": 0.0,
-   "tendance": "stable",
-   "onboarde": 133,
-   "joignable": 63,
-   "envoye": 4,
-   "rebond": 0,
-   "reponse": 0,
-   "dirigeant_testes": 662,
-   "dirigeant_trouves": 67,
-   "taux_reponse": 0.0,
-   "score": 0.09559,
+   "score": 0.09566,
    "rang": 11
   },
   {
@@ -293,10 +293,10 @@
    "envoye": 8,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 1079,
+   "dirigeant_testes": 1080,
    "dirigeant_trouves": 102,
    "taux_reponse": 0.0,
-   "score": 0.09096,
+   "score": 0.09087,
    "rang": 13
   },
   {
@@ -320,7 +320,7 @@
    "poids_pct": 4.8,
    "delta_pts": 0.0,
    "tendance": "stable",
-   "onboarde": 148,
+   "onboarde": 149,
    "joignable": 54,
    "envoye": 7,
    "rebond": 0,
@@ -424,7 +424,7 @@
    "dirigeant_testes": 0,
    "dirigeant_trouves": 0,
    "taux_reponse": null,
-   "score": 0.09116,
+   "score": 0.09119,
    "rang": 21
   }
  ]
