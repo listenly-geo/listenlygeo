@@ -85,10 +85,10 @@ jobs:
           [ "$code" = 200 ] || ok=0
           code=$(curl -sS -m 40 -o /dev/null -w '%{http_code}' "https://$SITE/" || echo 000); echo "accueil de l'app : HTTP $code"
           [ "$code" = 200 ] || ok=0
-          code=$(curl -sS -m 40 -o /dev/null -w '%{http_code}' -X POST "https://$SITE/hub/domain" || echo 000); echo "hub/domain sans jeton : HTTP $code (attendu 401)"
+          code=$(curl -sS -m 40 -o /dev/null -w '%{http_code}' -A 'MarketForge/1.0' -X POST "https://$SITE/hub/domain" -H 'Content-Type: application/json' -d '{}' || echo 000); echo "hub/domain sans jeton : HTTP $code (attendu 401)"
           [ "$code" = 401 ] || ok=0
           if [ -n "$HUB_IMPORT_TOKEN" ]; then
-            r=$(curl -sS -m 40 -X POST "https://$SITE/hub/domain" -H "X-Hub-Token: $HUB_IMPORT_TOKEN" -H 'Content-Type: application/json' -d '{"action":"check","host":"inconnu.exemple-verif.com"}' || true)
+            r=$(curl -sS -m 40 -A 'MarketForge/1.0' -X POST "https://$SITE/hub/domain" -H "X-Hub-Token: $HUB_IMPORT_TOKEN" -H 'Content-Type: application/json' -d '{"action":"check","host":"inconnu.exemple-verif.com"}' || true)
             echo "hub/domain avec jeton : $r"
             echo "$r" | grep -q 'non enregistre' || ok=0
           fi
