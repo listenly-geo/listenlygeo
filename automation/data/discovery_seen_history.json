@@ -354442,12 +354442,13 @@
     "feed_url": "https://rss.libsyn.com/shows/302546/destinations/2411144.xml",
     "genre": "Management",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "RH & Recrutement",
     "gate": "dirigeant",
-    "email_domain": "fccsconsulting.com"
+    "email_domain": "fccsconsulting.com",
+    "rescue": "2026-11-18"
   },
   "https://anchor.fm/s/e3df486c/podcast/rss": {
     "podcast_name": "Family Man Building a Brand",
@@ -354636,5 +354637,155 @@
     "checked_date": "2026-11-18",
     "secteur": "Santé libérale",
     "nb_episodes": 1033
+  },
+  "https://wptavern.com/feed/podcast/jukebox/": {
+    "podcast_name": "Jukebox",
+    "artist_name": "Nathan Wrigley",
+    "feed_url": "https://wptavern.com/feed/podcast/jukebox/",
+    "genre": "Tech News",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Tech & SaaS",
+    "gate": "dirigeant",
+    "email_domain": "wpbuilds.com"
+  },
+  "https://anchor.fm/s/b260ab78/podcast/rss": {
+    "podcast_name": "Humans Aren't Robots",
+    "artist_name": "Sam Davies @ KWP + Partners + Hannah Priebe-Clarke @ hpc.",
+    "feed_url": "https://anchor.fm/s/b260ab78/podcast/rss",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 210 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://rss.buzzsprout.com/2165668.rss": {
+    "podcast_name": "Maker Manager Money - Entrepreneur & Business Owner Inspiration",
+    "artist_name": "Kyle Ariel Knowles",
+    "feed_url": "https://rss.buzzsprout.com/2165668.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 536 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://rss.libsyn.com/shows/87307/destinations/425290.xml": {
+    "podcast_name": "The Creative Hustler Podcast",
+    "artist_name": "The Creative Hustler",
+    "feed_url": "https://rss.libsyn.com/shows/87307/destinations/425290.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 2853 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://financiallytuned.com/api/shows/thewealthpuzzle/rss": {
+    "podcast_name": "The Wealth Puzzle",
+    "artist_name": "Michael Mansfield",
+    "feed_url": "https://financiallytuned.com/api/shows/thewealthpuzzle/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Experts-comptables & patrimoine",
+    "gate": "dirigeant",
+    "email_domain": "lusonmedia.com"
+  },
+  "https://anchor.fm/s/6bc4af84/podcast/rss": {
+    "podcast_name": "TikoTime: A podcast for Black women in STEM",
+    "artist_name": "Tiko",
+    "feed_url": "https://anchor.fm/s/6bc4af84/podcast/rss",
+    "genre": "Education",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 642 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://media.rss.com/excusemyreach/feed.xml": {
+    "podcast_name": "Excuse My Reach",
+    "artist_name": "Emma Izek",
+    "feed_url": "https://media.rss.com/excusemyreach/feed.xml",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://feeds.simplecast.com/oLm_GDKg": {
+    "podcast_name": "NousCast",
+    "artist_name": "Nous Group",
+    "feed_url": "https://feeds.simplecast.com/oLm_GDKg",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Coachs & consultants B2B",
+    "gate": "dirigeant",
+    "email_domain": "nousgroup.com.au"
+  },
+  "https://rss.libsyn.com/shows/101308/destinations/535360.xml": {
+    "podcast_name": "State Of Readiness",
+    "artist_name": "Joseph F Paris Jr",
+    "feed_url": "https://rss.libsyn.com/shows/101308/destinations/535360.xml",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 243 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://feeds.redcircle.com/bf5c4f7d-f1fa-44ee-8fe4-39166f4a91f5": {
+    "podcast_name": "Hardbat Athletics: Inside and Out",
+    "artist_name": "Derek Batman",
+    "feed_url": "https://feeds.redcircle.com/bf5c4f7d-f1fa-44ee-8fe4-39166f4a91f5",
+    "genre": "Fitness",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 960 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Experts-comptables & patrimoine"
+  },
+  "https://anchor.fm/s/5279610/podcast/rss": {
+    "podcast_name": "Daily-ish pod",
+    "artist_name": "The fun Indian guy",
+    "feed_url": "https://anchor.fm/s/5279610/podcast/rss",
+    "genre": "Design",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1589 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://rss.libsyn.com/shows/206743/destinations/1484673.xml": {
+    "podcast_name": "Buying Online Businesses with Michael Bereslavsky",
+    "artist_name": "Michael Bereslavsky",
+    "feed_url": "https://rss.libsyn.com/shows/206743/destinations/1484673.xml",
+    "genre": "Investing",
+    "track_count": 78,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/buying-online-businesses-with-michael-bereslavsky/id1477526468?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/01/6e/16/016e16f0-5d63-96d0-2347-b666618949c6/mza_2782293680452938225.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Michael Bereslavsky, créateur indépendant identifiable dans le domaine du business/investissement (achat d'entreprises en ligne). 78 épisodes réguliers, audience petite/moyenne, pas de rattachement à un media mass ou réseau célèbre. Correspond au profil CREATEUR accepté depuis 27/10/2026.",
+    "checked_date": "2026-11-18",
+    "secteur": "Tech & SaaS",
+    "nb_episodes": 78,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Value Investing",
+      "Growth Investing",
+      "Dividend Investing",
+      "Angel Investing"
+    ],
+    "contact_email": "michael@domainmagnate.com"
   }
 }
