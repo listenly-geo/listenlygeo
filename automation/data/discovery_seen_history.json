@@ -355230,12 +355230,13 @@
     "feed_url": "https://feeds.hubhopper.com/ae929da6c51e3d770f04e02c12411dc2.rss",
     "genre": "Marketing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Construction & Industrie",
     "gate": "dirigeant",
-    "email_domain": "kitchenremodelseo.com"
+    "email_domain": "kitchenremodelseo.com",
+    "rescue": "2026-11-18"
   },
   "https://feeds.soundcloud.com/users/soundcloud:users:197140742/sounds.rss": {
     "podcast_name": "The High Button Podcast",
@@ -355274,5 +355275,111 @@
       "Spoiler Talk"
     ],
     "contact_email": "tnook@anchorretail.com"
+  },
+  "https://feed.podbean.com/Getrealwitheddie/feed.xml": {
+    "podcast_name": "Get Real With Eddie",
+    "artist_name": "Eddie Ruettiger",
+    "feed_url": "https://feed.podbean.com/Getrealwitheddie/feed.xml",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Énergie"
+  },
+  "https://feeds.transistor.fm/wealthyist": {
+    "podcast_name": "Wealthyist",
+    "artist_name": "Annex Wealth Management",
+    "feed_url": "https://feeds.transistor.fm/wealthyist",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie",
+    "gate": "dirigeant",
+    "email_domain": "annexwealth.com"
+  },
+  "https://anchor.fm/s/470e56f4/podcast/rss": {
+    "podcast_name": "How to HR",
+    "artist_name": "Lilac HR",
+    "feed_url": "https://anchor.fm/s/470e56f4/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://feeds.captivate.fm/retail-tech-spotlight/": {
+    "podcast_name": "Retail Technology Spotlight Series",
+    "artist_name": "Omni Talk Retail",
+    "feed_url": "https://feeds.captivate.fm/retail-tech-spotlight/",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Logistique & Supply chain"
+  },
+  "https://rss.libsyn.com/shows/121171/destinations/708312.xml": {
+    "podcast_name": "Prove It! The Proof in Marketing Podcast",
+    "artist_name": "Debbie Albert",
+    "feed_url": "https://rss.libsyn.com/shows/121171/destinations/708312.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 2640 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://rss.libsyn.com/shows/79308/destinations/362404.xml": {
+    "podcast_name": "The Hum Podcast",
+    "artist_name": "JAYU Festival Inc.",
+    "feed_url": "https://rss.libsyn.com/shows/79308/destinations/362404.xml",
+    "genre": "Arts",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1792 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://rss.libsyn.com/shows/238304/destinations/1775006.xml": {
+    "podcast_name": "The Amazing Cities and Towns Podcast",
+    "artist_name": "Jim Hunt",
+    "feed_url": "https://rss.libsyn.com/shows/238304/destinations/1775006.xml",
+    "genre": "Government",
+    "track_count": 163,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-amazing-cities-and-towns-podcast/id1494377544?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/37/cb/6d/37cb6d3e-92e3-0d22-b502-66388cf267b6/mza_6311051184780397679.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Le sujet principal est Government/villes et communes, ce qui relève de l'intérêt général et non du business/B2B. Ce n'est pas un podcast d'expertise B2B orienté méthodes, chiffres ou conseil professionnel.",
+    "checked_date": "2026-11-18",
+    "secteur": "Énergie",
+    "nb_episodes": 163
+  },
+  "https://anchor.fm/s/f00bc9d0/podcast/rss": {
+    "podcast_name": "22Astronauts",
+    "artist_name": "22Astronauts with Ilir Aliu",
+    "feed_url": "https://anchor.fm/s/f00bc9d0/podcast/rss",
+    "genre": "Technology",
+    "track_count": 115,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/22astronauts/id1763189334?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/24/5f/6b/245f6ba8-297b-4725-97d8-57cacb69d207/mza_7410467452771892061.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Ilir Aliu (créateur/expert identifiable), sujet business/technology, 115 épisodes réguliers, audience petite-moyenne, pas de média mass-market détecté. Correspond au profil CREATEUR accepté depuis 27/10/2026.",
+    "checked_date": "2026-11-18",
+    "secteur": "Logistique & Supply chain",
+    "nb_episodes": 115,
+    "suggested_category": "💻 Technology",
+    "suggested_tags": [
+      "HR Technology",
+      "Blockchain Technology",
+      "Wearable Technology",
+      "Space Technology"
+    ],
+    "contact_email": "ilir.aliu@22astronauts.com"
   }
 }
