@@ -358742,12 +358742,13 @@
     "feed_url": "https://playlist.podcastnotes.org/tag/startup/",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Cybersécurité",
     "gate": "dirigeant",
-    "email_domain": "gmail.com"
+    "email_domain": "gmail.com",
+    "rescue": "2026-11-18"
   },
   "https://feeds.acast.com/public/shows/66e84be860697857dbda26be": {
     "podcast_name": "The Young Leaders Club Podcast",
@@ -358848,5 +358849,96 @@
       "Special Education"
     ],
     "contact_email": "emma@exemplarglobal.org"
+  },
+  "https://anchor.fm/s/3e509cc0/podcast/rss": {
+    "podcast_name": "Live Life in Motion",
+    "artist_name": "Sam Kleckley",
+    "feed_url": "https://anchor.fm/s/3e509cc0/podcast/rss",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé"
+  },
+  "https://feeds.simplecast.com/yUA1W_Fy": {
+    "podcast_name": "The Career Guy",
+    "artist_name": "Mickey Horvath",
+    "feed_url": "https://feeds.simplecast.com/yUA1W_Fy",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie",
+    "gate": "dirigeant",
+    "email_domain": "shaw.ca"
+  },
+  "https://anchor.fm/s/f5b9aeb0/podcast/rss": {
+    "podcast_name": "\"What's Next GenX?\"",
+    "artist_name": "TheGenXCo",
+    "feed_url": "https://anchor.fm/s/f5b9aeb0/podcast/rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 287 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé"
+  },
+  "https://rss.buzzsprout.com/1816744.rss": {
+    "podcast_name": "This Is Robotics: Radio News",
+    "artist_name": "Tom Green",
+    "feed_url": "https://rss.buzzsprout.com/1816744.rss",
+    "genre": "Tech News",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Logistique & Supply chain"
+  },
+  "https://rss.libsyn.com/shows/158912/destinations/1041284.xml": {
+    "podcast_name": "Believe to See",
+    "artist_name": "Anselm Society",
+    "feed_url": "https://rss.libsyn.com/shows/158912/destinations/1041284.xml",
+    "genre": "Christianity",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Christianity)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://rss.buzzsprout.com/993424.rss": {
+    "podcast_name": "Incongruent",
+    "artist_name": "The Incongruables",
+    "feed_url": "https://rss.buzzsprout.com/993424.rss",
+    "genre": "Education",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 268 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Tech & SaaS"
+  },
+  "https://anchor.fm/s/100004014/podcast/rss": {
+    "podcast_name": "iGaming Pulse: Trends, News & Analysis",
+    "artist_name": "Casino Rank",
+    "feed_url": "https://anchor.fm/s/100004014/podcast/rss",
+    "genre": "News",
+    "track_count": 93,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/igaming-pulse-trends-news-analysis/id1771798553?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/7e/b1/b8/7eb1b841-cc82-f0ec-b0f9-b83f503fbdcb/mza_1702581519683254406.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B produit par Casino Rank (entreprise identifiable du secteur iGaming), avec un hôte/éditeur clairement rattaché, sujet business/analyse de tendances du secteur, audience petite à moyenne (93 épisodes, niche iGaming). Pas de signature media grand public.",
+    "checked_date": "2026-11-18",
+    "secteur": "Tech & SaaS",
+    "nb_episodes": 93,
+    "suggested_category": "📰 News",
+    "suggested_tags": [
+      "Breaking News Analysis",
+      "Economic Trends",
+      "Market Analysis",
+      "Technical Analysis"
+    ],
+    "contact_email": "erika@cliqer.com"
   }
 }
