@@ -361821,12 +361821,13 @@
     "feed_url": "https://api.riverside.com/hosting/C4dXuR1L.rss",
     "genre": "Education",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Business général (entreprise)",
     "gate": "dirigeant",
-    "email_domain": "schoolhouserocked.com"
+    "email_domain": "schoolhouserocked.com",
+    "rescue": "2026-11-18"
   },
   "https://anchor.fm/s/11a523d14/podcast/rss": {
     "podcast_name": "The Get Up Girl",
@@ -361845,11 +361846,36 @@
     "feed_url": "https://media.sharpenet.com/podcasts/188743670334/rss.xml",
     "genre": "Non-Profit",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Business général (entreprise)",
     "gate": "dirigeant",
-    "email_domain": "sharpegroup.org"
+    "email_domain": "sharpegroup.org",
+    "rescue": "2026-11-18"
+  },
+  "https://rss.buzzsprout.com/2109332.rss": {
+    "podcast_name": "The David Spisak Show",
+    "artist_name": "David Spisak",
+    "feed_url": "https://rss.buzzsprout.com/2109332.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Formateurs & programmes",
+    "gate": "dirigeant",
+    "email_domain": "disruptivegrowthsolutions.com"
+  },
+  "https://anchor.fm/s/dc3a3bbc/podcast/rss": {
+    "podcast_name": "thefifty1percent | Women's Health",
+    "artist_name": "Shreya Patel-Parekh",
+    "feed_url": "https://anchor.fm/s/dc3a3bbc/podcast/rss",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Formateurs & programmes"
   }
 }
