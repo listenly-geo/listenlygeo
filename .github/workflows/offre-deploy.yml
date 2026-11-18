@@ -1,0 +1,63 @@
+name: Page de vente — deployer app.marketforge.fr/offre
+
+# Envoie automation/offre/index.html + config.json sur app.marketforge.fr/offre/ (acces FTP deja utilise par onboarding-deploy).
+# L'adresse de reception des visites (application web Apps Script) est injectee au deploiement, SANS le secret (partie ?secret=... retiree).
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'automation/offre/**'
+      - '.github/workflows/offre-deploy.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+      FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+      FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preparer la page
+        run: |
+          for v in FTP_SERVER FTP_USERNAME FTP_PASSWORD MFE_SHEET_URL; do
+            if [ -z "${!v}" ]; then echo "::error::secret $v manquant"; exit 1; fi
+          done
+          BASE="${MFE_SHEET_URL%%\?*}"
+          case "$BASE" in https://script.google.com/*) ;; *) echo "::error::adresse Apps Script inattendue"; exit 1;; esac
+          mkdir -p /tmp/out
+          sed "s#__OFFRE_ENDPOINT__#${BASE}#" automation/offre/index.html > /tmp/out/index.html
+          cp automation/offre/config.json /tmp/out/config.json
+          if grep -rq 'secret=' /tmp/out; then echo "::error::un secret est present dans la page"; exit 1; fi
+          python3 -c "import json;json.load(open('/tmp/out/config.json'))"
+      - name: Envoyer sur le serveur
+        run: |
+          U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 120 -sS --ftp-create-dirs"
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/out/index.html "$U/app.marketforge.fr/public/offre/index.html"
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/out/config.json "$U/app.marketforge.fr/public/offre/config.json"
+          echo "::notice::page envoyee"
+      - name: Verifier la page en ligne
+        run: |
+          sleep 5
+          code=$(curl -sS -o /tmp/live.html -w '%{http_code}' "https://app.marketforge.fr/offre/?ref=verification" || true)
+          echo "HTTP $code"
+          [ "$code" = "200" ] && grep -q 'Podcast AI Index' /tmp/live.html && grep -q 'script.google.com' /tmp/live.html && echo "::notice::page en ligne et branchee" || { echo "::error::page non accessible ou incomplete"; exit 1; }
+          cc=$(curl -sS -o /dev/null -w '%{http_code}' "https://app.marketforge.fr/offre/config.json" || true)
+          echo "config HTTP $cc"; [ "$cc" = "200" ] || { echo "::error::config.json inaccessible"; exit 1; }
+      - name: Verifier la reception des visites (une ligne « verification »)
+        run: |
+          BASE="${MFE_SHEET_URL%%\?*}"
+          rep=""
+          for i in 1 2 3 4 5 6 7 8; do   # Apps Script peut etre en cours de deploiement : on reessaie
+            rep=$(curl -sSL -m 90 -H 'Content-Type: text/plain' -d '{"action":"offre_event","event":"vue","ref":"verification","variant":"base"}' "$BASE" || true)
+            echo "$rep" | grep -q '"ok":true' && break
+            sleep 20
+          done
+          echo "reponse: ${rep:0:200}"
+          echo "$rep" | grep -q '"ok":true' && echo "::notice::suivi des visites actif" || { echo "::error::suivi des visites non actif (script pas a jour ?)"; exit 1; }

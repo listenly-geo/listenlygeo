@@ -50,6 +50,8 @@ var MFE_DEFAULTS = [
   ['MFE_EPISODES_PAR_PODCAST', '3', 'MarketForge Engine — profondeur d\'extraction par podcast.'],
   ['MFE_MINUTES_AUDIO_MAX_JOUR', '600', 'MarketForge Engine — garde-fou minutes audio par jour.'],
   ['MFE_ENVOI_AUTO', 'TRUE', 'MarketForge Engine — TRUE = envoie les mails automatiquement. FALSE = prepare seulement (statut "Pret").'],
+  ['MFE_REPLY_AUTO', 'FALSE', 'MarketForge Engine (18/11/2026) — TRUE = un « oui » clair du prospect recoit automatiquement, dans le meme fil, le mail avec le lien de la page de vente (MFE_OFFRE_URL + ?ref=slug). Toute autre reponse reste a traiter a la main. FALSE = aucune reponse automatique. A passer a TRUE seulement quand la page est en ligne.'],
+  ['MFE_OFFRE_URL', 'https://app.marketforge.fr/offre', 'MarketForge Engine (18/11/2026) — adresse de la page de vente envoyee aux prospects qui repondent oui (le moteur ajoute ?ref=slug du podcast).'],
   ['MFE_MAIL2_AUTO', 'FALSE', 'MarketForge Engine — Mail 2 (apres reponse du prospect) : TRUE = envoie automatiquement le mail CTA apres 20 min. FALSE = validation manuelle seulement (tu envoies toi-meme).'],
   ['MFE_MAX_ENVOIS_JOUR', '1500', 'MarketForge Engine — plafond absolu de premiers mails par jour (limite Google Workspace : 1500).'],
   ['MFE_MONTEE_PROGRESSIVE', 'TRUE', 'MarketForge Engine — QUALITE = paliers 30, 40, 50, 70, 100 par jour, un palier de plus seulement si rebonds 7j <= 2 % et envois reellement faits (baisse si > 3 %). TRUE = 44/j la 1re semaine (1 mail / 15 min), 80, 150, 300, 500, 1000 puis plafond (protege la delivrabilite).'],
@@ -163,6 +165,17 @@ var MFE_MSG_DEFAULTS = [
     '',
     'Etienne'
   ].join('\n'), 'MarketForge Engine — relance 3 (J+12, URGENCE, sans lien), dans le meme fil. Variables : {HELLO} {PODCAST}.'],
+  ['MFE_MSG_REPONSE_OFFRE', [
+    '{HELLO}',
+    '',
+    'Thanks for your reply! The simplest way to see what this would look like for <strong>{PODCAST}</strong> is this short video, with an example of an Index: <a href="{OFFRE_URL}">{OFFRE_URL}</a>',
+    '',
+    'If it makes sense, you can start directly from that page. I\'m here if you have any question.',
+    '',
+    'Best regards,',
+    '',
+    'Etienne'
+  ].join('\n'), 'MarketForge Engine (18/11/2026) — reponse automatique a un oui clair, dans le meme fil. Variables : {HELLO} {PODCAST} {OFFRE_URL}.'],
   ['MFE_MSG_OBJET_RELANCE_1', 'Follow-up: my message regarding {PODCAST}', 'MarketForge Engine — objet de la relance 1 (J+4), envoyee comme nouveau mail.'],
   ['MFE_MSG_OBJET_RELANCE_2', 'Follow-up 2: {PODCAST} on Google & AI', 'MarketForge Engine — objet de la relance 2 (J+8).'],
   ['MFE_MSG_OBJET_RELANCE_3', 'Last follow-up regarding {PODCAST}', 'MarketForge Engine — objet de la relance 3 (J+12).'],
@@ -685,10 +698,63 @@ function mfeCheckReplies_(sh) {
       sh.getRange(r.row, 7).setValue(lien ? 'Lien recu' : 'Repondu');
       sh.getRange(r.row, 10).setValue(new Date());
       if (lien) sh.getRange(r.row, 12).setValue('Lien donne : ' + lien);
+      else { try { mfeReplyOffre_(sh, r, msgs); } catch (eo) { sh.getRange(r.row, 12).setValue('Reponse auto : erreur ' + eo); } }
       n++;
     }
   });
   return n;
+}
+
+// ---------- Page de vente : visites et clics (18/11/2026) ----------
+// Action publique SANS secret : n'ecrit que (date, evenement, ref, variante) dans l'onglet « Offre vues », apres liste blanche stricte.
+function mfeOffreEvent_(body) {
+  var ev = String(body.event || ''), ref = String(body.ref || '').slice(0, 80), variant = String(body.variant || '').slice(0, 20);
+  if (['vue', 'clic'].indexOf(ev) < 0) return mfeJson_({ ok: false, error: 'evenement inconnu' });
+  if (ref && !/^[a-z0-9._-]+$/i.test(ref)) ref = 'invalide';
+  if (variant && !/^[a-z0-9_-]+$/i.test(variant)) variant = '';
+  var ss = mfeSS_(), sh = ss.getSheetByName('Offre vues');
+  if (!sh) { sh = ss.insertSheet('Offre vues'); sh.getRange(1, 1, 1, 4).setValues([['Date', 'Evenement', 'Ref (podcast)', 'Variante']]).setFontWeight('bold'); }
+  if (sh.getLastRow() > 20000) return mfeJson_({ ok: false, error: 'journal plein' });
+  sh.appendRow([new Date(), ev, ref, variant]);
+  return mfeJson_({ ok: true });
+}
+
+// ---------- Reponse automatique a un « oui » clair (18/11/2026) ----------
+// Seulement si MFE_REPLY_AUTO = TRUE. Un oui CLAIR (court, sans refus, au plus une question) recoit, dans le meme fil, le mail
+// MFE_MSG_REPONSE_OFFRE avec le lien de la page de vente (+ ?ref=slug pour savoir qui visite). Le statut reste « Repondu »
+// (il alimente le test A/B) ; la note de la ligne garde la trace. Toute autre reponse : « a traiter a la main ».
+function mfeReplyText_(body) {
+  var out = [];
+  String(body || '').split(/\r?\n/).some(function (l) {
+    if (/^\s*(on .{5,80} wrote:|le .{5,80} a \u00e9crit|from:|-----original|>)/i.test(l)) return true;
+    out.push(l); return false;
+  });
+  return out.join(' ').replace(/\s+/g, ' ').trim();
+}
+function mfeIsClearYes_(txt) {
+  var t = String(txt || '').toLowerCase();
+  if (!t || t.length > 500) return false;
+  if (/\b(no thanks?|no,? thank|not interested|unsubscribe|remove me|stop (emailing|sending|contacting)|don'?t (email|contact|send)|do not (email|contact|send)|not (now|a good time|for us|relevant)|no need|pass on this|already (have|work))\b/.test(t)) return false;
+  if ((t.match(/\?/g) || []).length > 1) return false;
+  return /\b(yes|yeah|yep|yup|sure|please do|please send|send (it|me|over)|go ahead|sounds (good|great|interesting)|interested|i'?d (love|like)|tell me more|show me|happy to|why not|okay|ok|let'?s (do|talk|see))\b/.test(t);
+}
+function mfeReplyOffre_(sh, r, msgs) {
+  var cfg = mfeReadSettings_();
+  if (String(cfg.MFE_REPLY_AUTO || 'FALSE').toUpperCase() !== 'TRUE') return false;
+  var email = String(r.values[2] || '').toLowerCase(), last = null;
+  msgs.forEach(function (m) { if (m.getFrom().toLowerCase().indexOf(email) !== -1) last = m; });
+  if (!last) return false;
+  var txt = mfeReplyText_(last.getPlainBody());
+  if (!mfeIsClearYes_(txt)) {
+    sh.getRange(r.row, 12).setValue('Reponse a traiter a la main (pas un « oui » clair) : ' + txt.slice(0, 160));
+    return false;
+  }
+  var base = String(cfg.MFE_OFFRE_URL || 'https://app.marketforge.fr/offre').trim();
+  var link = base + (base.indexOf('?') < 0 ? '?' : '&') + 'ref=' + encodeURIComponent(String(r.values[0] || ''));
+  var body = mfeFill_(mfeMsg_('MFE_MSG_REPONSE_OFFRE'), { HELLO: mfeHello_(r.values[13]), PODCAST: mfeShortName_(r.values[1]), OFFRE_URL: link });
+  GmailApp.getThreadById(r.values[10]).reply(mfeWithSignature_(body), mfeSendOpts_(body));
+  sh.getRange(r.row, 12).setValue('Reponse automatique envoyee (page de vente) le ' + Utilities.formatDate(new Date(), 'Europe/Paris', 'dd/MM/yyyy HH:mm') + ' : ' + link);
+  return true;
 }
 
 // Premier lien web envoye par le prospect (hors Listenly, MarketForge, Google)
@@ -1374,7 +1440,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 40 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 41 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -1384,6 +1450,7 @@ function doPost(e) {
   try { body = JSON.parse(e.postData.contents); } catch (err) { return mfeJson_({ ok: false, error: 'JSON invalide' }); }
   var p = (e && e.parameter) || {};
   if (body.action === 'onboarding_rss') return mfeOnboardingRss_(body);   // 16/11/2026 : apercu du podcast en direct dans l'onboarding (titre, pochette, nb d'episodes)
+  if (body.action === 'offre_event') return mfeOffreEvent_(body);   // 18/11/2026 : visites et clics de la page de vente (action publique, sans donnee personnelle, liste blanche stricte)
   if (body.action === 'onboarding_public') return mfeOnboardingPublic_(body);   // 15/11/2026 : questionnaire client apres paiement (seule action sans secret, protegee par l'identifiant de paiement Stripe)
   if (!mfeAuth_(p.secret || body.secret)) return mfeJson_({ ok: false, error: 'secret invalide' });
   if (body.action === 'onboarding_pending') return mfeOnbPending_();   // 16/11/2026 : construction automatique de l'Index client
