@@ -360019,12 +360019,13 @@
     "feed_url": "https://freefloatanalytics.com/podcast/shareholder-primacy/rss.xml",
     "genre": "Investing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Juridique",
     "gate": "dirigeant",
-    "email_domain": "freefloatmedia.com"
+    "email_domain": "freefloatmedia.com",
+    "rescue": "2026-11-18"
   },
   "https://feeds.acast.com/public/shows/6322e89b85cb8e0011f0d773": {
     "podcast_name": "The Core Podcast",
@@ -360051,5 +360052,37 @@
     "checked_date": "2026-11-18",
     "secteur": "Agences de services",
     "nb_episodes": 606
+  },
+  "https://rss.libsyn.com/shows/74362/destinations/325846.xml": {
+    "podcast_name": "The Online Counselling Podcast",
+    "artist_name": "Clay Cockrell",
+    "feed_url": "https://rss.libsyn.com/shows/74362/destinations/325846.xml",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 2386 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://rss.libsyn.com/shows/60734/destinations/234856.xml": {
+    "podcast_name": "The CEO Sage",
+    "artist_name": "Kris Plachy",
+    "feed_url": "https://rss.libsyn.com/shows/60734/destinations/234856.xml",
+    "genre": "Entrepreneurship",
+    "track_count": 385,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-ceo-sage/id964355401?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/6d/79/38/6d793835-a7f1-a670-0769-7325bd3dca66/mza_4906317725120432730.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Kris Plachy, créateur indépendant identifiable, sur le thème Entrepreneurship (B2B). Audience petite/moyenne estimée (385 épisodes, pas de signature media connue en metadata). Remplit tous les critères d'acceptance_path CREATEUR depuis la décision du 27/10/2026.",
+    "checked_date": "2026-11-18",
+    "secteur": "Formateurs & programmes",
+    "nb_episodes": 385,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Female Entrepreneurship",
+      "Serial Entrepreneurship"
+    ],
+    "contact_email": "hello@thevisionary.ceo"
   }
 }
