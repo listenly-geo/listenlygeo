@@ -359315,12 +359315,13 @@
     "feed_url": "https://www.omnycontent.com/d/playlist/5dcefa8e-00a9-4595-8ce1-a4ab0080f142/1ecba37a-6d83-4ee9-a295-a57100b7f2df/e3347658-6eee-44e2-bf81-a57100b92442/podcast.rss",
     "genre": "Investing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Coachs & consultants B2B",
     "gate": "dirigeant",
-    "email_domain": "primedia.co.za"
+    "email_domain": "primedia.co.za",
+    "rescue": "2026-11-18"
   },
   "https://www.spreaker.com/show/5445436/episodes/feed": {
     "podcast_name": "Strategic Growth Council",
@@ -359372,12 +359373,13 @@
     "feed_url": "https://feeds.acast.com/public/shows/bc5f9100-dfa0-4585-8f60-a2049c614a16",
     "genre": "Design",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Agences de services",
     "gate": "dirigeant",
-    "email_domain": "cleverpodcast.com"
+    "email_domain": "cleverpodcast.com",
+    "rescue": "2026-11-18"
   },
   "https://anchor.fm/s/99f1c52c/podcast/rss": {
     "podcast_name": "Pit Stops to Podium: B2B RevOps Podcast",
@@ -359423,5 +359425,177 @@
       "Tech Startups"
     ],
     "contact_email": "marketing@infinedi.net"
+  },
+  "https://rss.libsyn.com/shows/88084/destinations/431445.xml": {
+    "podcast_name": "NYU JazzCast",
+    "artist_name": "NYU Jazz Studies",
+    "feed_url": "https://rss.libsyn.com/shows/88084/destinations/431445.xml",
+    "genre": "Music",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1261 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://feeds.acast.com/public/shows/6297361e4a133a00133b65f6": {
+    "podcast_name": "The Xec. Podcast on Leadership",
+    "artist_name": "BME PR Pros",
+    "feed_url": "https://feeds.acast.com/public/shows/6297361e4a133a00133b65f6",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://s3-us-west-2.amazonaws.com/s.lumpen.com/weekinreview/weekinreview.xml": {
+    "podcast_name": "Lumpen Radio: Week In Review",
+    "artist_name": "Lumpen Radio",
+    "feed_url": "https://s3-us-west-2.amazonaws.com/s.lumpen.com/weekinreview/weekinreview.xml",
+    "genre": "News",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1874 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://rss.buzzsprout.com/761990.rss": {
+    "podcast_name": "Toya Talks Podcast",
+    "artist_name": "Toya Washington",
+    "feed_url": "https://rss.buzzsprout.com/761990.rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "RH & Recrutement"
+  },
+  "https://brandedwithsteph.libsyn.com/rss": {
+    "podcast_name": "Branded & Booked",
+    "artist_name": "Steph Weber",
+    "feed_url": "https://brandedwithsteph.libsyn.com/rss",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes",
+    "gate": "dirigeant",
+    "email_domain": "theweberco.com"
+  },
+  "https://www.spreaker.com/show/4661522/episodes/feed": {
+    "podcast_name": "The Melting Pot",
+    "artist_name": "Africa Business Radio",
+    "feed_url": "https://www.spreaker.com/show/4661522/episodes/feed",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 3556 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://feeds.podetize.com/rss/_p_0V2mH2J": {
+    "podcast_name": "The Confident Retirement",
+    "artist_name": "Kris Flammang",
+    "feed_url": "https://feeds.podetize.com/rss/_p_0V2mH2J",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 274 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "RH & Recrutement"
+  },
+  "https://rss.buzzsprout.com/795722.rss": {
+    "podcast_name": "In Demand",
+    "artist_name": "In Demand",
+    "feed_url": "https://rss.buzzsprout.com/795722.rss",
+    "genre": "Education",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://anchor.fm/s/77c5090/podcast/rss": {
+    "podcast_name": "Minds On B2B",
+    "artist_name": "Dan Harris",
+    "feed_url": "https://anchor.fm/s/77c5090/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Business général (entreprise)"
+  },
+  "https://feeds.captivate.fm/bigpictureblueprint/": {
+    "podcast_name": "The Big Picture Blueprint: Navigating Land, Real Estate, and Business Success",
+    "artist_name": "Dan Haberkost & Mason McDonald",
+    "feed_url": "https://feeds.captivate.fm/bigpictureblueprint/",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Immobilier"
+  },
+  "https://feeds.acast.com/public/shows/6216896fd584d100134d4d24": {
+    "podcast_name": "Food with Mark Bittman",
+    "artist_name": "Mark Bittman",
+    "feed_url": "https://feeds.acast.com/public/shows/6216896fd584d100134d4d24",
+    "genre": "Food",
+    "track_count": 270,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/food-with-mark-bittman/id1567511802?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/62/be/47/62be471e-4cad-0e88-0222-18b057b330ee/mza_618863747949450835.jpeg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Mark Bittman est une personnalité célèbre du grand public (food writer et TV personality reconnu), et le podcast traite de gastronomie/cuisine (Food), pas de business B2B. Ne correspond pas aux critères d'onboarding.",
+    "checked_date": "2026-11-18",
+    "secteur": "Business général (entreprise)",
+    "nb_episodes": 270
+  },
+  "https://rss.libsyn.com/shows/282221/destinations/2166896.xml": {
+    "podcast_name": "Mums On Cloud Nine",
+    "artist_name": "Heather Black",
+    "feed_url": "https://rss.libsyn.com/shows/282221/destinations/2166896.xml",
+    "genre": "Careers",
+    "track_count": 120,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/mums-on-cloud-nine/id1521873618?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/80/91/49/809149d5-faf6-5a10-1f03-0fc27f47ff5c/mza_12254059992588022184.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Heather Black, créatrice/experte indépendante identifiable, sur le sujet business/carrière (Careers). Audience petite-moyenne (120 épisodes, pas de signal de notoriété mass-media). Correspond au critère CREATEUR depuis la décision du 27/10/2026.",
+    "checked_date": "2026-11-18",
+    "secteur": "Formateurs & programmes",
+    "nb_episodes": 120,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Cloud Computing",
+      "Cloud Security",
+      "Cybersecurity Careers"
+    ],
+    "contact_email": "heather@supermumsconsulting.com"
+  },
+  "https://www.omnycontent.com/d/playlist/adef6a7c-ff80-4c67-b06d-ac8d011c24b7/bfaa84c5-0197-40bf-b675-ac8d011c42f6/bc7beaed-38ad-46cd-a5cf-ac8d011e6278/podcast.rss": {
+    "podcast_name": "The Carol Royse Real Estate Show Podcast",
+    "artist_name": "Carol Royse",
+    "feed_url": "https://www.omnycontent.com/d/playlist/adef6a7c-ff80-4c67-b06d-ac8d011c24b7/bfaa84c5-0197-40bf-b675-ac8d011c42f6/bc7beaed-38ad-46cd-a5cf-ac8d011e6278/podcast.rss",
+    "genre": "Business News",
+    "track_count": 100,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-carol-royse-real-estate-show-podcast/id1540875568?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/fa/df/90/fadf90f4-ef8c-fbb4-5810-82c4548f09b4/mza_2512282368239283801.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Carol Royse est une créatrice indépendante identifiable animant un podcast B2B actif (100 épisodes) sur l'immobilier et les affaires. Audience petite à moyenne, pas de média grand public détecté, critères d'acceptance_path CREATEUR satisfaits depuis 27/10/2026.",
+    "checked_date": "2026-11-18",
+    "secteur": "Immobilier",
+    "nb_episodes": 100,
+    "suggested_category": "🏠 Real Estate",
+    "suggested_tags": [
+      "Business News",
+      "Real Estate Law",
+      "Business Law",
+      "Business Law"
+    ],
+    "contact_email": "marketing@carolroyse.com"
   }
 }
