@@ -359920,12 +359920,13 @@
     "feed_url": "https://anchor.fm/s/2f52f3bc/podcast/rss",
     "genre": "Mental Health",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Business général (entreprise)",
     "gate": "dirigeant",
-    "email_domain": "yourlegacylegalcare.com"
+    "email_domain": "yourlegacylegalcare.com",
+    "rescue": "2026-11-18"
   },
   "https://audioboom.com/channels/4980676.rss": {
     "podcast_name": "Ambition Out Loud",
@@ -359989,5 +359990,66 @@
     "checked_date": "2026-11-18",
     "secteur": "Business général (entreprise)",
     "nb_episodes": 44
+  },
+  "https://anchor.fm/s/fbc8fbe4/podcast/rss": {
+    "podcast_name": "The Angie Lee Show",
+    "artist_name": "Angie Lee @AngieLeeShow",
+    "feed_url": "https://anchor.fm/s/fbc8fbe4/podcast/rss",
+    "genre": "Comedy",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 735 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://gestalten.podigee.io/feed/mp3": {
+    "podcast_name": "Gestalten",
+    "artist_name": "Konzepthaus Consulting GmbH",
+    "feed_url": "https://gestalten.podigee.io/feed/mp3",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 590 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://freefloatanalytics.com/podcast/shareholder-primacy/rss.xml": {
+    "podcast_name": "Shareholder Primacy",
+    "artist_name": "Free Float Media Inc.",
+    "feed_url": "https://freefloatanalytics.com/podcast/shareholder-primacy/rss.xml",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Juridique",
+    "gate": "dirigeant",
+    "email_domain": "freefloatmedia.com"
+  },
+  "https://feeds.acast.com/public/shows/6322e89b85cb8e0011f0d773": {
+    "podcast_name": "The Core Podcast",
+    "artist_name": "Core To Cloud",
+    "feed_url": "https://feeds.acast.com/public/shows/6322e89b85cb8e0011f0d773",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 782 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.buzzsprout.com/231124.rss": {
+    "podcast_name": "The Gutsy Podcast | Mindset, Personal Development & Entrepreneurship for Women",
+    "artist_name": "LauraAura® | Keynote Speaker, Coach, and Entrepreneur of 19 Years",
+    "feed_url": "https://rss.buzzsprout.com/231124.rss",
+    "genre": "Self-Improvement",
+    "track_count": 606,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-gutsy-podcast-mindset-personal-development/id1445481970?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/a2/44/78/a24478fb-824f-6e02-fe7f-8358fa3b97e9/mza_5332132392126221333.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Le podcast relève du développement personnel et du bien-être (Self-Improvement), pas du B2B business. Bien que LauraAura soit une créatrice indépendante identifiable, le sujet 'Mindset, Personal Development & Entrepreneurship for Women' ne correspond pas aux critères business/B2B requis (trop orienté coaching personnel et mentalité).",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services",
+    "nb_episodes": 606
   }
 }
