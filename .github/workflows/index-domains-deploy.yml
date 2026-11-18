@@ -1,0 +1,101 @@
+name: "Index — domaine du client (deployer ou verifier)"
+
+# deploy  : envoie CustomDomainController + HubDomainController + DocsSeo, ajoute dans routes/web.php du serveur
+#           (a partir de sa version en ligne, sauvegarde .bak-dom) le routage par domaine et l'adresse hub/domain.
+#           Controle ensuite que app.marketforge.fr marche toujours ; sinon la sauvegarde est remise automatiquement.
+# verifier : lecture seule (l'adresse hub/domain repond-elle, la page de l'app marche-t-elle).
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'deploy ou verifier'
+        required: true
+        type: choice
+        default: verifier
+        options:
+          - verifier
+          - deploy
+
+permissions:
+  contents: read
+
+jobs:
+  domaines:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+      FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+      FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      HUB_IMPORT_TOKEN: ${{ secrets.HUB_IMPORT_TOKEN }}
+      SITE: app.marketforge.fr
+      PAGE: https://app.marketforge.fr/docs/answers-with-dr-jr/what-is-the-basic-formula-for-calculating-net-income-on-an-income-statement
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deployer
+        if: inputs.mode == 'deploy'
+        run: |
+          set -e
+          for v in FTP_SERVER FTP_USERNAME FTP_PASSWORD; do [ -n "${!v}" ] || { echo "::error::secret $v manquant"; exit 1; }; done
+          U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 120 -sS --ftp-create-dirs"
+          D=automation/dtb-patch/hub-import-endpoint
+          mkdir -p /tmp/live/routes /tmp/new/routes
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/$SITE/routes/web.php" -o /tmp/live/routes/web.php
+          [ -s /tmp/live/routes/web.php ] || { echo "::error::routes/web.php illisible sur le serveur"; exit 1; }
+          python3 - <<'PY'
+          import sys
+          r = open('/tmp/live/routes/web.php', encoding='utf-8').read()
+          if 'CustomDomainController' not in r:
+              a = "Route::inertia('/', 'welcome', ["
+              if a not in r: sys.exit("ancre de la page d'accueil introuvable")
+              block = (
+                  "// Domaine du client (18/11/2026) : un hote qui n'est pas celui de l'app est servi comme l'Index du client.\n"
+                  "$mfHost = request()->getHost();\n"
+                  "$mfApp = parse_url((string) config('app.url'), PHP_URL_HOST) ?: 'app.marketforge.fr';\n"
+                  "if (! app()->runningInConsole() && $mfHost !== $mfApp && ! in_array($mfHost, ['localhost', '127.0.0.1'], true)) {\n"
+                  "    Route::get('sitemap.xml', [\\App\\Http\\Controllers\\CustomDomainController::class, 'sitemap']);\n"
+                  "    Route::get('robots.txt', [\\App\\Http\\Controllers\\CustomDomainController::class, 'robots']);\n"
+                  "    Route::get('/{path?}', \\App\\Http\\Controllers\\CustomDomainController::class)->where('path', '.*');\n"
+                  "}\n\n"
+              )
+              r = r.replace(a, block + a, 1)
+          if "hub/domain" not in r:
+              b = "Route::post('hub/import', \\App\\Http\\Controllers\\HubImportController::class)->name('hub.import');"
+              if b not in r: sys.exit("ancre hub/import introuvable")
+              r = r.replace(b, b + "\nRoute::post('hub/domain', \\App\\Http\\Controllers\\HubDomainController::class)->name('hub.domain');", 1)
+          open('/tmp/new/routes/web.php', 'w', encoding='utf-8').write(r)
+          PY
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/live/routes/web.php "$U/$SITE/routes/web.php.bak-dom"
+          for f in app/Support/DocsSeo.php app/Http/Controllers/CustomDomainController.php app/Http/Controllers/HubDomainController.php; do
+            curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T "$D/$f" "$U/$SITE/$f" && echo "::notice title=envoye::$f"
+          done
+          for c in bootstrap/cache/routes-v7.php bootstrap/cache/config.php; do
+            curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "-DELE $SITE/$c" "$U/" -o /dev/null >/dev/null 2>&1 && echo "::notice::cache supprime $c" || echo "::notice::$c absent"
+          done
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/new/routes/web.php "$U/$SITE/routes/web.php"
+          echo "::notice::deploiement termine"
+
+      - name: Verifier l'app (retour arriere automatique si elle ne repond plus)
+        run: |
+          sleep 8
+          ok=1
+          code=$(curl -sS -m 40 -o /tmp/p.html -w '%{http_code}' "$PAGE" || echo 000); echo "page de l'app : HTTP $code"
+          [ "$code" = 200 ] || ok=0
+          code=$(curl -sS -m 40 -o /dev/null -w '%{http_code}' "https://$SITE/" || echo 000); echo "accueil de l'app : HTTP $code"
+          [ "$code" = 200 ] || ok=0
+          code=$(curl -sS -m 40 -o /dev/null -w '%{http_code}' -X POST "https://$SITE/hub/domain" || echo 000); echo "hub/domain sans jeton : HTTP $code (attendu 401)"
+          [ "$code" = 401 ] || ok=0
+          if [ -n "$HUB_IMPORT_TOKEN" ]; then
+            r=$(curl -sS -m 40 -X POST "https://$SITE/hub/domain" -H "X-Hub-Token: $HUB_IMPORT_TOKEN" -H 'Content-Type: application/json' -d '{"action":"check","host":"inconnu.exemple-verif.com"}' || true)
+            echo "hub/domain avec jeton : $r"
+            echo "$r" | grep -q 'non enregistre' || ok=0
+          fi
+          if [ "$ok" = 1 ]; then echo "::notice::routage par domaine en place"; exit 0; fi
+          if [ "${{ inputs.mode }}" = deploy ]; then
+            U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 120 -sS"
+            curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/$SITE/routes/web.php.bak-dom" -o /tmp/restore.php && [ -s /tmp/restore.php ] \
+              && curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/restore.php "$U/$SITE/routes/web.php" && echo "::warning::sauvegarde routes/web.php remise en place"
+          fi
+          echo "::error::controle du routage par domaine en echec"; exit 1

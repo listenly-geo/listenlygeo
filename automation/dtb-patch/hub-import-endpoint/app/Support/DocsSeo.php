@@ -15,13 +15,32 @@ class DocsSeo
     public static function pageUrl(array $site, string $path): string
     {
         $path = trim($path, '/');
-        $host = (bool) config('app.docs_custom_domains', false) ? ($site['primaryDomain'] ?? null) : null;
+        $host = self::activeHost((string) ($site['slug'] ?? ''));
         if ($host) {
             return 'https://'.$host.($path === '' ? '/' : '/'.$path);
         }
         $url = rtrim((string) config('app.url'), '/').'/docs/'.$site['slug'];
 
         return $path === '' ? $url : $url.'/'.$path;
+    }
+
+    /** Domaine du client ACTIF (DNS et HTTPS verifies, 18/11/2026) ; sinon null et l'adresse reste celle de l'app. */
+    public static function activeHost(string $slug): ?string
+    {
+        static $cache = [];
+        if ($slug === '') {
+            return null;
+        }
+        if (! array_key_exists($slug, $cache)) {
+            try {
+                $siteId = \App\Models\Site::query()->where('slug', $slug)->value('id');
+                $cache[$slug] = $siteId ? (\App\Models\SiteDomain::query()->where('site_id', $siteId)->where('status', 'active')->orderByDesc('is_primary')->value('host') ?: null) : null;
+            } catch (\Throwable $e) {
+                $cache[$slug] = null;
+            }
+        }
+
+        return $cache[$slug];
     }
 
     /** @return array{title:string, head:string, noscript:string} */

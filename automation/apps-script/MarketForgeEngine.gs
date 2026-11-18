@@ -1358,11 +1358,59 @@ function mfeOnbUpdate_(b) {
     if (statut === 'Pret' && /^https:\/\//.test(url)) {
       GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Index pret : ' + podcast, 'Index construit pour ' + podcast + '\n' + url + '\nLigne ' + row + ' de l\'onglet Onboarding.');
       if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) && String(sh.getRange(row, 3).getValue()).indexOf('paye') === 0)
-        GmailApp.sendEmail(email, 'Your Index is ready', 'Hi,\n\nYour Index is ready. See it live here:\n' + url + '\n\nYour podcast episodes are now searchable expert answers, readable by Google and AI assistants.\n\nNext step: putting it on your own domain. We will send you one simple line to copy and paste (or forward to whoever manages your domain). If you have any question, just reply to this email.\n\nThe MarketForge team', mfeSavOpts_());
+        GmailApp.sendEmail(email, 'Your Index is ready', 'Hi,\n\nYour Index is ready. See it live here:\n' + url + '\n\nYour podcast episodes are now searchable expert answers, readable by Google and AI assistants.\n\nNext step, in a few minutes: you will get one short email with a single line to add to your domain settings (or to forward to whoever manages it). Once it is added, your Index goes live on your own domain automatically. If you have any question, just reply to this email.\n\nThe MarketForge team', mfeSavOpts_());
     } else if (statut === 'Erreur') {
       GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Index en erreur : ' + podcast, 'Construction en erreur pour ' + podcast + '\nLigne ' + row + '\n' + note);
     }
   } catch (err) { Logger.log('Mail onboarding_update : %s', err); }
+  return mfeJson_({ ok: true });
+}
+// ---------- Domaine du client (18/11/2026) : liste des Index a relier, puis statut + mails (ligne DNS, "en ligne") ----------
+function mfeOnbDomains_() {
+  var sh = mfeSS_().getSheetByName('Onboarding');
+  if (!sh || sh.getLastRow() < 2) return mfeJson_({ ok: true, rows: [] });
+  var vals = sh.getRange(2, 1, sh.getLastRow() - 1, MFE_ONB_COLS.length).getValues(), out = [];
+  for (var i = 0; i < vals.length; i++) {
+    var st = String(vals[i][1] || ''), dom = String(vals[i][16] || '').trim(), pay = String(vals[i][2] || '');
+    if ((st !== 'Pret' && st !== 'DNS a faire') || !dom || pay.indexOf('paye') !== 0) continue;
+    var o = { row: i + 2 };
+    for (var c = 0; c < MFE_ONB_COLS.length; c++) o[MFE_ONB_COLS[c]] = String(vals[i][c] instanceof Date ? vals[i][c].toISOString() : vals[i][c]);
+    out.push(o);
+  }
+  return mfeJson_({ ok: true, rows: out });
+}
+function mfeOnbDomainUpdate_(b) {
+  var sh = mfeSS_().getSheetByName('Onboarding'), row = parseInt(b.row, 10);
+  if (!sh || !(row >= 2 && row <= sh.getLastRow())) return mfeJson_({ ok: false, error: 'ligne invalide' });
+  var statut = mfeOnbClean_(b.statut, 40), note = mfeOnbClean_(b.note, 300), host = String(b.host || '').toLowerCase(), target = String(b.target || '');
+  if (!/^[a-z0-9.-]{3,253}$/.test(host) || (target && !/^[a-z0-9.-]{3,253}$/.test(target))) return mfeJson_({ ok: false, error: 'domaine invalide' });
+  var prev = String(sh.getRange(row, 2).getValue() || '');
+  if (statut) sh.getRange(row, 2).setValue(statut);
+  if (note) sh.getRange(row, 21).setValue(String(sh.getRange(row, 21).getValue() || '').replace(/ \| (DNS a faire|En ligne|Domaine)[^|]*$/, '') + ' | ' + note);
+  var email = String(sh.getRange(row, 5).getValue() || ''), podcast = String(sh.getRange(row, 6).getValue() || '');
+  var who = String(sh.getRange(row, 19).getValue() || ''), dnsMail = String(sh.getRange(row, 20).getValue() || '').trim();
+  var paid = String(sh.getRange(row, 3).getValue()).indexOf('paye') === 0, okMail = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  var name = host.split('.')[0];
+  var line = 'Type:   CNAME\nName:   ' + name + '\nValue:  ' + target + '\n(TTL: automatic, or 3600)';
+  try {
+    if (statut === 'DNS a faire' && prev !== 'DNS a faire' && paid) {
+      if (okMail.test(email)) GmailApp.sendEmail(email, 'One last step: connect your Index to ' + host,
+        'Hi,\n\nYour Index is built. To put it on your own address (https://' + host + '), add this single line in your domain settings (DNS):\n\n' + line + '\n\n' +
+        (who === 'Someone else' ? 'You said someone else manages your domain: we also sent this line to ' + (dnsMail || 'them') + ' if you gave us an address, or you can simply forward this email.\n\n'
+          : who === 'Not sure' ? 'Not sure where to do this? Just reply with the name of your domain provider (GoDaddy, OVH, Cloudflare, Wix...) and we will walk you through it.\n\n'
+          : 'You usually do this where you bought your domain: DNS records > Add record.\n\n') +
+        'As soon as the line is active, your Index goes live on ' + host + ' automatically (it can take a few minutes up to a few hours), and we will email you. Nothing else to do.\n\nThe MarketForge team', mfeSavOpts_());
+      if (who === 'Someone else' && okMail.test(dnsMail)) GmailApp.sendEmail(dnsMail, 'DNS record to add for ' + host + ' (2 minutes)',
+        'Hi,\n\n' + podcast + ' is putting its podcast Index on ' + host + '. Could you add this DNS record?\n\n' + line + '\n\nThat is all: HTTPS is set up on our side. Questions: reply to this email.\n\nThe MarketForge team', mfeSavOpts_());
+      GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'DNS a faire : ' + host, podcast + '\nLigne ' + row + '\n' + line);
+    } else if (statut === 'En ligne' && prev !== 'En ligne' && paid) {
+      if (okMail.test(email)) GmailApp.sendEmail(email, 'Your Index is live on ' + host,
+        'Hi,\n\nYour Index is now live on your own domain:\nhttps://' + host + '\n\nAdd a link to it from your website menu and your podcast show notes: that is how Google and AI assistants find it. Questions? Just reply.\n\nThe MarketForge team', mfeSavOpts_());
+      GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Index EN LIGNE : ' + host, podcast + '\nLigne ' + row);
+    } else if (statut === 'Erreur') {
+      GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Domaine en erreur : ' + host, podcast + '\nLigne ' + row + '\n' + note);
+    }
+  } catch (err) { Logger.log('Mail domaine : %s', err); }
   return mfeJson_({ ok: true });
 }
 // Apercu du flux RSS pour l'onboarding : titre, pochette, nombre d'episodes. Lecture seule, protegee par le meme identifiant de session que l'onboarding.
@@ -1447,7 +1495,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 42 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 43 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -1462,6 +1510,8 @@ function doPost(e) {
   if (!mfeAuth_(p.secret || body.secret)) return mfeJson_({ ok: false, error: 'secret invalide' });
   if (body.action === 'onboarding_pending') return mfeOnbPending_();   // 16/11/2026 : construction automatique de l'Index client
   if (body.action === 'onboarding_update') return mfeOnbUpdate_(body);
+  if (body.action === 'onboarding_domains') return mfeOnbDomains_();   // 18/11/2026 : domaine du client
+  if (body.action === 'onboarding_domain_update') return mfeOnbDomainUpdate_(body);
   if (body.action === 'tendances') return mfeTendances_(body);
   if (body.action === 'optimisations') return mfeOptimisations_(body);
   if (body.action === 'cohorte') return mfeCohorte_(body);   // MAJ 19/10/2026

@@ -1,0 +1,41 @@
+name: Index client — domaine (relier, verifier, mettre en ligne)
+
+# Toutes les 20 min : pour chaque Index "Pret" / "DNS a faire" dont le client a donne un domaine, relie le domaine a l'Index,
+# l'ajoute a l'hebergement (si les secrets CPANEL_* existent), verifie DNS + HTTPS, met le statut a jour et declenche les mails.
+# Sans ligne concernee, le passage ne fait rien (cout nul).
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'true = simulation (aucune ecriture)'
+        required: false
+        default: 'false'
+  schedule:
+    - cron: '3,23,43 * * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: index-domains
+  cancel-in-progress: false
+
+jobs:
+  domaines:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
+      HUB_IMPORT_TOKEN: ${{ secrets.HUB_IMPORT_TOKEN }}
+      CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
+      CPANEL_USER: ${{ secrets.CPANEL_USER }}
+      CPANEL_TOKEN: ${{ secrets.CPANEL_TOKEN }}
+      DRY_RUN: ${{ inputs.dry_run == 'true' && '1' || '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Domaines des clients
+        run: python automation/scripts/index_domains.py
