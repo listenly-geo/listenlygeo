@@ -1118,6 +1118,7 @@ function mfeDraft_(values, variant) {  // [objet, corps, variante] du 1er mail
   if (!variant || !abd.texts[variant]) variant = abd.texts[abd.controle] ? abd.controle : Object.keys(abd.texts)[0];
   v.CTA = mfeFill_(abd.texts[variant], v);
   var body = Number(values[4]) > 0 ? mfeMsg_('MFE_MSG_REPONSES') : mfeMsg_('MFE_MSG_FICHE');
+  if (abd.bodies && abd.bodies[variant]) body = abd.bodies[variant];   // challenger : mail complet, meme objet
   return [mfeFill_(mfeMsg_('MFE_MSG_OBJET'), v), mfeFill_(body, v), variant];
 }
 
@@ -1140,7 +1141,9 @@ function mfeAbData_() {
   if (!Object.keys(texts).length) texts = { Q0: mfeMsg_('MFE_CTA_A') || MFE_CTAS.A };
   var controle = d && d.controle && texts[d.controle] ? d.controle : Object.keys(texts)[0];
   var debut = (d && d.cycle_debut) ? new Date(d.cycle_debut + 'T00:00:00Z').getTime() : MFE_AB_DEPUIS;
-  mfeAbData_.memo = { texts: texts, weights: (d && d.weights) || {}, controle: controle, debut: debut };
+  var bodies = {};   // 18/11/2026 : mail COMPLET d'un challenger (modele base 75 % / challenger 25 %) ; sinon mail de base avec {CTA}
+  if (d && d.bodies) Object.keys(d.bodies).forEach(function (k) { if (texts[k] && String(d.bodies[k] || '').trim()) bodies[k] = String(d.bodies[k]); });
+  mfeAbData_.memo = { texts: texts, bodies: bodies, weights: (d && d.weights) || {}, controle: controle, debut: debut };
   return mfeAbData_.memo;
 }
 
@@ -1371,7 +1374,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 39 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 40 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }

@@ -1,26 +1,26 @@
 {
  "updated": "2026-11-18T15:31",
  "actif": true,
+ "mode": "base_challenger",
  "cycle": 1,
- "cycle_debut": "2026-11-17",
+ "cycle_debut": "2026-11-18",
  "controle": "Q0",
  "phase": "cycle 1, jour 2/7",
  "verdict": "Cycle 1 (depuis le 2026-11-17) : 53 envois, 0 vraies reponses. Decision dans 6 jour(s).",
  "weights": {
-  "Q0": 0.25,
-  "Q1": 0.25,
-  "Q2": 0.25,
-  "Q3": 0.25
+  "Q0": 0.75,
+  "C2": 0.25
  },
  "texts": {
   "Q0": "Have you ever considered turning each episode into traffic that comes directly from Google & AI, with nothing to change in your strategy?",
-  "Q1": "Have you ever thought about becoming the expert Google and ChatGPT recommend in your field, without writing a word?",
-  "Q2": "Have you ever thought about your episodes bringing you clients from Google and ChatGPT, without recording a single extra episode?",
-  "Q3": "Have you ever thought about ChatGPT recommending your business when your future clients ask a question, without publishing anything new?"
+  "C2": "(mail complet : Preuve d'abord)"
+ },
+ "bodies": {
+  "C2": "{HELLO}\n\nIn one of your episodes of <strong>{PODCAST}</strong>, this question comes up: <em>\"{QUERY}\"</em>\n\nI turned the answer into a page that Google, ChatGPT and Gemini can cite, <a href=\"{MOMENT_URL}\">here</a>.\n\nEvery episode could work the same way, with nothing extra to record.\n\n<strong>Worth a look at what that would mean for your business?</strong>\n\nBest regards,\n\nEtienne\n\n<em>PS: Without a reply, the system automatically keeps your episodes' traffic on Listenly.</em>"
  },
  "variants": {
   "Q0": {
-   "label": "Trafic (reference)",
+   "label": "Base (reference)",
    "texte": "Have you ever considered turning each episode into traffic that comes directly from Google & AI, with nothing to change in your strategy?",
    "envoye": 14,
    "rebond": 0,
@@ -29,7 +29,7 @@
    "delivres": 14,
    "taux_pct": 0.0,
    "chance_meilleure_pct": "",
-   "part_envois_pct": 25.0
+   "part_envois_pct": 75.0
   },
   "Q1": {
    "label": "Reference / expert",
@@ -68,57 +68,47 @@
    "part_envois_pct": 25.0
   }
  },
- "reserve_restante": 4,
+ "reserve_restante": 2,
  "etat": {
+  "mode": "base_challenger",
   "cycle": 1,
-  "cycle_debut": "2026-11-17",
+  "cycle_debut": "2026-11-18",
   "controle": "Q0",
   "versions": {
    "Q0": {
-    "label": "Trafic (reference)",
+    "label": "Base (reference)",
     "texte": "Have you ever considered turning each episode into traffic that comes directly from Google & AI, with nothing to change in your strategy?"
    },
-   "Q1": {
-    "label": "Reference / expert",
-    "texte": "Have you ever thought about becoming the expert Google and ChatGPT recommend in your field, without writing a word?"
-   },
-   "Q2": {
-    "label": "Clients",
-    "texte": "Have you ever thought about your episodes bringing you clients from Google and ChatGPT, without recording a single extra episode?"
-   },
-   "Q3": {
-    "label": "Clients cites par l'IA",
-    "texte": "Have you ever thought about ChatGPT recommending your business when your future clients ask a question, without publishing anything new?"
+   "C2": {
+    "label": "Preuve d'abord",
+    "texte": "(mail complet : Preuve d'abord)",
+    "corps": "{HELLO}\n\nIn one of your episodes of <strong>{PODCAST}</strong>, this question comes up: <em>\"{QUERY}\"</em>\n\nI turned the answer into a page that Google, ChatGPT and Gemini can cite, <a href=\"{MOMENT_URL}\">here</a>.\n\nEvery episode could work the same way, with nothing extra to record.\n\n<strong>Worth a look at what that would mean for your business?</strong>\n\nBest regards,\n\nEtienne\n\n<em>PS: Without a reply, the system automatically keeps your episodes' traffic on Listenly.</em>"
    }
   },
   "actives": [
    "Q0",
-   "Q1",
-   "Q2",
-   "Q3"
+   "C2"
   ],
+  "challenger": "C2",
   "reserve": [
    {
-    "id": "Q4",
-    "label": "Rendez-vous",
-    "texte": "Have you ever considered turning each episode into booked calls that come directly from Google & AI, with nothing to change in your podcast?"
+    "id": "C3",
+    "label": "Resultat client",
+    "corps": "{HELLO}\n\nYour episodes of <strong>{PODCAST}</strong> already contain the answers your future clients are searching for. Today, only your listeners find them.\n\nWe turn each one into a page that Google and ChatGPT can cite, so the right people find you before your competitors. Example: <a href=\"{MOMENT_URL}\">here</a>.\n\n<strong>Open to seeing what yours would look like?</strong>\n\nBest regards,\n\nEtienne\n\n<em>PS: Without a reply, the system automatically keeps your episodes' traffic on Listenly.</em>"
    },
    {
-    "id": "Q5",
-    "label": "Prospects qualifies",
-    "texte": "Have you ever considered turning each episode into qualified leads that come directly from Google & AI, with nothing to change in your workflow?"
-   },
-   {
-    "id": "Q6",
-    "label": "Reponses d'expert",
-    "texte": "Have you ever considered turning each episode into expert answers that Google & AI recommend to your future clients, with nothing to change in your strategy?"
-   },
-   {
-    "id": "Q7",
-    "label": "Nouveaux clients",
-    "texte": "Have you ever considered turning each episode into new clients that come directly from Google & AI, with nothing to change in your strategy?"
+    "id": "C1",
+    "label": "Court (curiosite)",
+    "corps": "{HELLO}\n\nQuick question about <strong>{PODCAST}</strong>: when a business leader asks ChatGPT about {THEMATIQUE}, is your expertise the answer it cites?\n\nYour episodes could be, like <a href=\"{MOMENT_URL}\">here</a>.\n\nBest regards,\n\nEtienne\n\n<em>PS: Without a reply, the system automatically keeps your episodes' traffic on Listenly.</em>"
    }
   ],
-  "historique": []
+  "historique": [
+   {
+    "cycle": 1,
+    "debut": "2026-11-17",
+    "fin": "2026-11-18",
+    "decision": "arrete : passage au modele base 75 % / challenger 25 % (decision du 18/11/2026)"
+   }
+  ]
  }
 }

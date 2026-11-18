@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
 """
-Optimiseur du test A/B de la phrase d'accroche du 1er mail (17/11/2026, remplace l'ancien test A-E).
+Optimiseur du 1er mail : BASE 75 % + CHALLENGER 25 % (decision d'Etienne du 18/11/2026, remplace le test des 4 questions).
 
-Principe (decision d'Etienne du 17/11/2026) :
-  - le 1er mail contient UNE phrase testee (en gras, emplacement {CTA}) ; tout le reste du mail est identique ;
-  - 4 versions actives, 25 % des envois chacune ; chaque envoi note l'identifiant de la version (Q0, Q1...) dans
-    la colonne "Variante CTA" du Sheet ;
-  - un cycle dure 7 jours. A la fin du cycle :
-      * une version a strictement plus de vraies reponses que toutes les autres -> elle devient la reference
-        (gagnante) et les autres sont remplacees par les 3 suivantes de la reserve ;
-      * aucune reponse -> la reference est gardee, les 3 challengers sont remplaces par la reserve ;
-      * egalite en tete (avec des reponses) -> le cycle est prolonge jusqu'a 14 jours, puis le meilleur taux gagne.
-  - la reserve ne contient que des phrases deja montrees a Etienne. Reserve vide -> on garde les versions en cours
-    et le verdict demande de nouvelles phrases (jamais de texte invente automatiquement).
+Principe :
+  - la BASE (controle) est le mail actuel, avec la phrase Q0 : 75 % des envois ;
+  - UN challenger a la fois, 25 % des envois : un mail COMPLET construit sur un angle different (meme promesse,
+    meme objet, meme PS, meme signature). Chaque envoi note l'identifiant (Q0, C2...) dans la colonne "Variante CTA" ;
+  - decision quand le challenger a >= MIN_DELIVRES mails delivres (ou a la fin de la duree maximale) :
+      * le challenger a un taux de vraies reponses strictement superieur a celui de la base ET au moins 1 reponse
+        -> il devient la nouvelle base (l'ancienne base est retiree) ;
+      * sinon il est retire et le challenger suivant de la reserve prend la place ;
+  - arret anticipe : >= MIN_ARRET delivres, 0 reponse, alors que la base a un taux >= 1 % -> challenger retire ;
+  - la reserve ne contient que des textes deja montres a Etienne. Reserve vide -> on garde la base seule (100 %)
+    et le verdict demande de nouveaux challengers (jamais de texte invente automatiquement).
 
-Sources : prospection_stats.json (cle ab_envois : toutes les lignes testees, sans email), replies.json (classes),
-config.json (reponses automatiques ignorees). Sortie : automation/marketforge_engine/ab_test.json, lu par Apps Script
-(textes + poids) et par la Synthese du Sheet. Aucun appel reseau, aucune cle API.
+Sources : prospection_stats.json (cle ab_envois, sans email), replies.json, config.json. Sortie : ab_test.json, lu par
+Apps Script (textes, corps complets, poids) et par la Synthese du Sheet. Aucun appel reseau, aucune cle API.
 """
 import sys, json, datetime
 
@@ -25,25 +24,34 @@ CONFIG = "automation/marketforge_engine/config.json"
 REPLIES = "automation/marketforge_engine/replies.json"
 OUT = "automation/marketforge_engine/ab_test.json"
 
-CYCLE_JOURS = 7
-CYCLE_MAX_JOURS = 14   # prolongation maximale en cas d'egalite
-NB_ACTIVES = 4
+PART_CHALLENGER = 0.25
+MIN_DELIVRES = 150      # decision normale
+MIN_ARRET = 80          # arret anticipe si 0 reponse et base >= 1 %
+DUREE_MAX_JOURS = 28    # decision forcee
+DEBUT = "2026-11-18"
 
-# Cycle 1 (valide par Etienne le 17/11/2026). Q0 = phrase historique, reference.
-DEPART = {
-    "Q0": ("Trafic (reference)", "Have you ever considered turning each episode into traffic that comes directly from Google & AI, with nothing to change in your strategy?"),
-    "Q1": ("Reference / expert", "Have you ever thought about becoming the expert Google and ChatGPT recommend in your field, without writing a word?"),
-    "Q2": ("Clients", "Have you ever thought about your episodes bringing you clients from Google and ChatGPT, without recording a single extra episode?"),
-    "Q3": ("Clients cites par l'IA", "Have you ever thought about ChatGPT recommending your business when your future clients ask a question, without publishing anything new?"),
-}
-# Reserve : phrases deja proposees a Etienne dans le chat du 17/11/2026 (meme structure que Q0). Ordre = ordre d'entree en test.
-RESERVE = [
-    ("Q4", "Rendez-vous", "Have you ever considered turning each episode into booked calls that come directly from Google & AI, with nothing to change in your podcast?"),
-    ("Q5", "Prospects qualifies", "Have you ever considered turning each episode into qualified leads that come directly from Google & AI, with nothing to change in your workflow?"),
-    ("Q6", "Reponses d'expert", "Have you ever considered turning each episode into expert answers that Google & AI recommend to your future clients, with nothing to change in your strategy?"),
-    ("Q7", "Nouveaux clients", "Have you ever considered turning each episode into new clients that come directly from Google & AI, with nothing to change in your strategy?"),
+BASE_Q0 = ("Base (reference)", "Have you ever considered turning each episode into traffic that comes directly from Google & AI, with nothing to change in your strategy?")
+
+PS = "<em>PS: Without a reply, the system automatically keeps your episodes' traffic on Listenly.</em>"
+
+# Challengers (textes montres a Etienne le 18/11/2026). Variables Apps Script : {HELLO} {PODCAST} {QUERY} {MOMENT_URL}.
+CHALLENGERS = [
+    ("C2", "Preuve d'abord",
+     "{HELLO}\n\nIn one of your episodes of <strong>{PODCAST}</strong>, this question comes up: <em>\"{QUERY}\"</em>\n\n"
+     "I turned the answer into a page that Google, ChatGPT and Gemini can cite, <a href=\"{MOMENT_URL}\">here</a>.\n\n"
+     "Every episode could work the same way, with nothing extra to record.\n\n"
+     "<strong>Worth a look at what that would mean for your business?</strong>\n\nBest regards,\n\nEtienne\n\n" + PS),
+    ("C3", "Resultat client",
+     "{HELLO}\n\nYour episodes of <strong>{PODCAST}</strong> already contain the answers your future clients are searching for. "
+     "Today, only your listeners find them.\n\n"
+     "We turn each one into a page that Google and ChatGPT can cite, so the right people find you before your competitors. "
+     "Example: <a href=\"{MOMENT_URL}\">here</a>.\n\n"
+     "<strong>Open to seeing what yours would look like?</strong>\n\nBest regards,\n\nEtienne\n\n" + PS),
+    ("C1", "Court (curiosite)",
+     "{HELLO}\n\nQuick question about <strong>{PODCAST}</strong>: when a business leader asks ChatGPT about {THEMATIQUE}, "
+     "is your expertise the answer it cites?\n\n"
+     "Your episodes could be, like <a href=\"{MOMENT_URL}\">here</a>.\n\nBest regards,\n\nEtienne\n\n" + PS),
 ]
-DEBUT = "2026-11-17"
 
 
 def load(path, default):
@@ -54,13 +62,19 @@ def load(path, default):
         return default
 
 
-def initial_state():
+def initial_state(old=None):
+    hist = list((old or {}).get("historique", []))
+    if old and old.get("mode") != "base_challenger":
+        hist.append({"cycle": old.get("cycle"), "debut": old.get("cycle_debut"), "fin": DEBUT,
+                     "decision": "arrete : passage au modele base 75 % / challenger 25 % (decision du 18/11/2026)"})
+    ch = CHALLENGERS[0]
     return {
-        "cycle": 1, "cycle_debut": DEBUT, "controle": "Q0",
-        "versions": {k: {"label": l, "texte": t} for k, (l, t) in DEPART.items()},
-        "actives": list(DEPART),
-        "reserve": [{"id": i, "label": l, "texte": t} for i, l, t in RESERVE],
-        "historique": [],
+        "mode": "base_challenger", "cycle": 1, "cycle_debut": DEBUT, "controle": "Q0",
+        "versions": {"Q0": {"label": BASE_Q0[0], "texte": BASE_Q0[1]},
+                     ch[0]: {"label": ch[1], "texte": "(mail complet : " + ch[1] + ")", "corps": ch[2]}},
+        "actives": ["Q0", ch[0]], "challenger": ch[0],
+        "reserve": [{"id": i, "label": l, "corps": c} for i, l, c in CHALLENGERS[1:]],
+        "historique": hist,
     }
 
 
@@ -88,27 +102,28 @@ def count(state, envois, replies, ignored):
     return v
 
 
-def new_cycle(state, keep, today, decision, stats):
-    """Garde `keep` (reference) et complete avec la reserve jusqu'a NB_ACTIVES. Retourne False si la reserve est vide."""
+def next_challenger(state, today, decision, snap):
+    """Cloture le challenger courant (et promeut ou non), puis prend le suivant. Retourne False si reserve vide."""
     state["historique"].append({"cycle": state["cycle"], "debut": state["cycle_debut"], "fin": today,
-                                "decision": decision, "resultats": stats})
-    need = NB_ACTIVES - 1
-    if not state["reserve"]:
-        return False
-    nouvelles = state["reserve"][:need]
-    state["reserve"] = state["reserve"][need:]
-    for n in nouvelles:
-        state["versions"][n["id"]] = {"label": n["label"], "texte": n["texte"]}
-    state["controle"] = keep
-    state["actives"] = [keep] + [n["id"] for n in nouvelles]
+                                "decision": decision, "resultats": snap})
     state["cycle"] += 1
     state["cycle_debut"] = today
+    if not state["reserve"]:
+        state["actives"] = [state["controle"]]
+        state["challenger"] = None
+        return False
+    n = state["reserve"].pop(0)
+    state["versions"][n["id"]] = {"label": n["label"], "texte": "(mail complet : " + n["label"] + ")", "corps": n["corps"]}
+    state["challenger"] = n["id"]
+    state["actives"] = [state["controle"], n["id"]]
     return True
 
 
 def main():
     prev = load(OUT, {})
-    state = prev.get("etat") or initial_state()
+    state = prev.get("etat")
+    if not state or state.get("mode") != "base_challenger":
+        state = initial_state(state)
     stats = load(STATS, {})
     envois = stats.get("ab_envois") or stats.get("prospects", [])
     ignored = set(load(CONFIG, {}).get("reponses_automatiques_ignorees", []))
@@ -118,64 +133,68 @@ def main():
     jours = (datetime.date.today() - datetime.date.fromisoformat(state["cycle_debut"])).days
     v = count(state, envois, replies, ignored)
     note = ""
+    base, ch = state["controle"], state.get("challenger")
 
-    if jours >= CYCLE_JOURS:
-        ranked = sorted(state["actives"], key=lambda k: (v[k]["reponse"], v[k]["taux_pct"] or 0), reverse=True)
-        top, second = ranked[0], ranked[1] if len(ranked) > 1 else None
-        total = sum(d["reponse"] for d in v.values())
-        snap = {k: dict(v[k], texte=state["versions"][k]["texte"]) for k in state["actives"]}
-        decision = None
-        if total == 0:
-            decision, keep = f"aucune reponse en {jours} jours : {state['controle']} reste la reference, 3 nouvelles phrases", state["controle"]
-        elif second is None or v[top]["reponse"] > v[second]["reponse"]:
-            decision, keep = f"gagnante : {top} ({v[top]['reponse']} reponses)", top
-        elif jours >= CYCLE_MAX_JOURS:
-            decision, keep = f"egalite apres {jours} jours : {top} gagne au meilleur taux", top
-        if decision:
-            if new_cycle(state, keep, today, decision, snap):
-                note = f"Cycle {state['cycle'] - 1} termine ({decision}). Cycle {state['cycle']} demarre."
-                v = count(state, envois, replies, ignored)
-                jours = 0
+    if ch:
+        b, c = v[base], v[ch]
+        snap = {k: dict(v[k], label=state["versions"][k]["label"]) for k in state["actives"]}
+        decision = promote = None
+        if c["delivres"] >= MIN_DELIVRES or jours >= DUREE_MAX_JOURS:
+            tb, tc = b["taux_pct"] or 0, c["taux_pct"] or 0
+            if c["reponse"] >= 1 and tc > tb:
+                decision, promote = f"{ch} ({state['versions'][ch]['label']}) bat la base : {c['reponse']} reponses sur {c['delivres']} delivres ({tc} %) contre {tb} %. {ch} devient la base.", True
             else:
-                note = f"Cycle {state['cycle']} termine ({decision}) mais la reserve est vide : nouvelles phrases a valider par Etienne."
-                state["historique"][-1]["reserve_vide"] = True
-                state["cycle_debut"] = today   # on relance un cycle avec les memes versions en attendant
-                state["controle"] = keep
-                v = count(state, envois, replies, ignored)
-                jours = 0
-        else:
-            note = f"Egalite en tete apres {jours} jours : cycle prolonge (jusqu'a {CYCLE_MAX_JOURS} jours)."
+                decision, promote = f"{ch} retire : {c['reponse']} reponses sur {c['delivres']} delivres ({tc} %) contre {tb} % pour la base.", False
+        elif c["delivres"] >= MIN_ARRET and c["reponse"] == 0 and (b["taux_pct"] or 0) >= 1.0:
+            decision, promote = f"{ch} arrete : 0 reponse sur {c['delivres']} delivres alors que la base est a {b['taux_pct']} %.", False
+        if decision:
+            if promote:
+                state["controle"] = ch
+            if next_challenger(state, today, decision, snap):
+                note = f"{decision} Nouveau challenger : {state['challenger']}."
+            else:
+                note = f"{decision} Reserve vide : la base envoie 100 %. Nouveaux challengers a valider par Etienne."
+            v = count(state, envois, replies, ignored)
+            jours = 0
+            base, ch = state["controle"], state.get("challenger")
 
     actives = state["actives"]
-    weights = {k: round(1.0 / len(actives), 4) for k in actives}
-    reste = max(CYCLE_JOURS - jours, 0)
-    if len(state["reserve"]) < NB_ACTIVES - 1:
-        note = (note + " " if note else "") + f"Reserve presque vide ({len(state['reserve'])} phrase(s)) : proposer de nouvelles phrases a Etienne."
+    if ch:
+        weights = {base: round(1 - PART_CHALLENGER, 4), ch: PART_CHALLENGER}
+    else:
+        weights = {base: 1.0}
+    if ch and len(state["reserve"]) == 0:
+        note = (note + " " if note else "") + "Dernier challenger de la reserve : proposer de nouveaux textes a Etienne."
+    tot_env = sum(v[k]["envoye"] for k in actives)
+    tot_rep = sum(v[k]["reponse"] for k in actives)
     verdict = (note + " " if note else "") + (
-        f"Cycle {state['cycle']} (depuis le {state['cycle_debut']}) : {sum(v[k]['envoye'] for k in actives)} envois, "
-        f"{sum(v[k]['reponse'] for k in actives)} vraies reponses. Decision dans {reste} jour(s).")
+        f"Cycle {state['cycle']} (depuis le {state['cycle_debut']}) : base {base} {int(weights[base]*100)} %"
+        + (f", challenger {ch} {int(weights[ch]*100)} %" if ch else ", pas de challenger")
+        + f" ; {tot_env} envois, {tot_rep} vraies reponses. "
+        + (f"Decision a {MIN_DELIVRES} delivres pour {ch} (actuellement {v[ch]['delivres']})." if ch else ""))
 
     out = {
         "updated": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M"),
-        "actif": True,
-        "cycle": state["cycle"], "cycle_debut": state["cycle_debut"], "controle": state["controle"],
-        "phase": f"cycle {state['cycle']}, jour {jours + 1}/{CYCLE_JOURS}",
-        "verdict": verdict,
-        "weights": weights,
-        "texts": {k: state["versions"][k]["texte"] for k in actives},   # lu par Apps Script : phrase inseree a la place de {CTA}
-        "variants": {k: {"label": state["versions"][k]["label"] + (" (reference)" if k == state["controle"] and "reference" not in state["versions"][k]["label"] else ""),
+        "actif": True, "mode": "base_challenger",
+        "cycle": state["cycle"], "cycle_debut": state["cycle_debut"], "controle": base,
+        "phase": f"cycle {state['cycle']}, jour {jours + 1}",
+        "verdict": verdict, "weights": weights,
+        "texts": {k: state["versions"][k]["texte"] for k in actives},     # lu par Apps Script
+        "bodies": {k: state["versions"][k]["corps"] for k in actives if state["versions"][k].get("corps")},  # mail complet du challenger
+        "variants": {k: {"label": state["versions"][k]["label"] + (" (base)" if k == base and "base" not in state["versions"][k]["label"].lower() else ""),
                          "texte": state["versions"][k]["texte"], **v[k],
                          "chance_meilleure_pct": "", "part_envois_pct": round(100 * weights[k], 1)} for k in actives},
         "reserve_restante": len(state["reserve"]),
         "etat": state,
     }
+    # la base promue par un challenger n'a plus de phrase CTA (c'est un mail complet) : Apps Script utilise alors bodies[base]
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     for k in actives:
         d = out["variants"][k]
-        print(f"[ab] {k}: {d['envoye']} env., {d['rebond']} rebonds, {d['reponse']} rep. ({d['taux_pct']}%) — {d['label']}")
+        print(f"[ab] {k}: {d['envoye']} env., {d['rebond']} rebonds, {d['reponse']} rep. ({d['taux_pct']}%) — {d['label']} ({d['part_envois_pct']} %)")
     print(f"[ab] {verdict}")
-    print(f"::notice title=Test A/B accroche::{verdict}")
+    print(f"::notice title=Base/challenger::{verdict}")
 
 
 if __name__ == "__main__":
