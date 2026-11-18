@@ -358162,12 +358162,13 @@
     "feed_url": "https://haronthemove.libsyn.com/rss",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Immobilier",
     "gate": "dirigeant",
-    "email_domain": "har.com"
+    "email_domain": "har.com",
+    "rescue": "2026-11-18"
   },
   "https://feed.podbean.com/cxinsider/feed.xml": {
     "podcast_name": "CX Insider - Customer experience leaders sharing insights and ideas for customer service success",
@@ -358212,5 +358213,60 @@
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Formateurs & programmes"
+  },
+  "https://feeds.captivate.fm/xtech/": {
+    "podcast_name": "XTech",
+    "artist_name": "Fox Agency",
+    "feed_url": "https://feeds.captivate.fm/xtech/",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://rss.pdrl.fm/158919/feeds.libsyn.com/115172/rss/?redirect=false": {
+    "podcast_name": "DayWeather Podcast",
+    "artist_name": "DayWeather",
+    "feed_url": "https://rss.pdrl.fm/158919/feeds.libsyn.com/115172/rss/?redirect=false",
+    "genre": "Daily News",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Daily News)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Énergie"
+  },
+  "https://rss.pdrl.fm/e28853/rss.art19.com/tfntk": {
+    "podcast_name": "The Fighter & The Kid",
+    "artist_name": "Thiccc Boy Studios | PodcastOne",
+    "feed_url": "https://rss.pdrl.fm/e28853/rss.art19.com/tfntk",
+    "genre": "Sports",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : email d'hebergeur / reseau de podcasts (podcastone.com)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Énergie"
+  },
+  "https://rss.buzzsprout.com/1609495.rss": {
+    "podcast_name": "The Possibility Hub",
+    "artist_name": "Carol Talbot",
+    "feed_url": "https://rss.buzzsprout.com/1609495.rss",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://feeds.acast.com/public/shows/5a7e06d80152e7bb7703602e": {
+    "podcast_name": "Thinking Pilates Podcast",
+    "artist_name": "Chantill Lopez, Debora Kolwey + James Crader",
+    "feed_url": "https://feeds.acast.com/public/shows/5a7e06d80152e7bb7703602e",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Coachs & consultants B2B"
   }
 }
