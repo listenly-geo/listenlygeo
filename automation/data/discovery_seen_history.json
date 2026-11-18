@@ -360620,12 +360620,13 @@
     "feed_url": "https://theautomateddaily.com/hackernews/feed.xml",
     "genre": "Technology",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Énergie",
     "gate": "dirigeant",
-    "email_domain": "theautomateddaily.com"
+    "email_domain": "theautomateddaily.com",
+    "rescue": "2026-11-18"
   },
   "https://rss.buzzsprout.com/1861070.rss": {
     "podcast_name": "The Lady Rebel Leader Podcast",
@@ -360655,12 +360656,13 @@
     "feed_url": "https://feeds.megaphone.fm/ESCSC5048787921",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Énergie",
     "gate": "dirigeant",
-    "email_domain": "stockhead.com.au"
+    "email_domain": "stockhead.com.au",
+    "rescue": "2026-11-18"
   },
   "https://anchor.fm/s/58956f0c/podcast/rss": {
     "podcast_name": "Cuppa Tea With The Vet",
@@ -360758,5 +360760,89 @@
       "Holistic Health"
     ],
     "contact_email": "healthupgradepodcast@gmail.com"
+  },
+  "https://feeds.simplecast.com/_VEZeRkz": {
+    "podcast_name": "Communicating Health Podcast",
+    "artist_name": "Colm Harney",
+    "feed_url": "https://feeds.simplecast.com/_VEZeRkz",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 2306 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://feeds.captivate.fm/jasonwright/": {
+    "podcast_name": "The Jason Wright Show",
+    "artist_name": "Jason Wright",
+    "feed_url": "https://feeds.captivate.fm/jasonwright/",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Immobilier"
+  },
+  "https://rss.buzzsprout.com/2401258.rss": {
+    "podcast_name": "Aging With Purpose and Passion | Women Over 50",
+    "artist_name": "Beverley Glazer, MA, CCC, ICF | Work and Life Transition Coach for Women Over 50",
+    "feed_url": "https://rss.buzzsprout.com/2401258.rss",
+    "genre": "Personal Journals",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Assurance"
+  },
+  "https://feed.cdnstream1.com/zjb/feed/download/0b/41/f8/0b41f802-f71d-4f71-b722-b1227575dea5.xml": {
+    "podcast_name": "The Jason Rantz Show",
+    "artist_name": "Seattle Red",
+    "feed_url": "https://feed.cdnstream1.com/zjb/feed/download/0b/41/f8/0b41f802-f71d-4f71-b722-b1227575dea5.xml",
+    "genre": "News",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Assurance",
+    "gate": "dirigeant",
+    "email_domain": "bonneville.com"
+  },
+  "https://feed.ausha.co/v3pQacm2JXVa": {
+    "podcast_name": "Real Estate Educators Podcast with Kevin Amolsch",
+    "artist_name": "Kevin Amolsch",
+    "feed_url": "https://feed.ausha.co/v3pQacm2JXVa",
+    "genre": "Investing",
+    "track_count": 203,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/real-estate-educators-podcast-with-kevin-amolsch/id1697873029?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/e3/61/8b/e3618b0e-6213-6bf6-5f85-e964e65902c9/mza_4954587028027666667.jpeg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Kevin Amolsch, créateur indépendant identifiable dans le domaine du real estate/investing (B2B). 203 épisodes indiquent une activité régulière, audience petite à moyenne sans indicateur de notoriété mass-media.",
+    "checked_date": "2026-11-18",
+    "secteur": "Immobilier",
+    "nb_episodes": 203,
+    "suggested_category": "🏠 Real Estate",
+    "suggested_tags": [
+      "Real Estate Investing",
+      "Real Estate Law",
+      "Estate Law",
+      "Estate Planning"
+    ],
+    "contact_email": "callie@pinefinancialgroup.com"
+  },
+  "http://rss.castbox.fm/everest/d25cc363597f4fd2ae8123c4ef0cd6d8.xml": {
+    "podcast_name": "eRadio SA",
+    "artist_name": "Eon Engelbrecht",
+    "feed_url": "http://rss.castbox.fm/everest/d25cc363597f4fd2ae8123c4ef0cd6d8.xml",
+    "genre": "Music",
+    "track_count": 1143,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/eradio-sa/id1732144573?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/0c/28/fd/0c28fdcd-dfea-e162-944c-5c810ce4ffa8/mza_5505712735378533586.jpg/600x600bb.jpg",
+    "detected_language": "other",
+    "verdict": "REJECT",
+    "reason": "Le podcast 'eRadio SA' est classé dans le genre 'Music' et non 'Business/B2B'. La description minimaliste et l'absence de contenu B2B identifiable dans les métadonnées iTunes ne permettent pas de confirmer un positionnement business/expert. Le rejet s'applique par doute sur le sujet réel.",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale",
+    "nb_episodes": 1143
   }
 }
