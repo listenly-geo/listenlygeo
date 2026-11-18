@@ -357875,12 +357875,13 @@
     "feed_url": "https://feeds.captivate.fm/beyond-the-water-cooler/",
     "genre": "Management",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "itstimeforchange.co.uk"
+    "email_domain": "itstimeforchange.co.uk",
+    "rescue": "2026-11-18"
   },
   "https://www.jayizso.com/feed/podcast/": {
     "podcast_name": "A New Direction",
@@ -357902,5 +357903,128 @@
       "Serial Entrepreneurship"
     ],
     "contact_email": "jay@jayizso.com"
+  },
+  "https://www.omnycontent.com/d/playlist/717172f9-c910-463a-ac64-a8f00106f265/d8eb8c4a-ae02-485a-8d65-b10f012f5ac2/d79adbe9-a4cf-4c70-b09b-b10f012fe254/podcast.rss": {
+    "podcast_name": "Huggie, Natalie and Corey",
+    "artist_name": "MWC",
+    "feed_url": "https://www.omnycontent.com/d/playlist/717172f9-c910-463a-ac64-a8f00106f265/d8eb8c4a-ae02-485a-8d65-b10f012f5ac2/d79adbe9-a4cf-4c70-b09b-b10f012fe254/podcast.rss",
+    "genre": "News Commentary",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (News Commentary)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Finance & Fintech"
+  },
+  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/4a8dda19-df39-42dc-9c0e-ae3c0021f05e/c556f5f7-6dd2-4680-8cbe-ae3c0021f071/podcast.rss": {
+    "podcast_name": "Trapped in Treatment",
+    "artist_name": "iHeartPodcasts and Warner Bros",
+    "feed_url": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/4a8dda19-df39-42dc-9c0e-ae3c0021f05e/c556f5f7-6dd2-4680-8cbe-ae3c0021f071/podcast.rss",
+    "genre": "Documentary",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Finance & Fintech"
+  },
+  "https://rss.pdrl.fm/389a04/rss.art19.com/rebound-revolution": {
+    "podcast_name": "Rebound Revolution",
+    "artist_name": "editaudio",
+    "feed_url": "https://rss.pdrl.fm/389a04/rss.art19.com/rebound-revolution",
+    "genre": "Sports",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 846 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.libsyn.com/shows/325841/destinations/2650934.xml": {
+    "podcast_name": "Beyond the Therapy Session",
+    "artist_name": "SohoMD",
+    "feed_url": "https://rss.libsyn.com/shows/325841/destinations/2650934.xml",
+    "genre": "Mental Health",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1082 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://feed.podbean.com/unblinded/feed.xml": {
+    "podcast_name": "Unblinded: A Clinical Trial Podcast",
+    "artist_name": "Veeva Systems",
+    "feed_url": "https://feed.podbean.com/unblinded/feed.xml",
+    "genre": "Life Sciences",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé"
+  },
+  "https://anchor.fm/s/462e360/podcast/rss": {
+    "podcast_name": "Wellfed Design Podcast",
+    "artist_name": "Jon Sorrentino",
+    "feed_url": "https://anchor.fm/s/462e360/podcast/rss",
+    "genre": "Design",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1860 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://anchor.fm/s/b91798/podcast/rss": {
+    "podcast_name": "CRO Gumbo by Christien Louviere",
+    "artist_name": "Christien Louviere",
+    "feed_url": "https://anchor.fm/s/b91798/podcast/rss",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé"
+  },
+  "https://anchor.fm/s/8f6fdeb8/podcast/rss": {
+    "podcast_name": "UX Research Geeks",
+    "artist_name": "UXtweak",
+    "feed_url": "https://anchor.fm/s/8f6fdeb8/podcast/rss",
+    "genre": "Technology",
+    "track_count": 83,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/ux-research-geeks/id1619307049?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/36/96/ea/3696eaa5-c62c-9cd9-b6e3-244f2482b934/mza_33596954420756775.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B d'entreprise produit par UXtweak (éditeur de logiciel SaaS en UX research), avec hôte identifiable, sujet business/tech pointu, 83 épisodes réguliers, audience petite/moyenne non-celebrity. Remplit tous les critères d'onboarding.",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services",
+    "nb_episodes": 83,
+    "suggested_category": "💻 Technology",
+    "suggested_tags": [
+      "HR Technology",
+      "Cancer Research",
+      "Medical Research",
+      "Blockchain Technology"
+    ],
+    "contact_email": "jana.filusova@uxtweak.com"
+  },
+  "https://api.riverside.fm/hosting/BOr8PhGm.rss": {
+    "podcast_name": "Beyond Your Best",
+    "artist_name": "Carolyn de Voest, Better Your Best Business Performance Specialists",
+    "feed_url": "https://api.riverside.fm/hosting/BOr8PhGm.rss",
+    "genre": "Business",
+    "track_count": 10,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/beyond-your-best/id1813188532?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/8c/d0/4c/8cd04c6a-90f0-e601-77f1-793df9829388/mza_17069182371781858761.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Carolyn de Voest, créatrice/consultante indépendante identifiable dans le domaine du business coaching (Better Your Best Business Performance Specialists). Sujet B2B clair, audience petite (10 épisodes), pas de média mass ou célébrité.",
+    "checked_date": "2026-11-18",
+    "secteur": "Coachs & consultants B2B",
+    "nb_episodes": 10,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Law",
+      "Business Law",
+      "Business Strategy",
+      "Business Growth"
+    ],
+    "contact_email": "coaching@betteryourbest.ca"
   }
 }
