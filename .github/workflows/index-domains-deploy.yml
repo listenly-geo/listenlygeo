@@ -61,14 +61,12 @@ jobs:
                   "}\n\n"
               )
               r = r.replace(a, block + a, 1)
-          if "hub/domain" not in r:
-              b = "Route::post('hub/import', \\App\\Http\\Controllers\\HubImportController::class)->name('hub.import');"
-              if b not in r: sys.exit("ancre hub/import introuvable")
-              r = r.replace(b, b + "\nRoute::post('hub/domain', \\App\\Http\\Controllers\\HubDomainController::class)->name('hub.domain');", 1)
           open('/tmp/new/routes/web.php', 'w', encoding='utf-8').write(r)
           PY
           curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/live/routes/web.php "$U/$SITE/routes/web.php.bak-dom"
-          for f in app/Support/DocsSeo.php app/Http/Controllers/CustomDomainController.php app/Http/Controllers/HubDomainController.php; do
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/$SITE/app/Http/Controllers/HubImportController.php" -o /tmp/live/HubImportController.php
+          [ -s /tmp/live/HubImportController.php ] && curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/live/HubImportController.php "$U/$SITE/app/Http/Controllers/HubImportController.php.bak-dom"
+          for f in app/Support/DocsSeo.php app/Http/Controllers/CustomDomainController.php app/Http/Controllers/HubDomainController.php app/Http/Controllers/HubImportController.php; do
             curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T "$D/$f" "$U/$SITE/$f" && echo "::notice title=envoye::$f"
           done
           for c in bootstrap/cache/routes-v7.php bootstrap/cache/config.php; do
@@ -85,11 +83,11 @@ jobs:
           [ "$code" = 200 ] || ok=0
           code=$(curl -sS -m 40 -o /dev/null -w '%{http_code}' "https://$SITE/" || echo 000); echo "accueil de l'app : HTTP $code"
           [ "$code" = 200 ] || ok=0
-          code=$(curl -sS -m 40 -o /dev/null -w '%{http_code}' -A 'MarketForge/1.0' -X POST "https://$SITE/hub/domain" -H 'Content-Type: application/json' -d '{}' || echo 000); echo "hub/domain sans jeton : HTTP $code (attendu 401)"
+          code=$(curl -sS -m 40 -o /dev/null -w '%{http_code}' -A 'MarketForge/1.0' -X POST "https://$SITE/hub/import" -H 'Content-Type: application/json' -d '{}' || echo 000); echo "hub/import sans jeton : HTTP $code (attendu 401)"
           [ "$code" = 401 ] || ok=0
           if [ -n "$HUB_IMPORT_TOKEN" ]; then
-            r=$(curl -sS -m 40 -A 'MarketForge/1.0' -X POST "https://$SITE/hub/domain" -H "X-Hub-Token: $HUB_IMPORT_TOKEN" -H 'Content-Type: application/json' -d '{"action":"check","host":"inconnu.exemple-verif.com"}' || true)
-            echo "hub/domain avec jeton : $r"
+            r=$(curl -sS -m 40 -A 'MarketForge/1.0' -X POST "https://$SITE/hub/import" -H "X-Hub-Token: $HUB_IMPORT_TOKEN" -H 'Content-Type: application/json' -d '{"action":"check","host":"inconnu.exemple-verif.com"}' || true)
+            echo "hub/import action check : $r"
             echo "$r" | grep -q 'non enregistre' || ok=0
           fi
           if [ "$ok" = 1 ]; then echo "::notice::routage par domaine en place"; exit 0; fi
@@ -97,5 +95,7 @@ jobs:
             U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 120 -sS"
             curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/$SITE/routes/web.php.bak-dom" -o /tmp/restore.php && [ -s /tmp/restore.php ] \
               && curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/restore.php "$U/$SITE/routes/web.php" && echo "::warning::sauvegarde routes/web.php remise en place"
+            curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/$SITE/app/Http/Controllers/HubImportController.php.bak-dom" -o /tmp/restore2.php && [ -s /tmp/restore2.php ] \
+              && curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/restore2.php "$U/$SITE/app/Http/Controllers/HubImportController.php" && echo "::warning::sauvegarde HubImportController remise en place"
           fi
           echo "::error::controle du routage par domaine en echec"; exit 1

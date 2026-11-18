@@ -25,6 +25,11 @@ class HubImportController extends Controller
             return response()->json(['error' => 'unauthorized'], 401);
         }
 
+        // Actions domaine du client (18/11/2026) : meme adresse et meme jeton que l'import.
+        if (in_array($request->json('action'), ['link', 'check'], true)) {
+            return app(HubDomainController::class)($request);
+        }
+
         $payload = $request->json()->all();
         $site = trim((string) ($payload['site'] ?? ''));
 

@@ -11,7 +11,7 @@ import os, sys, re, json, urllib.request, urllib.parse, urllib.error
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sheet_bridge as sb  # noqa: E402
 
-HUB_DOMAIN = "https://app.marketforge.fr/hub/domain"
+HUB_DOMAIN = "https://app.marketforge.fr/hub/import"
 APP_HOST = "app.marketforge.fr"
 CP_HOST = os.environ.get("CPANEL_HOST", "").strip()
 CP_USER = os.environ.get("CPANEL_USER", "").strip()
