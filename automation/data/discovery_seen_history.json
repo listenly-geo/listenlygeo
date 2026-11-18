@@ -360338,12 +360338,13 @@
     "feed_url": "https://rss.buzzsprout.com/2608299.rss",
     "genre": "How To",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Immobilier",
     "gate": "dirigeant",
-    "email_domain": "derrickspruill.com"
+    "email_domain": "derrickspruill.com",
+    "rescue": "2026-11-18"
   },
   "https://www.spreaker.com/show/4548689/episodes/feed": {
     "podcast_name": "Go Ahead, Ask",
@@ -360395,12 +360396,13 @@
     "feed_url": "https://rss.art19.com/a-state-of-control",
     "genre": "Technology",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Tech & SaaS",
     "gate": "dirigeant",
-    "email_domain": "avnation.tv"
+    "email_domain": "avnation.tv",
+    "rescue": "2026-11-18"
   },
   "https://anchor.fm/s/40eb89f4/podcast/rss": {
     "podcast_name": "Arts For The Health Of It",
@@ -360423,5 +360425,86 @@
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Formateurs & programmes"
+  },
+  "http://feeds.feedburner.com/wgnradio/hushloudly": {
+    "podcast_name": "Hush Loudly",
+    "artist_name": "WGN Radio",
+    "feed_url": "http://feeds.feedburner.com/wgnradio/hushloudly",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Coachs & consultants B2B",
+    "gate": "dirigeant",
+    "email_domain": "wgnradio.com"
+  },
+  "https://anchor.fm/s/dfa6f844/podcast/rss": {
+    "podcast_name": "Hiring Great People",
+    "artist_name": "John van Noorden from Rosewood Partners",
+    "feed_url": "https://anchor.fm/s/dfa6f844/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 973 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "RH & Recrutement"
+  },
+  "https://feeds.captivate.fm/quantumrevenueexpansions/": {
+    "podcast_name": "Quantum Revenue Expansion",
+    "artist_name": "Ursula Mentjes",
+    "feed_url": "https://feeds.captivate.fm/quantumrevenueexpansions/",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Assurance"
+  },
+  "https://rss.buzzsprout.com/2571507.rss": {
+    "podcast_name": "Behind The Fruit - The Fresh Produce Podcast",
+    "artist_name": "Lucy Robinson",
+    "feed_url": "https://rss.buzzsprout.com/2571507.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "RH & Recrutement"
+  },
+  "https://denverwealth.libsyn.com/rss": {
+    "podcast_name": "Mind of a Millionaire",
+    "artist_name": "Denver Wealth Management",
+    "feed_url": "https://denverwealth.libsyn.com/rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Experts-comptables & patrimoine",
+    "gate": "dirigeant",
+    "email_domain": "denverwealthmanagement.com"
+  },
+  "https://feed.podbean.com/retailtherapy/feed.xml": {
+    "podcast_name": "Retail Therapy",
+    "artist_name": "Australian Retailers Association",
+    "feed_url": "https://feed.podbean.com/retailtherapy/feed.xml",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://feeds.captivate.fm/how-i-doctor/": {
+    "podcast_name": "How I Doctor with Dr. Graham Walker",
+    "artist_name": "Offcall",
+    "feed_url": "https://feeds.captivate.fm/how-i-doctor/",
+    "genre": "Medicine",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Assurance"
   }
 }
