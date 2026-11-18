@@ -360135,12 +360135,13 @@
     "feed_url": "https://api.riverside.com/hosting/iysnStc5.rss",
     "genre": "Non-Profit",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Assurance",
     "gate": "dirigeant",
-    "email_domain": "nonprofit411.org"
+    "email_domain": "nonprofit411.org",
+    "rescue": "2026-11-18"
   },
   "https://feeds.simplecast.com/JiIgl30P": {
     "podcast_name": "Be Extraordinary Podcast",
@@ -360297,5 +360298,130 @@
       "Leadership Development"
     ],
     "contact_email": "aubrey@ltins.com"
+  },
+  "https://rss.buzzsprout.com/2267404.rss": {
+    "podcast_name": "Not Another Investment Podcast",
+    "artist_name": "Edward Finley",
+    "feed_url": "https://rss.buzzsprout.com/2267404.rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 295 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Immobilier"
+  },
+  "https://www.spreaker.com/show/6304283/episodes/feed": {
+    "podcast_name": "Dave And Molly Show",
+    "artist_name": "NonStop Local",
+    "feed_url": "https://www.spreaker.com/show/6304283/episodes/feed",
+    "genre": "Entertainment News",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Entertainment News)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Finance & Fintech"
+  },
+  "https://www.spreaker.com/show/2599904/episodes/feed": {
+    "podcast_name": "Matt & Ross In The Morning",
+    "artist_name": "SportsTalk 790 (KBME-AM)",
+    "feed_url": "https://www.spreaker.com/show/2599904/episodes/feed",
+    "genre": "Sports",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Finance & Fintech"
+  },
+  "https://rss.buzzsprout.com/2608299.rss": {
+    "podcast_name": "Notary Knowledge by Derrick Spruill",
+    "artist_name": "Derrick Spruill",
+    "feed_url": "https://rss.buzzsprout.com/2608299.rss",
+    "genre": "How To",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Immobilier",
+    "gate": "dirigeant",
+    "email_domain": "derrickspruill.com"
+  },
+  "https://www.spreaker.com/show/4548689/episodes/feed": {
+    "podcast_name": "Go Ahead, Ask",
+    "artist_name": "RNCN",
+    "feed_url": "https://www.spreaker.com/show/4548689/episodes/feed",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1821 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Immobilier"
+  },
+  "https://anchor.fm/s/f74877c0/podcast/rss": {
+    "podcast_name": "HRtbeat: The Highlands Ranch Podcast",
+    "artist_name": "Jake Freedle",
+    "feed_url": "https://anchor.fm/s/f74877c0/podcast/rss",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : email inexploitable (domaine sans serveur mail)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://feeds.redcircle.com/e2b659e7-ed85-44fc-a32c-91a97243ccd4": {
+    "podcast_name": "Bodies @ Work",
+    "artist_name": "Dr Peter Ghin",
+    "feed_url": "https://feeds.redcircle.com/e2b659e7-ed85-44fc-a32c-91a97243ccd4",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 568 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://feed.podbean.com/animalwellness/feed.xml": {
+    "podcast_name": "The Animal Wellness Podcast",
+    "artist_name": "Animal Wellness Action",
+    "feed_url": "https://feed.podbean.com/animalwellness/feed.xml",
+    "genre": "News",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé"
+  },
+  "https://rss.art19.com/a-state-of-control": {
+    "podcast_name": "A State of Control",
+    "artist_name": "AVNation Media",
+    "feed_url": "https://rss.art19.com/a-state-of-control",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Tech & SaaS",
+    "gate": "dirigeant",
+    "email_domain": "avnation.tv"
+  },
+  "https://anchor.fm/s/40eb89f4/podcast/rss": {
+    "podcast_name": "Arts For The Health Of It",
+    "artist_name": "Arts For The Health Of It",
+    "feed_url": "https://anchor.fm/s/40eb89f4/podcast/rss",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 994 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://feeds.acast.com/public/shows/6865754c4348b6cf36e1cc91": {
+    "podcast_name": "Protective Insight",
+    "artist_name": "Procypher",
+    "feed_url": "https://feeds.acast.com/public/shows/6865754c4348b6cf36e1cc91",
+    "genre": "How To",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Formateurs & programmes"
   }
 }
