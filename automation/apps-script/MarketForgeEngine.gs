@@ -1435,6 +1435,7 @@ function mfeOnboardingRss_(b) {
     return mfeJson_({ ok: true, title: mfeOnbClean_(title, 200), image: image, episodes: ch.getChildren('item').length });
   } catch (err) { return mfeJson_({ ok: false, error: 'lecture impossible' }); }
 }
+var MFE_STRIPE_LINKS = ['plink_1UdCPREPhm1snxO0XokHZnCT', 'plink_1UdCT3EPhm1snxO00d0IY2lf'];   // Index 97 EUR, test 1 EUR (a retirer apres le test)
 function mfeOnboardingPublic_(b) {
   var sid = String(b.session_id || '').trim();
   if (!/^cs_(live|test)_[A-Za-z0-9]{10,200}$/.test(sid)) return mfeJson_({ ok: false, error: 'paiement introuvable' });
@@ -1447,6 +1448,9 @@ function mfeOnboardingPublic_(b) {
       var res = UrlFetchApp.fetch('https://api.stripe.com/v1/checkout/sessions/' + sid, { headers: { Authorization: 'Bearer ' + key }, muteHttpExceptions: true });
       var js = JSON.parse(res.getContentText());
       if (res.getResponseCode() !== 200 || js.payment_status !== 'paid') return mfeJson_({ ok: false, error: 'paiement non confirme' });
+      // 18/11/2026 : seul un paiement fait par le lien de l'Index (97 EUR) ou le lien de test (1 EUR) ouvre l'onboarding : une autre vente du compte Stripe ne suffit pas.
+      var lk = (js.payment_link && js.payment_link.id) ? js.payment_link.id : String(js.payment_link || '');
+      if (MFE_STRIPE_LINKS.indexOf(lk) < 0) return mfeJson_({ ok: false, error: 'paiement non confirme' });
       paiement = 'paye (verifie)';
     } catch (err) { return mfeJson_({ ok: false, error: 'verification impossible' }); }
   }
@@ -1495,7 +1499,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 44 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 45 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
