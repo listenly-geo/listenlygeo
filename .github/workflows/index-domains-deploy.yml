@@ -83,13 +83,24 @@ jobs:
           [ "$code" = 200 ] || ok=0
           code=$(curl -sS -m 40 -o /dev/null -w '%{http_code}' "https://$SITE/" || echo 000); echo "accueil de l'app : HTTP $code"
           [ "$code" = 200 ] || ok=0
-          code=$(curl -sS -m 40 -o /dev/null -w '%{http_code}' -A 'MarketForge/1.0' -X POST "https://$SITE/hub/import" -H 'Content-Type: application/json' -d '{}' || echo 000); echo "hub/import sans jeton : HTTP $code (attendu 401)"
-          [ "$code" = 401 ] || ok=0
-          if [ -n "$HUB_IMPORT_TOKEN" ]; then
-            r=$(curl -sS -m 40 -A 'MarketForge/1.0' -X POST "https://$SITE/hub/import" -H "X-Hub-Token: $HUB_IMPORT_TOKEN" -H 'Content-Type: application/json' -d '{"action":"check","host":"inconnu.exemple-verif.com"}' || true)
-            echo "hub/import action check : $r"
-            echo "$r" | grep -q 'non enregistre' || ok=0
-          fi
+          # Meme client HTTP que le generateur d'Index (le pare-feu o2switch laisse passer urllib, pas curl en POST)
+          r=$(python3 - <<'PY2'
+          import os, json, urllib.request, urllib.error
+          def post(body, token):
+              h = {"Content-Type": "application/json", "User-Agent": "Python-urllib/3.11"}
+              if token: h["X-Hub-Token"] = token
+              req = urllib.request.Request("https://app.marketforge.fr/hub/import", data=json.dumps(body).encode(), method="POST", headers=h)
+              try:
+                  with urllib.request.urlopen(req, timeout=60) as x: return x.status, x.read().decode(errors="replace")[:200]
+              except urllib.error.HTTPError as e: return e.code, e.read().decode(errors="replace")[:200]
+          c1, _ = post({"action": "check", "host": "x.exemple-verif.com"}, "")
+          c2, t2 = post({"action": "check", "host": "inconnu.exemple-verif.com"}, os.environ.get("HUB_IMPORT_TOKEN", ""))
+          print(f"sans jeton={c1} avec jeton={c2} {t2}")
+          print("OK" if c1 == 401 and c2 == 404 and "non enregistre" in t2 else "KO")
+          PY2
+          )
+          echo "hub/import : $r"
+          echo "$r" | tail -1 | grep -q '^OK' || ok=0
           if [ "$ok" = 1 ]; then echo "::notice::routage par domaine en place"; exit 0; fi
           if [ "${{ inputs.mode }}" = deploy ]; then
             U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 120 -sS"
