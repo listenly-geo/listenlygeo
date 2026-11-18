@@ -356874,12 +356874,13 @@
     "feed_url": "https://anchor.fm/s/faa19f00/podcast/rss",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Finance & Fintech",
     "gate": "dirigeant",
-    "email_domain": "assetambitions.ca"
+    "email_domain": "assetambitions.ca",
+    "rescue": "2026-11-18"
   },
   "https://thegutsytruth.com/?feed=podcast": {
     "podcast_name": "The Gutsy Truth",
@@ -357015,5 +357016,77 @@
     "checked_date": "2026-11-18",
     "secteur": "Tech & SaaS",
     "nb_episodes": 392
+  },
+  "https://feeds.transistor.fm/legacy-legal-live": {
+    "podcast_name": "Legacy Legal Live",
+    "artist_name": "Legacy Legal Estate Services",
+    "feed_url": "https://feeds.transistor.fm/legacy-legal-live",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Business général (entreprise)"
+  },
+  "https://anchor.fm/s/cca28e98/podcast/rss": {
+    "podcast_name": "Are You Killin' It?!",
+    "artist_name": "Peak Performance Partners",
+    "feed_url": "https://anchor.fm/s/cca28e98/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes",
+    "gate": "dirigeant",
+    "email_domain": "3-peak.com"
+  },
+  "https://feeds.megaphone.fm/PPS7625941246": {
+    "podcast_name": "Influence Unlocked",
+    "artist_name": "Piccolo Podcasts",
+    "feed_url": "https://feeds.megaphone.fm/PPS7625941246",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1030 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://rss.buzzsprout.com/2139155.rss": {
+    "podcast_name": "Home Building Hub",
+    "artist_name": "Colin Bischof & Darren Brennan",
+    "feed_url": "https://rss.buzzsprout.com/2139155.rss",
+    "genre": "Education",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Énergie"
+  },
+  "https://rss.libsyn.com/shows/326642/destinations/2657711.xml": {
+    "podcast_name": "Challenge Accepted – A Sweco podcast",
+    "artist_name": "Sweco Belgium",
+    "feed_url": "https://rss.libsyn.com/shows/326642/destinations/2657711.xml",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Énergie"
+  },
+  "https://thepowerfulman.libsyn.com/rss": {
+    "podcast_name": "The Powerful Man Show",
+    "artist_name": "Tim Matthews & Doug Holt",
+    "feed_url": "https://thepowerfulman.libsyn.com/rss",
+    "genre": "Self-Improvement",
+    "track_count": 999,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-powerful-man-show/id1440519429?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/f9/a3/a4/f9a3a413-a01a-d861-2bed-5f1708040e31/mza_15037161450483834985.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Bien que produit par des créateurs indépendants identifiables (Tim Matthews & Doug Holt) dans une thématique business/développement personnel, le podcast affiche 999 épisodes et une présence établie qui suggère une notoriété et une audience dépassant le segment 'petite ou moyenne' visé. Le doute sur le niveau réel de notoriété et la classification 'Self-Improvement' plutôt que strictement B2B/expertise pointue justifient un rejet par prudence.",
+    "checked_date": "2026-11-18",
+    "secteur": "Business général (entreprise)",
+    "nb_episodes": 999
   }
 }
