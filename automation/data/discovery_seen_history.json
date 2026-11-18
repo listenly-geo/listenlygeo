@@ -360978,7 +360978,8 @@
     "checked_date": "2026-11-18",
     "secteur": "Marketing & Ventes",
     "gate": "dirigeant",
-    "email_domain": "businessoffashion.com"
+    "email_domain": "businessoffashion.com",
+    "rescue": "2026-11-18"
   },
   "https://anchor.fm/s/178368c/podcast/rss": {
     "podcast_name": "Recoup Podcast",
@@ -361008,12 +361009,13 @@
     "feed_url": "https://my.slate.com/podcasts/feeds/what-next/",
     "genre": "News",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Énergie",
     "gate": "dirigeant",
-    "email_domain": "slate.com"
+    "email_domain": "slate.com",
+    "rescue": "2026-11-18"
   },
   "https://anchor.fm/s/26c3d6bc/podcast/rss": {
     "podcast_name": "The PR Wine Down",
@@ -361081,5 +361083,105 @@
     "checked_date": "2026-11-18",
     "secteur": "Coachs & consultants B2B",
     "nb_episodes": 837
+  },
+  "https://feeds.captivate.fm/a-media-operator/": {
+    "podcast_name": "The AMO Show",
+    "artist_name": "Jacob Cohen Donnelly",
+    "feed_url": "https://feeds.captivate.fm/a-media-operator/",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé"
+  },
+  "https://feeds.acast.com/public/shows/69c148241a160b44db9c5126": {
+    "podcast_name": "Modern Mentor",
+    "artist_name": "QuickAndDirtyTips.com",
+    "feed_url": "https://feeds.acast.com/public/shows/69c148241a160b44db9c5126",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://anchor.fm/s/14d6d594/podcast/rss": {
+    "podcast_name": "Abundant Culture Podcast",
+    "artist_name": "Jas & Jo",
+    "feed_url": "https://anchor.fm/s/14d6d594/podcast/rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1846 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://rss.buzzsprout.com/1778128.rss": {
+    "podcast_name": "Dental Business Mastery Podcast",
+    "artist_name": "Julie Parker",
+    "feed_url": "https://rss.buzzsprout.com/1778128.rss",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://media.rss.com/airwayfirst/feed.xml": {
+    "podcast_name": "Airway First",
+    "artist_name": "Children's Airway First Foundation",
+    "feed_url": "https://media.rss.com/airwayfirst/feed.xml",
+    "genre": "Kids & Family",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://feed.podbean.com/podcastbeinghuman/feed.xml": {
+    "podcast_name": "The Being Human Podcast with Richard Atherton",
+    "artist_name": "Richard Atherton",
+    "feed_url": "https://feed.podbean.com/podcastbeinghuman/feed.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://app.kajabi.com/podcasts/2147711980/feed": {
+    "podcast_name": "Business Mastery",
+    "artist_name": "Gerry Gadoury",
+    "feed_url": "https://app.kajabi.com/podcasts/2147711980/feed",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 357 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://rss.libsyn.com/shows/208286/destinations/1498367.xml": {
+    "podcast_name": "The Learning Hack podcast",
+    "artist_name": "John Helmer",
+    "feed_url": "https://rss.libsyn.com/shows/208286/destinations/1498367.xml",
+    "genre": "Education",
+    "track_count": 98,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-learning-hack-podcast/id1478514163?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts125/v4/9d/21/57/9d21575d-9d27-3c70-9c51-ab3ee9706f1e/mza_2828960744220006975.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par un créateur indépendant identifiable (John Helmer) sur un sujet business/éducation avec 98 épisodes réguliers, audience petite/moyenne, sans indicateur de notoriété mass-média. Éligible acceptance_path CREATEUR.",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé",
+    "nb_episodes": 98,
+    "suggested_category": "🎓 Education",
+    "suggested_tags": [
+      "K-12 Education",
+      "Machine Learning",
+      "Higher Education",
+      "Online Learning"
+    ],
+    "contact_email": "johnhelmer8@gmail.com"
   }
 }
