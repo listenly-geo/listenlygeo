@@ -359731,12 +359731,13 @@
     "feed_url": "https://pinecast.com/feed/rocki-s-reality",
     "genre": "Music",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Finance & Fintech",
     "gate": "dirigeant",
-    "email_domain": "creatediff.com"
+    "email_domain": "creatediff.com",
+    "rescue": "2026-11-18"
   },
   "https://api.substack.com/feed/podcast/4679374.rss": {
     "podcast_name": "The Lighthouse with Ryan Obernesser",
@@ -359807,5 +359808,77 @@
     "checked_date": "2026-11-18",
     "secteur": "Santé libérale",
     "nb_episodes": 296
+  },
+  "https://rss.libsyn.com/shows/245138/destinations/1838840.xml": {
+    "podcast_name": "Top Minds",
+    "artist_name": "Dr. Scot Gray",
+    "feed_url": "https://rss.libsyn.com/shows/245138/destinations/1838840.xml",
+    "genre": "Medicine",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1925 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://feeds.soundcloud.com/users/soundcloud:users:81930849/sounds.rss": {
+    "podcast_name": "Las Vegas Real Estate NOW",
+    "artist_name": "Harvey Blankfeld",
+    "feed_url": "https://feeds.soundcloud.com/users/soundcloud:users:81930849/sounds.rss",
+    "genre": "Business",
+    "track_count": 500,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/las-vegas-real-estate-now/id1444939084?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts125/v4/75/ba/d7/75bad7da-52c9-a58f-695a-8e0060bb116e/mza_783991144695078280.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B animé par un créateur indépendant identifiable (Harvey Blankfeld) sur l'immobilier à Las Vegas, avec 500 épisodes mais audience petite/moyenne (pas de média mass ou célébrité). Répond aux critères CREATEUR depuis la décision du 27/10/2026.",
+    "checked_date": "2026-11-18",
+    "secteur": "Immobilier",
+    "nb_episodes": 500,
+    "suggested_category": "🏠 Real Estate",
+    "suggested_tags": [
+      "Real Estate Law",
+      "Business Law",
+      "Business Law",
+      "Estate Law"
+    ],
+    "contact_email": "info@brownblankfeld.com"
+  },
+  "https://www.spreaker.com/show/497924/episodes/feed": {
+    "podcast_name": "Quorum Radio Episodes WRMI",
+    "artist_name": "William McIntosh",
+    "feed_url": "https://www.spreaker.com/show/497924/episodes/feed",
+    "genre": "Society & Culture",
+    "track_count": 553,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/quorum-radio-episodes-wrmi/id1785019262?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/e1/da/dc/e1dadc1c-5bb3-9f59-55f5-6dbcaef5b0f3/mza_12113906411850819719.jpg/600x600bb.jpg",
+    "detected_language": "other",
+    "verdict": "REJECT",
+    "reason": "Le podcast ne satisfait pas les critères d'onboarding : absence de clarté sur le sujet business/B2B (genre « Society & Culture »), description insuffisante et peu informatif, et incertitude sur la nature réelle du contenu (WRMI suggère potentiellement une émission radio plutôt qu'un podcast d'entreprise ou créateur indépendant identifiable). En cas de doute sur le sujet B2B, rejet appliqué.",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale",
+    "nb_episodes": 553
+  },
+  "https://rss.libsyn.com/shows/69936/destinations/292440.xml": {
+    "podcast_name": "The Portland Real Estate Podcast",
+    "artist_name": "Steve Nassar of Premiere Property Group and Joe Fustolo of Soldera",
+    "feed_url": "https://rss.libsyn.com/shows/69936/destinations/292440.xml",
+    "genre": "Business",
+    "track_count": 172,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-portland-real-estate-podcast/id1028725182?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/38/d1/cb/38d1cb79-7484-f832-460c-dbd4d0a76251/mza_1641341313910795692.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B produit par deux professionnels identifiables du secteur immobilier (Steve Nassar de Premiere Property Group et Joe Fustolo de Soldera), audience petite/moyenne (172 épisodes, pas de mention de célébrité ou media majeur), sujet business clairement défini.",
+    "checked_date": "2026-11-18",
+    "secteur": "Immobilier",
+    "nb_episodes": 172,
+    "suggested_category": "🏠 Real Estate",
+    "suggested_tags": [
+      "Real Estate Law",
+      "Business Law",
+      "Business Law",
+      "Estate Law"
+    ],
+    "contact_email": "info@portlandrealestatepodcast.com"
   }
 }
