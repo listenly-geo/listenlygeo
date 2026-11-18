@@ -357112,7 +357112,8 @@
     "checked_date": "2026-11-18",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "mjhlifesciences.com"
+    "email_domain": "mjhlifesciences.com",
+    "rescue": "2026-11-18"
   },
   "https://rss.buzzsprout.com/1084379.rss": {
     "podcast_name": "The Veteran (Semi) Professional",
@@ -357136,7 +357137,8 @@
     "checked_date": "2026-11-18",
     "secteur": "Coachs & consultants B2B",
     "gate": "dirigeant",
-    "email_domain": "victoryus.ca"
+    "email_domain": "victoryus.ca",
+    "rescue": "2026-11-18"
   },
   "https://rss.libsyn.com/shows/59516/destinations/228013.xml": {
     "podcast_name": "Money Matters With Dino",
@@ -357155,12 +357157,13 @@
     "feed_url": "https://sacrealtor.libsyn.com/rss",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Immobilier",
     "gate": "dirigeant",
-    "email_domain": "sacrealtor.org"
+    "email_domain": "sacrealtor.org",
+    "rescue": "2026-11-18"
   },
   "https://api.substack.com/feed/podcast/526393.rss": {
     "podcast_name": "Voice of Design",
@@ -357179,12 +357182,13 @@
     "feed_url": "https://rss.buzzsprout.com/2526098.rss",
     "genre": "Self-Improvement",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "badassbookbesties.com"
+    "email_domain": "badassbookbesties.com",
+    "rescue": "2026-11-18"
   },
   "https://feeds.feedburner.com/DrLisaBelislePodcasts": {
     "podcast_name": "Love Maine Radio with Dr. Lisa Belisle",
@@ -357230,7 +357234,8 @@
     "checked_date": "2026-11-18",
     "secteur": "Tech & SaaS",
     "gate": "dirigeant",
-    "email_domain": "dowjones.com"
+    "email_domain": "dowjones.com",
+    "rescue": "2026-11-18"
   },
   "https://feeds.blubrry.com/feeds/goodleadershippodcast.xml": {
     "podcast_name": "The Good Leadership Podcast",
@@ -357277,5 +357282,84 @@
       "Debt Management"
     ],
     "contact_email": "danny@physicaltherapybiz.com"
+  },
+  "https://feeds.fame.so/under-the-roof": {
+    "podcast_name": "Under The Roof",
+    "artist_name": "Baker Roofing Company",
+    "feed_url": "https://feeds.fame.so/under-the-roof",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie",
+    "gate": "dirigeant",
+    "email_domain": "fame.so"
+  },
+  "https://anchor.fm/s/120eb3b8/podcast/rss": {
+    "podcast_name": "PVP - Paper versus Paper",
+    "artist_name": "Coach Green Gene",
+    "feed_url": "https://anchor.fm/s/120eb3b8/podcast/rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/eac88146-dcc8-48aa-b5e9-ae2d0173cb0a/fcd356ff-3840-41e8-a6c0-ae2d0173cb14/podcast.rss": {
+    "podcast_name": "Shades of the Afterlife",
+    "artist_name": "iHeartPodcasts",
+    "feed_url": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/eac88146-dcc8-48aa-b5e9-ae2d0173cb0a/fcd356ff-3840-41e8-a6c0-ae2d0173cb14/podcast.rss",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Finance & Fintech"
+  },
+  "https://rss.buzzsprout.com/1046284.rss": {
+    "podcast_name": "Faith in Motion, the Podcast",
+    "artist_name": "Rev. Kelsey Beebe",
+    "feed_url": "https://rss.buzzsprout.com/1046284.rss",
+    "genre": "Christianity",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://feeds.soundcloud.com/users/soundcloud:users:206614006/sounds.rss": {
+    "podcast_name": "Filene Research Institute",
+    "artist_name": "Filene Research Institute",
+    "feed_url": "https://feeds.soundcloud.com/users/soundcloud:users:206614006/sounds.rss",
+    "genre": "Education",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Finance & Fintech"
+  },
+  "https://feeds.simplecast.com/ULcr4J0E": {
+    "podcast_name": "New Books in Architecture",
+    "artist_name": "Marshall Poe",
+    "feed_url": "https://feeds.simplecast.com/ULcr4J0E",
+    "genre": "Visual Arts",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Visual Arts)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://anchor.fm/s/e99ca768/podcast/rss": {
+    "podcast_name": "She's Interesting with Rashel Hariri",
+    "artist_name": "Rashel Hariri",
+    "feed_url": "https://anchor.fm/s/e99ca768/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 553 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
   }
 }
