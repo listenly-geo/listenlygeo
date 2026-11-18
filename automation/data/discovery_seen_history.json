@@ -357438,12 +357438,13 @@
     "feed_url": "https://rss.buzzsprout.com/1739245.rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Nom + poste trouves, e-mail non confirme",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "wealthywellnessbusiness.com"
+    "email_domain": "wealthywellnessbusiness.com",
+    "rescue": "2026-11-18"
   },
   "https://anchor.fm/s/e895ec6c/podcast/rss": {
     "podcast_name": "The Pavan Perspective",
@@ -357451,12 +357452,13 @@
     "feed_url": "https://anchor.fm/s/e895ec6c/podcast/rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Finance & Fintech",
     "gate": "dirigeant",
-    "email_domain": "swmc.com"
+    "email_domain": "swmc.com",
+    "rescue": "2026-11-18"
   },
   "https://anchor.fm/s/903f710/podcast/rss": {
     "podcast_name": "The Nick and Jimmy Audio Experience",
@@ -357530,12 +357532,13 @@
     "feed_url": "https://feeds.simplecast.com/wzzkr1gx",
     "genre": "Management",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "healthbusinessprofits.com"
+    "email_domain": "healthbusinessprofits.com",
+    "rescue": "2026-11-18"
   },
   "https://anchor.fm/s/faaf7918/podcast/rss": {
     "podcast_name": "inSUBSTANTIA Exploring Ideas - Challenging Assumptions.",
@@ -357543,12 +357546,13 @@
     "feed_url": "https://anchor.fm/s/faaf7918/podcast/rss",
     "genre": "Society & Culture",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Coachs & consultants B2B",
     "gate": "dirigeant",
-    "email_domain": "insubstantia.com"
+    "email_domain": "insubstantia.com",
+    "rescue": "2026-11-18"
   },
   "https://rss.buzzsprout.com/2219313.rss": {
     "podcast_name": "Learn Law For All",
@@ -357582,5 +357586,150 @@
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Immobilier"
+  },
+  "https://anchor.fm/s/2766cea8/podcast/rss": {
+    "podcast_name": "Traces",
+    "artist_name": "Jay Demetillo",
+    "feed_url": "https://anchor.fm/s/2766cea8/podcast/rss",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://rss.libsyn.com/shows/106154/destinations/572347.xml": {
+    "podcast_name": "80-Bit Podsmash",
+    "artist_name": "Penguin & Termite",
+    "feed_url": "https://rss.libsyn.com/shows/106154/destinations/572347.xml",
+    "genre": "Video Games",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1070 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Tech & SaaS"
+  },
+  "https://rss.libsyn.com/shows/91715/destinations/458953.xml": {
+    "podcast_name": "CEO PSYCHE",
+    "artist_name": "Jen Casey",
+    "feed_url": "https://rss.libsyn.com/shows/91715/destinations/458953.xml",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 112 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.buzzsprout.com/2256900.rss": {
+    "podcast_name": "The Link Up Lounge: Strategic Business Growth through Networking",
+    "artist_name": "Tiffany Mason and Donna Rueppell",
+    "feed_url": "https://rss.buzzsprout.com/2256900.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://feed.podbean.com/danwc/feed.xml": {
+    "podcast_name": "Tenable Vibrations",
+    "artist_name": "Dan Dougherty",
+    "feed_url": "https://feed.podbean.com/danwc/feed.xml",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "RH & Recrutement"
+  },
+  "https://feed.podbean.com/dynamicindependence/feed.xml": {
+    "podcast_name": "Dynamic Independence",
+    "artist_name": "Dynamic Independence",
+    "feed_url": "https://feed.podbean.com/dynamicindependence/feed.xml",
+    "genre": "News",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Tech & SaaS"
+  },
+  "https://www.omnycontent.com/d/playlist/2fb3740d-3436-44af-8cc0-a91900716aa5/ce5a8b6e-2c75-4fae-bd0c-b305004fc1b4/6f531285-bfd8-4bae-a517-b305004fc1c4/podcast.rss": {
+    "podcast_name": "The Mentor with Mark Bouris",
+    "artist_name": "Mentored.com.au",
+    "feed_url": "https://www.omnycontent.com/d/playlist/2fb3740d-3436-44af-8cc0-a91900716aa5/ce5a8b6e-2c75-4fae-bd0c-b305004fc1b4/6f531285-bfd8-4bae-a517-b305004fc1c4/podcast.rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 141 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://feeds.acast.com/public/shows/65f0579d27b93800167de0ad": {
+    "podcast_name": "Feel Free to Deviate",
+    "artist_name": "Jim Turbert",
+    "feed_url": "https://feeds.acast.com/public/shows/65f0579d27b93800167de0ad",
+    "genre": "Arts",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1152 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://rss.libsyn.com/shows/253880/destinations/1919348.xml": {
+    "podcast_name": "The BLDR Podcast",
+    "artist_name": "Tobacco Motorwear",
+    "feed_url": "https://rss.libsyn.com/shows/253880/destinations/1919348.xml",
+    "genre": "Hobbies",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1800 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Énergie"
+  },
+  "https://rss.buzzsprout.com/1884989.rss": {
+    "podcast_name": "Wake Up Church Podcast",
+    "artist_name": "For Liberty & Justice",
+    "feed_url": "https://rss.buzzsprout.com/1884989.rss",
+    "genre": "Politics",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Politics)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://feeds.transistor.fm/summit-daily": {
+    "podcast_name": "Summit Daily",
+    "artist_name": "Aftersight",
+    "feed_url": "https://feeds.transistor.fm/summit-daily",
+    "genre": "News",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Énergie",
+    "gate": "dirigeant",
+    "email_domain": "aftersight.org"
+  },
+  "https://anchor.fm/s/b902d14/podcast/rss": {
+    "podcast_name": "The Never Settle Podcast",
+    "artist_name": "Mel Kate",
+    "feed_url": "https://anchor.fm/s/b902d14/podcast/rss",
+    "genre": "Self-Improvement",
+    "track_count": 250,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-never-settle-podcast/id1512232975?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/65/22/17/65221778-6247-6b4d-faf7-87128f655f01/mza_3044010492649707615.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Mel Kate, créatrice/coach indépendante identifiable, sujet business/développement personnel (Self-Improvement), audience petite à moyenne (250 épisodes, pas de média affilié détecté). Correspond au profil CREATEUR accepté depuis 27/10/2026.",
+    "checked_date": "2026-11-18",
+    "secteur": "Coachs & consultants B2B",
+    "nb_episodes": 250,
+    "suggested_category": "🌱 Self-Improvement",
+    "suggested_tags": [
+      "Self-Improvement",
+      "Self-Compassion",
+      "Self-Awareness"
+    ],
+    "contact_email": "melonsmusic@gmail.com"
   }
 }
