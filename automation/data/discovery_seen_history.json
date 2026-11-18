@@ -355400,12 +355400,13 @@
     "feed_url": "https://rss.buzzsprout.com/1534696.rss",
     "genre": "Careers",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Coachs & consultants B2B",
     "gate": "dirigeant",
-    "email_domain": "todayisthedayliveit.com"
+    "email_domain": "todayisthedayliveit.com",
+    "rescue": "2026-11-18"
   },
   "https://rss.buzzsprout.com/2440288.rss": {
     "podcast_name": "Embracing Only: Workplace Culture & Career Development for BIPOC Leaders",
@@ -355440,7 +355441,8 @@
     "checked_date": "2026-11-18",
     "secteur": "Business général (entreprise)",
     "gate": "dirigeant",
-    "email_domain": "thefinancialcoconut.com"
+    "email_domain": "thefinancialcoconut.com",
+    "rescue": "2026-11-18"
   },
   "https://feeds.soundcloud.com/users/soundcloud:users:683098316/sounds.rss": {
     "podcast_name": "Marketing Transformed Podcast",
@@ -355604,5 +355606,107 @@
       "Business Growth"
     ],
     "contact_email": "knowledgecentre@cpaalberta.ca"
+  },
+  "https://rss.libsyn.com/shows/455676/destinations/3834348.xml": {
+    "podcast_name": "Leadership Rediscovered",
+    "artist_name": "Positively West Virginia",
+    "feed_url": "https://rss.libsyn.com/shows/455676/destinations/3834348.xml",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 867 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.libsyn.com/shows/124918/destinations/742096.xml": {
+    "podcast_name": "Looking For AND",
+    "artist_name": "Doug Hensch",
+    "feed_url": "https://rss.libsyn.com/shows/124918/destinations/742096.xml",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1959 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://feeds.simplecast.com/x1a8p_4I": {
+    "podcast_name": "I Wanna Work There!",
+    "artist_name": "Eddie Francis",
+    "feed_url": "https://feeds.simplecast.com/x1a8p_4I",
+    "genre": "How To",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 750 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Énergie"
+  },
+  "https://anchor.fm/s/21e8107c/podcast/rss": {
+    "podcast_name": "OutBüro - LGBTQ Voices",
+    "artist_name": "Dennis Velco",
+    "feed_url": "https://anchor.fm/s/21e8107c/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1686 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Conseil"
+  },
+  "https://feeds.transistor.fm/plastic-surgery-practice": {
+    "podcast_name": "Plastic Surgery Practice",
+    "artist_name": "Plastic Surgery Practice",
+    "feed_url": "https://feeds.transistor.fm/plastic-surgery-practice",
+    "genre": "Medicine",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 699 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://podcasts.files.bbci.co.uk/b006sz6t.rss": {
+    "podcast_name": "The Bottom Line",
+    "artist_name": "BBC Radio 4",
+    "feed_url": "https://podcasts.files.bbci.co.uk/b006sz6t.rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Coachs & consultants B2B",
+    "gate": "dirigeant",
+    "email_domain": "bbc.co.uk"
+  },
+  "https://rss.libsyn.com/shows/560105/destinations/4839045.xml": {
+    "podcast_name": "EV Business",
+    "artist_name": "Lawrence Harte",
+    "feed_url": "https://rss.libsyn.com/shows/560105/destinations/4839045.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 106 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Énergie"
+  },
+  "https://feeds.alitu.com/58900862": {
+    "podcast_name": "Third Party Therapy",
+    "artist_name": "Mike Day",
+    "feed_url": "https://feeds.alitu.com/58900862",
+    "genre": "Business",
+    "track_count": 26,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/third-party-therapy/id1773554744?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/f4/60/7a/f4607a7b-68b0-e30a-7bf8-104dd7a96bbf/mza_10385857627351805387.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast business B2B animé par Mike Day, créateur indépendant identifiable, avec 26 épisodes réguliers et audience petite/moyenne. Aucune indication de célébrité ou affiliation à un gros média. Satisfait tous les critères d'acceptation.",
+    "checked_date": "2026-11-18",
+    "secteur": "Conseil",
+    "nb_episodes": 26,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Law",
+      "Business Law",
+      "Physical Therapy",
+      "Therapy & Counseling"
+    ],
+    "contact_email": "mike@thirdpartytherapy.com"
   }
 }
