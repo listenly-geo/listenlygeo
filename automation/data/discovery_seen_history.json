@@ -358275,12 +358275,13 @@
     "feed_url": "https://rss.libsyn.com/shows/101366/destinations/535783.xml",
     "genre": "Medicine",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Business général (entreprise)",
     "gate": "dirigeant",
-    "email_domain": "draimee.org"
+    "email_domain": "draimee.org",
+    "rescue": "2026-11-18"
   },
   "https://fast.wistia.com/channels/olggaoy39a/rss": {
     "podcast_name": "Nurture and Challenge: How Parents Can Empower Teens Struggling With a Mental Health Crisis",
@@ -358374,5 +358375,117 @@
       "Business Law"
     ],
     "contact_email": "auri.comms@gmail.com"
+  },
+  "https://www.spreaker.com/show/2083733/episodes/feed": {
+    "podcast_name": "James Miller Lifeology Radio",
+    "artist_name": "WREB Radio",
+    "feed_url": "https://www.spreaker.com/show/2083733/episodes/feed",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://rss.libsyn.com/shows/80450/destinations/370808.xml": {
+    "podcast_name": "The Failure Factor",
+    "artist_name": "Megan Bruneau",
+    "feed_url": "https://rss.libsyn.com/shows/80450/destinations/370808.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 279 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Tech & SaaS"
+  },
+  "https://feeds.redcircle.com/74d2a5cb-b049-43d4-b318-895f1a5261ab": {
+    "podcast_name": "Ideamarket Podcast",
+    "artist_name": "Mike Elias & James Ellis",
+    "feed_url": "https://feeds.redcircle.com/74d2a5cb-b049-43d4-b318-895f1a5261ab",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1545 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Tech & SaaS"
+  },
+  "https://rss.art19.com/social-media-marketing-talk-show": {
+    "podcast_name": "Social Media Marketing Talk Show",
+    "artist_name": "Michael Stelzner, Social Media Examiner",
+    "feed_url": "https://rss.art19.com/social-media-marketing-talk-show",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 286 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/3b572660/podcast/rss": {
+    "podcast_name": "Profit and Loss",
+    "artist_name": "Profit and Loss",
+    "feed_url": "https://anchor.fm/s/3b572660/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1875 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://fast.wistia.com/channels/2l49v3p0cj/rss": {
+    "podcast_name": "The Guest Experience Show",
+    "artist_name": "ROLLER",
+    "feed_url": "https://fast.wistia.com/channels/2l49v3p0cj/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1246 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://localmkt.s3.us-east-1.amazonaws.com/podcasts/t0/c0/bizboro/rss.xml": {
+    "podcast_name": "BizBoro",
+    "artist_name": "Troy Walker",
+    "feed_url": "https://localmkt.s3.us-east-1.amazonaws.com/podcasts/t0/c0/bizboro/rss.xml",
+    "genre": "Business",
+    "track_count": 102,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/bizboro/id1777624996?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/b1/9d/18/b19d1822-13c5-72f4-4ed9-f06f53c3032f/mza_10146046072261067851.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par un créateur indépendant identifiable (Troy Walker) sur un sujet business/B2B avec 102 épisodes réguliers. Audience petite/moyenne, pas de signal de notoriété mass-média ou affiliation à un gros media. Correspond au critère CREATEUR depuis la décision du 27/10/2026.",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale",
+    "nb_episodes": 102,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Law",
+      "Business Law",
+      "Business Strategy",
+      "Business Growth"
+    ],
+    "contact_email": "ron@leadshawk.net"
+  },
+  "https://feeds.megaphone.fm/changesignal": {
+    "podcast_name": "Change Signal: Modern Change Management that Works",
+    "artist_name": "Michael Bungay Stanier | Modern Change Management Practitioner",
+    "feed_url": "https://feeds.megaphone.fm/changesignal",
+    "genre": "Management",
+    "track_count": 102,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/change-signal-modern-change-management-that-works/id1793189341?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/e1/15/4b/e1154bf6-fe9d-d02b-bcd9-1d8956cac89f/mza_207158316902878210.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Michael Bungay Stanier est un créateur/expert indépendant identifiable (Modern Change Management Practitioner) produisant un podcast B2B actif (102 épisodes) sur un sujet d'expertise pointue (change management). Pas de média grand public détecté, audience petite/moyenne compatible avec les critères.",
+    "checked_date": "2026-11-18",
+    "secteur": "Coachs & consultants B2B",
+    "nb_episodes": 102,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Change Management",
+      "Cholesterol Management",
+      "Stress Management",
+      "Time Management"
+    ],
+    "contact_email": "m@thechangesignal.com"
   }
 }
