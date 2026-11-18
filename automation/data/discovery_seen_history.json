@@ -361577,12 +361577,13 @@
     "feed_url": "https://feeds.simplecast.com/OMvnNFl6",
     "genre": "Health & Fitness",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Formateurs & programmes",
     "gate": "dirigeant",
-    "email_domain": "ncqa.org"
+    "email_domain": "ncqa.org",
+    "rescue": "2026-11-18"
   },
   "https://feeds.redcircle.com/2eb4e5ea-caa9-4378-b367-c2e262fde379": {
     "podcast_name": "The Molly Weinberg Podcast",
@@ -361601,12 +361602,13 @@
     "feed_url": "https://feeds.simplecast.com/qUoiLmoL",
     "genre": "Science",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Assurance",
     "gate": "dirigeant",
-    "email_domain": "gmail.com"
+    "email_domain": "gmail.com",
+    "rescue": "2026-11-18"
   },
   "https://feeds.simplecast.com/nw9mxF_y": {
     "podcast_name": "New Books in Drugs, Addiction and Recovery",
@@ -361622,5 +361624,82 @@
     "checked_date": "2026-11-18",
     "secteur": "Assurance",
     "nb_episodes": 283
+  },
+  "https://app.kajabi.com/podcasts/2147486814/feed": {
+    "podcast_name": "Wealth Code Secrets",
+    "artist_name": "Greg Todd",
+    "feed_url": "https://app.kajabi.com/podcasts/2147486814/feed",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1147 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/1dd74bc4/podcast/rss": {
+    "podcast_name": "Ambitious Women",
+    "artist_name": "Dr. Dee Frayne",
+    "feed_url": "https://anchor.fm/s/1dd74bc4/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://media.rss.com/thelornaexperience/feed.xml": {
+    "podcast_name": "The LORNA Experience Podcast",
+    "artist_name": "Tasha J Cole",
+    "feed_url": "https://media.rss.com/thelornaexperience/feed.xml",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://anchor.fm/s/ec18424/podcast/rss": {
+    "podcast_name": "The Dreamcatchers Show",
+    "artist_name": "John Bourgeois",
+    "feed_url": "https://anchor.fm/s/ec18424/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://rss.buzzsprout.com/1945535.rss": {
+    "podcast_name": "Before The Bestseller",
+    "artist_name": "Alex Strathdee",
+    "feed_url": "https://rss.buzzsprout.com/1945535.rss",
+    "genre": "Books",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://rss.buzzsprout.com/2516151.rss": {
+    "podcast_name": "The Investor Semester Podcast",
+    "artist_name": "Jeremy Davis",
+    "feed_url": "https://rss.buzzsprout.com/2516151.rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Immobilier"
+  },
+  "https://anchor.fm/s/10e7e694/podcast/rss": {
+    "podcast_name": "Founderverse",
+    "artist_name": "VideoPunk",
+    "feed_url": "https://anchor.fm/s/10e7e694/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 2333 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
   }
 }
