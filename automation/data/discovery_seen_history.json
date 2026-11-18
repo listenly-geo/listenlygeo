@@ -355716,12 +355716,13 @@
     "feed_url": "https://rss.libsyn.com/shows/119587/destinations/694114.xml",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Coachs & consultants B2B",
     "gate": "dirigeant",
-    "email_domain": "iofficecorp.com"
+    "email_domain": "iofficecorp.com",
+    "rescue": "2026-11-18"
   },
   "https://feeds.simplecast.com/NFk_E6Is": {
     "podcast_name": "Day In-Day Out",
@@ -355756,7 +355757,8 @@
     "checked_date": "2026-11-18",
     "secteur": "Énergie",
     "gate": "dirigeant",
-    "email_domain": "aftersight.org"
+    "email_domain": "aftersight.org",
+    "rescue": "2026-11-18"
   },
   "https://feed.podbean.com/kieranjbyrd/feed.xml": {
     "podcast_name": "Reconfiguring the Matrix",
@@ -355775,12 +355777,13 @@
     "feed_url": "https://rss.libsyn.com/shows/525383/destinations/4516753.xml",
     "genre": "Self-Improvement",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "excellentdecisions.com"
+    "email_domain": "excellentdecisions.com",
+    "rescue": "2026-11-18"
   },
   "https://feed.podbean.com/ThreeRiversRealtors/feed.xml": {
     "podcast_name": "The Real Estate Ripple",
@@ -355803,5 +355806,193 @@
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Coachs & consultants B2B"
+  },
+  "https://rss.buzzsprout.com/1855655.rss": {
+    "podcast_name": "Latchkey Urchins & Friends",
+    "artist_name": "Alison Cebulla, Anne Sherry",
+    "feed_url": "https://rss.buzzsprout.com/1855655.rss",
+    "genre": "Mental Health",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/db1aa8fc/podcast/rss": {
+    "podcast_name": "Future Tech And Foresight",
+    "artist_name": "Marc Verbenkov",
+    "feed_url": "https://anchor.fm/s/db1aa8fc/podcast/rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Logistique & Supply chain",
+    "gate": "dirigeant",
+    "email_domain": "futuretechandforesight.com"
+  },
+  "https://feed.podbean.com/pressingonpodcast/feed.xml": {
+    "podcast_name": "PRessing On: Real Life in Public Relations",
+    "artist_name": "Rachel & Liselle",
+    "feed_url": "https://feed.podbean.com/pressingonpodcast/feed.xml",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://anchor.fm/s/53574d80/podcast/rss": {
+    "podcast_name": "Business & Beers",
+    "artist_name": "Simon Van Heerden & Steve Van Rooyen",
+    "feed_url": "https://anchor.fm/s/53574d80/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://anchor.fm/s/4be7f6d0/podcast/rss": {
+    "podcast_name": "Change It",
+    "artist_name": "Eloise Seidelin",
+    "feed_url": "https://anchor.fm/s/4be7f6d0/podcast/rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "RH & Recrutement"
+  },
+  "https://feeds.megaphone.fm/FPMN1077425037": {
+    "podcast_name": "The Dr. Raj Podcast",
+    "artist_name": "Raj Dasgupta & MedPrepToGo",
+    "feed_url": "https://feeds.megaphone.fm/FPMN1077425037",
+    "genre": "Medicine",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale",
+    "gate": "dirigeant",
+    "email_domain": "bookrevision.com"
+  },
+  "https://rss.buzzsprout.com/1568944.rss": {
+    "podcast_name": "Soraya -Be Convinced! Sharing Lifechanging Stories of Hope",
+    "artist_name": "Soraya Diase Coffelt",
+    "feed_url": "https://rss.buzzsprout.com/1568944.rss",
+    "genre": "Relationships",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://anchor.fm/s/fce1c77c/podcast/rss": {
+    "podcast_name": "State of Security: Expert Insights on Cybersecurity Operations and the Business of Cyber",
+    "artist_name": "Access Point Consulting",
+    "feed_url": "https://anchor.fm/s/fce1c77c/podcast/rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 713 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Cybersécurité"
+  },
+  "https://anchor.fm/s/1f16af70/podcast/rss": {
+    "podcast_name": "Why Care?",
+    "artist_name": "Nadia Nagamootoo",
+    "feed_url": "https://anchor.fm/s/1f16af70/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale",
+    "gate": "dirigeant",
+    "email_domain": "avenirconsultingservices.com"
+  },
+  "https://rss.buzzsprout.com/708843.rss": {
+    "podcast_name": "The EntreMD Podcast",
+    "artist_name": "Dr. Una",
+    "feed_url": "https://rss.buzzsprout.com/708843.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/fdbf9778/podcast/rss": {
+    "podcast_name": "Not So Average",
+    "artist_name": "Canadian Created Inc.",
+    "feed_url": "https://anchor.fm/s/fdbf9778/podcast/rss",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 246 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Logistique & Supply chain"
+  },
+  "https://rss.buzzsprout.com/1998446.rss": {
+    "podcast_name": "PowerSpeaking Podcast",
+    "artist_name": "Carrie Beckstrom",
+    "feed_url": "https://rss.buzzsprout.com/1998446.rss",
+    "genre": "Business",
+    "track_count": 55,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/powerspeaking-podcast/id1629750782?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/02/a0/87/02a087ca-55a5-0270-1e0d-a3434701a147/mza_13922629925395018485.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Carrie Beckstrom, créatrice/experte indépendante identifiable dans le domaine du business communication. Sujet B2B (PowerSpeaking = prise de parole en public professionnelle), 55 épisodes indiquent une activité régulière, audience petite-moyenne, aucun indice de notoriété mass-media. Répond aux critères CREATEUR.",
+    "checked_date": "2026-11-18",
+    "secteur": "RH & Recrutement",
+    "nb_episodes": 55,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Law",
+      "Business Law",
+      "Business Strategy",
+      "Business Growth"
+    ],
+    "contact_email": "coordinator@powerspeaking.com"
+  },
+  "https://feeds.simplecast.com/ZTIbb_WI": {
+    "podcast_name": "Members on the Mic",
+    "artist_name": "Troy Chamber of Commerce",
+    "feed_url": "https://feeds.simplecast.com/ZTIbb_WI",
+    "genre": "Business",
+    "track_count": 99,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/members-on-the-mic/id1604607383?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/80/53/a2/8053a286-3d19-90e3-b64c-54416c65b8a8/mza_14211517164159296561.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast produit par une chambre de commerce locale (Troy Chamber of Commerce), entité B2B identifiée, avec 99 épisodes réguliers. Audience locale/régionale petite à moyenne, sujet business, sans célèbrité ni adossement à un gros média.",
+    "checked_date": "2026-11-18",
+    "secteur": "Cybersécurité",
+    "nb_episodes": 99,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Law",
+      "Business Law",
+      "Business Strategy",
+      "Business Growth"
+    ],
+    "contact_email": "tara@troychamber.com"
+  },
+  "https://rss.libsyn.com/shows/127668/destinations/767084.xml": {
+    "podcast_name": "Big Questions with Cal Fussman",
+    "artist_name": "Curiosity Media",
+    "feed_url": "https://rss.libsyn.com/shows/127668/destinations/767084.xml",
+    "genre": "Careers",
+    "track_count": 463,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/big-questions-with-cal-fussman/id1315791659?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/0b/af/56/0baf56b5-540f-72b5-b5b6-9fac4d4c20d0/mza_6486810056298752935.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Cal Fussman est une personnalité médiatique reconnue (journaliste célèbre, auteur, animateur établi), et Curiosity Media est un réseau/producteur de contenus mass-media. Ce podcast figure dans la catégorie des contenus grand public avec forte concurrence documentaire existante, incompatible avec la cible B2B niche.",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes",
+    "nb_episodes": 463
   }
 }
