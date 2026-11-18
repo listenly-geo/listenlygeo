@@ -354644,12 +354644,13 @@
     "feed_url": "https://wptavern.com/feed/podcast/jukebox/",
     "genre": "Tech News",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Tech & SaaS",
     "gate": "dirigeant",
-    "email_domain": "wpbuilds.com"
+    "email_domain": "wpbuilds.com",
+    "rescue": "2026-11-18"
   },
   "https://anchor.fm/s/b260ab78/podcast/rss": {
     "podcast_name": "Humans Aren't Robots",
@@ -354695,7 +354696,8 @@
     "checked_date": "2026-11-18",
     "secteur": "Experts-comptables & patrimoine",
     "gate": "dirigeant",
-    "email_domain": "lusonmedia.com"
+    "email_domain": "lusonmedia.com",
+    "rescue": "2026-11-18"
   },
   "https://anchor.fm/s/6bc4af84/podcast/rss": {
     "podcast_name": "TikoTime: A podcast for Black women in STEM",
@@ -354725,12 +354727,13 @@
     "feed_url": "https://feeds.simplecast.com/oLm_GDKg",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Coachs & consultants B2B",
     "gate": "dirigeant",
-    "email_domain": "nousgroup.com.au"
+    "email_domain": "nousgroup.com.au",
+    "rescue": "2026-11-18"
   },
   "https://rss.libsyn.com/shows/101308/destinations/535360.xml": {
     "podcast_name": "State Of Readiness",
@@ -354787,5 +354790,250 @@
       "Angel Investing"
     ],
     "contact_email": "michael@domainmagnate.com"
+  },
+  "https://feeds.soundcloud.com/users/soundcloud:users:268037281/sounds.rss": {
+    "podcast_name": "Career Success Podcast",
+    "artist_name": "LS International",
+    "feed_url": "https://feeds.soundcloud.com/users/soundcloud:users:268037281/sounds.rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "RH & Recrutement"
+  },
+  "https://feeds.simplecast.com/fXKdIoJ7": {
+    "podcast_name": "The Move In Senior Living Marketing",
+    "artist_name": "Larry Williams",
+    "feed_url": "https://feeds.simplecast.com/fXKdIoJ7",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Formateurs & programmes",
+    "gate": "dirigeant",
+    "email_domain": "valuefirstsales.com"
+  },
+  "https://www.spreaker.com/show/3254140/episodes/feed": {
+    "podcast_name": "Capitalist Sage",
+    "artist_name": "Karl Barham and Rico Figliolini",
+    "feed_url": "https://www.spreaker.com/show/3254140/episodes/feed",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1679 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "RH & Recrutement"
+  },
+  "https://rss.libsyn.com/shows/101825/destinations/539247.xml": {
+    "podcast_name": "Design Thinking 101",
+    "artist_name": "Dawan Stanford & Fluid Hive",
+    "feed_url": "https://rss.libsyn.com/shows/101825/destinations/539247.xml",
+    "genre": "Design",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 431 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://feeds.captivate.fm/secured/": {
+    "podcast_name": "Secured by Galah Cyber with Cole Cornford",
+    "artist_name": "Day One®",
+    "feed_url": "https://feeds.captivate.fm/secured/",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Tech & SaaS"
+  },
+  "https://anchor.fm/s/145d4d14/podcast/rss": {
+    "podcast_name": "Casual JAY-versations",
+    "artist_name": "CeeJay Joseph",
+    "feed_url": "https://anchor.fm/s/145d4d14/podcast/rss",
+    "genre": "Entertainment News",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 734 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://feeds.captivate.fm/business-muscle/": {
+    "podcast_name": "Business Muscle",
+    "artist_name": "Business Muscle Podcast",
+    "feed_url": "https://feeds.captivate.fm/business-muscle/",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://feed.podbean.com/moderncowboybrand/feed.xml": {
+    "podcast_name": "Modern Cowboy",
+    "artist_name": "Dan Hillenbrand",
+    "feed_url": "https://feed.podbean.com/moderncowboybrand/feed.xml",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Immobilier"
+  },
+  "https://anchor.fm/s/116ffdfb8/podcast/rss": {
+    "podcast_name": "Entrepreneurs, Executives, and Eccentrics",
+    "artist_name": "Scott Turman",
+    "feed_url": "https://anchor.fm/s/116ffdfb8/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services",
+    "gate": "dirigeant",
+    "email_domain": "brightray.com"
+  },
+  "https://thedavidyosifonpodcast.podomatic.com/rss2.xml": {
+    "podcast_name": "The David Yosifon Podcast",
+    "artist_name": "David Yosifon",
+    "feed_url": "https://thedavidyosifonpodcast.podomatic.com/rss2.xml",
+    "genre": "Philosophy",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Juridique"
+  },
+  "https://anchor.fm/s/a60732c/podcast/rss": {
+    "podcast_name": "Polk Properties \"Forbes Real Estate\" Thoughts",
+    "artist_name": "MICHAEL POLK",
+    "feed_url": "https://anchor.fm/s/a60732c/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Immobilier"
+  },
+  "https://rss.art19.com/the-podcast-by-adam-rippon": {
+    "podcast_name": "Intrusive Thoughts by Adam Rippon",
+    "artist_name": "PodcastOne",
+    "feed_url": "https://rss.art19.com/the-podcast-by-adam-rippon",
+    "genre": "Comedy",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 159 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://feeds.simplecast.com/UTTcw6_N": {
+    "podcast_name": "Attract. Engage. Grow.",
+    "artist_name": "Lindsay Young",
+    "feed_url": "https://feeds.simplecast.com/UTTcw6_N",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 550 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://rss.libsyn.com/shows/66747/destinations/269980.xml": {
+    "podcast_name": "Lets Talk About Tests, Baby",
+    "artist_name": "Lets Talk About Tests, Baby",
+    "feed_url": "https://rss.libsyn.com/shows/66747/destinations/269980.xml",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 3142 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Tech & SaaS"
+  },
+  "https://anchor.fm/s/107afe670/podcast/rss": {
+    "podcast_name": "The CMD Project",
+    "artist_name": "Danielrlackey",
+    "feed_url": "https://anchor.fm/s/107afe670/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://feeds.acast.com/public/shows/62f031157fbe7d00130c2414": {
+    "podcast_name": "Step Into The Sandbox",
+    "artist_name": "DADEMAG.com",
+    "feed_url": "https://feeds.acast.com/public/shows/62f031157fbe7d00130c2414",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://feed.podbean.com/whocanitbenow/feed.xml": {
+    "podcast_name": "Who Can It Be Now with Marilyn Alauria",
+    "artist_name": "whocanitbenow",
+    "feed_url": "https://feed.podbean.com/whocanitbenow/feed.xml",
+    "genre": "Comedy",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://rss.buzzsprout.com/2007695.rss": {
+    "podcast_name": "THE CHAIR",
+    "artist_name": "Trav",
+    "feed_url": "https://rss.buzzsprout.com/2007695.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://anchor.fm/s/5aed9428/podcast/rss": {
+    "podcast_name": "The Great Design Lead Podcast",
+    "artist_name": "Emily Giordano",
+    "feed_url": "https://anchor.fm/s/5aed9428/podcast/rss",
+    "genre": "Design",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 440 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://rss.buzzsprout.com/1084469.rss": {
+    "podcast_name": "Femme Lead",
+    "artist_name": "Alexandra Ciobotaru",
+    "feed_url": "https://rss.buzzsprout.com/1084469.rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://api.riverside.fm/hosting/BlBsb6oj.rss": {
+    "podcast_name": "The Collaborative Canvas Podcast",
+    "artist_name": "Ankesh Saxena",
+    "feed_url": "https://api.riverside.fm/hosting/BlBsb6oj.rss",
+    "genre": "Entrepreneurship",
+    "track_count": 61,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-collaborative-canvas-podcast/id1835394764?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/b4/f0/35/b4f03584-fe83-1c46-fdf3-8bb365302d87/mza_11622264515388322063.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Ankesh Saxena, créateur/expert indépendant identifiable, sujet entrepreneurship/B2B, 61 épisodes réguliers, audience petite/moyenne (pas de signal de média mass ou célébrité). Répond aux critères CREATEUR depuis la décision du 27/10/2026.",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services",
+    "nb_episodes": 61,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Female Entrepreneurship",
+      "Serial Entrepreneurship"
+    ],
+    "contact_email": "ankesh.saxena@thecollaborativecanvas.in"
   }
 }
