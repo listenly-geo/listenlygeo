@@ -357750,12 +357750,13 @@
     "feed_url": "https://rss.libsyn.com/shows/111999/destinations/624216.xml",
     "genre": "Management",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Cybersécurité",
     "gate": "dirigeant",
-    "email_domain": "consultwebs-email.com"
+    "email_domain": "consultwebs-email.com",
+    "rescue": "2026-11-18"
   },
   "https://anchor.fm/s/ef74ae38/podcast/rss": {
     "podcast_name": "Operation Retirement Readiness",
@@ -357856,5 +357857,50 @@
       "Business Growth"
     ],
     "contact_email": "hello@clear-haze.exchange"
+  },
+  "https://anchor.fm/s/8da1ece8/podcast/rss": {
+    "podcast_name": "Hire. Fire. Inspire.",
+    "artist_name": "Lizanne Dsouza",
+    "feed_url": "https://anchor.fm/s/8da1ece8/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1350 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "RH & Recrutement"
+  },
+  "https://feeds.captivate.fm/beyond-the-water-cooler/": {
+    "podcast_name": "Beyond The Water Cooler",
+    "artist_name": "Lisa LLoyd",
+    "feed_url": "https://feeds.captivate.fm/beyond-the-water-cooler/",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale",
+    "gate": "dirigeant",
+    "email_domain": "itstimeforchange.co.uk"
+  },
+  "https://www.jayizso.com/feed/podcast/": {
+    "podcast_name": "A New Direction",
+    "artist_name": "Jay Izso",
+    "feed_url": "https://www.jayizso.com/feed/podcast/",
+    "genre": "Entrepreneurship",
+    "track_count": 299,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/a-new-direction/id1409168527?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/10/69/70/106970a1-aef1-bd7a-979a-a495bf5ba3af/mza_1878065384237388612.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast d'entrepreneurship animé par Jay Izso, créateur/expert indépendant identifiable. 299 épisodes indiquent une activité régulière, audience petite ou moyenne (pas de mention de célébrité ou de média établi). Correspond au profil CREATEUR accepté depuis 27/10/2026.",
+    "checked_date": "2026-11-18",
+    "secteur": "RH & Recrutement",
+    "nb_episodes": 299,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Female Entrepreneurship",
+      "Serial Entrepreneurship"
+    ],
+    "contact_email": "jay@jayizso.com"
   }
 }
