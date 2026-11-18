@@ -1322,6 +1322,13 @@ function mfeSettings_() {
 // (cs_live_... / cs_test_...). Si la propriete de script STRIPE_SECRET_KEY existe, le paiement est verifie aupres de Stripe ; sinon la ligne est marquee "paiement non verifie".
 var MFE_ONB_COLS = ['Date', 'Statut', 'Paiement', 'Session Stripe', 'Email', 'Podcast', 'Flux RSS', 'Objectif', 'Lien du bouton', 'Client ideal', 'Sujets prioritaires', 'A exclure',
   'Questions des clients', 'Nom affiche', 'Logo', 'Couleur', 'Domaine', 'Sous-domaine', 'DNS gere par', 'Contact DNS', 'Notes'];
+// SAV (18/11/2026) : les mails aux clients partent de l'adresse SAV (alias Gmail verifie) ; sinon l'adresse SAV est au moins mise en Reply-To.
+var MFE_SAV_ADDR = 'supportindex@marketforge.fr';
+function mfeSavOpts_() {
+  var o = { name: 'MarketForge', replyTo: MFE_SAV_ADDR };
+  try { if (GmailApp.getAliases().indexOf(MFE_SAV_ADDR) >= 0) o.from = MFE_SAV_ADDR; } catch (e) { Logger.log('Alias SAV : %s', e); }
+  return o;
+}
 function mfeOnbClean_(v, max) {
   v = String(v == null ? '' : v).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, '').trim().slice(0, max || 500);
   return /^[=+\-@]/.test(v) ? "'" + v : v;   // jamais de formule dans le Sheet
@@ -1351,7 +1358,7 @@ function mfeOnbUpdate_(b) {
     if (statut === 'Pret' && /^https:\/\//.test(url)) {
       GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Index pret : ' + podcast, 'Index construit pour ' + podcast + '\n' + url + '\nLigne ' + row + ' de l\'onglet Onboarding.');
       if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) && String(sh.getRange(row, 3).getValue()).indexOf('paye') === 0)
-        GmailApp.sendEmail(email, 'Your Index is ready', 'Hi,\n\nYour Index is ready. See it live here:\n' + url + '\n\nYour podcast episodes are now searchable expert answers, readable by Google and AI assistants.\n\nNext step: putting it on your own domain. We will send you one simple line to copy and paste (or forward to whoever manages your domain). If you have any question, just reply to this email.\n\nThe MarketForge team', { name: 'MarketForge' });
+        GmailApp.sendEmail(email, 'Your Index is ready', 'Hi,\n\nYour Index is ready. See it live here:\n' + url + '\n\nYour podcast episodes are now searchable expert answers, readable by Google and AI assistants.\n\nNext step: putting it on your own domain. We will send you one simple line to copy and paste (or forward to whoever manages your domain). If you have any question, just reply to this email.\n\nThe MarketForge team', mfeSavOpts_());
     } else if (statut === 'Erreur') {
       GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Index en erreur : ' + podcast, 'Construction en erreur pour ' + podcast + '\nLigne ' + row + '\n' + note);
     }
@@ -1407,7 +1414,7 @@ function mfeOnboardingPublic_(b) {
     if (row) { var keep = sh.getRange(row, 2).getValue(); line[0] = sh.getRange(row, 1).getValue(); line[1] = keep; sh.getRange(row, 1, 1, line.length).setValues([line]); }   // meme paiement = mise a jour, pas de doublon
     else { sh.appendRow(line); row = sh.getLastRow(); try { GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Nouvel onboarding Index : ' + (line[5] || email), 'Paiement : ' + paiement + '\nPodcast : ' + line[5] + '\nEmail : ' + email + '\nRSS : ' + line[6] + '\nDomaine : ' + line[16] + ' (sous-domaine ' + line[17] + ')\n\nLigne ' + row + ' de l\'onglet Onboarding.'); } catch (e2) { Logger.log('Alerte onboarding : %s', e2); }
       // 16/11/2026 : mail de confirmation au client (uniquement si le paiement est verifie aupres de Stripe : jamais d'envoi a une adresse saisie sans paiement reel)
-      if (paiement === 'paye (verifie)') { try { GmailApp.sendEmail(email, 'Your Index is on its way', 'Hi,\n\nThanks for your order and for taking the time to answer our questions. We have everything we need.\n\nWhat happens next:\n1. We build your Index from your podcast episodes' + (line[13] ? ' (shown as "' + line[13] + '")' : '') + '.\n2. You receive one simple line to copy and paste on your domain' + (line[16] ? ' (' + (line[17] || 'expertise') + '.' + line[16] + ')' : '') + ', or to forward to whoever manages it. We guide you step by step.\n3. Your Index comes to life, and you get the link to see it.\n\nYou will hear from us within 48 hours. If anything is unclear, just reply to this email.\n\nThe MarketForge team', { name: 'MarketForge' }); } catch (e3) { Logger.log('Mail client onboarding : %s', e3); } } }
+      if (paiement === 'paye (verifie)') { try { GmailApp.sendEmail(email, 'Your Index is on its way', 'Hi,\n\nThanks for your order and for taking the time to answer our questions. We have everything we need.\n\nWhat happens next:\n1. We build your Index from your podcast episodes' + (line[13] ? ' (shown as "' + line[13] + '")' : '') + '.\n2. You receive one simple line to copy and paste on your domain' + (line[16] ? ' (' + (line[17] || 'expertise') + '.' + line[16] + ')' : '') + ', or to forward to whoever manages it. We guide you step by step.\n3. Your Index comes to life, and you get the link to see it.\n\nYou will hear from us within 48 hours. If anything is unclear, just reply to this email.\n\nThe MarketForge team', mfeSavOpts_()); } catch (e3) { Logger.log('Mail client onboarding : %s', e3); } } }
   } finally { lock.releaseLock(); }
   return mfeJson_({ ok: true });
 }
@@ -1440,7 +1447,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 41 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 42 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
