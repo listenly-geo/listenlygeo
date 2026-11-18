@@ -354808,12 +354808,13 @@
     "feed_url": "https://feeds.simplecast.com/fXKdIoJ7",
     "genre": "Marketing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Formateurs & programmes",
     "gate": "dirigeant",
-    "email_domain": "valuefirstsales.com"
+    "email_domain": "valuefirstsales.com",
+    "rescue": "2026-11-18"
   },
   "https://www.spreaker.com/show/3254140/episodes/feed": {
     "podcast_name": "Capitalist Sage",
@@ -354887,12 +354888,13 @@
     "feed_url": "https://anchor.fm/s/116ffdfb8/podcast/rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Agences de services",
     "gate": "dirigeant",
-    "email_domain": "brightray.com"
+    "email_domain": "brightray.com",
+    "rescue": "2026-11-18"
   },
   "https://thedavidyosifonpodcast.podomatic.com/rss2.xml": {
     "podcast_name": "The David Yosifon Podcast",
@@ -355035,5 +355037,81 @@
       "Serial Entrepreneurship"
     ],
     "contact_email": "ankesh.saxena@thecollaborativecanvas.in"
+  },
+  "https://rss.buzzsprout.com/593338.rss": {
+    "podcast_name": "On Top of PR with Jason Mudd",
+    "artist_name": "Jason Mudd, Axia Public Relations",
+    "feed_url": "https://rss.buzzsprout.com/593338.rss",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://rss.buzzsprout.com/1009195.rss": {
+    "podcast_name": "Getting Social With The Curious Cowgirl",
+    "artist_name": "Mary Meier-Evans",
+    "feed_url": "https://rss.buzzsprout.com/1009195.rss",
+    "genre": "How To",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Tech & SaaS"
+  },
+  "https://feed.podbean.com/bornunbreakable/feed.xml": {
+    "podcast_name": "Born Unbreakable Podcast Show w/ Coach Dez and DJFNA",
+    "artist_name": "Coach Dez & DJFNA",
+    "feed_url": "https://feed.podbean.com/bornunbreakable/feed.xml",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://feeds.captivate.fm/your-pet-business-your-way/": {
+    "podcast_name": "Your pet business, Your way",
+    "artist_name": "Rachel Spencer",
+    "feed_url": "https://feeds.captivate.fm/your-pet-business-your-way/",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://anchor.fm/s/5d23a70/podcast/rss": {
+    "podcast_name": "Null to Zero",
+    "artist_name": "Dignified",
+    "feed_url": "https://anchor.fm/s/5d23a70/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Finance & Fintech"
+  },
+  "https://anchor.fm/s/109829844/podcast/rss": {
+    "podcast_name": "Built from Scratch",
+    "artist_name": "Erik Libby",
+    "feed_url": "https://anchor.fm/s/109829844/podcast/rss",
+    "genre": "Entrepreneurship",
+    "track_count": 67,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/built-from-scratch/id1768709118?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/61/6d/ea/616dea7b-f5d9-d546-a722-58ecd450f4c5/mza_13064987984620871551.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast d'entrepreneurship anime par un createur independant identifiable (Erik Libby), avec 67 episodes reguliers, sujet business/B2B, et aucun indice de notoriete mass-media ou adossement a un gros media. Repond aux criteres CREATEUR.",
+    "checked_date": "2026-11-18",
+    "secteur": "Finance & Fintech",
+    "nb_episodes": 67,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Female Entrepreneurship",
+      "Serial Entrepreneurship"
+    ],
+    "contact_email": "erik@thetododudes.com"
   }
 }
