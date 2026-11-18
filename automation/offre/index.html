@@ -145,7 +145,7 @@ var ICON={file:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2
  refresh:'<path d="M20 11a8 8 0 0 0-14.5-3.5L4 9M4 4v5h5M4 13a8 8 0 0 0 14.5 3.5L20 15M20 20v-5h-5"/>',
  shield:'<path d="M12 3 5 6v6c0 4.5 3 8 7 9 4-1 7-4.5 7-9V6z"/><path d="m9 12 2 2 4-4"/>'};
 var q=new URLSearchParams(location.search),ref=(q.get("ref")||"").replace(/[^a-zA-Z0-9._-]/g,"").slice(0,80);
-var lang=(q.get("lang")||((navigator.language||"en").slice(0,2)==="fr"?"fr":"en"));if(!T[lang])lang="en";
+var lang=q.get("lang")||"en";if(!T[lang])lang="en";
 var CFG={};
 function ping(ev){if(!ENDPOINT||ENDPOINT.indexOf("http")!==0)return;try{fetch(ENDPOINT,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain"},body:JSON.stringify({action:"offre_event",event:ev,ref:ref,variant:"base"})});}catch(e){}}
 function render(){
