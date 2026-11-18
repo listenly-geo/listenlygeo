@@ -358867,12 +358867,13 @@
     "feed_url": "https://feeds.simplecast.com/yUA1W_Fy",
     "genre": "Self-Improvement",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Construction & Industrie",
     "gate": "dirigeant",
-    "email_domain": "shaw.ca"
+    "email_domain": "shaw.ca",
+    "rescue": "2026-11-18"
   },
   "https://anchor.fm/s/f5b9aeb0/podcast/rss": {
     "podcast_name": "\"What's Next GenX?\"",
@@ -358940,5 +358941,71 @@
       "Technical Analysis"
     ],
     "contact_email": "erika@cliqer.com"
+  },
+  "https://anchor.fm/s/167e77f8/podcast/rss": {
+    "podcast_name": "The Andrew Haines Show",
+    "artist_name": "Andrew Haines",
+    "feed_url": "https://anchor.fm/s/167e77f8/podcast/rss",
+    "genre": "Sports",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1182 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "RH & Recrutement"
+  },
+  "https://feeds.captivate.fm/the-right-fit/": {
+    "podcast_name": "The Right Fit",
+    "artist_name": "Adam Gordon",
+    "feed_url": "https://feeds.captivate.fm/the-right-fit/",
+    "genre": "Basketball",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "RH & Recrutement"
+  },
+  "https://feeds.podetize.com/rss/vgXIjY8_1": {
+    "podcast_name": "Health, Wealth and The Ultimate Self",
+    "artist_name": "Dr. Matt Rayner and Dr Brandon Nutt",
+    "feed_url": "https://feeds.podetize.com/rss/vgXIjY8_1",
+    "genre": "Alternative Health",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 92 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://feeds.acast.com/public/shows/5d9419aa37752c556955b8fa": {
+    "podcast_name": "The Real Estate Lab",
+    "artist_name": "Vee Khuu",
+    "feed_url": "https://feeds.acast.com/public/shows/5d9419aa37752c556955b8fa",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://feed.podbean.com/drblcw/feed.xml": {
+    "podcast_name": "The Dr. Ward Bond Show",
+    "artist_name": "The Whitfield Media Group, Inc.",
+    "feed_url": "https://feed.podbean.com/drblcw/feed.xml",
+    "genre": "Film Interviews",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://anchor.fm/s/c532080/podcast/rss": {
+    "podcast_name": "Bowery Capital Startup Sales Podcast",
+    "artist_name": "Bowery Capital",
+    "feed_url": "https://anchor.fm/s/c532080/podcast/rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1373 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes"
   }
 }
