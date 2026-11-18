@@ -1495,7 +1495,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 43 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 44 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -1787,6 +1787,17 @@ function mfeCmd_(body) {
       GmailApp.sendEmail(moi1, '[TEST mail 1] ' + d1[0], mfeWithSignature_(d1[1]), mfeSendOpts_(d1[1]));
       return mfeJson_({ ok: true, cmd: cmd, mails_envoyes_a_toi: 1, podcast: ex1[1], slug: ex1[0], question: ex1[16] || '', moment_id: ex1[17] || '' });
     }
+    if (cmd === 'test_mail2') {   // 18/11/2026 : mail 2 (reponse a un oui, lien de la page de vente) envoye uniquement a TOI, avec signature
+      var moi2 = Session.getEffectiveUser().getEmail(), ex2 = null;
+      mfeEnsureSettings_();
+      mfeRows_(sh).forEach(function (r) { if (!ex2 && (slug ? r.values[0] === slug : r.values[1])) ex2 = r.values; });
+      if (!ex2) return mfeJson_({ ok: false, error: 'aucune ligne trouvee' });
+      var cfg2 = mfeReadSettings_(), base2 = String(cfg2.MFE_OFFRE_URL || 'https://app.marketforge.fr/offre').trim();
+      var link2 = base2 + (base2.indexOf('?') < 0 ? '?' : '&') + 'ref=' + encodeURIComponent(String(ex2[0] || ''));
+      var body2 = mfeFill_(mfeMsg_('MFE_MSG_REPONSE_OFFRE'), { HELLO: mfeHello_(ex2[13]), PODCAST: mfeShortName_(ex2[1]), OFFRE_URL: link2 });
+      GmailApp.sendEmail(moi2, '[TEST mail 2] Re: ' + String(ex2[1] || ''), mfeWithSignature_(body2), mfeSendOpts_(body2));
+      return mfeJson_({ ok: true, cmd: cmd, mails_envoyes_a_toi: 1, podcast: ex2[1], lien: link2 });
+    }
     if (cmd === 'test_me') {
       var moi = Session.getEffectiveUser().getEmail(), ex = null;
       mfeEnsureSettings_();
@@ -1883,7 +1894,7 @@ function mfeCmd_(body) {
       var sent = mfeSend_(sh, mfeSettings_(), nb, slug, body.paced === true);
       return mfeJson_({ ok: true, cmd: cmd, demandes: nb, envoyes: sent, slug: slug });
     }
-    return mfeJson_({ ok: false, error: 'cmd inconnue (test_mail1 | test_me | test_to | test_real)' });
+    return mfeJson_({ ok: false, error: 'cmd inconnue (test_mail1 | test_mail2 | test_me | test_to | test_real)' });
   } finally { lock.releaseLock(); }
 }
 
