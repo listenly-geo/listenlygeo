@@ -353088,12 +353088,13 @@
     "feed_url": "https://feeds.soundcloud.com/users/soundcloud:users:262737277/sounds.rss",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Finance & Fintech",
     "gate": "dirigeant",
-    "email_domain": "rightpropertygroup.com.au"
+    "email_domain": "rightpropertygroup.com.au",
+    "rescue": "2026-11-18"
   },
   "https://anchor.fm/s/20582148/podcast/rss": {
     "podcast_name": "Get Your Entrepreneurship Together With Brian Elam",
@@ -353264,5 +353265,143 @@
     "checked_date": "2026-11-18",
     "secteur": "Santé libérale",
     "nb_episodes": 296
+  },
+  "https://rss.buzzsprout.com/2423961.rss": {
+    "podcast_name": "Rallying in America: The Recce Podcast",
+    "artist_name": "Jim Booth",
+    "feed_url": "https://rss.buzzsprout.com/2423961.rss",
+    "genre": "Automotive",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Business général (entreprise)",
+    "gate": "dirigeant",
+    "email_domain": "jimboothdesigns.com"
+  },
+  "https://feeds.captivate.fm/smart-franchising/": {
+    "podcast_name": "Smart Franchising with Fransmart",
+    "artist_name": "Dan Rowe",
+    "feed_url": "https://feeds.captivate.fm/smart-franchising/",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Business général (entreprise)"
+  },
+  "https://anchor.fm/s/e5bcac24/podcast/rss": {
+    "podcast_name": "Modernization Accepted",
+    "artist_name": "Resolute Software",
+    "feed_url": "https://anchor.fm/s/e5bcac24/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 473 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Logistique & Supply chain"
+  },
+  "https://www.thearshow.com/podcast?format=rss": {
+    "podcast_name": "AR Show with Jason McDowall",
+    "artist_name": "Jason McDowall: Investor | Advocate | Entrepreneur",
+    "feed_url": "https://www.thearshow.com/podcast?format=rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 791 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://anchor.fm/s/102f71ec8/podcast/rss": {
+    "podcast_name": "BeWELL",
+    "artist_name": "Tobias Stalmann",
+    "feed_url": "https://anchor.fm/s/102f71ec8/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 188 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/692784e0/podcast/rss": {
+    "podcast_name": "Hound Opinions",
+    "artist_name": "Big Wags Chicago",
+    "feed_url": "https://anchor.fm/s/692784e0/podcast/rss",
+    "genre": "Pets & Animals",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 270 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/7e82458c/podcast/rss": {
+    "podcast_name": "Boost AEC Podcast",
+    "artist_name": "Belinda Carr",
+    "feed_url": "https://anchor.fm/s/7e82458c/podcast/rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 833 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://www.omnycontent.com/d/playlist/de62ff84-6498-49d0-a266-a9d50120c712/ecbabd99-5fb6-463c-9a6a-ace0005fc4d4/617cef2b-7d82-4dd1-9149-ace00062a283/podcast.rss": {
+    "podcast_name": "Inside Story",
+    "artist_name": "BFM Media",
+    "feed_url": "https://www.omnycontent.com/d/playlist/de62ff84-6498-49d0-a266-a9d50120c712/ecbabd99-5fb6-463c-9a6a-ace0005fc4d4/617cef2b-7d82-4dd1-9149-ace00062a283/podcast.rss",
+    "genre": "News",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 854 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.libsyn.com/shows/146180/destinations/931208.xml": {
+    "podcast_name": "The 5-Minute Founder",
+    "artist_name": "Shawn Ketcham",
+    "feed_url": "https://rss.libsyn.com/shows/146180/destinations/931208.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 2525 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Logistique & Supply chain"
+  },
+  "https://www.spreaker.com/show/1329483/episodes/feed": {
+    "podcast_name": "The Joe Messina Show",
+    "artist_name": "Terry D Littlepage",
+    "feed_url": "https://www.spreaker.com/show/1329483/episodes/feed",
+    "genre": "News Commentary",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 559 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Énergie"
+  },
+  "https://anchor.fm/s/2a628b74/podcast/rss": {
+    "podcast_name": "Hustle Like Hannah Podcast",
+    "artist_name": "Hannah Lockwood",
+    "feed_url": "https://anchor.fm/s/2a628b74/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 2010 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/1441a1e0/podcast/rss": {
+    "podcast_name": "ImpactAlpha Podcasts",
+    "artist_name": "ImpactAlpha",
+    "feed_url": "https://anchor.fm/s/1441a1e0/podcast/rss",
+    "genre": "Business",
+    "track_count": 516,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/impactalpha-podcasts/id1074392398?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/43/9d/d0/439dd003-09f9-bc5b-6dbe-f9ba0a786d9b/mza_2962653177683654305.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "ImpactAlpha Podcasts présente 516 épisodes et une audience établie suggérant une notoriété moyenne à élevée. L'absence de détails sur la personne identifiable animatrice et le volume d'épisodes (516) indiquent un réseau de podcasts plutôt qu'une entreprise B2B unique avec un hôte identifiable, ce qui ne correspond pas aux critères d'onboarding.",
+    "checked_date": "2026-11-18",
+    "secteur": "Énergie",
+    "nb_episodes": 516
   }
 }
