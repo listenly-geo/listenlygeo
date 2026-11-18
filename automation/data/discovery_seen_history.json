@@ -360432,12 +360432,13 @@
     "feed_url": "http://feeds.feedburner.com/wgnradio/hushloudly",
     "genre": "Health & Fitness",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Coachs & consultants B2B",
     "gate": "dirigeant",
-    "email_domain": "wgnradio.com"
+    "email_domain": "wgnradio.com",
+    "rescue": "2026-11-18"
   },
   "https://anchor.fm/s/dfa6f844/podcast/rss": {
     "podcast_name": "Hiring Great People",
@@ -360478,12 +360479,13 @@
     "feed_url": "https://denverwealth.libsyn.com/rss",
     "genre": "Investing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Experts-comptables & patrimoine",
     "gate": "dirigeant",
-    "email_domain": "denverwealthmanagement.com"
+    "email_domain": "denverwealthmanagement.com",
+    "rescue": "2026-11-18"
   },
   "https://feed.podbean.com/retailtherapy/feed.xml": {
     "podcast_name": "Retail Therapy",
@@ -360506,5 +360508,109 @@
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Assurance"
+  },
+  "https://rss.buzzsprout.com/2296709.rss": {
+    "podcast_name": "Actual People",
+    "artist_name": "Chauncey Zalkin",
+    "feed_url": "https://rss.buzzsprout.com/2296709.rss",
+    "genre": "Personal Journals",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://feeds.transistor.fm/lizheng": {
+    "podcast_name": "课代表立正",
+    "artist_name": "课代表立正（孙煜征）",
+    "feed_url": "https://feeds.transistor.fm/lizheng",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Tech & SaaS"
+  },
+  "https://serve.podhome.fm/rss/66ae706b-9a48-460c-a7fa-2ff7a2b46aae": {
+    "podcast_name": "About Podcasting",
+    "artist_name": "Barry Luijbregts",
+    "feed_url": "https://serve.podhome.fm/rss/66ae706b-9a48-460c-a7fa-2ff7a2b46aae",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 251 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/e4de8ccc-4b31-4880-9afd-ae280046529f/d2fc75d2-b578-427e-85cf-ae28004652ad/podcast.rss": {
+    "podcast_name": "Vitamin D with Dawn Dai",
+    "artist_name": "iHeartPodcasts",
+    "feed_url": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/e4de8ccc-4b31-4880-9afd-ae280046529f/d2fc75d2-b578-427e-85cf-ae28004652ad/podcast.rss",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Finance & Fintech"
+  },
+  "https://feeds.megaphone.fm/RMTV2547539343": {
+    "podcast_name": "The Progress Report Podcast",
+    "artist_name": "REVOLT",
+    "feed_url": "https://feeds.megaphone.fm/RMTV2547539343",
+    "genre": "Music",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Finance & Fintech",
+    "gate": "dirigeant",
+    "email_domain": "tprmediagroup.com"
+  },
+  "https://feeds.megaphone.fm/IDLHN8249865850": {
+    "podcast_name": "The Daily Leadership Advantage",
+    "artist_name": "The Daily Leadership Advantage",
+    "feed_url": "https://feeds.megaphone.fm/IDLHN8249865850",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 336 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://api.riverside.fm/hosting/8FnwBiu7.rss": {
+    "podcast_name": "Weekly AI Clarity",
+    "artist_name": "Robert Ta",
+    "feed_url": "https://api.riverside.fm/hosting/8FnwBiu7.rss",
+    "genre": "Entrepreneurship",
+    "track_count": 59,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/weekly-ai-clarity/id1788948280?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/79/4d/35/794d358c-d522-ab29-d44d-d4e92cb538ad/mza_11520161475933764018.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Robert Ta, créateur/expert indépendant identifiable, sur un sujet business/B2B (Entrepreneurship et AI), avec 59 épisodes réguliers et audience petite/moyenne. Pas de signature de média ou de célébrité grand public.",
+    "checked_date": "2026-11-18",
+    "secteur": "Coachs & consultants B2B",
+    "nb_episodes": 59,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Female Entrepreneurship",
+      "Serial Entrepreneurship"
+    ],
+    "contact_email": "robertta.shop@gmail.com"
+  },
+  "https://feeds.megaphone.fm/pbdpodcast": {
+    "podcast_name": "PBD Podcast",
+    "artist_name": "Patrick Bet David",
+    "feed_url": "https://feeds.megaphone.fm/pbdpodcast",
+    "genre": "Business",
+    "track_count": 970,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/pbd-podcast/id1526697745?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/ad/7e/74/ad7e7422-47fe-fe86-e2d1-eaba6323650a/mza_10077304312086458683.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Patrick Bet David est une personnalité célèbre du business grand public (fondateur de Valuetainment, audience massive). Avec 970 épisodes et une notoriété établie, ce podcast entre dans la catégorie mass-media/célébrité avec forte concurrence documentaire existante, non conforme aux critères de podcasts B2B niche à audience petite/moyenne.",
+    "checked_date": "2026-11-18",
+    "secteur": "Logistique & Supply chain",
+    "nb_episodes": 970
   }
 }
