@@ -361860,12 +361860,13 @@
     "feed_url": "https://rss.buzzsprout.com/2109332.rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Formateurs & programmes",
     "gate": "dirigeant",
-    "email_domain": "disruptivegrowthsolutions.com"
+    "email_domain": "disruptivegrowthsolutions.com",
+    "rescue": "2026-11-18"
   },
   "https://anchor.fm/s/dc3a3bbc/podcast/rss": {
     "podcast_name": "thefifty1percent | Women's Health",
@@ -361877,5 +361878,75 @@
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Formateurs & programmes"
+  },
+  "https://media.rss.com/mechanicalpeexamprep/feed.xml": {
+    "podcast_name": "Mechanical PE Exam Prep Podcast",
+    "artist_name": "Dan Molloy, PE",
+    "feed_url": "https://media.rss.com/mechanicalpeexamprep/feed.xml",
+    "genre": "Education",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 180 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://anchor.fm/s/721bbbe8/podcast/rss": {
+    "podcast_name": "Unlock Potential With David Archibald",
+    "artist_name": "David Archibald",
+    "feed_url": "https://anchor.fm/s/721bbbe8/podcast/rss",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 526 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://feeds.acast.com/public/shows/46937762-3327-44bb-a3dd-e068f7114928": {
+    "podcast_name": "The Moments That Made Me",
+    "artist_name": "Create",
+    "feed_url": "https://feeds.acast.com/public/shows/46937762-3327-44bb-a3dd-e068f7114928",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1632 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://www.spreaker.com/show/2802716/episodes/feed": {
+    "podcast_name": "Little Miracles",
+    "artist_name": "Bold Brave TV",
+    "feed_url": "https://www.spreaker.com/show/2802716/episodes/feed",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://feeds.transistor.fm/engineers": {
+    "podcast_name": "Engineers Ireland Amplified",
+    "artist_name": "Engineers Ireland",
+    "feed_url": "https://feeds.transistor.fm/engineers",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie"
+  },
+  "https://anchor.fm/s/108b18984/podcast/rss": {
+    "podcast_name": "Life of Being Podcast",
+    "artist_name": "LOBPod",
+    "feed_url": "https://anchor.fm/s/108b18984/podcast/rss",
+    "genre": "Health & Fitness",
+    "track_count": 59,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/life-of-being-podcast/id1835652072?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/ab/c9/42/abc9421e-4c42-365a-ae9e-d07ac10846c2/mza_6818493032870311939.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Le podcast relève du genre Health & Fitness (bien-être, santé), qui n'est pas du business/B2B. Les métadonnées insuffisantes (pas de personne identifiable, éditeur générique 'LOBPod', description minimaliste) empêchent de confirmer une expertise B2B pointue ou un créateur identifiable.",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale",
+    "nb_episodes": 59
   }
 }
