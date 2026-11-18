@@ -355824,12 +355824,13 @@
     "feed_url": "https://anchor.fm/s/db1aa8fc/podcast/rss",
     "genre": "Technology",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Logistique & Supply chain",
     "gate": "dirigeant",
-    "email_domain": "futuretechandforesight.com"
+    "email_domain": "futuretechandforesight.com",
+    "rescue": "2026-11-18"
   },
   "https://feed.podbean.com/pressingonpodcast/feed.xml": {
     "podcast_name": "PRessing On: Real Life in Public Relations",
@@ -355870,12 +355871,13 @@
     "feed_url": "https://feeds.megaphone.fm/FPMN1077425037",
     "genre": "Medicine",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "bookrevision.com"
+    "email_domain": "bookrevision.com",
+    "rescue": "2026-11-18"
   },
   "https://rss.buzzsprout.com/1568944.rss": {
     "podcast_name": "Soraya -Be Convinced! Sharing Lifechanging Stories of Hope",
@@ -355905,12 +355907,13 @@
     "feed_url": "https://anchor.fm/s/1f16af70/podcast/rss",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-18",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "avenirconsultingservices.com"
+    "email_domain": "avenirconsultingservices.com",
+    "rescue": "2026-11-18"
   },
   "https://rss.buzzsprout.com/708843.rss": {
     "podcast_name": "The EntreMD Podcast",
@@ -355994,5 +355997,105 @@
     "checked_date": "2026-11-18",
     "secteur": "Marketing & Ventes",
     "nb_episodes": 463
+  },
+  "https://anchor.fm/s/106b02b40/podcast/rss": {
+    "podcast_name": "ICONIC Smiles",
+    "artist_name": "ICONIC Dentistry",
+    "feed_url": "https://anchor.fm/s/106b02b40/podcast/rss",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 258 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/5e502784/podcast/rss": {
+    "podcast_name": "The Tech Startup Show",
+    "artist_name": "Charles Calzia",
+    "feed_url": "https://anchor.fm/s/5e502784/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 869 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://www.omnycontent.com/d/playlist/2bfe2d30-2756-4510-8b2d-adff010aaaac/bc5f6460-df41-4125-8a9d-b3630122c716/28f42d09-866c-410e-ad77-b3630122cb26/podcast.rss": {
+    "podcast_name": "Money Made Modern with Sheridan Murphy",
+    "artist_name": "Modern Wealth Methods",
+    "feed_url": "https://www.omnycontent.com/d/playlist/2bfe2d30-2756-4510-8b2d-adff010aaaac/bc5f6460-df41-4125-8a9d-b3630122c716/28f42d09-866c-410e-ad77-b3630122cb26/podcast.rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie",
+    "gate": "dirigeant",
+    "email_domain": "broadcastingexperts.com"
+  },
+  "https://anchor.fm/s/7088214/podcast/rss": {
+    "podcast_name": "Anointed Radio Podcast Network",
+    "artist_name": "Anointed Radio Podcast Network",
+    "feed_url": "https://anchor.fm/s/7088214/podcast/rss",
+    "genre": "Religion & Spirituality",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Religion & Spirituality)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://pub-6bc969ff45954c90afbbfc3610c4592e.r2.dev/podcasts/capital-daily/rss.xml": {
+    "podcast_name": "Capital Daily OP",
+    "artist_name": "OnePlace",
+    "feed_url": "https://pub-6bc969ff45954c90afbbfc3610c4592e.r2.dev/podcasts/capital-daily/rss.xml",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 184 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Agences de services"
+  },
+  "https://rss.buzzsprout.com/2540902.rss": {
+    "podcast_name": "Real Life with RDU Therapy",
+    "artist_name": "RDU Therapy",
+    "feed_url": "https://rss.buzzsprout.com/2540902.rss",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://api.riverside.fm/hosting/pOb0xDRF.rss/": {
+    "podcast_name": "Off The Chair",
+    "artist_name": "Dr. Colleen Long",
+    "feed_url": "https://api.riverside.fm/hosting/pOb0xDRF.rss/",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 322 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-18",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.buzzsprout.com/2455102.rss": {
+    "podcast_name": "Profit & Grit with Tyler",
+    "artist_name": "Tyler Martin",
+    "feed_url": "https://rss.buzzsprout.com/2455102.rss",
+    "genre": "Entrepreneurship",
+    "track_count": 89,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/profit-grit-with-tyler/id1800867047?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/b3/c5/1b/b3c51b96-4414-d8aa-86d6-c2068bb59ca6/mza_3766365492528813748.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Tyler Martin, créateur/expert indépendant identifiable dans le domaine de l'entrepreneuriat (89 épisodes, sujet B2B). Pas de média de masse ni de célébrité grand public détectable. Correspond au critère acceptance_path = CREATEUR (27/10/2026).",
+    "checked_date": "2026-11-18",
+    "secteur": "Construction & Industrie",
+    "nb_episodes": 89,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Female Entrepreneurship",
+      "Serial Entrepreneurship"
+    ],
+    "contact_email": "info@thinktyler.com"
   }
 }
