@@ -39,7 +39,7 @@ def clean_label(s):
 def hub(payload):
     token = os.environ.get("HUB_IMPORT_TOKEN", "")
     req = urllib.request.Request(HUB_DOMAIN, data=json.dumps(payload).encode(), method="POST",
-                                 headers={"Content-Type": "application/json", "X-Hub-Token": token, "User-Agent": "MarketForge/1.0"})
+                                 headers={"Content-Type": "application/json", "X-Hub-Token": token})
     try:
         with urllib.request.urlopen(req, timeout=60) as r:
             return json.loads(r.read().decode())
@@ -105,6 +105,8 @@ def main():
         res = hub({"action": "link", "site": slug, "host": host})
         if not res.get("ok"):
             log(f"Ligne {num} : liaison refusee ({res.get('error')}).")
+            if str(res.get("error", "")).startswith("HTTP 5") or "HTTP 4" in str(res.get("error", "")) or "timed out" in str(res.get("error", "")):
+                continue   # passager (pare-feu, hebergeur) : on reessaie au prochain passage, sans mettre la ligne en erreur
             sb.call(payload={"action": "onboarding_domain_update", "row": num, "statut": "Erreur", "note": f"Domaine {host} : {res.get('error')}", "host": host})
             continue
         add_to_hosting(host)
