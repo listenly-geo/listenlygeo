@@ -174,6 +174,14 @@ def main():
                         done.append(k); par_podcast[slug] = par_podcast.get(slug, 0) + 1; ok += 1
                         rapport.append({"groupe": groupe, "cle": k, "question": e["q"], "resultat": "ok", "titre": tit[k]})
                 continue
+            # 19/11/2026 : filtre « sens dans la recherche » AVANT de payer la reecriture
+            try:
+                import sens_recherche as sr
+                j = sr.juger(k, e.get("q"), None, d.get("podcast") or slug)
+            except Exception:
+                j = None
+            if j and j["verdict"] == "rejeter":
+                continue
             txt = transcript(slug, e.get("e"))
             r = {"groupe": groupe, "cle": k, "question": e.get("q"), "resultat": ""}
             rapport.append(r)
@@ -205,6 +213,11 @@ def main():
             r["resultat"] = "ok"
             done.append(k)
             ok += 1
+    try:
+        import sens_recherche as sr
+        sr.save()
+    except Exception:
+        pass
     json.dump({"date": datetime.date.today().isoformat(), "cles": done, "rapport": rapport},
               open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"[enrichissement] {len(done)} fiche(s) rallongee(s) : "

@@ -4,7 +4,8 @@ dans la Search Console (API d'inspection, lecture seule), ecrit pages/podcast-bt
 Selection : pages de MOMENTS validees par le systeme (gate=True), pas les fiches question.
 La demande d'indexation elle-meme se fait a la main (session Claude + Chrome, validation par page).
 Secret : GSC_SERVICE_ACCOUNT_JSON. Ne bloque jamais le workflow : en cas d'erreur, la liste est ecrite quand meme."""
-import os, json, datetime
+import os, sys, json, datetime
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import requests
 
 PAGES = "pages/podcast-btb"
@@ -16,6 +17,7 @@ RETARD = []    # slug/id des fiches en retard (non demandees la veille), priorit
 SOURCES = {}   # slug/id -> "connu" | "mot_cle" (08/11/2026 : repartition 50/50 pendant 14 jours, puis reglage selon la Search Console)
 QUOTA_CONNU = 5
 QUOTA_MOTCLE = 5
+REJETS = []   # 19/11/2026 : fiches ecartees par le filtre « sens dans la recherche »
 
 
 def volumes_motcle():
@@ -236,6 +238,21 @@ def main():
         titre = titre_pour(slug, mid, titres)
         if not titre:
             return
+        # 19/11/2026 (Etienne) : filtre « sens dans la recherche ». Une question incomprehensible sans l'episode,
+        # centree sur une personne/entreprise inconnue ou sans interet durable n'est jamais proposee a Google ;
+        # un bon sujet au titre flou recoit un titre plus clair.
+        try:
+            import sens_recherche as sr
+            q = json.load(open(f"{PAGES}/data/moments/{slug}.json", encoding="utf-8"))["entries"][mid]["q"]
+            j = sr.juger(slug + "/" + mid, q, titre, slug)
+        except Exception:
+            j = None
+        if j and j["verdict"] == "rejeter":
+            REJETS.append({"cle": slug + "/" + mid, "titre": titre, "raison": j.get("raison", "")})
+            return
+        if j and j["verdict"] == "retitrer" and j.get("titre"):
+            titre = j["titre"]
+            nouveaux[slug + "/" + mid] = titre
         # 02/11/2026 : controle reel dans la Search Console (API) avant de choisir.
         # Une page deja indexee n'est pas proposee : elle est notee dans indexees_verifiees.json.
         if tok:
@@ -247,7 +264,7 @@ def main():
             except Exception:
                 pass
         par_podcast[slug] = par_podcast.get(slug, 0) + 1
-        if not titres.get(slug + "/" + mid):
+        if not titres.get(slug + "/" + mid) or titres.get(slug + "/" + mid) != titre:
             nouveaux[slug + "/" + mid] = titre
         chosen.append((slug, mid, score, titre))
 
@@ -302,7 +319,8 @@ def main():
            "repartition": {"connu": sum(1 for i in items if i.get("source") == "connu"), "mot_cle": sum(1 for i in items if i.get("source") == "mot_cle")},
            "selection": "50/50 connus + mots-cles ; volumes du jour + note" if volumes_ok else "note seule (volumes non a jour, Keyword Planner en echec)",
            "pretes": sum(1 for i in items if i["pret_pour_demande"]),
-           "urls": items}
+           "urls": items,
+           "ecartees_sens_recherche": REJETS}
     if nouveaux:
         tp = f"{PAGES}/data/titres_seo.json"
         raw = json.load(open(tp, encoding="utf-8"))
@@ -311,9 +329,16 @@ def main():
         else:
             raw.update(nouveaux)
         json.dump(raw, open(tp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    try:
+        import sens_recherche as sr
+        sr.save()
+    except Exception:
+        pass
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     json.dump(out, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    print(f"[indexation] {out['pretes']} pretes sur {len(items)}")
+    print(f"[indexation] {out['pretes']} pretes sur {len(items)} ; {len(REJETS)} ecartee(s) par le filtre sens")
+    for r in REJETS:
+        print(f"  ecartee : {r['titre']} — {r['raison']}")
 
 
 if __name__ == "__main__":
