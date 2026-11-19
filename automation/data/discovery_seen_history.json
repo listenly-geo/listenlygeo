@@ -365492,12 +365492,13 @@
     "feed_url": "https://rss.buzzsprout.com/2624208.rss",
     "genre": "Technology",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Santé",
     "gate": "dirigeant",
-    "email_domain": "clearbranddigital.com"
+    "email_domain": "clearbranddigital.com",
+    "rescue": "2026-11-19"
   },
   "https://podcasts.files.bbci.co.uk/p004t1s0.rss": {
     "podcast_name": "The Interview",
@@ -365510,6 +365511,57 @@
     "checked_date": "2026-11-19",
     "secteur": "Santé",
     "gate": "dirigeant",
-    "email_domain": "bbc.co.uk"
+    "email_domain": "bbc.co.uk",
+    "rescue": "2026-11-19"
+  },
+  "https://rss2.flightcast.com/zuvawsnkkxtbynwgy0632z94.xml": {
+    "podcast_name": "LONGEVITY with Nathalie Niddam",
+    "artist_name": "Nathalie Niddam",
+    "feed_url": "https://rss2.flightcast.com/zuvawsnkkxtbynwgy0632z94.xml",
+    "genre": "Nutrition",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Énergie",
+    "gate": "dirigeant",
+    "email_domain": "nathalieniddam.com"
+  },
+  "https://anchor.fm/s/b71743c/podcast/rss": {
+    "podcast_name": "Chase the Vision with Isaac Mashman",
+    "artist_name": "Isaac Mashman",
+    "feed_url": "https://anchor.fm/s/b71743c/podcast/rss",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1624 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Agences de services"
+  },
+  "https://www.omnycontent.com/d/playlist/67221bdb-4665-444f-b545-ad1000f1fcfb/fdd4044e-5cd0-4a63-9b14-ade800eab3b7/b0002173-6c7b-4462-8ae2-ade800eab3c9/podcast.rss": {
+    "podcast_name": "20TIMinutes: A Mental Health Podcast",
+    "artist_name": "Tim McCarthy",
+    "feed_url": "https://www.omnycontent.com/d/playlist/67221bdb-4665-444f-b545-ad1000f1fcfb/fdd4044e-5cd0-4a63-9b14-ade800eab3b7/b0002173-6c7b-4462-8ae2-ade800eab3c9/podcast.rss",
+    "genre": "Mental Health",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1281 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale"
+  },
+  "https://feeds.megaphone.fm/RED2429845607": {
+    "podcast_name": "Inside Mental Health",
+    "artist_name": "Healthline Media",
+    "feed_url": "https://feeds.megaphone.fm/RED2429845607",
+    "genre": "Mental Health",
+    "track_count": 509,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/inside-mental-health/id1175777581?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/9f/0b/78/9f0b78cc-4c2f-46e1-cbab-1ed7132884ea/mza_12085069663477231291.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Healthline Media est un grand média grand public (éditeur de contenu santé bien connu, non B2B). Malgré le sujet santé/mental health, ce podcast relève du divertissement/contenu éducatif généraliste, pas du B2B business. Audience et couverture média élevées : rejet.",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale",
+    "nb_episodes": 509
   }
 }
