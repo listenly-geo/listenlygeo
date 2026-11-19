@@ -92,6 +92,29 @@ def ask_claude(podcast, text):
     return (cas if cas in CASES else 7), str(d.get("phrase", "")).strip(), qs[:3]
 
 
+SENSIBLE = re.compile(r"duplicat|penali[sz]|penalt|plagiar|copyright|copyrighted|licen[cs]e|legal|gdpr|rgpd|lawsuit|privacy|how many (visitors|leads|clients)|roi\b", re.I)
+
+
+def verify(qs):
+    """Seconde lecture independante : True seulement si chaque reponse de la base traite DIRECTEMENT la question posee."""
+    key = os.environ.get("ANTHROPIC_API_KEY", "")
+    pairs = [{"i": i, "question": str(q.get("q", "")), "reponse": FAQ[str(q["faq"])]} for i, q in enumerate(qs)]
+    prompt = ("Pour chaque paire, dis si la REPONSE repond directement et precisement a la QUESTION (elle contient le fait demande). "
+              "Une reponse generale, voisine ou sur un autre sujet = false. Un doute = false.\n" + json.dumps(pairs, ensure_ascii=False) +
+              '\nJSON strict : {"ok":[true,false]} (une valeur par paire, dans l\'ordre).')
+    body = json.dumps({"model": MODEL, "max_tokens": 120, "messages": [{"role": "user", "content": prompt}]}).encode()
+    req = urllib.request.Request("https://api.anthropic.com/v1/messages", data=body, method="POST", headers={
+        "x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            out = json.loads(r.read().decode())
+        txt = "".join(b.get("text", "") for b in out.get("content", []))
+        ok = json.loads(re.search(r"\{.*\}", txt, re.S).group(0)).get("ok", [])
+        return len(ok) == len(qs) and all(v is True for v in ok)
+    except Exception:
+        return False   # en cas de doute ou d'erreur : a la main
+
+
 def clean_open(cas, phrase):
     bad = re.search(r"https?:|www\.|[0-9$€£]|price|cost|call|demo|free|guarantee|days?|hours?|\bweeks?\b|<|>|perfect|prevent|exactly|definitely|absolutely|works?\b|solv|avoid|no problem|penali|duplicate|SEO|rank", phrase, re.I)
     if not phrase or bad or len(phrase) > 220:
@@ -141,6 +164,9 @@ def main():
             seen.add(f)
             uniq.append(q)
         qs = uniq
+        if cas == 3 and qs and not has_none:
+            if SENSIBLE.search(text) or not verify(qs):
+                has_none = True
         if cas == 3 and (not qs or has_none):
             cas = 7   # question hors base : a traiter a la main, aucun brouillon
         log(f"{r['email']} : cas {cas} ({CASES[cas]})")
