@@ -17,12 +17,12 @@ OFFRE = os.environ.get("OFFRE_URL", "https://app.marketforge.fr/offre").strip()
 
 # Elements FIXES (valides par Etienne le 19/11/2026)
 EXPLICATION = ("The idea is simple: your podcast already contains a lot of expertise, but today it stays locked inside the audio. "
-               "We turn your existing episodes into clear answers that Google and AI assistants can find and cite, so the people "
-               "searching for what you talk about end up on your site and become leads. Nothing to record and nothing to change in your strategy.")
+               "We turn your existing episodes into **clear answers that Google and AI assistants can find and cite**, so the people "
+               "searching for what you talk about end up on your site and become **leads**. __Nothing to record and nothing to change__ in your strategy.")
 EXPLICATION_CONFUS = ("In simple terms: your episodes are full of useful answers, but Google and AI assistants can't read audio. "
-                      "We turn them into written answers they can find and cite, which brings you visitors and potential clients, "
-                      "without changing anything in the way you work.")
-SEO = ("This doesn't replace your SEO, it adds to it: your episodes become written answers that Google and AI assistants can cite, "
+                      "We turn them into **written answers they can find and cite**, which brings you **visitors and potential clients**, "
+                      "__without changing anything__ in the way you work.")
+SEO = ("This doesn't replace your SEO, it __adds to it__: your episodes become **written answers that Google and AI assistants can cite**, "
        "which brings you extra visitors and clients on top of what you already do.")
 SIGN = "Best regards,\n\nEtienne"
 
@@ -78,19 +78,19 @@ def clean_open(cas, phrase):
 
 
 def compose(cas, hello, opening, link):
-    video = f'This short video shows how we can launch it quickly with your podcast: <a href="{link}">{link}</a>'
+    video = f'See how we can launch it quickly with your podcast in this <a href="{link}">short video</a>.'
     if cas == 1:
         core = f"{EXPLICATION}\n\n{video}\n\nIf anything is unclear after watching it, just reply here."
     elif cas == 2:
         core = f"{EXPLICATION_CONFUS}\n\n{video}"
     elif cas == 3:
-        core = (f'Everything is explained in this short video: what we build from your existing episodes, how it brings you traffic and clients '
-                f'from Google and AI, and how we start with your podcast: <a href="{link}">{link}</a>\n\nIf something is still unclear afterwards, reply here and I\'ll gladly clarify.')
+        core = (f'Everything is explained in this <a href="{link}">short video</a>: what we build from your existing episodes, how it brings you '
+                f'**traffic and clients** from Google and AI, and how we start with your podcast.\n\nIf something is still unclear afterwards, reply here and I\'ll gladly clarify.')
     elif cas == 4:
-        core = f'{SEO}\n\nIf it becomes useful later, this short video explains it and will stay available: <a href="{link}">{link}</a>'
+        core = f'{SEO}\n\nIf it becomes useful later, this <a href="{link}">short video</a> explains it and will stay available.'
     elif cas == 5:
-        core = (f'The simplest way to see exactly how it works is this short video, which shows what we build from an existing podcast and how '
-                f'we can launch it quickly with yours: <a href="{link}">{link}</a>\n\nIf a question is still open afterwards, just reply here and I\'ll answer.')
+        core = (f'The simplest way to see exactly how it works is this <a href="{link}">short video</a>, which shows what we build from an existing podcast '
+                f'and how we can launch it quickly with yours.\n\nIf a question is still open afterwards, just reply here and I\'ll answer.')
     else:  # 6
         core = "Could you point me to the right person for your podcast? A name or an email is perfect, and I'll reach out directly."
     return f"{hello}\n\n{opening}\n\n{core}\n\n{SIGN}"
