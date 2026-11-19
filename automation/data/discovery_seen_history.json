@@ -365411,12 +365411,13 @@
     "feed_url": "https://rss.libsyn.com/shows/623215/destinations/5484045.xml",
     "genre": "Medicine",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "onemanhattandental.com"
+    "email_domain": "onemanhattandental.com",
+    "rescue": "2026-11-19"
   },
   "https://saltmarketing.co/feed/podcast": {
     "podcast_name": "Worth Your Salt",
@@ -365462,5 +365463,53 @@
       "Female Entrepreneurship"
     ],
     "contact_email": "neil.betts@gotruenorth.uk"
+  },
+  "https://rss.buzzsprout.com/2060579.rss": {
+    "podcast_name": "Bust and Beyond",
+    "artist_name": "Robin Hayhurst",
+    "feed_url": "https://rss.buzzsprout.com/2060579.rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://anchor.fm/s/1b105cf0/podcast/rss": {
+    "podcast_name": "Hustle The Day",
+    "artist_name": "Trent V. Bray",
+    "feed_url": "https://anchor.fm/s/1b105cf0/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 2026 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://rss.buzzsprout.com/2624208.rss": {
+    "podcast_name": "Truth in a Digital World",
+    "artist_name": "John Delaney",
+    "feed_url": "https://rss.buzzsprout.com/2624208.rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé",
+    "gate": "dirigeant",
+    "email_domain": "clearbranddigital.com"
+  },
+  "https://podcasts.files.bbci.co.uk/p004t1s0.rss": {
+    "podcast_name": "The Interview",
+    "artist_name": "BBC World Service",
+    "feed_url": "https://podcasts.files.bbci.co.uk/p004t1s0.rss",
+    "genre": "Government",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé",
+    "gate": "dirigeant",
+    "email_domain": "bbc.co.uk"
   }
 }
