@@ -1330,17 +1330,45 @@ function mfePortalFooter_(sid) {
   var l = sid ? mfePortalLink_(sid) : '';
   return l ? '\n\nManage your subscription (invoices, payment card, cancel anytime):\n' + l : '';
 }
-function mfePortalPage_(p) {
-  var sid = String(p.sid || ''), site = String(p.site || ''), msg = '', url = '';
+function mfePortalShell_(inner) {
+  return HtmlService.createHtmlOutput('<!doctype html><html><head><base target="_top"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Your subscription</title></head>' +
+    '<body style="font-family:-apple-system,Segoe UI,Arial,sans-serif;background:#f5f5f7;margin:0;display:flex;min-height:100vh;align-items:center;justify-content:center"><div style="background:#fff;border-radius:16px;padding:36px;max-width:420px;width:calc(100% - 32px);text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.08)">' +
+    '<h2 style="margin:0 0 10px;color:#1d1d1f">Your subscription</h2>' + inner + '</div></body></html>').setTitle('Your subscription').addMetaTag('viewport', 'width=device-width, initial-scale=1');
+}
+// Depuis l'Index (bouton "Espace admin") : le client saisit l'email de son paiement ; si elle correspond, le lien signe lui est ENVOYE par mail (jamais affiche).
+function mfePortalForm_(p) {
+  var site = String(p.site || '').replace(/[^a-z0-9-]/g, '').slice(0, 80), host = String(p.host || '').toLowerCase().replace(/[^a-z0-9.-]/g, '').slice(0, 200);
+  return mfePortalShell_('<p style="color:#555;margin:0 0 18px">Enter the email you used for your subscription. We send you a secure link to manage it (invoices, card, cancellation).</p>' +
+    '<input id="e" type="email" placeholder="you@company.com" style="width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid #d2d2d7;border-radius:10px;font-size:15px;margin-bottom:12px">' +
+    '<button id="b" style="width:100%;background:#1d1d1f;color:#fff;font-weight:600;font-size:15px;padding:13px;border:0;border-radius:999px;cursor:pointer">Send me the link</button><p id="m" style="color:#555;margin:14px 0 0"></p>' +
+    '<script>document.getElementById("b").onclick=function(){var e=document.getElementById("e").value.trim();if(!e)return;this.disabled=true;' +
+    'google.script.run.withSuccessHandler(function(){document.getElementById("m").textContent="If this email matches a subscription, the link is on its way. Check your inbox."}).withFailureHandler(function(){document.getElementById("m").textContent="Something went wrong. Please try again."}).mfePortalRequest(' + JSON.stringify(site) + ',' + JSON.stringify(host) + ',e);};</script>');
+}
+function mfePortalRequest(site, host, email) {   // public (google.script.run) : reponse toujours identique, aucune fuite d'information
+  email = String(email || '').toLowerCase().trim(); site = String(site || ''); host = String(host || '').toLowerCase();
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || (!/^[a-z0-9-]{3,80}$/.test(site) && !/^[a-z0-9.-]{3,200}$/.test(host))) return 'ok';
+  var cache = CacheService.getScriptCache(), ck = 'portal_' + Utilities.base64EncodeWebSafe(email + '|' + site + host).slice(0, 80);
+  if (cache.get(ck)) return 'ok';   // 1 demande par minute et par couple email/Index
+  cache.put(ck, '1', 60);
   try {
-    if (site && /^[a-z0-9-]{3,80}$/.test(site) && String(p.t || '') === mfePortalSig_('site:' + site)) {   // lien depuis l'Index : on retrouve le paiement via le site
-      var sh = mfeSS_().getSheetByName('Onboarding');
-      if (sh && sh.getLastRow() > 1) {
-        var v = sh.getRange(2, 1, sh.getLastRow() - 1, MFE_ONB_COLS.length).getValues();
-        for (var i = v.length - 1; i >= 0; i--) if (String(v[i][20]).indexOf('/docs/' + site) >= 0) { sid = String(v[i][3]); break; }
+    var sh = mfeSS_().getSheetByName('Onboarding');
+    if (!sh || sh.getLastRow() < 2) return 'ok';
+    var v = sh.getRange(2, 1, sh.getLastRow() - 1, MFE_ONB_COLS.length).getValues();
+    for (var i = v.length - 1; i >= 0; i--) {
+      var okSite = site && String(v[i][20]).indexOf('/docs/' + site) >= 0, okHost = host && v[i][16] && host === (String(v[i][17] || 'expertise') + '.' + String(v[i][16])).toLowerCase();
+      if ((okSite || okHost) && String(v[i][4]).toLowerCase().trim() === email && String(v[i][2]).indexOf('paye') === 0) {
+        GmailApp.sendEmail(email, 'Your subscription link', 'Hi,\n\nHere is your secure link to manage your subscription (invoices, payment card, cancellation):' + mfePortalFooter_(String(v[i][3])).replace('\n\nManage your subscription (invoices, payment card, cancel anytime):', '') + '\n\nIf you did not ask for this, you can ignore this email.\n\nThe MarketForge team', mfeSavOpts_());
+        break;
       }
-      if (!sid) msg = 'Subscription not found.';
-    } else if (!/^cs_(live|test)_[A-Za-z0-9]{10,200}$/.test(sid) || String(p.t || '') !== mfePortalSig_(sid)) msg = 'This link is not valid.';
+    }
+  } catch (e) { Logger.log('Portail demande : %s', e); }
+  return 'ok';
+}
+function mfePortalPage_(p) {
+  if (!p.sid && (p.site || p.host)) return mfePortalForm_(p);
+  var sid = String(p.sid || ''), msg = '', url = '';
+  try {
+    if (!/^cs_(live|test)_[A-Za-z0-9]{10,200}$/.test(sid) || String(p.t || '') !== mfePortalSig_(sid)) msg = 'This link is not valid.';
     var key = PropertiesService.getScriptProperties().getProperty('STRIPE_SECRET_KEY');
     if (!msg && !key) msg = 'Subscription space is not available yet. Please reply to your MarketForge email and we will handle it.';
     if (!msg) {
@@ -1356,13 +1384,8 @@ function mfePortalPage_(p) {
     }
   } catch (err) { Logger.log('Portail : %s', err); msg = 'Could not open your subscription space. Please try again in a minute.'; }
   var esc = function (x) { return String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); };
-  var html = '<!doctype html><html><head><base target="_top"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Your subscription</title></head>' +
-    '<body style="font-family:-apple-system,Segoe UI,Arial,sans-serif;background:#f5f5f7;margin:0;display:flex;min-height:100vh;align-items:center;justify-content:center"><div style="background:#fff;border-radius:16px;padding:36px;max-width:420px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.08)">' +
-    '<h2 style="margin:0 0 10px;color:#1d1d1f">Your subscription</h2>' +
-    (url ? '<p style="color:#555;margin:0 0 22px">Invoices, payment card and cancellation, in one secure place.</p><a href="' + esc(url) + '" target="_top" style="display:inline-block;background:#1d1d1f;color:#fff;text-decoration:none;font-weight:600;padding:13px 26px;border-radius:999px">Open my subscription space</a>'
-      : '<p style="color:#555;margin:0">' + esc(msg || 'Not available.') + '</p>') +
-    '</div></body></html>';
-  return HtmlService.createHtmlOutput(html).setTitle('Your subscription').addMetaTag('viewport', 'width=device-width, initial-scale=1');
+  return mfePortalShell_(url ? '<p style="color:#555;margin:0 0 22px">Invoices, payment card and cancellation, in one secure place.</p><a href="' + esc(url) + '" target="_top" style="display:inline-block;background:#1d1d1f;color:#fff;text-decoration:none;font-weight:600;padding:13px 26px;border-radius:999px">Open my subscription space</a>'
+    : '<p style="color:#555;margin:0">' + esc(msg || 'Not available.') + '</p>');
 }
 // ---------- Onboarding client apres paiement (15/11/2026) ----------
 // La page app.marketforge.fr/onboarding envoie ici les reponses du client. Seule action publique : elle exige un identifiant de session Stripe
@@ -1627,7 +1650,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 56 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 57 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }

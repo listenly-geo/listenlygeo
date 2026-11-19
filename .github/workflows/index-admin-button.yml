@@ -1,0 +1,77 @@
+name: "Index — bouton Espace admin (deployer ou verifier)"
+
+# deploy : ajoute dans resources/views/app.blade.php du serveur un petit script qui place le bouton « Espace admin » dans l'en-tete de chaque Index.
+#          Le bouton ouvre la page du pont Apps Script (le client saisit son email, il recoit son lien Stripe). Aucun secret dans la page.
+#          La vue est modifiee A PARTIR DE SA VERSION EN LIGNE, sauvegardee (.bak-adm), et restauree automatiquement si la page ne repond plus.
+# verifier : lecture seule.
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'deploy ou verifier'
+        required: true
+        type: choice
+        default: verifier
+        options:
+          - verifier
+          - deploy
+
+permissions:
+  contents: read
+
+jobs:
+  admin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+      FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+      FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
+      SITE: app.marketforge.fr
+      PAGE: https://app.marketforge.fr/docs/answers-with-dr-jr
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deployer
+        if: inputs.mode == 'deploy'
+        run: |
+          set -e
+          for v in FTP_SERVER FTP_USERNAME FTP_PASSWORD MFE_SHEET_URL; do [ -n "${!v}" ] || { echo "::error::secret $v manquant"; exit 1; }; done
+          BRIDGE="${MFE_SHEET_URL%%\?*}"   # adresse du pont SANS le secret
+          U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 120 -sS --ftp-create-dirs"
+          mkdir -p /tmp/live /tmp/new
+          f=resources/views/app.blade.php
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" "$U/$SITE/$f" -o /tmp/live/app.blade.php
+          [ -s /tmp/live/app.blade.php ] || { echo "::error::vue illisible sur le serveur"; exit 1; }
+          BRIDGE="$BRIDGE" python3 - <<'PY'
+          import os, sys
+          b = open('/tmp/live/app.blade.php', encoding='utf-8').read()
+          js = open('automation/dtb-patch/hub-import-endpoint/admin-button.js', encoding='utf-8').read().replace('__BRIDGE__', os.environ['BRIDGE'])
+          block = "<!-- mf-admin-btn -->\n<script>" + js + "</script>\n<!-- /mf-admin-btn -->\n"
+          if "mf-admin-btn" in b:
+              a = b.index("<!-- mf-admin-btn -->"); e = b.index("<!-- /mf-admin-btn -->") + len("<!-- /mf-admin-btn -->\n")
+              b = b[:a] + block + b[e:]
+          else:
+              if "</body>" not in b: sys.exit("ancre </body> introuvable")
+              b = b.replace("</body>", block + "</body>", 1)
+          open('/tmp/new/app.blade.php', 'w', encoding='utf-8').write(b)
+          PY
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/live/app.blade.php "$U/$SITE/$f.bak-adm"
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/new/app.blade.php "$U/$SITE/$f"
+          sleep 6
+          code=$(curl -sS -m 40 -o /tmp/p.html -w '%{http_code}' "$PAGE" || echo 000)
+          if [ "$code" != 200 ] || ! grep -q 'mf-admin-btn' /tmp/p.html; then
+            echo "::error::page en $code ou bouton absent : retour arriere"
+            curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/live/app.blade.php "$U/$SITE/$f"
+            exit 1
+          fi
+          echo "::notice::bouton Espace admin en place (page $code)"
+
+      - name: Verifier
+        run: |
+          code=$(curl -sS -m 40 -o /tmp/p.html -w '%{http_code}' "$PAGE" || echo 000)
+          echo "page : HTTP $code"
+          grep -c 'mf-admin-btn' /tmp/p.html || true
+          [ "$code" = 200 ] && grep -q 'mf-admin-btn' /tmp/p.html && echo "::notice::bouton present" || echo "::notice::bouton absent"
