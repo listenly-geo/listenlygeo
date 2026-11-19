@@ -366450,12 +366450,13 @@
     "feed_url": "https://anchor.fm/s/fb678328/podcast/rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Tech & SaaS",
     "gate": "dirigeant",
-    "email_domain": "elisafuriglio.it"
+    "email_domain": "elisafuriglio.it",
+    "rescue": "2026-11-19"
   },
   "https://rss.libsyn.com/shows/62983/destinations/247272.xml": {
     "podcast_name": "This is Product Management",
@@ -366485,12 +366486,13 @@
     "feed_url": "https://anchor.fm/s/107bd1188/podcast/rss",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Formateurs & programmes",
     "gate": "dirigeant",
-    "email_domain": "ipiacademy.com"
+    "email_domain": "ipiacademy.com",
+    "rescue": "2026-11-19"
   },
   "https://rss.libsyn.com/shows/62642/destinations/245379.xml": {
     "podcast_name": "App Academy Podcast with Jordan Bryant | Weekly Conversations About Mobile Apps, Mobile, Apps, App Development and Entreprene",
@@ -366509,11 +366511,58 @@
     "feed_url": "https://anchor.fm/s/9be50ad8/podcast/rss",
     "genre": "Education",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Formateurs & programmes",
     "gate": "dirigeant",
-    "email_domain": "matters.academy"
+    "email_domain": "matters.academy",
+    "rescue": "2026-11-19"
+  },
+  "https://podcast.dentalwealthnation.com/feed.xml": {
+    "podcast_name": "The Dental Wealth Nation Show with Tim McNeely",
+    "artist_name": "® Tim McNeely",
+    "feed_url": "https://podcast.dentalwealthnation.com/feed.xml",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Assurance"
+  },
+  "https://feeds.audiomeans.fr/feed/93813964-90a6-4e0b-a9c1-c7ef1b7f04c8.xml": {
+    "podcast_name": "Vitamine Tech",
+    "artist_name": "Futura",
+    "feed_url": "https://feeds.audiomeans.fr/feed/93813964-90a6-4e0b-a9c1-c7ef1b7f04c8.xml",
+    "genre": "News",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Tech & SaaS",
+    "gate": "dirigeant",
+    "email_domain": "fsteam.fr"
+  },
+  "https://media.rss.com/old-tom-morris-the-father-of-golf-architecture-the-great-golf-architects-ep-1/feed.xml": {
+    "podcast_name": "Everyday Golf Wins — Legendary Courses, Architects & Golf Stories",
+    "artist_name": "Everyday Golf Wins",
+    "feed_url": "https://media.rss.com/old-tom-morris-the-father-of-golf-architecture-the-great-golf-architects-ep-1/feed.xml",
+    "genre": "Golf",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Construction & Industrie"
+  },
+  "https://anchor.fm/s/113d94770/podcast/rss?fbclid=PARlRTSASxAzFleHRuA2FlbQIxMABzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAac5aOEby2ivgnqfVdBy4pT-R7vzfRsmQObejklrjt4qHGvr9AU1gUSv4oNfaA_aem_eIj-G7d4OLlEvQXVAyLEDQ": {
+    "podcast_name": "Beyond the Ladder | Career Coaching, Fulfilment, and Confidence for Corporate Women",
+    "artist_name": "Alex Dubois",
+    "feed_url": "https://anchor.fm/s/113d94770/podcast/rss?fbclid=PARlRTSASxAzFleHRuA2FlbQIxMABzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAac5aOEby2ivgnqfVdBy4pT-R7vzfRsmQObejklrjt4qHGvr9AU1gUSv4oNfaA_aem_eIj-G7d4OLlEvQXVAyLEDQ",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B"
   }
 }
