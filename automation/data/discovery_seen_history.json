@@ -362194,12 +362194,13 @@
     "feed_url": "https://rss.libsyn.com/shows/78659/destinations/357614.xml",
     "genre": "Design",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Agences de services",
     "gate": "dirigeant",
-    "email_domain": "thepresentationpodcast.com"
+    "email_domain": "thepresentationpodcast.com",
+    "rescue": "2026-11-19"
   },
   "https://anchor.fm/s/101c23718/podcast/rss": {
     "podcast_name": "Morning Brew for Marketing Executives",
@@ -362237,5 +362238,39 @@
     "checked_date": "2026-11-19",
     "secteur": "Agences de services",
     "nb_episodes": 18
+  },
+  "https://rss.buzzsprout.com/1751715.rss": {
+    "podcast_name": "Nashville Drummers Podcast",
+    "artist_name": "Dan Ainspan / Nathan Sletner",
+    "feed_url": "https://rss.buzzsprout.com/1751715.rss",
+    "genre": "Music Interviews",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.buzzsprout.com/2632912.rss": {
+    "podcast_name": "Go First With Jaime Taets",
+    "artist_name": "Jaime Taets, Owner, President & Founder",
+    "feed_url": "https://rss.buzzsprout.com/2632912.rss",
+    "genre": "Management",
+    "track_count": 122,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/go-first-with-jaime-taets/id1389977252?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/ed/e2/1a/ede21a58-4ef6-1c49-c686-ba008876ea52/mza_6525063514711063789.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Jaime Taets, créateur indépendant identifiable (Owner, President & Founder), sur un sujet business/B2B (Management). 122 épisodes réguliers, audience petite/moyenne, aucun indicateur de célébrité ou affiliation media majeure. Éligible en tant que créateur/expert indépendant depuis la décision du 27/10/2026.",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale",
+    "nb_episodes": 122,
+    "suggested_category": null,
+    "suggested_tags": [
+      "First Aid",
+      "Cholesterol Management",
+      "Stress Management",
+      "Time Management"
+    ],
+    "contact_email": "jaime@jaimetaets.com"
   }
 }
