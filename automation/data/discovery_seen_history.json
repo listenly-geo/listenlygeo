@@ -363134,12 +363134,13 @@
     "feed_url": "https://feeds.megaphone.fm/askthecompound",
     "genre": "Investing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Finance & Fintech",
     "gate": "dirigeant",
-    "email_domain": "ritholtzwealth.com"
+    "email_domain": "ritholtzwealth.com",
+    "rescue": "2026-11-19"
   },
   "https://rss.libsyn.com/shows/265565/destinations/2019845.xml": {
     "podcast_name": "B-Schooled: Get Your MBA Admit",
@@ -363147,12 +363148,13 @@
     "feed_url": "https://rss.libsyn.com/shows/265565/destinations/2019845.xml",
     "genre": "Education",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Conseil",
     "gate": "dirigeant",
-    "email_domain": "stacyblackman.com"
+    "email_domain": "stacyblackman.com",
+    "rescue": "2026-11-19"
   },
   "https://rss.buzzsprout.com/1016638.rss": {
     "podcast_name": "Your Money in 20",
@@ -363194,5 +363196,73 @@
     "checked_date": "2026-11-19",
     "secteur": "Conseil",
     "nb_episodes": 78
+  },
+  "https://www.spreaker.com/show/2146688/episodes/feed": {
+    "podcast_name": "Real Estate Insiders Radio",
+    "artist_name": "Business Innovators Radio",
+    "feed_url": "https://www.spreaker.com/show/2146688/episodes/feed",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Finance & Fintech"
+  },
+  "https://rss.buzzsprout.com/2654709.rss": {
+    "podcast_name": "The Mile Deep Real Estate Agent",
+    "artist_name": "Ryan",
+    "feed_url": "https://rss.buzzsprout.com/2654709.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Immobilier"
+  },
+  "https://anchor.fm/s/10da40e6c/podcast/rss": {
+    "podcast_name": "Why Do I Suck As A Real Estate Agent",
+    "artist_name": "Monte Reyment",
+    "feed_url": "https://anchor.fm/s/10da40e6c/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Immobilier",
+    "gate": "dirigeant",
+    "email_domain": "iconsofrealestate.com"
+  },
+  "https://anchor.fm/s/a735aa0/podcast/rss": {
+    "podcast_name": "Wonder of Logistics",
+    "artist_name": "David Bang",
+    "feed_url": "https://anchor.fm/s/a735aa0/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Logistique & Supply chain"
+  },
+  "https://anchor.fm/s/5f3a8fb8/podcast/rss": {
+    "podcast_name": "UPLIFT: Personal Branding and Thought Leadership from A to Z for Leaders & Experienced Professionals",
+    "artist_name": "TopExpertBrand Accelerator",
+    "feed_url": "https://anchor.fm/s/5f3a8fb8/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Agences de services"
+  },
+  "https://anchor.fm/s/fd6261c/podcast/rss": {
+    "podcast_name": "Hope Unfiltered: Just the Basics",
+    "artist_name": "Dr. Joey Kramer",
+    "feed_url": "https://anchor.fm/s/fd6261c/podcast/rss",
+    "genre": "Alternative Health",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale"
   }
 }
