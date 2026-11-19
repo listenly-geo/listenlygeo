@@ -365316,12 +365316,13 @@
     "feed_url": "https://rss.buzzsprout.com/1476448.rss",
     "genre": "Investing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Immobilier",
     "gate": "dirigeant",
-    "email_domain": "londonproperty.co.uk"
+    "email_domain": "londonproperty.co.uk",
+    "rescue": "2026-11-19"
   },
   "https://app.kajabi.com/podcasts/2147687791/feed": {
     "podcast_name": "Intentional Divorce Insights",
@@ -365333,5 +365334,74 @@
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Finance & Fintech"
+  },
+  "https://anchor.fm/s/1039190ac/podcast/rss": {
+    "podcast_name": "Girl Hacked",
+    "artist_name": "Britt Christensen",
+    "feed_url": "https://anchor.fm/s/1039190ac/podcast/rss",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/1197471c8/podcast/rss": {
+    "podcast_name": "Get More Real Estate Leads",
+    "artist_name": "Josh Ries | Broker | Lead Generation Expert",
+    "feed_url": "https://anchor.fm/s/1197471c8/podcast/rss",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Immobilier",
+    "gate": "dirigeant",
+    "email_domain": "riesholdings.com"
+  },
+  "https://feed.podbean.com/thequietprofessional/feed.xml": {
+    "podcast_name": "The Quiet Professional",
+    "artist_name": "Vigilant Media Inc.",
+    "feed_url": "https://feed.podbean.com/thequietprofessional/feed.xml",
+    "genre": "True Crime",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://media.rss.com/sheffield-s-hidden-gems-podcast/feed.xml": {
+    "podcast_name": "Sheffield's Hidden Gems Podcast",
+    "artist_name": "Excel City Apartments and Guided Walks (brand of ExcelProperty Partners Ltd)",
+    "feed_url": "https://media.rss.com/sheffield-s-hidden-gems-podcast/feed.xml",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Immobilier"
+  },
+  "https://rss.libsyn.com/shows/158939/destinations/1041512.xml": {
+    "podcast_name": "HALO Talks: Elevating Wellness",
+    "artist_name": "Pete Moore",
+    "feed_url": "https://rss.libsyn.com/shows/158939/destinations/1041512.xml",
+    "genre": "Business",
+    "track_count": 643,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/halo-talks-elevating-wellness/id1645920467?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/09/e2/1c/09e21ccc-027a-988b-82f1-f34ea24f8757/mza_4597349463155230796.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Pete Moore, créateur/expert indépendant identifiable dans le domaine du wellness et business. Sujet B2B (wellness professionnel), 643 épisodes indiquent une activité régulière, audience apparemment petite/moyenne sans présence media grand public détectée.",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale",
+    "nb_episodes": 643,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Law",
+      "Business Law",
+      "Wellness Coaching",
+      "Business Strategy"
+    ],
+    "contact_email": "dganulin@integritysq.com"
   }
 }
