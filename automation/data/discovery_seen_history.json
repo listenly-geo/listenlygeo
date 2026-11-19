@@ -365352,12 +365352,13 @@
     "feed_url": "https://anchor.fm/s/1197471c8/podcast/rss",
     "genre": "Management",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Immobilier",
     "gate": "dirigeant",
-    "email_domain": "riesholdings.com"
+    "email_domain": "riesholdings.com",
+    "rescue": "2026-11-19"
   },
   "https://feed.podbean.com/thequietprofessional/feed.xml": {
     "podcast_name": "The Quiet Professional",
@@ -365403,5 +365404,63 @@
       "Business Strategy"
     ],
     "contact_email": "dganulin@integritysq.com"
+  },
+  "https://rss.libsyn.com/shows/623215/destinations/5484045.xml": {
+    "podcast_name": "Not Just a Dentist",
+    "artist_name": "Dr. Rob Raimondi, DDS and Dr. Marc Scalfani, DDS",
+    "feed_url": "https://rss.libsyn.com/shows/623215/destinations/5484045.xml",
+    "genre": "Medicine",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale",
+    "gate": "dirigeant",
+    "email_domain": "onemanhattandental.com"
+  },
+  "https://saltmarketing.co/feed/podcast": {
+    "podcast_name": "Worth Your Salt",
+    "artist_name": "Salt Marketing",
+    "feed_url": "https://saltmarketing.co/feed/podcast",
+    "genre": "Marketing",
+    "track_count": 100,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/worth-your-salt/id1687826080?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/2d/38/4a/2d384aa4-9244-2254-2159-492412445348/mza_12838725723970178171.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B produit par Salt Marketing (entreprise de marketing identifiée comme éditeur), animé par une personne/équipe rattachée à l'entreprise, sujet marketing/business, audience petite-moyenne (100 épisodes, pas de signal de grande notoriété), répond à tous les critères d'onboarding.",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale",
+    "nb_episodes": 100,
+    "suggested_category": null,
+    "suggested_tags": [
+      "B2C Marketing",
+      "Marketing Strategy",
+      "Startup Marketing"
+    ],
+    "contact_email": "grow@saltmarketing.co"
+  },
+  "https://feeds.acast.com/public/shows/690bbb37d4fac9e84b16fa1c": {
+    "podcast_name": "Vision to Venture - With Neil Betts",
+    "artist_name": "Neil Betts",
+    "feed_url": "https://feeds.acast.com/public/shows/690bbb37d4fac9e84b16fa1c",
+    "genre": "Entrepreneurship",
+    "track_count": 10,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/vision-to-venture-with-neil-betts/id1851056035?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/8d/97/76/8d97763d-dac5-9862-bc64-ac7dd14e4c24/mza_5173003893720724535.jpeg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Neil Betts, créateur/expert indépendant identifiable dans la niche entrepreneurship/B2B. Audience petite (10 épisodes) et pas d'adossement à un media de masse ou réseau célèbre. Remplit les critères d'acceptance_path CREATEUR.",
+    "checked_date": "2026-11-19",
+    "secteur": "RH & Recrutement",
+    "nb_episodes": 10,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Vision Care",
+      "Vision Boarding",
+      "Venture Capital",
+      "Female Entrepreneurship"
+    ],
+    "contact_email": "neil.betts@gotruenorth.uk"
   }
 }
