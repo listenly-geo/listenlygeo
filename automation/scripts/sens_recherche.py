@@ -95,7 +95,7 @@ def juger(cle, question, titre=None, podcast=""):
     if _appels >= MAX_APPELS:
         return {"verdict": "rejeter", "raison": "non jugee aujourd'hui (budget d'appels atteint)"}
     _appels += 1
-    suf = suffixe(titre) if titre != question else " | Listenly"
+    suf = " | Listenly"   # 19/11/2026 : un titre reecrit finit toujours par la marque (pas de nom de podcast coupe)
     room = 58 - len(suf)
     try:
         r = _claude(PROMPT.format(room=room - 4, question=question, titre=titre, podcast=podcast))
@@ -111,6 +111,19 @@ def juger(cle, question, titre=None, podcast=""):
         q = re.sub(r"\s+", " ", str(r.get("titre", ""))).strip(' "\n')
         if q and not q.endswith("?"):
             q += "?"
+        if q and len(q + suf) > 58 and _appels < MAX_APPELS:
+            # 19/11/2026 : second essai -> on demande une version plus courte au lieu de jeter un bon sujet
+            _appels += 1
+            try:
+                r2 = _claude(f"Shorten this Google search question to at most {room - 2} characters including the question mark, "
+                             f"keeping its subject clear and natural. Reply with JSON only: {{\"titre\": \"...\"}}\n\n{q}")
+                q2 = re.sub(r"\s+", " ", str(r2.get("titre", ""))).strip(' "\n')
+                if q2 and not q2.endswith("?"):
+                    q2 += "?"
+                if q2 and len(q2 + suf) <= 58:
+                    q = q2
+            except Exception:
+                pass
         if q and len(q + suf) <= 58:
             out["titre"] = q[:1].upper() + q[1:] + suf
         else:
