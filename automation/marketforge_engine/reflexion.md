@@ -1,4 +1,4 @@
-# Reflexion du MarketForge Engine (2026-11-19T13:58 UTC)
+# Reflexion du MarketForge Engine (2026-11-19T14:15 UTC)
 **Statut : BLOQUE**
 
 ## Funnel
@@ -7,8 +7,8 @@
 - bloques en attente : 1109
 - sans email : 68
 - prospects dans sheet : 300
-- statut pret : 55
-- mails envoyes : 989
+- statut pret : 53
+- mails envoyes : 991
 - relances : 181
 - rebonds total : 0
 - reponses reelles : 5
@@ -23,7 +23,7 @@
 - Reponses non classees (positive / neutre / refus) : impossible de savoir si le funnel marche. Ajouter le champ 'classe' dans replies.json.
 
 ## Pourquoi pas encore de client
-- Ordre de grandeur (hypothese, pas une mesure) : un 1er client a ~1500 $ demande souvent 500 a 3000 mails froids. Il en reste 0 a 2011, soit environ 0 a 40 jours au rythme actuel (50/j).
+- Ordre de grandeur (hypothese, pas une mesure) : un 1er client a ~1500 $ demande souvent 500 a 3000 mails froids. Il en reste 0 a 2009, soit environ 0 a 40 jours au rythme actuel (50/j).
 - Reponse 0.5 % : sous le seuil habituel (1-3 %). L'accroche ou la cible est a revoir avant d'augmenter le volume.
 - 15 secteurs avec moins de 15 envois : aucun signal par niche, ne pas en tirer de conclusion.
 - Relances envoyees sans reponse positive : mesurer separement 1er mail vs relances.

@@ -365113,12 +365113,13 @@
     "feed_url": "https://rss.libsyn.com/shows/273419/destinations/2088962.xml",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "jewellersacademy.com"
+    "email_domain": "jewellersacademy.com",
+    "rescue": "2026-11-19"
   },
   "https://anchor.fm/s/42dff6f0/podcast/rss": {
     "podcast_name": "Fully Alive Podcast",
@@ -365153,7 +365154,8 @@
     "checked_date": "2026-11-19",
     "secteur": "Assurance",
     "gate": "dirigeant",
-    "email_domain": "wtwco.com"
+    "email_domain": "wtwco.com",
+    "rescue": "2026-11-19"
   },
   "https://rss.buzzsprout.com/2380632.rss": {
     "podcast_name": "On The Line",
@@ -365172,12 +365174,13 @@
     "feed_url": "https://rss.libsyn.com/shows/513913/destinations/4407693.xml",
     "genre": "Marketing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "goodsidemarketing.com"
+    "email_domain": "goodsidemarketing.com",
+    "rescue": "2026-11-19"
   },
   "https://rss.libsyn.com/shows/232703/destinations/1720187.xml": {
     "podcast_name": "Where Do We Go From Here?",
@@ -365235,5 +365238,76 @@
       "Business Growth"
     ],
     "contact_email": "marketing@solomonpartners.com"
+  },
+  "https://feed.podbean.com/lightjanelle/feed.xml": {
+    "podcast_name": "The Profitable Online Coach - Make money online, Work from home, Side hustle, Online business, High ticket sales",
+    "artist_name": "Janelle Light - Online business coach, Entrepreneur, High ticket sales coach",
+    "feed_url": "https://feed.podbean.com/lightjanelle/feed.xml",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://rss.buzzsprout.com/1178318.rss": {
+    "podcast_name": "The My Sleeping Baby Podcast with Eva Klein",
+    "artist_name": "Eva Klein- Certified Infant and Child Sleep Consultant",
+    "feed_url": "https://rss.buzzsprout.com/1178318.rss",
+    "genre": "Parenting",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://anchor.fm/s/12095a94/podcast/rss": {
+    "podcast_name": "The Neighborhood Watch Podcast",
+    "artist_name": "Neighborhood Watch",
+    "feed_url": "https://anchor.fm/s/12095a94/podcast/rss",
+    "genre": "Education",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale"
+  },
+  "https://www.spreaker.com/show/6344619/episodes/feed": {
+    "podcast_name": "The Body Pod",
+    "artist_name": "Hailey Happens Fitness + Love By Laura",
+    "feed_url": "https://www.spreaker.com/show/6344619/episodes/feed",
+    "genre": "Health & Fitness",
+    "track_count": 146,
+    "collection_view_url": "https://podcasts.apple.com/gb/podcast/the-body-pod/id1713102062?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/85/f6/59/85f659f1-7353-7793-306b-8d0c2f945f17/mza_3095397502598158576.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Le sujet principal est Health & Fitness (santé/bien-être), hors du périmètre business/B2B requis. Bien que les créateurs (Hailey Happens Fitness + Love By Laura) soient identifiables et indépendants, ce podcast ne relève pas de l'expertise business ou B2B professionnelle ciblée.",
+    "checked_date": "2026-11-19",
+    "secteur": "Marketing & Ventes",
+    "nb_episodes": 146
+  },
+  "https://rss.libsyn.com/shows/107416/destinations/582054.xml": {
+    "podcast_name": "PsychSessions: Conversations about Teaching N' Stuff",
+    "artist_name": "Garth Neufeld, Eric Landrum",
+    "feed_url": "https://rss.libsyn.com/shows/107416/destinations/582054.xml",
+    "genre": "Education",
+    "track_count": 737,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/psychsessions-conversations-about-teaching-n-stuff/id1292340134?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts115/v4/aa/6b/02/aa6b026b-9282-27ad-a3b0-0152be5ff9e9/mza_12728368067909483153.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par deux créateurs identifiables (Garth Neufeld, Eric Landrum) sur un sujet business/B2B (enseignement et pédagogie professionnelle). Avec 737 épisodes, l'audience apparaît établie mais pas de signal de célébrité ou de média grand public dans les métadonnées. Correspond au profil CREATEUR accepté depuis 27/10/2026.",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale",
+    "nb_episodes": 737,
+    "suggested_category": "🎓 Education",
+    "suggested_tags": [
+      "K-12 Education",
+      "Higher Education",
+      "Teaching Methods",
+      "Alternative Education"
+    ],
+    "contact_email": "pod@psychsessions.org"
   }
 }
