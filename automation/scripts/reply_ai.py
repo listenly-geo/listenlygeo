@@ -35,6 +35,7 @@ FAQ = {
     "delivery": "Installation is done the same day: our onboarding service builds your Index and connects it to your domain, where you only add one DNS line.",
     "price": "It's \u20ac297 to set up, paid once at the start, then \u20ac30 a month for hosting, updates and your new episodes, starting after the first 30 days. There's no commitment, you can cancel anytime. Everything is on the same page as the video.",
     "monthly": "The \u20ac30 a month covers hosting, updates and your new episodes, so your Index keeps growing without any work on your side. It starts after the first 30 days and you can cancel anytime.",
+    "rss": "It works from your podcast's RSS feed, so the platform that hosts your podcast (Spotify or any other) makes no difference.",
     "cancel": "Yes, there is no commitment: you can cancel the monthly plan anytime, and you keep control of your Index on your own domain.",
     "guarantee": "If you don't see traffic results after 3 months, we step in and run your Index manually for you.",
     "ownership": "You keep full control of your Index on your own domain, and you only pay the small monthly fee. If you cancel, you simply stop the monthly plan.",
@@ -73,10 +74,10 @@ def ask_claude(podcast, text):
         "Choisis le cas : 1 = interesse ou oui ; 2 = interesse mais confus / ne comprend pas la demande ; 3 = question sur le prix, le cout ou le fonctionnement ; "
         "4 = pas maintenant ou deja un SEO ; 5 = demande un appel ou une demo ; 6 = mauvaise personne ; "
         "7 = refus, retrait, colere, menace, sujet juridique, ou tout ce qui est sensible ou ambigu.\n"
-        "Si le cas est 3, liste 1 a 3 questions du prospect (reformulees en anglais au plus pres des mots du prospect, max 14 mots, sans lien, sans gras) avec l'identifiant de la base de reponses qui y repond : "
+        "Si le cas est 3, liste UNIQUEMENT les questions que le prospect a vraiment posees (jamais une question ajoutee), maximum 3,  (reformulees en anglais au plus pres des mots du prospect, max 14 mots, sans lien, sans gras) avec l'identifiant de la base de reponses qui y repond UNIQUEMENT si cette reponse repond DIRECTEMENT et entierement a la question (sinon \"none\") : "
         + ", ".join(FAQ) + ' ; mets "none" si AUCUN identifiant ne repond clairement a la question.\n'
         "Ecris aussi UNE phrase d'accueil en anglais (max 25 mots) qui repond a ce que le prospect a vraiment dit, ton chaleureux et naturel. "
-        "Interdits dans cette phrase : prix, chiffres, appel, delai, promesse, lien, exemple deja construit.\n"
+        "La phrase remercie ou reformule seulement : elle n'affirme RIEN sur le produit, ses resultats, ses garanties ou ce qui marche ou non. Interdits : prix, chiffres, appel, delai, promesse, lien, exemple deja construit, affirmation.\n"
         'JSON strict : {"cas":1,"phrase":"","questions":[{"q":"","faq":""}]}')
     body = json.dumps({"model": MODEL, "max_tokens": 420, "messages": [{"role": "user", "content": prompt}]}).encode()
     req = urllib.request.Request("https://api.anthropic.com/v1/messages", data=body, method="POST", headers={
@@ -92,7 +93,7 @@ def ask_claude(podcast, text):
 
 
 def clean_open(cas, phrase):
-    bad = re.search(r"https?:|www\.|[0-9$€£]|price|cost|call|demo|free|guarantee|days?|hours?|\bweeks?\b|<|>", phrase, re.I)
+    bad = re.search(r"https?:|www\.|[0-9$€£]|price|cost|call|demo|free|guarantee|days?|hours?|\bweeks?\b|<|>|perfect|prevent|exactly|definitely|absolutely|works?\b|solv|avoid|no problem|penali|duplicate|SEO|rank", phrase, re.I)
     if not phrase or bad or len(phrase) > 220:
         return FALLBACK_OPEN.get(cas, FALLBACK_OPEN[1])
     return phrase
@@ -130,6 +131,7 @@ def main():
     for r in rows:
         text = os.environ.get("REPLY_TEXT", "").strip() if MODE == "test" and os.environ.get("REPLY_TEXT", "").strip() else r["text"]
         cas, phrase, qs = ask_claude(r["podcast"], text)
+        has_none = cas == 3 and (not qs or any(not isinstance(q, dict) or str(q.get("faq", "")) not in FAQ for q in qs))
         qs = [q for q in qs if isinstance(q, dict) and str(q.get("faq", "")) in FAQ and str(q.get("q", "")).strip()]
         seen, uniq = set(), []
         for q in qs:   # une reponse n'est donnee qu'une fois ; le prix contient deja les frais mensuels
@@ -139,7 +141,7 @@ def main():
             seen.add(f)
             uniq.append(q)
         qs = uniq
-        if cas == 3 and not qs:
+        if cas == 3 and (not qs or has_none):
             cas = 7   # question hors base : a traiter a la main, aucun brouillon
         log(f"{r['email']} : cas {cas} ({CASES[cas]})")
         if cas == 7:
