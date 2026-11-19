@@ -2,16 +2,28 @@
  "date": "2026-11-19",
  "mode": "liste a traiter dans Claude + Chrome (demande d'indexation manuelle, validation par page)",
  "repartition": {
-  "connu": 0,
-  "mot_cle": 10
+  "connu": 1,
+  "mot_cle": 9
  },
- "selection": "note seule (volumes non a jour, Keyword Planner en echec)",
+ "selection": "50/50 connus + mots-cles ; volumes du jour + note",
  "pretes": 10,
  "urls": [
   {
-   "url": "https://listenly.org/podcast-btb/m/automation-awakenings/6611dc650f",
-   "titre": "Why standardize processes before automation? | Listenly",
-   "score_qualite": 80,
+   "url": "https://listenly.org/podcast-btb/m/acq2-by-acquired/83a9122a1a",
+   "titre": "How fast did ChatGPT reach 100M users? | ACQ2 by Acquired",
+   "score_qualite": 60,
+   "source": "connu",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/dentists-who-invest-podcast/7570f21840",
+   "titre": "How can dentists buy homes with low savings? | Listenly",
+   "score_qualite": 92,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -21,9 +33,33 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/billion-dollar-backstory/6fe6f1c7a7",
-   "titre": "How do asset managers differentiate in tenders? | Listenly",
+   "url": "https://listenly.org/podcast-btb/m/construction-genius-construction-leaders/951fb6fa0d",
+   "titre": "Critical problem areas in construction? | Listenly",
    "score_qualite": 76,
+   "source": "mot_cle",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/sorry-we-re-closed-with-pat-light/23e1a59ce2",
+   "titre": "How does Robinhood compare to Vanguard? | Listenly",
+   "score_qualite": 88,
+   "source": "mot_cle",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/airdrie-inside/e72a93bd5c",
+   "titre": "Supportive housing homeless seniors? | Listenly",
+   "score_qualite": 92,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -36,6 +72,30 @@
    "url": "https://listenly.org/podcast-btb/m/ecomm-breakthrough/265f52cc7f",
    "titre": "Leading vs lagging ecommerce KPIs? | Ecomm Breakthrough",
    "score_qualite": 90,
+   "source": "mot_cle",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/extropy-on-air-finance-transformation-ap/3bd756b678",
+   "titre": "Skills leaders need digital transformation? | Listenly",
+   "score_qualite": 90,
+   "source": "mot_cle",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/extropy-on-air-finance-transformation-ap/0a55250484",
+   "titre": "Why finance teams need peer communities? | Listenly",
+   "score_qualite": 86,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -67,163 +127,18 @@
    "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
    "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
    "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/your-next-dollar-money-management-for-hi/5a8c9c8587",
-   "titre": "How to verify a used car before buying? | Your Next Dollar",
-   "score_qualite": 86,
-   "source": "mot_cle",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/the-single-source/103c535b37",
-   "titre": "What are secondary equity investments? | The Single Source",
-   "score_qualite": 74,
-   "source": "mot_cle",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/more-than-commas/bd2e69ee3c",
-   "titre": "Can losses offset gambling gains? | More Than Commas",
-   "score_qualite": 72,
-   "source": "mot_cle",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/hallocasa-real-estate-show/4fb639fa94",
-   "titre": "1% rule real estate metric? | HalloCasa Real Estate Show",
-   "score_qualite": 63,
-   "source": "mot_cle",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/lifelong-learners-collective/d462fac409",
-   "titre": "How does EFT tapping work? | Lifelong Learners Collective",
-   "score_qualite": 60,
-   "source": "mot_cle",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
   }
  ],
  "ecartees_sens_recherche": [
   {
-   "cle": "airdrie-inside/e72a93bd5c",
-   "titre": "How does supportive housing help seniors? | Airdrie Inside",
-   "raison": "Le titre actuel est trop vague et perd le contexte spécifique de la question originale (transition depuis l'itinérance). Un étranger cherchant cette information précise ne trouverait pas cette page fa (titre clair impossible en 58 caracteres)"
-  },
-  {
-   "cle": "extropy-on-air-finance-transformation-ap/3bd756b678",
-   "titre": "What capabilities are leaders missing? | Extropy on AIR",
-   "raison": "Le titre actuel est trop vague. Sans contexte du podcast, on ne sait pas de quel type de leadership il s'agit. Le titre proposé par l'épisode est plus précis et utile pour les recherches Google. (titre clair impossible en 58 caracteres)"
-  },
-  {
    "cle": "lcr-media-podcast/b5d5d43569",
    "titre": "Can owners close for conferences? | LCR Media Podcast",
-   "raison": "Le titre actuel est vague et ne reflète pas le sujet réel (communication avec les clients, confiance). La question originale est utile et durable, mais le titre doit être plus clair et naturel pour un (titre clair impossible en 58 caracteres)"
-  },
-  {
-   "cle": "sorry-we-re-closed-with-pat-light/23e1a59ce2",
-   "titre": "Does Robinhood's UI beat Vanguard's? | Sorry, We're Closed",
-   "raison": "Le titre actuel est trop vague et se concentre sur une comparaison subjective (« beat ») plutôt que sur la stratégie réelle. Un utilisateur Google rechercherait une explication concrète des différence (titre clair impossible en 58 caracteres)"
+   "raison": "Le titre actuel est vague et ne reflète pas clairement le sujet. La question originale porte sur la communication de congés professionnels, pas simplement sur la fermeture. Un titre plus clair et plus (titre clair impossible en 58 caracteres)"
   },
   {
    "cle": "billion-dollar-backstory/c1e329b50c",
    "titre": "Relationship roles equal PMs? | Billion Dollar Backstory",
-   "raison": "Le titre actuel est vague et incompréhensible hors contexte (« Relationship roles equal PMs? »). La question originale porte sur un sujet durable et utile (conseil professionnel en gestion d'actifs),  (titre clair impossible en 58 caracteres)"
-  },
-  {
-   "cle": "extropy-on-air-finance-transformation-ap/0a55250484",
-   "titre": "Why do finance pros value peer groups? | Extropy on AIR",
-   "raison": "Le titre actuel est trop vague et perd le contexte essentiel (transformation numérique). La question originale est spécifique et utile; le titre doit la refléter pour que un inconnu comprenne le sujet (titre clair impossible en 58 caracteres)"
-  },
-  {
-   "cle": "the-vurge/7eba6c6de9",
-   "titre": "What does transformation mean for rural care? | The Vurge",
-   "raison": "Le titre est trop vague et perd le contexte clé. 'Transformation' et 'rural care' sont génériques. La question originale spécifie 'digital transformation' et 'health systems', ce qui est plus précis e (titre clair impossible en 58 caracteres)"
-  },
-  {
-   "cle": "empowering-industry-podcast-a-production/23b878ca95",
-   "titre": "How does forwarder continuity help? | Empowering Industry",
-   "raison": "Le titre actuel est vague et utilise du jargon spécialisé ('forwarder continuity') sans contexte. Un chercheur Google ne taperait pas cette question. Le sujet réel porte sur les avantages de la gestio (titre clair impossible en 58 caracteres)"
-  },
-  {
-   "cle": "ai-product-and-design-podcast/06a45fedad",
-   "titre": "Why do companies fail adopting AI? | Listenly",
-   "raison": "Le titre actuel est trop vague et perd le point clé de la passage (l'absence de définition claire du cas d'usage). Un étranger cherchant sur Google ne comprendrait pas ce qui différencie cette réponse (titre clair impossible en 58 caracteres)"
-  },
-  {
-   "cle": "ai-marketing-transformation/ecd513dafa",
-   "titre": "ANA certificate programs AI marketing training? | Listenly",
-   "raison": "Le titre actuel est vague et incomplet. La question originale mentionne des programmes spécifiques de l'ANA (American Advertising Association), ce qui manque dans le titre. De plus, le titre mélange d (titre clair impossible en 58 caracteres)"
-  },
-  {
-   "cle": "digital-construction-podcast/6e3e7243c3",
-   "titre": "BIM career advice that lasts? | Digital Construction",
-   "raison": "Le titre est vague et ne pose pas une vraie question. 'BIM career advice that lasts?' n'est pas une question qu'un utilisateur taperait naturellement dans Google. Le titre doit être plus spécifique et (titre clair impossible en 58 caracteres)"
-  },
-  {
-   "cle": "paid-vocation-with-lupe-prado/f9b8588cd0",
-   "titre": "When did Bird's open? | Paid Vocation with Lupe Prado",
-   "raison": "Bird's Bookstore est une petite entreprise locale peu connue du public, pas une marque célèbre. La question porte sur un fait historique spécifique et anecdotique (date d'ouverture) plutôt que sur un "
-  },
-  {
-   "cle": "the-jay-maymi-talk-show/c782d2ed34",
-   "titre": "When did solar tax credits end? | The Jay Maymi Talk Show",
-   "raison": "La question dépend du contexte d'un épisode spécifique et repose sur des détails localisés (impact au Texas). Elle n'est pas générale et n'est pas utile de manière durable - elle mélange un fait histo"
-  },
-  {
-   "cle": "the-real-solutions-business-podcast/b29af8b06b",
-   "titre": "How does AEO differ from SEO? | The Real Solutions Busines",
-   "raison": "Le titre actuel est tronqué (« Busines » au lieu de « Business ») et manque de contexte. La question complète couvre à la fois la définition d'AEO ET la différence avec le SEO, mais le titre ne pose q (titre clair impossible en 58 caracteres)"
-  },
-  {
-   "cle": "best-franchise-brands-podcast/6847ae5310",
-   "titre": "What makes Redbox+ unique? | Best Franchise Brands Podcast",
-   "raison": "La question originale porte sur Kaizen et son application par Sean Foley chez Redbox+ Dumpsters. Le titre actuel est vague et ne reflète pas le contenu réel. De plus, Redbox+ Dumpsters est une petite "
-  },
-  {
-   "cle": "beyond-luxury/e0a903f611",
-   "titre": "Can taste be built without much money? | Beyond Luxury",
-   "raison": "Le titre actuel est vague et ne reflète pas le sujet réel de la passage qui porte sur le rôle de la curiosité et du goût personnel dans la construction d'une perspective culturelle authentique indépen (titre clair impossible en 58 caracteres)"
-  },
-  {
-   "cle": "engineering-unblocked/8e0a6faf0d",
-   "titre": "How long did Swarmia's build take? | Engineering Unblocked",
-   "raison": "Swarmia est une petite entreprise peu connue du grand public. La question porte sur un détail spécifique et privé de cette entreprise (durée de construction d'une intégration), pas sur un sujet durabl"
-  },
-  {
-   "cle": "creative-genius-podcast/c1b464ec08",
-   "titre": "Is metal better than plexiglass? | Creative Genius Podcast",
-   "raison": "Le titre actuel est trop vague et perd le contexte technique. Un chercheur Google ne tapera pas 'Is metal better than plexiglass?' sans contexte – il cherchera des conseils spécifiques sur l'impressio (titre clair impossible en 58 caracteres)"
-  },
-  {
-   "cle": "16-minutes-news-by-a16z/922f63485b",
-   "titre": "Do malaria vaccines stop spread? | 16 Minutes News by a16z",
-   "raison": "Le titre actuel est trop vague et ne capture pas la distinction conceptuelle centrale (prévention de la maladie vs blocage de la transmission) que pose la question originale. Un visiteur cherchant à c (titre clair impossible en 58 caracteres)"
+   "raison": "Le titre actuel est vague et incompréhensible hors contexte (« Relationship roles equal PMs? »). La question originale porte sur un conseil d'investissement stratégique pour les gestionnaires d'actifs (titre clair impossible en 58 caracteres)"
   }
  ]
 }
