@@ -363316,12 +363316,13 @@
     "feed_url": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/5afdebbd-017b-4218-8f95-b192015741de/fefcec1c-71fd-47ca-8ca3-b19201579cd2/podcast.rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Business général (entreprise)",
     "gate": "dirigeant",
-    "email_domain": "butteratl.com"
+    "email_domain": "butteratl.com",
+    "rescue": "2026-11-19"
   },
   "https://anchor.fm/s/1b377844/podcast/rss": {
     "podcast_name": "Saha Mindset by Psychologist Mamta Saha",
@@ -363345,5 +363346,145 @@
       "Growth Mindset"
     ],
     "contact_email": "mamtasaha@icloud.com"
+  },
+  "https://rss.buzzsprout.com/2440731.rss": {
+    "podcast_name": "Industry Insights with Route Consultant",
+    "artist_name": "Route Consultant",
+    "feed_url": "https://rss.buzzsprout.com/2440731.rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://anchor.fm/s/67f648a4/podcast/rss": {
+    "podcast_name": "Smarter Lawcast with Hall & Wilcox",
+    "artist_name": "Hall & Wilcox",
+    "feed_url": "https://anchor.fm/s/67f648a4/podcast/rss",
+    "genre": "Business News",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Assurance",
+    "gate": "dirigeant",
+    "email_domain": "hallandwilcox.com.au"
+  },
+  "https://feeds.fexingo.com/business/business-models-explained.xml": {
+    "podcast_name": "Business Models Explained with Fexingo: Subscription, Marketplace, SaaS, and Service Companies",
+    "artist_name": "Fexingo",
+    "feed_url": "https://feeds.fexingo.com/business/business-models-explained.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Tech & SaaS",
+    "gate": "dirigeant",
+    "email_domain": "fexingo.com"
+  },
+  "https://rss.buzzsprout.com/2535114.rss": {
+    "podcast_name": "World Football ETC",
+    "artist_name": "World Sports ETC",
+    "feed_url": "https://rss.buzzsprout.com/2535114.rss",
+    "genre": "Soccer",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Tech & SaaS"
+  },
+  "https://rss.libsyn.com/shows/319688/destinations/2583800.xml": {
+    "podcast_name": "Corporate Quality Podcast",
+    "artist_name": "UpDoc INC.",
+    "feed_url": "https://rss.libsyn.com/shows/319688/destinations/2583800.xml",
+    "genre": "Medicine",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 814 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale"
+  },
+  "https://www.omnycontent.com/d/playlist/2fb3740d-3436-44af-8cc0-a91900716aa5/6a1e24c2-758f-40ac-be91-ad720043d95c/5e86c726-2be4-4bee-851f-ad7200457fdb/podcast.rss": {
+    "podcast_name": "Athletes Authority ON AIR",
+    "artist_name": "Athletes Authority",
+    "feed_url": "https://www.omnycontent.com/d/playlist/2fb3740d-3436-44af-8cc0-a91900716aa5/6a1e24c2-758f-40ac-be91-ad720043d95c/5e86c726-2be4-4bee-851f-ad7200457fdb/podcast.rss",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 539 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://api.riverside.fm/hosting/c7lINjTy.rss": {
+    "podcast_name": "Castles to Cauldrons | Disney Travel & Universal Tips",
+    "artist_name": "Jason, Rachel, Terri & Myka | Disney Parks & Travel Experts",
+    "feed_url": "https://api.riverside.fm/hosting/c7lINjTy.rss",
+    "genre": "Hobbies",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Hobbies)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Business général (entreprise)"
+  },
+  "https://feeds.captivate.fm/escape-the-clinic/": {
+    "podcast_name": "Escape the Clinic",
+    "artist_name": "Katie Bean",
+    "feed_url": "https://feeds.captivate.fm/escape-the-clinic/",
+    "genre": "Medicine",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.buzzsprout.com/2061354.rss": {
+    "podcast_name": "The Simply Investing Dividend Podcast",
+    "artist_name": "Kanwal Sarai",
+    "feed_url": "https://rss.buzzsprout.com/2061354.rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Tech & SaaS"
+  },
+  "https://feed.podbean.com/wendyur/feed.xml": {
+    "podcast_name": "Not So Normal Parenting | Enneagram, Myers Briggs, Personality, Neurodivergence, Emotional Intelligence",
+    "artist_name": "Wendy Gossett, Enneagram, Myers Briggs Expert, Family and Relationship Coach inspired by Brene Brown, Russ Greene, Priscilla Shirer, Beatrice Chestnut, Dr. Shefali Tsabary,  and Rachel Hollis",
+    "feed_url": "https://feed.podbean.com/wendyur/feed.xml",
+    "genre": "Parenting",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Business général (entreprise)"
+  },
+  "https://rss.buzzsprout.com/1929138.rss": {
+    "podcast_name": "Risk Ready- Presented by The Private Risk Management Association",
+    "artist_name": "PRMA",
+    "feed_url": "https://rss.buzzsprout.com/1929138.rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Assurance"
+  },
+  "https://feeds.acast.com/public/shows/6438de2f45431f0011c74fa0": {
+    "podcast_name": "The ActionCOACH Podcast",
+    "artist_name": "James Vincent",
+    "feed_url": "https://feeds.acast.com/public/shows/6438de2f45431f0011c74fa0",
+    "genre": "Entrepreneurship",
+    "track_count": 194,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-actioncoach-podcast/id1840397315?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/3d/b0/7f/3db07f76-3314-74f1-cc0e-d9f1d36b6543/mza_12050463969749430174.jpeg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "ActionCOACH est une marque/franchise internationale bien établie (pas un créateur indépendant isolé), et le podcast est associé à une structure commerciale de coaching reconnue. La notoriété et la structure d'entreprise établie le placent en dehors du profil cible de créateur indépendant ou PME B2B émergente.",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B",
+    "nb_episodes": 194
   }
 }
