@@ -1367,18 +1367,25 @@ function mfeOnbUpdate_(b) {
 }
 // ---------- Reponses IA (19/11/2026) : liste des reponses de prospects a traiter, puis brouillon Gmail (ou test envoye a TOI) ----------
 function mfeAiRepliesList_(b) {
+  // 19/11/2026 : on regarde le FIL : le dernier message est celui du prospect, aucun message (hors brouillon) apres lui, et pas deja traite ([msg:ms] en Notes).
   var sh = mfeSheet_(), only = String(b.email || '').toLowerCase().trim(), out = [];
   mfeRows_(sh).forEach(function (r) {
     var st = String(r.values[6] || ''), note = String(r.values[11] || ''), em = String(r.values[2] || '').toLowerCase().trim();
     if (st !== 'Repondu' && st !== 'Lien recu') return;
-    if (only ? em !== only : /Reponse IA|Reponse automatique envoyee/.test(note)) return;
+    if (only && em !== only) return;
     if (!r.values[10]) return;
     try {
-      var msgs = GmailApp.getThreadById(r.values[10]).getMessages(), last = null;
-      msgs.forEach(function (m) { if (m.getFrom().toLowerCase().indexOf(em) !== -1) last = m; });
-      if (!last) return;
+      var msgs = GmailApp.getThreadById(r.values[10]).getMessages(), li = -1;
+      msgs.forEach(function (m, i) { if (!m.isDraft() && m.getFrom().toLowerCase().indexOf(em) !== -1) li = i; });
+      if (li < 0) return;
+      var last = msgs[li], ms = String(last.getDate().getTime());
+      if (/automatic reply|auto-?reply|autoreply|out of office|r\u00e9ponse automatique|absence/i.test(last.getSubject() || '')) return;
+      if (!only) {
+        for (var j = li + 1; j < msgs.length; j++) if (!msgs[j].isDraft()) return;   // deja repondu (par toi ou par le systeme)
+        if (note.indexOf('[msg:' + ms + ']') >= 0) return;                            // deja traite (brouillon ou note)
+      }
       out.push({ row: r.row, slug: String(r.values[0] || ''), podcast: String(r.values[1] || ''), email: em, hello: mfeHello_(r.values[13]),
-                 thread: String(r.values[10]), text: mfeReplyText_(last.getPlainBody()).slice(0, 1500) });
+                 thread: String(r.values[10]), msg: ms, text: mfeReplyText_(last.getPlainBody()).slice(0, 1500) });
     } catch (e) { Logger.log('ai_replies_list %s : %s', em, e); }
   });
   return mfeJson_({ ok: true, rows: out });
@@ -1393,11 +1400,11 @@ function mfeAiReplySave_(b) {
     return mfeJson_({ ok: true, mode: mode, podcast: v[1] });
   }
   if (mode === 'note') {   // refus, retrait, sujet sensible : aucun brouillon, juste une note a traiter a la main
-    sh.getRange(row, 12).setValue('Reponse IA : ' + cas + ' - a traiter a la main (aucun brouillon)');
+    sh.getRange(row, 12).setValue('Reponse IA : ' + cas + ' - a traiter a la main (aucun brouillon) [msg:' + String(b.msg || '') + ']');
     return mfeJson_({ ok: true, mode: mode });
   }
   GmailApp.getThreadById(v[10]).createDraftReply(mfeWithSignature_(body), mfeSendOpts_(body));
-  sh.getRange(row, 12).setValue('Reponse IA (brouillon Gmail, cas ' + cas + ') le ' + Utilities.formatDate(new Date(), 'Europe/Paris', 'dd/MM/yyyy HH:mm') + ' : a valider et envoyer');
+  sh.getRange(row, 12).setValue('Reponse IA (brouillon Gmail, cas ' + cas + ') le ' + Utilities.formatDate(new Date(), 'Europe/Paris', 'dd/MM/yyyy HH:mm') + ' : a valider et envoyer [msg:' + String(b.msg || '') + ']');
   return mfeJson_({ ok: true, mode: mode, podcast: v[1] });
 }
 
@@ -1535,7 +1542,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 49 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 50 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }

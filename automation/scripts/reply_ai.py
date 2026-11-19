@@ -26,6 +26,19 @@ SEO = ("This doesn't replace your SEO, it __adds to it__: your episodes become *
        "which brings you extra visitors and clients on top of what you already do.")
 SIGN = "Best regards,\n\nEtienne"
 
+# Base de reponses (19/11/2026) : l'IA choisit l'identifiant, le texte de la reponse est FIXE. Jamais de prix, d'appel ni de delai.
+FAQ = {
+    "what": "An Index is a set of pages on your own domain. Each page answers a real question from your episodes, with a written answer, an audio player and a link to the full episode, so Google and AI assistants can find and cite your expertise.",
+    "how_it_works": "We start from your existing podcast: nothing to record and nothing to change in your strategy. You fill in a short form, we build the pages from your episodes, and we email you as soon as your Index is ready.",
+    "install_domain": "The Index lives on your own domain. Once it's built, we send you one short email with a single line to add in your domain settings (or to forward to whoever manages it). As soon as it's added, your Index goes live automatically.",
+    "technical": "No technical skills needed. The only thing to do is add one line in your domain settings: we send you the exact line to copy, so you can also simply forward it to whoever manages your domain.",
+    "delivery": "After your order, you fill in a short form and we email you as soon as your Index is ready.",
+    "replace_seo": "It doesn't replace your SEO or your website, it adds to them: your episodes become written answers that Google and AI assistants can cite, on top of what you already do.",
+    "example": "The short video below shows a real example of an Index built from an existing podcast.",
+    "price": "All the details, including how to get started, are on the same page as the video.",
+    "call": "The video shows exactly how it works, and I answer every question here by email.",
+}
+
 CASES = {
     1: "interesse_ou_oui", 2: "confus", 3: "question_prix_cout_fonctionnement", 4: "pas_maintenant_ou_deja_seo",
     5: "demande_appel_ou_demo", 6: "mauvaise_personne", 7: "refus_retrait_colere_ou_sensible",
@@ -55,10 +68,12 @@ def ask_claude(podcast, text):
         "Choisis le cas : 1 = interesse ou oui ; 2 = interesse mais confus / ne comprend pas la demande ; 3 = question sur le prix, le cout ou le fonctionnement ; "
         "4 = pas maintenant ou deja un SEO ; 5 = demande un appel ou une demo ; 6 = mauvaise personne ; "
         "7 = refus, retrait, colere, menace, sujet juridique, ou tout ce qui est sensible ou ambigu.\n"
+        "Si le cas est 3, liste 1 a 2 questions du prospect (reformulees en anglais, max 18 mots, sans lien, sans gras) avec l'identifiant de la base de reponses qui y repond : "
+        + ", ".join(FAQ) + ' ; mets "none" si AUCUN identifiant ne repond clairement a la question.\n'
         "Ecris aussi UNE phrase d'accueil en anglais (max 25 mots) qui repond a ce que le prospect a vraiment dit, ton chaleureux et naturel. "
         "Interdits dans cette phrase : prix, chiffres, appel, delai, promesse, lien, exemple deja construit.\n"
-        'JSON strict : {"cas":1,"phrase":""}')
-    body = json.dumps({"model": MODEL, "max_tokens": 200, "messages": [{"role": "user", "content": prompt}]}).encode()
+        'JSON strict : {"cas":1,"phrase":"","questions":[{"q":"","faq":""}]}')
+    body = json.dumps({"model": MODEL, "max_tokens": 420, "messages": [{"role": "user", "content": prompt}]}).encode()
     req = urllib.request.Request("https://api.anthropic.com/v1/messages", data=body, method="POST", headers={
         "x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"})
     with urllib.request.urlopen(req, timeout=60) as r:
@@ -67,7 +82,8 @@ def ask_claude(podcast, text):
     m = re.search(r"\{.*\}", txt, re.S)
     d = json.loads(m.group(0)) if m else {}
     cas = int(d.get("cas", 7)) if str(d.get("cas", "")).isdigit() else 7
-    return (cas if cas in CASES else 7), str(d.get("phrase", "")).strip()
+    qs = d.get("questions") if isinstance(d.get("questions"), list) else []
+    return (cas if cas in CASES else 7), str(d.get("phrase", "")).strip(), qs[:2]
 
 
 def clean_open(cas, phrase):
@@ -77,15 +93,19 @@ def clean_open(cas, phrase):
     return phrase
 
 
-def compose(cas, hello, opening, link):
+def compose(cas, hello, opening, link, qs=None):
     video = f'See how we can launch it quickly with your podcast in this <a href="{link}">short video</a>.'
     if cas == 1:
         core = f"{EXPLICATION}\n\n{video}\n\nIf anything is unclear after watching it, just reply here."
     elif cas == 2:
         core = f"{EXPLICATION_CONFUS}\n\n{video}"
     elif cas == 3:
-        core = (f'Everything is explained in this <a href="{link}">short video</a>: what we build from your existing episodes, how it brings you '
-                f'**traffic and clients** from Google and AI, and how we start with your podcast.\n\nIf something is still unclear afterwards, reply here and I\'ll gladly clarify.')
+        blocks = []
+        for q in qs:
+            qt = re.sub(r"[*_<>\n\\]", " ", str(q.get("q", ""))).strip()
+            blocks.append(f"**{qt}**\n{FAQ[q['faq']]}")
+        core = ("\n\n".join(blocks) + f'\n\nYou can also see it all in this <a href="{link}">short video</a>. '
+                "If anything is still unclear, just reply here and I'll answer.")
     elif cas == 4:
         core = f'{SEO}\n\nIf it becomes useful later, this <a href="{link}">short video</a> explains it and will stay available.'
     elif cas == 5:
@@ -103,17 +123,21 @@ def main():
     rows = j.get("rows", []) if isinstance(j, dict) and j.get("ok") else []
     log(f"{len(rows)} reponse(s) a traiter (mode {MODE}).")
     for r in rows:
-        cas, phrase = ask_claude(r["podcast"], r["text"])
+        text = os.environ.get("REPLY_TEXT", "").strip() if MODE == "test" and os.environ.get("REPLY_TEXT", "").strip() else r["text"]
+        cas, phrase, qs = ask_claude(r["podcast"], text)
+        qs = [q for q in qs if isinstance(q, dict) and str(q.get("faq", "")) in FAQ and str(q.get("q", "")).strip()]
+        if cas == 3 and not qs:
+            cas = 7   # question hors base : a traiter a la main, aucun brouillon
         log(f"{r['email']} : cas {cas} ({CASES[cas]})")
         if cas == 7:
             if MODE != "test":
-                sb.call(payload={"action": "ai_reply_save", "row": r["row"], "mode": "note", "cas": "7 refus/sensible", "body": "-"})
+                sb.call(payload={"action": "ai_reply_save", "row": r["row"], "mode": "note", "cas": "7 refus/sensible/hors base", "body": "-", "msg": r.get("msg", "")})
             else:
                 log("  cas 7 : aucun mail de test (reponse a traiter a la main).")
             continue
         link = OFFRE + ("&" if "?" in OFFRE else "?") + "ref=" + urllib.parse.quote(r["slug"])
-        body = compose(cas, r["hello"], clean_open(cas, phrase), link)
-        res = sb.call(payload={"action": "ai_reply_save", "row": r["row"], "mode": MODE, "cas": str(cas), "body": body})
+        body = compose(cas, r["hello"], clean_open(cas, phrase), link, qs)
+        res = sb.call(payload={"action": "ai_reply_save", "row": r["row"], "mode": MODE, "cas": str(cas), "body": body, "msg": r.get("msg", "")})
         log(f"  -> {res}")
 
 
