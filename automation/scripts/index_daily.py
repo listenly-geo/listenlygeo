@@ -11,7 +11,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import index_builder as ib  # noqa: E402
 from zoneinfo import ZoneInfo  # noqa: E402
 
-MAX_DAYS = int(os.environ.get("INDEX_MAX_DAYS") or 100)
+# 22/11/2026 : un cycle = un mois d'abonnement = 30 jours de publication.
+MAX_DAYS = int(os.environ.get("INDEX_MAX_DAYS") or 30)
 
 
 def log(m):
@@ -25,6 +26,9 @@ def main():
     for path in files:
         with open(path, encoding="utf-8") as f:
             q = json.load(f)
+        if q.get("pause"):
+            log(f"{q['site']} : en pause (abonnement resilie), rien a publier.")
+            continue
         if q.get("pointer", 0) >= len(q.get("pages", [])):
             continue
         if q.get("last_publish") == today.isoformat():

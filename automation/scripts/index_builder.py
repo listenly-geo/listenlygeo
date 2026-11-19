@@ -29,8 +29,9 @@ TEST_EMAILS = {e.strip().lower() for e in (os.environ.get("INDEX_TEST_EMAILS")
                or "etienne.cugnet@gmail.com,etienne.cugnet@marketforge.fr").split(",") if e.strip()}
 DRY_RUN = os.environ.get("DRY_RUN", "").strip() in ("1", "true", "yes")
 # File de pages (19/11/2026) : extraction complete au paiement, 5 pages en ligne tout de suite, puis 1 par jour (index_daily.py).
-QUEUE_EPISODES = int(os.environ.get("INDEX_QUEUE_EPISODES") or 40)
-QUEUE_MAX = int(os.environ.get("INDEX_QUEUE_MAX") or 100)
+# 22/11/2026 : un cycle = un mois d'abonnement = 30 pages, extraites de 12 episodes au plus (cout maitrise).
+QUEUE_EPISODES = int(os.environ.get("INDEX_QUEUE_EPISODES") or 12)
+QUEUE_MAX = int(os.environ.get("INDEX_QUEUE_MAX") or 30)
 FIRST_BATCH = int(os.environ.get("INDEX_FIRST_BATCH") or 5)
 QUEUE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "onboarding_queue")
 
