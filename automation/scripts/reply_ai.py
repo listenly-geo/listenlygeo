@@ -35,6 +35,7 @@ FAQ = {
     "delivery": "Installation is done the same day: our onboarding service builds your Index and connects it to your domain, where you only add one DNS line.",
     "price": "It's \u20ac297 to set up, paid once at the start, then \u20ac30 a month for hosting, updates and your new episodes, starting after the first 30 days. There's no commitment, you can cancel anytime. Everything is on the same page as the video.",
     "monthly": "The \u20ac30 a month covers hosting, updates and your new episodes, so your Index keeps growing without any work on your side. It starts after the first 30 days and you can cancel anytime.",
+    "cancel": "Yes, there is no commitment: you can cancel the monthly plan anytime, and you keep control of your Index on your own domain.",
     "guarantee": "If you don't see traffic results after 3 months, we step in and run your Index manually for you.",
     "ownership": "You keep full control of your Index on your own domain, and you only pay the small monthly fee. If you cancel, you simply stop the monthly plan.",
     "technical_details": "We start from your podcast's RSS feed. Each page has a written answer, an audio player and a link to the full episode, on your own domain over HTTPS, with the markup and sitemap that Google and AI assistants need to read it.",
@@ -130,6 +131,14 @@ def main():
         text = os.environ.get("REPLY_TEXT", "").strip() if MODE == "test" and os.environ.get("REPLY_TEXT", "").strip() else r["text"]
         cas, phrase, qs = ask_claude(r["podcast"], text)
         qs = [q for q in qs if isinstance(q, dict) and str(q.get("faq", "")) in FAQ and str(q.get("q", "")).strip()]
+        seen, uniq = set(), []
+        for q in qs:   # une reponse n'est donnee qu'une fois ; le prix contient deja les frais mensuels
+            f = str(q["faq"])
+            if f in seen or (f == "monthly" and any(str(x.get("faq")) == "price" for x in qs)):
+                continue
+            seen.add(f)
+            uniq.append(q)
+        qs = uniq
         if cas == 3 and not qs:
             cas = 7   # question hors base : a traiter a la main, aucun brouillon
         log(f"{r['email']} : cas {cas} ({CASES[cas]})")
