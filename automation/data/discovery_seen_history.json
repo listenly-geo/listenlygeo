@@ -364378,12 +364378,13 @@
     "feed_url": "https://anchor.fm/s/f4cf8fec/podcast/rss",
     "genre": "Marketing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "nataliamaganda.com"
+    "email_domain": "nataliamaganda.com",
+    "rescue": "2026-11-19"
   },
   "https://audioboom.com/channels/5042825.rss": {
     "podcast_name": "Death & Taxes - and everything in between!",
@@ -364391,12 +364392,13 @@
     "feed_url": "https://audioboom.com/channels/5042825.rss",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Business général (entreprise)",
     "gate": "dirigeant",
-    "email_domain": "burges-salmon.com"
+    "email_domain": "burges-salmon.com",
+    "rescue": "2026-11-19"
   },
   "https://rss.buzzsprout.com/2375732.rss": {
     "podcast_name": "Admissions Straight Talk",
@@ -364452,5 +364454,117 @@
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Coachs & consultants B2B"
+  },
+  "https://rss.buzzsprout.com/1952303.rss": {
+    "podcast_name": "Business Greater Than You podcast",
+    "artist_name": "Business > You",
+    "feed_url": "https://rss.buzzsprout.com/1952303.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale"
+  },
+  "https://api.substack.com/feed/podcast/2606898/s/444001.rss": {
+    "podcast_name": "Architects of Sovereignty",
+    "artist_name": "Makhosi Nejeser",
+    "feed_url": "https://api.substack.com/feed/podcast/2606898/s/444001.rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Construction & Industrie"
+  },
+  "https://feeds.fexingo.com/business/executive-careers.xml": {
+    "podcast_name": "Executive Careers with Fexingo: VP, C-Suite, and Senior Leadership Career Strategy",
+    "artist_name": "Fexingo",
+    "feed_url": "https://feeds.fexingo.com/business/executive-careers.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B",
+    "gate": "dirigeant",
+    "email_domain": "fexingo.com"
+  },
+  "https://rss.libsyn.com/shows/59249/destinations/226469.xml": {
+    "podcast_name": "The Carrie Abbott Show",
+    "artist_name": "Carrie Abbott: Radio Host, The Legacy Institute",
+    "feed_url": "https://rss.libsyn.com/shows/59249/destinations/226469.xml",
+    "genre": "Christianity",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Christianity)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale"
+  },
+  "https://feeds.captivate.fm/rev-ops-revolution/": {
+    "podcast_name": "Rev Ops Revolution, SaaS, Go To Market, Startups, Tech Growth Revenue Operations Conversations",
+    "artist_name": "Jesse Morris",
+    "feed_url": "https://feeds.captivate.fm/rev-ops-revolution/",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://rss.pdrl.fm/12d42f/feeds.libsyn.com/44408/rss/?redirect=false": {
+    "podcast_name": "ADHD Experts Podcast",
+    "artist_name": "ADDitude",
+    "feed_url": "https://rss.pdrl.fm/12d42f/feeds.libsyn.com/44408/rss/?redirect=false",
+    "genre": "Mental Health",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Cybersécurité"
+  },
+  "https://anchor.fm/s/116a52014/podcast/rss": {
+    "podcast_name": "Two Architects and a Lawyer",
+    "artist_name": "2A+1L",
+    "feed_url": "https://anchor.fm/s/116a52014/podcast/rss",
+    "genre": "Design",
+    "track_count": 12,
+    "collection_view_url": "https://podcasts.apple.com/ca/podcast/two-architects-and-a-lawyer/id6806795715?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/f1/55/0a/f1550a92-2cd9-3007-6c79-2b3fbbd49958/mza_15217191044833727757.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B animé par des créateurs identifiables (Two Architects and a Lawyer) sur le design et l'architecture, avec 12 épisodes, audience petite/moyenne, pas de média reconnu. Correspond au profil CREATEUR accepté depuis 27/10/2026.",
+    "checked_date": "2026-11-19",
+    "secteur": "Construction & Industrie",
+    "nb_episodes": 12,
+    "suggested_category": null,
+    "suggested_tags": [
+      "UX/UI Design",
+      "Curriculum Design",
+      "Organizational Design"
+    ],
+    "contact_email": "twoarchitectsonelawyer@gmail.com"
+  },
+  "https://anchor.fm/s/10a3a6a14/podcast/rss": {
+    "podcast_name": "MentorMeet Stories",
+    "artist_name": "MentorMeet.com",
+    "feed_url": "https://anchor.fm/s/10a3a6a14/podcast/rss",
+    "genre": "Self-Improvement",
+    "track_count": 17,
+    "collection_view_url": "https://podcasts.apple.com/gb/podcast/mentormeet-stories/id1844853128?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/09/59/52/095952b9-4e6c-641c-f5a0-ae2b24301f8e/mza_1192925608279096038.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B produit par l'entreprise MentorMeet.com, audience petite (17 épisodes), animé par une entité identifiable. Sujet business/mentorat avec peu de concurrence documentaire attendue.",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B",
+    "nb_episodes": 17,
+    "suggested_category": "🌱 Self-Improvement",
+    "suggested_tags": [
+      "Self-Improvement",
+      "Self-Compassion",
+      "Self-Awareness"
+    ],
+    "contact_email": "info@mentormeet.com"
   }
 }
