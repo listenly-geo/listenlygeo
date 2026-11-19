@@ -1096,7 +1096,7 @@ function mfeSigCfg_() {
 // Version texte (toujours envoyee : c'est ce que lisent les filtres anti-spam et certains clients mail)
 function mfeWithSignature_(body) {
   body = String(body).replace(/\*\*(.+?)\*\*/g, '$1').replace(/__(.+?)__/g, '$1')   // version texte : sans les ** / __ ni les balises <strong> <u> <em> <b>
-    .replace(/<a\s+(?:bold\s+)?href="([^"]+)"[^>]*>(.+?)<\/a>/g, '$2 : $1').replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<a\s+(?:bold\s+)?href="([^"]+)"[^>]*>(.+?)<\/a>/g, function (m, u, t) { return String(t).trim() === String(u).trim() ? u : t + ' : ' + u; })   // lien affiche = adresse : une seule fois (19/11/2026).replace(/<br\s*\/?>/gi, '\n')
     .replace(/<\/?(strong|b|u|em)>/gi, '');
   var c = mfeSigCfg_(), lines = [];
   if (c.texte) lines.push(c.texte);
@@ -1499,7 +1499,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 46 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 47 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
