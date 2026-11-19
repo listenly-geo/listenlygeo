@@ -1,18 +1,17 @@
-# Brief trafic SEO — 2026-11-18
+# Brief trafic SEO — 2026-11-19
 
-- Période ['2026-08-18', '2026-11-16'] : 19 clics / 3039 impressions sur 481 pages
+- Période ['2026-08-19', '2026-11-17'] : 19 clics / 3057 impressions sur 483 pages
 - Pages de moments dans Google : 78 pages, 314 impressions, 10 clics
 - Moments ouverts au sitemap : 88 (dont 83 depuis 7 j+) ; contrôlés : 83 ; indexés : 74 (89.2%)
 - Quota : 10/jour → recommandé 25/jour (89.2% indexees : on peut accelerer)
 
 ## Par type de page
-- hub : 279 pages, 2142 impr., 5 clics
-- show-listenly : 115 pages, 535 impr., 4 clics
+- hub : 280 pages, 2156 impr., 5 clics
+- show-listenly : 116 pages, 539 impr., 4 clics
 - moment : 78 pages, 314 impr., 10 clics
 - autre : 9 pages, 48 impr., 0 clics
 
 ## 10 pages de moments à faire indexer à la main aujourd'hui
-- https://listenly.org/podcast-btb/m/date-line-nbc/049baba10b (inconnue)
 - https://listenly.org/podcast-btb/m/the-single-source/103c535b37 (inconnue)
 - https://listenly.org/podcast-btb/m/16-minutes-news-by-a16z/a4a410faae (inconnue)
 - https://listenly.org/podcast-btb/m/ai-a16z/de75aa3c5b (inconnue)
