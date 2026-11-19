@@ -181,6 +181,7 @@ def main():
             except Exception:
                 j = None
             if j and j["verdict"] == "rejeter":
+                print(f"  ecartee (sens) : {e.get('q','')[:90]} — {j.get('raison','')}")
                 continue
             txt = transcript(slug, e.get("e"))
             r = {"groupe": groupe, "cle": k, "question": e.get("q"), "resultat": ""}
