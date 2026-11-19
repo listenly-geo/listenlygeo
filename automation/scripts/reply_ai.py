@@ -36,6 +36,7 @@ FAQ = {
     "price": "It's \u20ac297 to set up, paid once at the start, then \u20ac30 a month for hosting, updates and your new episodes, starting after the first 30 days. There's no commitment, you can cancel anytime. Everything is on the same page as the video.",
     "monthly": "The \u20ac30 a month covers hosting, updates and your new episodes, so your Index keeps growing without any work on your side. It starts after the first 30 days and you can cancel anytime.",
     "rss": "It works from your podcast's RSS feed, so the platform that hosts your podcast (Spotify or any other) makes no difference.",
+    "language": "Our Indexes are built in English, for podcasts recorded in English.",
     "cancel": "Yes, there is no commitment: you can cancel the monthly plan anytime, and you keep control of your Index on your own domain.",
     "guarantee": "If you don't see traffic results after 3 months, we step in and run your Index manually for you.",
     "ownership": "You keep full control of your Index on your own domain, and you only pay the small monthly fee. If you cancel, you simply stop the monthly plan.",
@@ -49,10 +50,21 @@ FAQ_TOPIC = {
     "what": "ce qu'est un Index", "how_it_works": "les etapes pour demarrer", "install_domain": "comment l'Index est installe sur le domaine du client",
     "technical": "competences techniques necessaires (aucune, une ligne DNS)", "delivery": "delai de mise en ligne", "price": "prix et paiement",
     "monthly": "frais mensuels", "rss": "compatibilite avec la plateforme d'hebergement du podcast (Spotify, Apple, etc.) via le flux RSS",
-    "cancel": "annulation de l'abonnement", "guarantee": "garantie si pas de resultat trafic", "ownership": "controle de l'Index par le client",
+    "language": "langue du podcast : l'Index est en anglais", "cancel": "annulation de l'abonnement", "guarantee": "garantie si pas de resultat trafic", "ownership": "controle de l'Index par le client",
     "technical_details": "comment les pages sont construites (flux RSS, HTTPS, sitemap)", "replace_seo": "remplace ou complete le SEO et le site existant",
     "example": "exemple d'Index existant", "call": "demande d'appel",
 }
+
+
+# Reservoir de reponses (19/11/2026) : fichier reply_faq.json, {"id": {"topic": "...", "answer": "..."}}, complete ou remplace la base ci-dessus.
+try:
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "reply_faq.json"), encoding="utf-8") as _f:
+        for _k, _v in json.load(_f).items():
+            if isinstance(_v, dict) and str(_v.get("answer", "")).strip() and not str(_k).startswith("_"):
+                FAQ[_k] = str(_v["answer"]).strip()
+                FAQ_TOPIC[_k] = str(_v.get("topic", _k)).strip()
+except (OSError, ValueError):
+    pass
 
 CASES = {
     1: "interesse_ou_oui", 2: "confus", 3: "question_prix_cout_fonctionnement", 4: "pas_maintenant_ou_deja_seo",
