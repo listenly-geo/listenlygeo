@@ -53,21 +53,53 @@ section{padding:70px 0;border-top:1px solid var(--line)}
 footer{padding:34px 0 50px;color:var(--mut);font-size:13px;text-align:center;border-top:1px solid var(--line)}
 @media(max-width:860px){.hero{grid-template-columns:1fr;gap:30px;padding-top:30px}.grid{grid-template-columns:1fr}.flow .ar{display:none}.flow .st{flex:1 1 100%}}
 .rv{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}.rv.in{opacity:1;transform:none}
+
+header{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);z-index:20;border-bottom:1px solid var(--line)}
+.hr{display:flex;gap:12px;align-items:center}
+.btn.s{padding:9px 18px;font-size:14px}
+.sub2{color:var(--mut);font-size:14.5px;margin:14px 0 0}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:left}
+.step{background:var(--soft);border:1px solid var(--line);border-radius:22px;padding:26px}
+.step i{font-style:normal;display:inline-flex;width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;align-items:center;justify-content:center;margin-bottom:12px}
+.step b{display:block;font-size:18px;margin-bottom:6px}.step span{color:var(--mut);font-size:15px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;text-align:left}
+.ex{margin-top:26px}
+.guar{background:var(--soft);border:1px solid var(--line);border-radius:26px;padding:34px 30px;max-width:760px;margin:0 auto}
+.badge{display:inline-block;background:#EAF0FF;color:var(--blue);font-weight:700;font-size:12px;letter-spacing:.08em;border-radius:999px;padding:7px 14px;margin:0 0 12px}
+.guar b{font-size:20px;display:block;margin-bottom:8px}
+details{border:1px solid var(--line);border-radius:16px;padding:16px 20px;text-align:left;background:#fff;margin-bottom:10px}
+summary{cursor:pointer;font-weight:600;font-size:16.5px;list-style:none}summary::-webkit-details-marker{display:none}
+summary:after{content:"+";float:right;color:var(--blue);font-size:20px;line-height:1}details[open] summary:after{content:"\2212"}
+details p{margin:10px 0 0;color:var(--mut);font-size:15.5px}
+.faq{max-width:760px;margin:0 auto}
+.bar{display:none}
+@media(max-width:860px){.steps,.grid2{grid-template-columns:1fr}.hr .btn.s{display:none}
+ .bar{display:block;position:fixed;left:0;right:0;bottom:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);border-top:1px solid var(--line);z-index:30}
+ .bar .btn{display:block;text-align:center;width:100%}body{padding-bottom:78px}}
 </style>
 </head>
 <body>
+<header><div class="wrap" style="display:flex;justify-content:space-between;align-items:center;padding-top:14px;padding-bottom:14px">
+<div class="brand">MarketForge</div>
+<div class="hr" style="gap:16px"><div class="lang"><button data-l="en">EN</button><button data-l="fr">FR</button></div><a class="btn p s paybtn" href="#pricing" data-t="cta_top"></a></div></div></header>
 <div class="wrap">
-<header><div class="brand">MarketForge</div><div class="lang"><button data-l="en">EN</button><button data-l="fr">FR</button></div></header>
 
 <div class="hero">
   <div>
     <div class="eyebrow" data-t="eyebrow"></div>
     <h1 data-t="h1"></h1>
     <p class="lead" data-t="sub"></p>
-    <div class="btns"><a class="btn p" href="#pricing" data-t="cta1"></a><a class="btn" href="#spec" data-t="cta2"></a></div>
+    <div class="btns"><a class="btn p paybtn" href="#pricing" data-t="cta1"></a></div>
+    <p class="sub2" data-t="sub2"></p>
   </div>
   <div class="video" id="video"><span data-t="vidsoon"></span></div>
 </div>
+
+<section id="how" class="center">
+  <div class="eyebrow" data-t="how_eyebrow"></div>
+  <h2 data-t="how_title"></h2>
+  <div class="steps" id="steps" style="margin-top:34px"></div>
+</section>
 
 <section id="spec" class="center">
   <div class="eyebrow" data-t="spec_eyebrow"></div>
@@ -79,7 +111,8 @@ footer{padding:34px 0 50px;color:var(--mut);font-size:13px;text-align:center;bor
     <div class="st" data-t="f3"></div><div class="ar">→</div>
     <div class="st" data-t="f4"></div>
   </div>
-  <div class="grid" id="specgrid" style="text-align:left"></div>
+  <div class="grid2" id="specgrid"></div>
+  <div class="ex"><a class="btn" id="example" href="#" target="_blank" rel="noopener" data-t="ex_btn"></a></div>
 </section>
 
 <section id="pricing" class="center">
@@ -88,77 +121,96 @@ footer{padding:34px 0 50px;color:var(--mut);font-size:13px;text-align:center;bor
   <p class="lead" data-t="pr_sub"></p>
   <div class="price rv">
     <div class="name">Index</div>
+    <div class="badge" data-t="badge"></div>
     <div class="amount" id="price">297 €</div>
     <div class="note" id="note"></div>
     <ul class="list" id="incl"></ul>
-    <a class="btn p hide" id="pay" href="#" data-t="pr_btn"></a>
-    <div class="alt" id="alt"><a id="mail" href="#" data-t="pr_alt"></a></div>
+    <a class="btn p paybtn" id="pay" href="#" data-t="pr_btn"></a>
+    <div class="alt"><a id="mail" href="#" data-t="pr_alt"></a></div>
   </div>
+</section>
+
+<section class="center">
+  <div class="guar rv"><b data-t="g_title"></b><span style="color:var(--mut)" data-t="g_text"></span></div>
+</section>
+
+<section id="faq" class="center">
+  <div class="eyebrow" data-t="faq_eyebrow"></div>
+  <h2 data-t="faq_title" style="margin-bottom:30px"></h2>
+  <div class="faq" id="faqlist"></div>
 </section>
 
 <footer>Questions? <a href="mailto:supportindex@marketforge.fr" style="color:inherit">supportindex@marketforge.fr</a><br>© MarketForge</footer>
 </div>
+<div class="bar"><a class="btn p paybtn" href="#pricing" data-t="cta_bar"></a></div>
 
 <script>
 (function(){
 var ENDPOINT="__OFFRE_ENDPOINT__";
+var EXAMPLE="https://app.marketforge.fr/docs/answers-with-dr-jr";
 var T={
-en:{eyebrow:"Podcast AI Index",h1:"Your podcast already has the answers. Get them found by Google and AI.",
- sub:"Your podcast becomes answers that Google, ChatGPT, Claude and Gemini can find and cite. Nothing new to record, no change to your strategy.",
- cta1:"Get my Index",cta2:"See how it works",vidsoon:"Video coming soon",
- spec_eyebrow:"TECHNICAL SHEET",spec_title:"What's inside an Index",
- spec_sub:"An Index is a set of pages installed on your domain. Each page answers a real question from your episodes, with a written answer, an audio player and a link to the full episode.",
+en:{eyebrow:"Podcast AI Index",h1:"Your podcast already has the answers. Turn them into visitors and clients.",
+ sub:"We turn your existing episodes into clear written answers that Google, ChatGPT, Claude and Gemini can find and cite. Nothing to record, nothing to change.",
+ badge:"3 MONTHS FREE · DAILY ARTICLE · 100 AI ARTICLES",cta1:"Get my Index",cta_top:"Get my Index",cta_bar:"Get my Index \u00b7 \u20ac297",vidsoon:"Video coming soon",
+ sub2:"€297 today · 3 months of daily articles included · no commitment.",
+ how_eyebrow:"HOW IT WORKS",how_title:"Live on your domain the same day",
+ steps:[["You get started","Pay once on a secure page, then fill in a short form: your podcast link and the subdomain you want (2 minutes)."],["We build your Index","We analyse your episodes, extract the real questions and write one answer page for each. You do nothing."],["It goes live on your domain","We email you one line to add in your domain settings. Once it is added, your Index is live on your own site."]],
+ spec_eyebrow:"WHAT YOU GET",spec_title:"A ready-to-use Index on your own domain",
+ spec_sub:"Each page answers a real question from your episodes, with a written answer, an audio player and a link to the full episode.",
  f1:"Episode",f2:"Extracted question",f3:"Answer page on your domain",f4:"Found and cited by Google and AI",
- items:[
- ["file","Answer pages","One page per real question extracted from your episodes, with a clear answer, an embedded audio player and a link back to the full episode."],
- ["globe","Hosted on your domain","Installed on a subdomain you control (e.g. expertise.yoursite.com). You keep the traffic and the SEO."],
- ["bot","Readable by AI and search engines","Structure built for Google, ChatGPT, Claude and Gemini, so your answers can be cited in AI Overviews and chats."],
- ["wand","Automatic extraction","Your episodes are analysed and the questions and answers are extracted automatically. No extra content to write or publish."],
- ["refresh","Automatic updates","New episodes are added automatically with the monthly plan. The Index updates without any work on your side."],
- ["shield","No change of strategy","You keep producing your podcast exactly as before. The Index turns what already exists into visibility."]],
- pr_eyebrow:"PRICING",pr_title:"One simple offer. Installed on your site.",pr_sub:"Everything you need to turn your podcast into answers that can be found.",
- note:"Setup today, then \u20ac30/month starting in 30 days. Cancel anytime.",
- incl:["Installed on your own site (e.g. expertise.yoursite.com)","One page per real question from your episodes: answer, audio player, link to the episode","Readable by Google, ChatGPT, Claude and Gemini","Your first 20 questions online within 48 hours","Hosting, updates and new episodes included in the \u20ac30/month plan","No extra content to publish, no change of strategy"],
- pr_btn:"Get my Index",pr_alt:"Not sure yet? Reply to my email and I'll show you an example.",pr_btn2:"Reply to get started"},
-fr:{eyebrow:"Index Podcast IA",h1:"Votre podcast a déjà les réponses. Faites-les trouver par Google et les IA.",
- sub:"Votre podcast devient des réponses que Google, ChatGPT, Claude et Gemini peuvent trouver et citer. Rien de plus à enregistrer, aucun changement de stratégie.",
- cta1:"Obtenir mon Index",cta2:"Voir comment ça marche",vidsoon:"Vidéo bientôt disponible",
- spec_eyebrow:"FICHE TECHNIQUE",spec_title:"Qu'est-ce qu'un Index ?",
- spec_sub:"Un Index est un ensemble de pages installées sur votre domaine. Chaque page répond à une vraie question issue de vos épisodes, avec une réponse écrite, un lecteur audio et un lien vers l'épisode complet.",
+ items:[["file","Answer pages","One page per real question from your episodes: clear answer, embedded audio player, link to the full episode."],["globe","On your own domain","Installed on a subdomain you control (e.g. expertise.yoursite.com), over HTTPS. You keep the traffic and the SEO."],["bot","Readable by Google and AI","Built with the structure and sitemap that Google, ChatGPT, Claude and Gemini need to read and cite your answers."],["refresh","Always up to date","New episodes are added automatically with the monthly plan, with no work on your side."]],
+ ex_btn:"See a live example",
+ pr_eyebrow:"PRICING",pr_title:"One simple offer",pr_sub:"Everything you need to turn your podcast into answers that can be found.",
+ note:"297 € once. After 3 months: stop, or continue for 30 €/month. No commitment.",
+ incl:["Installed on your own domain, live the same day","3 months of publication included: one new AI article every day, up to 100","Audio player and link to the full episode in each article","Readable by Google, ChatGPT, Claude and Gemini","Stop after 3 months, your pages stay online","Or continue for 30 €/month: one new article a day, no commitment"],
+ pr_btn:"Get my Index",pr_alt:"Not sure yet? Reply to my email and I'll answer.",pr_btn2:"Reply to get started",
+ g_title:"3-month traffic guarantee",g_text:"If you don't see traffic results after 3 months, we step in and run your Index manually for you. No commitment: cancel the monthly plan anytime and keep control of your Index.",
+ faq_eyebrow:"QUESTIONS",faq_title:"Quick answers",
+ faq:[["Do I need technical skills?","No. The only thing to do is add one line in your domain settings. We send you the exact line, so you can also forward it to whoever manages your domain."],["How fast is it live?","The same day: we build your Index from your episodes and connect it to your domain as soon as you add the line."],["Does it replace my SEO or my website?","No, it adds to them. Your episodes become written answers that Google and AI assistants can cite, on top of what you already do."],["What does the monthly plan cover, and can I cancel?","\u20ac30 a month covers hosting, updates and your new episodes. It starts after the first 30 days and you can cancel anytime."],["Which podcasts does it work with?","Podcasts recorded in English. It works from your RSS feed, so the platform that hosts your podcast makes no difference."]]},
+fr:{eyebrow:"Index Podcast IA",h1:"Votre podcast a déjà les réponses. Transformez-les en visiteurs et en clients.",
+ sub:"Nous transformons vos épisodes existants en réponses écrites claires que Google, ChatGPT, Claude et Gemini peuvent trouver et citer. Rien à enregistrer, rien à changer.",
+ badge:"3 MOIS OFFERTS · UN ARTICLE CHAQUE JOUR · 100 ARTICLES IA",cta1:"Obtenir mon Index",cta_top:"Obtenir mon Index",cta_bar:"Obtenir mon Index \u00b7 297\u00a0\u20ac",vidsoon:"Vidéo bientôt disponible",
+ sub2:"297 € aujourd'hui · 3 mois d'articles offerts · sans engagement.",
+ how_eyebrow:"COMMENT ÇA MARCHE",how_title:"En ligne sur votre domaine le jour même",
+ steps:[["Vous démarrez","Vous payez une fois sur une page sécurisée, puis vous remplissez un court formulaire : le lien de votre podcast et le sous-domaine souhaité (2 minutes)."],["Nous construisons votre Index","Nous analysons vos épisodes, extrayons les vraies questions et rédigeons une page de réponse pour chacune. Vous n'avez rien à faire."],["Il se met en ligne sur votre domaine","Nous vous envoyons une ligne à ajouter dans les réglages de votre domaine. Dès qu'elle est ajoutée, votre Index est en ligne sur votre site."]],
+ spec_eyebrow:"CE QUE VOUS RECEVEZ",spec_title:"Un Index prêt à l'emploi sur votre propre domaine",
+ spec_sub:"Chaque page répond à une vraie question de vos épisodes, avec une réponse écrite, un lecteur audio et un lien vers l'épisode complet.",
  f1:"Épisode",f2:"Question extraite",f3:"Page de réponse sur votre domaine",f4:"Trouvée et citée par Google et les IA",
- items:[
- ["file","Pages de réponses","Une page par question réelle extraite de vos épisodes, avec une réponse claire, un lecteur audio intégré et un lien vers l'épisode complet."],
- ["globe","Hébergé sur votre domaine","Installé sur un sous-domaine que vous contrôlez (ex. expertise.votresite.com). Vous restez propriétaire du trafic et du SEO."],
- ["bot","Lisible par les IA et les moteurs de recherche","Structure pensée pour Google, ChatGPT, Claude et Gemini : vos réponses peuvent être citées dans les AI Overviews et les chats."],
- ["wand","Extraction automatique","Vos épisodes sont analysés, les questions et réponses sont extraites automatiquement. Aucun contenu supplémentaire à écrire ou publier."],
- ["refresh","Mises à jour automatiques","Les nouveaux épisodes sont ajoutés automatiquement avec l'abonnement mensuel. L'Index se met à jour sans intervention de votre part."],
- ["shield","Aucun changement de stratégie","Vous continuez à produire votre podcast exactement comme avant. L'Index transforme ce qui existe déjà en visibilité."]],
- pr_eyebrow:"TARIF",pr_title:"Une offre simple. Installée sur votre site.",pr_sub:"Tout ce qu'il faut pour transformer votre podcast en réponses qui se trouvent.",
- note:"Mise en place aujourd'hui, puis 30 \u20ac/mois dès dans 30 jours. Sans engagement.",
- incl:["Installé sur votre propre site (ex. expertise.votresite.com)","Une page par vraie question de vos épisodes : réponse, lecteur audio, lien vers l'épisode","Lisible par Google, ChatGPT, Claude et Gemini","Vos 20 premières questions en ligne sous 48 heures","Hébergement, mises à jour et nouveaux épisodes inclus dans l'abonnement de 30 \u20ac/mois","Aucun contenu supplémentaire à publier, aucun changement de stratégie"],
- pr_btn:"Obtenir mon Index",pr_alt:"Pas sûr ? Répondez à mon mail, je vous montre un exemple.",pr_btn2:"Répondre pour commencer"}
+ items:[["file","Pages de réponses","Une page par vraie question de vos épisodes : réponse claire, lecteur audio intégré, lien vers l'épisode complet."],["globe","Sur votre propre domaine","Installé sur un sous-domaine que vous contrôlez (ex. expertise.votresite.com), en HTTPS. Vous gardez le trafic et le SEO."],["bot","Lisible par Google et les IA","Structure et sitemap pensés pour que Google, ChatGPT, Claude et Gemini lisent et citent vos réponses."],["refresh","Toujours à jour","Les nouveaux épisodes sont ajoutés automatiquement avec l'abonnement mensuel, sans travail de votre part."]],
+ ex_btn:"Voir un exemple en ligne",
+ pr_eyebrow:"TARIF",pr_title:"Une offre simple",pr_sub:"Tout ce qu'il faut pour transformer votre podcast en réponses qui se trouvent.",
+ note:"297 € une fois. Après 3 mois : arrêter, ou continuer à 30 €/mois. Sans engagement.",
+ incl:["Installé sur votre domaine, en ligne le jour même","3 mois de publication offerts : un nouvel article IA chaque jour, jusqu'à 100","Lecteur audio et lien vers l'épisode complet dans chaque article","Lisible par Google, ChatGPT, Claude et Gemini","Après 3 mois : arrêtez, vos pages restent en ligne","Ou continuez à 30 €/mois : un nouvel article chaque jour, sans engagement"],
+ pr_btn:"Obtenir mon Index",pr_alt:"Pas sûr ? Répondez à mon mail, je vous réponds.",pr_btn2:"Répondre pour commencer",
+ g_title:"Garantie trafic de 3 mois",g_text:"Si vous ne voyez pas de résultats de trafic au bout de 3 mois, nous prenons la main et faisons tourner votre Index à la main pour vous. Sans engagement : vous pouvez résilier l'abonnement à tout moment et garder le contrôle de votre Index.",
+ faq_eyebrow:"QUESTIONS",faq_title:"Réponses rapides",
+ faq:[["Faut-il des compétences techniques ?","Non. Il suffit d'ajouter une ligne dans les réglages de votre domaine. Nous vous envoyons la ligne exacte, vous pouvez aussi la transmettre à la personne qui gère votre domaine."],["En combien de temps est-ce en ligne ?","Le jour même : nous construisons votre Index à partir de vos épisodes et le connectons à votre domaine dès que vous ajoutez la ligne."],["Est-ce que ça remplace mon SEO ou mon site ?","Non, ça s'ajoute. Vos épisodes deviennent des réponses écrites que Google et les assistants IA peuvent citer, en plus de ce que vous faites déjà."],["Que couvre l'abonnement mensuel, et puis-je annuler ?","30\u00a0\u20ac par mois couvrent l'hébergement, les mises à jour et vos nouveaux épisodes. Il démarre après les 30 premiers jours et vous pouvez annuler à tout moment."],["Avec quels podcasts ça marche ?","Les podcasts enregistrés en anglais. Cela fonctionne depuis votre flux RSS, la plateforme qui héberge votre podcast ne change rien."]]}
 };
 var ICON={file:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',
  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
  bot:'<rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M9 16.5h6"/>',
- wand:'<path d="M5 19 19 5M14 5l1-2 1 2 2 1-2 1-1 2-1-2-2-1zM6 10l.7-1.4L8 8l-1.3-.6L6 6l-.6 1.4L4 8l1.4.6z"/>',
- refresh:'<path d="M20 11a8 8 0 0 0-14.5-3.5L4 9M4 4v5h5M4 13a8 8 0 0 0 14.5 3.5L20 15M20 20v-5h-5"/>',
- shield:'<path d="M12 3 5 6v6c0 4.5 3 8 7 9 4-1 7-4.5 7-9V6z"/><path d="m9 12 2 2 4-4"/>'};
+ refresh:'<path d="M20 11a8 8 0 0 0-14.5-3.5L4 9M4 4v5h5M4 13a8 8 0 0 0 14.5 3.5L20 15M20 20v-5h-5"/>'};
 var q=new URLSearchParams(location.search),ref=(q.get("ref")||"").replace(/[^a-zA-Z0-9._-]/g,"").slice(0,80);
 var lang=q.get("lang")||"en";if(!T[lang])lang="en";
 var CFG={};
 function ping(ev){if(!ENDPOINT||ENDPOINT.indexOf("http")!==0)return;try{fetch(ENDPOINT,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain"},body:JSON.stringify({action:"offre_event",event:ev,ref:ref,variant:"base"})});}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function payHref(){var u=CFG.payment_url;if(u&&/^https:\/\//.test(u))return u+(ref&&u.indexOf("buy.stripe.com")>-1?(u.indexOf("?")<0?"?":"&")+"client_reference_id="+encodeURIComponent(ref):"");return CFG.contact_email?"mailto:"+CFG.contact_email+"?subject="+encodeURIComponent("Podcast AI Index"):"#pricing";}
 function render(){
  var t=T[lang];document.documentElement.lang=lang;
  document.querySelectorAll("[data-t]").forEach(function(e){var k=e.getAttribute("data-t");if(t[k]!=null)e.textContent=t[k];});
- document.getElementById("specgrid").innerHTML=t.items.map(function(i){return '<div class="card rv in"><div class="ic"><svg viewBox="0 0 24 24">'+ICON[i[0]]+'</svg></div><b>'+i[1]+'</b><span>'+i[2]+'</span></div>';}).join("");
- document.getElementById("incl").innerHTML=t.incl.map(function(x){return "<li>"+x+"</li>";}).join("");
- document.getElementById("note").textContent=(CFG.price_note&&CFG["price_note_"+lang])||CFG["price_note_"+lang]||t.note;
+ document.getElementById("steps").innerHTML=t.steps.map(function(s,i){return '<div class="step rv in"><i>'+(i+1)+'</i><b>'+esc(s[0])+'</b><span>'+esc(s[1])+'</span></div>';}).join("");
+ document.getElementById("specgrid").innerHTML=t.items.map(function(i){return '<div class="card rv in"><div class="ic"><svg viewBox="0 0 24 24">'+ICON[i[0]]+'</svg></div><b>'+esc(i[1])+'</b><span>'+esc(i[2])+'</span></div>';}).join("");
+ document.getElementById("incl").innerHTML=t.incl.map(function(x){return "<li>"+esc(x)+"</li>";}).join("");
+ document.getElementById("faqlist").innerHTML=t.faq.map(function(f){return "<details><summary>"+esc(f[0])+"</summary><p>"+esc(f[1])+"</p></details>";}).join("");
+ document.getElementById("note").textContent=CFG["price_note_"+lang]||t.note;
  document.querySelectorAll(".lang button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-l")===lang);});
- var pay=document.getElementById("pay");if(pay&&!CFG.payment_url&&CFG.contact_email)pay.textContent=t.pr_btn2;
- var m=document.getElementById("mail");if(CFG.contact_email)m.href="mailto:"+CFG.contact_email+"?subject="+encodeURIComponent("Podcast AI Index");
+ document.querySelectorAll(".paybtn").forEach(function(a){if(CFG.payment_url||CFG.contact_email)a.href=payHref();});
+ var m=document.getElementById("mail");m.href="mailto:"+(CFG.contact_email||"supportindex@marketforge.fr")+"?subject="+encodeURIComponent("Podcast AI Index");
+ document.getElementById("example").href=CFG.example_url||EXAMPLE;
 }
 document.querySelectorAll(".lang button").forEach(function(b){b.addEventListener("click",function(){lang=b.getAttribute("data-l");render();});});
+document.querySelectorAll(".paybtn").forEach(function(a){a.addEventListener("click",function(){ping("clic")});});
 render();ping("vue");
 var io=("IntersectionObserver" in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.15}):null;
 document.querySelectorAll(".rv").forEach(function(e){if(io)io.observe(e);else e.classList.add("in");});
@@ -168,11 +220,6 @@ fetch("config.json?t="+Date.now()).then(function(r){return r.json()}).then(funct
  if(c.video_url&&/^https:\/\/(www\.youtube\.com|www\.youtube-nocookie\.com|player\.vimeo\.com|fast\.wistia\.(net|com))\//.test(c.video_url)){
   var v=document.getElementById("video");v.innerHTML='<iframe src="'+c.video_url+'" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';v.style.padding="0";
  }
- var pay=document.getElementById("pay");
- if(c.payment_url&&/^https:\/\//.test(c.payment_url)){
-  pay.href=c.payment_url+(ref&&c.payment_url.indexOf("buy.stripe.com")>-1?(c.payment_url.indexOf("?")<0?"?":"&")+"client_reference_id="+encodeURIComponent(ref):"");
- }else if(c.contact_email){pay.href="mailto:"+c.contact_email+"?subject="+encodeURIComponent("Podcast AI Index");}
- if(c.payment_url||c.contact_email){pay.classList.remove("hide");pay.addEventListener("click",function(){ping("clic")});}
  render();
 }).catch(function(){});
 })();
