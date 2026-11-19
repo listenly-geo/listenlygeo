@@ -362739,12 +362739,13 @@
     "feed_url": "https://feeds.megaphone.fm/PDP8707447608",
     "genre": "Investing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Immobilier",
     "gate": "dirigeant",
-    "email_domain": "sofi.org"
+    "email_domain": "sofi.org",
+    "rescue": "2026-11-19"
   },
   "https://feeds.castos.com/24r2n": {
     "podcast_name": "The AI Advantage: Smart Tech for Modern Leaders",
@@ -362752,12 +362753,13 @@
     "feed_url": "https://feeds.castos.com/24r2n",
     "genre": "Technology",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Tech & SaaS",
     "gate": "dirigeant",
-    "email_domain": "solonox.net"
+    "email_domain": "solonox.net",
+    "rescue": "2026-11-19"
   },
   "https://feeds.captivate.fm/the-dr-meleeka-clary-show/": {
     "podcast_name": "The Dr. Meleeka Clary Show",
@@ -362792,5 +362794,85 @@
       "Dividend Investing"
     ],
     "contact_email": "support@tradingnut.com"
+  },
+  "https://rss.buzzsprout.com/1848289.rss": {
+    "podcast_name": "Work Life Balance for Speech Pathologists: Mindful Time Management Tips for Therapists, Clinicians, & Private Practice Owners",
+    "artist_name": "Theresa Harp",
+    "feed_url": "https://rss.buzzsprout.com/1848289.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé"
+  },
+  "https://rss.buzzsprout.com/976303.rss": {
+    "podcast_name": "\"In Your Business\" with Michael Sayre. A Production of CUI Wealth Management",
+    "artist_name": "Michael Sayre",
+    "feed_url": "https://rss.buzzsprout.com/976303.rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Finance & Fintech"
+  },
+  "https://feeds.transistor.fm/dental-unscripted-76568f68-9f66-456b-a730-5d4f27447c67": {
+    "podcast_name": "Dental Unscripted | Getting into Ownership and Practice Management Insights",
+    "artist_name": "Michael Dinsio & Paula Quinn | Dental industry coaches & Education leaders",
+    "feed_url": "https://feeds.transistor.fm/dental-unscripted-76568f68-9f66-456b-a730-5d4f27447c67",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé",
+    "gate": "dirigeant",
+    "email_domain": "nxlevelconsultants.com"
+  },
+  "https://feed.podbean.com/finallyeffinghappy/feed.xml": {
+    "podcast_name": "Finally Effing Happy™ - A podcast for kick-ass women living with chronic illness.",
+    "artist_name": "Shannon Klenk  丨 Happiness Coach, Self-Care Strategist & Motivation Mentor",
+    "feed_url": "https://feed.podbean.com/finallyeffinghappy/feed.xml",
+    "genre": "Mental Health",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1871 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://rss.pdrl.fm/cd67bb/strengthrunning.libsyn.com/rss": {
+    "podcast_name": "The Strength Running Podcast",
+    "artist_name": "Jason Fitzgerald",
+    "feed_url": "https://rss.pdrl.fm/cd67bb/strengthrunning.libsyn.com/rss",
+    "genre": "Running",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Running)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://anchor.fm/s/104f5ac58/podcast/rss": {
+    "podcast_name": "Wanderlust Wealth Show",
+    "artist_name": "Olivia Tati",
+    "feed_url": "https://anchor.fm/s/104f5ac58/podcast/rss",
+    "genre": "Self-Improvement",
+    "track_count": 224,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/wanderlust-wealth-show/id1736217975?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts112/v4/2a/d1/6d/2ad16def-0265-265e-8bae-c25146a468d8/mza_11884631121666319717.jpeg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Olivia Tati, créatrice indépendante identifiable, sur un sujet business/B2B (richesse, finances personnelles). Audience petite à moyenne (224 épisodes, pas d'indication de notoriété grand public ou de rattachement à un gros média).",
+    "checked_date": "2026-11-19",
+    "secteur": "Finance & Fintech",
+    "nb_episodes": 224,
+    "suggested_category": "🌱 Self-Improvement",
+    "suggested_tags": [
+      "Self-Improvement",
+      "Self-Compassion",
+      "Self-Awareness",
+      "Wealth Building"
+    ],
+    "contact_email": "olivia.tati1@gmail.com"
   }
 }
