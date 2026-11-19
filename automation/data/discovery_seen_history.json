@@ -364574,12 +364574,13 @@
     "feed_url": "https://anchor.fm/s/53531d3c/podcast/rss",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Assurance",
     "gate": "dirigeant",
-    "email_domain": "gaig.com"
+    "email_domain": "gaig.com",
+    "rescue": "2026-11-19"
   },
   "https://api.substack.com/feed/podcast/2523700.rss": {
     "podcast_name": "A Mind of Her Own",
@@ -364624,5 +364625,16 @@
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Marketing & Ventes"
+  },
+  "https://anchor.fm/s/2fed6154/podcast/rss": {
+    "podcast_name": "Medicolegal Expert Insight",
+    "artist_name": "eReports Pty Ltd",
+    "feed_url": "https://anchor.fm/s/2fed6154/podcast/rss",
+    "genre": "Education",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Assurance"
   }
 }
