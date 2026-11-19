@@ -363977,12 +363977,13 @@
     "feed_url": "https://feeds.simplecast.com/lFz5vSdJ",
     "genre": "Self-Improvement",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "RH & Recrutement",
     "gate": "dirigeant",
-    "email_domain": "rci.rogers.com"
+    "email_domain": "rci.rogers.com",
+    "rescue": "2026-11-19"
   },
   "https://rss.libsyn.com/shows/71668/destinations/305387.xml": {
     "podcast_name": "Desire To Trade Podcast | Interviews with Highly Successful Traders",
@@ -363990,12 +363991,13 @@
     "feed_url": "https://rss.libsyn.com/shows/71668/destinations/305387.xml",
     "genre": "Investing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Marketing & Ventes",
     "gate": "dirigeant",
-    "email_domain": "desiretotrade.com"
+    "email_domain": "desiretotrade.com",
+    "rescue": "2026-11-19"
   },
   "https://rss.buzzsprout.com/1968313.rss": {
     "podcast_name": "Medication Talk - Expert Insights on Drug Therapy & Patient Care",
@@ -364173,5 +364175,94 @@
       "Self-Awareness"
     ],
     "contact_email": "melodieannw@gmail.com"
+  },
+  "https://feeds.simplecast.com/Xpq0us4l": {
+    "podcast_name": "The Kevin Jackson Show",
+    "artist_name": "Kevin Jackson",
+    "feed_url": "https://feeds.simplecast.com/Xpq0us4l",
+    "genre": "Politics",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Politics)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "RH & Recrutement"
+  },
+  "https://anchor.fm/s/1dcf4a8c/podcast/rss": {
+    "podcast_name": "NDV Healing : Domestic Violence, True Crime, and more !",
+    "artist_name": "Theresa Simon-Executive Director NDV Healing and Support Inc",
+    "feed_url": "https://anchor.fm/s/1dcf4a8c/podcast/rss",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://rss.libsyn.com/shows/270407/destinations/2062430.xml": {
+    "podcast_name": "The MFA Podcast",
+    "artist_name": "Marina Press Granger",
+    "feed_url": "https://rss.libsyn.com/shows/270407/destinations/2062430.xml",
+    "genre": "Visual Arts",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Visual Arts)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://rss.buzzsprout.com/2181819.rss": {
+    "podcast_name": "Beyond the Belt",
+    "artist_name": "hosted by.....Michael Whalen",
+    "feed_url": "https://rss.buzzsprout.com/2181819.rss",
+    "genre": "How To",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Experts-comptables & patrimoine"
+  },
+  "https://anchor.fm/s/fe722dd4/podcast/rss": {
+    "podcast_name": "Free Spirits: Insights on Functional Beverages",
+    "artist_name": "Lars Miller & David Gonzalez | Beverage Industry Experts & Functional Beverages",
+    "feed_url": "https://anchor.fm/s/fe722dd4/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 317 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Tech & SaaS"
+  },
+  "https://rss.libsyn.com/shows/551107/destinations/4756542.xml": {
+    "podcast_name": "Our Entrepreneurial Lives | The Struggle and Strategy of Building a Business",
+    "artist_name": "Jen Howat and Erica Bollinger",
+    "feed_url": "https://rss.libsyn.com/shows/551107/destinations/4756542.xml",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Tech & SaaS",
+    "gate": "dirigeant",
+    "email_domain": "builditbetterco.com"
+  },
+  "https://feeds.megaphone.fm/DMXPO5459175296": {
+    "podcast_name": "Launch Your Box Podcast with Sarah Williams | Start, Launch, and Grow Your Subscription Box",
+    "artist_name": "Sarah Williams",
+    "feed_url": "https://feeds.megaphone.fm/DMXPO5459175296",
+    "genre": "Entrepreneurship",
+    "track_count": 340,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/launch-your-box-podcast-with-sarah-williams-start/id1552945169?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/30/bc/2e/30bc2e19-98b9-7fdb-5ebc-11336c3a695d/mza_4754850996544625512.jpeg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast d'entrepreneuriat animé par Sarah Williams, créatrice indépendante identifiable, focalisé sur un sujet B2B pointu (lancement et croissance de box d'abonnement). Audience petite/moyenne, pas de média établi ni célérité détectée. Eligibilité path CREATEUR confirmée.",
+    "checked_date": "2026-11-19",
+    "secteur": "Tech & SaaS",
+    "nb_episodes": 340,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Female Entrepreneurship",
+      "Serial Entrepreneurship"
+    ],
+    "contact_email": "launchyourboxpodcast@gmail.com"
   }
 }
