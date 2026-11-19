@@ -363656,12 +363656,13 @@
     "feed_url": "https://anchor.fm/s/5091ad70/podcast/rss",
     "genre": "Automotive",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Coachs & consultants B2B",
     "gate": "dirigeant",
-    "email_domain": "sileightymania.com"
+    "email_domain": "sileightymania.com",
+    "rescue": "2026-11-19"
   },
   "https://feeds.acast.com/public/shows/67bbf55519249d0c1a4bb224": {
     "podcast_name": "Basis Points",
@@ -363706,5 +363707,165 @@
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Énergie"
+  },
+  "https://rss.buzzsprout.com/1375699.rss": {
+    "podcast_name": "KIPRIME Podcast",
+    "artist_name": "Alina Jenkins",
+    "feed_url": "https://rss.buzzsprout.com/1375699.rss",
+    "genre": "Science",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.buzzsprout.com/2438335.rss": {
+    "podcast_name": "Speaking Life Into Motherhood ~ Rhythms, Child Development, Homeschool, Special Needs, Speech Delay, Systems, Autism, ADHD, N",
+    "artist_name": "Elyse Scheeler MS CCC-SLP, Special Needs & Homeschool Strategy Coach, Advocate",
+    "feed_url": "https://rss.buzzsprout.com/2438335.rss",
+    "genre": "Parenting",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://rss.buzzsprout.com/2367661.rss": {
+    "podcast_name": "Your Studio Podcast | Strategies for Studio Owners",
+    "artist_name": "Chantelle Bruinsma & Michelle Hunter | Studio Business Experts",
+    "feed_url": "https://rss.buzzsprout.com/2367661.rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Tech & SaaS",
+    "gate": "dirigeant",
+    "email_domain": "studioevolution.com"
+  },
+  "https://rss.buzzsprout.com/2499498.rss": {
+    "podcast_name": "A Class Act: AI Builders & Founders",
+    "artist_name": "Michael Young - CEO MBN Solutions",
+    "feed_url": "https://rss.buzzsprout.com/2499498.rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Business général (entreprise)"
+  },
+  "https://feeds.simplecast.com/XPOpH7r4": {
+    "podcast_name": "a16z Frontier show",
+    "artist_name": "a16z crypto, Robert Hackett, Sonal Chokshi",
+    "feed_url": "https://feeds.simplecast.com/XPOpH7r4",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Business général (entreprise)",
+    "gate": "dirigeant",
+    "email_domain": "a16z.com"
+  },
+  "https://anchor.fm/s/a3540558/podcast/rss": {
+    "podcast_name": "UNIQUEWAYS WITH THOMAS GIRARD",
+    "artist_name": "Thomas Girard",
+    "feed_url": "https://anchor.fm/s/a3540558/podcast/rss",
+    "genre": "Design",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 140 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Agences de services"
+  },
+  "https://rss.buzzsprout.com/2547291.rss": {
+    "podcast_name": "Startup Wins: Founders, VCs & Builders",
+    "artist_name": "Brandon Na",
+    "feed_url": "https://rss.buzzsprout.com/2547291.rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé"
+  },
+  "https://anchor.fm/s/5081324c/podcast/rss": {
+    "podcast_name": "Talking Business with Danny Pardoe",
+    "artist_name": "Danny Pardoe",
+    "feed_url": "https://anchor.fm/s/5081324c/podcast/rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1648 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Agences de services"
+  },
+  "https://rss.buzzsprout.com/799610.rss": {
+    "podcast_name": "Partnered with a Survivor: David Mandel and Ruth Reymundo Mandel",
+    "artist_name": "Ruth Reymundo Mandel & David Mandel",
+    "feed_url": "https://rss.buzzsprout.com/799610.rss",
+    "genre": "Relationships",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé"
+  },
+  "https://rss.buzzsprout.com/2517913.rss": {
+    "podcast_name": "THE HABITS & HOME SHOW | Decluttering & Systems for Christian ADHD Moms",
+    "artist_name": "Lisa Lizotte | Home Organizer and Habits Coach",
+    "feed_url": "https://rss.buzzsprout.com/2517913.rss",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://anchor.fm/s/b060c2a4/podcast/rss": {
+    "podcast_name": "UpScale - Build your profitable Trade and Construction business",
+    "artist_name": "UpScale Business Coaching",
+    "feed_url": "https://anchor.fm/s/b060c2a4/podcast/rss",
+    "genre": "Business",
+    "track_count": 394,
+    "collection_view_url": "https://podcasts.apple.com/au/podcast/upscale-build-your-profitable-trade-and-construction/id1641831307?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/b8/66/17/b866178c-704f-0956-ce4a-49451ed28f8b/mza_10052505169067193101.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par un créateur/coach indépendant identifiable (UpScale Business Coaching) sur un sujet B2B pointu (construction et trade business). Audience petite/moyenne, pas de média établi ni célébrité grand public détectée.",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé",
+    "nb_episodes": 394,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Law",
+      "Business Law",
+      "Business Strategy",
+      "Business Growth"
+    ],
+    "contact_email": "mitch@up-scale.me"
+  },
+  "https://api.riverside.com/hosting/PW8btq2d.rss": {
+    "podcast_name": "The Bracket - Retirement Tax Strategy for High Net Worth Households",
+    "artist_name": "Ryan Knoll",
+    "feed_url": "https://api.riverside.com/hosting/PW8btq2d.rss",
+    "genre": "Investing",
+    "track_count": 18,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-bracket-retirement-tax-strategy-for-high-net/id6786511674?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/c3/ac/47/c3ac47ac-c8af-8895-1e6a-413dca238b34/mza_5077234251632844028.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B d'expertise pointue (stratégie fiscale retraite pour hauts revenus) animé par Ryan Knoll, créateur indépendant identifiable. 18 épisodes, audience petite/moyenne, niche spécialisée sans concurrence documentaire majeure.",
+    "checked_date": "2026-11-19",
+    "secteur": "Tech & SaaS",
+    "nb_episodes": 18,
+    "suggested_category": null,
+    "suggested_tags": [
+      "HR Strategy",
+      "Retirement Planning",
+      "Value Investing",
+      "Growth Investing"
+    ],
+    "contact_email": "ryan@navwealthpartners.com"
   }
 }
