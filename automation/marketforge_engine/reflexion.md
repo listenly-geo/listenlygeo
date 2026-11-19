@@ -1,10 +1,10 @@
-# Reflexion du MarketForge Engine (2026-11-19T10:52 UTC)
+# Reflexion du MarketForge Engine (2026-11-19T11:10 UTC)
 **Statut : BLOQUE**
 
 ## Funnel
-- podcasts en file : 2580
+- podcasts en file : 2582
 - contacts prets a mailer : 287
-- bloques en attente : 1103
+- bloques en attente : 1105
 - sans email : 68
 - prospects dans sheet : 300
 - statut pret : 62
@@ -18,7 +18,7 @@
 - paiements hub : 0
 
 ## Blocages
-- Aucun contact cree depuis 2 jours alors que 1103 podcasts attendent : etape 'contact' bloquee (verifier extraction_auto, doit etre false).
+- Aucun contact cree depuis 2 jours alors que 1105 podcasts attendent : etape 'contact' bloquee (verifier extraction_auto, doit etre false).
 - extraction_auto=true : les nouveaux podcasts restent en 'en_attente' au lieu de passer en contact.
 - Reponses non classees (positive / neutre / refus) : impossible de savoir si le funnel marche. Ajouter le champ 'classe' dans replies.json.
 

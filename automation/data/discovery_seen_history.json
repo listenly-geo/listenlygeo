@@ -364305,12 +364305,13 @@
     "feed_url": "https://feeds.megaphone.fm/modernwisdom",
     "genre": "Society & Culture",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Énergie",
     "gate": "dirigeant",
-    "email_domain": "gmail.com"
+    "email_domain": "gmail.com",
+    "rescue": "2026-11-19"
   },
   "https://feeds.captivate.fm/thrive-in-retirement/": {
     "podcast_name": "Thrive in Retirement",
@@ -364334,7 +364335,8 @@
     "checked_date": "2026-11-19",
     "secteur": "Business général (entreprise)",
     "gate": "dirigeant",
-    "email_domain": "fexingo.com"
+    "email_domain": "fexingo.com",
+    "rescue": "2026-11-19"
   },
   "https://feed.podbean.com/outofcrazytown/feed.xml": {
     "podcast_name": "Out of Crazytown: Your Guide to Divorcing a Narcissist",
@@ -364369,5 +364371,86 @@
       "Stress Management"
     ],
     "contact_email": "jmarkanday@markanday.consulting"
+  },
+  "https://anchor.fm/s/f4cf8fec/podcast/rss": {
+    "podcast_name": "The Marketing Couch for Therapists and Healers: Strategies for Introverts",
+    "artist_name": "Natalia Maganda, webdesigner for mental health professionals",
+    "feed_url": "https://anchor.fm/s/f4cf8fec/podcast/rss",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale",
+    "gate": "dirigeant",
+    "email_domain": "nataliamaganda.com"
+  },
+  "https://audioboom.com/channels/5042825.rss": {
+    "podcast_name": "Death & Taxes - and everything in between!",
+    "artist_name": "Burges Salmon Private Client team",
+    "feed_url": "https://audioboom.com/channels/5042825.rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Business général (entreprise)",
+    "gate": "dirigeant",
+    "email_domain": "burges-salmon.com"
+  },
+  "https://rss.buzzsprout.com/2375732.rss": {
+    "podcast_name": "Admissions Straight Talk",
+    "artist_name": "Dr. Valerie Wherley",
+    "feed_url": "https://rss.buzzsprout.com/2375732.rss",
+    "genre": "How To",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://feeds.lawson.media/buildingaunicorn/": {
+    "podcast_name": "Building A Unicorn",
+    "artist_name": "Lawson Media",
+    "feed_url": "https://feeds.lawson.media/buildingaunicorn/",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1513 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://anchor.fm/s/10749d588/podcast/rss": {
+    "podcast_name": "Scope Shift",
+    "artist_name": "Brian Saemann",
+    "feed_url": "https://anchor.fm/s/10749d588/podcast/rss",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Marketing & Ventes"
+  },
+  "https://audioboom.com/channels/4971740.rss": {
+    "podcast_name": "Conversations of Inspiration",
+    "artist_name": "Holly Tucker MBE",
+    "feed_url": "https://audioboom.com/channels/4971740.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 360 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Business général (entreprise)"
+  },
+  "https://anchor.fm/s/1149fc58/podcast/rss": {
+    "podcast_name": "Career Convos",
+    "artist_name": "Career Coach",
+    "feed_url": "https://anchor.fm/s/1149fc58/podcast/rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B"
   }
 }
