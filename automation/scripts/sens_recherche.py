@@ -112,6 +112,9 @@ def juger(cle, question, titre=None, podcast=""):
         if q and len(q + suf) <= 58:
             out["titre"] = q[:1].upper() + q[1:] + suf
         else:
-            out["verdict"] = "ok"   # titre propose inutilisable : on garde l'actuel
+            # 19/11/2026 : titre propose inutilisable (trop long) -> on ne garde pas un titre juge flou
+            out["verdict"] = "rejeter"
+            out["raison"] = (out["raison"] + " (titre clair impossible en 58 caracteres)").strip()
     c[cle] = out
+    print(f"[sens] {out['verdict']:8s} {titre[:70]}" + (f" -> {out['titre']}" if out.get("titre") else "") + f" | {out['raison'][:100]}")
     return out
