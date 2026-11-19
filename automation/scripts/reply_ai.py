@@ -32,7 +32,11 @@ FAQ = {
     "how_it_works": "We start from your existing podcast: nothing to record and nothing to change in your strategy. You fill in a short form, we build the pages from your episodes, and we email you as soon as your Index is ready.",
     "install_domain": "The Index lives on your own domain. Once it's built, we send you one short email with a single line to add in your domain settings (or to forward to whoever manages it). As soon as it's added, your Index goes live automatically.",
     "technical": "No technical skills needed. The only thing to do is add one line in your domain settings: we send you the exact line to copy, so you can also simply forward it to whoever manages your domain.",
-    "delivery": "After your order, you fill in a short form and we email you as soon as your Index is ready.",
+    "delivery": "Installation is done the same day: our onboarding service builds your Index and connects it to your domain, where you only add one DNS line.",
+    "price": "The setup is a one-time payment of \u20ac297, and everything you need to get started is on the same page as the video.",
+    "guarantee": "If you don't see traffic results after 3 months, we step in and run your Index manually for you.",
+    "ownership": "You keep full control of your Index on your own domain.",
+    "technical_details": "We start from your podcast's RSS feed. Each page has a written answer, an audio player and a link to the full episode, on your own domain over HTTPS, with the markup and sitemap that Google and AI assistants need to read it.",
     "replace_seo": "It doesn't replace your SEO or your website, it adds to them: your episodes become written answers that Google and AI assistants can cite, on top of what you already do.",
     "example": "The short video below shows a real example of an Index built from an existing podcast.",
     "price": "All the details, including how to get started, are on the same page as the video.",
@@ -68,7 +72,7 @@ def ask_claude(podcast, text):
         "Choisis le cas : 1 = interesse ou oui ; 2 = interesse mais confus / ne comprend pas la demande ; 3 = question sur le prix, le cout ou le fonctionnement ; "
         "4 = pas maintenant ou deja un SEO ; 5 = demande un appel ou une demo ; 6 = mauvaise personne ; "
         "7 = refus, retrait, colere, menace, sujet juridique, ou tout ce qui est sensible ou ambigu.\n"
-        "Si le cas est 3, liste 1 a 2 questions du prospect (reformulees en anglais, max 18 mots, sans lien, sans gras) avec l'identifiant de la base de reponses qui y repond : "
+        "Si le cas est 3, liste 1 a 3 questions du prospect (reformulees en anglais, max 18 mots, sans lien, sans gras) avec l'identifiant de la base de reponses qui y repond : "
         + ", ".join(FAQ) + ' ; mets "none" si AUCUN identifiant ne repond clairement a la question.\n'
         "Ecris aussi UNE phrase d'accueil en anglais (max 25 mots) qui repond a ce que le prospect a vraiment dit, ton chaleureux et naturel. "
         "Interdits dans cette phrase : prix, chiffres, appel, delai, promesse, lien, exemple deja construit.\n"
@@ -83,7 +87,7 @@ def ask_claude(podcast, text):
     d = json.loads(m.group(0)) if m else {}
     cas = int(d.get("cas", 7)) if str(d.get("cas", "")).isdigit() else 7
     qs = d.get("questions") if isinstance(d.get("questions"), list) else []
-    return (cas if cas in CASES else 7), str(d.get("phrase", "")).strip(), qs[:2]
+    return (cas if cas in CASES else 7), str(d.get("phrase", "")).strip(), qs[:3]
 
 
 def clean_open(cas, phrase):
