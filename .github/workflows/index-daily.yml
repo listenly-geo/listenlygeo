@@ -1,0 +1,43 @@
+name: Index — une page par jour (file de chaque client)
+
+# Chaque matin (9h, Paris) : une page de la file de chaque Index client est mise en ligne (5 au depart, puis 1 par jour).
+# Sans file en attente, le passage ne fait rien.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'true = simulation (aucune page publiee)'
+        required: false
+        default: 'false'
+  schedule:
+    - cron: '0 8 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: index-daily
+  cancel-in-progress: false
+
+jobs:
+  publier:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      HUB_IMPORT_TOKEN: ${{ secrets.HUB_IMPORT_TOKEN }}
+      DRY_RUN: ${{ inputs.dry_run == 'true' && '1' || '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Publier la page du jour
+        run: python automation/scripts/index_daily.py
+      - name: Sauvegarder l'avancement des files
+        if: inputs.dry_run != 'true'
+        run: |
+          git config user.name "marketforge-bot"; git config user.email "bot@listenly.fr"
+          git add automation/onboarding_queue || true
+          git diff --cached --quiet || git commit -m "Index : avancement de la file (page du jour)"
+          for i in 1 2 3; do git pull -q --rebase && git push -q && break; sleep 5; done

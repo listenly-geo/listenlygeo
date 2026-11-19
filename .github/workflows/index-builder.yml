@@ -15,7 +15,7 @@ on:
     - cron: '7,37 * * * *'
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: index-builder
@@ -62,3 +62,10 @@ jobs:
       - name: Construire les Index
         if: steps.file.outputs.n != '0'
         run: python automation/scripts/index_builder.py
+      - name: Sauvegarder les files d'attente (1 page par jour)
+        if: steps.file.outputs.n != '0' && inputs.dry_run != 'true'
+        run: |
+          git config user.name "marketforge-bot"; git config user.email "bot@listenly.fr"
+          git add automation/onboarding_queue || true
+          git diff --cached --quiet || git commit -m "Index : nouvelle file d'attente (pages du jour)"
+          for i in 1 2 3; do git pull -q --rebase && git push -q && break; sleep 5; done

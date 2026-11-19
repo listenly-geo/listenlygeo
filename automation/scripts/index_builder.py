@@ -28,6 +28,11 @@ AUDIO_MIN = int(os.environ.get("INDEX_AUDIO_MIN") or 20)
 TEST_EMAILS = {e.strip().lower() for e in (os.environ.get("INDEX_TEST_EMAILS")
                or "etienne.cugnet@gmail.com,etienne.cugnet@marketforge.fr").split(",") if e.strip()}
 DRY_RUN = os.environ.get("DRY_RUN", "").strip() in ("1", "true", "yes")
+# File de pages (19/11/2026) : extraction complete au paiement, 5 pages en ligne tout de suite, puis 1 par jour (index_daily.py).
+QUEUE_EPISODES = int(os.environ.get("INDEX_QUEUE_EPISODES") or 40)
+QUEUE_MAX = int(os.environ.get("INDEX_QUEUE_MAX") or 100)
+FIRST_BATCH = int(os.environ.get("INDEX_FIRST_BATCH") or 5)
+QUEUE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "onboarding_queue")
 
 CTA_TEXT = {
     "Clients / leads": "Work with us",
@@ -58,14 +63,14 @@ def pending():
     return j.get("rows", []) if isinstance(j, dict) and j.get("ok") else []
 
 
-def extract_answers(podcast, episodes, trim_min):
+def extract_answers(podcast, episodes, trim_min, max_eps=None):
     """Retourne la liste des reponses (format de l'import) pour les derniers episodes."""
     m = xq.emod()
     m.SLUG = podcast["slug"]
     xq.AUDIO_TRIM_MIN = trim_min
     answers, done = [], 0
     for ep in episodes:
-        if done >= MAX_EPISODES:
+        if done >= (max_eps or MAX_EPISODES):
             break
         if not ep.get("audio_url"):
             continue
@@ -143,11 +148,30 @@ def build(row):
     podcast = {"slug": slugify(name), "podcast_name": name, "rss_url": rss, "language": "en"}
     # Les episodes ayant une transcription publiee (gratuite) passent d'abord, puis les plus recents.
     with_audio = [e for e in episodes if e.get("audio_url")]
-    episodes = sorted(with_audio, key=lambda e: 0 if e.get("transcript_url") else 1)[: MAX_EPISODES * 2]
-    answers = extract_answers(podcast, episodes, AUDIO_MIN)
+    episodes = sorted(with_audio, key=lambda e: 0 if e.get("transcript_url") else 1)[: QUEUE_EPISODES * 2]
+    answers = extract_answers(podcast, episodes, AUDIO_MIN, QUEUE_EPISODES)
     if not answers:
         raise RuntimeError("aucune reponse exploitable extraite des episodes")
     site = slugify(name) + "-index"
+    # Dedoublonnage des questions, plafond de la file, puis : 5 pages en ligne, le reste en file (publie chaque jour).
+    seen, uniq = set(), []
+    for a in answers:
+        k = re.sub(r"\W+", " ", a["question"].lower()).strip()
+        if k and k not in seen:
+            seen.add(k)
+            uniq.append(a)
+    answers = uniq[:QUEUE_MAX]
+    total = len(answers)
+    first, rest = answers[:FIRST_BATCH], answers[FIRST_BATCH:]
+    if rest and not DRY_RUN:
+        os.makedirs(QUEUE_DIR, exist_ok=True)
+        with open(os.path.join(QUEUE_DIR, site + ".json"), "w", encoding="utf-8") as f:
+            json.dump({"site": site, "podcast": name, "cta_url": (row.get("Lien du bouton") or "").strip(),
+                       "cta_text": CTA_TEXT.get(row.get("Objectif", ""), "Learn more"),
+                       "created": time.strftime("%Y-%m-%d"), "pointer": 0, "last_publish": "", "pages": rest},
+                      f, ensure_ascii=False, indent=1)
+        log(f"File creee : {len(rest)} page(s) en attente, 1 par jour.")
+    answers = first
     payload = {
         "site": site, "create_site": name, "podcast": name, "publish": True, "docs_theme": "mintlify",
         "cta_url": (row.get("Lien du bouton") or "").strip(),
@@ -162,7 +186,7 @@ def build(row):
         log(f"Import lot {n}/{len(lots)} : {str(res.get('output', ''))[-160:]}")
         if not res.get("ok"):
             raise RuntimeError("import refuse : " + str(res.get("output", ""))[:200])
-    return f"{BASE_DOCS}/{site}", len(answers)
+    return f"{BASE_DOCS}/{site}", total, len(first)
 
 
 def main():
@@ -180,8 +204,8 @@ def main():
     log(f"{len(rows)} ligne(s) en attente, {len(todo)} a construire (max {MAX_CLIENTS} par passage).")
     for r in todo[:MAX_CLIENTS]:
         try:
-            url, n = build(r)
-            set_status(r["row"], "Pret", f"{n} reponses", url)
+            url, n, live = build(r)
+            set_status(r["row"], "Pret", f"{live} pages en ligne, {n} en file (1 par jour)", url)
             log(f"Pret : {url}")
         except Exception as e:
             log(f"ERREUR ligne {r.get('row')} : {type(e).__name__}: {e}")
