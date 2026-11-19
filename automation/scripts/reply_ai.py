@@ -39,7 +39,6 @@ FAQ = {
     "technical_details": "We start from your podcast's RSS feed. Each page has a written answer, an audio player and a link to the full episode, on your own domain over HTTPS, with the markup and sitemap that Google and AI assistants need to read it.",
     "replace_seo": "It doesn't replace your SEO or your website, it adds to them: your episodes become written answers that Google and AI assistants can cite, on top of what you already do.",
     "example": "The short video below shows a real example of an Index built from an existing podcast.",
-    "price": "All the details, including how to get started, are on the same page as the video.",
     "call": "The video shows exactly how it works, and I answer every question here by email.",
 }
 
