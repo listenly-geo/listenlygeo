@@ -152,8 +152,8 @@ var EXAMPLE="https://app.marketforge.fr/docs/answers-with-dr-jr";
 var T={
 en:{eyebrow:"Podcast AI Index",h1:"Your podcast already has the answers. Turn them into visitors and clients.",
  sub:"We turn your existing episodes into clear written answers that Google, ChatGPT, Claude and Gemini can find and cite. Nothing to record, nothing to change.",
- badge:"3 MONTHS FREE · DAILY ARTICLE · 100 AI ARTICLES",cta1:"Get my Index",cta_top:"Get my Index",cta_bar:"Get my Index \u00b7 \u20ac297",vidsoon:"Video coming soon",
- sub2:"€297 today · 3 months of daily articles included · no commitment.",
+ badge:"3 MONTHS FREE · DAILY ARTICLE · 100 AI ARTICLES",cta1:"Get my Index",cta_top:"Get my Index",cta_bar:"Get my Index",vidsoon:"Video coming soon",
+ sub2:"3 months of daily articles included · no commitment.",
  how_eyebrow:"HOW IT WORKS",how_title:"Live on your domain the same day",
  steps:[["You get started","Pay once on a secure page, then fill in a short form: your podcast link and the subdomain you want (2 minutes)."],["We build your Index","We analyse your episodes, extract the real questions and write one answer page for each. You do nothing."],["It goes live on your domain","We email you one line to add in your domain settings. Once it is added, your Index is live on your own site."]],
  spec_eyebrow:"WHAT YOU GET",spec_title:"A ready-to-use Index on your own domain",
@@ -169,8 +169,8 @@ en:{eyebrow:"Podcast AI Index",h1:"Your podcast already has the answers. Turn th
  faq:[["Do I need technical skills?","No. The only thing to do is add one line in your domain settings. We send you the exact line, so you can also forward it to whoever manages your domain."],["How fast is it live?","The same day: we build your Index from your episodes and connect it to your domain as soon as you add the line."],["Does it replace my SEO or my website?","No, it adds to them. Your episodes become written answers that Google and AI assistants can cite, on top of what you already do."],["What does the monthly plan cover, and can I cancel?","\u20ac30 a month covers hosting, updates and your new episodes. It starts after the first 30 days and you can cancel anytime."],["Which podcasts does it work with?","Podcasts recorded in English. It works from your RSS feed, so the platform that hosts your podcast makes no difference."]]},
 fr:{eyebrow:"Index Podcast IA",h1:"Votre podcast a déjà les réponses. Transformez-les en visiteurs et en clients.",
  sub:"Nous transformons vos épisodes existants en réponses écrites claires que Google, ChatGPT, Claude et Gemini peuvent trouver et citer. Rien à enregistrer, rien à changer.",
- badge:"3 MOIS OFFERTS · UN ARTICLE CHAQUE JOUR · 100 ARTICLES IA",cta1:"Obtenir mon Index",cta_top:"Obtenir mon Index",cta_bar:"Obtenir mon Index \u00b7 297\u00a0\u20ac",vidsoon:"Vidéo bientôt disponible",
- sub2:"297 € aujourd'hui · 3 mois d'articles offerts · sans engagement.",
+ badge:"3 MOIS OFFERTS · UN ARTICLE CHAQUE JOUR · 100 ARTICLES IA",cta1:"Obtenir mon Index",cta_top:"Obtenir mon Index",cta_bar:"Obtenir mon Index",vidsoon:"Vidéo bientôt disponible",
+ sub2:"3 mois d'articles offerts · sans engagement.",
  how_eyebrow:"COMMENT ÇA MARCHE",how_title:"En ligne sur votre domaine le jour même",
  steps:[["Vous démarrez","Vous payez une fois sur une page sécurisée, puis vous remplissez un court formulaire : le lien de votre podcast et le sous-domaine souhaité (2 minutes)."],["Nous construisons votre Index","Nous analysons vos épisodes, extrayons les vraies questions et rédigeons une page de réponse pour chacune. Vous n'avez rien à faire."],["Il se met en ligne sur votre domaine","Nous vous envoyons une ligne à ajouter dans les réglages de votre domaine. Dès qu'elle est ajoutée, votre Index est en ligne sur votre site."]],
  spec_eyebrow:"CE QUE VOUS RECEVEZ",spec_title:"Un Index prêt à l'emploi sur votre propre domaine",
@@ -204,12 +204,12 @@ function render(){
  document.getElementById("faqlist").innerHTML=t.faq.map(function(f){return "<details><summary>"+esc(f[0])+"</summary><p>"+esc(f[1])+"</p></details>";}).join("");
  document.getElementById("note").textContent=CFG["price_note_"+lang]||t.note;
  document.querySelectorAll(".lang button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-l")===lang);});
- document.querySelectorAll(".paybtn").forEach(function(a){if(CFG.payment_url||CFG.contact_email)a.href=payHref();});
+ document.querySelectorAll("#pay").forEach(function(a){if(CFG.payment_url||CFG.contact_email)a.href=payHref();});
  var m=document.getElementById("mail");m.href="mailto:"+(CFG.contact_email||"supportindex@marketforge.fr")+"?subject="+encodeURIComponent("Podcast AI Index");
  document.getElementById("example").href=CFG.example_url||EXAMPLE;
 }
 document.querySelectorAll(".lang button").forEach(function(b){b.addEventListener("click",function(){lang=b.getAttribute("data-l");render();});});
-document.querySelectorAll(".paybtn").forEach(function(a){a.addEventListener("click",function(){ping("clic")});});
+document.querySelectorAll(".paybtn").forEach(function(a){a.addEventListener("click",function(e){ping("clic");if(a.id!=="pay"){e.preventDefault();var t=document.getElementById("pricing-wait")||document.getElementById("pricing");if(t)t.scrollIntoView({behavior:"smooth",block:"start"});}});});
 render();ping("vue");
 (function(){var bar=document.getElementById("pricing-bar"),wait=document.getElementById("pricing-wait");
  if(bar){requestAnimationFrame(function(){bar.style.transition="width 240s linear";bar.style.width="100%";});}
