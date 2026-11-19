@@ -366180,11 +366180,56 @@
     "feed_url": "https://anchor.fm/s/51ed48f0/podcast/rss",
     "genre": "Marketing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Marketing & Ventes",
     "gate": "dirigeant",
-    "email_domain": "brand-hackers.co"
+    "email_domain": "brand-hackers.co",
+    "rescue": "2026-11-19"
+  },
+  "https://rss.libsyn.com/shows/405875/destinations/3356339.xml": {
+    "podcast_name": "Long-Distance Worklife - A Hybrid & Remote Work Podcast",
+    "artist_name": "The Kevin Eikenberry Group",
+    "feed_url": "https://rss.libsyn.com/shows/405875/destinations/3356339.xml",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 661 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://feed.podbean.com/ccgmag/feed.xml": {
+    "podcast_name": "Professional Development for Women and Minorities",
+    "artist_name": "Career Communications Group, Inc",
+    "feed_url": "https://feed.podbean.com/ccgmag/feed.xml",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://feed.podbean.com/thefutureofdermatology/feed.xml": {
+    "podcast_name": "The Future of Dermatology",
+    "artist_name": "thefutureofdermatology",
+    "feed_url": "https://feed.podbean.com/thefutureofdermatology/feed.xml",
+    "genre": "Medicine",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/101faef04/podcast/rss": {
+    "podcast_name": "In Cobb We Trust",
+    "artist_name": "Dr. Parin Chheda and Miranda Crowder",
+    "feed_url": "https://anchor.fm/s/101faef04/podcast/rss",
+    "genre": "Politics",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Politics)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Énergie"
   }
 }
