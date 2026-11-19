@@ -363876,12 +363876,13 @@
     "feed_url": "https://anchor.fm/s/e7ad5f9c/podcast/rss",
     "genre": "Investing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Immobilier",
     "gate": "dirigeant",
-    "email_domain": "caia.org"
+    "email_domain": "caia.org",
+    "rescue": "2026-11-19"
   },
   "https://anchor.fm/s/fbafe53c/podcast/rss": {
     "podcast_name": "THE DERMATOLOGY DIGEST DOWNLOAD",
@@ -363889,12 +363890,13 @@
     "feed_url": "https://anchor.fm/s/fbafe53c/podcast/rss",
     "genre": "Medicine",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "gmail.com"
+    "email_domain": "gmail.com",
+    "rescue": "2026-11-19"
   },
   "https://rss.buzzsprout.com/2125045.rss": {
     "podcast_name": "Let's Get Physical (Therapy)",
@@ -363902,12 +363904,13 @@
     "feed_url": "https://rss.buzzsprout.com/2125045.rss",
     "genre": "Medicine",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Santé libérale",
     "gate": "dirigeant",
-    "email_domain": "medstar.net"
+    "email_domain": "medstar.net",
+    "rescue": "2026-11-19"
   },
   "https://support.doctorpodcasting.com/podcastfeed/340": {
     "podcast_name": "Health Matters: Insights from WCH Medical Experts",
@@ -363942,5 +363945,29 @@
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Tech & SaaS"
+  },
+  "https://rss.buzzsprout.com/945154.rss": {
+    "podcast_name": "Lipid Insights",
+    "artist_name": "National Lipid Association",
+    "feed_url": "https://rss.buzzsprout.com/945154.rss",
+    "genre": "Medicine",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Business général (entreprise)",
+    "gate": "dirigeant",
+    "email_domain": "lipid.org"
+  },
+  "https://rss.buzzsprout.com/561523.rss": {
+    "podcast_name": "Blended Family Breakthrough",
+    "artist_name": "Mike & Kim Anderson",
+    "feed_url": "https://rss.buzzsprout.com/561523.rss",
+    "genre": "Parenting",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Business général (entreprise)"
   }
 }
