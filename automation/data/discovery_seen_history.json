@@ -363736,12 +363736,13 @@
     "feed_url": "https://rss.buzzsprout.com/2367661.rss",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Tech & SaaS",
     "gate": "dirigeant",
-    "email_domain": "studioevolution.com"
+    "email_domain": "studioevolution.com",
+    "rescue": "2026-11-19"
   },
   "https://rss.buzzsprout.com/2499498.rss": {
     "podcast_name": "A Class Act: AI Builders & Founders",
@@ -363765,7 +363766,8 @@
     "checked_date": "2026-11-19",
     "secteur": "Business général (entreprise)",
     "gate": "dirigeant",
-    "email_domain": "a16z.com"
+    "email_domain": "a16z.com",
+    "rescue": "2026-11-19"
   },
   "https://anchor.fm/s/a3540558/podcast/rss": {
     "podcast_name": "UNIQUEWAYS WITH THOMAS GIRARD",
@@ -363867,5 +363869,78 @@
       "Growth Investing"
     ],
     "contact_email": "ryan@navwealthpartners.com"
+  },
+  "https://anchor.fm/s/e7ad5f9c/podcast/rss": {
+    "podcast_name": "Capital Decanted",
+    "artist_name": "John Bowman",
+    "feed_url": "https://anchor.fm/s/e7ad5f9c/podcast/rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Immobilier",
+    "gate": "dirigeant",
+    "email_domain": "caia.org"
+  },
+  "https://anchor.fm/s/fbafe53c/podcast/rss": {
+    "podcast_name": "THE DERMATOLOGY DIGEST DOWNLOAD",
+    "artist_name": "The Official Dermatology Digest Podcast",
+    "feed_url": "https://anchor.fm/s/fbafe53c/podcast/rss",
+    "genre": "Medicine",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale",
+    "gate": "dirigeant",
+    "email_domain": "gmail.com"
+  },
+  "https://rss.buzzsprout.com/2125045.rss": {
+    "podcast_name": "Let's Get Physical (Therapy)",
+    "artist_name": "Becca Schumer",
+    "feed_url": "https://rss.buzzsprout.com/2125045.rss",
+    "genre": "Medicine",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale",
+    "gate": "dirigeant",
+    "email_domain": "medstar.net"
+  },
+  "https://support.doctorpodcasting.com/podcastfeed/340": {
+    "podcast_name": "Health Matters: Insights from WCH Medical Experts",
+    "artist_name": "Wood County Hospital",
+    "feed_url": "https://support.doctorpodcasting.com/podcastfeed/340",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : dirigeant deja pris par un autre podcast",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale",
+    "gate": "doublon"
+  },
+  "https://rss.buzzsprout.com/2098735.rss": {
+    "podcast_name": "The Self-Driven Child",
+    "artist_name": "Ned Johnson",
+    "feed_url": "https://rss.buzzsprout.com/2098735.rss",
+    "genre": "Parenting",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Tech & SaaS"
+  },
+  "https://anchor.fm/s/106556750/podcast/rss": {
+    "podcast_name": "Sudbury Interviews",
+    "artist_name": "Sudztown",
+    "feed_url": "https://anchor.fm/s/106556750/podcast/rss",
+    "genre": "Arts",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Arts)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Tech & SaaS"
   }
 }
