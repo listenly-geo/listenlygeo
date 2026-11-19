@@ -164,8 +164,12 @@ def main():
             seen.add(f)
             uniq.append(q)
         qs = uniq
+        if cas == 3:
+            log(f"  questions : {[(str(q.get('q'))[:50], q.get('faq')) for q in qs]} ; sans reponse sure : {has_none}")
         if cas == 3 and qs and not has_none:
-            if SENSIBLE.search(text) or not verify(qs):
+            sens, vok = bool(SENSIBLE.search(text)), verify(qs)
+            log(f"  sensible : {sens} ; verification : {vok}")
+            if sens or not vok:
                 has_none = True
         if cas == 3 and (not qs or has_none):
             cas = 7   # question hors base : a traiter a la main, aucun brouillon
