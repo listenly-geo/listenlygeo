@@ -364768,11 +364768,56 @@
     "feed_url": "https://rss.libsyn.com/shows/88609/destinations/435472.xml",
     "genre": "Careers",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Pas de site d'entreprise trouve",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Formateurs & programmes",
     "gate": "dirigeant",
-    "email_domain": "gmail.com"
+    "email_domain": "gmail.com",
+    "rescue": "2026-11-19"
+  },
+  "https://anchor.fm/s/285e24a0/podcast/rss": {
+    "podcast_name": "Industry Leaders with Nikky Lyle",
+    "artist_name": "Nikky Lyle",
+    "feed_url": "https://anchor.fm/s/285e24a0/podcast/rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Agences de services"
+  },
+  "https://rss.buzzsprout.com/2087802.rss": {
+    "podcast_name": "The Sedona Real Estate Podcast",
+    "artist_name": "The Equity Team",
+    "feed_url": "https://rss.buzzsprout.com/2087802.rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Immobilier"
+  },
+  "https://anchor.fm/s/21f104ac/podcast/rss": {
+    "podcast_name": "Internet DNA - UX, Design and Tech musings",
+    "artist_name": "Internet DNA",
+    "feed_url": "https://anchor.fm/s/21f104ac/podcast/rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1886 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Tech & SaaS"
+  },
+  "https://feeds.acast.com/public/shows/62c82e48fe6a2d00121a7b0a": {
+    "podcast_name": "UCAS Choices",
+    "artist_name": "UCAS",
+    "feed_url": "https://feeds.acast.com/public/shows/62c82e48fe6a2d00121a7b0a",
+    "genre": "How To",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 338 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Agences de services"
   }
 }
