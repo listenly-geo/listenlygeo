@@ -362893,12 +362893,13 @@
     "feed_url": "https://feeds.soundcloud.com/users/soundcloud:users:59454822/sounds.rss",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Immobilier",
     "gate": "dirigeant",
-    "email_domain": "matheson.com"
+    "email_domain": "matheson.com",
+    "rescue": "2026-11-19"
   },
   "https://feed.podbean.com/xenawarriornutballs/feed.xml": {
     "podcast_name": "Xena: Warrior Nutballs",
@@ -362928,12 +362929,13 @@
     "feed_url": "https://feeds.castos.com/rzn5o",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Tech & SaaS",
     "gate": "dirigeant",
-    "email_domain": "jailbreakleadership.com"
+    "email_domain": "jailbreakleadership.com",
+    "rescue": "2026-11-19"
   },
   "https://anchor.fm/s/108a8a74c/podcast/rss": {
     "podcast_name": "Scaling Europe",
@@ -362941,12 +362943,13 @@
     "feed_url": "https://anchor.fm/s/108a8a74c/podcast/rss",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Tech & SaaS",
     "gate": "dirigeant",
-    "email_domain": "scaling-europe.com"
+    "email_domain": "scaling-europe.com",
+    "rescue": "2026-11-19"
   },
   "https://rss.libsyn.com/shows/484473/destinations/4128210.xml": {
     "podcast_name": "Making Wealth Meaningful with Private Wealth Network (PWN)",
@@ -362954,12 +362957,13 @@
     "feed_url": "https://rss.libsyn.com/shows/484473/destinations/4128210.xml",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Experts-comptables & patrimoine",
     "gate": "dirigeant",
-    "email_domain": "pwnetwork.com.au"
+    "email_domain": "pwnetwork.com.au",
+    "rescue": "2026-11-19"
   },
   "https://www.omnycontent.com/d/playlist/2fb3740d-3436-44af-8cc0-a91900716aa5/7d6e40aa-46f2-4d4d-9cc5-afa900a8adc3/f1bc65be-9dfb-4902-b162-afa900a8ade9/podcast.rss": {
     "podcast_name": "SugarMamma’s Fireplay",
@@ -362967,12 +362971,13 @@
     "feed_url": "https://www.omnycontent.com/d/playlist/2fb3740d-3436-44af-8cc0-a91900716aa5/7d6e40aa-46f2-4d4d-9cc5-afa900a8adc3/f1bc65be-9dfb-4902-b162-afa900a8ade9/podcast.rss",
     "genre": "Investing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Finance & Fintech",
     "gate": "dirigeant",
-    "email_domain": "sassfinancial.com.au"
+    "email_domain": "sassfinancial.com.au",
+    "rescue": "2026-11-19"
   },
   "https://anchor.fm/s/101c13228/podcast/rss": {
     "podcast_name": "YanaTV - The Human Side of Leaders",
@@ -363007,5 +363012,97 @@
       "Debt Management"
     ],
     "contact_email": "podcast@lasso.io"
+  },
+  "https://feeds.transistor.fm/the-boyz-of-edtech": {
+    "podcast_name": "The Boyz of Edtech | K–12 Education Insights",
+    "artist_name": "Old Soul | Edtech & K–12 Education Experts",
+    "feed_url": "https://feeds.transistor.fm/the-boyz-of-edtech",
+    "genre": "Education",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Agences de services"
+  },
+  "https://video-api.shdsvc.dowjones.io/api/podcasts/wsj%20leadership%20institute%20leaders/feed": {
+    "podcast_name": "WSJ Leadership Institute Presents: Leaders",
+    "artist_name": "The Wall Street Journal",
+    "feed_url": "https://video-api.shdsvc.dowjones.io/api/podcasts/wsj%20leadership%20institute%20leaders/feed",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Logistique & Supply chain",
+    "gate": "dirigeant",
+    "email_domain": "dowjones.com"
+  },
+  "https://rss.buzzsprout.com/2317730.rss": {
+    "podcast_name": "Lab to Market Leadership with Chris Reichhelm",
+    "artist_name": "Deep Tech Leaders",
+    "feed_url": "https://rss.buzzsprout.com/2317730.rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Logistique & Supply chain"
+  },
+  "https://rss.libsyn.com/shows/435765/destinations/3637548.xml": {
+    "podcast_name": "Combat Story",
+    "artist_name": "AJ Pasciuti",
+    "feed_url": "https://rss.libsyn.com/shows/435765/destinations/3637548.xml",
+    "genre": "History",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (History)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Agences de services"
+  },
+  "https://anchor.fm/s/86b26818/podcast/rss": {
+    "podcast_name": "Dance Studio Scaled: Innovative Marketing|Retention|Biz Growth Strategies for Dance Studio Owners",
+    "artist_name": "Jen Dalton",
+    "feed_url": "https://anchor.fm/s/86b26818/podcast/rss",
+    "genre": "Business",
+    "track_count": 206,
+    "collection_view_url": "https://podcasts.apple.com/gb/podcast/dance-studio-scaled-innovative-marketing-retention/id1619238935?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/c1/7a/bc/c17abc2e-1ae9-d69a-29d2-a7d46666dcc6/mza_15588332815295811445.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Jen Dalton, créatrice indépendante identifiable, sur un sujet B2B pointu (stratégies marketing et croissance pour propriétaires de studios de danse). Audience de niche sans couverture médiatique existante, 206 épisodes indiquent une activité régulière. Correspond au profil CREATEUR accepté depuis 27/10/2026.",
+    "checked_date": "2026-11-19",
+    "secteur": "Tech & SaaS",
+    "nb_episodes": 206,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Growth",
+      "Business Law",
+      "B2C Marketing",
+      "Business Law"
+    ],
+    "contact_email": "elkhwah@gmail.com"
+  },
+  "https://anchor.fm/s/2c6053c0/podcast/rss": {
+    "podcast_name": "The ADHD Mompreneur | ADHD Strategies for Mom Business Owners",
+    "artist_name": "Christy Lingo",
+    "feed_url": "https://anchor.fm/s/2c6053c0/podcast/rss",
+    "genre": "Entrepreneurship",
+    "track_count": 72,
+    "collection_view_url": "https://podcasts.apple.com/ca/podcast/the-adhd-mompreneur-adhd-strategies-for-mom-business/id1524897849?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/57/67/cd/5767cd64-157c-96e2-b8df-dd8abb5858ab/mza_13511537897013514308.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Christy Lingo, créatrice indépendante identifiable, sur un sujet business/B2B pointu (ADHD strategies pour entrepreneures). 72 épisodes réguliers, audience petite/moyenne, pas de média établi ni de célébrité — correspond aux critères CREATEUR du 27/10/2026.",
+    "checked_date": "2026-11-19",
+    "secteur": "Tech & SaaS",
+    "nb_episodes": 72,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "ADHD",
+      "Business Law",
+      "Business Law",
+      "Saving Strategies"
+    ],
+    "contact_email": "christy@theadhdmompreneur.com"
   }
 }
