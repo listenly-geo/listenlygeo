@@ -71,7 +71,8 @@ def main():
         for q in uniq:
             qt = re.sub(r"[*_<>\n\\]", " ", str(q.get("q", ""))).strip()
             blocks.append(f"**{qt}**\n{ra.FAQ[str(q['faq'])]}")
-        body = f"{r['hello']}\n\nThanks for reaching out.\n\n" + "\n\n".join(blocks) + "\n\nIf anything is still unclear, just reply here and I'll answer.\n\n" + ra.SIGN
+        hello = re.sub(r"^(Hello )(\w)", lambda m: m.group(1) + m.group(2).upper(), r['hello'])
+        body = f"{hello}\n\nThanks for reaching out.\n\n" + "\n\n".join(blocks) + "\n\nIf anything is still unclear, just reply here and I'll answer.\n\n" + ra.SIGN
         res = sb.call(payload={"action": "sav_save", "thread": r["thread"], "mode": "draft", "body": body})
         log(f"  -> {res}")
 
