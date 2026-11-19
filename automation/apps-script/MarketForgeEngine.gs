@@ -1408,6 +1408,42 @@ function mfeAiReplySave_(b) {
   return mfeJson_({ ok: true, mode: mode, podcast: v[1] });
 }
 
+// ---------- SAV (19/11/2026) : mails recus sur l'adresse support -> brouillon Gmail a relire (jamais envoye par le systeme) ----------
+function mfeSavLabel_(name) { return GmailApp.getUserLabelByName(name) || GmailApp.createLabel(name); }
+function mfeSavList_(b) {
+  var only = String(b.subject || '').trim(), out = [], addr = String(MFE_SAV_ADDR).toLowerCase();
+  var done = [mfeSavLabel_('SAV-brouillon'), mfeSavLabel_('SAV-a-la-main')];
+  var q = 'to:' + MFE_SAV_ADDR + ' newer_than:14d -in:trash -in:spam' + (only ? ' subject:"' + only.replace(/"/g, '') + '"' : '');
+  GmailApp.search(q, 0, 30).forEach(function (t) {
+    try {
+      if (!only) {
+        var lbls = t.getLabels().map(function (l) { return l.getName(); });
+        if (lbls.indexOf('SAV-brouillon') >= 0 || lbls.indexOf('SAV-a-la-main') >= 0) return;
+      }
+      var msgs = t.getMessages().filter(function (m) { return !m.isDraft(); });
+      if (!msgs.length) return;
+      var last = msgs[msgs.length - 1], from = String(last.getFrom() || '');
+      if (!only && (from.toLowerCase().indexOf('marketforge.fr') !== -1 || /no-?reply|mailer-daemon|postmaster/i.test(from))) return;   // dernier message = nous
+      if (/automatic reply|auto-?reply|out of office|r\u00e9ponse automatique|absence/i.test(last.getSubject() || '')) return;
+      var nm = from.replace(/<.*$/, '').replace(/["']/g, '').trim(), first = nm && nm.indexOf('@') < 0 ? nm.split(/\s+/)[0] : '';
+      out.push({ thread: t.getId(), from: from.slice(0, 120), subject: String(last.getSubject() || '').slice(0, 120),
+                 hello: first ? 'Hello ' + first + ',' : 'Hello,', text: mfeReplyText_(last.getPlainBody()).slice(0, 1500) });
+    } catch (e) { Logger.log('sav_list : %s', e); }
+  });
+  return mfeJson_({ ok: true, rows: out });
+}
+function mfeSavSave_(b) {
+  var t = GmailApp.getThreadById(String(b.thread || '')), mode = String(b.mode || 'draft'), body = String(b.body || '').slice(0, 4000);
+  if (!t) return mfeJson_({ ok: false, error: 'fil introuvable' });
+  if (mode === 'note') { t.addLabel(mfeSavLabel_('SAV-a-la-main')); return mfeJson_({ ok: true, mode: mode }); }
+  if (!body) return mfeJson_({ ok: false, error: 'corps manquant' });
+  var o = mfeSendOpts_(body);
+  try { if (GmailApp.getAliases().indexOf(MFE_SAV_ADDR) >= 0) o.from = MFE_SAV_ADDR; o.replyTo = MFE_SAV_ADDR; } catch (e) { Logger.log('Alias SAV : %s', e); }
+  t.createDraftReply(mfeWithSignature_(body), o);
+  t.addLabel(mfeSavLabel_('SAV-brouillon'));
+  return mfeJson_({ ok: true, mode: mode });
+}
+
 // ---------- Domaine du client (18/11/2026) : liste des Index a relier, puis statut + mails (ligne DNS, "en ligne") ----------
 function mfeOnbDomains_() {
   var sh = mfeSS_().getSheetByName('Onboarding');
@@ -1542,7 +1578,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 51 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 52 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -1559,6 +1595,8 @@ function doPost(e) {
   if (body.action === 'onboarding_update') return mfeOnbUpdate_(body);
   if (body.action === 'ai_replies_list') return mfeAiRepliesList_(body);   // 19/11/2026 : reponses IA
   if (body.action === 'ai_reply_save') return mfeAiReplySave_(body);
+  if (body.action === 'sav_list') return mfeSavList_(body);   // 19/11/2026 : brouillons SAV
+  if (body.action === 'sav_save') return mfeSavSave_(body);
   if (body.action === 'onboarding_domains') return mfeOnbDomains_();   // 18/11/2026 : domaine du client
   if (body.action === 'onboarding_domain_update') return mfeOnbDomainUpdate_(body);
   if (body.action === 'tendances') return mfeTendances_(body);

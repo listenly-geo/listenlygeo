@@ -15,6 +15,10 @@ on:
         description: 'Adresse du prospect (obligatoire en test)'
         required: false
         default: ''
+      sav_subject:
+        description: 'SAV : objet du mail a traiter (test) ; vide = les mails SAV en attente'
+        required: false
+        default: ''
       reply_text:
         description: 'Test : texte de reponse simule (sinon sa vraie reponse)'
         required: false
@@ -39,10 +43,15 @@ jobs:
       REPLY_MODE: ${{ github.event.inputs.mode || 'draft' }}
       REPLY_EMAIL: ${{ github.event.inputs.reply_email }}
       REPLY_TEXT: ${{ github.event.inputs.reply_text }}
+      SAV_SUBJECT: ${{ github.event.inputs.sav_subject }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - name: Reponses IA
+        if: github.event.inputs.sav_subject == ''
         run: python automation/scripts/reply_ai.py
+      - name: SAV (brouillons de reponse sur l'adresse support)
+        if: github.event_name == 'schedule' || github.event.inputs.sav_subject != '' || github.event.inputs.mode == 'draft'
+        run: python automation/scripts/sav_ai.py
