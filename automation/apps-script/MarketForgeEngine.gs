@@ -1365,6 +1365,42 @@ function mfeOnbUpdate_(b) {
   } catch (err) { Logger.log('Mail onboarding_update : %s', err); }
   return mfeJson_({ ok: true });
 }
+// ---------- Reponses IA (19/11/2026) : liste des reponses de prospects a traiter, puis brouillon Gmail (ou test envoye a TOI) ----------
+function mfeAiRepliesList_(b) {
+  var sh = mfeSheet_(), only = String(b.email || '').toLowerCase().trim(), out = [];
+  mfeRows_(sh).forEach(function (r) {
+    var st = String(r.values[6] || ''), note = String(r.values[11] || ''), em = String(r.values[2] || '').toLowerCase().trim();
+    if (st !== 'Repondu' && st !== 'Lien recu') return;
+    if (only ? em !== only : /Reponse IA|Reponse automatique envoyee/.test(note)) return;
+    if (!r.values[10]) return;
+    try {
+      var msgs = GmailApp.getThreadById(r.values[10]).getMessages(), last = null;
+      msgs.forEach(function (m) { if (m.getFrom().toLowerCase().indexOf(em) !== -1) last = m; });
+      if (!last) return;
+      out.push({ row: r.row, slug: String(r.values[0] || ''), podcast: String(r.values[1] || ''), email: em, hello: mfeHello_(r.values[13]),
+                 thread: String(r.values[10]), text: mfeReplyText_(last.getPlainBody()).slice(0, 1500) });
+    } catch (e) { Logger.log('ai_replies_list %s : %s', em, e); }
+  });
+  return mfeJson_({ ok: true, rows: out });
+}
+function mfeAiReplySave_(b) {
+  var sh = mfeSheet_(), row = parseInt(b.row, 10), mode = String(b.mode || 'draft'), cas = mfeOnbClean_(b.cas, 60);
+  if (!(row > MFE.HEADER_ROW && row <= sh.getLastRow())) return mfeJson_({ ok: false, error: 'ligne invalide' });
+  var v = sh.getRange(row, 1, 1, MFE.COLS.length).getValues()[0], body = String(b.body || '').slice(0, 4000);
+  if (!body || !v[10]) return mfeJson_({ ok: false, error: 'corps ou fil manquant' });
+  if (mode === 'test') {
+    GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), '[TEST reponse IA - cas ' + cas + '] Re: ' + String(v[1] || ''), mfeWithSignature_(body), mfeSendOpts_(body));
+    return mfeJson_({ ok: true, mode: mode, podcast: v[1] });
+  }
+  if (mode === 'note') {   // refus, retrait, sujet sensible : aucun brouillon, juste une note a traiter a la main
+    sh.getRange(row, 12).setValue('Reponse IA : ' + cas + ' - a traiter a la main (aucun brouillon)');
+    return mfeJson_({ ok: true, mode: mode });
+  }
+  GmailApp.getThreadById(v[10]).createDraftReply(mfeWithSignature_(body), mfeSendOpts_(body));
+  sh.getRange(row, 12).setValue('Reponse IA (brouillon Gmail, cas ' + cas + ') le ' + Utilities.formatDate(new Date(), 'Europe/Paris', 'dd/MM/yyyy HH:mm') + ' : a valider et envoyer');
+  return mfeJson_({ ok: true, mode: mode, podcast: v[1] });
+}
+
 // ---------- Domaine du client (18/11/2026) : liste des Index a relier, puis statut + mails (ligne DNS, "en ligne") ----------
 function mfeOnbDomains_() {
   var sh = mfeSS_().getSheetByName('Onboarding');
@@ -1499,7 +1535,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 48 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 49 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -1514,6 +1550,8 @@ function doPost(e) {
   if (!mfeAuth_(p.secret || body.secret)) return mfeJson_({ ok: false, error: 'secret invalide' });
   if (body.action === 'onboarding_pending') return mfeOnbPending_();   // 16/11/2026 : construction automatique de l'Index client
   if (body.action === 'onboarding_update') return mfeOnbUpdate_(body);
+  if (body.action === 'ai_replies_list') return mfeAiRepliesList_(body);   // 19/11/2026 : reponses IA
+  if (body.action === 'ai_reply_save') return mfeAiReplySave_(body);
   if (body.action === 'onboarding_domains') return mfeOnbDomains_();   // 18/11/2026 : domaine du client
   if (body.action === 'onboarding_domain_update') return mfeOnbDomainUpdate_(body);
   if (body.action === 'tendances') return mfeTendances_(body);

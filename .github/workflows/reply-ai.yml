@@ -1,0 +1,43 @@
+name: Reponses IA aux prospects (brouillons Gmail ou test)
+
+# draft : pour chaque prospect qui a repondu et n'a pas encore de reponse, l'IA prepare un brouillon dans le fil Gmail (rien n'est envoye).
+# test  : envoie UN mail de test a Etienne seul, base sur la reponse du prospect indique (reply_email).
+# Modeles fixes (explication, video, signature) ; l'IA n'ecrit que la phrase d'accueil. Jamais de prix, d'appel ni de delai.
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'draft ou test'
+        required: true
+        default: 'test'
+      reply_email:
+        description: 'Adresse du prospect (obligatoire en test)'
+        required: false
+        default: ''
+  schedule:
+    - cron: '11 * * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reply-ai
+  cancel-in-progress: false
+
+jobs:
+  reponses:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      REPLY_MODE: ${{ github.event.inputs.mode || 'draft' }}
+      REPLY_EMAIL: ${{ github.event.inputs.reply_email }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Reponses IA
+        run: python automation/scripts/reply_ai.py
