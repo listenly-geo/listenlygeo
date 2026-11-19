@@ -364687,12 +364687,13 @@
     "feed_url": "https://feeds.alitu.com/99282214",
     "genre": "Education",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Formateurs & programmes",
     "gate": "dirigeant",
-    "email_domain": "heritageclassicalacademy.org"
+    "email_domain": "heritageclassicalacademy.org",
+    "rescue": "2026-11-19"
   },
   "https://anchor.fm/s/1fd177d8/podcast/rss": {
     "podcast_name": "Keeping it Business",
@@ -364727,5 +364728,51 @@
       "Female Entrepreneurship"
     ],
     "contact_email": "peter@buildingfortunesradio.com"
+  },
+  "https://rss.libsyn.com/shows/88451/destinations/434292.xml": {
+    "podcast_name": "Doctor Thyroid",
+    "artist_name": "Philip James interviews top thyroid experts about surgery, nutrition, endoc",
+    "feed_url": "https://rss.libsyn.com/shows/88451/destinations/434292.xml",
+    "genre": "Medicine",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 552 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé"
+  },
+  "https://feeds.transistor.fm/seo-unveiled-advanced-tactics-stay-on-top-of-rankings": {
+    "podcast_name": "SEO Unveiled: Advanced tactics | Stay on top of rankings",
+    "artist_name": "Clay Kramer",
+    "feed_url": "https://feeds.transistor.fm/seo-unveiled-advanced-tactics-stay-on-top-of-rankings",
+    "genre": "Marketing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1277 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé"
+  },
+  "https://www.spreaker.com/show/3572576/episodes/feed": {
+    "podcast_name": "The Lapsed Fan",
+    "artist_name": "The Lapsed Fan",
+    "feed_url": "https://www.spreaker.com/show/3572576/episodes/feed",
+    "genre": "Wrestling",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Wrestling)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://rss.libsyn.com/shows/88609/destinations/435472.xml": {
+    "podcast_name": "Farrier Focus Podcast",
+    "artist_name": "Butler Professional Farrier School",
+    "feed_url": "https://rss.libsyn.com/shows/88609/destinations/435472.xml",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Pas de site d'entreprise trouve",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Formateurs & programmes",
+    "gate": "dirigeant",
+    "email_domain": "gmail.com"
   }
 }
