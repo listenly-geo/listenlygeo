@@ -1317,75 +1317,10 @@ function mfeSettings_() {
 }
 
 // ---------- Pont GitHub (application web) ----------
-// ---------- Espace client Stripe (19/11/2026) : lien "Gerer mon abonnement" (factures, carte, resiliation) dans les mails et dans l'Index ----------
-// Lien public signe : exec?action=portal&sid=<session Stripe du client>&t=<signature>. Sans la bonne signature (HMAC du secret du pont), rien ne s'ouvre.
-function mfePortalSig_(msg) {
-  var s = PropertiesService.getScriptProperties().getProperty('MFE_SECRET') || '';
-  return Utilities.computeHmacSha256Signature('portal:' + msg, s).map(function (b) { return ('0' + (b & 0xff).toString(16)).slice(-2); }).join('').slice(0, 32);
-}
-function mfePortalLink_(sid) {
-  try { return ScriptApp.getService().getUrl() + '?action=portal&sid=' + encodeURIComponent(sid) + '&t=' + mfePortalSig_(sid); } catch (e) { return ''; }
-}
-function mfePortalFooter_(sid) {
-  var l = sid ? mfePortalLink_(sid) : '';
-  return l ? '\n\nManage your subscription (invoices, payment card, cancel anytime):\n' + l : '';
-}
-function mfePortalShell_(inner) {
-  return HtmlService.createHtmlOutput('<!doctype html><html><head><base target="_top"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Your subscription</title></head>' +
-    '<body style="font-family:-apple-system,Segoe UI,Arial,sans-serif;background:#f5f5f7;margin:0;display:flex;min-height:100vh;align-items:center;justify-content:center"><div style="background:#fff;border-radius:16px;padding:36px;max-width:420px;width:calc(100% - 32px);text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.08)">' +
-    '<h2 style="margin:0 0 10px;color:#1d1d1f">Your subscription</h2>' + inner + '</div></body></html>').setTitle('Your subscription').addMetaTag('viewport', 'width=device-width, initial-scale=1');
-}
-// Depuis l'Index (bouton "Espace admin") : le client saisit l'email de son paiement ; si elle correspond, le lien signe lui est ENVOYE par mail (jamais affiche).
-function mfePortalForm_(p) {
-  var site = String(p.site || '').replace(/[^a-z0-9-]/g, '').slice(0, 80), host = String(p.host || '').toLowerCase().replace(/[^a-z0-9.-]/g, '').slice(0, 200);
-  return mfePortalShell_('<p style="color:#555;margin:0 0 18px">Enter the email you used for your subscription. We send you a secure link to manage it (invoices, card, cancellation).</p>' +
-    '<input id="e" type="email" placeholder="you@company.com" style="width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid #d2d2d7;border-radius:10px;font-size:15px;margin-bottom:12px">' +
-    '<button id="b" style="width:100%;background:#1d1d1f;color:#fff;font-weight:600;font-size:15px;padding:13px;border:0;border-radius:999px;cursor:pointer">Send me the link</button><p id="m" style="color:#555;margin:14px 0 0"></p>' +
-    '<script>document.getElementById("b").onclick=function(){var e=document.getElementById("e").value.trim();if(!e)return;this.disabled=true;' +
-    'google.script.run.withSuccessHandler(function(){document.getElementById("m").textContent="If this email matches a subscription, the link is on its way. Check your inbox."}).withFailureHandler(function(){document.getElementById("m").textContent="Something went wrong. Please try again."}).mfePortalRequest(' + JSON.stringify(site) + ',' + JSON.stringify(host) + ',e);};</script>');
-}
-function mfePortalRequest(site, host, email) {   // public (google.script.run) : reponse toujours identique, aucune fuite d'information
-  email = String(email || '').toLowerCase().trim(); site = String(site || ''); host = String(host || '').toLowerCase();
-  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || (!/^[a-z0-9-]{3,80}$/.test(site) && !/^[a-z0-9.-]{3,200}$/.test(host))) return 'ok';
-  var cache = CacheService.getScriptCache(), ck = 'portal_' + Utilities.base64EncodeWebSafe(email + '|' + site + host).slice(0, 80);
-  if (cache.get(ck)) return 'ok';   // 1 demande par minute et par couple email/Index
-  cache.put(ck, '1', 60);
-  try {
-    var sh = mfeSS_().getSheetByName('Onboarding');
-    if (!sh || sh.getLastRow() < 2) return 'ok';
-    var v = sh.getRange(2, 1, sh.getLastRow() - 1, MFE_ONB_COLS.length).getValues();
-    for (var i = v.length - 1; i >= 0; i--) {
-      var okSite = site && String(v[i][20]).indexOf('/docs/' + site) >= 0, okHost = host && v[i][16] && host === (String(v[i][17] || 'expertise') + '.' + String(v[i][16])).toLowerCase();
-      if ((okSite || okHost) && String(v[i][4]).toLowerCase().trim() === email && String(v[i][2]).indexOf('paye') === 0) {
-        GmailApp.sendEmail(email, 'Your subscription link', 'Hi,\n\nHere is your secure link to manage your subscription (invoices, payment card, cancellation):' + mfePortalFooter_(String(v[i][3])).replace('\n\nManage your subscription (invoices, payment card, cancel anytime):', '') + '\n\nIf you did not ask for this, you can ignore this email.\n\nThe MarketForge team', mfeSavOpts_());
-        break;
-      }
-    }
-  } catch (e) { Logger.log('Portail demande : %s', e); }
-  return 'ok';
-}
-function mfePortalPage_(p) {
-  if (!p.sid && (p.site || p.host)) return mfePortalForm_(p);
-  var sid = String(p.sid || ''), msg = '', url = '';
-  try {
-    if (!/^cs_(live|test)_[A-Za-z0-9]{10,200}$/.test(sid) || String(p.t || '') !== mfePortalSig_(sid)) msg = 'This link is not valid.';
-    var key = PropertiesService.getScriptProperties().getProperty('STRIPE_SECRET_KEY');
-    if (!msg && !key) msg = 'Subscription space is not available yet. Please reply to your MarketForge email and we will handle it.';
-    if (!msg) {
-      var H = { Authorization: 'Bearer ' + key }, r1 = UrlFetchApp.fetch('https://api.stripe.com/v1/checkout/sessions/' + sid, { headers: H, muteHttpExceptions: true });
-      var cust = r1.getResponseCode() === 200 ? JSON.parse(r1.getContentText()).customer : '';
-      if (!cust) msg = 'Subscription not found.';
-      else {
-        var r2 = UrlFetchApp.fetch('https://api.stripe.com/v1/billing_portal/sessions', { method: 'post', headers: H, muteHttpExceptions: true,
-          payload: { customer: cust, return_url: 'https://app.marketforge.fr/index-podcast' } });
-        url = r2.getResponseCode() === 200 ? JSON.parse(r2.getContentText()).url : '';
-        if (!url) msg = 'Could not open your subscription space. Please try again in a minute.';
-      }
-    }
-  } catch (err) { Logger.log('Portail : %s', err); msg = 'Could not open your subscription space. Please try again in a minute.'; }
-  var esc = function (x) { return String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); };
-  return mfePortalShell_(url ? '<p style="color:#555;margin:0 0 22px">Invoices, payment card and cancellation, in one secure place.</p><a href="' + esc(url) + '" target="_top" style="display:inline-block;background:#1d1d1f;color:#fff;text-decoration:none;font-weight:600;padding:13px 26px;border-radius:999px">Open my subscription space</a>'
-    : '<p style="color:#555;margin:0">' + esc(msg || 'Not available.') + '</p>');
+// ---------- Espace abonne (19/11/2026) : page de connexion du portail Stripe (le client saisit l'email de son paiement, Stripe lui envoie un code). Meme lien pour tous. ----------
+var MFE_PORTAL_LOGIN = "https://billing.stripe.com/p/login/8x28wPebOeLMgoN10593y00";
+function mfePortalFooter_() {
+  return '\n\nManage your subscription (invoices, payment card, cancel anytime):\n' + MFE_PORTAL_LOGIN;
 }
 // ---------- Onboarding client apres paiement (15/11/2026) ----------
 // La page app.marketforge.fr/onboarding envoie ici les reponses du client. Seule action publique : elle exige un identifiant de session Stripe
@@ -1428,7 +1363,7 @@ function mfeOnbUpdate_(b) {
     if (statut === 'Pret' && /^https:\/\//.test(url)) {
       GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Index pret : ' + podcast, 'Index construit pour ' + podcast + '\n' + url + '\nLigne ' + row + ' de l\'onglet Onboarding.');
       if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) && String(sh.getRange(row, 3).getValue()).indexOf('paye') === 0)
-        GmailApp.sendEmail(email, 'Your Index is ready', 'Hi,\n\nYour Index is ready. See it live here:\n' + url + '\n\nYour podcast episodes are now searchable expert answers, readable by Google and AI assistants.\n\nNext step, in a few minutes: you will get one short email with a single line to add to your domain settings (or to forward to whoever manages it). Once it is added, your Index goes live on your own domain automatically. If you have any question, just reply to this email.' + mfePortalFooter_(String(sh.getRange(row, 4).getValue() || '')) + '\n\nThe MarketForge team', mfeSavOpts_());
+        GmailApp.sendEmail(email, 'Your Index is ready', 'Hi,\n\nYour Index is ready. See it live here:\n' + url + '\n\nYour podcast episodes are now searchable expert answers, readable by Google and AI assistants.\n\nNext step, in a few minutes: you will get one short email with a single line to add to your domain settings (or to forward to whoever manages it). Once it is added, your Index goes live on your own domain automatically. If you have any question, just reply to this email.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
     } else if (statut === 'Erreur') {
       GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Index en erreur : ' + podcast, 'Construction en erreur pour ' + podcast + '\nLigne ' + row + '\n' + note);
     }
@@ -1548,13 +1483,13 @@ function mfeOnbDomainUpdate_(b) {
         (who === 'Someone else' ? 'You said someone else manages your domain: we also sent this line to ' + (dnsMail || 'them') + ' if you gave us an address, or you can simply forward this email.\n\n'
           : who === 'Not sure' ? 'Not sure where to do this? Just reply with the name of your domain provider (GoDaddy, OVH, Cloudflare, Wix...) and we will walk you through it.\n\n'
           : 'You usually do this where you bought your domain: DNS records > Add record.\n\n') +
-        'As soon as the line is active, your Index goes live on ' + host + ' automatically (it can take a few minutes up to a few hours), and we will email you. Nothing else to do.' + mfePortalFooter_(String(sh.getRange(row, 4).getValue() || '')) + '\n\nThe MarketForge team', mfeSavOpts_());
+        'As soon as the line is active, your Index goes live on ' + host + ' automatically (it can take a few minutes up to a few hours), and we will email you. Nothing else to do.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
       if (who === 'Someone else' && okMail.test(dnsMail)) GmailApp.sendEmail(dnsMail, 'DNS record to add for ' + host + ' (2 minutes)',
         'Hi,\n\n' + podcast + ' is putting its podcast Index on ' + host + '. Could you add this DNS record?\n\n' + line + '\n\nThat is all: HTTPS is set up on our side. Questions: reply to this email.\n\nThe MarketForge team', mfeSavOpts_());
       GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'DNS a faire : ' + host, podcast + '\nLigne ' + row + '\n' + line);
     } else if (statut === 'En ligne' && prev !== 'En ligne' && paid) {
       if (okMail.test(email)) GmailApp.sendEmail(email, 'Your Index is live on ' + host,
-        'Hi,\n\nYour Index is now live on your own domain:\nhttps://' + host + '\n\nAdd a link to it from your website menu and your podcast show notes: that is how Google and AI assistants find it. Questions? Just reply.' + mfePortalFooter_(String(sh.getRange(row, 4).getValue() || '')) + '\n\nThe MarketForge team', mfeSavOpts_());
+        'Hi,\n\nYour Index is now live on your own domain:\nhttps://' + host + '\n\nAdd a link to it from your website menu and your podcast show notes: that is how Google and AI assistants find it. Questions? Just reply.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
       GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Index EN LIGNE : ' + host, podcast + '\nLigne ' + row);
     } else if (statut === 'Erreur') {
       GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Domaine en erreur : ' + host, podcast + '\nLigne ' + row + '\n' + note);
@@ -1616,7 +1551,7 @@ function mfeOnboardingPublic_(b) {
     if (row) { var keep = sh.getRange(row, 2).getValue(); line[0] = sh.getRange(row, 1).getValue(); line[1] = keep; sh.getRange(row, 1, 1, line.length).setValues([line]); }   // meme paiement = mise a jour, pas de doublon
     else { sh.appendRow(line); row = sh.getLastRow(); try { GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Nouvel onboarding Index : ' + (line[5] || email), 'Paiement : ' + paiement + '\nPodcast : ' + line[5] + '\nEmail : ' + email + '\nRSS : ' + line[6] + '\nDomaine : ' + line[16] + ' (sous-domaine ' + line[17] + ')\n\nLigne ' + row + ' de l\'onglet Onboarding.'); } catch (e2) { Logger.log('Alerte onboarding : %s', e2); }
       // 16/11/2026 : mail de confirmation au client (uniquement si le paiement est verifie aupres de Stripe : jamais d'envoi a une adresse saisie sans paiement reel)
-      if (paiement === 'paye (verifie)') { try { GmailApp.sendEmail(email, 'Your Index is on its way', 'Hi,\n\nThanks for your order and for taking the time to answer our questions. We have everything we need.\n\nWhat happens next:\n1. We build your Index from your podcast episodes' + (line[13] ? ' (shown as "' + line[13] + '")' : '') + '.\n2. You receive one simple line to copy and paste on your domain' + (line[16] ? ' (' + (line[17] || 'expertise') + '.' + line[16] + ')' : '') + ', or to forward to whoever manages it. We guide you step by step.\n3. Your Index comes to life, and you get the link to see it.\n\nYou will hear from us within 48 hours. If anything is unclear, just reply to this email.' + mfePortalFooter_(sid) + '\n\nThe MarketForge team', mfeSavOpts_()); } catch (e3) { Logger.log('Mail client onboarding : %s', e3); } } }
+      if (paiement === 'paye (verifie)') { try { GmailApp.sendEmail(email, 'Your Index is on its way', 'Hi,\n\nThanks for your order and for taking the time to answer our questions. We have everything we need.\n\nWhat happens next:\n1. We build your Index from your podcast episodes' + (line[13] ? ' (shown as "' + line[13] + '")' : '') + '.\n2. You receive one simple line to copy and paste on your domain' + (line[16] ? ' (' + (line[17] || 'expertise') + '.' + line[16] + ')' : '') + ', or to forward to whoever manages it. We guide you step by step.\n3. Your Index comes to life, and you get the link to see it.\n\nYou will hear from us within 48 hours. If anything is unclear, just reply to this email.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_()); } catch (e3) { Logger.log('Mail client onboarding : %s', e3); } } }
   } finally { lock.releaseLock(); }
   return mfeJson_({ ok: true });
 }
@@ -1632,7 +1567,6 @@ function mfeJson_(obj) {
 
 function doGet(e) {
   var p = (e && e.parameter) || {};
-  if (p.action === 'portal') return mfePortalPage_(p);   // 19/11/2026 : espace abonnement du client (lien signe, sans secret du pont)
   if (!mfeAuth_(p.secret)) return mfeJson_({ ok: false, error: 'secret invalide' });
   if (p.action === 'config') return mfeJson_({ ok: true, reglages: mfeReadSettings_() });
   if (p.action === 'status') {
@@ -1650,7 +1584,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 57 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 58 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }

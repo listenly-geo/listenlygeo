@@ -1,11 +1,8 @@
 (function () {
   try {
-    var m = location.pathname.match(/^\/docs\/([a-z0-9-]+)/), q = '';
-    if (m) q = 'site=' + m[1];
-    else if (!/(^|\.)marketforge\.fr$/.test(location.hostname)) q = 'host=' + encodeURIComponent(location.hostname);
-    if (!q) return;
-    var url = '__BRIDGE__?action=portal&' + q, css = 'display:inline-flex;align-items:center;margin-left:12px;padding:7px 14px;border-radius:999px;border:1px solid rgba(128,128,128,.45);font:600 13px -apple-system,Segoe UI,Arial,sans-serif;color:inherit;text-decoration:none;white-space:nowrap;background:transparent';
-    function make() { var a = document.createElement('a'); a.id = 'mf-admin'; a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Espace admin'; a.style.cssText = css; return a; }
+    if (!/^\/docs\//.test(location.pathname) && /(^|\.)marketforge\.fr$/.test(location.hostname)) return;   // seulement les pages d'Index (app.marketforge.fr/docs/... ou domaine du client)
+    var url = 'https://billing.stripe.com/p/login/8x28wPebOeLMgoN10593y00', css = 'display:inline-flex;align-items:center;margin-left:12px;padding:7px 14px;border-radius:999px;border:1px solid rgba(128,128,128,.45);font:600 13px -apple-system,Segoe UI,Arial,sans-serif;color:inherit;text-decoration:none;white-space:nowrap;background:transparent';
+    function make() { var a = document.createElement('a'); a.id = 'mf-admin'; a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Mon espace abonné'; a.style.cssText = css; return a; }
     function place() {
       if (document.getElementById('mf-admin')) return true;
       var els = document.querySelectorAll('span,div,a,button');
