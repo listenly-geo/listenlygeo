@@ -364993,12 +364993,13 @@
     "feed_url": "https://rss.libsyn.com/shows/599045/destinations/5211740.xml",
     "genre": "Careers",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Formateurs & programmes",
     "gate": "dirigeant",
-    "email_domain": "businessinnovators.global"
+    "email_domain": "businessinnovators.global",
+    "rescue": "2026-11-19"
   },
   "https://rss.buzzsprout.com/2451413.rss": {
     "podcast_name": "Brands In Play",
@@ -365006,12 +365007,13 @@
     "feed_url": "https://rss.buzzsprout.com/2451413.rss",
     "genre": "Marketing",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Marketing & Ventes",
     "gate": "dirigeant",
-    "email_domain": "brands-in-play.com"
+    "email_domain": "brands-in-play.com",
+    "rescue": "2026-11-19"
   },
   "https://www.spreaker.com/show/5981646/episodes/feed": {
     "podcast_name": "The MAMA Podcast",
@@ -365027,5 +365029,60 @@
     "checked_date": "2026-11-19",
     "secteur": "Formateurs & programmes",
     "nb_episodes": 74
+  },
+  "https://rss.pdrl.fm/a10dd6/feeds.libsyn.com/192237/rss/?redirect=false": {
+    "podcast_name": "Hearing Architecture",
+    "artist_name": "The Australian Institute of Architects",
+    "feed_url": "https://rss.pdrl.fm/a10dd6/feeds.libsyn.com/192237/rss/?redirect=false",
+    "genre": "Design",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 174 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Construction & Industrie"
+  },
+  "https://anchor.fm/s/ff9891e4/podcast/rss": {
+    "podcast_name": "The Soul Architect",
+    "artist_name": "Charlotte Milda - The Soul Architect",
+    "feed_url": "https://anchor.fm/s/ff9891e4/podcast/rss",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Construction & Industrie"
+  },
+  "https://app.kajabi.com/podcasts/2147743518/feed": {
+    "podcast_name": "The E-commerce Leader: Strategies For Shopify Store Owners",
+    "artist_name": "Kyle Hamar",
+    "feed_url": "https://app.kajabi.com/podcasts/2147743518/feed",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 611 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Tech & SaaS"
+  },
+  "https://rss.buzzsprout.com/2402927.rss": {
+    "podcast_name": "Better Business for Small Business Leaders",
+    "artist_name": "Chrissy Myers",
+    "feed_url": "https://rss.buzzsprout.com/2402927.rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Tech & SaaS"
+  },
+  "https://feeds.captivate.fm/71f18335a0eed8febd317d/": {
+    "podcast_name": "The Commuter Top Headlines Podcast Network",
+    "artist_name": "Evergreen Associates, LLC",
+    "feed_url": "https://feeds.captivate.fm/71f18335a0eed8febd317d/",
+    "genre": "Daily News",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Tech & SaaS"
   }
 }
