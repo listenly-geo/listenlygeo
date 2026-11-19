@@ -363528,12 +363528,13 @@
     "feed_url": "https://api.riverside.fm/hosting/vpYKU0QS.rss",
     "genre": "Management",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Santé",
     "gate": "dirigeant",
-    "email_domain": "coremanagementtraining.com"
+    "email_domain": "coremanagementtraining.com",
+    "rescue": "2026-11-19"
   },
   "https://rss.buzzsprout.com/2489680.rss": {
     "podcast_name": "Trees in a Pod",
@@ -363574,12 +363575,13 @@
     "feed_url": "https://feeds.castos.com/0pr93",
     "genre": "Entrepreneurship",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Santé",
     "gate": "dirigeant",
-    "email_domain": "gearhartlaw.com"
+    "email_domain": "gearhartlaw.com",
+    "rescue": "2026-11-19"
   },
   "https://feed.podbean.com/madsenfit/feed.xml": {
     "podcast_name": "The Fit Father Code Podcast",
@@ -363636,5 +363638,73 @@
     "checked_date": "2026-11-19",
     "secteur": "Santé libérale",
     "nb_episodes": 263
+  },
+  "https://feeds.captivate.fm/forwardstudios/": {
+    "podcast_name": "Darn Good Distributors",
+    "artist_name": "Forward Studios",
+    "feed_url": "https://feeds.captivate.fm/forwardstudios/",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Tech & SaaS"
+  },
+  "https://anchor.fm/s/5091ad70/podcast/rss": {
+    "podcast_name": "The SileightyMania Podcast - Drifting Interviews with OGs and Pioneers",
+    "artist_name": "Benson Hsu",
+    "feed_url": "https://anchor.fm/s/5091ad70/podcast/rss",
+    "genre": "Automotive",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun format d'adresse confirme",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B",
+    "gate": "dirigeant",
+    "email_domain": "sileightymania.com"
+  },
+  "https://feeds.acast.com/public/shows/67bbf55519249d0c1a4bb224": {
+    "podcast_name": "Basis Points",
+    "artist_name": "Equity Mates Media",
+    "feed_url": "https://feeds.acast.com/public/shows/67bbf55519249d0c1a4bb224",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Finance & Fintech"
+  },
+  "https://feeds.transistor.fm/making-it-how-to-be-a-successful-online-entrepreneur": {
+    "podcast_name": "Making It: How Coaches, Consultants, and Creators Build for Success",
+    "artist_name": "Mirasee FM",
+    "feed_url": "https://feeds.transistor.fm/making-it-how-to-be-a-successful-online-entrepreneur",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Énergie"
+  },
+  "https://rss.buzzsprout.com/1519906.rss": {
+    "podcast_name": "Bilingual Cafe Podcast",
+    "artist_name": "Daniela Perieda - Author and Founder of Bilingual Family",
+    "feed_url": "https://rss.buzzsprout.com/1519906.rss",
+    "genre": "Language Learning",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://feeds.acast.com/public/shows/6568b0636e8b4c00127e5922": {
+    "podcast_name": "Everything Building Envelope",
+    "artist_name": "Paul Beers - GCI Consultants, LLC",
+    "feed_url": "https://feeds.acast.com/public/shows/6568b0636e8b4c00127e5922",
+    "genre": "Business News",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 1289 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Énergie"
   }
 }
