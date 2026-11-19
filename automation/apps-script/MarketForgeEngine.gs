@@ -1514,7 +1514,7 @@ function mfeOnboardingRss_(b) {
     return mfeJson_({ ok: true, title: mfeOnbClean_(title, 200), image: image, episodes: ch.getChildren('item').length });
   } catch (err) { return mfeJson_({ ok: false, error: 'lecture impossible' }); }
 }
-var MFE_STRIPE_LINKS = ['plink_1UdStqEPhm1snxO06h2iJpFq', 'plink_1Uc7twEPhm1snxO0UG8pImV2', 'plink_1UdCT3EPhm1snxO00d0IY2lf'];   // Index 297 EUR + 30 EUR/mois (19/11/2026), ancien 297 EUR unique, test 1 EUR (a retirer apres le test)
+var MFE_STRIPE_LINKS = ['plink_1UdbgHEPhm1snxO0mvyruFQ2', 'plink_1UdStqEPhm1snxO06h2iJpFq', 'plink_1Uc7twEPhm1snxO0UG8pImV2', 'plink_1UdCT3EPhm1snxO00d0IY2lf'];   // Index abonnement 30 EUR/mois, 1er mois 11 EUR (19/11/2026) ; anciens : 297 EUR + 30/mois, 297 EUR unique, test 1 EUR (a retirer)
 function mfeOnboardingPublic_(b) {
   var sid = String(b.session_id || '').trim();
   if (!/^cs_(live|test)_[A-Za-z0-9]{10,200}$/.test(sid)) return mfeJson_({ ok: false, error: 'paiement introuvable' });
@@ -1526,7 +1526,8 @@ function mfeOnboardingPublic_(b) {
     try {
       var res = UrlFetchApp.fetch('https://api.stripe.com/v1/checkout/sessions/' + sid, { headers: { Authorization: 'Bearer ' + key }, muteHttpExceptions: true });
       var js = JSON.parse(res.getContentText());
-      if (res.getResponseCode() !== 200 || js.payment_status !== 'paid') return mfeJson_({ ok: false, error: 'paiement non confirme' });
+      // 19/11/2026 : un code a 100 % (ou un essai) donne payment_status = no_payment_required : valide si la session est terminee.
+      if (res.getResponseCode() !== 200 || !(js.payment_status === 'paid' || (js.payment_status === 'no_payment_required' && js.status === 'complete'))) return mfeJson_({ ok: false, error: 'paiement non confirme' });
       // 18/11/2026 : seul un paiement fait par le lien de l'Index (297 EUR) ou le lien de test (1 EUR) ouvre l'onboarding : une autre vente du compte Stripe ne suffit pas.
       var lk = (js.payment_link && js.payment_link.id) ? js.payment_link.id : String(js.payment_link || '');
       if (MFE_STRIPE_LINKS.indexOf(lk) < 0) return mfeJson_({ ok: false, error: 'paiement non confirme' });
@@ -1578,7 +1579,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 54 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 55 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }

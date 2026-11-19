@@ -3224,6 +3224,46 @@
    "texte": "Livraison de l'Index : à la vente, extraction d'une file de jusqu'à 100 pages à partir des épisodes du client. 5 pages sont en ligne le jour même, puis une nouvelle page chaque jour (publication automatique, matin, 9h Paris). Les pages restent en ligne après les 3 mois.",
    "date": "19/11/2026",
    "statut": "en_cours"
+  },
+  {
+   "id": "opt-390",
+   "section": "Offre",
+   "version": "V5.1",
+   "texte": "Nouvelle offre : abonnement à 30 €/mois sans frais de mise en place, premier mois à 11 €. Lien de paiement créé sur Stripe (essai de 30 jours, paiement unique de 11 € à la souscription), avec redirection automatique vers le formulaire d'onboarding après paiement. Page de vente mise à jour : titre, vidéo, section prix visible directement, garantie retirée.",
+   "date": "19/11/2026",
+   "statut": "en_cours"
+  },
+  {
+   "id": "opt-391",
+   "section": "Offre",
+   "version": "V5.1",
+   "texte": "Codes promo sur le lien de paiement : un code privé à 100 % (10 utilisations, premier paiement) et un code public à 20 % (premier paiement).",
+   "date": "19/11/2026",
+   "statut": "en_cours"
+  },
+  {
+   "id": "opt-392",
+   "section": "Index",
+   "version": "V5.1",
+   "texte": "Livraison de l'Index par cycle mensuel : 30 pages par mois d'abonnement (5 en ligne le premier jour puis 1 par jour), extraites de 12 épisodes au plus. Un client dont l'abonnement est résilié peut être mis en pause : la publication quotidienne s'arrête pour lui.",
+   "date": "19/11/2026",
+   "statut": "en_cours"
+  },
+  {
+   "id": "opt-393",
+   "section": "Correction",
+   "version": "V5.1",
+   "texte": "Onboarding : le formulaire après paiement acceptait seulement les anciens liens Stripe et refusait un paiement à 0 € (code à 100 %). Le nouveau lien d'abonnement et les paiements à 0 € sont maintenant acceptés.",
+   "date": "19/11/2026",
+   "statut": "en_cours"
+  },
+  {
+   "id": "opt-394",
+   "section": "Index",
+   "version": "V5.1",
+   "texte": "Espace client : portail Stripe activé (factures, changement de carte, résiliation en fin de mois payé). Le lien « Gérer mon abonnement » dans les mails et le bouton « Espace admin » dans l'en-tête de l'Index sont à faire.",
+   "date": "19/11/2026",
+   "statut": "a_faire"
   }
  ]
 }
