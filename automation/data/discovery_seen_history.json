@@ -366260,11 +366260,34 @@
     "feed_url": "https://www.omnycontent.com/d/playlist/2fb3740d-3436-44af-8cc0-a91900716aa5/498ee533-27aa-4914-8b25-b43b001e32fe/55be212f-db93-4a0b-b3a8-b43b001e37e1/podcast.rss",
     "genre": "Mental Health",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Coachs & consultants B2B",
     "gate": "dirigeant",
-    "email_domain": "dyfmpod.com"
+    "email_domain": "dyfmpod.com",
+    "rescue": "2026-11-19"
+  },
+  "https://anchor.fm/s/10209fa30/podcast/rss": {
+    "podcast_name": "Thought Liters",
+    "artist_name": "Adam Conner",
+    "feed_url": "https://anchor.fm/s/10209fa30/podcast/rss",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : a verifier : dernier episode il y a 105 jours (> 90 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://feeds.captivate.fm/superpowered/": {
+    "podcast_name": "Super Powered: Leadership, Strategy, Decision Making & Peak Performance - Stories & Strategies from World-Class Performers fo",
+    "artist_name": "Rob D. Willis",
+    "feed_url": "https://feeds.captivate.fm/superpowered/",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B"
   }
 }
