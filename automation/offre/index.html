@@ -76,9 +76,6 @@ details p{margin:10px 0 0;color:var(--mut);font-size:15.5px}
  .bar .btn{display:block;text-align:center;width:100%}body{padding-bottom:78px}}
 #video wistia-player{display:block;width:100%}
 #video{display:block;padding:0}
-.wait{padding:64px 0 10px;text-align:center;color:var(--mut);font-size:14px;letter-spacing:.02em}
-.wait .lb{width:180px;height:2px;background:var(--line);margin:14px auto 0;overflow:hidden;border-radius:2px}
-.wait .lb i{display:block;height:100%;width:0;background:var(--blue)}
 </style>
 </head>
 <body>
@@ -118,8 +115,7 @@ details p{margin:10px 0 0;color:var(--mut);font-size:15.5px}
   <div class="ex"><a class="btn" id="example" href="#" target="_blank" rel="noopener" data-t="ex_btn"></a></div>
 </section>
 
-<div id="pricing-wait" class="wait">Your Index opportunity is loading…<div class="lb"><i id="pricing-bar"></i></div></div>
-<section id="pricing" class="center hide">
+<section id="pricing" class="center">
   <div class="eyebrow" data-t="pr_eyebrow"></div>
   <h2 data-t="pr_title"></h2>
   <p class="lead" data-t="pr_sub"></p>
@@ -211,10 +207,6 @@ function render(){
 document.querySelectorAll(".lang button").forEach(function(b){b.addEventListener("click",function(){lang=b.getAttribute("data-l");render();});});
 document.querySelectorAll(".paybtn").forEach(function(a){a.addEventListener("click",function(e){ping("clic");if(a.id!=="pay"){e.preventDefault();var t=document.getElementById("pricing-wait")||document.getElementById("pricing");if(t)t.scrollIntoView({behavior:"smooth",block:"start"});}});});
 render();ping("vue");
-(function(){var bar=document.getElementById("pricing-bar"),wait=document.getElementById("pricing-wait");
- if(bar){requestAnimationFrame(function(){bar.style.transition="width 240s linear";bar.style.width="100%";});}
- setTimeout(function(){var p=document.getElementById("pricing");if(p)p.classList.remove("hide");if(wait)wait.remove();},240000);
-})();
 var io=("IntersectionObserver" in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.15}):null;
 document.querySelectorAll(".rv").forEach(function(e){if(io)io.observe(e);else e.classList.add("in");});
 fetch("config.json?t="+Date.now()).then(function(r){return r.json()}).then(function(c){
