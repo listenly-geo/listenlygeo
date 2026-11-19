@@ -2,16 +2,16 @@
  "date": "2026-11-19",
  "mode": "liste a traiter dans Claude + Chrome (demande d'indexation manuelle, validation par page)",
  "repartition": {
-  "connu": 2,
-  "mot_cle": 8
+  "connu": 3,
+  "mot_cle": 7
  },
  "selection": "50/50 connus + mots-cles ; volumes du jour + note",
  "pretes": 10,
  "urls": [
   {
-   "url": "https://listenly.org/podcast-btb/m/the-diary-of-a-ceo-with-steven-bartlett/4511b8bc68",
-   "titre": "How much did Spotify's founders invest in 2007? | Listenly",
-   "score_qualite": 56,
+   "url": "https://listenly.org/podcast-btb/m/how-i-built-this-with-guy-raz/ce9098db00",
+   "titre": "Michael Dell earnings from dorm room? | Listenly",
+   "score_qualite": 60,
    "source": "connu",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -33,8 +33,20 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/david-anderson-talking-market-data/33f28b6062",
-   "titre": "What causes poor quality financial data? | Listenly",
+   "url": "https://listenly.org/podcast-btb/m/the-diary-of-a-ceo-with-steven-bartlett/4511b8bc68",
+   "titre": "Why was Spotify's 2007 funding model unusual? | Listenly",
+   "score_qualite": 56,
+   "source": "connu",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/federal-tech-podcast-for-innovators-entr/641d6e9a6c",
+   "titre": "How should CISOs prioritize vulnerabilities? | Listenly",
    "score_qualite": 80,
    "source": "mot_cle",
    "http": 200,
@@ -45,9 +57,21 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/executive-edge-podcast/00766ec85f",
-   "titre": "Why is supply chain risk monitoring important? | Listenly",
-   "score_qualite": 80,
+   "url": "https://listenly.org/podcast-btb/m/for-the-23-the-woman-of-color-business-e/4e308a6925",
+   "titre": "How does tracking results increase conversions? | Listenly",
+   "score_qualite": 76,
+   "source": "mot_cle",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/expert-insights/af398cb0c4",
+   "titre": "How is AI changing mortgage marketing teams? | Listenly",
+   "score_qualite": 73,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -103,52 +127,7 @@
    "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
    "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
    "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/lcr-media-podcast/b8c7913e3a",
-   "titre": "What hurts lawn care job profit? | LCR Media Podcast",
-   "score_qualite": 86,
-   "source": "mot_cle",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/lcr-media-podcast/ff467c9029",
-   "titre": "How to price lawn jobs by man-hour? | LCR Media Podcast",
-   "score_qualite": 86,
-   "source": "mot_cle",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
   }
  ],
- "ecartees_sens_recherche": [
-  {
-   "cle": "extropy-on-air-finance-transformation-ap/3bd756b678",
-   "titre": "Skills leaders need digital transformation? | Listenly",
-   "raison": "Le titre actuel est vague et mal formulé. La question originale porte spécifiquement sur les LACUNES/MANQUES de compétences, pas simplement sur les compétences nécessaires. Le titre doit clarifier ce  (titre clair impossible en 58 caracteres)"
-  },
-  {
-   "cle": "lcr-media-podcast/b5d5d43569",
-   "titre": "Can owners close for conferences? | LCR Media Podcast",
-   "raison": "Le titre actuel est vague et ne reflète pas clairement le sujet. La question originale porte sur la communication de congés professionnels, pas simplement sur la fermeture. Un titre plus clair et plus (titre clair impossible en 58 caracteres)"
-  },
-  {
-   "cle": "billion-dollar-backstory/c1e329b50c",
-   "titre": "Relationship roles equal PMs? | Billion Dollar Backstory",
-   "raison": "Le titre actuel est vague et incompréhensible hors contexte (« Relationship roles equal PMs? »). La question originale porte sur un conseil d'investissement stratégique pour les gestionnaires d'actifs (titre clair impossible en 58 caracteres)"
-  },
-  {
-   "cle": "extropy-on-air-finance-transformation-ap/0a55250484",
-   "titre": "Why finance teams need peer communities? | Listenly",
-   "raison": "Le titre est vague et perd le contexte important de la transformation numérique. La question originale est plus spécifique et utile pour une recherche Google. Le titre actuel ne montre pas clairement  (titre clair impossible en 58 caracteres)"
-  }
- ]
+ "ecartees_sens_recherche": []
 }
