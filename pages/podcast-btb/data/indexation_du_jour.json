@@ -2,12 +2,24 @@
  "date": "2026-11-19",
  "mode": "liste a traiter dans Claude + Chrome (demande d'indexation manuelle, validation par page)",
  "repartition": {
-  "connu": 1,
-  "mot_cle": 9
+  "connu": 2,
+  "mot_cle": 8
  },
  "selection": "50/50 connus + mots-cles ; volumes du jour + note",
  "pretes": 10,
  "urls": [
+  {
+   "url": "https://listenly.org/podcast-btb/m/the-diary-of-a-ceo-with-steven-bartlett/4511b8bc68",
+   "titre": "How much did Spotify's founders invest in 2007? | Listenly",
+   "score_qualite": 56,
+   "source": "connu",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
   {
    "url": "https://listenly.org/podcast-btb/m/acq2-by-acquired/83a9122a1a",
    "titre": "How fast did ChatGPT reach 100M users? | ACQ2 by Acquired",
@@ -21,9 +33,9 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/dentists-who-invest-podcast/7570f21840",
-   "titre": "How can dentists buy homes with low savings? | Listenly",
-   "score_qualite": 92,
+   "url": "https://listenly.org/podcast-btb/m/david-anderson-talking-market-data/33f28b6062",
+   "titre": "What causes poor quality financial data? | Listenly",
+   "score_qualite": 80,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -33,9 +45,9 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/construction-genius-construction-leaders/951fb6fa0d",
-   "titre": "Critical problem areas in construction? | Listenly",
-   "score_qualite": 76,
+   "url": "https://listenly.org/podcast-btb/m/executive-edge-podcast/00766ec85f",
+   "titre": "Why is supply chain risk monitoring important? | Listenly",
+   "score_qualite": 80,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -69,33 +81,21 @@
    "pret_pour_demande": true
   },
   {
+   "url": "https://listenly.org/podcast-btb/m/dentists-who-invest-podcast/7570f21840",
+   "titre": "How can dentists buy homes with low savings? | Listenly",
+   "score_qualite": 92,
+   "source": "mot_cle",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
    "url": "https://listenly.org/podcast-btb/m/ecomm-breakthrough/265f52cc7f",
    "titre": "Leading vs lagging ecommerce KPIs? | Ecomm Breakthrough",
    "score_qualite": 90,
-   "source": "mot_cle",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/extropy-on-air-finance-transformation-ap/3bd756b678",
-   "titre": "Skills leaders need digital transformation? | Listenly",
-   "score_qualite": 90,
-   "source": "mot_cle",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/extropy-on-air-finance-transformation-ap/0a55250484",
-   "titre": "Why finance teams need peer communities? | Listenly",
-   "score_qualite": 86,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -131,6 +131,11 @@
  ],
  "ecartees_sens_recherche": [
   {
+   "cle": "extropy-on-air-finance-transformation-ap/3bd756b678",
+   "titre": "Skills leaders need digital transformation? | Listenly",
+   "raison": "Le titre actuel est vague et mal formulé. La question originale porte spécifiquement sur les LACUNES/MANQUES de compétences, pas simplement sur les compétences nécessaires. Le titre doit clarifier ce  (titre clair impossible en 58 caracteres)"
+  },
+  {
    "cle": "lcr-media-podcast/b5d5d43569",
    "titre": "Can owners close for conferences? | LCR Media Podcast",
    "raison": "Le titre actuel est vague et ne reflète pas clairement le sujet. La question originale porte sur la communication de congés professionnels, pas simplement sur la fermeture. Un titre plus clair et plus (titre clair impossible en 58 caracteres)"
@@ -139,6 +144,11 @@
    "cle": "billion-dollar-backstory/c1e329b50c",
    "titre": "Relationship roles equal PMs? | Billion Dollar Backstory",
    "raison": "Le titre actuel est vague et incompréhensible hors contexte (« Relationship roles equal PMs? »). La question originale porte sur un conseil d'investissement stratégique pour les gestionnaires d'actifs (titre clair impossible en 58 caracteres)"
+  },
+  {
+   "cle": "extropy-on-air-finance-transformation-ap/0a55250484",
+   "titre": "Why finance teams need peer communities? | Listenly",
+   "raison": "Le titre est vague et perd le contexte important de la transformation numérique. La question originale est plus spécifique et utile pour une recherche Google. Le titre actuel ne montre pas clairement  (titre clair impossible en 58 caracteres)"
   }
  ]
 }
