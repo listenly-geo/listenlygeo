@@ -98,11 +98,13 @@ def juger(cle, question, titre=None, podcast=""):
     suf = suffixe(titre) if titre != question else " | Listenly"
     room = 58 - len(suf)
     try:
-        r = _claude(PROMPT.format(room=room, question=question, titre=titre, podcast=podcast))
+        r = _claude(PROMPT.format(room=room - 4, question=question, titre=titre, podcast=podcast))
     except Exception as ex:
         print(f"[sens] {cle} : jugement impossible ({str(ex)[:80]})")
         return None
-    v = r.get("verdict") if r.get("verdict") in ("ok", "retitrer", "rejeter") else "ok"
+    brut = str(r.get("verdict", "")).strip().lower()
+    # 19/11/2026 : verdict mal ecrit par l'IA -> jamais « ok » par defaut
+    v = "ok" if brut in ("ok", "accept", "accepte") else "retitrer" if brut.startswith("reti") else "rejeter"
     out = {"v": VERSION, "verdict": v, "raison": str(r.get("raison", ""))[:200], "titre_juge": titre,
            "question": question, "date": datetime.date.today().isoformat()}
     if v == "retitrer":
