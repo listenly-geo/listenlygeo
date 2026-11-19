@@ -30,7 +30,7 @@ jobs:
       FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
       MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
       SITE: app.marketforge.fr
-      PAGE: https://app.marketforge.fr/docs/answers-with-dr-jr
+      PAGE: https://app.marketforge.fr/docs/answers-with-dr-jr/what-is-the-basic-formula-for-calculating-net-income-on-an-income-statement
     steps:
       - uses: actions/checkout@v4
 
@@ -61,7 +61,7 @@ jobs:
           curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/live/app.blade.php "$U/$SITE/$f.bak-adm"
           curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/new/app.blade.php "$U/$SITE/$f"
           sleep 6
-          code=$(curl -sS -m 40 -o /tmp/p.html -w '%{http_code}' "$PAGE" || echo 000)
+          code=$(curl -sSL -m 40 -o /tmp/p.html -w '%{http_code}' "$PAGE" || echo 000)
           if [ "$code" != 200 ] || ! grep -q 'mf-admin-btn' /tmp/p.html; then
             echo "::error::page en $code ou bouton absent : retour arriere"
             curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/live/app.blade.php "$U/$SITE/$f"
@@ -71,7 +71,7 @@ jobs:
 
       - name: Verifier
         run: |
-          code=$(curl -sS -m 40 -o /tmp/p.html -w '%{http_code}' "$PAGE" || echo 000)
+          code=$(curl -sSL -m 40 -o /tmp/p.html -w '%{http_code}' "$PAGE" || echo 000)
           echo "page : HTTP $code"
           grep -c 'mf-admin-btn' /tmp/p.html || true
           [ "$code" = 200 ] && grep -q 'mf-admin-btn' /tmp/p.html && echo "::notice::bouton present" || echo "::notice::bouton absent"
