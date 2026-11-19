@@ -364853,7 +364853,8 @@
     "checked_date": "2026-11-19",
     "secteur": "Santé",
     "gate": "dirigeant",
-    "email_domain": "freedompodcasting.com"
+    "email_domain": "freedompodcasting.com",
+    "rescue": "2026-11-19"
   },
   "https://perfectsummary.com/feeds/podcast.xml": {
     "podcast_name": "Perfect Summary Podcast",
@@ -364861,12 +364862,13 @@
     "feed_url": "https://perfectsummary.com/feeds/podcast.xml",
     "genre": "Education",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Santé",
     "gate": "dirigeant",
-    "email_domain": "perfectsummary.com"
+    "email_domain": "perfectsummary.com",
+    "rescue": "2026-11-19"
   },
   "https://app.kajabi.com/podcasts/2147688979/feed": {
     "podcast_name": "Wealthy Nurse Podcast: Money, FI, Investing for Nurses",
@@ -364890,5 +364892,42 @@
       "Dividend Investing"
     ],
     "contact_email": "nursingflowsheetblog@gmail.com"
+  },
+  "https://feeds.captivate.fm/executive-excellence/": {
+    "podcast_name": "Executive Excellence",
+    "artist_name": "Michael Furey",
+    "feed_url": "https://feeds.captivate.fm/executive-excellence/",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://feeds.npr.org/510338/podcast.xml": {
+    "podcast_name": "Life Kit",
+    "artist_name": "NPR",
+    "feed_url": "https://feeds.npr.org/510338/podcast.xml",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Finance & Fintech",
+    "gate": "dirigeant",
+    "email_domain": "npr.org"
+  },
+  "https://feeds.npr.org/510341/podcast.xml": {
+    "podcast_name": "Life Kit: Money",
+    "artist_name": "NPR",
+    "feed_url": "https://feeds.npr.org/510341/podcast.xml",
+    "genre": "Business",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Finance & Fintech",
+    "gate": "dirigeant",
+    "email_domain": "npr.org"
   }
 }
