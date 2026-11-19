@@ -51,7 +51,7 @@ var MFE_DEFAULTS = [
   ['MFE_MINUTES_AUDIO_MAX_JOUR', '600', 'MarketForge Engine — garde-fou minutes audio par jour.'],
   ['MFE_ENVOI_AUTO', 'TRUE', 'MarketForge Engine — TRUE = envoie les mails automatiquement. FALSE = prepare seulement (statut "Pret").'],
   ['MFE_REPLY_AUTO', 'FALSE', 'MarketForge Engine (18/11/2026) — TRUE = un « oui » clair du prospect recoit automatiquement, dans le meme fil, le mail avec le lien de la page de vente (MFE_OFFRE_URL + ?ref=slug). Toute autre reponse reste a traiter a la main. FALSE = aucune reponse automatique. A passer a TRUE seulement quand la page est en ligne.'],
-  ['MFE_OFFRE_URL', 'https://app.marketforge.fr/offre', 'MarketForge Engine (18/11/2026) — adresse de la page de vente envoyee aux prospects qui repondent oui (le moteur ajoute ?ref=slug du podcast).'],
+  ['MFE_OFFRE_URL', 'https://app.marketforge.fr/index-podcast', 'MarketForge Engine (18/11/2026) — adresse de la page de vente envoyee aux prospects qui repondent oui (le moteur ajoute ?ref=slug du podcast).'],
   ['MFE_MAIL2_AUTO', 'FALSE', 'MarketForge Engine — Mail 2 (apres reponse du prospect) : TRUE = envoie automatiquement le mail CTA apres 20 min. FALSE = validation manuelle seulement (tu envoies toi-meme).'],
   ['MFE_MAX_ENVOIS_JOUR', '1500', 'MarketForge Engine — plafond absolu de premiers mails par jour (limite Google Workspace : 1500).'],
   ['MFE_MONTEE_PROGRESSIVE', 'TRUE', 'MarketForge Engine — QUALITE = paliers 30, 40, 50, 70, 100 par jour, un palier de plus seulement si rebonds 7j <= 2 % et envois reellement faits (baisse si > 3 %). TRUE = 44/j la 1re semaine (1 mail / 15 min), 80, 150, 300, 500, 1000 puis plafond (protege la delivrabilite).'],
@@ -749,7 +749,7 @@ function mfeReplyOffre_(sh, r, msgs, force) {   // force = envoi demande a la ma
     sh.getRange(r.row, 12).setValue('Reponse a traiter a la main (pas un « oui » clair) : ' + txt.slice(0, 160));
     return false;
   }
-  var base = String(cfg.MFE_OFFRE_URL || 'https://app.marketforge.fr/offre').trim();
+  var base = String(cfg.MFE_OFFRE_URL || 'https://app.marketforge.fr/index-podcast').trim();
   var link = base + (base.indexOf('?') < 0 ? '?' : '&') + 'ref=' + encodeURIComponent(String(r.values[0] || ''));
   var body = mfeFill_(mfeMsg_('MFE_MSG_REPONSE_OFFRE'), { HELLO: mfeHello_(r.values[13]), PODCAST: mfeShortName_(r.values[1]), OFFRE_URL: link });
   GmailApp.getThreadById(r.values[10]).reply(mfeWithSignature_(body), mfeSendOpts_(body));
@@ -1578,7 +1578,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 52 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 53 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -1879,7 +1879,7 @@ function mfeCmd_(body) {
       mfeEnsureSettings_();
       mfeRows_(sh).forEach(function (r) { if (!ex2 && (slug ? r.values[0] === slug : r.values[1])) ex2 = r.values; });
       if (!ex2) return mfeJson_({ ok: false, error: 'aucune ligne trouvee' });
-      var cfg2 = mfeReadSettings_(), base2 = String(cfg2.MFE_OFFRE_URL || 'https://app.marketforge.fr/offre').trim();
+      var cfg2 = mfeReadSettings_(), base2 = String(cfg2.MFE_OFFRE_URL || 'https://app.marketforge.fr/index-podcast').trim();
       var link2 = base2 + (base2.indexOf('?') < 0 ? '?' : '&') + 'ref=' + encodeURIComponent(String(ex2[0] || ''));
       var body2 = mfeFill_(mfeMsg_('MFE_MSG_REPONSE_OFFRE'), { HELLO: mfeHello_(ex2[13]), PODCAST: mfeShortName_(ex2[1]), OFFRE_URL: link2 });
       GmailApp.sendEmail(moi2, '[TEST mail 2] Re: ' + String(ex2[1] || ''), mfeWithSignature_(body2), mfeSendOpts_(body2));

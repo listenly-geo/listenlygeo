@@ -1,6 +1,7 @@
-name: Page de vente — deployer app.marketforge.fr/offre
+name: Page de vente — deployer app.marketforge.fr/index-podcast
 
-# Envoie automation/offre/index.html + config.json sur app.marketforge.fr/offre/ (acces FTP deja utilise par onboarding-deploy).
+# Envoie automation/offre/index.html + config.json sur app.marketforge.fr/index-podcast/ (acces FTP deja utilise par onboarding-deploy).
+# 19/11/2026 : l'ancien lien /offre/ ne garde qu'une page de redirection (redirect.html) vers /index-podcast/, avec ?ref= conserve.
 # L'adresse de reception des visites (application web Apps Script) est injectee au deploiement, SANS le secret (partie ?secret=... retiree).
 
 on:
@@ -34,22 +35,27 @@ jobs:
           mkdir -p /tmp/out
           sed "s#__OFFRE_ENDPOINT__#${BASE}#" automation/offre/index.html > /tmp/out/index.html
           cp automation/offre/config.json /tmp/out/config.json
+          cp automation/offre/redirect.html /tmp/out/redirect.html
           if grep -rq 'secret=' /tmp/out; then echo "::error::un secret est present dans la page"; exit 1; fi
           python3 -c "import json;json.load(open('/tmp/out/config.json'))"
       - name: Envoyer sur le serveur
         run: |
           U="ftp://$FTP_SERVER"; o="--ssl-reqd --insecure --connect-timeout 30 --max-time 120 -sS --ftp-create-dirs"
-          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/out/index.html "$U/app.marketforge.fr/public/offre/index.html"
-          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/out/config.json "$U/app.marketforge.fr/public/offre/config.json"
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/out/index.html "$U/app.marketforge.fr/public/index-podcast/index.html"
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/out/config.json "$U/app.marketforge.fr/public/index-podcast/config.json"
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/out/redirect.html "$U/app.marketforge.fr/public/offre/index.html"
           echo "::notice::page envoyee"
       - name: Verifier la page en ligne
         run: |
           sleep 5
-          code=$(curl -sS -o /tmp/live.html -w '%{http_code}' "https://app.marketforge.fr/offre/?ref=verification" || true)
+          code=$(curl -sS -o /tmp/live.html -w '%{http_code}' "https://app.marketforge.fr/index-podcast/?ref=verification" || true)
           echo "HTTP $code"
           [ "$code" = "200" ] && grep -q 'Podcast AI Index' /tmp/live.html && grep -q 'script.google.com' /tmp/live.html && echo "::notice::page en ligne et branchee" || { echo "::error::page non accessible ou incomplete"; exit 1; }
-          cc=$(curl -sS -o /dev/null -w '%{http_code}' "https://app.marketforge.fr/offre/config.json" || true)
+          cc=$(curl -sS -o /dev/null -w '%{http_code}' "https://app.marketforge.fr/index-podcast/config.json" || true)
           echo "config HTTP $cc"; [ "$cc" = "200" ] || { echo "::error::config.json inaccessible"; exit 1; }
+          rc=$(curl -sS -o /tmp/old.html -w '%{http_code}' "https://app.marketforge.fr/offre/?ref=verification" || true)
+          echo "ancien lien /offre HTTP $rc"
+          [ "$rc" = "200" ] && grep -q 'index-podcast' /tmp/old.html && echo "::notice::redirection /offre vers /index-podcast en place" || { echo "::error::redirection /offre absente"; exit 1; }
       - name: Verifier la reception des visites (une ligne « verification »)
         run: |
           BASE="${MFE_SHEET_URL%%\?*}"

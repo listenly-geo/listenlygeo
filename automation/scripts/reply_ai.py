@@ -13,7 +13,7 @@ import sheet_bridge as sb  # noqa: E402
 MODEL = "claude-haiku-4-5-20251001"
 MODE = os.environ.get("REPLY_MODE", "draft").strip() or "draft"
 ONLY = os.environ.get("REPLY_EMAIL", "").strip().lower()
-OFFRE = os.environ.get("OFFRE_URL", "https://app.marketforge.fr/offre").strip()
+OFFRE = os.environ.get("OFFRE_URL", "https://app.marketforge.fr/index-podcast").strip()
 
 # Elements FIXES (valides par Etienne le 19/11/2026)
 EXPLICATION = ("The idea is simple: your podcast already contains a lot of expertise, but today it stays locked inside the audio. "
