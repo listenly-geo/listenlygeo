@@ -1478,7 +1478,7 @@ function mfeOnboardingRss_(b) {
     return mfeJson_({ ok: true, title: mfeOnbClean_(title, 200), image: image, episodes: ch.getChildren('item').length });
   } catch (err) { return mfeJson_({ ok: false, error: 'lecture impossible' }); }
 }
-var MFE_STRIPE_LINKS = ['plink_1Uc7twEPhm1snxO0UG8pImV2', 'plink_1UdCT3EPhm1snxO00d0IY2lf'];   // Index 297 EUR (19/11/2026), test 1 EUR (a retirer apres le test)
+var MFE_STRIPE_LINKS = ['plink_1UdRiTEPhm1snxO0yJ7jlsm5', 'plink_1Uc7twEPhm1snxO0UG8pImV2', 'plink_1UdCT3EPhm1snxO00d0IY2lf'];   // Index 297 EUR + 30 EUR/mois (19/11/2026), ancien 297 EUR unique, test 1 EUR (a retirer apres le test)
 function mfeOnboardingPublic_(b) {
   var sid = String(b.session_id || '').trim();
   if (!/^cs_(live|test)_[A-Za-z0-9]{10,200}$/.test(sid)) return mfeJson_({ ok: false, error: 'paiement introuvable' });
@@ -1542,7 +1542,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 50 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 51 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }

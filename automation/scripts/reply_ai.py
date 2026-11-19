@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Reponses IA aux prospects (19/11/2026, decision d'Etienne) : l'IA choisit le cas, ecrit UNE phrase d'accueil qui repond a ce que le prospect a dit ;
-tout le reste (explication, video, signature) est fixe. Jamais de prix, jamais d'appel, jamais de delai.
+tout le reste (explication, video, signature) est fixe. Jamais d'appel. Prix et details seulement apres le mail 2, via la base de reponses.
 Modes : draft = brouillon Gmail dans le fil (a valider et envoyer par Etienne) ; test = mail envoye a Etienne seul (REPLY_EMAIL = prospect modele).
 Variables : MFE_SHEET_URL, ANTHROPIC_API_KEY ; REPLY_MODE (draft|test), REPLY_EMAIL (obligatoire en test), OFFRE_URL.
 """
@@ -33,9 +33,10 @@ FAQ = {
     "install_domain": "The Index lives on your own domain. Once it's built, we send you one short email with a single line to add in your domain settings (or to forward to whoever manages it). As soon as it's added, your Index goes live automatically.",
     "technical": "No technical skills needed. The only thing to do is add one line in your domain settings: we send you the exact line to copy, so you can also simply forward it to whoever manages your domain.",
     "delivery": "Installation is done the same day: our onboarding service builds your Index and connects it to your domain, where you only add one DNS line.",
-    "price": "The setup is a one-time payment of \u20ac297, and everything you need to get started is on the same page as the video.",
+    "price": "It's \u20ac297 to set up, paid once at the start, then \u20ac30 a month for hosting, updates and your new episodes, starting after the first 30 days. There's no commitment, you can cancel anytime. Everything is on the same page as the video.",
+    "monthly": "The \u20ac30 a month covers hosting, updates and your new episodes, so your Index keeps growing without any work on your side. It starts after the first 30 days and you can cancel anytime.",
     "guarantee": "If you don't see traffic results after 3 months, we step in and run your Index manually for you.",
-    "ownership": "You keep full control of your Index on your own domain.",
+    "ownership": "You keep full control of your Index on your own domain, and you only pay the small monthly fee. If you cancel, you simply stop the monthly plan.",
     "technical_details": "We start from your podcast's RSS feed. Each page has a written answer, an audio player and a link to the full episode, on your own domain over HTTPS, with the markup and sitemap that Google and AI assistants need to read it.",
     "replace_seo": "It doesn't replace your SEO or your website, it adds to them: your episodes become written answers that Google and AI assistants can cite, on top of what you already do.",
     "example": "The short video below shows a real example of an Index built from an existing podcast.",
@@ -71,7 +72,7 @@ def ask_claude(podcast, text):
         "Choisis le cas : 1 = interesse ou oui ; 2 = interesse mais confus / ne comprend pas la demande ; 3 = question sur le prix, le cout ou le fonctionnement ; "
         "4 = pas maintenant ou deja un SEO ; 5 = demande un appel ou une demo ; 6 = mauvaise personne ; "
         "7 = refus, retrait, colere, menace, sujet juridique, ou tout ce qui est sensible ou ambigu.\n"
-        "Si le cas est 3, liste 1 a 3 questions du prospect (reformulees en anglais, max 18 mots, sans lien, sans gras) avec l'identifiant de la base de reponses qui y repond : "
+        "Si le cas est 3, liste 1 a 3 questions du prospect (reformulees en anglais au plus pres des mots du prospect, max 14 mots, sans lien, sans gras) avec l'identifiant de la base de reponses qui y repond : "
         + ", ".join(FAQ) + ' ; mets "none" si AUCUN identifiant ne repond clairement a la question.\n'
         "Ecris aussi UNE phrase d'accueil en anglais (max 25 mots) qui repond a ce que le prospect a vraiment dit, ton chaleureux et naturel. "
         "Interdits dans cette phrase : prix, chiffres, appel, delai, promesse, lien, exemple deja construit.\n"
