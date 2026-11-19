@@ -738,14 +738,14 @@ function mfeIsClearYes_(txt) {
   if ((t.match(/\?/g) || []).length > 1) return false;
   return /\b(yes|yeah|yep|yup|sure|please do|please send|send (it|me|over)|go ahead|sounds (good|great|interesting)|interested|i'?d (love|like)|tell me more|show me|happy to|why not|okay|ok|let'?s (do|talk|see))\b/.test(t);
 }
-function mfeReplyOffre_(sh, r, msgs) {
+function mfeReplyOffre_(sh, r, msgs, force) {   // force = envoi demande a la main (cmd send_mail2) : ni reglage automatique ni « oui » net exiges
   var cfg = mfeReadSettings_();
-  if (String(cfg.MFE_REPLY_AUTO || 'FALSE').toUpperCase() !== 'TRUE') return false;
+  if (!force && String(cfg.MFE_REPLY_AUTO || 'FALSE').toUpperCase() !== 'TRUE') return false;
   var email = String(r.values[2] || '').toLowerCase(), last = null;
   msgs.forEach(function (m) { if (m.getFrom().toLowerCase().indexOf(email) !== -1) last = m; });
   if (!last) return false;
   var txt = mfeReplyText_(last.getPlainBody());
-  if (!mfeIsClearYes_(txt)) {
+  if (!force && !mfeIsClearYes_(txt)) {
     sh.getRange(r.row, 12).setValue('Reponse a traiter a la main (pas un « oui » clair) : ' + txt.slice(0, 160));
     return false;
   }
@@ -1499,7 +1499,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 47 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 48 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -1892,13 +1892,22 @@ function mfeCmd_(body) {
       });
       return mfeJson_({ ok: true, cmd: cmd, rouverts: rouverts });
     }
+    if (cmd === 'send_mail2') {   // 19/11/2026 : mail 2 envoye a la main a UN prospect qui a repondu (confirm=true + adresse du prospect)
+      if (body.confirm !== true) return mfeJson_({ ok: false, error: 'confirm=true requis (vrai mail)' });
+      var who2 = String(body.email || body.to || '').toLowerCase().trim(), tgt = null;
+      if (!who2) return mfeJson_({ ok: false, error: 'email requis' });
+      mfeRows_(sh).forEach(function (r) { if (!tgt && String(r.values[2] || '').toLowerCase().trim() === who2) tgt = r; });
+      if (!tgt || !tgt.values[10]) return mfeJson_({ ok: false, error: 'ligne ou fil Gmail introuvable' });
+      var ok2 = mfeReplyOffre_(sh, tgt, GmailApp.getThreadById(tgt.values[10]).getMessages(), true);
+      return mfeJson_({ ok: !!ok2, cmd: cmd, podcast: tgt.values[1], slug: tgt.values[0] });
+    }
     if (cmd === 'test_real') {
       if (body.confirm !== true) return mfeJson_({ ok: false, error: 'confirm=true requis (envoi de vrais mails)' });
       var nb = Math.max(1, Math.min(Number(body.n) || 1, 3));
       var sent = mfeSend_(sh, mfeSettings_(), nb, slug, body.paced === true);
       return mfeJson_({ ok: true, cmd: cmd, demandes: nb, envoyes: sent, slug: slug });
     }
-    return mfeJson_({ ok: false, error: 'cmd inconnue (test_mail1 | test_mail2 | test_me | test_to | test_real)' });
+    return mfeJson_({ ok: false, error: 'cmd inconnue (test_mail1 | test_mail2 | send_mail2 | test_me | test_to | test_real)' });
   } finally { lock.releaseLock(); }
 }
 
