@@ -365520,12 +365520,13 @@
     "feed_url": "https://rss2.flightcast.com/zuvawsnkkxtbynwgy0632z94.xml",
     "genre": "Nutrition",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Haute : e-mail ecrit sur le site",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Énergie",
     "gate": "dirigeant",
-    "email_domain": "nathalieniddam.com"
+    "email_domain": "nathalieniddam.com",
+    "rescue": "2026-11-19"
   },
   "https://anchor.fm/s/b71743c/podcast/rss": {
     "podcast_name": "Chase the Vision with Isaac Mashman",
@@ -365563,5 +365564,112 @@
     "checked_date": "2026-11-19",
     "secteur": "Santé libérale",
     "nb_episodes": 509
+  },
+  "https://anchor.fm/s/fa38e348/podcast/rss": {
+    "podcast_name": "The Shadow Psychologist™",
+    "artist_name": "Melissa Kim Corter",
+    "feed_url": "https://anchor.fm/s/fa38e348/podcast/rss",
+    "genre": "Society & Culture",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 376 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale"
+  },
+  "https://rss.buzzsprout.com/184450.rss": {
+    "podcast_name": "Production Expert Podcast",
+    "artist_name": "Production Expert",
+    "feed_url": "https://rss.buzzsprout.com/184450.rss",
+    "genre": "Technology",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://anchor.fm/s/f464f290/podcast/rss": {
+    "podcast_name": "The Sports Medicine Research Rundown",
+    "artist_name": "Professional Seminars Ltd.",
+    "feed_url": "https://anchor.fm/s/f464f290/podcast/rss",
+    "genre": "Education",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Formateurs & programmes",
+    "gate": "dirigeant",
+    "email_domain": "professionalseminars.com"
+  },
+  "https://anchor.fm/s/265de384/podcast/rss": {
+    "podcast_name": "The Generation Hustle Podcast",
+    "artist_name": "Generation H",
+    "feed_url": "https://anchor.fm/s/265de384/podcast/rss",
+    "genre": "Entrepreneurship",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 941 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/105dce80c/podcast/rss": {
+    "podcast_name": "The Rehab Remix",
+    "artist_name": "Dr. Lauren Young PT, DPT, CSRS, NCS & Dr. Lauren Tighe PT, DPT, ATC, EdD",
+    "feed_url": "https://anchor.fm/s/105dce80c/podcast/rss",
+    "genre": "Medicine",
+    "track_count": 33,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-rehab-remix/id1822599089?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/PodcastSource221/v4/bb/cc/6b/bbcc6b8a-c0fd-1ff2-80f2-f2971fc761b6/29ec306d-74f3-4d57-977b-38e10fbb4ba2.jpeg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par deux créateurs indépendants identifiables (Dr. Lauren Young et Dr. Lauren Tighe, tous deux thérapeutes certifiés) dans le domaine B2B/expertise (réhabilitation et physiothérapie). Audience petite (33 épisodes), pas de média mass ou célébrité grand public détectée.",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale",
+    "nb_episodes": 33,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Herbal Medicine",
+      "General Medicine",
+      "Preventive Medicine",
+      "Functional Medicine"
+    ],
+    "contact_email": "therehabremix@gmail.com"
+  },
+  "https://anchor.fm/s/81de888/podcast/rss": {
+    "podcast_name": "The Way Out | A Sobriety and Recovery Podcast",
+    "artist_name": "Hosted by Charlie and Jason",
+    "feed_url": "https://anchor.fm/s/81de888/podcast/rss",
+    "genre": "Self-Improvement",
+    "track_count": 532,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-way-out-a-sobriety-and-recovery-podcast/id1092805350?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts125/v4/d5/69/fe/d569feab-1c7d-be3f-3a4b-cf452a71f0ff/mza_17594050382356621147.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Le sujet principal est la sobriété et la récupération (self-improvement/well-being), qui relève du développement personnel et du coaching de vie, non du business/B2B. Bien que animé par des créateurs identifiables (Charlie et Jason), ce podcast ne traite pas de sujets professionnels, entrepreneuriaux ou d'expertise B2B.",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale",
+    "nb_episodes": 532
+  },
+  "https://feeds.transistor.fm/the-ymyhealth-podcast": {
+    "podcast_name": "The YMyHealth Podcast | Wellness and Healthcare Insights for Millennials",
+    "artist_name": "Melissa Schenkman and Julie Woon",
+    "feed_url": "https://feeds.transistor.fm/the-ymyhealth-podcast",
+    "genre": "Health & Fitness",
+    "track_count": 113,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-ymyhealth-podcast-wellness-and-healthcare/id1786997635?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/4d/12/9a/4d129a6e-c4f9-6c7a-84cc-16ac33f43b00/mza_3778624665643405449.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par deux créateurs indépendants identifiables (Melissa Schenkman et Julie Woon) sur un sujet B2B/wellness professionnel. Audience petite-moyenne (113 épisodes), pas de média mass ou célébrite détectés en métadonnées iTunes. Répond aux critères CREATEUR.",
+    "checked_date": "2026-11-19",
+    "secteur": "Santé libérale",
+    "nb_episodes": 113,
+    "suggested_category": "🩺 Health",
+    "suggested_tags": [
+      "Gut Health",
+      "Men's Fitness",
+      "Eye Health",
+      "Men's Health"
+    ],
+    "contact_email": "ymyhealthpodcast@gmail.com"
   }
 }
