@@ -45,6 +45,15 @@ FAQ = {
     "call": "The video shows exactly how it works, and I answer every question here by email.",
 }
 
+FAQ_TOPIC = {
+    "what": "ce qu'est un Index", "how_it_works": "les etapes pour demarrer", "install_domain": "comment l'Index est installe sur le domaine du client",
+    "technical": "competences techniques necessaires (aucune, une ligne DNS)", "delivery": "delai de mise en ligne", "price": "prix et paiement",
+    "monthly": "frais mensuels", "rss": "compatibilite avec la plateforme d'hebergement du podcast (Spotify, Apple, etc.) via le flux RSS",
+    "cancel": "annulation de l'abonnement", "guarantee": "garantie si pas de resultat trafic", "ownership": "controle de l'Index par le client",
+    "technical_details": "comment les pages sont construites (flux RSS, HTTPS, sitemap)", "replace_seo": "remplace ou complete le SEO et le site existant",
+    "example": "exemple d'Index existant", "call": "demande d'appel",
+}
+
 CASES = {
     1: "interesse_ou_oui", 2: "confus", 3: "question_prix_cout_fonctionnement", 4: "pas_maintenant_ou_deja_seo",
     5: "demande_appel_ou_demo", 6: "mauvaise_personne", 7: "refus_retrait_colere_ou_sensible",
@@ -75,7 +84,7 @@ def ask_claude(podcast, text):
         "4 = pas maintenant ou deja un SEO ; 5 = demande un appel ou une demo ; 6 = mauvaise personne ; "
         "7 = refus, retrait, colere, menace, sujet juridique, ou tout ce qui est sensible ou ambigu.\n"
         "Si le cas est 3, liste UNIQUEMENT les questions que le prospect a vraiment posees (jamais une question ajoutee), maximum 3,  (reformulees en anglais au plus pres des mots du prospect, max 14 mots, sans lien, sans gras) avec l'identifiant de la base de reponses qui y repond UNIQUEMENT si cette reponse repond DIRECTEMENT et entierement a la question (sinon \"none\") : "
-        + ", ".join(FAQ) + ' ; mets "none" si AUCUN identifiant ne repond clairement a la question.\n'
+        + " ; ".join(f"{k} = {FAQ_TOPIC.get(k, k)}" for k in FAQ) + ' ; mets "none" si AUCUN identifiant ne repond clairement a la question.\n'
         "Ecris aussi UNE phrase d'accueil en anglais (max 25 mots) qui repond a ce que le prospect a vraiment dit, ton chaleureux et naturel. "
         "La phrase remercie ou reformule seulement : elle n'affirme RIEN sur le produit, ses resultats, ses garanties ou ce qui marche ou non. Interdits : prix, chiffres, appel, delai, promesse, lien, exemple deja construit, affirmation.\n"
         'JSON strict : {"cas":1,"phrase":"","questions":[{"q":"","faq":""}]}')
