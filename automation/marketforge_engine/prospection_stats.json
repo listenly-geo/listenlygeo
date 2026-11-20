@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20T12:49",
+ "updated": "2026-11-20T13:04",
  "total": 1383,
  "status": {
   "Clos (ancien mail)": 182,
@@ -10,10 +10,10 @@
   "En pause (ancienne selection)": 53,
   "Relance": 200,
   "Email instable": 3,
-  "Envoye": 624,
+  "Envoye": 625,
   "En pause (question hors sujet)": 47,
   "Email risque": 11,
-  "Pret": 100,
+  "Pret": 99,
   "En pause (pas de fiche N1)": 1,
   "En pause (doublon dirigeant)": 10,
   "En pause (a trier)": 1,
@@ -847,9 +847,16 @@
    "statut": "Envoye",
    "envoye_le": "2026-11-19T22:47:46.244Z",
    "variante": "Q0"
+  },
+  {
+   "slug": "it-s-your-life-podcast",
+   "podcast": "It's Your Life Podcast",
+   "statut": "Envoye",
+   "envoye_le": "2026-11-20T13:03:30.651Z",
+   "variante": "Q0"
   }
  ],
- "sent_total": 1034,
+ "sent_total": 1035,
  "replies_total": 6,
  "followups_total": 217,
  "sent_by_day": {
@@ -891,7 +898,8 @@
   "2026-11-16": 40,
   "2026-11-17": 40,
   "2026-11-18": 50,
-  "2026-11-19": 50
+  "2026-11-19": 50,
+  "2026-11-20": 1
  },
  "replies_by_day": {
   "2026-09-28": 1,
@@ -926,14 +934,26 @@
  "max_envois_jour": 100,
  "heures_envoi": "14-24",
  "cap_jour_effectif": 50,
- "stock_utilisable": 88,
+ "stock_utilisable": 87,
  "stock_pret": {
-  "stock": 88,
+  "stock": 87,
   "ouvert": true,
   "ouverture": 0
  },
- "envoyes_aujourdhui": 50,
+ "envoyes_aujourdhui": 1,
  "prospects": [
+  {
+   "slug": "it-s-your-life-podcast",
+   "podcast": "It's Your Life Podcast",
+   "statut": "Envoye",
+   "ajoute_le": "2026-11-16T00:28:08.210Z",
+   "envoye_le": "2026-11-20T13:03:30.651Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.org/podcast-btb/it-s-your-life-podcast-podcast.html",
+   "queue_rank": null,
+   "variante": "Q0"
+  },
   {
    "slug": "startups-decoded",
    "podcast": "Startups Decoded",
@@ -4519,18 +4539,6 @@
    "relance_le": "2026-11-16T14:37:47.251Z",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/founder-talk-with-alex-sheridan-podcast.html",
-   "queue_rank": null,
-   "variante": ""
-  },
-  {
-   "slug": "know-your-why-podcast-with-dr-jason-bala",
-   "podcast": "Know Your Why Podcast with Dr.Jason Balara",
-   "statut": "Relance",
-   "ajoute_le": "2026-11-07T20:07:35.721Z",
-   "envoye_le": "2026-11-10T13:38:52.609Z",
-   "relance_le": "2026-11-16T14:37:44.641Z",
-   "reponse": "",
-   "fiche_url": "https://listenly.org/podcast-btb/know-your-why-podcast-with-dr-jason-bala-podcast.html",
    "queue_rank": null,
    "variante": ""
   }
