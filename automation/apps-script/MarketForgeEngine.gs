@@ -1519,7 +1519,7 @@ function mfeOnboardingRss_(b) {
     return mfeJson_({ ok: true, title: mfeOnbClean_(title, 200), image: image, episodes: ch.getChildren('item').length });
   } catch (err) { return mfeJson_({ ok: false, error: 'lecture impossible' }); }
 }
-var MFE_STRIPE_LINKS = ['plink_1UdbgHEPhm1snxO0mvyruFQ2', 'plink_1UdStqEPhm1snxO06h2iJpFq', 'plink_1Uc7twEPhm1snxO0UG8pImV2', 'plink_1UdCT3EPhm1snxO00d0IY2lf'];   // Index abonnement 30 EUR/mois, 1er mois 11 EUR (19/11/2026) ; anciens : 297 EUR + 30/mois, 297 EUR unique, test 1 EUR (a retirer)
+var MFE_STRIPE_LINKS = ['plink_1Udml3EPhm1snxO0lm0rZe5J', 'plink_1UdbgHEPhm1snxO0mvyruFQ2', 'plink_1UdStqEPhm1snxO06h2iJpFq', 'plink_1Uc7twEPhm1snxO0UG8pImV2', 'plink_1UdCT3EPhm1snxO00d0IY2lf'];   // Index 97 EUR (achat) + 14,90 EUR/mois apres 30 jours (20/11/2026) ; abonnement 30 EUR/mois 1er mois 11 EUR (19/11/2026) ; anciens : 297 EUR + 30/mois, 297 EUR unique, test 1 EUR (a retirer)
 function mfeOnboardingPublic_(b) {
   var sid = String(b.session_id || '').trim();
   if (!/^cs_(live|test)_[A-Za-z0-9]{10,200}$/.test(sid)) return mfeJson_({ ok: false, error: 'paiement introuvable' });
@@ -1584,7 +1584,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 58 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 59 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
