@@ -1320,7 +1320,7 @@ function mfeSettings_() {
 // ---------- Espace abonne (19/11/2026) : page de connexion du portail Stripe (le client saisit l'email de son paiement, Stripe lui envoie un code). Meme lien pour tous. ----------
 var MFE_PORTAL_LOGIN = "https://billing.stripe.com/p/login/8x28wPebOeLMgoN10593y00";
 function mfePortalFooter_() {
-  return '\n\nManage your subscription (invoices, payment card, cancel anytime):\n' + MFE_PORTAL_LOGIN;
+  return '\n\nManage your subscription (invoices, payment card, cancel anytime):\n' + MFE_PORTAL_LOGIN + '\nTerms of sale: https://app.marketforge.fr/index-podcast/cgv.html?lang=en';
 }
 // ---------- Onboarding client apres paiement (15/11/2026) ----------
 // La page app.marketforge.fr/onboarding envoie ici les reponses du client. Seule action publique : elle exige un identifiant de session Stripe
@@ -1686,7 +1686,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 62 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 63 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
