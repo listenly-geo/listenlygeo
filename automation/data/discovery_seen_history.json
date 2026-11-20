@@ -366830,12 +366830,13 @@
     "feed_url": "https://rss.buzzsprout.com/1755412.rss",
     "genre": "Automotive",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-20",
     "secteur": "Formateurs & programmes",
     "gate": "dirigeant",
-    "email_domain": "hpacademy.com"
+    "email_domain": "hpacademy.com",
+    "rescue": "2026-11-20"
   },
   "https://feeds.captivate.fm/wearetpm/": {
     "podcast_name": "WeAreTPM",
@@ -366854,12 +366855,13 @@
     "feed_url": "https://api.riverside.com/hosting/SllmNifX.rss",
     "genre": "Careers",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-20",
     "secteur": "Immobilier",
     "gate": "dirigeant",
-    "email_domain": "magicdoor.com"
+    "email_domain": "magicdoor.com",
+    "rescue": "2026-11-20"
   },
   "https://podcasts.neuropt.org/category/strokesig/feed/podcast/": {
     "podcast_name": "ANPT Stroke Special Interest Group",
@@ -366867,11 +366869,104 @@
     "feed_url": "https://podcasts.neuropt.org/category/strokesig/feed/podcast/",
     "genre": "Health & Fitness",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
     "detected_language": "",
     "checked_date": "2026-11-20",
     "secteur": "Santé libérale",
-    "gate": "dirigeant",
-    "email_domain": "neuropt.org"
+    "rescue": "2026-11-20"
+  },
+  "https://anchor.fm/s/10ad1da70/podcast/rss": {
+    "podcast_name": "Dodging Divorce Disasters",
+    "artist_name": "Lori Hawkins, Certified Divorce Real Estate Expert (CDRE)",
+    "feed_url": "https://anchor.fm/s/10ad1da70/podcast/rss",
+    "genre": "How To",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-20",
+    "secteur": "Formateurs & programmes"
+  },
+  "https://anchor.fm/s/ec51b034/podcast/rss": {
+    "podcast_name": "MAMA RAE PODCAST",
+    "artist_name": "Hosted by Mama Rae",
+    "feed_url": "https://anchor.fm/s/ec51b034/podcast/rss",
+    "genre": "True Crime",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (True Crime)",
+    "detected_language": "",
+    "checked_date": "2026-11-20",
+    "secteur": "Tech & SaaS"
+  },
+  "https://rss.buzzsprout.com/2390498.rss": {
+    "podcast_name": "Wealth Strategies Unleashed",
+    "artist_name": "Concenture Wealth Management",
+    "feed_url": "https://rss.buzzsprout.com/2390498.rss",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-20",
+    "secteur": "Finance & Fintech"
+  },
+  "https://anchor.fm/s/b86d2d70/podcast/rss": {
+    "podcast_name": "Fit Fathers Fellowship",
+    "artist_name": "Ben Barker Fitness",
+    "feed_url": "https://anchor.fm/s/b86d2d70/podcast/rss",
+    "genre": "Fitness",
+    "track_count": 208,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/fit-fathers-fellowship/id1660834796?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts123/v4/83/ed/d9/83edd9b1-f902-7688-0b73-7953aa325327/mza_5041262515995325684.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "REJECT",
+    "reason": "Le sujet principal est Fitness/bien-être physique, pas business/B2B. Bien que Ben Barker soit un créateur identifiable, ce podcast ne répond pas au critère 3 (sujet business/B2B requis).",
+    "checked_date": "2026-11-20",
+    "secteur": "Formateurs & programmes",
+    "nb_episodes": 208
+  },
+  "https://anchor.fm/s/10ebc3d60/podcast/rss": {
+    "podcast_name": "GTM AI Podcast with Coach K and Jonathan Moss",
+    "artist_name": "AI Business Network",
+    "feed_url": "https://anchor.fm/s/10ebc3d60/podcast/rss",
+    "genre": "Business",
+    "track_count": 122,
+    "collection_view_url": "https://podcasts.apple.com/au/podcast/gtm-ai-podcast-with-coach-k-and-jonathan-moss/id1715924983?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/e5/0e/d2/e50ed24d-a593-3dda-5a58-40efb7c1d494/mza_18264458085242094902.jpeg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B d'entreprise produit par AI Business Network avec deux animateurs identifiables (Coach K et Jonathan Moss) sur le sujet GTM (Go-To-Market) et l'IA. 122 épisodes indiquent une activité régulière. Pas de signature de grand média ou de célébrité grand public — audience niche B2B alignée avec le profil cible.",
+    "checked_date": "2026-11-20",
+    "secteur": "Marketing & Ventes",
+    "nb_episodes": 122,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business Law",
+      "Business Law",
+      "Business Strategy",
+      "Business Growth"
+    ],
+    "contact_email": "jmk1000@gmail.com"
+  },
+  "https://rss.libsyn.com/shows/608720/destinations/5304255.xml": {
+    "podcast_name": "Wealth Purpose Peace",
+    "artist_name": "Warburton Capital Management",
+    "feed_url": "https://rss.libsyn.com/shows/608720/destinations/5304255.xml",
+    "genre": "Investing",
+    "track_count": 34,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/wealth-purpose-peace/id1889878096?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/5d/9c/5f/5d9c5fc4-e8fc-6d06-a670-bf94b626301a/mza_4867604864497943123.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast B2B d'investissement produit par Warburton Capital Management (entreprise de gestion de patrimoine identifiée), audience petite/moyenne (34 épisodes), pas de média mass ou célèbre. Répond à tous les critères d'onboarding.",
+    "checked_date": "2026-11-20",
+    "secteur": "Finance & Fintech",
+    "nb_episodes": 34,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Inner Peace",
+      "Higher Purpose",
+      "Life Purpose",
+      "Wealth Building"
+    ],
+    "contact_email": "noah.cottman@warburtoncapital.com"
   }
 }
