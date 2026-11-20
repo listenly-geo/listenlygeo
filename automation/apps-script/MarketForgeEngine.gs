@@ -1497,6 +1497,108 @@ function mfeOnbDomainUpdate_(b) {
   } catch (err) { Logger.log('Mail domaine : %s', err); }
   return mfeJson_({ ok: true });
 }
+// ---------- Renouvellement mensuel, mise en pause et relances automatiques (20/11/2026) ----------
+// Les actions ci-dessous sont protegees par le secret du pont (appelees par le workflow quotidien "Index : renouvellement et relances").
+var MFE_REMIND_LINKS = ['plink_1Udml3EPhm1snxO0lm0rZe5J', 'plink_1Udmp0EPhm1snxO0NmrGlYdZ'];   // liens de l'offre Index (les anciens liens ne declenchent pas de relance)
+function mfeStripeGet_(path) {
+  var key = PropertiesService.getScriptProperties().getProperty('STRIPE_SECRET_KEY');
+  if (!key) return { error: 'cle Stripe absente' };
+  var res = UrlFetchApp.fetch('https://api.stripe.com/v1/' + path, { headers: { Authorization: 'Bearer ' + key }, muteHttpExceptions: true });
+  var js = {}; try { js = JSON.parse(res.getContentText()); } catch (e) { }
+  if (res.getResponseCode() !== 200) return { error: (js.error && js.error.message) || ('HTTP ' + res.getResponseCode()) };
+  return js;
+}
+function mfeOnbAll_() {
+  var sh = mfeSS_().getSheetByName('Onboarding');
+  if (!sh || sh.getLastRow() < 2) return { sh: sh, vals: [] };
+  return { sh: sh, vals: sh.getRange(2, 1, sh.getLastRow() - 1, MFE_ONB_COLS.length).getValues() };
+}
+// Etat de l'abonnement de chaque client paye (statut, fin de periode, resiliation programmee) : le generateur decide ensuite du renouvellement ou de la pause.
+function mfeOnbSubscriptions_() {
+  var all = mfeOnbAll_(), out = [];
+  for (var i = 0; i < all.vals.length && out.length < 200; i++) {
+    var v = all.vals[i], sid = String(v[3] || '');
+    if (String(v[2] || '').indexOf('paye') !== 0 || !/^cs_(live|test)_/.test(sid)) continue;
+    var m = /\/docs\/([a-z0-9-]+)/.exec(String(v[20] || ''));
+    if (!m) continue;
+    var o = { row: i + 2, site: m[1], email: String(v[4] || ''), name: String(v[13] || v[5] || ''), rss: String(v[6] || '') };
+    var js = mfeStripeGet_('checkout/sessions/' + sid + '?expand[]=subscription');
+    if (js.error) { o.error = js.error; out.push(o); continue; }
+    var sub = js.subscription;
+    if (!sub || typeof sub !== 'object') { o.status = 'none'; out.push(o); continue; }
+    var it = (sub.items && sub.items.data && sub.items.data[0]) || {};
+    o.status = sub.status;
+    o.cancel = !!sub.cancel_at_period_end || !!sub.cancel_at;
+    o.period_start = sub.current_period_start || it.current_period_start || 0;
+    o.period_end = sub.current_period_end || it.current_period_end || 0;
+    out.push(o);
+  }
+  return mfeJson_({ ok: true, rows: out });
+}
+// Mail au client (et alerte a Etienne) quand un mois est renouvele ou quand la production est mise en pause / reprise.
+function mfeOnbNotify_(b) {
+  var all = mfeOnbAll_(), row = parseInt(b.row, 10);
+  if (!all.sh || !(row >= 2 && row <= all.sh.getLastRow())) return mfeJson_({ ok: false, error: 'ligne invalide' });
+  var v = all.vals[row - 2], kind = String(b.kind || ''), site = String(b.site || ''), pages = Math.max(0, Math.min(parseInt(b.pages, 10) || 0, 100));
+  if (!/^[a-z0-9-]{3,80}$/.test(site) || String(v[2] || '').indexOf('paye') !== 0) return mfeJson_({ ok: false, error: 'refuse' });
+  var email = String(v[4] || ''), podcast = String(v[5] || ''), okMail = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  var live = /En ligne : (https:\/\/[a-z0-9.-]+)/.exec(String(v[20] || ''));
+  var url = live ? live[1] : 'https://app.marketforge.fr/docs/' + site;
+  try {
+    if (kind === 'renewed' && okMail.test(email)) GmailApp.sendEmail(email, 'Your Index: ' + pages + ' new pages this month',
+      'Hi,\n\nYour monthly production has started: ' + pages + ' new pages, built from your latest episodes, will be added to your Index, one per day, over the next 30 days.\n\nSee it grow: ' + url + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
+    if (kind === 'paused' && okMail.test(email)) GmailApp.sendEmail(email, 'Your Index: new pages are paused',
+      'Hi,\n\nYour subscription has ended, so we have paused the production of new pages. Everything already published stays online and keeps working:\n' + url + '\n\nYou can restart the monthly production at any time: just reply to this email, we will take care of it.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
+    GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Index ' + (kind === 'renewed' ? 'renouvele' : kind === 'paused' ? 'EN PAUSE (resiliation)' : 'repris') + ' : ' + podcast, podcast + '\nLigne ' + row + '\n' + url + (pages ? '\n' + pages + ' nouvelles pages' : ''));
+  } catch (err) { Logger.log('Mail renouvellement : %s', err); }
+  return mfeJson_({ ok: true });
+}
+// Relances : (a) paye mais onboarding non rempli (3 h, 2 j, 5 j) ; (b) DNS non fait (3 j, 7 j) ; (c) rappel Search Console environ 15 jours apres la mise en ligne.
+// Chaque relance n'est envoyee qu'une fois (suivi dans les proprietes du script), au plus une par client et par passage.
+function mfeOnbReminders_() {
+  var props = PropertiesService.getScriptProperties(), now = new Date(), okMail = /^[^@\s]+@[^@\s]+\.[^@\s]+$/, me = Session.getEffectiveUser().getEmail();
+  var sent = { onboarding: 0, dns: 0, google: 0 }, all = mfeOnbAll_(), known = {};
+  all.vals.forEach(function (v) { known[String(v[3] || '')] = 1; });
+  var lst = mfeStripeGet_('checkout/sessions?limit=100&created[gte]=' + Math.floor((now.getTime() - 14 * 864e5) / 1000));
+  if (lst.error) Logger.log('Relances Stripe : %s', lst.error);
+  var thr = [3, 48, 120];
+  (lst.data || []).forEach(function (s) {
+    var lk = (s.payment_link && s.payment_link.id) ? s.payment_link.id : String(s.payment_link || '');
+    var email = s.customer_details && s.customer_details.email;
+    if (s.status !== 'complete' || MFE_REMIND_LINKS.indexOf(lk) < 0 || known[s.id] || !email || !okMail.test(email)) return;
+    var k = 'RMD_' + s.id, st = parseInt(props.getProperty(k) || '0', 10), ageH = (now.getTime() - s.created * 1000) / 36e5;
+    if (st >= thr.length || ageH < thr[st]) return;
+    var link = 'https://app.marketforge.fr/onboarding/?session_id=' + s.id;
+    try {
+      GmailApp.sendEmail(email, st === 0 ? 'Your Index: 2 minutes left to start' : st === 1 ? 'Your Index is waiting for you' : 'Last reminder: start your Index',
+        'Hi,\n\nThanks for your order. To build your Index we only need a few answers about your podcast (about 2 minutes):\n\n' + link + '\n\nAs soon as you send them, we start building and you get a link to see it live.\n\nAnything unclear? Just reply to this email.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
+      props.setProperty(k, String(st + 1)); sent.onboarding++;
+      if (st === 1) GmailApp.sendEmail(me, 'Client paye sans onboarding : ' + email, 'Deux relances sont parties, pas de reponse.\nSession : ' + s.id + '\nLien : ' + link);
+    } catch (err) { Logger.log('Relance onboarding : %s', err); }
+  });
+  all.vals.forEach(function (v, i) {
+    var sid = String(v[3] || ''), st = String(v[1] || ''), email = String(v[4] || ''), ageD = (now.getTime() - new Date(v[0]).getTime()) / 864e5;
+    if (String(v[2] || '').indexOf('paye') !== 0 || !sid || !okMail.test(email) || isNaN(ageD)) return;
+    if (st === 'DNS a faire' && v[16]) {
+      var k = 'DNS_' + sid, n = parseInt(props.getProperty(k) || '0', 10), host = (String(v[17] || '') || 'expertise') + '.' + String(v[16]);
+      if (n >= 2 || ageD < (n === 0 ? 3 : 7)) return;
+      try {
+        GmailApp.sendEmail(email, 'Your Index is ready: one line left to connect ' + host,
+          'Hi,\n\nYour Index is built and waiting. To put it on your own address (https://' + host + '), add this single line in your domain settings (DNS):\n\nType:   CNAME\nName:   ' + (String(v[17] || '') || 'expertise') + '\nValue:  app.marketforge.fr\n(TTL: automatic, or 3600)\n\nAs soon as it is active, your Index goes live on ' + host + ' automatically and we email you. Stuck? Reply with the name of your domain provider (GoDaddy, OVH, Cloudflare, Wix...) and we will walk you through it.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
+        props.setProperty(k, String(n + 1)); sent.dns++;
+        if (n === 1) GmailApp.sendEmail(me, 'DNS toujours pas fait : ' + host, String(v[5] || '') + '\nLigne ' + (i + 2) + '\nDeux relances envoyees a ' + email + '.');
+      } catch (err) { Logger.log('Relance DNS : %s', err); }
+    } else if (st === 'En ligne' && ageD >= 17 && !props.getProperty('J15_' + sid)) {
+      var live = /En ligne : (https:\/\/[a-z0-9.-]+)/.exec(String(v[20] || ''));
+      try {
+        GmailApp.sendEmail(email, 'Your first Google numbers are appearing',
+          'Hi,\n\nYour Index has been online for about two weeks: Google starts to show your first results now.\n\nTo see them: open Google Search Console (https://search.google.com/search-console), choose your Index address' + (live ? ' (' + live[1] + ')' : '') + ', then Performance. You will see views, clicks and the questions people search.\n\nNot set up yet? Add your Index as a property and send the sitemap (your address + /sitemap.xml): it takes two minutes.\n\nNew pages keep arriving every day, so the numbers grow week after week. Questions? Just reply.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
+        props.setProperty('J15_' + sid, '1'); sent.google++;
+      } catch (err) { Logger.log('Rappel Google : %s', err); }
+    }
+  });
+  return mfeJson_({ ok: true, sent: sent });
+}
 // Apercu du flux RSS pour l'onboarding : titre, pochette, nombre d'episodes. Lecture seule, protegee par le meme identifiant de session que l'onboarding.
 function mfeOnboardingRss_(b) {
   var sid = String(b.session_id || '').trim();
@@ -1584,7 +1686,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 61 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 62 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -1603,6 +1705,9 @@ function doPost(e) {
   if (body.action === 'ai_reply_save') return mfeAiReplySave_(body);
   if (body.action === 'sav_list') return mfeSavList_(body);   // 19/11/2026 : brouillons SAV
   if (body.action === 'sav_save') return mfeSavSave_(body);
+  if (body.action === 'onboarding_subscriptions') return mfeOnbSubscriptions_();   // 20/11/2026 : renouvellement mensuel et pause
+  if (body.action === 'onboarding_notify') return mfeOnbNotify_(body);
+  if (body.action === 'onboarding_reminders') return mfeOnbReminders_();   // relances automatiques
   if (body.action === 'onboarding_domains') return mfeOnbDomains_();   // 18/11/2026 : domaine du client
   if (body.action === 'onboarding_domain_update') return mfeOnbDomainUpdate_(body);
   if (body.action === 'tendances') return mfeTendances_(body);

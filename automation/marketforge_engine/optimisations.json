@@ -3280,6 +3280,30 @@
    "texte": "Suivi du trafic par le client sans tableau de bord : l'écran final de l'onboarding prévient que Google met 2 à 3 semaines à afficher les pages, et le mail « Your Index is live » explique en 3 étapes comment suivre ses résultats dans Google Search Console (adresse de l'Index et plan du site). Le rappel de mi-parcours (environ 15 jours après la mise en ligne) reste à faire.",
    "date": "20/11/2026",
    "statut": "en_cours"
+  },
+  {
+   "id": "opt-397",
+   "section": "Index",
+   "version": "V5.3",
+   "texte": "Renouvellement mensuel automatique : chaque matin, l'abonnement Stripe de chaque client est lu. Quand le mois est payé, les 30 pages suivantes sont extraites des nouveaux épisodes du podcast (jamais les mêmes questions) et publiées à raison d'une par jour, avec un mail au client.",
+   "date": "20/11/2026",
+   "statut": "en_cours"
+  },
+  {
+   "id": "opt-398",
+   "section": "Index",
+   "version": "V5.3",
+   "texte": "Mise en pause automatique à la résiliation : si l'abonnement est résilié ou impayé, plus aucune nouvelle page n'est produite (les pages déjà en ligne restent). Le client et Etienne sont prévenus par mail. La production reprend toute seule si l'abonnement redevient actif.",
+   "date": "20/11/2026",
+   "statut": "en_cours"
+  },
+  {
+   "id": "opt-399",
+   "section": "Index",
+   "version": "V5.3",
+   "texte": "Relances automatiques : un client qui a payé sans remplir l'onboarding reçoit un mail à 3 heures, 2 jours et 5 jours ; un client qui n'a pas ajouté sa ligne DNS est relancé à 3 et 7 jours ; Etienne est alerté quand deux relances restent sans réponse. Un rappel Google (Search Console) part environ 15 jours après la mise en ligne.",
+   "date": "20/11/2026",
+   "statut": "en_cours"
   }
  ]
 }

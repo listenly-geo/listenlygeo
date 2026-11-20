@@ -33,7 +33,7 @@ def main():
             continue
         if q.get("last_publish") == today.isoformat():
             continue
-        age = (today - datetime.date.fromisoformat(q["created"])).days
+        age = (today - datetime.date.fromisoformat(q.get("cycle_start") or q["created"])).days   # 20/11/2026 : le delai se compte depuis le debut du cycle mensuel
         if age > MAX_DAYS:
             log(f"{q['site']} : delai de {MAX_DAYS} jours depasse, file non publiee.")
             continue
@@ -49,10 +49,11 @@ def main():
             log(f"ERREUR {q['site']} : {str(res.get('output', ''))[:200]}")
             continue
         q["pointer"] += 1
+        q["live"] = q.get("live", ib.FIRST_BATCH) + 1
         q["last_publish"] = today.isoformat()
         with open(path, "w", encoding="utf-8") as f:
             json.dump(q, f, ensure_ascii=False, indent=1)
-        log(f"{q['site']} : {ib.FIRST_BATCH + q['pointer']} pages en ligne sur {ib.FIRST_BATCH + len(q['pages'])}")
+        log(f"{q['site']} : {q['live']} pages en ligne (cycle {q.get('cycle', 1)} : {q['pointer']}/{len(q['pages'])})")
 
 
 if __name__ == "__main__":

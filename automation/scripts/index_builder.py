@@ -59,6 +59,10 @@ def set_status(row, statut, note="", url=""):
     sb.call(payload={"action": "onboarding_update", "row": row, "statut": statut, "note": note, "url": url})
 
 
+def qkey(q):
+    return re.sub(r"\W+", " ", (q or "").lower()).strip()
+
+
 def pending():
     j = sb.call(payload={"action": "onboarding_pending"})
     return j.get("rows", []) if isinstance(j, dict) and j.get("ok") else []
@@ -157,19 +161,22 @@ def build(row):
     # Dedoublonnage des questions, plafond de la file, puis : 5 pages en ligne, le reste en file (publie chaque jour).
     seen, uniq = set(), []
     for a in answers:
-        k = re.sub(r"\W+", " ", a["question"].lower()).strip()
+        k = qkey(a["question"])
         if k and k not in seen:
             seen.add(k)
             uniq.append(a)
     answers = uniq[:QUEUE_MAX]
     total = len(answers)
     first, rest = answers[:FIRST_BATCH], answers[FIRST_BATCH:]
-    if rest and not DRY_RUN:
+    if not DRY_RUN:
+        # 20/11/2026 : la file est toujours creee (meme vide) : elle porte le cycle mensuel (renouvellement, pause) et la memoire des episodes utilises.
         os.makedirs(QUEUE_DIR, exist_ok=True)
         with open(os.path.join(QUEUE_DIR, site + ".json"), "w", encoding="utf-8") as f:
             json.dump({"site": site, "podcast": name, "cta_url": (row.get("Lien du bouton") or "").strip(),
                        "cta_text": CTA_TEXT.get(row.get("Objectif", ""), "Learn more"),
-                       "created": time.strftime("%Y-%m-%d"), "pointer": 0, "last_publish": "", "pages": rest},
+                       "created": time.strftime("%Y-%m-%d"), "cycle": 1, "cycle_start": time.strftime("%Y-%m-%d"),
+                       "live": len(first), "used_episodes": sorted({a["episode"] for a in answers}),
+                       "keys": sorted(seen), "pointer": 0, "last_publish": "", "pages": rest},
                       f, ensure_ascii=False, indent=1)
         log(f"File creee : {len(rest)} page(s) en attente, 1 par jour.")
     answers = first
