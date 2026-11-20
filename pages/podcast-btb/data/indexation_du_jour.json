@@ -5,12 +5,12 @@
   "connu": 1,
   "mot_cle": 9
  },
- "selection": "note seule (volumes non a jour, Keyword Planner en echec)",
+ "selection": "50/50 connus + mots-cles ; volumes du jour + note",
  "pretes": 10,
  "urls": [
   {
    "url": "https://listenly.org/podcast-btb/m/how-i-built-this-with-guy-raz/ce9098db00",
-   "titre": "How did Michael Dell start Dell Computer? | Listenly",
+   "titre": "How much did Michael Dell earn from his dorm? | Listenly",
    "score_qualite": 60,
    "source": "connu",
    "http": 200,
@@ -21,17 +21,29 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/the-vurge/7eba6c6de9",
-   "titre": "Digital transformation in rural healthcare? | Listenly",
-   "score_qualite": 86,
+   "url": "https://listenly.org/podcast-btb/m/leaders-of-b2b-podcast-interviews-on-bus/146f10237d",
+   "titre": "What should founders ask private equity firms? | Listenly",
+   "score_qualite": 76,
    "source": "mot_cle",
    "http": 200,
    "inspection_erreur": "HTTPSConnectionPool(host='searchconsole.googleapis.com', port=443): Read timed out. (read timeout=60)",
    "pret_pour_demande": true
   },
   {
+   "url": "https://listenly.org/podcast-btb/m/the-vurge/7eba6c6de9",
+   "titre": "What is rural health digital transformation? | The Vurge",
+   "score_qualite": 86,
+   "source": "mot_cle",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
    "url": "https://listenly.org/podcast-btb/m/your-next-dollar-money-management-for-hi/5a8c9c8587",
-   "titre": "How to verify a used car before buying? | Your Next Dollar",
+   "titre": "How to check a used car's condition? | Your Next Dollar",
    "score_qualite": 86,
    "source": "mot_cle",
    "http": 200,
@@ -43,19 +55,16 @@
   },
   {
    "url": "https://listenly.org/podcast-btb/m/ai-product-and-design-podcast/06a45fedad",
-   "titre": "Why companies fail at AI without use cases? | Listenly",
+   "titre": "Why does AI fail without use cases? | AI, Product & Design",
    "score_qualite": 80,
    "source": "mot_cle",
    "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "inspection_erreur": "HTTPSConnectionPool(host='searchconsole.googleapis.com', port=443): Read timed out. (read timeout=60)",
    "pret_pour_demande": true
   },
   {
    "url": "https://listenly.org/podcast-btb/m/automation-awakenings/6611dc650f",
-   "titre": "Why standardize processes before automation? | Listenly",
+   "titre": "Why standardize before automating? | Automation Awakenings",
    "score_qualite": 80,
    "source": "mot_cle",
    "http": 200,
@@ -67,7 +76,7 @@
   },
   {
    "url": "https://listenly.org/podcast-btb/m/federal-tech-podcast-for-innovators-entr/641d6e9a6c",
-   "titre": "How should CISOs prioritize vulnerabilities? | Listenly",
+   "titre": "How do CISOs prioritize AI vulnerabilities? | Listenly",
    "score_qualite": 80,
    "source": "mot_cle",
    "http": 200,
@@ -79,7 +88,7 @@
   },
   {
    "url": "https://listenly.org/podcast-btb/m/ai-marketing-transformation/ecd513dafa",
-   "titre": "ANA certificate programs AI marketing? | Listenly",
+   "titre": "ANA AI certificates for marketers? | Listenly",
    "score_qualite": 77,
    "source": "mot_cle",
    "http": 200,
@@ -91,7 +100,7 @@
   },
   {
    "url": "https://listenly.org/podcast-btb/m/billion-dollar-backstory/6fe6f1c7a7",
-   "titre": "How do asset managers differentiate in tenders? | Listenly",
+   "titre": "How do asset managers win competitive tenders? | Listenly",
    "score_qualite": 76,
    "source": "mot_cle",
    "http": 200,
@@ -103,19 +112,7 @@
   },
   {
    "url": "https://listenly.org/podcast-btb/m/construction-genius-construction-leaders/951fb6fa0d",
-   "titre": "Where do fires start in construction companies? | Listenly",
-   "score_qualite": 76,
-   "source": "mot_cle",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/for-the-23-the-woman-of-color-business-e/4e308a6925",
-   "titre": "How does tracking results increase conversions? | Listenly",
+   "titre": "Construction company problems? | Listenly",
    "score_qualite": 76,
    "source": "mot_cle",
    "http": 200,
