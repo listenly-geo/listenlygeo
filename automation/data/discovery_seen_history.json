@@ -367661,12 +367661,13 @@
     "feed_url": "https://feeds.simplecast.com/tJAWx9cj",
     "genre": "Medicine",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-20",
     "secteur": "Santé",
     "gate": "dirigeant",
-    "email_domain": "fpamed.com"
+    "email_domain": "fpamed.com",
+    "rescue": "2026-11-20"
   },
   "https://feed.podbean.com/topshoppodcasts/feed.xml": {
     "podcast_name": "TOP SHOP by Paul Donahue",
@@ -367723,5 +367724,39 @@
       "Startup Marketing"
     ],
     "contact_email": "ambrosia@ambrosiacarey.com"
+  },
+  "https://rss.buzzsprout.com/2236632.rss": {
+    "podcast_name": "The Breanna Morello Show",
+    "artist_name": "Breanna Morello",
+    "feed_url": "https://rss.buzzsprout.com/2236632.rss",
+    "genre": "News Commentary",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-20",
+    "secteur": "Énergie"
+  },
+  "https://rss.buzzsprout.com/907018.rss": {
+    "podcast_name": "The Lawyer Podcast",
+    "artist_name": "The Lawyer",
+    "feed_url": "https://rss.buzzsprout.com/907018.rss",
+    "genre": "Business News",
+    "track_count": 98,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/the-lawyer-podcast/id1483779950?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/7e/c7/2e/7ec72ef3-7692-fbc7-5c15-3d1090bd1dfd/mza_3843754463188506807.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par un créateur/expert indépendant identifiable (The Lawyer) sur un sujet B2B (Business News, droit des affaires). Audience petite à moyenne (98 épisodes, éditeur non-média). Répond aux critères d'acceptance_path CREATEUR depuis octobre 2026.",
+    "checked_date": "2026-11-20",
+    "secteur": "Juridique",
+    "nb_episodes": 98,
+    "suggested_category": "💼 Business",
+    "suggested_tags": [
+      "Business News",
+      "Business Law",
+      "Business Law",
+      "Business Strategy"
+    ],
+    "contact_email": "podcast@thelawyer.com"
   }
 }
