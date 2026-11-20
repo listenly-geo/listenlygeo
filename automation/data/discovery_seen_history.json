@@ -367077,12 +367077,13 @@
     "feed_url": "https://rss.libsyn.com/shows/150251/destinations/966710.xml",
     "genre": "Fitness",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-20",
     "secteur": "Marketing & Ventes",
     "gate": "dirigeant",
-    "email_domain": "muscleintelligence.com"
+    "email_domain": "muscleintelligence.com",
+    "rescue": "2026-11-20"
   },
   "https://anchor.fm/s/10cbe1c68/podcast/rss": {
     "podcast_name": "HAZARD CLASS",
@@ -367106,5 +367107,52 @@
       "Class & Inequality"
     ],
     "contact_email": "thehazmatguys@gmail.com"
+  },
+  "https://feeds.megaphone.fm/YAP1286895853": {
+    "podcast_name": "The Dr. Leaf Show",
+    "artist_name": "Dr. Caroline Leaf",
+    "feed_url": "https://feeds.megaphone.fm/YAP1286895853",
+    "genre": "Mental Health",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-20",
+    "secteur": "Santé libérale",
+    "gate": "dirigeant",
+    "email_domain": "yapmedia.com"
+  },
+  "https://rss.libsyn.com/shows/66504/destinations/268279.xml": {
+    "podcast_name": "The Psychology of Eating Podcast",
+    "artist_name": "Marc David",
+    "feed_url": "https://rss.libsyn.com/shows/66504/destinations/268279.xml",
+    "genre": "Nutrition",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 792 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-20",
+    "secteur": "Santé libérale"
+  },
+  "https://anchor.fm/s/dc023b04/podcast/rss": {
+    "podcast_name": "Mental Performance Daily with Brian Cain",
+    "artist_name": "Brian Cain, MPM",
+    "feed_url": "https://anchor.fm/s/dc023b04/podcast/rss",
+    "genre": "Society & Culture",
+    "track_count": 1938,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/mental-performance-daily-with-brian-cain/id1578012159?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/79/6c/8f/796c8f16-fd32-e62a-b164-79660b4c5566/mza_18281935607676557970.jpg/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast animé par Brian Cain, créateur/expert indépendant identifiable en mental performance (business/B2B), 1938 épisodes indique une activité régulière établie. Pas de média mass ou célébrité grand public détectée dans les métadonnées iTunes.",
+    "checked_date": "2026-11-20",
+    "secteur": "Formateurs & programmes",
+    "nb_episodes": 1938,
+    "suggested_category": "🎭 Society & Culture",
+    "suggested_tags": [
+      "Pop Culture",
+      "Athletic Performance",
+      "Startup Culture",
+      "Internet Culture"
+    ],
+    "contact_email": "brian@briancain.com"
   }
 }
