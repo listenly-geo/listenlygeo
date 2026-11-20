@@ -1,21 +1,20 @@
-# Brief trafic SEO — 2026-11-19
+# Brief trafic SEO — 2026-11-20
 
-- Période ['2026-08-19', '2026-11-17'] : 19 clics / 3057 impressions sur 483 pages
-- Pages de moments dans Google : 78 pages, 314 impressions, 10 clics
-- Moments ouverts au sitemap : 88 (dont 83 depuis 7 j+) ; contrôlés : 83 ; indexés : 74 (89.2%)
-- Quota : 10/jour → recommandé 25/jour (89.2% indexees : on peut accelerer)
+- Période ['2026-08-20', '2026-11-18'] : 19 clics / 3082 impressions sur 484 pages
+- Pages de moments dans Google : 79 pages, 317 impressions, 10 clics
+- Moments ouverts au sitemap : 88 (dont 87 depuis 7 j+) ; contrôlés : 85 ; indexés : 76 (89.4%)
+- Quota : 10/jour → recommandé 25/jour (89.4% indexees : on peut accelerer)
 
 ## Par type de page
-- hub : 280 pages, 2156 impr., 5 clics
-- show-listenly : 116 pages, 539 impr., 4 clics
-- moment : 78 pages, 314 impr., 10 clics
+- hub : 280 pages, 2170 impr., 5 clics
+- show-listenly : 116 pages, 547 impr., 4 clics
+- moment : 79 pages, 317 impr., 10 clics
 - autre : 9 pages, 48 impr., 0 clics
 
 ## 10 pages de moments à faire indexer à la main aujourd'hui
 - https://listenly.org/podcast-btb/m/the-single-source/103c535b37 (inconnue)
 - https://listenly.org/podcast-btb/m/16-minutes-news-by-a16z/a4a410faae (inconnue)
 - https://listenly.org/podcast-btb/m/ai-a16z/de75aa3c5b (inconnue)
-- https://listenly.org/podcast-btb/m/the-conference-room/2687274a29 (inconnue)
 - https://listenly.org/podcast-btb/m/16-minutes-news-by-a16z/922f63485b (inconnue)
 
 ## Pages visibles (positions 3-15) sans clic : titre/extrait à retravailler
@@ -35,6 +34,7 @@
 - changingenergy-ltd — 3 impr., pos 4, 0 clic(s)
 - in the air podcast — 7 impr., pos 4.1, 0 clic(s)
 - enter the polish market with a local b2b partner — 3 impr., pos 5, 0 clic(s)
+- evaluate the music discovery platforms company spotify on steven bartlett — 3 impr., pos 5.3, 0 clic(s)
 - creic — 9 impr., pos 5.6, 0 clic(s)
 - comment le plaidoyer pour les maladies rares peut-il amplifier efficacement les voix sous-représentées dans le secteur de la santé ? — 5 impr., pos 5.8, 0 clic(s)
 - construire la wallonie — 13 impr., pos 5.9, 0 clic(s)
@@ -45,4 +45,3 @@
 - hecast — 5 impr., pos 8, 0 clic(s)
 - ashley kirkwood speak your way to cash — 3 impr., pos 8, 0 clic(s)
 - road to autonomy — 6 impr., pos 8.3, 0 clic(s)
-- which late-stage or growth vcs are considered founder-friendly? — 3 impr., pos 8.3, 0 clic(s)
