@@ -39,6 +39,8 @@ jobs:
                   print('domaine principal : present' if d.get('main_domain') else 'domaine principal : absent')
                   print('domaines complementaires :', len(d.get('addon_domains') or []))
                   print('sous-domaines :', len(d.get('sub_domains') or []))
+                  print('LISTE complementaires :', ', '.join(d.get('addon_domains') or []))
+                  print('LISTE sous-domaines :', ', '.join(d.get('sub_domains') or []))
           except Exception as e:
               print('reponse illisible :', type(e).__name__)
           PY
