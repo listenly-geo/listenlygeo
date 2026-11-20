@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20T17:02",
+ "updated": "2026-11-20T17:16",
  "total": 1383,
  "status": {
   "Clos (ancien mail)": 182,
@@ -10,16 +10,17 @@
   "En pause (ancienne selection)": 53,
   "Relance": 207,
   "Email instable": 3,
-  "Envoye": 637,
+  "Envoye": 638,
   "En pause (question hors sujet)": 47,
   "Email risque": 11,
-  "Pret": 80,
+  "Pret": 12,
   "En pause (pas de fiche N1)": 1,
   "En pause (doublon dirigeant)": 10,
   "En pause (a trier)": 1,
   "En pause (erreur extraction)": 9,
   "Relance 2": 1,
-  "Lien recu": 5
+  "Lien recu": 5,
+  "Erreur": 67
  },
  "ab_envois": [
   {
@@ -952,9 +953,16 @@
    "statut": "Envoye",
    "envoye_le": "2026-11-20T16:54:50.815Z",
    "variante": "Q0"
+  },
+  {
+   "slug": "herbrally",
+   "podcast": "HerbRally",
+   "statut": "Envoye",
+   "envoye_le": "2026-11-20T17:09:45.114Z",
+   "variante": "Q0"
   }
  ],
- "sent_total": 1054,
+ "sent_total": 1055,
  "replies_total": 6,
  "followups_total": 224,
  "sent_by_day": {
@@ -997,7 +1005,7 @@
   "2026-11-17": 40,
   "2026-11-18": 50,
   "2026-11-19": 50,
-  "2026-11-20": 20
+  "2026-11-20": 21
  },
  "replies_by_day": {
   "2026-09-28": 1,
@@ -1033,14 +1041,26 @@
  "max_envois_jour": 100,
  "heures_envoi": "14-24",
  "cap_jour_effectif": 50,
- "stock_utilisable": 68,
+ "stock_utilisable": 0,
  "stock_pret": {
-  "stock": 68,
+  "stock": 0,
   "ouvert": true,
   "ouverture": 0
  },
- "envoyes_aujourdhui": 20,
+ "envoyes_aujourdhui": 21,
  "prospects": [
+  {
+   "slug": "herbrally",
+   "podcast": "HerbRally",
+   "statut": "Envoye",
+   "ajoute_le": "2026-11-16T12:50:21.864Z",
+   "envoye_le": "2026-11-20T17:09:45.114Z",
+   "relance_le": "",
+   "reponse": "",
+   "fiche_url": "https://listenly.org/podcast-btb/herbrally-podcast.html",
+   "queue_rank": null,
+   "variante": "Q0"
+  },
   {
    "slug": "industrial-ai-podcast",
    "podcast": "Industrial AI Podcast",
@@ -4626,18 +4646,6 @@
    "relance_le": "",
    "reponse": "",
    "fiche_url": "https://listenly.org/podcast-btb/associated-podcast.html",
-   "queue_rank": null,
-   "variante": ""
-  },
-  {
-   "slug": "compassionate-climb",
-   "podcast": "Compassionate Climb",
-   "statut": "Envoye",
-   "ajoute_le": "2026-11-10T05:42:27.820Z",
-   "envoye_le": "2026-11-16T19:09:50.751Z",
-   "relance_le": "",
-   "reponse": "",
-   "fiche_url": "https://listenly.org/podcast-btb/compassionate-climb-podcast.html",
    "queue_rank": null,
    "variante": ""
   }
