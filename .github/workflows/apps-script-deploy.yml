@@ -41,4 +41,8 @@ jobs:
         run: |
           git config user.name "marketforge-bot"; git config user.email "bot@listenly.fr"
           git add automation/apps-script/backup || true
-          git diff --cached --quiet || (git commit -m "Apps Script: sauvegarde du projet lu" && git pull -q --rebase && git push -q)
+          if ! git diff --cached --quiet; then
+            git commit -q -m "Apps Script: sauvegarde du projet lu"
+            for i in 1 2 3 4 5; do git pull -q --rebase && git push -q && break; sleep $((i * 4)); done
+          fi
+          exit 0   # la sauvegarde ne doit jamais faire echouer un deploiement reussi (fausse alerte "pont en echec")
