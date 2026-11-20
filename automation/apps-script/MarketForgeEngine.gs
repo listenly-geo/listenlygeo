@@ -1489,7 +1489,7 @@ function mfeOnbDomainUpdate_(b) {
       GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'DNS a faire : ' + host, podcast + '\nLigne ' + row + '\n' + line);
     } else if (statut === 'En ligne' && prev !== 'En ligne' && paid) {
       if (okMail.test(email)) GmailApp.sendEmail(email, 'Your Index is live on ' + host,
-        'Hi,\n\nYour Index is now live on your own domain:\nhttps://' + host + '\n\nAdd a link to it from your website menu and your podcast show notes: that is how Google and AI assistants find it. Questions? Just reply.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
+        'Hi,\n\nYour Index is now live on your own domain:\nhttps://' + host + '\n\nAdd a link to it from your website menu and your podcast show notes: that is how Google and AI assistants find it.\n\nSee your results on Google (free):\n1. Open Google Search Console: https://search.google.com/search-console\n2. Add your Index address (https://' + host + ') as a new property and verify it.\n3. Send your sitemap: https://' + host + '/sitemap.xml\n\nYou will see your first numbers (views, clicks and the questions people search) after 2 to 3 weeks. If you already use Search Console on your main domain, your Index appears there automatically. Google measures its own results only: visits from AI assistants are not shown there.\n\nQuestions? Just reply.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
       GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Index EN LIGNE : ' + host, podcast + '\nLigne ' + row);
     } else if (statut === 'Erreur') {
       GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Domaine en erreur : ' + host, podcast + '\nLigne ' + row + '\n' + note);
@@ -1584,7 +1584,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 60 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 61 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
