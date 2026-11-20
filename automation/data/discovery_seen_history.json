@@ -366605,12 +366605,11 @@
     "feed_url": "https://podcasts.neuropt.org/category/ddsig/feed/podcast/",
     "genre": "Health & Fitness",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Santé libérale",
-    "gate": "dirigeant",
-    "email_domain": "neuropt.org"
+    "rescue": "2026-11-19"
   },
   "https://anchor.fm/s/e4e41be8/podcast/rss": {
     "podcast_name": "TFS",
@@ -366633,5 +366632,26 @@
     "detected_language": "",
     "checked_date": "2026-11-19",
     "secteur": "Cabinets d'avocats"
+  },
+  "https://rss.libsyn.com/shows/584570/destinations/5070555.xml": {
+    "podcast_name": "StoryLens Podcast",
+    "artist_name": "John Christensen and Cameron Bond, StoryOne Family Office",
+    "feed_url": "https://rss.libsyn.com/shows/584570/destinations/5070555.xml",
+    "genre": "Entrepreneurship",
+    "track_count": 22,
+    "collection_view_url": "https://podcasts.apple.com/us/podcast/storylens-podcast/id1826869182?uo=4",
+    "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/ef/a6/3d/efa63d31-d93a-7d63-dc22-5d8cf3bb7f92/mza_16377063072864954560.png/600x600bb.jpg",
+    "detected_language": "en",
+    "verdict": "ONBOARD",
+    "reason": "Podcast d'entreprise B2B produit par StoryOne Family Office avec deux hôtes identifiables (John Christensen et Cameron Bond), sujet entrepreneurship clairement business, audience petite (22 épisodes, niche famille office/entrepreneuriat). Pas de signal de notoriété mass-media ou de couverture documentaire existante.",
+    "checked_date": "2026-11-19",
+    "secteur": "Business général (entreprise)",
+    "nb_episodes": 22,
+    "suggested_category": null,
+    "suggested_tags": [
+      "Female Entrepreneurship",
+      "Serial Entrepreneurship"
+    ],
+    "contact_email": "podcast@story-one.com"
   }
 }
