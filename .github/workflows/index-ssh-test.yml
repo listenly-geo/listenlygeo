@@ -1,0 +1,38 @@
+name: "Index — test connexion SSH o2switch (lecture seule)"
+
+# Verifie que la cle marketforge_index (SSH_PRIVATE_KEY + SSH_KEY_PASSPHRASE) ouvre bien une session sur l'hebergement
+# et que les commandes cPanel (cpapi2 / uapi) sont disponibles. RIEN n'est modifie sur le serveur.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ssh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      SSH_KEY_PASSPHRASE: ${{ secrets.SSH_KEY_PASSPHRASE }}
+      SSH_HOST: ${{ secrets.DTB_SSH_HOST }}
+      SSH_USER: ${{ secrets.DTB_SSH_USER }}
+    steps:
+      - name: Connexion et commandes cPanel (lecture seule)
+        run: |
+          for v in SSH_PRIVATE_KEY SSH_KEY_PASSPHRASE SSH_HOST SSH_USER; do [ -n "${!v}" ] || { echo "::error::secret manquant pour $v"; exit 1; }; done
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/mf_key && chmod 600 ~/.ssh/mf_key
+          printf '#!/bin/sh\necho "$SSH_KEY_PASSPHRASE"\n' > ~/askpass.sh && chmod 700 ~/askpass.sh
+          eval "$(ssh-agent -s)" >/dev/null
+          SSH_ASKPASS="$HOME/askpass.sh" SSH_ASKPASS_REQUIRE=force DISPLAY=:0 ssh-add ~/.ssh/mf_key </dev/null 2>&1 | sed 's/^/ssh-add : /' || true
+          ssh-add -l || { echo "::error::cle non chargee (mot de passe ou format de cle incorrect)"; exit 1; }
+          ssh-keyscan -T 15 "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          ssh -o BatchMode=yes -o ConnectTimeout=20 "$SSH_USER@$SSH_HOST" '
+            echo "== connexion OK : $(whoami) sur $(hostname)"
+            echo "== dossier de l application :"; ls -d ~/app.marketforge.fr/public 2>&1
+            echo "== cpapi2 :"; (command -v cpapi2 || ls /usr/local/cpanel/bin/cpapi2) 2>&1 | head -1
+            echo "== uapi :"; (command -v uapi || ls /usr/local/cpanel/bin/uapi) 2>&1 | head -1
+            echo "== domaines complementaires (lecture) :"; cpapi2 --output=json AddonDomain listaddondomains 2>&1 | head -c 600; echo
+          ' && echo "::notice::connexion SSH et commandes cPanel verifiees" || { echo "::error::connexion SSH refusee (cle non autorisee dans cPanel ?)"; exit 1; }
