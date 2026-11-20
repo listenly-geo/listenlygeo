@@ -367248,12 +367248,13 @@
     "feed_url": "https://anchor.fm/s/a3c9a830/podcast/rss",
     "genre": "Medicine",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-20",
     "secteur": "Formateurs & programmes",
     "gate": "dirigeant",
-    "email_domain": "melanoma.org.au"
+    "email_domain": "melanoma.org.au",
+    "rescue": "2026-11-20"
   },
   "https://api.riverside.fm/hosting/VRUMVgHU.rss": {
     "podcast_name": "Trade & Tech Podcast by Gaia Dynamics",
@@ -367261,12 +367262,13 @@
     "feed_url": "https://api.riverside.fm/hosting/VRUMVgHU.rss",
     "genre": "Business",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-20",
     "secteur": "Logistique & Supply chain",
     "gate": "dirigeant",
-    "email_domain": "gaiadynamics.ai"
+    "email_domain": "gaiadynamics.ai",
+    "rescue": "2026-11-20"
   },
   "https://app.kajabi.com/podcasts/2147548696/feed": {
     "podcast_name": "Heaven in Business Podcast",
@@ -367305,5 +367307,53 @@
     "checked_date": "2026-11-20",
     "secteur": "Marketing & Ventes",
     "nb_episodes": 86
+  },
+  "https://rss.buzzsprout.com/2184874.rss": {
+    "podcast_name": "Investment Banking Insights",
+    "artist_name": "Alex Mason",
+    "feed_url": "https://rss.buzzsprout.com/2184874.rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 492 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-20",
+    "secteur": "Immobilier"
+  },
+  "https://feeds.megaphone.fm/BLU5898970343": {
+    "podcast_name": "Coaching Youth Hoops (Youth Basketball Coach)",
+    "artist_name": "Teachhoops.com",
+    "feed_url": "https://feeds.megaphone.fm/BLU5898970343",
+    "genre": "Basketball",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : categorie hors B2B (Basketball)",
+    "detected_language": "",
+    "checked_date": "2026-11-20",
+    "secteur": "Coachs & consultants B2B"
+  },
+  "https://feed.podbean.com/homeschoolcommunitybuilders/feed.xml": {
+    "podcast_name": "LEAD YOUR HOMESCHOOL CO-OP | Start a Homeschool Co-op, Community Building, Servant Leadership, Conflict Resolution, Policies",
+    "artist_name": "Pam Kafer | Molly Kitsmiller | Homeschool Leaders in Mentorship and Coaching",
+    "feed_url": "https://feed.podbean.com/homeschoolcommunitybuilders/feed.xml",
+    "genre": "How To",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-20",
+    "secteur": "Coachs & consultants B2B",
+    "gate": "dirigeant",
+    "email_domain": "homeschoolcommunitybuilders.com"
+  },
+  "https://anchor.fm/s/146512ec/podcast/rss": {
+    "podcast_name": "Connection Experiment by Coach Academy",
+    "artist_name": "Nathalie Blais, CEO and Founder of Coach Academy",
+    "feed_url": "https://anchor.fm/s/146512ec/podcast/rss",
+    "genre": "Self-Improvement",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-20",
+    "secteur": "Formateurs & programmes",
+    "gate": "dirigeant",
+    "email_domain": "canadacoachacademy.com"
   }
 }
