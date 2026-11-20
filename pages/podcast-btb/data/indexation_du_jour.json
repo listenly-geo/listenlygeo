@@ -6,11 +6,11 @@
   "mot_cle": 9
  },
  "selection": "50/50 connus + mots-cles ; volumes du jour + note",
- "pretes": 10,
+ "pretes": 9,
  "urls": [
   {
    "url": "https://listenly.org/podcast-btb/m/how-i-built-this-with-guy-raz/ce9098db00",
-   "titre": "How much did Michael Dell earn from his dorm? | Listenly",
+   "titre": "Michael Dell monthly earnings in dorm? | Listenly",
    "score_qualite": 60,
    "source": "connu",
    "http": 200,
@@ -18,15 +18,6 @@
    "etat": "URL is unknown to Google",
    "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
    "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/leaders-of-b2b-podcast-interviews-on-bus/146f10237d",
-   "titre": "What should founders ask private equity firms? | Listenly",
-   "score_qualite": 76,
-   "source": "mot_cle",
-   "http": 200,
-   "inspection_erreur": "HTTPSConnectionPool(host='searchconsole.googleapis.com', port=443): Read timed out. (read timeout=60)",
    "pret_pour_demande": true
   },
   {
@@ -59,7 +50,10 @@
    "score_qualite": 80,
    "source": "mot_cle",
    "http": 200,
-   "inspection_erreur": "HTTPSConnectionPool(host='searchconsole.googleapis.com', port=443): Read timed out. (read timeout=60)",
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
    "pret_pour_demande": true
   },
   {
@@ -76,20 +70,8 @@
   },
   {
    "url": "https://listenly.org/podcast-btb/m/federal-tech-podcast-for-innovators-entr/641d6e9a6c",
-   "titre": "How do CISOs prioritize AI vulnerabilities? | Listenly",
+   "titre": "How should CISOs prioritize vulnerabilities? | Listenly",
    "score_qualite": 80,
-   "source": "mot_cle",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/ai-marketing-transformation/ecd513dafa",
-   "titre": "ANA AI certificates for marketers? | Listenly",
-   "score_qualite": 77,
    "source": "mot_cle",
    "http": 200,
    "verdict": "NEUTRAL",
@@ -112,7 +94,7 @@
   },
   {
    "url": "https://listenly.org/podcast-btb/m/construction-genius-construction-leaders/951fb6fa0d",
-   "titre": "Construction company problems? | Listenly",
+   "titre": "Where do fires start in construction companies? | Listenly",
    "score_qualite": 76,
    "source": "mot_cle",
    "http": 200,
@@ -121,6 +103,30 @@
    "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
    "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
    "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/for-the-23-the-woman-of-color-business-e/4e308a6925",
+   "titre": "How does tracking results build credibility? | Listenly",
+   "score_qualite": 76,
+   "source": "mot_cle",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": true
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/leaders-of-b2b-podcast-interviews-on-bus/146f10237d",
+   "titre": "What should founders ask private equity firms? | Listenly",
+   "score_qualite": 76,
+   "source": "mot_cle",
+   "http": 200,
+   "verdict": "NEUTRAL",
+   "etat": "Excluded by ‘noindex’ tag",
+   "robots": "ALLOWED",
+   "indexation_bloquee": "BLOCKED_BY_META_TAG",
+   "pret_pour_demande": false
   }
  ],
  "ecartees_sens_recherche": [
@@ -143,6 +149,11 @@
    "cle": "extropy-on-air-finance-transformation-ap/0a55250484",
    "titre": "Why finance teams need peer communities? | Listenly",
    "raison": "Le titre est vague et perd le contexte important de la transformation numérique. La question originale est plus spécifique et utile pour une recherche Google. Le titre actuel ne montre pas clairement  (titre clair impossible en 58 caracteres)"
+  },
+  {
+   "cle": "ai-marketing-transformation/ecd513dafa",
+   "titre": "ANA AI certificates for marketers? | Listenly",
+   "raison": "La question dépend d'une organisation spécifique (ANA) et de recommandations particulières qui ne sont pas durables ou généralement utiles. C'est une question trop spécialisée et liée à une source pré"
   }
  ]
 }
