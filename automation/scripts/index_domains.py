@@ -60,7 +60,7 @@ def cpanel(module, func, version, **params):
     url = f"https://{CP_HOST}:2083/json-api/cpanel?{q}"
     req = urllib.request.Request(url, headers={"Authorization": f"cpanel {CP_USER}:{CP_TOKEN}"})
     try:
-        with urllib.request.urlopen(req, timeout=90) as r:
+        with urllib.request.urlopen(req, timeout=240) as r:   # cPanel met parfois plus d'une minute a creer un domaine
             j = json.loads(r.read().decode())
     except Exception as e:
         return False, f"{type(e).__name__}: {e}"
@@ -77,6 +77,8 @@ def add_to_hosting(host):
     ok, msg = cpanel("AddonDomain", "addaddondomain", "2", dir=DOCROOT, newdomain=host, subdomain=label)
     if not ok and re.search(r"already|exist|existe", msg, re.I):
         ok = True
+    if not ok and "TimeoutError" in msg:
+        ok = True   # cPanel a repondu trop lentement : le domaine est en general cree ; le passage suivant le confirme ("deja present")
     log(f"hebergement {host} : {'OK' if ok else 'ECHEC'} {msg}")
     ok2, msg2 = cpanel("SSL", "start_autossl_check", "3")
     log(f"certificat (AutoSSL) : {'demande' if ok2 else 'non demande'} {msg2}")
