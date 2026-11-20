@@ -1498,6 +1498,22 @@ function mfeOnbDomains_() {
   }
   return mfeJson_({ ok: true, rows: out });
 }
+function mfeDnsBody_(host, line, who, dnsMail) {
+  return 'Hi,\n\nYour Index is built. To put it on your own address (https://' + host + '), add this single line in your domain settings (DNS):\n\n' + line + '\n\n' +
+    (who === 'Someone else' ? 'You said someone else manages your domain: we also sent this line to ' + (dnsMail || 'them') + ' if you gave us an address, or you can simply forward this email.\n\n'
+      : who === 'Not sure' ? 'Not sure where to do this? Just reply with the name of your domain provider (GoDaddy, OVH, Cloudflare, Wix...) and we will walk you through it.\n\n'
+      : 'You usually do this where you bought your domain: DNS records > Add record.\n\n') +
+    'As soon as the line is active, your Index goes live on ' + host + ' automatically (it can take a few minutes up to a few hours), and we will email you. Nothing else to do.' + mfePortalFooter_() + '\n\nThe MarketForge team';
+}
+// Mail de test (adresses d'Etienne uniquement) : meme gabarit et meme expediteur que le vrai mail.
+function mfeMailTest_(b) {
+  var to = String(b.to || ''), ok = ['etienne.cugnet@gmail.com', 'etienne.cugnet@marketforge.fr'];
+  if (ok.indexOf(to) < 0) return mfeJson_({ ok: false, error: 'adresse non autorisee' });
+  var host = /^[a-z0-9.-]{3,200}$/.test(String(b.host || '')) ? String(b.host) : 'index.example.com';
+  var line = 'Type:   CNAME\nName:   ' + host.split('.')[0] + '\nValue:  app.marketforge.fr\n(TTL: automatic, or 3600)';
+  mfeMail_(to, 'One last step: connect your Index to ' + host, mfeDnsBody_(host, line, 'Me', ''), mfeSavOpts_());
+  return mfeJson_({ ok: true });
+}
 function mfeOnbDomainUpdate_(b) {
   var sh = mfeSS_().getSheetByName('Onboarding'), row = parseInt(b.row, 10);
   if (!sh || !(row >= 2 && row <= sh.getLastRow())) return mfeJson_({ ok: false, error: 'ligne invalide' });
@@ -1514,11 +1530,7 @@ function mfeOnbDomainUpdate_(b) {
   try {
     if (statut === 'DNS a faire' && prev !== 'DNS a faire' && paid) {
       if (okMail.test(email)) mfeMail_(email, 'One last step: connect your Index to ' + host,
-        'Hi,\n\nYour Index is built. To put it on your own address (https://' + host + '), add this single line in your domain settings (DNS):\n\n' + line + '\n\n' +
-        (who === 'Someone else' ? 'You said someone else manages your domain: we also sent this line to ' + (dnsMail || 'them') + ' if you gave us an address, or you can simply forward this email.\n\n'
-          : who === 'Not sure' ? 'Not sure where to do this? Just reply with the name of your domain provider (GoDaddy, OVH, Cloudflare, Wix...) and we will walk you through it.\n\n'
-          : 'You usually do this where you bought your domain: DNS records > Add record.\n\n') +
-        'As soon as the line is active, your Index goes live on ' + host + ' automatically (it can take a few minutes up to a few hours), and we will email you. Nothing else to do.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
+        mfeDnsBody_(host, line, who, dnsMail), mfeSavOpts_());
       if (who === 'Someone else' && okMail.test(dnsMail)) mfeMail_(dnsMail, 'DNS record to add for ' + host + ' (2 minutes)',
         'Hi,\n\n' + podcast + ' is putting its podcast Index on ' + host + '. Could you add this DNS record?\n\n' + line + '\n\nThat is all: HTTPS is set up on our side. Questions: reply to this email.\n\nThe MarketForge team', mfeSavOpts_());
       GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'DNS a faire : ' + host, podcast + '\nLigne ' + row + '\n' + line);
@@ -1721,7 +1733,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 64 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 65 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
@@ -1743,6 +1755,7 @@ function doPost(e) {
   if (body.action === 'onboarding_subscriptions') return mfeOnbSubscriptions_();   // 20/11/2026 : renouvellement mensuel et pause
   if (body.action === 'onboarding_notify') return mfeOnbNotify_(body);
   if (body.action === 'onboarding_reminders') return mfeOnbReminders_();   // relances automatiques
+  if (body.action === 'mail_test') return mfeMailTest_(body);
   if (body.action === 'onboarding_domains') return mfeOnbDomains_();   // 18/11/2026 : domaine du client
   if (body.action === 'onboarding_domain_update') return mfeOnbDomainUpdate_(body);
   if (body.action === 'tendances') return mfeTendances_(body);
