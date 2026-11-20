@@ -37,6 +37,7 @@ jobs:
           cp automation/offre/config.json /tmp/out/config.json
           cp automation/offre/redirect.html /tmp/out/redirect.html
           cp automation/offre/cgv.html /tmp/out/cgv.html
+          cp automation/offre/mockup-hub.jpg /tmp/out/mockup-hub.jpg
           if grep -rq 'secret=' /tmp/out; then echo "::error::un secret est present dans la page"; exit 1; fi
           python3 -c "import json;json.load(open('/tmp/out/config.json'))"
       - name: Envoyer sur le serveur
@@ -45,6 +46,7 @@ jobs:
           curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/out/index.html "$U/app.marketforge.fr/public/index-podcast/index.html"
           curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/out/config.json "$U/app.marketforge.fr/public/index-podcast/config.json"
           curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/out/cgv.html "$U/app.marketforge.fr/public/index-podcast/cgv.html"
+          curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/out/mockup-hub.jpg "$U/app.marketforge.fr/public/index-podcast/mockup-hub.jpg"
           curl $o --user "$FTP_USERNAME:$FTP_PASSWORD" -T /tmp/out/redirect.html "$U/app.marketforge.fr/public/offre/index.html"
           echo "::notice::page envoyee"
       - name: Verifier la page en ligne
@@ -55,6 +57,8 @@ jobs:
           [ "$code" = "200" ] && grep -q 'Podcast AI Index' /tmp/live.html && grep -q 'script.google.com' /tmp/live.html && echo "::notice::page en ligne et branchee" || { echo "::error::page non accessible ou incomplete"; exit 1; }
           gc=$(curl -sS -o /tmp/cgv.html -w '%{http_code}' "https://app.marketforge.fr/index-podcast/cgv.html" || true)
           echo "cgv HTTP $gc"; [ "$gc" = "200" ] && grep -q '890 832 306' /tmp/cgv.html || { echo "::error::page des conditions de vente inaccessible"; exit 1; }
+          mc=$(curl -sS -o /dev/null -w '%{http_code}' "https://app.marketforge.fr/index-podcast/mockup-hub.jpg" || true)
+          echo "mockup HTTP $mc"; [ "$mc" = "200" ] || { echo "::error::image du Hub inaccessible"; exit 1; }
           cc=$(curl -sS -o /dev/null -w '%{http_code}' "https://app.marketforge.fr/index-podcast/config.json" || true)
           echo "config HTTP $cc"; [ "$cc" = "200" ] || { echo "::error::config.json inaccessible"; exit 1; }
           rc=$(curl -sS -o /tmp/old.html -w '%{http_code}' "https://app.marketforge.fr/offre/?ref=verification" || true)
