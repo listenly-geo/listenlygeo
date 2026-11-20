@@ -367853,12 +367853,13 @@
     "feed_url": "https://feeds.transistor.fm/athlete-mindset",
     "genre": "Mental Health",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-20",
     "secteur": "Coachs & consultants B2B",
     "gate": "dirigeant",
-    "email_domain": "kazsource.com"
+    "email_domain": "kazsource.com",
+    "rescue": "2026-11-20"
   },
   "https://feeds.transistor.fm/team-up": {
     "podcast_name": "Team Up! Team-based primary and community care in action",
@@ -367948,5 +367949,16 @@
     "checked_date": "2026-11-20",
     "secteur": "Assurance",
     "nb_episodes": 60
+  },
+  "https://rss.buzzsprout.com/1716785.rss": {
+    "podcast_name": "Bulletproof For BJJ Podcast",
+    "artist_name": "JT & Joey",
+    "feed_url": "https://rss.buzzsprout.com/1716785.rss",
+    "genre": "Fitness",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-20",
+    "secteur": "Santé libérale"
   }
 }
