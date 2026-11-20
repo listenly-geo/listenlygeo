@@ -28,8 +28,11 @@ jobs:
           eval "$(ssh-agent -s)" >/dev/null
           SSH_ASKPASS="$HOME/askpass.sh" SSH_ASKPASS_REQUIRE=force DISPLAY=:0 ssh-add ~/.ssh/mf_key </dev/null 2>&1 | sed 's/^/ssh-add : /' || true
           ssh-add -l || { echo "::error::cle non chargee (mot de passe ou format de cle incorrect)"; exit 1; }
-          ssh-keyscan -T 15 "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
-          ssh -o BatchMode=yes -o ConnectTimeout=20 "$SSH_USER@$SSH_HOST" '
+          for port in 22 2222; do
+            if timeout 12 bash -c "exec 3<>/dev/tcp/$SSH_HOST/$port" 2>/dev/null; then echo "port $port : ouvert depuis GitHub"; OPEN=$port; else echo "port $port : ferme ou filtre depuis GitHub"; fi
+          done
+          [ -n "$OPEN" ] || { echo "::error::le serveur n'accepte pas les connexions SSH venant de GitHub (ports 22 et 2222 fermes ou filtres)"; exit 1; }
+          ssh -p "$OPEN" -o StrictHostKeyChecking=accept-new -o BatchMode=yes -o ConnectTimeout=20 "$SSH_USER@$SSH_HOST" '
             echo "== connexion OK : $(whoami) sur $(hostname)"
             echo "== dossier de l application :"; ls -d ~/app.marketforge.fr/public 2>&1
             echo "== cpapi2 :"; (command -v cpapi2 || ls /usr/local/cpanel/bin/cpapi2) 2>&1 | head -1
