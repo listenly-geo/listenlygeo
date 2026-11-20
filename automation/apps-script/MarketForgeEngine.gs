@@ -1322,6 +1322,41 @@ var MFE_PORTAL_LOGIN = "https://billing.stripe.com/p/login/8x28wPebOeLMgoN10593y
 function mfePortalFooter_() {
   return '\n\nManage your subscription (invoices, payment card, cancel anytime):\n' + MFE_PORTAL_LOGIN + '\nTerms of sale: https://app.marketforge.fr/index-podcast/cgv.html?lang=en';
 }
+// ---------- Habillage HTML des mails clients (20/11/2026) : fond bleu clair, carte blanche, titre en gras ----------
+function mfeEsc_(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function mfeLink_(s) {   // texte echappe -> liens cliquables
+  return mfeEsc_(s).replace(/(https?:\/\/[^\s<]+[^\s<.,;:!?)])/g, '<a href="$1" style="color:#2F5BFF;text-decoration:underline;word-break:break-all">$1</a>');
+}
+function mfeHtml_(subject, plain) {
+  var paras = String(plain).split(/\n{2,}/), body = '', foot = '';
+  for (var i = 0; i < paras.length; i++) {
+    var p = paras[i].replace(/^\s+|\s+$/g, '');
+    if (!p) continue;
+    if (/^Hi,?$/i.test(p)) { body += '<p style="margin:0 0 16px;font-size:16px;color:#16336b">Hi,</p>'; continue; }
+    if (/^The MarketForge team$/i.test(p)) { body += '<p style="margin:24px 0 0;font-size:16px;color:#16336b"><b>The MarketForge team</b></p>'; continue; }
+    if (/^Manage your subscription/.test(p)) { foot += '<p style="margin:0;font-size:13px;line-height:1.6;color:#5b6b8c">' + mfeLink_(p).replace(/\n/g, '<br>') + '</p>'; continue; }
+    if (/^Type:\s+CNAME/.test(p)) { body += '<div style="margin:0 0 18px;padding:16px 18px;background:#eef3ff;border:1px solid #cfdcff;border-radius:12px;font:15px/1.7 Consolas,Menlo,monospace;color:#16336b">' + mfeEsc_(p).replace(/\n/g, '<br>').replace(/ /g, '&nbsp;') + '</div>'; continue; }
+    if (/^https:\/\/[^\s]+$/.test(p) && p.indexOf('sitemap') < 0 && p.indexOf('billing.stripe') < 0 && p.indexOf('cgv') < 0) {
+      body += '<p style="margin:0 0 20px"><a href="' + mfeEsc_(p) + '" style="display:inline-block;background:#2F5BFF;color:#ffffff;text-decoration:none;font-weight:700;font-size:16px;padding:14px 26px;border-radius:12px">' + (/onboarding/.test(p) ? 'Answer the questions' : 'Open now') + '</a></p>'; continue;
+    }
+    var lines = p.split('\n'), first = lines[0];
+    if (lines.length > 1 && /:\s*$/.test(first) && first.length < 70) {   // titre de bloc suivi d'une liste
+      body += '<p style="margin:22px 0 8px;font-size:17px;font-weight:700;color:#0f2a5f">' + mfeLink_(first) + '</p><p style="margin:0 0 16px;font-size:16px;line-height:1.7;color:#16336b">' + mfeLink_(lines.slice(1).join('\n')).replace(/\n/g, '<br>') + '</p>'; continue;
+    }
+    body += '<p style="margin:0 0 16px;font-size:16px;line-height:1.65;color:#16336b">' + mfeLink_(p).replace(/\n/g, '<br>') + '</p>';
+  }
+  return '<!doctype html><html><body style="margin:0;padding:0;background:#eaf2ff">' +
+    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#eaf2ff;background-image:linear-gradient(180deg,#dbe9ff 0%,#f3f8ff 100%)"><tr><td align="center" style="padding:36px 14px 44px">' +
+    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px"><tr><td align="center" style="padding:0 0 26px;font:800 26px/1 -apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#0f2a5f;letter-spacing:-.02em">Market<span style="color:#2F5BFF">Forge</span></td></tr>' +
+    '<tr><td style="background:#ffffff;border-radius:20px;padding:36px 34px 30px;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;box-shadow:0 8px 30px rgba(31,70,160,.08)">' +
+    '<h1 style="margin:0 0 22px;font-size:25px;line-height:1.25;text-align:center;color:#0f2a5f;font-weight:800">' + mfeEsc_(subject) + '</h1>' + body + '</td></tr>' +
+    '<tr><td style="padding:22px 10px 0;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;text-align:center">' + foot + '<p style="margin:14px 0 0;font-size:12px;color:#8a98b5">MarketForge · supportindex@marketforge.fr</p></td></tr></table></td></tr></table></body></html>';
+}
+// Envoi d'un mail client : texte simple + version HTML. Sans options (alertes internes), le mail reste en texte simple.
+function mfeMail_(to, subject, body, opts) {
+  if (opts) { var o = {}; for (var k in opts) o[k] = opts[k]; o.htmlBody = mfeHtml_(subject, body); GmailApp.sendEmail(to, subject, body, o); }
+  else GmailApp.sendEmail(to, subject, body);
+}
 // ---------- Onboarding client apres paiement (15/11/2026) ----------
 // La page app.marketforge.fr/onboarding envoie ici les reponses du client. Seule action publique : elle exige un identifiant de session Stripe
 // (cs_live_... / cs_test_...). Si la propriete de script STRIPE_SECRET_KEY existe, le paiement est verifie aupres de Stripe ; sinon la ligne est marquee "paiement non verifie".
@@ -1363,7 +1398,7 @@ function mfeOnbUpdate_(b) {
     if (statut === 'Pret' && /^https:\/\//.test(url)) {
       GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Index pret : ' + podcast, 'Index construit pour ' + podcast + '\n' + url + '\nLigne ' + row + ' de l\'onglet Onboarding.');
       if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) && String(sh.getRange(row, 3).getValue()).indexOf('paye') === 0)
-        GmailApp.sendEmail(email, 'Your Index is ready', 'Hi,\n\nYour Index is ready. See it live here:\n' + url + '\n\nYour podcast episodes are now searchable expert answers, readable by Google and AI assistants.\n\nNext step, in a few minutes: you will get one short email with a single line to add to your domain settings (or to forward to whoever manages it). Once it is added, your Index goes live on your own domain automatically. If you have any question, just reply to this email.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
+        mfeMail_(email, 'Your Index is ready', 'Hi,\n\nYour Index is ready. See it live here:\n' + url + '\n\nYour podcast episodes are now searchable expert answers, readable by Google and AI assistants.\n\nNext step, in a few minutes: you will get one short email with a single line to add to your domain settings (or to forward to whoever manages it). Once it is added, your Index goes live on your own domain automatically. IMPORTANT: if you cannot find our emails, check your SPAM folder and click "Not spam". If you have any question, just reply to this email.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
     } else if (statut === 'Erreur') {
       GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Index en erreur : ' + podcast, 'Construction en erreur pour ' + podcast + '\nLigne ' + row + '\n' + note);
     }
@@ -1478,17 +1513,17 @@ function mfeOnbDomainUpdate_(b) {
   var line = 'Type:   CNAME\nName:   ' + name + '\nValue:  ' + target + '\n(TTL: automatic, or 3600)';
   try {
     if (statut === 'DNS a faire' && prev !== 'DNS a faire' && paid) {
-      if (okMail.test(email)) GmailApp.sendEmail(email, 'One last step: connect your Index to ' + host,
+      if (okMail.test(email)) mfeMail_(email, 'One last step: connect your Index to ' + host,
         'Hi,\n\nYour Index is built. To put it on your own address (https://' + host + '), add this single line in your domain settings (DNS):\n\n' + line + '\n\n' +
         (who === 'Someone else' ? 'You said someone else manages your domain: we also sent this line to ' + (dnsMail || 'them') + ' if you gave us an address, or you can simply forward this email.\n\n'
           : who === 'Not sure' ? 'Not sure where to do this? Just reply with the name of your domain provider (GoDaddy, OVH, Cloudflare, Wix...) and we will walk you through it.\n\n'
           : 'You usually do this where you bought your domain: DNS records > Add record.\n\n') +
         'As soon as the line is active, your Index goes live on ' + host + ' automatically (it can take a few minutes up to a few hours), and we will email you. Nothing else to do.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
-      if (who === 'Someone else' && okMail.test(dnsMail)) GmailApp.sendEmail(dnsMail, 'DNS record to add for ' + host + ' (2 minutes)',
+      if (who === 'Someone else' && okMail.test(dnsMail)) mfeMail_(dnsMail, 'DNS record to add for ' + host + ' (2 minutes)',
         'Hi,\n\n' + podcast + ' is putting its podcast Index on ' + host + '. Could you add this DNS record?\n\n' + line + '\n\nThat is all: HTTPS is set up on our side. Questions: reply to this email.\n\nThe MarketForge team', mfeSavOpts_());
       GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'DNS a faire : ' + host, podcast + '\nLigne ' + row + '\n' + line);
     } else if (statut === 'En ligne' && prev !== 'En ligne' && paid) {
-      if (okMail.test(email)) GmailApp.sendEmail(email, 'Your Index is live on ' + host,
+      if (okMail.test(email)) mfeMail_(email, 'Your Index is live on ' + host,
         'Hi,\n\nYour Index is now live on your own domain:\nhttps://' + host + '\n\nAdd a link to it from your website menu and your podcast show notes: that is how Google and AI assistants find it.\n\nSee your results on Google (free):\n1. Open Google Search Console: https://search.google.com/search-console\n2. Add your Index address (https://' + host + ') as a new property and verify it.\n3. Send your sitemap: https://' + host + '/sitemap.xml\n\nYou will see your first numbers (views, clicks and the questions people search) after 2 to 3 weeks. If you already use Search Console on your main domain, your Index appears there automatically. Google measures its own results only: visits from AI assistants are not shown there.\n\nQuestions? Just reply.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
       GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Index EN LIGNE : ' + host, podcast + '\nLigne ' + row);
     } else if (statut === 'Erreur') {
@@ -1545,9 +1580,9 @@ function mfeOnbNotify_(b) {
   var live = /En ligne : (https:\/\/[a-z0-9.-]+)/.exec(String(v[20] || ''));
   var url = live ? live[1] : 'https://app.marketforge.fr/docs/' + site;
   try {
-    if (kind === 'renewed' && okMail.test(email)) GmailApp.sendEmail(email, 'Your Index: ' + pages + ' new pages this month',
+    if (kind === 'renewed' && okMail.test(email)) mfeMail_(email, 'Your Index: ' + pages + ' new pages this month',
       'Hi,\n\nYour monthly production has started: ' + pages + ' new pages, built from your latest episodes, will be added to your Index, one per day, over the next 30 days.\n\nSee it grow: ' + url + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
-    if (kind === 'paused' && okMail.test(email)) GmailApp.sendEmail(email, 'Your Index: new pages are paused',
+    if (kind === 'paused' && okMail.test(email)) mfeMail_(email, 'Your Index: new pages are paused',
       'Hi,\n\nYour subscription has ended, so we have paused the production of new pages. Everything already published stays online and keeps working:\n' + url + '\n\nYou can restart the monthly production at any time: just reply to this email, we will take care of it.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
     GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Index ' + (kind === 'renewed' ? 'renouvele' : kind === 'paused' ? 'EN PAUSE (resiliation)' : 'repris') + ' : ' + podcast, podcast + '\nLigne ' + row + '\n' + url + (pages ? '\n' + pages + ' nouvelles pages' : ''));
   } catch (err) { Logger.log('Mail renouvellement : %s', err); }
@@ -1570,7 +1605,7 @@ function mfeOnbReminders_() {
     if (st >= thr.length || ageH < thr[st]) return;
     var link = 'https://app.marketforge.fr/onboarding/?session_id=' + s.id;
     try {
-      GmailApp.sendEmail(email, st === 0 ? 'Your Index: 2 minutes left to start' : st === 1 ? 'Your Index is waiting for you' : 'Last reminder: start your Index',
+      mfeMail_(email, st === 0 ? 'Your Index: 2 minutes left to start' : st === 1 ? 'Your Index is waiting for you' : 'Last reminder: start your Index',
         'Hi,\n\nThanks for your order. To build your Index we only need a few answers about your podcast (about 2 minutes):\n\n' + link + '\n\nAs soon as you send them, we start building and you get a link to see it live.\n\nAnything unclear? Just reply to this email.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
       props.setProperty(k, String(st + 1)); sent.onboarding++;
       if (st === 1) GmailApp.sendEmail(me, 'Client paye sans onboarding : ' + email, 'Deux relances sont parties, pas de reponse.\nSession : ' + s.id + '\nLien : ' + link);
@@ -1583,7 +1618,7 @@ function mfeOnbReminders_() {
       var k = 'DNS_' + sid, n = parseInt(props.getProperty(k) || '0', 10), host = (String(v[17] || '') || 'expertise') + '.' + String(v[16]);
       if (n >= 2 || ageD < (n === 0 ? 3 : 7)) return;
       try {
-        GmailApp.sendEmail(email, 'Your Index is ready: one line left to connect ' + host,
+        mfeMail_(email, 'Your Index is ready: one line left to connect ' + host,
           'Hi,\n\nYour Index is built and waiting. To put it on your own address (https://' + host + '), add this single line in your domain settings (DNS):\n\nType:   CNAME\nName:   ' + (String(v[17] || '') || 'expertise') + '\nValue:  app.marketforge.fr\n(TTL: automatic, or 3600)\n\nAs soon as it is active, your Index goes live on ' + host + ' automatically and we email you. Stuck? Reply with the name of your domain provider (GoDaddy, OVH, Cloudflare, Wix...) and we will walk you through it.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
         props.setProperty(k, String(n + 1)); sent.dns++;
         if (n === 1) GmailApp.sendEmail(me, 'DNS toujours pas fait : ' + host, String(v[5] || '') + '\nLigne ' + (i + 2) + '\nDeux relances envoyees a ' + email + '.');
@@ -1591,7 +1626,7 @@ function mfeOnbReminders_() {
     } else if (st === 'En ligne' && ageD >= 17 && !props.getProperty('J15_' + sid)) {
       var live = /En ligne : (https:\/\/[a-z0-9.-]+)/.exec(String(v[20] || ''));
       try {
-        GmailApp.sendEmail(email, 'Your first Google numbers are appearing',
+        mfeMail_(email, 'Your first Google numbers are appearing',
           'Hi,\n\nYour Index has been online for about two weeks: Google starts to show your first results now.\n\nTo see them: open Google Search Console (https://search.google.com/search-console), choose your Index address' + (live ? ' (' + live[1] + ')' : '') + ', then Performance. You will see views, clicks and the questions people search.\n\nNot set up yet? Add your Index as a property and send the sitemap (your address + /sitemap.xml): it takes two minutes.\n\nNew pages keep arriving every day, so the numbers grow week after week. Questions? Just reply.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_());
         props.setProperty('J15_' + sid, '1'); sent.google++;
       } catch (err) { Logger.log('Rappel Google : %s', err); }
@@ -1653,7 +1688,7 @@ function mfeOnboardingPublic_(b) {
     if (row) { var keep = sh.getRange(row, 2).getValue(); line[0] = sh.getRange(row, 1).getValue(); line[1] = keep; sh.getRange(row, 1, 1, line.length).setValues([line]); }   // meme paiement = mise a jour, pas de doublon
     else { sh.appendRow(line); row = sh.getLastRow(); try { GmailApp.sendEmail(Session.getEffectiveUser().getEmail(), 'Nouvel onboarding Index : ' + (line[5] || email), 'Paiement : ' + paiement + '\nPodcast : ' + line[5] + '\nEmail : ' + email + '\nRSS : ' + line[6] + '\nDomaine : ' + line[16] + ' (sous-domaine ' + line[17] + ')\n\nLigne ' + row + ' de l\'onglet Onboarding.'); } catch (e2) { Logger.log('Alerte onboarding : %s', e2); }
       // 16/11/2026 : mail de confirmation au client (uniquement si le paiement est verifie aupres de Stripe : jamais d'envoi a une adresse saisie sans paiement reel)
-      if (paiement === 'paye (verifie)') { try { GmailApp.sendEmail(email, 'Your Index is on its way', 'Hi,\n\nThanks for your order and for taking the time to answer our questions. We have everything we need.\n\nWhat happens next:\n1. We build your Index from your podcast episodes' + (line[13] ? ' (shown as "' + line[13] + '")' : '') + '.\n2. You receive one simple line to copy and paste on your domain' + (line[16] ? ' (' + (line[17] || 'expertise') + '.' + line[16] + ')' : '') + ', or to forward to whoever manages it. We guide you step by step.\n3. Your Index comes to life, and you get the link to see it.\n\nYou will hear from us within 48 hours. If anything is unclear, just reply to this email.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_()); } catch (e3) { Logger.log('Mail client onboarding : %s', e3); } } }
+      if (paiement === 'paye (verifie)') { try { mfeMail_(email, 'Your Index is on its way', 'Hi,\n\nThanks for your order and for taking the time to answer our questions. We have everything we need.\n\nWhat happens next:\n1. We build your Index from your podcast episodes' + (line[13] ? ' (shown as "' + line[13] + '")' : '') + '.\n2. You receive one simple line to copy and paste on your domain' + (line[16] ? ' (' + (line[17] || 'expertise') + '.' + line[16] + ')' : '') + ', or to forward to whoever manages it. We guide you step by step.\n3. Your Index comes to life, and you get the link to see it.\n\nYou will hear from us within 48 hours. IMPORTANT: check your SPAM folder and click "Not spam" on our emails, so you do not miss the next one. If anything is unclear, just reply to this email.' + mfePortalFooter_() + '\n\nThe MarketForge team', mfeSavOpts_()); } catch (e3) { Logger.log('Mail client onboarding : %s', e3); } } }
   } finally { lock.releaseLock(); }
   return mfeJson_({ ok: true });
 }
@@ -1686,7 +1721,7 @@ function doGet(e) {
       return r.values[7] && mfeSendDayKey_(new Date(r.values[7]), cfg) === today;
     }).length;
     return mfeJson_({ ok: true, reglages: mfeReadSettings_(), prospects: rows, historique: last,
-                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 63 });
+                       cap_jour_effectif: mfeDailyCap_(cfg), envoyes_aujourdhui: sentToday, stock_pret: mfeStockGate_(mfeRows_(sh), cfg, true), weekend_pause: cfg.WEEKEND_PAUSE, weekend_maintenant: cfg.WEEKEND_PAUSE && mfeWeekend_(new Date(), cfg), script_version: 64 });
   }
   return mfeJson_({ ok: false, error: 'action inconnue (config | status)' });
 }
