@@ -1,0 +1,39 @@
+name: Mail de test (vers Etienne)
+
+# Envoie un mail de test (gabarit des mails clients) a une adresse d'Etienne. Aucun client n'est concerne.
+on:
+  workflow_dispatch:
+    inputs:
+      to:
+        description: 'Adresse (etienne.cugnet@gmail.com ou etienne.cugnet@marketforge.fr)'
+        required: false
+        default: 'etienne.cugnet@gmail.com'
+      host:
+        description: 'Adresse de l Index pour le test'
+        required: false
+        default: 'index.cugnetslist.org'
+
+permissions:
+  contents: read
+
+jobs:
+  envoyer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      MFE_SHEET_URL: ${{ secrets.MFE_SHEET_URL }}
+      TO: ${{ inputs.to }}
+      HOST: ${{ inputs.host }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Envoyer le mail de test DNS
+        run: |
+          python - <<'PY'
+          import os, sys
+          sys.path.insert(0, "automation/scripts")
+          import sheet_bridge as sb
+          print(sb.call(payload={"action": "mail_test", "to": os.environ["TO"], "host": os.environ["HOST"]}))
+          PY
