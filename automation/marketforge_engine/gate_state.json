@@ -1,8 +1,8 @@
 {
  "date": "2026-11-20",
- "used": 2,
- "tries": 2,
- "ok": 2,
+ "used": 5,
+ "tries": 3,
+ "ok": 3,
  "secteurs": {
   "Coachs & consultants B2B": {
    "tries": 1090,
@@ -86,13 +86,18 @@
   }
  },
  "etapes": {
-  "noms": 1,
-  "testees": 1,
+  "noms": 2,
+  "testees": 3,
   "statut_valid": 1,
   "verifiees": 1,
   "sans_nom": 1,
-  "rss_verif_valid": 1,
-  "rss_accepte": 1
+  "rss_verif_valid": 2,
+  "rss_accepte": 2,
+  "animateur_seul": 1,
+  "statut_invalid": 2
  },
- "prefiltre": {}
+ "prefiltre": {
+  "pas d'email dans le RSS": 3,
+  "dernier episode il y a 575 jours": 1
+ }
 }
