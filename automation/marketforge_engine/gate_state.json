@@ -1,8 +1,8 @@
 {
  "date": "2026-11-20",
- "used": 5,
- "tries": 3,
- "ok": 3,
+ "used": 8,
+ "tries": 5,
+ "ok": 4,
  "secteurs": {
   "Coachs & consultants B2B": {
    "tries": 1090,
@@ -33,7 +33,7 @@
    "ok": 80
   },
   "Formateurs & programmes": {
-   "tries": 856,
+   "tries": 857,
    "ok": 90
   },
   "Tech & SaaS": {
@@ -86,18 +86,23 @@
   }
  },
  "etapes": {
-  "noms": 2,
-  "testees": 3,
+  "noms": 4,
+  "testees": 4,
   "statut_valid": 1,
   "verifiees": 1,
   "sans_nom": 1,
-  "rss_verif_valid": 2,
-  "rss_accepte": 2,
-  "animateur_seul": 1,
-  "statut_invalid": 2
+  "rss_verif_valid": 3,
+  "rss_accepte": 3,
+  "animateur_seul": 2,
+  "statut_invalid": 2,
+  "statut_catchall": 1,
+  "domaines_attrape_tout": 1,
+  "rss_verif_catchall": 1,
+  "ecrit_site": 1
  },
  "prefiltre": {
   "pas d'email dans le RSS": 4,
-  "dernier episode il y a 575 jours": 1
+  "dernier episode il y a 575 jours": 1,
+  "aucun dirigeant joignable": 1
  }
 }
