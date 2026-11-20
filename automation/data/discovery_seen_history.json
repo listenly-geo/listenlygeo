@@ -366805,11 +366805,73 @@
     "feed_url": "https://rss.libsyn.com/shows/224036/destinations/1640702.xml",
     "genre": "Technology",
     "verdict": "REJECT",
-    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "reason": "Filtre dirigeant : recherche du dirigeant sautee (plan B)",
     "detected_language": "",
     "checked_date": "2026-11-20",
     "secteur": "Construction & Industrie",
     "gate": "dirigeant",
-    "email_domain": "innovatetosuccess.com"
+    "email_domain": "innovatetosuccess.com",
+    "rescue": "2026-11-20"
+  },
+  "https://feeds.megaphone.fm/EIEAK3859078759": {
+    "podcast_name": "On-the-Move Management: Team Leadership Articles",
+    "artist_name": "Team Leadership Daily",
+    "feed_url": "https://feeds.megaphone.fm/EIEAK3859078759",
+    "genre": "Management",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : dernier episode il y a 400 jours (> 180 j)",
+    "detected_language": "",
+    "checked_date": "2026-11-20",
+    "secteur": "RH & Recrutement"
+  },
+  "https://rss.buzzsprout.com/1755412.rss": {
+    "podcast_name": "Tuned In",
+    "artist_name": "High Performance Academy",
+    "feed_url": "https://rss.buzzsprout.com/1755412.rss",
+    "genre": "Automotive",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-20",
+    "secteur": "Formateurs & programmes",
+    "gate": "dirigeant",
+    "email_domain": "hpacademy.com"
+  },
+  "https://feeds.captivate.fm/wearetpm/": {
+    "podcast_name": "WeAreTPM",
+    "artist_name": "Teixeira Property Management LLC",
+    "feed_url": "https://feeds.captivate.fm/wearetpm/",
+    "genre": "Investing",
+    "verdict": "REJECT",
+    "reason": "Pre-filtre RSS : pas d'email dans le RSS",
+    "detected_language": "",
+    "checked_date": "2026-11-20",
+    "secteur": "Immobilier"
+  },
+  "https://api.riverside.com/hosting/SllmNifX.rss": {
+    "podcast_name": "Property Management 2.0",
+    "artist_name": "Sydney & Danielle",
+    "feed_url": "https://api.riverside.com/hosting/SllmNifX.rss",
+    "genre": "Careers",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Domaine attrape-tout : adresse non verifiable",
+    "detected_language": "",
+    "checked_date": "2026-11-20",
+    "secteur": "Immobilier",
+    "gate": "dirigeant",
+    "email_domain": "magicdoor.com"
+  },
+  "https://podcasts.neuropt.org/category/strokesig/feed/podcast/": {
+    "podcast_name": "ANPT Stroke Special Interest Group",
+    "artist_name": "Academy of Neurologic Physical Therapy",
+    "feed_url": "https://podcasts.neuropt.org/category/strokesig/feed/podcast/",
+    "genre": "Health & Fitness",
+    "verdict": "REJECT",
+    "reason": "Filtre dirigeant : Aucun nom trouve (site, transcription, flux)",
+    "detected_language": "",
+    "checked_date": "2026-11-20",
+    "secteur": "Santé libérale",
+    "gate": "dirigeant",
+    "email_domain": "neuropt.org"
   }
 }
