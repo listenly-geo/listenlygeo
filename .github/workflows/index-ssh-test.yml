@@ -1,7 +1,7 @@
-name: "Index — test connexion o2switch depuis GitHub (lecture seule)"
+name: "Index — test cPanel (lecture seule)"
 
-# Diagnostic : quels ports de l'hebergement o2switch sont joignables depuis GitHub (SSH 22, cPanel 2083, FTP 21).
-# Si le SSH est joignable, tente aussi la connexion avec la cle marketforge_index. RIEN n'est modifie.
+# Verifie que les secrets CPANEL_HOST / CPANEL_USER / CPANEL_TOKEN existent (jamais leur valeur) puis fait UN appel de lecture
+# (liste des domaines) pour controler que le jeton fonctionne. RIEN n'est modifie sur l'hebergement.
 
 on:
   workflow_dispatch:
@@ -12,32 +12,34 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     env:
-      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      SSH_KEY_PASSPHRASE: ${{ secrets.SSH_KEY_PASSPHRASE }}
-      SSH_HOST: ${{ secrets.DTB_SSH_HOST }}
-      SSH_USER: ${{ secrets.DTB_SSH_USER }}
-      CPANEL_HOST: pendule.o2switch.net
+      CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
+      CPANEL_USER: ${{ secrets.CPANEL_USER }}
+      CPANEL_TOKEN: ${{ secrets.CPANEL_TOKEN }}
     steps:
-      - name: Ports joignables depuis GitHub
+      - name: Secrets presents ?
         run: |
-          for h in "$CPANEL_HOST" "$SSH_HOST"; do
-            [ -n "$h" ] || continue
-            label=$([ "$h" = "$CPANEL_HOST" ] && echo "pendule.o2switch.net" || echo "DTB_SSH_HOST")
-            for port in 22 2083 21; do
-              if timeout 10 bash -c "exec 3<>/dev/tcp/$h/$port" 2>/dev/null; then echo "$label port $port : OUVERT"; else echo "$label port $port : ferme/filtre"; fi
-            done
+          for v in CPANEL_HOST CPANEL_USER CPANEL_TOKEN; do
+            if [ -n "${!v}" ]; then echo "$v : present (${#v} caracteres dans le nom, valeur non affichee)"; else echo "$v : ABSENT"; fi
           done
-      - name: Connexion SSH avec la cle (si le port 22 est ouvert)
-        continue-on-error: true
+          echo "longueur host=${#CPANEL_HOST} user=${#CPANEL_USER} jeton=${#CPANEL_TOKEN}"
+      - name: Appel de lecture cPanel
         run: |
-          H="$CPANEL_HOST"
-          timeout 10 bash -c "exec 3<>/dev/tcp/$H/22" 2>/dev/null || { echo "SSH injoignable : etape ignoree"; exit 0; }
-          [ -n "$SSH_USER" ] || { echo "DTB_SSH_USER manquant"; exit 1; }
-          mkdir -p ~/.ssh && chmod 700 ~/.ssh
-          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/mf_key && chmod 600 ~/.ssh/mf_key
-          printf '#!/bin/sh\necho "$SSH_KEY_PASSPHRASE"\n' > ~/askpass.sh && chmod 700 ~/askpass.sh
-          eval "$(ssh-agent -s)" >/dev/null
-          SSH_ASKPASS="$HOME/askpass.sh" SSH_ASKPASS_REQUIRE=force DISPLAY=:0 ssh-add ~/.ssh/mf_key </dev/null
-          ssh -o StrictHostKeyChecking=accept-new -o BatchMode=yes -o ConnectTimeout=20 "$SSH_USER@$H" 'echo "connexion OK : $(whoami) sur $(hostname)"; command -v cpapi2 uapi'
+          [ -n "$CPANEL_HOST" ] && [ -n "$CPANEL_USER" ] && [ -n "$CPANEL_TOKEN" ] || { echo "::error::il manque au moins un des 3 secrets"; exit 1; }
+          code=$(curl -sS -m 40 -o /tmp/r.json -w '%{http_code}' -H "Authorization: cpanel $CPANEL_USER:$CPANEL_TOKEN" "https://$CPANEL_HOST:2083/execute/DomainInfo/list_domains")
+          echo "reponse cPanel : HTTP $code"
+          python3 - <<'PY'
+          import json
+          try:
+              j = json.load(open('/tmp/r.json'))
+              d = j.get('data') or {}
+              print('statut api :', j.get('status'), '| erreurs :', j.get('errors'))
+              if isinstance(d, dict):
+                  print('domaine principal : present' if d.get('main_domain') else 'domaine principal : absent')
+                  print('domaines complementaires :', len(d.get('addon_domains') or []))
+                  print('sous-domaines :', len(d.get('sub_domains') or []))
+          except Exception as e:
+              print('reponse illisible :', type(e).__name__)
+          PY
+          [ "$code" = 200 ] && echo "::notice::jeton cPanel valide" || { echo "::error::jeton refuse ou secrets incorrects (HTTP $code)"; exit 1; }
