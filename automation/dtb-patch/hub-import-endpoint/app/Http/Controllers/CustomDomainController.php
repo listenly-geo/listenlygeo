@@ -28,6 +28,17 @@ class CustomDomainController extends Controller
         $site = $this->resolve($request);
         abort_if(! $site, 404);
 
+        // 20/11/2026 : les liens du menu et « Suivant » sont construits en /docs/{site}/{page} par l'application.
+        // Sur le domaine du client cette adresse n'existe pas (404 au clic) : on renvoie vers l'adresse propre /{page}.
+        $prefix = 'docs/'.$site->slug;
+        $clean = trim((string) $path, '/');
+        if ($clean === $prefix || str_starts_with($clean, $prefix.'/')) {
+            $rest = ltrim(substr($clean, strlen($prefix)), '/');
+            $query = $request->getQueryString();
+
+            return redirect('/'.$rest.($query ? '?'.$query : ''));
+        }
+
         $res = app(PublishedDocsController::class)($request, $site->slug, $path);
 
         // Les redirections internes restent sur le domaine du client (jamais /docs/{site}/...).
