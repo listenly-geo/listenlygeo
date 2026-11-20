@@ -27,7 +27,7 @@ jobs:
           case "$PAGE" in https://app.marketforge.fr/*|https://index.cugnetslist.org/*) ;; *) echo "adresse non autorisee"; exit 1;; esac
           for slug in answers-with-dr-j-index answers-with-dr-j-test-index-index answers-with-dr-j; do
             for u in "https://index.cugnetslist.org/docs/$slug/how-does-the-cash-flow-statement-differ-from-the-income-statement-in-what-it-measures"; do
-              echo "CURL $slug : $(curl -s -m 30 -o /dev/null -w '%{http_code} -> %{redirect_url}' -H 'X-Inertia: true' -H 'X-Requested-With: XMLHttpRequest' "$u")"; sleep 3
+              echo "CURL $slug : $(curl -s -m 30 -o /dev/null -w '%{http_code} -> %{redirect_url}' "$u")"; sleep 3
             done
           done
           echo "CURL page propre : $(curl -s -m 30 -o /dev/null -w '%{http_code}' https://index.cugnetslist.org/how-does-the-cash-flow-statement-differ-from-the-income-statement-in-what-it-measures)"
