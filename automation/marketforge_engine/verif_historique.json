@@ -8110,58 +8110,118 @@
   }
  },
  "2026-11-21": {
-  "verifications": 3,
-  "podcasts_testes": 1,
-  "contacts_trouves": 1,
-  "verifications_par_contact": 3.0,
+  "verifications": 80,
+  "podcasts_testes": 61,
+  "contacts_trouves": 14,
+  "verifications_par_contact": 5.7,
   "etapes": {
-   "noms": 1,
-   "testees": 2,
-   "statut_invalid": 1,
-   "statut_unknown": 1,
-   "rss_verif_valid": 1,
-   "rss_accepte": 1
+   "noms": 36,
+   "testees": 37,
+   "statut_invalid": 20,
+   "statut_unknown": 3,
+   "rss_verif_valid": 11,
+   "rss_accepte": 11,
+   "sans_nom": 21,
+   "rss_verif_catchall": 29,
+   "domaines_attrape_tout": 24,
+   "deja_pris_avant_verif": 7,
+   "statut_catchall": 12,
+   "animateur_seul": 7,
+   "rss_deja_pris": 13,
+   "ecrit_site": 6,
+   "rss_verif_unknown": 2,
+   "sans_site": 4,
+   "rss_verif_invalid": 1,
+   "statut_valid": 2,
+   "verifiees": 2,
+   "poste_non_dirigeant": 1,
+   "poste_accepte: multi-platform content producer": 1
   },
   "prefiltre": {
-   "pas d'email dans le RSS": 4,
+   "pas d'email dans le RSS": 91,
    "dernier episode il y a 389 jours": 1,
-   "dernier episode il y a 945 jours": 1
+   "dernier episode il y a 945 jours": 1,
+   "dernier episode il y a 523 jours": 1,
+   "dernier episode il y a 3349 jours": 1,
+   "dernier episode il y a 1709 jours": 1,
+   "aucun dirigeant joignable": 45,
+   "dernier episode il y a 1145 jours": 1,
+   "dernier episode il y a 1532 jours": 1,
+   "dernier episode il y a 400 jours": 1,
+   "dernier episode il y a 656 jours": 1,
+   "dernier episode il y a 197 jours": 1,
+   "dernier episode il y a 863 jours": 1,
+   "dernier episode il y a 1233 jours": 1,
+   "categorie hors B2B": 6,
+   "dernier episode il y a 1466 jours": 1,
+   "dernier episode il y a 2146 jours": 1,
+   "dernier episode il y a 2033 jours": 1,
+   "a verifier : dernier episode il y a 114 jours": 1,
+   "dirigeant deja pris par un autre podcast": 2,
+   "dernier episode il y a 602 jours": 1,
+   "dernier episode il y a 514 jours": 1,
+   "dernier episode il y a 183 jours": 1,
+   "dernier episode il y a 667 jours": 1,
+   "dernier episode il y a 2475 jours": 1,
+   "dernier episode il y a 421 jours": 1,
+   "a verifier : dernier episode il y a 176 jours": 1,
+   "dernier episode il y a 529 jours": 1,
+   "dernier episode il y a 851 jours": 1,
+   "dernier episode il y a 198 jours": 1,
+   "dernier episode il y a 1118 jours": 1,
+   "dernier episode il y a 399 jours": 1,
+   "dernier episode il y a 1718 jours": 1,
+   "dernier episode il y a 4537 jours": 1,
+   "a verifier : dernier episode il y a 143 jours": 1,
+   "dernier episode il y a 1136 jours": 1,
+   "dernier episode il y a 1260 jours": 1,
+   "dernier episode il y a 210 jours": 1,
+   "dernier episode il y a 319 jours": 1,
+   "dernier episode il y a 192 jours": 1,
+   "dernier episode il y a 2255 jours": 1,
+   "dernier episode il y a 1095 jours": 1,
+   "dernier episode il y a 942 jours": 1,
+   "dernier episode il y a 1806 jours": 1,
+   "dernier episode il y a 575 jours": 1,
+   "dernier episode il y a 2953 jours": 1,
+   "dernier episode il y a 255 jours": 1,
+   "dernier episode il y a 1460 jours": 1
   },
   "secteurs": {
    "Coachs & consultants B2B": {
-    "tries": 1094,
+    "tries": 1095,
     "ok": 104
    },
    "Santé libérale": {
-    "tries": 1225,
+    "tries": 1229,
     "ok": 121
    },
    "Experts-comptables & patrimoine": {
-    "tries": 886,
+    "tries": 888,
     "ok": 105
    },
    "Construction & Industrie": {
-    "tries": 1092,
-    "ok": 99
+    "tries": 1098,
+    "ok": 101
    },
    "Logistique & Supply chain": {
-    "tries": 945,
+    "tries": 947,
     "ok": 106
    },
    "Finance & Fintech": {
-    "tries": 1279,
+    "tries": 1281,
     "ok": 119
    },
    "Agences de services": {
-    "tries": 770,
+    "tries": 772,
     "ok": 80
    },
    "Formateurs & programmes": {
-    "tries": 867,
+    "tries": 870,
     "ok": 91
    },
    "Tech & SaaS": {
-    "tries": 1648,
+    "tries": 1654,
     "ok": 177
    },
    "RH & Recrutement": {
@@ -8169,11 +8229,11 @@
     "ok": 65
    },
    "Santé": {
-    "tries": 546,
+    "tries": 548,
     "ok": 54
    },
    "Cybersécurité": {
-    "tries": 810,
+    "tries": 815,
     "ok": 115
    },
    "Cabinets d'avocats": {
@@ -8189,15 +8249,15 @@
     "ok": 63
    },
    "Assurance": {
-    "tries": 691,
-    "ok": 74
+    "tries": 695,
+    "ok": 75
    },
    "Business général (entreprise)": {
     "tries": 507,
     "ok": 57
    },
    "Marketing & Ventes": {
-    "tries": 851,
+    "tries": 855,
     "ok": 88
    },
    "Juridique": {
@@ -8205,8 +8265,8 @@
     "ok": 61
    },
    "Immobilier": {
-    "tries": 685,
-    "ok": 72
+    "tries": 692,
+    "ok": 74
    }
   }
  }
