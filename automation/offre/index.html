@@ -223,10 +223,8 @@ function render(){
 document.querySelectorAll(".lang button").forEach(function(b){b.addEventListener("click",function(){lang=b.getAttribute("data-l");render();});});
 document.querySelectorAll(".paybtn").forEach(function(a){a.addEventListener("click",function(e){ping("clic");if(a.id!=="pay"){e.preventDefault();var t=document.getElementById("pricing-wait")||document.getElementById("pricing");if(t)t.scrollIntoView({behavior:"smooth",block:"start"});}});});
 render();ping("vue");
-(function(){var D=/[?&]direct=1/.test(location.search),bar=document.getElementById("pricing-bar"),wait=document.getElementById("pricing-wait"),links=[].slice.call(document.querySelectorAll('a[href="#pricing"]'));
- links.forEach(function(a){a.setAttribute("href","#pricing-wait");});
- if(bar){requestAnimationFrame(function(){bar.style.transition="width 180s linear";bar.style.width="100%";});}
- setTimeout(function(){var p=document.getElementById("pricing");if(p)p.classList.remove("hide");if(wait)wait.remove();links.forEach(function(a){a.setAttribute("href","#pricing");});},D?0:180000);
+(function(){var wait=document.getElementById("pricing-wait"),p=document.getElementById("pricing");
+ if(p)p.classList.remove("hide");if(wait)wait.remove();
 })();
 var io=("IntersectionObserver" in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.15}):null;
 document.querySelectorAll(".rv").forEach(function(e){if(io)io.observe(e);else e.classList.add("in");});
