@@ -1,20 +1,22 @@
-# Brief trafic SEO — 2026-11-20
+# Brief trafic SEO — 2026-11-21
 
-- Période ['2026-08-20', '2026-11-18'] : 19 clics / 3082 impressions sur 484 pages
+- Période ['2026-08-21', '2026-11-19'] : 19 clics / 3094 impressions sur 485 pages
 - Pages de moments dans Google : 79 pages, 317 impressions, 10 clics
-- Moments ouverts au sitemap : 88 (dont 87 depuis 7 j+) ; contrôlés : 85 ; indexés : 76 (89.4%)
-- Quota : 10/jour → recommandé 25/jour (89.4% indexees : on peut accelerer)
+- Moments ouverts au sitemap : 88 (dont 87 depuis 7 j+) ; contrôlés : 87 ; indexés : 76 (87.4%)
+- Quota : 10/jour → recommandé 25/jour (87.4% indexees : on peut accelerer)
 
 ## Par type de page
-- hub : 280 pages, 2170 impr., 5 clics
-- show-listenly : 116 pages, 547 impr., 4 clics
+- hub : 280 pages, 2178 impr., 5 clics
+- show-listenly : 116 pages, 548 impr., 4 clics
 - moment : 79 pages, 317 impr., 10 clics
-- autre : 9 pages, 48 impr., 0 clics
+- autre : 9 pages, 50 impr., 0 clics
+- accueil : 1 pages, 1 impr., 0 clics
 
 ## 10 pages de moments à faire indexer à la main aujourd'hui
 - https://listenly.org/podcast-btb/m/the-single-source/103c535b37 (inconnue)
 - https://listenly.org/podcast-btb/m/16-minutes-news-by-a16z/a4a410faae (inconnue)
 - https://listenly.org/podcast-btb/m/ai-a16z/de75aa3c5b (inconnue)
+- https://listenly.org/podcast-btb/m/the-conference-room/2687274a29 (inconnue)
 - https://listenly.org/podcast-btb/m/16-minutes-news-by-a16z/922f63485b (inconnue)
 
 ## Pages visibles (positions 3-15) sans clic : titre/extrait à retravailler
