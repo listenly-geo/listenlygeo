@@ -1,49 +1,13 @@
 {
- "date": "2026-11-20",
+ "date": "2026-11-21",
  "mode": "liste a traiter dans Claude + Chrome (demande d'indexation manuelle, validation par page)",
  "repartition": {
-  "connu": 2,
-  "mot_cle": 8
+  "connu": 0,
+  "mot_cle": 10
  },
  "selection": "50/50 connus + mots-cles ; volumes du jour + note",
- "pretes": 9,
+ "pretes": 5,
  "urls": [
-  {
-   "url": "https://listenly.org/podcast-btb/m/b2b-vault-the-biz-to-biz-podcast/f500a01525",
-   "titre": "What are the new federal CBD hemp regulations? | Listenly",
-   "score_qualite": 68,
-   "source": "connu",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/how-i-built-this-with-guy-raz/ce9098db00",
-   "titre": "How much money did Michael Dell make? | Listenly",
-   "score_qualite": 60,
-   "source": "connu",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "URL is unknown to Google",
-   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
-   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
-  },
-  {
-   "url": "https://listenly.org/podcast-btb/m/leaders-of-b2b-podcast-interviews-on-bus/e199d9f6c3",
-   "titre": "How to avoid commoditization in sales talks? | Listenly",
-   "score_qualite": 80,
-   "source": "mot_cle",
-   "http": 200,
-   "verdict": "NEUTRAL",
-   "etat": "Excluded by ‘noindex’ tag",
-   "robots": "ALLOWED",
-   "indexation_bloquee": "BLOCKED_BY_META_TAG",
-   "pret_pour_demande": false
-  },
   {
    "url": "https://listenly.org/podcast-btb/m/the-vurge/what-is-rural-health-digital-transformation",
    "titre": "What is rural health digital transformation? | The Vurge",
@@ -105,28 +69,64 @@
    "pret_pour_demande": true
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/billion-dollar-backstory/how-do-asset-managers-win-competitive-tenders",
-   "titre": "How do asset managers win competitive tenders? | Listenly",
-   "score_qualite": 76,
+   "url": "https://listenly.org/podcast-btb/m/legal-innovation-spotlight/law-firm-expertise-gaps-launching-products",
+   "titre": "Law firm expertise gaps launching products? | Listenly",
+   "score_qualite": 80,
    "source": "mot_cle",
-   "http": 200,
+   "http": 404,
    "verdict": "NEUTRAL",
    "etat": "URL is unknown to Google",
    "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
    "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
+   "pret_pour_demande": false
   },
   {
-   "url": "https://listenly.org/podcast-btb/m/construction-genius-construction-leaders/critical-problem-areas-in-construction",
-   "titre": "Critical problem areas in construction? | Listenly",
-   "score_qualite": 76,
+   "url": "https://listenly.org/podcast-btb/m/leaders-of-b2b-podcast-interviews-on-bus/how-to-avoid-commoditization-in-sales-talks",
+   "titre": "How to avoid commoditization in sales talks? | Listenly",
+   "score_qualite": 80,
    "source": "mot_cle",
-   "http": 200,
+   "http": 404,
    "verdict": "NEUTRAL",
    "etat": "URL is unknown to Google",
    "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
    "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
-   "pret_pour_demande": true
+   "pret_pour_demande": false
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/for-the-23-the-woman-of-color-business-e/how-does-tracking-results-build-credibility",
+   "titre": "How does tracking results build credibility? | Listenly",
+   "score_qualite": 76,
+   "source": "mot_cle",
+   "http": 404,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": false
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/leaders-of-b2b-podcast-interviews-on-bus/what-should-founders-ask-private-equity-firms",
+   "titre": "What should founders ask private equity firms? | Listenly",
+   "score_qualite": 76,
+   "source": "mot_cle",
+   "http": 404,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": false
+  },
+  {
+   "url": "https://listenly.org/podcast-btb/m/digital-construction-podcast/career-advice-architecture-bim",
+   "titre": "Career advice architecture BIM? | Listenly",
+   "score_qualite": 74,
+   "source": "mot_cle",
+   "http": 404,
+   "verdict": "NEUTRAL",
+   "etat": "URL is unknown to Google",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "indexation_bloquee": "INDEXING_STATE_UNSPECIFIED",
+   "pret_pour_demande": false
   }
  ],
  "ecartees_sens_recherche": [
