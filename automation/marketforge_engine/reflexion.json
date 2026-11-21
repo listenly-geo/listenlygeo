@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T05:00",
+ "updated": "2026-11-21T06:03",
  "statut": "BLOQUE",
  "funnel": {
   "podcasts_en_file": 2667,
@@ -20,6 +20,7 @@
  "blocages": [
   "Aucun contact cree depuis 2 jours alors que 1190 podcasts attendent : etape 'contact' bloquee (verifier extraction_auto, doit etre false).",
   "extraction_auto=true : les nouveaux podcasts restent en 'en_attente' au lieu de passer en contact.",
+  "Stock 'Pret' vide : plus aucun mail a envoyer (decouverte/onboarding/contact en panne ou emails rejetes).",
   "Reponses non classees (positive / neutre / refus) : impossible de savoir si le funnel marche. Ajouter le champ 'classe' dans replies.json."
  ],
  "hypotheses": [

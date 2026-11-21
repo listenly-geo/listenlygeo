@@ -1,10 +1,10 @@
 {
- "updated": "2026-11-21T05:00",
+ "updated": "2026-11-21T06:03",
  "envois_total": 300,
  "reponses_total": 0,
  "taux_reponse_global_pct": 0.0,
- "dirigeants_testes": 17498,
- "dirigeants_trouves": 1754,
+ "dirigeants_testes": 17565,
+ "dirigeants_trouves": 1757,
  "data_apprentissage": {
   "creneaux_new_york": {
    "heure": {
@@ -77,58 +77,58 @@
   "postes_trouves": {}
  },
  "weights": {
-  "Tech & SaaS": 0.0517,
-  "Cybersécurité": 0.065,
-  "Finance & Fintech": 0.0469,
-  "RH & Recrutement": 0.0456,
+  "Tech & SaaS": 0.0519,
+  "Cybersécurité": 0.0647,
+  "Finance & Fintech": 0.047,
+  "RH & Recrutement": 0.0455,
   "Marketing & Ventes": 0.051,
   "Logistique & Supply chain": 0.0544,
   "Construction & Industrie": 0.046,
   "Énergie": 0.0476,
-  "Assurance": 0.0529,
-  "Immobilier": 0.0529,
-  "Juridique": 0.0492,
+  "Assurance": 0.0528,
+  "Immobilier": 0.053,
+  "Juridique": 0.049,
   "Conseil": 0.0346,
-  "Santé": 0.0492,
-  "Business général (entreprise)": 0.0553,
+  "Santé": 0.0493,
+  "Business général (entreprise)": 0.0552,
   "Cabinets d'avocats": 0.0422,
-  "Experts-comptables & patrimoine": 0.0568,
+  "Experts-comptables & patrimoine": 0.0573,
   "Coachs & consultants B2B": 0.0471,
-  "Agences de services": 0.0519,
+  "Agences de services": 0.0518,
   "Santé libérale": 0.049,
-  "Formateurs & programmes": 0.0506
+  "Formateurs & programmes": 0.0505
  },
  "ranking": [
   {
    "secteur": "Cybersécurité",
    "poids_pct": 6.5,
-   "delta_pts": -0.1,
+   "delta_pts": -0.2,
    "tendance": "stable",
    "onboarde": 73,
    "joignable": 65,
    "envoye": 0,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 835,
+   "dirigeant_testes": 842,
    "dirigeant_trouves": 115,
    "taux_reponse": null,
-   "score": 0.12355,
+   "score": 0.12254,
    "rang": 1
   },
   {
    "secteur": "Experts-comptables & patrimoine",
    "poids_pct": 5.7,
-   "delta_pts": -0.1,
+   "delta_pts": -0.0,
    "tendance": "stable",
    "onboarde": 2,
    "joignable": 0,
    "envoye": 0,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 905,
-   "dirigeant_trouves": 106,
+   "dirigeant_testes": 906,
+   "dirigeant_trouves": 107,
    "taux_reponse": null,
-   "score": 0.10525,
+   "score": 0.10611,
    "rang": 2
   },
   {
@@ -141,10 +141,10 @@
    "envoye": 3,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 524,
+   "dirigeant_testes": 527,
    "dirigeant_trouves": 57,
    "taux_reponse": 0.0,
-   "score": 0.10183,
+   "score": 0.10126,
    "rang": 3
   },
   {
@@ -157,27 +157,11 @@
    "envoye": 0,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 963,
+   "dirigeant_testes": 966,
    "dirigeant_trouves": 107,
    "taux_reponse": null,
-   "score": 0.0999,
+   "score": 0.09959,
    "rang": 4
-  },
-  {
-   "secteur": "Assurance",
-   "poids_pct": 5.3,
-   "delta_pts": 0.0,
-   "tendance": "stable",
-   "onboarde": 5,
-   "joignable": 0,
-   "envoye": 0,
-   "rebond": 0,
-   "reponse": 0,
-   "dirigeant_testes": 709,
-   "dirigeant_trouves": 76,
-   "taux_reponse": null,
-   "score": 0.09639,
-   "rang": 5
   },
   {
    "secteur": "Immobilier",
@@ -193,23 +177,23 @@
    "dirigeant_trouves": 75,
    "taux_reponse": null,
    "score": 0.09634,
-   "rang": 6
+   "rang": 5
   },
   {
-   "secteur": "Agences de services",
-   "poids_pct": 5.2,
-   "delta_pts": 0.1,
+   "secteur": "Assurance",
+   "poids_pct": 5.3,
+   "delta_pts": 0.0,
    "tendance": "stable",
-   "onboarde": 1,
+   "onboarde": 5,
    "joignable": 0,
    "envoye": 0,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 783,
-   "dirigeant_trouves": 82,
+   "dirigeant_testes": 713,
+   "dirigeant_trouves": 76,
    "taux_reponse": null,
-   "score": 0.0942,
-   "rang": 7
+   "score": 0.09585,
+   "rang": 6
   },
   {
    "secteur": "Tech & SaaS",
@@ -221,10 +205,26 @@
    "envoye": 0,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 1707,
-   "dirigeant_trouves": 178,
+   "dirigeant_testes": 1713,
+   "dirigeant_trouves": 179,
    "taux_reponse": null,
-   "score": 0.09383,
+   "score": 0.09402,
+   "rang": 7
+  },
+  {
+   "secteur": "Agences de services",
+   "poids_pct": 5.2,
+   "delta_pts": 0.1,
+   "tendance": "stable",
+   "onboarde": 1,
+   "joignable": 0,
+   "envoye": 0,
+   "rebond": 0,
+   "reponse": 0,
+   "dirigeant_testes": 787,
+   "dirigeant_trouves": 82,
+   "taux_reponse": null,
+   "score": 0.09373,
    "rang": 8
   },
   {
@@ -237,10 +237,10 @@
    "envoye": 0,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 888,
+   "dirigeant_testes": 890,
    "dirigeant_trouves": 91,
    "taux_reponse": null,
-   "score": 0.09221,
+   "score": 0.092,
    "rang": 9
   },
   {
@@ -253,27 +253,11 @@
    "envoye": 0,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 898,
+   "dirigeant_testes": 901,
    "dirigeant_trouves": 91,
    "taux_reponse": null,
-   "score": 0.09119,
+   "score": 0.09089,
    "rang": 10
-  },
-  {
-   "secteur": "Juridique",
-   "poids_pct": 4.9,
-   "delta_pts": 0.0,
-   "tendance": "stable",
-   "onboarde": 17,
-   "joignable": 14,
-   "envoye": 0,
-   "rebond": 0,
-   "reponse": 0,
-   "dirigeant_testes": 633,
-   "dirigeant_trouves": 62,
-   "taux_reponse": null,
-   "score": 0.08818,
-   "rang": 11
   },
   {
    "secteur": "Santé",
@@ -289,7 +273,7 @@
    "dirigeant_trouves": 54,
    "taux_reponse": null,
    "score": 0.08808,
-   "rang": 12
+   "rang": 11
   },
   {
    "secteur": "Santé libérale",
@@ -301,10 +285,26 @@
    "envoye": 0,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 1262,
+   "dirigeant_testes": 1265,
    "dirigeant_trouves": 123,
    "taux_reponse": null,
-   "score": 0.08774,
+   "score": 0.08753,
+   "rang": 12
+  },
+  {
+   "secteur": "Juridique",
+   "poids_pct": 4.9,
+   "delta_pts": -0.0,
+   "tendance": "stable",
+   "onboarde": 17,
+   "joignable": 14,
+   "envoye": 0,
+   "rebond": 0,
+   "reponse": 0,
+   "dirigeant_testes": 638,
+   "dirigeant_trouves": 62,
+   "taux_reponse": null,
+   "score": 0.0875,
    "rang": 13
   },
   {
@@ -317,10 +317,10 @@
    "envoye": 0,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 671,
+   "dirigeant_testes": 673,
    "dirigeant_trouves": 63,
    "taux_reponse": null,
-   "score": 0.08459,
+   "score": 0.08434,
    "rang": 14
   },
   {
@@ -333,10 +333,10 @@
    "envoye": 0,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 1124,
+   "dirigeant_testes": 1127,
    "dirigeant_trouves": 104,
    "taux_reponse": null,
-   "score": 0.08334,
+   "score": 0.08311,
    "rang": 15
   },
   {
@@ -349,10 +349,10 @@
    "envoye": 1,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 1317,
-   "dirigeant_trouves": 119,
+   "dirigeant_testes": 1327,
+   "dirigeant_trouves": 120,
    "taux_reponse": 0.0,
-   "score": 0.0829,
+   "score": 0.08296,
    "rang": 16
   },
   {
@@ -365,15 +365,15 @@
    "envoye": 0,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 1135,
+   "dirigeant_testes": 1140,
    "dirigeant_trouves": 102,
    "taux_reponse": null,
-   "score": 0.08096,
+   "score": 0.08061,
    "rang": 17
   },
   {
    "secteur": "RH & Recrutement",
-   "poids_pct": 4.6,
+   "poids_pct": 4.5,
    "delta_pts": 0.0,
    "tendance": "stable",
    "onboarde": 26,
@@ -381,10 +381,10 @@
    "envoye": 0,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 744,
+   "dirigeant_testes": 747,
    "dirigeant_trouves": 66,
    "taux_reponse": null,
-   "score": 0.07998,
+   "score": 0.07966,
    "rang": 18
   },
   {
@@ -397,10 +397,10 @@
    "envoye": 0,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 686,
+   "dirigeant_testes": 688,
    "dirigeant_trouves": 55,
    "taux_reponse": null,
-   "score": 0.07242,
+   "score": 0.07221,
    "rang": 19
   },
   {
@@ -413,10 +413,10 @@
    "envoye": 0,
    "rebond": 0,
    "reponse": 0,
-   "dirigeant_testes": 462,
+   "dirigeant_testes": 463,
    "dirigeant_trouves": 28,
    "taux_reponse": null,
-   "score": 0.0553,
+   "score": 0.05518,
    "rang": 20
   },
   {
@@ -432,7 +432,7 @@
    "dirigeant_testes": 0,
    "dirigeant_trouves": 0,
    "taux_reponse": 0.0,
-   "score": 0.10016,
+   "score": 0.09995,
    "rang": 21
   }
  ]
