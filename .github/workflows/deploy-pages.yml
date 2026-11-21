@@ -15,6 +15,9 @@ on:
       - 'pages/podcast-btb/data/statut_indexation.json'  # statut d'indexation lu par le tableau de bord
       - 'pages/podcast-btb/data/suivi_fiches.json'      # fiches demandees a l'indexation (tableau de suivi)
       - 'pages/podcast-btb/data/titres_seo.json'        # titres SEO lus par m.php
+      - 'pages/podcast-btb/data/slugs_moments.json'     # 21/11/2026 : adresses par question (slug -> fiche), lues par m.php
+      - 'pages/podcast-btb/m.php'                       # 21/11/2026 : routage par question + 301 des anciennes adresses
+      - 'pages/podcast-btb/.htaccess'
 
 permissions:
   contents: read

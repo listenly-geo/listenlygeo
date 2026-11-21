@@ -61,8 +61,11 @@ def main():
     site = os.environ.get("GSC_SITE", "sc-domain:listenly.org")   # propriete Search Console active (change au moment de la bascule .fr -> .org)
     host = site.replace("sc-domain:", "")
     base = "https://search.google.com/u/1/search-console/inspect?resource_id=" + urllib.parse.quote(site, safe="") + "&id="
-    a_indexer = [{"page": f"https://{host}/podcast-btb/m/{k}", "etat": ix.get(k, {}).get("etat", "jamais controlee"),
-                  "lien_gsc": base + urllib.parse.quote(f"https://{host}/podcast-btb/m/{k}", safe="")} for k in cand]
+    import moment_urls as _mu   # 21/11/2026 : adresse par question si la fiche est migree
+    def _adr(k):
+        return _mu.url(k).replace("https://listenly.org", f"https://{host}", 1)
+    a_indexer = [{"page": _adr(k), "etat": ix.get(k, {}).get("etat", "jamais controlee"),
+                  "lien_gsc": base + urllib.parse.quote(_adr(k), safe="")} for k in cand]
 
     # pages deja visibles mais peu cliquees (positions 3 a 15) : a retravailler (titre / extrait)
     ctr = sorted([p for p in pages if 3 <= p["position"] <= 15 and p["impressions"] >= 8 and p["clics"] == 0],

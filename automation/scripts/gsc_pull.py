@@ -6,6 +6,8 @@ data/gsc/pages_requetes.json (requete x page, pour les pages de moments), data/g
 Ne bloque jamais le moteur : en cas d'erreur, ecrit data/gsc/erreur.json et sort en code 0."""
 import os, sys, json, datetime, time
 import requests
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import moment_urls as mu   # 21/11/2026 : adresses par question
 
 SITE = os.environ.get("GSC_SITE", "sc-domain:listenly.org")
 OUT = "data/gsc"
@@ -70,12 +72,12 @@ def inspect_moments(tok):
         for e in json.load(open(ih, encoding="utf-8")).get("historique", []):
             for u in e.get("urls", []) or []:
                 if isinstance(u, str) and "/podcast-btb/m/" in u:
-                    cibles.add(u.split("/podcast-btb/m/", 1)[1].strip("/"))
+                    cibles.add(mu.path_to_key(u) or u.split("/podcast-btb/m/", 1)[1].strip("/"))
     sf = "pages/podcast-btb/data/suivi_fiches.json"
     if os.path.exists(sf):   # 09/11/2026 : fiches demandees a l'indexation (tableau de suivi)
         for f in json.load(open(sf, encoding="utf-8")).get("fiches", []):
             if "/podcast-btb/m/" in f.get("url", ""):
-                cibles.add(f["url"].split("/podcast-btb/m/", 1)[1].strip("/"))
+                cibles.add(mu.path_to_key(f["url"]) or f["url"].split("/podcast-btb/m/", 1)[1].strip("/"))
     prev_path = f"{OUT}/indexation_moments.json"
     prev = json.load(open(prev_path, encoding="utf-8")) if os.path.exists(prev_path) else {}
     today = str(datetime.date.today())
@@ -96,7 +98,7 @@ def inspect_moments(tok):
         if time.time() - t0 > 420:   # budget de 7 min : on garde le resultat partiel, la suite est reprise demain
             break
         slug, mid = key.split("/", 1)
-        page = f"https://{SITE.replace('sc-domain:', '')}/podcast-btb/m/{slug}/{mid}"   # meme hote que la propriete Search Console
+        page = mu.url(key).replace("https://listenly.org", f"https://{SITE.replace('sc-domain:', '')}", 1)   # meme hote que la propriete Search Console ; adresse par question si migree (21/11/2026)
         try:
             r = requests.post(url, headers={"Authorization": f"Bearer {tok}"},
                               json={"inspectionUrl": page, "siteUrl": SITE}, timeout=20)

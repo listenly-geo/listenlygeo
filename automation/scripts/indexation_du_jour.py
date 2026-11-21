@@ -7,6 +7,7 @@ Secret : GSC_SERVICE_ACCOUNT_JSON. Ne bloque jamais le workflow : en cas d'erreu
 import os, sys, json, datetime
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import requests
+import moment_urls as mu   # 21/11/2026 : adresses par question (le slug vient du titre valide)
 
 PAGES = "pages/podcast-btb"
 OUT = f"{PAGES}/data/indexation_du_jour.json"
@@ -86,6 +87,13 @@ def choisir():
                     deja.update(h.get("urls", []))
         except (OSError, json.JSONDecodeError):
             pass
+    # 21/11/2026 : une fiche deja demandee/indexee l'est sous l'une OU l'autre adresse (code ou question) :
+    # on ajoute la forme ancienne (code) de chaque adresse connue, car les comparaisons plus bas utilisent le code.
+    for u in list(deja):
+        if "/podcast-btb/m/" in u:
+            k = mu.path_to_key(u)
+            if k:
+                deja.add(BASE + "m/" + k)
     # 09/11/2026 (Etienne) : REGLE — les fiches choisies mais NON demandees faute de quota/outil (urls_en_attente du
     # journal) passent AVANT TOUTES LES AUTRES le lendemain, tant qu'elles ne sont ni demandees ni indexees.
     retard = []
@@ -100,7 +108,7 @@ def choisir():
     except (OSError, json.JSONDecodeError):
         pass
     RETARD.clear()
-    RETARD.extend(u.split("/podcast-btb/m/", 1)[1].strip("/") for u in retard)
+    RETARD.extend(mu.path_to_key(u) or u.split("/podcast-btb/m/", 1)[1].strip("/") for u in retard)
     # 18/10/2026 : seuls les podcasts des niveaux ouverts (trafic_seo.json > niveaux_ouverts) sont proposes
     try:
         niv = json.load(open(f"{PAGES}/data/priorite_podcasts.json", encoding="utf-8")).get("niveaux", {})
@@ -253,13 +261,16 @@ def main():
         if j and j["verdict"] == "retitrer" and j.get("titre"):
             titre = j["titre"]
             nouveaux[slug + "/" + mid] = titre
+        # 21/11/2026 : adresse par question. Le slug est tire du titre FINAL (apres le filtre « sens »).
+        mu.assign(slug + "/" + mid, titre)
+        adresse = mu.url(slug + "/" + mid)
         # 02/11/2026 : controle reel dans la Search Console (API) avant de choisir.
         # Une page deja indexee n'est pas proposee : elle est notee dans indexees_verifiees.json.
         if tok:
             try:
-                etat = inspecter(tok, BASE + "m/" + slug + "/" + mid)
+                etat = inspecter(tok, adresse)
                 if etat.get("verdict") == "PASS":
-                    deja_indexees_nouvelles.append(BASE + "m/" + slug + "/" + mid)
+                    deja_indexees_nouvelles.append(adresse)
                     return
             except Exception:
                 pass
@@ -298,7 +309,7 @@ def main():
         vd["urls"] = sorted(set(vd.get("urls", [])) | set(deja_indexees_nouvelles))
         json.dump(vd, open(vp, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     for slug, mid, score, titre in chosen:
-        url = BASE + "m/" + slug + "/" + mid
+        url = mu.url(slug + "/" + mid)   # 21/11/2026 : adresse par question (ancienne adresse si pas de slug possible)
         item = {"url": url, "titre": titre, "score_qualite": score, "source": SOURCES.get(slug + "/" + mid, "connu"), "http": http(url)}
         if tok:
             try:
@@ -334,6 +345,7 @@ def main():
         sr.save()
     except Exception:
         pass
+    mu.save()
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     json.dump(out, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"[indexation] {out['pretes']} pretes sur {len(items)} ; {len(REJETS)} ecartee(s) par le filtre sens")

@@ -155,6 +155,14 @@ def search_signals():
         m = re.search(r"/podcast-btb/m/([^/]+)/([a-f0-9]+)", u)
         if m:
             out[f"{m.group(1)}/{m.group(2)}"] = (v.get("impressions", 0), v.get("clicks", 0), v.get("queries") or [])
+        elif "/podcast-btb/m/" in u:   # 21/11/2026 : adresse par question -> cle podcast/code
+            try:
+                import moment_urls as _mu
+                k = _mu.path_to_key(u)
+                if k:
+                    out[k] = (v.get("impressions", 0), v.get("clicks", 0), v.get("queries") or [])
+            except Exception:
+                pass
     return out
 
 

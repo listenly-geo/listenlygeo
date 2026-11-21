@@ -123,7 +123,11 @@ def main():
             elif isinstance(x, list):
                 stack.extend(x)
             elif isinstance(x, str) and "/podcast-btb/m/" in x:
-                deja.add(x.split("/podcast-btb/m/", 1)[1].strip("/"))
+                try:
+                    import moment_urls as _mu   # 21/11/2026 : adresse par question -> cle podcast/code
+                    deja.add(_mu.path_to_key(x) or x.split("/podcast-btb/m/", 1)[1].strip("/"))
+                except Exception:
+                    deja.add(x.split("/podcast-btb/m/", 1)[1].strip("/"))
 
     def pool(keys, tri):
         out = []

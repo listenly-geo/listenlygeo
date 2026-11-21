@@ -8,8 +8,21 @@
  * Regle "page fine -> noindex" : la meme que generate_moments_sitemap.py (a garder identique).
  */
 $slug = preg_replace('/[^a-z0-9\-]/i', '', $_GET['p'] ?? '');
-$mid  = preg_replace('/[^a-f0-9]/i', '', $_GET['m'] ?? '');
 $base = __DIR__;
+// 21/11/2026 : adresse par question. <m> est soit l'ancien code (hexadecimal), soit la question en mots (slug avec tirets).
+// Table : data/slugs_moments.json {"slugs": {"<podcast>/<code>": "<slug>"}} ; une fiche migree est redirigee (301) vers sa question.
+$mraw = strtolower(preg_replace('/[^a-z0-9\-]/i', '', $_GET['m'] ?? ''));
+$slugsTable = @json_decode(@file_get_contents($base . '/data/slugs_moments.json'), true)['slugs'] ?? [];
+$byCode = false;
+if ($mraw !== '' && strpos($mraw, '-') === false && preg_match('/^[a-f0-9]+$/', $mraw)) {
+    $mid = $mraw; $byCode = true;
+} else {
+    $mid = '';
+    foreach ($slugsTable as $k => $sv) {
+        if ($sv === $mraw && strpos($k, $slug . '/') === 0) { $mid = substr($k, strlen($slug) + 1); break; }
+    }
+}
+function momentPath($slugsTable, $slug, $id) { return '/podcast-btb/m/' . $slug . '/' . ($slugsTable[$slug . '/' . $id] ?? $id); }
 
 function gone($code, $msg) {
     http_response_code($code);
@@ -27,6 +40,11 @@ if (!is_file($file)) gone(404, 'Not found');
 $d = json_decode(file_get_contents($file), true);
 $e = $d['entries'][$mid] ?? null;
 if (!is_array($e)) gone(404, 'Not found');
+// Ancienne adresse (code) d'une fiche migree -> 301 vers l'adresse par question (autorite conservee)
+if ($byCode && !empty($slugsTable[$slug . '/' . $mid])) {
+    header('Location: https://listenly.org' . momentPath($slugsTable, $slug, $mid), true, 301);
+    exit;
+}
 $mscores = @json_decode(@file_get_contents($base . '/data/moments_scores.json'), true) ?: [];
 // (format plat : cle = slug/id) -> normalise
 $mscores = ['entries' => $mscores];
@@ -72,7 +90,7 @@ $thin = (wc($answerText) < 25 || $score < 90 || $t <= 0 || $who === '');
 $mscore = $mscores['entries'][$slug . '/' . $mid] ?? null;
 if (is_array($mscore) && empty($mscore['gate'])) { $thin = true; }
 
-$url = 'https://listenly.org/podcast-btb/m/' . $slug . '/' . $mid;
+$url = 'https://listenly.org' . momentPath($slugsTable, $slug, $mid);
 $title = $t > 0 ? $q . ' — answer at ' . $ts . ' | Listenly' : $q . ' | Listenly';
 // Titre SEO affine (data/titres_seo.json, cle slug/id) : seul le <title> change, le H1 reste la question
 $ovr = @json_decode(@file_get_contents($base . '/data/titres_seo.json'), true)['titres'] ?? [];
@@ -191,7 +209,7 @@ if ($ents) {
 if ($related) {
     $fiche .= '<div style="' . $sec . '"><h2 style="' . $H2 . '">More answers from this episode</h2><ul style="list-style:none;padding:0">';
     foreach (array_slice($related, 0, 12) as $r) {
-        $fiche .= '<li><span class="t">' . $h(mmss($r['t'])) . '</span><a href="/podcast-btb/m/' . $h($slug) . '/' . $h($r['id']) . '">' . $h($r['q']) . '</a></li>';
+        $fiche .= '<li><span class="t">' . $h(mmss($r['t'])) . '</span><a href="' . $h(momentPath($slugsTable, $slug, $r['id'])) . '">' . $h($r['q']) . '</a></li>';
     }
     $fiche .= '</ul></div>';
 }

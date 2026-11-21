@@ -16,6 +16,7 @@ Usage : python automation/scripts/generate_moments_sitemap.py
 Variables : MOMENTS_PAR_JOUR (defaut 30)
 """
 import os, re, json, glob, datetime
+import moment_urls as mu   # 21/11/2026 : adresses par question (cle interne = podcast/code, adresse publique = question)
 
 PAGES_DIR = "pages/podcast-btb"
 MOMENTS_DIR = f"{PAGES_DIR}/data/moments"
@@ -68,7 +69,9 @@ def demande_du_jour():
         d = json.load(open(f"{PAGES_DIR}/data/indexation_du_jour.json", encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return set()
-    return {u.get("url", "").split("/podcast-btb/m/", 1)[1] for u in d.get("urls", []) if "/podcast-btb/m/" in u.get("url", "")}
+    # 21/11/2026 : l'adresse du jour peut etre par question ; on revient toujours a la cle podcast/code
+    return {mu.path_to_key(u.get("url", "")) or u.get("url", "").split("/podcast-btb/m/", 1)[1]
+            for u in d.get("urls", []) if "/podcast-btb/m/" in u.get("url", "")}
 
 
 def file_plan_lire():
@@ -216,7 +219,7 @@ def main():
             hubs.setdefault("https://listenly.org" + hub, day)
     # Le plan des moments ne contient QUE les pages de moment. Les fiches N1 vont dans sitemap-hubs.xml (sync_hubs_sitemap).
     entries = "\n".join(
-        [f"  <url>\n    <loc>{BASE}/{key}</loc>\n    <lastmod>{day}</lastmod>\n    <priority>0.8</priority>\n  </url>"
+        [f"  <url>\n    <loc>{mu.url(key)}</loc>\n    <lastmod>{day}</lastmod>\n    <priority>0.8</priority>\n  </url>"
          for key, day in sorted(released.items())]
     )
     # Garde-fou : le plan des moments ne doit contenir que des pages /podcast-btb/m/ (jamais de fiche N1)
@@ -261,7 +264,7 @@ def write_a_indexer(released, today):
             sans_n1 += 1
         e = (d.get("entries") or {}).get(mid) or {}
         items.append({
-            "moment": f"{BASE}/{key}",
+            "moment": mu.url(key),
             "question": e.get("q"),
             "podcast": slug,
             "n1": f"https://listenly.org{hub}" if hub else "",
