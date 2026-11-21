@@ -108,19 +108,6 @@ details p{margin:10px 0 0;color:var(--mut);font-size:15.5px}
   <div class="steps" id="steps" style="margin-top:34px"></div>
 </section>
 
-<section id="spec" class="center">
-  <div class="eyebrow" data-t="spec_eyebrow"></div>
-  <h2 data-t="spec_title"></h2>
-  <p class="lead" data-t="spec_sub"></p>
-  <div class="flow rv">
-    <div class="st" data-t="f1"></div><div class="ar">→</div>
-    <div class="st" data-t="f2"></div><div class="ar">→</div>
-    <div class="st" data-t="f3"></div><div class="ar">→</div>
-    <div class="st" data-t="f4"></div>
-  </div>
-  <div class="grid2" id="specgrid"></div>
-  <div class="ex"><a class="btn" id="example" href="#" target="_blank" rel="noopener" data-t="ex_btn"></a></div>
-</section>
 
 <div id="pricing-wait" class="wait"><span data-t="wait_txt"></span><div class="lb"><i id="pricing-bar"></i></div></div>
 <section id="pricing" class="center hide">
@@ -211,14 +198,12 @@ function render(){
  var t=T[lang];document.documentElement.lang=lang;
  document.querySelectorAll("[data-t]").forEach(function(e){var k=e.getAttribute("data-t");if(t[k]!=null)e.textContent=t[k];});
  document.getElementById("steps").innerHTML=t.steps.map(function(s,i){return '<div class="step rv in"><i>'+(i+1)+'</i><b>'+esc(s[0])+'</b><span>'+esc(s[1])+'</span></div>';}).join("");
- document.getElementById("specgrid").innerHTML=t.items.map(function(i){return '<div class="card rv in"><div class="ic"><svg viewBox="0 0 24 24">'+ICON[i[0]]+'</svg></div><b>'+esc(i[1])+'</b><span>'+esc(i[2])+'</span></div>';}).join("");
  document.getElementById("cgv").href="cgv.html?lang="+lang;
  document.getElementById("incl1").innerHTML=t.incl1.map(function(x){return "<li>"+esc(x)+"</li>";}).join("");
  document.getElementById("faqlist").innerHTML=t.faq.map(function(f){return "<details><summary>"+esc(f[0])+"</summary><p>"+esc(f[1])+"</p></details>";}).join("");
  document.querySelectorAll(".lang button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-l")===lang);});
  document.querySelectorAll("#pay").forEach(function(a){if(CFG.payment_url||CFG.contact_email)a.href=payHref();});
  var m=document.getElementById("mail");m.href="mailto:"+(CFG.contact_email||"supportindex@marketforge.fr")+"?subject="+encodeURIComponent("Podcast AI Index");
- document.getElementById("example").href=CFG.example_url||EXAMPLE;
 }
 document.querySelectorAll(".lang button").forEach(function(b){b.addEventListener("click",function(){lang=b.getAttribute("data-l");render();});});
 document.querySelectorAll(".paybtn").forEach(function(a){a.addEventListener("click",function(e){ping("clic");if(a.id!=="pay"){e.preventDefault();var t=document.getElementById("pricing-wait")||document.getElementById("pricing");if(t)t.scrollIntoView({behavior:"smooth",block:"start"});}});});
